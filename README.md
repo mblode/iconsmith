@@ -1,69 +1,14 @@
 # iconsmith
 
-Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.
+Icon generation that cannot drift, because the model never emits a coordinate.
 
-## Installation
+| | |
+| --- | --- |
+| [`packages/iconsmith`](./packages/iconsmith) | the CLI and library ([README](./packages/iconsmith/README.md)) |
+| `apps/web` | the site at [blode.co/iconsmith](https://blode.co/iconsmith) |
 
 ```bash
 npm install -g iconsmith
 ```
 
-Or use directly with npx:
-
-```bash
-npx iconsmith --help
-```
-
-## Usage
-
-```bash
-iconsmith parts ./icons-svg -o parts.json      # cluster subpaths into a vocabulary
-iconsmith draw cloud-check.icon -p parts.json  # run a DSL program, emit SVG
-iconsmith lint ./icons-svg/*.svg               # check against the house spec
-iconsmith eval --dir ./icon-set -n 12          # reconstruction score (needs ANTHROPIC_API_KEY)
-```
-
-Add `--output json` to any command for machine-readable output on stdout.
-
-### The DSL
-
-```
-icon cloud-check
-keyline wide
-part cloud fill
-line 9,13.75 11,15.5 14.5,10.5
-fit
-```
-
-`fill`, `center` and `fit` exist so a model never does spatial arithmetic: keyline scaling and centring are pure functions of the content, so the library does them exactly.
-
-### Reading an eval
-
-`iconsmith eval` reports four numbers, never one:
-
-|  |  |
-| --- | --- |
-| **floor** | a random icon scored against the target |
-| **baseline** | 0.737 — the measured median between two mature icon sets drawing the same concept |
-| **treatment** | what the pipeline scored |
-| **ceiling** | 1.0 |
-
-A treatment above 0.95 is flagged as suspect: it means the harness is comparing something to itself, not that generation succeeded.
-
-## Programmatic API
-
-```typescript
-import { Canvas, extractParts, lint, runDsl, similarity } from "iconsmith";
-```
-
-## Usage with AI Agents
-
-Add the skill to your AI coding assistant:
-
-```bash
-npx skills add mblode/iconsmith
-```
-
-## License
-
-MIT
+MIT © Matthew Blode

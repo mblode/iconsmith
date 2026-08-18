@@ -1,0 +1,34 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      // Deliberately uncached. Turbo hashes git-tracked inputs, and corpus/ is
+      // gitignored, so a run with the corpus absent hashes identically to one
+      // with it present. A cached "corpus tests skipped" result would then
+      // stand in for a real one, which is the failure this whole layout exists
+      // to avoid. See packages/iconsmith/src/corpus/load.ts.
+      "cache": false
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "check": {
+      "dependsOn": ["^build"]
+    },
+    "check:boundaries": {
+      "cache": false
+    },
+    "fix": {
+      "cache": false
+    }
+  }
+}

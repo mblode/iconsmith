@@ -1,9 +1,14 @@
 node_modules/
 dist/
+.next/
+.turbo/
+.vercel/
 *.tsbuildinfo
 .env
 .env.local
 .DS_Store
-/corpus/
+# Unanchored: the corpus lives at packages/iconsmith/corpus, not the repo root.
+# A leading slash here would stage 62,550 SVGs on the next commit.
+corpus/
 .scratch/
 .staging/

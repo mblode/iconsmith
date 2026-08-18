@@ -1,0 +1,66 @@
+{
+  "name": "iconsmith",
+  "version": "0.0.1",
+  "description": "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.",
+  "keywords": [
+    "ai",
+    "codegen",
+    "design-system",
+    "icons",
+    "svg"
+  ],
+  "homepage": "https://github.com/mblode/iconsmith#readme",
+  "bugs": {
+    "url": "https://github.com/mblode/iconsmith/issues"
+  },
+  "license": "MIT",
+  "author": "Matthew Blode",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mblode/iconsmith.git"
+  },
+  "bin": {
+    "iconsmith": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.scripts.json",
+    "test": "vitest run --passWithNoTests",
+    "check": "ultracite check && npm run check:boundaries",
+    "fix": "ultracite fix",
+    "check:boundaries": "node scripts/check-boundaries.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.39",
+    "ai": "^7.0.66",
+    "commander": "^15.0.0",
+    "sharp": "^0.34.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "tsdown": "^0.22.4",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=24.11"
+  }
+}
