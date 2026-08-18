@@ -22,6 +22,7 @@ export {
 export { bbox, parsePath, q, serialise, translate } from "./geometry/path.js";
 export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
+export { NAME_THRESHOLD, nameParts, VOCABULARY } from "./parts/vocabulary.js";
 export {
   BASELINE,
   evaluate,

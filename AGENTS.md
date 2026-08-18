@@ -26,6 +26,7 @@ src/
   parts/              # the vocabulary
     shape.ts          # fingerprint + distance (position/scale/rotation invariant)
     extract.ts        # cluster every subpath in a set into named parts
+    vocabulary.ts     # the names; matched onto an extraction by shape, not id
   tools/              # what the model is allowed to touch
     canvas.ts         # constrained primitives; off-spec geometry is unrepresentable
     dsl.ts            # the icon language the model writes

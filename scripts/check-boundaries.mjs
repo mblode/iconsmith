@@ -59,9 +59,16 @@ const check = (file) => {
 
   // Tests legitimately author path data as fixtures; source outside the canvas
   // and its corpus reader does not.
+  //
+  // `parts/vocabulary.ts` is the third case: its drawings are not authored,
+  // they are the canonical members of measured clusters, copied out of an
+  // extraction so a name can be checked against the mark it names. Nothing
+  // renders them — they exist to be fingerprinted and matched — so no
+  // geometry reaches an icon through this file.
   const mayAuthorGeometry =
     isTest ||
     rel.startsWith(`tools${path.sep}canvas`) ||
+    rel === `parts${path.sep}vocabulary.ts` ||
     rel.startsWith("corpus");
   if (!mayAuthorGeometry && RAW_GEOMETRY.test(src)) {
     failures.push(

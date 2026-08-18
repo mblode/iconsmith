@@ -5,6 +5,7 @@ import { Option } from "commander";
 
 import type { StyleSelection } from "../parts/extract.js";
 import { extractParts, writeParts } from "../parts/extract.js";
+import { nameParts } from "../parts/vocabulary.js";
 
 const pct = (n: number) => `${Math.round(n)}%`;
 
@@ -38,11 +39,18 @@ export const registerPartsCommand = (program: Command): void => {
         }
       ) => {
         const json = program.opts().output === "json";
-        const result = extractParts(dir, {
+        const extracted = extractParts(dir, {
           minUses: opts.minUses,
           styles: opts.styles,
           threshold: opts.threshold,
         });
+        // Named here rather than in the extractor: clustering is a measurement
+        // and naming is a judgement, and a vocabulary read off one set should
+        // not be able to change what another set extracts.
+        const result = {
+          ...extracted,
+          parts: nameParts(extracted.parts, opts.threshold),
+        };
         const { summary } = result;
 
         if (opts.out) {
@@ -70,6 +78,7 @@ export const registerPartsCommand = (program: Command): void => {
             `subpath candidates  ${summary.candidates}`,
             `parts               ${summary.parts}`,
             `used by >1 icon     ${summary.shared} (${pct((100 * summary.shared) / summary.parts)})`,
+            `named               ${result.parts.filter((p) => p.name).length}`,
             ...Object.entries(summary.coverage).map(
               ([n, c]) => `icon coverage top ${n.padEnd(4)}${pct(c)}`
             ),
