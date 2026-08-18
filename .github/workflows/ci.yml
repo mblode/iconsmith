@@ -31,6 +31,9 @@ jobs:
       - name: Lint
         run: npm run check
 
+      - name: Boundaries
+        run: npm run check:boundaries
+
       - name: Typecheck
         run: npm run typecheck
 

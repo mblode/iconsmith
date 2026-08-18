@@ -29,3 +29,10 @@ pre-commit:
         - "**/package-lock.json"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
+
+    # Whole-repo, not {staged_files}: a layering violation is a property of the
+    # import graph, so checking only the staged half would miss the edge that
+    # the staged file just created.
+    - name: boundaries
+      glob: "*.{ts,tsx}"
+      run: node scripts/check-boundaries.mjs
