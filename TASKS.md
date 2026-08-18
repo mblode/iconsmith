@@ -27,24 +27,24 @@ Agents tick their own boxes as work lands. One agent per section; do not edit an
 
 ## 2 — Parts vocabulary (owner: agent `parts`)
 
-- [ ] `src/parts/shape.ts` — flatten, resample, fingerprint, distance
-- [ ] `src/parts/extract.ts` — cluster subpaths into parts; emit `parts.json`
-- [ ] `src/parts/shape.test.ts` — invariance tests (translation, scale, rotation, reflection)
-- [ ] Verify against blode-icons: 2,139 outline icons → ~2,223 parts, top 200 cover ~81%
+- [x] `src/parts/shape.ts` — flatten, resample, fingerprint, distance
+- [x] `src/parts/extract.ts` — cluster subpaths into parts; emit `parts.json`
+- [x] `src/parts/shape.test.ts` — invariance tests (translation, scale, rotation, reflection)
+- [x] Verify against blode-icons: 2,139 outline icons → ~2,223 parts, top 200 cover ~81%
 
 ## 3 — Canvas + DSL (owner: agent `canvas`)
 
-- [ ] `src/tools/canvas.ts` — constrained primitives, `toJSON`/`fromJSON`, `toSVG`
-- [ ] `src/tools/dsl.ts` — the icon language: icon/keyline/part/rect/circle/line/dot/center/fit
-- [ ] `src/tools/canvas.test.ts` — off-spec input must come out on-spec (the invariant)
-- [ ] `src/tools/dsl.test.ts` — `fit` on the wide keyline yields exactly 20.0×16.0
+- [x] `src/tools/canvas.ts` — constrained primitives, `toJSON`/`fromJSON`, `toSVG`
+- [x] `src/tools/dsl.ts` — the icon language: icon/keyline/part/rect/circle/line/dot/center/fit
+- [x] `src/tools/canvas.test.ts` — off-spec input must come out on-spec (the invariant)
+- [x] `src/tools/dsl.test.ts` — `fit` on the wide keyline yields exactly 20.0×16.0
 
 ## 4 — Lint + render (owner: agent `checks`)
 
-- [ ] `src/tools/lint.ts` — centred, keyline, bleed, gap, density
-- [ ] `src/tools/render.ts` — png, contact sheet, inkVector, cosine
-- [ ] `src/tools/lint.test.ts` — each rule fires on a crafted violation and stays quiet otherwise
-- [ ] Confirm `cosine` reproduces the 0.737 baseline on known pairs
+- [x] `src/tools/lint.ts` — centred, keyline, bleed, gap, density
+- [x] `src/tools/render.ts` — png, contact sheet, inkVector, cosine
+- [x] `src/tools/lint.test.ts` — each rule fires on a crafted violation and stays quiet otherwise
+- [x] Confirm `cosine` reproduces the 0.737 baseline on known pairs
 
 ## 5 — AI-in-the-loop pipeline (owner: agent `pipeline`)
 
