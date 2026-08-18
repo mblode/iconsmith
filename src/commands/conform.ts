@@ -21,7 +21,7 @@ interface ConformOptions {
 }
 
 /**
- * `forge conform --from <variant> --to <variant>` — move icons between
+ * `iconsmith conform --from <variant> --to <variant>` — move icons between
  * Central's finish variants and score the result against Central's own answer.
  *
  * The scoring half is the point. Central ships all 30 finishes of all 2,085

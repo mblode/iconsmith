@@ -472,7 +472,7 @@ test("a free angle is not a turn", () => {
  * end to end, from two icons on disk to the placed path.
  */
 test("placing at the recorded turn reproduces the instance that was folded in", () => {
-  const dir = mkdtempSync(path.join(tmpdir(), "icon-forge-turn-"));
+  const dir = mkdtempSync(path.join(tmpdir(), "iconsmith-turn-"));
   const write = (name: string, d: string) =>
     writeFileSync(
       path.join(dir, `${name}.svg`),
@@ -578,7 +578,7 @@ test("a transform re-emits a flipped part still flipped", () => {
  * part whose turn is odd, so it is checked end to end from two icons on disk.
  */
 test("placing at the recorded flip reproduces the instance that was folded in", () => {
-  const dir = mkdtempSync(path.join(tmpdir(), "icon-forge-flip-"));
+  const dir = mkdtempSync(path.join(tmpdir(), "iconsmith-flip-"));
   const write = (name: string, d: string) =>
     writeFileSync(
       path.join(dir, `${name}.svg`),

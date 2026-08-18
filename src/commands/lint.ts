@@ -79,7 +79,7 @@ const summarise = (c: Cohort): string =>
     })
     .join("\n");
 
-/** `forge lint <svg...>` — house-spec violations for existing icons.
+/** `iconsmith lint <svg...>` — house-spec violations for existing icons.
  *
  *  Every file on the command line is one cohort corpus: icons are grouped by
  *  the manifest or by name prefix across the whole invocation, so linting a

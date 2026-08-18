@@ -15,7 +15,7 @@ const loadParts = (path?: string): Part[] => {
 };
 
 /**
- * `forge eval` — reconstruction eval. Generates icons the set already has, from
+ * `iconsmith eval` — reconstruction eval. Generates icons the set already has, from
  * name and tags alone, and scores them against the real drawing.
  *
  * The report is deliberately four numbers. A bare treatment score is unreadable:

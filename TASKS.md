@@ -1,4 +1,4 @@
-# icon-forge — build board
+# iconsmith — build board
 
 Agents tick their own boxes as work lands. One agent per section; do not edit another section's files. Every task is done only when `npm run check`, `npm run typecheck` and `npm run test` all pass.
 
@@ -62,7 +62,7 @@ Agents tick their own boxes as work lands. One agent per section; do not edit an
 
 ## 7 — CLI wiring (owner: main, last)
 
-- [x] `forge parts` / `draw` / `lint` / `eval` / `conform` commands
+- [x] `iconsmith parts` / `draw` / `lint` / `eval` / `conform` commands
 - [x] `--output json` on every command; data on stdout, logs on stderr
 - [x] README usage matches actual behaviour
 
@@ -87,7 +87,7 @@ Measured against `round-outlined-radius-3-stroke-2`, which is byte-identical to 
 2,085 symbols × 30 finishes is a controlled test: construction held constant, finish varied.
 
 - [x] `src/pipeline/conform.ts` — `compensateStroke` and `retierCorners`; style and cap changes are refused rather than faked, and so is anything on a filled variant
-- [x] `forge conform --from <variant> --to <variant>` scored against Central's real answer (`src/commands/conform.ts` — **needs two lines in `cli.ts`, see below**)
+- [x] `iconsmith conform --from <variant> --to <variant>` scored against Central's real answer (`src/commands/conform.ts` — **needs two lines in `cli.ts`, see below**)
 - [x] Four numbers on the scale this experiment lives on: floor (do nothing) / treatment / rescale oracle / exact. Rendered cosine is the wrong instrument here — it scores 0.981 for doing nothing between adjacent strokes — so conform scores in path distance (px)
 - [x] `src/pipeline/conform.test.ts` — 18 tests on synthetic geometry, no corpus needed
 - [x] **Reproduction rate: 21.3% of attemptable pairs exactly, 6.8% of the full 870-pair grid.** Only 276 of 870 ordered pairs (31.7%) hold style and cap constant; the other 68.3% cross one of them and are refused. Within the attemptable set: radius-only 62.1% exact (median error 0.086px → 0.000px), stroke-only 4.7% exact (0.274px → 0.198px)
@@ -103,4 +103,4 @@ Known: changing stroke changes geometry in ~90% of icons, but median visual exte
 - [x] `cohort-align` (error) — icons in a family must share their box within tolerance (`src/tools/cohort.ts`; clustered per axis, so a family's legitimate width spread cannot hide the vertical rhythm it does keep)
 - [x] `centred` drops to `warn`, suppressed when the icon agrees with its cohort — agreement is per edge: recentring moves both edges, so an icon sharing one with a sibling cannot be recentred without breaking an alignment
 - [x] Cohort definition beyond name prefix — a `CohortManifest` (cohort name → members) overrides first-segment inference. Does not catch: unlisted semantic swaps (`play`/`pause`), singular/plural (`folder`/`folders`), or anything inside the outer box, e.g. a badge that moved
-- [x] Report the real cohort splits across blode-icons — 116 split axes over 79 cohorts, 143 icons on the wrong side; `forge lint <files...>` prints them
+- [x] Report the real cohort splits across blode-icons — 116 split axes over 79 cohorts, 143 icons on the wrong side; `iconsmith lint <files...>` prints them

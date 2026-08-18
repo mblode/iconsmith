@@ -334,7 +334,7 @@ describe("the written set matches the reported set", () => {
   });
 
   it("writes exactly the icons it reports as fixed, and no others", async () => {
-    const out = await mkdtemp(path.join(tmpdir(), "forge-staging-"));
+    const out = await mkdtemp(path.join(tmpdir(), "iconsmith-staging-"));
     const corpus = stubCorpus({ clean: SVG("2"), dirty: SVG("1.995") });
 
     // A file left behind by an earlier run. Two of these survived into a real
@@ -358,7 +358,7 @@ describe("the written set matches the reported set", () => {
   });
 
   it("writes nothing under --dry-run", async () => {
-    const out = await mkdtemp(path.join(tmpdir(), "forge-staging-"));
+    const out = await mkdtemp(path.join(tmpdir(), "iconsmith-staging-"));
     const corpus = stubCorpus({ dirty: SVG("1.995") });
     const r = await repairSet({
       corpus: corpus as never,

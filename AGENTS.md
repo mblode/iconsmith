@@ -1,4 +1,4 @@
-# icon-forge
+# iconsmith
 
 Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.
 

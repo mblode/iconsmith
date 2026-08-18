@@ -24,7 +24,7 @@
  * different drawing of the same idea, not a transform of this one.
  *
  * On the metric: rendered cosine — the instrument calibrated against 0.737 for
- * `forge eval` — is the wrong tool here and reports 0.98+ for *doing nothing*.
+ * `iconsmith eval` — is the wrong tool here and reports 0.98+ for *doing nothing*.
  * It was built to separate two drawings of one concept, not one drawing at two
  * finishes. Conform scores in path distance instead, where the scale has room.
  */
@@ -614,7 +614,7 @@ const pct = (v: number): string =>
   Number.isFinite(v) ? `${(100 * v).toFixed(1)}%` : "n/a";
 
 /**
- * Four numbers, never one — the same discipline `forge eval` reports under, on
+ * Four numbers, never one — the same discipline `iconsmith eval` reports under, on
  * the scale this experiment actually lives on. Lower is better here: these are
  * distances, not similarities.
  */

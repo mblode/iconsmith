@@ -386,7 +386,7 @@ const layoutOp = (
 export interface RunOptions {
   /**
    * The families this program may join, already measured — normally
-   * `buildCohorts` over an existing set, which is what `forge lint --dir
+   * `buildCohorts` over an existing set, which is what `iconsmith lint --dir
    * --cohorts` builds too. Passing measured cohorts rather than a directory
    * keeps `tools/` free of I/O and means the drawing-time target and the
    * lint-time expectation come out of one call.

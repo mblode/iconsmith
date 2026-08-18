@@ -9,7 +9,7 @@ import { nameParts } from "../parts/vocabulary.js";
 
 const pct = (n: number) => `${Math.round(n)}%`;
 
-/** `forge parts <dir>` — cluster every subpath in an icon set into a vocabulary. */
+/** `iconsmith parts <dir>` — cluster every subpath in an icon set into a vocabulary. */
 export const registerPartsCommand = (program: Command): void => {
   program
     .command("parts")

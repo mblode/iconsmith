@@ -18,7 +18,7 @@ const loadParts = (path?: string): Part[] => {
   return (raw as { parts?: Part[] }).parts ?? [];
 };
 
-/** `forge draw <program>` — run a DSL program and emit the icon. */
+/** `iconsmith draw <program>` — run a DSL program and emit the icon. */
 export const registerDrawCommand = (program: Command): void => {
   program
     .command("draw")

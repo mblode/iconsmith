@@ -20,7 +20,7 @@ const CHEVRON_TURNED = "M16 4L11 8L6 4";
 /** Nothing like a chevron, and it must survive as its own part. */
 const STROKE = "M4 4L4 14";
 
-const dir = mkdtempSync(path.join(tmpdir(), "icon-forge-parts-"));
+const dir = mkdtempSync(path.join(tmpdir(), "iconsmith-parts-"));
 
 const icon = (name: string, d: string) => {
   writeFileSync(
@@ -82,7 +82,7 @@ describe("recorded orientations", () => {
  * is its own mirror, so it would fold under rotation alone and say nothing.
  */
 describe("mirror folding", () => {
-  const mdir = mkdtempSync(path.join(tmpdir(), "icon-forge-mirror-"));
+  const mdir = mkdtempSync(path.join(tmpdir(), "iconsmith-mirror-"));
   const chiral = (name: string, d: string) =>
     writeFileSync(
       path.join(mdir, `${name}.svg`),
@@ -135,8 +135,8 @@ const BODY = '<path d="M4 11H20V13H4Z" fill="currentColor"/>';
  *  — a dot, a sparkle, a solid arrowhead. Real vocabulary, and filled. */
 const INLAY = '<path d="M12 8L16 12L12 16L8 12Z" fill="currentColor"/>';
 
-const styleDir = mkdtempSync(path.join(tmpdir(), "icon-forge-styles-"));
-const expandedDir = mkdtempSync(path.join(tmpdir(), "icon-forge-expanded-"));
+const styleDir = mkdtempSync(path.join(tmpdir(), "iconsmith-styles-"));
+const expandedDir = mkdtempSync(path.join(tmpdir(), "iconsmith-expanded-"));
 
 const write = (into: string, name: string, body: string) => {
   writeFileSync(

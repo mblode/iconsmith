@@ -33,7 +33,7 @@ interface NewOptions {
 }
 
 /**
- * `forge new "<name>"` — describe an icon, get one drawn to the house spec.
+ * `iconsmith new "<name>"` — describe an icon, get one drawn to the house spec.
  *
  * The loop's whole guarantee is that the model never emits a coordinate: it
  * calls primitives that quantise to the grid, snap angles and tier radii, so an
@@ -127,7 +127,7 @@ export const registerNewCommand = (program: Command): void => {
       }
 
       // Everything below is commentary, so it goes to stderr and leaves stdout
-      // as the icon alone — `forge new x > x.svg` has to produce a valid file.
+      // as the icon alone — `iconsmith new x > x.svg` has to produce a valid file.
       const label = (text: string, colour: "green" | "red" | "yellow") =>
         interactive ? styleText(colour, text) : text;
 

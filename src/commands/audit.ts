@@ -9,7 +9,7 @@ import { formatRepairReport, repairSet } from "../pipeline/repair.js";
  * The three audits and the fix path, exposed.
  *
  * All four were written and then reachable only from a test, which meant
- * `forge --help` under-reported what the tool does — the worst of both, since
+ * `iconsmith --help` under-reported what the tool does — the worst of both, since
  * the code is maintained but nobody can run it.
  */
 

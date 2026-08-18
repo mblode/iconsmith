@@ -1,5 +1,5 @@
 {
-  "name": "icon-forge",
+  "name": "iconsmith",
   "version": "0.0.1",
   "description": "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.",
   "keywords": [
@@ -9,18 +9,18 @@
     "icons",
     "svg"
   ],
-  "homepage": "https://github.com/mblode/icon-forge#readme",
+  "homepage": "https://github.com/mblode/iconsmith#readme",
   "bugs": {
-    "url": "https://github.com/mblode/icon-forge/issues"
+    "url": "https://github.com/mblode/iconsmith/issues"
   },
   "license": "MIT",
   "author": "Matthew Blode",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mblode/icon-forge.git"
+    "url": "git+https://github.com/mblode/iconsmith.git"
   },
   "bin": {
-    "forge": "./dist/cli.js"
+    "iconsmith": "./dist/cli.js"
   },
   "files": [
     "dist",

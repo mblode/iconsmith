@@ -1,26 +1,26 @@
-# icon-forge
+# iconsmith
 
 Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.
 
 ## Installation
 
 ```bash
-npm install -g icon-forge
+npm install -g iconsmith
 ```
 
 Or use directly with npx:
 
 ```bash
-npx icon-forge --help
+npx iconsmith --help
 ```
 
 ## Usage
 
 ```bash
-forge parts ./icons-svg -o parts.json   # cluster subpaths into a vocabulary
-forge draw icon.forge -p parts.json     # run a DSL program, emit SVG
-forge lint ./icons-svg/*.svg            # check against the house spec
-forge eval --dir ./icon-set -n 12       # reconstruction score (needs ANTHROPIC_API_KEY)
+iconsmith parts ./icons-svg -o parts.json      # cluster subpaths into a vocabulary
+iconsmith draw cloud-check.icon -p parts.json  # run a DSL program, emit SVG
+iconsmith lint ./icons-svg/*.svg               # check against the house spec
+iconsmith eval --dir ./icon-set -n 12          # reconstruction score (needs ANTHROPIC_API_KEY)
 ```
 
 Add `--output json` to any command for machine-readable output on stdout.
@@ -39,7 +39,7 @@ fit
 
 ### Reading an eval
 
-`forge eval` reports four numbers, never one:
+`iconsmith eval` reports four numbers, never one:
 
 |  |  |
 | --- | --- |
@@ -53,7 +53,7 @@ A treatment above 0.95 is flagged as suspect: it means the harness is comparing 
 ## Programmatic API
 
 ```typescript
-import { Canvas, extractParts, lint, runDsl, similarity } from "icon-forge";
+import { Canvas, extractParts, lint, runDsl, similarity } from "iconsmith";
 ```
 
 ## Usage with AI Agents
@@ -61,7 +61,7 @@ import { Canvas, extractParts, lint, runDsl, similarity } from "icon-forge";
 Add the skill to your AI coding assistant:
 
 ```bash
-npx skills add mblode/icon-forge
+npx skills add mblode/iconsmith
 ```
 
 ## License

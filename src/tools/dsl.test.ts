@@ -206,7 +206,7 @@ test("an empty program is not an error", () => {
   expect(r.canvas.bbox()).toBeNull();
 });
 
-/** A family, measured the way `forge lint` measures one: draw the siblings,
+/** A family, measured the way `iconsmith lint` measures one: draw the siblings,
  *  take each one's path bbox. */
 const family = (programs: Record<string, string>): CohortMember[] =>
   Object.entries(programs).map(([name, src]) => {

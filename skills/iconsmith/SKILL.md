@@ -1,19 +1,19 @@
 ---
-name: forge
+name: iconsmith
 description: Extract a parts vocabulary from an existing icon set, compose new icons in a constrained DSL that cannot express off-spec geometry, lint them against a house spec, and score them against the set they must match. Use when generating icons in an existing design language, auditing an icon set for drift, or building an AI-in-the-loop icon pipeline.
 ---
 
-# forge
+# iconsmith
 
 Icon generation that cannot drift, because the model never emits a coordinate.
 
 ## Commands
 
 ```bash
-forge parts <icons-dir>          # cluster every subpath into a parts vocabulary
-forge draw <program.icon>        # run a DSL program, emit SVG
-forge lint <icon.svg>            # house-spec violations
-forge eval <icons-dir>           # reconstruction score over held-out icons
+iconsmith parts <icons-dir>          # cluster every subpath into a parts vocabulary
+iconsmith draw <program.icon>        # run a DSL program, emit SVG
+iconsmith lint <icon.svg>            # house-spec violations
+iconsmith eval <icons-dir>           # reconstruction score over held-out icons
 ```
 
 Pass `--output json` for machine-readable results.
