@@ -290,12 +290,33 @@ describe("distance under reflection", () => {
   });
 
   it("still separates shapes that no reflection reconciles", () => {
-    // Folding mirrors must not fold everything: eight symmetries of the square
-    // is eight more chances to match, and a triangle is not a square at any of
-    // them.
+    // Folding mirrors must not fold everything: six transforms are six more
+    // chances to match, and a triangle is not a square at any of them.
     expect(distance(fp(SQUARE), fp(TRIANGLE))).toBeGreaterThan(
       CLUSTER_THRESHOLD
     );
+  });
+
+  it("does not fold an oblique onto its complementary angle", () => {
+    // The diagonal reflections are excluded, and this is what they would cost.
+    // Both marks are real parts of blode-icons: a 32° oblique and a 68° one,
+    // which m_x at a quarter-turn maps onto each other because a diagonal
+    // reflection sends θ to 90-θ. Merging them would undo the off-axis canvas
+    // guard and lint rule, whose whole point is that an oblique's angle is an
+    // explicit property rather than an accident.
+    expect(distance(fp("M0 1.25L2 0"), fp("M2 0L0 5"))).toBeGreaterThan(
+      CLUSTER_THRESHOLD
+    );
+  });
+
+  it("still folds a mirror that sits on an axis", () => {
+    // The exclusion is of the diagonals only. A plain left-right mirror — the
+    // `airdrop` case — must still fold, or the whole change buys nothing.
+    expect(distance(fp(ELL_CHIRAL), fp(ELL_CHIRAL_MIRRORED))).toBeLessThan(
+      SAME
+    );
+    // And a top-bottom one, which is m_x at a half-turn.
+    expect(distance(fp(ELL_CHIRAL), fp("M0 10L0 0L4 0"))).toBeLessThan(SAME);
   });
 
   it("stays symmetric across a mirrored pair", () => {

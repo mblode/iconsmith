@@ -104,8 +104,8 @@ describe("mirror folding", () => {
   });
 
   it("does not merge everything reflection now compares", () => {
-    // Eight symmetries of the square is eight more chances to match, so the
-    // plain stroke has to stay its own part.
+    // Six transforms is six more chances to match, so the plain stroke has to
+    // stay its own part.
     expect(result.summary.parts).toBe(2);
   });
 

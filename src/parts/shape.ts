@@ -174,24 +174,57 @@ const TURNS: readonly (readonly [number, number, number, number])[] = [
 const REVERSALS = [false, true] as const;
 
 /**
- * Compared with and without a reflection in x.
+ * Compared with and without a reflection in x — but the reflection is offered
+ * only at the even quarter-turns.
  *
- * Composed with the four quarter-turns this covers all eight symmetries of the
- * square, so a mark reflected about *any* of the four axes finds its original.
+ * `mirrorX` at turn 0 is m_x and at turn 2 is m_y, so the transforms tried are
+ * the four quarter-turns plus the two **axis** reflections: six of the square's
+ * eight symmetries. The two diagonal reflections (`mirrorX` at turns 1 and 3)
+ * are excluded deliberately, because they map an angle to its complement,
+ * θ → 90-θ. Over blode-icons that folds a 32° oblique onto a 68° one
+ * (`"M0 1.25L2 0"` onto `"M2 0L0 5"`) and an 8x8.75 hexagon onto an 18x14
+ * rounded rectangle. Admitting them would quietly undo the work of the
+ * off-axis canvas guard and lint rule, which exist to make an oblique's angle
+ * an explicit, reviewable property.
  *
- * Measured over the 201-part extraction this folding replaced: 81 cluster pairs
- * matched only under reflection, and 19 of those pairs put both "parts" inside
- * the same icon — parts #17/#18 in `airdrop`, #13/#14 in `ar-cube-1`, #32/#97
- * in `add-to-basket-2`, several at distance 0.000. A cube's two faces and a
- * basket's two sides are one mark reflected, and the naming pass could only
- * call the second one `-mirror`. Folding here is what turns that into one word.
+ * The evidence is two corpora, measured twice. Against the pristine 201-part
+ * extraction, the axis set folds 81 pairs of which 19 co-occur inside a single
+ * icon; adding the diagonals folds 31 more for only 4 further co-occurrences.
+ * Central agrees at 80/19 against 120/21. Measured again on the *residue* after
+ * this fold, 33 diagonal-only pairs remain over blode-icons and 16 over
+ * Central, with 3 and 1 co-occurrences between them — still noise.
+ *
+ * The consequence, which is a trade and not an oversight: a mark the set draws
+ * mirrored *and* quarter-turned no longer folds, since m_x∘R_1 is a diagonal
+ * reflection. `turnsToTry` offers only the odd turns for an aspect-transposed
+ * pair, which is exactly where that case lives.
+ *
+ * The cost is countable, so it is counted rather than waved at. On blode-icons
+ * it is four pairs: a U arc against a bracket, two rounded U-brackets at 16x7
+ * and 12x7, a small blob against a 16x7 ellipse, and
+ * `"M0 4C3.75 4 5.75 1.75 7 0"` against `"M0 0C1.25 1.75 3 3.25 5.25 3.75"`.
+ * On Central it is two. Only the last of the four looks like one mark genuinely
+ * lost; the other three are different proportions that a 48-point fingerprint
+ * happens to bring within 0.06 — the same weak discrimination that produces the
+ * junk, arriving at the right answer by luck.
+ *
+ * So the trade is not symmetric, and that asymmetry is the argument: the
+ * exclusion loses a handful of true folds and blocks an order of magnitude more
+ * false ones.
+ *
+ * The set of transforms is therefore not a group. It does not need to be:
+ * `match` minimises over a set, it never composes two of them.
  *
  * Reflection is NOT a free invariance downstream: a check mark, a comma, an `S`
  * and every letterform are chiral, so their mirror is wrong rather than merely
  * turned. `canvas.part` therefore refuses to reflect unless `flip` is asked for
  * by name, exactly as `turn` and `line ... off-axis` are asked for.
  */
-const REFLECTIONS = [false, true] as const;
+const BOTH_REFLECTIONS = [false, true] as const;
+const NO_REFLECTION = [false] as const;
+
+const reflectionsFor = (q: number): readonly boolean[] =>
+  q % 2 === 0 ? BOTH_REFLECTIONS : NO_REFLECTION;
 
 /**
  * Which quarter-turns of `b` are worth comparing against `a`. A half-turn keeps
@@ -260,7 +293,7 @@ export const match = (a: Fingerprint, b: Fingerprint): Match => {
   let bestFlip = false;
   for (const q of turns) {
     const [xx, xy, yx, yy] = TURNS[q];
-    for (const reflect of REFLECTIONS) {
+    for (const reflect of reflectionsFor(q)) {
       for (const reverse of REVERSALS) {
         for (let r = 0; r < rotations; r += 1) {
           let sum = 0;

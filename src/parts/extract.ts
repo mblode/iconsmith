@@ -3,10 +3,11 @@
  *
  * Every subpath in every icon becomes a candidate part. Candidates are
  * clustered by shape (position- and scale-invariant, and invariant under the
- * eight symmetries of the square: four quarter-turns times a reflection), and
- * each cluster becomes one part with a canonical drawing — the member closest
- * to the cluster centre. Each member's own placement is kept, so `turns` and
- * `flips` say which of those eight the set actually draws.
+ * four quarter-turns plus the two axis reflections), and each cluster becomes
+ * one part with a canonical drawing — the member closest to the cluster centre.
+ * Each member's own placement is kept, so `turns` and `flips` say which of
+ * those six the set actually draws. The square's other two symmetries, the
+ * diagonal reflections, are excluded on measurement; see `shape.ts`.
  *
  * ONE SET, TWO DRAWING STYLES. An "outline" directory is rarely all outline.
  * blode-icons ships 2,221 outline files of which 358 carry no stroke at all:

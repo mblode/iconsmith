@@ -482,9 +482,11 @@ export const rotateQuarter = (sp: Subpath, turns: number): Subpath => {
 /**
  * Reflect a subpath in the y-axis: `x' = -x`, y unchanged.
  *
- * One reflection is enough. Composed with the four quarter-turns above it
- * generates all eight symmetries of the square, so a mirror about any axis —
- * vertical, horizontal or either diagonal — is `mirrorX` plus a turn.
+ * One reflection is enough for any mirror a caller needs: composed with the
+ * quarter-turns above, `mirrorX` reaches all four of the square's reflections —
+ * vertical at turn 0, horizontal at turn 2, and the two diagonals at 1 and 3.
+ * (The clusterer deliberately compares under only the first two; that is its
+ * choice to make, and this function stays general.)
  *
  * A reflection reverses orientation, which is why the arc's sweep flag has to
  * invert and its x-axis rotation negate; the radii and the large-arc flag are
