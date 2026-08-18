@@ -1,0 +1,469 @@
+/**
+ * The drawing surface the model works on.
+ *
+ * The invariant this file exists to enforce: **the model never emits a
+ * coordinate that isn't already spec-conformant.** Every primitive quantises to
+ * the sub-grid, snaps angles to 0/45/90, and takes its corner radius from the
+ * tier system. The model chooses what and where; this chooses how.
+ *
+ * That is what stops style drift. A model emitting free path data writes drift
+ * into the set at the rate it writes icons; a model calling `rect()` cannot.
+ */
+import {
+  bbox,
+  parsePath,
+  q,
+  scale,
+  serialise,
+  translate,
+} from "../geometry/path.js";
+import type { Box, DotRole, DrawOp, IconDoc, Keyline, Part } from "../types.js";
+
+export const SPEC = {
+  canvas: 24,
+  clearance: 2.5,
+  dots: { floating: 2.5, more: 2, terminal: 1.5 },
+  grid: 0.25,
+  keylines: {
+    circle: [20, 20],
+    square: [18, 18],
+    tall: [16, 20],
+    wide: [20, 16],
+  },
+  minGap: 2,
+  radiusTiers: [0.25, 1, 2],
+  stroke: 2,
+} as const satisfies {
+  canvas: number;
+  clearance: number;
+  dots: Record<DotRole, number>;
+  grid: number;
+  keylines: Record<Keyline, readonly [number, number]>;
+  minGap: number;
+  radiusTiers: readonly number[];
+  stroke: number;
+};
+
+/** Circular arc → cubic control handle ratio. */
+const K = 0.5523;
+/** Degrees of slop forgiven before a segment is left off-axis. */
+const ANGLE_TOLERANCE = 6;
+/** Above this shape size the small tier stops reading as a radius at all. */
+const LARGE_SHAPE = 8;
+const AXES = [-180, -135, -90, -45, 0, 45, 90, 135, 180];
+
+const clamp = (v: number, lo: number, hi: number) =>
+  Math.min(hi, Math.max(lo, v));
+const onCanvas = (v: number) => q(clamp(v, 0, SPEC.canvas), SPEC.grid);
+const nearest = (targets: readonly number[], v: number): number => {
+  let [best] = targets;
+  for (const t of targets) {
+    if (Math.abs(t - v) < Math.abs(best - v)) {
+      best = t;
+    }
+  }
+  return best;
+};
+
+/** Corner radii come from the tier system, never from the caller verbatim. */
+const tierRadius = (r: number, shapeSize: number): number =>
+  r === 0 ? 0 : nearest(shapeSize >= LARGE_SHAPE ? [1, 2] : [0.25, 1], r);
+
+/** Snap a segment to the nearest permitted axis when it is within tolerance. */
+const snapAngle = (
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  toleranceDeg = ANGLE_TOLERANCE
+): [number, number] => {
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const len = Math.hypot(dx, dy);
+  if (len === 0) {
+    return [x1, y1];
+  }
+  const ang = (Math.atan2(dy, dx) * 180) / Math.PI;
+  const near = nearest(AXES, ang);
+  if (Math.abs(near - ang) > toleranceDeg) {
+    return [x1, y1];
+  }
+  const rad = (near * Math.PI) / 180;
+  return [x0 + len * Math.cos(rad), y0 + len * Math.sin(rad)];
+};
+
+export type Element =
+  | { cx: number; cy: number; d: string; id: string; kind: "circle"; r: number }
+  | {
+      cx: number;
+      cy: number;
+      d: string;
+      id: string;
+      kind: "dot";
+      role: DotRole;
+    }
+  | { d: string; id: string; kind: "line"; points: [number, number][] }
+  | {
+      d: string;
+      id: string;
+      kind: "part";
+      partId: string;
+      scale: number;
+      x: number;
+      y: number;
+    }
+  | { d: string; id: string; kind: "raw" }
+  | {
+      d: string;
+      h: number;
+      id: string;
+      kind: "rect";
+      r: number;
+      w: number;
+      x: number;
+      y: number;
+    };
+
+const rectPath = (
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
+): string => {
+  if (!r) {
+    return `M${x} ${y}L${x + w} ${y}L${x + w} ${y + h}L${x} ${y + h}Z`;
+  }
+  const c = r * K;
+  return (
+    `M${x + r} ${y}L${x + w - r} ${y}C${x + w - r + c} ${y} ${x + w} ${y + r - c} ${x + w} ${y + r}` +
+    `L${x + w} ${y + h - r}C${x + w} ${y + h - r + c} ${x + w - r + c} ${y + h} ${x + w - r} ${y + h}` +
+    `L${x + r} ${y + h}C${x + r - c} ${y + h} ${x} ${y + h - r + c} ${x} ${y + h - r}` +
+    `L${x} ${y + r}C${x} ${y + r - c} ${x + r - c} ${y} ${x + r} ${y}Z`
+  );
+};
+
+const circlePath = (x: number, y: number, r: number): string => {
+  const c = r * K;
+  return (
+    `M${x} ${y - r}C${x + c} ${y - r} ${x + r} ${y - c} ${x + r} ${y}` +
+    `C${x + r} ${y + c} ${x + c} ${y + r} ${x} ${y + r}` +
+    `C${x - c} ${y + r} ${x - r} ${y + c} ${x - r} ${y}` +
+    `C${x - r} ${y - c} ${x - c} ${y - r} ${x} ${y - r}Z`
+  );
+};
+
+export class Canvas {
+  elements: Element[] = [];
+  log: string[] = [];
+  readonly parts: Map<string, Part>;
+
+  constructor(parts: Part[] = []) {
+    this.parts = new Map(parts.map((p) => [p.id, p]));
+  }
+
+  #push(make: (id: string) => Element): string {
+    const id = `e${this.elements.length}`;
+    const el = make(id);
+    this.elements.push(el);
+    this.log.push(`${el.kind} → ${id}`);
+    return id;
+  }
+
+  /** Rounded rectangle. Radius is snapped to the tier system. */
+  rect({
+    x,
+    y,
+    w,
+    h,
+    r = 2,
+  }: {
+    h: number;
+    r?: number;
+    w: number;
+    x: number;
+    y: number;
+  }): string {
+    const X = onCanvas(x);
+    const Y = onCanvas(y);
+    const W = q(w, SPEC.grid);
+    const H = q(h, SPEC.grid);
+    const R = Math.min(tierRadius(r, Math.min(W, H)), W / 2, H / 2);
+    return this.#push((id) => ({
+      d: rectPath(X, Y, W, H, R),
+      h: H,
+      id,
+      kind: "rect",
+      r: R,
+      w: W,
+      x: X,
+      y: Y,
+    }));
+  }
+
+  circle({ cx, cy, r }: { cx: number; cy: number; r: number }): string {
+    const X = onCanvas(cx);
+    const Y = onCanvas(cy);
+    const R = q(r, SPEC.grid);
+    return this.#push((id) => ({
+      cx: X,
+      cy: Y,
+      d: circlePath(X, Y, R),
+      id,
+      kind: "circle",
+      r: R,
+    }));
+  }
+
+  /** Polyline. Every segment is angle-snapped against its predecessor. */
+  line({ points: pts }: { points: [number, number][] }): string {
+    if (!Array.isArray(pts) || pts.length < 2) {
+      throw new Error("line needs >= 2 points");
+    }
+    const out: [number, number][] = [
+      [onCanvas(pts[0][0]), onCanvas(pts[0][1])],
+    ];
+    for (let i = 1; i < pts.length; i += 1) {
+      const [px, py] = out[i - 1];
+      const [sx, sy] = snapAngle(
+        px,
+        py,
+        onCanvas(pts[i][0]),
+        onCanvas(pts[i][1])
+      );
+      out.push([q(sx, SPEC.grid), q(sy, SPEC.grid)]);
+    }
+    const rest = out
+      .slice(1)
+      .map(([x, y]) => `L${x} ${y}`)
+      .join("");
+    const d = `M${out[0][0]} ${out[0][1]}${rest}`;
+    return this.#push((id) => ({ d, id, kind: "line", points: out }));
+  }
+
+  /**
+   * A dot sized by its role, not by a free radius. The role — not the resulting
+   * radius — is what survives, so a dot keeps its meaning through a `fit`.
+   */
+  dot({
+    cx,
+    cy,
+    role = "terminal",
+  }: {
+    cx: number;
+    cy: number;
+    role?: DotRole;
+  }): string {
+    const size = SPEC.dots[role];
+    if (!size) {
+      throw new Error(
+        `dot role must be one of ${Object.keys(SPEC.dots).join(", ")} — got "${role}"`
+      );
+    }
+    const X = onCanvas(cx);
+    const Y = onCanvas(cy);
+    return this.#push((id) => ({
+      cx: X,
+      cy: Y,
+      d: circlePath(X, Y, q(size / 2, SPEC.grid)),
+      id,
+      kind: "dot",
+      role,
+    }));
+  }
+
+  /** Place a part from the extracted vocabulary, scaled and positioned. */
+  part({
+    id,
+    x,
+    y,
+    scale: k = 1,
+  }: {
+    id: string;
+    scale?: number;
+    x: number;
+    y: number;
+  }): string {
+    const p = this.parts.get(id);
+    if (!p) {
+      throw new Error(
+        `unknown part ${id} — call listParts to see the vocabulary`
+      );
+    }
+    const moved = parsePath(p.d).map((sp) => translate(scale(sp, k), x, y));
+    return this.#push((elId) => ({
+      d: serialise(moved, { grid: SPEC.grid }),
+      id: elId,
+      kind: "part",
+      partId: id,
+      scale: k,
+      x,
+      y,
+    }));
+  }
+
+  /** Import existing path data unchanged, so any icon can enter a document. */
+  raw(d: string): string {
+    return this.#push((id) => ({ d, id, kind: "raw" }));
+  }
+
+  /**
+   * Uniform similarity transform: `p' = k·p + (tx, ty)`.
+   *
+   * Every element is re-emitted through its own primitive rather than having its
+   * path data rewritten, so the result is as spec-conformant as it was when
+   * drawn — radii re-tier against the new size, dots keep their role size, and a
+   * part stays a reference. Rewriting `d` in place, as the reference JS did,
+   * left `toJSON` describing the pre-transform shape.
+   */
+  transform(k: number, tx: number, ty: number): void {
+    const { elements: src, log } = this;
+    this.elements = [];
+    this.log = [];
+    for (const e of src) {
+      if (e.kind === "rect") {
+        this.rect({
+          h: e.h * k,
+          r: e.r,
+          w: e.w * k,
+          x: e.x * k + tx,
+          y: e.y * k + ty,
+        });
+      } else if (e.kind === "circle") {
+        this.circle({ cx: e.cx * k + tx, cy: e.cy * k + ty, r: e.r * k });
+      } else if (e.kind === "dot") {
+        this.dot({ cx: e.cx * k + tx, cy: e.cy * k + ty, role: e.role });
+      } else if (e.kind === "line") {
+        this.line({
+          points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
+        });
+      } else if (e.kind === "part") {
+        this.part({
+          id: e.partId,
+          scale: e.scale * k,
+          x: e.x * k + tx,
+          y: e.y * k + ty,
+        });
+      } else {
+        const moved = parsePath(e.d).map((sp) =>
+          translate(scale(sp, k), tx, ty)
+        );
+        this.raw(serialise(moved, { grid: SPEC.grid }));
+      }
+    }
+    this.log = log;
+    this.log.push(`transform ×${k} +${q(tx, SPEC.grid)},${q(ty, SPEC.grid)}`);
+  }
+
+  remove(id: string): { remaining: number; removed: string } {
+    const i = this.elements.findIndex((e) => e.id === id);
+    if (i === -1) {
+      throw new Error(`no element ${id}`);
+    }
+    this.elements.splice(i, 1);
+    this.log.push(`remove ${id}`);
+    return { remaining: this.elements.length, removed: id };
+  }
+
+  clear(): void {
+    this.elements = [];
+    this.log.push("clear");
+  }
+
+  bbox(): Box | null {
+    if (!this.elements.length) {
+      return null;
+    }
+    return bbox(this.elements.flatMap((e) => parsePath(e.d)));
+  }
+
+  /** Outline variant: the skeleton, stroked. This is what ships. */
+  toSVG({ stroke = SPEC.stroke }: { stroke?: number } = {}): string {
+    const { canvas: size } = SPEC;
+    const paths = this.elements
+      .map(
+        (e) =>
+          `<path d="${e.d}" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`
+      )
+      .join("\n");
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${paths}\n</svg>`;
+  }
+
+  /**
+   * The document format. This — not path data — is the source of truth: it is
+   * diffable, it re-renders at any stroke width or keyline, and a part is stored
+   * as a reference so editing the part updates every icon using it.
+   */
+  toJSON({
+    icon = null,
+    keyline = null,
+  }: { icon?: string | null; keyline?: Keyline | null } = {}): IconDoc {
+    return {
+      draw: this.elements.map((e): DrawOp => {
+        if (e.kind === "rect") {
+          return { h: e.h, op: "rect", r: e.r, w: e.w, x: e.x, y: e.y };
+        }
+        if (e.kind === "circle") {
+          return { cx: e.cx, cy: e.cy, op: "circle", r: e.r };
+        }
+        if (e.kind === "dot") {
+          return { cx: e.cx, cy: e.cy, op: "dot", role: e.role };
+        }
+        if (e.kind === "line") {
+          return { op: "line", points: e.points };
+        }
+        if (e.kind === "part") {
+          return { id: e.partId, op: "part", scale: e.scale, x: e.x, y: e.y };
+        }
+        // Escape hatch: geometry the primitives cannot express is kept verbatim
+        // rather than approximated. Fidelity beats format purity.
+        return { d: e.d, op: "raw" };
+      }),
+      icon,
+      keyline,
+    };
+  }
+
+  static fromJSON(doc: IconDoc, parts: Part[] = []): Canvas {
+    const c = new Canvas(parts);
+    for (const op of doc.draw ?? []) {
+      if (op.op === "rect") {
+        c.rect(op);
+      } else if (op.op === "circle") {
+        c.circle(op);
+      } else if (op.op === "dot") {
+        c.dot(op);
+      } else if (op.op === "line") {
+        c.line({ points: op.points });
+      } else if (op.op === "part") {
+        c.part(op);
+      } else if (op.op === "raw") {
+        c.raw(op.d);
+      } else {
+        throw new Error(`unknown op ${JSON.stringify(op)}`);
+      }
+    }
+    return c;
+  }
+
+  describe(): {
+    h: number;
+    id: string;
+    kind: string;
+    w: number;
+    x: number;
+    y: number;
+  }[] {
+    return this.elements.map((e) => {
+      const b = bbox(parsePath(e.d));
+      return {
+        h: +b.h.toFixed(2),
+        id: e.id,
+        kind: e.kind,
+        w: +b.w.toFixed(2),
+        x: +b.x0.toFixed(2),
+        y: +b.y0.toFixed(2),
+      };
+    });
+  }
+}
