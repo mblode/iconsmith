@@ -37,15 +37,17 @@
  * **The open-rect family** — a rounded rectangle with one side left open. Eight
  * are named (`open-rect` p0094, `open-rect-narrow` p0038, `open-rect-wide`
  * p0117, `open-rect-deep` p0044, `arc-c` p0019, `arch` p0075, `arch-small`
- * p0073, `arch-wide` p0076) and at least ten more sit unnamed in the top 90:
- * p0007, p0031, p0039, p0042, p0067, p0069, p0083, p0095, p0118, p0127, plus
- * `square-open` p0005 and `rect-open` p0140, which are the same mark with the
- * opening shortened to a notch.
+ * p0073, `arch-wide` p0076, `page-open` p0138) and at least eleven more sit
+ * unnamed in the top 90: p0007, p0031, p0039, p0042, p0067, p0069, p0083,
+ * p0095, p0118, p0127, p0141, plus `square-open` p0005 and `rect-open` p0140,
+ * which are the same mark with the opening shortened to a notch.
  *
  * **The straight-run family** — one bare segment at an angle the house spec
- * does not snap to. `oblique` p0111 is named at 30 degrees; p0164, p0046,
- * p0048, p0112, p0173 and p0017 are the same segment at 27, 38, 51, 59, 66 and
- * 68 degrees and are left unnamed for it.
+ * does not snap to. `oblique` p0046 is named at 38 degrees; p0164, p0111,
+ * p0048, p0112, p0173 and p0017 are the same segment at 27, 30, 51, 59, 66 and
+ * 68 degrees and are left unnamed for it. Which cluster carries the word is not
+ * a judgement about shape — the shapes are indistinguishable — so it goes to
+ * the one the most icons draw.
  *
  * Both splits come from `bucketKey` in `extract.ts`, not from the distance
  * threshold, and that distinction matters for anyone trying to fix it. Members
@@ -177,9 +179,9 @@ export const VOCABULARY: NamedShape[] = [
     sure: true,
   },
   {
-    d: "M0 1.25L2 0",
+    d: "M0 0L7 5.5",
     name: "oblique",
-    note: "a straight segment at an angle the house spec does not snap to (30 deg here). Six more clusters are the same mark at 27, 38, 51, 59, 66 and 68 degrees — the fingerprint of a bare segment barely varies with angle, so only the aspect bucket keeps them apart, and they are left unnamed rather than given six words for one mark",
+    note: "a straight segment at an angle the house spec does not snap to (38 deg here). Six more clusters are the same mark at 27, 30, 51, 59, 66 and 68 degrees — the fingerprint of a bare segment barely varies with angle, so only the aspect bucket keeps them apart. The word goes to this one because 25 icons draw it against the next one's 23, and when the shape cannot choose the bearer, use is the only thing left that can; the other six are left unnamed rather than given six words for one mark",
     sure: false,
   },
   {
@@ -340,9 +342,9 @@ export const VOCABULARY: NamedShape[] = [
   },
   {
     d: "M0 4.75L0 2.75C0 1.5 0.75 0.5 2 0",
-    name: "hook",
-    note: "a straight arm turning through 90 degrees; clock hands, hourglass",
-    sure: true,
+    name: "elbow-tall",
+    note: "a straight arm turning through a quarter circle at 1:2.4; clock hands, hourglass. Was `hook`, which named an object where the mark is a proportion of `elbow` — and only by eye, because the aspect gate refuses to measure the two against each other",
+    sure: false,
   },
   {
     d: "M0 0.75C0 0.25 0.25 0 0.75 0C1.25 0 1.5 0.25 1.5 0.75L1.5 1.25C1.5 1.75 1.25 2 0.75 2C0.25 2 0 1.75 0 1.25L0 0.75Z",
@@ -360,6 +362,18 @@ export const VOCABULARY: NamedShape[] = [
     d: "M0 6.5L0 5.75C0 4.75 0.25 4 1 3.5L4 0.5C4.5 -0.25 5.5 -0.25 6 0.5C6.5 1 6.5 1.75 6 2.5L3 5.5C2.25 6 1.5 6.5 0.75 6.5L0 6.5Z",
     name: "pencil",
     note: "slanted lozenge with one squared end; all 11 icons that draw it are pencil- or -edit, and all 11 draw it at one turn and unmirrored, so the mark has a fixed handedness the way `check` does",
+    sure: true,
+  },
+  {
+    d: "M0 9L0 3C0 1.25 1.25 0 3 0L11 0C12.75 0 14 1.25 14 3L14 15C14 16.75 12.75 18 11 18L7 18",
+    name: "page-open",
+    note: "the page body with a gap where a badge sits; all 10 of its icons are page-, and all draw it at one turn. An open-rect family member, and 0.064 from the 8-icon cluster that draws the same thing — the word goes to the more used of the two rather than to both",
+    sure: false,
+  },
+  {
+    d: "M6 8L2.75 8C1 8 -0.5 6.5 0 5C1 2.25 3.25 0 7 0",
+    name: "shoulders",
+    note: "the arc under a head in a person glyph; all 8 of its icons are user- or people-, and all 8 draw it at one turn and unmirrored. `dome` is the closed half-circle that serves the same role in other icons",
     sure: true,
   },
   {
