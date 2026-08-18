@@ -1,0 +1,612 @@
+[
+  {
+    "d": "M0 0L6 0",
+    "dx": 3.5,
+    "dy": 12,
+    "name": "stroke",
+    "note": "a straight segment; the set draws it horizontal and vertical in near-equal numbers",
+    "scale": 2.8333333333333335,
+    "strokeWidth": 0.7058823529411764,
+    "sure": true
+  },
+  {
+    "d": "M7 3.5C7 5.5 5.5 7 3.5 7C1.5 7 0 5.5 0 3.5C0 1.5 1.5 0 3.5 0C5.5 0 7 1.5 7 3.5Z",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "circle",
+    "note": "ring",
+    "scale": 2.4285714285714284,
+    "strokeWidth": 0.823529411764706,
+    "sure": true
+  },
+  {
+    "d": "M0 0L4 4",
+    "dx": 4,
+    "dy": 4,
+    "name": "diagonal",
+    "note": "a straight segment at 45 degrees, drawn both ways",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M4 2.5L4 1.5C4 0.75 3.25 0 2.5 0L1.5 0C0.75 0 0 0.75 0 1.5L0 2.5C0 3.25 0.75 4 1.5 4L2.5 4C3.25 4 4 3.25 4 2.5Z",
+    "dx": 4,
+    "dy": 4,
+    "name": "square",
+    "note": "rounded square; corner radius from the tier system",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M8 4L4 0L0 4",
+    "dx": 3.5,
+    "dy": 7.75,
+    "name": "chevron",
+    "note": "two segments meeting at a sharp point; the arrow head",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M15 0L3 0C1.25 0 0 1.25 0 3L0 11C0 12.75 1.25 14 3 14L15 14C16.75 14 18 12.75 18 11L18 3C18 1.25 16.75 0 15 0Z",
+    "dx": 3.5,
+    "dy": 5.388888888888889,
+    "name": "rect",
+    "note": "rounded rectangle, near 4:3; the card and panel body",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M5.25 2.25L4.5 0.25C4.5 0.25 4.25 0 4 0C3.75 0 3.5 0.25 3.5 0.25L2.75 2.25C2.75 2.5 2.5 2.75 2.25 2.75L0.25 3.5C0.25 3.5 0 3.75 0 4C0 4.25 0.25 4.5 0.25 4.5L2.25 5.25C2.5 5.25 2.75 5.5 2.75 5.75L3.5 7.75C3.5 7.75 3.75 8 4 8C4.25 8 4.5 7.75 4.5 7.75L5.25 5.75C5.25 5.5 5.5 5.25 5.75 5.25L7.75 4.5C7.75 4.5 8 4.25 8 4C8 3.75 7.75 3.5 7.75 3.5L5.75 2.75C5.5 2.75 5.25 2.5 5.25 2.25Z",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "sparkle",
+    "note": "four-point star; every ai- and -sparkle icon",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M0 0C0 3.25 2.75 6 6 6C9.25 6 12 3.25 12 0",
+    "dx": 3.5,
+    "dy": 7.75,
+    "name": "semicircle",
+    "note": "half-circle arc, 2:1",
+    "scale": 1.4166666666666667,
+    "strokeWidth": 1.4117647058823528,
+    "sure": true
+  },
+  {
+    "d": "M0 0L0 6C0 7.75 1.25 9 3 9L9 9",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "elbow",
+    "note": "right angle with a rounded corner",
+    "scale": 1.8888888888888888,
+    "strokeWidth": 1.0588235294117647,
+    "sure": true
+  },
+  {
+    "d": "M0 4L0 3C0 1.25 1.25 0 3 0L4 0",
+    "dx": 4,
+    "dy": 4,
+    "name": "corner-bracket",
+    "note": "short-armed rounded corner; the scan and focus bracket",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M0 5L0 0L5 0",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "corner",
+    "note": "right angle with a sharp corner",
+    "scale": 3.4,
+    "strokeWidth": 0.5882352941176471,
+    "sure": true
+  },
+  {
+    "d": "M3.5 0L0.5 3C-0.25 3.5 -0.25 4.5 0.5 5L3.5 8",
+    "dx": 8.34765625,
+    "dy": 3.5,
+    "name": "arrowhead",
+    "note": "chevron with a rounded apex; distinct from `chevron` by the join, not the angle",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M2.5 0.25L1 1C0.5 1.5 0 2.25 0 2.75L0 4.5C0 5.25 0.5 6 1 6.25L2.5 7.25C3 7.5 4 7.5 4.5 7.25L6 6.25C6.5 6 7 5.25 7 4.5L7 2.75C7 2.25 6.5 1.5 6 1L4.5 0.25C4 0 3 0 2.5 0.25Z",
+    "dx": 3.9322033898305087,
+    "dy": 3.3559322033898304,
+    "name": "hexagon",
+    "note": "rounded hexagon; cube faces, gems, donuts",
+    "scale": 2.305084745762712,
+    "strokeWidth": 0.8676470588235294,
+    "sure": true
+  },
+  {
+    "d": "M2 0C2 1 1 2 0 2",
+    "dx": 8,
+    "dy": 8,
+    "name": "arc-quarter",
+    "note": "90-degree arc",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M3 2C3 3 2.25 3.75 1.5 3.75C0.75 3.75 0 3 0 2C0 0.75 0.75 0 1.5 0C2.25 0 3 0.75 3 2Z",
+    "dx": 6,
+    "dy": 4.5,
+    "name": "oval",
+    "note": "the face eye: emoji-, cat, alien, bug-face",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M0 0L7 5.5",
+    "dx": 3.5,
+    "dy": 5.321428571428572,
+    "name": "oblique",
+    "note": "a straight segment at an angle the house spec does not snap to (38 deg here). Six more clusters are the same mark at 27, 30, 51, 59, 66 and 68 degrees — the fingerprint of a bare segment barely varies with angle, so only the aspect bucket keeps them apart. The word goes to this one because 25 icons draw it against the next one's 23, and when the shape cannot choose the bearer, use is the only thing left that can; the other six are left unnamed rather than given six words for one mark",
+    "scale": 2.4285714285714284,
+    "strokeWidth": 0.823529411764706,
+    "sure": false
+  },
+  {
+    "d": "M0 3C0 1.25 1.25 0 3 0L15 0C16.75 0 18 1.25 18 3L18 8C18 9.75 16.75 11 15 11L3 11C1.25 11 0 9.75 0 8L0 3Z",
+    "dx": 3.5,
+    "dy": 6.805555555555555,
+    "name": "rect-wide",
+    "note": "rounded rectangle, near 16:10",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M10 0L3 0C1.25 0 0 1.25 0 3L0 9C0 10.75 1.25 12 3 12L10 12",
+    "dx": 4.916666666666666,
+    "dy": 3.5,
+    "name": "open-rect",
+    "note": "rounded rect with one side missing; the package and box body. Head of a family of about twenty clusters — see the family note",
+    "scale": 1.4166666666666667,
+    "strokeWidth": 1.4117647058823528,
+    "sure": false
+  },
+  {
+    "d": "M0 2C0 1 1 0 2 0C3 0 4 1 4 2L4 6C4 7 3 8 2 8C1 8 0 7 0 6L0 2Z",
+    "dx": 7.75,
+    "dy": 3.5,
+    "name": "capsule",
+    "note": "stadium, 1:2",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M0 3.25L2 5L5.5 0",
+    "dx": 3.5,
+    "dy": 4.272727272727273,
+    "name": "check",
+    "note": "check mark. The set draws all 21 instances at one turn and never mirrored, so unlike most of this list the name carries no orientation risk",
+    "scale": 3.090909090909091,
+    "strokeWidth": 0.6470588235294118,
+    "sure": true
+  },
+  {
+    "d": "M0 3C0 1.25 1.25 0 3 0L13 0C14.75 0 16 1.25 16 3L16 11C16 12.75 14.75 14 13 14L11.25 14C11.25 14 11 14 10.75 14.25L8 16.5L5.25 14.25C5 14 5 14 4.75 14L3 14C1.25 14 0 12.75 0 11L0 3Z",
+    "dx": 3.757575757575758,
+    "dy": 3.5,
+    "name": "bubble",
+    "note": "speech bubble with a tail",
+    "scale": 1.0303030303030303,
+    "strokeWidth": 1.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M4 0C1.5 1.5 0 4.25 0 7.5C0 12.5 4 16.5 9 16.5C14 16.5 18 12.5 18 7.5C18 4.25 16.5 1.5 14 0",
+    "dx": 3.5,
+    "dy": 4.208333333333334,
+    "name": "ring-open",
+    "note": "circle with a gap; history, share, radar",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M11.25 1C10 -0.25 8 -0.25 7 1L1 7C-0.25 8 -0.25 10 1 11.25L7 17.25C8 18.25 10 18.25 11.25 17.25L17.25 11.25C18.25 10 18.25 8 17.25 7L11.25 1Z",
+    "dx": 3.440766550522648,
+    "dy": 3.440766550522648,
+    "name": "keyframe",
+    "note": "rounded diamond",
+    "scale": 0.9477351916376306,
+    "strokeWidth": 2.110294117647059,
+    "sure": true
+  },
+  {
+    "d": "M0 6L1.5 6C2.25 6 3 5.25 3 4.5L3 1.5C3 0.75 2.25 0 1.5 0L0 0",
+    "dx": 7.75,
+    "dy": 3.5,
+    "name": "open-rect-narrow",
+    "note": "1:2 open rect; the battery terminal. Family member",
+    "scale": 2.8333333333333335,
+    "strokeWidth": 0.7058823529411764,
+    "sure": false
+  },
+  {
+    "d": "M7 16L3 16C1.25 16 0 14.75 0 13L0 3C0 1.25 1.25 0 3 0L13 0C14.75 0 16 1.25 16 3L16 6",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "square-open",
+    "note": "rounded square with one corner opened; boolean and bezier icons. 0.054 from the 12-unit cluster, which is the same mark",
+    "scale": 1.0625,
+    "strokeWidth": 1.8823529411764706,
+    "sure": false
+  },
+  {
+    "d": "M0 0L0 4C0 5.75 1.25 7 3 7L13 7C14.75 7 16 5.75 16 4L16 0",
+    "dx": 3.5,
+    "dy": 8.28125,
+    "name": "open-rect-wide",
+    "note": "2.3:1 open rect; bag and box bodies. Family member",
+    "scale": 1.0625,
+    "strokeWidth": 1.8823529411764706,
+    "sure": false
+  },
+  {
+    "d": "M1.75 2.5L6.75 0.25C7.5 0 8.5 0 9.25 0.25L14.25 2.5C15.25 3 16 4 16 5.25L16 10.25C16 14.75 12.5 18.25 8 18.25C3.5 18.25 0 14.75 0 10.25L0 5.25C0 4 0.75 3 1.75 2.5Z",
+    "dx": 4.52233676975945,
+    "dy": 3.441580756013746,
+    "name": "shield",
+    "note": "shield outline",
+    "scale": 0.9347079037800687,
+    "strokeWidth": 2.139705882352941,
+    "sure": true
+  },
+  {
+    "d": "M5.25 2.25L3.25 2.25L3.5 0.25C3.5 0 3.25 0 3 0L0 4C0 4 0 4.25 0.25 4.25L2.25 4.25L2 6.5C2 6.75 2.25 6.75 2.5 6.5L5.5 2.75C5.5 2.5 5.5 2.25 5.25 2.25Z",
+    "dx": 5.009345794392524,
+    "dy": 3.5,
+    "name": "bolt",
+    "note": "lightning bolt; every car--ev and charging icon",
+    "scale": 2.542056074766355,
+    "strokeWidth": 0.786764705882353,
+    "sure": true
+  },
+  {
+    "d": "M4 0L3 0C1.25 0 0 1.25 0 3C0 4.75 1.25 6 3 6L4 6",
+    "dx": 6.333333333333333,
+    "dy": 3.5,
+    "name": "arc-c",
+    "note": "the most curved member of the open-rect family; cup, coin and beer handles",
+    "scale": 2.8333333333333335,
+    "strokeWidth": 0.7058823529411764,
+    "sure": false
+  },
+  {
+    "d": "M3.5 2.25L0.75 0C0.5 -0.25 0 0 0 0.5L0 5C0 5.25 0.5 5.5 0.75 5.25L3.5 3C3.75 3 3.75 2.5 3.5 2.25Z",
+    "dx": 6.2505723446786945,
+    "dy": 3.8058343494963482,
+    "name": "triangle",
+    "note": "rounded triangle; the play and chevron-triangle mark",
+    "scale": 3.118333643564098,
+    "strokeWidth": 0.6413681884643047,
+    "sure": true
+  },
+  {
+    "d": "M16 6L16 3.5C16 1.5 14.5 0 12.5 0L3.5 0C1.5 0 0 1.5 0 3.5L0 6",
+    "dx": 3.5,
+    "dy": 8.8125,
+    "name": "arch-wide",
+    "note": "16:6 arch; server, garage, sofa. Family member, the turn where the closed side is the long one",
+    "scale": 1.0625,
+    "strokeWidth": 1.8823529411764706,
+    "sure": false
+  },
+  {
+    "d": "M17.25 12L17.75 12C18.75 12 19.75 11 19.75 10L19.75 7.5C19.75 6 18.5 4.75 17.25 4.5L14.5 4.25C14 4 13.5 3.75 13.25 3.25L11.5 1.25C11 0.5 10 0 9.25 0L4.25 0C2.75 0 1.5 1 1.25 2.5L0 9.75C-0.25 11 0.75 12 2 12L2.25 12",
+    "dx": 3.5331307543987145,
+    "dy": 6.845508077285686,
+    "name": "car",
+    "note": "car body silhouette; 14 car- icons, never turned",
+    "scale": 0.8590819871190524,
+    "strokeWidth": 2.328066505860561,
+    "sure": true
+  },
+  {
+    "d": "M1 0C0.5 0 0 0.5 0 1C0 1.5 0.5 2 1 2L1 0Z",
+    "dx": 10,
+    "dy": 8,
+    "name": "half-disc",
+    "note": "closed half circle; the half-filled state mark",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M4 0C3.5 2 2 3.5 0 4",
+    "dx": 4,
+    "dy": 4,
+    "name": "arc-shallow",
+    "note": "a longer, shallower arc than `arc-quarter`, 0.047 from it — near enough that the fingerprint cannot separate them",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": false
+  },
+  {
+    "d": "M10.5 0L1.5 0C0.75 0 0 0.75 0 1.5C0 2.25 0.75 3 1.5 3L10.5 3C11.25 3 12 2.25 12 1.5C12 0.75 11.25 0 10.5 0Z",
+    "dx": 3.5,
+    "dy": 9.875,
+    "name": "capsule-wide",
+    "note": "4:1 stadium; the pause bar",
+    "scale": 1.4166666666666667,
+    "strokeWidth": 1.4117647058823528,
+    "sure": true
+  },
+  {
+    "d": "M4 3L4 2C4 1 3 0 2 0C1 0 0 1 0 2L0 3",
+    "dx": 4,
+    "dy": 6,
+    "name": "arch-small",
+    "note": "4:3 arch; the padlock shackle. Family member",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": false
+  },
+  {
+    "d": "M6 5L6 3C6 1.25 4.75 0 3 0C1.25 0 0 1.25 0 3L0 5",
+    "dx": 3.5,
+    "dy": 4.916666666666666,
+    "name": "arch",
+    "note": "6:5 arch; shopping-bag handles. Family member",
+    "scale": 2.8333333333333335,
+    "strokeWidth": 0.7058823529411764,
+    "sure": false
+  },
+  {
+    "d": "M0 2L1.5 3.5L5 0",
+    "dx": 3.5,
+    "dy": 6.05,
+    "name": "check-small",
+    "note": "sharper, smaller check mark. Same turn and flip evidence as `check`; probably its small size tier rather than a separate mark",
+    "scale": 3.4,
+    "strokeWidth": 0.5882352941176471,
+    "sure": false
+  },
+  {
+    "d": "M10 10L11.5 10C13 10 14 9 14 7.5L14 2.5C14 1 13 0 11.5 0L2.5 0C1 0 0 1 0 2.5L0 4",
+    "dx": 3.5,
+    "dy": 5.928571428571429,
+    "name": "rect-open",
+    "note": "landscape rounded rect with a corner opened; page-link, slides, picture-in-picture",
+    "scale": 1.2142857142857142,
+    "strokeWidth": 1.647058823529412,
+    "sure": false
+  },
+  {
+    "d": "M9 0C4.25 0 0.5 3.5 0 8C0 8.5 0.5 9 1 9L17 9C17.5 9 18 8.5 18 8C17.5 3.5 13.5 0 9 0Z",
+    "dx": 3.5,
+    "dy": 7.75,
+    "name": "dome",
+    "note": "closed half circle on a flat base; people shoulders, emoji mouths",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M16 4.75L16 11.25C16 13 16 13.75 15.75 14.25C15.5 15 15 15.5 14.25 15.75C13.75 16 13 16 11.25 16L4.75 16C3 16 2.25 16 1.75 15.75C1 15.5 0.5 15 0.25 14.25C0 13.75 0 13 0 11.25L0 4.75C0 3 0 2.25 0.25 1.75C0.5 1 1 0.5 1.75 0.25C2.25 0 3 0 4.75 0L11.25 0C13 0 13.75 0 14.25 0.25C15 0.5 15.5 1 15.75 1.75C16 2.25 16 3 16 4.75Z",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "squircle",
+    "note": "continuous-curvature square, 16 nodes. 0.042 from `square`: the fingerprint cannot see the corner treatment that separates them, so both names are kept deliberately",
+    "scale": 1.0625,
+    "strokeWidth": 1.8823529411764706,
+    "sure": true
+  },
+  {
+    "d": "M14 0L14 5.25C14 7 12.75 8.25 11 8.25L3 8.25C1.25 8.25 0 7 0 5.25L0 0",
+    "dx": 3.5,
+    "dy": 6.991071428571429,
+    "name": "open-rect-deep",
+    "note": "1.7:1 open rect; gift, notebook, window. Family member",
+    "scale": 1.2142857142857142,
+    "strokeWidth": 1.647058823529412,
+    "sure": false
+  },
+  {
+    "d": "M0 4.75L0 2.75C0 1.5 0.75 0.5 2 0",
+    "dx": 8.421052631578947,
+    "dy": 3.5,
+    "name": "elbow-tall",
+    "note": "a straight arm turning through a quarter circle at 1:2.4; clock hands, hourglass. Was `hook`, which named an object where the mark is a proportion of `elbow` — and only by eye, because the aspect gate refuses to measure the two against each other",
+    "scale": 3.5789473684210527,
+    "strokeWidth": 0.5588235294117647,
+    "sure": false
+  },
+  {
+    "d": "M0 0.75C0 0.25 0.25 0 0.75 0C1.25 0 1.5 0.25 1.5 0.75L1.5 1.25C1.5 1.75 1.25 2 0.75 2C0.25 2 0 1.75 0 1.25L0 0.75Z",
+    "dx": 9,
+    "dy": 8,
+    "name": "capsule-small",
+    "note": "the smallest stadium tier; probably `capsule` rather than its own mark",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": false
+  },
+  {
+    "d": "M15 14L7 14C3.25 14 0 10.75 0 7C0 3.25 3.25 0 7 0C9.5 0 11.75 1.5 13 3.5C13.25 4 13.75 4 14.25 4C14.5 4 14.75 4 15 4C17.75 4 20 6.25 20 9C20 11.75 17.75 14 15 14Z",
+    "dx": 3.5,
+    "dy": 6.05,
+    "name": "cloud",
+    "note": "cloud outline",
+    "scale": 0.85,
+    "strokeWidth": 2.3529411764705883,
+    "sure": true
+  },
+  {
+    "d": "M0 6.5L0 5.75C0 4.75 0.25 4 1 3.5L4 0.5C4.5 -0.25 5.5 -0.25 6 0.5C6.5 1 6.5 1.75 6 2.5L3 5.5C2.25 6 1.5 6.5 0.75 6.5L0 6.5Z",
+    "dx": 3.742857142857142,
+    "dy": 3.6619047619047618,
+    "name": "pencil",
+    "note": "slanted lozenge with one squared end; all 11 icons that draw it are pencil- or -edit, and all 11 draw it at one turn and unmirrored, so the mark has a fixed handedness the way `check` does",
+    "scale": 2.5904761904761906,
+    "strokeWidth": 0.7720588235294117,
+    "sure": true
+  },
+  {
+    "d": "M0 9L0 3C0 1.25 1.25 0 3 0L11 0C12.75 0 14 1.25 14 3L14 15C14 16.75 12.75 18 11 18L7 18",
+    "dx": 5.388888888888889,
+    "dy": 3.5,
+    "name": "page-open",
+    "note": "the page body with a gap where a badge sits; all 10 of its icons are page-, and all draw it at one turn. An open-rect family member, and 0.064 from the 8-icon cluster that draws the same thing — the word goes to the more used of the two rather than to both",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": false
+  },
+  {
+    "d": "M6 8L2.75 8C1 8 -0.5 6.5 0 5C1 2.25 3.25 0 7 0",
+    "dx": 4.6660763010750355,
+    "dy": 3.5,
+    "name": "shoulders",
+    "note": "the arc under a head in a person glyph; all 8 of its icons are user- or people-, and all 8 draw it at one turn and unmirrored. `dome` is the closed half-circle that serves the same role in other icons",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M0 4L0 6.25L2.25 6.25L5.75 2.75C6.5 2.25 6.5 1.25 5.75 0.5C5.25 -0.25 4.25 -0.25 3.5 0.5L0 4Z",
+    "dx": 3.5,
+    "dy": 3.6683168316831685,
+    "name": "pencil-tip",
+    "note": "`pencil` with the far end cut to a nib rather than rounded; 8 of its 10 icons are also edit marks. Flagged because the tip is the only thing separating it from `pencil`, and a model choosing between the two by name will not see that",
+    "scale": 2.6930693069306932,
+    "strokeWidth": 0.7426470588235293,
+    "sure": false
+  },
+  {
+    "d": "M3 0C1.25 1.75 0 4 0 6.75C0 9.25 1.25 11.75 3 13.5",
+    "dx": 10.11111111111111,
+    "dy": 3.5,
+    "name": "arc-long",
+    "note": "a shallow arc over 4.5 times its own width; the cheek of a face, the closed eye. Same family as `arc-quarter` and `arc-shallow`, kept apart only by the aspect bucket",
+    "scale": 1.2592592592592593,
+    "strokeWidth": 1.588235294117647,
+    "sure": false
+  },
+  {
+    "d": "M0.5 6.5C1.25 2.75 4.25 0 8 0C11.75 0 15 2.75 15.5 6.5L16 10.5C16.25 12.5 15 14 13 14L3 14C1.25 14 -0.25 12.5 0 10.5L0.5 6.5Z",
+    "dx": 3.5289621618979026,
+    "dy": 4.589851462180236,
+    "name": "bell",
+    "note": "dome flaring to a wider flat base. Named from the mark rather than the icons: only 3 of its 9 are bell-, and it also serves as a cap, a trophy cup and an emoji mouth",
+    "scale": 1.0585926482599664,
+    "strokeWidth": 1.889300859294127,
+    "sure": false
+  },
+  {
+    "d": "M0 6.25C0 4.25 0 3.25 0.5 2.25C0.75 1.5 1.5 1 2 0.5C3 0.25 4 0 5.75 0C8 0 10 0 12.25 0C14 0 15 0.25 16 0.5C16.5 1 17.25 1.5 17.5 2.25C18 3.25 18 4.25 18 6.25L18 7.75C18 9.75 18 10.75 17.5 11.75C17.25 12.5 16.5 13 16 13.5C15 13.75 14 14 12.25 14C10 14 8 14 5.75 14C4 14 3 13.75 2 13.5C1.5 13 0.75 12.5 0.5 11.75C0 10.75 0 9.75 0 7.75L0 6.25Z",
+    "dx": 3.5,
+    "dy": 5.388888888888889,
+    "name": "squircle-wide",
+    "note": "the 16-node continuous-curvature treatment of `squircle` at 9:7; card, archive, sd-card. Flagged as the landscape tier of `squircle` rather than a mark of its own",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": false
+  },
+  {
+    "d": "M5 15C2.25 15 0 12.75 0 10L0 5C0 2.25 2.25 0 5 0C7.75 0 10 2.25 10 5L10 10C10 12.75 7.75 15 5 15Z",
+    "dx": 6.333333333333334,
+    "dy": 3.5,
+    "name": "mouse",
+    "note": "geometrically a 2:3 stadium — `capsule` at another proportion — and named from its icons instead: mouse, mouse-classic, mouse-scroll-. Flagged because the shape does not carry the word; 5 of its 9 icons are something else",
+    "scale": 1.1333333333333333,
+    "strokeWidth": 1.7647058823529411,
+    "sure": false
+  },
+  {
+    "d": "M0.25 4.5C0.75 5.25 1.75 6 3 6C4.75 6 6 4.75 6 3C6 1.25 4.75 0 3 0C1.25 0 0 1.25 0 3C0 3.5 0 4 0.25 4.5Z",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "circle-cut",
+    "note": "circle with one chord flattened, which is what a circle looks like where something joins or knocks out of it — the magnifier lens meeting its handle, a share node meeting its arm. Named for the geometry because the icons do not agree on one object",
+    "scale": 2.8333333333333335,
+    "strokeWidth": 0.7058823529411764,
+    "sure": false
+  },
+  {
+    "d": "M2.25 0.25C2.5 0 2.5 0 2.75 0L3.5 1.25C3.5 1.25 3.5 1.25 3.75 1.25L5 1.5C5.25 1.5 5.25 1.75 5.25 2L4.5 3C4.25 3.25 4.25 3.25 4.25 3.25L4.5 4.75C4.5 4.75 4.5 5 4.25 5L3 4.5C2.75 4.5 2.75 4.5 2.75 4.5L1.5 5C1.25 5.25 1 5 1 5L1.25 3.5C1.25 3.5 1 3.25 1 3.25L0 2.25C0 2.25 0 2 0.25 2L1.5 1.5C1.5 1.5 1.75 1.5 1.75 1.5L2.25 0.25Z",
+    "dx": 3.5,
+    "dy": 3.7248677248677247,
+    "name": "star",
+    "note": "five-point star; the review and favourite mark. Distinct from `sparkle`, which has four points and concave sides",
+    "scale": 3.238095238095238,
+    "strokeWidth": 0.6176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M0 4.5L3.25 7.75C5 9.5 8 9.5 9.75 7.75C11.5 6 11.5 3 9.75 1.25C8 -0.5 5 -0.5 3.25 1.25L0 4.5Z",
+    "dx": 3.5,
+    "dy": 5.084745762711864,
+    "name": "drop",
+    "note": "circle drawn to a point on one side; drop, map-pin, fire, footprint",
+    "scale": 1.536723163841808,
+    "strokeWidth": 1.3014705882352942,
+    "sure": true
+  },
+  {
+    "d": "M6 13L3 13C1.25 13 -0.25 11.25 0 9.5L1 2.5C1.25 1 2.5 0 4 0L10 0C11.5 0 12.75 1 13 2.5L13 4",
+    "dx": 3.5357021721232216,
+    "dy": 3.5178510860616115,
+    "name": "bag",
+    "note": "open rect with tapered sides; all 8 of its icons are shopping-bag or package, and all 8 draw it at one turn",
+    "scale": 1.3049459867597522,
+    "strokeWidth": 1.532630484550631,
+    "sure": true
+  },
+  {
+    "d": "M5.25 9L0.75 6.75C-0.25 6.25 -0.25 4.5 1 4L12.75 0C14 -0.25 15 0.75 14.75 2L10.75 13.75C10.25 15 8.5 15 8 14L5.75 9.5C5.75 9.25 5.5 9 5.25 9Z",
+    "dx": 3.467012863884754,
+    "dy": 3.544418254396431,
+    "name": "pointer",
+    "note": "the cursor arrow; also the send paper-plane, which is the same mark turned",
+    "scale": 1.1517673818114451,
+    "strokeWidth": 1.7364617470365369,
+    "sure": true
+  },
+  {
+    "d": "M2 3.75L3.25 3.75C3.75 3.75 4.25 3.75 4.5 3.5L8.25 0.25C9 -0.25 10 0.25 10 1L10 14.75C10 15.5 9 16 8.25 15.5L4.5 12.25C4.25 12 3.75 11.75 3.25 11.75L2 11.75C1 11.75 0 11 0 9.75L0 5.75C0 4.75 1 3.75 2 3.75Z",
+    "dx": 6.569568241257649,
+    "dy": 3.4470699799807973,
+    "name": "speaker",
+    "note": "speaker cone and box in one outline; all 8 of its icons are volume- or sound",
+    "scale": 1.0860863517484702,
+    "strokeWidth": 1.8414742039435787,
+    "sure": true
+  },
+  {
+    "d": "M3 0L7.25 0C7.75 0 8.25 0.25 8.5 0.5L13.5 5.5C13.75 5.75 14 6.25 14 6.75L14 15C14 16.75 12.75 18 11 18L3 18C1.25 18 0 16.75 0 15L0 3C0 1.25 1.25 0 3 0Z",
+    "dx": 5.388888888888889,
+    "dy": 3.5,
+    "name": "page",
+    "note": "portrait rect with one corner cut back; the document body",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M12 0L2 0C0.5 0 -0.5 1.5 0.25 3L5.25 13C6 14.25 8 14.25 8.75 13L13.75 3C14.5 1.5 13.5 0 12 0Z",
+    "dx": 3.506124434345547,
+    "dy": 3.5440435216922204,
+    "name": "triangle-large",
+    "note": "`triangle` at 14 units and equilateral rather than 3.7 and isosceles; arrow-triangle-, exclamation-triangle. Flagged as a size and proportion tier of `triangle`",
+    "scale": 1.213410795093493,
+    "strokeWidth": 1.6482464208223075,
+    "sure": false
+  }
+]
