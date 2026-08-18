@@ -45,8 +45,30 @@ export {
   verdict,
 } from "./tools/cohort.js";
 export { run as runDsl } from "./tools/dsl.js";
+export {
+  CONFORMANCE,
+  clusterExtents,
+  conformance,
+  KEYLINES,
+  measureKeyline,
+  nearestKeyline,
+  // `measure.ts` already owns the name. This one grows each piece by its *own*
+  // stroke rather than the set's widest, which is the only correct reading for
+  // an icon that mixes filled and stroked shapes — 303 of the corpus do.
+  visualExtent as pieceVisualExtent,
+} from "./tools/keyline.js";
+export {
+  band,
+  bandSensitivity,
+  CUT_24_TO_16,
+  DEFAULT_THRESHOLDS,
+  inkBox,
+  measureLegibility,
+  parsePieces,
+} from "./tools/legibility.js";
 export { format as formatIssues, lint } from "./tools/lint.js";
 export { cosine, inkVector, png, sheet, similarity } from "./tools/render.js";
+export { isSlashName, slashRule } from "./tools/slash.js";
 export type {
   CensusReport,
   ElementInstance,
@@ -79,6 +101,21 @@ export type {
   CohortMember,
   CohortView,
 } from "./tools/cohort.js";
+export type {
+  Conformance,
+  KeylineMetrics,
+  KeylineOptions,
+} from "./tools/keyline.js";
+export type {
+  Band,
+  CutSpec,
+  LegibilityMetrics,
+  MeasureOptions,
+  Piece,
+  Thresholds,
+  Verdict,
+} from "./tools/legibility.js";
+export type { SlashOptions, SlashTarget } from "./tools/slash.js";
 export type {
   Box,
   DotRole,
