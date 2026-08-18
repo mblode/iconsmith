@@ -52,6 +52,6 @@ This is what prevents style drift. A model emitting free path data writes drift 
 ## Agent invariants
 
 - Prefer `--output json`; the default `text` is for humans.
-- Never prompt when stdin is not a TTY. Pass `--no-input` and provide every value as a flag.
+- The CLI never prompts, under any conditions. Provide every value as a flag.
 - Mutating commands support `--dry-run`. Exit 0 on success, non-zero on failure.
 - Core logic lives in `src/index.ts` and can back an MCP server; keep CLI-only concerns in `src/cli.ts`.
