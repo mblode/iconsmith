@@ -6,6 +6,18 @@
  * closed rings), and each cluster becomes one part with a canonical drawing —
  * the member closest to the cluster centre.
  *
+ * ONE SET, TWO DRAWING STYLES. An "outline" directory is rarely all outline.
+ * blode-icons ships 2,221 outline files of which 358 carry no stroke at all:
+ * some are brand glyphs drawn as filled shapes (Apple, Anthropic, Behance) and
+ * the rest are strokes already expanded into filled contours by the exporter.
+ * An expanded stroke contributes its *outline* as candidates — cap discs, join
+ * wedges, and the plain rectangle that is the body of a straight run — and 18
+ * of the 50 most-used parts over the whole directory were that residue. Those
+ * are not vocabulary; they exist because of how 16% of the files were exported.
+ * So the extractor separates the styles rather than making every caller
+ * pre-filter by hand. See `styleOf` for the rule and `ExtractOptions.styles`
+ * for the default.
+ *
  * This module is a library. `extractParts` reads a directory and returns the
  * vocabulary plus summary stats; `writeParts` is the only function here that
  * writes anything, and nothing prints. The CLI wires the two together.
@@ -14,6 +26,8 @@
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
+import type { CorpusShape } from "../corpus/load.js";
+import { parseIconSvg } from "../corpus/load.js";
 import { bbox, parsePath, serialise, translate } from "../geometry/path.js";
 import type { Fingerprint, Part, Subpath } from "../types.js";
 import { distance, fingerprint, foldedAspect, match } from "./shape.js";
@@ -41,14 +55,37 @@ const DECIMALS = 2;
 const ID_WIDTH = 4;
 const JSON_INDENT = 2;
 
+/** How an icon is drawn: in strokes, or as filled contours (an expanded stroke
+ *  or a filled brand glyph). */
+export type IconStyle = "expanded" | "stroked";
+
+/** Which style the vocabulary is taken from. `auto` prefers stroked icons and
+ *  falls back to expanded ones when the set has no stroked icon at all. */
+export type StyleSelection = "all" | "auto" | IconStyle;
+
 export interface ExtractOptions {
   /** Skip clusters used by fewer than this many distinct icons. */
   minUses?: number;
   /** Decide which filenames in the directory are icons. Defaults to `*.svg`
    *  excluding `*-filled.svg`, the filled twin of an outline icon. */
   select?: (file: string) => boolean;
+  /**
+   * Which drawing style contributes candidates. Defaults to `auto`, which takes
+   * stroked icons when the set has any and every icon when it has none — so a
+   * set that is *entirely* outline-expanded still yields a vocabulary rather
+   * than an empty list, while a mixed set is not polluted by stroke residue.
+   */
+  styles?: StyleSelection;
   /** Mean normalised point distance below which two subpaths cluster together. */
   threshold?: number;
+}
+
+/** How many of the directory's icons are drawn each way, and which of them the
+ *  vocabulary was actually taken from. */
+export interface StyleSplit {
+  expanded: number;
+  stroked: number;
+  used: StyleSelection;
 }
 
 export interface ExtractSummary {
@@ -56,10 +93,15 @@ export interface ExtractSummary {
   candidates: number;
   /** Percentage of icons touched by the top N parts, keyed by N. */
   coverage: Record<number, number>;
+  /** Icons the vocabulary was extracted from — `styles.stroked` of the
+   *  `scanned` files, under the default. */
   icons: number;
   parts: number;
+  /** Files matching `select`, before the style split. */
+  scanned: number;
   /** Parts appearing in more than one icon — the vocabulary actually shared. */
   shared: number;
+  styles: StyleSplit;
 }
 
 export interface ExtractResult {
@@ -83,18 +125,31 @@ interface Member {
   turn: number;
 }
 
-const D_ATTR = /\sd="(?<d>[^"]+)"/gu;
-
 const isOutlineIcon = (file: string): boolean =>
   file.endsWith(".svg") && !file.endsWith("-filled.svg");
 
 const round = (n: number): number => Number(n.toFixed(DECIMALS));
 
-/** Every subpath of one SVG's path data, as clustering candidates. */
-const candidatesFrom = (svg: string, slug: string): Candidate[] => {
+/**
+ * The drawing style of one icon, from the stroke on each of its paths.
+ *
+ * The evidence is per path — `parseIconSvg` reports stroke width 0 for a filled
+ * shape — but the verdict is per icon, and that asymmetry is the point. A
+ * per-path filter would also delete the filled shapes that live inside stroked
+ * drawings: 252 of blode-icons' 2,221 outline files mix a filled dot, sparkle
+ * or solid arrowhead into an otherwise stroked icon, and those are real marks
+ * that belong in the vocabulary. What makes a filled contour residue is not
+ * that it is filled, it is that the icon around it has no stroke anywhere —
+ * which is only visible one level up, at the icon.
+ */
+const styleOf = (shapes: CorpusShape[]): IconStyle =>
+  shapes.some((s) => s.strokeWidth > 0) ? "stroked" : "expanded";
+
+/** Every subpath of one icon's shapes, as clustering candidates. */
+const candidatesFrom = (shapes: CorpusShape[], slug: string): Candidate[] => {
   const out: Candidate[] = [];
-  for (const m of svg.matchAll(D_ATTR)) {
-    for (const sp of parsePath(m[1])) {
+  for (const shape of shapes) {
+    for (const sp of parsePath(shape.d)) {
       if (sp.segs.length === 0) {
         continue;
       }
@@ -237,14 +292,33 @@ export const extractParts = (
   const {
     minUses = 1,
     select = isOutlineIcon,
+    styles = "auto",
     threshold = DEFAULT_THRESHOLD,
   } = options;
 
   const files = readdirSync(dir).filter((file) => select(file));
-  const candidates: Candidate[] = [];
+  const drawn: { shapes: CorpusShape[]; slug: string; style: IconStyle }[] = [];
+  const counts: Record<IconStyle, number> = { expanded: 0, stroked: 0 };
   for (const file of files) {
-    const svg = readFileSync(path.join(dir, file), "utf-8");
-    candidates.push(...candidatesFrom(svg, path.basename(file, ".svg")));
+    const shapes = parseIconSvg(readFileSync(path.join(dir, file), "utf-8"));
+    const style = styleOf(shapes);
+    counts[style] += 1;
+    drawn.push({ shapes, slug: path.basename(file, ".svg"), style });
+  }
+
+  // `auto` only excludes expanded icons when there is something left to extract
+  // from. A set drawn entirely as expanded outlines is not a mixed set with
+  // residue in it; it is that set's own vocabulary, and returning nothing would
+  // be a worse answer than returning it.
+  let used: StyleSelection = styles;
+  if (styles === "auto") {
+    used = counts.stroked > 0 ? "stroked" : "all";
+  }
+  const included = drawn.filter((d) => used === "all" || d.style === used);
+
+  const candidates: Candidate[] = [];
+  for (const { shapes, slug } of included) {
+    candidates.push(...candidatesFrom(shapes, slug));
   }
 
   const parts: Part[] = [];
@@ -263,7 +337,7 @@ export const extractParts = (
 
   const cov: Record<number, number> = {};
   for (const n of COVERAGE_POINTS) {
-    cov[n] = coverage(ranked, n, files.length);
+    cov[n] = coverage(ranked, n, included.length);
   }
 
   return {
@@ -271,9 +345,11 @@ export const extractParts = (
     summary: {
       candidates: candidates.length,
       coverage: cov,
-      icons: files.length,
+      icons: included.length,
       parts: ranked.length,
+      scanned: files.length,
       shared: ranked.filter((p) => p.icons.length > 1).length,
+      styles: { ...counts, used },
     },
     threshold,
   };

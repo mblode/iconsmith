@@ -70,3 +70,91 @@ describe("recorded orientations", () => {
     expect(stroke?.turns).toStrictEqual([1, 0, 0, 0]);
   });
 });
+
+/**
+ * The style split. The residue an outline-expanded icon contributes is not
+ * subtly wrong-looking — it is a 16x2 rectangle, the outline of a straight
+ * stroke — so the fixtures below make it exactly that, and a test can ask
+ * whether that rectangle became a part.
+ */
+const STROKED = 'stroke="currentColor" stroke-width="2"';
+/** A chevron, drawn in stroke. Real vocabulary. */
+const MARK = `<path d="${CHEVRON}" ${STROKED}/>`;
+/** The body of a horizontal stroke, expanded: no stroke, just its contour. */
+const BODY = '<path d="M4 11H20V13H4Z" fill="currentColor"/>';
+/** A filled diamond of the kind that sits inside an otherwise stroked drawing
+ *  — a dot, a sparkle, a solid arrowhead. Real vocabulary, and filled. */
+const INLAY = '<path d="M12 8L16 12L12 16L8 12Z" fill="currentColor"/>';
+
+const styleDir = mkdtempSync(path.join(tmpdir(), "icon-forge-styles-"));
+const expandedDir = mkdtempSync(path.join(tmpdir(), "icon-forge-expanded-"));
+
+const write = (into: string, name: string, body: string) => {
+  writeFileSync(
+    path.join(into, `${name}.svg`),
+    `<svg viewBox="0 0 24 24" fill="none">${body}</svg>`
+  );
+};
+
+write(styleDir, "stroked-a", MARK);
+write(styleDir, "stroked-b", MARK);
+write(styleDir, "mixed", `${MARK}${INLAY}`);
+write(styleDir, "expanded-a", BODY);
+write(styleDir, "expanded-b", BODY);
+write(expandedDir, "expanded-a", BODY);
+write(expandedDir, "expanded-b", BODY);
+
+afterAll(() => {
+  rmSync(styleDir, { force: true, recursive: true });
+  rmSync(expandedDir, { force: true, recursive: true });
+});
+
+/** Is this part the 16x2 rectangle only an expanded stroke draws? */
+const isResidue = (p: { h: number; w: number }) => p.w === 16 && p.h === 2;
+
+describe("drawing styles", () => {
+  it("counts each style and reports which one it used", () => {
+    const { summary } = extractParts(styleDir);
+    expect(summary.styles).toStrictEqual({
+      expanded: 2,
+      stroked: 3,
+      used: "stroked",
+    });
+    expect(summary.scanned).toBe(5);
+    expect(summary.icons).toBe(3);
+  });
+
+  it("keeps stroke residue out of the vocabulary by default", () => {
+    const { parts } = extractParts(styleDir);
+    expect(parts.some(isResidue)).toBe(false);
+  });
+
+  it("keeps the filled shapes inside a stroked icon", () => {
+    // The verdict is per icon, not per path: `mixed` carries a filled diamond
+    // and it has to survive, or the rule throws away every dot and sparkle in
+    // the set along with the residue.
+    const { parts } = extractParts(styleDir);
+    const inlay = parts.find((p) => p.icons.includes("mixed") && p.closed);
+    expect(inlay?.icons).toStrictEqual(["mixed"]);
+  });
+
+  it("lets a caller ask for the residue anyway", () => {
+    const { parts, summary } = extractParts(styleDir, { styles: "all" });
+    expect(summary.icons).toBe(5);
+    expect(parts.some(isResidue)).toBe(true);
+  });
+
+  it("extracts from a wholly expanded set rather than returning nothing", () => {
+    const { parts, summary } = extractParts(expandedDir);
+    // Nothing here is residue relative to anything else — this is the set's own
+    // vocabulary, and an empty list would be the worse answer.
+    expect(summary.styles.used).toBe("all");
+    expect(parts.some(isResidue)).toBe(true);
+  });
+
+  it("takes only expanded icons when asked for them", () => {
+    const { parts, summary } = extractParts(styleDir, { styles: "expanded" });
+    expect(summary.icons).toBe(2);
+    expect(parts.every(isResidue)).toBe(true);
+  });
+});

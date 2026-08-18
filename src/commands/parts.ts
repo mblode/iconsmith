@@ -1,7 +1,9 @@
 import { writeFileSync } from "node:fs";
 
 import type { Command } from "commander";
+import { Option } from "commander";
 
+import type { StyleSelection } from "../parts/extract.js";
 import { extractParts, writeParts } from "../parts/extract.js";
 
 const pct = (n: number) => `${Math.round(n)}%`;
@@ -19,14 +21,26 @@ export const registerPartsCommand = (program: Command): void => {
       "drop parts used by fewer icons",
       Number.parseFloat
     )
+    .addOption(
+      new Option(
+        "--styles <which>",
+        "which drawing style to extract from"
+      ).choices(["auto", "stroked", "expanded", "all"])
+    )
     .action(
       (
         dir: string,
-        opts: { minUses?: number; out?: string; threshold?: number }
+        opts: {
+          minUses?: number;
+          out?: string;
+          styles?: StyleSelection;
+          threshold?: number;
+        }
       ) => {
         const json = program.opts().output === "json";
         const result = extractParts(dir, {
           minUses: opts.minUses,
+          styles: opts.styles,
           threshold: opts.threshold,
         });
         const { summary } = result;
@@ -43,9 +57,16 @@ export const registerPartsCommand = (program: Command): void => {
           return;
         }
 
+        const { styles } = summary;
+        // The split is printed whether or not it excluded anything: a set that
+        // is all one style is a fact worth seeing, and a set that is not is a
+        // fact the reader must see to trust the parts list.
         process.stdout.write(
           [
-            `icons scanned       ${summary.icons}`,
+            `icons scanned       ${summary.scanned}`,
+            `  stroked           ${styles.stroked}`,
+            `  outline-expanded  ${styles.expanded}`,
+            `extracted from      ${summary.icons} (${styles.used})`,
             `subpath candidates  ${summary.candidates}`,
             `parts               ${summary.parts}`,
             `used by >1 icon     ${summary.shared} (${pct((100 * summary.shared) / summary.parts)})`,
