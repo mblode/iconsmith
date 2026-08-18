@@ -1,0 +1,157 @@
+/**
+ * The loop.
+ *
+ * A concept goes in; a drawn, linted `IconDoc` comes out. The model works by
+ * calling primitives and looking at renders of what it has made, which is the
+ * only part of this that resembles how the icons were drawn by hand. Nothing it
+ * emits reaches the document without passing through `Canvas`, so a bad turn
+ * costs a step, never a spec violation.
+ */
+import { readFileSync } from "node:fs";
+
+import { anthropic, createAnthropic } from "@ai-sdk/anthropic";
+import { generateText, stepCountIs } from "ai";
+import type { LanguageModel, StopCondition, ToolSet } from "ai";
+
+import { lint } from "../tools/lint.js";
+import type { IconDoc, Issue, Keyline, Part } from "../types.js";
+import { conceptPrompt, systemPrompt } from "./prompt.js";
+import type { Concept } from "./prompt.js";
+import { createTools } from "./tools.js";
+import type { Neighbour, ToolState } from "./tools.js";
+
+export type { Concept } from "./prompt.js";
+export type { Neighbour } from "./tools.js";
+
+export const DEFAULT_MODEL = "claude-opus-5";
+/** Enough turns for a search, a dozen primitives, three looks and a fix. Past
+ *  this the model is polishing, and polishing is where it drifts. */
+export const DEFAULT_MAX_STEPS = 24;
+
+/** Thrown, and only thrown, when the caller has given us no way to reach a
+ *  model. The CLI prints `.message` and exits non-zero; there is nothing in a
+ *  stack trace here that helps anyone. */
+export class MissingApiKeyError extends Error {
+  constructor() {
+    super(
+      "ANTHROPIC_API_KEY is not set. Export it, or pass a model instance to generate()."
+    );
+    this.name = "MissingApiKeyError";
+  }
+}
+
+export interface GenerateOptions {
+  apiKey?: string;
+  /** Existing icons the model can hold the draft up against. */
+  corpus?: Neighbour[];
+  keyline?: Keyline | null;
+  maxSteps?: number;
+  /**
+   * A model instance, or a model id. Anything that is not an object is treated
+   * as an Anthropic model id and needs a key; passing an instance is how tests
+   * run this loop with no network.
+   */
+  model?: LanguageModel;
+  parts?: Part[];
+  renderSize?: number;
+}
+
+export interface GenerateResult {
+  /** No lint errors. Warnings do not block. */
+  clean: boolean;
+  doc: IconDoc;
+  issues: Issue[];
+  /** The model's closing sentence about what it drew. */
+  text: string;
+  /** Tool calls made, in order — the trace of how the icon was arrived at. */
+  trace: string[];
+  steps: number;
+  svg: string;
+}
+
+/**
+ * Resolve a model, failing early and legibly when the key is missing.
+ *
+ * A model *instance* is used as given: that is the seam tests reach through,
+ * and it is deliberately the only one, so there is no second code path that
+ * behaves differently from the real thing.
+ */
+export const resolveModel = (
+  model?: LanguageModel,
+  apiKey?: string
+): LanguageModel => {
+  if (model && typeof model !== "string") {
+    return model;
+  }
+  const id = model ?? DEFAULT_MODEL;
+  const key = apiKey ?? process.env.ANTHROPIC_API_KEY;
+  if (!key) {
+    throw new MissingApiKeyError();
+  }
+  return apiKey ? createAnthropic({ apiKey })(id) : anthropic(id);
+};
+
+/** Read a `parts.json` written by `writeParts`. */
+export const loadParts = (file: string): Part[] => {
+  const data = JSON.parse(readFileSync(file, "utf-8")) as { parts?: Part[] };
+  return data.parts ?? [];
+};
+
+/**
+ * Stop as soon as the model has both looked at a render and seen a clean lint.
+ *
+ * The render half is not redundant. Lint checks the spec, not the drawing: a
+ * centred rectangle of the right size lints perfectly and is not an icon of
+ * anything. Requiring that the model has seen its own work at least once is the
+ * cheapest available proxy for "it checked".
+ */
+const drawnAndClean =
+  <T extends ToolSet>(state: ToolState): StopCondition<T> =>
+  () =>
+    state.rendered &&
+    state.issues !== null &&
+    state.issues.every((i) => i.severity !== "error");
+
+export const generate = async (
+  concept: Concept,
+  options: GenerateOptions = {}
+): Promise<GenerateResult> => {
+  const {
+    apiKey,
+    corpus = [],
+    keyline = null,
+    maxSteps = DEFAULT_MAX_STEPS,
+    model,
+    parts = [],
+    renderSize,
+  } = options;
+
+  const resolved = resolveModel(model, apiKey);
+  const { canvas, state, tools } = createTools({
+    corpus,
+    keyline,
+    parts,
+    renderSize,
+  });
+
+  const result = await generateText({
+    model: resolved,
+    prompt: conceptPrompt(concept),
+    stopWhen: [stepCountIs(maxSteps), drawnAndClean(state)],
+    system: systemPrompt({ keyline }),
+    tools,
+  });
+
+  // Linted here rather than trusting the model's last `lint` call: it may have
+  // drawn after checking, and this is the number that gets reported.
+  const issues = lint(canvas, { keyline });
+  return {
+    clean: issues.every((i) => i.severity !== "error"),
+    doc: canvas.toJSON({ icon: concept.name, keyline }),
+    issues,
+    steps: result.steps.length,
+    svg: canvas.toSVG(),
+    text: result.text,
+    trace: state.calls,
+  };
+};

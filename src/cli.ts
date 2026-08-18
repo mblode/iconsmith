@@ -3,6 +3,7 @@ import { styleText } from "node:util";
 import { Command } from "commander";
 
 import { registerDrawCommand } from "./commands/draw.js";
+import { registerEvalCommand } from "./commands/eval.js";
 import { registerLintCommand } from "./commands/lint.js";
 import { registerPartsCommand } from "./commands/parts.js";
 
@@ -24,6 +25,7 @@ program
 registerPartsCommand(program);
 registerDrawCommand(program);
 registerLintCommand(program);
+registerEvalCommand(program);
 
 try {
   await program.parseAsync();

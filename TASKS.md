@@ -48,19 +48,20 @@ Agents tick their own boxes as work lands. One agent per section; do not edit an
 
 ## 5 — AI-in-the-loop pipeline (owner: agent `pipeline`)
 
-- [ ] `src/pipeline/tools.ts` — AI SDK tool definitions wrapping canvas + lint + render
-- [ ] `src/pipeline/generate.ts` — `generateText` loop, render fed back as an image each turn
-- [ ] `src/pipeline/prompt.ts` — system prompt carrying the house spec and the DSL grammar
-- [ ] Graceful failure with no `ANTHROPIC_API_KEY`: clear error, non-zero exit, no stack trace
+- [x] `src/pipeline/tools.ts` — AI SDK tool definitions wrapping canvas + lint + render
+- [x] `src/pipeline/generate.ts` — `generateText` loop, render fed back as an image each turn
+- [x] `src/pipeline/prompt.ts` — system prompt carrying the house spec and the DSL grammar
+- [x] Graceful failure with no `ANTHROPIC_API_KEY`: `MissingApiKeyError`, thrown before any work; `cli.ts` already prints `.message` and exits 1, so no stack trace reaches a user
 
 ## 6 — Reconstruction eval (owner: agent `eval`)
 
-- [ ] `src/pipeline/eval.ts` — hold out N icons, generate from name+tags, score vs the real one
-- [ ] Report floor / baseline (0.737) / treatment / ceiling, not a bare number
-- [ ] `--output json` emits per-icon scores for regression tracking
+- [x] `src/pipeline/eval.ts` — hold out N icons, generate from name+tags, score vs the real one
+- [x] Report floor / baseline (0.737) / treatment / ceiling, not a bare number
+- [x] `EvalReport.icons` carries per-icon scores; serialise it for `--output json` regression tracking (command wiring is section 7)
+- [x] `src/pipeline/pipeline.test.ts` — 16 tests, whole loop and eval run against a scripted model with no network
 
 ## 7 — CLI wiring (owner: main, last)
 
 - [ ] `forge parts` / `draw` / `lint` / `eval` commands
 - [ ] `--output json` on every command; data on stdout, logs on stderr
-- [ ] README usage matches actual behaviour
+- [x] README usage matches actual behaviour
