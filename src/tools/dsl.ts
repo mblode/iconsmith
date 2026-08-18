@@ -20,7 +20,7 @@
  *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw]
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
- *   line     <x>,<y> <x>,<y> [<x>,<y> ...]
+ *   line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
  *   dot      <cx>,<cy> [terminal|more|floating|node]
  *   center                      -- recentre everything on (12,12)
  *   fit                         -- scale everything to the declared keyline
@@ -67,6 +67,18 @@ const ANCHORS: Record<string, [number, number]> = {
 /** The three turns that are not the identity, clockwise. Names, not degrees:
  *  a number here would be a coordinate by another name. */
 const TURNS: Record<string, number> = { ccw: 3, cw: 1, half: 2 };
+
+/**
+ * Permission for a line to leave 0/45/90, spelled out in the program.
+ *
+ * A word rather than an angle, for the same reason `turn` names its quarters:
+ * the program says *that* the edge is diagonal, and the endpoints — both on the
+ * grid — say by how much. That is the convention the set already draws to. Its
+ * off-axis edges land on rational slopes (atan(1/2), the 3-4-5 triangle,
+ * atan(3)) precisely because they run between two grid points, so naming the
+ * slope as well would be stating twice what the coordinates already fix.
+ */
+const OFF_AXIS = "off-axis";
 
 const OPS = [
   "icon",
@@ -275,7 +287,13 @@ const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
     const [cx, cy] = pair(t[1]);
     canvas.circle({ cx, cy, r: num(t[2], "radius") });
   } else if (op === "line") {
-    canvas.line({ points: t.slice(1).map(pair) });
+    canvas.line({
+      offAxis: t.includes(OFF_AXIS),
+      points: t
+        .slice(1)
+        .filter((v) => v !== OFF_AXIS)
+        .map(pair),
+    });
   } else if (op === "dot") {
     const [cx, cy] = pair(t[1]);
     const role = t[2] ?? "terminal";

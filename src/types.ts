@@ -86,7 +86,16 @@ export type DrawOp =
       x: number;
       y: number;
     }
-  | { op: "line"; points: [number, number][] };
+  | {
+      /** Present when a segment sits off every permitted axis. Off-axis edges
+       *  are legitimate — 29.3% of the set's stroked icons have one, on
+       *  rational slopes between two grid points — but the canvas refuses them
+       *  unless asked, so this is what records that they were. Absent, not
+       *  `false`, when the line is axial: the key appears with the geometry. */
+      offAxis?: boolean;
+      op: "line";
+      points: [number, number][];
+    };
 
 export interface IconDoc {
   draw: DrawOp[];

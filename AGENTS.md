@@ -36,9 +36,13 @@ src/
 
 ## The one invariant
 
-**The model never emits a coordinate.** It calls primitives (`rect`, `circle`, `line`, `dot`, `part`) that quantise to the grid, snap angles to 0/45/90, and take corner radii from the tier system. The model chooses _what_ and _where_; `canvas.ts` chooses _how_.
+**The model never emits a coordinate.** It calls primitives (`rect`, `circle`, `line`, `dot`, `part`) that quantise every node to the grid, take corner radii from the tier system, and place parts at named quarter-turns. The model chooses _what_ and _where_; `canvas.ts` chooses _how_.
 
 This is what prevents style drift. A model emitting free path data writes drift into a set at the rate it writes icons; a model calling `rect()` cannot. Any change that lets raw geometry through from a model breaks the guarantee the project exists to provide.
+
+**Two escapes exist, and both are asked for by name.** `canvas.raw(d)` takes path data verbatim, so any icon can enter a document. `canvas.line({ offAxis: true })` — `line ... off-axis` in the DSL — allows a segment off 0/45/90; without it, a segment more than `ANGLE_TOLERANCE` (6°) from every axis is refused rather than passed through. Both land in the `IconDoc` and are visible in review.
+
+The angle escape is not a loophole to close. Off-axis edges are 29.3% of the set's stroked icons, and they are deliberate: they cluster on rational slopes — atan(1/2) = 26.57°, the 3-4-5 triangle's 36.87°/53.13°, atan(3) = 71.57° — because the edge runs between two grid points. `airdrop` is `M4 11L11 16.5`: grid-legal endpoints, 38.16°, 6.84° off 45°. The set's working convention is _endpoints on the grid_; the spec's is _angles at 0/45/90_, and one edge in seven shows they are not the same rule. Forcing every angle onto an axis would refuse to draw a third of the corpus. So the grid and radius guarantees are absolute; the angle guarantee is "on-axis unless the program says otherwise", which is the honest version.
 
 ## Gotchas
 

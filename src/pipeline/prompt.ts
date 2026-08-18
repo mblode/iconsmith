@@ -73,7 +73,11 @@ back rather than trying to force the original numbers through.
   frames.
 - \`circle\` — a circle. Heads, lenses, clock faces, buttons.
 - \`line\` — a polyline through two or more points, angles snapped. Arrows,
-  ticks, strokes, connectors, chart lines.
+  ticks, strokes, connectors, chart lines. Segments within a few degrees of
+  0/45/90 are pulled onto the axis; one further out is refused unless you add
+  \`off-axis\`, which says the diagonal is the shape rather than a slip. Roughly
+  one edge in seven in this set is off-axis, so it is a real choice — but make
+  it on purpose, and keep both endpoints on the grid.
 - \`dot\` — a small solid disc with a role: \`terminal\` ends a stroke,
   \`more\` is one of an ellipsis or a list bullet, \`floating\` is a separate
   interior mark (a dice pip, an eye, a day on a calendar), and \`node\` is a

@@ -70,23 +70,110 @@ test("an off-axis endpoint within tolerance comes out exactly on-axis", () => {
   );
 });
 
-test("a genuinely diagonal endpoint is left alone", () => {
+test("a genuinely diagonal endpoint is refused until it is asked for", () => {
   const c = new Canvas();
-  // 21.8° off horizontal — well outside the 6° tolerance, so it is the model's
-  // intent, not a slip, and snapping it would be the tool overriding the design.
+  // 21.8° off horizontal — well outside the 6° tolerance, so snapping it would
+  // be the tool overriding the design. It used to pass through silently, which
+  // made every drifted arithmetic result indistinguishable from a designed
+  // diagonal. Now it is a decision the caller has to make.
+  const diagonal: [number, number][] = [
+    [0, 0],
+    [10, 4],
+  ];
+  expect(() => c.line({ points: diagonal })).toThrow(/21\.80°/u);
+  c.line({ offAxis: true, points: diagonal });
+  const [el] = c.elements;
+  if (el.kind !== "line") {
+    throw new Error("expected a line element");
+  }
+  expect(el.points).toStrictEqual(diagonal);
+  expect(el.offAxis).toBe(true);
+});
+
+test("the off-axis refusal names the angle, the axis and both ways out", () => {
+  const c = new Canvas();
+  // An error a model has to guess from is an error it retries at random.
+  expect(() =>
+    c.line({
+      points: [
+        [4, 11],
+        [11, 16.5],
+      ],
+    })
+  ).toThrow(/38\.16°, 6\.84° off the nearest axis \(45°\)/u);
+  expect(() =>
+    c.line({
+      points: [
+        [4, 11],
+        [11, 16.5],
+      ],
+    })
+  ).toThrow(/offAxis: true/u);
+});
+
+test("permission is not instruction: an axial line stays unmarked", () => {
+  const c = new Canvas();
+  // `offAxis` waives the refusal; it does not stop the snap. A caller that
+  // passes it and then draws straight lines gets a document that says so.
   c.line({
+    offAxis: true,
     points: [
-      [0, 0],
-      [10, 4],
+      [4, 4],
+      [16, 4.3],
     ],
   });
   const [el] = c.elements;
   if (el.kind !== "line") {
     throw new Error("expected a line element");
   }
+  expect(el.points[1][1]).toBe(el.points[0][1]);
+  expect(el.offAxis).toBeUndefined();
+  expect(c.toJSON().draw[0]).not.toHaveProperty("offAxis");
+});
+
+test("an off-axis line survives toJSON → fromJSON unchanged", () => {
+  const c = new Canvas();
+  c.line({
+    offAxis: true,
+    points: [
+      [4, 11],
+      [11, 16.5],
+    ],
+  });
+  const doc = c.toJSON();
+  expect(doc.draw[0]).toStrictEqual({
+    offAxis: true,
+    op: "line",
+    points: [
+      [4, 11],
+      [11, 16.5],
+    ],
+  });
+  // Without the flag in the document this reload would throw, which is the
+  // point of recording it: the permission travels with the geometry.
+  const back = Canvas.fromJSON(doc);
+  expect(back.toJSON()).toStrictEqual(doc);
+  expect(back.elements[0].d).toBe(c.elements[0].d);
+});
+
+test("transform re-emits an off-axis line without tripping its own guard", () => {
+  const c = new Canvas();
+  c.line({
+    offAxis: true,
+    points: [
+      [4, 11],
+      [11, 16.5],
+    ],
+  });
+  c.transform(0.5, 2, 2);
+  const [el] = c.elements;
+  if (el.kind !== "line") {
+    throw new Error("expected a line element");
+  }
+  expect(el.offAxis).toBe(true);
   expect(el.points).toStrictEqual([
-    [0, 0],
-    [10, 4],
+    [4, 7.5],
+    [7.5, 10.25],
   ]);
 });
 

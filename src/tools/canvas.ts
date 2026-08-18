@@ -147,9 +147,26 @@ export const SPEC = {
 
 /** Circular arc → cubic control handle ratio. */
 const K = 0.5523;
-/** Degrees of slop forgiven before a segment is left off-axis. */
-const ANGLE_TOLERANCE = 6;
-const AXES = [-180, -135, -90, -45, 0, 45, 90, 135, 180];
+
+/**
+ * Degrees of slop forgiven before a segment counts as off-axis.
+ *
+ * Exported because a lint rule that measures the same property after the fact
+ * must measure it at the same threshold — see `angle.ts`. A rule that forbids
+ * what the canvas draws, or permits what it refuses, is worse than no rule.
+ */
+export const ANGLE_TOLERANCE = 6;
+
+/**
+ * The permitted axes, undirected, in [0,180): a line is the same line either
+ * way round. `angle.ts` measures shipped icons against this same list.
+ */
+export const AXES = [0, 45, 90, 135] as const;
+
+/** The same axes as directed headings, for comparing against an `atan2`
+ *  result in [-180,180]. Both ends of 0 and 180 are present so a heading near
+ *  either bound finds its axis without wrapping. */
+const HEADINGS = [...AXES, ...AXES.map((a) => a - 180), 180];
 
 const clamp = (v: number, lo: number, hi: number) =>
   Math.min(hi, Math.max(lo, v));
@@ -188,27 +205,70 @@ const quarterTurn = (t: number): number => {
 const tierRadius = (r: number): number =>
   r === 0 ? 0 : nearest(SPEC.radiusTiers, r);
 
-/** Snap a segment to the nearest permitted axis when it is within tolerance. */
+/**
+ * Snap a segment onto the nearest permitted axis when it is within tolerance.
+ *
+ * Returns the resulting endpoint and how far the *requested* segment sat from
+ * its axis, so the caller can tell a slip that was corrected from an angle that
+ * was meant. The distance is measured here, on the pre-quantisation angle,
+ * rather than recomputed from the emitted points: `line` puts every node on the
+ * 0.25 grid afterwards, and on a short segment that rounding can move the angle
+ * by more than the tolerance it was just judged against. What is being judged
+ * is the caller's intent, not this file's own rounding.
+ */
 const snapAngle = (
   x0: number,
   y0: number,
   x1: number,
   y1: number,
   toleranceDeg = ANGLE_TOLERANCE
-): [number, number] => {
+): { offBy: number; point: [number, number] } => {
   const dx = x1 - x0;
   const dy = y1 - y0;
   const len = Math.hypot(dx, dy);
   if (len === 0) {
-    return [x1, y1];
+    return { offBy: 0, point: [x1, y1] };
   }
   const ang = (Math.atan2(dy, dx) * 180) / Math.PI;
-  const near = nearest(AXES, ang);
-  if (Math.abs(near - ang) > toleranceDeg) {
-    return [x1, y1];
+  const near = nearest(HEADINGS, ang);
+  const offBy = Math.abs(near - ang);
+  if (offBy > toleranceDeg) {
+    return { offBy, point: [x1, y1] };
   }
   const rad = (near * Math.PI) / 180;
-  return [x0 + len * Math.cos(rad), y0 + len * Math.sin(rad)];
+  return {
+    offBy: 0,
+    point: [x0 + len * Math.cos(rad), y0 + len * Math.sin(rad)],
+  };
+};
+
+/** Undirected heading of a segment, in [0,180). */
+const heading = (
+  [x0, y0]: [number, number],
+  [x1, y1]: [number, number]
+): number => {
+  const deg = (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI;
+  return ((deg % 180) + 180) % 180;
+};
+
+/** Why a segment was refused, and both ways out of it. The angle and the axis
+ *  are in the text because "off-axis" alone does not say whether the caller was
+ *  half a degree out or forty. */
+const offAxisMessage = (
+  i: number,
+  from: [number, number],
+  to: [number, number],
+  offBy: number
+): string => {
+  const ang = heading(from, to);
+  const axis = nearest(AXES, ang);
+  return (
+    `line segment ${i} (${from[0]},${from[1]} → ${to[0]},${to[1]}) runs at ${ang.toFixed(2)}°, ` +
+    `${offBy.toFixed(2)}° off the nearest axis (${axis}°). ` +
+    "Off-axis edges are legitimate — 29.3% of stroked icons in the set have one, on rational " +
+    "slopes between two grid points — but they are asked for, not arrived at: pass " +
+    "`offAxis: true` (`off-axis` in the DSL) if that is the shape, or move an endpoint onto the axis."
+  );
 };
 
 export type Element =
@@ -221,7 +281,15 @@ export type Element =
       kind: "dot";
       role: DotRole;
     }
-  | { d: string; id: string; kind: "line"; points: [number, number][] }
+  | {
+      d: string;
+      id: string;
+      kind: "line";
+      /** Set only when a segment actually ended up off every axis, so the
+       *  document records the geometry rather than the permission. */
+      offAxis?: boolean;
+      points: [number, number][];
+    }
   | {
       d: string;
       id: string;
@@ -335,22 +403,55 @@ export class Canvas {
     }));
   }
 
-  /** Polyline. Every segment is angle-snapped against its predecessor. */
-  line({ points: pts }: { points: [number, number][] }): string {
+  /**
+   * Polyline. Every segment is angle-snapped against its predecessor, and a
+   * segment that lands further than {@link ANGLE_TOLERANCE} from every axis is
+   * refused unless `offAxis` was asked for.
+   *
+   * The refusal is the whole point, and so is the fact that it can be waived.
+   * 29.3% of stroked icons in the corpus have an off-axis edge, and they are
+   * not sloppiness: they cluster on rational slopes — atan(1/2) = 26.57°, the
+   * 3-4-5 triangle's 36.87° and 53.13°, atan(3) = 71.57° — because the edge
+   * runs between two grid points. `airdrop` is `M4 11L11 16.5`: grid-legal
+   * endpoints, 38.16°, 6.84° off 45°, and deliberate. A canvas that forced
+   * every angle onto an axis would refuse to draw a third of the set.
+   *
+   * So the escape hatch stays, but it is asked for by name, like `raw`. Before,
+   * it opened by itself: anything past 6° was returned untouched and silently,
+   * so a model whose arithmetic drifted got the drift back as geometry and
+   * nothing downstream could tell that apart from a designed diagonal. Now the
+   * request lands in the `IconDoc`, where a reviewer sees it.
+   *
+   * The flag is permission, not instruction: segments within tolerance still
+   * snap, and `offAxis` is recorded on the element only if one actually stayed
+   * off-axis.
+   */
+  line({
+    offAxis = false,
+    points: pts,
+  }: {
+    offAxis?: boolean;
+    points: [number, number][];
+  }): string {
     if (!Array.isArray(pts) || pts.length < 2) {
       throw new Error("line needs >= 2 points");
     }
     const out: [number, number][] = [
       [onCanvas(pts[0][0]), onCanvas(pts[0][1])],
     ];
+    let free = false;
     for (let i = 1; i < pts.length; i += 1) {
       const [px, py] = out[i - 1];
-      const [sx, sy] = snapAngle(
-        px,
-        py,
-        onCanvas(pts[i][0]),
-        onCanvas(pts[i][1])
-      );
+      const {
+        offBy,
+        point: [sx, sy],
+      } = snapAngle(px, py, onCanvas(pts[i][0]), onCanvas(pts[i][1]));
+      if (offBy > 0) {
+        if (!offAxis) {
+          throw new Error(offAxisMessage(i, [px, py], [sx, sy], offBy));
+        }
+        free = true;
+      }
       out.push([q(sx, SPEC.grid), q(sy, SPEC.grid)]);
     }
     const rest = out
@@ -358,7 +459,11 @@ export class Canvas {
       .map(([x, y]) => `L${x} ${y}`)
       .join("");
     const d = `M${out[0][0]} ${out[0][1]}${rest}`;
-    return this.#push((id) => ({ d, id, kind: "line", points: out }));
+    return this.#push((id) =>
+      free
+        ? { d, id, kind: "line", offAxis: true, points: out }
+        : { d, id, kind: "line", points: out }
+    );
   }
 
   /**
@@ -483,7 +588,10 @@ export class Canvas {
       } else if (e.kind === "dot") {
         this.dot({ cx: e.cx * k + tx, cy: e.cy * k + ty, role: e.role });
       } else if (e.kind === "line") {
+        // A similarity transform preserves every angle, so a line that was
+        // permitted off-axis must stay permitted or re-emitting it would throw.
         this.line({
+          offAxis: e.offAxis,
           points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
         });
       } else if (e.kind === "part") {
@@ -560,7 +668,12 @@ export class Canvas {
           return { cx: e.cx, cy: e.cy, op: "dot", role: e.role };
         }
         if (e.kind === "line") {
-          return { op: "line", points: e.points };
+          // Written only when it is true, so a document gains the key when it
+          // gains the geometry — a diff that shows `offAxis` shows a real
+          // change of shape, not a change of how the line was requested.
+          return e.offAxis
+            ? { offAxis: true, op: "line", points: e.points }
+            : { op: "line", points: e.points };
         }
         if (e.kind === "part") {
           return {
@@ -591,7 +704,7 @@ export class Canvas {
       } else if (op.op === "dot") {
         c.dot(op);
       } else if (op.op === "line") {
-        c.line({ points: op.points });
+        c.line({ offAxis: op.offAxis, points: op.points });
       } else if (op.op === "part") {
         c.part(op);
       } else if (op.op === "raw") {

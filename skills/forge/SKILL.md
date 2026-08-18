@@ -34,4 +34,4 @@ Ops: `icon`, `keyline`, `part`, `rect`, `circle`, `line`, `dot`, `center`, `fit`
 
 ## Invariant
 
-The model chooses what and where. The library chooses how: every primitive quantises to the sub-grid, snaps angles to 0/45/90, and takes corner radii from the tier system. Off-spec geometry is unrepresentable rather than merely discouraged.
+The model chooses what and where. The library chooses how: every primitive quantises to the sub-grid, snaps angles to 0/45/90, and takes corner radii from the tier system. Off-spec geometry is not merely discouraged — it has to be asked for by name: `raw` for verbatim path data, `off-axis` for a segment further than 6° from an axis. Anything else is refused.

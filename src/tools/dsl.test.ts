@@ -363,3 +363,39 @@ test("an unnamed turn is refused rather than read as an angle", () => {
   const r = run("part cloud turn 37", PARTS);
   expect(r.errors[0]).toMatch(/unknown turn "37" — expected one of/u);
 });
+
+test("a diagonal line is refused until the program says off-axis", () => {
+  // `airdrop`'s beam: grid-legal endpoints, 38.16°, 6.84° off 45°. Legitimate —
+  // 29.3% of the set's stroked icons have an edge like it — but the program has
+  // to say so, the way `raw` has to be written out.
+  const bare = run("line 4,11 11,16.5");
+  expect(bare.errors[0]).toMatch(/off the nearest axis/u);
+  expect(bare.canvas.elements).toStrictEqual([]);
+
+  const asked = run("line 4,11 11,16.5 off-axis");
+  expect(asked.errors).toStrictEqual([]);
+  expect(asked.canvas.toJSON().draw).toStrictEqual([
+    {
+      offAxis: true,
+      op: "line",
+      points: [
+        [4, 11],
+        [11, 16.5],
+      ],
+    },
+  ]);
+});
+
+test("off-axis is permission, so an axial line is still snapped and unmarked", () => {
+  const r = run("line 4,4 16,4.3 off-axis");
+  expect(r.errors).toStrictEqual([]);
+  expect(r.canvas.toJSON().draw).toStrictEqual([
+    {
+      op: "line",
+      points: [
+        [4, 4],
+        [16, 4],
+      ],
+    },
+  ]);
+});

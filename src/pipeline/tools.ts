@@ -199,12 +199,21 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     line: tool({
       description:
-        "Draw a polyline through two or more points. Segments within a few degrees of 0/45/90 are snapped onto the axis, so a nearly-horizontal line becomes horizontal.",
-      execute: ({ points }) =>
+        "Draw a polyline through two or more points. Segments within a few degrees of 0/45/90 are snapped onto the axis, so a nearly-horizontal line becomes horizontal. A segment further off than that is refused unless offAxis is set, so a diagonal is something you choose rather than something arithmetic drift hands you.",
+      execute: ({ offAxis, points }) =>
         track("line", () =>
-          placed(canvas, canvas.line({ points: points as [number, number][] }))
+          placed(
+            canvas,
+            canvas.line({ offAxis, points: points as [number, number][] })
+          )
         ),
       inputSchema: z.object({
+        offAxis: z
+          .boolean()
+          .optional()
+          .describe(
+            "allow a segment to sit off 0/45/90 — the set does this on about one edge in seven, always between two grid points"
+          ),
         points: z.array(z.tuple([coord, coord])).min(2),
       }),
     }),
