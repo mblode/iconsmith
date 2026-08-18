@@ -167,12 +167,15 @@ describe("conform", () => {
     expect(result.unsupported[0]).toMatch(/redraw, not a transform/u);
   });
 
-  it("flags a cap change, which moves the visual extent it cannot compensate", () => {
+  it("flags a corner change, which mitres joins it cannot compensate", () => {
+    // The corner axis swaps round joins for mitred ones. Not caps: round and
+    // square caps both project half a stroke past an endpoint, so they cost
+    // the extent nothing. A mitred join is what reaches further.
     const result = conform(
       icon(variant()),
       variant({ corner: "square", key: "square-outlined-radius-2-stroke-2" })
     );
-    expect(result.unsupported[0]).toMatch(/caps change the visual extent/u);
+    expect(result.unsupported[0]).toMatch(/mitred/u);
   });
 
   it("leaves a filled icon's geometry alone and says why", () => {

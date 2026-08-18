@@ -337,11 +337,15 @@ export const conform = (icon: CorpusIcon, to: Variant): ConformResult => {
     );
   }
   if (from.corner !== to.corner) {
-    // Cap style is an attribute, but the geometry compensating for it is not:
-    // a round cap adds stroke/2 past each endpoint and a butt cap adds nothing,
-    // so the skeletons differ by more than the attribute.
+    // The corner axis flips linecap and linejoin together: measured on
+    // radius-0 stroke-2, round ships 3,854 round caps to 255 square and every
+    // join round, while square ships 2,733 square caps and drops linejoin to
+    // miter on all but 241 shapes. Caps are not what moves the extent — round
+    // and square caps both project half a stroke past an endpoint — but a
+    // mitred join reaches stroke/2·√2 into a right-angle corner where a round
+    // one reaches stroke/2, and Central redraws to absorb the difference.
     unsupported.push(
-      `${from.corner} → ${to.corner} caps change the visual extent by half a stroke per open end; Central redraws for it (median 1.0px of path movement).`
+      `${from.corner} → ${to.corner} swaps round joins for mitred ones, which reach further into every corner; Central redraws for it (median 1.0px of path movement).`
     );
   }
 
