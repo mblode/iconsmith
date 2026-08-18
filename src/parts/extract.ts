@@ -2,9 +2,11 @@
  * Extract the parts vocabulary from a set of outline SVGs.
  *
  * Every subpath in every icon becomes a candidate part. Candidates are
- * clustered by shape (position- and scale-invariant, rotation-invariant for
- * closed rings), and each cluster becomes one part with a canonical drawing —
- * the member closest to the cluster centre.
+ * clustered by shape (position- and scale-invariant, and invariant under the
+ * eight symmetries of the square: four quarter-turns times a reflection), and
+ * each cluster becomes one part with a canonical drawing — the member closest
+ * to the cluster centre. Each member's own placement is kept, so `turns` and
+ * `flips` say which of those eight the set actually draws.
  *
  * ONE SET, TWO DRAWING STYLES. An "outline" directory is rarely all outline.
  * blode-icons ships 2,221 outline files of which 358 carry no stroke at all:
@@ -116,12 +118,14 @@ interface Candidate {
   sp: Subpath;
 }
 
-/** A candidate once it has joined a cluster, with the orientation it joined at:
- *  clockwise quarter-turns carrying the cluster head's drawing onto this one.
- *  Captured here because `match` already worked it out — recovering it later
- *  would mean running the whole comparison a second time. */
+/** A candidate once it has joined a cluster, with the placement it joined at:
+ *  a reflection in x and then clockwise quarter-turns, carrying the cluster
+ *  head's drawing onto this one. Captured here because `match` already worked
+ *  it out — recovering it later would mean running the whole comparison a
+ *  second time. */
 interface Member {
   c: Candidate;
+  flip: boolean;
   turn: number;
 }
 
@@ -171,6 +175,11 @@ const candidatesFrom = (shapes: CorpusShape[], slug: string): Candidate[] => {
  *
  * Aspect is folded, not raw: a quarter-turn transposes w and h, so a raw key
  * files a turned instance away from its original and no distance is ever taken.
+ *
+ * Reflection needs nothing added here, and that is worth stating rather than
+ * leaving to be rediscovered: mirroring in x maps w to w and h to h, so a
+ * mirrored instance already shares its original's key, node count and
+ * closedness. Unlike the rotation fold, the metric change alone is live.
  */
 const bucketKey = (c: Candidate): string => {
   const shape = c.fp.closed ? "c" : "o";
@@ -197,19 +206,21 @@ const cluster = (candidates: Candidate[], threshold: number): Member[][] => {
       let hit: Member[] | null = null;
       let bestD = Number.POSITIVE_INFINITY;
       let bestTurn = 0;
+      let bestFlip = false;
       for (const members of local) {
         const [head] = members;
-        const { d, turn } = match(c.fp, head.c.fp);
+        const { d, flip, turn } = match(c.fp, head.c.fp);
         if (d < threshold && d < bestD) {
           bestD = d;
           bestTurn = turn;
+          bestFlip = flip;
           hit = members;
         }
       }
       if (hit) {
-        hit.push({ c, turn: bestTurn });
+        hit.push({ c, flip: bestFlip, turn: bestTurn });
       } else {
-        local.push([{ c, turn: 0 }]);
+        local.push([{ c, flip: false, turn: 0 }]);
       }
     }
     clusters.push(...local);
@@ -235,22 +246,41 @@ const medoid = (members: Member[]): Member => {
   return best;
 };
 
+/**
+ * The placement carrying the medoid's drawing onto `m`, given both members'
+ * placements from the cluster head.
+ *
+ * With `g = R_t ∘ M^f` the answer is `g_m ∘ g_head⁻¹`, and in the dihedral
+ * group of the square `M R_t = R_{-t} M`, so a reflection between the two flips
+ * the sign of the turn: when exactly one of the pair is mirrored the turns
+ * *add* rather than subtract. Subtracting unconditionally — which is what the
+ * rotation-only version did — mis-files a mirrored member's turn by 2t.
+ */
+const relative = (m: Member, head: Member): { flip: boolean; turn: number } => {
+  const flip = m.flip !== head.flip;
+  const turn = flip ? m.turn + head.turn : m.turn - head.turn;
+  return { flip, turn: ((turn % TURN_COUNT) + TURN_COUNT) % TURN_COUNT };
+};
+
 const toPart = (members: Member[], id: string): Part => {
   const best = medoid(members);
   const b = bbox([best.c.sp]);
   // Normalised to the origin so the part can be placed anywhere.
   const canonical = translate(best.c.sp, -b.x0, -b.y0);
   const sizes = members.map((m) => round(m.c.fp.size));
-  // Turns are recorded against the canonical drawing, not against the cluster
-  // head, which is whichever member happened to arrive first. Both are turns
-  // from the head, so the difference is the turn from the medoid to the member.
+  // Placements are recorded against the canonical drawing, not against the
+  // cluster head, which is whichever member happened to arrive first.
   const turns: [number, number, number, number] = [0, 0, 0, 0];
+  const flips: [number, number] = [0, 0];
   for (const m of members) {
-    turns[(m.turn - best.turn + TURN_COUNT) % TURN_COUNT] += 1;
+    const { flip, turn } = relative(m, best);
+    turns[turn] += 1;
+    flips[flip ? 1 : 0] += 1;
   }
   return {
     closed: best.c.sp.closed,
     d: serialise([canonical], { grid: GRID }),
+    flips,
     h: round(b.h),
     icons: [...new Set(members.map((m) => m.c.slug))].toSorted(),
     id,

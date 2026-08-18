@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { parsePath, scale, translate } from "../geometry/path.js";
 import type { Subpath } from "../types.js";
-import { distance, fingerprint, flatten, resample } from "./shape.js";
+import { distance, fingerprint, flatten, match, resample } from "./shape.js";
 
 const sub = (d: string): Subpath => parsePath(d)[0];
 const fp = (d: string) => fingerprint(sub(d));
@@ -13,8 +13,11 @@ const SQUARE_ROTATED = "M10 0L10 10L0 10L0 0Z";
 /** The same ring, drawn anticlockwise. */
 const SQUARE_REVERSED = "M0 0L0 10L10 10L10 0Z";
 const TRIANGLE = "M0 0L10 0L5 10Z";
-/** The same triangle, drawn from the next node round. */
-const TRIANGLE_SHIFTED = "M10 0L5 10L0 0Z";
+/** Scalene, so it has no symmetry at all — no turn and no reflection carries it
+ *  onto itself, which is what makes the start-node residual visible. */
+const SCALENE = "M0 0L10 0L2 10Z";
+/** The same scalene triangle, drawn from the next node round. */
+const SCALENE_SHIFTED = "M10 0L2 10L0 0Z";
 const ELL = "M0 0L0 10L10 10";
 /** Unequal arms, so the shape is chiral: its mirror is not also one of its
  *  turns, which an equal-armed L's would be. */
@@ -139,11 +142,13 @@ describe("distance invariances", () => {
     // over (i / (n - 1)), so the start point appears at both ends of the run
     // and the samples are not a cycle of period n — but `distance` shifts them
     // modulo n. A ring drawn from another node therefore lands between two
-    // samples. Recorded rather than asserted away: a triangle costs 0.033
-    // against a 0.06 clustering threshold, so the margin is thin. A square
-    // escapes it only because a shifted square is also one of its own turns,
-    // and `distance` compares those exactly.
-    const shifted = distance(fp(TRIANGLE), fp(TRIANGLE_SHIFTED));
+    // samples. Recorded rather than asserted away: a triangle costs 0.034
+    // against a 0.06 clustering threshold, so the margin is thin. It takes a
+    // scalene triangle to see it: a shape that is also one of its own turns or
+    // reflections escapes, because `distance` compares those exactly, and the
+    // isoceles triangle this used to test on stopped showing anything once
+    // reflection joined the comparison.
+    const shifted = distance(fp(SCALENE), fp(SCALENE_SHIFTED));
     expect(shifted).toBeGreaterThan(0.03);
     expect(shifted).toBeLessThan(CLUSTER_THRESHOLD);
   });
@@ -240,14 +245,62 @@ describe("distance discrimination", () => {
       Number.POSITIVE_INFINITY
     );
   });
+});
 
-  it("does not treat a mirrored open path as identical", () => {
-    // Reflection is not one of the claimed invariances: reversal and turning
-    // are. The arms have to be unequal for this to test anything — an
-    // equal-armed L's mirror is also one of its quarter-turns, so it matches at
-    // 0 and says nothing about reflection. This pair sits at 0.34.
-    expect(distance(fp(ELL_CHIRAL), fp(ELL_CHIRAL_MIRRORED))).toBeGreaterThan(
+/**
+ * Reflection folds in the clusterer and is asked for at placement.
+ *
+ * These assertions used to say the opposite — that a chiral `L` stayed 0.34
+ * from its mirror — and the measurement is what reversed them. Over the 201-part
+ * extraction, 81 cluster pairs matched only under reflection, and 19 of those
+ * pairs had both members inside the same icon: `airdrop`'s two chevrons,
+ * `ar-cube-1`'s two faces, `add-to-basket-2`'s two basket sides, several at
+ * distance 0.000. Those are one mark mirrored, and the naming pass could only
+ * call the second one `-mirror`.
+ *
+ * What the old assertions really encoded is a *placement* risk, not a
+ * clustering rule, so it moves rather than disappears: `canvas.test.ts` holds
+ * the guard that `part()` will not mirror unless `flip` is passed. A check
+ * mark, a comma and an `S` are still chiral; the vocabulary now has one word
+ * for the mark and the placement says which way round it goes.
+ */
+describe("distance under reflection", () => {
+  it("folds a chiral open path onto its mirror", () => {
+    // The arms have to be unequal for this to test anything — an equal-armed
+    // L's mirror is also one of its quarter-turns, so it would match at 0 under
+    // rotation alone and say nothing about reflection.
+    expect(distance(fp(ELL_CHIRAL), fp(ELL_CHIRAL_MIRRORED))).toBeLessThan(
+      SAME
+    );
+  });
+
+  it("reports which placement carried one onto the other", () => {
+    const m = match(fp(ELL_CHIRAL), fp(ELL_CHIRAL_MIRRORED));
+    expect(m.flip).toBe(true);
+    expect(m.d).toBeLessThan(SAME);
+  });
+
+  it("leaves flip false when a plain turn already matches", () => {
+    // The chevron of the quarter-turn suite is symmetric about its own axis, so
+    // use one that is not: an unturned identical pair must not claim a mirror.
+    expect(match(fp(ELL_CHIRAL), fp(ELL_CHIRAL))).toMatchObject({
+      flip: false,
+      turn: 0,
+    });
+  });
+
+  it("still separates shapes that no reflection reconciles", () => {
+    // Folding mirrors must not fold everything: eight symmetries of the square
+    // is eight more chances to match, and a triangle is not a square at any of
+    // them.
+    expect(distance(fp(SQUARE), fp(TRIANGLE))).toBeGreaterThan(
       CLUSTER_THRESHOLD
     );
+  });
+
+  it("stays symmetric across a mirrored pair", () => {
+    const a = fp(ELL_CHIRAL);
+    const b = fp(ELL_CHIRAL_MIRRORED);
+    expect(distance(a, b)).toBeCloseTo(distance(b, a), 10);
   });
 });

@@ -43,6 +43,14 @@ export interface Fingerprint {
 export interface Part {
   closed: boolean;
   d: string;
+  /** How many instances the set draws unmirrored (index 0) and mirrored
+   *  (index 1) relative to `d`. The clusterer folds a mark and its reflection
+   *  into one part — a cube's two faces, a basket's two sides — so this is what
+   *  says whether the *set* ever mirrors this mark. Evidence, not permission:
+   *  a placement must still ask for `flip` by name, because reflection is the
+   *  one symmetry that can be simply wrong (a check mark, a comma, an `S`).
+   *  Optional for the same reason as `turns`: a hand-written part has none. */
+  flips?: [number, number];
   h: number;
   icons: string[];
   id: string;
@@ -78,6 +86,11 @@ export type DrawOp =
   | { d: string; op: "raw" }
   | { h: number; op: "rect"; r: number; w: number; x: number; y: number }
   | {
+      /** Present when the part was reflected in x before being turned.
+       *  Absent, not `false`, when it was not — like `line`'s `offAxis`, the
+       *  key appears with the geometry, so a diff showing `flip` shows a real
+       *  change of chirality rather than a change of how it was requested. */
+      flip?: true;
       id: string;
       op: "part";
       scale: number;

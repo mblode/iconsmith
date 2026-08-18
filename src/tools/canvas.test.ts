@@ -497,3 +497,111 @@ test("placing at the recorded turn reproduces the instance that was folded in", 
   // the placed drawing is genuinely turned rather than the canonical one again.
   expect(match(canonical, placed).turn).toBe((4 - turn) % 4);
 });
+
+/**
+ * Chirality. The clusterer folds a mark onto its mirror as well as onto its
+ * quarter-turns — over blode-icons 19 mirror pairs had both halves inside one
+ * icon, `airdrop`'s two chevrons and `ar-cube-1`'s two faces among them — so
+ * one part covers both and the placement says which way round it goes.
+ *
+ * That is only safe while the reflection is asked for. A check mark, a comma,
+ * an `S` and every letterform are chiral, and their mirror is wrong rather than
+ * merely turned, so these tests are the guard that no path through `part()`
+ * reaches a mirror by accident.
+ */
+
+/** Unequal arms, so the mirror is a genuinely different drawing rather than one
+ *  of the shape's own quarter-turns. */
+const CHIRAL: Part[] = [{ ...PARTS[0], d: "M0 0L0 4L2 4", h: 4, w: 2 }];
+
+test("a part is not mirrored unless flip is asked for", () => {
+  const plain = new Canvas(CHIRAL);
+  plain.part({ id: "p0001", x: 0, y: 0 });
+  for (const turn of [0, 1, 2, 3]) {
+    const c = new Canvas(CHIRAL);
+    c.part({ id: "p0001", turn, x: 0, y: 0 });
+    const [el] = c.elements;
+    expect(el.kind === "part" && el.flip).toBeUndefined();
+    expect(c.toJSON().draw[0]).not.toHaveProperty("flip");
+  }
+  // And the geometry, not just the flag: no turn of the unflipped placement is
+  // the mirror, which is exactly what the unequal arms buy.
+  const mirrored = new Canvas(CHIRAL);
+  mirrored.part({ flip: true, id: "p0001", x: 0, y: 0 });
+  const a = fingerprint(parsePath(plain.elements[0].d)[0]);
+  const b = fingerprint(parsePath(mirrored.elements[0].d)[0]);
+  expect(a.norm).not.toStrictEqual(b.norm);
+});
+
+test("a flipped part keeps x,y as its top-left corner", () => {
+  const c = new Canvas(CHIRAL);
+  // Mirroring in x sends the whole drawing to negative x; the placement
+  // re-seats it, and a reflection leaves the extent alone.
+  c.part({ flip: true, id: "p0001", x: 2, y: 3 });
+  const b = bbox(parsePath(c.elements[0].d));
+  expect([b.x0, b.y0, b.w, b.h]).toStrictEqual([2, 3, 2, 4]);
+});
+
+test("a flipped part survives the round-trip unchanged", () => {
+  for (const turn of [0, 1, 2, 3]) {
+    const c = new Canvas(CHIRAL);
+    c.part({ flip: true, id: "p0001", scale: 1.5, turn, x: 3, y: 4 });
+    const doc = c.toJSON();
+    expect(doc.draw).toStrictEqual([
+      { flip: true, id: "p0001", op: "part", scale: 1.5, turn, x: 3, y: 4 },
+    ]);
+    const back = Canvas.fromJSON(doc, CHIRAL);
+    expect(back.toSVG()).toBe(c.toSVG());
+    expect(back.toJSON()).toStrictEqual(doc);
+  }
+});
+
+test("a transform re-emits a flipped part still flipped", () => {
+  const c = new Canvas(CHIRAL);
+  c.part({ flip: true, id: "p0001", turn: 3, x: 2, y: 2 });
+  const before = c.elements[0].d;
+  c.transform(2, 1, 1);
+  const [el] = c.elements;
+  expect(el.kind === "part" && el.flip).toBe(true);
+  // Re-emitted through the primitive, not rewritten: a similarity transform
+  // preserves chirality, so the shape must be the same one scaled and moved.
+  const a = fingerprint(parsePath(before)[0]);
+  const b = fingerprint(parsePath(el.d)[0]);
+  expect(match(a, b)).toMatchObject({ flip: false, turn: 0 });
+});
+
+/**
+ * The second claim that spans two modules, after the turn one above: the
+ * `{turn, flip}` `parts/shape.ts` reports is the `{turn, flip}` this canvas
+ * places at. A convention drift — reflect-then-turn against turn-then-reflect —
+ * would leave both modules working and the orientation silently wrong for every
+ * part whose turn is odd, so it is checked end to end from two icons on disk.
+ */
+test("placing at the recorded flip reproduces the instance that was folded in", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "icon-forge-flip-"));
+  const write = (name: string, d: string) =>
+    writeFileSync(
+      path.join(dir, `${name}.svg`),
+      `<svg viewBox="0 0 24 24"><path d="${d}"/></svg>`
+    );
+  // The same chiral tick, drawn leaning right and leaning left — the shape of
+  // `airdrop`'s pair, which the clusterer used to return as two parts.
+  write("tick-right", "M4 4L4 14L10 14");
+  write("tick-left", "M20 4L20 14L14 14");
+  const { parts } = extractParts(dir);
+  const part = parts.find((p) => p.icons.length === 2);
+  rmSync(dir, { force: true, recursive: true });
+  if (!part?.flips) {
+    throw new Error("expected the two ticks to fold into one part");
+  }
+  // Both drawings are one part, and the set uses it both ways round.
+  expect(part.flips).toStrictEqual([1, 1]);
+
+  const canonical = fingerprint(parsePath(part.d)[0]);
+  const c = new Canvas(parts);
+  c.part({ flip: true, id: part.id, x: 0, y: 0 });
+  const placed = fingerprint(parsePath(c.elements[0].d)[0]);
+  // `distance` is reflection-invariant, so the check is that the placed drawing
+  // is genuinely mirrored rather than the canonical one again.
+  expect(match(canonical, placed).flip).toBe(true);
+});

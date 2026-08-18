@@ -2,6 +2,7 @@ import { expect, test } from "vitest";
 
 import {
   bbox,
+  mirrorX,
   parsePath,
   points,
   q,
@@ -109,6 +110,28 @@ test("a quarter-turn is exact, and four of them are the identity", () => {
   const before = bbox([sp]);
   expect([b.w, b.h]).toStrictEqual([before.h, before.w]);
   expect(serialise([rotateQuarter(sp, 4)])).toBe(serialise([sp]));
+});
+
+test("a mirror is exact, and two of them are the identity", () => {
+  const [sp] = parsePath("M1 2L5 2C6 2 7 3 7 4L7 8");
+  const m = mirrorX(sp);
+  expect(m.start).toStrictEqual([-1, 2]);
+  const b = bbox([m]);
+  const before = bbox([sp]);
+  // A reflection swaps left for right and leaves the extent alone.
+  expect([b.w, b.h]).toStrictEqual([before.w, before.h]);
+  expect(serialise([mirrorX(m)])).toBe(serialise([sp]));
+});
+
+test("a mirrored arc inverts its sweep", () => {
+  const [sp] = parsePath("M0 0A3 2 10 0 1 4 4");
+  const [seg] = mirrorX(sp).segs;
+  if (seg.t !== "A") {
+    throw new Error("expected an arc");
+  }
+  // Reflection reverses orientation, so the sweep flag has to invert and the
+  // x-axis rotation negate; the radii and the large-arc flag are unaffected.
+  expect(seg.p).toStrictEqual([3, 2, -10, 0, 0, -4, 4]);
 });
 
 test("a turned arc turns its own axis with it", () => {

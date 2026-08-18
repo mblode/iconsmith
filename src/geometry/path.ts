@@ -479,6 +479,42 @@ export const rotateQuarter = (sp: Subpath, turns: number): Subpath => {
   };
 };
 
+/**
+ * Reflect a subpath in the y-axis: `x' = -x`, y unchanged.
+ *
+ * One reflection is enough. Composed with the four quarter-turns above it
+ * generates all eight symmetries of the square, so a mirror about any axis —
+ * vertical, horizontal or either diagonal — is `mirrorX` plus a turn.
+ *
+ * A reflection reverses orientation, which is why the arc's sweep flag has to
+ * invert and its x-axis rotation negate; the radii and the large-arc flag are
+ * unaffected. As with `rotateQuarter`, callers re-seat the result themselves.
+ */
+export const mirrorX = (sp: Subpath): Subpath => {
+  const mirrorSeg = (seg: Segment): Segment => {
+    if (seg.t === "A") {
+      return arcTo([
+        seg.p[0],
+        seg.p[1],
+        -seg.p[2],
+        seg.p[3],
+        seg.p[4] ? 0 : 1,
+        -seg.p[5],
+        seg.p[6],
+      ]);
+    }
+    if (seg.t === "C") {
+      return curveTo(seg.p.map((v, i) => (i % 2 === 0 ? -v : v)));
+    }
+    return lineTo(-seg.p[0], seg.p[1]);
+  };
+  return {
+    closed: sp.closed,
+    segs: sp.segs.map(mirrorSeg),
+    start: [-sp.start[0], sp.start[1]],
+  };
+};
+
 export const scale = (sp: Subpath, k: number, ox = 0, oy = 0): Subpath => {
   const f = (v: number, isX: boolean) =>
     isX ? ox + (v - ox) * k : oy + (v - oy) * k;

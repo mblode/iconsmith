@@ -11,6 +11,7 @@
  */
 import {
   bbox,
+  mirrorX,
   parsePath,
   q,
   rotateQuarter,
@@ -292,6 +293,9 @@ export type Element =
     }
   | {
       d: string;
+      /** Set only when the part was actually reflected, so the document records
+       *  the geometry rather than how it was requested. */
+      flip?: true;
       id: string;
       kind: "part";
       partId: string;
@@ -516,16 +520,31 @@ export class Canvas {
    * placed. A free angle would be a coordinate by another name and is refused:
    * the four turns are the only ones that keep every node on the grid.
    *
-   * `x, y` stays the top-left of what is drawn, so a turned part lands where
-   * the caller aimed even though turning about the origin moves the corner.
+   * `flip` reflects the part in x before turning it. The clusterer folds a mark
+   * and its mirror into one part for the same reason it folds quarter-turns —
+   * over blode-icons 19 mirror pairs put both halves inside a single icon, a
+   * cube's two faces and a basket's two sides among them, several at
+   * fingerprint distance 0.000 — so the vocabulary carries one word and the
+   * placement carries the reflection.
+   *
+   * It has to be asked for by name, and that is the whole safeguard. Reflection
+   * is the one symmetry that can be plainly *wrong*: a check mark, a comma, an
+   * `S` and every letterform are chiral, and a mirrored one is a mistake rather
+   * than an orientation. A default of `false` means a model can only produce a
+   * backwards glyph deliberately — the same bargain as `turn` and `off-axis`.
+   *
+   * `x, y` stays the top-left of what is drawn, so a turned or flipped part
+   * lands where the caller aimed even though the transform moves the corner.
    */
   part({
     id,
     x,
     y,
+    flip = false,
     scale: k = 1,
     turn = 0,
   }: {
+    flip?: boolean;
     id: string;
     scale?: number;
     turn?: number;
@@ -539,21 +558,39 @@ export class Canvas {
       );
     }
     const t = quarterTurn(turn);
-    const turned = parsePath(p.d).map((sp) => rotateQuarter(sp, t));
-    const b = bbox(turned);
-    const moved = turned.map((sp) =>
+    // Reflect then turn, the order `parts/shape.ts` compares under, so a
+    // `{turn, flip}` the clusterer measured places back as the same shape.
+    const placed = parsePath(p.d).map((sp) =>
+      rotateQuarter(flip ? mirrorX(sp) : sp, t)
+    );
+    const b = bbox(placed);
+    const moved = placed.map((sp) =>
       translate(scale(sp, k), x - b.x0 * k, y - b.y0 * k)
     );
-    return this.#push((elId) => ({
-      d: serialise(moved, { grid: SPEC.grid }),
-      id: elId,
-      kind: "part",
-      partId: id,
-      scale: k,
-      turn: t,
-      x,
-      y,
-    }));
+    return this.#push((elId) =>
+      flip
+        ? {
+            d: serialise(moved, { grid: SPEC.grid }),
+            flip: true,
+            id: elId,
+            kind: "part",
+            partId: id,
+            scale: k,
+            turn: t,
+            x,
+            y,
+          }
+        : {
+            d: serialise(moved, { grid: SPEC.grid }),
+            id: elId,
+            kind: "part",
+            partId: id,
+            scale: k,
+            turn: t,
+            x,
+            y,
+          }
+    );
   }
 
   /** Import existing path data unchanged, so any icon can enter a document. */
@@ -595,7 +632,10 @@ export class Canvas {
           points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
         });
       } else if (e.kind === "part") {
+        // A similarity transform preserves chirality, so the reflection has to
+        // be carried through — dropping it would silently un-mirror the part.
         this.part({
+          flip: e.flip,
           id: e.partId,
           scale: e.scale * k,
           turn: e.turn,
@@ -676,14 +716,17 @@ export class Canvas {
             : { op: "line", points: e.points };
         }
         if (e.kind === "part") {
-          return {
+          const op = {
             id: e.partId,
-            op: "part",
+            op: "part" as const,
             scale: e.scale,
             turn: e.turn,
             x: e.x,
             y: e.y,
           };
+          // Written only when true, for the same reason as `line`'s `offAxis`:
+          // the key appears with the geometry it describes.
+          return e.flip ? { ...op, flip: true } : op;
         }
         // Escape hatch: geometry the primitives cannot express is kept verbatim
         // rather than approximated. Fidelity beats format purity.

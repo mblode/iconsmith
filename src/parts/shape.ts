@@ -169,7 +169,29 @@ const TURNS: readonly (readonly [number, number, number, number])[] = [
   [0, 1, -1, 0],
 ];
 
-const FLIPS = [false, true] as const;
+/** Sample order tried forwards and backwards. The same ring drawn
+ *  anticlockwise is the same ring; this is traversal direction, not chirality. */
+const REVERSALS = [false, true] as const;
+
+/**
+ * Compared with and without a reflection in x.
+ *
+ * Composed with the four quarter-turns this covers all eight symmetries of the
+ * square, so a mark reflected about *any* of the four axes finds its original.
+ *
+ * Measured over the 201-part extraction this folding replaced: 81 cluster pairs
+ * matched only under reflection, and 19 of those pairs put both "parts" inside
+ * the same icon — parts #17/#18 in `airdrop`, #13/#14 in `ar-cube-1`, #32/#97
+ * in `add-to-basket-2`, several at distance 0.000. A cube's two faces and a
+ * basket's two sides are one mark reflected, and the naming pass could only
+ * call the second one `-mirror`. Folding here is what turns that into one word.
+ *
+ * Reflection is NOT a free invariance downstream: a check mark, a comma, an `S`
+ * and every letterform are chiral, so their mirror is wrong rather than merely
+ * turned. `canvas.part` therefore refuses to reflect unless `flip` is asked for
+ * by name, exactly as `turn` and `line ... off-axis` are asked for.
+ */
+const REFLECTIONS = [false, true] as const;
 
 /**
  * Which quarter-turns of `b` are worth comparing against `a`. A half-turn keeps
@@ -198,66 +220,78 @@ const turnsToTry = (a: Fingerprint, b: Fingerprint): number[] => {
 export interface Match {
   /** Mean point distance between the two, in normalised units. */
   d: number;
-  /** Clockwise quarter-turns that carry `b` onto `a`, at the distance reported.
+  /** Whether `b` had to be reflected in x to reach the distance reported.
+   *  Meaningless when `d` is infinite: nothing was compared. */
+  flip: boolean;
+  /** Clockwise quarter-turns that carry `b` onto `a`, applied *after* `flip`.
    *  Meaningless when `d` is infinite: nothing was compared. */
   turn: number;
 }
 
 /**
- * How alike two fingerprints are, and at which quarter-turn.
+ * How alike two fingerprints are, and under which placement of `b`.
  *
  * Closed shapes are compared at every rotation of their sample order, because
  * the same ring drawn from a different start node is the same shape; both open
- * and closed are compared at all four quarter-turns, because a shape used at
- * another orientation is the same part.
+ * and closed are compared at all four quarter-turns and at both reflections,
+ * because a shape used at another orientation — or mirrored — is the same part.
  *
- * The turn falls out of the comparison the clusterer already runs, and cannot
- * be recovered afterwards without running it again — which is why it is
- * returned rather than left for a caller to work out.
+ * The placement falls out of the comparison the clusterer already runs, and
+ * cannot be recovered afterwards without running it again, which is why it is
+ * returned rather than left for a caller to work out. The convention is
+ * `rotate(turn) ∘ reflect(flip)`: reflect first, then turn, which is the order
+ * `canvas.part` applies them in.
  */
 export const match = (a: Fingerprint, b: Fingerprint): Match => {
   if (a.closed !== b.closed) {
-    return { d: Number.POSITIVE_INFINITY, turn: 0 };
+    return { d: Number.POSITIVE_INFINITY, flip: false, turn: 0 };
   }
-  // Aspect is cheap and prunes most non-matches before the O(n^2) loop.
+  // Aspect is cheap and prunes most non-matches before the O(n^2) loop. A
+  // reflection in x preserves w and h exactly, so it needs no gate of its own:
+  // whatever `turnsToTry` admits for `b` it admits for `b` mirrored.
   const turns = turnsToTry(a, b);
   if (turns.length === 0) {
-    return { d: Number.POSITIVE_INFINITY, turn: 0 };
+    return { d: Number.POSITIVE_INFINITY, flip: false, turn: 0 };
   }
   const n = a.norm.length;
   const rotations = a.closed ? n : 1;
   let best = Number.POSITIVE_INFINITY;
   let bestTurn = 0;
+  let bestFlip = false;
   for (const q of turns) {
     const [xx, xy, yx, yy] = TURNS[q];
-    for (const flip of FLIPS) {
-      for (let r = 0; r < rotations; r += 1) {
-        let sum = 0;
-        for (let i = 0; i < n; i += 1) {
-          const [px, py] = a.norm[i];
-          const k = (i + r) % n;
-          const [bx, by] = b.norm[flip ? n - 1 - k : k];
-          const dx = px - (xx * bx + xy * by);
-          const dy = py - (yx * bx + yy * by);
-          // `Math.hypot` guards against overflow that cannot happen here — both
-          // operands are normalised into [-1, 1] — and costs 14.4s against 7.5s
-          // over blode-icons for a parts list identical to the digit.
-          // oxlint-disable-next-line prefer-modern-math-apis
-          sum += Math.sqrt(dx * dx + dy * dy);
-          // Already worse than the best rotation found; the rest cannot help.
-          if (sum / n >= best) {
-            break;
+    for (const reflect of REFLECTIONS) {
+      for (const reverse of REVERSALS) {
+        for (let r = 0; r < rotations; r += 1) {
+          let sum = 0;
+          for (let i = 0; i < n; i += 1) {
+            const [px, py] = a.norm[i];
+            const k = (i + r) % n;
+            const [rx, by] = b.norm[reverse ? n - 1 - k : k];
+            const bx = reflect ? -rx : rx;
+            const dx = px - (xx * bx + xy * by);
+            const dy = py - (yx * bx + yy * by);
+            // `Math.hypot` guards against overflow that cannot happen here —
+            // both operands are normalised into [-1, 1] — and costs 14.4s
+            // against 7.5s over blode-icons for an identical parts list.
+            // oxlint-disable-next-line prefer-modern-math-apis
+            sum += Math.sqrt(dx * dx + dy * dy);
+            // Already worse than the best placement found; the rest cannot help.
+            if (sum / n >= best) {
+              break;
+            }
           }
-        }
-        const d = sum / n;
-        if (d < best) {
-          best = d;
-          bestTurn = q;
+          const d = sum / n;
+          if (d < best) {
+            best = d;
+            bestTurn = q;
+            bestFlip = reflect;
+          }
         }
       }
     }
   }
-  return { d: best, turn: bestTurn };
+  return { d: best, flip: bestFlip, turn: bestTurn };
 };
 
 /** Mean point distance alone, for callers with no use for the orientation. */

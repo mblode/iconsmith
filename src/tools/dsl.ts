@@ -17,7 +17,7 @@
  *
  *   icon     <slug>
  *   keyline  circle | square | wide | tall
- *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw]
+ *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] [flip]
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
  *   line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
@@ -35,6 +35,15 @@
  * without a turn the language could place only the orientation the medoid
  * happened to be drawn at. Naming the turns rather than taking degrees is what
  * keeps `part tip turn 37` unwritable, and every node on the grid.
+ *
+ * `flip` mirrors the part, and is a bare word for the same reason `off-axis`
+ * is: the program says *that* the mark is reversed and nothing else. The
+ * clusterer folds a mark and its reflection together — over blode-icons 19
+ * mirror pairs had both halves inside one icon, a cube's two faces and a
+ * basket's two sides among them — so one word covers both, and the placement
+ * says which. It must be written, never inferred: a check mark, a comma, an `S`
+ * and every letterform are chiral, so an implicit mirror is a backwards glyph
+ * rather than another orientation. Reflection is applied before the turn.
  *
  * `cohort` versus `fit`: both are a single similarity transform onto a target
  * extent, so the last one wins and running `fit` after `cohort` throws the
@@ -79,6 +88,10 @@ const TURNS: Record<string, number> = { ccw: 3, cw: 1, half: 2 };
  * slope as well would be stating twice what the coordinates already fix.
  */
 const OFF_AXIS = "off-axis";
+
+/** Permission to mirror a part, spelled out in the program. See the grammar
+ *  note above: chirality is the one symmetry that must be asked for. */
+const FLIP = "flip";
 
 const OPS = [
   "icon",
@@ -142,9 +155,11 @@ const placePart = (
     }
     turn = TURNS[name];
   }
+  const flip = t.includes(FLIP);
   // A quarter-turn transposes the part's extent, so every measurement below —
   // where `fill` scales to, where the centre lands — is taken on the turned
-  // shape rather than on the canonical one.
+  // shape rather than on the canonical one. A reflection maps w to w and h to
+  // h, so it changes none of them.
   const [pw, ph] = turn % 2 === 0 ? [p.w, p.h] : [p.h, p.w];
   const span = Math.max(pw, ph) || 1;
   let k = 1;
@@ -173,7 +188,7 @@ const placePart = (
       cy = py + h / 2;
     }
   }
-  canvas.part({ id: p.id, scale: k, turn, x: cx - w / 2, y: cy - h / 2 });
+  canvas.part({ flip, id: p.id, scale: k, turn, x: cx - w / 2, y: cy - h / 2 });
 };
 
 /** Translate every element so the content bbox centres on (12,12). */

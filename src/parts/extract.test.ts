@@ -72,6 +72,55 @@ describe("recorded orientations", () => {
 });
 
 /**
+ * Mirror folding. Measured over the 201-part extraction this replaced, 81
+ * cluster pairs matched only under reflection, and 19 of those pairs put both
+ * "parts" inside the same icon — `airdrop`'s two chevrons, `ar-cube-1`'s two
+ * faces, `add-to-basket-2`'s two basket sides, several at distance 0.000. One
+ * mark mirrored is one part, and the reflection belongs at placement.
+ *
+ * The fixtures have to be chiral for this to test anything: the chevron above
+ * is its own mirror, so it would fold under rotation alone and say nothing.
+ */
+describe("mirror folding", () => {
+  const mdir = mkdtempSync(path.join(tmpdir(), "icon-forge-mirror-"));
+  const chiral = (name: string, d: string) =>
+    writeFileSync(
+      path.join(mdir, `${name}.svg`),
+      `<svg viewBox="0 0 24 24"><path d="${d}"/></svg>`
+    );
+  // The same tick, leaning right and leaning left. Unequal arms, so neither is
+  // one of the other's quarter-turns.
+  chiral("tick-right", "M4 4L4 14L10 14");
+  chiral("tick-left", "M20 4L20 14L14 14");
+  chiral("stroke", STROKE);
+  const result = extractParts(mdir);
+  afterAll(() => {
+    rmSync(mdir, { force: true, recursive: true });
+  });
+
+  it("gives a chiral mark and its mirror one part between them", () => {
+    const tick = result.parts.find((p) => p.icons.length === 2);
+    expect(tick?.icons).toEqual(["tick-left", "tick-right"]);
+  });
+
+  it("does not merge everything reflection now compares", () => {
+    // Eight symmetries of the square is eight more chances to match, so the
+    // plain stroke has to stay its own part.
+    expect(result.summary.parts).toBe(2);
+  });
+
+  it("records that the set draws the part both ways round", () => {
+    const tick = result.parts.find((p) => p.icons.length === 2);
+    expect(tick?.flips).toStrictEqual([1, 1]);
+  });
+
+  it("leaves a part the set never mirrors unflipped", () => {
+    const stroke = result.parts.find((p) => p.icons.length === 1);
+    expect(stroke?.flips).toStrictEqual([1, 0]);
+  });
+});
+
+/**
  * The style split. The residue an outline-expanded icon contributes is not
  * subtly wrong-looking — it is a 16x2 rectangle, the outline of a straight
  * stroke — so the fixtures below make it exactly that, and a test can ask

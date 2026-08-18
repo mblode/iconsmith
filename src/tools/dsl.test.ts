@@ -359,6 +359,34 @@ test("fill scales a turned part to the keyline it actually occupies", () => {
   expect(extent(r.canvas)).toStrictEqual({ cx: 12, cy: 12, h: 20, w: 15.5 });
 });
 
+test("flip mirrors the part and survives into the document", () => {
+  const r = run("part cloud at 2,3 flip", PARTS);
+  expect(r.errors).toStrictEqual([]);
+  // A reflection leaves the extent alone, so the seating is unchanged.
+  const b = r.canvas.bbox();
+  expect([b?.x0, b?.y0, b?.w, b?.h]).toStrictEqual([2, 3, 8, 6]);
+  expect(r.canvas.toJSON().draw).toStrictEqual([
+    { flip: true, id: "p0031", op: "part", scale: 1, turn: 0, x: 2, y: 3 },
+  ]);
+});
+
+test("flip and turn are recorded together", () => {
+  const r = run("part cloud at 2,3 turn cw flip", PARTS);
+  expect(r.errors).toStrictEqual([]);
+  expect(r.canvas.toJSON().draw).toStrictEqual([
+    { flip: true, id: "p0031", op: "part", scale: 1, turn: 1, x: 2, y: 3 },
+  ]);
+});
+
+test("a part is placed unmirrored unless the program writes flip", () => {
+  // The guard the whole design rests on: chirality is never inferred. A check
+  // mark, a comma and an `S` are chiral, and their mirror is wrong rather than
+  // another orientation, so `flip` has to be in the program text.
+  for (const src of ["part cloud", "part cloud turn cw", "part cloud fill"]) {
+    expect(run(src, PARTS).canvas.toJSON().draw[0]).not.toHaveProperty("flip");
+  }
+});
+
 test("an unnamed turn is refused rather than read as an angle", () => {
   const r = run("part cloud turn 37", PARTS);
   expect(r.errors[0]).toMatch(/unknown turn "37" — expected one of/u);
