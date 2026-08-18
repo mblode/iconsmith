@@ -110,9 +110,44 @@ describe("resolveModel", () => {
     process.env.ANTHROPIC_API_KEY = "";
     try {
       expect(() => resolveModel()).toThrow(MissingApiKeyError);
-      expect(() => resolveModel()).toThrow(/ANTHROPIC_API_KEY is not set/u);
+      expect(() => resolveModel()).toThrow(/No model credential found/u);
     } finally {
       process.env.ANTHROPIC_API_KEY = key;
+    }
+  });
+
+  /**
+   * A namespaced id is a gateway route, and the AI SDK resolves a bare string
+   * through its global provider. Returning the id *unchanged* is what sends it
+   * there — wrapping it in `anthropic()` would pin it to one vendor and quietly
+   * defeat the gateway, which is the failure these two tests exist to catch.
+   */
+  it("passes a namespaced id straight through to the gateway", () => {
+    const key = process.env.AI_GATEWAY_API_KEY;
+    process.env.AI_GATEWAY_API_KEY = "test-key";
+    try {
+      expect(resolveModel("anthropic/claude-opus-4.5")).toBe(
+        "anthropic/claude-opus-4.5"
+      );
+    } finally {
+      process.env.AI_GATEWAY_API_KEY = key;
+    }
+  });
+
+  it("will not route a namespaced id with no gateway key", () => {
+    const gw = process.env.AI_GATEWAY_API_KEY;
+    const anth = process.env.ANTHROPIC_API_KEY;
+    process.env.AI_GATEWAY_API_KEY = "";
+    // An Anthropic key must not stand in for a gateway key: the request would
+    // go somewhere the caller did not ask for.
+    process.env.ANTHROPIC_API_KEY = "sk-not-a-gateway-key";
+    try {
+      expect(() => resolveModel("anthropic/claude-opus-4.5")).toThrow(
+        MissingApiKeyError
+      );
+    } finally {
+      process.env.AI_GATEWAY_API_KEY = gw;
+      process.env.ANTHROPIC_API_KEY = anth;
     }
   });
 

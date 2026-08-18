@@ -34,7 +34,9 @@ export const DEFAULT_MAX_STEPS = 24;
 export class MissingApiKeyError extends Error {
   constructor() {
     super(
-      "ANTHROPIC_API_KEY is not set. Export it, or pass a model instance to generate()."
+      "No model credential found. Set AI_GATEWAY_API_KEY and use a namespaced " +
+        "model id (`anthropic/claude-opus-4.5`), or set ANTHROPIC_API_KEY for a " +
+        "bare id, or pass a model instance to generate()."
     );
     this.name = "MissingApiKeyError";
   }
@@ -84,6 +86,18 @@ export const resolveModel = (
     return model;
   }
   const id = model ?? DEFAULT_MODEL;
+
+  // A namespaced id (`anthropic/claude-opus-4.5`) is a Vercel AI Gateway route,
+  // and the AI SDK resolves a bare string through its global provider, which is
+  // the gateway. Returning the id unchanged is what routes it there; wrapping it
+  // in a provider would pin it to that vendor and defeat the gateway.
+  if (id.includes("/")) {
+    if (!(apiKey ?? process.env.AI_GATEWAY_API_KEY)) {
+      throw new MissingApiKeyError();
+    }
+    return id;
+  }
+
   const key = apiKey ?? process.env.ANTHROPIC_API_KEY;
   if (!key) {
     throw new MissingApiKeyError();

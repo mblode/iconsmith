@@ -6,6 +6,7 @@ import { registerConformCommand } from "./commands/conform.js";
 import { registerDrawCommand } from "./commands/draw.js";
 import { registerEvalCommand } from "./commands/eval.js";
 import { registerLintCommand } from "./commands/lint.js";
+import { registerNewCommand } from "./commands/new.js";
 import { registerPartsCommand } from "./commands/parts.js";
 
 // stdout carries data only; stderr carries logs, progress, and human hints.
@@ -28,6 +29,7 @@ registerDrawCommand(program);
 registerLintCommand(program);
 registerEvalCommand(program);
 registerConformCommand(program);
+registerNewCommand(program);
 
 try {
   await program.parseAsync();
