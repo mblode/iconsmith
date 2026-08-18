@@ -1,5 +1,6 @@
 /** Public API. CLI-only concerns stay in cli.ts so this can also back an MCP server. */
 export { auditIcon, freeformShare, onAxisShare } from "./corpus/audit.js";
+export { census, nameElement } from "./corpus/census.js";
 export {
   HOUSE_VARIANT,
   loadCorpus,
@@ -46,6 +47,11 @@ export {
 export { run as runDsl } from "./tools/dsl.js";
 export { format as formatIssues, lint } from "./tools/lint.js";
 export { cosine, inkVector, png, sheet, similarity } from "./tools/render.js";
+export type {
+  CensusReport,
+  ElementInstance,
+  RecurringElement,
+} from "./corpus/census.js";
 export type {
   CurveAudit,
   CurveClass,
