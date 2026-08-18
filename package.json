@@ -1,0 +1,75 @@
+{
+  "name": "icon-forge",
+  "version": "0.0.1",
+  "description": "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.",
+  "keywords": [
+    "ai",
+    "codegen",
+    "design-system",
+    "icons",
+    "svg"
+  ],
+  "homepage": "https://github.com/mblode/icon-forge#readme",
+  "bugs": {
+    "url": "https://github.com/mblode/icon-forge/issues"
+  },
+  "license": "MIT",
+  "author": "Matthew Blode",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mblode/icon-forge.git"
+  },
+  "bin": {
+    "forge": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "release": "npm run build && changeset publish",
+    "check": "ultracite check",
+    "fix": "ultracite fix",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.39",
+    "@clack/prompts": "^1.7.0",
+    "ai": "^7.0.66",
+    "commander": "^15.0.0",
+    "sharp": "^0.34.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@types/node": "^24.13.3",
+    "lefthook": "^2.1.10",
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
+    "tsdown": "^0.22.4",
+    "typescript": "^7.0.2",
+    "ultracite": "^7.10.5",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=24.11"
+  }
+}
