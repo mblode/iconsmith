@@ -113,7 +113,7 @@ type Point = [number, number];
 
 /** One drawn path: its flattened outline and the stroke it carries. A filled
  *  shape has stroke 0, and that zero is load-bearing everywhere below. */
-interface Piece {
+export interface Piece {
   closed: boolean;
   poly: Point[];
   segs: number;
@@ -381,7 +381,7 @@ const num = (attrs: string, name: string): number => {
  * Not handled, and small enough to name: the 6 files carrying a `<clipPath>`,
  * whose clip geometry is measured as if it were drawn.
  */
-const parsePieces = (svg: string, fallbackStroke: number): Piece[] => {
+export const parsePieces = (svg: string, fallbackStroke: number): Piece[] => {
   const out: Piece[] = [];
   for (const el of svg.matchAll(
     /<(?<tag>path|circle|ellipse|rect)\b(?<attrs>[^>]*)>/gu
