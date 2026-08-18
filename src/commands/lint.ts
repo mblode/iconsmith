@@ -3,6 +3,7 @@ import path from "node:path";
 
 import type { Command } from "commander";
 
+import { parseIconSvg } from "../corpus/load.js";
 import { Canvas } from "../tools/canvas.js";
 import type {
   Cohort,
@@ -23,11 +24,18 @@ import type { Issue, Keyline } from "../types.js";
 const KEYLINES = new Set(["circle", "square", "tall", "wide"]);
 
 /** Read an existing SVG into a canvas as raw ops, so shipped icons can be
- *  checked without first being expressible in primitives. */
+ *  checked without first being expressible in primitives.
+ *
+ *  Goes through `parseIconSvg` rather than scraping `d=` attributes. Scraping
+ *  reads only `<path>`, and 252 icons in the set place a shape as `<circle>`,
+ *  `<rect>` or `<ellipse>` — `user` draws its head as a `<circle>` — while 11
+ *  carry no `<path>` at all. Those 11 linted as `empty` and the other 241 were
+ *  measured with pieces missing, which silently wrongs every extent, gap and
+ *  centre this command reports. */
 const fromSVG = (svg: string): Canvas => {
   const canvas = new Canvas();
-  for (const m of svg.matchAll(/\sd="(?<data>[^"]+)"/gu)) {
-    canvas.raw(m.groups?.data ?? "");
+  for (const shape of parseIconSvg(svg)) {
+    canvas.raw(shape.d);
   }
   return canvas;
 };
