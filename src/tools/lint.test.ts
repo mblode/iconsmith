@@ -82,6 +82,36 @@ describe("lint", () => {
     expect(issues).toEqual([]);
   });
 
+  it("fires `cut` when a notch is tighter than the floor", () => {
+    // A horizontal rule stopping at 11 and resuming at 13, crossed by a riser:
+    // a 2-unit hole where the set never goes below 3.
+    const issues = lint(
+      canvas(el("e0", "M4 12H11M13 12H20"), el("e1", "M12 4V20"))
+    );
+    const cut = issues.find((i) => i.rule === "cut");
+    // A warning: the pairing can be wrong, and a cut is a spacing judgement.
+    expect(cut?.severity).toBe("warn");
+    expect(cut?.message).toContain("e1 cuts e0 by 2.00px at (12.0, 12.0)");
+  });
+
+  it("stays quiet at the floor, which is where the set actually draws", () => {
+    // 3.00 exactly — `fork-spoon`'s middle tine. The floor is literal, so the
+    // tightest thing blode-icons draws must not be a violation.
+    const issues = lint(
+      canvas(el("e0", "M4 12H10.5M13.5 12H20"), el("e1", "M12 4V20"))
+    );
+    expect(rules(issues)).not.toContain("cut");
+  });
+
+  it("does not report a `gap` as a `cut`", () => {
+    // A riser that stops on the rule instead of crossing it: clearance between
+    // two shapes, which is `gap`'s question, not a hole in one of them.
+    const issues = lint(
+      canvas(el("e0", "M4 12H11M13 12H20"), el("e1", "M12 4V11.5"))
+    );
+    expect(rules(issues)).not.toContain("cut");
+  });
+
   it("fires `density` past eight elements", () => {
     const lines = Array.from({ length: 9 }, (_, i) =>
       el(`e${i}`, `M${4 + i * 2} 8L${4 + i * 2} 16`)

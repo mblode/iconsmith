@@ -19,6 +19,7 @@ import type { Box, Issue, Keyline } from "../types.js";
 import { SPEC } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
 import { verdict } from "./cohort.js";
+import { cuts } from "./cut.js";
 
 /** The shape lint needs from a canvas: drawn path data with a name to blame. */
 export interface LintElement {
@@ -193,6 +194,42 @@ const gapIssues = (els: LintElement[]): Issue[] => {
   return issues;
 };
 
+/** Nothing in blode-icons or Central cuts below this. The floor is literal
+ *  rather than approached: `fork-spoon` and `knife-spoon` cut the middle tine
+ *  by exactly 3.00 where the bowl crosses it, and the next cut up is 4.08. A
+ *  floor guards against work the set would not do; this one sits exactly at
+ *  the tightest thing it does. */
+const MIN_CUT = 3;
+
+/**
+ * A notch too small to read as a notch.
+ *
+ * Not a duplicate of `gap`, which is the minimum perpendicular ink distance
+ * between two elements — "are these two too close". A cut is the arc length
+ * removed *along* the interrupted stroke — "is the hole big enough to read as
+ * a hole". A 2px stroke crossing a background at 45° needs ~2.8 units of notch
+ * to leave the visual gap a perpendicular crossing gets from 2. See `cut.ts`
+ * for the definition and its four failure modes.
+ *
+ * `warn` rather than `error` for two reasons, both structural: the detector
+ * can mis-pair two loose ends into a cut nobody drew, and a cut is a spacing
+ * judgement, which is the tier `gap` already sits in.
+ */
+const cutIssues = (els: LintElement[]): Issue[] =>
+  cuts(els)
+    .filter((c) => c.length < MIN_CUT)
+    .map((c) => {
+      const [a, b] = c.interrupted;
+      // A cut splits a subpath, not necessarily a `<path>`: usually one element
+      // holds both sides of the notch and naming it twice reads as a typo.
+      const notched = a === b ? a : `${a} and ${b}`;
+      return {
+        message: `${c.interrupter} cuts ${notched} by ${c.length.toFixed(2)}px at (${c.at[0].toFixed(1)}, ${c.at[1].toFixed(1)}); minimum is ${MIN_CUT}px. Widen the notch or move ${c.interrupter} clear of it.`,
+        rule: "cut",
+        severity: "warn" as const,
+      };
+    });
+
 export const lint = (
   canvas: LintTarget,
   { cohort = null, keyline = null }: LintOptions = {}
@@ -226,7 +263,7 @@ export const lint = (
       issues.push(issue);
     }
   }
-  issues.push(...gapIssues(els));
+  issues.push(...gapIssues(els), ...cutIssues(els));
 
   if (els.length > MAX_ELEMENTS) {
     issues.push({
