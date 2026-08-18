@@ -25,18 +25,17 @@
  */
 import type { Corpus, CorpusIcon } from "../corpus/load.js";
 import { parsePath } from "../geometry/path.js";
+import type { Direction, Run } from "../geometry/segments.js";
+import { isDiagonal, straightRuns } from "../geometry/segments.js";
 import { clusterIcon, elementsOf } from "./modifiers.js";
 
-/** Below this a segment is a join artefact, not a diagonal anyone drew. */
-const MIN_LENGTH = 1.5;
-/** Degrees off horizontal or vertical before a segment counts as diagonal. A
- *  2px stroke on a 24px canvas makes anything under this read as a wobble in a
- *  straight line rather than as a slant. */
-const MIN_OFF_AXIS = 15;
+export type { Direction } from "../geometry/segments.js";
+export { isDiagonal } from "../geometry/segments.js";
+
 /** Share of the live area's diagonal a segment must span to be a slash: a mark
  *  that crosses the whole icon rather than sitting inside it. */
 const SLASH_SPAN = 0.6;
-/** The live area is 20×20 inside the 2px safe margin, per Central's own grid. */
+/** The live area is 20x20 inside the 2px safe margin, per Central's own grid. */
 const LIVE = 20;
 const LIVE_DIAGONAL = Math.SQRT2 * LIVE;
 /** Rising and falling lengths within this ratio of each other are a draw. */
@@ -44,46 +43,11 @@ const BALANCED = 1.25;
 /** Size ratio before two marks count as "different size" for composition. */
 const COMPOSITION_RATIO = 1.3;
 
-export type Direction = "balanced" | "falling" | "none" | "rising";
-
-export interface Segment {
-  /** Undirected angle in [0, 180). Above 90 rises to the right. */
-  angle: number;
-  length: number;
-}
+export type Segment = Run;
 
 /** Every straight segment of an icon, with its undirected angle. */
-export const straightSegments = (icon: CorpusIcon): Segment[] => {
-  const out: Segment[] = [];
-  for (const shape of icon.shapes) {
-    for (const sp of parsePath(shape.d)) {
-      let cur = sp.start;
-      for (const s of sp.segs) {
-        if (s.t === "L") {
-          const dx = s.p[0] - cur[0];
-          const dy = s.p[1] - cur[1];
-          let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-          if (angle < 0) {
-            angle += 180;
-          }
-          out.push({ angle: angle % 180, length: Math.hypot(dx, dy) });
-          cur = [s.p[0], s.p[1]];
-        } else if (s.t === "C") {
-          cur = [s.p[4], s.p[5]];
-        } else {
-          cur = [s.p[5], s.p[6]];
-        }
-      }
-    }
-  }
-  return out;
-};
-
-const offAxis = (angle: number): number =>
-  Math.min(angle, Math.abs(angle - 90), Math.abs(180 - angle));
-
-export const isDiagonal = (s: Segment): boolean =>
-  s.length >= MIN_LENGTH && offAxis(s.angle) >= MIN_OFF_AXIS;
+export const straightSegments = (icon: CorpusIcon): Segment[] =>
+  straightRuns(icon.shapes.flatMap((shape) => parsePath(shape.d)));
 
 export interface IconDirection {
   /** Total length of falling diagonal (top-left → bottom-right). */
