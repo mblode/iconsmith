@@ -181,36 +181,45 @@ const REVERSALS = [false, true] as const;
  * the four quarter-turns plus the two **axis** reflections: six of the square's
  * eight symmetries. The two diagonal reflections (`mirrorX` at turns 1 and 3)
  * are excluded deliberately, because they map an angle to its complement,
- * θ → 90-θ. Over blode-icons that folds a 32° oblique onto a 68° one
- * (`"M0 1.25L2 0"` onto `"M2 0L0 5"`) and an 8x8.75 hexagon onto an 18x14
- * rounded rectangle. Admitting them would quietly undo the work of the
- * off-axis canvas guard and lint rule, which exist to make an oblique's angle
- * an explicit, reviewable property.
+ * θ → 90-θ: over blode-icons they fold a 14° stroke onto a 76° one.
+ * Admitting them would quietly undo the work of the off-axis canvas guard and
+ * lint rule, which exist to make an oblique's angle an explicit, reviewable
+ * property.
  *
- * The evidence is two corpora, measured twice. Against the pristine 201-part
- * extraction, the axis set folds 81 pairs of which 19 co-occur inside a single
- * icon; adding the diagonals folds 31 more for only 4 further co-occurrences.
- * Central agrees at 80/19 against 120/21. Measured again on the *residue* after
- * this fold, 33 diagonal-only pairs remain over blode-icons and 16 over
- * Central, with 3 and 1 co-occurrences between them — still noise.
+ * The evidence is two corpora. Measure it by pinning one (turn, reflect) pair
+ * at a time: routing through `distance` re-minimises over all four turns, which
+ * makes the axis and diagonal halves indistinguishable and is how three earlier
+ * attempts at these counts came out wrong.
  *
  * The consequence, which is a trade and not an oversight: a mark the set draws
  * mirrored *and* quarter-turned no longer folds, since m_x∘R_1 is a diagonal
  * reflection. `turnsToTry` offers only the odd turns for an aspect-transposed
  * pair, which is exactly where that case lives.
  *
- * The cost is countable, so it is counted rather than waved at. On blode-icons
- * it is four pairs: a U arc against a bracket, two rounded U-brackets at 16x7
- * and 12x7, a small blob against a 16x7 ellipse, and
- * `"M0 4C3.75 4 5.75 1.75 7 0"` against `"M0 0C1.25 1.75 3 3.25 5.25 3.75"`.
- * On Central it is two. Only the last of the four looks like one mark genuinely
- * lost; the other three are different proportions that a 48-point fingerprint
- * happens to bring within 0.06 — the same weak discrimination that produces the
- * junk, arriving at the right answer by luck.
+ * The cost is countable, so it is counted rather than waved at. Measured on
+ * this configuration, 26 diagonal-only pairs remain over blode-icons and 25
+ * over Central, of which 6 and 5 co-occur inside an icon — against a base rate
+ * of 5.6% and 5.8% for any two parts sharing one at all.
+ *
+ * Four of those six, and three of the five, are pairs of *single straight
+ * segments*. That is the whole story of why the diagonals are junk. `norm`
+ * divides by max(w, h), so a straight line's fingerprint retains nothing but
+ * its aspect, and under transposition any shallow line matches any steep one.
+ * `"M2 0.5L0 0"` and `"M0.5 2L0 0"` sit at distance 0.000 — not because they
+ * are one mark, but because neither has any shape left to disagree about: 14°
+ * against 76°.
+ *
+ * The exceptions are worth naming so they are not rediscovered as bugs. A 6x3.5
+ * corner bracket against a 2.26x3.77 one (`ar-cube-3`) is a proportion
+ * mismatch. The other is a genuine near-miss and is not a reflection question
+ * at all: a 2.22x3.62 mark and its own transpose, in 4+ keyboard and layout
+ * icons, sit at *plain rotation* distance 0.070 and so miss the ordinary
+ * quarter-turn fold by 0.010. The diagonal reflection only reaches them
+ * incidentally. That is a threshold question, filed separately.
  *
  * So the trade is not symmetric, and that asymmetry is the argument: the
- * exclusion loses a handful of true folds and blocks an order of magnitude more
- * false ones.
+ * exclusion loses a handful of true folds, most of them lines with no shape,
+ * and blocks an order of magnitude more false ones.
  *
  * The set of transforms is therefore not a group. It does not need to be:
  * `match` minimises over a set, it never composes two of them.

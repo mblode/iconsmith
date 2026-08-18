@@ -299,12 +299,15 @@ describe("distance under reflection", () => {
 
   it("does not fold an oblique onto its complementary angle", () => {
     // The diagonal reflections are excluded, and this is what they would cost.
-    // Both marks are real parts of blode-icons: a 32° oblique and a 68° one,
-    // which m_x at a quarter-turn maps onto each other because a diagonal
-    // reflection sends θ to 90-θ. Merging them would undo the off-axis canvas
-    // guard and lint rule, whose whole point is that an oblique's angle is an
-    // explicit property rather than an accident.
-    expect(distance(fp("M0 1.25L2 0"), fp("M2 0L0 5"))).toBeGreaterThan(
+    // Both marks are live parts of blode-icons — p0165 and p0166, which share
+    // `broken-chain-link-3`, `teddy-bear` and `warning-sign` — and a diagonal
+    // reflection puts them at distance 0.000, because it sends θ to 90-θ and
+    // these are 14° and 76°. They match not as one mark but as two lines with
+    // no shape left to disagree about: `norm` divides by max(w, h), so a single
+    // straight segment keeps nothing but its aspect. Merging them would undo
+    // the off-axis canvas guard and lint rule, whose whole point is that an
+    // oblique's angle is an explicit property rather than an accident.
+    expect(distance(fp("M2 0.5L0 0"), fp("M0.5 2L0 0"))).toBeGreaterThan(
       CLUSTER_THRESHOLD
     );
   });
