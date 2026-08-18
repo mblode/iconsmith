@@ -35,8 +35,11 @@ npm run fix
   corpus-gated tests stop running without failing. The test count is the canary:
   it is 374 across 24 files, and a drop means the corpus is not where the code
   expects it.
-- **`corpus/` in `.gitignore` is deliberately unanchored.** A leading slash would
-  only match a repo-root corpus and would stage 62,550 SVGs.
+- **The corpus is ignored by full path: `/packages/iconsmith/corpus/`.** Not a bare
+  `corpus/`, which has no anchor and so matches a directory at any depth, including
+  `packages/iconsmith/src/corpus/`, which silently hid new source files there from
+  `git add`. Not `/corpus/` either, which anchors to the repo root where no corpus
+  lives and ignores nothing, staging 62,550 SVGs.
 - **The lint toolchain is declared only at the repo root.** `ultracite` dispatches
   to `oxlint` and `oxfmt` by bare import, so all three have to resolve from the
   same `node_modules`. Adding any of them to a workspace splits the install and
