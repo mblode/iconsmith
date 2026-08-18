@@ -21,7 +21,7 @@
  * A fix that moves the render is reclassified as a redraw and reported as a
  * failure of the fix, not as a cost of it.
  */
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { Corpus, CorpusIcon, CorpusShape } from "../corpus/load.js";
@@ -437,7 +437,114 @@ export const repairIcon = (icon: CorpusIcon): RepairResult => {
   };
 };
 
+/** One shape's attribute changes, to be applied to the original source text. */
+export interface ShapeEdit {
+  /** Attribute name to value. A value replaces an existing attribute or is
+   *  inserted before the closing bracket if the element does not carry one. */
+  attrs: Record<string, string>;
+  shape: number;
+}
+
+const ELEMENT = /<(?<tag>path|circle|ellipse|rect|line)\b[^>]*>/gu;
+
+const setAttr = (el: string, name: string, value: string): string => {
+  const existing = new RegExp(`(\\s${name}\\s*=\\s*")[^"]*(")`, "u");
+  if (existing.test(el)) {
+    return el.replace(existing, `$1${value}$2`);
+  }
+  // Insert before the element's closing bracket, keeping self-closing form.
+  return el.replace(
+    /\s*\/?>$/u,
+    (tail) => ` ${name}="${value}"${tail.trimStart()}`
+  );
+};
+
+/**
+ * Apply edits to the *original file text*, changing nothing else.
+ *
+ * Re-serialising the document from parsed shapes was the wrong instinct: it
+ * rewrote the `<svg>` header on all 98 staged files, adding explicit width and
+ * height — a behavioural change to how an inlined icon scales that nobody asked
+ * for — and buried 373 real fixes in a diff where every line read as changed.
+ * The same principle already governed spur removal, where surviving contours
+ * keep their original text; this extends it to the whole document.
+ *
+ * Returns null when the element count does not match the parsed shape count, so
+ * an icon whose markup this cannot index confidently is left alone rather than
+ * edited at a guessed offset.
+ */
+export const editSource = (
+  svg: string,
+  shapeCount: number,
+  edits: ShapeEdit[]
+): string | null => {
+  ELEMENT.lastIndex = 0;
+  const elements = [...svg.matchAll(ELEMENT)];
+  if (elements.length !== shapeCount) {
+    return null;
+  }
+  const byShape = new Map<number, Record<string, string>>();
+  for (const e of edits) {
+    byShape.set(e.shape, { ...byShape.get(e.shape), ...e.attrs });
+  }
+
+  let out = "";
+  let cursor = 0;
+  for (const [i, m] of elements.entries()) {
+    const attrs = byShape.get(i);
+    const start = m.index ?? 0;
+    out += svg.slice(cursor, start);
+    let [el] = m;
+    if (attrs) {
+      // A geometry change on a non-path element cannot be expressed in place:
+      // the loader synthesised its `d` from cx/r/x/y, so writing one back would
+      // be authoring geometry rather than editing it.
+      if (attrs.d !== undefined && !el.startsWith("<path")) {
+        return null;
+      }
+      for (const [name, value] of Object.entries(attrs)) {
+        el = setAttr(el, name, value);
+      }
+    }
+    out += el;
+    cursor = start + m[0].length;
+  }
+  return out + svg.slice(cursor);
+};
+
+/** The edits needed to turn the original shapes into the repaired ones. */
+export const editsFor = (
+  before: CorpusShape[],
+  after: CorpusShape[]
+): ShapeEdit[] => {
+  const edits: ShapeEdit[] = [];
+  for (const [i, b] of before.entries()) {
+    const a = after[i];
+    if (!a) {
+      continue;
+    }
+    const attrs: Record<string, string> = {};
+    if (a.d !== b.d) {
+      attrs.d = a.d;
+    }
+    if (a.strokeWidth !== b.strokeWidth && b.strokeWidth > 0) {
+      attrs["stroke-width"] = String(a.strokeWidth);
+    }
+    if (a.cap !== b.cap) {
+      attrs["stroke-linecap"] = a.cap;
+    }
+    if (Object.keys(attrs).length > 0) {
+      edits.push({ attrs, shape: i });
+    }
+  }
+  return edits;
+};
+
 export interface Verified extends RepairResult {
+  /** The original file text with only the accepted changes applied, or null
+   *  when the markup could not be indexed confidently. This is what gets
+   *  written; `svg` is a normalised rebuild used only for comparison. */
+  source: string | null;
   /** Fixes proposed but withheld because applying them moved the render. */
   rejected: Fix[];
   /** Rendered similarity of the original against the accepted result. */
@@ -454,11 +561,14 @@ export interface Verified extends RepairResult {
  * against a renderer on the actual icon, and the ones that turn out to be
  * redraws are handed back rather than shipped.
  */
-export const verifyIcon = async (icon: CorpusIcon): Promise<Verified> => {
+export const verifyIcon = async (
+  icon: CorpusIcon,
+  originalSource?: string
+): Promise<Verified> => {
   const base = repairIcon(icon);
   const proposals = proposeFixes(icon);
   if (proposals.length === 0) {
-    return { ...base, inert: true, rejected: [], score: 1 };
+    return { ...base, inert: true, rejected: [], score: 1, source: null };
   }
 
   const before = toSVG(icon.shapes);
@@ -486,6 +596,14 @@ export const verifyIcon = async (icon: CorpusIcon): Promise<Verified> => {
   const shapes = applyAll(icon.shapes, keep);
   const score =
     accepted.length > 0 ? await similarity(before, toSVG(shapes)) : 1;
+  const source =
+    originalSource && accepted.length > 0
+      ? editSource(
+          originalSource,
+          icon.shapes.length,
+          editsFor(icon.shapes, shapes)
+        )
+      : null;
   return {
     fixes: accepted,
     icon: icon.symbol,
@@ -494,6 +612,7 @@ export const verifyIcon = async (icon: CorpusIcon): Promise<Verified> => {
     review: base.review,
     score,
     shapes,
+    source,
     svg: toSVG(shapes),
   };
 };
@@ -509,8 +628,11 @@ export interface RepairOptions {
 }
 
 export interface RepairReport {
-  /** Icons whose render moved: the fix was not mechanical after all. */
-  failed: Verified[];
+  /** Icons where a proposal was rejected and withheld. The icon's other fixes
+   *  still apply; this is not "the fix broke the icon". */
+  withheld: Verified[];
+  /** Icons with inert fixes that could not be expressed as an in-place edit. */
+  unwritable: Verified[];
   /** Icons corrected and proved inert. */
   fixed: Verified[];
   fixCounts: Record<FixKind, number>;
@@ -542,13 +664,22 @@ export const repairSet = async (
     corpus.has(s, variant)
   );
   const loaded = await Promise.all(
-    symbols.map(async (s) => await corpus.load(s, variant))
+    symbols.map(async (s) => ({
+      icon: await corpus.load(s, variant),
+      source: await corpus.svg(s, variant),
+    }))
   );
-  const verified = await Promise.all(loaded.map((i) => verifyIcon(i)));
+  const verified = await Promise.all(
+    loaded.map((l) => verifyIcon(l.icon, l.source))
+  );
 
   const changed = verified.filter((v) => v.fixes.length > 0);
-  const fixed = changed.filter((v) => v.inert);
-  const failed = changed.filter((v) => !v.inert);
+  // An icon whose markup could not be indexed has no writable output, so it is
+  // not "fixed" however inert its fixes were. Counting it as fixed is what let
+  // the written set drift from the reported set.
+  const fixed = changed.filter((v) => v.inert && v.source !== null);
+  const withheld = changed.filter((v) => !v.inert);
+  const unwritable = changed.filter((v) => v.inert && v.source === null);
   const review = verified.filter((v) => v.review.length > 0);
 
   const fixCounts: Record<FixKind, number> = {
@@ -566,14 +697,21 @@ export const repairSet = async (
 
   if (out && !dryRun) {
     await mkdir(out, { recursive: true });
+    // Clear the directory first. Leaving it be let two files from an earlier,
+    // buggy run survive into a later one, where they were indistinguishable
+    // from current output and appeared in no section of the report — a reviewer
+    // would have been reading a diff produced by code that no longer exists.
+    const stale = await readdir(out);
+    await Promise.all(stale.map((f) => rm(path.join(out, f), { force: true })));
     await Promise.all(
-      fixed.map((v) => writeFile(path.join(out, `${v.icon}.svg`), `${v.svg}\n`))
+      fixed.map((v) =>
+        writeFile(path.join(out, `${v.icon}.svg`), v.source as string)
+      )
     );
     await writeFile(
       path.join(out, "repairs.json"),
       `${JSON.stringify(
         {
-          failed: failed.map((v) => ({ icon: v.icon, score: v.score })),
           fixed: fixed.map((v) => ({
             fixes: v.fixes,
             icon: v.icon,
@@ -581,6 +719,7 @@ export const repairSet = async (
           })),
           review: review.map((v) => ({ icon: v.icon, review: v.review })),
           variant,
+          withheld: withheld.map((v) => ({ icon: v.icon, score: v.score })),
         },
         null,
         2
@@ -589,13 +728,14 @@ export const repairSet = async (
   }
 
   return {
-    failed,
     fixCounts,
     fixed,
     out: dryRun ? null : out,
     review,
     scanned: symbols.length,
+    unwritable,
     variant,
+    withheld,
   };
 };
 
@@ -612,11 +752,21 @@ export const formatRepairReport = (r: RepairReport): string => {
     `  ${r.fixed.length} icon(s) corrected and proved visually inert (similarity >= ${INERT})`,
     `  ${r.review.length} icon(s) left for review`,
   ];
-  if (r.failed.length > 0) {
+  if (r.withheld.length > 0) {
     lines.push(
       "",
-      `  ${r.failed.length} FIX(ES) MOVED THE RENDER and were withheld:`,
-      ...r.failed.map((v) => `    ${v.icon}  similarity ${v.score.toFixed(5)}`)
+      `  ${r.withheld.length} icon(s) had a proposal withheld for moving the render:`,
+      ...r.withheld.map(
+        (v) =>
+          `    ${v.icon}  ${v.rejected.map((f) => f.kind).join(", ")} (kept ${v.fixes.length} other fix(es))`
+      )
+    );
+  }
+  if (r.unwritable.length > 0) {
+    lines.push(
+      "",
+      `  ${r.unwritable.length} icon(s) could not be edited in place and were not written:`,
+      ...r.unwritable.map((v) => `    ${v.icon}`)
     );
   }
   if (r.out) {

@@ -6,6 +6,10 @@
  * direction costs coverage; getting it wrong in the other direction silently
  * redraws a shipped icon, so the boundary cases are the tests that matter.
  */
+import { mkdtemp, readdir, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import type { CorpusIcon, CorpusShape, Variant } from "../corpus/load.js";
@@ -13,6 +17,8 @@ import { parsePath } from "../geometry/path.js";
 import {
   classifyStroke,
   dropContour,
+  editSource,
+  editsFor,
   isSpurCandidate,
   repairIcon,
   repairSet,
@@ -229,5 +235,139 @@ describe("verifyIcon", () => {
         out,
       })
     ).rejects.toThrow(/Refusing to write/u);
+  });
+});
+
+describe("editSource", () => {
+  const SRC =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">\n' +
+    '<path d="M4 4L20 20" stroke="currentColor" stroke-width="1.995"/>\n' +
+    "</svg>\n";
+
+  it("leaves the header, attribute order and whitespace exactly as found", () => {
+    // Re-serialising added width and height to all 98 staged files, which
+    // changes how an inlined icon scales, and buried the real fixes in a diff
+    // where every line read as changed.
+    const out = editSource(SRC, 1, [
+      { attrs: { "stroke-width": "2" }, shape: 0 },
+    ]);
+    expect(out?.split("\n")[0]).toBe(SRC.split("\n")[0]);
+    expect(out?.endsWith("</svg>\n")).toBe(true);
+    expect(out).toContain('stroke-width="2"');
+    expect(out).not.toContain("1.995");
+  });
+
+  it("changes exactly one line", () => {
+    const out = editSource(SRC, 1, [
+      { attrs: { "stroke-width": "2" }, shape: 0 },
+    ]);
+    const before = SRC.split("\n");
+    const after = (out ?? "").split("\n");
+    const changed = before.filter((line, i) => line !== after[i]).length;
+    expect(changed).toBe(1);
+  });
+
+  it("inserts an attribute the element does not carry", () => {
+    const out = editSource(SRC, 1, [
+      { attrs: { "stroke-linecap": "round" }, shape: 0 },
+    ]);
+    expect(out).toContain('stroke-linecap="round"');
+    expect(out?.split("\n")[0]).toBe(SRC.split("\n")[0]);
+  });
+
+  it("refuses when the element count does not match the shape count", () => {
+    // An icon whose markup cannot be indexed confidently is left alone rather
+    // than edited at a guessed offset.
+    expect(editSource(SRC, 2, [{ attrs: { d: "M0 0" }, shape: 0 }])).toBeNull();
+  });
+
+  it("refuses a geometry edit on a synthesised element", () => {
+    // The loader builds `d` for a <circle> from cx/cy/r. Writing one back would
+    // be authoring geometry, not editing it.
+    const circle =
+      '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>';
+    expect(
+      editSource(circle, 1, [{ attrs: { d: "M0 0" }, shape: 0 }])
+    ).toBeNull();
+  });
+});
+
+describe("editsFor", () => {
+  it("emits only the attributes that actually changed", () => {
+    const before = [shape({ strokeWidth: 1.995 }), shape()];
+    const after = [shape({ strokeWidth: 2 }), shape()];
+    expect(editsFor(before, after)).toEqual([
+      { attrs: { "stroke-width": "2" }, shape: 0 },
+    ]);
+  });
+
+  it("does not write a stroke width onto a filled shape", () => {
+    const before = [shape({ filled: true, strokeWidth: 0 })];
+    const after = [shape({ filled: true, strokeWidth: 2 })];
+    expect(editsFor(before, after)).toEqual([]);
+  });
+});
+
+const SVG = (w: string) =>
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">\n' +
+  `<path d="M4 4L20 20" stroke="currentColor" stroke-width="${w}"/>\n` +
+  "</svg>\n";
+
+describe("the written set matches the reported set", () => {
+  /** A corpus of two icons, one repairable and one already clean. */
+  const stubCorpus = (svgs: Record<string, string>) => ({
+    has: (s: string) => s in svgs,
+    load: (s: string) =>
+      Promise.resolve(
+        icon(
+          [shape({ d: "M4 4L20 20", strokeWidth: s === "dirty" ? 1.995 : 2 })],
+          s
+        )
+      ),
+    origin: "test",
+    pathTo: (s: string) => s,
+    root: "test",
+    svg: (s: string) => Promise.resolve(svgs[s]),
+    symbols: Object.keys(svgs),
+    variant: () => {},
+    variants: [],
+  });
+
+  it("writes exactly the icons it reports as fixed, and no others", async () => {
+    const out = await mkdtemp(path.join(tmpdir(), "forge-staging-"));
+    const corpus = stubCorpus({ clean: SVG("2"), dirty: SVG("1.995") });
+
+    // A file left behind by an earlier run. Two of these survived into a real
+    // staging directory, carried geometry from a since-fixed bug, and appeared
+    // in no section of the report.
+    await writeFile(path.join(out, "ghost.svg"), "<svg/>");
+
+    const r = await repairSet({
+      corpus: corpus as never,
+      out,
+      variant: "round-outlined-radius-3-stroke-2",
+    });
+
+    const entries = await readdir(out);
+    const written = entries
+      .filter((f) => f.endsWith(".svg"))
+      .map((f) => f.replace(/\.svg$/u, ""))
+      .toSorted();
+    expect(written).toEqual(r.fixed.map((v) => v.icon).toSorted());
+    expect(written).not.toContain("ghost");
+  });
+
+  it("writes nothing under --dry-run", async () => {
+    const out = await mkdtemp(path.join(tmpdir(), "forge-staging-"));
+    const corpus = stubCorpus({ dirty: SVG("1.995") });
+    const r = await repairSet({
+      corpus: corpus as never,
+      dryRun: true,
+      out,
+      variant: "round-outlined-radius-3-stroke-2",
+    });
+    expect(r.fixed.length).toBeGreaterThan(0);
+    const files = await readdir(out);
+    expect(files).toEqual([]);
   });
 });
