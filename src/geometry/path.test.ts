@@ -5,6 +5,7 @@ import {
   parsePath,
   points,
   q,
+  rotateQuarter,
   scale,
   serialise,
   translate,
@@ -97,4 +98,25 @@ test("arcs survive parsing without approximation", () => {
   const sp = parsePath("M0 0A5 5 0 0 1 10 0");
   expect_eq(sp[0].segs[0].t, "A");
   expect_eq(sp[0].segs[0].p, [5, 5, 0, 0, 1, 10, 0]);
+});
+
+test("a quarter-turn is exact, and four of them are the identity", () => {
+  const [sp] = parsePath("M1 2L5 2C6 2 7 3 7 4L7 8");
+  const cw = rotateQuarter(sp, 1);
+  // Clockwise in y-down space: the start (1,2) goes to (-2,1).
+  expect(cw.start).toStrictEqual([-2, 1]);
+  const b = bbox([cw]);
+  const before = bbox([sp]);
+  expect([b.w, b.h]).toStrictEqual([before.h, before.w]);
+  expect(serialise([rotateQuarter(sp, 4)])).toBe(serialise([sp]));
+});
+
+test("a turned arc turns its own axis with it", () => {
+  const [sp] = parsePath("M0 0A3 2 10 0 1 4 4");
+  const [seg] = rotateQuarter(sp, 1).segs;
+  if (seg.t !== "A") {
+    throw new Error("expected an arc");
+  }
+  // Radii and sweep are untouched by a rotation; the x-axis rotation is not.
+  expect(seg.p).toStrictEqual([3, 2, 100, 0, 1, -4, 4]);
 });

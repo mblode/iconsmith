@@ -1,6 +1,12 @@
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
+
 import { expect, test } from "vitest";
 
 import { bbox, parsePath } from "../geometry/path.js";
+import { extractParts } from "../parts/extract.js";
+import { fingerprint, match } from "../parts/shape.js";
 import type { IconDoc, Part } from "../types.js";
 import { Canvas, SPEC } from "./canvas.js";
 
@@ -154,17 +160,73 @@ test("coordinates are clamped onto the canvas", () => {
   ).toStrictEqual([0, SPEC.canvas]);
 });
 
+/** A dot's visual diameter: the path it draws, inflated by the stroke that
+ *  draws it. The tier is this number, never the path bbox. */
+const dotDiameter = (d: string, stroke = SPEC.stroke): number =>
+  bbox(parsePath(d)).w + stroke;
+
 test("a dot takes its size from its role, not from a free radius", () => {
   const c = new Canvas();
-  for (const role of ["terminal", "more", "floating"] as const) {
+  const roles = ["terminal", "more", "floating", "node"] as const;
+  for (const role of roles) {
     c.dot({ cx: 12, cy: 12, role });
   }
-  const extents = c.elements.map((e) => bbox(parsePath(e.d)).w);
-  expect(extents).toStrictEqual([
+  expect(c.elements.map((e) => dotDiameter(e.d))).toStrictEqual([
     SPEC.dots.terminal,
     SPEC.dots.more,
     SPEC.dots.floating,
+    SPEC.dots.node,
   ]);
+  // The tier set itself, pinned. These are measured from the corpus; changing
+  // one is a change to the house spec, not a refactor.
+  expect(SPEC.dots).toStrictEqual({
+    floating: 3,
+    more: 2.5,
+    node: 4,
+    terminal: 2,
+  });
+  // Every role the type admits is drawable, so no role can be added to the
+  // union without a measured size to go with it.
+  expect(Object.keys(SPEC.dots).toSorted()).toStrictEqual(
+    [...roles].toSorted()
+  );
+});
+
+test("transform preserves every role's diameter, at any scale", () => {
+  for (const k of [0.5, 1.6, 3]) {
+    const c = new Canvas();
+    for (const role of ["terminal", "more", "floating", "node"] as const) {
+      c.dot({ cx: 6, cy: 6, role });
+    }
+    c.transform(k, 1, 1);
+    expect(c.elements.map((e) => dotDiameter(e.d))).toStrictEqual([
+      SPEC.dots.terminal,
+      SPEC.dots.more,
+      SPEC.dots.floating,
+      SPEC.dots.node,
+    ]);
+    expect(c.elements.map((e) => e.kind === "dot" && e.role)).toStrictEqual([
+      "terminal",
+      "more",
+      "floating",
+      "node",
+    ]);
+  }
+});
+
+test("a dot is a solid disc, never a ring", () => {
+  const c = new Canvas();
+  for (const role of ["terminal", "more", "floating", "node"] as const) {
+    c.dot({ cx: 12, cy: 12, role });
+  }
+  for (const e of c.elements) {
+    // The skeleton is at most one stroke wide, so the stroke closes its own
+    // hole — the corpus's own construction for a dot.
+    expect(bbox(parsePath(e.d)).w).toBeLessThanOrEqual(SPEC.stroke);
+  }
+  // The smallest tier is the stroke itself, so it draws no line at all: a
+  // zero-length round-capped segment, which is Central's idiom for a dot.
+  expect(c.elements[0].d).toBe("M12 12L12 12");
 });
 
 test("an unknown dot role is rejected rather than silently sized", () => {
@@ -227,9 +289,9 @@ test("transform re-emits through the primitives, so the result is still on-spec"
   c.transform(1.6, 0.3, 0.3);
   const [rect, dot] = c.elements;
   // The radius re-tiers against the new size instead of scaling off-spec, and a
-  // dot keeps its role size — a terminal dot is 1.5 at every keyline.
+  // dot keeps its role size — a terminal dot is 2 at every keyline.
   expect(rect.kind === "rect" && rect.r).toBe(1);
-  expect(bbox(parsePath(dot.d)).w).toBe(SPEC.dots.terminal);
+  expect(dotDiameter(dot.d)).toBe(SPEC.dots.terminal);
   for (const e of c.elements) {
     for (const v of nodesOf(e.d)) {
       expect(onGrid(v)).toBe(true);
@@ -261,4 +323,90 @@ test("remove and clear keep ids and the log honest", () => {
   expect(() => c.remove(a)).toThrow(/no element/u);
   c.clear();
   expect(c.bbox()).toBeNull();
+});
+
+/**
+ * Orientation. The clusterer folds a mark and its quarter-turns into one part,
+ * so a part the set draws four ways needs four ways to be placed — and exactly
+ * four: a free angle would be raw geometry entering through a new door.
+ */
+test("a turned part keeps x,y as its top-left corner", () => {
+  const c = new Canvas(PARTS);
+  // "corner" is M0 0L4 0L4 4. A clockwise quarter-turn sends (4,0) to (0,4) and
+  // (4,4) to (-4,4), which is off the origin until the placement re-seats it.
+  c.part({ id: "p0001", turn: 1, x: 2, y: 3 });
+  const b = bbox(parsePath(c.elements[0].d));
+  expect([b.x0, b.y0, b.w, b.h]).toStrictEqual([2, 3, 4, 4]);
+});
+
+test("a quarter-turn transposes a part's extent", () => {
+  const c = new Canvas([{ ...PARTS[0], d: "M0 0L6 0L6 2", h: 2, w: 6 }]);
+  c.part({ id: "p0001", turn: 1, x: 0, y: 0 });
+  const b = bbox(parsePath(c.elements[0].d));
+  expect([b.w, b.h]).toStrictEqual([2, 6]);
+});
+
+test("a part placed at each turn survives the round-trip unchanged", () => {
+  for (const turn of [0, 1, 2, 3]) {
+    const c = new Canvas(PARTS);
+    c.part({ id: "p0001", scale: 1.5, turn, x: 3, y: 4 });
+    const doc = c.toJSON();
+    expect(doc.draw).toStrictEqual([
+      { id: "p0001", op: "part", scale: 1.5, turn, x: 3, y: 4 },
+    ]);
+    const back = Canvas.fromJSON(doc, PARTS);
+    expect(back.toSVG()).toBe(c.toSVG());
+    expect(back.toJSON()).toStrictEqual(doc);
+  }
+});
+
+test("a transform re-emits a turned part at the same turn", () => {
+  const c = new Canvas(PARTS);
+  c.part({ id: "p0001", turn: 3, x: 2, y: 2 });
+  c.transform(2, 1, 1);
+  const [el] = c.elements;
+  expect(el.kind === "part" && el.turn).toBe(3);
+});
+
+test("a free angle is not a turn", () => {
+  const c = new Canvas(PARTS);
+  for (const turn of [1.5, 4, -1, 37]) {
+    expect(() => c.part({ id: "p0001", turn, x: 0, y: 0 })).toThrow(
+      /quarter-turn/u
+    );
+  }
+});
+
+/**
+ * The one claim that spans two modules: the turn index `parts/shape.ts` reports
+ * is the turn index this canvas places at. Nothing inside either module can
+ * catch a convention drift between them — the clusterer would still merge and
+ * the canvas would still draw, just at the wrong orientation — so it is checked
+ * end to end, from two icons on disk to the placed path.
+ */
+test("placing at the recorded turn reproduces the instance that was folded in", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "icon-forge-turn-"));
+  const write = (name: string, d: string) =>
+    writeFileSync(
+      path.join(dir, `${name}.svg`),
+      `<svg viewBox="0 0 24 24"><path d="${d}"/></svg>`
+    );
+  // The same chevron, drawn pointing right and pointing up.
+  write("chevron-right", "M4 4L8 9L4 14");
+  write("chevron-up", "M16 4L11 8L6 4");
+  const { parts } = extractParts(dir);
+  const part = parts.find((p) => p.icons.length === 2);
+  if (!part?.turns) {
+    throw new Error("expected the two chevrons to share one part");
+  }
+  const turn = part.turns.findIndex((n, i) => i > 0 && n > 0);
+  rmSync(dir, { force: true, recursive: true });
+
+  const canonical = fingerprint(parsePath(part.d)[0]);
+  const c = new Canvas(parts);
+  c.part({ id: part.id, turn, x: 0, y: 0 });
+  const placed = fingerprint(parsePath(c.elements[0].d)[0]);
+  // Same shape either way — `distance` is turn-invariant — so the check is that
+  // the placed drawing is genuinely turned rather than the canonical one again.
+  expect(match(canonical, placed).turn).toBe((4 - turn) % 4);
 });

@@ -1,8 +1,12 @@
 import { expect, test } from "vitest";
 
+import { bbox, parsePath } from "../geometry/path.js";
 import type { Part } from "../types.js";
 import { SPEC } from "./canvas.js";
+import type { CohortMember } from "./cohort.js";
+import { buildCohorts, measure } from "./cohort.js";
 import { run } from "./dsl.js";
+import { lint } from "./lint.js";
 
 const PARTS: Part[] = [
   {
@@ -60,6 +64,28 @@ test("every op parses", () => {
     "dot",
     "part",
   ]);
+});
+
+test("every dot role is reachable from the language, at its spec size", () => {
+  const roles = Object.keys(SPEC.dots);
+  const r = run(
+    [
+      "icon dots",
+      ...roles.map((role, i) => `dot ${4 + i * 4},12 ${role}`),
+    ].join("\n"),
+    PARTS
+  );
+  expect(r.errors).toStrictEqual([]);
+  expect(
+    r.canvas.elements.map((e) => bbox(parsePath(e.d)).w + SPEC.stroke)
+  ).toStrictEqual(
+    roles.map((role) => SPEC.dots[role as keyof typeof SPEC.dots])
+  );
+  // A bare `dot` still means the smallest tier.
+  const bare = run("dot 12,12", PARTS);
+  expect(
+    bare.canvas.elements[0].kind === "dot" && bare.canvas.elements[0].role
+  ).toBe("terminal");
 });
 
 test("an unknown op reports the fix instead of throwing", () => {
@@ -178,4 +204,162 @@ test("an empty program is not an error", () => {
   const r = run("# nothing but a comment\n\n", PARTS);
   expect(r.errors).toStrictEqual([]);
   expect(r.canvas.bbox()).toBeNull();
+});
+
+/** A family, measured the way `forge lint` measures one: draw the siblings,
+ *  take each one's path bbox. */
+const family = (programs: Record<string, string>): CohortMember[] =>
+  Object.entries(programs).map(([name, src]) => {
+    const r = run(src, PARTS);
+    expect(r.errors).toStrictEqual([]);
+    return { box: measure(r.canvas.elements.map((e) => e.d)), name };
+  });
+
+const SIBLINGS = {
+  "bell-1": "rect 4,3 16x16 r2",
+  "bell-2": "rect 4,3 16x16 r2",
+};
+
+test("cohort lands a new icon on its family's measured extent", () => {
+  const cohorts = buildCohorts(family(SIBLINGS));
+  // 10×10 shares the siblings' 1:1 aspect, so both axes bind and the landing
+  // is exact rather than fitted on y alone.
+  const r = run("icon bell-3\nrect 2,2 10x10 r2\ncohort", PARTS, { cohorts });
+  expect(r.errors).toStrictEqual([]);
+  const b = r.canvas.bbox();
+  expect(b && [b.x0, b.x1, b.y0, b.y1]).toStrictEqual([4, 20, 3, 19]);
+});
+
+test("an icon drawn with cohort has no cohort-align finding; the same icon without one does", () => {
+  const cohorts = buildCohorts(family(SIBLINGS));
+  const draw = (src: string) => {
+    const r = run(`icon bell-3\n${src}`, PARTS, { cohorts });
+    expect(r.errors).toStrictEqual([]);
+    const members = [
+      ...family(SIBLINGS),
+      { box: measure(r.canvas.elements.map((e) => e.d)), name: "bell-3" },
+    ];
+    const [cohort] = buildCohorts(members);
+    return lint(r.canvas, { cohort: { cohort, name: "bell-3" } })
+      .filter((i) => i.rule === "cohort-align")
+      .map((i) => i.message);
+  };
+  // Drawn to its own extent, bell-3 splits the family and lint says by how far.
+  const alone = draw("rect 5,4 14x14 r2");
+  expect(alone).toHaveLength(2);
+  expect(alone[0]).toContain("jumps the icon 1.00px");
+  // Same drawing, conformed at draw time: nothing left for lint to find.
+  expect(draw("rect 5,4 14x14 r2\ncohort")).toStrictEqual([]);
+});
+
+test("cohort resolves by cohort key, by sibling name, and by the icon's own name", () => {
+  const cohorts = buildCohorts(family(SIBLINGS));
+  const box = (src: string) => {
+    const r = run(src, PARTS, { cohorts });
+    expect(r.errors).toStrictEqual([]);
+    return r.canvas.bbox();
+  };
+  const drawing = "rect 2,2 10x10 r2";
+  expect(box(`icon bell-3\n${drawing}\ncohort bell`)).toStrictEqual(
+    box(`icon bell-3\n${drawing}\ncohort bell-1`)
+  );
+  expect(box(`icon bell-3\n${drawing}\ncohort`)).toStrictEqual(
+    box(`icon bell-3\n${drawing}\ncohort bell`)
+  );
+});
+
+test("a # inside a cohort key is not a comment", () => {
+  const cohorts = buildCohorts(
+    family({
+      "bell-1-filled": "rect 4,3 16x16 r2",
+      "bell-2-filled": "rect 4,3 16x16 r2",
+    })
+  );
+  expect(cohorts[0].name).toBe("bell#filled");
+  const r = run("rect 2,2 10x10 r2\ncohort bell#filled", PARTS, { cohorts });
+  expect(r.errors).toStrictEqual([]);
+  const b = r.canvas.bbox();
+  expect(b && [b.y0, b.y1]).toStrictEqual([3, 19]);
+});
+
+test("a drawing of the wrong shape lands on y and reports what x is left over", () => {
+  const cohorts = buildCohorts(family(SIBLINGS));
+  // 10×14: y binds (16/14), leaving x 11.5 wide (11.43 quantised onto the
+  // 0.25 grid) against a family that spans 16.
+  const r = run("icon bell-3\nrect 2,2 10x14 r2\ncohort", PARTS, { cohorts });
+  const b = r.canvas.bbox();
+  expect(b && [b.y0, b.y1]).toStrictEqual([3, 19]);
+  expect(r.errors).toHaveLength(1);
+  expect(r.errors[0]).toContain("x is off by 4.50px");
+  expect(r.errors[0]).toContain("Redraw it");
+});
+
+test("a family with no agreed extent has nothing to inherit, and says so", () => {
+  const cohorts = buildCohorts(
+    family({
+      "bell-1": "rect 4,3 16x16 r2",
+      "bell-2": "rect 2,2 12x12 r2",
+      "bell-3": "rect 6,6 8x8 r2",
+    })
+  );
+  const r = run("rect 2,2 10x10 r2\ncohort bell", PARTS, { cohorts });
+  expect(r.errors).toHaveLength(1);
+  expect(r.errors[0]).toContain("no agreed extent");
+  // The geometry is left where it was drawn rather than snapped to an
+  // arbitrary group.
+  const b = r.canvas.bbox();
+  expect(b && [b.x0, b.y0]).toStrictEqual([2, 2]);
+});
+
+test("cohort with nothing to resolve against names what is known", () => {
+  const cohorts = buildCohorts(family(SIBLINGS));
+  expect(run("cohort owl", PARTS, { cohorts }).errors[0]).toContain(
+    "known: bell"
+  );
+  expect(run("cohort bell", PARTS).errors[0]).toContain(
+    "no cohorts were supplied"
+  );
+  expect(run("cohort", PARTS, { cohorts }).errors[0]).toContain(
+    "or an `icon <slug>` line"
+  );
+});
+
+test("fit after cohort is refused, because it undoes the inheritance", () => {
+  const cohorts = buildCohorts(family(SIBLINGS));
+  const r = run("icon bell-3\nrect 2,2 10x10 r2\ncohort\nfit", PARTS, {
+    cohorts,
+  });
+  expect(r.errors).toHaveLength(1);
+  expect(r.errors[0]).toContain("fit after cohort");
+  // Refused, not half-applied: the cohort extent still stands.
+  const b = r.canvas.bbox();
+  expect(b && [b.x0, b.x1]).toStrictEqual([4, 20]);
+});
+
+test("a named turn places the part turned, transposing its extent", () => {
+  const r = run("part cloud at 2,3 turn cw", PARTS);
+  expect(r.errors).toStrictEqual([]);
+  const b = r.canvas.bbox();
+  // The part is 8x6; a quarter-turn makes it 6x8, seated at the coordinate.
+  expect([b?.x0, b?.y0, b?.w, b?.h]).toStrictEqual([2, 3, 6, 8]);
+});
+
+test("a turn survives into the document as a turn", () => {
+  const r = run("part cloud turn half", PARTS);
+  expect(r.canvas.toJSON().draw).toStrictEqual([
+    { id: "p0031", op: "part", scale: 1, turn: 2, x: 8, y: 9 },
+  ]);
+});
+
+test("fill scales a turned part to the keyline it actually occupies", () => {
+  const r = run("keyline tall\npart cloud fill turn ccw", PARTS);
+  expect(r.errors).toStrictEqual([]);
+  // 8x6 turned is 6x8; `tall` is 16x20 visual, so 14x18 of path room. The
+  // height binds: 18/8 = 2.25, giving 13.5 x 18.
+  expect(extent(r.canvas)).toStrictEqual({ cx: 12, cy: 12, h: 20, w: 15.5 });
+});
+
+test("an unnamed turn is refused rather than read as an angle", () => {
+  const r = run("part cloud turn 37", PARTS);
+  expect(r.errors[0]).toMatch(/unknown turn "37" — expected one of/u);
 });

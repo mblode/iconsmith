@@ -16,7 +16,7 @@ import path from "node:path";
 
 import { bbox, parsePath, serialise, translate } from "../geometry/path.js";
 import type { Fingerprint, Part, Subpath } from "../types.js";
-import { distance, fingerprint } from "./shape.js";
+import { distance, fingerprint, foldedAspect, match } from "./shape.js";
 
 /** Clustering distance below which two subpaths are the same part. */
 const DEFAULT_THRESHOLD = 0.06;
@@ -32,6 +32,8 @@ const OUTLIER_COST = 1;
 const NODE_BUCKET_CAP = 12;
 /** Aspect is bucketed in thirds — coarse enough that near-matches share a bucket. */
 const ASPECT_BUCKETS = 3;
+/** Quarter-turns in a full turn. */
+const TURN_COUNT = 4;
 const COVERAGE_POINTS = [50, 200, 500];
 const GRID = 0.25;
 const PERCENT = 100;
@@ -72,6 +74,15 @@ interface Candidate {
   sp: Subpath;
 }
 
+/** A candidate once it has joined a cluster, with the orientation it joined at:
+ *  clockwise quarter-turns carrying the cluster head's drawing onto this one.
+ *  Captured here because `match` already worked it out — recovering it later
+ *  would mean running the whole comparison a second time. */
+interface Member {
+  c: Candidate;
+  turn: number;
+}
+
 const D_ATTR = /\sd="(?<d>[^"]+)"/gu;
 
 const isOutlineIcon = (file: string): boolean =>
@@ -102,14 +113,18 @@ const candidatesFrom = (svg: string, slug: string): Candidate[] => {
  * `distance` claims, so two candidates that could ever match land in the same
  * bucket — which keeps clustering near-linear instead of comparing every
  * candidate against every other.
+ *
+ * Aspect is folded, not raw: a quarter-turn transposes w and h, so a raw key
+ * files a turned instance away from its original and no distance is ever taken.
  */
 const bucketKey = (c: Candidate): string => {
   const shape = c.fp.closed ? "c" : "o";
   const nodes = Math.min(c.fp.nodes, NODE_BUCKET_CAP);
-  return `${shape}:${nodes}:${Math.round(c.fp.aspect * ASPECT_BUCKETS)}`;
+  const aspect = Math.round(foldedAspect(c.fp.aspect) * ASPECT_BUCKETS);
+  return `${shape}:${nodes}:${aspect}`;
 };
 
-const cluster = (candidates: Candidate[], threshold: number): Candidate[][] => {
+const cluster = (candidates: Candidate[], threshold: number): Member[][] => {
   const buckets = new Map<string, Candidate[]>();
   for (const c of candidates) {
     const bucket = buckets.get(bucketKey(c));
@@ -120,24 +135,26 @@ const cluster = (candidates: Candidate[], threshold: number): Candidate[][] => {
     }
   }
 
-  const clusters: Candidate[][] = [];
+  const clusters: Member[][] = [];
   for (const group of buckets.values()) {
-    const local: Candidate[][] = [];
+    const local: Member[][] = [];
     for (const c of group) {
-      let hit: Candidate[] | null = null;
+      let hit: Member[] | null = null;
       let bestD = Number.POSITIVE_INFINITY;
+      let bestTurn = 0;
       for (const members of local) {
         const [head] = members;
-        const d = distance(c.fp, head.fp);
+        const { d, turn } = match(c.fp, head.c.fp);
         if (d < threshold && d < bestD) {
           bestD = d;
+          bestTurn = turn;
           hit = members;
         }
       }
       if (hit) {
-        hit.push(c);
+        hit.push({ c, turn: bestTurn });
       } else {
-        local.push([c]);
+        local.push([{ c, turn: 0 }]);
       }
     }
     clusters.push(...local);
@@ -146,14 +163,14 @@ const cluster = (candidates: Candidate[], threshold: number): Candidate[][] => {
 };
 
 /** The member with the lowest total distance to the rest of the cluster. */
-const medoid = (members: Candidate[]): Candidate => {
+const medoid = (members: Member[]): Member => {
   const sample = members.slice(0, CANONICAL_SAMPLE);
   let [best] = members;
   let bestScore = Number.POSITIVE_INFINITY;
   for (const m of sample) {
     let sum = 0;
     for (const o of sample) {
-      sum += Math.min(distance(m.fp, o.fp), OUTLIER_COST);
+      sum += Math.min(distance(m.c.fp, o.c.fp), OUTLIER_COST);
     }
     if (sum < bestScore) {
       bestScore = sum;
@@ -163,21 +180,29 @@ const medoid = (members: Candidate[]): Candidate => {
   return best;
 };
 
-const toPart = (members: Candidate[], id: string): Part => {
+const toPart = (members: Member[], id: string): Part => {
   const best = medoid(members);
-  const b = bbox([best.sp]);
+  const b = bbox([best.c.sp]);
   // Normalised to the origin so the part can be placed anywhere.
-  const canonical = translate(best.sp, -b.x0, -b.y0);
-  const sizes = members.map((m) => round(m.fp.size));
+  const canonical = translate(best.c.sp, -b.x0, -b.y0);
+  const sizes = members.map((m) => round(m.c.fp.size));
+  // Turns are recorded against the canonical drawing, not against the cluster
+  // head, which is whichever member happened to arrive first. Both are turns
+  // from the head, so the difference is the turn from the medoid to the member.
+  const turns: [number, number, number, number] = [0, 0, 0, 0];
+  for (const m of members) {
+    turns[(m.turn - best.turn + TURN_COUNT) % TURN_COUNT] += 1;
+  }
   return {
-    closed: best.sp.closed,
+    closed: best.c.sp.closed,
     d: serialise([canonical], { grid: GRID }),
     h: round(b.h),
-    icons: [...new Set(members.map((m) => m.slug))].toSorted(),
+    icons: [...new Set(members.map((m) => m.c.slug))].toSorted(),
     id,
     instances: members.length,
-    nodes: best.sp.segs.length,
+    nodes: best.c.sp.segs.length,
     sizeRange: [Math.min(...sizes), Math.max(...sizes)],
+    turns,
     w: round(b.w),
   };
 };
@@ -224,7 +249,7 @@ export const extractParts = (
 
   const parts: Part[] = [];
   for (const members of cluster(candidates, threshold)) {
-    if (new Set(members.map((m) => m.slug)).size < minUses) {
+    if (new Set(members.map((m) => m.c.slug)).size < minUses) {
       continue;
     }
     const id = `p${parts.length.toString().padStart(ID_WIDTH, "0")}`;

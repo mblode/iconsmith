@@ -13,8 +13,13 @@ const SQUARE_ROTATED = "M10 0L10 10L0 10L0 0Z";
 /** The same ring, drawn anticlockwise. */
 const SQUARE_REVERSED = "M0 0L0 10L10 10L10 0Z";
 const TRIANGLE = "M0 0L10 0L5 10Z";
+/** The same triangle, drawn from the next node round. */
+const TRIANGLE_SHIFTED = "M10 0L5 10L0 0Z";
 const ELL = "M0 0L0 10L10 10";
-const ELL_MIRRORED = "M10 0L10 10L0 10";
+/** Unequal arms, so the shape is chiral: its mirror is not also one of its
+ *  turns, which an equal-armed L's would be. */
+const ELL_CHIRAL = "M0 0L0 10L4 10";
+const ELL_CHIRAL_MIRRORED = "M4 0L4 10L0 10";
 const ROUNDED =
   "M0 4C0 1.8 1.8 0 4 0C6.2 0 8 1.8 8 4C8 6.2 6.2 8 4 8C1.8 8 0 6.2 0 4Z";
 
@@ -79,13 +84,14 @@ describe("resample", () => {
 });
 
 describe("fingerprint", () => {
-  it("normalises into the unit box on the longer axis", () => {
+  it("normalises onto the centre, unit-wide on the longer axis", () => {
     const f = fp("M0 0L20 0L20 10L0 10Z");
     const xs = f.norm.map((p) => p[0]);
     const ys = f.norm.map((p) => p[1]);
-    expect(Math.min(...xs)).toBeCloseTo(0, 6);
-    expect(Math.max(...xs)).toBeCloseTo(1, 6);
-    expect(Math.max(...ys)).toBeCloseTo(0.5, 6);
+    expect(Math.min(...xs)).toBeCloseTo(-0.5, 6);
+    expect(Math.max(...xs)).toBeCloseTo(0.5, 6);
+    expect(Math.min(...ys)).toBeCloseTo(-0.25, 6);
+    expect(Math.max(...ys)).toBeCloseTo(0.25, 6);
     expect(f.aspect).toBeCloseTo(2, 6);
     expect(f.size).toBe(20);
   });
@@ -128,16 +134,18 @@ describe("distance invariances", () => {
     );
   });
 
-  it("leaves a measurable residual when a ring is rotated", () => {
-    // Rotation invariance is approximate, not exact. `resample` spaces points
+  it("leaves a measurable residual when a start node is shifted", () => {
+    // Start-node invariance is approximate, not exact. `resample` spaces points
     // over (i / (n - 1)), so the start point appears at both ends of the run
-    // and the samples are not a cycle of period n — but `distance` rotates them
-    // modulo n. A rotated ring therefore lands between two samples. Recorded
-    // rather than asserted away: the worst case here (a half-turn on a square)
-    // is 0.043 against a 0.06 clustering threshold, so the margin is thin.
-    const halfTurn = distance(fp(SQUARE), fp("M10 10L0 10L0 0L10 0Z"));
-    expect(halfTurn).toBeGreaterThan(0.04);
-    expect(halfTurn).toBeLessThan(CLUSTER_THRESHOLD);
+    // and the samples are not a cycle of period n — but `distance` shifts them
+    // modulo n. A ring drawn from another node therefore lands between two
+    // samples. Recorded rather than asserted away: a triangle costs 0.033
+    // against a 0.06 clustering threshold, so the margin is thin. A square
+    // escapes it only because a shifted square is also one of its own turns,
+    // and `distance` compares those exactly.
+    const shifted = distance(fp(TRIANGLE), fp(TRIANGLE_SHIFTED));
+    expect(shifted).toBeGreaterThan(0.03);
+    expect(shifted).toBeLessThan(CLUSTER_THRESHOLD);
   });
 
   it("ignores start node and direction on a curved ring", () => {
@@ -160,6 +168,53 @@ describe("distance invariances", () => {
     for (const other of [SQUARE_ROTATED, SQUARE_REVERSED]) {
       expect(distance(fp(SQUARE), fp(other))).toBeLessThan(CLUSTER_THRESHOLD);
     }
+  });
+});
+
+describe("distance under quarter-turns", () => {
+  /** A chevron 4 wide and 10 tall, and the same mark at each quarter-turn.
+   *  This is the shape class the extractor was splitting: a corner mark used at
+   *  four orientations came back as four parts. */
+  const TIP = "M0 0L4 5L0 10";
+  const TIP_TURNS = ["M10 0L5 4L0 0", "M4 10L0 5L4 0", "M0 10L5 6L10 10"];
+
+  it("matches an open mark against each of its quarter-turns", () => {
+    for (const turned of TIP_TURNS) {
+      expect(distance(fp(TIP), fp(turned))).toBeLessThan(SAME);
+    }
+  });
+
+  it("matches a closed ring against its quarter-turn", () => {
+    // 8x4 against 4x8: the aspect is transposed, which the old gate rejected
+    // outright before any point was compared.
+    const wide = fp("M0 0L8 0L8 4L0 4Z");
+    const tall = fp("M0 0L4 0L4 8L0 8Z");
+    expect(distance(wide, tall)).toBeLessThan(CLUSTER_THRESHOLD);
+  });
+
+  it("stays symmetric across a transposed pair", () => {
+    // The transposed gate has to take the better of both directions:
+    // |2 - 1/0.4| is 0.5 and would reject, |0.4 - 1/2| is 0.1 and would accept.
+    const wide = fp("M0 0L10 0L10 5L0 5Z");
+    const tall = fp("M0 0L4 0L4 10L0 10Z");
+    expect(distance(wide, tall)).toBeCloseTo(distance(tall, wide), 10);
+  });
+
+  it("still rejects proportions that no turn can reconcile", () => {
+    const wide = fp("M0 0L40 0L40 10L0 10Z");
+    const squarish = fp(SQUARE);
+    expect(distance(wide, squarish)).toBe(Number.POSITIVE_INFINITY);
+    expect(distance(squarish, wide)).toBe(Number.POSITIVE_INFINITY);
+  });
+
+  it("does not merge different shapes that share a turned aspect", () => {
+    // An 8x4 ellipse and a 4x8 rectangle transpose onto each other's
+    // proportions, so the gate opens. Turning must not make them one part.
+    const ellipse = fp(
+      "M0 2C0 0.9 1.8 0 4 0C6.2 0 8 0.9 8 2C8 3.1 6.2 4 4 4C1.8 4 0 3.1 0 2Z"
+    );
+    const rect = fp("M0 0L4 0L4 8L0 8Z");
+    expect(distance(ellipse, rect)).toBeGreaterThan(CLUSTER_THRESHOLD);
   });
 });
 
@@ -187,9 +242,11 @@ describe("distance discrimination", () => {
   });
 
   it("does not treat a mirrored open path as identical", () => {
-    // Reflection is not one of the claimed invariances: reversal is. An L and
-    // its mirror image are different parts and must stay apart.
-    expect(distance(fp(ELL), fp(ELL_MIRRORED))).toBeGreaterThan(
+    // Reflection is not one of the claimed invariances: reversal and turning
+    // are. The arms have to be unequal for this to test anything — an
+    // equal-armed L's mirror is also one of its quarter-turns, so it matches at
+    // 0 and says nothing about reflection. This pair sits at 0.34.
+    expect(distance(fp(ELL_CHIRAL), fp(ELL_CHIRAL_MIRRORED))).toBeGreaterThan(
       CLUSTER_THRESHOLD
     );
   });

@@ -18,7 +18,7 @@ import { Canvas, SPEC } from "../tools/canvas.js";
 import { fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
-import type { Issue, Keyline, Part } from "../types.js";
+import type { DotRole, Issue, Keyline, Part } from "../types.js";
 
 /** An icon the draft can be shown beside: the set it is trying to join. */
 export interface Neighbour {
@@ -51,7 +51,7 @@ export interface ToolState {
 }
 
 const KEYLINE_NAMES = Object.keys(SPEC.keylines) as [Keyline, ...Keyline[]];
-const ROLE_NAMES = Object.keys(SPEC.dots) as ["floating", "more", "terminal"];
+const ROLE_NAMES = Object.keys(SPEC.dots) as [DotRole, ...DotRole[]];
 
 const coord = z.number().describe("canvas units, 0–24");
 
@@ -176,8 +176,7 @@ export const createTools = (options: ToolsOptions = {}) => {
     }),
 
     dot: tool({
-      description:
-        "Place a dot. The role picks the size, so the set's dots stay one of three sizes rather than a continuum.",
+      description: `Place a dot. The role picks the size, so the set's dots stay one of ${ROLE_NAMES.length} sizes rather than a continuum.`,
       execute: (input) => track("dot", () => placed(canvas, canvas.dot(input))),
       inputSchema: z.object({
         cx: coord,

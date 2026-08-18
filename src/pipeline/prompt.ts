@@ -7,6 +7,7 @@
  * prompt told it were different. One source, formatted twice.
  */
 import { SPEC } from "../tools/canvas.js";
+import type { CohortTarget } from "../tools/cohort.js";
 import type { Keyline } from "../types.js";
 
 export interface Concept {
@@ -48,7 +49,7 @@ ${keylines()}
 - **Corner radii** come from tiers, not from taste: ${SPEC.radiusTiers.join(", ")}.
   Ask for the one you want and the nearest legal tier for that shape's size is
   what gets drawn.
-- **Dot sizes** three, by role: ${list(SPEC.dots)}.
+- **Dot sizes** by role, as visual diameters: ${list(SPEC.dots)}.
 - **Minimum gap** ${SPEC.minGap}px of clear space between any two strokes that
   are not meant to touch. Below that they merge into a smudge at 16px.
 - **Clearance** keep ${SPEC.clearance}px in from the canvas edge; a stroke that
@@ -73,8 +74,11 @@ back rather than trying to force the original numbers through.
 - \`circle\` — a circle. Heads, lenses, clock faces, buttons.
 - \`line\` — a polyline through two or more points, angles snapped. Arrows,
   ticks, strokes, connectors, chart lines.
-- \`dot\` — a small filled disc with a role: \`terminal\` ends a stroke,
-  \`floating\` is a separate mark, \`more\` is one of an ellipsis.
+- \`dot\` — a small solid disc with a role: \`terminal\` ends a stroke,
+  \`more\` is one of an ellipsis or a list bullet, \`floating\` is a separate
+  interior mark (a dice pip, an eye, a day on a calendar), and \`node\` is a
+  point the drawing is *about* — a cell of a dot grid, a bezier handle, a
+  data point, the centre of a target.
 - \`part\` — place a shape from the extracted vocabulary by id. Prefer this over
   drawing a common form from scratch: it is *the same* folder, chevron, or
   magnifier that the rest of the set already uses, which is the whole point.
@@ -97,7 +101,46 @@ back rather than trying to force the original numbers through.
 6. When it lints clean and reads correctly, stop and reply with one sentence
    describing what you drew. Do not keep polishing.`;
 
+/** The family a new icon joins, with the extent its members measurably occupy. */
+export interface CohortBrief {
+  extent: CohortTarget;
+  /** Members the icon will be swapped with, for the model's sense of the set. */
+  members?: string[];
+  name: string;
+}
+
+const axis = (t: [number, number] | null, name: string): string =>
+  t
+    ? `- ${name} spans ${t[0].toFixed(2)}..${t[1].toFixed(2)}.`
+    : `- ${name} has no agreed extent in this family; centre it.`;
+
+/**
+ * Stated only when the caller has measured a cohort, because it names an op
+ * that is meaningless without one — and because the extent is a measurement,
+ * not a rule of the house: writing it into the standing prompt would be the
+ * drift this file's header warns about.
+ */
+const COHORT = (c: CohortBrief): string => `# The family this icon joins
+
+This icon is a member of \`${c.name}\`${c.members?.length ? `, alongside ${c.members.join(", ")}` : ""}.
+Those icons replace each other in place — a toggle, a state, a variant — so they
+must occupy the same box. Their measured path extent is:
+
+${axis(c.extent.x, "x")}
+${axis(c.extent.y, "y")}
+
+- \`cohort\` — scale and place the drawing onto that extent. Use it **instead of**
+  \`fit\`, once, at the end: it is the same operation against a measured target
+  rather than a nominal keyline, and running \`fit\` afterwards throws it away.
+  Where the two disagree, the family wins — a 1px disagreement is a visible jump
+  when the icon swaps.
+
+If \`cohort\` reports that your drawing is the wrong shape for the family, the
+fix is the drawing, not the number: redraw it to the family's proportions.`;
+
 export interface PromptOptions {
+  /** The family the icon joins, when it joins one; enables the `cohort` op. */
+  cohort?: CohortBrief | null;
   /** Forces a keyline instead of letting the model pick. */
   keyline?: Keyline | null;
 }
@@ -106,7 +149,8 @@ export const systemPrompt = (opts: PromptOptions = {}): string => {
   const forced = opts.keyline
     ? `\n\nThis icon must use the \`${opts.keyline}\` keyline.`
     : "";
-  return `You are an icon designer working inside a constrained drawing system.\n\n${HOUSE()}\n\n${GRAMMAR}${forced}`;
+  const cohort = opts.cohort ? `\n\n${COHORT(opts.cohort)}` : "";
+  return `You are an icon designer working inside a constrained drawing system.\n\n${HOUSE()}\n\n${GRAMMAR}${cohort}${forced}`;
 };
 
 /** The per-icon brief. Deliberately thin: name, senses, and — when the concept

@@ -21,6 +21,10 @@ const PER_CURVE = 12;
 const ASPECT_TOLERANCE = 0.35;
 /** Stand-in aspect for a zero-height shape, so a flat line never divides by 0. */
 const FLAT_ASPECT = 999;
+/** Quarter-turns of `b` tried against `a`: none, a quarter, a half, three
+ *  quarters. A corner mark used at four orientations is one part, not four. */
+const HALF_TURN = 2;
+const THREE_QUARTER_TURN = 3;
 
 const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
 
@@ -106,13 +110,20 @@ export const resample = (poly: Point[], n = SAMPLES): Point[] => {
 /**
  * Position- and scale-normalised sample points, plus the metrics a caller needs
  * to decide whether two shapes are the same part or merely similar.
+ *
+ * Points are seated on the bbox *centre*, not its corner, so that turning one
+ * shape and turning the other put the same points in correspondence. Seated on
+ * a corner, `distance(a, b)` and `distance(b, a)` disagreed by up to 0.004 once
+ * quarter-turns were compared, because each turn re-seats to a different corner.
  */
 export const fingerprint = (sp: Subpath): Fingerprint => {
   const b = bbox([sp]);
   const size = Math.max(b.w, b.h) || 1;
+  const cx = (b.x0 + b.x1) / 2;
+  const cy = (b.y0 + b.y1) / 2;
   const norm: Point[] = resample(flatten(sp)).map(([x, y]) => [
-    (x - b.x0) / size,
-    (y - b.y0) / size,
+    (x - cx) / size,
+    (y - cy) / size,
   ]);
   return {
     aspect: b.h === 0 ? FLAT_ASPECT : b.w / b.h,
@@ -125,40 +136,130 @@ export const fingerprint = (sp: Subpath): Fingerprint => {
   };
 };
 
+/** Aspect of the same shape after a quarter-turn: w/h becomes h/w. */
+const transposeAspect = (aspect: number): number =>
+  aspect === 0 ? FLAT_ASPECT : 1 / aspect;
+
 /**
- * Mean point distance between two fingerprints, in normalised units.
- * Closed shapes are compared at every rotation of their sample order, because
- * the same ring drawn from a different start node is the same shape.
+ * Aspect folded so a shape and its quarter-turn report the same number —
+ * 2.2x3.6 and 3.6x2.2 both give 1.64. Callers that bucket on aspect must fold
+ * it, or a turned instance never even reaches `distance`: over blode-icons that
+ * split one corner mark into eight "parts" at ranks 11-22.
  */
-export const distance = (a: Fingerprint, b: Fingerprint): number => {
-  if (a.closed !== b.closed) {
-    return Number.POSITIVE_INFINITY;
+export const foldedAspect = (aspect: number): number =>
+  Math.max(aspect, transposeAspect(aspect));
+
+/**
+ * Rotation matrices for the four quarter-turns, as [xx, xy, yx, yy].
+ * `norm` is centred, so turning it is a pure rotation about the origin: the
+ * same points as fingerprinting the turned subpath, with no re-flatten and no
+ * re-resample. Applied inside the comparison loop rather than to a turned copy
+ * — building four turned arrays per call cost more than the arithmetic saves.
+ *
+ * Clockwise in y-down screen space, and in the same index order as
+ * `geometry/path.ts`'s `rotateQuarter`, so the index `match` reports is the
+ * index the canvas can place at. Which of the four an index names does not
+ * affect `distance`, which minimises over all of them; it matters only because
+ * the index now leaves this file.
+ */
+const TURNS: readonly (readonly [number, number, number, number])[] = [
+  [1, 0, 0, 1],
+  [0, -1, 1, 0],
+  [-1, 0, 0, -1],
+  [0, 1, -1, 0],
+];
+
+const FLIPS = [false, true] as const;
+
+/**
+ * Which quarter-turns of `b` are worth comparing against `a`. A half-turn keeps
+ * the aspect, a quarter-turn transposes it, so the two cases need separate
+ * gates rather than one wider tolerance — widening it to cover transposition
+ * would let genuinely different proportions through as well.
+ *
+ * Each gate takes the better of the two directions so `distance` stays
+ * symmetric: |2 - 1/0.4| is 0.5 but |0.4 - 1/2| is 0.1, and the pair must agree.
+ */
+const turnsToTry = (a: Fingerprint, b: Fingerprint): number[] => {
+  const out: number[] = [];
+  if (Math.abs(a.aspect - b.aspect) <= ASPECT_TOLERANCE) {
+    out.push(0, HALF_TURN);
   }
-  // Aspect ratio is cheap and prunes most non-matches before the O(n^2) loop.
-  if (Math.abs(a.aspect - b.aspect) > ASPECT_TOLERANCE) {
-    return Number.POSITIVE_INFINITY;
+  const gap = Math.min(
+    Math.abs(a.aspect - transposeAspect(b.aspect)),
+    Math.abs(b.aspect - transposeAspect(a.aspect))
+  );
+  if (gap <= ASPECT_TOLERANCE) {
+    out.push(1, THREE_QUARTER_TURN);
+  }
+  return out;
+};
+
+export interface Match {
+  /** Mean point distance between the two, in normalised units. */
+  d: number;
+  /** Clockwise quarter-turns that carry `b` onto `a`, at the distance reported.
+   *  Meaningless when `d` is infinite: nothing was compared. */
+  turn: number;
+}
+
+/**
+ * How alike two fingerprints are, and at which quarter-turn.
+ *
+ * Closed shapes are compared at every rotation of their sample order, because
+ * the same ring drawn from a different start node is the same shape; both open
+ * and closed are compared at all four quarter-turns, because a shape used at
+ * another orientation is the same part.
+ *
+ * The turn falls out of the comparison the clusterer already runs, and cannot
+ * be recovered afterwards without running it again — which is why it is
+ * returned rather than left for a caller to work out.
+ */
+export const match = (a: Fingerprint, b: Fingerprint): Match => {
+  if (a.closed !== b.closed) {
+    return { d: Number.POSITIVE_INFINITY, turn: 0 };
+  }
+  // Aspect is cheap and prunes most non-matches before the O(n^2) loop.
+  const turns = turnsToTry(a, b);
+  if (turns.length === 0) {
+    return { d: Number.POSITIVE_INFINITY, turn: 0 };
   }
   const n = a.norm.length;
   const rotations = a.closed ? n : 1;
   let best = Number.POSITIVE_INFINITY;
-  for (const flip of [false, true]) {
-    const bn = flip ? b.norm.toReversed() : b.norm;
-    for (let r = 0; r < rotations; r += 1) {
-      let sum = 0;
-      for (let i = 0; i < n; i += 1) {
-        const [px, py] = a.norm[i];
-        const [qx, qy] = bn[(i + r) % n];
-        sum += Math.hypot(px - qx, py - qy);
-        // Already worse than the best rotation found; the rest cannot help.
-        if (sum / n >= best) {
-          break;
+  let bestTurn = 0;
+  for (const q of turns) {
+    const [xx, xy, yx, yy] = TURNS[q];
+    for (const flip of FLIPS) {
+      for (let r = 0; r < rotations; r += 1) {
+        let sum = 0;
+        for (let i = 0; i < n; i += 1) {
+          const [px, py] = a.norm[i];
+          const k = (i + r) % n;
+          const [bx, by] = b.norm[flip ? n - 1 - k : k];
+          const dx = px - (xx * bx + xy * by);
+          const dy = py - (yx * bx + yy * by);
+          // `Math.hypot` guards against overflow that cannot happen here — both
+          // operands are normalised into [-1, 1] — and costs 14.4s against 7.5s
+          // over blode-icons for a parts list identical to the digit.
+          // oxlint-disable-next-line prefer-modern-math-apis
+          sum += Math.sqrt(dx * dx + dy * dy);
+          // Already worse than the best rotation found; the rest cannot help.
+          if (sum / n >= best) {
+            break;
+          }
         }
-      }
-      const d = sum / n;
-      if (d < best) {
-        best = d;
+        const d = sum / n;
+        if (d < best) {
+          best = d;
+          bestTurn = q;
+        }
       }
     }
   }
-  return best;
+  return { d: best, turn: bestTurn };
 };
+
+/** Mean point distance alone, for callers with no use for the orientation. */
+export const distance = (a: Fingerprint, b: Fingerprint): number =>
+  match(a, b).d;

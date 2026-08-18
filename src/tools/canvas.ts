@@ -13,6 +13,7 @@ import {
   bbox,
   parsePath,
   q,
+  rotateQuarter,
   scale,
   serialise,
   translate,
@@ -51,12 +52,42 @@ export const SPEC = {
   // measurement, so neither is encoded here. Whoever decides it should also
   // decide whether `clearance` becomes per-keyline.
   clearance: 2,
-  // Measured: visual diameters of dots (round-capped degenerate segments, and
-  // circles under 4px), n=504. Three modes, 2.0 / 2.5 / 3.0, together 68% of
-  // them. A terminal dot is a round line cap, so its diameter is the stroke
-  // width by construction — which is also the modal measurement. The article's
-  // 1.5 / 2 / 2.5 sits one tier low: 1.5 accounts for 5% of dots.
-  dots: { floating: 3, more: 2.5, terminal: 2 },
+  // Measured: dot diameters across all 2,085 icons of the house variant, taken
+  // as **visual** extent — path bounds plus the stroke, half per side.
+  //
+  // A dot is a solid disc, which in this set means one of two constructions:
+  // a zero-length round-capped segment, Central's idiom, where the stroke width
+  // *is* the diameter; or a circle whose own stroke closes its hole (2r ≤
+  // stroke), i.e. visual diameter ≤ 2×stroke = 4. A circle wider than that is a
+  // ring, and counting rings is what fills a dot census with clock faces and
+  // buttons. n=446 dots over 163 icons. Icon-weighted, four modes:
+  //
+  //   3.0  45 icons (27.6%), 105 dots — dice pips, calendar day marks, eyes
+  //   2.0  35 icons (21.5%), 117 dots — every cap-form dot, by construction
+  //   4.0  27 icons (16.6%),  61 dots — dot grids, bezier handles, chart points
+  //   2.5  20 icons (12.3%),  34 dots — list bullets, task dots, info marks
+  //
+  // Together they are 77.9% of dot-bearing icons and 71.1% of dots exactly
+  // (73.8% within 0.125). There is no fifth mode to find: the next candidates
+  // are 3.5 (7 icons), 2.2 (5 — `adjust-photo`'s fixed-width marks, which
+  // `conform.ts` already treats as a deliberate exception), 2.4 (4), 2.67 (4).
+  //
+  // `node` is new, and it is the corpus correcting the article twice over. The
+  // article's largest tier is a 4.0 "status/attention badge". 4.0 is real and is
+  // the second-commonest dot — but Central never draws a badge at it:
+  // `email-2-unread`'s badge is a 7.0 disc, off the dot scale entirely. 4.0 is
+  // the node size: the cells of `dot-grid-3x3`, the handles of `bezier-curve`,
+  // the points of `insights` and `point-chart`, the centres of `target` and
+  // `radar`.
+  //
+  // Rejected, each with the count that rejects it. 1.5, the article's "fine
+  // detail": 25 dots but only 4 icons, and all four are one family (blur,
+  // unblur, persona, threed), so it is a texture rather than a role. 1.75, the
+  // article's "dots in a row": zero occurrences, and the 51 groups of three or
+  // more same-size dots in the set are drawn at 2.0 / 3.0 / 4.0 like every other
+  // dot, so a row has no size of its own. Both are also undrawable in the house
+  // idiom — no solid disc can be narrower than the 2.0 stroke that draws it.
+  dots: { floating: 3, more: 2.5, node: 4, terminal: 2 },
   // Unchanged. Measured: 65.9% of design anchors (subpath starts and straight
   // segment ends) land on 0.25, 63.3% on 0.5 — quarter steps are rare but real,
   // so the finer grid stays.
@@ -133,6 +164,23 @@ const nearest = (targets: readonly number[], v: number): number => {
   return best;
 };
 
+/** Quarter-turns in a full turn. */
+const TURN_COUNT = 4;
+
+/**
+ * The only orientations a part can be placed at. Named quarter-turns, not an
+ * angle: `turn 37` is off-spec geometry entering through a new door, and the
+ * whole point of this file is that such geometry is unrepresentable.
+ */
+const quarterTurn = (t: number): number => {
+  if (!Number.isInteger(t) || t < 0 || t >= TURN_COUNT) {
+    throw new Error(
+      `turn must be a whole quarter-turn 0-3 (0°, 90°, 180°, 270° clockwise) — got ${t}`
+    );
+  }
+  return t;
+};
+
 /** Corner radii come from the tier system, never from the caller verbatim. The
  *  tiers do not vary with shape size: a flat set matches the corpus better than
  *  any size-conditioned split measured against it. Callers still clamp the
@@ -180,6 +228,7 @@ export type Element =
       kind: "part";
       partId: string;
       scale: number;
+      turn: number;
       x: number;
       y: number;
     }
@@ -315,6 +364,14 @@ export class Canvas {
   /**
    * A dot sized by its role, not by a free radius. The role — not the resulting
    * radius — is what survives, so a dot keeps its meaning through a `fit`.
+   *
+   * The role's number is a **visual** diameter, so the skeleton is drawn one
+   * stroke narrower than the tier: a `more` dot is a circle of radius 0.25
+   * stroked at 2, which is exactly how the corpus draws one, and a `terminal`
+   * dot is Central's zero-length round-capped segment, where the cap alone is
+   * the dot. Drawing the tier as the path diameter instead — as this did —
+   * renders every dot a full stroke wider than its role, which at `node` is a
+   * 6-unit ring rather than a 4-unit dot.
    */
   dot({
     cx,
@@ -333,25 +390,40 @@ export class Canvas {
     }
     const X = onCanvas(cx);
     const Y = onCanvas(cy);
+    const r = q(Math.max(0, (size - SPEC.stroke) / 2), SPEC.grid);
     return this.#push((id) => ({
       cx: X,
       cy: Y,
-      d: circlePath(X, Y, q(size / 2, SPEC.grid)),
+      d: r === 0 ? `M${X} ${Y}L${X} ${Y}` : circlePath(X, Y, r),
       id,
       kind: "dot",
       role,
     }));
   }
 
-  /** Place a part from the extracted vocabulary, scaled and positioned. */
+  /**
+   * Place a part from the extracted vocabulary, scaled, turned and positioned.
+   *
+   * `turn` is a count of quarter-turns, not an angle. The clusterer merges a
+   * mark with its quarter-turns — over blode-icons that is what makes the
+   * horizontal and vertical strokes one part covering 808 icons instead of two
+   * — so a part that the set draws at four orientations needs four ways to be
+   * placed. A free angle would be a coordinate by another name and is refused:
+   * the four turns are the only ones that keep every node on the grid.
+   *
+   * `x, y` stays the top-left of what is drawn, so a turned part lands where
+   * the caller aimed even though turning about the origin moves the corner.
+   */
   part({
     id,
     x,
     y,
     scale: k = 1,
+    turn = 0,
   }: {
     id: string;
     scale?: number;
+    turn?: number;
     x: number;
     y: number;
   }): string {
@@ -361,13 +433,19 @@ export class Canvas {
         `unknown part ${id} — call listParts to see the vocabulary`
       );
     }
-    const moved = parsePath(p.d).map((sp) => translate(scale(sp, k), x, y));
+    const t = quarterTurn(turn);
+    const turned = parsePath(p.d).map((sp) => rotateQuarter(sp, t));
+    const b = bbox(turned);
+    const moved = turned.map((sp) =>
+      translate(scale(sp, k), x - b.x0 * k, y - b.y0 * k)
+    );
     return this.#push((elId) => ({
       d: serialise(moved, { grid: SPEC.grid }),
       id: elId,
       kind: "part",
       partId: id,
       scale: k,
+      turn: t,
       x,
       y,
     }));
@@ -412,6 +490,7 @@ export class Canvas {
         this.part({
           id: e.partId,
           scale: e.scale * k,
+          turn: e.turn,
           x: e.x * k + tx,
           y: e.y * k + ty,
         });
@@ -484,7 +563,14 @@ export class Canvas {
           return { op: "line", points: e.points };
         }
         if (e.kind === "part") {
-          return { id: e.partId, op: "part", scale: e.scale, x: e.x, y: e.y };
+          return {
+            id: e.partId,
+            op: "part",
+            scale: e.scale,
+            turn: e.turn,
+            x: e.x,
+            y: e.y,
+          };
         }
         // Escape hatch: geometry the primitives cannot express is kept verbatim
         // rather than approximated. Fidelity beats format purity.

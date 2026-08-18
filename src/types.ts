@@ -50,6 +50,12 @@ export interface Part {
   name?: string;
   nodes: number;
   sizeRange: [number, number];
+  /** How many instances the set draws at each clockwise quarter-turn of `d` —
+   *  index 1 is 90° clockwise, 2 is upside down, 3 is 90° anticlockwise. It is
+   *  evidence, not permission: a placement may use any turn, but this is the
+   *  one thing that says whether the *set* does. Optional because a hand-written
+   *  part has no measured orientations; the extractor always fills it. */
+  turns?: [number, number, number, number];
   w: number;
 }
 
@@ -60,7 +66,7 @@ export type Keyline =
   | "square"
   | "tall"
   | "wide";
-export type DotRole = "floating" | "more" | "terminal";
+export type DotRole = "floating" | "more" | "node" | "terminal";
 
 /** The document format: a recipe, not a rendering. Diffable, re-renderable at
  *  any stroke width, and a `part` is a reference so editing the part updates
@@ -71,7 +77,15 @@ export type DrawOp =
   | { cx: number; cy: number; op: "dot"; role: DotRole }
   | { d: string; op: "raw" }
   | { h: number; op: "rect"; r: number; w: number; x: number; y: number }
-  | { id: string; op: "part"; scale: number; x: number; y: number }
+  | {
+      id: string;
+      op: "part";
+      scale: number;
+      /** Clockwise quarter-turns, 0-3. A closed set, never a free angle. */
+      turn: number;
+      x: number;
+      y: number;
+    }
   | { op: "line"; points: [number, number][] };
 
 export interface IconDoc {

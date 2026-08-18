@@ -417,6 +417,68 @@ const scaleSeg = (
   return lineTo(f(seg.p[0], true), f(seg.p[1], false));
 };
 
+/**
+ * Clockwise quarter-turns about the origin, as [xx, xy, yx, yy], applied as
+ * `x' = xx·x + xy·y`, `y' = yx·x + yy·y`.
+ *
+ * Clockwise in y-down screen space: index 1 sends (1,0) to (0,1), a point on
+ * the right edge moving to the bottom. The same four turns are what
+ * `parts/shape.ts` compares under, so an index means one thing everywhere.
+ */
+const QUARTER: readonly (readonly [number, number, number, number])[] = [
+  [1, 0, 0, 1],
+  [0, -1, 1, 0],
+  [-1, 0, 0, -1],
+  [0, 1, -1, 0],
+];
+const QUARTER_DEG = 90;
+
+/**
+ * Turn a subpath by whole quarter-turns clockwise about the origin.
+ *
+ * Only quarter-turns, because only quarter-turns keep a shape on the grid: a
+ * free angle moves every node off it, which is the drift the primitives exist
+ * to prevent. Callers re-seat the result themselves — turning about the origin
+ * moves the bbox corner, and where it should land is the caller's business.
+ */
+export const rotateQuarter = (sp: Subpath, turns: number): Subpath => {
+  const t = ((Math.trunc(turns) % 4) + 4) % 4;
+  const [xx, xy, yx, yy] = QUARTER[t];
+  const r = (x: number, y: number): [number, number] => [
+    xx * x + xy * y,
+    yx * x + yy * y,
+  ];
+  const rotateSeg = (seg: Segment): Segment => {
+    if (seg.t === "A") {
+      // Rotating the path rotates the ellipse's own axis with it; the radii and
+      // the sweep flag are unchanged, since a rotation preserves orientation.
+      const [ex, ey] = r(seg.p[5], seg.p[6]);
+      return arcTo([
+        seg.p[0],
+        seg.p[1],
+        seg.p[2] + t * QUARTER_DEG,
+        seg.p[3],
+        seg.p[4],
+        ex,
+        ey,
+      ]);
+    }
+    if (seg.t === "C") {
+      const out: number[] = [];
+      for (let i = 0; i < 6; i += 2) {
+        out.push(...r(seg.p[i], seg.p[i + 1]));
+      }
+      return curveTo(out);
+    }
+    return lineTo(...r(seg.p[0], seg.p[1]));
+  };
+  return {
+    closed: sp.closed,
+    segs: sp.segs.map(rotateSeg),
+    start: r(sp.start[0], sp.start[1]),
+  };
+};
+
 export const scale = (sp: Subpath, k: number, ox = 0, oy = 0): Subpath => {
   const f = (v: number, isX: boolean) =>
     isX ? ox + (v - ox) * k : oy + (v - oy) * k;

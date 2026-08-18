@@ -36,9 +36,11 @@ export {
 export { Canvas, SPEC } from "./tools/canvas.js";
 export {
   buildCohorts,
+  canonicalExtent,
   cohortOf,
   COHORT_TOLERANCE,
   drift,
+  findCohort,
   inferCohort,
   measure,
   splits,
@@ -99,6 +101,7 @@ export type {
   CohortGroup,
   CohortManifest,
   CohortMember,
+  CohortTarget,
   CohortView,
 } from "./tools/cohort.js";
 export type {

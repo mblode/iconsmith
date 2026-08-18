@@ -196,6 +196,44 @@ export const buildCohorts = (
     .toSorted((a, b) => a.name.localeCompare(b.name));
 };
 
+/**
+ * The extent a *new* member of this family should be drawn to, per axis.
+ *
+ * `null` on an axis the family has no convention on: with the members spread
+ * over extents that never agreed, there is nothing for a new icon to inherit,
+ * and snapping it to whichever group happens to be largest would invent a
+ * convention rather than join one. `conventional` is the same gate `isSplit`
+ * uses, so what `cohort` in the DSL draws to and what `cohort-align` in `lint`
+ * complains about are one decision, made once.
+ */
+export interface CohortTarget {
+  x: [number, number] | null;
+  y: [number, number] | null;
+}
+
+const agreed = (a: CohortAxis): [number, number] | null =>
+  a.conventional ? [a.groups[0].lo, a.groups[0].hi] : null;
+
+export const canonicalExtent = (c: Cohort): CohortTarget => ({
+  x: agreed(c.x),
+  y: agreed(c.y),
+});
+
+/**
+ * The cohort a DSL program names, by any of the three things a caller has to
+ * hand: the cohort key itself (`bell#filled`), the name of an icon already in
+ * it (`bell-active-filled`), or the name of the icon being drawn — which is
+ * *not* a member yet, so it resolves through the same prefix inference that
+ * put its siblings in the cohort in the first place.
+ */
+export const findCohort = (
+  cohorts: Cohort[],
+  key: string
+): Cohort | undefined =>
+  cohorts.find((c) => c.name === key) ??
+  cohorts.find((c) => c.members.some((m) => m.name === key)) ??
+  cohorts.find((c) => c.name === inferCohort(key));
+
 /** An axis whose members disagree about where the family's edges sit. Swapping
  *  across the groups moves the icon; that is the flicker. */
 export const isSplit = (a: CohortAxis): boolean =>
