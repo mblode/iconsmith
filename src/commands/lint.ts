@@ -33,12 +33,18 @@ const KEYLINES = new Set(["circle", "square", "tall", "wide"]);
  *  carry no `<path>` at all. Those 11 linted as `empty` and the other 241 were
  *  measured with pieces missing, which silently wrongs every extent, gap and
  *  centre this command reports. */
-const fromSVG = (svg: string): Canvas => {
+const fromSVG = (svg: string): { canvas: Canvas; strokes: number[] } => {
   const canvas = new Canvas();
+  const strokes: number[] = [];
   for (const shape of parseIconSvg(svg)) {
     canvas.raw(shape.d);
+    // Kept beside the canvas rather than in it: a `Canvas` draws only strokes,
+    // so it has nowhere to record that a shipped shape is a fill. `off-axis`
+    // needs the distinction — an outline-expanded fill's round joins are a fan
+    // of segments at the flattener's angles, not at anybody's.
+    strokes.push(shape.strokeWidth);
   }
-  return canvas;
+  return { canvas, strokes };
 };
 
 const iconName = (file: string): string =>
@@ -109,7 +115,7 @@ export const registerLintCommand = (program: Command): void => {
         const manifest = opts.cohorts ? readManifest(opts.cohorts) : undefined;
 
         const drawn = files.map((file) => ({
-          canvas: fromSVG(readText(file, "an .svg icon")),
+          ...fromSVG(readText(file, "an .svg icon")),
           file,
           name: iconName(file),
         }));
@@ -132,7 +138,15 @@ export const registerLintCommand = (program: Command): void => {
 
         const report: { file: string; issues: Issue[] }[] = drawn.map((d) => ({
           file: d.file,
-          issues: lint(d.canvas, { cohort: viewFor(d.name), keyline }),
+          issues: lint(
+            {
+              elements: d.canvas.elements.map((e, i) => ({
+                ...e,
+                strokeWidth: d.strokes[i],
+              })),
+            },
+            { cohort: viewFor(d.name), keyline }
+          ),
         }));
         const split = cohorts.filter((c) => splits(c).length > 0);
 

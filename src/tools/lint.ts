@@ -16,6 +16,7 @@
 import { bbox, parsePath } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
 import type { Box, Issue, Keyline } from "../types.js";
+import { iconEdgeAngles, offAxisEdges } from "./angle.js";
 import { SPEC } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
 import { verdict } from "./cohort.js";
@@ -25,6 +26,13 @@ import { cuts } from "./cut.js";
 export interface LintElement {
   d: string;
   id: string;
+  /**
+   * 0 for a filled shape. Omitted means stroked at the house width: a `Canvas`
+   * only ever draws strokes, so its elements satisfy this interface unchanged.
+   * A caller reading shipped SVGs has the real widths and should pass them —
+   * `off-axis` measures nothing useful on an outline-expanded fill.
+   */
+  strokeWidth?: number;
 }
 
 export interface LintTarget {
@@ -230,6 +238,41 @@ const cutIssues = (els: LintElement[]): Issue[] =>
       };
     });
 
+/**
+ * Straight edges that sit on no permitted axis.
+ *
+ * The measurement is `angle.ts`'s, at `canvas.ts`'s own tolerance and against
+ * `canvas.ts`'s own axes, both imported rather than restated: a rule that
+ * forbade what the primitives draw, or permitted what they refuse, would be
+ * worse than no rule. Stroked shapes only — a quarter of the set ships as
+ * outline-expanded fills whose round joins are a fan of short segments at
+ * whatever angle the flattener chose (30% off-axis, against 15% for the
+ * stroked shapes), so measuring them reports Figma's expander rather than
+ * anybody's design.
+ *
+ * `warn` rather than `error` because at that tolerance it fires on 480 of
+ * 1,640 stroked blode-icons (29.3%) and 475 of 1,622 in Central (29.3%).
+ * Central is the specification; a rule that failed 29% of the specification
+ * set would be a rule against the set, which is the same doctrine that keeps
+ * the no-keyline case a warning.
+ *
+ * No isometric exemption. The 30° band does not survive being looked at: only
+ * 8.4% of the off-axis mass is within 0.5° of exactly 30°, the band is three
+ * spikes rather than one cluster, ±3° sweeps in `star-half`, `pin` and
+ * `graduate-cap`, and the cubes that motivate the exemption (`ar-cube-1` and
+ * `ar-cube-2` at 29.36°, `ar-scan-cube` at 29.75°) fall outside it anyway.
+ */
+const offAxisIssues = (els: LintElement[]): Issue[] =>
+  els
+    .filter((e) => (e.strokeWidth ?? SPEC.stroke) > 0)
+    .flatMap((e) =>
+      offAxisEdges(iconEdgeAngles([e.d])).map((edge) => ({
+        message: `"${e.id}" has an edge at ${edge.angle.toFixed(1)}°, ${edge.offBy.toFixed(1)}° off the nearest permitted axis (${edge.axis}°). The house axes are 0/45/90; an edge between two grid points is not automatically on one.`,
+        rule: "off-axis",
+        severity: "warn" as const,
+      }))
+    );
+
 export const lint = (
   canvas: LintTarget,
   { cohort = null, keyline = null }: LintOptions = {}
@@ -263,7 +306,7 @@ export const lint = (
       issues.push(issue);
     }
   }
-  issues.push(...gapIssues(els), ...cutIssues(els));
+  issues.push(...gapIssues(els), ...cutIssues(els), ...offAxisIssues(els));
 
   if (els.length > MAX_ELEMENTS) {
     issues.push({

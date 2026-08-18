@@ -112,6 +112,42 @@ describe("lint", () => {
     expect(rules(issues)).not.toContain("cut");
   });
 
+  it("fires `off-axis` on an edge between two grid points", () => {
+    // (6,6)→(18,12): endpoints both on the grid, slope 1/2, 26.57° — the
+    // commonest off-axis angle in the set, and 18.4° off the nearest axis.
+    const issues = lint(canvas(el("e0", "M6 6L18 12")));
+    const off = issues.find((i) => i.rule === "off-axis");
+    // `warn`: the rule fires on 29.3% of Central, which is the specification.
+    expect(off?.severity).toBe("warn");
+    expect(off?.message).toContain(
+      '"e0" has an edge at 26.6°, 18.4° off the nearest permitted axis (45°)'
+    );
+  });
+
+  it("stays quiet on the permitted axes", () => {
+    expect(rules(lint(canvas(el("e0", "M6 6L18 18"))))).not.toContain(
+      "off-axis"
+    );
+    expect(rules(lint(canvas(el("e0", "M6 18L18 6"))))).not.toContain(
+      "off-axis"
+    );
+  });
+
+  it("ignores fills, whose joins are the flattener's angles", () => {
+    // 30% of segments in an outline-expanded fill are off-axis against 15% of
+    // the stroked ones; the extra is Figma's expander, not anybody's design.
+    const fill: LintElement = { d: "M6 6L18 12", id: "e0", strokeWidth: 0 };
+    expect(rules(lint(canvas(fill)))).not.toContain("off-axis");
+  });
+
+  it("ignores runs too short to be edges", () => {
+    // 1.12 units at 26.57°, below the 1.5 at which `segments.ts` believes a
+    // diagonal: at any shorter length the survivors are corner-join residue.
+    expect(rules(lint(canvas(el("e0", "M6 6L7 6.5"))))).not.toContain(
+      "off-axis"
+    );
+  });
+
   it("fires `density` past eight elements", () => {
     const lines = Array.from({ length: 9 }, (_, i) =>
       el(`e${i}`, `M${4 + i * 2} 8L${4 + i * 2} 16`)
