@@ -35,17 +35,15 @@
 import sharp from "sharp";
 
 import type { Keyline } from "../types.js";
+import { SPEC } from "./canvas.js";
 import type { Piece } from "./legibility.js";
 import { parsePieces } from "./legibility.js";
 import { png } from "./render.js";
 
-/** The four optical shapes, as visual extents in canvas units. */
-export const KEYLINES: Record<Keyline, readonly [number, number]> = {
-  circle: [20, 20],
-  square: [18, 18],
-  tall: [16, 20],
-  wide: [20, 16],
-};
+/** The optical shapes, as visual extents in canvas units. Re-exported from the
+ *  spec rather than restated, so an audit can never measure against a different
+ *  set of keylines than the linter enforces. */
+export const KEYLINES = SPEC.keylines;
 
 /** Raster grid for the ink measurements. Every corpus icon is a 24-unit
  *  viewBox, so one grid means one scale and areas are comparable. */

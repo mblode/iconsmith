@@ -40,6 +40,16 @@ export const SPEC = {
   // Measured: margin from the visual extent to the nearest canvas edge, n=2085,
   // mode 2.0 (46% of icons), median 2.00. A 2.0 rule flags 37%; the article's
   // 2.5 flags 76%, which is a rule against the set rather than for it.
+  //
+  // UNRESOLVED, and left that way on purpose: 165 icons have a visual extent of
+  // 22 units in x (52 more in y), which leaves 1 unit of clearance, not 2. They
+  // are not scattered — they are a coherent family of things that are wide by
+  // nature: banknote-1, battery-full, battery-empty, aspect-ratio-16-9,
+  // arrow-expand-hor, arc. So either there is a fifth optical shape at 22 that
+  // runs at 1-unit clearance, or that family bleeds and should be pulled in.
+  // Both readings are defensible and the choice is a design call, not a
+  // measurement, so neither is encoded here. Whoever decides it should also
+  // decide whether `clearance` becomes per-keyline.
   clearance: 2,
   // Measured: visual diameters of dots (round-capped degenerate segments, and
   // circles under 4px), n=504. Three modes, 2.0 / 2.5 / 3.0, together 68% of
@@ -55,8 +65,22 @@ export const SPEC = {
   // Joint (w,h) modes, n=2085: 20×20 (349), 18×18 (314), 20×16 (106),
   // 16×20 (63). Only 44% of icons land within 0.5 of one of the four, so this
   // is the vocabulary of intended sizes, not a law every icon obeys.
+  //
+  // `landscape` and `portrait` are new, and they are the set correcting the
+  // spec rather than the other way round. Counting within the same ±0.5 window
+  // as the 44% above, they are the two commonest extents the original four did
+  // not describe: 20×18 (77 icons) and 18×20 (76). Both sit exactly between
+  // square and circle — one step off square on a single axis — and their
+  // subjects are consistent: 20×18 holds cameras, bags, folders, coin stacks;
+  // 18×20 holds pages, files, bells, cups, hourglasses. Naming the two lifts
+  // conformance from 44.1% to 54.2% at the same tolerance without moving a
+  // single icon.
+  //
+  // Deliberately not added: a fifth wide shape at 22 units. See `clearance`.
   keylines: {
     circle: [20, 20],
+    landscape: [20, 18],
+    portrait: [18, 20],
     square: [18, 18],
     tall: [16, 20],
     wide: [20, 16],

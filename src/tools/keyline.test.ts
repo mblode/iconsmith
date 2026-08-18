@@ -59,10 +59,21 @@ describe("keylines", () => {
     expect(nearestKeyline(16, 20)).toEqual({ deviation: 0, nearest: "tall" });
   });
 
+  it("names the two shapes the original four missed", () => {
+    expect(nearestKeyline(20, 18)).toEqual({
+      deviation: 0,
+      nearest: "landscape",
+    });
+    expect(nearestKeyline(18, 20)).toEqual({
+      deviation: 0,
+      nearest: "portrait",
+    });
+  });
+
   it("measures deviation on the worse axis, not the average", () => {
-    // 20×18 is on-size in x and 2 out in y. Averaging would call it 1.0 away
-    // and hide the fact that it is a shape the four keylines do not describe.
-    expect(nearestKeyline(20, 18).deviation).toBe(2);
+    // 22×16 is 2 out in x and on-size in y against `wide`. Averaging would call
+    // it 1.0 away and hide an extent no keyline describes.
+    expect(nearestKeyline(22, 16).deviation).toBe(2);
   });
 
   it("bands a deviation into on, near or off", () => {

@@ -53,7 +53,13 @@ export interface Part {
   w: number;
 }
 
-export type Keyline = "circle" | "square" | "tall" | "wide";
+export type Keyline =
+  | "circle"
+  | "landscape"
+  | "portrait"
+  | "square"
+  | "tall"
+  | "wide";
 export type DotRole = "floating" | "more" | "terminal";
 
 /** The document format: a recipe, not a rendering. Diffable, re-renderable at

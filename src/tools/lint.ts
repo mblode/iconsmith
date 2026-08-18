@@ -43,6 +43,8 @@ export interface LintOptions {
 
 const CENTRE = 12;
 const CENTRE_TOLERANCE = 0.25;
+/** Half a unit is stricter than the set's own practice: 61% of visual extents
+ *  land on a whole unit, so ±1 is the window that measures intent. */
 const KEYLINE_TOLERANCE = 1;
 const LIVE_MIN = 1;
 const LIVE_MAX = 23;
@@ -55,6 +57,21 @@ const FLATTEN_STEPS = 6;
 
 const near = (a: number, b: number, tol: number): boolean =>
   Math.abs(a - b) <= tol;
+
+/** The closest keyline to an extent, named with the distance to it, so an
+ *  off-keyline warning says which way to move rather than only that it should. */
+const nearestName = (vx: number, vy: number): string => {
+  let best = "";
+  let bestGap = Number.POSITIVE_INFINITY;
+  for (const [name, [w, h]] of Object.entries(SPEC.keylines)) {
+    const gap = Math.max(Math.abs(vx - w), Math.abs(vy - h));
+    if (gap < bestGap) {
+      bestGap = gap;
+      best = `${name} ${w}×${h} (${gap.toFixed(1)} away)`;
+    }
+  }
+  return best;
+};
 
 /** Closest approach between two elements, or null when either draws nothing. */
 const minDistance = (a: LintElement, b: LintElement): number | null => {
@@ -97,8 +114,29 @@ const centring = (b: Box, agreesWithCohort: boolean): Issue | null => {
   };
 };
 
-/** Visual extent against the keyline the icon claims, or against all of them
- *  when it claims none. */
+/** Every keyline as `name w×h`, built from the spec so the message cannot
+ *  describe a different set of shapes than the check tests against. */
+const KEYLINE_LIST = Object.entries(SPEC.keylines)
+  .map(([name, [w, h]]) => `${name} ${w}×${h}`)
+  .join(", ");
+
+/**
+ * Visual extent against the keyline the icon claims, or against all of them
+ * when it claims none.
+ *
+ * The two rungs are deliberate. Claiming a keyline and missing it is an
+ * **error**: the icon states an intent and does not meet it, which is a
+ * contradiction inside one document rather than a judgement about the house
+ * style. Sitting on no keyline at all is a **warning**, because the corpus
+ * itself does not obey one — 24% of Central's icons sit more than a unit from
+ * every named shape even after `landscape` and `portrait` were added, and
+ * Central's own documentation calls the key shapes "merely guidelines".
+ * A rule that failed those 500 icons would be a rule against the set rather
+ * than for it, and would teach everyone to ignore the linter.
+ *
+ * The ±1 tolerance is the set's own practice: 61% of visual extents land on a
+ * whole unit, so a half-unit window is stricter than the thing it measures.
+ */
 const keylineIssue = (
   vx: number,
   vy: number,
@@ -121,7 +159,7 @@ const keylineIssue = (
   return fits
     ? null
     : {
-        message: `Visual extent ${vx.toFixed(1)}×${vy.toFixed(1)} matches no keyline (circle 20×20, square 18×18, wide 20×16, tall 16×20).`,
+        message: `Visual extent ${vx.toFixed(1)}×${vy.toFixed(1)} matches no keyline within ±${KEYLINE_TOLERANCE} (${KEYLINE_LIST}). Nearest is ${nearestName(vx, vy)}. Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.`,
         rule: "keyline",
         severity: "warn",
       };
