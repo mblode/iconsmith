@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import type { Command } from "commander";
@@ -20,6 +19,7 @@ import {
 } from "../tools/cohort.js";
 import { format, lint } from "../tools/lint.js";
 import type { Issue, Keyline } from "../types.js";
+import { readJson, readText } from "./read.js";
 
 const KEYLINES = new Set(["circle", "square", "tall", "wide"]);
 
@@ -44,7 +44,7 @@ const iconName = (file: string): string =>
   path.basename(file).replace(/\.svg$/u, "");
 
 const readManifest = (file: string): CohortManifest =>
-  JSON.parse(readFileSync(file, "utf-8")) as CohortManifest;
+  readJson<CohortManifest>(file, "a cohort manifest");
 
 /** One cohort's split axes, as a human reads them: the convention first, then
  *  what disagrees with it and by how much. */
@@ -85,7 +85,7 @@ export const registerLintCommand = (program: Command): void => {
       const manifest = opts.cohorts ? readManifest(opts.cohorts) : undefined;
 
       const drawn = files.map((file) => ({
-        canvas: fromSVG(readFileSync(file, "utf-8")),
+        canvas: fromSVG(readText(file, "an .svg icon")),
         file,
         name: iconName(file),
       }));

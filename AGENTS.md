@@ -45,7 +45,7 @@ This is what prevents style drift. A model emitting free path data writes drift 
 - **ESM only**: `"type": "module"`. Use `.js` extensions in imports; extensionless imports fail the NodeNext typecheck.
 - **Dual build**: `tsdown.config.ts` produces `cli.js` (shebang) and `index.js` (+ `.d.ts`). Do not merge them, and do not add a shebang to `src/cli.ts`.
 - **Linting via ultracite**: run `npm run fix` / `npm run check`, never oxlint or oxfmt directly.
-- **No chalk/ora**: `styleText` from `node:util`, `@clack/prompts` spinner.
+- **No chalk/ora, and nothing interactive**: use `styleText` from `node:util`. The CLI never prompts, so it has no prompt library and no `--no-input`; every value is a flag.
 - **Visual extent ≠ path bbox.** A stroked icon's visual extent is its path bbox inflated by the stroke width, half per side. Comparing a stroked path bbox against a filled one conflates a rendering fact with a design fact, and it is the single mistake that has produced the most wrong measurements in this problem domain. `lint.ts` gets this right; keep it that way.
 - **Similarity scores are calibrated against 0.737**, the measured median rendered-cosine between two mature icon sets drawing the same concept. A reconstruction scoring 1.0 is a bug; a score near 0.74 means "as close as a different professional set's take".
 

@@ -11,6 +11,7 @@ import {
 } from "../pipeline/generate.js";
 import { format } from "../tools/lint.js";
 import type { Keyline } from "../types.js";
+import { assertWritable } from "./read.js";
 
 const KEYLINES = new Set([
   "circle",
@@ -22,6 +23,7 @@ const KEYLINES = new Set([
 ]);
 
 interface NewOptions {
+  force?: boolean;
   keyline?: string;
   maxSteps?: string;
   model?: string;
@@ -59,6 +61,7 @@ export const registerNewCommand = (program: Command): void => {
       "parts JSON, so it can reuse the set's shapes"
     )
     .option("-o, --out <file>", "write the SVG here instead of stdout")
+    .option("--force", "overwrite --out if it already exists")
     .option(
       "--max-steps <n>",
       "turns before it must stop",
@@ -72,6 +75,12 @@ export const registerNewCommand = (program: Command): void => {
         throw new Error(
           `Unknown keyline "${opts.keyline}". One of: ${[...KEYLINES].join(", ")}.`
         );
+      }
+
+      // Checked before the model runs: failing after a paid generation because
+      // the destination existed wastes the expensive half of the command.
+      if (opts.out) {
+        assertWritable(opts.out, Boolean(opts.force));
       }
 
       let result: Awaited<ReturnType<typeof generate>>;

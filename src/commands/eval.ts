@@ -1,15 +1,14 @@
-import { readFileSync } from "node:fs";
-
 import type { Command } from "commander";
 
 import { evaluate, formatReport } from "../pipeline/eval.js";
 import type { Part } from "../types.js";
+import { readJson } from "./read.js";
 
 const loadParts = (path?: string): Part[] => {
   if (!path) {
     return [];
   }
-  const raw: unknown = JSON.parse(readFileSync(path, "utf-8"));
+  const raw = readJson<unknown>(path, "an icon set JSON file");
   return Array.isArray(raw)
     ? (raw as Part[])
     : ((raw as { parts?: Part[] }).parts ?? []);

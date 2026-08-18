@@ -5,12 +5,13 @@ import type { Command } from "commander";
 import { run } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import type { Part } from "../types.js";
+import { readJson, readText } from "./read.js";
 
 const loadParts = (path?: string): Part[] => {
   if (!path) {
     return [];
   }
-  const raw: unknown = JSON.parse(readFileSync(path, "utf-8"));
+  const raw = readJson<unknown>(path, "a parts JSON file");
   if (Array.isArray(raw)) {
     return raw as Part[];
   }
@@ -28,7 +29,9 @@ export const registerDrawCommand = (program: Command): void => {
     .action((file: string, opts: { doc?: boolean; parts?: string }) => {
       const json = program.opts().output === "json";
       const source =
-        file === "-" ? readFileSync(0, "utf-8") : readFileSync(file, "utf-8");
+        file === "-"
+          ? readFileSync(0, "utf-8")
+          : readText(file, "a DSL program");
       const result = run(source, loadParts(opts.parts));
 
       for (const err of result.errors) {

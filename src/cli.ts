@@ -2,6 +2,7 @@ import { styleText } from "node:util";
 
 import { Command } from "commander";
 
+import { registerAuditCommands } from "./commands/audit.js";
 import { registerConformCommand } from "./commands/conform.js";
 import { registerDrawCommand } from "./commands/draw.js";
 import { registerEvalCommand } from "./commands/eval.js";
@@ -21,8 +22,7 @@ program
     "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec."
   )
   .version("0.0.1")
-  .option("--output <format>", "output format: text or json", "text")
-  .option("--no-input", "never prompt; fail if a required value is missing");
+  .option("--output <format>", "output format: text or json", "text");
 
 registerPartsCommand(program);
 registerDrawCommand(program);
@@ -30,15 +30,22 @@ registerLintCommand(program);
 registerEvalCommand(program);
 registerConformCommand(program);
 registerNewCommand(program);
+registerAuditCommands(program);
 
 try {
   await program.parseAsync();
 } catch (error: unknown) {
   const message = error instanceof Error ? error.message : String(error);
+  // An error that named itself keeps its code; only a genuinely unexpected one
+  // gets UNEXPECTED, so a caller can branch on bad input without string-matching.
+  const code =
+    (error as { code?: unknown })?.code === undefined
+      ? "UNEXPECTED"
+      : String((error as { code: unknown }).code);
   if (program.opts().output === "json") {
     process.stdout.write(
       JSON.stringify({
-        code: "UNEXPECTED",
+        code,
         details: {},
         error: true,
         message,
