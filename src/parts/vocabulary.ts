@@ -25,11 +25,12 @@
  * the evidence supports. A wrong name is worse than a missing one, because a
  * wrong one gets used.
  *
- * NOT EVERY PART GETS A WORD. Ranks below these have marks the set clearly
- * draws, and they are deliberately left unnamed where a name would only be a
- * proportion of a mark already named — the stadium at 1.5:1 and 2.7:1 beside
- * `capsule` at 2:1, the oval at 1.5:1 beside `oval`. Words are what a model
- * chooses between, so an extra word for no extra mark is a cost, not coverage.
+ * NOT EVERY PART GETS A WORD. The unnamed ranks still hold marks the set draws
+ * often, and they are left unnamed where a name would only be a proportion of a
+ * mark already named — the stadiums at 1:2.7 (p0156) and 1:3.3 (p0157) beside
+ * `capsule` at 1:2, the ellipse at 1:1.5 (p0087) beside `oval` at 1:1.25. Words
+ * are what a model chooses between, so an extra word buying no extra mark is a
+ * cost, not coverage.
  *
  * TWO FAMILIES ARE ONE MARK EACH, SPLIT BY THE CLUSTERER.
  *
@@ -56,12 +57,13 @@
  * regardless. The rest score `Infinity`, refused outright by the aspect gate in
  * `turnsToTry`. Raising the threshold reaches neither group.
  *
- * That makes these a different failure from the one task #18 isolated. There a
- * mark and its transpose are compared and miss the fold by 0.010 against 0.06,
- * which is a threshold-or-resolution question about one pair. Here the
+ * That makes these a different failure from the one isolated alongside them,
+ * where a mark and its transpose ARE compared and miss the fold by 0.010
+ * against 0.06 — a threshold-or-resolution question about one pair. Here the
  * comparison never happens, which is a bucketing question about roughly twenty
- * parts. Fixing #18 will not close these, and the qualifiers in the names above
- * are a holding position until something does.
+ * parts. Widening the threshold closes the first and none of the second, and
+ * the qualifiers in the names above are a holding position until the clusterer
+ * merges what it should.
  */
 import { parsePath } from "../geometry/path.js";
 import type { Part } from "../types.js";
@@ -177,7 +179,7 @@ export const VOCABULARY: NamedShape[] = [
   {
     d: "M0 1.25L2 0",
     name: "oblique",
-    note: "a straight segment at an angle the house spec does not snap to (30 deg here). Four more clusters are the same mark at 38, 51, 59 and 68 degrees, all within the clustering threshold of this one — the fingerprint of a bare segment barely varies with angle, so only the aspect bucket keeps them apart",
+    note: "a straight segment at an angle the house spec does not snap to (30 deg here). Six more clusters are the same mark at 27, 38, 51, 59, 66 and 68 degrees — the fingerprint of a bare segment barely varies with angle, so only the aspect bucket keeps them apart, and they are left unnamed rather than given six words for one mark",
     sure: false,
   },
   {
@@ -189,7 +191,7 @@ export const VOCABULARY: NamedShape[] = [
   {
     d: "M10 0L3 0C1.25 0 0 1.25 0 3L0 9C0 10.75 1.25 12 3 12L10 12",
     name: "open-rect",
-    note: "rounded rect with one side missing; the package and box body. Head of an eight-cluster family — see the family note",
+    note: "rounded rect with one side missing; the package and box body. Head of a family of about twenty clusters — see the family note",
     sure: false,
   },
   {
