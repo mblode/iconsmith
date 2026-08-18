@@ -22,13 +22,13 @@ const SRC = path.resolve(import.meta.dirname, "../src");
 
 /** Lower layers must not import higher ones. Index = depth. */
 const LAYERS = ["geometry", "parts", "tools", "pipeline", "commands"];
-const depth = (layer) => LAYERS.indexOf(layer);
+const depth = (layer: string): number => LAYERS.indexOf(layer);
 
 /** Raw path data must be authored by the canvas, never assembled downstream. */
 const RAW_GEOMETRY = /\bd\s*[:=]\s*[`"']\s*M[\s\d.-]/iu;
 
-const failures = [];
-const check = (file) => {
+const failures: string[] = [];
+const check = (file: string): void => {
   const rel = path.relative(SRC, file);
   const layer = rel.includes(path.sep) ? rel.split(path.sep)[0] : null;
   const src = fs.readFileSync(file, "utf-8");
@@ -37,7 +37,7 @@ const check = (file) => {
   for (const m of src.matchAll(/from\s+"(?<spec>\.\.?\/[^"]+)"/gu)) {
     const target = path.relative(
       SRC,
-      path.resolve(path.dirname(file), m.groups.spec)
+      path.resolve(path.dirname(file), m.groups?.spec ?? "")
     );
     const targetLayer = target.includes(path.sep)
       ? target.split(path.sep)[0]
@@ -79,7 +79,7 @@ const check = (file) => {
   }
 };
 
-const walk = (dir) => {
+const walk = (dir: string): void => {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {

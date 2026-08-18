@@ -35,4 +35,4 @@ pre-commit:
     # the staged file just created.
     - name: boundaries
       glob: "*.{ts,tsx}"
-      run: node scripts/check-boundaries.mjs
+      run: node scripts/check-boundaries.ts

@@ -1,0 +1,18 @@
+{
+  // The build-support scripts are TypeScript, run directly by Node's native
+  // type stripping. The main config cannot cover them: it sets rootDir to src
+  // so the dual build emits cli.js and index.js from there, and pulling
+  // scripts/ in makes tsc refuse the whole program. This one only type-checks.
+  // Mirrors blode-icons' tsconfig.scripts.json so both repos behave the same.
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2023",
+    "types": ["node"]
+  },
+  "include": ["scripts"],
+  "exclude": ["node_modules"]
+}

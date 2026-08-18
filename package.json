@@ -41,7 +41,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "start": "node dist/cli.js",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.scripts.json",
     "test": "vitest run --passWithNoTests",
     "changeset": "changeset",
     "changeset:version": "changeset version",
@@ -49,7 +49,7 @@
     "check": "ultracite check && npm run check:boundaries",
     "fix": "ultracite fix",
     "prepare": "lefthook install",
-    "check:boundaries": "node scripts/check-boundaries.mjs"
+    "check:boundaries": "node scripts/check-boundaries.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.39",

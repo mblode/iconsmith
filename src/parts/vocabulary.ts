@@ -12,26 +12,56 @@
  * which part a name belongs to, so the vocabulary survives a re-extraction, a
  * changed threshold, and a set that grew by a hundred icons.
  *
- * Names were read off a contact sheet of the top 50 parts of blode-icons
- * (1,863 stroked icons, 199 parts, these 50 covering 86% of the set), with each
- * part's `icons` list and its measured `turns`/`flips` as corroboration. A
+ * Names were read off contact sheets of the top 90 parts of blode-icons
+ * (1,863 stroked icons, 199 parts, the top 50 covering 86% of the set), with
+ * each part's `icons` list and its measured `turns`/`flips` as corroboration. A
  * mark the set draws at four turns gets an orientation-neutral name — `corner`,
  * not `bottom-left-corner` — because the name has to survive every turn a
  * placement can ask for.
  *
  * `sure: false` marks a name to review before relying on it. Two things put an
  * entry there: a proportion variant that is probably the same mark as its
- * neighbour (the `open-rect` family below), and a name that reads more
- * confidently than the evidence supports. A wrong name is worse than a missing
- * one, because a wrong one gets used.
+ * neighbour (both families below), and a name that reads more confidently than
+ * the evidence supports. A wrong name is worse than a missing one, because a
+ * wrong one gets used.
  *
- * **The open-rect family.** Eight of these fifty are a rounded rectangle with
- * one side left open, at different proportions and node counts: `open-rect`,
- * `open-rect-narrow`, `open-rect-wide`, `open-rect-deep`, `arc-c`, `arch`,
- * `arch-small` and `arch-wide`. Most pairs of them sit under the clustering
- * threshold; the rest only stay apart because `distance` refuses the
- * comparison outright. They are one mark, and the qualifiers here are a
- * holding position until the clusterer merges them.
+ * NOT EVERY PART GETS A WORD. Ranks below these have marks the set clearly
+ * draws, and they are deliberately left unnamed where a name would only be a
+ * proportion of a mark already named — the stadium at 1.5:1 and 2.7:1 beside
+ * `capsule` at 2:1, the oval at 1.5:1 beside `oval`. Words are what a model
+ * chooses between, so an extra word for no extra mark is a cost, not coverage.
+ *
+ * TWO FAMILIES ARE ONE MARK EACH, SPLIT BY THE CLUSTERER.
+ *
+ * **The open-rect family** — a rounded rectangle with one side left open. Eight
+ * are named (`open-rect` p0094, `open-rect-narrow` p0038, `open-rect-wide`
+ * p0117, `open-rect-deep` p0044, `arc-c` p0019, `arch` p0075, `arch-small`
+ * p0073, `arch-wide` p0076) and at least ten more sit unnamed in the top 90:
+ * p0007, p0031, p0039, p0042, p0067, p0069, p0083, p0095, p0118, p0127, plus
+ * `square-open` p0005 and `rect-open` p0140, which are the same mark with the
+ * opening shortened to a notch.
+ *
+ * **The straight-run family** — one bare segment at an angle the house spec
+ * does not snap to. `oblique` p0111 is named at 30 degrees; p0164, p0046,
+ * p0048, p0112, p0173 and p0017 are the same segment at 27, 38, 51, 59, 66 and
+ * 68 degrees and are left unnamed for it.
+ *
+ * Both splits come from `bucketKey` in `extract.ts`, not from the distance
+ * threshold, and that distinction matters for anyone trying to fix it. Members
+ * are filed by open/closed, node count and folded aspect in thirds, and two
+ * candidates in different buckets are never compared at all. So the family
+ * members that would obviously fold are not near misses: p0111 to p0112 is
+ * 0.006, p0044 to p0042 is 0.006, p0038 to p0039 is 0.013, p0127 to p0118 is
+ * 0.016 — an order of magnitude inside the 0.06 threshold, and separate parts
+ * regardless. The rest score `Infinity`, refused outright by the aspect gate in
+ * `turnsToTry`. Raising the threshold reaches neither group.
+ *
+ * That makes these a different failure from the one task #18 isolated. There a
+ * mark and its transpose are compared and miss the fold by 0.010 against 0.06,
+ * which is a threshold-or-resolution question about one pair. Here the
+ * comparison never happens, which is a bucketing question about roughly twenty
+ * parts. Fixing #18 will not close these, and the qualifiers in the names above
+ * are a holding position until something does.
  */
 import { parsePath } from "../geometry/path.js";
 import type { Part } from "../types.js";
@@ -323,6 +353,90 @@ export const VOCABULARY: NamedShape[] = [
     name: "cloud",
     note: "cloud outline",
     sure: true,
+  },
+  {
+    d: "M0 6.5L0 5.75C0 4.75 0.25 4 1 3.5L4 0.5C4.5 -0.25 5.5 -0.25 6 0.5C6.5 1 6.5 1.75 6 2.5L3 5.5C2.25 6 1.5 6.5 0.75 6.5L0 6.5Z",
+    name: "pencil",
+    note: "slanted lozenge with one squared end; all 11 icons that draw it are pencil- or -edit, and all 11 draw it at one turn and unmirrored, so the mark has a fixed handedness the way `check` does",
+    sure: true,
+  },
+  {
+    d: "M0 4L0 6.25L2.25 6.25L5.75 2.75C6.5 2.25 6.5 1.25 5.75 0.5C5.25 -0.25 4.25 -0.25 3.5 0.5L0 4Z",
+    name: "pencil-tip",
+    note: "`pencil` with the far end cut to a nib rather than rounded; 8 of its 10 icons are also edit marks. Flagged because the tip is the only thing separating it from `pencil`, and a model choosing between the two by name will not see that",
+    sure: false,
+  },
+  {
+    d: "M3 0C1.25 1.75 0 4 0 6.75C0 9.25 1.25 11.75 3 13.5",
+    name: "arc-long",
+    note: "a shallow arc over 4.5 times its own width; the cheek of a face, the closed eye. Same family as `arc-quarter` and `arc-shallow`, kept apart only by the aspect bucket",
+    sure: false,
+  },
+  {
+    d: "M0.5 6.5C1.25 2.75 4.25 0 8 0C11.75 0 15 2.75 15.5 6.5L16 10.5C16.25 12.5 15 14 13 14L3 14C1.25 14 -0.25 12.5 0 10.5L0.5 6.5Z",
+    name: "bell",
+    note: "dome flaring to a wider flat base. Named from the mark rather than the icons: only 3 of its 9 are bell-, and it also serves as a cap, a trophy cup and an emoji mouth",
+    sure: false,
+  },
+  {
+    d: "M0 6.25C0 4.25 0 3.25 0.5 2.25C0.75 1.5 1.5 1 2 0.5C3 0.25 4 0 5.75 0C8 0 10 0 12.25 0C14 0 15 0.25 16 0.5C16.5 1 17.25 1.5 17.5 2.25C18 3.25 18 4.25 18 6.25L18 7.75C18 9.75 18 10.75 17.5 11.75C17.25 12.5 16.5 13 16 13.5C15 13.75 14 14 12.25 14C10 14 8 14 5.75 14C4 14 3 13.75 2 13.5C1.5 13 0.75 12.5 0.5 11.75C0 10.75 0 9.75 0 7.75L0 6.25Z",
+    name: "squircle-wide",
+    note: "the 16-node continuous-curvature treatment of `squircle` at 9:7; card, archive, sd-card. Flagged as the landscape tier of `squircle` rather than a mark of its own",
+    sure: false,
+  },
+  {
+    d: "M5 15C2.25 15 0 12.75 0 10L0 5C0 2.25 2.25 0 5 0C7.75 0 10 2.25 10 5L10 10C10 12.75 7.75 15 5 15Z",
+    name: "mouse",
+    note: "geometrically a 2:3 stadium — `capsule` at another proportion — and named from its icons instead: mouse, mouse-classic, mouse-scroll-. Flagged because the shape does not carry the word; 5 of its 9 icons are something else",
+    sure: false,
+  },
+  {
+    d: "M0.25 4.5C0.75 5.25 1.75 6 3 6C4.75 6 6 4.75 6 3C6 1.25 4.75 0 3 0C1.25 0 0 1.25 0 3C0 3.5 0 4 0.25 4.5Z",
+    name: "circle-cut",
+    note: "circle with one chord flattened, which is what a circle looks like where something joins or knocks out of it — the magnifier lens meeting its handle, a share node meeting its arm. Named for the geometry because the icons do not agree on one object",
+    sure: false,
+  },
+  {
+    d: "M2.25 0.25C2.5 0 2.5 0 2.75 0L3.5 1.25C3.5 1.25 3.5 1.25 3.75 1.25L5 1.5C5.25 1.5 5.25 1.75 5.25 2L4.5 3C4.25 3.25 4.25 3.25 4.25 3.25L4.5 4.75C4.5 4.75 4.5 5 4.25 5L3 4.5C2.75 4.5 2.75 4.5 2.75 4.5L1.5 5C1.25 5.25 1 5 1 5L1.25 3.5C1.25 3.5 1 3.25 1 3.25L0 2.25C0 2.25 0 2 0.25 2L1.5 1.5C1.5 1.5 1.75 1.5 1.75 1.5L2.25 0.25Z",
+    name: "star",
+    note: "five-point star; the review and favourite mark. Distinct from `sparkle`, which has four points and concave sides",
+    sure: true,
+  },
+  {
+    d: "M0 4.5L3.25 7.75C5 9.5 8 9.5 9.75 7.75C11.5 6 11.5 3 9.75 1.25C8 -0.5 5 -0.5 3.25 1.25L0 4.5Z",
+    name: "drop",
+    note: "circle drawn to a point on one side; drop, map-pin, fire, footprint",
+    sure: true,
+  },
+  {
+    d: "M6 13L3 13C1.25 13 -0.25 11.25 0 9.5L1 2.5C1.25 1 2.5 0 4 0L10 0C11.5 0 12.75 1 13 2.5L13 4",
+    name: "bag",
+    note: "open rect with tapered sides; all 8 of its icons are shopping-bag or package, and all 8 draw it at one turn",
+    sure: true,
+  },
+  {
+    d: "M5.25 9L0.75 6.75C-0.25 6.25 -0.25 4.5 1 4L12.75 0C14 -0.25 15 0.75 14.75 2L10.75 13.75C10.25 15 8.5 15 8 14L5.75 9.5C5.75 9.25 5.5 9 5.25 9Z",
+    name: "pointer",
+    note: "the cursor arrow; also the send paper-plane, which is the same mark turned",
+    sure: true,
+  },
+  {
+    d: "M2 3.75L3.25 3.75C3.75 3.75 4.25 3.75 4.5 3.5L8.25 0.25C9 -0.25 10 0.25 10 1L10 14.75C10 15.5 9 16 8.25 15.5L4.5 12.25C4.25 12 3.75 11.75 3.25 11.75L2 11.75C1 11.75 0 11 0 9.75L0 5.75C0 4.75 1 3.75 2 3.75Z",
+    name: "speaker",
+    note: "speaker cone and box in one outline; all 8 of its icons are volume- or sound",
+    sure: true,
+  },
+  {
+    d: "M3 0L7.25 0C7.75 0 8.25 0.25 8.5 0.5L13.5 5.5C13.75 5.75 14 6.25 14 6.75L14 15C14 16.75 12.75 18 11 18L3 18C1.25 18 0 16.75 0 15L0 3C0 1.25 1.25 0 3 0Z",
+    name: "page",
+    note: "portrait rect with one corner cut back; the document body",
+    sure: true,
+  },
+  {
+    d: "M12 0L2 0C0.5 0 -0.5 1.5 0.25 3L5.25 13C6 14.25 8 14.25 8.75 13L13.75 3C14.5 1.5 13.5 0 12 0Z",
+    name: "triangle-large",
+    note: "`triangle` at 14 units and equilateral rather than 3.7 and isosceles; arrow-triangle-, exclamation-triangle. Flagged as a size and proportion tier of `triangle`",
+    sure: false,
   },
 ];
 
