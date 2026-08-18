@@ -19,19 +19,65 @@ import {
 } from "../geometry/path.js";
 import type { Box, DotRole, DrawOp, IconDoc, Keyline, Part } from "../types.js";
 
+/**
+ * The house spec, calibrated against the corpus.
+ *
+ * Every number here is measured from Central's `round-outlined-radius-3-stroke-2`
+ * variant — 2,085 icons, verified byte-identical to blode-icons' own SVGs, so it
+ * is the set this project draws for, not a proxy for it. `src/corpus/measure.ts`
+ * reproduces every figure quoted below.
+ *
+ * The previous revision took its numbers from an article about Cursor's icon
+ * set. Cursor packs looser than Central, and applying its constants marked most
+ * of the base set as broken: its ~3.75px minimum gap flags 89% of Central's own
+ * icons, its 2.5px clearance flags 76%. Cursor is the inspiration; the corpus is
+ * the specification. Where they disagree, the corpus wins and the article's
+ * value is recorded in the comment.
+ */
 export const SPEC = {
+  // Unchanged: the whole corpus draws on a 24×24 viewBox.
   canvas: 24,
-  clearance: 2.5,
-  dots: { floating: 2.5, more: 2, terminal: 1.5 },
+  // Measured: margin from the visual extent to the nearest canvas edge, n=2085,
+  // mode 2.0 (46% of icons), median 2.00. A 2.0 rule flags 37%; the article's
+  // 2.5 flags 76%, which is a rule against the set rather than for it.
+  clearance: 2,
+  // Measured: visual diameters of dots (round-capped degenerate segments, and
+  // circles under 4px), n=504. Three modes, 2.0 / 2.5 / 3.0, together 68% of
+  // them. A terminal dot is a round line cap, so its diameter is the stroke
+  // width by construction — which is also the modal measurement. The article's
+  // 1.5 / 2 / 2.5 sits one tier low: 1.5 accounts for 5% of dots.
+  dots: { floating: 3, more: 2.5, terminal: 2 },
+  // Unchanged. Measured: 65.9% of design anchors (subpath starts and straight
+  // segment ends) land on 0.25, 63.3% on 0.5 — quarter steps are rare but real,
+  // so the finer grid stays.
   grid: 0.25,
+  // Unchanged, and confirmed as the four commonest visual extents in the set.
+  // Joint (w,h) modes, n=2085: 20×20 (349), 18×18 (314), 20×16 (106),
+  // 16×20 (63). Only 44% of icons land within 0.5 of one of the four, so this
+  // is the vocabulary of intended sizes, not a law every icon obeys.
   keylines: {
     circle: [20, 20],
     square: [18, 18],
     tall: [16, 20],
     wide: [20, 16],
   },
-  minGap: 2,
-  radiusTiers: [0.25, 1, 2],
+  // Measured as an **ink gap** — centre-line distance minus one stroke width —
+  // between separate `<path>` elements, taking each icon's tightest positive
+  // gap: n=1306, median 2.00, p25 1.16, p10 0.83. Pairs that overlap or touch
+  // are excluded; they are compound construction, not spacing, and counting
+  // them drags every low percentile below zero.
+  //
+  // 1.0 flags 14% of icons that have separated shapes. 2.0 — the modal designed
+  // gap — flags 47%, and the article's ~3.75 flags 89%. A floor is for catching
+  // outliers, so it sits at the tail, not at the mode.
+  minGap: 1,
+  // Measured: symmetric-handle corner arcs, n=6188. A flat tier set matches
+  // 78.4% of them exactly; the article's [0.25, 1, 2] matches 23.9% with a
+  // median error of a full pixel, because it has no 3 and 3 is 38% of all
+  // corners in this set. Conditioning tiers on shape size scored worse than the
+  // flat set (71–76%), so the size split is gone.
+  radiusTiers: [0.5, 1, 2, 3],
+  // Unchanged. Measured: 97.5% of stroked shapes are exactly 2.
   stroke: 2,
 } as const satisfies {
   canvas: number;
@@ -48,8 +94,6 @@ export const SPEC = {
 const K = 0.5523;
 /** Degrees of slop forgiven before a segment is left off-axis. */
 const ANGLE_TOLERANCE = 6;
-/** Above this shape size the small tier stops reading as a radius at all. */
-const LARGE_SHAPE = 8;
 const AXES = [-180, -135, -90, -45, 0, 45, 90, 135, 180];
 
 const clamp = (v: number, lo: number, hi: number) =>
@@ -65,9 +109,12 @@ const nearest = (targets: readonly number[], v: number): number => {
   return best;
 };
 
-/** Corner radii come from the tier system, never from the caller verbatim. */
-const tierRadius = (r: number, shapeSize: number): number =>
-  r === 0 ? 0 : nearest(shapeSize >= LARGE_SHAPE ? [1, 2] : [0.25, 1], r);
+/** Corner radii come from the tier system, never from the caller verbatim. The
+ *  tiers do not vary with shape size: a flat set matches the corpus better than
+ *  any size-conditioned split measured against it. Callers still clamp the
+ *  result to half the shape, which is geometry rather than style. */
+const tierRadius = (r: number): number =>
+  r === 0 ? 0 : nearest(SPEC.radiusTiers, r);
 
 /** Snap a segment to the nearest permitted axis when it is within tolerance. */
 const snapAngle = (
@@ -188,7 +235,7 @@ export class Canvas {
     const Y = onCanvas(y);
     const W = q(w, SPEC.grid);
     const H = q(h, SPEC.grid);
-    const R = Math.min(tierRadius(r, Math.min(W, H)), W / 2, H / 2);
+    const R = Math.min(tierRadius(r), W / 2, H / 2);
     return this.#push((id) => ({
       d: rectPath(X, Y, W, H, R),
       h: H,

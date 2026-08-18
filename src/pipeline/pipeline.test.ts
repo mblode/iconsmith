@@ -213,15 +213,20 @@ describe("generate", () => {
     const result = await generate(
       { name: "loop" },
       {
+        // A declared keyline is what makes a wrong extent an error rather than
+        // a warning; `centred` is only a warning now that cohort alignment,
+        // not the canvas centre, decides where a family sits.
+        keyline: "square",
         maxSteps: 3,
-        // Draws off-centre forever and never lints: nothing can end this but
-        // the budget.
+        // Draws a small off-centre circle forever and never lints: nothing can
+        // end this but the budget.
         model: scripted([{ input: { cx: 5, cy: 5, r: 2 }, tool: "circle" }]),
       }
     );
 
     expect(result.steps).toBe(3);
     expect(result.clean).toBe(false);
+    expect(result.issues.map((i) => i.rule)).toContain("keyline");
     expect(result.issues.map((i) => i.rule)).toContain("centred");
   });
 

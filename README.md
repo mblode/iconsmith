@@ -35,22 +35,20 @@ line 9,13.75 11,15.5 14.5,10.5
 fit
 ```
 
-`fill`, `center` and `fit` exist so a model never does spatial arithmetic: keyline
-scaling and centring are pure functions of the content, so the library does them exactly.
+`fill`, `center` and `fit` exist so a model never does spatial arithmetic: keyline scaling and centring are pure functions of the content, so the library does them exactly.
 
 ### Reading an eval
 
 `forge eval` reports four numbers, never one:
 
-| | |
+|  |  |
 | --- | --- |
 | **floor** | a random icon scored against the target |
 | **baseline** | 0.737 — the measured median between two mature icon sets drawing the same concept |
 | **treatment** | what the pipeline scored |
 | **ceiling** | 1.0 |
 
-A treatment above 0.95 is flagged as suspect: it means the harness is comparing
-something to itself, not that generation succeeded.
+A treatment above 0.95 is flagged as suspect: it means the harness is comparing something to itself, not that generation succeeded.
 
 ## Programmatic API
 

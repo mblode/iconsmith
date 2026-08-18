@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { Canvas } from "./canvas.js";
+import { Canvas, SPEC } from "./canvas.js";
 import { format, lint } from "./lint.js";
 import type { LintElement } from "./lint.js";
 
@@ -28,7 +28,9 @@ describe("lint", () => {
     const issues = lint(canvas(el("e0", "M6 4L22 4L22 20L6 20Z")));
     expect(rules(issues)).toContain("centred");
     const centred = issues.find((i) => i.rule === "centred");
-    expect(centred?.severity).toBe("error");
+    // A warning, not an error: a cohort that agrees on an off-centre box
+    // outranks this rule, and `cohort-align` is what blocks a commit.
+    expect(centred?.severity).toBe("warn");
     expect(centred?.message).toContain("(14.00, 12.00)");
   });
 
@@ -54,12 +56,20 @@ describe("lint", () => {
   });
 
   it("fires `gap` when two elements sit closer than the minimum", () => {
+    // Derived from the spec rather than written out, so recalibrating `minGap`
+    // against the corpus does not silently turn this test into a no-op.
+    // Half the minimum, so the pair is inside it however it is calibrated.
+    const gapPx = SPEC.minGap / 2;
+    const half = gapPx / 2;
     const issues = lint(
-      canvas(el("e0", "M4 11.5L20 11.5"), el("e1", "M4 12.5L20 12.5"))
+      canvas(
+        el("e0", `M4 ${12 - half}L20 ${12 - half}`),
+        el("e1", `M4 ${12 + half}L20 ${12 + half}`)
+      )
     );
     const gap = issues.find((i) => i.rule === "gap");
     expect(gap?.severity).toBe("warn");
-    expect(gap?.message).toContain("e0 and e1 are 1.00px apart");
+    expect(gap?.message).toContain(`e0 and e1 are ${gapPx.toFixed(2)}px apart`);
   });
 
   it("does not fire `gap` for a shape nested inside another", () => {
@@ -90,7 +100,7 @@ describe("lint", () => {
 
   it("formats issues one per line", () => {
     const out = format(lint(canvas(el("e0", "M6 4L22 4L22 20L6 20Z"))));
-    expect(out.split("\n")[0]).toMatch(/^\[error\] centred: /u);
+    expect(out.split("\n")[0]).toMatch(/^\[warn\] centred: /u);
   });
 });
 

@@ -101,11 +101,14 @@ test("a vertical-ish segment snaps to exactly vertical", () => {
 
 test("a requested radius of 1.7 becomes a tier radius, never 1.7", () => {
   const c = new Canvas();
-  // A large shape draws from tiers [1, 2]; a small one from [0.25, 1].
+  // The tiers do not vary with shape size — a flat set matches the corpus
+  // better than any size-conditioned split measured against it — so both
+  // rectangles land on the same tier. The small one is still clamped to half
+  // its own side, which is geometry rather than style.
   c.rect({ h: 10, r: 1.7, w: 10, x: 2, y: 2 });
   c.rect({ h: 4, r: 1.7, w: 4, x: 2, y: 2 });
   const radii = c.elements.map((e) => (e.kind === "rect" ? e.r : null));
-  expect(radii).toStrictEqual([2, 1]);
+  expect(radii).toStrictEqual([2, 2]);
   for (const r of radii) {
     expect(SPEC.radiusTiers as readonly number[]).toContain(r);
   }
