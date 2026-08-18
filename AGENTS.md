@@ -44,5 +44,8 @@ npm run fix
 - **`turbo.json` marks `test` uncached on purpose.** Turbo hashes git-tracked
   inputs and the corpus is gitignored, so a cached pass could stand in for a run
   that silently skipped the corpus tests.
+- **`oxlint` is pinned to exactly 1.78.0.** 1.79 dropped `react/react-compiler`,
+  which ultracite 7.10.5's react preset still sets, so the pair fails to parse any
+  config that extends it. Unpin only after checking `apps/web` still lints.
 - Root-level files are covered by no pre-commit job and by no `turbo check`. If
   you edit `turbo.json` or the root `package.json`, check them yourself.
