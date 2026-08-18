@@ -63,10 +63,21 @@ const DENOISE_WINDOW = 0.02;
 const SPUR_AREA = 0.01;
 /** Below this a contour has no extent worth measuring at all. */
 const DEGENERATE_EXTENT = 0.05;
+/** Largest end-to-end gap that reads as a failure to close rather than a
+ *  deliberate break. Every intentional break in the set is a full stroke or
+ *  wider; the one accidental gap is 0.003. */
+const NEAR_CLOSED_GAP = 0.05;
+/** Shapes smaller than this have no meaningful open/closed distinction. */
+const MIN_SHAPE_EXTENT = 1;
 /** Below this two renders are the same picture. */
 export const INERT = 0.9995;
 
-export type FixKind = "denoise-stroke" | "remove-spur" | "snap-stroke";
+export type FixKind =
+  | "close-gap"
+  | "denoise-stroke"
+  | "remove-spur"
+  | "snap-stroke"
+  | "unify-caps";
 
 export interface Fix {
   /** What it became. */
@@ -78,6 +89,14 @@ export interface Fix {
   reason: string;
   /** Index of the shape in the icon. */
   shape: number;
+}
+
+/** A correction that can be applied on its own, so it can be proved on its own. */
+export interface Proposal {
+  apply: (shapes: CorpusShape[]) => CorpusShape[];
+  /** Contour index for removals, so they can be applied back-to-front. */
+  contour: number;
+  fix: Fix;
 }
 
 export interface Review {
@@ -198,105 +217,285 @@ export const toSVG = (shapes: CorpusShape[]): string => {
 };
 
 /**
- * Rebuild `d` keeping only the wanted contours.
+ * Remove one contour from path data by index.
  *
- * The original text of each contour is reused rather than re-emitted, so a
- * removal cannot perturb the coordinates of anything it kept — the whole claim
- * of this fix is that nothing else moved.
+ * The original text of every surviving contour is reused rather than
+ * re-emitted, so a removal cannot perturb the coordinates of anything it kept
+ * — which is the entire claim being made about this fix.
  */
-const serialiseKept = (d: string, all: Subpath[], kept: Subpath[]): string => {
+/** Close one contour by appending `Z`, leaving every coordinate untouched. */
+export const closeContour = (d: string, index: number): string => {
   const chunks = d.split(/(?=[Mm])/u).filter((c) => c.trim().length > 0);
-  if (chunks.length !== all.length) {
-    // Parse and text disagree on contour count; refuse rather than guess.
+  if (chunks.length !== parsePath(d).length || index >= chunks.length) {
     return d;
   }
-  const keepIndex = new Set(all.map((sp, i) => (kept.includes(sp) ? i : -1)));
-  return chunks.filter((_, i) => keepIndex.has(i)).join("");
+  return chunks
+    .map((c, i) => (i === index && !/[Zz]\s*$/u.test(c.trim()) ? `${c}Z` : c))
+    .join("");
 };
 
-/** Serialise subpaths back to path data via the shared writer. */
-const drop = (d: string, remove: (sp: Subpath) => boolean): string | null => {
-  const subpaths = parsePath(d);
-  const kept = subpaths.filter((sp) => !remove(sp));
-  if (kept.length === subpaths.length) {
-    return null;
+export const dropContour = (d: string, index: number): string => {
+  const chunks = d.split(/(?=[Mm])/u).filter((c) => c.trim().length > 0);
+  if (chunks.length !== parsePath(d).length || index >= chunks.length) {
+    // Text and parse disagree about where contours begin; refuse rather than
+    // cut the string in the wrong place.
+    return d;
   }
-  // Path data is rebuilt only by removing whole contours from the original
-  // string's parse; no geometry is authored here.
-  return kept.length === 0 ? "" : serialiseKept(d, subpaths, kept);
+  return chunks.filter((_, i) => i !== index).join("");
+};
+
+/**
+ * Every correction this icon is a candidate for, each applicable on its own.
+ *
+ * Proposing independently applicable fixes rather than one rewritten icon is
+ * what lets the proof be per-fix. An icon with three dead contours and one
+ * visible sliver should lose the three, not have all four rejected because the
+ * bundle moved the render.
+ */
+export const proposeFixes = (icon: CorpusIcon): Proposal[] => {
+  const proposals: Proposal[] = [];
+  const house = houseStroke(icon);
+
+  for (const [i, shape] of icon.shapes.entries()) {
+    const verdict = classifyStroke(shape.strokeWidth, house);
+    if (verdict.kind === "snap" || verdict.kind === "denoise") {
+      proposals.push({
+        apply: (shapes) =>
+          shapes.map((s, j) =>
+            j === i ? { ...s, strokeWidth: verdict.width } : s
+          ),
+        contour: -1,
+        fix: {
+          after: String(verdict.width),
+          before: String(shape.strokeWidth),
+          kind: verdict.kind === "snap" ? "snap-stroke" : "denoise-stroke",
+          reason: verdict.reason,
+          shape: i,
+        },
+      });
+    }
+
+    for (const [c, sp] of parsePath(shape.d).entries()) {
+      if (!isSpurCandidate(sp, shape.filled)) {
+        continue;
+      }
+      proposals.push({
+        apply: (shapes) =>
+          shapes.map((s, j) =>
+            j === i ? { ...s, d: dropContour(s.d, c) } : s
+          ),
+        contour: c,
+        fix: {
+          after: "removed",
+          before: `contour ${c}, area ${area(flatten(sp, 8)).toExponential(1)}`,
+          kind: "remove-spur",
+          reason:
+            "contour enclosing no area: residue of a stroke the design tool outlined",
+          shape: i,
+        },
+      });
+    }
+  }
+
+  // An open subpath whose ends all but meet. Every other open subpath in the
+  // set has a gap of a full stroke or more — a deliberate break — so a gap of a
+  // few thousandths is a path that failed to close. Exactly one icon in the
+  // corpus qualifies, which is what a rule this narrow should yield.
+  for (const [i, shape] of icon.shapes.entries()) {
+    for (const [c, sp] of parsePath(shape.d).entries()) {
+      if (sp.closed) {
+        continue;
+      }
+      const ends = flatten(sp, 8);
+      const [head] = ends;
+      const tail = ends.at(-1);
+      if (!(head && tail)) {
+        continue;
+      }
+      const gap = Math.hypot(head[0] - tail[0], head[1] - tail[1]);
+      if (gap > 0 && gap <= NEAR_CLOSED_GAP && span(sp) >= MIN_SHAPE_EXTENT) {
+        proposals.push({
+          apply: (shapes) =>
+            shapes.map((sh, j) =>
+              j === i ? { ...sh, d: closeContour(sh.d, c) } : sh
+            ),
+          contour: -1,
+          fix: {
+            after: "closed",
+            before: `gap ${gap.toFixed(4)}`,
+            kind: "close-gap",
+            reason: `open subpath whose ends are ${gap.toFixed(4)} apart on a ${span(sp).toFixed(1)}-unit shape: a path that failed to close, not a deliberate break`,
+            shape: i,
+          },
+        });
+      }
+    }
+  }
+
+  // Caps are an icon-level decision, not a shape-level one: the defect is
+  // disagreement *within* one drawing, so it cannot be seen one shape at a time.
+  // Only caps that actually show. A closed subpath has no ends, so its linecap
+  // attribute is inert; counting it reports a default rather than a drawing
+  // decision, and inflates "mixed caps" from 49 icons to 266.
+  const capped = icon.shapes
+    .map((sh, i) => ({
+      cap: sh.cap,
+      i,
+      visible:
+        sh.strokeWidth > 0 &&
+        parsePath(sh.d).some(
+          (sp) => !sp.closed && span(sp) > DEGENERATE_EXTENT
+        ),
+    }))
+    .filter((sh) => sh.visible);
+  const caps = new Set(capped.map((c) => c.cap));
+  if (caps.size > 1 && caps.has("round")) {
+    // Only when round is present. An icon drawn entirely in square caps is a
+    // blocky subject drawn deliberately — `bank`, `boat`, `bridge` — and
+    // rounding it would be a redraw, not a repair.
+    for (const c of capped.filter((x) => x.cap !== "round")) {
+      proposals.push({
+        apply: (shapes) =>
+          shapes.map((s, j) =>
+            j === c.i ? { ...s, cap: "round" as const } : s
+          ),
+        contour: -1,
+        fix: {
+          after: "round",
+          before: c.cap,
+          kind: "unify-caps",
+          reason: `icon mixes ${[...caps].join(" and ")} caps within one drawing; the majority and the house default are round`,
+          shape: c.i,
+        },
+      });
+    }
+  }
+
+  return proposals;
+};
+
+/**
+ * Apply a set of proposals to one icon.
+ *
+ * Removals go last and in descending contour order. Dropping contour 3 renumbers
+ * contour 4, so applying removals in the order they were proposed deletes the
+ * wrong geometry the moment an icon has two of them — and icons with eight are
+ * common.
+ */
+export const applyAll = (
+  shapes: CorpusShape[],
+  proposals: Proposal[]
+): CorpusShape[] => {
+  const removals = proposals.filter((p) => p.fix.kind === "remove-spur");
+  const rest = proposals.filter((p) => p.fix.kind !== "remove-spur");
+  let out = shapes;
+  for (const p of rest) {
+    out = p.apply(out);
+  }
+  for (const p of removals.toSorted((a, b) => b.contour - a.contour)) {
+    out = p.apply(out);
+  }
+  return out;
 };
 
 export const repairIcon = (icon: CorpusIcon): RepairResult => {
-  const fixes: Fix[] = [];
+  const proposals = proposeFixes(icon);
   const review: Review[] = [];
-  const shapes: CorpusShape[] = [];
+  const house = houseStroke(icon);
 
   for (const [i, shape] of icon.shapes.entries()) {
-    let { d, strokeWidth } = shape;
-
-    const verdict = classifyStroke(strokeWidth, houseStroke(icon));
-    if (verdict.kind === "snap" || verdict.kind === "denoise") {
-      fixes.push({
-        after: String(verdict.width),
-        before: String(strokeWidth),
-        kind: verdict.kind === "snap" ? "snap-stroke" : "denoise-stroke",
-        reason: verdict.reason,
-        shape: i,
-      });
-      strokeWidth = verdict.width;
-    } else if (verdict.kind === "review") {
+    const verdict = classifyStroke(shape.strokeWidth, house);
+    if (verdict.kind === "review") {
       review.push({
         question: verdict.reason,
         shape: i,
-        value: `stroke-width ${strokeWidth}`,
+        value: `stroke-width ${shape.strokeWidth}`,
       });
     }
-
-    // Spurs are only meaningful inside a filled contour: in a stroked drawing
-    // an open path legitimately encloses no area, and every straight line in
-    // the set would match.
-    if (shape.filled) {
-      const stripped = drop(d, (sp) => isSpur(sp));
-      if (stripped !== null && stripped !== "") {
-        fixes.push({
-          after: `${parsePath(stripped).length} contours`,
-          before: `${parsePath(d).length} contours`,
-          kind: "remove-spur",
-          reason:
-            "closed contour enclosing no area and spanning none: geometry residue with nothing to render",
-          shape: i,
-        });
-        d = stripped;
-      }
-    }
-
-    shapes.push({ ...shape, d, strokeWidth });
+  }
+  const stroked = icon.shapes.filter(
+    (sh) =>
+      sh.strokeWidth > 0 &&
+      parsePath(sh.d).some((sp) => !sp.closed && span(sp) > DEGENERATE_EXTENT)
+  );
+  if (stroked.length > 0 && stroked.every((sh) => sh.cap !== "round")) {
+    review.push({
+      question:
+        "every stroke in this icon uses a non-round cap; square caps cluster on blocky subjects and read as deliberate",
+      shape: -1,
+      value: `all caps ${stroked[0].cap}`,
+    });
   }
 
-  return { fixes, icon: icon.symbol, review, shapes, svg: toSVG(shapes) };
+  const shapes = applyAll(icon.shapes, proposals);
+  return {
+    fixes: proposals.map((p) => p.fix),
+    icon: icon.symbol,
+    review,
+    shapes,
+    svg: toSVG(shapes),
+  };
 };
 
 export interface Verified extends RepairResult {
-  /** Rendered similarity of before against after. */
+  /** Fixes proposed but withheld because applying them moved the render. */
+  rejected: Fix[];
+  /** Rendered similarity of the original against the accepted result. */
   score: number;
-  /** The render did not move: the fix is mechanical as claimed. */
+  /** Everything proposed was accepted. */
   inert: boolean;
 }
 
 /**
- * Apply the fixes and prove they changed nothing visible.
+ * Apply each proposed fix only if it leaves the picture where it was.
  *
- * The proof is the point. Without it this module is a set of plausible
- * assertions about SVG semantics; with it, each one is checked against a
- * renderer on the actual icon.
+ * The proof is the point, and it is per fix. Without it this module is a set of
+ * plausible assertions about SVG semantics; with it, each one is checked
+ * against a renderer on the actual icon, and the ones that turn out to be
+ * redraws are handed back rather than shipped.
  */
 export const verifyIcon = async (icon: CorpusIcon): Promise<Verified> => {
-  const result = repairIcon(icon);
-  if (result.fixes.length === 0) {
-    return { ...result, inert: true, score: 1 };
+  const base = repairIcon(icon);
+  const proposals = proposeFixes(icon);
+  if (proposals.length === 0) {
+    return { ...base, inert: true, rejected: [], score: 1 };
   }
-  const score = await similarity(toSVG(icon.shapes), result.svg);
-  return { ...result, inert: score >= INERT, score };
+
+  const before = toSVG(icon.shapes);
+  // Each proposal is judged against the *original*, never against the running
+  // result. Judging cumulatively made every contour index after the first
+  // removal point at the wrong contour, which rejected 143 sound fixes and
+  // would eventually have removed visible geometry.
+  const scores = await Promise.all(
+    proposals.map((p) => similarity(before, toSVG(p.apply(icon.shapes))))
+  );
+  const accepted: Fix[] = [];
+  const rejected: Fix[] = [];
+  const keep: Proposal[] = [];
+  for (const [i, p] of proposals.entries()) {
+    if (scores[i] >= INERT) {
+      keep.push(p);
+      accepted.push(p.fix);
+    } else {
+      rejected.push(p.fix);
+    }
+  }
+
+  // Contour removals shift every later index, so they are applied last and in
+  // descending order; everything else is index-stable.
+  const shapes = applyAll(icon.shapes, keep);
+  const score =
+    accepted.length > 0 ? await similarity(before, toSVG(shapes)) : 1;
+  return {
+    fixes: accepted,
+    icon: icon.symbol,
+    inert: rejected.length === 0,
+    rejected,
+    review: base.review,
+    score,
+    shapes,
+    svg: toSVG(shapes),
+  };
 };
 
 export interface RepairOptions {
@@ -353,9 +552,11 @@ export const repairSet = async (
   const review = verified.filter((v) => v.review.length > 0);
 
   const fixCounts: Record<FixKind, number> = {
+    "close-gap": 0,
     "denoise-stroke": 0,
     "remove-spur": 0,
     "snap-stroke": 0,
+    "unify-caps": 0,
   };
   for (const v of fixed) {
     for (const f of v.fixes) {
@@ -404,7 +605,9 @@ export const formatRepairReport = (r: RepairReport): string => {
     "",
     `  snap-stroke     ${String(r.fixCounts["snap-stroke"]).padStart(4)}  float residue restored to the house stroke`,
     `  denoise-stroke  ${String(r.fixCounts["denoise-stroke"]).padStart(4)}  deliberate width cleaned of float dust, weight kept`,
-    `  remove-spur     ${String(r.fixCounts["remove-spur"]).padStart(4)}  contour enclosing and spanning nothing`,
+    `  remove-spur     ${String(r.fixCounts["remove-spur"]).padStart(4)}  contour enclosing no area`,
+    `  unify-caps      ${String(r.fixCounts["unify-caps"]).padStart(4)}  cap brought into line with the rest of its own icon`,
+    `  close-gap       ${String(r.fixCounts["close-gap"]).padStart(4)}  subpath that all but closed itself`,
     "",
     `  ${r.fixed.length} icon(s) corrected and proved visually inert (similarity >= ${INERT})`,
     `  ${r.review.length} icon(s) left for review`,

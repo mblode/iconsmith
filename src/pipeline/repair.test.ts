@@ -12,7 +12,8 @@ import type { CorpusIcon, CorpusShape, Variant } from "../corpus/load.js";
 import { parsePath } from "../geometry/path.js";
 import {
   classifyStroke,
-  isSpur,
+  dropContour,
+  isSpurCandidate,
   repairIcon,
   repairSet,
   verifyIcon,
@@ -79,30 +80,51 @@ describe("classifyStroke", () => {
   });
 });
 
-describe("isSpur", () => {
-  it("removes a closed contour that doubles back on itself", () => {
-    // Out and back along one line: real extent, no area, paints nothing.
-    expect(isSpur(first("M4 4L12 4L4 4Z"))).toBe(true);
+describe("isSpurCandidate", () => {
+  it("flags a closed contour that doubles back on itself", () => {
+    expect(isSpurCandidate(first("M4 4L12 4L4 4Z"), false)).toBe(true);
   });
 
-  it("removes a sub-pixel point", () => {
-    expect(isSpur(first("M12 12L12.01 12L12.01 12.01L12 12.01Z"))).toBe(true);
+  it("flags a closed contour inside a stroked shape, not just a filled one", () => {
+    // Gating on the shape's fill missed the eleven stroked-only icons the
+    // corpus audit found: a closed contour is just as dead either way.
+    expect(isSpurCandidate(first("M4 4L12 4L4 4Z"), false)).toBe(true);
   });
 
-  it("keeps a thin sliver that actually renders", () => {
-    // `bag-2-sparkle` carries one of these: 1.8px across with a whisker of
-    // area. Deleting it would change the picture, so it is not a spur.
-    expect(isSpur(first("M4 4L12 4L12 4.3Z"))).toBe(false);
+  it("ignores an open path, which encloses nothing by construction", () => {
+    // Every straight stroke in the set encloses no area. Testing area without
+    // testing closure would flag half the corpus, which was this module's
+    // first bug.
+    expect(isSpurCandidate(first("M4 4L20 20"), false)).toBe(false);
   });
 
-  it("keeps an open path, which encloses nothing by construction", () => {
-    // Every straight stroke in the set matches "no enclosed area". Testing
-    // area without testing closure would delete the drawing.
-    expect(isSpur(first("M4 4L20 20"))).toBe(false);
+  it("ignores an ordinary filled shape", () => {
+    expect(isSpurCandidate(first("M4 4L20 4L20 20L4 20Z"), true)).toBe(false);
   });
 
-  it("keeps an ordinary filled shape", () => {
-    expect(isSpur(first("M4 4L20 4L20 20L4 20Z"))).toBe(false);
+  it("ignores a contour with no extent worth measuring", () => {
+    expect(isSpurCandidate(first("M12 12L12.001 12L12 12Z"), true)).toBe(false);
+  });
+
+  it("flags a thin sliver as a candidate and leaves removal to the proof", () => {
+    // 1.8px across with a whisker of area. It is a candidate on the audit's
+    // definition and it genuinely renders, so the render test is what has to
+    // reject it — candidacy is detection, not permission.
+    expect(isSpurCandidate(first("M4 4L12 4L12 4.002Z"), true)).toBe(true);
+  });
+});
+
+describe("dropContour", () => {
+  it("leaves the surviving contours byte-identical", () => {
+    // The claim of a spur removal is that nothing else moved. Reusing the
+    // original text of each kept contour makes that true rather than likely.
+    const keep = "M4 4L20 4L20 20L4 20Z";
+    expect(dropContour(`${keep}M4 4L12 4L4 4Z`, 1)).toBe(keep);
+  });
+
+  it("refuses when text and parse disagree about contour count", () => {
+    const d = "M4 4L20 4";
+    expect(dropContour(d, 7)).toBe(d);
   });
 });
 
@@ -126,16 +148,14 @@ describe("repairIcon", () => {
     expect(result.shapes[0].strokeWidth).toBe(1.8);
   });
 
-  it("only strips spurs from filled shapes", () => {
+  it("strips a dead contour from a stroked shape too", () => {
+    // The earlier version of this gated on the shape being filled, which missed
+    // the eleven stroked-only icons the corpus audit found. A closed contour
+    // enclosing nothing is dead whichever kind of shape holds it.
     const spurred = "M4 4L20 4L20 20L4 20ZM4 4L12 4L4 4Z";
     const stroked = repairIcon(icon([shape({ d: spurred })]));
-    expect(stroked.fixes).toEqual([]);
-
-    const filled = repairIcon(
-      icon([shape({ d: spurred, filled: true, strokeWidth: 0 })])
-    );
-    expect(filled.fixes[0].kind).toBe("remove-spur");
-    expect(parsePath(filled.shapes[0].d)).toHaveLength(1);
+    expect(stroked.fixes.map((f) => f.kind)).toContain("remove-spur");
+    expect(parsePath(stroked.shapes[0].d)).toHaveLength(1);
   });
 
   it("leaves the surviving contours byte-identical", () => {
