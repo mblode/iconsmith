@@ -21,6 +21,7 @@ import {
   advanceRef,
   championFromBranch,
   dirtyPaths,
+  errored,
   frozenDrift,
   judge,
   parseProgram,
@@ -74,18 +75,34 @@ const OVERSIZE = stroked(
 const withSvg = (scores: readonly IconScore[], svg: string): IconScore[] =>
   scores.map((s) => ({ ...s, svg }) as unknown as IconScore);
 
+const benchEntry = (
+  slug: string,
+  split: string,
+  rank: number
+): BenchmarkEntry =>
+  ({
+    closure: [],
+    id: `blode-icons/${slug}`,
+    rank,
+    set: "blode-icons",
+    slug,
+    split,
+    strata: {},
+  }) as unknown as BenchmarkEntry;
+
+/** A generation that threw: no score, and no drawing. */
+const failed = (icon: string): IconScore =>
+  ({
+    error: "rate limited",
+    floor: 0,
+    icon,
+    status: "error",
+    tags: [],
+  }) as unknown as IconScore;
+
 /** An arm whose every generation threw. There is no drawing to measure, and
  *  the panel must say so rather than report an empty pass. */
-const CRASHED: IconScore[] = ["i0", "i1", "i2"].map(
-  (icon) =>
-    ({
-      error: "rate limited",
-      floor: 0,
-      icon,
-      status: "error",
-      tags: [],
-    }) as unknown as IconScore
-);
+const CRASHED: IconScore[] = ["i0", "i1", "i2"].map(failed);
 
 /**
  * These pin the rule that decides whether a change to the generator is kept.
@@ -268,19 +285,12 @@ describe("the blind-spot gate", () => {
  */
 describe("the screen, wired to the panel", () => {
   const SLUGS = ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7"];
+  const PICKS = ["s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7"];
 
-  const ENTRIES: BenchmarkEntry[] = SLUGS.map(
-    (slug, rank) =>
-      ({
-        closure: [],
-        id: `blode-icons/${slug}`,
-        rank,
-        set: "blode-icons",
-        slug,
-        split: "feedback",
-        strata: {},
-      }) as unknown as BenchmarkEntry
-  );
+  const ENTRIES: BenchmarkEntry[] = [
+    ...SLUGS.map((slug, i) => benchEntry(slug, "feedback", i)),
+    ...PICKS.map((slug, i) => benchEntry(slug, "selection", SLUGS.length + i)),
+  ];
 
   const drawnArm = (svg: string, base: number): IconScore[] =>
     withSvg(
@@ -298,6 +308,7 @@ describe("the screen, wired to the panel", () => {
         const c = await structuralOf(a, "champion");
         const v = await structuralOf(b, "variant");
         return judge(a, b, floor, {
+          errors: { champion: errored(a), variant: errored(b) },
           structural: c && v ? { champion: c, variant: v } : null,
         });
       },
@@ -322,6 +333,29 @@ describe("the screen, wired to the panel", () => {
     const v = await staged(drawnArm(SQUARE, 0.5), drawnArm(SQUARE, 0.6));
     expect(v.screen.accepted).toBe(true);
     expect(v.stage).not.toBe("screened-out");
+  });
+
+  /**
+   * A lost generation in the slice that was paid for must not be charged to
+   * the slice that was already decided. `twoStage` re-judges the screen once
+   * the selection arms exist, so counting errors run-wide would crash it — and
+   * the run would report "the selection slice was not paid for" after paying
+   * for it, and file itself in the ledger at a fraction of what it spent.
+   */
+  it("does not let a selection-slice crash retract the screen", async () => {
+    const picked = (base: number) =>
+      withSvg(
+        PICKS.map((slug, i) => ok(slug, base + i * 0.01)),
+        SQUARE
+      );
+    const v = await staged(
+      [...drawnArm(SQUARE, 0.5), ...picked(0.5)],
+      [...drawnArm(SQUARE, 0.6), ...picked(0.6).slice(1), failed("s0")]
+    );
+    expect(v.screen.accepted).toBe(true);
+    expect(v.stage).toBe("rejected");
+    // The crash is charged to the slice it happened in, and nowhere else.
+    expect(v.selection?.status).toBe("crash");
   });
 });
 

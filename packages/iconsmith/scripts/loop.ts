@@ -217,6 +217,20 @@ export const structuralOf = async (
   return icons.length === 0 ? null : await panel(icons, source);
 };
 
+/**
+ * Generations the arm lost, counted off the arm being judged.
+ *
+ * Deliberately derived rather than carried in as a running total. `twoStage`
+ * re-judges the screen once the selection arms exist, so a run-wide count lets
+ * one rate limit in the decide stage crash the *screen* — which then reports
+ * "the selection slice was not paid for" after it was paid for, and files the
+ * run in the ledger as a screen-out at a fraction of what it spent. The
+ * failures are already in the array the judge is handed, partitioned onto the
+ * right slice by the same `scoresOf`.
+ */
+export const errored = (arm: readonly IconScore[]): number =>
+  arm.filter((s) => !scored(s)).length;
+
 /** The acceptance rule, separated from the running so it can be tested. */
 export const judge = (
   champion: readonly IconScore[],
@@ -830,10 +844,6 @@ const main = async (): Promise<void> => {
     const screenArms = await arms(feedback, "screen");
     let championIcons = screenArms.champion.icons;
     let variantIcons = screenArms.variant.icons;
-    let errors = {
-      champion: screenArms.champion.benchmark.errors,
-      variant: screenArms.variant.benchmark.errors,
-    };
 
     // The panel is built inside the judge, from the scores the judge was
     // handed, so it measures the slice being decided rather than whichever
@@ -853,7 +863,7 @@ const main = async (): Promise<void> => {
           const champion = await structuralOf(a, "champion");
           const variant = await structuralOf(b, "variant");
           return judge(a, b, floor, {
-            errors,
+            errors: { champion: errored(a), variant: errored(b) },
             // Either arm measuring nothing leaves the comparison with no
             // champion to regress against, which `judge` refuses.
             structural: champion && variant ? { champion, variant } : null,
@@ -870,10 +880,6 @@ const main = async (): Promise<void> => {
       const decide = await arms(selection, "decide");
       championIcons = [...championIcons, ...decide.champion.icons];
       variantIcons = [...variantIcons, ...decide.variant.icons];
-      errors = {
-        champion: errors.champion + decide.champion.benchmark.errors,
-        variant: errors.variant + decide.variant.benchmark.errors,
-      };
       staged = await stagedWith();
     }
     const verdict = staged.selection ?? staged.screen;
