@@ -198,22 +198,23 @@ const structuralReasons = (
 /**
  * Run the blind-spot panel over an arm's generated SVGs.
  *
- * Returns null when the scores carry no SVG to measure. `IconScore` does not
- * expose one today — `evaluate` rasterises internally and reports the cosine —
- * so this is written to read the field the moment it exists rather than to
- * assume it does. Null is a refusal downstream, not a pass.
+ * Returns null when there is nothing to measure — every generation in the arm
+ * threw, so no drawing reached the panel. That is a refusal downstream, not a
+ * pass: `structuralReasons` treats a missing panel as the reason to discard.
+ *
+ * It rasterises, and it is called once per arm per stage rather than once per
+ * run, because the panel has to be scored over the icons the stage is actually
+ * judging. That is local work on a 96x96 raster and it costs nothing; caching
+ * it would trade a real correctness property for no measurable saving.
  */
 export const structuralOf = async (
-  scores: readonly IconScore[]
+  scores: readonly IconScore[],
+  source: string
 ): Promise<StructuralReport | null> => {
-  const icons: { name: string; svg: string }[] = [];
-  for (const s of scores) {
-    const { svg } = s as { svg?: unknown };
-    if (scored(s) && typeof svg === "string") {
-      icons.push({ name: s.icon, svg });
-    }
-  }
-  return icons.length === 0 ? null : await panel(icons);
+  const icons = scores
+    .filter(scored)
+    .map((s) => ({ name: s.icon, svg: s.svg }));
+  return icons.length === 0 ? null : await panel(icons, source);
 };
 
 /** The acceptance rule, separated from the running so it can be tested. */
@@ -834,25 +835,33 @@ const main = async (): Promise<void> => {
       variant: screenArms.variant.benchmark.errors,
     };
 
-    // The blind-spot panel needs each generated SVG, and `IconScore` does not
-    // carry one today. `structuralOf` reads it if it is ever there, and until
-    // then the panel is null — which `judge` treats as a refusal, not a pass.
-    const structuralArms = async (): Promise<StructuralArms | null> => {
-      const c = await structuralOf(championIcons);
-      const v = await structuralOf(variantIcons);
-      return c && v ? { champion: c, variant: v } : null;
-    };
-
-    const stagedWith = async (): Promise<StagedVerdict<Verdict>> => {
-      const structural = await structuralArms();
-      return twoStage<Verdict>({
+    // The panel is built inside the judge, from the scores the judge was
+    // handed, so it measures the slice being decided rather than whichever
+    // icons happen to have accumulated. Building it outside would hand the
+    // selection stage a panel spanning the feedback icons too — and would
+    // re-judge the screen against a wider panel than the one that passed it.
+    //
+    // It belongs at the screen and not after it: rasterising is local and free,
+    // while the selection slice is 130 generations. A candidate that improves
+    // cosine while losing a structural check is screened out before anything
+    // pays for it.
+    const stagedWith = async (): Promise<StagedVerdict<Verdict>> =>
+      await twoStage<Verdict>({
         champion: championIcons,
         entries: benchmark.entries,
-        judge: (a, b, floor) => judge(a, b, floor, { errors, structural }),
+        judge: async (a, b, floor) => {
+          const champion = await structuralOf(a, "champion");
+          const variant = await structuralOf(b, "variant");
+          return judge(a, b, floor, {
+            errors,
+            // Either arm measuring nothing leaves the comparison with no
+            // champion to regress against, which `judge` refuses.
+            structural: champion && variant ? { champion, variant } : null,
+          });
+        },
         noiseFloor,
         variant: variantIcons,
       });
-    };
 
     let staged = await stagedWith();
     if (staged.stage !== "screened-out") {

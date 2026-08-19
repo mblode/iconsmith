@@ -199,6 +199,17 @@ export interface IconMeasured extends IconTarget {
    */
   stopReason: string | null;
   steps: number;
+  /**
+   * The drawing itself, as the generator produced it.
+   *
+   * Carried rather than discarded because `score` cannot stand in for it. The
+   * scorer is a rendered cosine, and `stress-cosine.ts` measured that a dot
+   * redrawn two tiers too large scores 0.988 — inside the band a legal 0.25u
+   * jitter produces. No threshold on this number resolves element sizing,
+   * badge placement or margin, so the blind-spot panel in `eval/blindspot.ts`
+   * measures the geometry directly and needs the geometry to measure.
+   */
+  svg: string;
   toolCalls: Record<string, number>;
   usage: TokenUsage | null;
   /** Null when the model has no published rate, or the generator reported no
@@ -452,6 +463,7 @@ const scoreOf = (
   status: "ok",
   steps: result.steps,
   stopReason: result.cost?.finishReason ?? null,
+  svg: result.svg,
   toolCalls: result.cost?.toolCalls ?? {},
   usage: result.cost?.usage ?? null,
   usd: result.cost && rate ? usdOf(result.cost.usage, rate) : null,

@@ -90,9 +90,9 @@ const spy = () => {
 };
 
 describe("the two-stage gate", () => {
-  it("screens on feedback and never pays for selection when the screen fails", () => {
+  it("screens on feedback and never pays for selection when the screen fails", async () => {
     const { calls, judge } = spy();
-    const v = twoStage({
+    const v = await twoStage({
       champion: arm(0.5, 0.5),
       entries: ENTRIES,
       judge,
@@ -118,9 +118,9 @@ describe("the two-stage gate", () => {
    * real winners at n=60, and a false negative here is a change nobody
    * revisits.
    */
-  it("screens leniently and decides strictly", () => {
+  it("screens leniently and decides strictly", async () => {
     const { calls, judge } = spy();
-    const v = twoStage({
+    const v = await twoStage({
       champion: arm(0.5, 0.5),
       entries: ENTRIES,
       judge,
@@ -135,9 +135,9 @@ describe("the two-stage gate", () => {
     expect(v.spent).toBe(8);
   });
 
-  it("accepts only on the selection slice, and never on the feedback one", () => {
+  it("accepts only on the selection slice, and never on the feedback one", async () => {
     const { calls, judge } = spy();
-    const v = twoStage({
+    const v = await twoStage({
       champion: arm(0.5, 0.5),
       entries: ENTRIES,
       // Flat on feedback, a real gain on selection: the acceptance cannot have
@@ -156,9 +156,9 @@ describe("the two-stage gate", () => {
    * would not change a verdict's shape or its sign, only quietly spend the one
    * number that was never optimised against.
    */
-  it("never routes a sealed icon into either stage", () => {
+  it("never routes a sealed icon into either stage", async () => {
     const { calls, judge } = spy();
-    twoStage({
+    await twoStage({
       champion: arm(0.5, 0.5),
       entries: ENTRIES,
       judge,
@@ -192,10 +192,10 @@ describe("formatStaged", () => {
    * remember it as a measurement of the candidate. It is not one, so the
    * screen-out line does not print it.
    */
-  it("reports a screen-out as a cost decision, without quoting it as a result", () => {
+  it("reports a screen-out as a cost decision, without quoting it as a result", async () => {
     const { judge } = spy();
     const text = formatStaged(
-      twoStage({
+      await twoStage({
         champion: arm(0.5, 0.5),
         entries: ENTRIES,
         judge,
@@ -208,10 +208,10 @@ describe("formatStaged", () => {
     expect(text).not.toMatch(/median delta/u);
   });
 
-  it("quotes the selection median when there is one to quote", () => {
+  it("quotes the selection median when there is one to quote", async () => {
     const { judge } = spy();
     const text = formatStaged(
-      twoStage({
+      await twoStage({
         champion: arm(0.5, 0.5),
         entries: ENTRIES,
         judge,

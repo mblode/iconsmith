@@ -57,11 +57,22 @@ export interface Verdictish {
   reasons: string[];
 }
 
+/**
+ * Async because a judge may have to *look* at the drawings, not only at the
+ * numbers about them: the blind-spot panel rasterises, and the checks it runs
+ * are the ones rendered cosine provably cannot resolve. A sync-only judge
+ * would push that measurement out of the stage that is supposed to gate on it
+ * and into the caller, where it would be computed over whichever icons happen
+ * to be in hand rather than over the slice being judged.
+ *
+ * The union keeps a judge that needs none of that plain: it may still return
+ * `V` directly.
+ */
 export type Judge<V extends Verdictish> = (
   champion: readonly IconScore[],
   variant: readonly IconScore[],
   noiseFloor: number
-) => V;
+) => Promise<V> | V;
 
 /** Outcome of the gate, named so a caller cannot mistake a screen-out for a
  *  measured loss. `screened-out` means the candidate never reached the
@@ -112,20 +123,20 @@ export interface StageOptions<V extends Verdictish> {
  * stage and an honest `screened-out`, instead of a verdict computed from
  * nothing.
  */
-export const twoStage = <V extends Verdictish>({
+export const twoStage = async <V extends Verdictish>({
   champion,
   entries,
   judge,
   noiseFloor,
   variant,
-}: StageOptions<V>): StagedVerdict<V> => {
+}: StageOptions<V>): Promise<StagedVerdict<V>> => {
   // The screen runs the same judge at a floor of zero. Not a different rule
   // with its own thresholds to drift out of sync — the same rule, asked a
   // weaker question: "is this not worse?" rather than "is this better by more
   // than the metric can resolve?". Everything else the judge checks (a crashed
   // arm, a fall in lint-clean rate) still bites, because those are reasons to
   // stop regardless of which slice noticed them.
-  const screen = judge(
+  const screen = await judge(
     scoresOf(champion, entries, "feedback"),
     scoresOf(variant, entries, "feedback"),
     0
@@ -141,7 +152,7 @@ export const twoStage = <V extends Verdictish>({
     };
   }
 
-  const selection = judge(
+  const selection = await judge(
     scoresOf(champion, entries, "selection"),
     scoresOf(variant, entries, "selection"),
     noiseFloor

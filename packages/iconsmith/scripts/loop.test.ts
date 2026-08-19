@@ -48,6 +48,35 @@ const ok = (icon: string, score: number, clean = true): IconScore =>
 const arm = (scores: number[], clean = true) =>
   scores.map((s, i) => ok(`i${i}`, s, clean));
 
+/** A 16x16 rounded square centred on the canvas: on spec against every check
+ *  the panel runs, so a failure here is the wiring rather than the drawing. */
+const SQUARE =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
+  '<path d="M7 4H17A3 3 0 0 1 20 7V17A3 3 0 0 1 17 20H7A3 3 0 0 1 4 17V7A3 3 0 0 1 7 4Z" ' +
+  'stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+
+/** An arm that drew. The panel reads `svg` off each measured score. */
+const drawn = (n: number): IconScore[] =>
+  Array.from(
+    { length: n },
+    (_, i) => ({ ...ok(`i${i}`, 0.8), svg: SQUARE }) as unknown as IconScore
+  );
+
+/** An arm whose every generation threw. There is no drawing to measure, and
+ *  the panel must say so rather than report an empty pass. */
+const crashed = (n: number): IconScore[] =>
+  Array.from(
+    { length: n },
+    (_, i) =>
+      ({
+        error: "rate limited",
+        floor: 0,
+        icon: `i${i}`,
+        status: "error",
+        tags: [],
+      }) as unknown as IconScore
+  );
+
 /**
  * These pin the rule that decides whether a change to the generator is kept.
  * Every one of them encodes a way a loop talks itself into a win: a gain too
@@ -196,8 +225,21 @@ describe("the blind-spot gate", () => {
     expect(v.reasons.join(" ")).toMatch(/measured nothing/u);
   });
 
-  it("reads no SVGs off scores that carry none", async () => {
-    expect(await structuralOf(before)).toBeNull();
+  /**
+   * The regression the loop's first real iteration hit: the panel refused
+   * every candidate because `IconScore` carried no drawing, so
+   * `structuralOf` returned null on an arm that had in fact drawn ten icons.
+   * A cosine-only win is the first thing an optimiser finds, and this is the
+   * assertion that the panel can still see what it is meant to judge.
+   */
+  it("measures every scored drawing in an arm", async () => {
+    const panelled = await structuralOf(drawn(3), "variant");
+    expect(panelled?.n).toBe(3);
+    expect(panelled?.source).toBe("variant");
+  });
+
+  it("refuses rather than passes when an arm drew nothing", async () => {
+    expect(await structuralOf(crashed(3), "variant")).toBeNull();
   });
 });
 

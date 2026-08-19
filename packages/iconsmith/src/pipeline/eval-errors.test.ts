@@ -216,6 +216,32 @@ describe("a thrown generation", () => {
   });
 });
 
+/**
+ * The panel in `eval/blindspot.ts` gates on element sizing, extent, centring
+ * and margin — every one of which rendered cosine provably cannot resolve, and
+ * none of which can be recovered from a score. Dropping the drawing on the way
+ * out of `evaluate` is therefore not a lost convenience, it is the gate going
+ * dark: the loop's first real iteration refused a genuine win because the
+ * panel had nothing to look at.
+ */
+describe("a measured score", () => {
+  it("carries the drawing that was scored, so the panel has something to measure", async () => {
+    const { flaky } = await arms();
+    const measured = flaky.icons.filter(scored);
+    expect(measured).toHaveLength(3);
+    for (const s of measured) {
+      expect(s.svg).toBe(DRAWN[s.icon]);
+    }
+  });
+
+  it("carries no drawing when the generation threw", async () => {
+    const { flaky } = await arms();
+    for (const s of flaky.icons.filter((x) => !scored(x))) {
+      expect(s).not.toHaveProperty("svg");
+    }
+  });
+});
+
 describe("a thrown generation across replicates", () => {
   it("is totalled on the spread report rather than folded into it", async () => {
     const model = new MockLanguageModelV4({
