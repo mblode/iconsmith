@@ -5,15 +5,18 @@ import type { Command } from "commander";
 
 import { extractParts } from "../parts/extract.js";
 import {
+  BENCH_SIZE,
   benchmarkExclusions,
+  entriesOf,
   loadBenchmark,
   loadRecords,
   refreshClosures,
   selectBenchmark,
   slice,
+  SPLITS,
   strataCounts,
 } from "../pipeline/bench.js";
-import type { BenchmarkEntry } from "../pipeline/bench.js";
+import type { BenchmarkEntry, Split } from "../pipeline/bench.js";
 import type { EvalOptions } from "../pipeline/eval.js";
 import {
   evaluate,
@@ -71,7 +74,12 @@ const registerBenchCommand = (program: Command): void => {
     .option("-c, --corpus <file>", "corpus store", ".corpus/icons.jsonl")
     .option("-o, --out <file>", "benchmark file", "bench/reconstruction.json")
     .option("--set <id>", "which set to draw from", "blode-icons")
-    .option("-n, --size <n>", "entries to select", Number.parseFloat, 120)
+    .option(
+      "-n, --size <n>",
+      "entries to select, dealt across the three splits",
+      Number.parseFloat,
+      BENCH_SIZE
+    )
     .option(
       "--seed <n>",
       "selection seed (provenance only)",
@@ -97,13 +105,20 @@ const registerBenchCommand = (program: Command): void => {
         });
         if (!opts.dryRun) {
           writeFileSync(opts.out, `${JSON.stringify(benchmark, null, 2)}\n`);
+          // oxfmt owns the committed file's formatting and collapses
+          // single-element arrays, which `JSON.stringify` does not. Without
+          // this the next `npm run check` fails on a file the tool just wrote.
+          process.stderr.write(
+            `  ! run \`npm run fix\` — oxfmt formats ${opts.out} differently from JSON.stringify.\n`
+          );
         }
         const counts = strataCounts(benchmark.entries);
         process.stdout.write(
           json
-            ? `${JSON.stringify({ counts, entries: benchmark.entries.length, file: opts.out, written: !opts.dryRun })}\n`
+            ? `${JSON.stringify({ counts, entries: benchmark.entries.length, file: opts.out, splits: benchmark.splits, written: !opts.dryRun })}\n`
             : `${[
                 `${benchmark.entries.length} entries from ${benchmark.corpus.records} records${opts.dryRun ? " (dry run)" : ` → ${opts.out}`}`,
+                `  splits    ${SPLITS.map((s2) => `${s2} ${benchmark.splits[s2]}`).join(" · ")}`,
                 ...Object.entries(counts).map(
                   ([axis, buckets]) =>
                     `  ${axis.padEnd(9)} ${Object.entries(buckets)
@@ -131,6 +146,13 @@ const registerBenchCommand = (program: Command): void => {
  * it does not choose the icons. The baseline protocol is n=30 × 3 seeds — three
  * runs of `--slice 30` at seeds 1, 2, 3 — and the seed-to-seed spread is the
  * number without which no later result means anything.
+ *
+ * `--split` decides which of the three roles the run is playing, and defaults
+ * to `feedback` — the slice whose per-icon traces may be read. `--split
+ * selection` is the accept/reject number and its traces must not be looked at;
+ * `--split sealed` is opened once, by a person, at the end. `--slice n` cuts a
+ * balanced prefix of whichever split was named, so the cheap dev instruments
+ * cannot reach a holdout by arithmetic.
  */
 export const registerEvalCommand = (program: Command): void => {
   registerBenchCommand(program);
@@ -147,8 +169,13 @@ export const registerEvalCommand = (program: Command): void => {
       "bench/reconstruction.json"
     )
     .option(
+      "--split <name>",
+      "which split to run: feedback (per-icon traces may be read), selection (scored only, never shown) or sealed (open once, by a human, at the end)",
+      "feedback"
+    )
+    .option(
       "--slice <n>",
-      "run only the first n benchmark entries",
+      "run only the first n entries of the split — a balanced prefix, for the dev loop",
       Number.parseFloat
     )
     .option(
@@ -200,6 +227,7 @@ export const registerEvalCommand = (program: Command): void => {
         seeds?: number[];
         set: string;
         slice?: number;
+        split: Split;
       }) => {
         const json = program.opts().output === "json";
         const file = loadBenchmark(opts.bench);
@@ -207,7 +235,30 @@ export const registerEvalCommand = (program: Command): void => {
         // are still landing on blode-icons — 113 of 2,221 records carry one —
         // and each one that lands widens what a run must withhold. A corpus
         // built without them must not be able to narrow it back.
-        let entries = slice(file.entries, opts.slice);
+        if (!SPLITS.includes(opts.split)) {
+          process.stderr.write(
+            `--split ${opts.split} is not one of ${SPLITS.join(", ")}.\n`
+          );
+          process.exitCode = 1;
+          return;
+        }
+        // Defaults to `feedback`, and `--slice` cuts a prefix *of the chosen
+        // split* rather than of the file. Both are the same rule: a run has to
+        // name the holdout out loud before it can spend it. The old behaviour
+        // — no flag, whole file — would have had every casual `iconsmith eval`
+        // burn the sealed slice on the first invocation.
+        const pool = entriesOf(file.entries, opts.split);
+        if (opts.split === "sealed") {
+          process.stderr.write(
+            `  ! the sealed split is worth one look. Read it twice and it is a second selection set.\n`
+          );
+        }
+        if (opts.slice !== undefined && opts.slice > pool.length) {
+          process.stderr.write(
+            `  ! --slice ${opts.slice} is longer than the ${opts.split} split (${pool.length}); running all ${pool.length}.\n`
+          );
+        }
+        let entries = slice(pool, opts.slice);
         try {
           entries = refreshClosures(entries, loadRecords(opts.corpus));
         } catch (error) {

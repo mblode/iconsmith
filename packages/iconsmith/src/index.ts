@@ -45,14 +45,26 @@ export { bbox, parsePath, q, serialise, translate } from "./geometry/path.js";
 export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
 export { NAME_THRESHOLD, nameParts, VOCABULARY } from "./parts/vocabulary.js";
+export { formatStaged, scoresOf, twoStage } from "./pipeline/accept.js";
+export type {
+  Judge,
+  Stage,
+  StagedVerdict,
+  StageOptions,
+  Verdictish,
+} from "./pipeline/accept.js";
 export {
+  BENCH_SIZE,
   benchmarkExclusions,
   conceptClosure,
   closureSlugs,
+  entriesOf,
   loadBenchmark,
   loadRecords,
   redactParts,
   selectBenchmark,
+  SPLIT_SIZES,
+  SPLITS,
   strataCounts,
 } from "./pipeline/bench.js";
 // The raster arm. `compose` is the seam the whole arm turns on: it is the only
@@ -181,7 +193,12 @@ export type {
   VectorRef,
 } from "./corpus/record.js";
 export type { Source, SourceFile } from "./corpus/sources.js";
-export type { Benchmark, BenchmarkEntry, Strata } from "./pipeline/bench.js";
+export type {
+  Benchmark,
+  BenchmarkEntry,
+  Split,
+  Strata,
+} from "./pipeline/bench.js";
 export type { Rate, RateTable, TokenUsage } from "./pipeline/cost.js";
 export type {
   ConditioningProvenance,

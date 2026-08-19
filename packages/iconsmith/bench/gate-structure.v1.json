@@ -1,0 +1,95 @@
+{
+  "builtAt": "2026-08-19T05:20:00.120Z",
+  "checks": [
+    {
+      "ceiling": 0.9516532140749778,
+      "failures": [
+        "add-to-basket-2 — 13 marks across 1 element(s), over the 9 cap",
+        "adjust-photo — 11 marks across 9 element(s), over the 9 cap",
+        "airplay — 23 marks across 2 element(s), over the 9 cap",
+        "apple-intelligence-icon — 14 marks across 1 element(s), over the 9 cap",
+        "ar-cube-3 — 15 marks across 13 element(s), over the 9 cap"
+      ],
+      "floor": 0.85,
+      "n": 2085,
+      "name": "element-count",
+      "passed": 1965,
+      "rate": 0.9424460431654677,
+      "target": "1..9 marks (corpus median 3, p75 5, p90 7, p95 8)",
+      "usable": true
+    },
+    {
+      "ceiling": 0.7565510442005619,
+      "failures": [
+        "add-to-basket — visual extent 21.00×19.00, over the 20×20 box",
+        "adjust-photo — visual extent 24.00×20.81, over the 20×20 box",
+        "ai-slop-sign — visual extent 21.70×19.88, over the 20×20 box",
+        "airplane-up — visual extent 21.28×15.91, over the 20×20 box",
+        "alien — visual extent 18.00×21.00, over the 20×20 box"
+      ],
+      "floor": 0.64,
+      "n": 2085,
+      "name": "extent",
+      "passed": 1539,
+      "rate": 0.7381294964028777,
+      "target": "visual extent fits 20×20, the largest keyline in SPEC",
+      "usable": true
+    },
+    {
+      "ceiling": 0.7406356474332711,
+      "failures": [
+        "add-image — centre (12.50, 12.50) is over 0.25u off (12, 12)",
+        "add-to-basket-2 — centre (12.00, 12.50) is over 0.25u off (12, 12)",
+        "add-to-basket — centre (11.50, 11.50) is over 0.25u off (12, 12)",
+        "adjust-photo — centre (12.00, 10.41) is over 0.25u off (12, 12)",
+        "affinity — centre (11.56, 12.00) is over 0.25u off (12, 12)"
+      ],
+      "floor": 0.59,
+      "n": 2085,
+      "name": "centred",
+      "passed": 1505,
+      "rate": 0.7218225419664268,
+      "target": "centre within 0.25u of (12, 12) — corpus 86% horizontally, 81% vertically, 72% on both",
+      "usable": true
+    },
+    {
+      "ceiling": 0.9498922518078556,
+      "failures": [
+        "add-to-basket — 4.4% of the ink is in the four corners",
+        "adobe-acrobat — 2.3% of the ink is in the four corners",
+        "airplane — 2.4% of the ink is in the four corners",
+        "american-football — 3.7% of the ink is in the four corners",
+        "animation-auto — 3.0% of the ink is in the four corners"
+      ],
+      "floor": 0.81,
+      "n": 2085,
+      "name": "corners-empty",
+      "passed": 1961,
+      "rate": 0.9405275779376499,
+      "target": "at most 2.0% of ink in the four 4×4 corners — the corpus pools at 0.37%, uniform ink would be 11.1%",
+      "usable": true
+    },
+    {
+      "ceiling": 0.726566330261955,
+      "failures": [
+        "add-to-basket — margin 1.00u, under 2u: left 1.00",
+        "adjust-photo — margin 0.00u, under 2u: left 0.00, right 0.00, top 0.00",
+        "agentic-coding — margin 1.00u, under 2u: right 1.00",
+        "ai-slop-sign — margin 1.13u, under 2u: left 1.13, right 1.16",
+        "airplane-up — margin 1.00u, under 2u: left 1.00, right 1.72"
+      ],
+      "floor": 0.61,
+      "n": 2085,
+      "name": "margins",
+      "passed": 1475,
+      "rate": 0.7074340527577938,
+      "target": "2u clear on all four sides",
+      "usable": true
+    }
+  ],
+  "icons": [],
+  "n": 2085,
+  "procedure": "Every .svg in the directory is measured geometrically, and rasterised at 4px per unit without blur for the corner check — deliberately not through `tools/render.ts`, whose 48px blurred raster exists to forgive placement and would smear ink across the corner boundary being measured. Visual extent is the path bbox plus the stroke, half per side, unioned over the elements `parseIconSvg` resolves (including the `<circle>`, `<rect>` and `<ellipse>` that 252 icons in the set draw with). Five checks, each a corpus measurement rather than an opinion: mark count against the p95 of the 1,528 stroked icons of the house variant, visual extent against the 20×20 keyline box, centring within 0.25u of (12, 12), corner ink against the p95 of the same set, and 2u of margin on all four sides. Density is gated on marks rather than on `<path>` elements because grouping is free: `split-element` is a perturbation the cosine battery scores as no change at all, so a cap on element count is satisfiable by regrouping without redrawing. A check passes the set when the upper end of the 95% Wilson interval on its pass rate clears a floor set at the corpus's own rate less 12 points — the corpus is not perfect against its own conventions, so a floor at the corpus rate fails the corpus, and the interval keeps a 24-icon run from failing on sampling noise. These checks sit outside cosine on purpose: the scorer's own stress test found a dot two tiers too large scores 0.988, inside the band a legal 0.25 jitter produces, so no threshold on cosine can see a sizing error at all.",
+  "usable": true,
+  "verdict": "PASS: 2085 icons, element-count 94.2%, extent 73.8%, centred 72.2%, corners-empty 94.1%, margins 70.7%. Every check clears the floor the corpus sets. This is not evidence the drawings are good — only that they are not off-spec in the ways rendered cosine cannot see."
+}

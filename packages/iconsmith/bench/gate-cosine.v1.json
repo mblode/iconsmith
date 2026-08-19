@@ -1,0 +1,105 @@
+{
+  "builtAt": "2026-08-19T05:22:23.570Z",
+  "integrity": {
+    "message": "battery matches the baseline: 10 perturbations, 1483 preserving and 1065 breaking observations",
+    "usable": true
+  },
+  "perturbations": [
+    {
+      "baseline": 0.4159818014616911,
+      "current": 0.4159818014616911,
+      "delta": 0,
+      "name": "translate-1",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.8982159624413145,
+      "current": 0.8982159624413145,
+      "delta": 0,
+      "name": "jitter-0.25",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.9990046948356808,
+      "current": 0.9990046948356808,
+      "delta": 0,
+      "name": "reverse-draw-order",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.9981971830985915,
+      "current": 0.9981971830985915,
+      "delta": 0,
+      "name": "reverse-one-subpath",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.9972249019229532,
+      "current": 0.9972249019229532,
+      "delta": 0,
+      "name": "split-element",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.8880737244324567,
+      "current": 0.8880737244324567,
+      "delta": 0,
+      "name": "delete-element",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.8425891993315547,
+      "current": 0.8425891993315547,
+      "delta": 0,
+      "name": "mirror-element",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.7778089725689161,
+      "current": 0.7778089725689161,
+      "delta": 0,
+      "name": "scale-element-1.5",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.9328927848954821,
+      "current": 0.9328927848954821,
+      "delta": 0,
+      "name": "move-element",
+      "tolerance": 0.05,
+      "usable": true
+    },
+    {
+      "baseline": 0.7735446167678129,
+      "current": 0.7735446167678129,
+      "delta": 0,
+      "name": "dot-two-tiers",
+      "tolerance": 0.05,
+      "usable": true
+    }
+  ],
+  "pooled": {
+    "baseline": 0.8636990746456713,
+    "current": 0.8636990746456713,
+    "delta": 0,
+    "name": "pooled",
+    "tolerance": 0.02,
+    "usable": true
+  },
+  "procedure": "The perturbation battery of `scripts/stress-cosine.ts` re-run against the current scorer at the baseline's own sample (300 icons of the house variant, seed 1) and compared to `bench/stress-cosine.v1.json`. Pooled AUC may fall 0.02 below the baseline and any single perturbation's own AUC 0.05, both set from the seed-to-seed spread the baseline itself reports: 0.008 pooled over seeds 1..5, up to 0.041 for a single perturbation. Before comparing, the run's family sizes are checked against the baseline's — a battery that has been shortened produces a different experiment, and its AUC is not comparable to the number it would be compared against. The baseline file is checked against a digest pinned in this script, and every path that defines what passing means is checked for uncommitted edits.",
+  "sample": {
+    "icons": 300,
+    "seed": 1,
+    "variant": "round-outlined-radius-3-stroke-2"
+  },
+  "usable": true,
+  "verdict": "PASS: pooled AUC 0.864 against a baseline of 0.864 (+0.000), no perturbation down more than 0.05. The scorer still separates a broken drawing from an intact one as well as it did when the benchmark was calibrated. It says nothing about whether the scorer is *good* — the baseline it is held to has an inverted gradient on translation and cannot see a dot two tiers too large."
+}

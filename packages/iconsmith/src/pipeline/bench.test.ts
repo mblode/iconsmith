@@ -20,19 +20,24 @@ import type { IconRecord, Rendering } from "../corpus/record.js";
 import type { Part } from "../types.js";
 import {
   BENCH_SCHEMA_VERSION,
+  BENCH_SIZE,
   BenchmarkError,
   benchmarkExclusions,
   closureSlugs,
   conceptClosure,
+  dealSplits,
+  entriesOf,
   loadRecords,
   parseBenchmark,
   redactParts,
   refreshClosures,
   selectBenchmark,
   slice,
+  SPLIT_SIZES,
+  SPLITS,
   strataCounts,
 } from "./bench.js";
-import type { Benchmark } from "./bench.js";
+import type { Benchmark, BenchmarkEntry, Split } from "./bench.js";
 import { RATES, rateFor, reachPoints, usdOf } from "./cost.js";
 import { assertNoFilledTwin, evaluate, evaluateSeeds } from "./eval.js";
 import type { EvalIcon } from "./eval.js";
@@ -55,18 +60,28 @@ const model = new MockLanguageModelV4({ modelId: "claude-opus-5" });
 const svg = (d: string) =>
   `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="${d}" stroke="currentColor" stroke-width="2" fill="none"/></svg>`;
 
-const rendering = (shapes: number): Rendering =>
+/** `marks` sets `subpaths`, which is what the `elements` axis bands on.
+ *  `shapes` is set to the same number only so the fixture stays readable — the
+ *  selection does not look at it, and on the real set the two disagree wildly
+ *  (median 1 shape against median 4 subpaths). */
+const rendering = (marks: number): Rendering =>
   ({
     keyline: { conformance: "on" },
-    shapes,
+    shapes: marks,
+    subpaths: marks,
     variant: "outlined",
   }) as Rendering;
 
 /** blode-icons ships each icon twice: 2,221 records over 4,357 files. A record
  *  with this second rendering is one whose filled twin exists on disk. */
-const withFilled = (shapes: number): Rendering[] => [
-  rendering(shapes),
-  { keyline: { conformance: "on" }, shapes, variant: "filled" } as Rendering,
+const withFilled = (marks: number): Rendering[] => [
+  rendering(marks),
+  {
+    keyline: { conformance: "on" },
+    shapes: marks,
+    subpaths: marks,
+    variant: "filled",
+  } as Rendering,
 ];
 
 const record = (id: string, extra: Partial<IconRecord> = {}): IconRecord =>
@@ -276,6 +291,41 @@ describe("selectBenchmark", () => {
     // same element band — that is the property `--slice` depends on.
     expect(Object.keys(head.elements).length).toBeGreaterThan(1);
   });
+
+  /**
+   * The composition bug, pinned. blode-icons merges its geometry into one or
+   * two `<path>` elements whatever the drawing contains, so banding on
+   * `shapes` put two thirds of the old benchmark in `1-2` and left no room for
+   * a composition strategy to show anything. The marks are the subpaths.
+   */
+  it("bands composition on subpaths, not on SVG elements", () => {
+    const dense = record("blode-icons/dense", {
+      renderings: [
+        {
+          keyline: { conformance: "on" },
+          shapes: 1,
+          subpaths: 7,
+          variant: "outlined",
+        } as Rendering,
+      ],
+    });
+    const [entry] = selectBenchmark([dense], { size: 1 }).entries;
+    expect(entry.strata.elements).toBe("5+");
+  });
+
+  /**
+   * Two blode records are outline drawings whose slugs end in a finish suffix
+   * (`box-2-alt-fill`, `circle-half-fill`). The eval's filled-twin guard is a
+   * name test, so such a slug cannot be a target — it throws before a single
+   * generation runs.
+   */
+  it("never makes a target of a slug that reads as a finish variant", () => {
+    const chosen = selectBenchmark(
+      [record("blode-icons/box-2-alt-fill"), record("blode-icons/box-2-alt")],
+      { size: 2 }
+    );
+    expect(chosen.entries.map((e) => e.slug)).toEqual(["box-2-alt"]);
+  });
 });
 
 describe("the committed benchmark", () => {
@@ -297,12 +347,172 @@ describe("the committed benchmark", () => {
     }
     expect(counts.cohort.family).toBeGreaterThan(0);
     expect(counts.cohort.singleton).toBeGreaterThan(0);
-    // Concepts are sparse today (113 of 2,221 records), so `blessed` is a
-    // small bucket by design rather than by accident. It must not be empty:
-    // an eval that never draws a blessed icon cannot say whether a concept
-    // helps.
+    // `blessed` must not be empty: an eval that never draws a blessed icon
+    // cannot say whether a concept helps.
     expect(counts.concept.blessed).toBeGreaterThan(0);
     expect(Object.keys(counts.category).length).toBeGreaterThan(10);
+  });
+});
+
+/**
+ * The three splits, and the single failure that would make all of this
+ * theatre.
+ *
+ * An entry in two splits means the slice a proposal is written from is also
+ * the slice that judges it — the exact overfit the split exists to prevent —
+ * and it is invisible in every number a loop prints, because both slices still
+ * come out the right size and the scores still look like scores. So it is
+ * asserted here, on the committed file, rather than trusted to the code that
+ * wrote it.
+ */
+describe("the three splits", () => {
+  const bySplit = Object.fromEntries(
+    SPLITS.map((s) => [s, entriesOf(benchmark.entries, s)])
+  ) as Record<Split, BenchmarkEntry[]>;
+
+  it("are disjoint, and together are the whole file", () => {
+    for (const a of SPLITS) {
+      for (const b of SPLITS) {
+        if (a === b) {
+          continue;
+        }
+        const other = new Set(bySplit[b].map((e) => e.id));
+        for (const entry of bySplit[a]) {
+          expect(other.has(entry.id)).toBe(false);
+        }
+      }
+    }
+    // Disjoint by *slug* as well as by id. The same drawing under two set ids
+    // is the same answer, and the closure logic already treats it that way.
+    const slugs = SPLITS.flatMap((s) => bySplit[s].map((e) => e.slug));
+    expect(new Set(slugs).size).toBe(slugs.length);
+    let counted = 0;
+    for (const split of SPLITS) {
+      counted += bySplit[split].length;
+    }
+    expect(counted).toBe(benchmark.entries.length);
+  });
+
+  it("are the sizes the file claims, and the sizes the power argument asked for", () => {
+    for (const split of SPLITS) {
+      expect(bySplit[split].length).toBe(benchmark.splits[split]);
+    }
+    expect(benchmark.splits).toEqual(SPLIT_SIZES);
+    expect(benchmark.entries.length).toBe(BENCH_SIZE);
+  });
+
+  /**
+   * The reason ranks are grouped rather than interleaved: `--slice 30` is a
+   * dev instrument, and if rank 29 could land in `sealed` then the cheapest,
+   * most-run command in the project would quietly spend the one number that
+   * was never optimised against.
+   */
+  it("occupy contiguous rank ranges, feedback first", () => {
+    let next = 0;
+    for (const split of SPLITS) {
+      for (const entry of bySplit[split]) {
+        expect(entry.rank).toBe(next);
+        next += 1;
+      }
+    }
+    for (const name of Object.values(benchmark.slices)) {
+      expect(name).toBeLessThanOrEqual(benchmark.splits.feedback);
+    }
+  });
+
+  /**
+   * Each split has to be able to answer the same questions, or a result on
+   * `selection` cannot be confirmed on `sealed`: a sealed slice with no 5+
+   * icons would silently exempt every composition change from confirmation.
+   */
+  it("each span every band the whole file spans", () => {
+    for (const split of SPLITS) {
+      const counts = strataCounts(bySplit[split]);
+      for (const band of ["1-2", "3-4", "5+"]) {
+        expect(counts.elements[band]).toBeGreaterThan(0);
+      }
+      for (const band of ["on", "near", "off"]) {
+        expect(counts.keyline[band]).toBeGreaterThan(0);
+      }
+      expect(counts.cohort.family).toBeGreaterThan(0);
+      expect(counts.cohort.singleton).toBeGreaterThan(0);
+      expect(counts.concept.blessed).toBeGreaterThan(0);
+      expect(Object.keys(counts.category).length).toBeGreaterThan(10);
+    }
+  });
+
+  /**
+   * The old benchmark put 81 of 120 entries in the `1-2` band, because it
+   * banded on `shapes` — SVG elements — where the median blode record is 1.
+   * Composition strategies are the main thing a loop proposes, and they could
+   * not show an effect on two thirds of the set. Banding on subpaths, the
+   * marks actually being placed, this holds without any reweighting.
+   */
+  it("is mostly multi-mark, in every split", () => {
+    for (const split of [...SPLITS, null]) {
+      const entries = split === null ? benchmark.entries : bySplit[split];
+      const multi = entries.filter((e) => e.strata.elements !== "1-2").length;
+      expect(multi / entries.length).toBeGreaterThan(0.6);
+    }
+  });
+});
+
+describe("parseBenchmark rejects a broken split", () => {
+  const file = (entries: BenchmarkEntry[]) =>
+    JSON.stringify({ ...benchmark, entries });
+
+  it("refuses an entry that appears in two splits", () => {
+    const [first, second] = benchmark.entries;
+    expect(() =>
+      parseBenchmark(file([first, { ...second, id: first.id }]))
+    ).toThrow(BenchmarkError);
+    expect(() =>
+      parseBenchmark(file([first, { ...second, id: first.id }]))
+    ).toThrow(/both the/u);
+  });
+
+  it("refuses a split name it cannot honour", () => {
+    const [first] = benchmark.entries;
+    expect(() =>
+      parseBenchmark(file([{ ...first, split: "train" as unknown as Split }]))
+    ).toThrow(BenchmarkError);
+  });
+});
+
+describe("dealSplits", () => {
+  /**
+   * Spread, not sliced. A contiguous tail would hand `sealed` whatever strata
+   * the greedy pass was still owing when it ran out of budget, which is the
+   * one way a balanced ordering can still produce an unbalanced holdout.
+   */
+  it("spreads each split across the ordering rather than taking a block", () => {
+    const ordered = Array.from({ length: 60 }, (_, i) => i);
+    const dealt = dealSplits(ordered, {
+      feedback: 20,
+      sealed: 20,
+      selection: 20,
+    });
+    for (const split of SPLITS) {
+      const picked = dealt
+        .filter((d) => d.split === split)
+        .map((d) => d.item)
+        .toSorted((a, b) => a - b);
+      expect(picked.length).toBe(20);
+      // Every third position, give or take: a block would have span 19.
+      expect(picked.at(-1) - picked[0]).toBeGreaterThan(50);
+    }
+    // Every input lands in exactly one split.
+    expect(new Set(dealt.map((d) => d.item)).size).toBe(60);
+  });
+
+  it("scales the splits down proportionally when there is less to deal", () => {
+    const dealt = dealSplits(
+      Array.from({ length: 25 }, (_, i) => i),
+      { feedback: 60, sealed: 60, selection: 130 }
+    );
+    const n = (split: Split) => dealt.filter((d) => d.split === split).length;
+    expect(n("selection")).toBeGreaterThan(n("feedback"));
+    expect(n("feedback") + n("selection") + n("sealed")).toBe(25);
   });
 });
 

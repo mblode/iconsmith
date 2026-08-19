@@ -25,9 +25,31 @@
  * entry's rank comes from a greedy pass that always takes the candidate whose
  * strata are furthest behind their population share, so **every prefix is
  * balanced**: the first 6 entries are a smoke run, the first 30 are the
- * baseline sample, and neither is a biased subset of the 120. That matters
- * because the budget decision is n=30 × 3 seeds, not 120 × 5 — the small slice
+ * baseline sample, and neither is a biased subset of the whole. That matters
+ * because the budget decision is n=30 × 3 seeds, not 250 × 5 — the small slice
  * is the path that actually gets run.
+ *
+ * **3. One list is selection on noise.** A single set that both suggests the
+ * next change and decides whether to keep it has no holdout, and an
+ * improvement loop run against it converges on the set rather than on the
+ * generator — DSPy says the same of GEPA ("using trainset as valset ... makes
+ * GEPA overfit prompts to the provided trainset"), and a loop that makes a
+ * hundred accept/reject calls against one fixed sample is overfitting by
+ * construction, not by accident. So the file carries three disjoint splits:
+ *
+ * - `feedback` (60) — the only entries whose per-icon traces may be *read*.
+ *   A proposal is written from these, so they are burnt the moment they are
+ *   looked at, and their scores are not evidence of anything.
+ * - `selection` (130) — scored, never shown. The accept/reject number. Sized
+ *   so that many corrected comparisons still resolve an effect worth having
+ *   (see `SPLIT_SIZES`).
+ * - `sealed` (60) — opened once, by a human, at the end of a campaign. It is
+ *   the only number that was never optimised against, and it is worth exactly
+ *   one look: read it twice and it is a second selection set.
+ *
+ * Ranks run feedback first, then selection, then sealed, so the prefix
+ * instruments (`--slice 6`, `--slice 30`) stay inside `feedback` and no
+ * dev-loop run can touch the holdouts by accident.
  */
 import { readFileSync } from "node:fs";
 
@@ -37,13 +59,38 @@ import type { Part } from "../types.js";
 /** Bump when an entry's meaning changes. A file from an older schema is
  *  refused rather than half-read: a benchmark that silently reinterprets its
  *  own fields is worse than no benchmark. */
-export const BENCH_SCHEMA_VERSION = 1;
+export const BENCH_SCHEMA_VERSION = 2;
 
-/** Element count bands. Measured on blode-icons' 2,221 records: 1,503 icons
- *  draw 1–2 shapes, 489 draw 3–4, 229 draw 5 or more. The 5+ band is 10% of
- *  the set and much the hardest to reconstruct, so it has to be sampled
- *  deliberately or a 30-icon run will contain two of them by luck. */
+/**
+ * Composition bands: how many marks the drawer has to place and relate.
+ *
+ * Counted in **subpaths, not `shapes`**, and that distinction is the whole
+ * reason the previous benchmark could not see composition. `shapes` counts
+ * top-level SVG elements, and blode-icons merges its geometry aggressively:
+ * the median record draws **one** `<path>`, and 1,503 of 2,221 draw one or
+ * two. Banding on it therefore measured how the author happened to split the
+ * file, not how much icon there is, and it put 81 of the old 120 entries in
+ * the `1-2` bucket — two thirds of the benchmark on which no composition
+ * strategy can possibly show an effect, because there is nothing to compose.
+ *
+ * Subpaths are the marks. Median 4, mean 5.4, and the population splits
+ * 610 / 801 / 810 across these three bands, so a sample that merely mirrors
+ * the population is now 73% multi-mark. No reweighting knob is needed; the
+ * axis was the bug.
+ */
 export type ElementBand = "1-2" | "3-4" | "5+";
+
+/**
+ * Which of the three roles an entry plays. See the header.
+ *
+ * Committed per entry rather than derived from rank, so an entry cannot change
+ * role by the file being re-ordered, and so a reader that has only the JSON can
+ * tell what it is allowed to look at.
+ */
+export type Split = "feedback" | "selection" | "sealed";
+
+export const SPLITS: readonly Split[] = ["feedback", "selection", "sealed"];
+
 /** Tag richness. 25 blode icons carry no tags, 695 carry 1–3, 1,501 carry 4+.
  *  Tags are most of what the model is told, so a tagless icon is a different
  *  task, not a harder instance of the same one. */
@@ -77,10 +124,14 @@ export interface BenchmarkEntry {
    *  icon the live corpus now says is related. */
   closure: string[];
   id: string;
-  /** Position in the balanced ordering. `--slice n` takes ranks below `n`. */
+  /** Position in the balanced ordering. `--slice n` takes ranks below `n`.
+   *  Ranks are grouped by split, feedback first, so a prefix short enough to
+   *  be a dev instrument cannot reach a holdout. */
   rank: number;
   set: string;
   slug: string;
+  /** Which of the three roles this entry plays — see `Split`. */
+  split: Split;
   strata: Strata;
 }
 
@@ -94,19 +145,23 @@ export interface Benchmark {
   /** Provenance of the selection only. Nothing at eval time reads it. */
   seed: number;
   /** Prefix lengths worth running, named. `--slice` takes any number; these
-   *  are the three the reports use. */
+   *  are the ones the reports use, and every one of them lies inside
+   *  `feedback` on purpose. */
   slices: Record<string, number>;
+  /** Size of each split. The contract is the `split` field on each entry;
+   *  this is the summary a reader wants without counting. */
+  splits: Record<Split, number>;
 }
 
 const outlined = (record: IconRecord): Rendering | undefined =>
   record.renderings.find((r) => r.variant === "outlined") ??
   record.renderings[0];
 
-const elementBand = (shapes: number): ElementBand => {
-  if (shapes <= 2) {
+const elementBand = (marks: number): ElementBand => {
+  if (marks <= 2) {
     return "1-2";
   }
-  return shapes <= 4 ? "3-4" : "5+";
+  return marks <= 4 ? "3-4" : "5+";
 };
 
 const tagBand = (n: number): TagBand => {
@@ -374,6 +429,55 @@ interface Candidate {
   strata: Strata;
 }
 
+/**
+ * How large each split has to be, and why it is that number rather than a
+ * round one.
+ *
+ * The scorer's noise floor is 0.03 on a bounded cosine — the resolution below
+ * which `scripts/loop.ts` refuses to call a shift real. Comparisons are
+ * **paired per icon**: the same benchmark entry drawn under both arms, so the
+ * unit of evidence is a per-icon difference and the between-icon variance,
+ * which is enormous (the stress battery spans 0.25 to 1.0), cancels. The
+ * standard deviation of that paired difference is roughly √2 × 0.03 ≈ 0.042 if
+ * both arms sit at the floor.
+ *
+ * With σ_d ≈ 0.042, 80% power, and a two-sided test, the detectable effect is
+ * Δ ≈ σ_d × √((z_{1−α/2} + z_{0.8})² / n).
+ *
+ * - **selection = 130.** This slice is queried on every accept/reject, so the
+ *   error rate that matters is the family-wise one. Correcting for ~50
+ *   decisions in a campaign puts α at 0.001, z ≈ 3.29, and (3.29 + 0.84)² ≈
+ *   17.1 — so n = 130 resolves Δ = 0.042 × √(17.1/130) ≈ **0.015**, half the
+ *   noise floor. That is the smallest gain worth shipping a generator change
+ *   for; anything under it is a change the metric cannot see and the eye
+ *   certainly cannot. 120 would have resolved 0.0158 and 200 only 0.0123, so
+ *   the curve is flat here and 130 is where the cost stops buying resolution.
+ * - **sealed = 60.** Opened once, so one uncorrected test: α = 0.05, z = 1.96,
+ *   (1.96 + 0.84)² = 7.85, and n = 60 resolves 0.042 × √(7.85/60) ≈ **0.015**
+ *   as well. The symmetry is the argument for the asymmetric sizes — a slice
+ *   read once needs less than half the icons of a slice read fifty times to
+ *   say the same thing. Read it twice and this number is a lie.
+ * - **feedback = 60.** Not a power instrument at all: its scores are
+ *   contaminated the moment a proposer reads the traces. It is sized by what
+ *   a proposal step can actually attend to — 60 per-icon traces is already
+ *   more than fits in one reading — and by needing enough of each composition
+ *   band that a diagnosis is about the band and not about four icons.
+ *
+ * Total 250, from 2,221 drawable blode-icons records. The cost of going wider
+ * is not the API bill on `selection` but the corpus: every entry withholds its
+ * whole concept closure, so the set the model may look at shrinks as the
+ * benchmark grows, and past some point the eval measures a model that has been
+ * shown nothing.
+ */
+export const SPLIT_SIZES: Record<Split, number> = {
+  feedback: 60,
+  sealed: 60,
+  selection: 130,
+};
+
+export const BENCH_SIZE =
+  SPLIT_SIZES.feedback + SPLIT_SIZES.selection + SPLIT_SIZES.sealed;
+
 export interface SelectOptions {
   seed?: number;
   /** Which set the benchmark is drawn from. */
@@ -381,7 +485,64 @@ export interface SelectOptions {
   size?: number;
   /** Named prefixes to record in the file. */
   slices?: Record<string, number>;
+  /** Split sizes. Scaled down proportionally if `size` is smaller than their
+   *  sum, so a small test build still gets all three. */
+  splits?: Record<Split, number>;
 }
+
+/**
+ * Deal a balanced ordering into the three splits.
+ *
+ * The greedy pass above makes *every prefix* mirror the population, so the way
+ * to keep that property in each split is to take a regularly spread
+ * subsequence rather than a contiguous block: a contiguous tail would hand
+ * `sealed` whatever strata the greedy pass was still owing at the end. So each
+ * position goes to whichever split is furthest behind its share of the
+ * positions dealt so far — the same deficit rule as `mostDeserving`, one
+ * dimension instead of six.
+ *
+ * The result is then grouped, feedback first, and re-ranked. Grouping is what
+ * makes `--slice 30` safe: a prefix instrument stays inside `feedback` instead
+ * of quietly spending the holdout.
+ */
+export const dealSplits = <T>(
+  ordered: readonly T[],
+  sizes: Record<Split, number>
+): { item: T; split: Split }[] => {
+  let total = 0;
+  for (const split of SPLITS) {
+    total += sizes[split];
+  }
+  const taken: Record<Split, number> = {
+    feedback: 0,
+    sealed: 0,
+    selection: 0,
+  };
+  const dealt: { item: T; split: Split }[] = [];
+  for (const [i, item] of ordered.entries()) {
+    let best: Split = SPLITS[0];
+    let bestDeficit = Number.NEGATIVE_INFINITY;
+    for (const split of SPLITS) {
+      const deficit = (sizes[split] / total) * (i + 1) - taken[split];
+      if (deficit > bestDeficit) {
+        bestDeficit = deficit;
+        best = split;
+      }
+    }
+    taken[best] += 1;
+    dealt.push({ item, split: best });
+  }
+  return SPLITS.flatMap((split) => dealt.filter((d) => d.split === split));
+};
+
+/** Entries of one split, in rank order. The accessor exists so a caller never
+ *  has to know that ranks happen to be grouped — and so `sealed` is something
+ *  you have to ask for by name. */
+export const entriesOf = (
+  entries: readonly BenchmarkEntry[],
+  split: Split
+): BenchmarkEntry[] =>
+  entries.filter((e) => e.split === split).toSorted((a, b) => a.rank - b.rank);
 
 /**
  * Build a benchmark from a corpus.
@@ -420,6 +581,16 @@ const candidatesOf = (
     if (!rendering) {
       continue;
     }
+    // Never make a *target* of a slug that reads as a finish variant. Two
+    // blode-icons records do — `box-2-alt-fill` and `circle-half-fill`, both
+    // genuine outline drawings whose names happen to end in a twin suffix —
+    // and the eval's filled-twin guard is a name test, so such a slug is
+    // unloadable as a target and throws on the way in. They stay in the
+    // conditioning corpus and in closures; they are only barred from being
+    // the thing reconstructed. Two of 2,221, so nothing is lost.
+    if (TWIN_SUFFIXES.some((suffix) => record.slug.endsWith(suffix))) {
+      continue;
+    }
     const family =
       record.cohort !== null && (cohortSize.get(record.cohort) ?? 0) > 1;
     out.push({
@@ -431,7 +602,7 @@ const candidatesOf = (
         category: record.category ?? "uncategorised",
         cohort: family ? "family" : "singleton",
         concept: record.concepts.length > 0 ? "blessed" : "none",
-        elements: elementBand(rendering.shapes),
+        elements: elementBand(rendering.subpaths),
         keyline: rendering.keyline.conformance as KeylineBand,
         tags: tagBand(record.tags.length),
       },
@@ -464,8 +635,9 @@ export const selectBenchmark = (
   const {
     seed = 1,
     set = "blode-icons",
-    size = 120,
-    slices = { baseline: 30, full: 120, smoke: 6 },
+    size = BENCH_SIZE,
+    slices = { baseline: 30, feedback: SPLIT_SIZES.feedback, smoke: 6 },
+    splits = SPLIT_SIZES,
   } = options;
 
   const candidates = candidatesOf(records, set, seed);
@@ -473,7 +645,7 @@ export const selectBenchmark = (
 
   const taken = new Map<string, number>();
   const remaining = new Set(candidates);
-  const entries: BenchmarkEntry[] = [];
+  const chosen: Candidate[] = [];
   const n = Math.min(size, candidates.length);
   for (let rank = 0; rank < n; rank += 1) {
     const best = mostDeserving(remaining, { rank, share, taken });
@@ -485,15 +657,23 @@ export const selectBenchmark = (
       const k = `${axis}:${best.strata[axis]}`;
       taken.set(k, (taken.get(k) ?? 0) + 1);
     }
-    entries.push({
-      closure: [...conceptClosure(records, best.slug)].toSorted(),
-      id: best.id,
-      rank,
-      set: best.set,
-      slug: best.slug,
-      strata: best.strata,
-    });
+    chosen.push(best);
   }
+
+  // Split assignment is a second pass over the balanced ordering rather than a
+  // decision taken inside the greedy loop: the loop's whole invariant is that
+  // prefix `k` mirrors the population, and it can only hold that while it is
+  // choosing against one target. Dealing afterwards inherits the balance
+  // instead of competing with it.
+  const entries = dealSplits(chosen, splits).map(({ item, split }, rank) => ({
+    closure: [...conceptClosure(records, item.slug)].toSorted(),
+    id: item.id,
+    rank,
+    set: item.set,
+    slug: item.slug,
+    split,
+    strata: item.strata,
+  }));
 
   return {
     builtAt: new Date().toISOString(),
@@ -502,6 +682,14 @@ export const selectBenchmark = (
     schema: BENCH_SCHEMA_VERSION,
     seed,
     slices,
+    // Counted, not copied from the request: `size` may be smaller than the
+    // three sizes sum to, and then the deal scales them down proportionally.
+    // The file must describe itself.
+    splits: {
+      feedback: entries.filter((e) => e.split === "feedback").length,
+      sealed: entries.filter((e) => e.split === "sealed").length,
+      selection: entries.filter((e) => e.split === "selection").length,
+    },
   };
 };
 
@@ -551,6 +739,29 @@ export const parseBenchmark = (
   }
   if (!Array.isArray(raw.entries) || raw.entries.length === 0) {
     throw new BenchmarkError(`${source} carries no entries.`);
+  }
+  // Disjointness, checked on the way in rather than trusted. An icon that
+  // appears in both `feedback` and `selection` destroys the entire point of
+  // the split — the proposer would be tuning against the set that decides —
+  // and it would be invisible in every number the loop prints, because both
+  // slices would still look the right size. So it is a parse error, once, at
+  // the boundary, instead of a silent bias forever after.
+  const seen = new Map<string, Split>();
+  for (const entry of raw.entries) {
+    if (!SPLITS.includes(entry.split)) {
+      throw new BenchmarkError(
+        `${source} entry ${entry.id} has split ${JSON.stringify(entry.split)}, which is not one of ${SPLITS.join(", ")}.`
+      );
+    }
+    const prior = seen.get(entry.id);
+    if (prior !== undefined) {
+      throw new BenchmarkError(
+        `${source} lists ${entry.id} in both the ${prior} and ${entry.split} splits. ` +
+          "An entry in two splits means the slice that proposes a change is also the slice that judges it. " +
+          "Rebuild the file with `iconsmith bench`."
+      );
+    }
+    seen.set(entry.id, entry.split);
   }
   return raw;
 };
