@@ -331,21 +331,44 @@ export const createTools = (options: ToolsOptions = {}) => {
       execute: ({ limit = 12, query }) =>
         track("listParts", () => {
           const want = tokens(query);
+          // A part is searchable by the icons it was extracted from, not only
+          // by a curated name. Naming is expensive and lags: of 1,116 parts in
+          // the house vocabulary only 61 carried one, so 94.5% of the shapes
+          // were unreachable — a search for "database" found nothing while the
+          // cylinder it wanted sat in the set, unnamed. The provenance is free
+          // and already recorded, so it is what the query runs against.
           const scored = parts
-            .map((p) => ({
-              p,
-              score: overlap(tokens(p.name ?? p.id), want),
-            }))
+            .map((p) => {
+              const hits = p.icons.filter(
+                (icon) => overlap(tokens(icon), want) > 0
+              );
+              return {
+                hits,
+                p,
+                // A name is a deliberate label and outranks provenance; among
+                // the unnamed, more matching source icons ranks higher, and a
+                // part used by few icons that all match beats one used by a
+                // hundred where three do.
+                score:
+                  overlap(tokens(p.name ?? p.id), want) * 10 +
+                  hits.length +
+                  hits.length / p.icons.length,
+              };
+            })
             .filter((s) => s.score > 0)
             .toSorted(
               (a, b) => b.score - a.score || b.p.icons.length - a.p.icons.length
             )
             .slice(0, limit);
           return {
-            matches: scored.map(({ p }) => ({
+            matches: scored.map(({ hits, p }) => ({
               h: p.h,
               id: p.id,
               name: p.name ?? null,
+              // Why it matched. An unnamed part is only useful if the model can
+              // tell what it is, and the icons it came from say that better
+              // than `p0044` does.
+              seenIn: hits.slice(0, 5),
               usedByIcons: p.icons.length,
               w: p.w,
             })),
