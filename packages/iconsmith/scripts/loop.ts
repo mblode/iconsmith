@@ -95,6 +95,17 @@ const median = (sorted: readonly number[]): number => {
 const cleanRate = (s: readonly IconScore[]): number =>
   s.length === 0 ? 0 : s.filter((x) => scored(x) && x.clean).length / s.length;
 
+/**
+ * Three outcomes, not two, and `crash` is not a bad score.
+ *
+ * An arm that lost generations did not draw badly — it did not draw. Letting
+ * it compete on a median computed from whatever survived is how an infra
+ * wobble gets recorded as evidence about a design language. autoresearch
+ * makes the same split: `keep | discard | crash`, with crashes counted as
+ * failures rather than scored.
+ */
+export type Status = "crash" | "discard" | "keep";
+
 export interface Verdict {
   accepted: boolean;
   cleanDelta: number;
@@ -102,13 +113,15 @@ export interface Verdict {
   n: number;
   p: number;
   reasons: string[];
+  status: Status;
 }
 
 /** The acceptance rule, separated from the running so it can be tested. */
 export const judge = (
   champion: readonly IconScore[],
   variant: readonly IconScore[],
-  noiseFloor: number
+  noiseFloor: number,
+  errors?: { champion: number; variant: number }
 ): Verdict => {
   const a = byIcon(champion);
   const b = byIcon(variant);
@@ -124,6 +137,24 @@ export const judge = (
   const cleanDelta = cleanRate(variant) - cleanRate(champion);
 
   const reasons: string[] = [];
+
+  // Checked before anything is scored: a run that lost generations is not a
+  // run that scored badly, and the two must not be averaged into one number.
+  const lost = (errors?.champion ?? 0) + (errors?.variant ?? 0);
+  if (lost > 0) {
+    return {
+      accepted: false,
+      cleanDelta,
+      medianDelta,
+      n,
+      p,
+      reasons: [
+        `${lost} generation(s) errored (${errors?.champion ?? 0} champion, ${errors?.variant ?? 0} variant). The arms did not both run; find out why before comparing them.`,
+      ],
+      status: "crash",
+    };
+  }
+
   if (deltas.length === 0) {
     reasons.push("no paired icons — the arms did not draw the same set");
   }
@@ -147,6 +178,7 @@ export const judge = (
     n,
     p,
     reasons,
+    status: reasons.length === 0 ? "keep" : "discard",
   };
 };
 
@@ -208,7 +240,10 @@ const main = async (): Promise<void> => {
   process.stderr.write("variant…\n");
   const variant = await evaluate({ ...common, policy: variantPolicy });
 
-  const verdict = judge(champion.icons, variant.icons, noiseFloor);
+  const verdict = judge(champion.icons, variant.icons, noiseFloor, {
+    champion: champion.benchmark.errors,
+    variant: variant.benchmark.errors,
+  });
   const entry = {
     accepted: verdict.accepted,
     championTreatment: champion.treatment,
@@ -218,12 +253,13 @@ const main = async (): Promise<void> => {
     noiseFloor,
     p: verdict.p,
     reasons: verdict.reasons,
+    status: verdict.status,
     variantTreatment: variant.treatment,
   };
   appendFileSync(LEDGER, `${JSON.stringify(entry)}\n`);
 
   process.stdout.write(
-    `${verdict.accepted ? "ACCEPT" : "REJECT"}  median ${verdict.medianDelta.toFixed(4)}  p=${verdict.p.toFixed(3)}  n=${verdict.n}\n`
+    `${verdict.status.toUpperCase()}  median ${verdict.medianDelta.toFixed(4)}  p=${verdict.p.toFixed(3)}  n=${verdict.n}\n`
   );
   for (const r of verdict.reasons) {
     process.stdout.write(`  · ${r}\n`);

@@ -64,6 +64,24 @@ describe("the acceptance rule", () => {
     expect(v.medianDelta).toBeCloseTo(0.1, 5);
   });
 
+  it("calls a lost generation a crash, not a bad score", () => {
+    const before = arm([0.4, 0.45, 0.5, 0.55, 0.6, 0.42, 0.48, 0.52]);
+    const after = arm([0.5, 0.55, 0.6, 0.65, 0.7, 0.52, 0.58, 0.62]);
+    const v = judge(before, after, FLOOR, { champion: 0, variant: 2 });
+    expect(v.status).toBe("crash");
+    expect(v.accepted).toBe(false);
+    expect(v.reasons.join(" ")).toMatch(/did not both run/u);
+  });
+
+  it("does not let a crash borrow the win it would otherwise have had", () => {
+    const before = arm([0.4, 0.45, 0.5, 0.55, 0.6, 0.42, 0.48, 0.52]);
+    const after = arm([0.5, 0.55, 0.6, 0.65, 0.7, 0.52, 0.58, 0.62]);
+    expect(judge(before, after, FLOOR).status).toBe("keep");
+    expect(
+      judge(before, after, FLOOR, { champion: 1, variant: 0 }).status
+    ).toBe("crash");
+  });
+
   it("reports no pairs rather than inventing a verdict", () => {
     const v = judge(arm([0.5]), [ok("other", 0.9)], FLOOR);
     expect(v.accepted).toBe(false);
