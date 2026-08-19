@@ -20,3 +20,10 @@ dist/
 # slice and will live somewhere else.
 .corpus/
 next-env.d.ts
+# A 492 KB minified TURBOPACK chunk scraped from centralicons.com for its icon
+# metadata — third-party vendor code wearing a `.json` extension. The slugs it
+# carries are already in `corpus/corpus.json` (2,085) and `.corpus/icons.jsonl`,
+# so nothing needs it tracked, and publishing another set's bundle from an MIT
+# repo is a provenance question `program.md` answers the other way. Anchored:
+# a bare `central.json` would match at any depth.
+/central.json
