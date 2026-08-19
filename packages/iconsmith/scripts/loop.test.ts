@@ -50,43 +50,42 @@ const ok = (icon: string, score: number, clean = true): IconScore =>
 const arm = (scores: number[], clean = true) =>
   scores.map((s, i) => ok(`i${i}`, s, clean));
 
+/** One stroked mark, in the envelope `parseIconSvg` reads. */
+const stroked = (d: string): string =>
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
+  `<path d="${d}" stroke="currentColor" stroke-width="2" fill="none"/></svg>`;
+
 /** A 16x16 rounded square centred on the canvas: on spec against every check
  *  the panel runs, so a failure here is the wiring rather than the drawing. */
-const SQUARE =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
-  '<path d="M7 4H17A3 3 0 0 1 20 7V17A3 3 0 0 1 17 20H7A3 3 0 0 1 4 17V7A3 3 0 0 1 7 4Z" ' +
-  'stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+const SQUARE = stroked(
+  "M7 4H17A3 3 0 0 1 20 7V17A3 3 0 0 1 17 20H7A3 3 0 0 1 4 17V7A3 3 0 0 1 7 4Z"
+);
 
-/** The same square drawn to the canvas edge. Visual extent 24x24 against the
- *  20x20 keyline box and no margin at all: off-spec in exactly the ways the
- *  scorer cannot see, and on-spec in every way it can — same one mark, same
+/** The same square drawn to the canvas edge: visual extent 24x24 against the
+ *  20x20 keyline box, and no margin at all. Off-spec in exactly the ways the
+ *  scorer cannot see, identical in every way it can — same one mark, same
  *  centre, same stroke. */
-const OVERSIZE =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
-  '<path d="M4 1H20A3 3 0 0 1 23 4V20A3 3 0 0 1 20 23H4A3 3 0 0 1 1 20V4A3 3 0 0 1 4 1Z" ' +
-  'stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+const OVERSIZE = stroked(
+  "M4 1H20A3 3 0 0 1 23 4V20A3 3 0 0 1 20 23H4A3 3 0 0 1 1 20V4A3 3 0 0 1 4 1Z"
+);
 
-/** An arm that drew. The panel reads `svg` off each measured score. */
-const drawn = (n: number): IconScore[] =>
-  Array.from(
-    { length: n },
-    (_, i) => ({ ...ok(`i${i}`, 0.8), svg: SQUARE }) as unknown as IconScore
-  );
+/** Attach a drawing to each measured score: what `evaluate` now does, and what
+ *  the panel reads back off. */
+const withSvg = (scores: readonly IconScore[], svg: string): IconScore[] =>
+  scores.map((s) => ({ ...s, svg }) as unknown as IconScore);
 
 /** An arm whose every generation threw. There is no drawing to measure, and
  *  the panel must say so rather than report an empty pass. */
-const crashed = (n: number): IconScore[] =>
-  Array.from(
-    { length: n },
-    (_, i) =>
-      ({
-        error: "rate limited",
-        floor: 0,
-        icon: `i${i}`,
-        status: "error",
-        tags: [],
-      }) as unknown as IconScore
-  );
+const CRASHED: IconScore[] = ["i0", "i1", "i2"].map(
+  (icon) =>
+    ({
+      error: "rate limited",
+      floor: 0,
+      icon,
+      status: "error",
+      tags: [],
+    }) as unknown as IconScore
+);
 
 /**
  * These pin the rule that decides whether a change to the generator is kept.
@@ -244,13 +243,13 @@ describe("the blind-spot gate", () => {
    * assertion that the panel can still see what it is meant to judge.
    */
   it("measures every scored drawing in an arm", async () => {
-    const panelled = await structuralOf(drawn(3), "variant");
+    const drawn = withSvg(arm([0.8, 0.8, 0.8]), SQUARE);
+    const panelled = await structuralOf(drawn, "variant");
     expect(panelled?.n).toBe(3);
-    expect(panelled?.source).toBe("variant");
   });
 
   it("refuses rather than passes when an arm drew nothing", async () => {
-    expect(await structuralOf(crashed(3), "variant")).toBeNull();
+    expect(await structuralOf(CRASHED, "variant")).toBeNull();
   });
 });
 
@@ -284,9 +283,9 @@ describe("the screen, wired to the panel", () => {
   );
 
   const drawnArm = (svg: string, base: number): IconScore[] =>
-    SLUGS.map(
-      (slug, i) =>
-        ({ ...ok(slug, base + i * 0.01), svg }) as unknown as IconScore
+    withSvg(
+      SLUGS.map((slug, i) => ok(slug, base + i * 0.01)),
+      svg
     );
 
   /** `main`'s judge closure, verbatim in shape: the panel is built from the

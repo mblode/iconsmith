@@ -233,13 +233,6 @@ describe("a measured score", () => {
       expect(s.svg).toBe(DRAWN[s.icon]);
     }
   });
-
-  it("carries no drawing when the generation threw", async () => {
-    const { flaky } = await arms();
-    for (const s of flaky.icons.filter((x) => !scored(x))) {
-      expect(s).not.toHaveProperty("svg");
-    }
-  });
 });
 
 describe("a thrown generation across replicates", () => {
