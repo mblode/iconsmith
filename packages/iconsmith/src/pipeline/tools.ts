@@ -19,17 +19,22 @@ import { fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
 import type { DotRole, Issue, Keyline, Part } from "../types.js";
+import type { Reference } from "./licence.js";
 
-/** An icon the draft can be shown beside: the set it is trying to join. */
-export interface Neighbour {
-  name: string;
-  svg: string;
-  tags?: string[];
-}
+export type { Reference } from "./licence.js";
 
 export interface ToolsOptions {
-  /** Existing icons `compare` can draw from. */
-  corpus?: Neighbour[];
+  /**
+   * Existing icons `compare` can draw from — the set the draft is trying to
+   * join, rendered into a contact sheet beside it.
+   *
+   * `Reference`, not a bare `{ name, svg }`: this is the surface that puts an
+   * icon in front of a model, so the only icons that may arrive here are the
+   * ones `asReference` has passed. The brand is a `unique symbol` local to
+   * `licence.ts`, so an unchecked object literal is a compile error here rather
+   * than something review has to notice.
+   */
+  corpus?: Reference[];
   /** Fixed keyline; `fit` uses it when the model does not name one. */
   keyline?: Keyline | null;
   /** Pixel size for `render`. 96 is four times the design size: big enough to

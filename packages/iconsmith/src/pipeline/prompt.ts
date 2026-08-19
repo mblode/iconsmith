@@ -9,14 +9,23 @@
 import { SPEC } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
 import type { Keyline } from "../types.js";
+import type { Reference } from "./licence.js";
 
 export interface Concept {
   /** Category from the host set, when the concept comes from one. */
   category?: string;
   /** Icon name, kebab-case: the thing to draw. */
   name: string;
-  /** A reference SVG to work *from*, not to copy — its geometry is off-spec. */
-  reference?: string;
+  /**
+   * A reference icon to work *from*, not to copy — its geometry is off-spec.
+   *
+   * `Reference` rather than a raw SVG string: this drawing is pasted verbatim
+   * into the per-icon brief, which makes it the most direct route there is from
+   * a file on disk to a model's context. A string would accept any of the
+   * 23,731 third-party drawings; the branded type accepts only what
+   * `asReference` has passed.
+   */
+  reference?: Reference;
   /** Synonyms and neighbouring senses; they disambiguate the concept. */
   tags?: string[];
 }
@@ -176,7 +185,7 @@ export const conceptPrompt = (concept: Concept): string => {
       "Its geometry is off-spec and copying its coordinates is not possible",
       "anyway. Do not treat it as a target to match stroke for stroke.",
       "",
-      concept.reference
+      concept.reference.svg
     );
   }
   return lines.join("\n");

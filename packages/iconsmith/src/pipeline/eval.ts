@@ -27,18 +27,35 @@ import path from "node:path";
 
 import type { LanguageModel } from "ai";
 
+import type { Usage } from "../corpus/record.js";
 import { cosine, inkVector } from "../tools/render.js";
-import type { Part } from "../types.js";
+import type { Part, Provenance } from "../types.js";
 import { generate, resolveModel } from "./generate.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
+import { asReferences } from "./licence.js";
+import type { Reference } from "./licence.js";
 import type { Concept } from "./prompt.js";
-import type { Neighbour } from "./tools.js";
 
 /** Median rendered cosine between two mature sets drawing the same concept. */
 export const BASELINE = 0.737;
 export const CEILING = 1;
 /** Above this, disbelieve the run before believing the pipeline. */
 const SUSPICIOUS = 0.95;
+
+/**
+ * The provenance an eval may condition on.
+ *
+ * An eval shows the model every icon in the set except the held-out ones, so
+ * the set at `dir` is conditioning material, not a baseline — which makes this
+ * the entry point that has to state where it came from. `Usage` is the corpus
+ * record's own field: of the 18,658 records `corpus build` writes, blode-icons
+ * and Central are `conditioning` and the eight third-party sets are
+ * `analysis-only`. Narrowing to the one member is what makes handing an
+ * analysis-only record to an eval fail to compile rather than fail at runtime.
+ */
+export interface ConditioningProvenance extends Provenance {
+  usage: Extract<Usage, "conditioning">;
+}
 
 export interface EvalIcon {
   category?: string;
@@ -178,6 +195,10 @@ export interface EvalOptions {
   n?: number;
   onIcon?: (score: IconScore) => void;
   parts?: Part[];
+  /** Where the set at `dir` (or in `icons`) comes from. Required, and checked:
+   *  every non-held icon is handed to the model, so a run against someone
+   *  else's pack is a licence breach the moment it starts. */
+  provenance: ConditioningProvenance;
   seed?: number;
 }
 
@@ -219,6 +240,7 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
     n = 10,
     onIcon,
     parts = [],
+    provenance,
     seed = 1,
   } = options;
 
@@ -234,9 +256,18 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
 
   // The corpus the model may compare against excludes every held-out icon.
   // Leaving them in would hand it the answer through the back door.
-  const corpus: Neighbour[] = all
-    .filter((i) => !heldNames.has(i.icon))
-    .map((i) => ({ name: i.icon, svg: i.svg, tags: i.tags }));
+  //
+  // It also goes through the licence gate here, which is the only place in a
+  // run where the set's provenance is known: `generate` and `compare` take
+  // `Reference[]`, and `asReferences` is the sole constructor of one. A
+  // mislabelled record throws on this line rather than reaching a contact
+  // sheet.
+  const corpus: Reference[] = asReferences(
+    all
+      .filter((i) => !heldNames.has(i.icon))
+      .map((i) => ({ name: i.icon, svg: i.svg, tags: i.tags })),
+    provenance
+  );
 
   // A second stream, so the floor's choices do not shift when the holdout does.
   const floorRandom = rng(seed + 7919);

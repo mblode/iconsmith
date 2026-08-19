@@ -36,6 +36,11 @@ export const registerEvalCommand = (program: Command): void => {
     .option("--max-steps <n>", "tool steps per icon", Number.parseFloat)
     .option("--concurrency <n>", "icons in flight", Number.parseFloat, 2)
     .option("-p, --parts <file>", "parts JSON")
+    .option(
+      "--set <id>",
+      "which set --dir holds; only house sets may condition a generation",
+      "blode-icons"
+    )
     .action(
       async (opts: {
         concurrency: number;
@@ -45,6 +50,7 @@ export const registerEvalCommand = (program: Command): void => {
         model?: string;
         parts?: string;
         seed: number;
+        set: string;
       }) => {
         const json = program.opts().output === "json";
         const report = await evaluate({
@@ -61,6 +67,18 @@ export const registerEvalCommand = (program: Command): void => {
             }
           },
           parts: loadParts(opts.parts),
+          // Every icon the run does not hold out is shown to the model, so the
+          // set at --dir is conditioning material. Naming it is how a run
+          // against someone else's pack fails with a LicenceError on the first
+          // line of output instead of quietly putting a third-party drawing on
+          // a contact sheet. `licenses` is left unset rather than asserted:
+          // the operator names the set, and the set is what is checked.
+          provenance: {
+            date: new Date().toISOString().slice(0, 10),
+            origin: "original",
+            set: opts.set,
+            usage: "conditioning",
+          },
           seed: opts.seed,
         });
 

@@ -306,6 +306,14 @@ describe("holdOut", () => {
 
 describe("evaluate", () => {
   const model = scripted([{ text: "done" }]);
+  /** The set under test stands in for blode-icons: an eval shows the model
+   *  every icon it does not hold out, so it only runs on a house set. */
+  const provenance = {
+    date: "2026-08-19",
+    origin: "original",
+    set: "blode-icons",
+    usage: "conditioning",
+  } as const;
 
   it("reports four numbers and per-icon scores", async () => {
     const report = await evaluate({
@@ -322,6 +330,7 @@ describe("evaluate", () => {
       icons: FAKE_SET,
       model,
       n: 4,
+      provenance,
       seed: 3,
     });
 
@@ -358,6 +367,7 @@ describe("evaluate", () => {
       icons: FAKE_SET,
       model,
       n: 3,
+      provenance,
       seed: 1,
     });
 
@@ -385,6 +395,7 @@ describe("evaluate", () => {
       icons: FAKE_SET,
       model,
       n: FAKE_SET.length,
+      provenance,
       seed: 1,
     });
 
@@ -412,6 +423,7 @@ describe("evaluate", () => {
       icons: FAKE_SET,
       model,
       n: 2,
+      provenance,
       seed: 5,
     });
 
@@ -419,6 +431,21 @@ describe("evaluate", () => {
     for (const corpus of seen) {
       expect(corpus.filter((name) => held.has(name))).toEqual([]);
     }
+  });
+
+  it("refuses to run against a set that may not condition a generation", async () => {
+    // The runtime half of the gate. The compile-time half is in
+    // licence.test-d.ts; this covers the provenance that arrives as JSON or as
+    // a CLI flag, where the union is a claim rather than a guarantee.
+    await expect(
+      evaluate({
+        icons: FAKE_SET,
+        model,
+        n: 1,
+        provenance: { ...provenance, set: "lucide" },
+        seed: 1,
+      })
+    ).rejects.toThrow(/lucide/u);
   });
 });
 

@@ -15,13 +15,14 @@ import type { LanguageModel, StopCondition, ToolSet } from "ai";
 
 import { lint } from "../tools/lint.js";
 import type { IconDoc, Issue, Keyline, Part } from "../types.js";
+import type { Reference } from "./licence.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { Concept } from "./prompt.js";
 import { createTools } from "./tools.js";
-import type { Neighbour, ToolState } from "./tools.js";
+import type { ToolState } from "./tools.js";
 
 export type { Concept } from "./prompt.js";
-export type { Neighbour } from "./tools.js";
+export type { Reference } from "./licence.js";
 
 export const DEFAULT_MODEL = "claude-opus-5";
 /** Enough turns for a search, a dozen primitives, three looks and a fix. Past
@@ -44,8 +45,9 @@ export class MissingApiKeyError extends Error {
 
 export interface GenerateOptions {
   apiKey?: string;
-  /** Existing icons the model can hold the draft up against. */
-  corpus?: Neighbour[];
+  /** Existing icons the model can hold the draft up against. Licensed, because
+   *  they reach the model: see `ToolsOptions.corpus`. */
+  corpus?: Reference[];
   keyline?: Keyline | null;
   maxSteps?: number;
   /**
