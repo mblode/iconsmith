@@ -1,0 +1,6 @@
+{
+  "measuredFrom": "/Users/mblode/.claude/jobs/c8e0818a/tmp/baseline2.txt",
+  "noiseFloor": 0.019,
+  "note": "The loop rejects any median delta below this. It is the observed variation between identical runs, so a change smaller than it has moved nothing.",
+  "treatment": 0.74
+}
