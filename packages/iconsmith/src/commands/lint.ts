@@ -35,10 +35,20 @@ const FINISHES = ["outlined", "filled"];
  *  carry no `<path>` at all. Those 11 linted as `empty` and the other 241 were
  *  measured with pieces missing, which silently wrongs every extent, gap and
  *  centre this command reports. */
-const fromSVG = (svg: string): { canvas: Canvas; strokes: number[] } => {
+const fromSVG = (
+  svg: string
+): { canvas: Canvas; filled: boolean; strokes: number[] } => {
   const canvas = new Canvas();
   const strokes: number[] = [];
-  for (const shape of parseIconSvg(svg)) {
+  const shapes = parseIconSvg(svg);
+  // Inferred rather than asked for. A filled icon carries `fill` and no
+  // stroke, so the file says which finish it is — and getting it wrong is not
+  // cosmetic: `lint` inflates the extent by the stroke width to reach the
+  // visual extent, which is right for a stroke and two units too generous for
+  // a fill. Defaulting to `outlined` reported a 20x20 filled circle as 22x22
+  // and warned it matched no keyline, when it matched `circle` exactly.
+  const filled = shapes.length > 0 && shapes.every((shape) => shape.filled);
+  for (const shape of shapes) {
     canvas.raw(shape.d);
     // Kept beside the canvas rather than in it: a `Canvas` draws only strokes,
     // so it has nowhere to record that a shipped shape is a fill. `off-axis`
@@ -46,7 +56,7 @@ const fromSVG = (svg: string): { canvas: Canvas; strokes: number[] } => {
     // of segments at the flattener's angles, not at anybody's.
     strokes.push(shape.strokeWidth);
   }
-  return { canvas, strokes };
+  return { canvas, filled, strokes };
 };
 
 const iconName = (file: string): string =>
@@ -131,7 +141,8 @@ export const registerLintCommand = (program: Command): void => {
           );
         }
         const keyline = (opts.keyline ?? null) as Keyline | null;
-        const finish = (opts.finish ?? "outlined") as Finish;
+        // `--finish` overrides; without it each file speaks for itself.
+        const forced = opts.finish as Finish | undefined;
         const manifest = opts.cohorts ? readManifest(opts.cohorts) : undefined;
 
         const drawn = files.map((file) => ({
@@ -164,7 +175,7 @@ export const registerLintCommand = (program: Command): void => {
                 ...e,
                 strokeWidth: d.strokes[i],
               })),
-              finish,
+              finish: forced ?? (d.filled ? "filled" : "outlined"),
             },
             { cohort: viewFor(d.name), keyline }
           ),
