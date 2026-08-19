@@ -11,11 +11,36 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const SPREAD = /^\s*spread\s+(?<value>[0-9]*\.?[0-9]+)/mu;
+/** `reconstruction eval — 0/30 benchmark icons` — a replicate that never ran. */
+const SAMPLE =
+  /^reconstruction eval — (?<n>\d+)\/(?<of>\d+) benchmark icons/gmu;
+const CAPPED = /Stopped after \$[\d.]+ of a \$[\d.]+ cap/u;
 const TREATMENT = /^\s*treatment\s+(?<value>[0-9]*\.?[0-9]+)/mu;
 
 export const parseSpread = (
   text: string
 ): { spread: number; treatment: number | null } => {
+  // A replicate that drew nothing reports treatment 0.000, and that zero goes
+  // straight into the spread — which is how a seed that never ran becomes a
+  // noise floor of 0.672 and rejects every experiment forever. Same bug as an
+  // errored generation scoring 0.0 into a median, one level up.
+  const samples = [...text.matchAll(SAMPLE)].map((m) => Number(m.groups?.n));
+  const empty = samples.filter((n) => n === 0).length;
+  if (empty > 0) {
+    throw new Error(
+      `${empty} of ${samples.length} replicates drew no icons at all, and a replicate that did not run reports treatment 0.000 — which enters the spread as though it were a score. This run cannot produce a threshold. Re-run with a spend cap high enough for every seed.`
+    );
+  }
+  if (samples.length > 1 && new Set(samples).size > 1) {
+    throw new Error(
+      `Replicates drew different numbers of icons (${samples.join(", ")}). Their treatments are medians over different samples, so the spread between them measures the sample, not the seed.`
+    );
+  }
+  if (CAPPED.test(text)) {
+    throw new Error(
+      "This run hit its spend cap, so at least one replicate scored a prefix of the benchmark rather than the whole of it. The report says so itself: the sample is a prefix, and treatment is not comparable to a complete run."
+    );
+  }
   const s = SPREAD.exec(text);
   if (!s) {
     throw new Error(
