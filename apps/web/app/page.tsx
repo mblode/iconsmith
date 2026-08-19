@@ -32,8 +32,16 @@ const STATS = [
   },
 ];
 
-const Section = ({ children, title }: { children: React.ReactNode; title: string }) => (
-  <section className="border-border border-t pt-12">
+const Section = ({
+  children,
+  id,
+  title,
+}: {
+  children: React.ReactNode;
+  id?: string;
+  title: string;
+}) => (
+  <section className="scroll-mt-8 border-border border-t pt-12" id={id}>
     <h2 className="max-w-[28ch] text-balance font-heading font-medium text-2xl leading-[1.2] sm:text-3xl">
       {title}
     </h2>
@@ -42,7 +50,7 @@ const Section = ({ children, title }: { children: React.ReactNode; title: string
 );
 
 const Home = () => (
-  <div className="min-h-screen" id="main" tabIndex={-1}>
+  <main className="min-h-screen" id="main-content">
     <div className="mx-auto flex w-full max-w-[900px] flex-col gap-16 px-6 py-12">
       <ZoneBreadcrumb product={SITE_NAME} />
 
@@ -109,7 +117,7 @@ const Home = () => (
         </p>
       </Section>
 
-      <Section title="It learns your set's vocabulary, then draws in it">
+      <Section id="vocabulary" title="It learns your set's vocabulary, then draws in it">
         <p className="max-w-[62ch] text-foreground/70 leading-relaxed">
           <code className="font-mono text-sm">iconsmith parts</code> clusters every subpath in a set
           into reusable marks: 199 parts across 1,863 icons, the top 50 covering 86% of instances,
@@ -187,7 +195,7 @@ const Home = () => (
     </div>
 
     <SiteFooter />
-  </div>
+  </main>
 );
 
 export default Home;

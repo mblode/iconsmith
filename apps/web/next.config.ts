@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-import { BASE_PATH } from "./lib/site-url";
+import { BASE_PATH, REPO_URL } from "./lib/site-url";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -41,7 +41,7 @@ const contentSecurityPolicy = [
   "base-uri 'self'",
   // The newsletter posts to a server action on this origin.
   "form-action 'self'",
-  "frame-ancestors 'self'",
+  "frame-ancestors 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
 
@@ -53,14 +53,37 @@ const contentSecurityPolicy = [
 const securityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   {
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), payment=()",
   },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];
+
+/**
+ * RFC 8615 defines `/.well-known/` as origin-rooted, and this zone does not own
+ * blode.co's origin: that belongs to the host app. So these routes live under
+ * `/iconsmith/.well-known/*`, which is not a well-known URI and which no agent
+ * will ever guess.
+ *
+ * This header is the bridge. `rel`-based discovery replaces path-based
+ * discovery, and it is the only reason the three routes above are reachable.
+ *
+ * The prefix is applied by hand: Next prefixes header *sources* with basePath
+ * but never touches header *values*. That is the third convention in this
+ * codebase, after `proxy.ts`, where `nextUrl.pathname` arrives already
+ * stripped.
+ */
+const linkHeader = [
+  `<${BASE_PATH}/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"`,
+  `<${BASE_PATH}/.well-known/agent-skills/index.json>; rel="https://agentskills.io/rel/index"; type="application/json"`,
+  `<${BASE_PATH}/.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/rel/server-card"; type="application/json"`,
+  `<${REPO_URL}>; rel="service-doc"`,
+  `<${REPO_URL}/releases>; rel="service-desc"`,
+].join(", ");
 
 const nextConfig: NextConfig = {
   assetPrefix: BASE_PATH,
@@ -85,6 +108,14 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
         source: "/:path*",
       },
+      {
+        // The catch-all sets `same-origin`, which would stop X and Slack
+        // fetching the share card. Later rules win per header key, so this
+        // must stay below it.
+        headers: [{ key: "Cross-Origin-Resource-Policy", value: "cross-origin" }],
+        source: "/opengraph-image",
+      },
+      { headers: [{ key: "Link", value: linkHeader }], source: "/" },
     ]);
   },
   reactCompiler: true,

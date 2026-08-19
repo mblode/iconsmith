@@ -30,5 +30,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  // The lint configs import oxlint/oxfmt/ultracite, which are declared once at
+  // the workspace root. A Vercel build scoped to this app installs only this
+  // app's dependencies, so type-checking them here fails the build on tooling
+  // that never ships. oxlint validates its own config at check time anyway.
+  "exclude": ["node_modules", "oxlint.config.ts", "oxfmt.config.ts"]
 }

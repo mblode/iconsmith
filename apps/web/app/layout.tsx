@@ -1,8 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
-import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site-url";
+import { JsonLd } from "@/components/json-ld";
+import { WebMcp } from "@/components/web-mcp";
+import { siteGraph } from "@/lib/schema";
+import { SITE_NAME, SITE_TAGLINE, siteConfig, SITE_URL } from "@/lib/site-url";
 
 const glide = localFont({
   adjustFontFallback: "Arial",
@@ -33,8 +36,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
-  authors: [{ name: "Matthew Blode", url: "https://blode.co" }],
-  creator: "Matthew Blode",
+  authors: [siteConfig.author],
+  creator: siteConfig.author.name,
   description: SITE_TAGLINE,
   keywords: [
     "icon generation",
@@ -55,14 +58,17 @@ export const metadata: Metadata = {
     locale: "en_US",
     // Every blode.co path shares one site name. The product is already in
     // og:title, so this slot says who made it. See zone-conventions.md Rule 9.
-    siteName: "Matthew Blode",
-    title: TITLE,
+    siteName: siteConfig.author.name,
+    // `default` plus `template`, so an inner route that declares its own
+    // `openGraph` without a title still carries the product name. Rule 8.
+    title: { default: TITLE, template: `%s | ${SITE_NAME}` },
     type: "website",
     // No `url` key, deliberately (Rule 10). A child declaring it replaces the
     // whole object and loses og:site_name and og:image with it. Absent beats
     // wrong: consumers fall back to the URL they fetched, and
     // `alternates.canonical` is already per page and correct.
   },
+  other: { "apple-mobile-web-app-title": SITE_NAME },
   robots: {
     follow: true,
     googleBot: {
@@ -88,67 +94,6 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@id": `${SITE_URL}/#webpage`,
-      "@type": "WebPage",
-      about: { "@id": `${SITE_URL}/#software` },
-      breadcrumb: { "@id": `${SITE_URL}/#breadcrumb` },
-      description: SITE_TAGLINE,
-      inLanguage: "en-US",
-      // Referenced by @id only. Defining these bodies here would mint a second
-      // Person and Organization on blode.co. See Rules 2 and 3.
-      isPartOf: { "@id": "https://blode.co/#website" },
-      name: TITLE,
-      publisher: { "@id": "https://blode.co/#organization" },
-      url: SITE_URL,
-    },
-    {
-      "@id": `${SITE_URL}/#software`,
-      "@type": "SoftwareApplication",
-      applicationCategory: "DeveloperApplication",
-      author: { "@id": "https://blode.co/#person" },
-      description: SITE_TAGLINE,
-      name: SITE_NAME,
-      // No `offers` and no `aggregateRating`. It is not released, and neither
-      // is true yet.
-      operatingSystem: "Node.js",
-      publisher: { "@id": "https://blode.co/#organization" },
-      url: SITE_URL,
-    },
-    {
-      "@id": `${SITE_URL}/#breadcrumb`,
-      "@type": "BreadcrumbList",
-      // These names must match the visible trail in <ZoneBreadcrumb> exactly;
-      // check-zones diffs the two.
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          item: "https://blode.co/",
-          // Not "Home". This crumb is the one piece of chrome above the fold on
-          // every zone, so it says who made the thing.
-          name: "Matthew Blode",
-          position: 1,
-        },
-        {
-          "@type": "ListItem",
-          item: "https://blode.co/projects",
-          name: "Projects",
-          position: 2,
-        },
-        {
-          "@type": "ListItem",
-          item: SITE_URL,
-          name: SITE_NAME,
-          position: 3,
-        },
-      ],
-    },
-  ],
-};
-
 const RootLayout = ({
   children,
 }: Readonly<{
@@ -157,12 +102,24 @@ const RootLayout = ({
   <html className={`${glide.variable} ${glideMono.variable}`} lang="en">
     <head>
       <link href={process.env.NEXT_PUBLIC_POSTHOG_HOST} rel="preconnect" />
-      <script id="json-ld" type="application/ld+json">
-        {JSON.stringify(jsonLd)}
-      </script>
     </head>
-    <body className="font-sans antialiased">{children}</body>
+    <body className="font-sans antialiased">
+      <JsonLd data={siteGraph} />
+      <a
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-background focus:px-4 focus:py-2 focus:font-medium focus:text-sm focus:shadow-lg focus:ring-2 focus:ring-ring"
+        href="#main-content"
+      >
+        Skip to content
+      </a>
+      {children}
+      <WebMcp />
+    </body>
   </html>
 );
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#f4f3ef",
+};
 
 export default RootLayout;
