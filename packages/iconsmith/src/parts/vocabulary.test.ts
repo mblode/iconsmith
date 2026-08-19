@@ -1,6 +1,9 @@
+import { existsSync } from "node:fs";
+
 import { describe, expect, it } from "vitest";
 
 import type { Part } from "../types.js";
+import { extractParts } from "./extract.js";
 import { nameParts, VOCABULARY } from "./vocabulary.js";
 
 /** A part carrying one of the vocabulary's own reference drawings. */
@@ -48,5 +51,25 @@ describe("nameParts", () => {
     const [{ d, name }] = VOCABULARY;
     const named = nameParts([partOf("M0 0L6 0.3", "near"), partOf(d, "exact")]);
     expect(named.find((p) => p.name === name)?.id).toBe("exact");
+  });
+});
+
+// The set the names were read off. Gitignored and 247MB, so the check runs
+// whenever it is present — see `corpus/measure.test.ts`.
+const HOUSE = "corpus/round-outlined-radius-3-stroke-2";
+
+describe.skipIf(!existsSync(HOUSE))("against the set it was read off", () => {
+  it("lands every name on a part of the real extraction, one name each", () => {
+    // The reference drawings are pairwise distinguishable — the test above
+    // proves that — but pairwise is not enough here. `nameParts` assigns
+    // greedily over the whole extraction, so a name added later can sit nearer
+    // to a part an earlier name was read off, take it, and leave that earlier
+    // name matching nothing at all. Nothing about the vocabulary's source shows
+    // that; only running it against the set does.
+    const { parts } = extractParts(HOUSE);
+    const named = nameParts(parts).filter((p) => p.name !== undefined);
+
+    expect(named).toHaveLength(VOCABULARY.length);
+    expect(new Set(named.map((p) => p.name)).size).toBe(VOCABULARY.length);
   });
 });

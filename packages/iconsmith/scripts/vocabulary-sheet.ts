@@ -9,9 +9,11 @@
  *
  *   npx tsx scripts/vocabulary-sheet.ts <parts.json>
  *
- * where `<parts.json>` comes from `iconsmith parts <icons> --min-uses 4 -o`. Run it
- * whenever the vocabulary or the extraction changes; a doc nobody regenerates
- * is a doc that quietly stops describing the set.
+ * where `<parts.json>` comes from `iconsmith parts <icons> -o`, with no
+ * `--min-uses`: the vocabulary now names marks down to three source icons, and
+ * a filtered extraction drops six of them out of the doc without saying so. Run
+ * it whenever the vocabulary or the extraction changes; a doc nobody
+ * regenerates is a doc that quietly stops describing the set.
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";

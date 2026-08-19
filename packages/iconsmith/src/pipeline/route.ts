@@ -72,6 +72,8 @@ import type { Reference } from "./licence.js";
 import type { Concept } from "./prompt.js";
 import type { ProposalOptions, ProposalRun } from "./propose.js";
 import { propose } from "./propose.js";
+import type { PartHint } from "./search.js";
+import { DEFAULT_SHORTLIST, searchParts } from "./search.js";
 
 /**
  * One named step. `run` is async in every stage, including the ones that are
@@ -109,23 +111,6 @@ export interface Brief {
 export interface Proposed {
   readonly brief: Brief;
   readonly composition: Proposal | null;
-}
-
-/**
- * A part the vocabulary search turned up.
- *
- * No `w`/`h`. `listParts` reports them because a model deciding whether to
- * place a mark wants its proportions; a shortlist carried *into* a run is a set
- * of things to look up, and a size on it is a size the shortlist is suggesting
- * be drawn at. See the file header.
- */
-export interface PartHint {
-  readonly id: string;
-  readonly name: string | null;
-  /** Icons the part was extracted from — why it matched, and the only useful
-   *  description an unnamed part has. */
-  readonly seenIn: readonly string[];
-  readonly usedByIcons: number;
 }
 
 /** What the drawer is allowed to see: the corpus it may compare against, the
@@ -210,70 +195,11 @@ const assertPlainIds = (hints: readonly PartHint[]): void => {
 
 // --- the vocabulary search --------------------------------------------------
 
-/** Words a part or icon name is searched by. `arrow-up-2` → arrow, up, 2. */
-const tokens = (s: string): string[] =>
-  s
-    .toLowerCase()
-    .split(/[^a-z0-9]+/u)
-    .filter(Boolean);
-
-const overlap = (a: string[], b: string[]): number => {
-  const set = new Set(b);
-  return a.filter((t) => set.has(t)).length;
-};
-
-/** Marks named per shortlist. Enough that a concept drawn from several parts
- *  finds all of them, few enough that the shortlist is a shortlist. */
-export const DEFAULT_SHORTLIST = 24;
-
-/**
- * Search the part vocabulary the way the drawer's own `listParts` does.
- *
- * The ranking is deliberately the same: a name outranks provenance, more
- * matching source icons ranks higher among the unnamed, and a part used by few
- * icons that all match beats one used by a hundred where three do. Two
- * rankings would mean SELECT shortlists by one notion of relevance and the
- * model searches by another, and the disagreement would read as the route
- * being worse when it is only being asked a different question — the argument
- * `references.ts` makes for sharing `nearest` with `compare`.
- *
- * It is restated here rather than imported because `listParts`'s scoring lives
- * inside the tool definition in `tools.ts` and is not exported. Worth folding
- * together the next time that file is open.
- */
-export const searchParts = (
-  parts: readonly Part[],
-  query: string,
-  limit = DEFAULT_SHORTLIST
-): PartHint[] => {
-  const want = tokens(query);
-  if (want.length === 0) {
-    return [];
-  }
-  return parts
-    .map((p) => {
-      const hits = p.icons.filter((icon) => overlap(tokens(icon), want) > 0);
-      return {
-        hits,
-        p,
-        score:
-          overlap(tokens(p.name ?? p.id), want) * 10 +
-          hits.length +
-          hits.length / Math.max(1, p.icons.length),
-      };
-    })
-    .filter((s) => s.score > 0)
-    .toSorted(
-      (a, b) => b.score - a.score || b.p.icons.length - a.p.icons.length
-    )
-    .slice(0, limit)
-    .map(({ hits, p }) => ({
-      id: p.id,
-      name: p.name ?? null,
-      seenIn: hits.slice(0, 5),
-      usedByIcons: p.icons.length,
-    }));
-};
+// Re-exported so a route's stages and the shortlist type stay reachable from
+// the module that defines the stages. The search itself lives in `search.ts`
+// because `listParts` runs the same one — see that file's header.
+export type { PartHint } from "./search.js";
+export { DEFAULT_SHORTLIST, searchParts } from "./search.js";
 
 // --- stages -----------------------------------------------------------------
 

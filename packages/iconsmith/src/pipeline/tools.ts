@@ -23,6 +23,7 @@ import type { DotRole, Finish, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
+import { overlap, rankParts, tokens } from "./search.js";
 
 export type { Reference } from "./licence.js";
 
@@ -104,18 +105,6 @@ const ROLE_NAMES = Object.keys(SPEC.dots) as [DotRole, ...DotRole[]];
 const TURN_NAMES = Object.keys(TURNS) as [string, ...string[]];
 
 const coord = z.number().describe("canvas units, 0–24");
-
-/** Words a part or icon name is searched by. `arrow-up-2` → arrow, up, 2. */
-const tokens = (s: string): string[] =>
-  s
-    .toLowerCase()
-    .split(/[^a-z0-9]+/u)
-    .filter(Boolean);
-
-const overlap = (a: string[], b: string[]): number => {
-  const set = new Set(b);
-  return a.filter((t) => set.has(t)).length;
-};
 
 /**
  * The icons nearest a concept, by shared words over name and tags.
@@ -397,53 +386,25 @@ export const createTools = (options: ToolsOptions = {}) => {
     listParts: tool({
       description:
         "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it.",
+      // Ranked by `rankParts`, which SELECT's shortlist and the coverage report
+      // also call, so all three agree about what "relevant" means. The shaping
+      // is this tool's own: a model deciding whether to place a mark wants its
+      // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
-        track("listParts", () => {
-          const want = tokens(query);
-          // A part is searchable by the icons it was extracted from, not only
-          // by a curated name. Naming is expensive and lags: of 1,116 parts in
-          // the house vocabulary only 61 carried one, so 94.5% of the shapes
-          // were unreachable — a search for "database" found nothing while the
-          // cylinder it wanted sat in the set, unnamed. The provenance is free
-          // and already recorded, so it is what the query runs against.
-          const scored = parts
-            .map((p) => {
-              const hits = p.icons.filter(
-                (icon) => overlap(tokens(icon), want) > 0
-              );
-              return {
-                hits,
-                p,
-                // A name is a deliberate label and outranks provenance; among
-                // the unnamed, more matching source icons ranks higher, and a
-                // part used by few icons that all match beats one used by a
-                // hundred where three do.
-                score:
-                  overlap(tokens(p.name ?? p.id), want) * 10 +
-                  hits.length +
-                  hits.length / p.icons.length,
-              };
-            })
-            .filter((s) => s.score > 0)
-            .toSorted(
-              (a, b) => b.score - a.score || b.p.icons.length - a.p.icons.length
-            )
-            .slice(0, limit);
-          return {
-            matches: scored.map(({ hits, p }) => ({
-              h: p.h,
-              id: p.id,
-              name: p.name ?? null,
-              // Why it matched. An unnamed part is only useful if the model can
-              // tell what it is, and the icons it came from say that better
-              // than `p0044` does.
-              seenIn: hits.slice(0, 5),
-              usedByIcons: p.icons.length,
-              w: p.w,
-            })),
-            searched: parts.length,
-          };
-        }),
+        track("listParts", () => ({
+          matches: rankParts(parts, query, limit).map(({ hits, part }) => ({
+            h: part.h,
+            id: part.id,
+            name: part.name ?? null,
+            // Why it matched. An unnamed part is only useful if the model can
+            // tell what it is, and the icons it came from say that better
+            // than `p0044` does.
+            seenIn: hits.slice(0, 5),
+            usedByIcons: part.icons.length,
+            w: part.w,
+          })),
+          searched: parts.length,
+        })),
       inputSchema: z.object({
         limit: z.number().int().min(1).max(50).optional(),
         query: z

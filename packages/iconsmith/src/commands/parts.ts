@@ -1,4 +1,5 @@
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
 
 import type { Command } from "commander";
 import { Option } from "commander";
@@ -6,9 +7,66 @@ import { Option } from "commander";
 import type { StyleSelection } from "../parts/extract.js";
 import { extractParts, writeParts } from "../parts/extract.js";
 import { nameParts } from "../parts/vocabulary.js";
-import { assertDirectory } from "./read.js";
+import type { PartCoverage } from "../pipeline/coverage.js";
+import { partCoverage } from "../pipeline/coverage.js";
+import { assertDirectory, InputError } from "./read.js";
 
 const pct = (n: number) => `${Math.round(n)}%`;
+const share = (n: number, of: number) =>
+  `${n} (${((100 * n) / Math.max(1, of)).toFixed(1)}%)`;
+
+/** The set the concepts belong to. Coverage asks what *this* set is asked for. */
+const HOUSE_SET = "blode-icons";
+
+/**
+ * Every concept the house set answers, from the record store.
+ *
+ * Read here rather than through `concepts.ts`'s loader, which is private and
+ * also pulls Lucide's keywords, the cohort manifest and a path inside the house
+ * set's own repository — none of which a coverage count wants.
+ *
+ * The store holds the concepts as they were measured, so the count is 2,201
+ * where the blessed `_concepts.json` has 2,203: two of its entries name icons
+ * the store was not built with. Reading the blessed file instead would mean
+ * reaching outside this package for a difference of two.
+ */
+const houseConcepts = (store: string): string[] => {
+  const file = path.join(path.resolve(store), "icons.jsonl");
+  let text: string;
+  try {
+    text = readFileSync(file, "utf-8");
+  } catch (error) {
+    throw new InputError(
+      `No corpus store at ${path.resolve(store)}. Run \`iconsmith corpus build\` first.`,
+      error
+    );
+  }
+  const seen = new Set<string>();
+  for (const line of text.split("\n")) {
+    if (line.length === 0) {
+      continue;
+    }
+    const rec = JSON.parse(line) as {
+      concepts?: string[];
+      provenance?: { set?: string };
+      set?: string;
+    };
+    if ((rec.set ?? rec.provenance?.set) !== HOUSE_SET) {
+      continue;
+    }
+    for (const concept of rec.concepts ?? []) {
+      seen.add(concept);
+    }
+  }
+  return [...seen].toSorted((a, b) => a.localeCompare(b));
+};
+
+const coverageText = (c: PartCoverage): string[] => [
+  `concepts            ${c.concepts}`,
+  `  a part answers    ${share(c.covered, c.concepts)}`,
+  `  a name answers    ${share(c.byName, c.concepts)}`,
+  `no part             ${c.gaps.length}`,
+];
 
 /** `iconsmith parts <dir>` — cluster every subpath in an icon set into a vocabulary. */
 export const registerPartsCommand = (program: Command): void => {
@@ -17,6 +75,13 @@ export const registerPartsCommand = (program: Command): void => {
     .description("extract a parts vocabulary from a directory of SVG icons")
     .argument("<dir>", "directory of .svg icons")
     .option("-o, --out <file>", "write parts JSON to this path")
+    .option("--coverage", "report how many concepts at least one part answers")
+    .option(
+      "-s, --store <dir>",
+      "corpus store the concepts come from",
+      ".corpus"
+    )
+    .option("--gaps <file>", "write the concepts no part answers to this path")
     .option("--threshold <n>", "cluster distance threshold", Number.parseFloat)
     .option(
       "--min-uses <n>",
@@ -33,8 +98,11 @@ export const registerPartsCommand = (program: Command): void => {
       (
         dir: string,
         opts: {
+          coverage?: boolean;
+          gaps?: string;
           minUses?: number;
           out?: string;
+          store: string;
           styles?: StyleSelection;
           threshold?: number;
         }
@@ -55,14 +123,42 @@ export const registerPartsCommand = (program: Command): void => {
         };
         const { summary } = result;
 
+        // Only when asked: the store is a built artefact, and a command that
+        // reads it unbidden fails on a fresh clone for a number nobody wanted.
+        const coverage =
+          opts.coverage === true || opts.gaps !== undefined
+            ? partCoverage(result.parts, houseConcepts(opts.store))
+            : null;
+        if (coverage && opts.gaps) {
+          writeFileSync(
+            opts.gaps,
+            `${JSON.stringify(
+              {
+                byName: coverage.byName,
+                concepts: coverage.concepts,
+                covered: coverage.covered,
+                gaps: coverage.gaps,
+                names: result.parts.filter((p) => p.name).length,
+                parts: result.parts.length,
+              },
+              null,
+              2
+            )}\n`
+          );
+          process.stderr.write(`wrote ${opts.gaps}\n`);
+        }
+
         if (opts.out) {
           writeParts(result, opts.out);
           process.stderr.write(`wrote ${opts.out}\n`);
         }
 
         if (json) {
+          // With `-o` the parts went to the file, so stdout carries the summary
+          // alone; without it, the whole extraction.
+          const body = opts.out ? summary : result;
           process.stdout.write(
-            `${JSON.stringify(opts.out ? summary : result)}\n`
+            `${JSON.stringify(coverage ? { ...body, coverage } : body)}\n`
           );
           return;
         }
@@ -84,6 +180,7 @@ export const registerPartsCommand = (program: Command): void => {
             ...Object.entries(summary.coverage).map(
               ([n, c]) => `icon coverage top ${n.padEnd(4)}${pct(c)}`
             ),
+            ...(coverage ? coverageText(coverage) : []),
             "",
           ].join("\n")
         );
@@ -92,6 +189,6 @@ export const registerPartsCommand = (program: Command): void => {
 };
 
 /** Exposed so the eval command can persist a vocabulary without re-deriving it. */
-export const dumpParts = (path: string, data: unknown): void => {
-  writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`);
+export const dumpParts = (file: string, data: unknown): void => {
+  writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
 };

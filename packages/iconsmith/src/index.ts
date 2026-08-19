@@ -46,6 +46,8 @@ export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
 export { NAME_THRESHOLD, nameParts, VOCABULARY } from "./parts/vocabulary.js";
 export { formatStaged, scoresOf, twoStage } from "./pipeline/accept.js";
+export type { PartCoverage } from "./pipeline/coverage.js";
+export { partCoverage } from "./pipeline/coverage.js";
 export type {
   Judge,
   Stage,
