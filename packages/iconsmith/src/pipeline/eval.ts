@@ -96,6 +96,11 @@ export interface LoadOptions {
   svgDir?: string;
 }
 
+/** Suffixes that name a drawing in its filled finish. Kept beside the guard
+ *  rather than imported from `bench.ts`, because this check must hold for every
+ *  icon reaching the model, benchmark or not. */
+const FILLED_SUFFIXES = ["-filled", "-fill", "-solid"];
+
 /**
  * Read an icon set laid out as blode-icons is: SVGs beside per-icon metadata.
  * Filled twins are skipped — they are a second rendering of an icon already in
@@ -109,7 +114,10 @@ export const loadIconSet = (
   const dataDir = options.dataDir ?? path.join(dir, "icons-data");
   const out: EvalIcon[] = [];
   for (const file of readdirSync(svgDir)) {
-    if (!file.endsWith(".svg") || file.endsWith("-filled.svg")) {
+    if (
+      !file.endsWith(".svg") ||
+      FILLED_SUFFIXES.some((suffix) => file.endsWith(`${suffix}.svg`))
+    ) {
       continue;
     }
     const icon = path.basename(file, ".svg");
@@ -350,18 +358,16 @@ export interface EvalOptions {
   slice?: number;
 }
 
-/** Suffixes that name a drawing in its filled finish. Kept beside the guard
- *  rather than imported from `bench.ts`, because this check must hold for every
- *  icon reaching the model, benchmark or not. */
-const FILLED_SUFFIXES = ["-filled", "-fill", "-solid"];
-
 /**
  * Refuse to condition on a filled twin, whatever loaded it.
  *
  * A filled twin is not a cohort sibling, it is the *same drawing* outline
- * expanded — the answer in a different finish. `loadIconSet` skips
- * `-filled.svg`, so today nothing reaches this line, and that is exactly why
- * it is here: the protection lives in a loader filter, while the record store
+ * expanded — the answer in a different finish. `loadIconSet` filters the same
+ * suffix list, so this should be unreachable through that path — but it was
+ * not: the loader once matched `-filled.svg` alone while this guard checked
+ * three suffixes, and a set carrying `box-2-alt-fill.svg` walked straight
+ * through the filter into the guard. Both now read one list. The guard stays
+ * because the protection lives in a loader filter, while the record store
  * keys one drawn identity with a rendering per finish. The first reader that
  * walks records rather than files takes the filter with it and leaves the
  * closure as the only guard, and a closure is per-benchmark-entry. This check
