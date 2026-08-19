@@ -12,6 +12,8 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import type { StructuralReport } from "../src/eval/blindspot.js";
+import { twoStage } from "../src/pipeline/accept.js";
+import type { BenchmarkEntry } from "../src/pipeline/bench.js";
 import type { IconScore } from "../src/pipeline/eval.js";
 import { DEFAULT_POLICY } from "../src/pipeline/policy.js";
 import {
@@ -53,6 +55,15 @@ const arm = (scores: number[], clean = true) =>
 const SQUARE =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
   '<path d="M7 4H17A3 3 0 0 1 20 7V17A3 3 0 0 1 17 20H7A3 3 0 0 1 4 17V7A3 3 0 0 1 7 4Z" ' +
+  'stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+
+/** The same square drawn to the canvas edge. Visual extent 24x24 against the
+ *  20x20 keyline box and no margin at all: off-spec in exactly the ways the
+ *  scorer cannot see, and on-spec in every way it can — same one mark, same
+ *  centre, same stroke. */
+const OVERSIZE =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">' +
+  '<path d="M4 1H20A3 3 0 0 1 23 4V20A3 3 0 0 1 20 23H4A3 3 0 0 1 1 20V4A3 3 0 0 1 4 1Z" ' +
   'stroke="currentColor" stroke-width="2" fill="none"/></svg>';
 
 /** An arm that drew. The panel reads `svg` off each measured score. */
@@ -240,6 +251,78 @@ describe("the blind-spot gate", () => {
 
   it("refuses rather than passes when an arm drew nothing", async () => {
     expect(await structuralOf(crashed(3), "variant")).toBeNull();
+  });
+});
+
+/**
+ * The wiring, end to end, through the real panel rather than a fixture.
+ *
+ * The fixtures above pin what `judge` does with a panel it is handed. This
+ * pins that the panel is handed one at all, and at the stage that matters:
+ * the screen, before the selection slice is generated. That is the failure the
+ * loop actually hit — every part of the rule was present and correct, and the
+ * measurement never reached it.
+ *
+ * Both arms here draw the same one mark at the same centre with the same
+ * stroke, so nothing the scorer looks at separates them; the variant is simply
+ * drawn to the canvas edge. It is handed the better cosine on every icon.
+ */
+describe("the screen, wired to the panel", () => {
+  const SLUGS = ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7"];
+
+  const ENTRIES: BenchmarkEntry[] = SLUGS.map(
+    (slug, rank) =>
+      ({
+        closure: [],
+        id: `blode-icons/${slug}`,
+        rank,
+        set: "blode-icons",
+        slug,
+        split: "feedback",
+        strata: {},
+      }) as unknown as BenchmarkEntry
+  );
+
+  const drawnArm = (svg: string, base: number): IconScore[] =>
+    SLUGS.map(
+      (slug, i) =>
+        ({ ...ok(slug, base + i * 0.01), svg }) as unknown as IconScore
+    );
+
+  /** `main`'s judge closure, verbatim in shape: the panel is built from the
+   *  scores `twoStage` hands the judge, not from whatever has accumulated. */
+  const staged = (champion: IconScore[], variant: IconScore[]) =>
+    twoStage({
+      champion,
+      entries: ENTRIES,
+      judge: async (a, b, floor) => {
+        const c = await structuralOf(a, "champion");
+        const v = await structuralOf(b, "variant");
+        return judge(a, b, floor, {
+          structural: c && v ? { champion: c, variant: v } : null,
+        });
+      },
+      noiseFloor: 0.019,
+      variant,
+    });
+
+  it("screens out a cosine win whose structure regressed", async () => {
+    const v = await staged(drawnArm(SQUARE, 0.5), drawnArm(OVERSIZE, 0.6));
+    // The cosine case for the candidate is unambiguous, and it loses anyway.
+    expect(v.screen.medianDelta).toBeCloseTo(0.1, 5);
+    expect(v.stage).toBe("screened-out");
+    expect(v.accepted).toBe(false);
+    expect(v.screen.reasons.join(" ")).toMatch(
+      /structural check `extent` held for the champion/u
+    );
+    // Screened out on `feedback`, so the selection slice was never generated.
+    expect(v.selection).toBeNull();
+  });
+
+  it("does not screen out a cosine win that kept its structure", async () => {
+    const v = await staged(drawnArm(SQUARE, 0.5), drawnArm(SQUARE, 0.6));
+    expect(v.screen.accepted).toBe(true);
+    expect(v.stage).not.toBe("screened-out");
   });
 });
 
