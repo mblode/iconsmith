@@ -4,6 +4,7 @@ import { Command } from "commander";
 
 import { registerAuditCommands } from "./commands/audit.js";
 import { registerConformCommand } from "./commands/conform.js";
+import { registerCorpusCommands } from "./commands/corpus.js";
 import { registerDrawCommand } from "./commands/draw.js";
 import { registerEvalCommand } from "./commands/eval.js";
 import { registerLintCommand } from "./commands/lint.js";
@@ -31,6 +32,7 @@ registerEvalCommand(program);
 registerConformCommand(program);
 registerNewCommand(program);
 registerAuditCommands(program);
+registerCorpusCommands(program);
 
 try {
   await program.parseAsync();

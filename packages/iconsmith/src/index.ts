@@ -1,5 +1,6 @@
 /** Public API. CLI-only concerns stay in cli.ts so this can also back an MCP server. */
 export { auditIcon, freeformShare, onAxisShare } from "./corpus/audit.js";
+export { buildCorpus, checkCorpus, corpusStats } from "./corpus/build.js";
 export { census, nameElement } from "./corpus/census.js";
 export {
   HOUSE_VARIANT,
@@ -19,6 +20,13 @@ export {
   summarise,
   visualExtent,
 } from "./corpus/measure.js";
+export {
+  buildRecord,
+  measureRendering,
+  RECORD_SCHEMA_VERSION,
+  stableStringify,
+} from "./corpus/record.js";
+export { availableSources, SOURCES } from "./corpus/sources.js";
 export { bbox, parsePath, q, serialise, translate } from "./geometry/path.js";
 export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
@@ -84,11 +92,27 @@ export type {
   IconAudit,
 } from "./corpus/audit.js";
 export type {
+  BuildOptions,
+  BuildReport,
+  CheckReport,
+  Manifest,
+  SourceReport,
+  StatsReport,
+} from "./corpus/build.js";
+export type {
   Corpus,
   CorpusIcon,
   CorpusShape,
   Variant,
 } from "./corpus/load.js";
+export type {
+  IconRecord,
+  RecordProvenance,
+  Rendering,
+  Usage,
+  VectorRef,
+} from "./corpus/record.js";
+export type { Source, SourceFile } from "./corpus/sources.js";
 export type {
   Corner,
   Distribution,

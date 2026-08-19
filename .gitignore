@@ -7,9 +7,16 @@ dist/
 .env
 .env.local
 .DS_Store
-# Unanchored: the corpus lives at packages/iconsmith/corpus, not the repo root.
-# A leading slash here would stage 62,550 SVGs on the next commit.
-corpus/
+# Anchored to the data directory by full path. Unanchored `corpus/` also matched
+# packages/iconsmith/src/corpus/, so every new source file there was invisible to
+# `git add` — record.ts, sources.ts and baselines.ts were all silently ignored
+# until this was caught. A leading slash alone would anchor to the repo root,
+# where no corpus/ exists, and ignore nothing.
+/packages/iconsmith/corpus/
 .scratch/
 .staging/
+# The record store: derived from the source trees, rebuilt by `corpus build`,
+# and ~60 MB of it is float sidecars. Committed artifacts come from a later
+# slice and will live somewhere else.
+.corpus/
 next-env.d.ts
