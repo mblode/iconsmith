@@ -406,7 +406,7 @@ test("remove and clear keep ids and the log honest", () => {
   const c = new Canvas();
   const a = c.rect({ h: 4, w: 4, x: 2, y: 2 });
   c.circle({ cx: 12, cy: 12, r: 3 });
-  expect(c.remove(a)).toStrictEqual({ remaining: 1, removed: a });
+  expect(c.remove(a)).toStrictEqual({ remaining: 1, removed: [a] });
   expect(() => c.remove(a)).toThrow(/no element/u);
   c.clear();
   expect(c.bbox()).toBeNull();

@@ -8,6 +8,14 @@
  * off-centre, elements too close, empty canvas, and — `substance` — a canvas
  * with a stroke on it that nobody would call an icon.
  *
+ * Fill mode changes two of these and nothing else. `bleed`'s live area moves
+ * with the ink (`LIVE_INSET`) and `gap` is replaced by `feature`
+ * (`featureIssues`), because a filled icon's shapes are supposed to touch.
+ * Everything else — keyline, centring, substance, cut, off-axis, density —
+ * carries over untouched, which is a measured result rather than an
+ * assumption: a filled icon and its outlined twin occupy the same visual
+ * extent in 94% of the 2,085 pairs in `bench/filled-language.v1.json`.
+ *
  * One rule here is not about the icon at all. `cohort-align` compares it to the
  * icons it swaps with, because an icon that is individually perfect and out of
  * step with its family still makes a list twitch when it is toggled in. See
@@ -16,7 +24,7 @@
  */
 import { bbox, parsePath } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
-import type { Box, Issue, Keyline } from "../types.js";
+import type { Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
 import { SPEC } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
@@ -38,6 +46,13 @@ export interface LintElement {
 
 export interface LintTarget {
   elements: LintElement[];
+  /**
+   * The finish the drawing is in. Absent means `outlined`, so a bare
+   * `{ elements }` — which is what `commands/lint.ts` builds from a shipped
+   * SVG, and what every caller built before fill mode — is judged exactly as
+   * it was. A `Canvas` carries its own finish, so passing one is enough.
+   */
+  finish?: Finish;
 }
 
 export interface LintOptions {
@@ -56,8 +71,24 @@ const CENTRE_TOLERANCE = 0.25;
 /** Half a unit is stricter than the set's own practice: 61% of visual extents
  *  land on a whole unit, so ±1 is the window that measures intent. */
 const KEYLINE_TOLERANCE = 1;
-const LIVE_MIN = 1;
-const LIVE_MAX = 23;
+/**
+ * The live area, as an inset on the path bounds, per finish.
+ *
+ * Both are the same rule stated twice: the visual extent must stay inside the
+ * 24-unit canvas. In stroke mode the ink hangs half a width past the path, so
+ * the path bounds have to stop a unit short of the edge, which is the 1..23
+ * this rule has always enforced. Filled, the path *is* the boundary, so the
+ * same rule is 0..24 — and the inset has to move with the finish, or a filled
+ * icon whose visual extent exactly matches its outlined twin's, which 94% of
+ * them do, would fail a rule its twin passes.
+ *
+ * The failure rates confirm the translation rather than assume it. Path bounds
+ * at 1..23 fail 54 of the 2,085 outlined icons (2.6%); a visual extent at or
+ * outside the canvas edge fails 2.4% of the 2,085 filled ones. Two readings of
+ * one rule landing within 0.2 points of each other is what a correct
+ * translation looks like.
+ */
+const LIVE_INSET: Record<Finish, number> = { filled: 0, outlined: 1 };
 const MAX_ELEMENTS = 8;
 /** Below this two points are the same point, not a gap worth reporting. */
 const TOUCHING = 0.01;
@@ -262,14 +293,17 @@ const substanceIssue = (vx: number, vy: number): Issue | null => {
   };
 };
 
-const bleedIssue = (b: Box): Issue | null =>
-  b.x0 < LIVE_MIN || b.y0 < LIVE_MIN || b.x1 > LIVE_MAX || b.y1 > LIVE_MAX
+const bleedIssue = (b: Box, finish: Finish): Issue | null => {
+  const lo = LIVE_INSET[finish];
+  const hi = SPEC.canvas - lo;
+  return b.x0 < lo || b.y0 < lo || b.x1 > hi || b.y1 > hi
     ? {
-        message: `Geometry reaches the canvas edge; the live area is ${LIVE_MIN}..${LIVE_MAX}, measured on the path bounds rather than the visual extent.`,
+        message: `Geometry reaches the canvas edge; the live area is ${lo}..${hi}, measured on the path bounds rather than the visual extent.`,
         rule: "bleed",
         severity: "error",
       }
     : null;
+};
 
 /** Minimum gap, measured between flattened polylines rather than bboxes, so two
  *  nested shapes are not falsely reported as touching. */
@@ -289,6 +323,43 @@ const gapIssues = (els: LintElement[]): Issue[] => {
   }
   return issues;
 };
+
+/**
+ * Fill mode's replacement for `gap`, and the inversion is the point.
+ *
+ * `gap` asks whether two elements are too close, and in a filled icon the
+ * question is meaningless: a hole shares its edge with the solid it is cut
+ * from, so the tightest distance between them is zero by construction, and
+ * only 1.4% of the set's 6,693 filled solid pairs are separated at all.
+ * Running `gap` here would fire on the icons that are drawn correctly and stay
+ * silent on the ones that are not — a rule against the set, which is the thing
+ * this file refuses to be.
+ *
+ * What actually goes wrong when a filled icon is drawn badly is a feature too
+ * small to survive: a hole so narrow it closes up at 16px, where one design
+ * unit is 0.667px and a feature needs 1.5 units to clear a whole pixel. That
+ * is `SPEC.minFeature`, and it sits in the tail of the set's practice rather
+ * than at its mode — the smallest dimension of the 1,807 measured holes has
+ * median 3.0, p25 2.0, p10 1.95, and the threshold catches 6.6% of them.
+ *
+ * `warn`, the tier `gap` sits in, for the same reason: the set itself ships
+ * work below the line (`safari` alone has 11 holes under 0.44 units), so this
+ * is a prompt to look, not a gate.
+ */
+const featureIssues = (els: LintElement[]): Issue[] =>
+  els.flatMap((e) => {
+    const b = bbox(parsePath(e.d));
+    const minor = Math.min(b.w, b.h);
+    return minor >= SPEC.minFeature
+      ? []
+      : [
+          {
+            message: `${e.id} is ${minor.toFixed(2)}px across its short axis; below ${SPEC.minFeature}px a filled feature closes up at 16px, where one unit is 0.667px. Widen it, or drop it — a hole nobody can see is ink nobody asked for.`,
+            rule: "feature",
+            severity: "warn" as const,
+          },
+        ];
+  });
 
 /** Nothing in blode-icons or Central cuts below this. The floor is literal
  *  rather than approached: `fork-spoon` and `knife-spoon` cut the middle tine
@@ -370,11 +441,17 @@ export const lint = (
     return [{ message: "Canvas is empty.", rule: "empty", severity: "error" }];
   }
 
+  const finish = canvas.finish ?? "outlined";
   const b = bbox(els.flatMap((e) => parsePath(e.d)));
-  // Visual extent includes half the stroke on each side — the distinction that
-  // invalidated the previous revision's keyline measurements.
-  const vx = b.w + SPEC.stroke;
-  const vy = b.h + SPEC.stroke;
+  // Visual extent includes half the ink on each side — the distinction that
+  // invalidated the previous revision's keyline measurements, and the one
+  // adjustment fill mode needs to inherit every extent rule unchanged: a
+  // filled path *is* its own boundary, so there is nothing to add. That the
+  // rules then carry over is measured, not assumed — filled and outlined twins
+  // occupy the same visual extent in 94% of 2,085 pairs.
+  const ink = finish === "filled" ? 0 : SPEC.stroke;
+  const vx = b.w + ink;
+  const vy = b.h + ink;
 
   // Cohort first: whether the icon agrees with what it swaps with decides
   // whether its own centring is worth mentioning at all.
@@ -391,13 +468,20 @@ export const lint = (
     substanceIssue(vx, vy),
     centring(b, cohortVerdict?.agrees ?? false),
     keylineIssue(vx, vy, keyline),
-    bleedIssue(b),
+    bleedIssue(b, finish),
   ]) {
     if (issue) {
       issues.push(issue);
     }
   }
-  issues.push(...gapIssues(els), ...cutIssues(els), ...offAxisIssues(els));
+  // The one rule that swaps rather than adapts. See `featureIssues`: in a
+  // filled icon shapes are meant to touch, so "how far apart are these" has no
+  // answer worth having and "is this feature big enough to see" does.
+  issues.push(
+    ...(finish === "filled" ? featureIssues(els) : gapIssues(els)),
+    ...cutIssues(els),
+    ...offAxisIssues(els)
+  );
 
   if (els.length > MAX_ELEMENTS) {
     issues.push({

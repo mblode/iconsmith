@@ -33,17 +33,19 @@ Every number here is measured from the set, not chosen. They are quoted from `SP
 | constant | value | what it is |
 | --- | --- | --- |
 | `canvas` | 24 | the viewBox is 24×24; y grows downward, (0,0) is top-left |
-| `stroke` | 2 | round caps, round joins, no fills — every shape is an outline |
+| `stroke` | 2 | round caps, round joins — the width every outlined shape is drawn at, and 0 under `finish filled` |
 | `grid` | 0.25 | every coordinate lands on a 0.25 step; the primitives quantise for you |
 | `clearance` | 2 | clear space kept in from the canvas edge |
 | `minGap` | 1 | clear space between two strokes not meant to touch |
 | `radiusTiers` | 0.5, 1, 2, 3 | the only corner radii; ask for one and the nearest legal tier is drawn |
+| `fillRadiusTiers` | 0.5, 1, 1.5, 2, 3, 4 | the same, under `finish filled`: the outlined tiers offset by half a stroke, because a filled edge is a boundary and a stroked one is a centre line |
+| `minFeature` | 1.5 | the narrowest a filled shape or hole may be; below it the feature closes up at 16px |
 
-A "solid" shape does not exist. Suggest mass with an enclosing outline, never by filling one.
+Outlined is the default and the set's main variant: suggest mass with an enclosing outline rather than by filling one. `finish filled` switches to the set's solid variant, where a shape _is_ its silhouette and interior white is cut with `hole`. Pick one at the top of the program and stay in it — a mixture is neither variant.
 
 ### Keylines
 
-The canonical visual extents. Pick the one that suits the concept and keep the whole drawing inside it. Visual extent means the path bounds inflated by the stroke, half a width on each side — that is what a reader sees, and confusing it with the path bounds is the commonest measurement mistake in this domain.
+The canonical visual extents. Pick the one that suits the concept and keep the whole drawing inside it. Visual extent means the path bounds inflated by the stroke, half a width on each side — that is what a reader sees, and confusing it with the path bounds is the commonest measurement mistake in this domain. Under `finish filled` the two are the same thing, because the path already is the boundary; the keylines themselves do not move, which is measured rather than assumed.
 
 | keyline     | extent |
 | ----------- | ------ |
@@ -74,9 +76,11 @@ One op per line. Whitespace-separated. `#` starts a comment where a token starts
 ```text
 icon     <slug>
 keyline  circle | landscape | portrait | square | tall | wide
+finish   outlined | filled
 part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] [flip]
 rect     <x>,<y> <w>x<h> [r<n>]
 circle   <cx>,<cy> r<n>
+hole     rect <x>,<y> <w>x<h> [r<n>]  |  circle <cx>,<cy> r<n>
 line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
 dot      <cx>,<cy> [terminal|more|floating|node]
 center                      -- recentre everything on (12,12)
@@ -87,8 +91,10 @@ cohort   [<name>]           -- scale everything to the family's measured extent
 - **`rect`** — bodies, screens, cards, frames. `r<n>` asks for a radius; the nearest legal tier for that shape is what gets drawn. Default 2.
 - **`circle`** — heads, lenses, clock faces, buttons.
 - **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid.
+- **`hole`** — cut a rect or a circle out of the solid drawn most recently. Filled icons only, and it is how interior white is made: 45% of the set's filled icons knock at least one hole out of a solid, so a ring is `circle` then `hole circle`, and a card with a slot is `rect` then `hole rect`. The hole has to sit inside the solid it cuts — a piece hanging outside would paint ink rather than remove it, and is refused.
 - **`dot`** — a solid disc with one of the four roles above. Default `terminal`.
 - **`part`** — place a shape from the set's extracted vocabulary by name. Prefer this over drawing a common form from scratch: it is _the same_ folder, chevron or magnifier the rest of the set already uses, which is the whole point. A bare `<x>,<y>` names the part's top-left; a named anchor names its centre. Anchors: `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`, `bottom-right`. `size <n>` sets the long axis; `fill` scales the part to the declared keyline. `turn` names a quarter — `cw`, `half`, `ccw`, never an angle, because only the quarters keep every node on the grid. `flip` mirrors the part, and is applied before the turn. Ask for `flip` on purpose: a check mark, a comma and every letterform are chiral, so an implicit mirror is a backwards glyph rather than an orientation. Parts come from a `parts.json` for the set, passed as `iconsmith draw prog.icon --parts parts.json`; without one, `part` has nothing to place.
+- **`finish`** — `outlined` (the default: a stroked skeleton) or `filled` (solid shapes). Declare it before you draw anything, because a corner radius and a dot diameter both mean different things under each. Filled changes three things and nothing else: `hole` becomes available, `line` is refused because an open run of points encloses nothing and so paints nothing, and corners come from the filled radius tiers (0.5, 1, 1.5, 2, 3, 4 — the outlined tiers shifted by half a stroke, since a filled edge is a boundary where a stroked one is a centre line). Keylines, clearance and centring are unchanged: a filled icon and its outlined twin occupy the same visual extent in 94% of the set's pairs.
 - **`center`** — recentre the drawing's content on (12,12).
 - **`fit`** — scale the drawing to the declared keyline. Once, near the end.
 - **`cohort`** — scale the drawing onto the measured extent of the family it joins, when the family has one. Use it **instead of** `fit`: they are the same operation against different targets, so a `fit` after a `cohort` throws the inherited extent away, and is refused rather than silently obeyed. Where the two disagree the family wins — a 1px disagreement is a visible jump when one icon swaps for another.
@@ -118,6 +124,19 @@ line 8,14 13,14
 fit
 ```
 
+The same subject as a solid, where the lens and the flash are holes rather than strokes:
+
+```icon
+icon camera
+keyline landscape
+finish filled
+
+rect 8,3 8x4 r2          # viewfinder hump
+rect 2,6 20x15 r4        # body
+hole circle 12,13.5 r4.5 # lens
+hole circle 18,9 r1      # flash
+```
+
 A clock face, and the `-off` slash that every negated variant in the set runs NW to SE:
 
 ```icon
@@ -140,7 +159,8 @@ Fix every `error`. A `warn` is a prompt to confirm the choice was deliberate.
 | `bleed` | error | geometry runs outside the live area |
 | `substance` | error | there is too little ink for this to be an icon |
 | `cut` | warn | shapes knock out of each other by the wrong amount |
-| `gap` | warn | two strokes sit closer than `minGap` without touching |
+| `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only) |
+| `feature` | warn | a filled shape or hole is narrower than `minFeature` (filled only — filled shapes are meant to touch, so `gap` has nothing to say about them) |
 | `off-axis` | warn | a straight run leaves 0/45/90 |
 | `centred` | warn | content centre is not (12,12), and the family does not agree |
 | `cohort-align` | warn | the icon sits off the extent of the family it swaps with |

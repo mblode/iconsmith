@@ -17,9 +17,12 @@
  *
  *   icon     <slug>
  *   keyline  circle | square | wide | tall
+ *   finish   outlined | filled
  *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] [flip]
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
+ *   hole     rect <x>,<y> <w>x<h> [r<n>]
+ *   hole     circle <cx>,<cy> r<n>
  *   line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
  *   dot      <cx>,<cy> [terminal|more|floating|node]
  *   center                      -- recentre everything on (12,12)
@@ -45,6 +48,22 @@
  * and every letterform are chiral, so an implicit mirror is a backwards glyph
  * rather than another orientation. Reflection is applied before the turn.
  *
+ * `finish` says whether the icon is a stroked skeleton or a solid shape, and
+ * it is a line rather than a flag on the run because a program is the whole
+ * description of an icon: reading one should not require knowing what was
+ * passed alongside it. It is a property of the document, so it must be
+ * declared before any geometry — a `rect` means a different set of corner
+ * radii and a `dot` a different diameter under each finish, and a program that
+ * could switch halfway would silently restate what it had already drawn.
+ *
+ * `hole` is the subtract op, and it is only legal under `finish filled`. It
+ * cuts the solid drawn most recently, which is the order a drawing is made in;
+ * the shape it cuts with is a `rect` or a `circle`, written exactly as it
+ * would be as a solid and quantised by exactly the same code, so a hole cannot
+ * carry a coordinate a solid could not. Holes are what the outlined-only
+ * vocabulary could not express at all: 932 of the set's 2,085 filled icons
+ * knock one out, so without this word fill mode reaches under half the set.
+ *
  * `cohort` versus `fit`: both are a single similarity transform onto a target
  * extent, so the last one wins and running `fit` after `cohort` throws the
  * inheritance away — that is reported as an error rather than silently obeyed.
@@ -54,7 +73,7 @@
  * flicker `cohort-align` exists to catch (437 findings across 186 families in
  * blode-icons, 371 of them ≥1px). The keyline still governs `part ... fill`.
  */
-import type { DotRole, Keyline, Part } from "../types.js";
+import type { DotRole, Finish, Keyline, Part } from "../types.js";
 import { Canvas, SPEC } from "./canvas.js";
 import type { Cohort, CohortTarget } from "./cohort.js";
 import { COHORT_TOLERANCE, canonicalExtent, findCohort } from "./cohort.js";
@@ -98,15 +117,21 @@ const FLIP = "flip";
 const OPS = [
   "icon",
   "keyline",
+  "finish",
   "part",
   "rect",
   "circle",
+  "hole",
   "line",
   "dot",
   "center",
   "fit",
   "cohort",
 ];
+
+const FINISHES: Finish[] = ["filled", "outlined"];
+
+const isFinish = (v: string): v is Finish => (FINISHES as string[]).includes(v);
 
 const KEYLINES = Object.keys(SPEC.keylines) as Keyline[];
 const ROLES = Object.keys(SPEC.dots) as DotRole[];
@@ -167,9 +192,12 @@ const placePart = (
   let k = 1;
   if (t.includes("fill")) {
     const [kw, kh] = SPEC.keylines[keyline ?? "square"];
+    // The keyline is a visual extent, so what the path may occupy is the
+    // keyline less the ink either side of it — a full stroke width when the
+    // shape will be stroked, nothing when it will be filled.
     k = Math.min(
-      (kw - SPEC.stroke) / (pw || 1),
-      (kh - SPEC.stroke) / (ph || 1)
+      (kw - canvas.inkWidth) / (pw || 1),
+      (kh - canvas.inkWidth) / (ph || 1)
     );
   } else if (sizeIdx !== -1) {
     k = num(t[sizeIdx + 1], "size") / span;
@@ -214,11 +242,13 @@ export const fitKeyline = (canvas: Canvas, keyline: Keyline): void => {
     return;
   }
   const [kw, kh] = SPEC.keylines[keyline];
-  // The keyline is a visual extent, so the stroke's half-width on each side
-  // comes off before the path bbox is asked to match it.
+  // The keyline is a visual extent, so the ink's half-width on each side comes
+  // off before the path bbox is asked to match it — a full stroke width in
+  // total when the drawing is stroked, and nothing when it is filled, where
+  // the path already is the boundary.
   const k = Math.min(
-    (kw - SPEC.stroke) / (b.w || 1),
-    (kh - SPEC.stroke) / (b.h || 1)
+    (kw - canvas.inkWidth) / (b.w || 1),
+    (kh - canvas.inkWidth) / (b.h || 1)
   );
   const cx = b.x0 + b.w / 2;
   const cy = b.y0 + b.h / 2;
@@ -293,23 +323,74 @@ export const alignCohort = (
 export interface RunResult {
   canvas: Canvas;
   errors: string[];
+  finish: Finish;
   icon: string | null;
   keyline: Keyline | null;
 }
 
-/** The four ops that put geometry on the canvas. Returns false if `op` is not
+/**
+ * The finish, read before the canvas exists.
+ *
+ * A `Canvas` takes its finish at construction and cannot change it afterwards
+ * — `dot` and every corner radius already mean different things under the two
+ * — so the one declaration in the program has to be found before the first
+ * primitive runs. That is why this is a scan rather than an op handled in
+ * order; the op still exists in the loop, and there it enforces that the
+ * declaration came before any geometry rather than being obeyed a second time.
+ *
+ * The first declaration wins, and a bad one is ignored here rather than
+ * thrown: `run` reports a program's mistakes line by line and returns what it
+ * could draw, so the diagnostic belongs to the op in the loop, where it has a
+ * line number to attach itself to.
+ */
+const scanFinish = (lines: string[]): Finish => {
+  for (const line of lines) {
+    const t = line.split(/\s+/u);
+    if (t[0].toLowerCase() === "finish" && isFinish(t[1])) {
+      return t[1];
+    }
+  }
+  return "outlined";
+};
+
+/** `rect <x>,<y> <w>x<h> [r<n>]`, shared by the solid and by `hole rect`, so
+ *  the two cannot drift into meaning different things by the same words. */
+const rectArgs = (
+  t: string[]
+): { h: number; r: number; w: number; x: number; y: number } => {
+  const [x, y] = pair(t[0]);
+  const [w, h] = String(t[1]).split("x").map(Number.parseFloat);
+  if (Number.isNaN(w) || Number.isNaN(h)) {
+    throw new TypeError(`bad size "${t[1]}" — expected <w>x<h>`);
+  }
+  return { h, r: t[2] ? num(t[2], "radius") : 2, w, x, y };
+};
+
+/** `hole <shape> ...` — the same two shapes as solids, subtracted instead. */
+const holeOp = (canvas: Canvas, t: string[]): void => {
+  const [, shape] = t;
+  if (shape === "rect") {
+    canvas.hole({ ...rectArgs(t.slice(2)), shape: "rect" });
+  } else if (shape === "circle") {
+    const [cx, cy] = pair(t[2]);
+    canvas.hole({ cx, cy, r: num(t[3], "radius"), shape: "circle" });
+  } else {
+    throw new Error(
+      `hole needs a shape to cut with: "rect" or "circle" — got "${shape ?? ""}"`
+    );
+  }
+};
+
+/** The five ops that put geometry on the canvas. Returns false if `op` is not
  *  one of them, so `run` can carry on to the ops that change state instead. */
 const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
   if (op === "rect") {
-    const [x, y] = pair(t[1]);
-    const [w, h] = String(t[2]).split("x").map(Number.parseFloat);
-    if (Number.isNaN(w) || Number.isNaN(h)) {
-      throw new TypeError(`bad size "${t[2]}" — expected <w>x<h>`);
-    }
-    canvas.rect({ h, r: t[3] ? num(t[3], "radius") : 2, w, x, y });
+    canvas.rect(rectArgs(t.slice(1)));
   } else if (op === "circle") {
     const [cx, cy] = pair(t[1]);
     canvas.circle({ cx, cy, r: num(t[2], "radius") });
+  } else if (op === "hole") {
+    holeOp(canvas, t);
   } else if (op === "line") {
     canvas.line({
       offAxis: t.includes(OFF_AXIS),
@@ -392,6 +473,32 @@ const layoutOp = (
   return message;
 };
 
+/**
+ * The `finish` line, checked rather than obeyed.
+ *
+ * `scanFinish` has already applied it — the canvas cannot exist without it —
+ * so all that is left here is to refuse the two ways of writing it that would
+ * mean something other than what was drawn: a finish this scan did not take
+ * (an unknown word, or a second, contradicting declaration), and one that
+ * arrives after geometry it therefore did not govern.
+ */
+const finishOp = (canvas: Canvas, t: string[], applied: Finish): void => {
+  const [, name] = t;
+  if (!isFinish(name)) {
+    throw new Error(
+      `unknown finish "${name ?? ""}" — expected one of ${FINISHES.join(", ")}`
+    );
+  }
+  if (name !== applied || canvas.elements.length > 0) {
+    throw new Error(
+      "finish is a property of the whole icon and has to be declared before " +
+        "anything is drawn: a rect takes its corner radii and a dot its " +
+        "diameter from the finish, so shapes drawn either side of this line " +
+        "would not mean the same thing. Move it to the top."
+    );
+  }
+};
+
 export interface RunOptions {
   /**
    * The families this program may join, already measured — normally
@@ -419,7 +526,6 @@ export const run = (
       byName.set(p.name, p);
     }
   }
-  const canvas = new Canvas(parts);
   let keyline: Keyline | null = null;
   let icon: string | null = null;
   const errors: string[] = [];
@@ -430,6 +536,8 @@ export const run = (
     .split("\n")
     .map((l) => l.replace(/(?<lead>^|\s)#.*$/u, "").trim())
     .filter(Boolean);
+  const finish = scanFinish(lines);
+  const canvas = new Canvas(parts, { finish });
   const layout: Layout = { cohort: false };
 
   for (const [n, line] of lines.entries()) {
@@ -447,6 +555,8 @@ export const run = (
           );
         }
         keyline = name;
+      } else if (op === "finish") {
+        finishOp(canvas, t, finish);
       } else if (op === "part") {
         placePart(canvas, byName, t, keyline);
       } else if (op === "center" || op === "centre") {
@@ -465,5 +575,5 @@ export const run = (
       errors.push(`line ${n + 1} (${line}): ${(error as Error).message}`);
     }
   }
-  return { canvas, errors, icon, keyline };
+  return { canvas, errors, finish, icon, keyline };
 };

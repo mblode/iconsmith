@@ -19,7 +19,15 @@ import {
   serialise,
   translate,
 } from "../geometry/path.js";
-import type { Box, DotRole, DrawOp, IconDoc, Keyline, Part } from "../types.js";
+import type {
+  Box,
+  DotRole,
+  DrawOp,
+  Finish,
+  IconDoc,
+  Keyline,
+  Part,
+} from "../types.js";
 
 /**
  * The house spec, calibrated against the corpus.
@@ -89,6 +97,36 @@ export const SPEC = {
   // dot, so a row has no size of its own. Both are also undrawable in the house
   // idiom — no solid disc can be narrower than the 2.0 stroke that draws it.
   dots: { floating: 3, more: 2.5, node: 4, terminal: 2 },
+  // Fill mode's corner radii, and the one number in this object that is *not*
+  // read off the outlined variant. Source: `bench/filled-language.v1.json`,
+  // 7,018 corners over the 2,085 icons that exist in both
+  // `round-filled-radius-3-stroke-2` and the house outlined variant.
+  //
+  // `radiusTiers` matches 78.4% of outlined corners and only 43.4% of filled
+  // ones, so fill mode cannot reuse it: the commonest filled corner is 4.0
+  // (2,640 corners, 37.6%) and 4 is not a house tier at all. The reason is
+  // geometric rather than stylistic. An outlined corner is a *centre-line*
+  // radius; the filled twin is the same skeleton's boundary, which on the
+  // outside of a turn sits half a stroke further out and on the inside half a
+  // stroke further in. So the fill tiers are the house tiers offset by ±1 and
+  // unioned with themselves, everything at or below 0 dropping out into the
+  // hard corner `tierRadius` already passes through:
+  //
+  //   outer   [0.5,1,2,3] + 1  ->  [1.5, 2, 3, 4]
+  //   inner   [0.5,1,2,3] - 1  ->  [  0, 0, 1, 2]
+  //   union                        [0.5, 1, 1.5, 2, 3, 4]
+  //
+  // That derived set matches 83.2% of filled corners exactly — fill mode
+  // conforms about as well as stroke mode does to its own tiers (78.4%), and
+  // nearly twice as well as it does to the house tiers.
+  //
+  // Rejected: [0.5, 1, 2, 2.5, 3, 4], which measures better still at 86.1%.
+  // Its extra tier is 2.5 (356 corners), and 2.5 is not any house tier plus or
+  // minus half a stroke — it is a fitted constant, and fitting one here would
+  // be the same move `radiusTiers` rejected when it dropped the size-
+  // conditioned split that scored worse than the flat set. The 2.9 points are
+  // the price of a rule that can be derived rather than looked up.
+  fillRadiusTiers: [0.5, 1, 1.5, 2, 3, 4],
   // Unchanged. Measured: 65.9% of design anchors (subpath starts and straight
   // segment ends) land on 0.25, 63.3% on 0.5 — quarter steps are rare but real,
   // so the finer grid stays.
@@ -117,6 +155,21 @@ export const SPEC = {
     tall: [16, 20],
     wide: [20, 16],
   },
+  // Fill mode's replacement for `minGap`, and it measures the opposite thing.
+  // `minGap` asks whether two shapes are too close; in a filled icon the
+  // shapes are *meant* to touch — a hole shares its edge with the solid it is
+  // cut from, and only 1.4% of the 6,693 filled solid pairs in the set are
+  // apart at all. What can go wrong instead is a feature too small to survive
+  // being rendered: at the 16px the set is drawn for, one design unit is
+  // 0.667px, so a feature needs 1.5 units to clear a pixel.
+  //
+  // 1.5 is the legibility floor and it also sits in the tail of the set's own
+  // practice rather than at its mode: the smallest dimension of the 1,807
+  // holes has median 3.0, p25 2.0, p10 1.95, and 1.5 fires on 6.6% of them
+  // (0.5% of solids). The same doctrine as `minGap`, which sits at p10 of the
+  // gap distribution rather than at its 2.0 mode — a floor catches outliers.
+  // The set's own tail is real: `safari` alone ships 11 holes under 0.44.
+  minFeature: 1.5,
   // Measured as an **ink gap** — centre-line distance minus one stroke width —
   // between separate `<path>` elements, taking each icon's tightest positive
   // gap: n=1306, median 2.00, p25 1.16, p10 0.83. Pairs that overlap or touch
@@ -139,8 +192,10 @@ export const SPEC = {
   canvas: number;
   clearance: number;
   dots: Record<DotRole, number>;
+  fillRadiusTiers: readonly number[];
   grid: number;
   keylines: Record<Keyline, readonly [number, number]>;
+  minFeature: number;
   minGap: number;
   radiusTiers: readonly number[];
   stroke: number;
@@ -202,9 +257,15 @@ const quarterTurn = (t: number): number => {
 /** Corner radii come from the tier system, never from the caller verbatim. The
  *  tiers do not vary with shape size: a flat set matches the corpus better than
  *  any size-conditioned split measured against it. Callers still clamp the
- *  result to half the shape, which is geometry rather than style. */
-const tierRadius = (r: number): number =>
-  r === 0 ? 0 : nearest(SPEC.radiusTiers, r);
+ *  result to half the shape, which is geometry rather than style.
+ *
+ *  Which tier set is asked for depends on the finish, not on the shape: a
+ *  filled corner is a boundary and a stroked one is a centre line, so they are
+ *  measurably different distributions. See `SPEC.fillRadiusTiers`. */
+const tierRadius = (r: number, finish: Finish): number =>
+  r === 0
+    ? 0
+    : nearest(finish === "filled" ? SPEC.fillRadiusTiers : SPEC.radiusTiers, r);
 
 /**
  * Snap a segment onto the nearest permitted axis when it is within tolerance.
@@ -272,7 +333,20 @@ const offAxisMessage = (
   );
 };
 
-export type Element =
+/**
+ * What an element does to the ink: adds to it, or takes it away.
+ *
+ * Carried as an intersection rather than as a member of every variant of the
+ * union because it is orthogonal to `kind` — a knockout is a rect or a circle
+ * that happens to be subtracted, not a seventh kind of shape — and because
+ * `hole()` is the only thing that ever writes it. Absent means `add`, so an
+ * element written before this existed still means what it meant.
+ */
+export type Op = "add" | "knockout";
+
+export type Element = {
+  op?: Op;
+} & (
   | { cx: number; cy: number; d: string; id: string; kind: "circle"; r: number }
   | {
       cx: number;
@@ -314,7 +388,8 @@ export type Element =
       w: number;
       x: number;
       y: number;
-    };
+    }
+);
 
 const rectPath = (
   x: number,
@@ -345,10 +420,64 @@ const circlePath = (x: number, y: number, r: number): string => {
   );
 };
 
+/** The quantised circle, before it is decided whether it adds ink or removes
+ *  it. Shared, like `#rectElement`, so a knockout cannot reach the document by
+ *  any route a solid did not already take. A free function rather than a
+ *  method because — unlike a rect, whose corners are tiered per finish —
+ *  nothing about a circle depends on the canvas. */
+const circleElement = (
+  id: string,
+  { cx, cy, r }: { cx: number; cy: number; r: number }
+): Element => {
+  const x = onCanvas(cx);
+  const y = onCanvas(cy);
+  const rr = q(r, SPEC.grid);
+  return { cx: x, cy: y, d: circlePath(x, y, rr), id, kind: "circle", r: rr };
+};
+
+export interface CanvasOptions {
+  /**
+   * Stroked (the default, and what every existing document is) or filled.
+   *
+   * Chosen once for the whole document. Not a per-element property and not two
+   * `Canvas` classes, and both were live options. Measured, in
+   * `bench/filled-language.v1.json`: 2,078 of 2,085 filled icons carry no
+   * stroke anywhere, and the 7 that mix one in are the set being inconsistent
+   * rather than a construction to copy. So the finish is a fact about the
+   * icon; making it per-element would offer a mixture nobody draws while
+   * forcing every rule downstream to ask each element what it is. Two classes
+   * were rejected from the other side: `transform`, `bbox`, `remove`,
+   * `describe` and the whole document format are identical between the
+   * finishes, and `Canvas` is the type in the signature of every tool, every
+   * lint call and the DSL, so a second class would fork all of them in order
+   * to vary three methods.
+   *
+   * Fixed at construction rather than settable, because a primitive already
+   * drawn means a different thing under the other finish — a `dot` is a circle
+   * one stroke narrower than its tier when it will be stroked and exactly its
+   * tier when it will be filled, and a corner takes its radius from a
+   * different tier set. A canvas that could change finish mid-drawing would
+   * silently restate what it had already drawn.
+   */
+  finish?: Finish;
+}
+
+/** The shapes a knockout may take. The same two the corpus cuts with — 23.8%
+ *  of its 1,807 holes are rects and 22.3% are discs — and deliberately no
+ *  others: `hole` routes straight into `rect` and `circle`, so a knockout is
+ *  quantised, tiered and clamped by exactly the code that draws a solid and
+ *  there is no second path by which a coordinate could reach the document. */
+export type HoleShape =
+  | { cx: number; cy: number; r: number; shape: "circle" }
+  | { h: number; r?: number; shape: "rect"; w: number; x: number; y: number };
+
 export class Canvas {
   elements: Element[] = [];
   log: string[] = [];
   readonly parts: Map<string, Part>;
+
+  /** Stroked or filled. See {@link Finish}: chosen once, for the document. */
+  readonly finish: Finish;
 
   /**
    * Ids are minted from a counter, never from `elements.length`.
@@ -369,8 +498,9 @@ export class Canvas {
    */
   #version = 0;
 
-  constructor(parts: Part[] = []) {
+  constructor(parts: Part[] = [], { finish = "outlined" }: CanvasOptions = {}) {
     this.parts = new Map(parts.map((p) => [p.id, p]));
+    this.finish = finish;
   }
 
   /** Mutation count. Monotonic, and meaningless as an absolute number: only
@@ -379,36 +509,58 @@ export class Canvas {
     return this.#version;
   }
 
-  #push(make: (id: string) => Element): string {
+  /**
+   * How wide the ink sits either side of the path: the house stroke, or zero
+   * when the finish is filled and the path *is* the boundary.
+   *
+   * The one number that turns "visual extent = path bbox + stroke" into a
+   * statement true of both finishes, which is why `fit`, `part ... fill` and
+   * `lint` all read it rather than `SPEC.stroke`. The distinction is the one
+   * `CLAUDE.md` names as this domain's most common mistake, and the
+   * measurement confirms it is the only adjustment needed: filled and outlined
+   * twins occupy the same *visual* extent in 94% of 2,085 pairs, so with this
+   * substitution every keyline, clearance and centring rule carries over
+   * unchanged.
+   */
+  get inkWidth(): number {
+    return this.finish === "filled" ? 0 : SPEC.stroke;
+  }
+
+  /** @param at index to insert at; appends when omitted. Only `hole` passes
+   *  it, to sit a knockout with the solid it cuts. */
+  #push(make: (id: string) => Element, at?: number): string {
     const id = `e${this.#seq}`;
     this.#seq += 1;
     const el = make(id);
-    this.elements.push(el);
+    if (at === undefined) {
+      this.elements.push(el);
+    } else {
+      this.elements.splice(at, 0, el);
+    }
     this.#version += 1;
-    this.log.push(`${el.kind} → ${id}`);
+    this.log.push(`${el.op === "knockout" ? "hole " : ""}${el.kind} → ${id}`);
     return id;
   }
 
-  /** Rounded rectangle. Radius is snapped to the tier system. */
-  rect({
-    x,
-    y,
-    w,
-    h,
-    r = 2,
-  }: {
-    h: number;
-    r?: number;
-    w: number;
-    x: number;
-    y: number;
-  }): string {
+  /** The quantised rect, before it is decided whether it adds ink or removes
+   *  it. Shared so a knockout cannot reach the document by any route a solid
+   *  did not already take. */
+  #rectElement(
+    id: string,
+    {
+      x,
+      y,
+      w,
+      h,
+      r = 2,
+    }: { h: number; r?: number; w: number; x: number; y: number }
+  ): Element {
     const X = onCanvas(x);
     const Y = onCanvas(y);
     const W = q(w, SPEC.grid);
     const H = q(h, SPEC.grid);
-    const R = Math.min(tierRadius(r), W / 2, H / 2);
-    return this.#push((id) => ({
+    const R = Math.min(tierRadius(r, this.finish), W / 2, H / 2);
+    return {
       d: rectPath(X, Y, W, H, R),
       h: H,
       id,
@@ -417,21 +569,138 @@ export class Canvas {
       w: W,
       x: X,
       y: Y,
-    }));
+    };
   }
 
-  circle({ cx, cy, r }: { cx: number; cy: number; r: number }): string {
-    const X = onCanvas(cx);
-    const Y = onCanvas(cy);
-    const R = q(r, SPEC.grid);
-    return this.#push((id) => ({
-      cx: X,
-      cy: Y,
-      d: circlePath(X, Y, R),
-      id,
-      kind: "circle",
-      r: R,
-    }));
+  /** Rounded rectangle. Radius is snapped to the tier system. */
+  rect(args: {
+    h: number;
+    r?: number;
+    w: number;
+    x: number;
+    y: number;
+  }): string {
+    return this.#push((id) => this.#rectElement(id, args));
+  }
+
+  circle(args: { cx: number; cy: number; r: number }): string {
+    return this.#push((id) => circleElement(id, args));
+  }
+
+  /**
+   * Cut a shape out of a solid: the subtract op the primitives were missing.
+   *
+   * The largest gap the measurement found. 932 of 2,085 filled icons — 44.7% —
+   * knock a hole out of a solid, 1,807 holes in all, and no combination of
+   * `rect`, `circle`, `line`, `dot` and `part` could express one, because
+   * every primitive added ink and nothing could take it away. Without this the
+   * drawer reaches at most half the filled set however well it draws.
+   *
+   * It is as constrained as the shapes it borrows. `hole` does not build
+   * geometry: it calls the same `rect` and `circle` builders a solid does, so
+   * a knockout is quantised to the same grid, tiered against the same radius
+   * set and clamped to the same canvas. There is no coordinate here that could
+   * not have been written as a solid, which is what keeps the invariant true
+   * in fill mode: the model still says *what* and *where*, never *how*.
+   *
+   * The hole is stored immediately after the solid it cuts, and that ordering
+   * is the whole data structure — there is no back-reference to keep in step
+   * through a `transform`, a `remove` or a round trip through `toJSON`.
+   * Serialisation reads it back the way the corpus writes it: one `<path>` per
+   * solid, holding the solid's subpath and then its holes' subpaths, under
+   * `fill-rule="evenodd"`. Grouping per solid rather than emitting one path
+   * for the whole icon is deliberate — under `evenodd` two solids that
+   * overlapped would cancel where they met and paint a hole nobody asked for.
+   *
+   * @param shape which primitive to cut with, and where.
+   * @param cutFrom id of the solid to cut. Defaults to the most recent one,
+   *   which is the order a drawing is actually made in; naming it is for a
+   *   drawer that comes back to an earlier shape.
+   */
+  hole(shape: HoleShape & { cutFrom?: string }): string {
+    if (this.finish !== "filled") {
+      throw new Error(
+        "hole only means something in a filled icon: there is no solid to cut " +
+          'out of a stroked one. Set the finish to "filled" (`finish filled` ' +
+          "in the DSL) before drawing, or draw the gap with two shapes instead."
+      );
+    }
+    const target = this.#solidFor(shape.cutFrom);
+    const make = (id: string): Element => ({
+      ...(shape.shape === "circle"
+        ? circleElement(id, shape)
+        : this.#rectElement(id, shape)),
+      op: "knockout",
+    });
+    // Built once to measure it, then handed to `#push` as-is: `#push` mints the
+    // id, and a probe that minted its own would burn one on every call.
+    const probe = make("probe");
+    const inside = bbox(parsePath(this.elements[target].d));
+    const cut = bbox(parsePath(probe.d));
+    if (
+      cut.x0 < inside.x0 ||
+      cut.y0 < inside.y0 ||
+      cut.x1 > inside.x1 ||
+      cut.y1 > inside.y1
+    ) {
+      throw new Error(
+        `that hole is not inside ${this.elements[target].id}: it spans ` +
+          `${cut.x0}..${cut.x1} x ${cut.y0}..${cut.y1}, the solid spans ` +
+          `${inside.x0}..${inside.x1} x ${inside.y0}..${inside.y1}. Under ` +
+          "`evenodd` the part that hangs outside would paint ink rather than " +
+          "remove it, so the shape would come out inverted. Shrink the hole, " +
+          "or draw the piece you want as a solid."
+      );
+    }
+    return this.#push((id) => ({ ...probe, id }), this.#groupEnd(target));
+  }
+
+  /** Index of the solid a hole is to be cut from, by id or by recency. */
+  #solidFor(id?: string): number {
+    if (id === undefined) {
+      const last = this.elements.findLastIndex((e) => e.op !== "knockout");
+      if (last === -1) {
+        throw new Error(
+          "there is nothing to cut a hole in yet — draw the solid first, then " +
+            "knock the hole out of it"
+        );
+      }
+      return last;
+    }
+    const i = this.elements.findIndex((e) => e.id === id);
+    if (i === -1) {
+      throw new Error(`no element ${id}`);
+    }
+    if (this.elements[i].op === "knockout") {
+      throw new Error(
+        `${id} is itself a hole, and a hole in a hole is just solid again — ` +
+          "cut both out of the shape they sit in instead"
+      );
+    }
+    return i;
+  }
+
+  /** One past the last element belonging to the solid at `i`: itself, plus the
+   *  run of knockouts already cut from it. */
+  #groupEnd(i: number): number {
+    let end = i + 1;
+    while (end < this.elements.length && this.elements[end].op === "knockout") {
+      end += 1;
+    }
+    return end;
+  }
+
+  /** The elements as they serialise: each solid followed by its holes. */
+  #groups(): Element[][] {
+    const out: Element[][] = [];
+    for (const e of this.elements) {
+      if (e.op === "knockout" && out.length > 0) {
+        out.at(-1)?.push(e);
+      } else {
+        out.push([e]);
+      }
+    }
+    return out;
   }
 
   /**
@@ -464,6 +733,18 @@ export class Canvas {
     offAxis?: boolean;
     points: [number, number][];
   }): string {
+    if (this.finish === "filled") {
+      // An open polyline encloses no area, so under a fill rule it paints
+      // nothing at all. Refusing it is the difference between a drawer that is
+      // told and one that renders a blank icon and cannot see why — the same
+      // failure the measurement found 107 icons of in the shipped set, where a
+      // solid buried in another solid draws nothing and nobody noticed.
+      throw new Error(
+        "a line paints nothing in a filled icon: it encloses no area, so the " +
+          "fill has no inside to cover. Draw the stroke as the thin rect it " +
+          "is — `rect` with a width of 2 is the filled twin of a 2-unit stroke."
+      );
+    }
     if (!Array.isArray(pts) || pts.length < 2) {
       throw new Error("line needs >= 2 points");
     }
@@ -526,7 +807,10 @@ export class Canvas {
     }
     const X = onCanvas(cx);
     const Y = onCanvas(cy);
-    const r = q(Math.max(0, (size - SPEC.stroke) / 2), SPEC.grid);
+    // The role's number is a visual diameter either way; what changes is how
+    // much of it the stroke supplies. Filled, none of it does, so the disc is
+    // drawn at the full tier.
+    const r = q(Math.max(0, (size - this.inkWidth) / 2), SPEC.grid);
     return this.#push((id) => ({
       cx: X,
       cy: Y,
@@ -582,6 +866,16 @@ export class Canvas {
     if (!p) {
       throw new Error(
         `unknown part ${id} — call listParts to see the vocabulary`
+      );
+    }
+    if (this.finish === "filled" && !p.closed) {
+      // The vocabulary is extracted from a stroked set, so most of its marks
+      // are open runs. Filled, an open run encloses nothing and paints
+      // nothing — the same silent blank `line` is refused for.
+      throw new Error(
+        `part ${id} is an open mark, extracted from the stroked set, and an ` +
+          "open mark paints nothing when it is filled rather than stroked. " +
+          "Use a closed part, or draw the shape with rect/circle and hole."
       );
     }
     const t = quarterTurn(turn);
@@ -641,7 +935,29 @@ export class Canvas {
     this.elements = [];
     this.log = [];
     for (const e of src) {
-      if (e.kind === "rect") {
+      // A knockout re-emits through the same builder as the solid it borrows
+      // from, and lands back at the end of the run — which, replaying in
+      // order, is exactly where it started. That is why the hole's tie to its
+      // solid is the element order and not a stored id: an id would have to be
+      // remapped here, and the remap is the kind of bookkeeping that survives
+      // review and not the next change.
+      if (e.op === "knockout" && e.kind === "circle") {
+        this.hole({
+          cx: e.cx * k + tx,
+          cy: e.cy * k + ty,
+          r: e.r * k,
+          shape: "circle",
+        });
+      } else if (e.op === "knockout" && e.kind === "rect") {
+        this.hole({
+          h: e.h * k,
+          r: e.r,
+          shape: "rect",
+          w: e.w * k,
+          x: e.x * k + tx,
+          y: e.y * k + ty,
+        });
+      } else if (e.kind === "rect") {
         this.rect({
           h: e.h * k,
           r: e.r,
@@ -696,15 +1012,25 @@ export class Canvas {
     this.log.push(`transform ×${k} +${q(tx, SPEC.grid)},${q(ty, SPEC.grid)}`);
   }
 
-  remove(id: string): { remaining: number; removed: string } {
+  /**
+   * Delete an element.
+   *
+   * Removing a solid removes the holes cut from it too. They are not
+   * independent shapes: a knockout only means anything as the absence of the
+   * ink it sits in, and leaving one behind would silently reattach it to
+   * whichever solid happened to precede it — a hole appearing in an unrelated
+   * shape. The returned `removed` names everything that went.
+   */
+  remove(id: string): { remaining: number; removed: string[] } {
     const i = this.elements.findIndex((e) => e.id === id);
     if (i === -1) {
       throw new Error(`no element ${id}`);
     }
-    this.elements.splice(i, 1);
+    const end = this.elements[i].op === "knockout" ? i + 1 : this.#groupEnd(i);
+    const gone = this.elements.splice(i, end - i).map((e) => e.id);
     this.#version += 1;
-    this.log.push(`remove ${id}`);
-    return { remaining: this.elements.length, removed: id };
+    this.log.push(`remove ${gone.join(", ")}`);
+    return { remaining: this.elements.length, removed: gone };
   }
 
   clear(): void {
@@ -720,15 +1046,38 @@ export class Canvas {
     return bbox(this.elements.flatMap((e) => parsePath(e.d)));
   }
 
-  /** Outline variant: the skeleton, stroked. This is what ships. */
+  /**
+   * The shipping SVG, in whichever finish the document declares.
+   *
+   * Outlined: the skeleton, stroked, one `<path>` per element, unchanged.
+   *
+   * Filled: one `<path>` per solid, holding the solid's subpath followed by
+   * the subpaths of the holes cut from it, carrying `fill="currentColor"`,
+   * `fill-rule="evenodd" clip-rule="evenodd"` and no stroke at all. That is
+   * how the set writes them — 57.3% of its filled icons declare `evenodd`,
+   * every one of the 1,807 holes is a subpath inside the element it cuts
+   * rather than a separate element, and 2,078 of 2,085 carry no stroke.
+   *
+   * `stroke` is ignored under a filled finish rather than refused: `render`
+   * and the eval harness pass the house width to everything they draw, and a
+   * filled icon has no stroke for it to change.
+   */
   toSVG({ stroke = SPEC.stroke }: { stroke?: number } = {}): string {
     const { canvas: size } = SPEC;
-    const paths = this.elements
-      .map(
-        (e) =>
-          `<path d="${e.d}" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`
-      )
-      .join("\n");
+    const paths =
+      this.finish === "filled"
+        ? this.#groups()
+            .map(
+              (g) =>
+                `<path d="${g.map((e) => e.d).join("")}" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>`
+            )
+            .join("\n")
+        : this.elements
+            .map(
+              (e) =>
+                `<path d="${e.d}" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`
+            )
+            .join("\n");
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${paths}\n</svg>`;
   }
 
@@ -741,13 +1090,25 @@ export class Canvas {
     icon = null,
     keyline = null,
   }: { icon?: string | null; keyline?: Keyline | null } = {}): IconDoc {
-    return {
+    const doc: IconDoc = {
       draw: this.elements.map((e): DrawOp => {
+        // `knockout` is written only when it is true, like `offAxis` and
+        // `flip`: the key appears with the geometry it describes, so a diff
+        // showing it shows a shape that changed from ink to absence.
+        const cut = e.op === "knockout" ? { knockout: true as const } : null;
         if (e.kind === "rect") {
-          return { h: e.h, op: "rect", r: e.r, w: e.w, x: e.x, y: e.y };
+          return {
+            h: e.h,
+            op: "rect",
+            r: e.r,
+            w: e.w,
+            x: e.x,
+            y: e.y,
+            ...cut,
+          };
         }
         if (e.kind === "circle") {
-          return { cx: e.cx, cy: e.cy, op: "circle", r: e.r };
+          return { cx: e.cx, cy: e.cy, op: "circle", r: e.r, ...cut };
         }
         if (e.kind === "dot") {
           return { cx: e.cx, cy: e.cy, op: "dot", role: e.role };
@@ -780,15 +1141,33 @@ export class Canvas {
       icon,
       keyline,
     };
+    // Same rule again: an outlined document is every document written before
+    // fill mode existed, so it carries no key rather than an explicit default.
+    return this.finish === "filled" ? { ...doc, finish: "filled" } : doc;
   }
 
   static fromJSON(doc: IconDoc, parts: Part[] = []): Canvas {
-    const c = new Canvas(parts);
+    const c = new Canvas(parts, { finish: doc.finish ?? "outlined" });
     for (const op of doc.draw ?? []) {
       if (op.op === "rect") {
-        c.rect(op);
+        if (op.knockout) {
+          c.hole({
+            h: op.h,
+            r: op.r,
+            shape: "rect",
+            w: op.w,
+            x: op.x,
+            y: op.y,
+          });
+        } else {
+          c.rect(op);
+        }
       } else if (op.op === "circle") {
-        c.circle(op);
+        if (op.knockout) {
+          c.hole({ cx: op.cx, cy: op.cy, r: op.r, shape: "circle" });
+        } else {
+          c.circle(op);
+        }
       } else if (op.op === "dot") {
         c.dot(op);
       } else if (op.op === "line") {
@@ -806,6 +1185,10 @@ export class Canvas {
 
   describe(): {
     h: number;
+    /** Present only on a knockout, so what is read back says whether a shape
+     *  puts ink down or takes it away — the one thing about a filled drawing
+     *  that its bounds cannot show. */
+    hole?: true;
     id: string;
     kind: string;
     w: number;
@@ -814,7 +1197,7 @@ export class Canvas {
   }[] {
     return this.elements.map((e) => {
       const b = bbox(parsePath(e.d));
-      return {
+      const shape = {
         h: +b.h.toFixed(2),
         id: e.id,
         kind: e.kind,
@@ -822,6 +1205,7 @@ export class Canvas {
         x: +b.x0.toFixed(2),
         y: +b.y0.toFixed(2),
       };
+      return e.op === "knockout" ? { ...shape, hole: true as const } : shape;
     });
   }
 }

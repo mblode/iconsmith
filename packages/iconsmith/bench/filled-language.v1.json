@@ -1,0 +1,1030 @@
+{
+  "builtAt": "2026-08-19T05:55:19.497Z",
+  "composition": {
+    "fewerSubpathsThanOutlined": 0.421,
+    "filledElements": {
+      "max": 25,
+      "median": 1,
+      "min": 1,
+      "n": 2085,
+      "p10": 1,
+      "p25": 1,
+      "p75": 3,
+      "p90": 4
+    },
+    "filledSolids": {
+      "max": 25,
+      "median": 2,
+      "min": 1,
+      "n": 2085,
+      "p10": 1,
+      "p25": 1,
+      "p75": 3,
+      "p90": 4
+    },
+    "filledSubpaths": {
+      "max": 60,
+      "median": 3,
+      "min": 1,
+      "n": 2085,
+      "p10": 1,
+      "p25": 2,
+      "p75": 4,
+      "p90": 5
+    },
+    "moreSubpathsThanOutlined": 0.044,
+    "oneElementShare": 0.54,
+    "outlinedElements": {
+      "max": 25,
+      "median": 2,
+      "min": 1,
+      "n": 2085,
+      "p10": 1,
+      "p25": 1,
+      "p75": 4,
+      "p90": 5
+    },
+    "outlinedSubpaths": {
+      "max": 60,
+      "median": 4,
+      "min": 1,
+      "n": 2085,
+      "p10": 2,
+      "p25": 2,
+      "p75": 5,
+      "p90": 8
+    },
+    "shapeMix": {
+      "filledHoles": {
+        "disc": 0.223,
+        "n": 1807,
+        "other": 0.539,
+        "rect": 0.238
+      },
+      "filledSolids": {
+        "disc": 0.141,
+        "n": 4717,
+        "other": 0.631,
+        "rect": 0.228
+      },
+      "outlinedSubpaths": {
+        "disc": 0.117,
+        "n": 9713,
+        "other": 0.764,
+        "rect": 0.119
+      }
+    },
+    "subpathDelta": {
+      "max": 12,
+      "median": 0,
+      "min": -41,
+      "n": 2085,
+      "p10": -4,
+      "p25": -2,
+      "p75": 0,
+      "p90": 0
+    }
+  },
+  "construction": {
+    "clippedIcons": 12,
+    "evenoddIcons": 1195,
+    "evenoddShare": 0.573,
+    "strokedIcons": 7,
+    "strokedSymbols": [
+      "currency-pesos",
+      "folders-2",
+      "judge-gavel",
+      "loading-circle",
+      "microphone-sparkle",
+      "people-voice",
+      "user-remove-right"
+    ]
+  },
+  "extent": {
+    "centre": {
+      "offX": {
+        "max": 2,
+        "median": 0,
+        "min": -3,
+        "n": 2085,
+        "p10": -0.001,
+        "p25": 0,
+        "p75": 0,
+        "p90": 0.176
+      },
+      "offY": {
+        "max": 4.5,
+        "median": 0,
+        "min": -1.5,
+        "n": 2085,
+        "p10": -0.464,
+        "p25": 0,
+        "p75": 0,
+        "p90": 0.086
+      }
+    },
+    "conformanceToDerived": 0.535,
+    "conformanceToHouseKeylines": 0.535,
+    "derivedKeylines": [
+      {
+        "h": 20,
+        "w": 20
+      },
+      {
+        "h": 18,
+        "w": 18
+      },
+      {
+        "h": 16,
+        "w": 20
+      },
+      {
+        "h": 20,
+        "w": 18
+      },
+      {
+        "h": 18,
+        "w": 20
+      },
+      {
+        "h": 20,
+        "w": 16
+      }
+    ],
+    "extentDeltaVsOutlined": {
+      "max": 2.648,
+      "median": 0,
+      "min": -5.204,
+      "n": 2085,
+      "p10": 0,
+      "p25": 0,
+      "p75": 0,
+      "p90": 0
+    },
+    "grewMost": [
+      {
+        "delta": 2.648,
+        "symbol": "paper-plane-top-right"
+      },
+      {
+        "delta": 1.099,
+        "symbol": "user-add-right"
+      },
+      {
+        "delta": 1,
+        "symbol": "emoji-add-reaction"
+      },
+      {
+        "delta": 1,
+        "symbol": "code-assistant"
+      },
+      {
+        "delta": 1,
+        "symbol": "code-analyze"
+      },
+      {
+        "delta": 0.929,
+        "symbol": "dumbell"
+      },
+      {
+        "delta": 0.919,
+        "symbol": "propeller"
+      },
+      {
+        "delta": 0.828,
+        "symbol": "code-large"
+      },
+      {
+        "delta": 0.728,
+        "symbol": "user-duo"
+      },
+      {
+        "delta": 0.724,
+        "symbol": "web3"
+      },
+      {
+        "delta": 0.519,
+        "symbol": "fashion"
+      },
+      {
+        "delta": 0.5,
+        "symbol": "cross-small"
+      }
+    ],
+    "height": {
+      "max": 24,
+      "median": 18.536,
+      "min": 2,
+      "n": 2085,
+      "p10": 16,
+      "p25": 18,
+      "p75": 20,
+      "p90": 20.059
+    },
+    "identicalExtentShare": 0.943,
+    "margin": {
+      "max": 8.02,
+      "median": 2,
+      "min": -0.001,
+      "n": 2085,
+      "p10": 1,
+      "p25": 1.6,
+      "p75": 2.464,
+      "p90": 3
+    },
+    "marginAtOrBelow0": 0.024,
+    "marginAtOrBelow1": 0.182,
+    "outlinedMargin": {
+      "max": 8.021,
+      "median": 2,
+      "min": 0,
+      "n": 2085,
+      "p10": 1,
+      "p25": 1.586,
+      "p75": 2.464,
+      "p90": 3
+    },
+    "outlinedTopModes": [
+      {
+        "count": 338,
+        "h": 20,
+        "w": 20
+      },
+      {
+        "count": 326,
+        "h": 18,
+        "w": 18
+      },
+      {
+        "count": 111,
+        "h": 16,
+        "w": 20
+      },
+      {
+        "count": 77,
+        "h": 18,
+        "w": 20
+      },
+      {
+        "count": 75,
+        "h": 20,
+        "w": 18
+      },
+      {
+        "count": 67,
+        "h": 20,
+        "w": 16
+      },
+      {
+        "count": 49,
+        "h": 19,
+        "w": 19
+      },
+      {
+        "count": 41,
+        "h": 16,
+        "w": 22
+      }
+    ],
+    "shrunkMost": [
+      {
+        "delta": -5.204,
+        "symbol": "parasol"
+      },
+      {
+        "delta": -2.164,
+        "symbol": "vector-anchor-point-disconnected"
+      },
+      {
+        "delta": -1.328,
+        "symbol": "vector-anchor-point-asymmetric"
+      },
+      {
+        "delta": -1.274,
+        "symbol": "human-mashine"
+      },
+      {
+        "delta": -1.155,
+        "symbol": "threed-box-bottom"
+      },
+      {
+        "delta": -1.155,
+        "symbol": "threed-package"
+      },
+      {
+        "delta": -1.155,
+        "symbol": "threed-package-2"
+      },
+      {
+        "delta": -1.154,
+        "symbol": "threed-box-top"
+      },
+      {
+        "delta": -1.095,
+        "symbol": "fast-shipping"
+      },
+      {
+        "delta": -1.071,
+        "symbol": "magic-lamp"
+      },
+      {
+        "delta": -1.031,
+        "symbol": "money-hand"
+      },
+      {
+        "delta": -1,
+        "symbol": "dino"
+      }
+    ],
+    "topModes": [
+      {
+        "count": 340,
+        "h": 20,
+        "w": 20
+      },
+      {
+        "count": 325,
+        "h": 18,
+        "w": 18
+      },
+      {
+        "count": 111,
+        "h": 16,
+        "w": 20
+      },
+      {
+        "count": 77,
+        "h": 20,
+        "w": 18
+      },
+      {
+        "count": 77,
+        "h": 18,
+        "w": 20
+      },
+      {
+        "count": 65,
+        "h": 20,
+        "w": 16
+      },
+      {
+        "count": 46,
+        "h": 19,
+        "w": 19
+      },
+      {
+        "count": 43,
+        "h": 16,
+        "w": 22
+      },
+      {
+        "count": 39,
+        "h": 19,
+        "w": 20
+      },
+      {
+        "count": 33,
+        "h": 19,
+        "w": 18
+      },
+      {
+        "count": 23,
+        "h": 18,
+        "w": 19
+      },
+      {
+        "count": 23,
+        "h": 18,
+        "w": 22
+      }
+    ],
+    "width": {
+      "max": 24.001,
+      "median": 19.792,
+      "min": 4,
+      "n": 2085,
+      "p10": 16,
+      "p25": 18,
+      "p75": 20,
+      "p90": 22
+    }
+  },
+  "features": {
+    "dotDiameter": {
+      "max": 5,
+      "median": 3,
+      "min": 1,
+      "n": 559,
+      "p10": 2,
+      "p25": 2,
+      "p75": 4,
+      "p90": 4.68
+    },
+    "dotModes": [
+      {
+        "count": 123,
+        "value": 2
+      },
+      {
+        "count": 119,
+        "value": 4
+      },
+      {
+        "count": 65,
+        "value": 3
+      },
+      {
+        "count": 45,
+        "value": 5
+      },
+      {
+        "count": 32,
+        "value": 2.75
+      },
+      {
+        "count": 27,
+        "value": 1.5
+      },
+      {
+        "count": 24,
+        "value": 4.25
+      },
+      {
+        "count": 22,
+        "value": 2.25
+      }
+    ],
+    "dotsOnHouseTiers": 0.589,
+    "holeMinDimension": {
+      "max": 16,
+      "median": 3,
+      "min": 0.245,
+      "n": 1807,
+      "p10": 1.95,
+      "p25": 2,
+      "p75": 5.414,
+      "p90": 8
+    },
+    "holeSizeModesQuarter": [
+      {
+        "count": 417,
+        "value": 2
+      },
+      {
+        "count": 191,
+        "value": 3
+      },
+      {
+        "count": 135,
+        "value": 2.5
+      },
+      {
+        "count": 99,
+        "value": 4
+      },
+      {
+        "count": 64,
+        "value": 8
+      },
+      {
+        "count": 64,
+        "value": 6
+      },
+      {
+        "count": 63,
+        "value": 7
+      },
+      {
+        "count": 56,
+        "value": 5
+      }
+    ],
+    "holesBelowLegibleAt16px": 0.066,
+    "legibleAt16pxRequiresUnits": 1.5,
+    "separationBelow1UnitWhenApart": 0.024,
+    "separationWhenApart": {
+      "max": 21.627,
+      "median": 4,
+      "min": 0.011,
+      "n": 6602,
+      "p10": 1.5,
+      "p25": 2,
+      "p75": 8,
+      "p90": 12
+    },
+    "smallestHoles": [
+      {
+        "size": 0.245,
+        "symbol": "formula1"
+      },
+      {
+        "size": 0.291,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.291,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.292,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.292,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.365,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.365,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.366,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.366,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.439,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.439,
+        "symbol": "safari"
+      },
+      {
+        "size": 0.439,
+        "symbol": "safari"
+      }
+    ],
+    "solidMinDimension": {
+      "max": 24,
+      "median": 8,
+      "min": 0.293,
+      "n": 4717,
+      "p10": 2,
+      "p25": 4,
+      "p75": 16,
+      "p90": 18
+    },
+    "solidPairs": 6693,
+    "solidPairsTouching": 0.014,
+    "solidSizeModes": [
+      {
+        "count": 708,
+        "value": 2
+      },
+      {
+        "count": 410,
+        "value": 18
+      },
+      {
+        "count": 320,
+        "value": 8
+      },
+      {
+        "count": 279,
+        "value": 20
+      },
+      {
+        "count": 278,
+        "value": 6
+      },
+      {
+        "count": 273,
+        "value": 16
+      },
+      {
+        "count": 256,
+        "value": 4
+      },
+      {
+        "count": 202,
+        "value": 5
+      }
+    ],
+    "solidsBelowLegibleAt16px": 0.005
+  },
+  "knockouts": {
+    "buriedShapeExamples": [
+      "adjust-photo",
+      "alt",
+      "appearance-dark-mode",
+      "appearance-light-mode",
+      "bezier-add",
+      "bezier-curve",
+      "bezier-remove",
+      "bitcoin",
+      "bitcoin-circle",
+      "bold",
+      "boolean-group-intersect-3",
+      "bun"
+    ],
+    "buriedShapeIcons": 107,
+    "buriedShapes": 176,
+    "concentricShare": 0.194,
+    "holeAreaShareOfParent": {
+      "max": 0.698,
+      "median": 0.051,
+      "min": 0.001,
+      "n": 1807,
+      "p10": 0.014,
+      "p25": 0.024,
+      "p75": 0.101,
+      "p90": 0.195
+    },
+    "holeSizeModes": [
+      {
+        "count": 198,
+        "value": 3
+      },
+      {
+        "count": 161,
+        "value": 4
+      },
+      {
+        "count": 161,
+        "value": 6
+      },
+      {
+        "count": 151,
+        "value": 2
+      },
+      {
+        "count": 126,
+        "value": 2.5
+      },
+      {
+        "count": 117,
+        "value": 8
+      },
+      {
+        "count": 98,
+        "value": 5
+      },
+      {
+        "count": 93,
+        "value": 7
+      }
+    ],
+    "holesPerIconWhenPresent": {
+      "max": 59,
+      "median": 1,
+      "min": 1,
+      "n": 932,
+      "p10": 1,
+      "p25": 1,
+      "p75": 2,
+      "p90": 3
+    },
+    "holesThatNeedEvenodd": 486,
+    "holesUnderEvenoddElements": 1715,
+    "holesUnderNonzeroElements": 92,
+    "iconsWithHoles": 932,
+    "iconsWithNestedHoles": 3,
+    "mostHoles": [
+      {
+        "holes": 59,
+        "symbol": "safari"
+      },
+      {
+        "holes": 17,
+        "symbol": "racing-flag"
+      },
+      {
+        "holes": 14,
+        "symbol": "baseball"
+      },
+      {
+        "holes": 13,
+        "symbol": "react"
+      },
+      {
+        "holes": 9,
+        "symbol": "rust"
+      },
+      {
+        "holes": 9,
+        "symbol": "video-clip"
+      },
+      {
+        "holes": 8,
+        "symbol": "apple-intelligence"
+      },
+      {
+        "holes": 8,
+        "symbol": "apple-intelligence-icon"
+      },
+      {
+        "holes": 8,
+        "symbol": "factory"
+      },
+      {
+        "holes": 8,
+        "symbol": "noise-reduction"
+      },
+      {
+        "holes": 8,
+        "symbol": "vignette"
+      },
+      {
+        "holes": 7,
+        "symbol": "cereals"
+      }
+    ],
+    "nestedExamples": ["formula1", "instagram", "notion"],
+    "offsetFromParentCentre": {
+      "max": 0.488,
+      "median": 0.191,
+      "min": 0,
+      "n": 1807,
+      "p10": 0,
+      "p25": 0.079,
+      "p75": 0.287,
+      "p90": 0.351
+    },
+    "ringWidth": {
+      "max": 9.045,
+      "median": 3,
+      "min": 0,
+      "n": 1807,
+      "p10": 1.586,
+      "p25": 2,
+      "p75": 4.485,
+      "p90": 5.5
+    },
+    "ringsBelow1Unit": 0.063,
+    "squareBoundedHoleShare": 0.377,
+    "totalHoles": 1807
+  },
+  "pairsWithBiggestDivergence": [
+    {
+      "elementDelta": 5,
+      "extentDelta": 0,
+      "holes": 1,
+      "subpathDelta": -41,
+      "symbol": "cmd-box"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 0,
+      "subpathDelta": -39,
+      "symbol": "home-door"
+    },
+    {
+      "elementDelta": 3,
+      "extentDelta": 0,
+      "holes": 1,
+      "subpathDelta": -37,
+      "symbol": "square-grid-magnifying-glass"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 2,
+      "subpathDelta": -33,
+      "symbol": "multi-media"
+    },
+    {
+      "elementDelta": -1,
+      "extentDelta": 0,
+      "holes": 7,
+      "subpathDelta": -32,
+      "symbol": "keyboard-cable"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 0,
+      "subpathDelta": -32,
+      "symbol": "broken-chain-link-1"
+    },
+    {
+      "elementDelta": 1,
+      "extentDelta": 0.004,
+      "holes": 0,
+      "subpathDelta": -31,
+      "symbol": "home-energy-2"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 0,
+      "subpathDelta": -30,
+      "symbol": "surfing"
+    },
+    {
+      "elementDelta": -1,
+      "extentDelta": 0,
+      "holes": 3,
+      "subpathDelta": -30,
+      "symbol": "wifi-square"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 7,
+      "subpathDelta": -29,
+      "symbol": "keyboard-down"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 7,
+      "subpathDelta": -29,
+      "symbol": "keyboard-up"
+    },
+    {
+      "elementDelta": 0,
+      "extentDelta": 0,
+      "holes": 1,
+      "subpathDelta": -28,
+      "symbol": "square-plus"
+    }
+  ],
+  "primitiveGaps": [
+    {
+      "evidence": "1,807 knockouts across 932 of 2,085 icons (44.7%). 1,715 are drawn in an element that declares `fill-rule=\"evenodd\"`, 92 in a default `nonzero` element where the subpath winds against its parent. 486 of the 1,807 are wound the *same* way as their parent and so exist only because of `evenodd` — a boolean subtract, which reverses the winding, would not have produced them. None is a separate path element: the fill rule does not reach across elements, and every element paints currentColor.",
+      "missing": "a subtract op: a shape declared as a hole in a named solid",
+      "note": "`canvas.ts` emits one subpath per primitive and the DSL has no way to say that one shape cuts another. This is the single largest gap: without it 45% of the set is undrawable."
+    },
+    {
+      "evidence": "63.1% of filled solids and 53.9% of holes are neither a disc nor an axis-aligned rounded rect (n=4,717 and 1,807). The outlined set is worse at 76.4%, so this is not a filled-only problem — but a filled icon's silhouette IS the icon, where an outlined one can be assembled from strokes.",
+      "missing": "a closed filled region that is not a rect or a circle",
+      "note": "`line` draws an open polyline that is stroked; there is no op that closes a run of points into a filled region, and no curved-edge primitive at all."
+    },
+    {
+      "evidence": "The commonest filled corner radius is 4 (2,640 of 7,018 corners, 37.6%), which `SPEC.radiusTiers` does not contain: an outlined corner is a centre-line at 3 and the filled shape is its outer edge, half a stroke further out. On the house tiers only 43.4% of filled corners land; on [0.5, 1, 2, 3, 4] it is 81.1%, against 83.0% for the outlined set on the same set.",
+      "missing": "a radius tier at 4",
+      "note": "`tierRadius` snaps to the nearest tier, so every 4-unit corner in a filled icon is currently drawn at 3."
+    },
+    {
+      "evidence": "2,078 of 2,085 filled icons carry no stroke at all; 7 mix a stroke in (currency-pesos, folders-2, judge-gavel, loading-circle, microphone-sparkle, people-voice, user-remove-right).",
+      "missing": "a finish on the icon, and a per-shape override of it",
+      "note": "The DSL has no word for filled versus stroked. Whatever the drawer emits is stroked, and `lint.ts`'s gap and extent rules read the stroke, so the finish has to be a declared property rather than an attribute swapped at serialisation."
+    },
+    {
+      "evidence": "19.4% of knockouts are concentric with their parent within 5% of its size (351 of 1,807), and 22.3% of holes are discs.",
+      "missing": "a ring: a disc with a concentric disc removed",
+      "note": "Expressible once a subtract op exists, but common enough to deserve its own word — a `ring` would be one line where a subtract is three."
+    },
+    {
+      "evidence": "559 solid discs at or under 5 units. Modes at 2.0 (123), 4.0 (119), 3.0 (65) and 5.0 (45); only 58.9% land within 0.125 of a `SPEC.dots` tier, against a tier system built on the outlined set where a dot is a capped segment.",
+      "missing": "a dot tier at 5, or an acknowledgement that filled dots are not tiered",
+      "note": "The set is not consistent here. 41% of filled dots are off every existing tier and the residue does not form one clean fifth mode."
+    }
+  ],
+  "procedure": "Every symbol present in both `round-filled-radius-3-stroke-2` and the house variant `round-outlined-radius-3-stroke-2` (n=2,085), measured from the shipped SVG. Geometry comes from `corpus/load.ts`'s `parseIconSvg` (which converts `<circle>`, `<rect>`, `<ellipse>` and `<line>` to path data) and `geometry/path.ts`'s parser and bbox; corner radii from `corpus/measure.ts`'s `cornerRadii`, unchanged, which is what makes the outlined number here reproduce the 78.4% already in `SPEC.radiusTiers`. Visual extent is each element's own path bbox grown by half of *its own* stroke — 0 for a filled shape, 2 for the seven filled icons that still carry a stroke — so filled and outlined are compared as the same quantity rather than as bbox against bbox. Subpaths are flattened at 16 segments per curve; containment is a ray-crossing test with a 60% vertex vote, and a subpath is a knockout when it sits inside another of the same element and either the element declares `fill-rule=\"evenodd\"` and its nesting depth is odd, or the element is `nonzero` and it winds against its parent. Ring width and solid separation are nearest approach between flattened outlines. Nothing applies `clip-path`, so the 12 clipped icons' extents are the unclipped geometry.",
+  "radii": {
+    "candidateTierSets": [
+      {
+        "filled": 0.861,
+        "outlined": 0.841,
+        "tiers": "[0.5,1,2,2.5,3,4]"
+      },
+      {
+        "filled": 0.811,
+        "outlined": 0.83,
+        "tiers": "[0.5,1,2,3,4]"
+      },
+      {
+        "filled": 0.751,
+        "outlined": 0.392,
+        "tiers": "[0.5,1,2,4]"
+      },
+      {
+        "filled": 0.742,
+        "outlined": 0.757,
+        "tiers": "[1,2,3,4]"
+      },
+      {
+        "filled": 0.614,
+        "outlined": 0.669,
+        "tiers": "houseShifted [1.5,2,3,4]"
+      },
+      {
+        "filled": 0.434,
+        "outlined": 0.784,
+        "tiers": "house [0.5,1,2,3]"
+      }
+    ],
+    "filled": {
+      "max": 11.684,
+      "median": 2.5,
+      "min": 0.104,
+      "n": 7018,
+      "p10": 0.75,
+      "p25": 1,
+      "p75": 4,
+      "p90": 4
+    },
+    "filledOnTier": 0.434,
+    "filledTopRadii": [
+      {
+        "count": 2640,
+        "r": 4
+      },
+      {
+        "count": 1103,
+        "r": 2
+      },
+      {
+        "count": 1047,
+        "r": 1
+      },
+      {
+        "count": 480,
+        "r": 0.5
+      },
+      {
+        "count": 419,
+        "r": 3
+      },
+      {
+        "count": 356,
+        "r": 2.5
+      },
+      {
+        "count": 184,
+        "r": 0.25
+      },
+      {
+        "count": 149,
+        "r": 1.5
+      },
+      {
+        "count": 106,
+        "r": 0.75
+      },
+      {
+        "count": 62,
+        "r": 3.5
+      }
+    ],
+    "outlined": {
+      "max": 11.684,
+      "median": 3,
+      "min": 0.1,
+      "n": 6188,
+      "p10": 0.55,
+      "p25": 1,
+      "p75": 3,
+      "p90": 3
+    },
+    "outlinedOnTier": 0.784,
+    "outlinedTopRadii": [
+      {
+        "count": 2711,
+        "r": 3
+      },
+      {
+        "count": 915,
+        "r": 1
+      },
+      {
+        "count": 775,
+        "r": 2
+      },
+      {
+        "count": 450,
+        "r": 0.5
+      },
+      {
+        "count": 366,
+        "r": 1.5
+      },
+      {
+        "count": 286,
+        "r": 4
+      },
+      {
+        "count": 165,
+        "r": 0.25
+      },
+      {
+        "count": 88,
+        "r": 0.75
+      },
+      {
+        "count": 67,
+        "r": 2.5
+      },
+      {
+        "count": 47,
+        "r": 2.25
+      }
+    ]
+  },
+  "sample": {
+    "n": 2085,
+    "outlinedVariant": "round-outlined-radius-3-stroke-2",
+    "variant": "round-filled-radius-3-stroke-2"
+  },
+  "verdict": "The filled twin occupies the same visual extent as the outlined one in 94% of pairs, to within 0.01 units, so the keylines, the 2-unit clearance and the centring rules carry over unchanged and the \"filled icons run larger\" reading is an artefact of comparing a filled bbox against an outlined path bbox rather than against its visual extent. What does not carry over is everything about interior white: 932 of 2,085 icons knock a hole out of a solid, and no primitive can express that. Corner radii move: only 43% of filled corners land on the house tiers, because the dominant corner is the outlined tier plus half a stroke. 63% of filled solids are neither a disc nor an axis-aligned rounded rect, so a generator restricted to rect/circle/line/dot/part reaches a minority of this set however the knockout question is answered. 107 icons ship a solid buried inside another solid of a different element, where the fill rule cannot reach it and both paint currentColor — geometry that draws nothing. That is the set being inconsistent, not a rule to copy."
+}

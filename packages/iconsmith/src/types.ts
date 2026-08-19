@@ -80,11 +80,40 @@ export type DotRole = "floating" | "more" | "node" | "terminal";
  *  any stroke width, and a `part` is a reference so editing the part updates
  *  every icon that uses it. `raw` is the fidelity escape hatch for geometry the
  *  primitives cannot express. */
+/**
+ * How an icon puts ink down: stroked skeleton, or solid shape.
+ *
+ * A property of the document, never of an element — 2,078 of the 2,085 filled
+ * icons measured in `bench/filled-language.v1.json` carry no stroke anywhere,
+ * so a mixture is the set being inconsistent rather than a construction the
+ * language should offer. See `CanvasOptions.finish` for the full argument.
+ */
+export type Finish = "filled" | "outlined";
+
 export type DrawOp =
-  | { cx: number; cy: number; op: "circle"; r: number }
+  | {
+      cx: number;
+      cy: number;
+      /** Present when this shape is cut out of the solid before it rather than
+       *  drawn as ink of its own. Absent, not `false`, when it is not — like
+       *  `offAxis` and `flip`, the key appears with the geometry. Only legal
+       *  under a filled `finish`: there is no solid to cut in a stroked icon. */
+      knockout?: true;
+      op: "circle";
+      r: number;
+    }
   | { cx: number; cy: number; op: "dot"; role: DotRole }
   | { d: string; op: "raw" }
-  | { h: number; op: "rect"; r: number; w: number; x: number; y: number }
+  | {
+      h: number;
+      /** See the note on `circle`. */
+      knockout?: true;
+      op: "rect";
+      r: number;
+      w: number;
+      x: number;
+      y: number;
+    }
   | {
       /** Present when the part was reflected in x before being turned.
        *  Absent, not `false`, when it was not — like `line`'s `offAxis`, the
@@ -112,6 +141,9 @@ export type DrawOp =
 
 export interface IconDoc {
   draw: DrawOp[];
+  /** Absent means `outlined`, which is what every document written before fill
+   *  mode existed is — so the key appears only on the icons that need it. */
+  finish?: Finish;
   icon: string | null;
   keyline: Keyline | null;
   provenance?: Provenance;

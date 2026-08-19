@@ -20,10 +20,11 @@ import {
   splits,
 } from "../tools/cohort.js";
 import { format, lint } from "../tools/lint.js";
-import type { Issue, Keyline } from "../types.js";
+import type { Finish, Issue, Keyline } from "../types.js";
 import { readJson, readText } from "./read.js";
 
 const KEYLINES = ["circle", "square", "tall", "wide"];
+const FINISHES = ["outlined", "filled"];
 
 /** Read an existing SVG into a canvas as raw ops, so shipped icons can be
  *  checked without first being expressible in primitives.
@@ -94,13 +95,31 @@ export const registerLintCommand = (program: Command): void => {
     .addOption(
       new Option("-k, --keyline <name>", "assert a keyline").choices(KEYLINES)
     )
+    // A flag rather than something read off the file, and the difference
+    // matters. An icon with no stroke anywhere is not the same thing as an
+    // icon from the filled variant: about a quarter of the *outlined* variant
+    // ships as outline-expanded fills, which carry no stroke and are still
+    // stroke-mode icons. Sniffing the geometry reclassifies 500-odd of them
+    // and moves `bleed` from 57 findings to 26. Which variant a directory is
+    // is a fact about the directory, so the caller says it.
+    .addOption(
+      new Option(
+        "-f, --finish <name>",
+        "which variant these icons are: outlined (default) or filled"
+      ).choices(FINISHES)
+    )
     // No `-c`: it is `--corpus` on bench, eval, modifiers and repair, and one
     // letter meaning two things across a CLI is worse than one flag typed out.
     .option("--cohorts <file>", "JSON map of cohort name to icon names")
     .action(
       (
         args: string[],
-        opts: { cohorts?: string; dir?: string; keyline?: string }
+        opts: {
+          cohorts?: string;
+          dir?: string;
+          finish?: string;
+          keyline?: string;
+        }
       ) => {
         const json = program.opts().output === "json";
         const files = opts.dir ? iconsIn(opts.dir) : args;
@@ -112,6 +131,7 @@ export const registerLintCommand = (program: Command): void => {
           );
         }
         const keyline = (opts.keyline ?? null) as Keyline | null;
+        const finish = (opts.finish ?? "outlined") as Finish;
         const manifest = opts.cohorts ? readManifest(opts.cohorts) : undefined;
 
         const drawn = files.map((file) => ({
@@ -144,6 +164,7 @@ export const registerLintCommand = (program: Command): void => {
                 ...e,
                 strokeWidth: d.strokes[i],
               })),
+              finish,
             },
             { cohort: viewFor(d.name), keyline }
           ),

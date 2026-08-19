@@ -19,7 +19,7 @@ import type { CohortTarget } from "../tools/cohort.js";
 import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
-import type { DotRole, Issue, Keyline, Part } from "../types.js";
+import type { DotRole, Finish, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
@@ -38,6 +38,14 @@ export interface ToolsOptions {
    * than something review has to notice.
    */
   corpus?: Reference[];
+  /**
+   * Stroked skeleton or solid shape. Decided by the caller, not by the model:
+   * the finish is which variant of a set is being drawn, so it is a property
+   * of the run in the same way the keyline and the cohort are. It also decides
+   * which tools exist — `hole` appears only when it is `filled`, and `line`
+   * disappears, because an open polyline paints nothing under a fill.
+   */
+  finish?: Finish;
   /** Fixed keyline; `fit` uses it when the model does not name one. */
   keyline?: Keyline | null;
   /** Pixel size for `render`. 96 is four times the design size: big enough to
@@ -149,12 +157,13 @@ export const createTools = (options: ToolsOptions = {}) => {
   const {
     cohort = null,
     corpus = [],
+    finish = "outlined",
     keyline = null,
     parts = [],
     proposal = null,
     renderSize = 96,
   } = options;
-  const canvas = new Canvas(parts);
+  const canvas = new Canvas(parts, { finish });
   const state: ToolState = {
     calls: [],
     issues: null,
@@ -283,6 +292,66 @@ export const createTools = (options: ToolsOptions = {}) => {
           return { bbox: canvas.bbox(), keyline: used };
         }),
       inputSchema: z.object({ keyline: z.enum(KEYLINE_NAMES).optional() }),
+    }),
+
+    hole: tool({
+      description:
+        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
+      execute: ({ cutFrom, cx, cy, h, r, shape, w, x, y }) =>
+        track("hole", () => {
+          // The two shapes take different fields, so the schema is flat and
+          // the pairing is checked here. A discriminated union in the schema
+          // would say it once instead — but it lands in the wire format as a
+          // top-level `anyOf`, which not every provider will accept for a tool.
+          const want = (v: number | undefined, name: string): number => {
+            if (v === undefined) {
+              throw new Error(`hole ${shape} needs ${name}`);
+            }
+            return v;
+          };
+          return placed(
+            canvas,
+            canvas.hole(
+              shape === "circle"
+                ? {
+                    cutFrom,
+                    cx: want(cx, "cx"),
+                    cy: want(cy, "cy"),
+                    r: want(r, "r"),
+                    shape: "circle",
+                  }
+                : {
+                    cutFrom,
+                    h: want(h, "h"),
+                    r,
+                    shape: "rect",
+                    w: want(w, "w"),
+                    x: want(x, "x"),
+                    y: want(y, "y"),
+                  }
+            )
+          );
+        }),
+      inputSchema: z.object({
+        cutFrom: z
+          .string()
+          .optional()
+          .describe("id of the solid to cut; defaults to the most recent one"),
+        cx: coord.optional().describe("circle only"),
+        cy: coord.optional().describe("circle only"),
+        h: z.number().positive().optional().describe("rect only"),
+        r: z
+          .number()
+          .min(0)
+          .optional()
+          .describe(
+            `radius: the circle's, or a rect's corners. Filled tiers: ${SPEC.fillRadiusTiers.join(", ")}`
+          ),
+        shape: z.enum(["rect", "circle"]),
+        w: z.number().positive().optional().describe("rect only"),
+        x: coord.optional().describe("rect only"),
+        y: coord.optional().describe("rect only"),
+      }),
     }),
 
     line: tool({
@@ -474,7 +543,9 @@ export const createTools = (options: ToolsOptions = {}) => {
           .number()
           .min(0)
           .optional()
-          .describe(`tiers: ${SPEC.radiusTiers.join(", ")}`),
+          .describe(
+            `tiers: ${(finish === "filled" ? SPEC.fillRadiusTiers : SPEC.radiusTiers).join(", ")}`
+          ),
         w: z.number().positive(),
         x: coord,
         y: coord,
@@ -529,6 +600,17 @@ export const createTools = (options: ToolsOptions = {}) => {
   }
   if (!proposal) {
     Reflect.deleteProperty(tools, "proposal");
+  }
+  // Same doctrine, applied to the finish. A stroked icon has no solid to cut,
+  // and in a filled one an open polyline encloses no area and so paints
+  // nothing at all — both calls are refused by the canvas, and a tool that can
+  // only refuse costs a step to learn what the tool set could have said for
+  // free. `line`'s absence is also the strongest hint available that a filled
+  // shape is drawn as the region it covers, not as the strokes it would have.
+  if (finish === "filled") {
+    Reflect.deleteProperty(tools, "line");
+  } else {
+    Reflect.deleteProperty(tools, "hole");
   }
 
   return { canvas, state, tools };
