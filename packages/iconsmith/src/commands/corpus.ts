@@ -57,6 +57,9 @@ const statsText = (r: StatsReport): string => {
   const lines = [
     `${r.records.toLocaleString()} record(s), ${r.renderings.toLocaleString()} rendering(s), built ${r.builtAt}`,
     `  conditioning: ${(r.usage.conditioning ?? 0).toLocaleString()}   analysis-only: ${(r.usage["analysis-only"] ?? 0).toLocaleString()}`,
+    // Canonical icons only. A direction variant is not supposed to answer a
+    // question of its own, and counting it would put the ceiling out of reach.
+    `  concepts: ${r.concepts.covered.toLocaleString()}/${r.concepts.canonical.toLocaleString()} canonical icons (${(r.concepts.coverage * 100).toFixed(1)}%)`,
   ];
   for (const s of r.bySet) {
     const conf = Object.entries(s.conformance)

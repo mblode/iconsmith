@@ -246,3 +246,39 @@ describe("stats", () => {
     expect(stats.vectors).toBe(false);
   });
 });
+
+describe("one question, one answer", () => {
+  test("check fails when a concept names two icons", async () => {
+    // `_concepts.json`'s own shape makes this unrepresentable in the file, so
+    // the only way it reaches a store is a merge or a hand-edit. That is
+    // exactly when the build has to stop: the whole value of the concept table
+    // is that "which icon for X?" has one answer.
+    const { out, sources } = await fixture({
+      "outline/a.svg": icon("M4 4H20"),
+      "outline/b.svg": icon("M4 4H19"),
+    });
+    await buildCorpus({ out, sources });
+    const store = path.join(out, "icons.jsonl");
+    const records = await readRecords(out);
+    await writeFile(
+      store,
+      `${records
+        .map((r) => JSON.stringify({ ...r, concepts: ["thing"] }))
+        .join("\n")}\n`
+    );
+    const report = await checkCorpus({ out, sources });
+    expect(report.ok).toBe(false);
+    expect(report.issues.map((i) => i.kind)).toContain("duplicate-concept");
+    expect(report.issues.at(-1)?.detail).toContain("fixture/a");
+  });
+
+  test("a store with no house records reports no canonical icons rather than a wrong ratio", async () => {
+    const { out, sources } = await fixture({
+      "outline/a.svg": icon("M4 4H20"),
+    });
+    await buildCorpus({ out, sources });
+    const stats = await corpusStats({ out, sources });
+    expect(stats.concepts.canonical).toBe(0);
+    expect(stats.concepts.coverage).toBe(1);
+  });
+});

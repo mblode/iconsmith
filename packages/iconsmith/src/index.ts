@@ -3,6 +3,17 @@ export { auditIcon, freeformShare, onAxisShare } from "./corpus/audit.js";
 export { buildCorpus, checkCorpus, corpusStats } from "./corpus/build.js";
 export { census, nameElement } from "./corpus/census.js";
 export {
+  assignRoles,
+  coverageOf,
+  duplicateConcepts,
+  headOf,
+  houseVocabulary,
+  proposeConcepts,
+  rankGaps,
+  slugifyTag,
+  unnumbered,
+} from "./corpus/concepts.js";
+export {
   HOUSE_VARIANT,
   loadCorpus,
   parseIconSvg,
@@ -42,6 +53,10 @@ export {
   generate,
   MissingApiKeyError,
 } from "./pipeline/generate.js";
+// The gate, exported so a caller outside the package builds references the same
+// way this one does. `asReference` is the sole constructor of `Reference`; there
+// is no route around it from out here either.
+export { asReference, asReferences, LicenceError } from "./pipeline/licence.js";
 export { Canvas, SPEC } from "./tools/canvas.js";
 export {
   buildCohorts,
@@ -100,6 +115,20 @@ export type {
   StatsReport,
 } from "./corpus/build.js";
 export type {
+  ConceptConflict,
+  ConceptCoverage,
+  ConceptDuplicate,
+  ConceptIcon,
+  ConceptProposal,
+  ConceptRole,
+  ConceptSource,
+  GapEntry,
+  GapOptions,
+  ProposalReport,
+  ProposeOptions,
+  RoleAssignment,
+} from "./corpus/concepts.js";
+export type {
   Corpus,
   CorpusIcon,
   CorpusShape,
@@ -113,6 +142,14 @@ export type {
   VectorRef,
 } from "./corpus/record.js";
 export type { Source, SourceFile } from "./corpus/sources.js";
+export type {
+  ConditioningProvenance,
+  EvalIcon,
+  EvalOptions,
+  EvalReport,
+} from "./pipeline/eval.js";
+export type { Licensed, Reference, ReferenceIcon } from "./pipeline/licence.js";
+export type { Concept } from "./pipeline/prompt.js";
 export type {
   Corner,
   Distribution,

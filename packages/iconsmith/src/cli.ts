@@ -3,6 +3,7 @@ import { styleText } from "node:util";
 import { Command } from "commander";
 
 import { registerAuditCommands } from "./commands/audit.js";
+import { registerConceptsCommand } from "./commands/concepts.js";
 import { registerConformCommand } from "./commands/conform.js";
 import { registerCorpusCommands } from "./commands/corpus.js";
 import { registerDrawCommand } from "./commands/draw.js";
@@ -33,6 +34,7 @@ registerConformCommand(program);
 registerNewCommand(program);
 registerAuditCommands(program);
 registerCorpusCommands(program);
+registerConceptsCommand(program);
 
 try {
   await program.parseAsync();

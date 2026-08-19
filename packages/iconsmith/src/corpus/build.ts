@@ -55,6 +55,8 @@ import path from "node:path";
 import type { CohortManifest } from "../tools/cohort.js";
 import { cohortOf } from "../tools/cohort.js";
 import { inkVector } from "../tools/render.js";
+import type { ConceptCoverage, ConceptIcon } from "./concepts.js";
+import { assignRoles, coverageOf, duplicateConcepts } from "./concepts.js";
 import type { IconRecord, Rendering, VectorRef } from "./record.js";
 import {
   buildRecord,
@@ -67,6 +69,13 @@ import { availableSources, SOURCES } from "./sources.js";
 
 const RECORDS = "icons.jsonl";
 const MANIFEST = "manifest.json";
+/** The one set with editorial metadata, and the only one concept coverage is
+ *  reported for: Central's 2,085 slugs are all already among blode's 2,221, so
+ *  a concept there would be blode's answer wearing another set's name. */
+const HOUSE_SET = "blode-icons";
+/** Where that metadata lives under the house set's root. */
+const HOUSE_DATA = "icons-data";
+const COHORTS = "_cohorts.json";
 const FINGERPRINTS = "fingerprints.f32";
 const INK = "ink.f32";
 
@@ -276,7 +285,7 @@ export interface SourceMetadata {
 const blodeMetadata = async (
   root: string
 ): Promise<(slug: string) => SourceMetadata> => {
-  const dir = path.join(root, "icons-data");
+  const dir = path.join(root, HOUSE_DATA);
   const entries = await readdir(dir);
   const files = entries
     .filter((f) => f.endsWith(".json") && !f.startsWith("_"))
@@ -333,6 +342,34 @@ const metadataFor = async (
   source.id === "blode-icons"
     ? await blodeMetadata(root)
     : (slug: string) => ({ cohort: cohortOf(slug) });
+
+/**
+ * The house set's cohort manifest, read back at report time.
+ *
+ * A record's `cohort` is a string and says nothing about where it came from,
+ * but the difference is load-bearing for concept coverage: a *stated* cohort of
+ * two or more icons has one canonical, and an *inferred* prefix does not —
+ * `square` lumps 38 icons from `square-arrow-down` to `square-user`, and
+ * treating that as one family would answer four questions with one icon. So the
+ * manifest is the evidence, and this reads it from the root the store recorded
+ * rather than from a second hard-coded path.
+ */
+const houseCohorts = async (
+  manifest: Manifest,
+  sources: readonly Source[]
+): Promise<CohortManifest> => {
+  const recorded = manifest.sources.find((s) => s.id === HOUSE_SET);
+  const root =
+    recorded?.root ?? sources.find((s) => s.id === HOUSE_SET)?.root ?? "";
+  if (root === "") {
+    return {};
+  }
+  return (
+    (await readJson<CohortManifest>(
+      path.join(path.resolve(root), HOUSE_DATA, COHORTS)
+    )) ?? {}
+  );
+};
 
 const versionOf = async (
   source: Source,
@@ -660,9 +697,35 @@ export const buildCorpus = async ({
 
 export interface CheckIssue {
   detail: string;
-  kind: "missing-source" | "no-store" | "schema" | "tree-hash";
+  kind:
+    | "duplicate-concept"
+    | "missing-source"
+    | "no-store"
+    | "schema"
+    | "tree-hash";
   source: string | null;
 }
+
+/**
+ * A concept that names two icons, which is the one thing this store is not
+ * allowed to say.
+ *
+ * `_concepts.json`'s own shape — concept → slug — makes a duplicate
+ * unrepresentable in the file, so this can only fire on a store built from a
+ * merged or hand-edited map. That is exactly when it needs to: the whole value
+ * of the file is that one question has one answer, and the point at which a
+ * proposal batch is blessed is the point at which two could arrive.
+ */
+const conceptIssues = (records: readonly IconRecord[]): CheckIssue[] =>
+  duplicateConcepts(
+    records.flatMap((r) =>
+      r.concepts.map((concept) => ({ concept, slug: r.id }))
+    )
+  ).map((d) => ({
+    detail: `Concept "${d.concept}" maps to ${d.slugs.length} icons: ${d.slugs.join(", ")}. One question, one answer — pick one.`,
+    kind: "duplicate-concept" as const,
+    source: null,
+  }));
 
 export interface CheckReport {
   issues: CheckIssue[];
@@ -758,6 +821,19 @@ export const checkCorpus = async ({
     results.push({ id: source.id, ok, treeHash });
   }
 
+  // Records, not the source metadata: what the store *says* is what downstream
+  // reads, and a duplicate introduced by a merge would otherwise only be found
+  // by whoever hit the wrong icon.
+  const text = await readFile(path.join(dir, RECORDS), "utf-8").catch(() => "");
+  issues.push(
+    ...conceptIssues(
+      text
+        .split("\n")
+        .filter((l) => l.length > 0)
+        .map((l) => JSON.parse(l) as IconRecord)
+    )
+  );
+
   return { issues, ok: issues.length === 0, sources: results };
 };
 
@@ -778,6 +854,11 @@ export interface StatsReport {
     usage: string;
     withConcept: number;
   }[];
+  /** Concept coverage of the house set's canonical icons. The denominator is
+   *  canonical icons only: a direction variant is not supposed to answer a
+   *  question of its own, and counting it would put the ceiling out of reach by
+   *  construction. */
+  concepts: ConceptCoverage;
   records: number;
   renderings: number;
   /** Records the generator may learn from, and records it may not. */
@@ -789,7 +870,11 @@ export interface StatsReport {
  *  JSONL is cheaper than the machinery to avoid reading it. */
 export const corpusStats = async ({
   out = ".corpus",
-}: { out?: string } = {}): Promise<StatsReport> => {
+  sources = SOURCES,
+}: {
+  out?: string;
+  sources?: readonly Source[];
+} = {}): Promise<StatsReport> => {
   const dir = path.resolve(out);
   const manifest = await readJson<Manifest>(path.join(dir, MANIFEST));
   if (!manifest) {
@@ -805,6 +890,7 @@ export const corpusStats = async ({
   const sets = new Map<string, StatsReport["bySet"][number]>();
   const usage: Record<string, number> = {};
   const edges = new Map<string, { off: number; total: number }>();
+  const house: ConceptIcon[] = [];
   let records = 0;
   let renderings = 0;
 
@@ -837,6 +923,15 @@ export const corpusStats = async ({
     if (rec.concepts.length > 0) {
       set.withConcept += 1;
     }
+    if (rec.set === HOUSE_SET) {
+      house.push({
+        cohort: rec.cohort,
+        concepts: rec.concepts,
+        set: rec.set,
+        slug: rec.slug,
+        tags: rec.tags,
+      });
+    }
     // The canonical rendering stands for the identity; averaging conformance
     // over 30 finishes of one drawing would weight Central 30× and say more
     // about how many strokes it ships than about how it draws.
@@ -856,9 +951,11 @@ export const corpusStats = async ({
       e.total === 0 ? null : Math.round((e.off / e.total) * 1e4) / 1e4;
   }
 
+  const cohorts = await houseCohorts(manifest, sources);
   return {
     builtAt: manifest.builtAt,
     bySet: [...sets.values()].toSorted((a, b) => a.id.localeCompare(b.id)),
+    concepts: coverageOf(house, assignRoles(house, cohorts)),
     records,
     renderings,
     usage,
