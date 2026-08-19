@@ -23,13 +23,15 @@ grid points — but they are asked for, not arrived at: pass
 \`offAxis: true\` (\`off-axis\` in the DSL) if that is the shape, or
 move an endpoint onto the axis.`;
 
-const STATS = [
-  { label: "icons measured to derive the house spec", value: "2,085" },
-  { label: "of stroked shapes use stroke 2", value: "97.5%" },
+const SCALE = [
+  { note: "a random icon scored against the target", term: "floor" },
   {
-    label: "of 6,188 measured corners land exactly on the radius tiers",
-    value: "78.4%",
+    lead: true,
+    note: "the measured median between two mature icon sets drawing the same concept",
+    term: "baseline 0.737",
   },
+  { note: "what the pipeline scored", term: "treatment" },
+  { note: "pixel identity", term: "ceiling 1.0" },
 ];
 
 const Section = ({
@@ -55,7 +57,7 @@ const Home = () => (
       <ZoneBreadcrumb product={SITE_NAME} />
 
       <header>
-        <p className="font-mono text-foreground/50 text-xs uppercase tracking-widest">
+        <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
           Pre-release
         </p>
 
@@ -63,16 +65,15 @@ const Home = () => (
           Icon generation that cannot drift.
         </h1>
 
-        <p className="mt-6 max-w-[62ch] text-balance text-foreground/70 text-lg leading-relaxed">
-          Because the model never emits a coordinate. Iconsmith gives it five primitives:{" "}
+        <p className="mt-6 max-w-[58ch] text-balance text-lg text-muted-foreground leading-relaxed">
+          The model never emits a coordinate. It gets five primitives:{" "}
           <code className="font-mono text-sm">rect</code>,{" "}
           <code className="font-mono text-sm">circle</code>,{" "}
           <code className="font-mono text-sm">line</code>,{" "}
-          <code className="font-mono text-sm">dot</code>,{" "}
-          <code className="font-mono text-sm">part</code>. Every node quantises to a 0.25 grid,
-          every corner radius comes from a measured tier, every part lands on a named quarter turn.
-          Free path data is not something the model can express, so drift is not something it can
-          write.
+          <code className="font-mono text-sm">dot</code> and{" "}
+          <code className="font-mono text-sm">part</code>. It picks what to draw and where. The
+          library picks how, so every node lands on the grid and every radius comes from a measured
+          tier. It can&apos;t express free path data, so it can&apos;t write drift.
         </p>
 
         <div className="mt-10">
@@ -80,48 +81,39 @@ const Home = () => (
         </div>
       </header>
 
-      <Section title="A model calling rect() cannot drift. One emitting path data always will.">
-        <p className="max-w-[62ch] text-foreground/70 leading-relaxed">
-          That is the whole idea. A model writing raw path data introduces drift into a set at the
-          rate it writes icons, and every icon it adds is a little further from the ones before it.
-          The library decides how a shape is drawn; the model only decides what to draw and where.
-        </p>
-      </Section>
-
       <Section title="Five lines, and not one number the model chose">
-        <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-center">
-          <pre className="overflow-x-auto rounded-lg bg-foreground/5 p-5 font-mono text-sm leading-relaxed">
+        <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-stretch">
+          <pre className="overflow-x-auto rounded-2xl bg-code p-5 font-mono text-code-foreground text-sm leading-relaxed">
             <code>{PROGRAM}</code>
           </pre>
-          <div className="flex items-center justify-center rounded-lg bg-foreground/5 p-8">
-            <SquareCheckIcon className="h-24 w-24 text-foreground" />
+          <div className="flex items-center justify-center rounded-2xl bg-surface p-8 shadow-xs">
+            <SquareCheckIcon className="size-24 text-foreground" />
           </div>
         </div>
-        <p className="mt-4 max-w-[62ch] text-foreground/60 text-sm leading-relaxed">
-          No coordinate the model invented, no radius it picked, no angle it guessed.{" "}
-          <code className="font-mono">fit</code> and <code className="font-mono">center</code> exist
-          so it never does spatial arithmetic: keyline scaling is a pure function of the content, so
-          the library does it exactly.
+        <p className="mt-4 max-w-[58ch] text-muted-foreground text-sm leading-relaxed">
+          <code className="font-mono">fit</code> and <code className="font-mono">center</code> are
+          there so the model never does spatial arithmetic. Scaling to the keyline is a pure
+          function of the content, so the library does it exactly.
         </p>
       </Section>
 
-      <Section title="And when you ask for something off-spec, it says no in full">
-        <pre className="overflow-x-auto rounded-lg border border-border bg-foreground/[0.03] p-5 font-mono text-xs leading-relaxed sm:text-sm">
+      <Section title="Ask for something off-spec and it says no, at length">
+        <pre className="overflow-x-auto rounded-2xl bg-code p-5 font-mono text-code-foreground text-xs leading-relaxed sm:text-sm">
           <code>{REFUSAL}</code>
         </pre>
-        <p className="mt-4 max-w-[62ch] text-foreground/60 text-sm leading-relaxed">
-          The escape exists. It has to be asked for by name, and it stays visible in review.
-          Off-axis edges are not a bug to stamp out: they are 29.3% of the set, and they sit on
-          rational slopes because the edge runs between two grid points. Refusing them all would
-          refuse a third of the corpus.
+        <p className="mt-4 max-w-[58ch] text-muted-foreground text-sm leading-relaxed">
+          The escape is real. You just have to ask for it by name, and it stays visible in review.
+          Off-axis edges aren&apos;t a bug to stamp out. They&apos;re 29.3% of the set, and they sit
+          on rational slopes because the edge runs between two grid points. Refusing all of them
+          would refuse a third of the corpus.
         </p>
       </Section>
 
       <Section id="vocabulary" title="It learns your set's vocabulary, then draws in it">
-        <p className="max-w-[62ch] text-foreground/70 leading-relaxed">
+        <p className="max-w-[58ch] text-muted-foreground leading-relaxed">
           <code className="font-mono text-sm">iconsmith parts</code> clusters every subpath in a set
-          into reusable marks: 199 parts across 1,863 icons, the top 50 covering 86% of instances,
-          61 of them named by hand. Nothing can reason about{" "}
+          into reusable marks. Over blode-icons that&apos;s 199 parts across 1,863 icons, the top 50
+          covering 86% of instances, 61 of them named by hand. Nothing can reason about{" "}
           <code className="font-mono text-sm">p0031</code>. Everything can reason about{" "}
           <code className="font-mono text-sm">cloud</code>.
         </p>
@@ -131,62 +123,44 @@ const Home = () => (
       </Section>
 
       <Section title="The house spec is measured, not asserted">
-        <dl className="grid gap-6 sm:grid-cols-3">
-          {STATS.map((stat) => (
-            <div key={stat.value}>
-              <dt className="font-heading font-medium text-3xl">{stat.value}</dt>
-              <dd className="mt-2 text-balance text-foreground/60 text-sm leading-relaxed">
-                {stat.label}
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-8 max-w-[62ch] text-foreground/70 leading-relaxed">
-          Those radius tiers match 78.4% of measured corners exactly. The values written from the
-          Cursor article the spec started as matched 23.9%.
+        <p className="max-w-[58ch] text-muted-foreground leading-relaxed">
+          I derived every constant from 2,085 icons. 97.5% of stroked shapes use stroke 2. The
+          radius tiers match 78.4% of the 6,188 corners I measured. The values I&apos;d written from
+          the Cursor article matched 23.9%.
         </p>
-        <blockquote className="mt-6 border-foreground/20 border-l-2 pl-5 font-heading text-xl italic leading-snug">
-          Cursor is the inspiration; the corpus is the specification.
+        <blockquote className="mt-6 border-border border-l-2 pl-5 font-heading text-xl italic leading-snug">
+          Cursor is the inspiration. The corpus is the specification.
         </blockquote>
       </Section>
 
       <Section title="Four numbers, never one">
         <dl className="max-w-lg divide-y divide-border">
-          {[
-            { k: "floor", v: "a random icon scored against the target" },
-            {
-              highlight: true,
-              k: "baseline 0.737",
-              v: "the measured median between two mature icon sets drawing the same concept",
-            },
-            { k: "treatment", v: "what the pipeline scored" },
-            { k: "ceiling 1.0", v: "pixel identity" },
-          ].map((row) => (
+          {SCALE.map((row) => (
             <div
               className={`flex flex-col gap-1 py-3 sm:flex-row sm:gap-6 ${
-                row.highlight ? "font-medium" : "text-foreground/60"
+                row.lead ? "font-medium" : "text-muted-foreground"
               }`}
-              key={row.k}
+              key={row.term}
             >
-              <dt className="shrink-0 font-mono text-sm sm:w-40">{row.k}</dt>
-              <dd className="text-sm leading-relaxed">{row.v}</dd>
+              <dt className="shrink-0 font-mono text-sm sm:w-40">{row.term}</dt>
+              <dd className="text-sm leading-relaxed">{row.note}</dd>
             </div>
           ))}
         </dl>
-        <p className="mt-6 max-w-[62ch] text-foreground/70 leading-relaxed">
-          Every eval prints all four. A score above 0.95 is flagged{" "}
+        <p className="mt-6 max-w-[58ch] text-muted-foreground leading-relaxed">
+          Every eval prints all four. Anything above 0.95 gets flagged{" "}
           <span className="font-mono text-sm">SUSPECT</span>, because at that point the harness is
-          comparing something to itself rather than succeeding.
+          comparing something to itself.
         </p>
       </Section>
 
       <section className="border-border border-t pt-12">
         <h2 className="max-w-[24ch] text-balance font-heading font-medium text-3xl leading-[1.15] sm:text-4xl">
-          Iconsmith is not on npm yet.
+          It&apos;s not on npm yet.
         </h2>
-        <p className="mt-4 max-w-[58ch] text-foreground/70 leading-relaxed">
-          It is one person&apos;s tool that outgrew its own icon set. Leave an address and I will
-          send one email the day it is installable.
+        <p className="mt-4 max-w-[54ch] text-muted-foreground leading-relaxed">
+          This started as one tool that outgrew its own icon set. Leave an address and I&apos;ll
+          send one email the day you can install it.
         </p>
         <div className="mt-8">
           <NewsletterForm />

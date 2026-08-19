@@ -38,7 +38,7 @@ export const VocabularyGrid = () => (
             />
           </g>
         </svg>
-        <span className="text-center font-mono text-foreground/60 text-xs">{part.name}</span>
+        <span className="text-center font-mono text-muted-foreground text-xs">{part.name}</span>
       </li>
     ))}
   </ul>

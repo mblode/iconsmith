@@ -1,12 +1,63 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
   --color-background: #eeeae2;
   --color-foreground: #173033;
   --font-sans: var(--font-glide);
   --font-mono: var(--font-glide-mono);
   --font-heading: var(--font-glide);
+  --field-height: 48px;
+  --field-height-sm: 40px;
+  --field-padding-x: 1rem;
+  --field-padding-y: 12px;
+  --field-radius: var(--radius-2xl);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --shadow-input: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-lg:
+    0 0 0 1px rgba(51, 51, 51, 0.04), 0 1px 1px 0.5px rgba(51, 51, 51, 0.04),
+    0 3px 3px -1.5px rgba(51, 51, 51, 0.02), 0 6px 6px -3px rgba(51, 51, 51, 0.04),
+    0 12px 12px -6px rgba(51, 51, 51, 0.04), 0 24px 24px -12px rgba(51, 51, 51, 0.04),
+    0 48px 48px -24px rgba(51, 51, 51, 0.04), 0 96px 96px -32px rgba(51, 51, 51, 0.06),
+    inset 0 -1px 1px -0.5px rgba(51, 51, 51, 0.06);
+  --shadow-md:
+    0 0 0 1px rgba(51, 51, 51, 0.04), 0 1px 1px 0.5px rgba(51, 51, 51, 0.04),
+    0 3px 3px -1.5px rgba(51, 51, 51, 0.02), 0 6px 6px -3px rgba(51, 51, 51, 0.04),
+    0 12px 12px -6px rgba(51, 51, 51, 0.04), 0 24px 24px -12px rgba(51, 51, 51, 0.04),
+    0 48px 48px -24px rgba(51, 51, 51, 0.04), inset 0 -1px 1px -0.5px rgba(51, 51, 51, 0.06);
+  --shadow-popover:
+    0 24px 40px -12px oklch(0.255 0.078 116.06 / 0.08),
+    0 16px 28px -8px oklch(0.255 0.078 116.06 / 0.04),
+    0 4px 6px -2px oklch(0.255 0.078 116.06 / 0.04), 0 0 2px 0 oklch(0.255 0.078 116.06 / 0.04),
+    0 0 0 1px oklch(0.255 0.078 116.06 / 0.04);
+  --shadow-sm:
+    0 0 0 1px rgba(51, 51, 51, 0.04), 0 16px 8px -8px rgba(51, 51, 51, 0.01),
+    0 12px 6px -6px rgba(51, 51, 51, 0.02), 0 5px 5px -2.5px rgba(51, 51, 51, 0.08),
+    0 1px 3px -1.5px rgba(51, 51, 51, 0.16), inset 0 -0.5px 0.5px rgba(51, 51, 51, 0.08);
+  --shadow-soft: 0 15px 50px 0 rgba(27, 32, 50, 0.1);
+  --shadow-xs:
+    0 0 0 1px rgba(51, 51, 51, 0.04), 0 4px 8px -2px rgba(51, 51, 51, 0.06),
+    0 2px 4px rgba(51, 51, 51, 0.04), 0 1px 2px rgba(51, 51, 51, 0.04),
+    inset 0 -1px 1px -0.5px rgba(51, 51, 51, 0.06);
+  --textarea-min-height: 70px;
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning: var(--warning);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-surface: var(--surface);
+  --color-success-foreground: var(--success-foreground);
+  --color-success: var(--success);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-overlay: var(--overlay);
+  --color-input-hover: var(--input-hover);
+  --color-code-foreground: var(--code-foreground);
+  --color-code: var(--code);
 }
 
 :root {
@@ -23,6 +74,17 @@
   --slide-nav-line: color-mix(in oklab, var(--slide-nav-fg) 16%, transparent);
   --slide-nav-hover: color-mix(in oklab, var(--slide-nav-fg) 8%, transparent);
   --slide-focus: #0c7e88;
+  --code: oklch(0.98 0 0);
+  --code-foreground: oklch(0.145 0 0);
+  --input-hover: oklch(0.87 0 0);
+  --overlay: oklch(0.832 0.015 251.2 / 0.7);
+  --placeholder-foreground: oklch(0.556 0 0);
+  --success: oklch(0.527 0.154 150.069);
+  --success-foreground: oklch(1 0 0);
+  --surface: oklch(0.98 0 0);
+  --surface-foreground: oklch(0.145 0 0);
+  --warning: oklch(0.681 0.162 75.834);
+  --warning-foreground: oklch(0.286 0.066 53.813);
 }
 
 [data-deck="ship"] {
@@ -106,4 +168,31 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.dark {
+  --code: oklch(0.2 0 0);
+  --code-foreground: oklch(0.708 0 0);
+  --input-hover: oklch(1 0 0 / 25%);
+  --overlay: oklch(0.326 0.03 258.3 / 0.7);
+  --placeholder-foreground: oklch(0.708 0 0);
+  --success: oklch(0.723 0.219 149.579);
+  --success-foreground: oklch(0.266 0.065 152.934);
+  --surface: oklch(0.2 0 0);
+  --surface-foreground: oklch(0.708 0 0);
+  --warning: oklch(0.795 0.184 86.047);
+  --warning-foreground: oklch(0.286 0.066 53.813);
+}
+
+@utility tabular-figures {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }

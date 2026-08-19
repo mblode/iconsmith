@@ -134,7 +134,7 @@ export const NewsletterForm = () => {
         </output>
       </form>
 
-      <p className="mt-3 pl-4 text-foreground/60 text-sm">
+      <p className="mt-3 pl-4 text-muted-foreground text-sm">
         One email, when it ships. Nothing else.
       </p>
     </div>

@@ -1,32 +1,57 @@
-import { REPO_URL } from "@/lib/site-url";
+import { asset, siteConfig } from "@/lib/site-url";
 
-/**
- * Zone rule 1: blode.co/iconsmith is the same origin as blode.co, so the credit
- * is an internal link. Same tab, and no `rel="noopener noreferrer"`, which only
- * means something cross-origin.
- *
- * An absolute href rather than `next/link` with `/`: a bare `/` is not
- * basePath-prefixed, so it would point at blode.co's own home page from a
- * preview deployment and at the wrong place from the zone origin.
- *
- * The GitHub link is genuinely off site and keeps both.
- */
 export const SiteFooter = () => (
-  <footer className="mx-auto w-full max-w-[900px] px-6 py-16 text-sm">
-    <p className="text-foreground/60">
-      Built by{" "}
-      <a className="underline underline-offset-2" href="https://blode.co" rel="author">
+  <footer className="flex flex-col items-center justify-center gap-2 pt-16 pb-8 text-muted-foreground text-sm">
+    {/*
+      blode.co and blode.co/projects are this same origin behind a rewrite, so
+      both are internal links: same tab, and no rel="noopener noreferrer", which
+      only means something cross-origin. The projects link is the edge back to
+      the hub, without which this zone is a dead end for crawlers and readers.
+      See blode-co/apps/web/.claude/knowledge/zone-conventions.md.
+    */}
+    <div className="flex items-center gap-1">
+      Crafted by
+      <a
+        className="flex items-center gap-2 rounded-full py-1.5 pr-2.5 pl-1.5 transition-colors hover:text-foreground"
+        href={siteConfig.links.author}
+        rel="author"
+      >
+        {/* oxlint-disable-next-line nextjs/no-img-element -- self-hosted 20px avatar, plain img avoids next/image overhead */}
+        <img
+          alt="Avatar of Matthew Blode"
+          className="rounded-full"
+          height={20}
+          src={asset("/avatar-sm.png")}
+          width={20}
+        />
         Matthew Blode
       </a>
-      {". "}
+    </div>
+    <div className="flex items-center gap-3 text-muted-foreground/30">
       <a
-        className="underline underline-offset-2"
-        href={REPO_URL}
+        className="text-muted-foreground transition-colors hover:text-foreground"
+        href="https://blode.co/projects"
+      >
+        All projects
+      </a>
+      <span aria-hidden="true">·</span>
+      <a
+        className="text-muted-foreground transition-colors hover:text-foreground"
+        href={siteConfig.links.github}
         rel="noopener noreferrer"
         target="_blank"
       >
         GitHub
       </a>
-    </p>
+      <span aria-hidden="true">·</span>
+      <a
+        className="text-muted-foreground transition-colors hover:text-foreground"
+        href={siteConfig.links.npm}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        npm
+      </a>
+    </div>
   </footer>
 );

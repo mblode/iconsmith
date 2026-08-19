@@ -40,7 +40,7 @@ const Outcome = async ({ searchParams }: { searchParams: Promise<{ status?: stri
 const Subscribed = ({ searchParams }: { searchParams: Promise<{ status?: string }> }) => (
   <div className="min-h-screen py-24" id="main" tabIndex={-1}>
     <section className="mx-auto w-full max-w-[900px] px-6 pt-12">
-      <Suspense fallback={<div className="h-28 animate-pulse rounded-md bg-foreground/5" />}>
+      <Suspense fallback={<div className="h-28 animate-pulse rounded-2xl bg-muted" />}>
         <Outcome searchParams={searchParams} />
       </Suspense>
 
