@@ -1,18 +1,24 @@
 "use server";
 
-import { ConfirmSubscriptionEmail } from "@/emails/confirm-subscription";
 import { clientIp, rateLimit, verifyTurnstile } from "@/lib/request-guards";
 import { getResend } from "@/lib/resend";
-import { SITE_URL } from "@/lib/site-url";
-import { createSubscriptionToken } from "@/lib/subscription-token";
 import { newsletterFormSchema } from "@/lib/validations/newsletter";
 
 const MAX_SIGNUPS_PER_HOUR = 3;
 
 /**
- * Step one of confirmed opt-in: verify the submitter is human, then email the
- * address a signed confirmation link. Nothing is written to the audience here.
- * `app/api/confirm` does that once the recipient proves they own the address.
+ * Single opt-in: the address goes straight into the segment.
+ *
+ * There is no confirmation step, so nothing here proves the submitter owns the
+ * address they typed. Turnstile and the per-IP hourly limit are the only things
+ * standing between this and an open write to the audience, which makes them
+ * load-bearing rather than decorative: `verifyTurnstile` already fails closed
+ * on a missing secret, and it must stay that way.
+ *
+ * The tradeoff is deliberate and was asked for. The cost lands on the sending
+ * domain, which is shared with every other blode.co send: an address typed
+ * wrong, or typed by someone else, is now a real contact that can bounce or
+ * mark spam.
  */
 export const subscribeToNewsletter = async (formData: FormData) => {
   const ip = await clientIp();
@@ -33,22 +39,26 @@ export const subscribeToNewsletter = async (formData: FormData) => {
     return { error: "Please enter a valid email address." };
   }
 
-  const { email } = validated.data;
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+
+  if (!segmentId) {
+    console.error("RESEND_SEGMENT_ID is not set");
+    return { error: "An unexpected error occurred. Please try again later." };
+  }
 
   try {
-    const token = createSubscriptionToken(email, Date.now());
-    const confirmUrl = `${SITE_URL}/api/confirm?token=${encodeURIComponent(token)}`;
-
-    const { error } = await getResend().emails.send({
-      from: "Matthew Blode <hello@send.blode.co>",
-      react: ConfirmSubscriptionEmail({ confirmUrl }),
-      subject: "Confirm your subscription",
-      to: [email],
+    // Safe to repeat: creating a contact that is already in the segment is a
+    // no-op from the subscriber's point of view, so a double submit reads as
+    // success rather than an error.
+    const { error } = await getResend().contacts.create({
+      email: validated.data.email,
+      segments: [{ id: segmentId }],
+      unsubscribed: false,
     });
 
     if (error) {
       console.error("Resend error:", error);
-      return { error: "Could not send the confirmation email. Try again." };
+      return { error: "Could not add you to the list. Try again." };
     }
 
     return { success: true };

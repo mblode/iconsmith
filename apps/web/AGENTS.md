@@ -1,7 +1,7 @@
 # iconsmith-web
 
-The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith). One route plus a
-confirmation landing page. Its job is to collect launch-list addresses.
+The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith). One route. Its
+job is to collect launch-list addresses.
 
 ## Commands
 
@@ -48,9 +48,11 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
 - **`og:site_name` is `Matthew Blode`, never `Iconsmith`** (rule 9), and the layout
   deliberately sets no `openGraph.url` (rule 10): a child that declares it replaces
   the whole object and loses `og:site_name` and `og:image` with it.
-- **`Response.redirect` takes no `basePath`.** The confirm route builds an absolute
-  URL from `SITE_URL`. Rebuilding it from `request.url` would put the private zone
-  origin into an email and prefix the path twice.
+- **The list is single opt-in, by request.** `app/actions/subscribe.ts` writes straight
+  to the Resend segment; there is no confirmation email and no token. Nothing proves a
+  submitter owns the address they typed, so Turnstile and the per-IP hourly limit are
+  the only guards on a public write to the audience. `verifyTurnstile` fails closed on
+  a missing secret and must stay that way.
 - **This app is on zod 4; the CLI workspace is on zod 3.** They share no lockfile
   entry and must not be aligned. `@hookform/resolvers` is deliberately not installed:
   it hoists to the repo root, where a bare `zod` import resolves to version 3 and
@@ -66,9 +68,7 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
 ## Env
 
 `RESEND_API_KEY`, `RESEND_SEGMENT_ID` (its own segment, not blode.co's),
-`NEWSLETTER_TOKEN_SECRET` (its own, so a token minted here cannot confirm a
-subscription there), `TURNSTILE_SECRET`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`,
-`NEXT_PUBLIC_POSTHOG_HOST`.
+`TURNSTILE_SECRET`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_POSTHOG_HOST`.
 
 Turnstile needs no new keypair: the widget is scoped by browser hostname, and this
 form is served at `blode.co`. `NEXT_PUBLIC_POSTHOG_HOST` is read at build time by

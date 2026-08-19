@@ -62,7 +62,7 @@ export const NewsletterForm = () => {
     }
 
     setStatus({
-      message: "Almost there. Check your inbox for the confirmation link.",
+      message: "You're on the list. I'll email you the day it ships.",
       type: "success",
     });
     reset();
