@@ -6,12 +6,15 @@ import { expect, test } from "vitest";
 import { systemPrompt } from "./prompt.js";
 
 /**
- * The correctness condition for moving the prompt into `policy.default.json`:
- * the default policy must render byte-for-byte what the nine template literals
- * rendered before it. `prompt.baseline.txt` was captured from that
- * implementation and is not to be regenerated — a change that needs it edited
- * is a change to the design language, and belongs in a labelled variant with a
- * measurement behind it, not in the baseline.
+ * The default render, byte for byte.
+ *
+ * The file was first captured from the nine template literals the prompt used
+ * to be, to prove the move into `policy.default.json` changed nothing; that
+ * held at `dbd343d`, and the port is not in question any more. What the file
+ * does now is refuse a silent edit: any change to the rendered prompt shows up
+ * here as a diff, so it has to be made deliberately and reviewed as a change to
+ * the design language. Regenerating it is part of such a change, never a way
+ * around one.
  */
 const BASELINE = fs.readFileSync(
   path.join(import.meta.dirname, "prompt.baseline.txt"),
@@ -58,9 +61,10 @@ for (const [name, opts] of variants) {
   });
 }
 
-test("every measured principle is off by default, so the baseline holds", () => {
-  // The seeded corpus measurements are candidates the loop turns on, not
-  // changes to today's prompt: enabling one would break byte-identity, which
-  // is the point of the flag.
+test("the seeded corpus measurements stay off, so the baseline holds", () => {
+  // The `measured` section is candidates the loop turns on, not changes to
+  // today's prompt: enabling one would break byte-identity, which is the point
+  // of the flag. Provenance does not decide that — `meaning` is measured too
+  // and ships enabled — the section does, which is why the two live apart.
   expect(systemPrompt()).not.toContain("# What the set does");
 });

@@ -1,6 +1,7 @@
 {
   "sections": [
     { "id": "intro", "heading": null, "when": "always" },
+    { "id": "meaning", "heading": "# What to draw", "when": "always" },
     { "id": "house", "heading": "# The house spec", "when": "always" },
     { "id": "measured", "heading": "# What the set does", "when": "always" },
     { "id": "grammar", "heading": "# What you can draw", "when": "always" },
@@ -24,6 +25,95 @@
       "enabled": true,
       "provenance": "inferred",
       "text": "You are an icon designer working inside a constrained drawing system."
+    },
+    {
+      "id": "meaning.object-noun",
+      "section": "meaning",
+      "enabled": true,
+      "provenance": "measured",
+      "evidence": "House names draw the object noun and carry the intent word as a modifier: the `search` icon is a magnifying glass. Of 2,221 slugs there is no `search`, `delete` or `chat`; there is `magnifying-glass`, `trash-can`, `bubble`, `settings-gear-1`, and the intent sits in `page-search` and `folder-delete`.",
+      "text": "- **The object noun names the drawing** the intent word appears only as a\n  modifier. Draw a magnifying glass, not a search."
+    },
+    {
+      "id": "meaning.destruction",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "blode-icons draws all four and keeps them apart: `trash-can`, `minus-medium`, `cross-medium`, `shredder`, alongside `trash-permanently` and `untrash` (n=2,221). Choosing wrong is the most legible error the drawing can make.",
+      "text": "- **Destruction is four objects** `trash-can` destroys the thing; `minus-medium`\n  takes it off a list and it survives; `cross-medium` dismisses a surface and\n  destroys nothing; `shredder` destroys irreversibly."
+    },
+    {
+      "id": "meaning.chevron-arrow",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "32 `chevron-*` slugs against 94 `arrow-*`. Every chevron is direction or size within a set — `chevron-left-small`, `chevron-double-right`, `chevron-grabber-*`; the arrows carry travel — `arrow-corner-*`, `arrow-undo-up`, `arrow-share-left`.",
+      "text": "- **A chevron is not an arrow** it marks disclosure and position in a set:\n  expand, collapse, previous. An arrow is travel: back, forward."
+    },
+    {
+      "id": "meaning.status-container",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "20 `circle-*` slugs carry state: `circle-check`, `circle-x`, `circle-info`, `circle-questionmark`, `circle-minus`. Of the 13 slugs containing `triangle` only `exclamation-triangle` and `triangle-exclamation` carry one; the other 11 are `arrow-triangle-*`, `chevron-triangle-*` and `controller-button-triangle`, where triangle is a shape word.",
+      "text": "- **Circle informs, triangle warns** `circle-check`, `circle-x`, `circle-info`;\n  triangle means danger only."
+    },
+    {
+      "id": "meaning.settings",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "The 10 `settings-*` slugs split three ways: four `settings-gear-*`, three `settings-slider-*` (hor, ver, three) and two `settings-toggle-*`, plus a bare `toggle` and `settings-knob`.",
+      "text": "- **Settings is three shapes** a gear is a destination, sliders tune values in\n  place, a toggle one binary."
+    },
+    {
+      "id": "meaning.people",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "13 `user-*` slugs, all account actions — `user-add`, `user-block`, `user-key`, `user-settings`. 20 `people-*` slugs, all groups. One neutral figure, `person-simple`, beside `persona` and `circle-person`.",
+      "text": "- **People** `user-*` is the account, `people-*` the group, `person-simple` a\n  plain figure."
+    },
+    {
+      "id": "meaning.documents",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "22 `file-*` slugs carry the format labels — `file-pdf`, `file-jpg`, `file-png`, `file-zip`. 21 `page-*` slugs carry content operations — `page-text`, `page-edit`, `page-search` — and not one takes a format label.",
+      "text": "- **Documents** `file-*` has a folded corner and takes format labels\n  (`file-pdf`); `page-*` is a plain sheet."
+    },
+    {
+      "id": "meaning.messaging",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "32 slugs carry `bubble`. No `comment-*` or `message-*` slug exists, and the only two `chat-` names, `chat-bubble-7` and `chat-bubbles`, still name the object `bubble`. Mail is 13 `email-*` slugs plus `mailbox`.",
+      "text": "- **The house word is `bubble`** no `chat-*`, `comment-*` or `message-*` stem;\n  mail is always `email-*`."
+    },
+    {
+      "id": "meaning.transfer",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "The house names the container the thing lands in: `arrow-inbox`, `arrow-out-of-box`, `inbox-checked`, `inbox-empty`, `cloud-download`, `file-download`, `folder-upload`. No bare directional arrow carries the transfer sense.",
+      "text": "- **Transfer draws the container** download is `arrow-inbox`, upload\n  `arrow-out-of-box`, not a bare arrow."
+    },
+    {
+      "id": "meaning.verb-badge",
+      "section": "meaning",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "17 slugs end `-add` against 8 ending `-plus`; Tabler is the reverse, 105 `-plus` against 2 `-add`. The house folder names are `folder-add-left` and `folder-add-right`, and no `folder-plus` exists.",
+      "text": "- **Badge with a verb, not a symbol** prefer `folder-add` over `folder-plus`."
     },
     {
       "id": "house.canvas",
@@ -198,24 +288,6 @@
       "provenance": "measured",
       "evidence": "33.1% of house icons are mirror-symmetric about the vertical axis at IoU ≥ 0.95, twice the rate of any other axis.",
       "text": "- **Mirror about the vertical axis** by default, yielding to handedness where\n  the subject has a hand."
-    },
-    {
-      "id": "measured.object-noun",
-      "section": "measured",
-      "enabled": false,
-      "gap": "tight",
-      "provenance": "measured",
-      "evidence": "House names draw the object noun and carry the intent word as a modifier: the `search` icon is a magnifying glass.",
-      "text": "- **The object noun names the drawing** the intent word appears only as a\n  modifier. Draw a magnifying glass, not a search."
-    },
-    {
-      "id": "measured.verb-badge",
-      "section": "measured",
-      "enabled": false,
-      "gap": "tight",
-      "provenance": "measured",
-      "evidence": "Badged house icons are named for the verb, not the glyph: `folder-add`, not `folder-plus`.",
-      "text": "- **Badge with a verb, not a symbol** prefer `folder-add` over `folder-plus`."
     },
     {
       "id": "grammar.primitives",

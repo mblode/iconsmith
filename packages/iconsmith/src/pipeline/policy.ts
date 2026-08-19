@@ -47,15 +47,18 @@ export type Condition = "always" | "cohort" | "keyline" | "proposal";
 export type Gap = "loose" | "tight";
 
 /**
- * The capacity cap. Headroom over the house policy — 47 principles, 8 sections,
- * 8,003 characters of text, longest principle 667 — and no more than that: a
+ * The capacity cap. Headroom over the house policy — 55 principles, 9 sections,
+ * 8,989 characters of text, longest principle 667 — and no more than that: a
  * cap the current file already strains against is a cap that gets raised, and a
  * cap raised by the thing it bounds is not a cap.
  *
  * `totalText` is the binding one. The count and length caps alone would still
  * license 64 maximal principles, i.e. six times today's prompt; the summed
  * budget is what makes the loop trade prose away to buy prose, which is the
- * behaviour the bound exists to produce.
+ * behaviour the bound exists to produce. That trade is real rather than
+ * theoretical now: `policy.test.ts` holds the committed file to three quarters
+ * of the budget, and the `meaning` section spent all but 11 characters of what
+ * was left, so the next principle has to buy its room.
  */
 export const LIMITS = {
   /** Characters of `evidence` on one principle. Not rendered; bounded anyway. */
