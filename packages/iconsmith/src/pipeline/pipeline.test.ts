@@ -15,7 +15,14 @@ import { MockLanguageModelV4 } from "ai/test";
 import { describe, expect, it } from "vitest";
 
 import type { BenchmarkEntry } from "./bench.js";
-import { BASELINE, evaluate, formatReport, median, scored } from "./eval.js";
+import {
+  BASELINE,
+  evaluate,
+  evaluateSeeds,
+  formatReport,
+  median,
+  scored,
+} from "./eval.js";
 import type { EvalIcon } from "./eval.js";
 import {
   DEFAULT_MODEL,
@@ -497,5 +504,86 @@ describe("median", () => {
     expect(median([0.5])).toBe(0.5);
     expect(median([0.2, 0.8])).toBeCloseTo(0.5);
     expect(median([0.9, 0.1, 0.5])).toBe(0.5);
+  });
+});
+
+/**
+ * The first real re-baseline produced a spread of 0.672 and it was fiction:
+ * one replicate spent the cap, the next scored 6 of 30, and the third never
+ * ran and reported treatment 0.000 — which went straight into the spread. A
+ * noise floor of 0.672 on a bounded cosine rejects every experiment forever,
+ * which is how a loop goes quiet while reporting that nothing beats the
+ * champion. It is the errored-generation bug one level up.
+ */
+describe("evaluateSeeds when the cap runs out", () => {
+  const provenance = {
+    date: "2026-08-19",
+    origin: "original",
+    set: "blode-icons",
+    usage: "conditioning",
+  } as const;
+
+  it("skips a starved replicate and names it, rather than scoring it zero", async () => {
+    let calls = 0;
+    const report = await evaluateSeeds(
+      {
+        benchmark: bench("square", "line"),
+        generate: (concept) => {
+          calls += 1;
+          return Promise.resolve({
+            clean: true,
+            cost: {
+              finishReason: "stop",
+              ms: 1,
+              toolCalls: {},
+              usage: {
+                cacheReadTokens: 0,
+                cacheWriteTokens: 0,
+                inputTokens: 5_000_000,
+                outputTokens: 5_000_000,
+                reasoningTokens: 0,
+              },
+            },
+            doc: { draw: [], icon: concept.name, keyline: null },
+            issues: [],
+            steps: 1,
+            svg: stroked("M6 6H18V18H6Z"),
+            text: "",
+            trace: [],
+          });
+        },
+        icons: FAKE_SET,
+        maxSpendUsd: 0.01,
+        model: "anthropic/claude-sonnet-5",
+        provenance,
+      } as unknown as Parameters<typeof evaluateSeeds>[0],
+      [1, 2, 3]
+    );
+
+    expect(report.skipped).toEqual([2, 3]);
+    expect(report.runs).toHaveLength(1);
+    // One measured replicate cannot disagree with itself, and two that never
+    // ran cannot disagree with anything.
+    expect(report.spread).toBe(0);
+    expect(calls).toBeGreaterThan(0);
+  });
+});
+
+describe("a cap that cannot be enforced", () => {
+  it("refuses rather than running unbounded with the flag set", async () => {
+    await expect(
+      evaluate({
+        benchmark: bench("square"),
+        icons: FAKE_SET,
+        maxSpendUsd: 5,
+        model: "some-model-nobody-priced",
+        provenance: {
+          date: "2026-08-19",
+          origin: "original",
+          set: "blode-icons",
+          usage: "conditioning",
+        },
+      } as unknown as Parameters<typeof evaluate>[0])
+    ).rejects.toThrow(/--max-spend cannot be enforced/u);
   });
 });

@@ -458,6 +458,26 @@ const scoreOf = (
 });
 
 /**
+ * Refuse a spend cap the run cannot honour.
+ *
+ * `spent` only moves when a generation can be priced, so a model missing from
+ * the rate table would run the whole benchmark with `--max-spend` set and
+ * silently ignored. A cap that cannot bind is worse than no cap, because the
+ * caller believes they are protected.
+ */
+const assertCapCanBind = (
+  maxSpendUsd: number | undefined,
+  rate: Rate | null,
+  modelId: string
+): void => {
+  if (maxSpendUsd !== undefined && rate === null) {
+    throw new Error(
+      `No price for "${modelId}", so --max-spend cannot be enforced and would be silently ignored. Add it to the rate table in cost.ts, or drop the cap and accept an unbounded run.`
+    );
+  }
+};
+
+/**
  * Cost over the icons that produced a measurement.
  *
  * Errored entries are excluded by the caller and that is deliberate: they spent
@@ -539,6 +559,7 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
   const resolved = resolveModel(model);
   const modelId = typeof resolved === "string" ? resolved : resolved.modelId;
   const rate = rateFor(modelId, rates);
+  assertCapCanBind(maxSpendUsd, rate, modelId);
 
   const byName = new Map(all.map((i) => [i.icon, i]));
   const missing = entries.filter((e) => !byName.has(e.slug)).map((e) => e.slug);
@@ -806,6 +827,14 @@ export interface SpreadReport {
   errors: number;
   /** Every run, in the order the seeds were given. */
   runs: EvalReport[];
+  /**
+   * Seeds that never started, because the spend cap was already exhausted.
+   *
+   * Stated rather than inferred from `runs.length`: a spread over two
+   * replicates when three were asked for is a different claim from a spread
+   * over three, and the reader cannot tell them apart from a number alone.
+   */
+  skipped: number[];
   /** Total spend across the replicates, or null when unpriced. */
   usd: number | null;
   seeds: number[];
@@ -832,6 +861,7 @@ export const evaluateSeeds = async (
   seeds: readonly number[]
 ): Promise<SpreadReport> => {
   const runs: EvalReport[] = [];
+  const skipped: number[] = [];
   let spent = 0;
   // Recursion rather than a loop, so the await is not inside one: replicates
   // must not race, because a shared spend cap cannot be honoured by runs that
@@ -844,6 +874,15 @@ export const evaluateSeeds = async (
       options.maxSpendUsd === undefined
         ? undefined
         : Math.max(0, options.maxSpendUsd - spent);
+    // A replicate with nothing left to spend does not draw a smaller sample,
+    // it draws none — and then reports treatment 0.000, which is a score only
+    // in the sense that a missing run is a bad one. Skip it and say so, rather
+    // than emitting a zero that the spread cannot tell from a real result.
+    if (remaining !== undefined && remaining <= 0) {
+      skipped.push(seeds[i]);
+      await runFrom(i + 1);
+      return;
+    }
     const report = await evaluate({
       ...options,
       maxSpendUsd: remaining,
@@ -854,12 +893,17 @@ export const evaluateSeeds = async (
     await runFrom(i + 1);
   };
   await runFrom(0);
-  const treatments = runs.map((r) => r.treatment);
+  // Only replicates that scored an icon. A run of n=0 has a treatment of
+  // 0.000 by construction, and letting it into the spread is how a starved
+  // replicate becomes a noise floor that rejects every later experiment.
+  const measured = runs.filter((r) => r.n > 0);
+  const treatments = measured.map((r) => r.treatment);
   const priced = runs.filter((r) => r.cost.usd !== null);
   return {
     errors: runs.reduce((a, r) => a + r.benchmark.errors, 0),
     runs,
     seeds: [...seeds],
+    skipped,
     spread:
       treatments.length === 0
         ? 0
@@ -877,6 +921,11 @@ export const formatSpread = (report: SpreadReport): string =>
       .map((s, i) => `${s}:${report.runs[i].treatment.toFixed(3)}`)
       .join(" ")}`,
     `  spread ${report.spread.toFixed(3)} — a later change smaller than this has moved nothing.`,
+    ...(report.skipped.length > 0
+      ? [
+          `  ! ${report.skipped.length} replicate(s) never ran (seed ${report.skipped.join(", ")}) — the cap was gone before they started. The spread above is over ${report.runs.filter((r) => r.n > 0).length}, not ${report.seeds.length}, and is not the number a complete run would give.`,
+        ]
+      : []),
     `  total ${usdText(report.usd)}`,
     ...(report.errors
       ? [
