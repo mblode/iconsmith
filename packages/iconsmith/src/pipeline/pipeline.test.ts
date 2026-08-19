@@ -14,7 +14,8 @@ import { MockLanguageModelV4 } from "ai/test";
  */
 import { describe, expect, it } from "vitest";
 
-import { BASELINE, evaluate, formatReport, holdOut, median } from "./eval.js";
+import type { BenchmarkEntry } from "./bench.js";
+import { BASELINE, evaluate, formatReport, median } from "./eval.js";
 import type { EvalIcon } from "./eval.js";
 import {
   DEFAULT_MODEL,
@@ -103,6 +104,30 @@ const FAKE_SET: EvalIcon[] = [
     tags: ["close"],
   },
 ];
+
+/**
+ * A benchmark entry for a fake icon. `closure` is what the eval must withhold
+ * *beyond* the entry itself; a real one comes from `conceptClosure` against the
+ * corpus, and the tests that care about that live in `bench.test.ts`.
+ */
+const entry = (slug: string, closure: string[] = []): BenchmarkEntry => ({
+  closure: closure.map((c) => `blode-icons/${c}`),
+  id: `blode-icons/${slug}`,
+  rank: 0,
+  set: "blode-icons",
+  slug,
+  strata: {
+    category: "Forms & Shapes",
+    cohort: "singleton",
+    concept: "none",
+    elements: "1-2",
+    keyline: "on",
+    tags: "1-3",
+  },
+});
+
+const bench = (...slugs: string[]): BenchmarkEntry[] =>
+  slugs.map((slug, rank) => ({ ...entry(slug), rank }));
 
 describe("resolveModel", () => {
   it("fails with one clear line when there is no key and no model", () => {
@@ -293,17 +318,6 @@ describe("generate", () => {
   });
 });
 
-describe("holdOut", () => {
-  it("is reproducible from its seed and never repeats an icon", () => {
-    const a = holdOut(FAKE_SET, 3, 7).map((i) => i.icon);
-    const b = holdOut(FAKE_SET, 3, 7).map((i) => i.icon);
-    expect(a).toEqual(b);
-    expect(new Set(a).size).toBe(3);
-    expect(holdOut(FAKE_SET, 3, 8).map((i) => i.icon)).not.toEqual(a);
-    expect(holdOut(FAKE_SET, 99, 1)).toHaveLength(FAKE_SET.length);
-  });
-});
-
 describe("evaluate", () => {
   const model = scripted([{ text: "done" }]);
   /** The set under test stands in for blode-icons: an eval shows the model
@@ -317,6 +331,7 @@ describe("evaluate", () => {
 
   it("reports four numbers and per-icon scores", async () => {
     const report = await evaluate({
+      benchmark: bench("square", "line", "arrow-up", "corner"),
       generate: (concept) =>
         Promise.resolve({
           clean: true,
@@ -329,7 +344,6 @@ describe("evaluate", () => {
         }),
       icons: FAKE_SET,
       model,
-      n: 4,
       provenance,
       seed: 3,
     });
@@ -353,6 +367,7 @@ describe("evaluate", () => {
   it("flags a suspiciously perfect run instead of celebrating it", async () => {
     const byName = new Map(FAKE_SET.map((i) => [i.icon, i.svg]));
     const report = await evaluate({
+      benchmark: bench("square", "line", "arrow-up"),
       // The bug this guards against: the target reaching the generator.
       generate: (concept) =>
         Promise.resolve({
@@ -366,7 +381,6 @@ describe("evaluate", () => {
         }),
       icons: FAKE_SET,
       model,
-      n: 3,
       provenance,
       seed: 1,
     });
@@ -378,6 +392,7 @@ describe("evaluate", () => {
 
   it("records a failed icon as zero rather than failing the run", async () => {
     const report = await evaluate({
+      benchmark: bench(...FAKE_SET.map((i) => i.icon)),
       generate: (concept) => {
         if (concept.name === FAKE_SET[0].icon) {
           return Promise.reject(new Error("model exploded"));
@@ -394,7 +409,6 @@ describe("evaluate", () => {
       },
       icons: FAKE_SET,
       model,
-      n: FAKE_SET.length,
       provenance,
       seed: 1,
     });
@@ -408,6 +422,11 @@ describe("evaluate", () => {
   it("keeps the held-out icons out of the comparison corpus", async () => {
     const seen: string[][] = [];
     await evaluate({
+      // `square` is held out and `cross` is in its closure — a stand-in for
+      // the cohort mate that a name-exact hold-out used to leave in front of
+      // the model. Both must be gone from every corpus handed to `generate`,
+      // including the one for the *other* held-out icon.
+      benchmark: [entry("square", ["cross"]), entry("line")],
       generate: (_concept, options) => {
         seen.push((options.corpus ?? []).map((c) => c.name));
         return Promise.resolve({
@@ -422,14 +441,18 @@ describe("evaluate", () => {
       },
       icons: FAKE_SET,
       model,
-      n: 2,
       provenance,
       seed: 5,
     });
 
-    const held = new Set(holdOut(FAKE_SET, 2, 5).map((i) => i.icon));
+    expect(seen).toHaveLength(2);
     for (const corpus of seen) {
-      expect(corpus.filter((name) => held.has(name))).toEqual([]);
+      expect(corpus).not.toContain("square");
+      expect(corpus).not.toContain("cross");
+      expect(corpus).not.toContain("line");
+      // What is left is still a corpus, not an empty list — the exclusion has
+      // to be surgical or the eval measures a model shown nothing.
+      expect(corpus).toContain("arrow-up");
     }
   });
 
@@ -439,9 +462,9 @@ describe("evaluate", () => {
     // a CLI flag, where the union is a claim rather than a guarantee.
     await expect(
       evaluate({
+        benchmark: bench("square"),
         icons: FAKE_SET,
         model,
-        n: 1,
         provenance: { ...provenance, set: "lucide" },
         seed: 1,
       })

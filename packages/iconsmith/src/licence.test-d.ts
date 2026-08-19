@@ -22,6 +22,7 @@
  */
 import type { BaselineIcon } from "./corpus/baselines.js";
 import type { IconRecord } from "./corpus/record.js";
+import type { BenchmarkEntry } from "./pipeline/bench.js";
 import { evaluate } from "./pipeline/eval.js";
 import type { ConditioningProvenance, EvalIcon } from "./pipeline/eval.js";
 import { generate } from "./pipeline/generate.js";
@@ -35,6 +36,7 @@ declare const house: ReferenceIcon;
 declare const provenance: Provenance;
 declare const record: IconRecord;
 declare const icons: EvalIcon[];
+declare const benchmark: BenchmarkEntry[];
 declare const conditioning: ConditioningProvenance;
 
 const check = (): Reference[] => {
@@ -97,12 +99,13 @@ const gate = async (): Promise<void> => {
   };
 
   await evaluate({
+    benchmark,
     icons,
     // @ts-expect-error — analysis-only records may not build a neighbour list.
     provenance: { ...provenance, usage: "analysis-only" },
   });
-  await evaluate({ icons, provenance: fromRecord });
-  await evaluate({ icons, provenance: conditioning });
+  await evaluate({ benchmark, icons, provenance: fromRecord });
+  await evaluate({ benchmark, icons, provenance: conditioning });
 
   // The contact sheet `compare` renders. An unbranded icon is structurally a
   // neighbour and is still refused: the brand, not the shape, is the check.

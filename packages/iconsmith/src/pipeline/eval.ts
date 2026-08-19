@@ -21,6 +21,15 @@
  *
  * Treatment near the ceiling is not success, it is a bug — most likely the
  * target leaking into the prompt or the two SVGs being the same file.
+ *
+ * **Two things make the numbers comparable across months**, and both live in
+ * `bench.ts`. The sample is a committed benchmark file carrying its ids, so
+ * adding an icon to blode-icons cannot change which icons a run holds out. And
+ * what is withheld is a *concept closure* rather than a name: the slug, its
+ * cohort in both styles, its 30 Central finishes, everything sharing its
+ * concept and its filled twin. Excluding the string `folder-open` while
+ * leaving eleven folders in the corpus withholds the label and hands over the
+ * answer.
  */
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
@@ -30,6 +39,17 @@ import type { LanguageModel } from "ai";
 import type { Usage } from "../corpus/record.js";
 import { cosine, inkVector } from "../tools/render.js";
 import type { Part, Provenance } from "../types.js";
+import { benchmarkExclusions, redactParts, slice } from "./bench.js";
+import type { BenchmarkEntry } from "./bench.js";
+import type { Rate, RateTable, TokenUsage } from "./cost.js";
+import {
+  EMPTY_USAGE,
+  RATES,
+  addUsage,
+  rateFor,
+  reachPoints,
+  usdOf,
+} from "./cost.js";
 import { generate, resolveModel } from "./generate.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { asReferences } from "./licence.js";
@@ -113,9 +133,9 @@ export const loadIconSet = (
 const LCG_M = 2_147_483_648;
 
 /**
- * Deterministic PRNG, so a held-out sample is reproducible from its seed. A
- * plain LCG: this shuffles a list and picks a comparison icon, and nothing
- * about either needs statistical quality — only that two runs of one seed
+ * Deterministic PRNG. This now picks the floor comparison icon and nothing
+ * else — the hold-out sample is a committed file, not a shuffle — and nothing
+ * about a floor draw needs statistical quality, only that two runs of one seed
  * agree.
  */
 const rng = (seed: number): (() => number) => {
@@ -124,16 +144,6 @@ const rng = (seed: number): (() => number) => {
     s = (s * 1_103_515_245 + 12_345) % LCG_M;
     return s / LCG_M;
   };
-};
-
-export const holdOut = <T>(items: T[], n: number, seed: number): T[] => {
-  const random = rng(seed);
-  const pool = [...items];
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  return pool.slice(0, Math.min(n, pool.length));
 };
 
 export const median = (xs: number[]): number => {
@@ -155,20 +165,59 @@ export interface IconScore {
   floor: number;
   icon: string;
   issues: number;
+  /** Wall time for this generation, milliseconds. Null when unmeasured. */
+  ms: number | null;
   score: number;
+  /** Why the model stopped. Null when unmeasured. */
+  stopReason: string | null;
   steps: number;
   tags: string[];
+  toolCalls: Record<string, number>;
+  usage: TokenUsage | null;
+  /** Null when the model has no published rate, or the generator reported no
+   *  usage. Never 0 — 0 reads as free. */
+  usd: number | null;
+}
+
+export interface CostReport {
+  /** Sum over icons that reported one. */
+  msTotal: number;
+  msMedian: number;
+  /** The rate table used, copied in. A report whose dollar figure cannot be
+   *  reconstructed six months later is a dead report. */
+  rates: RateTable;
+  /** How many icons reported usage at all. Below `n`, every dollar figure
+   *  under-reports and the report says so rather than implying a discount. */
+  measured: number;
+  stopReasons: Record<string, number>;
+  toolCalls: Record<string, number>;
+  usage: TokenUsage;
+  usd: number | null;
+  usdPerIcon: number | null;
+  /** Dollars per point of the floor-to-baseline scale. Null when reach is at
+   *  or below the floor: dividing by a non-positive denominator produces a
+   *  number that looks like an answer. */
+  usdPerReachPoint: number | null;
 }
 
 export interface EvalReport {
+  /** Set when a spend cap stopped the run. The scores present are real; the
+   *  benchmark they came from is a prefix, so treatment is not comparable to a
+   *  complete run. */
+  aborted: string | null;
   baseline: number;
+  /** Which committed benchmark this ran, and how much of it. */
+  benchmark: { entries: number; requested: number; seed: number };
   ceiling: number;
+  cost: CostReport;
   /** Median floor across the sample. */
   floor: number;
   icons: IconScore[];
   mean: number;
   model: string;
   n: number;
+  /** The run seed: it labels the replicate and picks the floor comparisons. It
+   *  does not choose the sample — the benchmark file does. */
   seed: number;
   /** Set when the result is too good to be true. */
   suspect: string | null;
@@ -184,22 +233,84 @@ export type GenerateFn = (
 ) => Promise<GenerateResult>;
 
 export interface EvalOptions {
+  /** The committed benchmark's entries. Required: there is no unseeded,
+   *  uncommitted sampling path any more, because that is the thing that made
+   *  two runs incomparable. */
+  benchmark: readonly BenchmarkEntry[];
   concurrency?: number;
   /** Root of the icon set, or pass `icons` directly. */
   dir?: string;
   generate?: GenerateFn;
   icons?: EvalIcon[];
   load?: LoadOptions;
+  /** Stop the run once spend passes this, rather than discovering the cost
+   *  afterwards. */
+  maxSpendUsd?: number;
   maxSteps?: number;
   model?: LanguageModel;
-  n?: number;
   onIcon?: (score: IconScore) => void;
   parts?: Part[];
   /** Where the set at `dir` (or in `icons`) comes from. Required, and checked:
    *  every non-held icon is handed to the model, so a run against someone
    *  else's pack is a licence breach the moment it starts. */
   provenance: ConditioningProvenance;
+  rates?: RateTable;
   seed?: number;
+  /** Run only the first `slice` entries by rank. The ordering is balanced at
+   *  every prefix, so this is a smaller benchmark rather than a biased one. */
+  slice?: number;
+}
+
+/** Suffixes that name a drawing in its filled finish. Kept beside the guard
+ *  rather than imported from `bench.ts`, because this check must hold for every
+ *  icon reaching the model, benchmark or not. */
+const FILLED_SUFFIXES = ["-filled", "-fill", "-solid"];
+
+/**
+ * Refuse to condition on a filled twin, whatever loaded it.
+ *
+ * A filled twin is not a cohort sibling, it is the *same drawing* outline
+ * expanded — the answer in a different finish. `loadIconSet` skips
+ * `-filled.svg`, so today nothing reaches this line, and that is exactly why
+ * it is here: the protection lives in a loader filter, while the record store
+ * keys one drawn identity with a rendering per finish. The first reader that
+ * walks records rather than files takes the filter with it and leaves the
+ * closure as the only guard, and a closure is per-benchmark-entry. This check
+ * is not, so it catches any path.
+ *
+ * A plain `Error`: it is thrown before any generation runs, nothing catches it
+ * by type, and the file is already at its one-class budget for
+ * `BenchmarkMismatchError`.
+ */
+export const assertNoFilledTwin = (icons: readonly EvalIcon[]): void => {
+  const filled = icons
+    .map((i) => i.icon)
+    .filter((name) => FILLED_SUFFIXES.some((suffix) => name.endsWith(suffix)));
+  if (filled.length === 0) {
+    return;
+  }
+  throw new Error(
+    `${filled.length} filled icon(s) reached the conditioning corpus: ` +
+      `${filled.slice(0, 5).join(", ")}${filled.length > 5 ? ", …" : ""}. ` +
+      "A filled twin is the same drawing outline-expanded, so showing one is " +
+      "showing the target in another finish. Condition on outlines only."
+  );
+};
+
+/** Thrown when the benchmark and the icon set disagree. Loud, because a
+ *  benchmark that silently shrinks when an icon is renamed is the failure this
+ *  whole file exists to prevent. */
+export class BenchmarkMismatchError extends Error {
+  constructor(missing: string[]) {
+    super(
+      `The benchmark names ${missing.length} icon(s) the set does not contain: ` +
+        `${missing.slice(0, 10).join(", ")}${missing.length > 10 ? ", …" : ""}. ` +
+        "A run against a shrunken sample is not comparable to one against the " +
+        "whole file. Rebuild the benchmark with `iconsmith bench` if the " +
+        "set really has changed."
+    );
+    this.name = "BenchmarkMismatchError";
+  }
 }
 
 /** Fixed-size worker pool. Generations are long and network-bound; running them
@@ -207,9 +318,9 @@ export interface EvalOptions {
 const pool = async <T, R>(
   items: T[],
   limit: number,
-  fn: (item: T, index: number) => Promise<R>
-): Promise<R[]> => {
-  const out: R[] = Array.from({ length: items.length });
+  fn: (item: T, index: number) => Promise<R | null>
+): Promise<(R | null)[]> => {
+  const out: (R | null)[] = Array.from({ length: items.length });
   let cursor = 0;
   // Each worker takes the next index and recurses rather than looping, so the
   // await is not inside a loop; the recursion is one frame per item a single
@@ -229,18 +340,79 @@ const pool = async <T, R>(
   return out;
 };
 
+const scoreOf = (
+  base: IconScore,
+  result: GenerateResult,
+  score: number,
+  rate: Rate | null
+): IconScore => ({
+  ...base,
+  clean: result.clean,
+  issues: result.issues.length,
+  ms: result.cost?.ms ?? null,
+  score,
+  steps: result.steps,
+  stopReason: result.cost?.finishReason ?? null,
+  toolCalls: result.cost?.toolCalls ?? {},
+  usage: result.cost?.usage ?? null,
+  usd: result.cost && rate ? usdOf(result.cost.usage, rate) : null,
+});
+
+const summariseCost = (
+  scores: IconScore[],
+  rates: RateTable,
+  treatment: number,
+  floor: number
+): CostReport => {
+  const measured = scores.filter((s) => s.usage !== null);
+  let usage = EMPTY_USAGE;
+  for (const s of measured) {
+    usage = addUsage(usage, s.usage ?? EMPTY_USAGE);
+  }
+  const priced = scores.filter((s) => s.usd !== null);
+  const usd =
+    priced.length === 0 ? null : priced.reduce((a, s) => a + (s.usd ?? 0), 0);
+  const times = scores.map((s) => s.ms).filter((m): m is number => m !== null);
+  const toolCalls: Record<string, number> = {};
+  const stopReasons: Record<string, number> = {};
+  for (const s of scores) {
+    for (const [name, n] of Object.entries(s.toolCalls)) {
+      toolCalls[name] = (toolCalls[name] ?? 0) + n;
+    }
+    if (s.stopReason !== null) {
+      stopReasons[s.stopReason] = (stopReasons[s.stopReason] ?? 0) + 1;
+    }
+  }
+  const points = reachPoints(treatment, floor, BASELINE);
+  return {
+    measured: measured.length,
+    msMedian: median(times),
+    msTotal: times.reduce((a, b) => a + b, 0),
+    rates,
+    stopReasons,
+    toolCalls,
+    usage,
+    usd,
+    usdPerIcon:
+      usd === null || scores.length === 0 ? null : usd / scores.length,
+    usdPerReachPoint: usd === null || points <= 0 ? null : usd / points,
+  };
+};
+
 export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
   const {
+    benchmark,
     concurrency = 2,
     dir,
     generate: gen = generate,
     load,
+    maxSpendUsd,
     maxSteps,
     model,
-    n = 10,
     onIcon,
     parts = [],
     provenance,
+    rates = RATES,
     seed = 1,
   } = options;
 
@@ -248,31 +420,63 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
   if (all.length === 0) {
     throw new Error("No icons to evaluate: pass `dir` or `icons`.");
   }
+  const entries = slice(benchmark, options.slice);
+  if (entries.length === 0) {
+    throw new Error("The benchmark slice is empty: nothing to evaluate.");
+  }
   // Resolved once, before any work: a missing key should fail on the first line
   // of output, not `n` times after the first generation has already run.
   const resolved = resolveModel(model);
-  const held = holdOut(all, n, seed);
-  const heldNames = new Set(held.map((i) => i.icon));
+  const modelId = typeof resolved === "string" ? resolved : resolved.modelId;
+  const rate = rateFor(modelId, rates);
 
-  // The corpus the model may compare against excludes every held-out icon.
-  // Leaving them in would hand it the answer through the back door.
+  const byName = new Map(all.map((i) => [i.icon, i]));
+  const missing = entries.filter((e) => !byName.has(e.slug)).map((e) => e.slug);
+  if (missing.length > 0) {
+    throw new BenchmarkMismatchError(missing);
+  }
+  const held = entries.map((e) => byName.get(e.slug) as EvalIcon);
+
+  // The corpus the model may compare against excludes the whole **concept
+  // closure** of every benchmark entry, not just its name. Excluding
+  // `folder-open` alone leaves `folder-add`, `folder-cloud` and the rest of a
+  // cohort that shares a bounding box to 0.25px, which is most of the answer.
   //
   // It also goes through the licence gate here, which is the only place in a
   // run where the set's provenance is known: `generate` and `compare` take
   // `Reference[]`, and `asReferences` is the sole constructor of one. A
   // mislabelled record throws on this line rather than reaching a contact
   // sheet.
+  const excluded = benchmarkExclusions(entries);
+  const conditioning = all.filter((i) => !excluded.has(i.icon));
+  assertNoFilledTwin(conditioning);
   const corpus: Reference[] = asReferences(
-    all
-      .filter((i) => !heldNames.has(i.icon))
-      .map((i) => ({ name: i.icon, svg: i.svg, tags: i.tags })),
+    conditioning.map((i) => ({ name: i.icon, svg: i.svg, tags: i.tags })),
     provenance
   );
+  // A part whose only evidence is a withheld icon is that icon's composition
+  // under another name. Handing it over would withhold the drawing and supply
+  // the decomposition.
+  const vocabulary = redactParts(parts, excluded);
 
-  // A second stream, so the floor's choices do not shift when the holdout does.
+  // A second stream, so the floor's choices do not shift when the sample does.
   const floorRandom = rng(seed + 7919);
 
-  const scores = await pool(held, concurrency, async (target) => {
+  // Spend is checked before each generation is dispatched rather than summed
+  // at the end: the point of a cap is to not find out afterwards. Workers run
+  // concurrently, so up to `concurrency - 1` generations already in flight
+  // will still complete and are still counted.
+  let spent = 0;
+  let aborted: string | null = null;
+
+  const results = await pool(held, concurrency, async (target) => {
+    if (maxSpendUsd !== undefined && spent >= maxSpendUsd) {
+      aborted ??=
+        `Stopped after $${spent.toFixed(2)} of a $${maxSpendUsd.toFixed(2)} cap. ` +
+        "The icons scored are real; the sample is a prefix of the benchmark, so " +
+        "treatment is not comparable to a complete run.";
+      return null;
+    }
     // The floor: a random icon that is not the target, scored the same way. It
     // moves with the set, which a hardcoded constant would not. Drawn from the
     // whole set rather than the corpus, so holding out everything still leaves
@@ -289,9 +493,14 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
       floor: cosine(otherInk, targetInk),
       icon: target.icon,
       issues: 0,
+      ms: null,
       score: 0,
       steps: 0,
+      stopReason: null,
       tags: target.tags,
+      toolCalls: {},
+      usage: null,
+      usd: null,
     };
 
     let out: IconScore;
@@ -302,31 +511,40 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
           name: target.icon,
           tags: target.tags,
         },
-        { corpus, maxSteps, model: resolved, parts }
+        { corpus, maxSteps, model: resolved, parts: vocabulary }
       );
-      out = {
-        ...base,
-        clean: result.clean,
-        issues: result.issues.length,
-        score: cosine(await inkVector(result.svg), targetInk),
-        steps: result.steps,
-      };
+      out = scoreOf(
+        base,
+        result,
+        cosine(await inkVector(result.svg), targetInk),
+        rate
+      );
     } catch (error) {
       out = { ...base, error: (error as Error).message };
     }
+    spent += out.usd ?? 0;
     onIcon?.(out);
     return out;
   });
 
+  const scores = results.filter((s): s is IconScore => s !== null);
   const values = scores.map((s) => s.score);
   const treatment = median(values);
+  const floor = median(scores.map((s) => s.floor));
   return {
+    aborted,
     baseline: BASELINE,
+    benchmark: {
+      entries: scores.length,
+      requested: entries.length,
+      seed,
+    },
     ceiling: CEILING,
-    floor: median(scores.map((s) => s.floor)),
+    cost: summariseCost(scores, rates, treatment, floor),
+    floor,
     icons: scores.toSorted((a, b) => a.score - b.score),
     mean: values.reduce((a, b) => a + b, 0) / (values.length || 1),
-    model: typeof resolved === "string" ? resolved : resolved.modelId,
+    model: modelId,
     n: scores.length,
     seed,
     suspect:
@@ -340,13 +558,63 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
 const bar = (v: number): string =>
   "█".repeat(Math.round(v * 30)).padEnd(30, "·");
 
+const usdText = (v: number | null): string =>
+  v === null ? "unpriced" : `$${v.toFixed(v < 1 ? 4 : 2)}`;
+
+const tokens = (n: number): string =>
+  n >= 1e6 ? `${(n / 1e6).toFixed(2)}M` : `${Math.round(n / 1000)}k`;
+
+/**
+ * The cost block, printed with the rate table it was computed from.
+ *
+ * The table is not decoration. A dollar figure with no rates beside it cannot
+ * be checked or re-derived once prices move, and the whole reason for
+ * recording cost is to compare runs months apart.
+ */
+const costLines = (report: EvalReport): string[] => {
+  const { cost } = report;
+  const u = cost.usage;
+  const lines = [
+    "",
+    `  cost — ${usdText(cost.usd)} total · ${usdText(cost.usdPerIcon)}/icon · ${
+      cost.usdPerReachPoint === null
+        ? "no reach"
+        : `${usdText(cost.usdPerReachPoint)}/reach point`
+    }`,
+    `    tokens  in ${tokens(u.inputTokens)} · cache r ${tokens(u.cacheReadTokens)} w ${tokens(u.cacheWriteTokens)} · out ${tokens(u.outputTokens)} (reasoning ${tokens(u.reasoningTokens)})`,
+    `    time    ${(cost.msTotal / 1000).toFixed(0)}s total · ${(cost.msMedian / 1000).toFixed(1)}s median`,
+  ];
+  const calls = Object.entries(cost.toolCalls).toSorted((a, b) => b[1] - a[1]);
+  if (calls.length > 0) {
+    lines.push(`    tools   ${calls.map(([k, v]) => `${k} ${v}`).join(" · ")}`);
+  }
+  const stops = Object.entries(cost.stopReasons).toSorted(
+    (a, b) => b[1] - a[1]
+  );
+  if (stops.length > 0) {
+    lines.push(`    stopped ${stops.map(([k, v]) => `${k} ${v}`).join(" · ")}`);
+  }
+  if (cost.measured < report.n) {
+    lines.push(
+      `    ! ${report.n - cost.measured} of ${report.n} icons reported no usage — every figure above is a floor, not a total.`
+    );
+  }
+  const rate = rateFor(report.model, cost.rates);
+  lines.push(
+    rate === null
+      ? `    rates   no published rate for ${report.model}; dollars cannot be computed.`
+      : `    rates   ${report.model} $/Mtok: in ${rate.input.toFixed(2)} · out ${rate.output.toFixed(2)} · cache read ${rate.cacheRead.toFixed(2)} · cache write ${rate.cacheWrite.toFixed(2)}`
+  );
+  return lines;
+};
+
 export const formatReport = (report: EvalReport): string => {
   const row = (label: string, v: number, note: string) =>
     `  ${label.padEnd(10)} ${v.toFixed(3)}  ${bar(v)}  ${note}`;
   const clean = report.icons.filter((i) => i.clean).length;
   const failed = report.icons.filter((i) => i.error);
   const lines = [
-    `reconstruction eval — ${report.n} icons, ${report.model}, seed ${report.seed}`,
+    `reconstruction eval — ${report.n}/${report.benchmark.requested} benchmark icons, ${report.model}, run seed ${report.seed}`,
     "",
     row("floor", report.floor, "a random icon against the target"),
     row("baseline", report.baseline, "two mature sets, same concept"),
@@ -354,7 +622,11 @@ export const formatReport = (report: EvalReport): string => {
     row("ceiling", report.ceiling, "the target against itself"),
     "",
     `  mean ${report.mean.toFixed(3)} · ${clean}/${report.n} lint clean · ${median(report.icons.map((i) => i.steps)).toFixed(0)} steps median`,
+    ...costLines(report),
   ];
+  if (report.aborted) {
+    lines.push("", `  ! ${report.aborted}`);
+  }
   if (report.suspect) {
     lines.push("", `  ! ${report.suspect}`);
   }
@@ -378,3 +650,79 @@ export const formatReport = (report: EvalReport): string => {
   }
   return lines.join("\n");
 };
+
+export interface SpreadReport {
+  /** Every run, in the order the seeds were given. */
+  runs: EvalReport[];
+  /** Total spend across the replicates, or null when unpriced. */
+  usd: number | null;
+  seeds: number[];
+  /** Median of the per-seed treatments — the headline. */
+  treatment: number;
+  /** Highest per-seed treatment minus the lowest. **No later result is
+   *  interpretable without this.** A pipeline change that moves treatment by
+   *  less than the spread has moved nothing, and a single run cannot tell you
+   *  which side of that line it is on. */
+  spread: number;
+}
+
+/**
+ * Run the same benchmark slice under several run seeds and report the spread.
+ *
+ * The baseline protocol is n=30 × 3 seeds rather than 120 × 5, which is a
+ * budget decision: three replicates of a balanced 30-icon prefix buy the
+ * variance estimate, and the variance estimate is the thing that makes every
+ * later comparison readable. Runs are sequential on purpose — a shared spend
+ * cap cannot be honoured by replicates racing each other.
+ */
+export const evaluateSeeds = async (
+  options: Omit<EvalOptions, "seed">,
+  seeds: readonly number[]
+): Promise<SpreadReport> => {
+  const runs: EvalReport[] = [];
+  let spent = 0;
+  // Recursion rather than a loop, so the await is not inside one: replicates
+  // must not race, because a shared spend cap cannot be honoured by runs that
+  // cannot see each other's spend.
+  const runFrom = async (i: number): Promise<void> => {
+    if (i >= seeds.length) {
+      return;
+    }
+    const remaining =
+      options.maxSpendUsd === undefined
+        ? undefined
+        : Math.max(0, options.maxSpendUsd - spent);
+    const report = await evaluate({
+      ...options,
+      maxSpendUsd: remaining,
+      seed: seeds[i],
+    });
+    spent += report.cost.usd ?? 0;
+    runs.push(report);
+    await runFrom(i + 1);
+  };
+  await runFrom(0);
+  const treatments = runs.map((r) => r.treatment);
+  const priced = runs.filter((r) => r.cost.usd !== null);
+  return {
+    runs,
+    seeds: [...seeds],
+    spread:
+      treatments.length === 0
+        ? 0
+        : Math.max(...treatments) - Math.min(...treatments),
+    treatment: median(treatments),
+    usd: priced.length === 0 ? null : spent,
+  };
+};
+
+export const formatSpread = (report: SpreadReport): string =>
+  [
+    ...report.runs.map(formatReport),
+    "",
+    `seed-to-seed — treatment ${report.treatment.toFixed(3)} median of ${report.seeds
+      .map((s, i) => `${s}:${report.runs[i].treatment.toFixed(3)}`)
+      .join(" ")}`,
+    `  spread ${report.spread.toFixed(3)} — a later change smaller than this has moved nothing.`,
+    `  total ${usdText(report.usd)}`,
+  ].join("\n");
