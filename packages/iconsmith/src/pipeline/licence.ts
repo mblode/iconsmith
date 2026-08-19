@@ -86,6 +86,31 @@ const HOUSE_SETS: ReadonlySet<string> = new Set([
   "centralicons",
 ]);
 
+/**
+ * House sets whose terms the owner holds out of band, so a non-MIT licence
+ * string on the record is not a refusal.
+ *
+ * Central alone. It is a paid third-party set: `corpus.json` carries no licence
+ * file, `.central-provenance.json` records `licenseKeyPresent: false` because
+ * the scraper never had a key to record, and `sources.ts` therefore labels it
+ * `proprietary` truthfully rather than inventing terms nobody has read. The
+ * owner confirmed on 2026-08-19 that they hold a Central licence.
+ *
+ * This is deliberately not fixed by relabelling Central as MIT in `sources.ts`.
+ * That would put a false licence in 2,085 records to satisfy one check, and the
+ * record store is the thing every later measurement reads. The label stays
+ * honest and the exception is named here, where it is one greppable line
+ * carrying its own justification.
+ *
+ * The tension is real and worth stating: blode-icons is ~96% Central-derived
+ * and already ships MIT, so terms permitting that evidently exist. Nothing here
+ * asserts what they say — only that the owner has them.
+ */
+const LICENSED_OUT_OF_BAND: ReadonlySet<string> = new Set([
+  "central",
+  "centralicons",
+]);
+
 /** Case- and spacing-insensitive: these strings are read out of JSON records
  *  and out of pack metadata, not typed at a call site. */
 const norm = (s: string): string => s.trim().toLowerCase();
@@ -118,10 +143,13 @@ export const asReference = (
         "mislabelled record, not a licence to use it as a reference."
     );
   }
+  const attested =
+    provenance.set !== undefined &&
+    LICENSED_OUT_OF_BAND.has(norm(provenance.set));
   const foreign = (provenance.licenses ?? []).filter(
     (l) => norm(l) !== "mit" && norm(l) !== "mit license"
   );
-  if (foreign.length > 0) {
+  if (foreign.length > 0 && !attested) {
     throw new LicenceError(
       `"${icon.name}" is governed by ${foreign.join(", ")}. A generated icon ` +
         "ships under MIT as one work and carries no per-icon notice, so only " +
