@@ -31,7 +31,7 @@
       "section": "meaning",
       "enabled": true,
       "provenance": "measured",
-      "evidence": "House names draw the object noun and carry the intent word as a modifier: the `search` icon is a magnifying glass. Of 2,221 slugs there is no `search`, `delete` or `chat`; there is `magnifying-glass`, `trash-can`, `bubble`, `settings-gear-1`, and the intent sits in `page-search` and `folder-delete`.",
+      "evidence": "House names draw the object noun and carry the intent word as a modifier: the `search` icon is a magnifying glass. Of 2,221 slugs there is no `search`, `delete` or `chat`; there is `magnifying-glass`, `trash-can`, `bubble-text`, `settings-gear-1`, and the intent sits in `page-search` and `folder-delete`.",
       "text": "- **The object noun names the drawing** the intent word appears only as a\n  modifier. Draw a magnifying glass, not a search."
     },
     {
@@ -49,7 +49,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "measured",
-      "evidence": "32 `chevron-*` slugs against 94 `arrow-*`. Every chevron is direction or size within a set — `chevron-left-small`, `chevron-double-right`, `chevron-grabber-*`; the arrows carry travel — `arrow-corner-*`, `arrow-undo-up`, `arrow-share-left`.",
+      "evidence": "32 `chevron-*` slugs against 83 `arrow-*`. Every chevron is direction or size within a set — `chevron-left-small`, `chevron-double-right`, `chevron-grabber-*`; the arrows carry travel — `arrow-corner-*`, `arrow-undo-up`, `arrow-share-left`.",
       "text": "- **A chevron is not an arrow** it marks disclosure and position in a set:\n  expand, collapse, previous. An arrow is travel: back, forward."
     },
     {
@@ -76,7 +76,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "measured",
-      "evidence": "13 `user-*` slugs, all account actions — `user-add`, `user-block`, `user-key`, `user-settings`. 20 `people-*` slugs, all groups. One neutral figure, `person-simple`, beside `persona` and `circle-person`.",
+      "evidence": "12 `user-*` slugs beside the bare `user`, all account actions — `user-add`, `user-block`, `user-key`, `user-settings`. 19 `people-*` slugs beside the bare `people`, all groups. One neutral figure, `person-simple`, beside `persona` and `circle-person`.",
       "text": "- **People** `user-*` is the account, `people-*` the group, `person-simple` a\n  plain figure."
     },
     {
@@ -85,7 +85,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "measured",
-      "evidence": "22 `file-*` slugs carry the format labels — `file-pdf`, `file-jpg`, `file-png`, `file-zip`. 21 `page-*` slugs carry content operations — `page-text`, `page-edit`, `page-search` — and not one takes a format label.",
+      "evidence": "21 `file-*` slugs beside `files` carry the format labels — `file-pdf`, `file-jpg`, `file-png`, `file-zip`. 21 `page-*` slugs carry content operations — `page-text`, `page-edit`, `page-search` — and not one takes a format label.",
       "text": "- **Documents** `file-*` has a folded corner and takes format labels\n  (`file-pdf`); `page-*` is a plain sheet."
     },
     {
