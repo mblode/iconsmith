@@ -5,11 +5,14 @@ export { census, nameElement } from "./corpus/census.js";
 export {
   assignRoles,
   coverageOf,
+  coveragePair,
   duplicateConcepts,
   headOf,
   houseVocabulary,
+  isInformative,
   proposeConcepts,
   rankGaps,
+  rejectionOf,
   slugifyTag,
   unnumbered,
 } from "./corpus/concepts.js";
@@ -43,9 +46,23 @@ export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
 export { NAME_THRESHOLD, nameParts, VOCABULARY } from "./parts/vocabulary.js";
 export {
+  benchmarkExclusions,
+  conceptClosure,
+  closureSlugs,
+  loadBenchmark,
+  loadRecords,
+  redactParts,
+  selectBenchmark,
+  strataCounts,
+} from "./pipeline/bench.js";
+export { RATES, rateFor, reachPoints, usdOf } from "./pipeline/cost.js";
+export {
+  assertNoFilledTwin,
   BASELINE,
   evaluate,
+  evaluateSeeds,
   formatReport,
+  formatSpread,
   loadIconSet,
 } from "./pipeline/eval.js";
 export {
@@ -122,10 +139,13 @@ export type {
   ConceptProposal,
   ConceptRole,
   ConceptSource,
+  CoveragePair,
   GapEntry,
   GapOptions,
   ProposalReport,
   ProposeOptions,
+  RejectedProposal,
+  RejectionReason,
   RoleAssignment,
 } from "./corpus/concepts.js";
 export type {
@@ -142,11 +162,16 @@ export type {
   VectorRef,
 } from "./corpus/record.js";
 export type { Source, SourceFile } from "./corpus/sources.js";
+export type { Benchmark, BenchmarkEntry, Strata } from "./pipeline/bench.js";
+export type { Rate, RateTable, TokenUsage } from "./pipeline/cost.js";
 export type {
   ConditioningProvenance,
+  CostReport,
   EvalIcon,
   EvalOptions,
   EvalReport,
+  IconScore,
+  SpreadReport,
 } from "./pipeline/eval.js";
 export type { Licensed, Reference, ReferenceIcon } from "./pipeline/licence.js";
 export type { Concept } from "./pipeline/prompt.js";

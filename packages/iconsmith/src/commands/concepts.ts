@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { Command } from "commander";
@@ -7,12 +7,16 @@ import type {
   ConceptConflict,
   ConceptIcon,
   ConceptProposal,
+  CoveragePair,
   GapEntry,
   ProposalReport,
+  RejectedProposal,
+  RejectionReason,
 } from "../corpus/concepts.js";
 import {
   duplicateConcepts,
   houseVocabulary,
+  isInformative,
   proposeConcepts,
   rankGaps,
 } from "../corpus/concepts.js";
@@ -170,25 +174,52 @@ export interface ConceptsProposal extends ConceptsReport {
   bySource: ProposalReport["bySource"];
   dryRun: boolean;
   files: string[];
+  informative: number;
   proposals: ConceptProposal[];
+  rejected: RejectedProposal[];
 }
 
 const pct = (n: number): string => `${(n * 100).toFixed(1)}%`;
 
+/**
+ * The two numbers, on one line, always.
+ *
+ * Nominal coverage counts `add-image → add-image`, which is free and means
+ * nothing; informative coverage does not. Printing nominal alone reports 99.8%
+ * for work that answered no new question, so the renderer has no way to print
+ * one without the other.
+ */
+const coverageLine = (c: CoveragePair): string =>
+  `informative ${c.informative.covered}/${c.informative.canonical} (${pct(c.informative.coverage)})   nominal ${c.nominal.covered}/${c.nominal.canonical} (${pct(c.nominal.coverage)})`;
+
 const reportText = (r: ConceptsReport): string =>
   [
-    `concept coverage  ${r.coverage.before.covered}/${r.coverage.before.canonical} canonical icons (${pct(r.coverage.before.coverage)})`,
-    `  roles: ${Object.entries(r.coverage.before.roles)
+    `concept coverage  ${coverageLine(r.coverage.before)}`,
+    `  roles: ${Object.entries(r.coverage.before.nominal.roles)
       .toSorted(([a], [b]) => a.localeCompare(b))
       .map(([k, v]) => `${k} ${v}`)
       .join("  ")}`,
-    `  proposing would reach ${r.coverage.after.covered}/${r.coverage.after.canonical} (${pct(r.coverage.after.coverage)})`,
+    `  proposing would reach  ${coverageLine(r.coverage.after)}`,
+    "  the gap is slug-to-itself entries: counted nominally, never written, worth nothing",
     `conflict queue    ${r.conflicts.length} word(s) naming two or more canonical icons`,
     `gap backlog       ${r.gaps.length} name(s) drawn by enough packs, from ${r.vocabulary.names.toLocaleString()} third-party names against ${r.vocabulary.words.toLocaleString()} house words`,
     ...r.gaps
       .slice(0, 20)
       .map((g) => `  ${String(g.packs).padStart(2)}  ${g.name}`),
   ].join("\n");
+
+/** `not-a-slug 14, truncated-number 5` — the filter's own tally, so a reader can
+ *  see what it took rather than trust that it took the right things. */
+const byReason = (rejected: readonly RejectedProposal[]): string => {
+  const counts = new Map<RejectionReason, number>();
+  for (const x of rejected) {
+    counts.set(x.reason, (counts.get(x.reason) ?? 0) + 1);
+  }
+  return [...counts]
+    .toSorted(([a], [b]) => a.localeCompare(b))
+    .map(([k, v]) => `${k} ${v}`)
+    .join(", ");
+};
 
 const proposalText = (r: ConceptsProposal): string =>
   [
@@ -197,6 +228,8 @@ const proposalText = (r: ConceptsProposal): string =>
       .toSorted(([a], [b]) => a.localeCompare(b))
       .map(([k, v]) => `${k} ${v}`)
       .join(", ")})`,
+    `  ${r.informative} informative; the other ${r.proposals.length - r.informative} repeat the icon's own slug and are not written`,
+    `rejected          ${r.rejected.length} derived concept(s) (${byReason(r.rejected)})`,
     ...r.files.map((f) => `  ${r.dryRun ? "would write" : "wrote"} ${f}`),
   ].join("\n");
 
@@ -204,17 +237,21 @@ const proposalText = (r: ConceptsProposal): string =>
  *  lines into `_concepts.json`; nothing here does it for them. */
 const proposalsMarkdown = (r: ConceptsProposal): string => {
   // Batched in trust order, not alphabetically. Sorted by concept the first
-  // batch is `100`, `1080p`, `2g`, `3g` — the noisiest end of the tag and
-  // keyword vocabularies — and a reviewer who reads one batch reads the worst
-  // fifty. Trust order puts the 1,550 mechanical slug concepts first, where a
-  // batch can be blessed at a glance.
+  // batch is `1080p`, `2g`, `3g` — the noisiest end of the tag and keyword
+  // vocabularies — and a reviewer who reads one batch reads the worst fifty.
+  // Trust order puts the mechanical stem concepts first, where a batch can be
+  // blessed at a glance.
+  //
+  // Tautological entries are excluded, for the same reason they are excluded
+  // from the proposed map: `add-image → add-image` is not a decision, and
+  // asking a person to tick 1,487 of them buries the 2,123 that are.
   const rank: Record<string, number> = {
     inferred: 0,
     "lucide-derived": 2,
     "tag-derived": 1,
   };
   const unblessed = r.proposals
-    .filter((p) => p.source !== "curated")
+    .filter((p) => p.source !== "curated" && isInformative(p.concept, p.slug))
     .toSorted(
       (a, b) =>
         (rank[a.source] ?? 3) - (rank[b.source] ?? 3) ||
@@ -226,8 +263,8 @@ const proposalsMarkdown = (r: ConceptsProposal): string => {
     `${unblessed.length} proposed concepts, ${BATCH} to a batch. Nothing here is in`,
     "`_concepts.json` yet — tick a line to bless it, strike one to drop it.",
     "",
-    `Coverage today: ${r.coverage.before.covered}/${r.coverage.before.canonical} (${pct(r.coverage.before.coverage)}).`,
-    `With every line below: ${r.coverage.after.covered}/${r.coverage.after.canonical} (${pct(r.coverage.after.coverage)}).`,
+    `Coverage today: ${coverageLine(r.coverage.before)}.`,
+    `With every line below: ${coverageLine(r.coverage.after)}.`,
     "",
   ];
   for (let i = 0; i < unblessed.length; i += BATCH) {
@@ -240,6 +277,22 @@ const proposalsMarkdown = (r: ConceptsProposal): string => {
       ...batch.map(
         (p) =>
           `| [ ] | \`${p.concept}\` | \`${p.slug}\` | ${p.source} | ${p.why} |`
+      ),
+      ""
+    );
+  }
+  if (r.rejected.length > 0) {
+    lines.push(
+      `## Rejected — ${r.rejected.length} derived concepts the filter threw away`,
+      "",
+      "Listed so the filter can be checked rather than trusted. Bless one by",
+      "hand if you disagree; `rejectionOf` in `corpus/concepts.ts` says why each",
+      "class is here.",
+      "",
+      "| concept | icon | reason |",
+      "| - | - | - |",
+      ...r.rejected.map(
+        (x) => `| \`${x.concept}\` | \`${x.slug}\` | ${x.reason} |`
       ),
       ""
     );
@@ -283,15 +336,22 @@ const gapsMarkdown = (r: ConceptsReport): string =>
     "",
   ].join("\n");
 
-/** The proposed map, in `_concepts.json`'s own shape so a reviewer diffs it
- *  against the real file rather than translating it. Written beside the
- *  proposals and never over the real one. */
+/**
+ * The proposed map, in `_concepts.json`'s own shape so a reviewer diffs it
+ * against the real file rather than translating it. Written beside the
+ * proposals and never over the real one.
+ *
+ * Tautological entries are left out. A `slug → slug` line is not wrong, it is
+ * empty: it costs a reviewer a line to read and gives a caller nothing the
+ * filename did not. Writing the 1,487 of them would triple the file and move
+ * only the number nobody should be quoting.
+ */
 const proposedConcepts = (r: ConceptsProposal): string => {
   const concepts: Record<string, string> = {};
-  for (const p of r.proposals.toSorted((a, b) =>
-    a.concept.localeCompare(b.concept)
-  )) {
-    concepts[p.concept] = p.slug;
+  for (const entry of r.proposals
+    .filter((p) => isInformative(p.concept, p.slug))
+    .toSorted((a, b) => a.concept.localeCompare(b.concept))) {
+    concepts[entry.concept] = entry.slug;
   }
   return `${JSON.stringify(
     {
@@ -328,6 +388,9 @@ export interface ApplyReport {
   kept: number;
   to: string;
   total: number;
+  /** Incoming concepts whose icon does not exist beside the target file. Not
+   *  merged. See `applyConcepts`. */
+  unresolved: { concept: string; slug: string }[];
 }
 
 /**
@@ -354,9 +417,32 @@ const applyConcepts = async ({
   const target = path.resolve(to);
   const live = (await readJsonFile<ConceptsFile>(target)) ?? { concepts: {} };
 
+  // Every icon in the set is a `<slug>.json` beside this file, so the set of
+  // real answers is one `readdir` away. The check is here rather than in the
+  // proposer because this is the write, and the proposer's view of the set is a
+  // corpus store built at some earlier moment: 16 of the 2,113 concepts the
+  // live store proposed pointed at icons that have since been renamed or
+  // removed — `flashlight → torch`, `chateau → castle`. Merging those would
+  // write a file that fails the set's own validator.
+  const dataFiles = await readdir(path.dirname(target));
+  const siblings = new Set(
+    dataFiles
+      .filter((f) => f.endsWith(".json") && !f.startsWith("_"))
+      .map((f) => f.slice(0, -".json".length))
+  );
+  const unresolved: ApplyReport["unresolved"] = [];
+  const incoming: Record<string, string> = {};
+  for (const [concept, slug] of Object.entries(reviewed.concepts)) {
+    if (siblings.has(slug)) {
+      incoming[concept] = slug;
+    } else {
+      unresolved.push({ concept, slug });
+    }
+  }
+
   const changed: ApplyReport["changed"] = [];
   let added = 0;
-  for (const [concept, slug] of Object.entries(reviewed.concepts)) {
+  for (const [concept, slug] of Object.entries(incoming)) {
     const was = live.concepts[concept];
     if (was === undefined) {
       added += 1;
@@ -364,9 +450,9 @@ const applyConcepts = async ({
       changed.push({ concept, from: was, to: slug });
     }
   }
-  const merged = { ...live.concepts, ...reviewed.concepts };
+  const merged = { ...live.concepts, ...incoming };
   const kept = Object.keys(live.concepts).filter(
-    (c) => !(c in reviewed.concepts)
+    (c) => !(c in incoming)
   ).length;
 
   // The one-answer contract, checked before the file is written rather than
@@ -397,6 +483,9 @@ const applyConcepts = async ({
     kept,
     to: target,
     total: Object.keys(merged).length,
+    unresolved: unresolved.toSorted((a, b) =>
+      a.concept.localeCompare(b.concept)
+    ),
   };
 };
 
@@ -405,6 +494,12 @@ const applyText = (r: ApplyReport): string =>
     `${r.dryRun ? "would merge" : "merged"} into ${r.to}`,
     `  ${r.added} added, ${r.changed.length} changed, ${r.kept} kept, ${r.total} concepts total`,
     ...r.changed.map((c) => `  ~ ${c.concept}: ${c.from} → ${c.to}`),
+    ...(r.unresolved.length > 0
+      ? [
+          `  ${r.unresolved.length} skipped: no such icon beside the target file`,
+          ...r.unresolved.map((u) => `  - ${u.concept} → ${u.slug}`),
+        ]
+      : []),
     ...r.duplicates.map(
       (d) =>
         `  ! "${d.concept}" would map to ${d.slugs.join(", ")} — nothing written`
@@ -482,7 +577,9 @@ export const registerConceptsCommand = (program: Command): void => {
           "gaps.md",
           "_concepts.proposed.json",
         ].map((f) => path.join(dir, f)),
+        informative: proposal.informative,
         proposals: proposal.proposals,
+        rejected: proposal.rejected,
       };
 
       if (!opts.dryRun) {

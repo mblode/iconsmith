@@ -136,6 +136,22 @@ export interface GapEntry {
   sets: string[];
 }
 
+/**
+ * Whether a concept tells a caller something the filename did not.
+ *
+ * `add-image → add-image` is true by construction and therefore worth nothing:
+ * anyone who could type the concept already had the slug. 1,522 of the 3,718
+ * proposals the live store yields are of that shape, and counting them is what
+ * turns a measured 59.2% coverage into a flattering 99.8%. So the test is on
+ * the *entry*, not on its `source`:
+ * 63 `inferred` proposals are informative — `basket → basket-1`, `store →
+ * store-1` — because stripping a drawing revision yields a word the file
+ * system never offered, and 30 `curated` ones are not, because a person once
+ * blessed a slug against itself.
+ */
+export const isInformative = (concept: string, slug: string): boolean =>
+  concept !== slug;
+
 export interface ConceptCoverage {
   /** Icons whose role is `canonical` — the denominator. */
   canonical: number;
@@ -404,6 +420,39 @@ export const coverageOf = (
   };
 };
 
+/**
+ * The two coverage numbers, which only mean anything side by side.
+ *
+ * `nominal` counts every concept. `informative` counts only the ones that pass
+ * `isInformative`. A caller that reports one without the other is reporting a
+ * number that can be moved without doing any work: appending `slug → slug` for
+ * every icon takes nominal coverage to 100% and leaves informative coverage
+ * exactly where it was. The gap between them is the honest picture, so every
+ * function here returns the pair and every renderer prints both.
+ */
+export interface CoveragePair {
+  informative: ConceptCoverage;
+  nominal: ConceptCoverage;
+}
+
+/** Coverage measured twice over the same roles, once with the tautological
+ *  entries stripped. */
+export const coveragePair = (
+  icons: readonly ConceptIcon[],
+  roles: readonly RoleAssignment[],
+  options: { sample?: number } = {}
+): CoveragePair => ({
+  informative: coverageOf(
+    icons.map((i) => ({
+      ...i,
+      concepts: i.concepts.filter((c) => isInformative(c, i.slug)),
+    })),
+    roles,
+    options
+  ),
+  nominal: coverageOf(icons, roles, options),
+});
+
 /** A concept naming two icons, which is the one state `_concepts.json` cannot
  *  be allowed to reach. Note that the file's own shape (concept → slug) makes
  *  this unrepresentable *there*; it becomes possible the moment proposals are
@@ -424,6 +473,75 @@ export const duplicateConcepts = (
     .toSorted((a, b) => a.concept.localeCompare(b.concept));
 };
 
+/** A mechanically-derived concept thrown away, and why. Reported rather than
+ *  dropped silently: the count is the check on the filter, and a filter nobody
+ *  can see is indistinguishable from a bug. */
+export interface RejectedProposal {
+  concept: string;
+  reason: RejectionReason;
+  slug: string;
+}
+
+export type RejectionReason = "not-a-slug" | "truncated-number";
+
+/** `_concepts.json`'s own key grammar, copied from
+ *  `blode-icons-react/scripts/validate-icons-data.mts`. A key must start with a
+ *  letter, so `100`, `3-00`, `2g` and `1v1` are not keys that file can hold. */
+const CONCEPT_KEY = /^[a-z](?:[a-z0-9-]*[a-z0-9])?$/u;
+/** Ends in a digit — checked only on `inferred` concepts, where it means the
+ *  stem rule cut a number in half. */
+const ENDS_IN_DIGIT = /\d$/u;
+
+/**
+ * Whether a derived concept is junk, and which kind.
+ *
+ * Two classes, both counted against the 2,123 informative concepts the three
+ * derived passes propose from the live store, of which 19 are thrown away:
+ *
+ * - **`not-a-slug` (14 entries).** The target file rejects any key that does
+ *   not start with a letter, so proposing one is proposing a file that fails
+ *   its own validator. The class is `100 → battery-full`, `50 →
+ *   battery-medium`, `3-00`/`9-00` → the clock faces, `360 → panorama-view`,
+ *   `1v1 → people-versus`, `3d-scan → spatial-capture`, `8-ball →
+ *   fortune-teller-ball`, `720p`/`1080p → hd` and `2g`…`5g` → `signal`. Mostly
+ *   these are a tag reading what the drawing *depicts* — a gauge reading, a
+ *   clock position — rather than a word a caller types; `1v1` and `3d-scan` are
+ *   the two that a person might want, and they need a key spelled differently
+ *   before they can exist at all.
+ * - **`truncated-number` (5 entries).** `unnumbered("aspect-ratio-16-9")` is
+ *   `aspect-ratio-16`. The stem rule reads a trailing number as a drawing
+ *   revision, which it is for `basket-1`; in a slug ending in a *pair* of
+ *   numbers it is half a ratio, and the result names nothing while reading like
+ *   a numbered variant. All five are `aspect-ratio-*`.
+ *
+ * Both classes are small on purpose. The filter exists so the number this
+ * command is asked to raise is not inflated one level down; a filter that threw
+ * away hundreds would be a different claim needing different evidence.
+ *
+ * Tautological entries are never rejected, only ignored. They are not written
+ * to `_concepts.json`, so there is nothing to filter, and rejecting one would
+ * release its word for a later pass to take — which is the one job those
+ * entries do. See the pass-2 comment in `proposeConcepts`.
+ */
+export const rejectionOf = (
+  concept: string,
+  slug: string,
+  source: ConceptSource
+): RejectionReason | null => {
+  // `curated` is a person's decision and is never second-guessed here; the
+  // filter exists to police mechanical derivation, not the blessed file.
+  if (source === "curated" || !isInformative(concept, slug)) {
+    return null;
+  }
+  if (!CONCEPT_KEY.test(concept)) {
+    return "not-a-slug";
+  }
+  if (source === "inferred" && ENDS_IN_DIGIT.test(concept)) {
+    return "truncated-number";
+  }
+  return null;
+};
+
 export interface ProposeOptions {
   icons: readonly ConceptIcon[];
   /** `lucide-static/tags.json`: icon name → keywords. Keywords only; this
@@ -434,15 +552,20 @@ export interface ProposeOptions {
 
 export interface ProposalReport {
   conflicts: ConceptConflict[];
-  coverage: { after: ConceptCoverage; before: ConceptCoverage };
+  coverage: { after: CoveragePair; before: CoveragePair };
   /** Proposals that would collide with each other or with a curated concept.
    *  Empty by construction — every pass checks the claimed set before adding —
    *  and reported so the claim is checked rather than asserted. */
   duplicates: ConceptDuplicate[];
   proposals: ConceptProposal[];
+  /** Derived concepts the junk filter threw away. See `rejectionOf`. */
+  rejected: RejectedProposal[];
   roles: RoleAssignment[];
   /** Proposals grouped by source, for the report line. */
   bySource: Record<ConceptSource, number>;
+  /** How many proposals are worth something — `bySource` counted through
+   *  `isInformative`, so the two lines cannot disagree. */
+  informative: number;
 }
 
 /** Word → the canonical icons it names. Tags and Lucide keywords are indexed
@@ -505,8 +628,10 @@ const confidenceOf = (source: ConceptSource): ConceptProposal["confidence"] => {
  * 1. **Curated.** Whatever `_concepts.json` already says, carried through so
  *    the later passes cannot take a blessed word for a different icon.
  * 2. **Cohort collapse.** Every canonical gets its own unnumbered slug as a
- *    concept. Mechanical, and the pass that does the volume: it is what takes
- *    coverage from 5.1% to essentially complete.
+ *    concept. Mechanical, and the pass that does the volume — but almost all of
+ *    that volume is the slug pointing at itself, which takes *nominal* coverage
+ *    to 99.8% and informative coverage nowhere. It is a word reservation, not
+ *    an answer; see the pass-2 comment in the body.
  * 3. **Tags.** A tag proposes a concept only when it names exactly one
  *    canonical icon. Multi-icon tags go to the conflict queue untouched.
  * 4. **Lucide keywords.** Same rule, over a vocabulary blode mostly does not
@@ -525,12 +650,13 @@ export const proposeConcepts = ({
   manifest,
 }: ProposeOptions): ProposalReport => {
   const roles = assignRoles(icons, manifest);
-  const before = coverageOf(icons, roles);
+  const before = coveragePair(icons, roles);
   const canonical = new Map(
     roles.filter((r) => r.role === "canonical").map((r) => [r.slug, r])
   );
 
   const proposals: ConceptProposal[] = [];
+  const rejected: RejectedProposal[] = [];
   const claimed = new Map<string, string>();
   const claim = (
     concept: string,
@@ -540,6 +666,11 @@ export const proposeConcepts = ({
   ): void => {
     const role = canonical.get(slug)?.role ?? "variant";
     if (concept.length === 0 || claimed.has(concept)) {
+      return;
+    }
+    const reason = rejectionOf(concept, slug, source);
+    if (reason !== null) {
+      rejected.push({ concept, reason, slug });
       return;
     }
     claimed.set(concept, slug);
@@ -562,6 +693,15 @@ export const proposeConcepts = ({
 
   // 2. Cohort collapse: the canonical answers under its own name.
   //
+  // 1,487 of these are the slug pointing at itself, and they are kept for one
+  // reason: they *reserve* the word. Without the reservation, pass 3 would let
+  // `folder-cloud`'s "folder" tag answer "which icon for a folder?" with a
+  // folder-in-the-cloud, and pass 4 would do the same with Lucide's keywords.
+  // That is their whole job, and it is done by the time this function returns —
+  // so they are never written to `_concepts.json` and never counted as
+  // informative coverage. The 63 that *are* informative (`basket → basket-1`)
+  // earn their place by naming something the file system does not.
+  //
   // The stem falls back to the full slug when another icon already holds it —
   // `call` loses `call` to the curated concept pointing at `phone` — because a
   // canonical with no concept at all is worse than one with a clumsy name. The
@@ -573,7 +713,20 @@ export const proposeConcepts = ({
       r.family === slug
         ? "no stated cohort; the icon is its own canonical"
         : `canonical of family "${r.family}"`;
-    claim(claimed.has(stem) ? slug : stem, slug, "inferred", why);
+    // A rejected stem falls back to the slug for the same reason a taken one
+    // does: the reservation still has to happen, or a tag would claim
+    // `aspect-ratio-16` for something else. The rejection is recorded here
+    // rather than inside `claim`, which never sees the stem.
+    const reason = rejectionOf(stem, slug, "inferred");
+    if (reason !== null) {
+      rejected.push({ concept: stem, reason, slug });
+    }
+    claim(
+      claimed.has(stem) || reason !== null ? slug : stem,
+      slug,
+      "inferred",
+      why
+    );
   }
 
   const conflicts: ConceptConflict[] = [];
@@ -626,7 +779,7 @@ export const proposeConcepts = ({
       p.concept,
     ]);
   }
-  const after = coverageOf(
+  const after = coveragePair(
     icons.map((i) => ({ ...i, concepts: conceptsBySlug.get(i.slug) ?? [] })),
     roles
   );
@@ -646,7 +799,10 @@ export const proposeConcepts = ({
     conflicts: conflicts.toSorted((a, b) => a.word.localeCompare(b.word)),
     coverage: { after, before },
     duplicates: duplicateConcepts(proposals),
+    informative: proposals.filter((p) => isInformative(p.concept, p.slug))
+      .length,
     proposals: proposals.toSorted((a, b) => a.concept.localeCompare(b.concept)),
+    rejected: rejected.toSorted((a, b) => a.concept.localeCompare(b.concept)),
     roles,
   };
 };

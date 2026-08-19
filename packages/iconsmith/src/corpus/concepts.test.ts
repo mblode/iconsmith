@@ -3,12 +3,14 @@ import { describe, expect, test } from "vitest";
 import type { ConceptIcon } from "./concepts.js";
 import {
   assignRoles,
+  coveragePair,
   coverageOf,
   duplicateConcepts,
   headOf,
   houseVocabulary,
   proposeConcepts,
   rankGaps,
+  rejectionOf,
   slugifyTag,
   unnumbered,
 } from "./concepts.js";
@@ -264,5 +266,73 @@ describe("slug helpers", () => {
   test("a trailing index is a drawing revision, not a distinction", () => {
     expect(unnumbered("car-10")).toBe("car");
     expect(unnumbered("h1")).toBe("h1");
+  });
+});
+
+describe("the two coverage numbers", () => {
+  const icons = [icon("gauge", { concepts: ["gauge"] }), icon("wrench")];
+  const roles = assignRoles(icons, {});
+
+  test("a slug-to-itself concept counts nominally and not informatively", () => {
+    // This is the whole correction: `gauge → gauge` satisfies any ">= x%
+    // covered" criterion while telling a caller nothing the filename did not.
+    const c = coveragePair(icons, roles);
+    expect(c.nominal.covered).toBe(1);
+    expect(c.informative.covered).toBe(0);
+  });
+
+  test("a concept that is not the slug counts in both", () => {
+    const c = coveragePair([icon("wrench", { concepts: ["settings"] })], roles);
+    expect(c.informative.covered).toBe(1);
+    expect(c.nominal.covered).toBe(1);
+  });
+});
+
+describe("the junk filter on derived concepts", () => {
+  test("a concept the target file cannot use as a key is thrown away", () => {
+    // `_concepts.json` keys must start with a letter, so proposing `100 →
+    // battery-full` is proposing a file that fails the set's own validator.
+    // Most of the class is a tag reading the gauge rather than naming it.
+    expect(rejectionOf("100", "battery-full", "tag-derived")).toBe(
+      "not-a-slug"
+    );
+    expect(rejectionOf("3-00", "clock-3-o-clock", "tag-derived")).toBe(
+      "not-a-slug"
+    );
+    expect(rejectionOf("1080p", "hd", "lucide-derived")).toBe("not-a-slug");
+    expect(rejectionOf("hd", "high-definition", "lucide-derived")).toBeNull();
+  });
+
+  test("a stem that cut a number pair in half is thrown away", () => {
+    // `unnumbered("aspect-ratio-16-9")` is `aspect-ratio-16`, which names
+    // nothing and reads as a numbered variant.
+    expect(
+      rejectionOf("aspect-ratio-16", "aspect-ratio-16-9", "inferred")
+    ).toBe("truncated-number");
+    // The same shape from a tag is a real word: `f1` is what people call it.
+    expect(rejectionOf("f1", "formula1", "tag-derived")).toBeNull();
+  });
+
+  test("a blessed concept and a tautology are never rejected", () => {
+    expect(rejectionOf("100", "100", "inferred")).toBeNull();
+    expect(rejectionOf("100", "battery-full", "curated")).toBeNull();
+  });
+
+  test("a rejected stem still reserves its slug, and is reported", () => {
+    const r = proposeConcepts({
+      icons: [icon("aspect-ratio-16-9")],
+      manifest: {},
+    });
+    expect(r.rejected).toEqual([
+      {
+        concept: "aspect-ratio-16",
+        reason: "truncated-number",
+        slug: "aspect-ratio-16-9",
+      },
+    ]);
+    // Nominal coverage is unaffected: the icon still answers under its own
+    // name, which is what the reservation is for.
+    expect(r.coverage.after.nominal.covered).toBe(1);
+    expect(r.coverage.after.informative.covered).toBe(0);
   });
 });
