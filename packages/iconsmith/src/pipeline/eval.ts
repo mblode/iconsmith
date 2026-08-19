@@ -37,6 +37,11 @@ import path from "node:path";
 import type { LanguageModel } from "ai";
 
 import type { Usage } from "../corpus/record.js";
+import type { Calibration } from "../eval/calibration.js";
+import { loadCalibration } from "../eval/calibration.js";
+import type { GateResult } from "../eval/judge.js";
+import type { MetricReport, PanelTreatments } from "../eval/report.js";
+import { buildReport, formatMetrics } from "../eval/report.js";
 import { cosine, inkVector } from "../tools/render.js";
 import type { Part, Provenance } from "../types.js";
 import { benchmarkExclusions, redactParts, slice } from "./bench.js";
@@ -219,6 +224,17 @@ export interface EvalReport {
   /** The run seed: it labels the replicate and picks the floor comparisons. It
    *  does not choose the sample — the benchmark file does. */
   seed: number;
+  /**
+   * The four-axis metric panel, or null when no calibration is on disk.
+   *
+   * Rendered cosine above is one axis and a weak one: it rewards ink in roughly
+   * the right place and is blind to meaning. `src/eval/` adds conformance as a
+   * gate, style, semantic legibility and a judge, each against a floor and a
+   * ceiling measured on this corpus rather than assumed. Conformance is always
+   * computable from a run; the others need embedding sidecars or a judge and
+   * report `null` when those are absent.
+   */
+  metrics: MetricReport | null;
   /** Set when the result is too good to be true. */
   suspect: string | null;
   /** Median score across the sample — median, to match how the baseline was
@@ -238,6 +254,9 @@ export interface EvalOptions {
    *  two runs incomparable. */
   benchmark: readonly BenchmarkEntry[];
   concurrency?: number;
+  /** The measured metric scales. Defaults to `bench/calibration.v1.json`; pass
+   *  `null` to skip the panel entirely. */
+  calibration?: Calibration | null;
   /** Root of the icon set, or pass `icons` directly. */
   dir?: string;
   generate?: GenerateFn;
@@ -250,6 +269,14 @@ export interface EvalOptions {
   model?: LanguageModel;
   onIcon?: (score: IconScore) => void;
   parts?: Part[];
+  /** The judge's sanity-gate result for the judge that scored this run. Null
+   *  means no judge ran, and the column is not reported — a judge column is
+   *  only printed after its gate passes. */
+  judgeGate?: GateResult | null;
+  /** Treatments for the metrics this loop cannot compute itself: style and
+   *  semantic need embedding sidecars for the *generated* SVGs, which come from
+   *  the same batch stage as the corpus vectors, and the judge costs money. */
+  metricTreatments?: Partial<PanelTreatments>;
   /** Where the set at `dir` (or in `icons`) comes from. Required, and checked:
    *  every non-held icon is handed to the model, so a run against someone
    *  else's pack is a licence breach the moment it starts. */
@@ -402,6 +429,7 @@ const summariseCost = (
 export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
   const {
     benchmark,
+    calibration = loadCalibration(),
     concurrency = 2,
     dir,
     generate: gen = generate,
@@ -544,6 +572,30 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
     floor,
     icons: scores.toSorted((a, b) => a.score - b.score),
     mean: values.reduce((a, b) => a + b, 0) / (values.length || 1),
+    metrics: calibration
+      ? buildReport(
+          calibration,
+          {
+            conformanceGate:
+              scores.filter((s) => s.clean).length / (scores.length || 1),
+            conformanceStrict:
+              scores.filter((s) => s.clean && s.issues === 0).length /
+              (scores.length || 1),
+            judge: null,
+            semantic: null,
+            style: null,
+            ...options.metricTreatments,
+          },
+          {
+            // The gate's denominator is every icon; the other metrics are read
+            // only on the icons that cleared it, because a pipeline scoring
+            // well on the three icons that survived is not a good pipeline.
+            disqualified: scores.filter((s) => !s.clean).length,
+            n: scores.filter((s) => s.clean).length,
+          },
+          options.judgeGate ?? null
+        )
+      : null,
     model: modelId,
     n: scores.length,
     seed,
@@ -624,6 +676,9 @@ export const formatReport = (report: EvalReport): string => {
     `  mean ${report.mean.toFixed(3)} · ${clean}/${report.n} lint clean · ${median(report.icons.map((i) => i.steps)).toFixed(0)} steps median`,
     ...costLines(report),
   ];
+  if (report.metrics) {
+    lines.push("", formatMetrics(report.metrics));
+  }
   if (report.aborted) {
     lines.push("", `  ! ${report.aborted}`);
   }

@@ -1,0 +1,203 @@
+{
+  "builtAt": "2026-08-19T02:21:21.023Z",
+  "conformance": {
+    "baseline": {
+      "gate": 0.9998036520714706,
+      "set": "tabler",
+      "strict": 0.22265855095228745
+    },
+    "ceiling": {
+      "gate": 0.9662314272850068,
+      "n": 2221,
+      "set": "blode-icons",
+      "strict": 0.3381359747861324
+    },
+    "excluded": [
+      {
+        "reason": "the same set as `lucide` from npm; measured, reported, and kept out of the pooled floor so Lucide is not counted twice",
+        "set": "lucide-static"
+      },
+      {
+        "reason": "0 straight edges in 1,512 icons — outline-expanded fills",
+        "set": "phosphor"
+      },
+      {
+        "reason": "0 straight edges in 332 icons — outline-expanded fills",
+        "set": "radix"
+      },
+      {
+        "reason": "0 straight edges in 1,689 icons — outline-expanded fills",
+        "set": "remix"
+      }
+    ],
+    "floor": {
+      "gate": 0.9873777575619741,
+      "n": 8794,
+      "sets": ["heroicons", "iconoir", "lucide", "tabler"],
+      "strict": 0.20275187627928132
+    },
+    "packs": [
+      {
+        "gate": 0.9662314272850068,
+        "n": 2221,
+        "reason": "the house set",
+        "set": "blode-icons",
+        "strict": 0.3381359747861324,
+        "stroke": true,
+        "thirdParty": false
+      },
+      {
+        "gate": 0.9726618705035971,
+        "n": 2085,
+        "reason": "the house variant blode-icons is drawn in",
+        "set": "central",
+        "strict": 0.3203836930455635,
+        "stroke": true,
+        "thirdParty": false
+      },
+      {
+        "gate": 1,
+        "n": 324,
+        "reason": "1,903 straight edges",
+        "set": "heroicons",
+        "strict": 0.19444444444444445,
+        "stroke": true,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.9913232104121475,
+        "n": 1383,
+        "reason": "9,311 straight edges",
+        "set": "iconoir",
+        "strict": 0.15835140997830802,
+        "stroke": true,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.950852557673019,
+        "n": 1994,
+        "reason": "11,123 straight edges",
+        "set": "lucide",
+        "strict": 0.18405215646940823,
+        "stroke": true,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.9555555555555556,
+        "n": 2025,
+        "reason": "the same set as `lucide` from npm; measured, reported, and kept out of the pooled floor so Lucide is not counted twice",
+        "set": "lucide-static",
+        "strict": 0.1832098765432099,
+        "stroke": false,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.8326719576719577,
+        "n": 1512,
+        "reason": "0 straight edges in 1,512 icons — outline-expanded fills",
+        "set": "phosphor",
+        "strict": 0.11243386243386243,
+        "stroke": false,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.6536144578313253,
+        "n": 332,
+        "reason": "0 straight edges in 332 icons — outline-expanded fills",
+        "set": "radix",
+        "strict": 0.09036144578313253,
+        "stroke": false,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.8685612788632326,
+        "n": 1689,
+        "reason": "0 straight edges in 1,689 icons — outline-expanded fills",
+        "set": "remix",
+        "strict": 0.11071640023682652,
+        "stroke": false,
+        "thirdParty": true
+      },
+      {
+        "gate": 0.9998036520714706,
+        "n": 5093,
+        "reason": "30,889 straight edges",
+        "set": "tabler",
+        "strict": 0.22265855095228745,
+        "stroke": true,
+        "thirdParty": true
+      }
+    ]
+  },
+  "judge": {
+    "procedure": "Forced choice between the shipped icon for a concept and an icon of an unrelated concept, presentation order randomised from the run seed. Below 90% the judge column is discarded, not discounted.",
+    "runs": [
+      {
+        "gate": {
+          "accuracy": 0.8333333333333334,
+          "n": 30,
+          "passed": false,
+          "verdict": "Judge sanity gate FAILED: 25/30 (83%), below the 90% floor. The judge column is discarded — it cannot separate a shipped icon from an unrelated one, so its scores on the real question are noise."
+        },
+        "measuredAt": "2026-08-19T02:01:17.545Z",
+        "missed": ["increase", "bubble-5", "telegram", "threads", "manus-ai"],
+        "model": "anthropic/claude-haiku-4.5",
+        "seed": 1
+      },
+      {
+        "gate": {
+          "accuracy": 0.9333333333333333,
+          "n": 30,
+          "passed": true,
+          "verdict": "Judge sanity gate passed: 28/30 (93%) preferred the shipped icon over a random one."
+        },
+        "measuredAt": "2026-08-19T02:02:56.055Z",
+        "missed": ["boolean-group-substract-2", "threads"],
+        "model": "anthropic/claude-sonnet-4.5",
+        "seed": 1
+      }
+    ]
+  },
+  "procedure": {
+    "conformance": "Per-set pass rates over one stroke rendering per icon from the record store. `gate` = no error-severity lint issue; `strict` = no issue of any severity. Ceiling = blode-icons' own rate. Floor = third-party stroke packs pooled by icon, so a 324-icon pack does not outweigh a 5,093-icon one. Baseline = the best single third-party stroke pack. Phosphor, Radix and Remix are excluded: they report 0 straight edges across 3,533 icons, so the off-axis rule is structurally silent for them and their rate measures a rendering choice. lucide-static is excluded as a duplicate of lucide.",
+    "semantic": "SigLIP base-patch16-224. Each icon's image embedding is ranked against the whole concept bank embedded through `a simple black line icon of {}`. rank@1 = share of icons whose top-scoring concept maps to their own slug; margin = cosine to the best correct concept minus cosine to the best wrong one. Ceiling = the real shipped icon's own rank@1 — not 100%, because the bank holds near-synonyms. Floor = a different house icon asked the same question.",
+    "separation": "Every metric with a floor sample and a baseline sample is scored by the AUC — P(a random baseline observation beats a random floor one), 0.5 being chance. Below 0.65 the column is discarded rather than discounted, on the same argument the judge gate makes: an instrument that cannot answer the easy question is noise, and a reach computed against a scale narrower than its own sampling error is noise with a decimal point. Conformance is exempt: it is a gate, never a headline, so it is never read as a reach.",
+    "style": "DINO ViT-B/8 CLS, 224px on white, currentColor pinned to #000. Score = median cosine to the k=10 nearest house icons with the icon's whole concept closure (`pipeline/bench.ts`) excluded from the neighbourhood — without that exclusion the nearest neighbours are the answer and this is reconstruction again. Ceiling = held-out house icons against the rest of the house set. Baseline = third-party icons whose slug matches a house slug. Floor = third-party icons with no house counterpart, sampled to the same n. RESULT: the metric does not work on this corpus and is discarded by the separation gate. All three numbers land within 0.007 of each other and the floor sits ABOVE the baseline (AUC 0.476). Alternatives measured and rejected before concluding this: k = 1, 3, 10 and 25 (AUC 0.515-0.580), and mean-centring the embeddings over the house set, which widens the span from 0.007 to 0.009 and leaves AUC unchanged. The reading is that DINO CLS on 24px black-on-white line art encodes the medium, not the house: Lucide, Tabler, Iconoir and Heroicons are stroke sets at the same weight on the same canvas, and at that description they are the same set. A style metric for this corpus needs a representation that is not dominated by \"small line drawing on white\" — the geometry the store already measures is a better candidate than a general-purpose vision embedding."
+  },
+  "records": 18658,
+  "sample": 300,
+  "semantic": {
+    "bank": 2203,
+    "baseline": 0.35081967213114756,
+    "baselineMargin": -0.013432436874446313,
+    "baselineN": 305,
+    "ceiling": 0.32459016393442625,
+    "ceilingMargin": -0.014412813871815963,
+    "ceilingN": 305,
+    "floor": 0.006557377049180328,
+    "floorMargin": -0.07841100855694931,
+    "floorN": 305,
+    "model": "google/siglip-base-patch16-224",
+    "prompt": "a simple black line icon of {}",
+    "separation": {
+      "auc": 0.6721311475409836,
+      "usable": true,
+      "verdict": "semantic: baseline beats floor 67% of the time (AUC 0.672), above the 0.65 bar."
+    }
+  },
+  "style": {
+    "baseline": 0.9070779174964261,
+    "baselineN": 300,
+    "ceiling": 0.9136849521051057,
+    "ceilingN": 300,
+    "floor": 0.9104704955268966,
+    "floorN": 300,
+    "k": 10,
+    "model": "facebook/dino-vitb8",
+    "separation": {
+      "auc": 0.4759611111111111,
+      "usable": false,
+      "verdict": "style: DISCARDED — baseline beats floor only 48% of the time (AUC 0.476, chance is 50%). The metric cannot separate \"another professional set's take\" from \"an unrelated icon\", so a reach computed against this scale would be noise with a decimal point."
+    }
+  }
+}

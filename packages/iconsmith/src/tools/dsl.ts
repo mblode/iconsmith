@@ -74,8 +74,10 @@ const ANCHORS: Record<string, [number, number]> = {
 };
 
 /** The three turns that are not the identity, clockwise. Names, not degrees:
- *  a number here would be a coordinate by another name. */
-const TURNS: Record<string, number> = { ccw: 3, cw: 1, half: 2 };
+ *  a number here would be a coordinate by another name. Exported because
+ *  `pipeline/tools.ts` offers the same three to a model, and a second table
+ *  would let a program and a generation mean different things by `cw`. */
+export const TURNS: Record<string, number> = { ccw: 3, cw: 1, half: 2 };
 
 /**
  * Permission for a line to leave 0/45/90, spelled out in the program.
@@ -244,9 +246,16 @@ const missBy = (t: [number, number] | null, lo: number, hi: number): number =>
  *   axis has nothing to inherit there, so that axis is simply centred on 12 —
  *   the behaviour of `center`, which is what the icon would have got anyway.
  *
- * Returns a message when the result does not fully land, else null.
+ * Returns a message when the result does not fully land, else null. Exported
+ * because `pipeline/tools.ts` offers the same op to a model directly, and a
+ * second implementation of it would be a second answer to "where does this
+ * icon sit", which is the question the whole cohort machinery exists to make
+ * have one answer.
  */
-const alignCohort = (canvas: Canvas, target: CohortTarget): string | null => {
+export const alignCohort = (
+  canvas: Canvas,
+  target: CohortTarget
+): string | null => {
   const b = canvas.bbox();
   if (!b) {
     return "nothing drawn yet — put the geometry down first, then cohort";

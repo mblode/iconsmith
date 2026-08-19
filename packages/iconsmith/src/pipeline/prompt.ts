@@ -95,6 +95,12 @@ back rather than trying to force the original numbers through.
 - \`part\` — place a shape from the extracted vocabulary by id. Prefer this over
   drawing a common form from scratch: it is *the same* folder, chevron, or
   magnifier that the rest of the set already uses, which is the whole point.
+  \`turn\` names a quarter-turn — \`cw\`, \`half\`, \`ccw\` — and \`flip\` mirrors
+  the part before turning it. A part is stored at one orientation because the
+  clusterer folds a mark together with its turns and its mirror, so these are
+  how you reach the other seven. Quarters only, and never an angle: only the
+  quarter-turns keep every node on the grid. Ask for \`flip\` on purpose —
+  chirality is the one symmetry that can be simply wrong.
 - \`remove\` — delete a draw op by index when you change your mind.
 - \`center\` — recentre the drawing optically on the canvas.
 - \`fit\` — scale the drawing to the chosen keyline. Do this once, near the end.
@@ -151,11 +157,44 @@ ${axis(c.extent.y, "y")}
 If \`cohort\` reports that your drawing is the wrong shape for the family, the
 fix is the drawing, not the number: redraw it to the family's proportions.`;
 
+/**
+ * How to read a composition proposal.
+ *
+ * Written only when one exists, for the same reason `COHORT` is: a prompt that
+ * describes an op the tool set does not carry costs the model a turn to
+ * discover, and `createTools` withholds `proposal` when there is none.
+ *
+ * The framing is doing real work. The proposal contains no geometry — it
+ * cannot, `compose.ts` reads the raster into words and throws the picture away
+ * — so the model is told what it is holding, that it gets it once, and that the
+ * arrangement is the part worth having. A model that believes it has been given
+ * a drawing to match will spend its steps trying to match one.
+ */
+const PROPOSAL = `# The composition proposal
+
+An image model has sketched a composition for this icon, and it has been read
+into words: how many elements, roughly where each sits in a 3×3 grid, their
+relative sizes, how they overlap or sit beside each other, and which parts of
+the vocabulary resemble them. A blurred thumbnail comes with it.
+
+Call \`proposal\` **once**, first, before you draw. It is available once on
+purpose. What it is good for is the *arrangement* — how many things there are,
+which one is dominant, what sits inside what. What it is not is a drawing: it
+holds no coordinates, its thumbnail is blurred past the point where any stroke
+could be read off it, and the sketch it came from was not drawn to this spec.
+
+Take the arrangement, then draw it here with the primitives. If the proposal
+disagrees with what reads at 16px, or asks for more elements than the set would
+use, the set wins — it is one opinion about composition, not a brief you owe
+anything to.`;
+
 export interface PromptOptions {
   /** The family the icon joins, when it joins one; enables the `cohort` op. */
   cohort?: CohortBrief | null;
   /** Forces a keyline instead of letting the model pick. */
   keyline?: Keyline | null;
+  /** Whether this run carries a raster proposal; enables the `proposal` op. */
+  proposal?: boolean;
 }
 
 export const systemPrompt = (opts: PromptOptions = {}): string => {
@@ -163,7 +202,8 @@ export const systemPrompt = (opts: PromptOptions = {}): string => {
     ? `\n\nThis icon must use the \`${opts.keyline}\` keyline.`
     : "";
   const cohort = opts.cohort ? `\n\n${COHORT(opts.cohort)}` : "";
-  return `You are an icon designer working inside a constrained drawing system.\n\n${HOUSE()}\n\n${GRAMMAR}${cohort}${forced}`;
+  const proposal = opts.proposal ? `\n\n${PROPOSAL}` : "";
+  return `You are an icon designer working inside a constrained drawing system.\n\n${HOUSE()}\n\n${GRAMMAR}${proposal}${cohort}${forced}`;
 };
 
 /** The per-icon brief. Deliberately thin: name, senses, and — when the concept

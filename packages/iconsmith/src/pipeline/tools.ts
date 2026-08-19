@@ -15,10 +15,13 @@ import { tool } from "ai";
 import { z } from "zod";
 
 import { Canvas, SPEC } from "../tools/canvas.js";
-import { fitKeyline, recentre } from "../tools/dsl.js";
+import type { CohortTarget } from "../tools/cohort.js";
+import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
 import type { DotRole, Issue, Keyline, Part } from "../types.js";
+import type { Proposal } from "./compose.js";
+import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
 
 export type { Reference } from "./licence.js";
@@ -43,6 +46,24 @@ export interface ToolsOptions {
   renderSize?: number;
   /** The extracted vocabulary `listParts` searches and `part` places. */
   parts?: Part[];
+  /**
+   * The family this icon joins, when the caller has measured one. Its presence
+   * is what makes the `cohort` op reachable: without a measured extent there is
+   * nothing to scale onto, and the prompt's `COHORT` block is only written when
+   * the same brief is supplied.
+   */
+  cohort?: CohortTarget | null;
+  /**
+   * A composition read out of a raster proposal, if this run has one.
+   *
+   * Offered through a tool the model may call **once**, never in a `compare`
+   * sheet. Once is the whole design: a model that can look again after each
+   * edit is iterating against the picture, and iterating against a picture is
+   * how "informed by a proposal" becomes "traced from one" without anybody
+   * choosing it. Once means the raster can inform the plan and cannot become
+   * the target.
+   */
+  proposal?: Proposal | null;
 }
 
 /** What the loop needs to know afterwards; the model cannot see any of it. */
@@ -52,11 +73,18 @@ export interface ToolState {
   /** Set once the model has looked at a render. An icon it never saw is a
    *  guess, however clean it lints. */
   rendered: boolean;
+  /** Set by the first `proposal` call. The second one is refused, which is the
+   *  mechanism that keeps the raster a brief rather than a target. */
+  proposed: boolean;
   calls: string[];
 }
 
 const KEYLINE_NAMES = Object.keys(SPEC.keylines) as [Keyline, ...Keyline[]];
 const ROLE_NAMES = Object.keys(SPEC.dots) as [DotRole, ...DotRole[]];
+/** The turns, from the DSL's own table rather than a second copy: the language
+ *  and the tools must name the same three or a program and a generation mean
+ *  different things by `cw`. */
+const TURN_NAMES = Object.keys(TURNS) as [string, ...string[]];
 
 const coord = z.number().describe("canvas units, 0–24");
 
@@ -73,6 +101,32 @@ const overlap = (a: string[], b: string[]): number => {
 };
 
 /**
+ * The icons nearest a concept, by shared words over name and tags.
+ *
+ * Exported because `references.ts` conditions the raster proposal on the same
+ * neighbourhood the model later compares its draft against. Two scorers would
+ * mean the proposal was drawn from one set of neighbours and judged against
+ * another, and a disagreement between them would read as the arm being worse
+ * when it is only being measured differently.
+ */
+export const nearest = (
+  corpus: readonly Reference[],
+  concept: string,
+  limit: number
+): Reference[] => {
+  const want = tokens(concept);
+  return corpus
+    .map((n) => ({
+      n,
+      score: overlap(tokens(`${n.name} ${n.tags?.join(" ") ?? ""}`), want),
+    }))
+    .filter((s) => s.score > 0)
+    .toSorted((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((s) => s.n);
+};
+
+/**
  * The model asked for `rect x=3.1`; the canvas drew it at 3. Report the second.
  * Anything else teaches it that its numbers survived, and it will keep sending
  * finer ones.
@@ -83,9 +137,21 @@ const placed = (canvas: Canvas, id: string) => {
 };
 
 export const createTools = (options: ToolsOptions = {}) => {
-  const { corpus = [], keyline = null, parts = [], renderSize = 96 } = options;
+  const {
+    cohort = null,
+    corpus = [],
+    keyline = null,
+    parts = [],
+    proposal = null,
+    renderSize = 96,
+  } = options;
   const canvas = new Canvas(parts);
-  const state: ToolState = { calls: [], issues: null, rendered: false };
+  const state: ToolState = {
+    calls: [],
+    issues: null,
+    proposed: false,
+    rendered: false,
+  };
 
   const byName = new Map<string, Part>();
   for (const p of parts) {
@@ -119,24 +185,31 @@ export const createTools = (options: ToolsOptions = {}) => {
       inputSchema: z.object({ cx: coord, cy: coord, r: z.number().positive() }),
     }),
 
+    cohort: tool({
+      description:
+        "Scale and place the drawing onto the measured extent of the family this icon joins. Use it instead of `fit`, once, at the end: it is the same operation against a box the family's members actually occupy rather than a nominal keyline, and running `fit` afterwards throws it away. If it reports that the drawing is the wrong shape for the family, redraw it to those proportions rather than scaling harder.",
+      execute: () =>
+        track("cohort", () => {
+          if (!cohort) {
+            throw new Error(
+              "no cohort was measured for this icon — use fit and a keyline"
+            );
+          }
+          const note = alignCohort(canvas, cohort);
+          return { bbox: canvas.bbox(), fitted: note === null, note };
+        }),
+      inputSchema: z.object({}),
+    }),
+
     compare: tool({
       description:
         "Render the draft beside the existing icons nearest to this concept. The draft is the first cell. If it does not look like it belongs, it does not, whatever lint says.",
       execute: async ({ concept, limit = 5 }) =>
         await track("compare", async () => {
-          const want = tokens(concept);
-          const near = corpus
-            .map((n) => ({
-              n,
-              score: overlap(
-                tokens(`${n.name} ${n.tags?.join(" ") ?? ""}`),
-                want
-              ),
-            }))
-            .filter((s) => s.score > 0)
-            .toSorted((a, b) => b.score - a.score)
-            .slice(0, limit)
-            .map((s) => s.n);
+          // The corpus only. The proposal raster is deliberately not a cell
+          // here: a sheet containing both the draft and the picture it came
+          // from is a tracing view, and the model would use it as one.
+          const near = nearest(corpus, concept, limit);
           if (near.length === 0) {
             return {
               image: null,
@@ -278,8 +351,8 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     part: tool({
       description:
-        "Place a part from the vocabulary by id or name, scaled about its top-left corner.",
-      execute: ({ id, scale, x, y }) =>
+        "Place a part from the vocabulary by id or name, scaled about its top-left corner. `turn` names a quarter-turn clockwise and `flip` mirrors the part in x before turning it — the clusterer folds a mark together with its quarter-turns and its mirror, so a part is stored at one orientation and these are how you reach the others.",
+      execute: ({ flip, id, scale, turn, x, y }) =>
         track("part", () => {
           const p = byName.get(id);
           if (!p) {
@@ -287,13 +360,72 @@ export const createTools = (options: ToolsOptions = {}) => {
               `unknown part "${id}" — call listParts to see the vocabulary`
             );
           }
-          return placed(canvas, canvas.part({ id: p.id, scale, x, y }));
+          return placed(
+            canvas,
+            canvas.part({
+              flip,
+              id: p.id,
+              scale,
+              turn: turn ? TURNS[turn] : 0,
+              x,
+              y,
+            })
+          );
         }),
       inputSchema: z.object({
+        flip: z
+          .boolean()
+          .optional()
+          .describe(
+            "mirror the part in x before turning it — say so on purpose: chirality is the one symmetry that can be simply wrong (a tick, a comma, an S)"
+          ),
         id: z.string().describe("part id or name, from listParts"),
         scale: z.number().positive().optional(),
+        turn: z
+          .enum(TURN_NAMES)
+          .optional()
+          .describe(
+            "cw = 90° clockwise, half = 180°, ccw = 270°. Quarter-turns only: an angle here would be a coordinate by another name, and only the quarters keep every node on the grid."
+          ),
         x: coord,
         y: coord,
+      }),
+    }),
+
+    proposal: tool({
+      description:
+        "Read the composition proposal for this icon: how many elements it has, roughly where they sit, how they relate, and a blurred thumbnail of the arrangement. Available exactly once, at the start — it is a brief, not a target, and there are no coordinates in it to copy. Draw from it with the primitives; the spec still decides everything else.",
+      execute: () =>
+        track("proposal", () => {
+          if (!proposal) {
+            throw new Error(
+              "there is no proposal for this icon — draw it from the concept"
+            );
+          }
+          if (state.proposed) {
+            throw new Error(
+              "the proposal has already been read. It is available once on " +
+                "purpose: a composition you keep checking back against becomes " +
+                "a drawing you are copying. Use render and compare from here."
+            );
+          }
+          state.proposed = true;
+          return {
+            image: proposal.thumbnail,
+            summary: describeProposal(proposal),
+          };
+        }),
+      inputSchema: z.object({}),
+      toModelOutput: ({ output }) => ({
+        type: "content",
+        value: [
+          {
+            data: { data: output.image, type: "data" },
+            mediaType: "image/png",
+            type: "file",
+          },
+          { text: output.summary, type: "text" },
+        ],
       }),
     }),
 
@@ -352,6 +484,18 @@ export const createTools = (options: ToolsOptions = {}) => {
       }),
     }),
   };
+
+  // A tool the model can only be refused by is worse than a missing one: it
+  // spends a step to learn what the tool set could have said for free. The
+  // `COHORT` block in `prompt.ts` had the same bug from the other side — it
+  // described an op that was never in the tool set — so the two are now
+  // supplied or withheld together, from the same two options.
+  if (!cohort) {
+    Reflect.deleteProperty(tools, "cohort");
+  }
+  if (!proposal) {
+    Reflect.deleteProperty(tools, "proposal");
+  }
 
   return { canvas, state, tools };
 };

@@ -11,19 +11,54 @@ import { readFileSync } from "node:fs";
 
 import { anthropic, createAnthropic } from "@ai-sdk/anthropic";
 import { generateText, stepCountIs } from "ai";
-import type { LanguageModel, StopCondition, ToolSet } from "ai";
+import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
 import { lint } from "../tools/lint.js";
 import type { IconDoc, Issue, Keyline, Part } from "../types.js";
+import type { Proposal } from "./compose.js";
 import type { TokenUsage } from "./cost.js";
 import type { Reference } from "./licence.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
-import type { Concept } from "./prompt.js";
+import type { CohortBrief, Concept } from "./prompt.js";
 import { createTools } from "./tools.js";
 import type { ToolState } from "./tools.js";
 
 export type { Concept } from "./prompt.js";
 export type { Reference } from "./licence.js";
+
+/**
+ * Anthropic bills a cached prefix read at a tenth of a fresh read. This loop is
+ * an extreme case for that: the tool schemas and system prompt are re-sent on
+ * every step, and each `render` or `compare` call parks a PNG in the history
+ * that every later step carries. Measured on one uncached `git-fork` run: 20
+ * steps, 134,734 input tokens against 2,364 output.
+ *
+ * Two breakpoints, which is well inside Anthropic's limit of four. The first
+ * sits on the opening user message, so the tools and system prompt behind it
+ * are written once and read back on every subsequent step. The second rolls to
+ * the newest message each step, so the turns already taken -- images included
+ * -- are read from cache rather than re-billed.
+ */
+const EPHEMERAL = {
+  anthropic: { cacheControl: { type: "ephemeral" } },
+} as const;
+
+export const withCacheBreakpoints = (
+  messages: ModelMessage[]
+): ModelMessage[] => {
+  if (messages.length === 0) {
+    return messages;
+  }
+  const marked = messages.map((m) => ({ ...m }) as ModelMessage);
+  const last = marked.length - 1;
+  for (const i of new Set([0, last])) {
+    marked[i] = {
+      ...marked[i],
+      providerOptions: { ...marked[i].providerOptions, ...EPHEMERAL },
+    } as ModelMessage;
+  }
+  return marked;
+};
 
 export const DEFAULT_MODEL = "claude-opus-5";
 /** Enough turns for a search, a dozen primitives, three looks and a fix. Past
@@ -46,6 +81,15 @@ export class MissingApiKeyError extends Error {
 
 export interface GenerateOptions {
   apiKey?: string;
+  /**
+   * The family this icon joins, when the caller has measured one.
+   *
+   * One option, two effects, deliberately: it writes the `COHORT` block into
+   * the prompt *and* puts the `cohort` op in the tool set. They were separable
+   * until now, and the separation was a bug — the prompt described an op the
+   * model had no way to call.
+   */
+  cohort?: CohortBrief | null;
   /** Existing icons the model can hold the draft up against. Licensed, because
    *  they reach the model: see `ToolsOptions.corpus`. */
   corpus?: Reference[];
@@ -58,6 +102,14 @@ export interface GenerateOptions {
    */
   model?: LanguageModel;
   parts?: Part[];
+  /**
+   * A composition read out of a raster proposal by `compose.ts`.
+   *
+   * Words only — element count, coarse cells, size bands, adjacency, part ids,
+   * a blurred thumbnail. There is no shape this option could take that carries
+   * geometry, which is why the raster arm needs no new escape in the canvas.
+   */
+  proposal?: Proposal | null;
   renderSize?: number;
 }
 
@@ -160,28 +212,35 @@ export const generate = async (
 ): Promise<GenerateResult> => {
   const {
     apiKey,
+    cohort = null,
     corpus = [],
     keyline = null,
     maxSteps = DEFAULT_MAX_STEPS,
     model,
     parts = [],
+    proposal = null,
     renderSize,
   } = options;
 
   const resolved = resolveModel(model, apiKey);
   const { canvas, state, tools } = createTools({
+    cohort: cohort?.extent ?? null,
     corpus,
     keyline,
     parts,
+    proposal,
     renderSize,
   });
 
   const startedAt = Date.now();
   const result = await generateText({
     model: resolved,
+    prepareStep: ({ messages: stepMessages }) => ({
+      messages: withCacheBreakpoints(stepMessages),
+    }),
     prompt: conceptPrompt(concept),
     stopWhen: [stepCountIs(maxSteps), drawnAndClean(state)],
-    system: systemPrompt({ keyline }),
+    system: systemPrompt({ cohort, keyline, proposal: proposal !== null }),
     tools,
   });
   const ms = Date.now() - startedAt;

@@ -55,7 +55,16 @@ export {
   selectBenchmark,
   strataCounts,
 } from "./pipeline/bench.js";
+// The raster arm. `compose` is the seam the whole arm turns on: it is the only
+// route from an image model into the pipeline, and it emits words.
+export {
+  assertNoGeometry,
+  compose,
+  describeProposal,
+  READER_MODEL,
+} from "./pipeline/compose.js";
 export { RATES, rateFor, reachPoints, usdOf } from "./pipeline/cost.js";
+export { critique } from "./pipeline/critique.js";
 export {
   assertNoFilledTwin,
   BASELINE,
@@ -74,6 +83,15 @@ export {
 // way this one does. `asReference` is the sole constructor of `Reference`; there
 // is no route around it from out here either.
 export { asReference, asReferences, LicenceError } from "./pipeline/licence.js";
+export {
+  IDEATION_MODEL,
+  IMAGE_RATES,
+  propose,
+  proposalArm,
+  ProposalError,
+  QUALITY_MODEL,
+} from "./pipeline/propose.js";
+export { referenceSet, SLOTS } from "./pipeline/references.js";
 export { Canvas, SPEC } from "./tools/canvas.js";
 export {
   buildCohorts,
@@ -173,8 +191,25 @@ export type {
   IconScore,
   SpreadReport,
 } from "./pipeline/eval.js";
+export type {
+  Cell,
+  Proposal,
+  ProposalBlock,
+  ShapeWord,
+  SizeBand,
+} from "./pipeline/compose.js";
 export type { Licensed, Reference, ReferenceIcon } from "./pipeline/licence.js";
-export type { Concept } from "./pipeline/prompt.js";
+export type { CohortBrief, Concept } from "./pipeline/prompt.js";
+export type {
+  ArmOptions,
+  GenerateLike,
+  ProposalOptions,
+  ProposalRun,
+} from "./pipeline/propose.js";
+export type {
+  ReferenceOptions,
+  ReferenceSlots,
+} from "./pipeline/references.js";
 export type {
   Corner,
   Distribution,
