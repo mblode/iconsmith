@@ -160,29 +160,66 @@ export const median = (xs: number[]): number => {
   return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
 };
 
-export interface IconScore {
+/** What is known about a held-out icon before its generation is attempted, and
+ *  all that is still known if the attempt throws. */
+export interface IconTarget {
   category?: string;
-  /** Lint had no errors. */
-  clean: boolean;
-  /** Set when generation threw; `score` is then 0. */
-  error?: string;
   /** A random other icon against the target — this icon's share of the floor. */
   floor: number;
   icon: string;
+  tags: string[];
+}
+
+/** A generation that returned an SVG, and therefore a measurement. */
+export interface IconMeasured extends IconTarget {
+  /** Lint had no errors. */
+  clean: boolean;
   issues: number;
   /** Wall time for this generation, milliseconds. Null when unmeasured. */
   ms: number | null;
   score: number;
-  /** Why the model stopped. Null when unmeasured. */
+  status: "ok";
+  /**
+   * Why the model stopped, verbatim from the generator. Null when unmeasured.
+   *
+   * Deliberately an open `string` rather than a union of the reasons the loop
+   * happens to emit today. The stop conditions are being reworked to name
+   * distinct outcomes, and a union here would turn every new outcome into a
+   * change to this type and to `summariseCost`'s tally — which counts by key
+   * and so already carries whatever arrives.
+   */
   stopReason: string | null;
   steps: number;
-  tags: string[];
   toolCalls: Record<string, number>;
   usage: TokenUsage | null;
   /** Null when the model has no published rate, or the generator reported no
    *  usage. Never 0 — 0 reads as free. */
   usd: number | null;
 }
+
+/** A generation that threw. It carries no `score`, because there is none: a
+ *  rate limit is not a drawing that scored 0. */
+export interface IconFailed extends IconTarget {
+  error: string;
+  status: "error";
+}
+
+/**
+ * One benchmark entry's outcome.
+ *
+ * Tagged, and the tag is the whole point. Success and failure used to be
+ * independently optional fields with a comment promising `score` was 0 on a
+ * throw — which meant a rate limit contributed a perfect 0.0 to the median and
+ * nothing in the type system objected. An arm with more failure surface than
+ * its control (an extra model call, say) would then lose an A/B on flakiness
+ * alone. Now an errored entry cannot be read as a measurement without
+ * narrowing first.
+ */
+export type IconScore = IconMeasured | IconFailed;
+
+/** Narrow to the entries that produced a number. Every aggregate filters
+ *  through this; nothing else may. */
+export const scored = (s: IconScore): s is IconMeasured => s.status === "ok";
 
 export interface CostReport {
   /** Sum over icons that reported one. */
@@ -211,15 +248,32 @@ export interface EvalReport {
    *  complete run. */
   aborted: string | null;
   baseline: number;
-  /** Which committed benchmark this ran, and how much of it. */
-  benchmark: { entries: number; requested: number; seed: number };
+  /**
+   * Which committed benchmark this ran, and how much of it.
+   *
+   * `entries` counts the icons that produced a measurement, `errors` the ones
+   * whose generation threw, and `requested` what the slice asked for. The three
+   * only agree when nothing failed and nothing was capped — and when they
+   * disagree, the gap is the thing to read before the treatment.
+   */
+  benchmark: {
+    entries: number;
+    errors: number;
+    requested: number;
+    seed: number;
+  };
   ceiling: number;
   cost: CostReport;
   /** Median floor across the sample. */
   floor: number;
+  /** Every entry the run reached: the measured ones weakest-first, then the
+   *  failed ones. Narrow with `scored` before reading a number off one. */
   icons: IconScore[];
+  /** Mean score across the *measured* icons. */
   mean: number;
   model: string;
+  /** How many icons produced a measurement. Not the sample size requested —
+   *  see `benchmark.errors` for the difference. */
   n: number;
   /** The run seed: it labels the replicate and picks the floor comparisons. It
    *  does not choose the sample — the benchmark file does. */
@@ -237,8 +291,16 @@ export interface EvalReport {
   metrics: MetricReport | null;
   /** Set when the result is too good to be true. */
   suspect: string | null;
-  /** Median score across the sample — median, to match how the baseline was
-   *  measured. Comparing a mean against a median baseline is not a comparison. */
+  /**
+   * Median score across the measured icons — median, to match how the baseline
+   * was measured. Comparing a mean against a median baseline is not a
+   * comparison.
+   *
+   * Errored generations are excluded rather than entered as 0. An arm that
+   * makes an extra model call has strictly more failure surface than its
+   * control, so folding its throws in as perfect zeros would let infrastructure
+   * flakiness alone decide an A/B.
+   */
   treatment: number;
 }
 
@@ -368,16 +430,17 @@ const pool = async <T, R>(
 };
 
 const scoreOf = (
-  base: IconScore,
+  base: IconTarget,
   result: GenerateResult,
   score: number,
   rate: Rate | null
-): IconScore => ({
+): IconMeasured => ({
   ...base,
   clean: result.clean,
   issues: result.issues.length,
   ms: result.cost?.ms ?? null,
   score,
+  status: "ok",
   steps: result.steps,
   stopReason: result.cost?.finishReason ?? null,
   toolCalls: result.cost?.toolCalls ?? {},
@@ -385,8 +448,17 @@ const scoreOf = (
   usd: result.cost && rate ? usdOf(result.cost.usage, rate) : null,
 });
 
+/**
+ * Cost over the icons that produced a measurement.
+ *
+ * Errored entries are excluded by the caller and that is deliberate: they spent
+ * whatever the failed call spent, but the generator reports no usage for a
+ * throw, so counting them would put a zero in `usdPerIcon` and add a phantom to
+ * the "reported no usage" warning. The error count is reported separately, on
+ * the report itself.
+ */
 const summariseCost = (
-  scores: IconScore[],
+  scores: IconMeasured[],
   rates: RateTable,
   treatment: number,
   floor: number
@@ -515,20 +587,11 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
       inkVector(target.svg),
       other ? inkVector(other.svg) : Promise.resolve([]),
     ]);
-    const base: IconScore = {
+    const base: IconTarget = {
       category: target.category,
-      clean: false,
       floor: cosine(otherInk, targetInk),
       icon: target.icon,
-      issues: 0,
-      ms: null,
-      score: 0,
-      steps: 0,
-      stopReason: null,
       tags: target.tags,
-      toolCalls: {},
-      usage: null,
-      usd: null,
     };
 
     let out: IconScore;
@@ -548,14 +611,23 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
         rate
       );
     } catch (error) {
-      out = { ...base, error: (error as Error).message };
+      out = { ...base, error: (error as Error).message, status: "error" };
     }
-    spent += out.usd ?? 0;
+    if (scored(out)) {
+      spent += out.usd ?? 0;
+    }
     onIcon?.(out);
     return out;
   });
 
-  const scores = results.filter((s): s is IconScore => s !== null);
+  // `attempted` is every entry the pool reached; `scores` is the subset that
+  // came back with an SVG. Every number below is computed over `scores`, and
+  // the difference between the two lengths is reported rather than averaged in.
+  // A generation that threw is a missing measurement, not a measurement of 0:
+  // averaging it in lets a flaky arm lose an A/B it never actually lost.
+  const attempted = results.filter((s): s is IconScore => s !== null);
+  const scores = attempted.filter(scored);
+  const failures = attempted.filter((s) => !scored(s));
   const values = scores.map((s) => s.score);
   const treatment = median(values);
   const floor = median(scores.map((s) => s.floor));
@@ -564,13 +636,16 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
     baseline: BASELINE,
     benchmark: {
       entries: scores.length,
+      errors: failures.length,
       requested: entries.length,
       seed,
     },
     ceiling: CEILING,
     cost: summariseCost(scores, rates, treatment, floor),
     floor,
-    icons: scores.toSorted((a, b) => a.score - b.score),
+    // Failures sort last: they have no score to rank by, and the head of this
+    // list is what a reader goes and looks at.
+    icons: [...scores.toSorted((a, b) => a.score - b.score), ...failures],
     mean: values.reduce((a, b) => a + b, 0) / (values.length || 1),
     metrics: calibration
       ? buildReport(
@@ -663,17 +738,20 @@ const costLines = (report: EvalReport): string[] => {
 export const formatReport = (report: EvalReport): string => {
   const row = (label: string, v: number, note: string) =>
     `  ${label.padEnd(10)} ${v.toFixed(3)}  ${bar(v)}  ${note}`;
-  const clean = report.icons.filter((i) => i.clean).length;
-  const failed = report.icons.filter((i) => i.error);
+  const ok = report.icons.filter(scored);
+  const clean = ok.filter((i) => i.clean).length;
+  const failed = report.icons.filter((i) => !scored(i));
   const lines = [
-    `reconstruction eval — ${report.n}/${report.benchmark.requested} benchmark icons, ${report.model}, run seed ${report.seed}`,
+    `reconstruction eval — ${report.n}/${report.benchmark.requested} benchmark icons${
+      failed.length ? `, ${failed.length} errored and excluded` : ""
+    }, ${report.model}, run seed ${report.seed}`,
     "",
     row("floor", report.floor, "a random icon against the target"),
     row("baseline", report.baseline, "two mature sets, same concept"),
     row("treatment", report.treatment, "this pipeline (median)"),
     row("ceiling", report.ceiling, "the target against itself"),
     "",
-    `  mean ${report.mean.toFixed(3)} · ${clean}/${report.n} lint clean · ${median(report.icons.map((i) => i.steps)).toFixed(0)} steps median`,
+    `  mean ${report.mean.toFixed(3)} · ${clean}/${report.n} lint clean · ${median(ok.map((i) => i.steps)).toFixed(0)} steps median`,
     ...costLines(report),
   ];
   if (report.metrics) {
@@ -692,7 +770,7 @@ export const formatReport = (report: EvalReport): string => {
       ...failed.map((f) => `    ${f.icon}: ${f.error}`)
     );
   }
-  const worst = report.icons.filter((i) => !i.error).slice(0, 5);
+  const worst = ok.slice(0, 5);
   if (worst.length) {
     lines.push(
       "",
@@ -707,6 +785,15 @@ export const formatReport = (report: EvalReport): string => {
 };
 
 export interface SpreadReport {
+  /**
+   * Errored generations across all replicates.
+   *
+   * None of them are in `treatment` or `spread`, and that is why the total has
+   * to be stated: an arm losing eight generations in thirty is telling you
+   * something about itself, it just must not tell you by pulling its own
+   * median down.
+   */
+  errors: number;
   /** Every run, in the order the seeds were given. */
   runs: EvalReport[];
   /** Total spend across the replicates, or null when unpriced. */
@@ -760,6 +847,7 @@ export const evaluateSeeds = async (
   const treatments = runs.map((r) => r.treatment);
   const priced = runs.filter((r) => r.cost.usd !== null);
   return {
+    errors: runs.reduce((a, r) => a + r.benchmark.errors, 0),
     runs,
     seeds: [...seeds],
     spread:
@@ -780,4 +868,9 @@ export const formatSpread = (report: SpreadReport): string =>
       .join(" ")}`,
     `  spread ${report.spread.toFixed(3)} — a later change smaller than this has moved nothing.`,
     `  total ${usdText(report.usd)}`,
+    ...(report.errors
+      ? [
+          `  ! ${report.errors} generation(s) errored across the replicates and are excluded from every number above. A run losing generations is not a run scoring badly; find out which before comparing this against anything.`,
+        ]
+      : []),
   ].join("\n");

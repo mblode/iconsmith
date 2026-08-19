@@ -101,7 +101,8 @@ back rather than trying to force the original numbers through.
   how you reach the other seven. Quarters only, and never an angle: only the
   quarter-turns keep every node on the grid. Ask for \`flip\` on purpose —
   chirality is the one symmetry that can be simply wrong.
-- \`remove\` — delete a draw op by index when you change your mind.
+- \`remove\` — delete an element by the id the draw tool returned (\`e3\`,
+  not \`3\`) when you change your mind.
 - \`center\` — recentre the drawing optically on the canvas.
 - \`fit\` — scale the drawing to the chosen keyline. Do this once, near the end.
 
@@ -117,8 +118,12 @@ back rather than trying to force the original numbers through.
 4. \`compare\` against the nearest existing icons. If yours looks like a
    different set drew it, it is wrong even when it lints clean.
 5. \`lint\` and fix what it reports. Clean lint is the floor, not the goal.
-6. When it lints clean and reads correctly, stop and reply with one sentence
-   describing what you drew. Do not keep polishing.`;
+6. Stop. When it lints clean and reads correctly, reply with one sentence
+   describing what you drew. Stopping is the finished state, not a step you
+   skipped: an icon you have rendered, compared and linted is done, and the
+   most common way to make a good icon worse is a further change it did not
+   need. If you find yourself looking for something to adjust, that is the
+   signal to reply, not to adjust it.`;
 
 /** The family a new icon joins, with the extent its members measurably occupy. */
 export interface CohortBrief {

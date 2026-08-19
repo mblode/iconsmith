@@ -2,6 +2,7 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 
 import type { Command } from "commander";
+import { Option } from "commander";
 
 import { parseIconSvg } from "../corpus/load.js";
 import { Canvas } from "../tools/canvas.js";
@@ -22,7 +23,7 @@ import { format, lint } from "../tools/lint.js";
 import type { Issue, Keyline } from "../types.js";
 import { readJson, readText } from "./read.js";
 
-const KEYLINES = new Set(["circle", "square", "tall", "wide"]);
+const KEYLINES = ["circle", "square", "tall", "wide"];
 
 /** Read an existing SVG into a canvas as raw ops, so shipped icons can be
  *  checked without first being expressible in primitives.
@@ -90,8 +91,12 @@ export const registerLintCommand = (program: Command): void => {
     .description("check SVG icons against the house spec")
     .argument("[files...]", "icon .svg files")
     .option("-d, --dir <path>", "directory of .svg icons, instead of files")
-    .option("-k, --keyline <name>", "assert a keyline: circle|square|wide|tall")
-    .option("-c, --cohorts <file>", "JSON map of cohort name to icon names")
+    .addOption(
+      new Option("-k, --keyline <name>", "assert a keyline").choices(KEYLINES)
+    )
+    // No `-c`: it is `--corpus` on bench, eval, modifiers and repair, and one
+    // letter meaning two things across a CLI is worse than one flag typed out.
+    .option("--cohorts <file>", "JSON map of cohort name to icon names")
     .action(
       (
         args: string[],
@@ -104,11 +109,6 @@ export const registerLintCommand = (program: Command): void => {
             opts.dir
               ? `no .svg files in "${opts.dir}".`
               : "no icons to lint. Pass .svg files, or --dir <path>."
-          );
-        }
-        if (opts.keyline && !KEYLINES.has(opts.keyline)) {
-          throw new Error(
-            `unknown keyline "${opts.keyline}" — expected one of ${[...KEYLINES].join(", ")}`
           );
         }
         const keyline = (opts.keyline ?? null) as Keyline | null;

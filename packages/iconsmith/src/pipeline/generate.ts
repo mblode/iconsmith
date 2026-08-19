@@ -13,6 +13,7 @@ import { anthropic, createAnthropic } from "@ai-sdk/anthropic";
 import { generateText, stepCountIs } from "ai";
 import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
+import type { Canvas } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
 import type { IconDoc, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
@@ -72,7 +73,10 @@ export class MissingApiKeyError extends Error {
   constructor() {
     super(
       "No model credential found. Set AI_GATEWAY_API_KEY and use a namespaced " +
-        "model id (`anthropic/claude-opus-4.5`), or set ANTHROPIC_API_KEY for a " +
+        // The id in the example is the default one, read from it rather than
+        // typed out: an example that names an older model is an instruction to
+        // downgrade, and it is the line a stuck caller is most likely to copy.
+        `model id (\`anthropic/${DEFAULT_MODEL}\`), or set ANTHROPIC_API_KEY for a ` +
         "bare id, or pass a model instance to generate()."
     );
     this.name = "MissingApiKeyError";
@@ -122,10 +126,19 @@ export interface GenerateOptions {
  * rather than summing zeros into a dollar figure.
  */
 export interface GenerateCost {
-  /** Why the model stopped: `stop` when the run's own condition fired,
-   *  otherwise the SDK's reason. `length` or `tool-calls` on a whole benchmark
-   *  means the step cap is binding and the scores measure the cap. */
+  /**
+   * The SDK's own reason, and it does not distinguish this loop's exits: a step
+   * that made tool calls reports `tool-calls` whether the run then hit the step
+   * cap or one of our stop conditions fired (`ai` exits its do/while on the
+   * stop condition *after* such a step, and reports the last step's reason).
+   * `outcome` is the field that says which. `length` here means a step ran out
+   * of output tokens, which is a different problem again.
+   */
   finishReason: string;
+  /** Which of the four terminal states the loop ended in. `budget` or `stalled`
+   *  across a whole benchmark means the scores are measuring the cap, not the
+   *  model. */
+  outcome: Outcome;
   /** Wall time for the whole loop, milliseconds. Not CPU: most of it is the
    *  network, which is what an operator waiting on a run is paying for. */
   ms: number;
@@ -191,20 +204,143 @@ export const loadParts = (file: string): Part[] => {
   return data.parts ?? [];
 };
 
+/** How many consecutive steps may add nothing before the loop calls it done.
+ *  Two, not one: a render and a lint over an unchanged drawing are the normal
+ *  way a model confirms it has finished, and neither draws. */
+const IDLE_LIMIT = 2;
+
+/** Why the loop stopped. Four states, because "it ended" has been standing in
+ *  for four different things, three of which are not success. */
+export type Outcome =
+  /** The step cap cut a run off mid-work. It leaves a drawing with no errors
+   *  in it, but one nothing confirmed. */
+  | "budget"
+  /** The model rendered the current drawing, linted the current drawing, and
+   *  the lint was clean. The only outcome that is a claim about quality. */
+  | "clean"
+  /** The model stopped adding: {@link IDLE_LIMIT} consecutive steps left the
+   *  canvas unchanged, or it closed with a sentence rather than a tool call.
+   *  The composition is as finished as this model is going to make it. */
+  | "converged"
+  /** Ended with nothing usable: an empty canvas, or errors still standing in
+   *  the closing lint. */
+  | "stalled";
+
+/** Written by the stop conditions, read once the loop has ended. A condition
+ *  cannot report *which* condition fired — the SDK's `finishReason` is
+ *  `tool-calls` either way — so it records that itself. */
+interface Termination {
+  clean: boolean;
+  converged: boolean;
+  /** Consecutive steps over an unchanged canvas. */
+  idle: number;
+  /** Canvas version as of the previous step. */
+  version: number;
+}
+
 /**
- * Stop as soon as the model has both looked at a render and seen a clean lint.
+ * Stop as soon as the model has looked at *this* drawing and linted *this*
+ * drawing clean.
  *
  * The render half is not redundant. Lint checks the spec, not the drawing: a
  * centred rectangle of the right size lints perfectly and is not an icon of
- * anything. Requiring that the model has seen its own work at least once is the
- * cheapest available proxy for "it checked".
+ * anything. Requiring that the model has seen its own work is the cheapest
+ * available proxy for "it checked".
+ *
+ * Both halves are versioned against the canvas, which is the whole fix. Read as
+ * flags — "it rendered at some point, and the last lint call found nothing" —
+ * the condition fires on a model that renders, lints clean, and then redraws
+ * the icon: it ends the run on a drawing nobody has looked at. Measured on
+ * eight runs, seven ended here early.
  */
 const drawnAndClean =
-  <T extends ToolSet>(state: ToolState): StopCondition<T> =>
-  () =>
-    state.rendered &&
-    state.issues !== null &&
-    state.issues.every((i) => i.severity !== "error");
+  <T extends ToolSet>(
+    canvas: Canvas,
+    state: ToolState,
+    end: Termination
+  ): StopCondition<T> =>
+  () => {
+    const v = canvas.version;
+    const done =
+      state.renderedAt === v &&
+      state.lintedAt === v &&
+      state.issues !== null &&
+      state.issues.every((i) => i.severity !== "error");
+    if (done) {
+      end.clean = true;
+    }
+    return done;
+  };
+
+/**
+ * Stop when the model has stopped adding anything.
+ *
+ * Waiting for a positive "clean" signal means a model that is finished but will
+ * not say so burns the rest of the budget polishing, which is where drift comes
+ * from. Terminating on the absence of change is the published alternative
+ * (Render-in-the-Loop, arXiv:2604.20730, ends a composition after K steps whose
+ * canvas delta is below eps; Semantic Early-Stopping, arXiv:2606.27009, reports
+ * a judge-free cutoff at quality parity), and the canvas version is that delta
+ * signal for free — nothing needs re-rasterising to ask whether anything moved.
+ *
+ * Two guards keep it from cutting off work in progress. An empty canvas is not
+ * a converged one, and neither is a drawing whose own last lint reported errors
+ * the model has not fixed yet; both run on to the budget and report `stalled`.
+ */
+const noProgress =
+  <T extends ToolSet>(
+    canvas: Canvas,
+    state: ToolState,
+    end: Termination
+  ): StopCondition<T> =>
+  () => {
+    const v = canvas.version;
+    if (v === end.version) {
+      end.idle += 1;
+    } else {
+      end.version = v;
+      end.idle = 0;
+    }
+    const outstanding =
+      state.lintedAt === v &&
+      (state.issues?.some((i) => i.severity === "error") ?? false);
+    const done =
+      end.idle >= IDLE_LIMIT && canvas.elements.length > 0 && !outstanding;
+    if (done) {
+      end.converged = true;
+    }
+    return done;
+  };
+
+/**
+ * Name the outcome from what the stop conditions recorded, what the closing
+ * lint found, and how the SDK's own loop ended.
+ *
+ * Order is the argument. `clean` is the only outcome that is a claim about the
+ * icon, so it is asked first. Then the drawing itself: an empty canvas or a
+ * standing error is `stalled` however the run ended, because a run cannot
+ * converge on nothing. Convergence covers both ways of adding nothing further
+ * — the idle detector, and the model closing with a sentence instead of a tool
+ * call, which is the same statement made explicitly. What is left is `budget`:
+ * the run was still working when the cap cut it off.
+ */
+const outcomeOf = (
+  end: Termination,
+  finishReason: string,
+  elements: number,
+  issues: Issue[]
+): Outcome => {
+  if (end.clean) {
+    return "clean";
+  }
+  if (elements === 0 || issues.some((i) => i.severity === "error")) {
+    return "stalled";
+  }
+  if (end.converged || finishReason === "stop") {
+    return "converged";
+  }
+  return "budget";
+};
 
 export const generate = async (
   concept: Concept,
@@ -232,6 +368,13 @@ export const generate = async (
     renderSize,
   });
 
+  const end: Termination = {
+    clean: false,
+    converged: false,
+    idle: 0,
+    version: canvas.version,
+  };
+
   const startedAt = Date.now();
   const result = await generateText({
     model: resolved,
@@ -239,7 +382,11 @@ export const generate = async (
       messages: withCacheBreakpoints(stepMessages),
     }),
     prompt: conceptPrompt(concept),
-    stopWhen: [stepCountIs(maxSteps), drawnAndClean(state)],
+    stopWhen: [
+      stepCountIs(maxSteps),
+      drawnAndClean(canvas, state, end),
+      noProgress(canvas, state, end),
+    ],
     system: systemPrompt({ cohort, keyline, proposal: proposal !== null }),
     tools,
   });
@@ -263,6 +410,12 @@ export const generate = async (
     cost: {
       finishReason: result.finishReason,
       ms,
+      outcome: outcomeOf(
+        end,
+        result.finishReason,
+        canvas.elements.length,
+        issues
+      ),
       toolCalls,
       usage: {
         cacheReadTokens: usage.inputTokenDetails.cacheReadTokens ?? 0,

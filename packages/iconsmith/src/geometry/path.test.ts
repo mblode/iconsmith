@@ -4,6 +4,7 @@ import {
   bbox,
   mirrorX,
   parsePath,
+  PathError,
   points,
   q,
   rotateQuarter,
@@ -142,4 +143,56 @@ test("a turned arc turns its own axis with it", () => {
   }
   // Radii and sweep are untouched by a rotation; the x-axis rotation is not.
   expect(seg.p).toStrictEqual([3, 2, 100, 0, 1, -4, 4]);
+});
+
+// --- Non-finite arguments ------------------------------------------------
+//
+// The tokeniser skips what it does not recognise, so a stray character used to
+// vanish and shift every argument after it by one. `Lnan nan` read the `a` of
+// each `nan` as a coordinate and produced NaN without complaint; the whole
+// record store was built through this parser, so it is worth pinning down both
+// that the malformed case throws and that the well-formed cases still do not.
+
+test("a NaN coordinate is refused, naming the text and the offset", () => {
+  // Verbatim from corpus/round-filled-radius-1-stroke-1.5/burger.svg, which is
+  // the one file in 90,650 that ships this.
+  const d = "M4 10.5Lnan nanL20.9839 10.5C21 11 21 12 21 12";
+  expect(() => parsePath(d)).toThrow(PathError);
+  expect(() => parsePath(d)).toThrow(/nan/u);
+  expect(() => parsePath(d)).toThrow(/offset 8/u);
+});
+
+test("the error names the source file when the caller knows it", () => {
+  const source = "corpus/round-filled-radius-1-stroke-1.5/burger.svg";
+  try {
+    parsePath("M4 10.5Lnan nan", { source });
+    expect_ok(false, "should have thrown");
+  } catch (error) {
+    expect_ok(error instanceof PathError);
+    expect((error as PathError).source).toBe(source);
+    expect((error as Error).message).toContain(source);
+  }
+});
+
+test("a command that runs out of arguments is refused, not read as NaN", () => {
+  expect(() => parsePath("M4 10.5L20")).toThrow(/runs out of arguments/u);
+});
+
+test("a stray letter elsewhere in the data is refused too", () => {
+  // Not a NaN: `x` is simply dropped by the tokeniser, and the four numbers
+  // that follow then parse as two perfectly plausible lines.
+  expect(() => parsePath("M0 0L1 2 x 3 4")).toThrow(PathError);
+});
+
+test("exponents, negatives and implicit repeats still parse unchanged", () => {
+  // Regression guard: every measurement in the repo goes through this parser,
+  // so the check above must not narrow what it accepts. `1e-3` exercises the
+  // exponent branch of the token pattern, the bare pairs after `L` and `M`
+  // exercise implicit repetition, and `-` doubles as a separator.
+  const sp = parsePath("M-1 1e-3L2-3 4 5.5l-1-1M6 6 7 7");
+  expect_eq(sp.length, 2);
+  expect_eq(serialise(sp), "M-1 0.001L2 -3L4 5.5L3 4.5M6 6L7 7");
+  expect_ok(
+    points(sp[0]).every(([x, y]) => Number.isFinite(x) && Number.isFinite(y))
+  );
 });

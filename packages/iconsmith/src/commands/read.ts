@@ -67,6 +67,43 @@ export const readJson = <T>(file: string, kind: string): T => {
   }
 };
 
+/**
+ * Assert a directory exists before something walks it.
+ *
+ * `readdirSync` on a missing path raises `ENOENT ... scandir '/x'`, and it does
+ * so from inside a library that has already been told what it is reading. The
+ * check belongs here, at the boundary, for the same reason `readText` does.
+ */
+export const assertDirectory = (dir: string, kind: string): void => {
+  let stat: ReturnType<typeof statSync>;
+  try {
+    stat = statSync(dir);
+  } catch (error) {
+    const errno = (error as NodeJS.ErrnoException).code;
+    if (errno === "ENOENT") {
+      throw new InputError(
+        `Cannot read "${dir}": no such directory. Pass a path to ${kind}.`,
+        error
+      );
+    }
+    if (errno === "EACCES") {
+      throw new InputError(
+        `Cannot read "${dir}": permission denied. Check the directory's permissions.`,
+        error
+      );
+    }
+    throw new InputError(
+      `Cannot read "${dir}": ${(error as Error).message}`,
+      error
+    );
+  }
+  if (!stat.isDirectory()) {
+    throw new InputError(
+      `Cannot read "${dir}": that is a file, not a directory. Pass a path to ${kind}.`
+    );
+  }
+};
+
 /** Refuse to overwrite silently. A generated icon is cheap to redo; the file it
  *  would land on may not be. */
 export const assertWritable = (file: string, force: boolean): void => {

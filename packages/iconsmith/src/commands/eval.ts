@@ -20,6 +20,7 @@ import {
   evaluateSeeds,
   formatReport,
   formatSpread,
+  scored,
 } from "../pipeline/eval.js";
 import type { Part } from "../types.js";
 import { readJson } from "./read.js";
@@ -223,10 +224,14 @@ export const registerEvalCommand = (program: Command): void => {
           maxSpendUsd: opts.maxSpend,
           maxSteps: opts.maxSteps,
           model: opts.model,
+          // A generation that threw has no score to print, and printing one
+          // would be the same lie the report used to tell.
           onIcon: (score) => {
             if (!json) {
               process.stderr.write(
-                `  ${score.icon} ${score.score.toFixed(3)}${score.clean ? "" : " (lint dirty)"}\n`
+                scored(score)
+                  ? `  ${score.icon} ${score.score.toFixed(3)}${score.clean ? "" : " (lint dirty)"}\n`
+                  : `  ${score.icon} failed: ${score.error}\n`
               );
             }
           },

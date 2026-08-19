@@ -73,6 +73,7 @@ export {
   formatReport,
   formatSpread,
   loadIconSet,
+  scored,
 } from "./pipeline/eval.js";
 export {
   DEFAULT_MODEL,
@@ -188,6 +189,8 @@ export type {
   EvalIcon,
   EvalOptions,
   EvalReport,
+  IconFailed,
+  IconMeasured,
   IconScore,
   SpreadReport,
 } from "./pipeline/eval.js";

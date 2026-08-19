@@ -5,7 +5,8 @@
  * judgment call the model is told about and a human arbitrates. Nothing here
  * repairs geometry — repair belongs to the primitives, which never emit a
  * violation in the first place. This catches composition mistakes: bad keyline,
- * off-centre, elements too close, empty canvas.
+ * off-centre, elements too close, empty canvas, and — `substance` — a canvas
+ * with a stroke on it that nobody would call an icon.
  *
  * One rule here is not about the icon at all. `cohort-align` compares it to the
  * icons it swaps with, because an icon that is individually perfect and out of
@@ -174,10 +175,97 @@ const keylineIssue = (
       };
 };
 
+/**
+ * Geometry outside the live area.
+ *
+ * Two things about this rule are not what they look like, and both are
+ * deliberate rather than settled.
+ *
+ * It measures the **path bbox**, not the visual extent — the only rule here
+ * that does. Every other measurement in this file inflates by the stroke, half
+ * a width per side, because that is what a reader sees. This one does not, and
+ * the constants are the compensation: `SPEC.clearance` is 2 and `prompt.ts`
+ * tells the model 2, but 2 units of clearance measured on the visual extent
+ * fails 771 of the house variant's 2,085 icons (37.0%) — the same 37% that
+ * `canvas.ts` records against its own `clearance` figure. Measured on the path
+ * bbox at 1 unit, which is what the constants below actually say, it fails 54
+ * (2.6%). The other two readings: path bbox at 2 fails 233 (11.2%), visual
+ * extent at 1 fails 148 (7.1%).
+ *
+ * So the enforced rule is *not* the spec's rule, and this is an error-severity
+ * gate, so the gap is load-bearing. It is left alone here on purpose: closing
+ * it either way is a design decision about the 165-icon wide family that
+ * `canvas.ts` documents as unresolved, not a bug to be patched by a linter.
+ * What was fixed is the message, which claimed to enforce 2..22 while enforcing
+ * 1..23 — it is now built from the constants so it cannot drift again.
+ */
+/**
+ * The floors below which a drawing is not a drawing.
+ *
+ * Both are read off the corpus rather than chosen, and both sit inside a gap in
+ * the measured distribution rather than against its edge, because a threshold
+ * that touches a real value is one corpus revision away from being wrong.
+ *
+ * Across all 30 corpus variants — 62,550 icons — the minor visual dimension
+ * (the smaller of the two) has a hard floor of 2.0 in the twelve outlined
+ * variants, and the next value up is 5.2. Exactly three icons sit on that
+ * floor: `minus-small`, `minus-medium`, `minus-large`, whose subject *is* a
+ * bar. Nothing occupies 2.0..5.2 except `dot-grid-1x3-*` at exactly 4.0, so
+ * `MIN_MINOR = 3` is the midpoint of the only stretch of that axis the set has
+ * never used. The major dimension's floor is 6.8 (`chevron-triangle-up-small`
+ * in the radius-1 and radius-2 outlined variants); `MIN_MAJOR = 6` clears it
+ * and fires on nothing in any variant.
+ *
+ * A fraction-of-the-smallest-keyline threshold, the obvious form for this rule,
+ * does not survive the measurement: the smallest keyline dimension is 16, and
+ * even a quarter of it — 4.0 — lands on `dot-grid`, while 0.4 of it takes out
+ * the whole `chevron-*-small` family. The set draws deliberately small marks,
+ * so the only defensible floor is far below any fraction worth writing down.
+ */
+const MIN_MINOR = 3;
+const MIN_MAJOR = 6;
+
+/**
+ * A drawing with no substance: too thin to have a second dimension, or too
+ * small to be any icon the set draws.
+ *
+ * This is the rule that makes `clean` mean "finished". Every other check here
+ * is a question about a drawing that exists — is it centred, does it sit on a
+ * keyline, are its edges on an axis — and a single stroke answers all of them
+ * acceptably. `M7 3L7 21` is a 2×20 vertical line, dead centre, on no keyline
+ * (a warning), on axis, and it linted clean; the generation loop shipped it as
+ * `git-branch` and the eval panel counted it as a success.
+ *
+ * `error` rather than `warn`, which is the opposite of the call made for
+ * `off-axis` (29.3% of the set) and for the no-keyline case (24%), because the
+ * false-positive rate is three orders of magnitude smaller: 3 of 2,085 icons
+ * per outlined variant, 0.14%, and 0 in the filled variants. The rule this file
+ * already gates on, `bleed`, fails 2.6% of the same set. The cost is precise
+ * and worth naming: under an error gate the loop cannot draw the `minus`
+ * family, whose subject is a single bar. One concept, against a failure mode
+ * that silently scores an abandoned icon as a good one.
+ */
+const substanceIssue = (vx: number, vy: number): Issue | null => {
+  const minor = Math.min(vx, vy);
+  const major = Math.max(vx, vy);
+  if (minor >= MIN_MINOR && major >= MIN_MAJOR) {
+    return null;
+  }
+  const why =
+    minor < MIN_MINOR
+      ? `is ${minor.toFixed(1)} across its short axis, which is the stroke and nothing else — the drawing is a single bare stroke`
+      : `is ${major.toFixed(1)} at its widest, smaller than any icon in the set (the smallest is chevron-triangle-small at 6.8)`;
+  return {
+    message: `Visual extent ${vx.toFixed(1)}×${vy.toFixed(1)} ${why}. This is an unfinished icon, not a spare one: draw the elements that make the subject readable. If the subject genuinely is a bar or a dot, this rule is wrong for it and the icon needs a human.`,
+    rule: "substance",
+    severity: "error",
+  };
+};
+
 const bleedIssue = (b: Box): Issue | null =>
   b.x0 < LIVE_MIN || b.y0 < LIVE_MIN || b.x1 > LIVE_MAX || b.y1 > LIVE_MAX
     ? {
-        message: "Geometry reaches the canvas edge; the live area is 2..22.",
+        message: `Geometry reaches the canvas edge; the live area is ${LIVE_MIN}..${LIVE_MAX}, measured on the path bounds rather than the visual extent.`,
         rule: "bleed",
         severity: "error",
       }
@@ -298,6 +386,9 @@ export const lint = (
   }));
 
   for (const issue of [
+    // First, because a drawing that fails this answers every question below it
+    // acceptably and means none of the answers.
+    substanceIssue(vx, vy),
     centring(b, cohortVerdict?.agrees ?? false),
     keylineIssue(vx, vy, keyline),
     bleedIssue(b),

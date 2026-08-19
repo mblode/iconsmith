@@ -20,7 +20,7 @@ npx iconsmith --help
 iconsmith parts ./icons-svg -o parts.json      # cluster subpaths into a vocabulary
 iconsmith draw cloud-check.icon -p parts.json  # run a DSL program, emit SVG
 iconsmith lint ./icons-svg/*.svg               # check against the house spec
-iconsmith eval --dir ./icon-set -n 12          # reconstruction score (needs ANTHROPIC_API_KEY)
+iconsmith eval --dir ./icon-set --slice 12     # reconstruction score (needs ANTHROPIC_API_KEY)
 ```
 
 Add `--output json` to any command for machine-readable output on stdout.

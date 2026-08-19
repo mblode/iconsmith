@@ -70,9 +70,18 @@ export interface ToolsOptions {
 export interface ToolState {
   /** Issues from the model's last `lint` call, or null if it never called it. */
   issues: Issue[] | null;
-  /** Set once the model has looked at a render. An icon it never saw is a
-   *  guess, however clean it lints. */
-  rendered: boolean;
+  /**
+   * The canvas version the model's last `lint` call read, or -1 if it never
+   * called it. A version rather than a flag: `issues` describes the drawing as
+   * it was when lint ran, and one draw call later it describes nothing.
+   */
+  lintedAt: number;
+  /**
+   * The canvas version the model last looked at a render of, or -1. An icon it
+   * never saw is a guess however clean it lints — and an icon it saw four
+   * mutations ago is a different icon.
+   */
+  renderedAt: number;
   /** Set by the first `proposal` call. The second one is refused, which is the
    *  mechanism that keeps the raster a brief rather than a target. */
   proposed: boolean;
@@ -149,8 +158,9 @@ export const createTools = (options: ToolsOptions = {}) => {
   const state: ToolState = {
     calls: [],
     issues: null,
+    lintedAt: -1,
     proposed: false,
-    rendered: false,
+    renderedAt: -1,
   };
 
   const byName = new Map<string, Part>();
@@ -217,7 +227,7 @@ export const createTools = (options: ToolsOptions = {}) => {
               note: "No comparable icons in the corpus; judge the draft on its own.",
             };
           }
-          state.rendered = true;
+          state.renderedAt = canvas.version;
           const image = await sheet([
             canvas.toSVG(),
             ...near.map((n) => n.svg),
@@ -303,6 +313,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         track("lint", () => {
           const issues = lint(canvas, { keyline: k ?? keyline });
           state.issues = issues;
+          state.lintedAt = canvas.version;
           return {
             clean: issues.every((i) => i.severity !== "error"),
             issues,
@@ -458,7 +469,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Render the current drawing and look at it. Use this often: it is the only way to find out whether the icon reads as the thing it names.",
       execute: async ({ size }) =>
         await track("render", async () => {
-          state.rendered = true;
+          state.renderedAt = canvas.version;
           const image = await png(canvas.toSVG(), size ?? renderSize);
           return {
             elements: canvas.describe(),

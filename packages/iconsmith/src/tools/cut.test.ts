@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { PathError } from "../geometry/path.js";
 import { cuts } from "./cut.js";
 
 const shape = (d: string, id: string) => ({ d, id });
@@ -127,5 +128,26 @@ describe("cuts", () => {
 
   it("returns nothing for an empty canvas", () => {
     expect(cuts([])).toEqual([]);
+  });
+});
+
+describe("malformed path data", () => {
+  /**
+   * Task #31. A NaN coordinate used to reach here and crash with
+   * `Cannot read properties of undefined (reading '0')`, ten frames from the
+   * cause: `polyLength` returned NaN, the `len === 0` guard in `fragments`
+   * did not catch it because `NaN === 0` is false, so the sample count came
+   * out NaN, `resample` returned an empty array, and `ends` indexed `[0]` off
+   * it. `parsePath` now refuses the input instead, so the fault is named at
+   * the shape that carries it.
+   */
+  it("names the bad path rather than crashing ten frames later", () => {
+    const bad = () =>
+      cuts([
+        shape("M4 10.5Lnan nanL20.9839 10.5", "burger"),
+        shape("M2 2L22 22", "slash"),
+      ]);
+    expect(bad).toThrow(PathError);
+    expect(bad).not.toThrow(TypeError);
   });
 });

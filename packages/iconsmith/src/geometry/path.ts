@@ -35,6 +35,64 @@ const ARITY: Record<string, number> = {
 };
 const TOKEN = /[MmLlHhVvCcSsQqTtAaZz]|-?\d*\.?\d+(?:e[-+]?\d+)?/gu;
 const ALPHA = /[A-Za-z]/u;
+/** Everything path data is allowed to be made of: command letters, the pieces
+ *  of a number, and the separators between them. */
+const ILLEGAL = /[^MmLlHhVvCcSsQqTtAaZz\d.eE+\-,\s]/u;
+/** Characters of context either side of an offset in an error message. */
+const EXCERPT = 12;
+
+/**
+ * Path data this parser refuses, rather than reading past.
+ *
+ * The tokeniser matches command letters and numbers and skips everything else,
+ * so a stray character does not stop the parse — it vanishes, and because
+ * arguments are consumed by arity, every argument after it shifts by one.
+ * `Lnan nan` becomes `L` with the `a` of each `nan` read as a coordinate: two
+ * NaNs, no complaint, and the rest of the path read out of step. That is how
+ * `corpus/round-filled-radius-1-stroke-1.5/burger.svg` measured as a
+ * two-shape icon when it draws three.
+ *
+ * Named after `InputError` in `commands/read.ts` and following its rule: say
+ * which file, what was expected, and what to do about it. Separate from it
+ * because `geometry/` is the bottom of the stack and imports nothing.
+ */
+export class PathError extends Error {
+  readonly code = "PATH";
+  /** The file the path data came from, when the caller named one. */
+  readonly source?: string;
+  constructor(message: string, source?: string) {
+    super(message);
+    this.name = "PathError";
+    this.source = source;
+  }
+}
+
+/** The path data around an offset, so a message can show the damage. */
+const excerpt = (d: string, at: number): string => {
+  const from = Math.max(0, at - EXCERPT);
+  const to = Math.min(d.length, at + EXCERPT);
+  return `${from > 0 ? "…" : ""}${d.slice(from, to)}${to < d.length ? "…" : ""}`;
+};
+
+const fail = (
+  d: string,
+  source: string | undefined,
+  at: number,
+  what: string
+): PathError => {
+  const where = source ? ` in "${source}"` : "";
+  return new PathError(
+    `Cannot parse the path data${where}: ${what} at offset ${at}, in "${excerpt(d, at)}". ` +
+      "Path data is command letters, numbers and separators; anything else is dropped by the " +
+      "tokeniser and shifts every argument after it. Fix the source, or drop the shape.",
+    source
+  );
+};
+
+export interface ParsePathOptions {
+  /** File the path data came from, so an error can name it. */
+  source?: string;
+}
 
 const abs = (a: number[], rel: boolean, cx: number, cy: number): number[] => {
   const out: number[] = [];
@@ -201,8 +259,20 @@ const HANDLERS: Record<string, Handler> = {
 };
 
 /** Parse path data into subpaths of absolute segments. */
-export const parsePath = (d: string): Subpath[] => {
-  const toks = String(d).match(TOKEN) ?? [];
+export const parsePath = (
+  d: string,
+  opts: ParsePathOptions = {}
+): Subpath[] => {
+  const text = String(d);
+  const { source } = opts;
+  const stray = text.search(ILLEGAL);
+  if (stray !== -1) {
+    throw fail(text, source, stray, `unexpected "${text[stray]}"`);
+  }
+  const found = [...text.matchAll(TOKEN)];
+  const toks = found.map((m) => m[0]);
+  /** Where a token started, for a message; past the end once they run out. */
+  const at = (k: number): number => found[k]?.index ?? text.length;
   const s: ParseState = {
     args: [],
     cur: null,
@@ -235,7 +305,19 @@ export const parsePath = (d: string): Subpath[] => {
     }
     const args: number[] = [];
     for (let k = 0; k < n; k += 1) {
-      args.push(Number(toks[i]));
+      const tok = toks[i];
+      const v = Number(tok);
+      if (!Number.isFinite(v)) {
+        throw fail(
+          text,
+          source,
+          at(i),
+          tok === undefined
+            ? `the "${cmd}" command runs out of arguments after ${k} of ${n}`
+            : `argument ${k + 1} of ${n} to the "${cmd}" command is "${tok}", not a number`
+        );
+      }
+      args.push(v);
       i += 1;
     }
     s.args = args;

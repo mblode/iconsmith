@@ -55,6 +55,21 @@ describe("lint", () => {
     expect(issues.find((i) => i.rule === "bleed")?.severity).toBe("error");
   });
 
+  it("names the live area it enforces, not the one the spec asks for", () => {
+    // The message said 2..22 while the constants enforced 1..23. `clearance` is
+    // still 2 and this rule still is not; the message has to admit that, or the
+    // next reader recalibrates against a number nothing checks.
+    const issues = lint(canvas(el("e0", "M0.5 0.5L23.5 0.5L23.5 23.5Z")));
+    const bleed = issues.find((i) => i.rule === "bleed");
+    expect(bleed?.message).toContain("live area is 1..23");
+    expect(bleed?.message).toContain("path bounds");
+    // At 1.5 units of clearance the path bbox is inside the enforced area and
+    // outside the spec's, which is the whole of the disagreement.
+    expect(
+      rules(lint(canvas(el("e0", "M1.5 1.5L22.5 1.5L22.5 22.5Z"))))
+    ).not.toContain("bleed");
+  });
+
   it("fires `gap` when two elements sit closer than the minimum", () => {
     // Derived from the spec rather than written out, so recalibrating `minGap`
     // against the corpus does not silently turn this test into a no-op.
@@ -156,6 +171,46 @@ describe("lint", () => {
     expect(rules(issues)).toContain("density");
     // Spaced exactly at the minimum gap, so density is the only complaint here.
     expect(rules(issues)).not.toContain("gap");
+  });
+
+  it("fires `substance` on the single line the loop shipped as `git-branch`", () => {
+    // The icon that motivated the rule: one vertical stroke, dead centre, on
+    // axis, inside the live area. Every other check here was content with it.
+    const issues = lint(canvas(el("e0", "M7 3L7 21")));
+    const substance = issues.find((i) => i.rule === "substance");
+    expect(substance?.severity).toBe("error");
+    expect(substance?.message).toContain("2.0×20.0");
+    expect(substance?.message).toContain("single bare stroke");
+    expect(rules(issues)).not.toContain("off-axis");
+    expect(rules(issues)).not.toContain("bleed");
+  });
+
+  it("fires `substance` on a mark smaller than anything the set draws", () => {
+    // A lone 4×4 dot: thick enough to clear the minor floor, too small to be
+    // an icon. The smallest the corpus goes is 6.8 across its long axis.
+    const issues = lint(canvas(el("e0", "M11 11L13 11L13 13L11 13Z")));
+    const substance = issues.find((i) => i.rule === "substance");
+    expect(substance?.severity).toBe("error");
+    expect(substance?.message).toContain("at its widest");
+  });
+
+  it("stays quiet on the smallest marks the set actually draws", () => {
+    // `chevron-triangle-up-small`'s extent, 8.0×6.2, and `chevron-down-small`'s
+    // 10.0×5.6 — both real icons, both must survive an error-severity rule.
+    // Squares stand in for the shapes; only the extent is under test.
+    expect(
+      rules(lint(canvas(el("e0", "M9 9.1L15 9.1L15 13.3L9 13.3Z"))))
+    ).not.toContain("substance");
+    expect(
+      rules(lint(canvas(el("e0", "M8 10.2L16 10.2L16 13.8L8 13.8Z"))))
+    ).not.toContain("substance");
+  });
+
+  it("fires `substance` on a bar, which is the rule's known false positive", () => {
+    // `minus-large`: 18×2, three of the 2,085 icons in the house variant, and
+    // the price of the rule. Pinned so nobody discovers it by surprise.
+    const issues = lint(canvas(el("e0", "M4 12L20 12")));
+    expect(issues.find((i) => i.rule === "substance")?.severity).toBe("error");
   });
 
   it("fires `empty`, and only `empty`, on an empty canvas", () => {

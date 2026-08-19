@@ -29,7 +29,7 @@
  * `cohortOf`, `fingerprint`. A second implementation of any of them is how the
  * corpus and the linter start disagreeing about the same icon.
  */
-import { parsePath } from "../geometry/path.js";
+import { parsePath, PathError } from "../geometry/path.js";
 import { fingerprint } from "../parts/shape.js";
 import { iconEdgeAngles, offAxisEdges } from "../tools/angle.js";
 import type { Conformance } from "../tools/keyline.js";
@@ -220,21 +220,31 @@ const distinct = (ns: number[]): number[] =>
   [...new Set(ns.map(r4))].toSorted((a, b) => a - b);
 
 /**
- * True when a shape's path data carries a coordinate that is not a number.
+ * True when a shape's path data cannot be parsed.
  *
- * One file in 90,650 does: `corpus/round-filled-radius-1-stroke-1.5/burger.svg`
+ * One file in 90,650 cannot: `corpus/round-filled-radius-1-stroke-1.5/burger.svg`
  * ships `...L20.9839 10.5Lnan nanL...`, an export defect in Central's own
  * source. A corpus walk that dies on it dies on the 8,000th file of 62,550 and
  * takes the whole build with it, so the shape is dropped and the rendering says
  * so in `defects`. Dropping it silently would be worse than crashing: the icon
  * would quietly measure as if it had one fewer shape.
+ *
+ * This is the one place in the codebase that is *meant* to survive malformed
+ * path data. Everywhere else a `PathError` should reach the caller: the parser
+ * used to hand back NaN coordinates instead of throwing, which is how a
+ * three-shape icon measured as two with nothing said about it.
  */
-const nonFinite = (d: string): boolean =>
-  parsePath(d).some(
-    (sp) =>
-      !(Number.isFinite(sp.start[0]) && Number.isFinite(sp.start[1])) ||
-      sp.segs.some((seg) => seg.p.some((n) => !Number.isFinite(n)))
-  );
+const unparseable = (d: string, source: string): boolean => {
+  try {
+    parsePath(d, { source });
+    return false;
+  } catch (error) {
+    if (error instanceof PathError) {
+      return true;
+    }
+    throw error;
+  }
+};
 
 const styleOf = (shapes: CorpusShape[]): Rendering["style"] => {
   const stroked = shapes.some((s) => s.strokeWidth > 0);
@@ -256,7 +266,7 @@ const styleOf = (shapes: CorpusShape[]): Rendering["style"] => {
  */
 export const measureRendering = (input: RenderingInput): MeasuredRendering => {
   const normal = normaliseIconSvg(input.svg);
-  const shapes = normal.shapes.filter((s) => !nonFinite(s.d));
+  const shapes = normal.shapes.filter((s) => !unparseable(s.d, input.path));
   const defects = shapes.length === normal.shapes.length ? [] : ["nan-path"];
   // Every measurer that re-parses source text gets the *normalised* drawing,
   // so `auditIcon` and `parsePieces` see the same shapes, grid and stroke
@@ -302,7 +312,9 @@ export const measureRendering = (input: RenderingInput): MeasuredRendering => {
   const nearClosed = audit.nearClosed.map((n) => n.gap);
 
   const fingerprints = input.canonical
-    ? shapes.flatMap((s) => parsePath(s.d)).map(fingerprint)
+    ? shapes
+        .flatMap((s) => parsePath(s.d, { source: input.path }))
+        .map(fingerprint)
     : [];
 
   return {

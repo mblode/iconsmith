@@ -350,14 +350,41 @@ export class Canvas {
   log: string[] = [];
   readonly parts: Map<string, Part>;
 
+  /**
+   * Ids are minted from a counter, never from `elements.length`.
+   *
+   * `remove` splices, so a length-derived id is reissued the moment anything
+   * but the last element is deleted: draw three, remove the middle, draw one
+   * more, and the new element is called `e2` alongside the surviving `e2`.
+   * `describe` then reports two elements under one handle, and both `placed`
+   * and `remove` resolve it to the older one — so the model reads the wrong
+   * bounds back and deletes the wrong shape, without either side erroring.
+   */
+  #seq = 0;
+
+  /**
+   * Bumped by every mutation. The loop uses it as the cheap answer to "is what
+   * I rendered still what is on the canvas": a `render` or `lint` result is
+   * only about the drawing if it was taken at the current version.
+   */
+  #version = 0;
+
   constructor(parts: Part[] = []) {
     this.parts = new Map(parts.map((p) => [p.id, p]));
   }
 
+  /** Mutation count. Monotonic, and meaningless as an absolute number: only
+   *  whether it has changed since a reading was taken means anything. */
+  get version(): number {
+    return this.#version;
+  }
+
   #push(make: (id: string) => Element): string {
-    const id = `e${this.elements.length}`;
+    const id = `e${this.#seq}`;
+    this.#seq += 1;
     const el = make(id);
     this.elements.push(el);
+    this.#version += 1;
     this.log.push(`${el.kind} → ${id}`);
     return id;
   }
@@ -609,6 +636,8 @@ export class Canvas {
    */
   transform(k: number, tx: number, ty: number): void {
     const { elements: src, log } = this;
+    const seq = this.#seq;
+    const version = this.#version;
     this.elements = [];
     this.log = [];
     for (const e of src) {
@@ -649,6 +678,20 @@ export class Canvas {
         this.raw(serialise(moved, { grid: SPEC.grid }));
       }
     }
+    // Re-emitting mints fresh ids, but a fit is not a redraw: the handles the
+    // model is holding must still name the same shapes afterwards. The
+    // elements come back in order, one per source element, so the original ids
+    // go back on and the counter is rewound to where it was.
+    for (const [i, e] of this.elements.entries()) {
+      e.id = src[i].id;
+    }
+    this.#seq = seq;
+    // Re-emitting bumped the version once per element; the whole transform is
+    // one mutation, and an identity transform is none. `fit` returns the
+    // identity when the drawing is already fitted, and calling it a second
+    // time is not progress — leaving the version alone is what lets the loop
+    // see that.
+    this.#version = version + (k === 1 && tx === 0 && ty === 0 ? 0 : 1);
     this.log = log;
     this.log.push(`transform ×${k} +${q(tx, SPEC.grid)},${q(ty, SPEC.grid)}`);
   }
@@ -659,12 +702,14 @@ export class Canvas {
       throw new Error(`no element ${id}`);
     }
     this.elements.splice(i, 1);
+    this.#version += 1;
     this.log.push(`remove ${id}`);
     return { remaining: this.elements.length, removed: id };
   }
 
   clear(): void {
     this.elements = [];
+    this.#version += 1;
     this.log.push("clear");
   }
 

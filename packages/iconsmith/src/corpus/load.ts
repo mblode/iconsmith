@@ -9,8 +9,11 @@
  * Loading is lazy on purpose: 62,550 files is 247MB, and nothing needs more
  * than a sample at a time. The index holds names; `load` reads one icon.
  */
+import type { Dirent } from "node:fs";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
+
+import { InputError } from "../commands/read.js";
 
 export type Corner = "round" | "square";
 export type Style = "filled" | "outlined";
@@ -215,17 +218,66 @@ export const parseIconSvg = (svg: string): CorpusShape[] => {
 const SVG = ".svg";
 
 /**
+ * What a corpus is and where to get one, said once.
+ *
+ * The corpus is not in the repository — it is 62,550 files of a third-party
+ * set — so a missing one is the *normal* state of a fresh clone rather than a
+ * broken install. `ENOENT ... open 'corpus/corpus.json'` names neither of those
+ * facts, so every read here is translated the way `commands/read.ts` translates
+ * the ones on the command line.
+ */
+const CORPUS_HELP =
+  "A corpus is a directory of icon .svg files with a corpus.json index beside them; it is not shipped with iconsmith. Pass --corpus <dir> to point at one.";
+
+const corpusError = (root: string, why: string, error?: unknown): InputError =>
+  new InputError(
+    `Cannot read the corpus at "${root}": ${why} ${CORPUS_HELP}`,
+    error
+  );
+
+const explainCorpus = (root: string, error: unknown): InputError => {
+  const errno = (error as NodeJS.ErrnoException).code;
+  if (errno === "ENOENT") {
+    return corpusError(root, "no such directory.", error);
+  }
+  if (errno === "ENOTDIR") {
+    return corpusError(root, "that is not a directory.", error);
+  }
+  if (errno === "EACCES") {
+    return corpusError(root, "permission denied.", error);
+  }
+  return corpusError(root, `${(error as Error).message}.`, error);
+};
+
+/**
  * Index the corpus by symbol × variant. Reads 30 directory listings and
  * `corpus.json`; no icon file is opened until `load` asks for one.
  */
 export const loadCorpus = async (root = "corpus"): Promise<Corpus> => {
-  const meta = JSON.parse(
-    await readFile(path.join(root, "corpus.json"), "utf-8")
-  ) as {
-    icons: string[];
-    origin: string;
-  };
-  const entries = await readdir(root, { withFileTypes: true });
+  const index = path.join(root, "corpus.json");
+  let text: string;
+  try {
+    text = await readFile(index, "utf-8");
+  } catch (error) {
+    throw explainCorpus(root, error);
+  }
+  let meta: { icons: string[]; origin: string };
+  try {
+    meta = JSON.parse(text) as { icons: string[]; origin: string };
+  } catch (error) {
+    // Separated from the read: "there is no corpus" and "the corpus index is
+    // corrupt" have different fixes, and one message for both hides which.
+    throw new InputError(
+      `"${index}" is not valid JSON: ${(error as Error).message}. Expected the corpus index: {"origin": string, "icons": string[]}.`,
+      error
+    );
+  }
+  let entries: Dirent[];
+  try {
+    entries = await readdir(root, { withFileTypes: true });
+  } catch (error) {
+    throw explainCorpus(root, error);
+  }
   // One listing per variant directory — 30 of them, a fixed count set by the
   // shape of the corpus rather than its size — so these run together. The
   // per-icon reads in `measure.ts` are the unbounded walk and stay sequential.

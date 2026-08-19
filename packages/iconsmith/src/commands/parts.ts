@@ -6,6 +6,7 @@ import { Option } from "commander";
 import type { StyleSelection } from "../parts/extract.js";
 import { extractParts, writeParts } from "../parts/extract.js";
 import { nameParts } from "../parts/vocabulary.js";
+import { assertDirectory } from "./read.js";
 
 const pct = (n: number) => `${Math.round(n)}%`;
 
@@ -39,6 +40,7 @@ export const registerPartsCommand = (program: Command): void => {
         }
       ) => {
         const json = program.opts().output === "json";
+        assertDirectory(dir, "a directory of .svg icons");
         const extracted = extractParts(dir, {
           minUses: opts.minUses,
           styles: opts.styles,

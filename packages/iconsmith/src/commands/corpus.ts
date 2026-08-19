@@ -14,6 +14,10 @@ import { buildCorpus, checkCorpus, corpusStats } from "../corpus/build.js";
  * mean it: everything it writes goes to `.corpus/`, which is derived and
  * gitignored, and a build that wrote nothing would report nothing either. `-o`
  * takes it somewhere else, which is the same guarantee by a different route.
+ *
+ * `build` names each source on stderr as it starts it, so a run over tens of
+ * thousands of files is visibly working rather than possibly hung. stdout
+ * carries the report and nothing else, so `--output json` stays parseable.
  */
 
 interface BuildOpts {

@@ -15,7 +15,7 @@ import { MockLanguageModelV4 } from "ai/test";
 import { describe, expect, it } from "vitest";
 
 import type { BenchmarkEntry } from "./bench.js";
-import { BASELINE, evaluate, formatReport, median } from "./eval.js";
+import { BASELINE, evaluate, formatReport, median, scored } from "./eval.js";
 import type { EvalIcon } from "./eval.js";
 import {
   DEFAULT_MODEL,
@@ -352,15 +352,14 @@ describe("evaluate", () => {
     expect(report.baseline).toBe(BASELINE);
     expect(report.ceiling).toBe(1);
     expect(report.icons).toHaveLength(4);
-    for (const s of report.icons) {
+    for (const s of report.icons.filter(scored)) {
       expect(s.score).toBeGreaterThan(0);
       expect(s.score).toBeLessThanOrEqual(1);
       expect(s.floor).toBeGreaterThan(0);
     }
     // Sorted weakest first, so the head of the list is what to go and look at.
-    expect(report.icons.map((i) => i.score)).toEqual(
-      report.icons.map((i) => i.score).toSorted((a, b) => a - b)
-    );
+    const values = report.icons.filter(scored).map((i) => i.score);
+    expect(values).toEqual(values.toSorted((a, b) => a - b));
     expect(formatReport(report)).toContain("baseline");
   });
 
@@ -390,7 +389,7 @@ describe("evaluate", () => {
     expect(formatReport(report)).toContain("!");
   });
 
-  it("records a failed icon as zero rather than failing the run", async () => {
+  it("records a failed icon as an error, not as a zero, and runs on", async () => {
     const report = await evaluate({
       benchmark: bench(...FAKE_SET.map((i) => i.icon)),
       generate: (concept) => {
@@ -413,9 +412,29 @@ describe("evaluate", () => {
       seed: 1,
     });
 
-    const failed = report.icons.filter((i) => i.error);
+    // The original property, and the reason the catch exists: one generation
+    // blowing up does not take the run with it. Every other icon still drew and
+    // still scored.
+    const ok = report.icons.filter(scored);
+    expect(ok).toHaveLength(FAKE_SET.length - 1);
+    expect(report.n).toBe(FAKE_SET.length - 1);
+    for (const s of ok) {
+      expect(s.score).toBeGreaterThan(0);
+    }
+
+    // What this test used to assert was that the failure landed as a score of
+    // 0. It does not: it carries no score at all, it is counted separately, and
+    // it is not in the median. A 0 there is a measurement of a bad icon, and a
+    // model that threw drew no icon to measure.
+    const failed = report.icons.filter((i) => !scored(i));
     expect(failed).toHaveLength(1);
-    expect(failed[0].score).toBe(0);
+    expect(failed[0]).not.toHaveProperty("score");
+    expect(failed[0].icon).toBe(FAKE_SET[0].icon);
+    expect(report.benchmark.errors).toBe(1);
+    expect(report.treatment).toBe(median(ok.map((s) => s.score)));
+
+    // Still named in the report, as it always was: excluded from the numbers is
+    // not hidden from the reader.
     expect(formatReport(report)).toContain("model exploded");
   });
 

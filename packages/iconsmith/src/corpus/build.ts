@@ -34,6 +34,14 @@
  * tree produce byte-identical JSONL, which is the only thing that makes
  * "diffable" a claim rather than a hope.
  *
+ * **A build either happens or it does not.** Every output is written to a
+ * `.building` file and renamed onto its real name only once the last source has
+ * been measured, so an interrupted build leaves the previous store intact rather
+ * than a truncated `icons.jsonl` and sidecars that no longer match it. That
+ * matters more than it sounds: the natural response to a build that looks stuck
+ * is to kill it, and the natural recovery is to run it again, which is exactly
+ * the moment a half-written store would be read back as the previous one.
+ *
  * **Incrementality by content.** Every file is hashed on every build; that is
  * the cost of the guarantee, and reading 78 MB is not the slow part. What is
  * skipped on a match is the *measuring*, and its fingerprint rows are copied
@@ -78,6 +86,10 @@ const HOUSE_DATA = "icons-data";
 const COHORTS = "_cohorts.json";
 const FINGERPRINTS = "fingerprints.f32";
 const INK = "ink.f32";
+/** Suffix every output is written under until the build has succeeded. A
+ *  rename onto the real name is atomic within a filesystem, so a reader sees
+ *  either the whole previous store or the whole new one and never a hybrid. */
+const BUILDING = ".building";
 
 /** 64 resampled points, x and y. Set by `SAMPLES` in `parts/shape.ts`. */
 const FP_DIM = 128;
@@ -183,6 +195,11 @@ const readJson = async <T>(file: string): Promise<T | null> => {
 /**
  * A sidecar under construction: fixed-width Float32 rows, appended in the order
  * records are emitted, so a `{file, row}` is a seek and nothing more.
+ *
+ * Rows land in a `.building` file and `commit` renames it onto the real name
+ * once the whole build has succeeded. The previous sidecar therefore stays
+ * readable for the whole run, which is what makes copy-forward possible without
+ * moving it aside first, and an interrupted build leaves it untouched.
  */
 class Sidecar {
   readonly dim: number;
@@ -193,12 +210,14 @@ class Sidecar {
   private readonly file: string;
   private handle: FileHandle | null = null;
   private pending = 0;
+  private readonly temp: string;
   rows = 0;
 
   constructor(dir: string, name: string, dim: number) {
     this.dim = dim;
     this.file = path.join(dir, name);
     this.name = name;
+    this.temp = `${this.file}${BUILDING}`;
   }
 
   async append(values: Iterable<number>): Promise<number> {
@@ -220,7 +239,7 @@ class Sidecar {
     if (this.chunks.length === 0) {
       return;
     }
-    this.handle ??= await open(this.file, "w");
+    this.handle ??= await open(this.temp, "w");
     const buf = Buffer.concat(this.chunks.splice(0));
     this.pending = 0;
     await this.handle.write(buf);
@@ -230,9 +249,22 @@ class Sidecar {
     await this.flush();
     // An empty sidecar is still created, so a reader never has to distinguish
     // "no such file" from "no rows".
-    this.handle ??= await open(this.file, "w");
+    this.handle ??= await open(this.temp, "w");
     await this.handle.close();
+    this.handle = null;
     return { dim: this.dim, rows: this.rows };
+  }
+
+  /** Claim the real name. Call only once the whole build has succeeded. */
+  async commit(): Promise<void> {
+    await rename(this.temp, this.file);
+  }
+
+  /** Leave the store as it was: close whatever is open and drop the temp. */
+  async discard(): Promise<void> {
+    await this.handle?.close().catch(() => null);
+    this.handle = null;
+    await rm(this.temp, { force: true });
   }
 }
 
@@ -384,7 +416,14 @@ const versionOf = async (
   return pkg?.version ?? null;
 };
 
-/** Previous records indexed by id, for copy-forward. */
+/**
+ * Previous records indexed by id, for copy-forward.
+ *
+ * A line that will not parse is reported as what it is. The store is written by
+ * this module and by nothing else, so the realistic way a record is malformed is
+ * a build that died mid-write in an older version of this file — and the
+ * recovery is the same either way, which is why the message carries it.
+ */
 const previousRecords = async (
   file: string
 ): Promise<Map<string, IconRecord>> => {
@@ -395,11 +434,22 @@ const previousRecords = async (
   } catch {
     return out;
   }
-  for (const line of text.split("\n")) {
+  const lines = text.split("\n");
+  for (const [i, line] of lines.entries()) {
     if (line.length === 0) {
       continue;
     }
-    const rec = JSON.parse(line) as IconRecord;
+    let rec: IconRecord;
+    try {
+      rec = JSON.parse(line) as IconRecord;
+    } catch (error) {
+      throw Object.assign(
+        new Error(
+          `"${file}" line ${i + 1} is not valid JSON: ${(error as Error).message}. Expected one icon record per line; a previous build was probably interrupted. Run \`iconsmith corpus build --full\` to rebuild the store from scratch.`
+        ),
+        { cause: error, code: "CORRUPT_STORE" }
+      );
+    }
     if (rec.schema === RECORD_SCHEMA_VERSION) {
       out.set(rec.id, rec);
     }
@@ -506,6 +556,11 @@ const buildSource = async (
 ): Promise<SourceResult> => {
   const root = path.resolve(source.root);
   const files = await source.list(root);
+  // The only sign of life in a run that reads 62,550 files. Silence is
+  // indistinguishable from a hang, and the usual response to a hang — kill it
+  // and start again — is how a store used to get corrupted. One line per
+  // source, on stderr, so `--output json` on stdout stays parseable.
+  process.stderr.write(`measuring ${source.id}: ${files.length} file(s)\n`);
   const metadata = await metadataFor(source, root);
   const version = await versionOf(source, root);
   const provenance = {
@@ -617,25 +672,16 @@ export const buildCorpus = async ({
     ? new Map<string, IconRecord>()
     : await previousRecords(path.join(dir, RECORDS));
 
-  // The previous sidecars move aside before the new ones claim their names.
-  // A rename rather than a copy, so this stays O(1) whatever they weigh — the
-  // ink sidecar is 172 MB at full corpus.
-  const stash = path.join(dir, ".previous");
-  await rm(stash, { force: true, recursive: true });
+  // Nothing in the store is moved or truncated on the way in. The previous
+  // sidecars are read where they lie, under the names they already have, while
+  // the new ones accumulate beside them under `.building`; the swap is a rename
+  // at the end, which is O(1) whatever they weigh — the ink sidecar is 172 MB at
+  // full corpus — and leaves no window in which the store has neither.
   let prevFp: FileHandle | null = null;
   let prevInk: FileHandle | null = null;
   if (previous.size > 0) {
-    await mkdir(stash, { recursive: true });
-    await Promise.all(
-      [FINGERPRINTS, INK].map(
-        async (name) =>
-          await rename(path.join(dir, name), path.join(stash, name)).catch(
-            () => null
-          )
-      )
-    );
-    prevFp = await open(path.join(stash, FINGERPRINTS), "r").catch(() => null);
-    prevInk = await open(path.join(stash, INK), "r").catch(() => null);
+    prevFp = await open(path.join(dir, FINGERPRINTS), "r").catch(() => null);
+    prevInk = await open(path.join(dir, INK), "r").catch(() => null);
   }
 
   const stage: Stage = {
@@ -650,10 +696,12 @@ export const buildCorpus = async ({
   const { missing, present } = await availableSources(sources);
   const ordered = [...present].toSorted((a, b) => a.id.localeCompare(b.id));
 
-  const records = await open(path.join(dir, RECORDS), "w");
+  const temp = path.join(dir, `${RECORDS}${BUILDING}`);
+  const records = await open(temp, "w");
   const reports: SourceReport[] = [];
   let total = 0;
   let renderings = 0;
+  let measured = false;
   try {
     for (const source of ordered) {
       // Serial across sources, because both the JSONL line order and the
@@ -667,10 +715,19 @@ export const buildCorpus = async ({
       total += result.report.records;
       renderings += result.report.renderings;
     }
+    measured = true;
   } finally {
     await records.close();
     await prevFp?.close();
     await prevInk?.close();
+    if (!measured) {
+      // The store is still exactly what it was before this call. Drop the
+      // half-written outputs rather than leaving them to be mistaken for a
+      // finished build, or for the next run's `.building` file to inherit.
+      await rm(temp, { force: true });
+      await stage.fingerprints.discard();
+      await stage.ink.discard();
+    }
   }
 
   const manifest: Manifest = {
@@ -686,11 +743,15 @@ export const buildCorpus = async ({
     sources: reports,
     vectors,
   };
-  await writeFile(
-    path.join(dir, MANIFEST),
-    `${JSON.stringify(manifest, null, 2)}\n`
-  );
-  await rm(stash, { force: true, recursive: true });
+  // Everything measured. The store changes now, in one pass of renames: the
+  // sidecars first, because a record's `{file, row}` has to resolve the moment
+  // the records land, then the records, then the manifest that describes them.
+  await stage.fingerprints.commit();
+  await stage.ink.commit();
+  await rename(temp, path.join(dir, RECORDS));
+  const manifestTemp = path.join(dir, `${MANIFEST}${BUILDING}`);
+  await writeFile(manifestTemp, `${JSON.stringify(manifest, null, 2)}\n`);
+  await rename(manifestTemp, path.join(dir, MANIFEST));
 
   return { manifest, ms: Math.round(performance.now() - started), out: dir };
 };
