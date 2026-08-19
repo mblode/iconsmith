@@ -59,6 +59,7 @@ import { generate, resolveModel } from "./generate.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { asReferences } from "./licence.js";
 import type { Reference } from "./licence.js";
+import type { Policy } from "./policy.js";
 import type { Concept } from "./prompt.js";
 
 /** Median rendered cosine between two mature sets drawing the same concept. */
@@ -335,6 +336,8 @@ export interface EvalOptions {
   /** Stop the run once spend passes this, rather than discovering the cost
    *  afterwards. */
   maxSpendUsd?: number;
+  /** A variant design language for this arm. Omit for the house policy. */
+  policy?: Policy;
   maxSteps?: number;
   model?: LanguageModel;
   onIcon?: (score: IconScore) => void;
@@ -513,6 +516,7 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
     generate: gen = generate,
     load,
     maxSpendUsd,
+    policy,
     maxSteps,
     model,
     onIcon,
@@ -608,7 +612,7 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
           name: target.icon,
           tags: target.tags,
         },
-        { corpus, maxSteps, model: resolved, parts: vocabulary }
+        { corpus, maxSteps, model: resolved, parts: vocabulary, policy }
       );
       out = scoreOf(
         base,

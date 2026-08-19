@@ -19,6 +19,7 @@ import type { IconDoc, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import type { TokenUsage } from "./cost.js";
 import type { Reference } from "./licence.js";
+import type { Policy } from "./policy.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
 import { createTools } from "./tools.js";
@@ -84,6 +85,13 @@ export class MissingApiKeyError extends Error {
 }
 
 export interface GenerateOptions {
+  /**
+   * The design language to draw under. A variant is how an experiment is run:
+   * build it from `DEFAULT_POLICY`, pass it here, and the only difference
+   * between two arms is the prose the model was given.
+   */
+  policy?: Policy;
+
   apiKey?: string;
   /**
    * The family this icon joins, when the caller has measured one.
@@ -354,6 +362,7 @@ export const generate = async (
     maxSteps = DEFAULT_MAX_STEPS,
     model,
     parts = [],
+    policy,
     proposal = null,
     renderSize,
   } = options;
@@ -387,7 +396,12 @@ export const generate = async (
       drawnAndClean(canvas, state, end),
       noProgress(canvas, state, end),
     ],
-    system: systemPrompt({ cohort, keyline, proposal: proposal !== null }),
+    system: systemPrompt({
+      cohort,
+      keyline,
+      policy,
+      proposal: proposal !== null,
+    }),
     tools,
   });
   const ms = Date.now() - startedAt;
