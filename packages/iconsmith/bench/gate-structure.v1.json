@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-08-19T05:20:00.120Z",
+  "builtAt": "2026-08-19T05:30:36.335Z",
   "checks": [
     {
       "ceiling": 0.9516532140749778,
@@ -70,6 +70,19 @@
       "usable": true
     },
     {
+      "ceiling": 0.997509460865222,
+      "failures": [
+        "video-roll — 4 of 4 dot(s) off the 2/2.5/3/4 ladder by more than 0.25u"
+      ],
+      "floor": 0.86,
+      "n": 71,
+      "name": "dot-tiers",
+      "passed": 70,
+      "rate": 0.9859154929577465,
+      "target": "every dot on the 2/2.5/3/4 ladder — corpus 98.5% of its 66 dot-bearing icons, 98.1% of their 207 dots",
+      "usable": true
+    },
+    {
       "ceiling": 0.726566330261955,
       "failures": [
         "add-to-basket — margin 1.00u, under 2u: left 1.00",
@@ -89,7 +102,8 @@
   ],
   "icons": [],
   "n": 2085,
-  "procedure": "Every .svg in the directory is measured geometrically, and rasterised at 4px per unit without blur for the corner check — deliberately not through `tools/render.ts`, whose 48px blurred raster exists to forgive placement and would smear ink across the corner boundary being measured. Visual extent is the path bbox plus the stroke, half per side, unioned over the elements `parseIconSvg` resolves (including the `<circle>`, `<rect>` and `<ellipse>` that 252 icons in the set draw with). Five checks, each a corpus measurement rather than an opinion: mark count against the p95 of the 1,528 stroked icons of the house variant, visual extent against the 20×20 keyline box, centring within 0.25u of (12, 12), corner ink against the p95 of the same set, and 2u of margin on all four sides. Density is gated on marks rather than on `<path>` elements because grouping is free: `split-element` is a perturbation the cosine battery scores as no change at all, so a cap on element count is satisfiable by regrouping without redrawing. A check passes the set when the upper end of the 95% Wilson interval on its pass rate clears a floor set at the corpus's own rate less 12 points — the corpus is not perfect against its own conventions, so a floor at the corpus rate fails the corpus, and the interval keeps a 24-icon run from failing on sampling noise. These checks sit outside cosine on purpose: the scorer's own stress test found a dot two tiers too large scores 0.988, inside the band a legal 0.25 jitter produces, so no threshold on cosine can see a sizing error at all.",
+  "procedure": "Every .svg in the directory is measured geometrically, and rasterised at 4px per unit without blur for the corner check — deliberately not through `tools/render.ts`, whose 48px blurred raster exists to forgive placement and would smear ink across the corner boundary being measured. Visual extent is the path bbox plus the stroke, half per side, unioned over the elements `parseIconSvg` resolves (including the `<circle>`, `<rect>` and `<ellipse>` that 252 icons in the set draw with). Six checks, each a corpus measurement rather than an opinion: mark count against the p95 of the 1,528 stroked icons of the house variant, visual extent against the 20×20 keyline box, centring within 0.25u of (12, 12), corner ink against the p95 of the same set, every dot on the 2/2.5/3/4 ladder, and 2u of margin on all four sides. A check is scored only over the icons it applies to — `dot-tiers` asked of an icon that draws no dot is not a pass, it is not a question — so its rate is 98.5% over the 66 dot-bearing corpus icons rather than 99.9% over all 1,528. Density is gated on marks rather than on `<path>` elements because grouping is free: `split-element` is a perturbation the cosine battery scores as no change at all, so a cap on element count is satisfiable by regrouping without redrawing. A check passes the set when the upper end of the 95% Wilson interval on its pass rate clears a floor set at the corpus's own rate less 12 points — the corpus is not perfect against its own conventions, so a floor at the corpus rate fails the corpus, and the interval keeps a 24-icon run from failing on sampling noise. These checks sit outside cosine on purpose: the scorer's own stress test found a dot two tiers too large scores 0.988, inside the band a legal 0.25 jitter produces, so no threshold on cosine can see a sizing error at all.",
+  "source": "corpus/round-outlined-radius-3-stroke-2",
   "usable": true,
-  "verdict": "PASS: 2085 icons, element-count 94.2%, extent 73.8%, centred 72.2%, corners-empty 94.1%, margins 70.7%. Every check clears the floor the corpus sets. This is not evidence the drawings are good — only that they are not off-spec in the ways rendered cosine cannot see."
+  "verdict": "PASS: 2085 icons, element-count 94.2%, extent 73.8%, centred 72.2%, corners-empty 94.1%, dot-tiers 98.6%, margins 70.7%. Every check clears the floor the corpus sets. This is not evidence the drawings are good — only that they are not off-spec in the ways rendered cosine cannot see."
 }

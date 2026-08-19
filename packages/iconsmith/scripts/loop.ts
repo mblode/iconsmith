@@ -31,8 +31,14 @@ import {
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { panel } from "../src/eval/blindspot.js";
+import type { StructuralReport } from "../src/eval/blindspot.js";
+import { formatStaged, twoStage } from "../src/pipeline/accept.js";
+import type { StagedVerdict } from "../src/pipeline/accept.js";
+import { entriesOf, loadBenchmark, slice } from "../src/pipeline/bench.js";
+import type { BenchmarkEntry } from "../src/pipeline/bench.js";
 import { evaluate, scored } from "../src/pipeline/eval.js";
-import type { IconScore } from "../src/pipeline/eval.js";
+import type { EvalReport, IconScore } from "../src/pipeline/eval.js";
 import {
   DEFAULT_POLICY,
   parsePolicy,
@@ -136,12 +142,86 @@ export interface Verdict {
   status: Status;
 }
 
+/**
+ * The blind-spot panel for both arms, or `null` when it did not run.
+ *
+ * `null` is not "no news". Rendered cosine cannot resolve element sizing — the
+ * scorer's own stress test scores a dot two tiers too large at 0.988, inside
+ * the band a legal 0.25 jitter produces — so a cosine win with no panel behind
+ * it is exactly the win an optimiser finds first. The rule below treats a
+ * missing panel as a reason to refuse, never as a pass.
+ */
+export interface StructuralArms {
+  champion: StructuralReport;
+  variant: StructuralReport;
+}
+
+export interface JudgeOptions {
+  errors?: { champion: number; variant: number };
+  structural?: StructuralArms | null;
+}
+
+/**
+ * The gate cosine cannot stand in for.
+ *
+ * Not "the variant panel passes": a champion that already sits under a corpus
+ * floor would then block every successor forever, and the question the loop
+ * asks is whether a change made things worse. So the rule is per check, and it
+ * is a *regression* rule — a check the champion cleared and the variant does
+ * not. Rates that wobble without crossing a floor are left alone, because the
+ * Wilson interval those floors are built from is what absorbs that wobble.
+ */
+const structuralReasons = (
+  structural: StructuralArms | null | undefined
+): string[] => {
+  if (!structural) {
+    return [
+      "the structural panel did not run, so element sizing, badge placement and margin were not checked — rendered cosine cannot resolve any of them, and a win only cosine endorses is the first thing an optimiser finds",
+    ];
+  }
+  const { champion, variant } = structural;
+  if (variant.n === 0) {
+    return [
+      "the structural panel measured nothing on the variant; a candidate that produced no icons does not pass the panel that exists to look at its icons",
+    ];
+  }
+  const held = new Set(
+    champion.checks.filter((c) => c.usable).map((c) => c.name)
+  );
+  const lost = variant.checks.filter((c) => held.has(c.name) && !c.usable);
+  return lost.map(
+    (c) =>
+      `structural check \`${c.name}\` held for the champion and fails for the variant: ${(c.rate * 100).toFixed(0)}% against a ${(c.floor * 100).toFixed(0)}% floor — cosine cannot see this`
+  );
+};
+
+/**
+ * Run the blind-spot panel over an arm's generated SVGs.
+ *
+ * Returns null when the scores carry no SVG to measure. `IconScore` does not
+ * expose one today — `evaluate` rasterises internally and reports the cosine —
+ * so this is written to read the field the moment it exists rather than to
+ * assume it does. Null is a refusal downstream, not a pass.
+ */
+export const structuralOf = async (
+  scores: readonly IconScore[]
+): Promise<StructuralReport | null> => {
+  const icons: { name: string; svg: string }[] = [];
+  for (const s of scores) {
+    const { svg } = s as { svg?: unknown };
+    if (scored(s) && typeof svg === "string") {
+      icons.push({ name: s.icon, svg });
+    }
+  }
+  return icons.length === 0 ? null : await panel(icons);
+};
+
 /** The acceptance rule, separated from the running so it can be tested. */
 export const judge = (
   champion: readonly IconScore[],
   variant: readonly IconScore[],
   noiseFloor: number,
-  errors?: { champion: number; variant: number }
+  { errors, structural }: JudgeOptions = {}
 ): Verdict => {
   const a = byIcon(champion);
   const b = byIcon(variant);
@@ -191,6 +271,7 @@ export const judge = (
       `lint-clean rate fell by ${Math.abs(cleanDelta).toFixed(3)} — a score bought by drawing worse is not a win`
     );
   }
+  reasons.push(...structuralReasons(structural));
   return {
     accepted: reasons.length === 0,
     cleanDelta,
@@ -700,13 +781,20 @@ const main = async (): Promise<void> => {
       variantPolicy = setEnabled(variantPolicy, id, true);
     }
 
+    // The benchmark is loaded through `parseBenchmark`, not `JSON.parse`: it is
+    // what refuses a file whose splits overlap, and an entry in two splits
+    // means the slice that proposes a change is also the slice that judges it.
+    const benchmark = loadBenchmark(
+      arg("bench") ?? path.join(WORKSPACE, "bench", "reconstruction.json")
+    );
+    const cap = arg("slice") === undefined ? undefined : Number(arg("slice"));
+    const feedback = slice(entriesOf(benchmark.entries, "feedback"), cap);
+    const selection = slice(entriesOf(benchmark.entries, "selection"), cap);
+    // `sealed` is named nowhere in this file on purpose. It is opened once, by
+    // a person, after the campaign is over; anything that could route to it
+    // automatically would spend it.
+
     const common = {
-      benchmark: JSON.parse(
-        readFileSync(
-          arg("bench") ?? path.join(WORKSPACE, "bench", "reconstruction.json"),
-          "utf-8"
-        )
-      ).entries.slice(0, Number(arg("slice") ?? 30)),
       dir: arg("dir") as string,
       maxSpendUsd: Number(arg("max-spend") ?? 5),
       model: arg("model"),
@@ -719,19 +807,71 @@ const main = async (): Promise<void> => {
       seed: Number(arg("seed") ?? 1),
     };
 
-    process.stderr.write("champion…\n");
-    const champion = await evaluate({ ...common, policy: champPolicy });
-    process.stderr.write("variant…\n");
-    const variant = await evaluate({ ...common, policy: variantPolicy });
+    const arms = async (
+      entries: readonly BenchmarkEntry[],
+      label: string
+    ): Promise<{ champion: EvalReport; variant: EvalReport }> => {
+      process.stderr.write(`${label}: champion…\n`);
+      const c = await evaluate({
+        ...common,
+        benchmark: entries,
+        policy: champPolicy,
+      });
+      process.stderr.write(`${label}: variant…\n`);
+      const v = await evaluate({
+        ...common,
+        benchmark: entries,
+        policy: variantPolicy,
+      });
+      return { champion: c, variant: v };
+    };
 
-    const verdict = judge(champion.icons, variant.icons, noiseFloor, {
-      champion: champion.benchmark.errors,
-      variant: variant.benchmark.errors,
-    });
+    const screenArms = await arms(feedback, "screen");
+    let championIcons = screenArms.champion.icons;
+    let variantIcons = screenArms.variant.icons;
+    let errors = {
+      champion: screenArms.champion.benchmark.errors,
+      variant: screenArms.variant.benchmark.errors,
+    };
+
+    // The blind-spot panel needs each generated SVG, and `IconScore` does not
+    // carry one today. `structuralOf` reads it if it is ever there, and until
+    // then the panel is null — which `judge` treats as a refusal, not a pass.
+    const structuralArms = async (): Promise<StructuralArms | null> => {
+      const c = await structuralOf(championIcons);
+      const v = await structuralOf(variantIcons);
+      return c && v ? { champion: c, variant: v } : null;
+    };
+
+    const stagedWith = async (): Promise<StagedVerdict<Verdict>> => {
+      const structural = await structuralArms();
+      return twoStage<Verdict>({
+        champion: championIcons,
+        entries: benchmark.entries,
+        judge: (a, b, floor) => judge(a, b, floor, { errors, structural }),
+        noiseFloor,
+        variant: variantIcons,
+      });
+    };
+
+    let staged = await stagedWith();
+    if (staged.stage !== "screened-out") {
+      // Only a candidate that beat the incumbent on the icons it was written
+      // against pays for the 130 it has never seen.
+      const decide = await arms(selection, "decide");
+      championIcons = [...championIcons, ...decide.champion.icons];
+      variantIcons = [...variantIcons, ...decide.variant.icons];
+      errors = {
+        champion: errors.champion + decide.champion.benchmark.errors,
+        variant: errors.variant + decide.variant.benchmark.errors,
+      };
+      staged = await stagedWith();
+    }
+    const verdict = staged.selection ?? staged.screen;
 
     let commit: string | null = null;
     let ratchetError: string | null = null;
-    if (verdict.status === "keep") {
+    if (staged.accepted) {
       try {
         commit = ratchet({
           branch,
@@ -747,11 +887,11 @@ const main = async (): Promise<void> => {
     }
 
     const entry = {
-      accepted: verdict.accepted,
+      accepted: staged.accepted,
       branch,
-      championTreatment: champion.treatment,
       commit,
       enabled: enable,
+      icons: staged.spent,
       medianDelta: verdict.medianDelta,
       n: verdict.n,
       noiseFloor,
@@ -759,14 +899,13 @@ const main = async (): Promise<void> => {
       programSha: program.sha,
       ratchetError,
       reasons: verdict.reasons,
+      screenMedian: staged.screen.medianDelta,
+      stage: staged.stage,
       status: verdict.status,
-      variantTreatment: variant.treatment,
     };
     appendFileSync(LEDGER, `${JSON.stringify(entry)}\n`);
 
-    process.stdout.write(
-      `${verdict.status.toUpperCase()}  median ${verdict.medianDelta.toFixed(4)}  p=${verdict.p.toFixed(3)}  n=${verdict.n}\n`
-    );
+    process.stdout.write(`${formatStaged(staged)}\n`);
     for (const r of verdict.reasons) {
       process.stdout.write(`  · ${r}\n`);
     }

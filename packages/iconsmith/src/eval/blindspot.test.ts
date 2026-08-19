@@ -149,6 +149,32 @@ describe("the checks", () => {
     expect(inspect("round", await measureIcon(good)).failed).toEqual([]);
   });
 
+  it("catches the sizing error cosine measurably cannot", async () => {
+    // The battery's finding, made into a check: `dot-two-tiers` scores 0.988,
+    // inside the band a legal 0.25 jitter produces. Here a 2u cap-form dot
+    // redrawn two tiers up — 2 → 3 → 4 — is a flat fail on geometry.
+    const dot = (width: number) =>
+      svg(
+        `<path d="${SQUARE}" stroke="currentColor" stroke-width="2" fill="none"/>` +
+          `<path d="M12 12V12.01" stroke="currentColor" stroke-width="${width}" stroke-linecap="round" fill="none"/>`
+      );
+    const onTier = await measureIcon(dot(2));
+    expect(onTier.dots.total).toBe(1);
+    expect(inspect("on-tier", onTier).failed).toEqual([]);
+
+    // Two tiers up lands on 4, which is itself a tier — the ladder cannot see
+    // that error, and does not claim to. Off the ladder is what it checks.
+    const off = await measureIcon(dot(3.4));
+    expect(off.dots.offTier).toBe(1);
+    expect(inspect("off-tier", off).failed).toEqual(["dot-tiers"]);
+  });
+
+  it("asks nothing of an icon that draws no dot", async () => {
+    const m = await measureIcon(good);
+    expect(m.dots.total).toBe(0);
+    expect(inspect("dotless", m).failed).toEqual([]);
+  });
+
   it("fails an icon that fills a corner", async () => {
     const m = await measureIcon(stroked("M2 2H4V4H2V2Z"));
     expect(inspect("cornered", m).failed).toContain("corners-empty");
@@ -224,6 +250,27 @@ describe("panel", () => {
     const centred = report.checks.find((c) => c.name === "centred");
     expect(centred?.failures).toHaveLength(5);
     expect(centred?.failures[0]).toMatch(/icon-0 — centre/u);
+  });
+
+  it("scores a check only over the icons it applies to", async () => {
+    // Nineteen icons with no dot at all and one with an off-ladder dot: the
+    // dot check is 0 of 1, not 19 of 20, and the panel is not talked out of a
+    // failure by icons that were never asked the question.
+    const withDot = svg(
+      `<path d="${SQUARE}" stroke="currentColor" stroke-width="2" fill="none"/>` +
+        '<path d="M12 12V12.01" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/>'
+    );
+    const report = await panel([
+      ...Array.from({ length: 19 }, (_, i) => ({
+        name: `plain-${i}`,
+        svg: good,
+      })),
+      { name: "dotted", svg: withDot },
+    ]);
+    const dots = report.checks.find((c) => c.name === "dot-tiers");
+    expect(dots?.n).toBe(1);
+    expect(dots?.passed).toBe(0);
+    expect(report.n).toBe(20);
   });
 
   it("treats an empty run as a failure", async () => {

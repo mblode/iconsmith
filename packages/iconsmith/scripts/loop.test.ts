@@ -11,6 +11,7 @@ import path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
+import type { StructuralReport } from "../src/eval/blindspot.js";
 import type { IconScore } from "../src/pipeline/eval.js";
 import { DEFAULT_POLICY } from "../src/pipeline/policy.js";
 import {
@@ -22,6 +23,7 @@ import {
   judge,
   parseProgram,
   ratchet,
+  structuralOf,
   readProgram,
   wilcoxon,
 } from "./loop.js";
@@ -52,13 +54,39 @@ const arm = (scores: number[], clean = true) =>
  * small for the metric to resolve, a gain that is not distinguishable from
  * noise, and a gain bought by drawing worse.
  */
+
+/**
+ * A structural panel, as `judge` reads it: only the per-check `usable` flag and
+ * the icon count matter to the rule, so the fixture states those and nothing
+ * else. The panel's own thresholds are `blindspot.ts`'s to test.
+ */
+const report = (checks: Record<string, boolean>, n = 24): StructuralReport =>
+  ({
+    checks: Object.entries(checks).map(([name, usable]) => ({
+      ceiling: 1,
+      failures: [],
+      floor: 0.8,
+      n,
+      name,
+      passed: usable ? n : 0,
+      rate: usable ? 1 : 0,
+      target: "",
+      usable,
+    })),
+    icons: [],
+    n,
+  }) as unknown as StructuralReport;
+
+const CLEAN = { centring: true, density: true, margin: true };
+const PANEL = { champion: report(CLEAN), variant: report(CLEAN) };
+
 describe("the acceptance rule", () => {
   const FLOOR = 0.03;
 
   it("rejects a gain under the noise floor, however consistent", () => {
     const before = arm([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]);
     const after = arm([0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51, 0.51]);
-    const v = judge(before, after, FLOOR);
+    const v = judge(before, after, FLOOR, { structural: PANEL });
     expect(v.accepted).toBe(false);
     expect(v.reasons.join(" ")).toMatch(/noise floor/u);
   });
@@ -66,7 +94,7 @@ describe("the acceptance rule", () => {
   it("rejects a large median that is not significant", () => {
     const before = arm([0.5, 0.5, 0.5]);
     const after = arm([0.9, 0.9, 0.9]);
-    const v = judge(before, after, FLOOR);
+    const v = judge(before, after, FLOOR, { structural: PANEL });
     expect(v.accepted).toBe(false);
     expect(v.reasons.join(" ")).toMatch(/signed-rank/u);
   });
@@ -74,7 +102,7 @@ describe("the acceptance rule", () => {
   it("rejects a real gain bought by a fall in lint-clean rate", () => {
     const before = arm([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5], true);
     const after = arm([0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7], false);
-    const v = judge(before, after, FLOOR);
+    const v = judge(before, after, FLOOR, { structural: PANEL });
     expect(v.accepted).toBe(false);
     expect(v.reasons.join(" ")).toMatch(/lint-clean/u);
   });
@@ -82,7 +110,7 @@ describe("the acceptance rule", () => {
   it("accepts a gain that is large, consistent and clean", () => {
     const before = arm([0.4, 0.45, 0.5, 0.55, 0.6, 0.42, 0.48, 0.52]);
     const after = arm([0.5, 0.55, 0.6, 0.65, 0.7, 0.52, 0.58, 0.62]);
-    const v = judge(before, after, FLOOR);
+    const v = judge(before, after, FLOOR, { structural: PANEL });
     expect(v.accepted).toBe(true);
     expect(v.medianDelta).toBeCloseTo(0.1, 5);
   });
@@ -90,7 +118,10 @@ describe("the acceptance rule", () => {
   it("calls a lost generation a crash, not a bad score", () => {
     const before = arm([0.4, 0.45, 0.5, 0.55, 0.6, 0.42, 0.48, 0.52]);
     const after = arm([0.5, 0.55, 0.6, 0.65, 0.7, 0.52, 0.58, 0.62]);
-    const v = judge(before, after, FLOOR, { champion: 0, variant: 2 });
+    const v = judge(before, after, FLOOR, {
+      errors: { champion: 0, variant: 2 },
+      structural: PANEL,
+    });
     expect(v.status).toBe("crash");
     expect(v.accepted).toBe(false);
     expect(v.reasons.join(" ")).toMatch(/did not both run/u);
@@ -99,16 +130,74 @@ describe("the acceptance rule", () => {
   it("does not let a crash borrow the win it would otherwise have had", () => {
     const before = arm([0.4, 0.45, 0.5, 0.55, 0.6, 0.42, 0.48, 0.52]);
     const after = arm([0.5, 0.55, 0.6, 0.65, 0.7, 0.52, 0.58, 0.62]);
-    expect(judge(before, after, FLOOR).status).toBe("keep");
+    expect(judge(before, after, FLOOR, { structural: PANEL }).status).toBe(
+      "keep"
+    );
     expect(
-      judge(before, after, FLOOR, { champion: 1, variant: 0 }).status
+      judge(before, after, FLOOR, {
+        errors: { champion: 1, variant: 0 },
+        structural: PANEL,
+      }).status
     ).toBe("crash");
   });
 
   it("reports no pairs rather than inventing a verdict", () => {
-    const v = judge(arm([0.5]), [ok("other", 0.9)], FLOOR);
+    const v = judge(arm([0.5]), [ok("other", 0.9)], FLOOR, {
+      structural: PANEL,
+    });
     expect(v.accepted).toBe(false);
     expect(v.reasons.join(" ")).toMatch(/no paired icons/u);
+  });
+});
+
+/**
+ * The gate that exists because the scorer has measured blind spots. A dot two
+ * tiers too large scores 0.988 — inside the band a legal 0.25 jitter produces
+ * — so no cosine threshold can see a sizing error, and an optimiser pointed at
+ * cosine will find that before it finds anything else.
+ */
+describe("the blind-spot gate", () => {
+  const FLOOR = 0.03;
+  const before = arm([0.4, 0.45, 0.5, 0.55, 0.6, 0.42, 0.48, 0.52]);
+  const after = arm([0.5, 0.55, 0.6, 0.65, 0.7, 0.52, 0.58, 0.62]);
+
+  it("refuses a cosine win with no panel behind it", () => {
+    const v = judge(before, after, FLOOR);
+    expect(v.accepted).toBe(false);
+    expect(v.reasons.join(" ")).toMatch(/structural panel did not run/u);
+  });
+
+  it("refuses a win that lost a check the champion held", () => {
+    const v = judge(before, after, FLOOR, {
+      structural: {
+        champion: report(CLEAN),
+        variant: report({ ...CLEAN, density: false }),
+      },
+    });
+    expect(v.accepted).toBe(false);
+    expect(v.reasons.join(" ")).toMatch(/`density` held for the champion/u);
+  });
+
+  it("does not hold a check the champion already failed against the variant", () => {
+    const v = judge(before, after, FLOOR, {
+      structural: {
+        champion: report({ ...CLEAN, density: false }),
+        variant: report({ ...CLEAN, density: false }),
+      },
+    });
+    expect(v.accepted).toBe(true);
+  });
+
+  it("refuses when the panel measured nothing on the variant", () => {
+    const v = judge(before, after, FLOOR, {
+      structural: { champion: report(CLEAN), variant: report(CLEAN, 0) },
+    });
+    expect(v.accepted).toBe(false);
+    expect(v.reasons.join(" ")).toMatch(/measured nothing/u);
+  });
+
+  it("reads no SVGs off scores that carry none", async () => {
+    expect(await structuralOf(before)).toBeNull();
   });
 });
 

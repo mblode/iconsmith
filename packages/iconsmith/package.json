@@ -25,7 +25,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE.md"
+    "LICENSE.md",
+    "SKILL.md"
   ],
   "type": "module",
   "sideEffects": false,

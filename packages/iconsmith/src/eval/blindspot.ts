@@ -22,9 +22,11 @@
  */
 import sharp from "sharp";
 
+import type { CorpusShape } from "../corpus/load.js";
 import { parseIconSvg } from "../corpus/load.js";
 import { bbox, parsePath } from "../geometry/path.js";
-import type { Box } from "../types.js";
+import { SPEC } from "../tools/canvas.js";
+import type { Box, Subpath } from "../types.js";
 
 /** The corpus draws on a 24×24 viewBox throughout. */
 const CANVAS = 24;
@@ -38,6 +40,28 @@ const EXTENT_MAX = CANVAS - 2 * MARGIN;
 const CENTRE_TOLERANCE = 0.25;
 /** Side of each of the four corner squares the ink check looks at. */
 const CORNER = 4;
+
+/** The dot ladder, smallest first: the only visual diameters a dot is drawn at.
+ *  Read from `SPEC` rather than written out, so a spec change moves the check
+ *  with it instead of leaving it asserting last year's ladder. */
+const DOT_TIERS = Object.values(SPEC.dots).toSorted((a, b) => a - b);
+/** A closed subpath this wide or narrower is a dot; anything larger is a ring
+ *  the icon means as a ring. Extent, not visual diameter — the two differ by
+ *  the stroke, and confusing them is this codebase's most repeated mistake. */
+const DOT_EXTENT = 2.5;
+/**
+ * Below this extent a stroked subpath draws no line, only its caps: the set's
+ * idiom for a dot is `M12 8V8.01` with a round cap, where the stroke width is
+ * the dot's diameter. Taken from `corpus/measure.ts`, which measured the same
+ * marks, and wider than the 0.001 `scripts/stress-cosine.ts` uses — the battery
+ * only needs dots it can grow, this needs every dot that exists.
+ */
+const DEGENERATE = 0.25;
+/** How far off a tier a dot may sit. The grid quantum, and the widest window
+ *  that still separates adjacent tiers: 2.5 and 3 are half a unit apart, so
+ *  anything wider than 0.25 would let a dot pass as either. 203 of the corpus's
+ *  207 dots clear it. */
+const TIER_TOLERANCE = SPEC.grid;
 
 /** Pixels per unit when measuring ink. 4px/unit puts each 4×4 corner square on
  *  a whole 16×16 block, so the corner mask is exact rather than antialiased at
@@ -79,6 +103,12 @@ export interface IconMeasurement {
    *  stroked bbox to a filled one measures a rendering fact rather than a
    *  design one — the mistake this codebase has made most often. */
   extent: { x: number; y: number };
+  /** Dots drawn, and how many of them sit off the `SPEC.dots` ladder. This is
+   *  the blind spot the panel exists for, measured directly: `dot-two-tiers` —
+   *  a dot redrawn two tiers larger — scores a median cosine of 0.988, inside
+   *  the band a legal jitter produces, so the scorer cannot see it at any
+   *  threshold. Geometry can, exactly. */
+  dots: { offTier: number; total: number };
   /** Distance from each canvas edge to the visual extent. */
   margin: { bottom: number; left: number; right: number; top: number };
   /**
@@ -122,6 +152,36 @@ const visualBox = (d: string, strokeWidth: number): Box | null => {
   const half = strokeWidth / 2;
   return box(b.x0 - half, b.y0 - half, b.x1 + half, b.y1 + half);
 };
+
+/**
+ * The dot this subpath draws, if it draws one, as a visual diameter.
+ *
+ * Two constructions, both of them the corpus's: a zero-length round-capped
+ * segment where the cap *is* the dot and the stroke width is its diameter, and
+ * a small closed ring whose visual diameter is its extent plus its stroke. The
+ * same definition `scripts/stress-cosine.ts` perturbs, deliberately — a check
+ * that recognised a different set of marks than the battery does would not be
+ * answering the blind spot the battery found.
+ */
+const dotDiameter = (
+  sp: Subpath,
+  strokeWidth: number,
+  cap: CorpusShape["cap"]
+): number | null => {
+  const b = bbox([sp]);
+  const ext = Math.max(b.w, b.h);
+  if (ext < DEGENERATE) {
+    // Only under a round cap. The same near-zero segment under a butt cap draws
+    // nothing at all, and under a square cap draws a square.
+    return cap === "round" && strokeWidth > 0 ? strokeWidth : null;
+  }
+  return sp.closed && ext <= DOT_EXTENT && Math.abs(b.w - b.h) < 0.1
+    ? ext + strokeWidth
+    : null;
+};
+
+const offTier = (diameter: number): boolean =>
+  Math.min(...DOT_TIERS.map((t) => Math.abs(t - diameter))) > TIER_TOLERANCE;
 
 /** Ink per pixel, unblurred, at `PX_PER_UNIT`. */
 const inkRaster = (svg: string): Promise<Buffer> =>
@@ -172,9 +232,26 @@ export const measureIcon = async (svg: string): Promise<IconMeasurement> => {
   for (const next of boxes.slice(1)) {
     b = union(b, next);
   }
+  // Stroked shapes only. The ladder in `SPEC.dots` was measured on stroked
+  // construction, where a dot is a cap or a small ring plus its stroke; the
+  // same subpath inside a filled shape is a hole or a counter, and reading its
+  // bbox as a dot diameter fails a quarter of the set's filled icons on a
+  // convention that was never about them. The generator draws only strokes, so
+  // nothing it produces is excluded by this.
+  const diameters = shapes.flatMap((s) =>
+    s.filled || s.strokeWidth <= 0
+      ? []
+      : parsePath(s.d)
+          .map((sp) => dotDiameter(sp, s.strokeWidth, s.cap))
+          .filter((d): d is number => d !== null)
+  );
   return {
     centre: { x: (b.x0 + b.x1) / 2, y: (b.y0 + b.y1) / 2 },
     cornerInk: empty ? 0 : cornerShare(await inkRaster(svg)),
+    dots: {
+      offTier: diameters.filter((d) => offTier(d)).length,
+      total: diameters.length,
+    },
     elements: shapes.length,
     extent: { x: b.w, y: b.h },
     margin: {
@@ -188,8 +265,14 @@ export const measureIcon = async (svg: string): Promise<IconMeasurement> => {
 };
 
 export interface StructuralCheck {
-  /** The corpus's own pass rate on this check, over the 1,528 icons of
-   *  `HOUSE_VARIANT` drawn entirely in strokes. The floor is derived from it. */
+  /** Which icons this check has anything to say about. Omitted means all of
+   *  them. `dot-tiers` has nothing to say about an icon that draws no dot, and
+   *  counting those as passes would dilute its rate with 1,474 icons that were
+   *  never asked the question. */
+  applies?: (m: IconMeasurement) => boolean;
+  /** The corpus's own pass rate on this check, over the icons of `HOUSE_VARIANT`
+   *  drawn entirely in strokes that the check applies to. The floor is derived
+   *  from it. */
   corpusRate: number;
   /** Why an icon failed. Only called when `holds` is false. */
   explain: (m: IconMeasurement) => string;
@@ -271,6 +354,15 @@ export const CHECKS: readonly StructuralCheck[] = [
     target: `at most ${pct(MAX_CORNER_INK)} of ink in the four ${CORNER}×${CORNER} corners — the corpus pools at 0.37%, uniform ink would be 11.1%`,
   },
   {
+    applies: (m) => m.dots.total > 0,
+    corpusRate: 0.985,
+    explain: (m) =>
+      `${m.dots.offTier} of ${m.dots.total} dot(s) off the ${DOT_TIERS.join("/")} ladder by more than ${TIER_TOLERANCE}u`,
+    holds: (m) => m.dots.offTier === 0,
+    name: "dot-tiers",
+    target: `every dot on the ${DOT_TIERS.join("/")} ladder — corpus 98.5% of its 66 dot-bearing icons, 98.1% of their 207 dots`,
+  },
+  {
     corpusRate: 0.731,
     explain: (m) =>
       `margin ${u(minMargin(m))}u, under ${MARGIN}u: ${Object.entries(m.margin)
@@ -295,7 +387,7 @@ export const floorFor = (check: StructuralCheck): number =>
  * sits below the floor, which is what makes the panel usable on a 24-icon bench
  * run. At n=24 a true rate equal to the corpus rate lands 12 points low by
  * chance often enough that a bare comparison would reject roughly one honest
- * run in ten, across five checks — a gate that cries wolf that often is a gate
+ * run in ten, across six checks — a gate that cries wolf that often is a gate
  * somebody turns off. The interval scales the demand with the evidence: a small
  * set has to be much worse than the corpus to fail, a 300-icon set only a
  * little.
@@ -339,6 +431,8 @@ export interface StructuralReport {
   icons: IconVerdict[];
   n: number;
   procedure: string;
+  /** Where the icons came from, so a committed report says what it measured. */
+  source: string;
   /** False when any check fell below its floor, or when there was nothing to
    *  measure. An empty run is a failure: a candidate that produced no icons
    *  must not pass the panel that exists to look at its icons. */
@@ -346,14 +440,16 @@ export interface StructuralReport {
   verdict: string;
 }
 
-export const PROCEDURE = `Every .svg in the directory is measured geometrically, and rasterised at ${PX_PER_UNIT}px per unit without blur for the corner check — deliberately not through \`tools/render.ts\`, whose 48px blurred raster exists to forgive placement and would smear ink across the corner boundary being measured. Visual extent is the path bbox plus the stroke, half per side, unioned over the elements \`parseIconSvg\` resolves (including the \`<circle>\`, \`<rect>\` and \`<ellipse>\` that 252 icons in the set draw with). Five checks, each a corpus measurement rather than an opinion: mark count against the p95 of the 1,528 stroked icons of the house variant, visual extent against the ${EXTENT_MAX}×${EXTENT_MAX} keyline box, centring within ${CENTRE_TOLERANCE}u of (${CENTRE}, ${CENTRE}), corner ink against the p95 of the same set, and ${MARGIN}u of margin on all four sides. Density is gated on marks rather than on \`<path>\` elements because grouping is free: \`split-element\` is a perturbation the cosine battery scores as no change at all, so a cap on element count is satisfiable by regrouping without redrawing. A check passes the set when the upper end of the 95% Wilson interval on its pass rate clears a floor set at the corpus's own rate less ${TOLERANCE * 100} points — the corpus is not perfect against its own conventions, so a floor at the corpus rate fails the corpus, and the interval keeps a 24-icon run from failing on sampling noise. These checks sit outside cosine on purpose: the scorer's own stress test found a dot two tiers too large scores 0.988, inside the band a legal 0.25 jitter produces, so no threshold on cosine can see a sizing error at all.`;
+export const PROCEDURE = `Every .svg in the directory is measured geometrically, and rasterised at ${PX_PER_UNIT}px per unit without blur for the corner check — deliberately not through \`tools/render.ts\`, whose 48px blurred raster exists to forgive placement and would smear ink across the corner boundary being measured. Visual extent is the path bbox plus the stroke, half per side, unioned over the elements \`parseIconSvg\` resolves (including the \`<circle>\`, \`<rect>\` and \`<ellipse>\` that 252 icons in the set draw with). Six checks, each a corpus measurement rather than an opinion: mark count against the p95 of the 1,528 stroked icons of the house variant, visual extent against the ${EXTENT_MAX}×${EXTENT_MAX} keyline box, centring within ${CENTRE_TOLERANCE}u of (${CENTRE}, ${CENTRE}), corner ink against the p95 of the same set, every dot on the ${DOT_TIERS.join("/")} ladder, and ${MARGIN}u of margin on all four sides. A check is scored only over the icons it applies to — \`dot-tiers\` asked of an icon that draws no dot is not a pass, it is not a question — so its rate is 98.5% over the 66 dot-bearing corpus icons rather than 99.9% over all 1,528. Density is gated on marks rather than on \`<path>\` elements because grouping is free: \`split-element\` is a perturbation the cosine battery scores as no change at all, so a cap on element count is satisfiable by regrouping without redrawing. A check passes the set when the upper end of the 95% Wilson interval on its pass rate clears a floor set at the corpus's own rate less ${TOLERANCE * 100} points — the corpus is not perfect against its own conventions, so a floor at the corpus rate fails the corpus, and the interval keeps a 24-icon run from failing on sampling noise. These checks sit outside cosine on purpose: the scorer's own stress test found a dot two tiers too large scores 0.988, inside the band a legal 0.25 jitter produces, so no threshold on cosine can see a sizing error at all.`;
 
 /** Judge one icon against every check. */
 export const inspect = (
   icon: string,
   measurement: IconMeasurement
 ): IconVerdict => {
-  const failed = CHECKS.filter((c) => !c.holds(measurement));
+  const failed = CHECKS.filter(
+    (c) => (c.applies?.(measurement) ?? true) && !c.holds(measurement)
+  );
   return {
     failed: failed.map((c) => c.name),
     icon,
@@ -387,7 +483,8 @@ const verdictOf = (checks: readonly CheckResult[], n: number): string => {
 
 /** Run the panel over already-read SVG sources. */
 export const panel = async (
-  icons: readonly { name: string; svg: string }[]
+  icons: readonly { name: string; svg: string }[],
+  source = "(unnamed)"
 ): Promise<StructuralReport> => {
   const verdicts: IconVerdict[] = [];
   for (const { name, svg } of icons) {
@@ -396,9 +493,11 @@ export const panel = async (
     // oxlint-disable-next-line no-await-in-loop
     verdicts.push(inspect(name, await measureIcon(svg)));
   }
-  const n = verdicts.length;
+  const total = verdicts.length;
   const checks: CheckResult[] = CHECKS.map((c) => {
-    const failures = verdicts.filter((v) => v.failed.includes(c.name));
+    const asked = verdicts.filter((v) => c.applies?.(v.measurement) ?? true);
+    const n = asked.length;
+    const failures = asked.filter((v) => v.failed.includes(c.name));
     const passed = n - failures.length;
     const floor = floorFor(c);
     const ceiling = wilsonUpper(passed, n);
@@ -413,16 +512,19 @@ export const panel = async (
       passed,
       rate: n > 0 ? passed / n : 0,
       target: c.target,
-      usable: n > 0 && ceiling >= floor,
+      // A check nothing asked is not a check that failed. The run as a whole
+      // still needs icons in it; that is `total`.
+      usable: n === 0 || ceiling >= floor,
     };
   });
   return {
     builtAt: new Date().toISOString(),
     checks,
     icons: verdicts,
-    n,
+    n: total,
     procedure: PROCEDURE,
-    usable: n > 0 && checks.every((c) => c.usable),
-    verdict: verdictOf(checks, n),
+    source,
+    usable: total > 0 && checks.every((c) => c.usable),
+    verdict: verdictOf(checks, total),
   };
 };

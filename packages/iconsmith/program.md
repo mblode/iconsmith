@@ -24,6 +24,17 @@ packages/iconsmith/bench/calibration.v1.json
 packages/iconsmith/bench/noise-floor.json
 ```
 
+## How an iteration is decided
+
+Two stages, and they are asymmetric on purpose.
+
+1. **Screen, on `feedback` (60 icons).** Cheap and lenient: "is this not worse?" These are the icons a proposal was written against, so a score here is optimistically biased and is _never_ reported as evidence. A candidate that cannot beat the incumbent on them will not beat it on 130 it has never seen.
+2. **Decide, on `selection` (130 icons).** The full rule — paired significance, a median over the measured noise floor, no fall in the lint-clean rate, and no regression on the blind-spot panel — computed on icons no proposer has read a trace from. Only a candidate that survived the screen pays for it.
+
+`sealed` (60 icons) is not a stage. It is opened once, by a person, after the campaign is over; the loop names it nowhere, because anything that could route to it automatically would spend it.
+
+The blind-spot panel is required for a keep, not optional. Rendered cosine cannot resolve element sizing — a dot two tiers too large scores 0.988, inside the band a legal 0.25 jitter produces — so a cosine win with no panel behind it is the first thing an optimiser finds. A missing panel is a refusal, never a pass.
+
 ## Standing constraints
 
 These are not preferences. Each one is either a measurement that stops meaning anything if the constraint moves, or a guarantee the project exists to provide.

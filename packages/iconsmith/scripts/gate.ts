@@ -373,7 +373,7 @@ const iconsIn = (dir: string): { name: string; svg: string }[] => {
 
 const printStructure = (r: StructuralReport): void => {
   const lines = [
-    `structural panel — ${r.n} icons`,
+    `structural panel — ${r.n} icons from ${r.source}`,
     "",
     "check              passed     rate   best   floor",
   ];
@@ -430,12 +430,19 @@ const calibrate = async (root: string): Promise<number> => {
   const lines = [
     `corpus calibration — ${measurements.length} stroked icons of ${HOUSE_VARIANT}`,
     "",
-    "check              recorded  measured   drift",
+    "check                 n  recorded  measured   drift",
   ];
   let drifted = 0;
   for (const check of CHECKS) {
+    // Over the icons the check applies to, not over all of them: `dot-tiers`
+    // asked of an icon that draws no dot is not a pass, it is not a question,
+    // and averaging 1,474 of those in reports 99.9% for a check the corpus
+    // actually passes 98.1% of the time.
+    const asked = measurements.filter((m) => check.applies?.(m) ?? true);
     const rate =
-      measurements.filter((m) => check.holds(m)).length / measurements.length;
+      asked.length === 0
+        ? 1
+        : asked.filter((m) => check.holds(m)).length / asked.length;
     const drift = rate - check.corpusRate;
     // A tenth of the tolerance the floors are set with: smaller than that and
     // the floor does not move at whole-percent precision.
@@ -445,6 +452,7 @@ const calibrate = async (root: string): Promise<number> => {
     lines.push(
       [
         check.name.padEnd(18),
+        String(asked.length).padStart(6),
         pct(check.corpusRate).padStart(8),
         pct(rate).padStart(9),
         `${drift >= 0 ? "+" : ""}${(drift * 100).toFixed(1)}`.padStart(7),
@@ -527,7 +535,7 @@ const main = async (): Promise<number> => {
         `the structural panel needs icons to look at. Pass --dir <path>, or --calibrate to re-derive the corpus rates.\n\n${USAGE}`
       );
     }
-    const report = await panel(iconsIn(values.dir));
+    const report = await panel(iconsIn(values.dir), values.dir);
     if (json) {
       // The per-icon measurements are the bulk of this and usually the reason
       // to want it: a failing check is not actionable without the numbers
