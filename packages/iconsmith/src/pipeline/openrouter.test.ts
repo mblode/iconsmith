@@ -18,6 +18,7 @@ import {
   DEFAULT_OPENROUTER_MODEL,
   OPENROUTER_INKLING,
   OPENROUTER_URL,
+  affordableMaxTokens,
   createOpenRouterModel,
   isRetryableOpenRouter,
   openrouterMaxTokens,
@@ -244,6 +245,59 @@ describe("openrouterMaxTokens", () => {
     expect(openrouterMaxTokens()).toBe(DEFAULT_OPENROUTER_MAX_TOKENS);
     expect(openrouterMaxTokens(65_536)).toBe(DEFAULT_OPENROUTER_MAX_TOKENS);
     expect(openrouterMaxTokens(512)).toBe(512);
+  });
+});
+
+describe("affordableMaxTokens", () => {
+  it("retries a reservation 402 at the affordable cap and keeps it", async () => {
+    expect(
+      affordableMaxTokens(
+        "You requested up to 4096 tokens, but can only afford 3773."
+      )
+    ).toBe(3773);
+    expect(affordableMaxTokens("add credits")).toBeNull();
+    expect(isRetryableOpenRouter(402, "add credits")).toBe(false);
+    const posted: number[] = [];
+    let hits = 0;
+    const model = createOpenRouterModel({
+      apiKey: "or-test-key",
+      fetch: (_url, init) => {
+        hits += 1;
+        const body = JSON.parse(String(init?.body ?? "{}")) as {
+          max_tokens?: number;
+        };
+        posted.push(body.max_tokens ?? -1);
+        if (hits === 1) {
+          return Promise.resolve(
+            Response.json(
+              {
+                error: {
+                  message:
+                    "This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 3773.",
+                },
+              },
+              { status: 402 }
+            )
+          );
+        }
+        return Promise.resolve(
+          jsonResponse({
+            choices: [{ finish_reason: "stop", message: { content: "ok" } }],
+          })
+        );
+      },
+      modelId: OPENROUTER_INKLING,
+      sleep: () => Promise.resolve(),
+    });
+    const first = await model.doGenerate(
+      call([{ content: [{ text: "hi", type: "text" }], role: "user" }])
+    );
+    const second = await model.doGenerate(
+      call([{ content: [{ text: "again", type: "text" }], role: "user" }])
+    );
+    expect(first.content).toEqual([{ text: "ok", type: "text" }]);
+    expect(second.content).toEqual([{ text: "ok", type: "text" }]);
+    expect(posted).toEqual([DEFAULT_OPENROUTER_MAX_TOKENS, 3773, 3773]);
   });
 });
 

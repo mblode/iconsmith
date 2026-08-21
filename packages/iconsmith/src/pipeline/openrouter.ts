@@ -448,6 +448,28 @@ const errorText = async (response: Response): Promise<string> => {
   return message;
 };
 
+/**
+ * OpenRouter 402s a reservation larger than remaining credits:
+ * "You requested up to 4096 tokens, but can only afford 3773."
+ * That is a ceiling, not a dead key. Below this many tokens there is
+ * nothing useful to retry with.
+ */
+export const MIN_OPENROUTER_MAX_TOKENS = 16;
+
+/** Parse the affordable reservation from a 402, or null if it is not one. */
+export const affordableMaxTokens = (message: string): number | null => {
+  const matched = /can only afford (?<n>\d+)/iu.exec(message);
+  const raw = matched?.groups?.n;
+  if (raw === undefined) {
+    return null;
+  }
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < MIN_OPENROUTER_MAX_TOKENS) {
+    return null;
+  }
+  return Math.min(Math.floor(n), DEFAULT_OPENROUTER_MAX_TOKENS);
+};
+
 /** A LanguageModelV4 that speaks OpenRouter chat completions, tools included. */
 export const createOpenRouterModel = (
   options: OpenRouterModelOptions
@@ -456,11 +478,13 @@ export const createOpenRouterModel = (
   const root = (options.url ?? OPENROUTER_URL).replace(/\/$/u, "");
   const fetchFn = options.fetch ?? globalThis.fetch;
   const sleep = options.sleep ?? delay;
+  /** Tightened when a 402 reports what the key can still reserve. */
+  let tokenCap = DEFAULT_OPENROUTER_MAX_TOKENS;
   const generate = async (
     call: LanguageModelV4CallOptions
   ): Promise<LanguageModelV4GenerateResult> => {
     const body = {
-      max_tokens: openrouterMaxTokens(call.maxOutputTokens),
+      max_tokens: Math.min(openrouterMaxTokens(call.maxOutputTokens), tokenCap),
       messages: toOpenAIMessages(call.prompt),
       model: modelId,
       temperature: call.temperature,
@@ -484,6 +508,17 @@ export const createOpenRouterModel = (
         return next;
       }
       const message = await errorText(next);
+      const afford = affordableMaxTokens(message);
+      if (
+        next.status === 402 &&
+        afford !== null &&
+        afford < body.max_tokens &&
+        attempt < OPENROUTER_RETRY_429
+      ) {
+        tokenCap = afford;
+        body.max_tokens = afford;
+        return post(attempt + 1);
+      }
       if (
         !isRetryableOpenRouter(next.status, message) ||
         attempt >= OPENROUTER_RETRY_429
