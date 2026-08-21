@@ -23,7 +23,7 @@ import { fingerprint, flatten, match } from "../parts/shape.js";
 import { declareKeyline } from "../tools/declare.js";
 import type { Declared } from "../tools/declare.js";
 import { lint } from "../tools/lint.js";
-import type { Issue, Part, Subpath } from "../types.js";
+import type { Finish, Issue, Part, Subpath } from "../types.js";
 import type { GenerateLike } from "./harness.js";
 
 const GRID = 4;
@@ -209,6 +209,36 @@ export const compileIcon = (
   return `${lines.join("\n")}\n`;
 };
 
+/** Stamp a finish onto a compiled program without disturbing a declaration
+ *  that is already there. Filled house files have to be run as filled, or
+ *  the compiler strokes the solid's outline and the twin is a different
+ *  drawing. */
+export const finishProgram = (source: string, finish: Finish): string =>
+  /^finish\b/mu.test(source)
+    ? source.replace(/^finish\s+\w+/mu, `finish ${finish}`)
+    : source.replace(/^(?<icon>icon[^\n]*\n)/u, `$<icon>finish ${finish}\n`);
+
+/**
+ * Compile one paint of a house file: the path data, the extras it parks,
+ * and the finish that paint actually is.
+ *
+ * Two house files of one slug are two reconstructions, not one skeleton
+ * re-painted. The outlined compile of `plus-large` is four open strokes;
+ * the filled house file is a single evenodd plus. Deriving the second from
+ * the first is the fallback for a net-new icon. When both files exist,
+ * compile each.
+ */
+export const compilePaint = (
+  slug: string,
+  paths: readonly string[],
+  finish: Finish = "outlined",
+  parts: readonly Part[] = []
+): Declared & { extras: Part[] } => {
+  const extras: Part[] = [];
+  const bare = finishProgram(compileIcon(slug, paths, parts, extras), finish);
+  return { extras, ...declareKeyline(bare, slug, [...parts, ...extras]) };
+};
+
 /** Thrown when there is nothing to compile: no target paths, or no part in
  *  the vocabulary matched them. Distinct from a compiled program that lints
  *  badly, which is a score rather than an error. */
@@ -232,21 +262,6 @@ const hasCompileOp = (source: string): boolean =>
   source.split("\n").some((l) => /^\s*(?:part|circle)\s/u.test(l));
 
 /**
- * Draw the compile, then declare the keyline it turned out to be on.
- *
- * The order matters and it is the fix. A declared keyline the drawing misses
- * is an error, so a compiler that declares first and draws second is a
- * compiler that can fail its own icons — which is how `fingerprint` shipped
- * carrying `severity: "error"`. `tools/declare.ts` is the shared reading, used
- * here and by the analog arm, which had the same bug by two other routes.
- */
-const declared = (
-  bare: string,
-  vocabulary: readonly Part[],
-  slug: string
-): Declared => declareKeyline(bare, slug, vocabulary);
-
-/**
  * Keyed reconstruction as a `GenerateFn`.
  *
  * `cost` is absent: there is no model. Absent means "not measured", and filling
@@ -263,10 +278,13 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
-  const parts = options.parts ?? [];
-  const extras: Part[] = [];
-  const bare = compileIcon(concept.name, paths, parts, extras);
-  if (!hasCompileOp(bare)) {
+  const painted = compilePaint(
+    concept.name,
+    paths,
+    "outlined",
+    options.parts ?? []
+  );
+  if (!hasCompileOp(painted.source)) {
     return Promise.reject(
       new CompileError(
         `compile produced no part or circle ops for \`${concept.name}\`. ` +
@@ -274,8 +292,7 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
-  const vocabulary = [...parts, ...extras];
-  const { program, source } = declared(bare, vocabulary, concept.name);
+  const { program, source } = painted;
   const issues: Issue[] = [
     ...program.errors.map((message) => ({
       message,

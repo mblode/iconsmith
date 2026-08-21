@@ -19,6 +19,7 @@ import {
   serialise,
   translate,
 } from "../geometry/path.js";
+import { flatten } from "../parts/shape.js";
 import type {
   Box,
   DotRole,
@@ -27,6 +28,7 @@ import type {
   IconDoc,
   Keyline,
   Part,
+  Subpath,
 } from "../types.js";
 
 /**
@@ -1278,16 +1280,6 @@ export class Canvas {
         `unknown part ${id} — call listParts to see the vocabulary`
       );
     }
-    if (this.finish === "filled" && !p.closed) {
-      // The vocabulary is extracted from a stroked set, so most of its marks
-      // are open runs. Filled, an open run encloses nothing and paints
-      // nothing — the same silent blank `line` is refused for.
-      throw new Error(
-        `part ${id} is an open mark, extracted from the stroked set, and an ` +
-          "open mark paints nothing when it is filled rather than stroked. " +
-          "Use a closed part, or draw the shape with rect/circle and hole."
-      );
-    }
     const t = quarterTurn(turn);
     // Reflect then turn, the order `parts/shape.ts` compares under, so a
     // `{turn, flip}` the clusterer measured places back as the same shape.
@@ -1298,6 +1290,13 @@ export class Canvas {
     const moved = placed.map((sp) =>
       translate(scale(sp, k), x - b.x0 * k, y - b.y0 * k)
     );
+    if (this.finish === "filled" && !p.closed) {
+      // The vocabulary is extracted from a stroked set, so most of its marks
+      // are open runs. Filling the path as-is encloses nothing. The filled
+      // twin is the same stroke expanded to a bar, segment by segment — the
+      // same bargain `#filledBar` already makes for a two-point `line`.
+      return this.#fillOpenPart(moved);
+    }
     return this.#push((elId) =>
       flip
         ? {
@@ -1322,6 +1321,35 @@ export class Canvas {
             y,
           }
     );
+  }
+
+  /** Expand an open part into the filled bars of its centre-line, one
+   *  segment at a time. A zero-length run is skipped; a part with no
+   *  remaining length is still nothing, and is refused. */
+  #fillOpenPart(moved: readonly Subpath[]): string {
+    let last = "";
+    const min = this.spec.grid / 2;
+    for (const sp of moved) {
+      const poly = flatten(sp);
+      for (let i = 1; i < poly.length; i += 1) {
+        const a = poly[i - 1];
+        const b = poly[i];
+        if (Math.hypot(b[0] - a[0], b[1] - a[1]) < min) {
+          continue;
+        }
+        last = this.#filledBar(
+          [q(a[0], this.spec.grid), q(a[1], this.spec.grid)],
+          [q(b[0], this.spec.grid), q(b[1], this.spec.grid)]
+        );
+      }
+    }
+    if (last === "") {
+      throw new Error(
+        "an open part painted nothing when filled: every segment was shorter " +
+          "than the grid. Use a closed part, or draw the shape with rect/circle."
+      );
+    }
+    return last;
   }
 
   /** Import existing path data unchanged, so any icon can enter a document. */

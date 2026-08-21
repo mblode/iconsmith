@@ -16,6 +16,7 @@ npx tsx scripts/architect-lab.ts # keyed compiler vs agent; no credits
 npx tsx scripts/analog-lab.ts  # unkeyed analog replay; no agent
 npx tsx scripts/select-lab.ts  # cheap SELECT islands; no agent
 npx tsx scripts/reach-lab.ts [dir] [--arm analog|glyph|agent|harness]
+npx tsx scripts/twin-eval.ts --house <dir> [--out <dir>] # both paints vs house files
 npx tsx scripts/research.ts   # harness lab judge; 0 arrived, 1 not yet, 2 unscorable
 npx tsx scripts/loop.ts --enable <ids> …   # policy campaign; refuses a dirty tree
 ```

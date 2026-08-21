@@ -135,7 +135,7 @@ test("cutFrom reaches back past a later solid, and the hole sits with it", () =>
   expect(c.toSVG().match(/<path/gu)).toHaveLength(2);
 });
 
-test("a filled canvas refuses geometry that would paint nothing", () => {
+test("a filled canvas refuses a polyline, and expands an open part to bars", () => {
   const c = filled([OPEN_PART, CLOSED_PART]);
   expect(() =>
     c.line({
@@ -147,7 +147,10 @@ test("a filled canvas refuses geometry that would paint nothing", () => {
       ],
     })
   ).toThrow(/polyline paints nothing in a filled icon/u);
-  expect(() => c.part({ id: OPEN_PART.id, x: 4, y: 4 })).toThrow(/open mark/u);
+  // OPEN_PART is L4,0 then L4,4 — two segments, two filled bars, not a blank.
+  expect(() => c.part({ id: OPEN_PART.id, x: 4, y: 4 })).not.toThrow();
+  expect(c.elements.length).toBeGreaterThanOrEqual(2);
+  expect(c.toSVG()).toMatch(/<path/u);
   expect(() => c.part({ id: CLOSED_PART.id, x: 4, y: 4 })).not.toThrow();
 });
 
