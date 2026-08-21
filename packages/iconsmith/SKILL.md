@@ -244,7 +244,7 @@ Fix every `error`. A `warn` is a prompt to confirm the choice was deliberate.
 | `bleed` | error | geometry runs outside the live area |
 | `substance` | error | there is too little ink for this to be an icon |
 | `cut` | warn | shapes knock out of each other by the wrong amount |
-| `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only) |
+| `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only). Measured edge-to-edge along flattened polylines, not vertex-to-vertex: crossing marks are coincident, staggered parallels report the perpendicular gap. |
 | `feature` | warn | a filled shape or hole is narrower than `minFeature` (filled only — filled shapes are meant to touch, so `gap` has nothing to say about them) |
 | `off-axis` | warn | a straight run leaves 0/45/90 (outlined only — an expanded fill's joins are the flattener's angles, not a decision) |
 | `centred` | warn | content centre is not (12,12), and the family does not agree |

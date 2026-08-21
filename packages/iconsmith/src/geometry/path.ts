@@ -608,3 +608,100 @@ export const scale = (sp: Subpath, k: number, ox = 0, oy = 0): Subpath => {
     start: [f(sp.start[0], true), f(sp.start[1], false)],
   };
 };
+
+type PolyPoint = [number, number];
+
+const clamp01 = (t: number): number => Math.min(1, Math.max(0, t));
+
+/**
+ * Closest approach between two finite segments.
+ *
+ * Crossing segments are 0. Vertex-to-vertex over flatten cannot say that:
+ * a straight is two endpoints, so a slash through a ring reports the
+ * overhang (~0.485 on `ban`) instead of the intersection, and two
+ * staggered parallel edges report a corner gap instead of the
+ * perpendicular one. This is the quantity `lint` means by "apart".
+ */
+const segmentDistance = (
+  a0: PolyPoint,
+  a1: PolyPoint,
+  b0: PolyPoint,
+  b1: PolyPoint
+): number => {
+  const d1x = a1[0] - a0[0];
+  const d1y = a1[1] - a0[1];
+  const d2x = b1[0] - b0[0];
+  const d2y = b1[1] - b0[1];
+  const rx = a0[0] - b0[0];
+  const ry = a0[1] - b0[1];
+  const a = d1x * d1x + d1y * d1y;
+  const e = d2x * d2x + d2y * d2y;
+  const f = d2x * rx + d2y * ry;
+  const degenerates = 1e-12;
+  let s: number;
+  let t: number;
+  if (a <= degenerates && e <= degenerates) {
+    return Math.hypot(rx, ry);
+  }
+  if (a <= degenerates) {
+    s = 0;
+    t = clamp01(f / e);
+  } else {
+    const c = d1x * rx + d1y * ry;
+    if (e <= degenerates) {
+      t = 0;
+      s = clamp01(-c / a);
+    } else {
+      const b = d1x * d2x + d1y * d2y;
+      const denom = a * e - b * b;
+      s = denom === 0 ? 0 : clamp01((b * f - c * e) / denom);
+      t = (b * s + f) / e;
+      if (t < 0) {
+        t = 0;
+        s = clamp01(-c / a);
+      } else if (t > 1) {
+        t = 1;
+        s = clamp01((b - c) / a);
+      }
+    }
+  }
+  const cx = a0[0] + s * d1x - (b0[0] + t * d2x);
+  const cy = a0[1] + s * d1y - (b0[1] + t * d2y);
+  return Math.hypot(cx, cy);
+};
+
+/**
+ * Closest approach between two polylines, or null when either is empty.
+ *
+ * Segment-to-segment, so a pair of staggered parallel edges reports the
+ * perpendicular gap rather than the vertex-to-vertex overestimate, and
+ * crossing strokes report 0 rather than an endpoint overhang.
+ */
+export const polylineDistance = (
+  a: readonly PolyPoint[],
+  b: readonly PolyPoint[]
+): number | null => {
+  if (a.length === 0 || b.length === 0) {
+    return null;
+  }
+  const segs = (poly: readonly PolyPoint[]): [PolyPoint, PolyPoint][] => {
+    if (poly.length === 1) {
+      return [[poly[0], poly[0]]];
+    }
+    const out: [PolyPoint, PolyPoint][] = [];
+    for (let i = 1; i < poly.length; i += 1) {
+      out.push([poly[i - 1], poly[i]]);
+    }
+    return out;
+  };
+  let min = Number.POSITIVE_INFINITY;
+  for (const [a0, a1] of segs(a)) {
+    for (const [b0, b1] of segs(b)) {
+      const d = segmentDistance(a0, a1, b0, b1);
+      if (d < min) {
+        min = d;
+      }
+    }
+  }
+  return min;
+};

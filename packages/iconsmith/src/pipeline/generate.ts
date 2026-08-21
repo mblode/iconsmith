@@ -446,7 +446,7 @@ export const generate = async (
     prepareStep: ({ messages: stepMessages }) => ({
       messages: withCacheBreakpoints(stepMessages),
     }),
-    prompt: conceptPrompt(concept),
+    prompt: conceptPrompt(concept, finish),
     stopWhen: [
       stepCountIs(maxSteps),
       drawnAndClean(canvas, state, end),
@@ -454,6 +454,7 @@ export const generate = async (
     ],
     system: systemPrompt({
       cohort,
+      finish,
       keyline,
       policy,
       proposal: proposal !== null,

@@ -419,7 +419,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     lint: tool({
       description:
-        "Check the drawing against the house spec. Errors must be fixed; warnings are judgment calls.",
+        "Check the drawing against the house spec. Errors must be fixed; warnings are judgment calls. `gap` is the true edge-to-edge distance between strokes (not vertex-to-vertex): crossing marks are coincident, staggered parallels report the perpendicular gap.",
       execute: ({ keyline: k }) =>
         track("lint", () => {
           const issues = lint(canvas, { keyline: k ?? keyline });

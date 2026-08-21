@@ -109,6 +109,7 @@ describe("harnessArm", () => {
     expect(brief).toContain("Files");
     expect(brief).toContain("schedule");
     expect(brief).toContain("`wide` keyline");
+    expect(brief).toContain("Paint: outlined.");
     expect(brief).toContain(path.join(invocation.cwd, "icon.icon"));
     // Also on disk, so an agent that reads files rather than argv can find it.
     expect(readFileSync(path.join(invocation.cwd, "BRIEF.md"), "utf-8")).toBe(
@@ -132,6 +133,15 @@ describe("harnessArm", () => {
     expect(brief).toContain("x spans 3.00..21.00");
     expect(brief).toContain("y spans 4.00..20.00");
     expect(brief).toContain("`cohort` rather than `fit`");
+  });
+
+  it("names the filled paint so the skill is not the only place that says so", async () => {
+    const { calls, spawn } = fake(SQUARE);
+    await harnessArm({ spawn })(concept, { finish: "filled" });
+    const [, brief] = calls[0].args;
+    expect(brief).toContain("Paint: filled.");
+    expect(brief).toContain("`hole`");
+    expect(brief).not.toContain("Paint: outlined.");
   });
 
   it("lets the caller spell the command line however their agent does", async () => {

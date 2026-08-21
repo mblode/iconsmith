@@ -87,6 +87,43 @@ describe("lint", () => {
     expect(gap?.message).toContain(`e0 and e1 are ${gapPx.toFixed(2)}px apart`);
   });
 
+  it("measures staggered parallel edges, not their endpoints", () => {
+    // Vertex-to-vertex over flatten sees only the four endpoints and reports
+    // ~4px, which is above minGap. The edges overlap and sit 0.50 apart.
+    const issues = lint(
+      canvas(el("e0", "M4 12L16 12"), el("e1", "M8 12.5L20 12.5"))
+    );
+    const gap = issues.find((i) => i.rule === "gap");
+    expect(gap?.severity).toBe("warn");
+    expect(gap?.message).toContain("0.50px apart");
+  });
+
+  it("does not fire `gap` when two strokes cross", () => {
+    // `ban`: a slash through a ring. Vertex-to-vertex reported the overhang
+    // (endpoint to nearest circle sample ≈ 0.485) and told a generator to
+    // move a pair that already intersects.
+    const drawn = new Canvas();
+    drawn.circle({ cx: 12, cy: 12, r: 8 });
+    drawn.line({
+      offAxis: true,
+      points: [
+        [6, 6],
+        [18, 18],
+      ],
+    });
+    expect(rules(lint(drawn))).not.toContain("gap");
+  });
+
+  it("does not fire `gap` on a 1px centre-line stack", () => {
+    // Microscope optical stack: circle bottom at y=7, rect top at y=8.
+    // Flatten vertices can sit 0.50 apart around a rounded corner; the
+    // edges clear a unit, which is the house floor, not an almost-touch.
+    const drawn = new Canvas();
+    drawn.circle({ cx: 12, cy: 5, r: 2 });
+    drawn.rect({ h: 6, r: 1, w: 3, x: 10.5, y: 8 });
+    expect(rules(lint(drawn))).not.toContain("gap");
+  });
+
   it("does not fire `gap` for a shape nested inside another", () => {
     // The distance is measured polyline-to-polyline; a bbox comparison would
     // call these two overlapping and report a violation that is not there.

@@ -14,6 +14,7 @@ import {
   program,
   ring,
   sameExtent,
+  twinPairIssues,
   vbar,
   visualSize,
 } from "./twin.js";
@@ -245,6 +246,41 @@ test("adaptProgram round-trips a ring and a frame back to their centre lines", (
       outlined
     );
   }
+});
+
+test("twinPairIssues is quiet on a ring that occupies one extent", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const filled = draw("filled", ring("filled", 12, 12, 8));
+  expect(twinPairIssues(outlined, filled)).toEqual([]);
+});
+
+test("twinPairIssues fails a filled disc that restamps a stroked ring", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const filled = draw("filled", ["circle 12,12 r8"]);
+  const issues = twinPairIssues(outlined, filled);
+  expect(issues.some((issue) => issue.rule === "extent")).toBe(true);
+  expect(issues.find((issue) => issue.rule === "extent")?.severity).toBe(
+    "error"
+  );
+});
+
+test("twinPairIssues fails a finish-stamped outline posing as filled", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const issues = twinPairIssues(outlined, outlined);
+  expect(issues.some((issue) => issue.rule === "finish")).toBe(true);
+});
+
+test("twinPairIssues fails an empty paint", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const empty = {
+    bbox: () => null,
+    elements: [],
+    finish: "filled" as const,
+    inkWidth: 0,
+  };
+  expect(
+    twinPairIssues(outlined, empty).some((issue) => issue.rule === "empty")
+  ).toBe(true);
 });
 
 test("adaptProgram leaves an op it does not model untouched", () => {

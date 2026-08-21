@@ -129,7 +129,7 @@
       "enabled": true,
       "provenance": "measured",
       "evidence": "97.5% of stroked shapes are exactly 2 units wide (SPEC.stroke).",
-      "text": "- **Stroke** {{stroke}} units at {{size}}px, round caps, round joins. Every shape you\n  place is an outline; a filled twin is that stroke expanded, never a fill on a path."
+      "text": "- **Stroke** {{stroke}} units at {{size}}px, round caps, round joins. {{paintRule}}"
     },
     {
       "id": "house.grid",

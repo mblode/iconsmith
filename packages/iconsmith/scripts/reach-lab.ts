@@ -47,7 +47,7 @@ import { thinking } from "../src/pipeline/thinking.js";
 import type { Thinking } from "../src/pipeline/thinking.js";
 import { run as runDsl } from "../src/tools/dsl.js";
 import { lint } from "../src/tools/lint.js";
-import { adaptProgram, sameExtent } from "../src/tools/twin.js";
+import { adaptProgram, twinPairIssues } from "../src/tools/twin.js";
 import type { Finish } from "../src/types.js";
 
 const OUT = path.join(".staging", "reach-10");
@@ -218,14 +218,13 @@ const drawOne = async (
       drawn.brief ?? entry.name
     ),
   };
-  if (
-    !sameExtent(
-      runDsl(paints.outlined.record.program, []).canvas,
-      runDsl(paints.filled.record.program, []).canvas
-    )
-  ) {
+  const twinErrors = twinPairIssues(
+    runDsl(paints.outlined.record.program, []).canvas,
+    runDsl(paints.filled.record.program, []).canvas
+  ).filter((issue) => issue.severity === "error");
+  if (twinErrors.length > 0) {
     throw new Error(
-      `${entry.name}: the two paints occupy different visual extents.`
+      `${entry.name}: ${twinErrors.map((issue) => issue.message).join("; ")}`
     );
   }
   mkdirSync(dir, { recursive: true });

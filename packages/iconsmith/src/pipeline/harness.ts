@@ -39,7 +39,7 @@ import { fileURLToPath } from "node:url";
 import type { Cohort } from "../tools/cohort.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import type { Issue } from "../types.js";
+import type { Finish, Issue } from "../types.js";
 import {
   AUDIT_FILE,
   audit,
@@ -212,6 +212,9 @@ const hintLine = (h: PartHint): string => {
 export interface BriefContext {
   /** Absolute path of the `.icon` file the agent must write. */
   file: string;
+  /** Which paint this run draws. The skill describes both; the brief
+   *  names this one so a filled spawn does not write an outline. */
+  finish?: Finish;
   /** Search hits for this concept, listed in the brief so the agent does not
    *  have to invent `listParts`. Ids are addressable; names are when present. */
   hints: readonly PartHint[];
@@ -242,6 +245,17 @@ export const harnessBrief = (
     "",
     `Draw the icon \`${concept.name}\`.`,
   ];
+  if (ctx.finish === "filled") {
+    lines.push(
+      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is illegal.",
+      "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
+      "Compose the named object from listed parts and primitives. A frame with a centre dot is not the concept."
+    );
+  } else {
+    lines.push(
+      "Paint: outlined. Compose the named object from listed parts and primitives, not a generic frame-and-dot."
+    );
+  }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);
   }
@@ -472,6 +486,7 @@ export const harnessArm =
     }
     const ctx: BriefContext = {
       file,
+      finish: generateOptions.finish,
       hints,
       keyline: generateOptions.keyline ?? null,
       parts: partsFile,

@@ -42,7 +42,14 @@ export {
   stableStringify,
 } from "./corpus/record.js";
 export { availableSources, SOURCES } from "./corpus/sources.js";
-export { bbox, parsePath, q, serialise, translate } from "./geometry/path.js";
+export {
+  bbox,
+  parsePath,
+  polylineDistance,
+  q,
+  serialise,
+  translate,
+} from "./geometry/path.js";
 export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
 export { NAME_THRESHOLD, nameParts, VOCABULARY } from "./parts/vocabulary.js";
@@ -187,7 +194,13 @@ export {
   verdict,
 } from "./tools/cohort.js";
 export { run as runDsl } from "./tools/dsl.js";
-export { adaptProgram, fan, lozenge } from "./tools/twin.js";
+export {
+  adaptProgram,
+  fan,
+  lozenge,
+  sameExtent,
+  twinPairIssues,
+} from "./tools/twin.js";
 export {
   CONFORMANCE,
   clusterExtents,

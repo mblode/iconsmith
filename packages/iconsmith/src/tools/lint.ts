@@ -24,7 +24,7 @@
  * `cohort.ts`; that comparison also decides whether `centred` has anything
  * useful to say.
  */
-import { bbox, parsePath } from "../geometry/path.js";
+import { bbox, parsePath, polylineDistance } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
 import type { Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
@@ -144,23 +144,15 @@ const nearestName = (vx: number, vy: number): string => {
   return best;
 };
 
-/** Closest approach between two elements, or null when either draws nothing. */
+/** Closest approach between two elements, or null when either draws nothing.
+ *  Flatten turns curves into polylines; distance is then segment-to-segment.
+ *  Vertex-to-vertex over flatten is endpoints-only for a straight, so it
+ *  reported a 0.485 overhang on a slash that already crossed a ring (`ban`)
+ *  and missed staggered parallels whose edges sat under `minGap`. */
 const minDistance = (a: LintElement, b: LintElement): number | null => {
   const pa = parsePath(a.d).flatMap((sp) => flatten(sp, FLATTEN_STEPS));
   const pb = parsePath(b.d).flatMap((sp) => flatten(sp, FLATTEN_STEPS));
-  if (pa.length === 0 || pb.length === 0) {
-    return null;
-  }
-  let min = Number.POSITIVE_INFINITY;
-  for (const p of pa) {
-    for (const qq of pb) {
-      const d = Math.hypot(p[0] - qq[0], p[1] - qq[1]);
-      if (d < min) {
-        min = d;
-      }
-    }
-  }
-  return min;
+  return polylineDistance(pa, pb);
 };
 
 /**
@@ -340,8 +332,9 @@ const bleedIssue = (b: Box, finish: Finish, spec: Spec): Issue | null => {
     : null;
 };
 
-/** Minimum gap, measured between flattened polylines rather than bboxes, so two
- *  nested shapes are not falsely reported as touching. */
+/** Minimum gap, measured edge-to-edge on flattened polylines rather than
+ *  vertex-to-vertex or by bbox, so two nested shapes are not falsely
+ *  reported as touching and two staggered parallels are not missed. */
 const gapIssues = (els: LintElement[], spec: Spec): Issue[] => {
   const issues: Issue[] = [];
   for (let i = 0; i < els.length; i += 1) {
