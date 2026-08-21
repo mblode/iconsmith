@@ -351,7 +351,7 @@
       "gap": "tight",
       "provenance": "measured",
       "evidence": "The 20-set: filled plus/lock/check/clock/heart are one evenodd compound; outlined plus-large is four open strokes; outlined clock is circle 12,12 r9 plus a polyline; 45% of filled icons knock a hole; a mark between circle and hole ships a solid disc.",
-      "text": "- **Paints are constructions, not a restamp** hole a ring immediately.\n  Do not volunteer an unasked glyph."
+      "text": "- **Paints are constructions, not a restamp** filled marks are evenodd\n  compounds. Plus: open strokes vs one evenodd solid. Clock: ring+hands\n  vs disc with hands cut out. Check: open tick vs badge+cutout. A ring\n  is `circle` then `hole` immediately after (or `cutFrom`)."
     },
     {
       "id": "grammar.remove",
@@ -422,7 +422,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "inferred",
-      "text": "6. Stop. When it lints clean and reads correctly, reply with one sentence\n   describing what you drew. Stopping is the finished state, not a step you\n   skipped: an icon you have rendered, compared and linted is done, and the\n   most common way to make a good icon worse is a further change it did not\n   need. If you find yourself looking for something to adjust, that is the\n   signal to reply, not to adjust it."
+      "text": "6. Stop. When it lints clean and reads correctly, reply with one sentence\n   describing what you drew. If you find yourself looking for something to\n   adjust, that is the signal to reply, not to adjust it."
     },
     {
       "id": "proposal.what-it-is",
