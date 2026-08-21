@@ -103,6 +103,19 @@ describe("discoverIcons", () => {
     }
     expect(discoverIcons(dir).map((i) => i.slug)).toEqual(["a", "b", "c"]);
   });
+
+  it("skips a filled twin whose outlined half is staged, so one icon is one card", () => {
+    const dir = temp();
+    writeFileSync(path.join(dir, "plus.svg"), ICON);
+    writeFileSync(path.join(dir, "plus-filled.svg"), ICON);
+    expect(discoverIcons(dir).map((i) => i.slug)).toEqual(["plus"]);
+  });
+
+  it("keeps a filled drawing that is the only paint staged for its concept", () => {
+    const dir = temp();
+    writeFileSync(path.join(dir, "plus-filled.svg"), ICON);
+    expect(discoverIcons(dir).map((i) => i.slug)).toEqual(["plus-filled"]);
+  });
 });
 
 describe("counterpartSlug", () => {

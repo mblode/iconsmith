@@ -538,12 +538,25 @@ export const cardIssues = (
 export const discoverIcons = (dir: string): ViewIcon[] => {
   const icons: ViewIcon[] = [];
   const collect = (from: string, group: string | null): void => {
-    for (const name of readdirSync(from).toSorted()) {
+    const names = readdirSync(from).toSorted();
+    const present = new Set(names);
+    for (const name of names) {
       if (name.endsWith(".svg")) {
         // Demo stages the house SVG next to the samples as `slug.house.svg`.
         // That file is the answer key, not a drawing to review, and looking it
         // up as a slug would search the corpus for `pull-request.house`.
         if (name.endsWith(".house.svg")) {
+          continue;
+        }
+        // `plus-filled.svg` beside `plus.svg` is the same concept in the other
+        // paint — which is what `counterpartSlug` already says about it — and a
+        // card shows every paint it can reach. Two cards for one icon put the
+        // same pair of thumbnails on the page twice and made a ten-icon set
+        // read as twenty. A filled file standing alone still gets its own card.
+        if (
+          name.endsWith("-filled.svg") &&
+          present.has(`${name.slice(0, -"-filled.svg".length)}.svg`)
+        ) {
           continue;
         }
         icons.push({
