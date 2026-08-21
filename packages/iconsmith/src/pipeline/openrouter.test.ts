@@ -19,6 +19,7 @@ import {
   OPENROUTER_INKLING,
   OPENROUTER_URL,
   createOpenRouterModel,
+  isRetryableOpenRouter,
   openrouterMaxTokens,
   openrouterModelId,
   toOpenAIMessages,
@@ -284,6 +285,43 @@ describe("429 retry", () => {
     );
     expect(hits).toBe(2);
     expect(slept).toEqual([2000]);
+    expect(result.content).toEqual([{ text: "ok", type: "text" }]);
+  });
+
+  it("retries an in-flight 402 the same way", async () => {
+    expect(isRetryableOpenRouter(402, "in-flight requests settle")).toBe(true);
+    expect(isRetryableOpenRouter(402, "add credits")).toBe(false);
+    let hits = 0;
+    const model = createOpenRouterModel({
+      apiKey: "or-test-key",
+      fetch: () => {
+        hits += 1;
+        if (hits === 1) {
+          return Promise.resolve(
+            Response.json(
+              {
+                error: {
+                  message:
+                    "This request would exceed your available credits given your current in-flight requests.",
+                },
+              },
+              { status: 402 }
+            )
+          );
+        }
+        return Promise.resolve(
+          jsonResponse({
+            choices: [{ finish_reason: "stop", message: { content: "ok" } }],
+          })
+        );
+      },
+      modelId: OPENROUTER_INKLING,
+      sleep: () => Promise.resolve(),
+    });
+    const result = await model.doGenerate(
+      call([{ content: [{ text: "hi", type: "text" }], role: "user" }])
+    );
+    expect(hits).toBe(2);
     expect(result.content).toEqual([{ text: "ok", type: "text" }]);
   });
 });

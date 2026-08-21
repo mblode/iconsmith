@@ -16,7 +16,6 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
-  rmSync,
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
@@ -290,13 +289,34 @@ export const evaluateAgentTwins = async (options: {
   netNew: readonly string[];
   out: string;
 }): Promise<AgentTwinRow[]> => {
-  rmSync(options.out, { force: true, recursive: true });
   mkdirSync(options.out, { recursive: true });
   const rows: AgentTwinRow[] = [];
   const tiles: string[] = [];
   const names = [...options.names, ...options.netNew];
   const walk = async (i: number): Promise<void> => {
     if (i >= names.length) {
+      return;
+    }
+    const cached = path.join(options.out, names[i], `${names[i]}.json`);
+    if (existsSync(cached)) {
+      const row = JSON.parse(readFileSync(cached, "utf-8")) as AgentTwinRow;
+      rows.push(row);
+      const dir = path.join(options.out, names[i]);
+      tiles.push(
+        readFileSync(path.join(dir, `${names[i]}.svg`), "utf-8"),
+        existsSync(path.join(dir, `${names[i]}.house.svg`))
+          ? readFileSync(path.join(dir, `${names[i]}.house.svg`), "utf-8")
+          : readFileSync(path.join(dir, `${names[i]}.svg`), "utf-8"),
+        readFileSync(path.join(dir, `${names[i]}-filled.svg`), "utf-8"),
+        existsSync(path.join(dir, `${names[i]}-filled.house.svg`))
+          ? readFileSync(
+              path.join(dir, `${names[i]}-filled.house.svg`),
+              "utf-8"
+            )
+          : readFileSync(path.join(dir, `${names[i]}-filled.svg`), "utf-8")
+      );
+      process.stderr.write(`${names[i].padEnd(16)} resume\n`);
+      await walk(i + 1);
       return;
     }
     const one = await evalOne(names[i], options);

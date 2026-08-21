@@ -79,6 +79,11 @@ export interface OpenRouterModelOptions {
 export const OPENROUTER_RETRY_429 = 8;
 export const OPENROUTER_RETRY_WAIT_MS = 7000;
 
+export const isRetryableOpenRouter = (
+  status: number,
+  message: string
+): boolean => status === 429 || (status === 402 && /in-flight/iu.test(message));
+
 export const retryAfterMs = (response: Response, attempt: number): number => {
   const raw = response.headers.get("retry-after");
   const seconds = raw === null ? Number.NaN : Number(raw);
@@ -475,18 +480,20 @@ export const createOpenRouterModel = (
         method: "POST",
         signal: call.abortSignal,
       });
-      if (next.status !== 429 || attempt >= OPENROUTER_RETRY_429) {
+      if (next.ok) {
         return next;
+      }
+      const message = await errorText(next);
+      if (
+        !isRetryableOpenRouter(next.status, message) ||
+        attempt >= OPENROUTER_RETRY_429
+      ) {
+        throw new Error(`OpenRouter ${next.status}: ${message}`);
       }
       await sleep(retryAfterMs(next, attempt));
       return post(attempt + 1);
     };
     const response = await post(0);
-    if (!response.ok) {
-      throw new Error(
-        `OpenRouter ${response.status}: ${await errorText(response)}`
-      );
-    }
     const payload = (await response.json()) as OpenRouterResponse;
     if (payload.error?.message) {
       throw new Error(`OpenRouter: ${payload.error.message}`);
