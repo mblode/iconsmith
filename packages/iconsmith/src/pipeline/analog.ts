@@ -35,16 +35,27 @@ export const STACK_PART = "ellipse-flat";
 export const retitle = (program: string, slug: string): string =>
   program.replace(/^icon[^\n]*/mu, `icon ${slug}`);
 
-/** Compile `analogPaths` onto `parts`, then name the program `slug`.
- *  Local unmatched subpaths are pushed onto `extras` so the DSL runner
- *  can place them — same seam as `compileArm`. */
+/**
+ * Compile `analogPaths` onto `parts`, then name the program `slug`. Local
+ * unmatched subpaths are pushed onto `extras` so the DSL runner can place
+ * them — same seam as `compileArm`.
+ *
+ * The keyline is declared here rather than by `compileIcon`, and the split is
+ * the point: an analog ends in `fit`, so declaring `square` is a promise the
+ * program keeps. A keyed compile has no `fit` — it reproduces the extent
+ * Central already chose — so the same declaration there is a claim nothing
+ * verifies, which is what failed `fingerprint`.
+ */
 export const replay = (
   slug: string,
   analogPaths: readonly string[],
   parts: readonly Part[],
   extras: Part[] = []
 ): string => {
-  const source = retitle(compileIcon(slug, analogPaths, parts, extras), slug);
+  const compiled = retitle(compileIcon(slug, analogPaths, parts, extras), slug);
+  const source = /^keyline\b/mu.test(compiled)
+    ? compiled
+    : compiled.replace(/^icon[^\n]*\n/mu, (line) => `${line}keyline square\n`);
   return /(?:^|\n)fit(?:\s|$)/mu.test(source)
     ? source
     : `${source.trimEnd()}\nfit\n`;

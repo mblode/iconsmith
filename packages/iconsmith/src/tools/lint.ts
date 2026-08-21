@@ -669,13 +669,34 @@ export interface Check {
   status: CheckStatus;
 }
 
-const matchedKeyline = (vx: number, vy: number): string | null => {
+/**
+ * The keyline an extent may honestly claim, or null when it sits on none.
+ *
+ * Exported because {@link keylineIssue} holds a *declared* keyline to an
+ * **error**: an icon that states an intent and misses it is a contradiction
+ * inside one document. That rung only works if whatever writes the `keyline`
+ * line can check the claim before making it, and `reconstruct.ts` could not —
+ * it wrote `keyline square` on every compile without measuring anything, so
+ * `fingerprint` at 18.5×19.8, which is the portrait 18×20 to within half a
+ * unit, was failed for missing a box it had never been aimed at. A rule that
+ * strict needs a way to tell the truth beside it.
+ */
+export const declarableKeyline = (vx: number, vy: number): Keyline | null => {
   for (const [name, [w, h]] of Object.entries(SPEC.keylines)) {
     if (near(vx, w, KEYLINE_TOLERANCE) && near(vy, h, KEYLINE_TOLERANCE)) {
-      return `${name} ${w}×${h}`;
+      return name as Keyline;
     }
   }
   return null;
+};
+
+const matchedKeyline = (vx: number, vy: number): string | null => {
+  const name = declarableKeyline(vx, vy);
+  if (name === null) {
+    return null;
+  }
+  const [w, h] = SPEC.keylines[name];
+  return `${name} ${w}×${h}`;
 };
 
 const passMessage = (

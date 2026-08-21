@@ -206,4 +206,44 @@ describe("compileArm", () => {
     expect(result.trace).toContain("circle");
     expect(result.cost).toBeUndefined();
   });
+
+  /**
+   * `fingerprint`'s error. The compiler declared `keyline square` on every
+   * icon and never measured, so a reconstruction of Central's own drawing was
+   * failed for not being 18×18 — an error the icon could only clear by being
+   * rescaled, which would make it a different drawing.
+   */
+  it("does not fail its own icon for missing a keyline it never aimed at", async () => {
+    // 18.5×19.8 visual extent, which is `fingerprint`'s: portrait to within
+    // half a unit, and nothing like the square the compiler used to claim.
+    const result = await compileArm()(
+      { name: "fingerprint" },
+      { parts: [], targetPaths: ["M3 3.1L19.5 3.1L19.5 21.9L3 21.9Z"] }
+    );
+    expect(result.program).not.toContain("keyline square");
+    expect(result.issues.filter((i) => i.rule === "keyline")).toEqual([]);
+    expect(result.clean).toBe(true);
+  });
+
+  it("declares the keyline it measured, so the claim is a reading", async () => {
+    const result = await compileArm()(
+      { name: "square" },
+      { parts: [], targetPaths: ["M4 4L20 4L20 20L4 20Z"] }
+    );
+    expect(result.program).toContain("keyline square");
+    expect(result.doc.keyline).toBe("square");
+    expect(result.issues.filter((i) => i.severity === "error")).toEqual([]);
+  });
+
+  it("says nothing about a keyline when the extent lands between them", async () => {
+    const result = await compileArm()(
+      { name: "sliver" },
+      { parts: [], targetPaths: ["M7 4L14 4L14 20L7 20Z"] }
+    );
+    expect(result.program).not.toContain("keyline");
+    const keyline = result.issues.find((i) => i.rule === "keyline");
+    // A warning, not an error: an undeclared extent that sits on no key shape
+    // is a prompt to check, and 24% of Central's own icons are in that state.
+    expect(keyline?.severity).toBe("warn");
+  });
 });
