@@ -16,6 +16,7 @@ import { SPEC } from "../tools/canvas.js";
 import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
 import type { Finish, Keyline } from "../types.js";
+import { hostConstruction } from "./analog.js";
 import type { Reference } from "./licence.js";
 import type { Condition, Policy, Tokens } from "./policy.js";
 import { DEFAULT_POLICY, renderPolicy } from "./policy.js";
@@ -166,6 +167,12 @@ export const conceptPrompt = (
   const steer = steerBrief(concept.name, finish);
   if (steer) {
     lines.push(steer);
+  }
+  const host = hostConstruction(concept.name, finish);
+  if (host) {
+    lines.push(
+      `Call \`construct\` to place the host ${host.id} analog. Do not invent that silhouette from primitives.`
+    );
   }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);

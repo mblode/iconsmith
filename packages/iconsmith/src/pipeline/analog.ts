@@ -19,9 +19,10 @@
  * three circles or a disc. `shield` draws the heater, not a diamond
  * with a cap. `zap` draws the bolt, not a frame-and-dot. Pause, play,
  * chevron, arrow, bookmark, share, airdrop, and airplane resolve the
- * same way — recipe tokens, no kin row. Analog must
- * not volunteer a star. The composer writes the program. The model
- * does not.
+ * same way — recipe tokens, no kin row. Lantern, otter, and paper-plane
+ * are net-new families: no house file, no kin row. Analog must not
+ * volunteer a star. The composer writes the program. The model does
+ * not. `construct` in the generate loop adopts that program.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -41,7 +42,7 @@ import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
 import { pairPrograms } from "./pair.js";
-import { recipeFor } from "./recipe.js";
+import { holdoutBrief, recipeFor } from "./recipe.js";
 import { compileIcon } from "./reconstruct.js";
 import { overlap, tokens } from "./search.js";
 
@@ -743,6 +744,48 @@ export const airplane = (slug: string, finish: Finish = "outlined"): string =>
     "line 9,11 18,20 off-axis",
   ]);
 
+/**
+ * Net-new hanging lantern: handle, body, flame. No house file. Both
+ * paints share the same masses so pairing stays clean.
+ */
+export const lantern = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    "arc 12,5 r5 half from left",
+    mass(finish, 4, 7, 16, 13, 2),
+    finish === "filled" ? "circle 12,14 r2.5" : "circle 12,14 r2",
+  ]);
+
+/**
+ * Net-new otter: head, body, tail. No house file. Two-point tail so
+ * filled paint is a bar, not a closed polyline.
+ */
+export const otter = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, null, [
+    mass(finish, 2, 6, 8, 8, 4),
+    mass(finish, 7, 6, 12, 10, 3),
+    "line 18,14 21,18 off-axis",
+  ]);
+
+/**
+ * Net-new paper plane: a dart, not a jet. `paper-plane` must not fall
+ * through to airplane via `plane`. Outlined is the closed silhouette;
+ * filled is those edges as two-point bars.
+ */
+export const paperplane = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "wide",
+    finish === "filled"
+      ? [
+          "line 4,12 20,6 off-axis",
+          "line 20,6 13,12 off-axis",
+          "line 13,12 20,18 off-axis",
+          "line 20,18 4,12 off-axis",
+        ]
+      : ["line 4,12 20,6 13,12 20,18 4,12 off-axis"]
+  );
+
 /** Neck and a diamond body — a flask, not a beaker stack. */
 export const flask = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
@@ -913,11 +956,14 @@ const FAMILY_DRAW = {
   key,
   kiwi,
   ladder,
+  lantern,
   leaf,
   lock,
   magnet,
   moon,
   mushroom,
+  otter,
+  paperplane,
   pause,
   peak,
   pencil,
@@ -1196,6 +1242,9 @@ export const ARROW_HINT = /\b(?:arrows?)\b/iu;
 export const BOOKMARK_HINT = /\b(?:bookmarks?)\b/iu;
 export const SHARE_HINT = /\b(?:shares?)\b/iu;
 export const AIRDROP_HINT = /\b(?:airdrops?)\b/iu;
+export const PAPER_PLANE_HINT = /\bpaper[- ]?planes?\b/iu;
+export const LANTERN_HINT = /\b(?:lanterns?)\b/iu;
+export const OTTER_HINT = /\b(?:otters?)\b/iu;
 export const AIRPLANE_HINT = /\b(?:airplanes?|aeroplanes?|planes?)\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
@@ -1249,6 +1298,9 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: BOOKMARK_HINT, id: "bookmark" },
   { hint: SHARE_HINT, id: "share" },
   { hint: AIRDROP_HINT, id: "airdrop" },
+  { hint: PAPER_PLANE_HINT, id: "paperplane" },
+  { hint: LANTERN_HINT, id: "lantern" },
+  { hint: OTTER_HINT, id: "otter" },
   { hint: AIRPLANE_HINT, id: "airplane" },
 ];
 
@@ -1389,6 +1441,21 @@ const familyOf = (
     return { id: "hub", source: hub(slug, 3, finish) };
   }
   return null;
+};
+
+/**
+ * The host analog the generate loop may adopt. A holdout (`star`) and
+ * an honest unknown stay null — `construct` must not place a
+ * frame-and-dot as if it were the named object.
+ */
+export const hostConstruction = (
+  query: string,
+  finish: Finish = "outlined"
+): { id: string; source: string } | null => {
+  if (holdoutBrief(query) !== null) {
+    return null;
+  }
+  return familyOf(query, query, finish);
 };
 
 export const analogConstructions = (

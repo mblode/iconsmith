@@ -41,6 +41,7 @@ import {
   heart,
   home,
   horn,
+  hostConstruction,
   hourglass,
   hub,
   HUB_HINT,
@@ -813,6 +814,46 @@ describe("analog families", () => {
     for (const name of ["xyzzy", "fnord", "quokka", "star", "compass"]) {
       const [row] = analogConstructions(name, [], name, false);
       expect(row?.id, name).toBe("unknown");
+    }
+  });
+
+  it("draws net-new names that have no house file", async () => {
+    expect(hostConstruction("star")).toBeNull();
+    expect(hostConstruction("quokka")).toBeNull();
+    expect(
+      analogConstructions("paper-plane", [], "paper-plane", false)[0]?.id
+    ).toBe("paperplane");
+    expect(
+      analogConstructions("paper-plane", [], "paper-plane", false)[0]?.id
+    ).not.toBe("airplane");
+    const cases = [
+      ["lantern", "lantern"],
+      ["otter", "otter"],
+      ["paper-plane", "paperplane"],
+    ] as const;
+    const drawn = await Promise.all(
+      cases.flatMap(([name, id]) => [
+        analogArm()({ name }).then((result) => ({
+          finish: "outlined" as const,
+          id,
+          name,
+          result,
+        })),
+        analogArm()({ name }, { finish: "filled" }).then((result) => ({
+          finish: "filled" as const,
+          id,
+          name,
+          result,
+        })),
+      ])
+    );
+    for (const { finish, id, name, result } of drawn) {
+      expect(hostConstruction(name)?.id).toBe(id);
+      expect(result.brief, `${name} ${finish}`).toBe(`analog ${id} ${name}`);
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      expect(result.program, `${name} ${finish}`).not.toContain(
+        "dot 12,12 node"
+      );
     }
   });
 

@@ -378,7 +378,45 @@ describe("tools", () => {
       { messages: [], toolCallId: "t6" }
     );
     expect(star?.construction).toContain("Do not volunteer a star glyph");
+    expect(star?.constructable).toBeUndefined();
     expect(other?.construction).toBeUndefined();
+  });
+
+  it("adopts a host analog through construct, without the model naming a coordinate", async () => {
+    const { canvas, tools } = createTools({ finish: "outlined" });
+    const listed = await tools.listParts.execute?.(
+      { query: "heart" },
+      { messages: [], toolCallId: "t0" }
+    );
+    expect(listed?.constructable).toBe(true);
+    expect(listed?.family).toBe("heart");
+    const placed = await tools.construct.execute?.(
+      { query: "heart" },
+      { messages: [], toolCallId: "t1" }
+    );
+    expect(placed?.family).toBe("heart");
+    expect(placed?.placed).toBeGreaterThan(0);
+    expect(canvas.elements.length).toBeGreaterThan(0);
+    expect(canvas.toSVG()).toContain("<path");
+    expect(() =>
+      tools.construct.execute?.(
+        { query: "heart" },
+        { messages: [], toolCallId: "t2" }
+      )
+    ).toThrow(/already placed/u);
+    const empty = createTools();
+    expect(() =>
+      empty.tools.construct.execute?.(
+        { query: "star" },
+        { messages: [], toolCallId: "t3" }
+      )
+    ).toThrow(/no host analog/u);
+    expect(() =>
+      empty.tools.construct.execute?.(
+        { query: "quokka" },
+        { messages: [], toolCallId: "t4" }
+      )
+    ).toThrow(/no host analog/u);
   });
 });
 
@@ -404,6 +442,25 @@ describe("generate", () => {
     expect(result.doc.icon).toBe("square");
     expect(result.svg).toContain("<path");
     expect(result.trace).toEqual(["rect", "fit", "render", "lint"]);
+  });
+
+  it("constructs a host analog and can lint it clean", async () => {
+    const result = await generate(
+      { name: "heart" },
+      {
+        model: scripted([
+          { input: { query: "heart" }, tool: "construct" },
+          { input: {}, tool: "render" },
+          { input: {}, tool: "lint" },
+          { text: "House heart analog." },
+        ]),
+      }
+    );
+    expect(result.trace).toEqual(["construct", "render", "lint"]);
+    expect(result.clean).toBe(true);
+    expect(result.svg).toContain("<path");
+    expect(result.program).toContain("line ");
+    expect(result.program).not.toContain("circle ");
   });
 
   it("hands the render back as an image the model can actually see", async () => {

@@ -17,10 +17,11 @@ import { z } from "zod";
 import { Canvas, SPEC } from "../tools/canvas.js";
 import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
-import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
+import { TURNS, alignCohort, fitKeyline, recentre, run } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
 import type { Finish, Issue, Keyline, Part } from "../types.js";
+import { hostConstruction } from "./analog.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
@@ -110,6 +111,9 @@ export interface ToolState {
   /** Set by the first `proposal` call. The second one is refused, which is the
    *  mechanism that keeps the raster a brief rather than a target. */
   proposed: boolean;
+  /** Set by the first `construct` call. The host analog is adopted once;
+   *  calling again would let the model shop constructions. */
+  constructed: boolean;
   calls: string[];
 }
 
@@ -173,6 +177,7 @@ export const createTools = (options: ToolsOptions = {}) => {
   const roleNames = Object.keys(spec.dots) as [string, ...string[]];
   const state: ToolState = {
     calls: [],
+    constructed: false,
     issues: null,
     lintedAt: -1,
     proposed: false,
@@ -296,6 +301,42 @@ export const createTools = (options: ToolsOptions = {}) => {
                 },
               ],
             },
+    }),
+
+    construct: tool({
+      description:
+        "Place the host analog for this name. The model never emits those coordinates — the canvas writes the program. Call this when listParts reports constructable, before inventing a silhouette from circles or diamonds. Available once.",
+      execute: ({ query }) =>
+        track("construct", () => {
+          if (state.constructed) {
+            throw new Error(
+              "construct has already placed a host analog. Edit with the primitives, or remove and start over."
+            );
+          }
+          const host = hostConstruction(query, finish);
+          if (!host) {
+            throw new Error(
+              `no host analog for "${query}" — compose it from listParts and primitives`
+            );
+          }
+          const drawn = run(host.source, [...parts], { spec });
+          if (drawn.errors.length > 0) {
+            throw new Error(drawn.errors.join("; "));
+          }
+          canvas.clear();
+          canvas.elements.push(...drawn.canvas.elements);
+          state.constructed = true;
+          return {
+            elements: canvas.describe(),
+            family: host.id,
+            placed: canvas.elements.length,
+          };
+        }),
+      inputSchema: z.object({
+        query: z
+          .string()
+          .describe("the icon name this run is drawing, e.g. heart, lantern"),
+      }),
     }),
 
     diamond: tool({
@@ -439,7 +480,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     listParts: tool({
       description:
-        "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it. When the query asked for a house paint construction, the result names it as `construction`. Analog does not volunteer a star glyph.",
+        "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it. When the query asked for a house paint construction, the result names it as `construction`. When a host analog exists, `constructable` is true — call `construct` instead of inventing the silhouette. Analog does not volunteer a star glyph.",
       // Ranked by `rankParts`, which SELECT's shortlist and the coverage report
       // also call, so all three agree about what "relevant" means. The shaping
       // is this tool's own: a model deciding whether to place a mark wants its
@@ -447,8 +488,11 @@ export const createTools = (options: ToolsOptions = {}) => {
       execute: ({ limit = 12, query }) =>
         track("listParts", () => {
           const construction = steerBrief(query, finish);
+          const host = hostConstruction(query, finish);
           return {
+            ...(host ? { constructable: true as const } : {}),
             ...(construction ? { construction } : {}),
+            ...(host ? { family: host.id } : {}),
             matches: rankParts(parts, query, limit, aliases).map(
               ({ hits, part }) => ({
                 h: part.h,
