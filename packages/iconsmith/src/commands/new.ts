@@ -14,7 +14,6 @@ import {
 import { gatewayAsk } from "../pipeline/audit.js";
 import {
   DEFAULT_MAX_STEPS,
-  DEFAULT_MODEL,
   loadParts,
   MissingApiKeyError,
 } from "../pipeline/generate.js";
@@ -243,8 +242,7 @@ export const registerNewCommand = (program: Command): void => {
     .option("-k, --keyline <name>", "keyline to draw to; omit to let it choose")
     .option(
       "-m, --model <id>",
-      "AI Gateway model id (`provider/model`)",
-      DEFAULT_MODEL
+      "gateway or OpenRouter model id (`provider/model`)"
     )
     .option(
       "--agent",

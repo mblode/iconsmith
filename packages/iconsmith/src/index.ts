@@ -99,6 +99,7 @@ export {
 } from "./pipeline/eval.js";
 export {
   DEFAULT_MODEL,
+  DEFAULT_OPENROUTER_MODEL,
   generate,
   MissingApiKeyError,
 } from "./pipeline/generate.js";

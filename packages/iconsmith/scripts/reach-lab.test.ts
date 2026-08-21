@@ -35,11 +35,28 @@ const ops = (program: string): string[] =>
     .map((line) => line.trim())
     .filter((line) => line !== "" && !line.startsWith("#"));
 
+const withoutModelKeys = (fn: () => void | Promise<void>): Promise<void> => {
+  const or = process.env.OPENROUTER_API_KEY;
+  const gw = process.env.AI_GATEWAY_API_KEY;
+  const oidc = process.env.VERCEL_OIDC_TOKEN;
+  process.env.OPENROUTER_API_KEY = "";
+  process.env.AI_GATEWAY_API_KEY = "";
+  process.env.VERCEL_OIDC_TOKEN = "";
+  return Promise.resolve(fn()).finally(() => {
+    process.env.OPENROUTER_API_KEY = or;
+    process.env.AI_GATEWAY_API_KEY = gw;
+    process.env.VERCEL_OIDC_TOKEN = oidc;
+  });
+};
+
 describe("unavailable", () => {
-  it("names the missing credential rather than letting the arm throw", () => {
-    // Neither is set in CI, and the message has to say which one to set.
-    expect(unavailable("agent")).toMatch(/AI_GATEWAY_API_KEY/u);
-    expect(unavailable("harness")).toMatch(/CLI on PATH/u);
+  it("names the missing credential rather than letting the arm throw", async () => {
+    await withoutModelKeys(() => {
+      // Neither is set in CI, and the message has to say which one to set.
+      expect(unavailable("agent")).toMatch(/AI_GATEWAY_API_KEY/u);
+      expect(unavailable("agent")).toMatch(/OPENROUTER_API_KEY/u);
+      expect(unavailable("harness")).toMatch(/CLI on PATH/u);
+    });
   });
 
   it("lets through the arms that need nothing", () => {
@@ -57,10 +74,13 @@ describe("runReachLab", () => {
    */
   it("records a skip rather than substituting another arm", async () => {
     const dir = temp();
-    const asked = await runReachLab(dir, [
-      { arm: "agent", name: "compass" },
-      { arm: "harness", name: "wifi" },
-    ]);
+    let asked: Awaited<ReturnType<typeof runReachLab>> = [];
+    await withoutModelKeys(async () => {
+      asked = await runReachLab(dir, [
+        { arm: "agent", name: "compass" },
+        { arm: "harness", name: "wifi" },
+      ]);
+    });
     for (const one of asked) {
       expect(one.records, one.name).toBeUndefined();
       expect(one.skipped, one.name).toBeTruthy();

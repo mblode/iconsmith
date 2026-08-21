@@ -31,9 +31,12 @@ import type { ToolState } from "./tools.js";
 
 export {
   DEFAULT_MODEL,
+  DEFAULT_OPENROUTER_MODEL,
   MissingApiKeyError,
   gatewayModelId,
+  openrouterModelId,
   resolveModel,
+  usesOpenRouter,
 } from "./gateway.js";
 
 export type { Concept } from "./prompt.js";
@@ -120,9 +123,12 @@ export interface GenerateOptions {
   keyline?: Keyline | null;
   maxSteps?: number;
   /**
-   * A model instance, or a gateway model id (`anthropic/claude-opus-5`). A
-   * bare id is namespaced as Anthropic. Passing an instance is how tests run
-   * this loop with no network.
+   * A model instance, or a provider model id (`anthropic/claude-opus-5`,
+   * `thinkingmachines/inkling:free`). A bare id is namespaced as Anthropic
+   * and sent to the gateway. An OpenRouter slug (`openrouter/…`, a `:free`
+   * variant, or `thinkingmachines/…` when `OPENROUTER_API_KEY` is set) is
+   * the other generate arm. Passing an instance is how tests run this loop
+   * with no network.
    */
   model?: LanguageModel;
   parts?: Part[];
