@@ -32,6 +32,7 @@ import {
   TOWER_HINT,
   trays,
   tube,
+  unknown,
   volcano,
 } from "./analog.js";
 
@@ -189,9 +190,9 @@ describe("analogConstructions", () => {
     expect(row?.id).toBe("trays");
   });
 
-  it("draws a hub for an unkeyed name that is not a stack or a family", () => {
+  it("draws unknown for an unkeyed name that is not a stack or a family", () => {
     const [row] = analogConstructions("bananas", [], "bananas", false);
-    expect(row?.id).toBe("hub");
+    expect(row?.id).toBe("unknown");
     expect(HUB_HINT.test("org-chart")).toBe(true);
     expect(HUB_HINT.test("unicorn")).toBe(false);
     expect(HORN_HINT.test("unicorn")).toBe(true);
@@ -240,7 +241,8 @@ describe("analogConstructions", () => {
   it("does not answer with a host glyph for a name that has one", () => {
     const rows = analogConstructions("compass", [], "compass", false);
     expect(rows.map((r) => r.id)).not.toContain("glyph");
-    expect(rows[0]?.id).toBe("hub");
+    expect(rows[0]?.id).toBe("unknown");
+    expect(rows[0]?.source).not.toContain("diamond 12,12 r5");
   });
 
   it("replays a house kin instead of a hub", () => {
@@ -319,6 +321,14 @@ describe("analogArm", () => {
     expect(result.clean).toBe(true);
   });
 
+  it("falls to unknown, not a hub, when no token names a family", async () => {
+    const result = await analogArm()({ name: "bananas" });
+    expect(result.brief).toBe("analog unknown bananas");
+    expect(result.program).toContain("dot 12,12 node");
+    expect(result.program).not.toContain("circle 12,6 r2");
+    expect(result.clean).toBe(true);
+  });
+
   it("writes the filled paint of a family, not an adapted hub", async () => {
     const result = await analogArm()(
       { name: "lighthouse" },
@@ -358,7 +368,7 @@ describe("analog families", () => {
 
   it("does not volunteer a glyph construction for a name that has one", () => {
     const [row] = analogConstructions("compass", [], "compass", false);
-    expect(row?.id).toBe("hub");
+    expect(row?.id).toBe("unknown");
     expect(row?.source).not.toContain("diamond 12,12 r5");
   });
 
@@ -376,11 +386,41 @@ describe("analog families", () => {
     expect(composeFromParts("cactus", [part("p-box", BOX)])).toBeNull();
   });
 
+  it("composes a plural query onto the singular part name", () => {
+    const fruit = { ...part("p-banana", BOX), name: "banana" };
+    const source = composeFromParts("bananas", [fruit]);
+    expect(source).toContain("part banana at center size 12");
+    expect(
+      analogConstructions("bananas", [fruit], "bananas", false)[0]?.id
+    ).toBe("compose");
+  });
+
   it("keeps volcano smoke off a bare mountain", () => {
     expect(volcano("volcano")).toContain("dot ");
     expect(peak("mountain")).not.toContain("dot ");
     expect(tower("lighthouse")).toContain("circle 12,5 r1");
     expect(tower("lighthouse")).not.toContain("circle 12,6 r2");
+  });
+
+  it("draws each named concept with an iconic primitive, not a stack of trays", () => {
+    expect(mushroom("mushroom")).toContain("circle 12,9 r7");
+    expect(hourglass("hourglass")).toContain("4x8");
+    expect(sailboat("sailboat")).toContain("diamond ");
+    expect(peak("mountain")).toContain("diamond ");
+    expect(volcano("volcano")).toContain("diamond ");
+    expect(horn("unicorn")).toContain("diamond ");
+    expect(plant("cactus")).toContain("circle 7,6 r2");
+    expect(unknown("bananas")).toContain("dot 12,12 node");
+    expect(unknown("bananas")).not.toContain("circle 12,6 r2");
+  });
+
+  it("keeps unknown clean in both paints", () => {
+    for (const finish of ["outlined", "filled"] as const) {
+      const source = unknown("bananas", finish);
+      const drawn = run(source, []);
+      expect(drawn.errors, finish).toEqual([]);
+      expect(source).toContain(`finish ${finish}`);
+    }
   });
 
   it("draws held-out names that are not in the house or glyph set", async () => {

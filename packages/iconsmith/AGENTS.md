@@ -61,7 +61,7 @@ src/
     search.ts         # the one vocabulary ranking, shared by three callers
     select.ts         # SELECT as competing policies, not five seeds of one
     reconstruct.ts    # keyed: compile house subpaths onto parts (not an agent)
-    analog.ts         # lab: replay a Central kin, else a name-hinted family (tower/peak/volcano/tube/plant/horn/mushroom/hourglass/sailboat), else stack / trays / hub
+    analog.ts         # lab: replay a Central kin, else a name-hinted family, else compose a named part, else unknown (hub only for graph/tree/org)
     audit.ts          # host screenshot + vision look at a drawn SVG
     harness.ts        # an external agent CLI as a GenerateFn
     policy.default.json # the design language as data; the loop's only target

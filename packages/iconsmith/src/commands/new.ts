@@ -227,7 +227,7 @@ const reportNew = (
  * fallback when that file is missing. A new glyph — no house drawing of this
  * concept — is written by a coding agent (`generate`, or `--harness
  * claude|codex`). `--analog` is the lab path: replay a Central kin, else a
- * name-hinted family, else stack / trays / hub. `--agent` forces the
+ * name-hinted family, else compose a named part, else unknown. `--agent` forces the
  * tool-calling loop even when a house file exists. The model never emits a
  * coordinate on any of those paths.
  */

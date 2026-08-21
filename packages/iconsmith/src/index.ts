@@ -109,6 +109,7 @@ export {
   tower,
   trays,
   tube,
+  unknown,
   volcano,
 } from "./pipeline/analog.js";
 export { classifyReach, reach } from "./pipeline/reach.js";

@@ -12,10 +12,11 @@
  * concept family (tower, peak, volcano, tube, plant, horn, mushroom,
  * hourglass, sailboat) written with the same twin helpers glyphs use, so
  * both paints are ops, not a generic tree. Families are host constructions,
- * not house twins: a cactus is a plant, not a hub, and still not Central.
- * Those families are analog, not glyphs: a token must ask for them.
- * `composeFromParts` places a named vocabulary part at a named anchor when
- * one answers. The composer writes the program. The model does not.
+ * not house twins. A name with no token, kin, or named part falls to
+ * `unknown` (a framed mark), not a hub — hub is only for graph / tree / org.
+ * Glyphs stay unvolunteered. `composeFromParts` places a named vocabulary
+ * part at a named anchor when one answers, including a plural stem. The
+ * composer writes the program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -24,6 +25,7 @@ import { lint } from "../tools/lint.js";
 import {
   frame,
   hbar,
+  lozenge,
   mass,
   program as iconProgram,
   ring,
@@ -34,7 +36,7 @@ import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
 import { compileIcon } from "./reconstruct.js";
-import { overlap, rankParts, tokens } from "./search.js";
+import { overlap, tokens } from "./search.js";
 
 /** The rim of a stack seen edge-on. Named in the vocabulary; `stack` looks it
  *  up by that name so a coordinate never has to name a part id. */
@@ -268,7 +270,7 @@ export const trays = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * Lantern room, beams, shaft, footing — lighthouse, beacon, tower.
+ * Lantern room, beams, a tapering shaft, a door, footing.
  * Analog family, not a glyph: selected by a name token, never volunteered
  * for a name that does not ask for it.
  */
@@ -278,100 +280,120 @@ export const tower = (slug: string, finish: Finish = "outlined"): string =>
     "circle 12,5 r1",
     hbar(finish, 5, 5, 3),
     hbar(finish, 16, 5, 3),
-    mass(finish, 10, 8, 4, 9, 1),
-    hbar(finish, 8, 8, 8),
+    mass(finish, 10.5, 8, 3, 5, 1),
+    mass(finish, 9.5, 13, 5, 4, 1),
     mass(finish, 7, 17, 10, 3, 1),
+    mass(finish, 11, 17.5, 2, 2.5, 0.5),
   ]);
 
-/** Stepped cone — mountain, peak, pyramid. Smoke belongs on volcano. */
+/** A mountain range: a 45° peak and a shoulder. Square so `fit` cannot shear. */
 export const peak = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "wide", [
-    mass(finish, 4, 15, 16, 4, 1),
-    mass(finish, 7, 11, 10, 4, 1),
-    mass(finish, 10, 7, 4, 4, 1),
+  iconProgram(slug, finish, "square", [
+    ...lozenge(finish, 12, 12, 8),
+    ...lozenge(finish, 8, 16, 3),
   ]);
 
-/** Stepped cone, crater lip, and three smoke dots — volcano.
- *  Path 18×14 + stroke is the wide 20×16 keyline. */
+/** One peak, a crater, and smoke inside the tip — volcano, not a range. */
 export const volcano = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "wide", [
-    mass(finish, 3, 14, 18, 4, 1),
-    mass(finish, 6, 10, 12, 4, 1),
-    mass(finish, 9, 6, 6, 4, 1),
-    "dot 8,5 terminal",
-    "dot 12,4 terminal",
-    "dot 16,5 terminal",
+  iconProgram(slug, finish, "square", [
+    ...lozenge(finish, 12, 12, 8),
+    "circle 12,6 r1.5",
+    "dot 10,5 terminal",
+    "dot 12,4.5 terminal",
+    "dot 14,5 terminal",
   ]);
 
-/** Barrel, eyepiece, objective, tripod — telescope, spyglass.
- *  Path 18×16 + stroke is the landscape 20×18 keyline. */
+/** Eyepiece, barrel, objective, tripod. Wide 20×16 — the tube is not landscape-tall. */
 export const tube = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "landscape", [
-    mass(finish, 3, 4, 13, 6, 2),
-    mass(finish, 16, 5, 2, 4, 1),
-    ...ring(finish, 18, 7, 2),
-    vbar(finish, 7, 11, 9),
-    vbar(finish, 13, 11, 9),
-    hbar(finish, 7, 11, 6),
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 3, 5.5, 4, 4, 1),
+    mass(finish, 7, 4.5, 10, 6, 2),
+    ...ring(finish, 19, 7.5, 3),
+    vbar(finish, 8, 11.5, 7),
+    vbar(finish, 14, 11.5, 7),
+    hbar(finish, 8, 11.5, 6),
   ]);
 
-/** Saguaro trunk, two arms, a pot — cactus, succulent.
- *  Path 14×18 + stroke is the tall 16×20 keyline. */
+/** Saguaro: trunk, two arms with pad discs, a pot. */
 export const plant = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
     mass(finish, 10, 2, 4, 14, 2),
     mass(finish, 5, 6, 4, 5, 2),
+    "circle 7,6 r2",
     mass(finish, 15, 8, 4, 5, 2),
+    "circle 17,8 r2",
     mass(finish, 5, 16, 14, 4, 1),
   ]);
 
-/** Body, neck, head, on-axis horn, legs — unicorn, narwhal.
- *  A diamond horn shears off 45° when `fit` snaps to the landscape box.
- *  The horn is a vertical bar so both paints stay on-axis. */
+/** Horse body, neck, head, 45° diamond horn, ear, legs.
+ *  Square so the horn stays on 45° after `fit`. */
 export const horn = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "landscape", [
-    mass(finish, 3, 10, 14, 6, 3),
-    mass(finish, 14, 7, 3, 5, 2),
-    "circle 19,8 r2",
-    vbar(finish, 19, 4, 2),
-    vbar(finish, 7, 16, 4),
-    vbar(finish, 14, 16, 4),
-    hbar(finish, 3, 12, 2),
-  ]);
-
-/** Cap, stem, spots — mushroom, toadstool.
- *  Path 16×16 + stroke is the square 18×18 keyline. Tall would bind on
- *  width and leave the height 4 units short. */
-export const mushroom = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
-    mass(finish, 4, 3, 16, 8, 3),
-    mass(finish, 10, 11, 4, 7, 1),
-    "dot 8,6 floating",
-    "dot 14,7 floating",
-    hbar(finish, 4, 19, 16),
+    mass(finish, 4, 11, 11, 6, 3),
+    mass(finish, 13, 8, 4, 5, 2),
+    "circle 17,8 r2.5",
+    ...lozenge(finish, 19, 5, 2),
+    mass(finish, 16, 5, 2, 2, 0.5),
+    vbar(finish, 7, 17, 3),
+    vbar(finish, 13, 17, 3),
   ]);
 
-/** Two bulbs and a waist — hourglass, sandglass.
- *  Path 14×18 + stroke is the tall 16×20 keyline. */
+/** Dome cap, stem, spots — the mushroom, not a rounded tray.
+ *  Filled has no stroke, so the cap grows by half a stroke to keep tall. */
+export const mushroom = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    finish === "filled" ? "circle 12,9 r8" : "circle 12,9 r7",
+    mass(finish, 10, 16, 4, 4, 1),
+    "dot 8,7 floating",
+    "dot 15,8 floating",
+  ]);
+
+/** Wide bulbs and a pinched waist — an hourglass, not three equal trays.
+ *  Two stacked diamonds are 1:2 and miss every house keyline. */
 export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
     mass(finish, 5, 3, 14, 5, 1),
-    mass(finish, 8, 8, 8, 6, 1),
-    mass(finish, 5, 14, 14, 6, 1),
+    mass(finish, 10, 8, 4, 8, 1),
+    mass(finish, 5, 16, 14, 4, 1),
   ]);
 
-/** Hull, mast, sail — sailboat, yacht. */
+/** Hull, mast, diamond sail. Square so the sail stays on 45°. */
 export const sailboat = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "landscape", [
+  iconProgram(slug, finish, "square", [
+    vbar(finish, 8, 4, 14),
+    ...lozenge(finish, 14, 10, 6),
     mass(finish, 4, 16, 16, 4, 2),
-    vbar(finish, 12, 5, 11),
-    mass(finish, 13, 6, 6, 8, 1),
   ]);
 
 /**
- * Place the vocabulary marks whose names share a token with the query.
- * Named anchors only — the model never emits a coordinate. Null when no
- * named part answers, so a provenance-only hit does not become a drawing.
+ * A framed mark with a centre node. The honest drawing when no token, kin,
+ * or named part answers — not a hub, which is an org chart.
+ */
+export const unknown = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    ...frame(finish, 4, 4, 16, 16, 2),
+    "dot 12,12 node",
+  ]);
+
+/** `bananas` answers a part named `banana`. Shorter than four letters is
+ *  a preposition, not a stem. */
+const sameStem = (query: string, name: string): boolean => {
+  const q = tokens(query).join("");
+  const n = tokens(name).join("");
+  if (q.length < 4 || n.length < 4) {
+    return false;
+  }
+  if (q === n) {
+    return true;
+  }
+  return q === `${n}s` || n === `${q}s` || q === `${n}es` || n === `${q}es`;
+};
+
+/**
+ * Place the vocabulary marks whose names share a token or a plural stem
+ * with the query. Named anchors only — the model never emits a coordinate.
+ * Null when no named part answers, so a provenance-only hit does not
+ * become a drawing.
  */
 export const composeFromParts = (
   slug: string,
@@ -379,14 +401,18 @@ export const composeFromParts = (
   finish: Finish = "outlined"
 ): string | null => {
   const want = tokens(slug);
-  const named = rankParts(parts, slug, 3).filter(
-    (m) => overlap(tokens(m.part.name ?? ""), want) > 0
-  );
+  const named = parts.filter((p) => {
+    const name = p.name ?? "";
+    return (
+      name.length > 0 &&
+      (overlap(tokens(name), want) > 0 || sameStem(slug, name))
+    );
+  });
   if (named.length === 0) {
     return null;
   }
-  const ops = named.slice(0, 3).map((m, i) => {
-    const address = m.part.name ?? m.part.id;
+  const ops = named.slice(0, 3).map((p, i) => {
+    const address = p.name ?? p.id;
     let anchor = "bottom";
     if (i === 0) {
       anchor = "center";
@@ -428,8 +454,9 @@ export interface AnalogNeighbor {
  * With a look (`collide`), volume then curate: a house kin if one was handed
  * in, the hinted family, then stack (if the rim exists), trays, hub. Without
  * one, a name token picks a family, else a house kin, else composeFromParts,
- * else hub. A cylinder name stays `stack` / `trays` so `database` does not become
- * a retitled `server` when no kin file exists.
+ * else unknown. Hub is only a family, for graph / tree / org. A cylinder name
+ * stays `stack` / `trays` so `database` does not become a retitled `server`
+ * when no kin file exists.
  *
  * `glyphs.ts` is deliberately not consulted here. A revision that put it first
  * returned the host construction alone for any name that had one, which meant
@@ -529,7 +556,7 @@ export const analogConstructions = (
   if (composed !== null) {
     return [{ id: "compose", source: composed }];
   }
-  return [{ id: "hub", source: hub(slug, 3, finish) }];
+  return [{ id: "unknown", source: unknown(slug, finish) }];
 };
 
 const traceOf = (source: string): string[] =>
@@ -580,7 +607,8 @@ const fromProgram = (
  * No model. A look, when the caller passed `ask`, collides the catalog and
  * keeps the construction the vision scores as the named object. Without a
  * look, a name hint picks one construction so `database` is trays and
- * `unicorn` is a horn rather than both.
+ * `unicorn` is a horn rather than both. A name nobody has a drawing for
+ * is `unknown`, not a hub.
  */
 export const analogArm =
   (): GenerateLike =>
