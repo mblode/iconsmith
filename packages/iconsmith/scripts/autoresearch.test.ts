@@ -22,8 +22,6 @@ import {
   parseStanding,
   pathMatches,
   readStanding,
-  renderCloudBrief,
-  findCloudAgentLauncher,
   runCampaign,
 } from "./autoresearch.js";
 import type { Scoreboard } from "./autoresearch.js";
@@ -91,11 +89,11 @@ describe("autoresearch.md", () => {
     expect(standing.frozen).toContain(
       "packages/iconsmith/src/eval/blindspot.ts"
     );
-    expect(standing.frozen).toContain(
+    expect(standing.frozen).not.toContain(
       "packages/iconsmith/scripts/cloud-round.md"
     );
-    expect(standing.text).toMatch(/cursor\.com\/agents/u);
-    expect(standing.text).toMatch(/NEXT\.md/u);
+    expect(standing.text).not.toMatch(/cursor\.com\/agents/u);
+    expect(standing.text).not.toMatch(/NEXT\.md/u);
     expect(standing.holdout).toEqual([...HOLD_OUT_UNKNOWN]);
     for (const name of ["star", "compass", "quokka", "xyzzy"] as const) {
       expect(standing.holdout).toContain(name);
@@ -331,7 +329,7 @@ xyzzy
     ).toBe(standingText);
   });
 
-  it("writes NEXT.md on an exhausted playbook instead of dying", async () => {
+  it("idles an exhausted playbook in process and does not write NEXT.md", async () => {
     const records = await runCampaign(
       {
         branch: BRANCH,
@@ -347,13 +345,12 @@ xyzzy
     );
     expect(records).toHaveLength(2);
     expect(records.every((row) => row.status === "idle")).toBe(true);
-    expect(records[0]?.description).toMatch(/Cloud Agent brief written/u);
+    expect(records[0]?.description).toBe("playbook exhausted");
     const next = path.join(
       repo,
       "packages/iconsmith/.staging/autoresearch/NEXT.md"
     );
-    expect(readFileSync(next, "utf-8")).toMatch(/Cloud Agent spawn brief/u);
-    expect(readFileSync(next, "utf-8")).toMatch(/cannot launch/u);
+    expect(existsSync(next)).toBe(false);
     expect(dirtyPaths(repo)).toEqual([]);
   });
 
@@ -486,32 +483,9 @@ packages/iconsmith/autoresearch.md
     expect(records).toHaveLength(1);
     expect(records[0]?.status).toBe("discard");
     expect(existsSync(path.join(repo, ".staging/autoresearch/NEXT.md"))).toBe(
-      true
+      false
     );
     rmSync(repo, { force: true, recursive: true });
-  });
-});
-
-describe("the Cloud Agent brief", () => {
-  it("does not invent a launcher in this environment", () => {
-    expect(findCloudAgentLauncher()).toBeNull();
-  });
-
-  it("renders a pasteable spawn brief with metric, leftover, and gates", () => {
-    const standing = readStanding(STANDING);
-    const body = renderCloudBrief({
-      branch: "cursor/autoresearch-c1f5",
-      lastKeep: "none",
-      leftover: "concept-correct net-new: analog still unknown for home",
-      metric: "correct=10 holes=0 pair=0 gap=0",
-      standing,
-    });
-    expect(body).toMatch(/https:\/\/cursor\.com\/agents/u);
-    expect(body).toMatch(/cannot launch/u);
-    expect(body).toMatch(/cursor\/autoresearch-c1f5/u);
-    expect(body).toMatch(/Do not merge/u);
-    expect(body).toContain("packages/iconsmith/src/pipeline/**");
-    expect(body).toContain("packages/iconsmith/src/tools/render.ts");
   });
 });
 
