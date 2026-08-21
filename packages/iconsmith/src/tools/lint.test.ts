@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { Canvas, SPEC } from "./canvas.js";
-import { format, lint, lintReport, review } from "./lint.js";
+import { format, lint, review } from "./lint.js";
 import type { LintElement } from "./lint.js";
 
 const el = (id: string, d: string): LintElement => ({ d, id });
@@ -166,28 +166,68 @@ describe("lint", () => {
   });
 
   /**
-   * The escape hatch has to actually work.
+   * A declaration is permission to draw, not permission to be silent.
    *
-   * `canvas.ts` refuses an undeclared diagonal, so every off-axis edge that
-   * reaches lint was asked for by name. Warning about it anyway tells the
-   * drawer off for using the door the spec put there, and trains a reader to
-   * skip the list — which is where the errors were.
+   * The reasoning is worth pinning because a revision had it the other way and
+   * it looks reasonable from one angle: `canvas.ts` refuses an undeclared
+   * diagonal, so every off-axis edge reaching lint was asked for, so warning
+   * seems like telling the drawer off for using the door the spec put there.
+   * The flaw is what that leaves behind. If declared means silent, the rule can
+   * never fire on any program-drawn icon — the only ones left are the shipped
+   * SVGs — and a rule calibrated at 29.3% of the corpus has been turned off for
+   * everything the pipeline makes. `SKILL.md` says a `warn` is the prompt to
+   * confirm a choice was deliberate, which is exactly this case, and
+   * `canvas.ts` puts the declaration in the document so "a reviewer sees it".
+   * So: still a warning, addressed to a reviewer rather than to a drawer.
    */
-  it("waives `off-axis` on an element whose program declared it", () => {
+  it("still warns on a declared diagonal, and says it was declared", () => {
     const declared: LintElement = { d: "M6 6L18 12", id: "e0", offAxis: true };
-    expect(rules(lint(canvas(declared)))).not.toContain("off-axis");
-    const { issues, suppressed } = lintReport(canvas(declared));
-    expect(issues.filter((i) => i.rule === "off-axis")).toEqual([]);
-    expect(suppressed).toHaveLength(1);
-    expect(suppressed[0].declared).toBe("off-axis");
-    expect(suppressed[0].subject).toBe("e0");
-    expect(suppressed[0].findings).toBe(1);
-    expect(suppressed[0].reason).toContain("26.6°");
+    const found = lint(canvas(declared)).filter((i) => i.rule === "off-axis");
+    expect(found).toHaveLength(1);
+    expect(found[0].severity).toBe("warn");
+    expect(found[0].declared).toBe("off-axis");
+    expect(found[0].message).toContain("26.6°");
+    expect(found[0].message).toContain("declared");
+    // Addressed to a reviewer: there is nothing here to fix.
+    expect(found[0].message).toContain("confirm");
   });
 
-  it("waives nothing on an element that never left the axes", () => {
+  it("marks nothing as declared on an element that never left the axes", () => {
     const declared: LintElement = { d: "M6 6L18 18", id: "e0", offAxis: true };
-    expect(lintReport(canvas(declared)).suppressed).toEqual([]);
+    // The flag asked and did not need to, so there is no finding to mark.
+    expect(lint(canvas(declared)).filter((i) => i.rule === "off-axis")).toEqual(
+      []
+    );
+    expect(lint(canvas(declared)).some((i) => i.declared !== undefined)).toBe(
+      false
+    );
+  });
+
+  it("asks an undeclared diagonal to be fixed or declared", () => {
+    const found = lint(canvas(el("e0", "M6 6L18 12"))).find(
+      (i) => i.rule === "off-axis"
+    );
+    expect(found?.declared).toBeUndefined();
+    expect(found?.message).toContain("`off-axis` on the line");
+  });
+
+  /**
+   * `angle.ts`: hand in stroked shapes only. An outline-expanded fill puts a fan
+   * of short segments at whatever angle the flattener chose around every round
+   * join, so measuring one reports the expander and not a decision.
+   *
+   * The filter used to be `strokeWidth ?? spec.stroke > 0`, which was true of a
+   * `Canvas` — it sets no width at all — so every filled element read as
+   * stroked-at-2 from the moment fill mode existed.
+   */
+  it("measures no angles on a filled drawing, whatever the widths say", () => {
+    const kite = el("e0", "M16 8L13.5 13.5L8 16L10.5 10.5Z");
+    expect(rules(lint({ elements: [kite], finish: "filled" }))).not.toContain(
+      "off-axis"
+    );
+    expect(rules(lint({ elements: [kite], finish: "outlined" }))).toContain(
+      "off-axis"
+    );
   });
 
   it("ignores runs too short to be edges", () => {
@@ -307,14 +347,22 @@ describe("review", () => {
     expect(checks.map((check) => check.rule)).not.toContain("gap");
   });
 
-  /** `waived` is a fourth state. A reader has to be able to tell "the needle
-   *  is deliberately off 135°" from "the needle happens to be on 135°". */
-  it("shows a declared diagonal as waived rather than as a pass", () => {
+  /**
+   * A reader has to be able to tell "the needle is deliberately off 135°" from
+   * "the needle happens to be on 135°" — which was the argument for a fourth
+   * `waived` state, and is satisfied without one. The declared case is a `warn`
+   * and the on-axis case is a `pass`; the two never collapse.
+   */
+  it("shows a declared diagonal as a warn, not as a pass", () => {
     const checks = review(canvas({ d: "M6 6L18 12", id: "e0", offAxis: true }));
-    const axis = checks.find((c) => c.rule === "off-axis");
-    expect(axis?.status).toBe("waived");
-    expect(axis?.message).toContain("Waived by `off-axis`");
-    expect(checks.filter((c) => c.rule === "off-axis")).toHaveLength(1);
+    const axis = checks.filter((c) => c.rule === "off-axis");
+    expect(axis).toHaveLength(1);
+    expect(axis[0].status).toBe("warn");
+    expect(axis[0].message).toContain("declared");
+    const clean = review(canvas(el("e0", "M6 6L18 18"))).find(
+      (c) => c.rule === "off-axis"
+    );
+    expect(clean?.status).toBe("pass");
   });
 
   /**
@@ -322,8 +370,9 @@ describe("review", () => {
    *
    * `Canvas.line` records `offAxis` on the element that needed it; a viewer
    * that re-parses the rendered path gets geometry with no declaration. That
-   * round trip is what kept the compass warning about its own needle, so the
-   * end of the chain is worth pinning: draw it, lint the canvas, waived.
+   * round trip is what made the compass's four warnings look like a bug in the
+   * rule rather than a bug in the viewer, so the end of the chain is worth
+   * pinning: draw it, lint the canvas, and the verdict knows it was asked for.
    */
   it("carries a declaration from the drawing to the verdict", () => {
     const drawn = new Canvas([]);
@@ -334,7 +383,8 @@ describe("review", () => {
         [18, 12],
       ],
     });
-    expect(rules(lint(drawn))).not.toContain("off-axis");
-    expect(lintReport(drawn).suppressed[0]?.rule).toBe("off-axis");
+    const found = lint(drawn).filter((i) => i.rule === "off-axis");
+    expect(found).toHaveLength(1);
+    expect(found[0].declared).toBe("off-axis");
   });
 });

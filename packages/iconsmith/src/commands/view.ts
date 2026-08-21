@@ -492,11 +492,11 @@ export interface ViewCard {
 /**
  * Every finding about an icon, from every paint and from the arm's record.
  *
- * A `pass` contributes nothing and neither does a `waived` — a waiver is a
- * decision on the record, not an open question, which is the whole point of
- * having a fourth state. Duplicates collapse, because the same measurement
- * reached twice (both paints sit off the same keyline) is one fact about the
- * drawing.
+ * A `pass` contributes nothing. A declared `off-axis` does contribute: it is a
+ * `warn` like any other, because the declaration is the choice and the warning
+ * is the request to confirm it. Duplicates collapse, because the same
+ * measurement reached twice (both paints sit off the same keyline) is one fact
+ * about the drawing.
  */
 export const cardIssues = (
   paints: readonly ViewPaint[],
@@ -931,7 +931,7 @@ header .count { color: var(--muted); }
 .paint { margin: 0.7rem 0 0; border-top: 1px solid var(--line); padding-top: 0.45rem; }
 .paint h3 { margin: 0 0 0.3rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .paint.recorded h3 { color: var(--warn); }
-.qa .waived .status { color: var(--muted); }
+.qa .declared .status { color: var(--muted); }
 .qa, .issues { margin: 0; padding: 0; list-style: none; font-size: 0.8rem; }
 .qa li, .issues li { padding: 0.28rem 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 3.2rem 6.2rem 1fr; gap: 0.45rem; align-items: start; }
 .qa .status, .issues .rule, .qa .rule { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.68rem; }

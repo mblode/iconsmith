@@ -174,6 +174,17 @@ export interface Provenance {
 export type Severity = "error" | "warn";
 
 export interface Issue {
+  /**
+   * The DSL modifier the program used to ask for the geometry this finding is
+   * about, when there is one — today only `off-axis`.
+   *
+   * It does not lower the severity. A declared diagonal is still a `warn`,
+   * because a `warn` *is* the request to confirm a choice was deliberate, and
+   * the declaration is the choice rather than the confirmation. What it changes
+   * is who the finding is addressed to: an undeclared finding asks for a fix,
+   * a declared one asks a reviewer to agree.
+   */
+  declared?: string;
   message: string;
   rule: string;
   severity: Severity;

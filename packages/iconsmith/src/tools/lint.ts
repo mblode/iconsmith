@@ -43,21 +43,34 @@ export interface LintElement {
    *
    * `Canvas.line` writes it only when a segment *actually* stayed off every
    * axis, so it is the geometry and the permission at once — a line that asked
-   * and did not need to has no flag, and nothing to suppress. Reading it here
-   * is what makes the escape hatch mean anything: `canvas.ts` refuses an
-   * undeclared diagonal, so every off-axis edge that reaches a document was
-   * asked for, and a rule that warns about it anyway is telling the drawer off
-   * for using the door the spec put there. See {@link Suppression}.
+   * and did not need to has no flag.
+   *
+   * It does not silence the rule, and the reasoning is worth keeping because
+   * an earlier revision had it the other way round. `canvas.ts` calls the flag
+   * "permission, not instruction" and puts the request in the `IconDoc` so
+   * that "a reviewer sees it"; suppressing the finding is the one outcome that
+   * defeats that purpose. Worse, it would make the rule structurally dead on
+   * the path that matters: the canvas *refuses* an undeclared diagonal, so
+   * every off-axis edge that reaches lint from a program is declared by
+   * construction, and declared-means-silent leaves nothing for the rule to
+   * ever say about a generated icon. It is calibrated at 29.3% of the corpus
+   * precisely because it is meant to fire and be read.
+   *
+   * So a declared diagonal warns, carrying {@link Issue.declared} so the
+   * message can ask a reviewer to agree rather than telling them to fix it.
    *
    * Absent on a caller reading a shipped SVG, which carries no declaration —
    * an unasked-for diagonal in the corpus is exactly what the rule is for.
    */
   offAxis?: boolean;
   /**
-   * 0 for a filled shape. Omitted means stroked at the house width: a `Canvas`
-   * only ever draws strokes, so its elements satisfy this interface unchanged.
-   * A caller reading shipped SVGs has the real widths and should pass them —
-   * `off-axis` measures nothing useful on an outline-expanded fill.
+   * 0 for a filled shape, and the house width when omitted.
+   *
+   * A caller reading shipped SVGs has the real widths and should pass them.
+   * A `Canvas` sets no width at all, which is why the finish is consulted
+   * rather than this field alone: before fill mode a canvas only ever drew
+   * strokes, so the default was the truth, and afterwards every filled element
+   * inherited a 2 it does not have. See {@link offAxisIssues}.
    */
   strokeWidth?: number;
 }
@@ -73,41 +86,6 @@ export interface LintTarget {
   finish?: Finish;
   /** The cut to judge against. Absent means the house 24/2/3 spec. */
   spec?: Spec;
-}
-
-/**
- * A rule that would have fired and did not, because the program asked for the
- * geometry by name.
- *
- * The point is that a suppression is *louder* than a warning, not quieter. A
- * warning nobody can act on — "this edge is off-axis", on a line whose whole
- * declaration is that the edge is off-axis — trains a reader to skip the list,
- * and once the list is skipped the errors go with it. Recording the waiver
- * instead keeps the fact reviewable while leaving `issues` to mean "something
- * to decide".
- *
- * There are exactly two waivers, and both are the escapes `canvas.ts` names:
- * `off-axis` on a `line`, and `raw` path data. Nothing here waives a rule on
- * the strength of a policy, a slug or a comment; an exemption that a program
- * cannot ask for is an exemption a reviewer cannot see.
- */
-export interface Suppression {
-  /** The modifier that asked for it, spelled as the DSL spells it. */
-  declared: string;
-  /** How many findings the declaration covered. */
-  findings: number;
-  /** Why the waiver holds, in the terms the rule would have complained in. */
-  reason: string;
-  rule: string;
-  /** Element id the waiver applies to. */
-  subject: string;
-}
-
-/** Everything the house spec has to say about a drawing: what to decide, and
- *  what was already decided in the program. */
-export interface LintReport {
-  issues: Issue[];
-  suppressed: Suppression[];
 }
 
 export interface LintOptions {
@@ -513,37 +491,47 @@ const offAxisFindings = (
 
 const edgeWord = (n: number): string => (n === 1 ? "an edge" : `${n} edges`);
 
-const offAxisReview = (els: LintElement[], spec: Spec): LintReport => {
+/**
+ * Off-axis findings, one per element per distinct heading.
+ *
+ * Filled drawings are skipped whole rather than filtered by width. `angle.ts`
+ * says to hand in stroked shapes only — an outline-expanded fill puts a fan of
+ * short segments at whatever angle the flattener chose around every round join,
+ * 30% of them off-axis against 15% of the stroked ones, so measuring one
+ * reports the expander and not a decision. `strokeWidth` cannot carry that
+ * distinction on its own: a `Canvas` sets no width, so every filled element
+ * read as stroked-at-2 the moment fill mode existed. The finish is the field
+ * that knows, and it is the same swap `gap`/`feature` already makes.
+ */
+const offAxisIssues = (
+  els: LintElement[],
+  spec: Spec,
+  finish: Finish
+): Issue[] => {
+  if (finish === "filled") {
+    return [];
+  }
   const issues: Issue[] = [];
-  const suppressed: Suppression[] = [];
   for (const e of els.filter((x) => (x.strokeWidth ?? spec.stroke) > 0)) {
-    const findings = offAxisFindings(e);
-    if (findings.length === 0) {
-      continue;
-    }
-    if (e.offAxis) {
-      suppressed.push({
-        declared: "off-axis",
-        findings: findings.reduce((n, f) => n + f.count, 0),
-        reason: `"${e.id}" runs at ${findings
-          .map((f) => `${f.angle.toFixed(1)}°`)
-          .join(
-            ", "
-          )}, and the program asked for the diagonal by name. Off-axis edges are 29.3% of the set's stroked icons; the canvas refuses an undeclared one, so a declared one is the shape rather than a slip.`,
-        rule: "off-axis",
-        subject: e.id,
-      });
-      continue;
-    }
-    for (const f of findings) {
-      issues.push({
-        message: `"${e.id}" has ${edgeWord(f.count)} at ${f.angle.toFixed(1)}°, ${f.offBy.toFixed(1)}° off the nearest permitted axis (${f.axis}°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — \`off-axis\` on the line — and this stops being a warning.`,
-        rule: "off-axis",
-        severity: "warn",
-      });
+    for (const f of offAxisFindings(e)) {
+      const at = `"${e.id}" has ${edgeWord(f.count)} at ${f.angle.toFixed(1)}°, ${f.offBy.toFixed(1)}° off the nearest permitted axis (${f.axis}°)`;
+      issues.push(
+        e.offAxis
+          ? {
+              declared: "off-axis",
+              message: `${at}, and the program declared \`off-axis\` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.`,
+              rule: "off-axis",
+              severity: "warn",
+            }
+          : {
+              message: `${at}. The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — \`off-axis\` on the line — and this becomes a confirmation rather than a fix.`,
+              rule: "off-axis",
+              severity: "warn",
+            }
+      );
     }
   }
-  return { issues, suppressed };
+  return issues;
 };
 
 /**
@@ -568,27 +556,14 @@ const dedupe = (issues: Issue[]): Issue[] => {
   });
 };
 
-/**
- * The full house-spec verdict: findings to act on, and waivers the program
- * already asked for. See {@link Suppression}.
- *
- * {@link lint} is this without the waivers, which is what almost every caller
- * wants; a reviewer — the dashboard, the reach harness — wants both, because a
- * rule that silently stops firing and a rule that was waived on the record are
- * very different states of the same drawing.
- */
-export const lintReport = (
+/** Everything the house spec has to say about a drawing. */
+export const lint = (
   canvas: LintTarget,
   { cohort = null, keyline = null }: LintOptions = {}
-): LintReport => {
+): Issue[] => {
   const els = canvas.elements;
   if (els.length === 0) {
-    return {
-      issues: [
-        { message: "Canvas is empty.", rule: "empty", severity: "error" },
-      ],
-      suppressed: [],
-    };
+    return [{ message: "Canvas is empty.", rule: "empty", severity: "error" }];
   }
 
   const finish = canvas.finish ?? "outlined";
@@ -625,14 +600,13 @@ export const lintReport = (
       issues.push(issue);
     }
   }
-  const axis = offAxisReview(els, spec);
   // The one rule that swaps rather than adapts. See `featureIssues`: in a
   // filled icon shapes are meant to touch, so "how far apart are these" has no
   // answer worth having and "is this feature big enough to see" does.
   issues.push(
     ...(finish === "filled" ? featureIssues(els, spec) : gapIssues(els, spec)),
     ...cutIssues(els),
-    ...axis.issues
+    ...offAxisIssues(els, spec, finish)
   );
 
   if (els.length > spec.maxElements) {
@@ -642,23 +616,21 @@ export const lintReport = (
       severity: "warn",
     });
   }
-  return { issues: dedupe(issues), suppressed: axis.suppressed };
+  return dedupe(issues);
 };
 
-export const lint = (canvas: LintTarget, options: LintOptions = {}): Issue[] =>
-  lintReport(canvas, options).issues;
-
 /**
- * `waived` is a fourth state, not a shade of `pass`.
+ * Three states, because a declared diagonal is a `warn` and not a fourth thing.
  *
- * A pass means the rule looked and found nothing. A waiver means the rule
- * found something and the program had already said it was the shape — the two
- * are the same for a gate and very different for a reader, because only one of
- * them is a decision somebody made. Collapsing them is how "the compass needle
- * is deliberately off 135°" becomes indistinguishable from "the compass needle
- * happens to be on 135°", and the second is a different drawing.
+ * An earlier revision had a `waived` state here, on the reasoning that "the
+ * compass needle is deliberately off 135°" and "the compass needle happens to
+ * be on 135°" are different drawings and must not collapse into one `pass`.
+ * They are different, and they still do not collapse: the declared case is a
+ * `warn` carrying {@link Issue.declared} and the on-axis case is a `pass`. The
+ * distinction the fourth state was introduced to protect is the reason it is
+ * not needed.
  */
-export type CheckStatus = "error" | "pass" | "waived" | "warn";
+export type CheckStatus = "error" | "pass" | "warn";
 
 /** One house-spec question, including the ones that passed. `lint` returns
  *  only failures; the viewer needs the rest of the chain so a clean card
@@ -771,7 +743,7 @@ export const review = (
   canvas: LintTarget,
   options: LintOptions = {}
 ): Check[] => {
-  const { issues, suppressed } = lintReport(canvas, options);
+  const issues = lint(canvas, options);
   if (canvas.elements.length === 0) {
     return issues.map((i) => ({
       message: i.message,
@@ -806,30 +778,17 @@ export const review = (
   const checks: Check[] = [];
   for (const rule of rules) {
     const found = issues.filter((i) => i.rule === rule);
-    const waived = suppressed.filter((s) => s.rule === rule);
-    if (found.length > 0) {
-      checks.push(
-        ...found.map((i) => ({
-          message: i.message,
-          rule: i.rule,
-          status: i.severity as CheckStatus,
-        }))
-      );
+    if (found.length === 0) {
+      checks.push({ message: passMessage(rule, ctx), rule, status: "pass" });
+      continue;
     }
     checks.push(
-      ...waived.map((s) => ({
-        message: `Waived by \`${s.declared}\`: ${s.reason}`,
-        rule: s.rule,
-        status: "waived" as const,
+      ...found.map((i) => ({
+        message: i.message,
+        rule: i.rule,
+        status: i.severity as CheckStatus,
       }))
     );
-    if (found.length === 0 && waived.length === 0) {
-      checks.push({
-        message: passMessage(rule, ctx),
-        rule,
-        status: "pass",
-      });
-    }
   }
   return checks;
 };

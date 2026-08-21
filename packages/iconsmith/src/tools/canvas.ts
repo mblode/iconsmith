@@ -1049,6 +1049,10 @@ export class Canvas {
    * The flag is permission, not instruction: segments within tolerance still
    * snap, and `offAxis` is recorded on the element only if one actually stayed
    * off-axis.
+   *
+   * Permission to draw, specifically, and not permission to be silent —
+   * `lint.ts` still raises its `off-axis` warning on a declared diagonal, which
+   * is the reviewer seeing it that this paragraph is about.
    */
   line({
     offAxis = false,

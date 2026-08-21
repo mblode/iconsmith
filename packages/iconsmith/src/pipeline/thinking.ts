@@ -18,11 +18,10 @@
  *    disagree with the findings beside it, and a status that can contradict its
  *    own evidence is worse than no status. {@link thinking} computes it.
  *
- * `suppressed` is here for the same reason `lint.ts` has it: a waiver is a
- * decision on the record, and dropping it makes a deliberate off-axis needle
- * indistinguishable from one that happens to be on the axis.
+ * There is no separate channel for waivers. A declared diagonal is a `warn`
+ * carrying `Issue.declared`, so the decision travels inside `issues` with the
+ * finding it was made about, and a reader counting findings counts it.
  */
-import type { Suppression } from "../tools/lint.js";
 import type { Finish, Issue } from "../types.js";
 
 export interface Thinking {
@@ -44,8 +43,6 @@ export interface Thinking {
   /** How many ops ran. `trace.length`, kept because a reader scanning a column
    *  of records should not have to count an array. */
   steps: number;
-  /** Waivers the program asked for by name. See `lint.ts`'s `Suppression`. */
-  suppressed: Suppression[];
   /** The ops the program ran, in order. */
   trace: string[];
 }
@@ -67,7 +64,6 @@ export const thinking = (fields: {
   issues: readonly Issue[];
   policy: string;
   program: string;
-  suppressed?: readonly Suppression[];
 }): Thinking => {
   const trace = traceOf(fields.program);
   return {
@@ -78,7 +74,6 @@ export const thinking = (fields: {
     policy: fields.policy,
     program: fields.program,
     steps: trace.length,
-    suppressed: [...(fields.suppressed ?? [])],
     trace,
   };
 };

@@ -42,7 +42,6 @@ describe("thinking", () => {
       "policy",
       "program",
       "steps",
-      "suppressed",
       "trace",
     ]);
     expect(record.clean).toBe(true);
@@ -75,24 +74,27 @@ describe("thinking", () => {
     expect(build([warn, error]).clean).toBe(false);
   });
 
-  it("keeps a waiver, so a deliberate diagonal stays distinguishable", () => {
+  /**
+   * A declared diagonal travels as a finding, not as a waiver beside one. It is
+   * a `warn`, so it does not block `clean`, and it keeps `declared` so a reader
+   * can tell a deliberate needle from one that drifted.
+   */
+  it("keeps a declared finding inside issues, where a reader counts it", () => {
+    const declared: Issue = {
+      declared: "off-axis",
+      message: '"e1" has 2 edges at 114.4°, and the program declared it',
+      rule: "off-axis",
+      severity: "warn",
+    };
     const record = thinking({
       brief: "b",
       finish: "outlined",
-      issues: [],
+      issues: [declared],
       policy: "glyph",
       program: PROGRAM,
-      suppressed: [
-        {
-          declared: "off-axis",
-          findings: 2,
-          reason: "the program asked for the diagonal by name",
-          rule: "off-axis",
-          subject: "e1",
-        },
-      ],
     });
-    expect(record.suppressed).toHaveLength(1);
+    expect(record.issues).toHaveLength(1);
+    expect(record.issues[0].declared).toBe("off-axis");
     expect(record.clean).toBe(true);
   });
 });

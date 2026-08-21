@@ -246,11 +246,13 @@ Fix every `error`. A `warn` is a prompt to confirm the choice was deliberate.
 | `cut` | warn | shapes knock out of each other by the wrong amount |
 | `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only) |
 | `feature` | warn | a filled shape or hole is narrower than `minFeature` (filled only — filled shapes are meant to touch, so `gap` has nothing to say about them) |
-| `off-axis` | warn | a straight run leaves 0/45/90 |
+| `off-axis` | warn | a straight run leaves 0/45/90 (outlined only — an expanded fill's joins are the flattener's angles, not a decision) |
 | `centred` | warn | content centre is not (12,12), and the family does not agree |
 | `cohort-align` | warn | the icon sits off the extent of the family it swaps with |
 | `density` | warn | more ink than the set draws at this size |
 
 When a warning and the drawing disagree, the drawing usually wins — but say why. Reaching for the ordinary solution is the rule: an icon that is _correct_ but drawn in its own dialect is worse than one that is plain and drawn in the set's.
+
+Saying `off-axis` does not silence the `off-axis` warning, and is not meant to. The modifier is permission to _draw_ the diagonal — without it the canvas refuses the segment outright — and the warning is the prompt to confirm the diagonal is the drawing. So a declared diagonal reads as "confirm this", an undeclared one never gets past `draw`, and the rule still has something to say about every icon it measures. Expect one `off-axis` warn per element per distinct heading: a `line … off-axis` closing a kite is two headings and two warns, not four.
 
 A 0.5px air gap is not a construction: move the strokes to 1px or knock one out of the other. Off-keyline is legal — Central's key shapes are guidelines — but treat it as a prompt to check the size was chosen, not drifted. A wifi fan that lands at 20×11.5 has drifted; `wide` is 20×16.
