@@ -2,11 +2,11 @@
  * Generation-pipeline meta-loop. Karpathy's org, not his train.py.
  *
  * A human writes `autoresearch.md`. This loop reads it and never writes it.
- * The product is: run this script here. It edits the generation codebase
- * in process (playbook and/or OpenRouter), measures, and keeps or
- * `git reset`s. Cursor Cloud Agents are not this loop.
- * The training surface is pipeline / tools / commands / tests / SKILL,
- * not two analog files. One change per `--rounds` tick.
+ * This run / inner Task workers apply one in-process change (playbook
+ * and/or OpenRouter) and ratchet. After each measure the loop writes
+ * `.staging/autoresearch/NEXT.md` for a human (or Cursor Automation) to
+ * paste into a new Cloud Agent — this environment can list Cloud Agents
+ * and cannot launch one. Do not fake a launcher.
  * The policy campaign (`program.md` + `loop.ts`) and the harness campaign
  * (`lab.md` + `research.ts`) are not this file and stay intact.
  *
@@ -53,8 +53,15 @@ export const DEFAULT_PROBED = [
 ] as const;
 
 export const DEFAULT_BRANCH = "iconsmith/autoresearch";
+export const WORKER_BRANCHES = [
+  "iconsmith/autoresearch",
+  "cursor/autoresearch-c1f5",
+] as const;
 export const DEFAULT_ROUNDS = 1;
 export const OVERNIGHT_ROUNDS = 50;
+export const CLOUD_AGENTS_URL = "https://cursor.com/agents";
+export const NEXT_REL = ".staging/autoresearch/NEXT.md";
+export const CLOUD_ROUND_REL = "packages/iconsmith/scripts/cloud-round.md";
 /** One change plus its neighbour test. A fourth path is a dump. */
 export const MAX_TOUCHED = 3;
 
@@ -218,7 +225,9 @@ const allowedUntracked = (rel: string): boolean => {
   const norm = rel.replace(/^\.\//u, "").replace(/\/$/u, "");
   return (
     norm === RESULTS_REL ||
+    norm === NEXT_REL ||
     norm === "results.tsv" ||
+    norm === "NEXT.md" ||
     norm === ".staging" ||
     norm === "packages/iconsmith/.staging" ||
     norm.startsWith(".staging/autoresearch") ||
@@ -486,6 +495,97 @@ export const leftoverOf = (standing: Standing, board: Scoreboard): string => {
     "no scripted leftover; one honest generation-pipeline change that " +
     "advances the scoreboard without raising LIMITS.totalText or volunteering glyphs"
   );
+};
+
+export interface CloudBriefInput {
+  branch: string;
+  lastKeep: string;
+  leftover: string;
+  metric: string;
+  standing: Standing;
+}
+
+export const renderCloudBrief = (input: CloudBriefInput): string => {
+  const editable = input.standing.editable.join("\n");
+  const frozen = input.standing.frozen.join("\n");
+  return [
+    "# Cloud Agent spawn brief",
+    "",
+    `Paste this file into a **new** Cloud Agent at ${CLOUD_AGENTS_URL}.`,
+    "",
+    "The `cursor-cloud` MCP can list/inspect Cloud Agents. It cannot launch one.",
+    "This VM has no spawn CLI or API token either. Do not invent a launcher.",
+    "",
+    "## Repo and branch",
+    "",
+    `- Work ONLY on \`${WORKER_BRANCHES[0]}\` or \`${WORKER_BRANCHES[1]}\` (this run: \`${input.branch}\`).`,
+    "- Do not edit `cursor/filled-twins-c1f5`.",
+    "- Do not merge. Commit + push. If the floor drops, revert.",
+    "- Do not commit secrets, corpus, results.tsv, or NEXT.md.",
+    "",
+    "## Current metric / last keep",
+    "",
+    `- metric: \`${input.metric}\``,
+    `- last keep: ${input.lastKeep}`,
+    `- standing sha: \`${input.standing.sha}\``,
+    "",
+    "## The one leftover to attack",
+    "",
+    input.leftover,
+    "",
+    "One change. Hacky complexity is a discard. Do not volunteer star/compass/quokka/xyzzy.",
+    "Do not raise LIMITS.totalText.",
+    "",
+    "## Editable",
+    "",
+    "```",
+    editable,
+    "```",
+    "",
+    "## Frozen",
+    "",
+    "```",
+    frozen,
+    "```",
+    "",
+    "## After the edit",
+    "",
+    "Run the tests you invoke. Commit + push editable paths only. Do not merge.",
+    "If the floor drops, revert.",
+    "",
+  ].join("\n");
+};
+
+export const nextPath = (root: string): string =>
+  existsSync(path.join(root, "packages/iconsmith"))
+    ? path.join(root, "packages/iconsmith", NEXT_REL)
+    : path.join(root, NEXT_REL);
+
+export const writeCloudBrief = (
+  root: string,
+  input: CloudBriefInput
+): string => {
+  const body = renderCloudBrief(input);
+  const dests = new Set([path.join(root, NEXT_REL), nextPath(root)]);
+  for (const dest of dests) {
+    mkdirSync(path.dirname(dest), { recursive: true });
+    writeFileSync(dest, body);
+  }
+  return path.join(root, NEXT_REL);
+};
+
+export const findCloudAgentLauncher = (): string | null => {
+  for (const cmd of [
+    "cursor-cloud-spawn",
+    "cursor-agent-spawn",
+    "agent-spawn",
+  ]) {
+    const found = spawnSync("which", [cmd], { encoding: "utf-8" });
+    if (found.status === 0 && found.stdout.trim().length > 0) {
+      return found.stdout.trim();
+    }
+  }
+  return null;
 };
 
 const countIssues = async (
@@ -1218,6 +1318,9 @@ export const runCampaign = async (
   const ledger = resultsPath(root);
   const tried = new Set<string>();
   const records: RoundRecord[] = [];
+  let lastKeep = "none";
+  const branch =
+    options.branch ?? git(root, ["rev-parse", "--abbrev-ref", "HEAD"]);
   const takeBoard = async (): Promise<Scoreboard> =>
     deps.measure
       ? await deps.measure(root, standing)
@@ -1225,6 +1328,15 @@ export const runCampaign = async (
           floor: options.floor,
           house: options.house,
         });
+  const brief = (board: Scoreboard): void => {
+    writeCloudBrief(root, {
+      branch,
+      lastKeep,
+      leftover: leftoverOf(standing, board),
+      metric: metricOf(board),
+      standing,
+    });
+  };
 
   try {
     for (let spent = 0; spent < options.rounds;) {
@@ -1236,10 +1348,11 @@ export const runCampaign = async (
       if (!picked) {
         note(records, ledger, standing.sha, {
           commit: git(root, ["rev-parse", "HEAD"]),
-          description: "playbook exhausted",
+          description: "playbook exhausted; Cloud Agent brief written",
           metric: metricOf(before),
           status: "idle",
         });
+        brief(before);
         spent += 1;
         continue;
       }
@@ -1263,7 +1376,11 @@ export const runCampaign = async (
           before,
           after
         );
+        if (row.status === "keep") {
+          lastKeep = `${row.commit.slice(0, 12)} ${row.description}`;
+        }
         note(records, ledger, standing.sha, row);
+        brief(row.status === "crash" ? before : after);
       } catch (error) {
         restoreTree(root);
         if (readFileSync(standingFile, "utf-8") !== standingBefore) {
@@ -1275,6 +1392,7 @@ export const runCampaign = async (
           standing.sha,
           crashOf(picked.applied.description, error)
         );
+        brief(before);
       }
       spent += 1;
     }
