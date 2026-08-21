@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { Canvas, SPEC } from "./canvas.js";
-import { format, lint, review } from "./lint.js";
+import { format, lint, lintReport, review } from "./lint.js";
 import type { LintElement } from "./lint.js";
 
 const el = (id: string, d: string): LintElement => ({ d, id });
@@ -155,6 +155,41 @@ describe("lint", () => {
     expect(rules(lint(canvas(fill)))).not.toContain("off-axis");
   });
 
+  /** Four edges of a kite are two headings, and reporting each segment made
+   *  one diamond look like four problems — the compass's four warnings. */
+  it("reports one line per element per distinct angle, with the count", () => {
+    const kite = el("e0", "M16 8L13.5 13.5L8 16L10.5 10.5Z");
+    const off = lint(canvas(kite)).filter((i) => i.rule === "off-axis");
+    expect(off).toHaveLength(2);
+    expect(off[0].message).toContain('"e0" has 2 edges at 114.4°');
+    expect(off[1].message).toContain('"e0" has an edge at 155.6°');
+  });
+
+  /**
+   * The escape hatch has to actually work.
+   *
+   * `canvas.ts` refuses an undeclared diagonal, so every off-axis edge that
+   * reaches lint was asked for by name. Warning about it anyway tells the
+   * drawer off for using the door the spec put there, and trains a reader to
+   * skip the list — which is where the errors were.
+   */
+  it("waives `off-axis` on an element whose program declared it", () => {
+    const declared: LintElement = { d: "M6 6L18 12", id: "e0", offAxis: true };
+    expect(rules(lint(canvas(declared)))).not.toContain("off-axis");
+    const { issues, suppressed } = lintReport(canvas(declared));
+    expect(issues.filter((i) => i.rule === "off-axis")).toEqual([]);
+    expect(suppressed).toHaveLength(1);
+    expect(suppressed[0].declared).toBe("off-axis");
+    expect(suppressed[0].subject).toBe("e0");
+    expect(suppressed[0].findings).toBe(1);
+    expect(suppressed[0].reason).toContain("26.6°");
+  });
+
+  it("waives nothing on an element that never left the axes", () => {
+    const declared: LintElement = { d: "M6 6L18 18", id: "e0", offAxis: true };
+    expect(lintReport(canvas(declared)).suppressed).toEqual([]);
+  });
+
   it("ignores runs too short to be edges", () => {
     // 1.12 units at 26.57°, below the 1.5 at which `segments.ts` believes a
     // diagonal: at any shorter length the survivors are corner-join residue.
@@ -270,5 +305,36 @@ describe("review", () => {
     const checks = review(drawn);
     expect(checks.map((check) => check.rule)).toContain("feature");
     expect(checks.map((check) => check.rule)).not.toContain("gap");
+  });
+
+  /** `waived` is a fourth state. A reader has to be able to tell "the needle
+   *  is deliberately off 135°" from "the needle happens to be on 135°". */
+  it("shows a declared diagonal as waived rather than as a pass", () => {
+    const checks = review(canvas({ d: "M6 6L18 12", id: "e0", offAxis: true }));
+    const axis = checks.find((c) => c.rule === "off-axis");
+    expect(axis?.status).toBe("waived");
+    expect(axis?.message).toContain("Waived by `off-axis`");
+    expect(checks.filter((c) => c.rule === "off-axis")).toHaveLength(1);
+  });
+
+  /**
+   * The declaration travels on the canvas, not in the SVG.
+   *
+   * `Canvas.line` records `offAxis` on the element that needed it; a viewer
+   * that re-parses the rendered path gets geometry with no declaration. That
+   * round trip is what kept the compass warning about its own needle, so the
+   * end of the chain is worth pinning: draw it, lint the canvas, waived.
+   */
+  it("carries a declaration from the drawing to the verdict", () => {
+    const drawn = new Canvas([]);
+    drawn.line({
+      offAxis: true,
+      points: [
+        [6, 6],
+        [18, 12],
+      ],
+    });
+    expect(rules(lint(drawn))).not.toContain("off-axis");
+    expect(lintReport(drawn).suppressed[0]?.rule).toBe("off-axis");
   });
 });

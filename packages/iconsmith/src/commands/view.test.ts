@@ -15,10 +15,11 @@ import { describe, expect, it } from "vitest";
 
 import { parseIconSvg } from "../corpus/load.js";
 import { BASELINE, CEILING } from "../pipeline/eval.js";
-import type { ViewCard } from "./view.js";
+import type { ViewCard, ViewPaint } from "./view.js";
 import {
   FLOOR,
   buildPage,
+  cardIssues,
   constructionSteps,
   counterpartSlug,
   discoverIcons,
@@ -30,6 +31,7 @@ import {
   parseLog,
   placeOnScale,
   stagedHouse,
+  twinProgram,
   twinShapes,
 } from "./view.js";
 
@@ -38,12 +40,19 @@ const temp = () => mkdtempSync(path.join(tmpdir(), "iconsmith-view-"));
 const ICON =
   '<svg viewBox="0 0 24 24" fill="none"><path d="M4 4L20 20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
 
+const paint = (over: Partial<ViewPaint> = {}): ViewPaint => ({
+  checks: [],
+  finish: "outlined",
+  program: null,
+  shapes: parseIconSvg(ICON),
+  ...over,
+});
+
 const card = (over: Partial<ViewCard> = {}): ViewCard => ({
   against: null,
-  finish: "outlined",
   icon: { file: "/tmp/x/bananas.svg", group: "x", slug: "bananas" },
   issues: [],
-  shapes: parseIconSvg(ICON),
+  paints: [paint()],
   ...over,
 });
 
@@ -256,15 +265,14 @@ describe("buildPage", () => {
   });
 
   it("separates an error from a warning, and marks the card", () => {
-    const html = buildPage(
-      [
-        card({
-          issues: [
-            { message: "Canvas is empty.", rule: "empty", severity: "error" },
-            { message: "off the axis", rule: "off-axis", severity: "warn" },
-          ],
-        }),
+    const found = paint({
+      checks: [
+        { message: "Canvas is empty.", rule: "empty", status: "error" },
+        { message: "off the axis", rule: "off-axis", status: "warn" },
       ],
+    });
+    const html = buildPage(
+      [card({ issues: cardIssues([found]), paints: [found] })],
       opts
     );
     expect(html).toContain('<li class="error">');
@@ -277,8 +285,12 @@ describe("buildPage", () => {
     const html = buildPage(
       [
         card({
-          issues: [
-            { message: "<img onerror=x>", rule: "bleed", severity: "warn" },
+          paints: [
+            paint({
+              checks: [
+                { message: "<img onerror=x>", rule: "bleed", status: "warn" },
+              ],
+            }),
           ],
         }),
       ],
@@ -445,6 +457,7 @@ describe("buildPage", () => {
     const html = buildPage(
       [
         card({
+          paints: [paint({ program: "part git-fork\nfit" })],
           trace: {
             brief: "Draw `pull-request`.",
             log: '<img onerror=x>{"type":"item"}',
@@ -456,8 +469,8 @@ describe("buildPage", () => {
     );
     expect(html).toContain("<h3>Brief</h3>");
     expect(html).toContain("<h3>Thinking</h3>");
-    expect(html).toContain("<h3>Program</h3>");
-    expect(html).toContain("<h3>Construction</h3>");
+    expect(html).toContain("<h3>Program (outlined)</h3>");
+    expect(html).toContain("<h3>Construction (outlined)</h3>");
     expect(html).toContain("Draw `pull-request`.");
     expect(html).toContain("part git-fork");
     expect(html).not.toContain("<img");
@@ -468,25 +481,29 @@ describe("buildPage", () => {
     const html = buildPage(
       [
         card({
-          review: [
-            {
-              message:
-                'Visual extent 18.0×18.0 matches declared keyline "square" (18×18).',
-              rule: "keyline",
-              status: "pass",
-            },
-            {
-              message: "Every stroked edge sits on 0/45/90.",
-              rule: "off-axis",
-              status: "pass",
-            },
+          paints: [
+            paint({
+              checks: [
+                {
+                  message:
+                    'Visual extent 18.0×18.0 matches declared keyline "square" (18×18).',
+                  rule: "keyline",
+                  status: "pass",
+                },
+                {
+                  message: "Every stroked edge sits on 0/45/90.",
+                  rule: "off-axis",
+                  status: "pass",
+                },
+              ],
+            }),
+            paint({
+              finish: "filled",
+              shapes: parseIconSvg(
+                '<svg><path d="M4 4L20 20Z" fill="currentColor"/></svg>'
+              ),
+            }),
           ],
-          twin: {
-            finish: "filled",
-            shapes: parseIconSvg(
-              '<svg><path d="M4 4L20 20Z" fill="currentColor"/></svg>'
-            ),
-          },
         }),
       ],
       opts
@@ -497,6 +514,159 @@ describe("buildPage", () => {
     expect(html).toContain('<li class="pass">');
     expect(html).toContain("0/45/90");
     expect(html).toContain("declared keyline &quot;square&quot;");
+  });
+
+  /** The umbrella bug: a filled paint sitting off-keyline and off-centre while
+   *  the card said clean, because only one paint's lint reached the status. */
+  it("counts a finding from either paint against the icon", () => {
+    const filledOnly = card({
+      issues: [
+        {
+          message: "centre is (12.00, 11.00)",
+          rule: "centred",
+          severity: "warn",
+        },
+        {
+          message: "Visual extent 16.0×18.0 matches no keyline",
+          rule: "keyline",
+          severity: "error",
+        },
+      ],
+      paints: [
+        paint(),
+        paint({
+          checks: [
+            {
+              message: "centre is (12.00, 11.00)",
+              rule: "centred",
+              status: "warn",
+            },
+            {
+              message: "Visual extent 16.0×18.0 matches no keyline",
+              rule: "keyline",
+              status: "error",
+            },
+          ],
+          finish: "filled",
+        }),
+      ],
+    });
+    const html = buildPage([filledOnly], opts);
+    expect(html).toContain("1 icon(s) · 1 error(s)");
+    expect(html).toContain("has-error");
+    expect(html).toContain("1 error(s) · 1 warning(s) across 2 paint(s)");
+    expect(html).not.toContain("clean — every house check passed");
+  });
+
+  /** The fingerprint bug: a recorded `severity: "error"` that the page never
+   *  read, so the header said zero and the card said clean. */
+  it("counts what the arm recorded, not only what the page re-lints", () => {
+    const html = buildPage(
+      [
+        card({
+          issues: [
+            {
+              message: 'keyline "square" wants 18×18',
+              rule: "keyline",
+              severity: "error",
+            },
+          ],
+          metrics: {
+            clean: false,
+            issues: [
+              {
+                message: 'keyline "square" wants 18×18',
+                rule: "keyline",
+                severity: "error",
+              },
+            ],
+            policy: "compile",
+          },
+        }),
+      ],
+      opts
+    );
+    expect(html).toContain("1 icon(s) · 1 error(s)");
+    expect(html).toContain("<h3>as recorded</h3>");
+    expect(html).toContain("wants 18×18");
+  });
+
+  it("says so when the arm called a drawing unclean without naming a finding", () => {
+    const html = buildPage(
+      [card({ metrics: { clean: false, policy: "compile" } })],
+      opts
+    );
+    expect(html).toContain("<h3>as recorded</h3>");
+    expect(html).toContain("without recording a finding");
+  });
+
+  it("shows a waiver as its own state, not as a pass", () => {
+    const html = buildPage(
+      [
+        card({
+          paints: [
+            paint({
+              checks: [
+                {
+                  message: "Waived by `off-axis`: the program asked for it",
+                  rule: "off-axis",
+                  status: "waived",
+                },
+              ],
+            }),
+          ],
+        }),
+      ],
+      opts
+    );
+    expect(html).toContain('<li class="waived">');
+    expect(html).toContain("1 icon(s) · 0 error(s)");
+    // A waiver is a decision, not an open question: it must not make the icon
+    // look unfinished either.
+    expect(html).toContain('<p class="clean">clean');
+  });
+
+  it("says a paint has no program rather than showing an empty block", () => {
+    const html = buildPage([card()], opts);
+    expect(html).toContain("no program — this paint was read off disk");
+  });
+});
+
+const check = (status: "error" | "pass" | "waived" | "warn") => ({
+  message: `m-${status}`,
+  rule: "keyline",
+  status,
+});
+
+describe("cardIssues", () => {
+  it("takes the union of every paint and drops passes and waivers", () => {
+    expect(
+      cardIssues([
+        paint({ checks: [check("pass"), check("warn")] }),
+        paint({ checks: [check("waived"), check("error")], finish: "filled" }),
+      ])
+    ).toEqual([
+      { message: "m-warn", rule: "keyline", severity: "warn" },
+      { message: "m-error", rule: "keyline", severity: "error" },
+    ]);
+  });
+
+  it("collapses the same measurement reached in both paints", () => {
+    expect(
+      cardIssues([
+        paint({ checks: [check("warn")] }),
+        paint({ checks: [check("warn")], finish: "filled" }),
+      ])
+    ).toHaveLength(1);
+  });
+
+  it("keeps what the arm recorded", () => {
+    expect(
+      cardIssues(
+        [paint()],
+        [{ message: "recorded", rule: "keyline", severity: "error" }]
+      )
+    ).toEqual([{ message: "recorded", rule: "keyline", severity: "error" }]);
   });
 });
 
@@ -534,6 +704,38 @@ describe("loadMetrics", () => {
     );
     expect(loadMetrics(file)).toEqual({
       partsFound: 4,
+      policy: "compile",
+    });
+  });
+
+  it("reads the arm's own verdict, so a recorded error cannot go missing", () => {
+    const dir = temp();
+    const file = path.join(dir, "fingerprint.svg");
+    writeFileSync(file, ICON);
+    writeFileSync(
+      path.join(dir, "fingerprint.json"),
+      `${JSON.stringify({
+        clean: false,
+        issues: [
+          {
+            message: 'keyline "square" wants 18×18',
+            rule: "keyline",
+            severity: "error",
+          },
+          { message: "not an issue", rule: "keyline" },
+        ],
+        policy: "compile",
+      })}\n`
+    );
+    expect(loadMetrics(file)).toEqual({
+      clean: false,
+      issues: [
+        {
+          message: 'keyline "square" wants 18×18',
+          rule: "keyline",
+          severity: "error",
+        },
+      ],
       policy: "compile",
     });
   });
@@ -589,5 +791,33 @@ describe("twinShapes", () => {
     const twin = twinShapes("compass", file, "outlined", null);
     expect(twin).not.toBeNull();
     expect(twin?.every((s) => s.filled)).toBe(true);
+  });
+});
+
+describe("twinProgram", () => {
+  it("writes the host glyph's own filled construction, not a derivation", () => {
+    const source = twinProgram("compass", "outlined", null);
+    expect(source).toContain("finish filled");
+    expect(source).toContain("circle");
+  });
+
+  /** A comment is not a program. The reach set shipped filled "programs" that
+   *  were a lone `#` note beside a rendered filled thumbnail. */
+  it("derives real ops for a program with no host construction", () => {
+    const source = twinProgram(
+      "bananas",
+      "outlined",
+      ["icon bananas", "finish outlined", "circle 12,12 r9"].join("\n")
+    );
+    expect(source).toContain("finish filled");
+    expect(source).toContain("hole circle 12,12 r8");
+    expect(
+      source?.split("\n").filter((l) => l.trim() !== "" && !l.startsWith("#"))
+        .length
+    ).toBeGreaterThan(1);
+  });
+
+  it("has nothing to say when there is no program and no host twin", () => {
+    expect(twinProgram("bananas", "outlined", null)).toBeNull();
   });
 });
