@@ -55,6 +55,17 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   expect(conceptPrompt({ name: "home" })).toContain(
     "House construction (home, outlined)"
   );
+  expect(conceptPrompt({ name: "heart" })).toContain(
+    "House construction (heart, outlined)"
+  );
+  expect(conceptPrompt({ name: "heart" })).toContain("Not three circles");
+  expect(conceptPrompt({ name: "heart" }, "filled")).toContain("Not a disc");
+  expect(conceptPrompt({ name: "zap" })).toContain(
+    "House construction (zap, outlined)"
+  );
+  expect(conceptPrompt({ name: "shield" })).toContain(
+    "House construction (shield, outlined)"
+  );
   expect(conceptPrompt({ name: "quokka" })).not.toContain("House construction");
   expect(conceptPrompt({ name: "star" })).not.toContain("House construction");
 });
