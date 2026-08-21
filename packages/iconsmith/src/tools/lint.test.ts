@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { Canvas, SPEC } from "./canvas.js";
+import { run } from "./dsl.js";
 import { format, lint, review } from "./lint.js";
 import type { LintElement } from "./lint.js";
 
@@ -122,6 +123,23 @@ describe("lint", () => {
     drawn.circle({ cx: 12, cy: 5, r: 2 });
     drawn.rect({ h: 6, r: 1, w: 3, x: 10.5, y: 8 });
     expect(rules(lint(drawn))).not.toContain("gap");
+  });
+
+  it("does not fire `gap` on stacked crescents that overlap as curves", () => {
+    // Two r=9 half-arcs, one unit of stack. Six samples/curve leave ~0.08px
+    // of chord gap on the filled annular sectors even though the cubics
+    // already overlap — the microscope 0.50 in a new costume.
+    const drawn = run(
+      [
+        "finish filled",
+        "arc 12,11 r9 half from left",
+        "arc 12,17 r9 half from left",
+      ].join("\n")
+    );
+    expect(drawn.errors).toEqual([]);
+    expect(
+      rules(lint({ elements: drawn.canvas.elements, finish: "outlined" }))
+    ).not.toContain("gap");
   });
 
   it("does not fire `gap` for a shape nested inside another", () => {

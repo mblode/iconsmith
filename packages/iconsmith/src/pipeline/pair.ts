@@ -31,14 +31,6 @@ export const mergeIssues = (
   return out;
 };
 
-/**
- * Fit scales path bounds, not visual bounds, so two paints that share a
- * visual extent can still land a quarter-pixel apart. A restamped disc
- * misses by a stroke (~2). This is that gap, not a relaxation of the
- * house 0.01 that compile pairs still use.
- */
-const FIT_QUANT = 0.35;
-
 export const pairCanvases = (
   issues: readonly Issue[],
   thisFinish: Finish,
@@ -47,7 +39,7 @@ export const pairCanvases = (
 ): Issue[] => {
   const outlined = thisFinish === "outlined" ? thisCanvas : otherCanvas;
   const filled = thisFinish === "filled" ? thisCanvas : otherCanvas;
-  return mergeIssues(issues, twinPairIssues(outlined, filled, FIT_QUANT));
+  return mergeIssues(issues, twinPairIssues(outlined, filled));
 };
 
 export const pairPrograms = (

@@ -319,14 +319,15 @@ export const plant = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /** Horse body, neck, head, a 45° diamond horn, legs.
- *  Pieces overlap so almost-touch gaps cannot warn. Square so the horn
- *  stays on 45° after `fit`. */
+ *  The filled head grows by half a stroke so the outer edge is the outlined
+ *  ink (`diamond` already pads itself). The horn sits in the forehead so it
+ *  cannot almost-touch the neck. Square so the horn stays on 45° after `fit`. */
 export const horn = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
     mass(finish, 4, 12, 13, 6, 3),
     mass(finish, 11, 8, 7, 9, 2),
-    "circle 17,8 r3.5",
-    ...lozenge(finish, 18, 5, 3),
+    finish === "filled" ? "circle 17,8 r4.5" : "circle 17,8 r3.5",
+    ...lozenge(finish, 18, 6.5, 3),
     vbar(finish, 7, 15, 5),
     vbar(finish, 13, 15, 5),
   ]);

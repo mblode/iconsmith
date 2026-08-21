@@ -135,9 +135,11 @@ const KEYLINE_TOLERANCE = 1;
  */
 const LIVE_INSET_FILLED = 0;
 const TOUCHING = 0.01;
-/** Segments per curve when flattening for distance. Coarser than fingerprinting
- *  needs, because a gap only has to be measured to a fraction of a px. */
-const FLATTEN_STEPS = 6;
+/** Segments per curve when flattening for distance. Same density as
+ *  fingerprinting: six samples leave ~0.08px of chord gap on stacked r=9
+ *  crescents whose cubics already overlap (the microscope 0.50 in a new
+ *  costume). Twelve is past a fraction of a px. */
+const FLATTEN_STEPS = 12;
 
 const near = (a: number, b: number, tol: number): boolean =>
   Math.abs(a - b) <= tol;
