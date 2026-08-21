@@ -11,6 +11,10 @@ import {
   analogConstructions,
   ANALOG_ALIASES,
   ANALOG_KINS,
+  ANALOG_MODIFIERS,
+  contentTokens,
+  familyFromToken,
+  familyFromTokens,
   anchor,
   apple,
   banana,
@@ -520,6 +524,74 @@ describe("analog families", () => {
     expect(source).toContain("icon bananas");
     expect(composeFromParts("mail", [])).toContain("off-axis");
     expect(composeFromParts("xyzzy", [])).toBeNull();
+  });
+
+  it("resolves a new compound from name tokens, not a new kin row", () => {
+    expect(ANALOG_KINS["office-mail"]).toBeUndefined();
+    expect(ANALOG_KINS["mail-icon"]).toBeUndefined();
+    expect(ANALOG_KINS["red-flag"]).toBeUndefined();
+    expect(contentTokens("mail-icon")).toEqual(["mail"]);
+    expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
+    expect(familyFromToken("mail")).toBe("envelope");
+    expect(familyFromTokens("office-mail")).toBe("envelope");
+    expect(familyFromTokens("mail-icon")).toBe("envelope");
+    expect(familyFromTokens("red-flag")).toBe("flag");
+    expect(familyFromTokens("hourglass-timer")).toBe("hourglass");
+    expect(familyFromTokens("cactus-pot")).toBe("plant");
+    expect(familyFromTokens("bananas-bunch")).toBe("banana");
+    expect(
+      analogConstructions("office-mail", [], "office-mail", false)[0]?.id
+    ).toBe("envelope");
+    expect(
+      analogConstructions("mail-icon", [], "mail-icon", false)[0]?.id
+    ).toBe("envelope");
+    expect(analogConstructions("red-flag", [], "red-flag", false)[0]?.id).toBe(
+      "flag"
+    );
+    expect(
+      analogConstructions("cactus-pot", [], "cactus-pot", false)[0]?.id
+    ).toBe("plant");
+  });
+
+  it("does not invent a drawing when tokens name two families or a glyph", () => {
+    expect(familyFromTokens("flag-mail")).toBeNull();
+    expect(familyFromTokens("mailbox")).toBeNull();
+    expect(familyFromTokens("compass-rose")).toBeNull();
+    expect(familyFromTokens("star")).toBeNull();
+    expect(
+      analogConstructions("flag-mail", [], "flag-mail", false)[0]?.id
+    ).toBe("unknown");
+    expect(analogConstructions("mailbox", [], "mailbox", false)[0]?.id).toBe(
+      "unknown"
+    );
+    expect(
+      analogConstructions("compass-rose", [], "compass-rose", false)[0]?.id
+    ).toBe("unknown");
+    expect(analogConstructions("compass", [], "compass", false)[0]?.id).toBe(
+      "unknown"
+    );
+  });
+
+  it("does not treat a leftover hub word as an org chart", () => {
+    expect(
+      analogConstructions("org-chart", [], "org-chart", false)[0]?.id
+    ).toBe("hub");
+    expect(analogConstructions("tree", [], "tree", false)[0]?.id).toBe("hub");
+    expect(
+      analogConstructions("apple-tree", [], "apple-tree", false)[0]?.id
+    ).toBe("apple");
+    expect(
+      analogConstructions("tree-house", [], "tree-house", false)[0]?.id
+    ).toBe("unknown");
+  });
+
+  it("reaches a named part through a token kin, not a new catalog row", () => {
+    const flap = { ...part("p-flap", BOX), name: "envelope" };
+    const source = composeFromParts("office-mail", [flap]);
+    expect(source).toContain("part envelope at center size 12");
+    expect(composeFromParts("flag-mail", [flap])).toContain(
+      "part envelope at center size 12"
+    );
   });
 
   it("keeps volcano smoke off a bare mountain", () => {

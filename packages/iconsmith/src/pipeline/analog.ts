@@ -8,14 +8,12 @@
  * stack of the set's own `ellipse-flat` rim, not a retitled server.
  *
  * `replay` still compiles caller-supplied path `d` strings — this module does
- * not import `corpus/`. Beyond stack / trays / hub, name tokens pick a
- * concept family written with the same twin helpers glyphs use.
- * `ANALOG_KINS` / `ANALOG_ALIASES` map ordinary names and synonyms onto those
- * families so `bananas` / `mail` / `map-pin` resolve offline, without a
- * corpus extract. `composeFromParts` consults that table when the extract is
- * empty. A name with no token, alias, kin, or named part falls to `unknown`,
- * not a hub. Glyphs stay unvolunteered. The composer writes the program.
- * The model does not.
+ * not import `corpus/`. Beyond stack / trays / hub, name *tokens* pick an
+ * existing family: `office-mail` is envelope because `mail` is already a kin,
+ * not because a new drawing was written. Two different families in one name
+ * stay `unknown` — overlaying them is not the named object. A leftover hub
+ * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
+ * The composer writes the program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -724,6 +722,138 @@ export const ANALOG_KINS: Readonly<Record<string, AnalogFamilyId>> = {
 export const ANALOG_ALIASES: Readonly<Record<string, AnalogFamilyId>> =
   ANALOG_KINS;
 
+/**
+ * Icon-set noise, not a concept. `mail-icon` is mail; the composer strips
+ * these so a new compound does not need a new kin row.
+ */
+export const ANALOG_MODIFIERS: ReadonlySet<string> = new Set([
+  "alt",
+  "app",
+  "filled",
+  "icon",
+  "image",
+  "large",
+  "logo",
+  "mark",
+  "new",
+  "outline",
+  "outlined",
+  "small",
+  "solid",
+  "symbol",
+]);
+
+/**
+ * Glyph slugs analog must not volunteer. Restated here so this module does
+ * not import `glyphs.ts` — a host form is asked for by name.
+ */
+const UNVOLUNTEERED = new Set([
+  "briefcase",
+  "cake",
+  "compass",
+  "cookie",
+  "database",
+  "fingerprint",
+  "microscope",
+  "strikethrough",
+  "umbrella",
+  "wifi",
+]);
+
+/** Words that *are* a connected tree. `chart` only counts next to one of these. */
+const HUB_TOKENS = new Set([
+  "chart",
+  "graph",
+  "hierarchy",
+  "network",
+  "org",
+  "sitemap",
+  "tree",
+]);
+
+/** Tokens that can name a concept. Digits and {@link ANALOG_MODIFIERS} drop. */
+export const contentTokens = (...parts: readonly string[]): string[] => {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const part of parts) {
+    for (const token of tokens(part)) {
+      if (
+        /^\d+$/u.test(token) ||
+        ANALOG_MODIFIERS.has(token) ||
+        seen.has(token)
+      ) {
+        continue;
+      }
+      seen.add(token);
+      out.push(token);
+    }
+  }
+  return out;
+};
+
+/**
+ * One token → a family already in this module, or null.
+ * Exact family id, exact kin, or a plural stem. No substring (`mailbox`
+ * is not mail; that would volunteer a family the name did not ask for).
+ */
+export const familyFromToken = (token: string): AnalogFamilyId | null => {
+  if (token.length < 3 || UNVOLUNTEERED.has(token)) {
+    return null;
+  }
+  if (Object.hasOwn(FAMILY_DRAW, token)) {
+    return token as AnalogFamilyId;
+  }
+  const kin = ANALOG_KINS[token];
+  if (kin !== undefined) {
+    return kin;
+  }
+  for (const id of Object.keys(FAMILY_DRAW) as AnalogFamilyId[]) {
+    if (sameStem(token, id)) {
+      return id;
+    }
+  }
+  for (const [name, id] of Object.entries(ANALOG_KINS)) {
+    if (sameStem(token, name)) {
+      return id;
+    }
+  }
+  return null;
+};
+
+/**
+ * Unique family named by the content tokens, or null.
+ * Two different families (`flag-mail`) is not a composition we can draw
+ * honestly — unknown, not a pick. A glyph token blocks a volunteer.
+ */
+export const familyFromTokens = (
+  ...parts: readonly string[]
+): AnalogFamilyId | null => {
+  const found = new Set<AnalogFamilyId>();
+  let glyph = false;
+  for (const token of contentTokens(...parts)) {
+    if (UNVOLUNTEERED.has(token)) {
+      glyph = true;
+      continue;
+    }
+    const id = familyFromToken(token);
+    if (id !== null) {
+      found.add(id);
+    }
+  }
+  if (glyph || found.size !== 1) {
+    return null;
+  }
+  return [...found][0] ?? null;
+};
+
+const isHubName = (...parts: readonly string[]): boolean => {
+  const found = contentTokens(...parts);
+  if (found.length === 0) {
+    return false;
+  }
+  return found.every((token) => HUB_TOKENS.has(token));
+};
+
 /** Names that are a pile of rims, not a tree. Whole tokens, not `data`. */
 export const STACK_HINT =
   /\b(?:beaker|cylinder|database|drum|server|storage|trays?)\b/iu;
@@ -827,6 +957,25 @@ const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
       return id;
     }
   }
+  const fromTokens = familyFromTokens(slug, text);
+  if (fromTokens !== null) {
+    return fromTokens;
+  }
+  const named = contentTokens(slug, text);
+  const families = new Set<AnalogFamilyId>();
+  let glyph = false;
+  for (const token of named) {
+    if (UNVOLUNTEERED.has(token)) {
+      glyph = true;
+    }
+    const id = familyFromToken(token);
+    if (id !== null) {
+      families.add(id);
+    }
+  }
+  if (glyph || families.size > 1) {
+    return null;
+  }
   for (const { hint, id } of FAMILY_HINTS) {
     if (hint.test(text)) {
       return id;
@@ -836,19 +985,27 @@ const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
 };
 
 /**
- * Place the vocabulary marks whose names share a token or a plural stem
- * with the query. Named anchors only — the model never emits a coordinate.
- * When the extract is empty, a shipped kin / stem that names a family
- * returns that family's program — offline, no corpus. Null when neither a
- * named part nor a kin answers, so a provenance-only hit does not become a
- * drawing.
+ * Place the vocabulary marks whose names share a token, a plural stem, or
+ * a token-resolved family with the query. Named anchors only — the model
+ * never emits a coordinate. `office-mail` reaches a part named `envelope`
+ * because `mail` already names that family. When the extract is empty, the
+ * same token walk returns that family's program. Null when the tokens name
+ * nothing, or name two families, or a glyph.
  */
 export const composeFromParts = (
   slug: string,
   parts: readonly Part[],
   finish: Finish = "outlined"
 ): string | null => {
-  const want = tokens(slug);
+  const want = contentTokens(slug);
+  const extra: AnalogFamilyId[] = [];
+  for (const token of want) {
+    const id = familyFromToken(token);
+    if (id !== null && !want.includes(id) && !extra.includes(id)) {
+      extra.push(id);
+    }
+  }
+  want.push(...extra);
   const named = parts.filter((p) => {
     const name = p.name ?? "";
     const alias = ANALOG_KINS[slug] ?? "";
@@ -856,6 +1013,7 @@ export const composeFromParts = (
       name.length > 0 &&
       (overlap(tokens(name), want) > 0 ||
         sameStem(slug, name) ||
+        want.some((token) => sameStem(token, name)) ||
         (alias.length > 0 && sameStem(alias, name)))
     );
   });
@@ -916,7 +1074,7 @@ const familyOf = (
   if (id !== null) {
     return { id, source: FAMILY_DRAW[id](slug, finish) };
   }
-  if (HUB_HINT.test(text)) {
+  if (isHubName(slug, text)) {
     return { id: "hub", source: hub(slug, 3, finish) };
   }
   return null;
