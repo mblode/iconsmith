@@ -194,7 +194,7 @@ export const registerEvalCommand = (program: Command): void => {
       "comma-separated run seeds; runs each and reports the seed-to-seed spread. The baseline protocol is `--slice 30 --seeds 1,2,3`",
       (v: string) => v.split(",").map((n) => Number(n.trim()))
     )
-    .option("--model <id>", "model id")
+    .option("--model <id>", "gateway or OpenRouter model id (`provider/model`)")
     .option("--max-steps <n>", "tool steps per icon", Number.parseFloat)
     .option("--concurrency <n>", "icons in flight", Number.parseFloat, 2)
     .option(

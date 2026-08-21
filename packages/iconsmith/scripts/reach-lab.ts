@@ -40,14 +40,14 @@
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { gatewayToken } from "../src/pipeline/gateway.js";
+import { gatewayToken, openrouterToken } from "../src/pipeline/gateway.js";
 import type { Unkeyed } from "../src/pipeline/generate.js";
 import { classifyReach, reach } from "../src/pipeline/reach.js";
 import { thinking } from "../src/pipeline/thinking.js";
 import type { Thinking } from "../src/pipeline/thinking.js";
 import { run as runDsl } from "../src/tools/dsl.js";
 import { lint } from "../src/tools/lint.js";
-import { adaptProgram, sameExtent } from "../src/tools/twin.js";
+import { adaptProgram, twinPairIssues } from "../src/tools/twin.js";
 import type { Finish } from "../src/types.js";
 
 const OUT = path.join(".staging", "reach-10");
@@ -56,9 +56,9 @@ const OUT = path.join(".staging", "reach-10");
  * The set, each with the arm the dashboard credited it to.
  *
  * `compile` is keyed to a house file, so it needs corpus path data handed in;
- * `agent` needs a gateway credential and `harness` a coding-agent CLI. None of
- * the three is available by default, which is the point of recording what a run
- * could not do.
+ * `agent` needs a gateway or OpenRouter credential and `harness` a coding-agent
+ * CLI. None of the three is available by default, which is the point of
+ * recording what a run could not do.
  */
 export const REACH_SET: readonly { arm: Unkeyed; name: string }[] = [
   { arm: "agent", name: "briefcase" },
@@ -78,8 +78,8 @@ export const REACH_SET: readonly { arm: Unkeyed; name: string }[] = [
  *  client. */
 export const unavailable = (arm: Unkeyed): string | null => {
   if (arm === "agent") {
-    return gatewayToken() === undefined
-      ? "the agent arm needs a gateway credential (AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN)"
+    return gatewayToken() === undefined && openrouterToken() === undefined
+      ? "the agent arm needs a gateway credential (AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN) or OPENROUTER_API_KEY"
       : null;
   }
   if (arm === "harness") {
@@ -218,14 +218,13 @@ const drawOne = async (
       drawn.brief ?? entry.name
     ),
   };
-  if (
-    !sameExtent(
-      runDsl(paints.outlined.record.program, []).canvas,
-      runDsl(paints.filled.record.program, []).canvas
-    )
-  ) {
+  const twinErrors = twinPairIssues(
+    runDsl(paints.outlined.record.program, []).canvas,
+    runDsl(paints.filled.record.program, []).canvas
+  ).filter((issue) => issue.severity === "error");
+  if (twinErrors.length > 0) {
     throw new Error(
-      `${entry.name}: the two paints occupy different visual extents.`
+      `${entry.name}: ${twinErrors.map((issue) => issue.message).join("; ")}`
     );
   }
   mkdirSync(dir, { recursive: true });

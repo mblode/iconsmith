@@ -8,6 +8,10 @@
  * Keyed compile scored 0.999 on `pull-request`; N=5 agent redraws of the same
  * file scored 0.58–0.79. `forceAgent` skips host DRAW entirely.
  */
+import { run as runDsl } from "../tools/dsl.js";
+import { lint } from "../tools/lint.js";
+import { adaptProgram } from "../tools/twin.js";
+import type { Finish, Issue, Part } from "../types.js";
 import { analogArm, sameLetters } from "./analog.js";
 import { LOOK_SCREEN } from "./audit.js";
 import { generate } from "./generate.js";
@@ -17,6 +21,7 @@ import { glyphFromSlug } from "./glyphs.js";
 import { harnessArm } from "./harness.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
+import { pairCanvases } from "./pair.js";
 import type { Concept } from "./prompt.js";
 import { compileArm } from "./reconstruct.js";
 import { splicePair, splicePaths } from "./splice.js";
@@ -40,7 +45,13 @@ export interface HouseSource {
    * Names only — the caller ranked them; this module does not read the corpus.
    */
   kin?: (query: string) => readonly string[];
-  paths: (slug: string) => readonly string[] | null;
+  /**
+   * House path `d` strings. `finish` selects the paint: outlined is the
+   * default (the house file `has` names); filled is the solid variant when
+   * that file exists. A missing paint returns null — the caller then adapts
+   * or skips, rather than compiling the other paint under the wrong finish.
+   */
+  paths: (slug: string, finish?: Finish) => readonly string[] | null;
 }
 
 /**
@@ -97,11 +108,12 @@ const pathsOf = (
   plan: ReachPlan,
   concept: Concept,
   options: GenerateOptions,
-  house?: HouseSource
-): readonly string[] => {
+  house?: HouseSource,
+  finish: Finish = "outlined"
+): readonly string[] | null => {
   if (plan.base !== undefined && plan.badge !== undefined) {
-    const body = house?.paths(plan.base);
-    const badge = house?.paths(plan.badge);
+    const body = house?.paths(plan.base, finish);
+    const badge = house?.paths(plan.badge, finish);
     if (body === undefined || body === null) {
       throw miss(plan.base);
     }
@@ -111,11 +123,60 @@ const pathsOf = (
     return splicePaths(body, badge);
   }
   const paths =
-    options.targetPaths ?? house?.paths(plan.of ?? concept.name) ?? undefined;
+    options.targetPaths ??
+    house?.paths(plan.of ?? concept.name, finish) ??
+    undefined;
   if (paths === undefined) {
-    throw miss(concept.name);
+    return null;
   }
   return paths;
+};
+
+/**
+ * Net-new / missing-filled-house fallback: re-paint a compiled outline.
+ * The keyed path never lands here when a filled house file exists.
+ */
+const adaptFilledFrom = (
+  drawn: GenerateResult,
+  options: GenerateOptions
+): GenerateResult => {
+  const source = drawn.program;
+  if (source === undefined || source.trim() === "") {
+    return drawn;
+  }
+  const adapted = adaptProgram(source, "filled");
+  const extras: Part[] = drawn.extras ?? options.parts ?? [];
+  const opts = options.spec ? { spec: options.spec } : {};
+  const outlined = runDsl(source, extras, opts);
+  const program = runDsl(adapted, extras, opts);
+  const issues: Issue[] = pairCanvases(
+    [
+      ...program.errors.map((message) => ({
+        message,
+        rule: "dsl" as const,
+        severity: "error" as const,
+      })),
+      ...lint(program.canvas, { keyline: program.keyline }),
+    ],
+    "filled",
+    program.canvas,
+    outlined.canvas
+  );
+  return {
+    ...drawn,
+    brief:
+      drawn.brief === undefined ? undefined : `adapt filled ${drawn.brief}`,
+    clean: issues.every((i) => i.severity !== "error"),
+    doc: program.canvas.toJSON({
+      icon: program.icon ?? drawn.doc.icon,
+      keyline: program.keyline,
+    }),
+    extras,
+    issues,
+    program: adapted,
+    svg: program.canvas.toSVG(),
+    text: drawn.text,
+  };
 };
 
 const analogOrAgent = async (
@@ -177,10 +238,27 @@ export const reach = (
     return glyphArm()(concept, options);
   }
   if (plan.kind === "compile") {
-    return compileArm()(concept, {
-      ...options,
-      targetPaths: pathsOf(plan, concept, options, house),
-    });
+    const finish = options.finish ?? "outlined";
+    const paintPaths = pathsOf(plan, concept, options, house, finish);
+    if (paintPaths !== null && paintPaths.length > 0) {
+      return compileArm()(concept, {
+        ...options,
+        finish,
+        targetPaths: paintPaths,
+      });
+    }
+    if (finish === "filled") {
+      const outlined = pathsOf(plan, concept, options, house, "outlined");
+      if (outlined === null || outlined.length === 0) {
+        throw miss(concept.name);
+      }
+      return compileArm()(concept, {
+        ...options,
+        finish: "outlined",
+        targetPaths: outlined,
+      }).then((drawn) => adaptFilledFrom(drawn, options));
+    }
+    throw miss(concept.name);
   }
   if (options.unkeyed === "harness") {
     return harnessArm({

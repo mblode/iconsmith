@@ -1,4 +1,3 @@
-import type { Spec } from "../tools/canvas.js";
 /**
  * Host marks as a GenerateFn.
  *
@@ -7,6 +6,7 @@ import type { Spec } from "../tools/canvas.js";
  * When `options.ask` is set, DRAW screenshots, then applies at most one catalog
  * repair and looks again. The model never runs.
  */
+import type { Spec } from "../tools/canvas.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import type { Issue } from "../types.js";
@@ -15,6 +15,7 @@ import type { GenerateLike } from "./harness.js";
 import { MARK_TWINS, markFromSlug } from "./kind.js";
 import { applyRepair, pickRepair } from "./look.js";
 import { MARKS } from "./marks.js";
+import { pairPrograms } from "./pair.js";
 
 /** Thrown when the slug is not a MARKS key (or a `-filled` twin of one). */
 export class MarkError extends Error {
@@ -109,6 +110,15 @@ export const markArm =
       }
     }
     const drawn = fromSource(source, concept.name, spec);
+    const other = finish === "filled" ? "outlined" : "filled";
+    const issues = pairPrograms(
+      drawn.issues,
+      finish,
+      source,
+      MARKS[mark](concept.name, other),
+      [],
+      spec
+    );
     const brief = repaired
       ? `${finish} ${mark} repaired ${repaired}`
       : `${finish} ${mark}`;
@@ -116,6 +126,8 @@ export const markArm =
       audit: reviewed,
       brief,
       ...drawn,
+      clean: issues.every((issue) => issue.severity !== "error"),
+      issues,
       text: brief,
     };
   };

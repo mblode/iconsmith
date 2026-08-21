@@ -95,7 +95,7 @@ cohort   [<name>]           -- scale everything to the family's measured extent
 - **`arc`** — an open circular arc. Same cubics as `circle`. Name a pole (`top` / `right` / `bottom` / `left`), a sweep (`quarter` / `half` / `three-quarter`), and optionally `ccw`. Wifi fans, umbrella canopies, C-shapes, the lobes of an S. A curve is never a polyline of grid points. Filled, the stroke expands into an annular sector — the ink the outline already occupied, not a pie of the sweep.
 - **`diamond`** — a square rotated 45°. `r` is centre to vertex, so every edge sits on 45°/135°. A compass needle, a card suit, a lozenge. A kite that is only grid-legal (unequal diagonals) is off-axis and is a `line … off-axis`, not this op.
 - **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid. If the stroke is a curve, use `arc` or `circle`. A diamond that should be on 45° is `diamond`, not a polyline of unequal run and rise.
-- **`hole`** — cut a rect or a circle out of the solid drawn most recently. Filled icons only, and it is how interior white is made: 45% of the set's filled icons knock at least one hole out of a solid, so a ring is `circle` then `hole circle`, and a card with a slot is `rect` then `hole rect`. The hole has to sit inside the solid it cuts — a piece hanging outside would paint ink rather than remove it, and is refused.
+- **`hole`** — cut a rect or a circle out of the solid drawn most recently. Filled icons only, and it is how interior white is made: 45% of the set's filled icons knock at least one hole out of a solid, so a ring is `circle` then `hole circle`, and a card with a slot is `rect` then `hole rect`. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. Name the solid with `cutFrom` when you have to come back to it. The hole has to sit inside the solid it cuts — a piece hanging outside would paint ink rather than remove it, and is refused.
 - **`dot`** — a solid disc with one of the four roles above. Default `terminal`.
 - **`part`** — place a shape from the set's extracted vocabulary by name or id. Prefer this over drawing a common form from scratch: it is _the same_ folder, chevron or magnifier the rest of the set already uses, which is the whole point. A bare `<x>,<y>` names the part's top-left; a named anchor names its centre. Anchors: `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`, `bottom-right`. `size <n>` sets the long axis; `fill` scales the part to the declared keyline. `turn` names a quarter — `cw`, `half`, `ccw`, never an angle, because only the quarters keep every node on the grid. `flip` mirrors the part, and is applied before the turn. Ask for `flip` on purpose: a check mark, a comma and every letterform are chiral, so an implicit mirror is a backwards glyph rather than an orientation. Parts come from a `parts.json` for the set, passed as `iconsmith draw prog.icon --parts parts.json`; without one, `part` has nothing to place. An unnamed mark is addressed by the `id` in that file (`part p0123`), which is what the brief lists when search hits one.
 - **`finish`** — `outlined` (the default: a stroked skeleton) or `filled` (solid shapes). Declare it before you draw anything, because a corner radius and a dot diameter both mean different things under each. Filled changes three things and nothing else: `hole` becomes available, a two-point `line` expands into a bar and an `arc` into an annular sector (a polyline still encloses nothing and is refused), and corners come from the filled radius tiers (0.5, 1, 1.5, 2, 3, 4 — the outlined tiers shifted by half a stroke, since a filled edge is a boundary where a stroked one is a centre line). Keylines, clearance and centring are unchanged: a filled icon and its outlined twin occupy the same visual extent in 94% of the set's pairs.
@@ -118,7 +118,17 @@ One skeleton, two paints. Outlined is a centre-line stroke. Filled is that strok
 
 Do not flood-fill the path bbox (that grows the icon); invert the line drawing; run a bar through a hollow ring (timeline crescents); bury a solid inside another element; mix a stroke into a filled icon; or declare `finish` after geometry.
 
-A plus. Outlined is two `line`s; filled is two 2-wide `rect`s on the same centre-lines, each bar half a stroke past both endpoints so the two occupy the same visual extent. A ring is the same skeleton: `circle`, or `circle` then `hole circle`.
+A plus. Outlined is two `line`s (house `plus-large` is four open strokes from the hub); filled is one evenodd compound, or two 2-wide `rect`s on the same centre-lines, each bar half a stroke past both endpoints so the two occupy the same visual extent. Not two `line`s under `finish filled`, and not a flood of the bbox.
+
+A ring is the same skeleton: `circle`, or `circle` then `hole circle` immediately after. A mark between them ships a solid disc. `fit` to the same keyline does not hide a missing knockout — pairing after `fit` has to read the construction, not the box.
+
+A clock. Outlined is a ring plus hands as a polyline from the centre (`circle 12,12 r9` and `line 12,7 12,12 16,12`). Filled is a solid disc with the hands cut out, `hole` immediately after the disc — not a ring restamped as a disc, and not hands drawn on top of a filled face.
+
+A check. Outlined is an open tick stroke. Filled is a badge disc with the tick cut out (evenodd). Not a thick tick, and not a tick drawn on top of a disc.
+
+A home. Outlined is one closed pentagon — roof peak and walls as the outer stroke. Filled is that silhouette (body plus a roof seated on the eaves), not a frame-and-dot and not a door nobody asked for.
+
+These are constructions, not glyphs to volunteer for an unasked name.
 
 A strike-through. Two half-arcs of one circle, plus a bar. Not a zigzag S.
 
@@ -144,6 +154,16 @@ keyline square
 finish filled
 rect 3,11 18x2
 rect 11,3 2x18
+```
+
+```icon
+icon clock
+keyline circle
+finish filled
+circle 12,12 r10
+hole rect 11,7 2x6
+hole rect 12,11 5x2
+fit
 ```
 
 - **`center`** — recentre the drawing's content on (12,12).
@@ -244,8 +264,9 @@ Fix every `error`. A `warn` is a prompt to confirm the choice was deliberate.
 | `bleed` | error | geometry runs outside the live area |
 | `substance` | error | there is too little ink for this to be an icon |
 | `cut` | warn | shapes knock out of each other by the wrong amount |
-| `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only) |
+| `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only). Measured edge-to-edge along flattened polylines, not vertex-to-vertex: crossing marks are coincident, staggered parallels report the perpendicular gap. |
 | `feature` | warn | a filled shape or hole is narrower than `minFeature` (filled only — filled shapes are meant to touch, so `gap` has nothing to say about them) |
+| `hole` | error | a knockout sits inside an earlier uncut disc but cut a later mark (filled only). The disc ships solid — `cutFrom` the ring, or draw `hole` immediately after it. |
 | `off-axis` | warn | a straight run leaves 0/45/90 (outlined only — an expanded fill's joins are the flattener's angles, not a decision) |
 | `centred` | warn | content centre is not (12,12), and the family does not agree |
 | `cohort-align` | warn | the icon sits off the extent of the family it swaps with |

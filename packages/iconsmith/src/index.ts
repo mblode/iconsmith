@@ -42,7 +42,14 @@ export {
   stableStringify,
 } from "./corpus/record.js";
 export { availableSources, SOURCES } from "./corpus/sources.js";
-export { bbox, parsePath, q, serialise, translate } from "./geometry/path.js";
+export {
+  bbox,
+  parsePath,
+  polylineDistance,
+  q,
+  serialise,
+  translate,
+} from "./geometry/path.js";
 export { extractParts, writeParts } from "./parts/extract.js";
 export { distance, fingerprint } from "./parts/shape.js";
 export { NAME_THRESHOLD, nameParts, VOCABULARY } from "./parts/vocabulary.js";
@@ -92,12 +99,77 @@ export {
 } from "./pipeline/eval.js";
 export {
   DEFAULT_MODEL,
+  DEFAULT_OPENROUTER_MODEL,
   generate,
   MissingApiKeyError,
+  OPENROUTER_INKLING,
 } from "./pipeline/generate.js";
-export { analogArm, hub, stack, trays } from "./pipeline/analog.js";
+export {
+  analogArm,
+  ANALOG_ALIASES,
+  ANALOG_KINS,
+  ANALOG_MODIFIERS,
+  contentTokens,
+  familyFromToken,
+  familyFromTokens,
+  anchor,
+  apple,
+  banana,
+  bell,
+  book,
+  camera,
+  car,
+  check,
+  clock,
+  cloud,
+  composeFromParts,
+  envelope,
+  fish,
+  flag,
+  flask,
+  flower,
+  hammer,
+  heart,
+  home,
+  horn,
+  hourglass,
+  hub,
+  key,
+  kiwi,
+  ladder,
+  leaf,
+  lock,
+  magnet,
+  moon,
+  mushroom,
+  peak,
+  pencil,
+  pin,
+  plant,
+  plus,
+  rocket,
+  ring,
+  sailboat,
+  shield,
+  stack,
+  stapler,
+  sun,
+  tent,
+  tower,
+  trays,
+  trophy,
+  tube,
+  unknown,
+  volcano,
+  wine,
+} from "./pipeline/analog.js";
 export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
+export {
+  compileArm,
+  compilePaint,
+  finishProgram,
+} from "./pipeline/reconstruct.js";
 export { glyphArm } from "./pipeline/glyph.js";
 export { glyphFromSlug, GLYPHS, GLYPH_WHY } from "./pipeline/glyphs.js";
 export type { GlyphName } from "./pipeline/glyphs.js";
@@ -130,7 +202,14 @@ export {
   verdict,
 } from "./tools/cohort.js";
 export { run as runDsl } from "./tools/dsl.js";
-export { adaptProgram, fan, lozenge } from "./tools/twin.js";
+export {
+  adaptProgram,
+  fan,
+  lozenge,
+  programFromDoc,
+  sameExtent,
+  twinPairIssues,
+} from "./tools/twin.js";
 export {
   CONFORMANCE,
   clusterExtents,

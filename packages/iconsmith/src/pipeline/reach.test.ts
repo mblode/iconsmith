@@ -11,7 +11,8 @@ const hasWifiFull = (slug: string): boolean => slug === "wifi-full";
 
 const house = (slugs: Record<string, string[]>): HouseSource => ({
   has: (slug) => slug in slugs,
-  paths: (slug) => slugs[slug] ?? null,
+  paths: (slug, finish = "outlined") =>
+    finish === "filled" ? null : (slugs[slug] ?? null),
 });
 
 describe("classifyReach", () => {
@@ -138,6 +139,40 @@ describe("reach", () => {
     expect(result.issues.some((i) => i.message.includes("unknown part"))).toBe(
       false
     );
+  });
+
+  it("compiles a filled house file as finish filled, not an adapted outline", async () => {
+    const outlined = "M4 4H20V20H4Z";
+    const filled = "M2 2H22V22H2Z";
+    const result = await reach(
+      { name: "box" },
+      { finish: "filled" },
+      {
+        has: (slug) => slug === "box",
+        paths: (slug, finish = "outlined") => {
+          if (slug !== "box") {
+            return null;
+          }
+          return finish === "filled" ? [filled] : [outlined];
+        },
+      }
+    );
+    expect(result.brief).toBe("compile box");
+    expect(result.program).toContain("finish filled");
+    expect(result.doc.finish).toBe("filled");
+    expect(result.program).not.toContain("adapt");
+  });
+
+  it("adapts a compiled outline when the filled house is missing", async () => {
+    const result = await reach(
+      { name: "box" },
+      { finish: "filled" },
+      house({ box: [BOX] })
+    );
+    expect(result.brief).toBe("adapt filled compile box");
+    expect(result.program).toContain("finish filled");
+    expect(result.issues.some((issue) => issue.rule === "empty")).toBe(false);
+    expect(result.issues.some((issue) => issue.rule === "finish")).toBe(false);
   });
 
   it("compiles a letter-twin instead of analog replay", async () => {

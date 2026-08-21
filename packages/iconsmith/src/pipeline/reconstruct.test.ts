@@ -9,7 +9,13 @@ import { nameParts } from "../parts/vocabulary.js";
 import { run } from "../tools/dsl.js";
 import { cosine, inkVector } from "../tools/render.js";
 import type { Part } from "../types.js";
-import { CompileError, compileArm, compileIcon } from "./reconstruct.js";
+import {
+  CompileError,
+  compileArm,
+  compileIcon,
+  compilePaint,
+  finishProgram,
+} from "./reconstruct.js";
 
 const VARIANT_DIR = path.join("corpus", HOUSE_VARIANT);
 const present = existsSync(path.join(VARIANT_DIR, "pull-request.svg"));
@@ -245,5 +251,48 @@ describe("compileArm", () => {
     // A warning, not an error: an undeclared extent that sits on no key shape
     // is a prompt to check, and 24% of Central's own icons are in that state.
     expect(keyline?.severity).toBe("warn");
+  });
+});
+
+describe("compilePaint", () => {
+  it("stamps finish filled so a solid house file is not restroked", () => {
+    expect(finishProgram("icon plus\npart plus-0 at 4,4 size 16\n", "filled"))
+      .toBe(`icon plus
+finish filled
+part plus-0 at 4,4 size 16
+`);
+    const painted = compilePaint("plus", [PATH], "filled");
+    expect(painted.source).toContain("finish filled");
+    expect(painted.program.canvas.finish).toBe("filled");
+    expect(painted.program.errors).toEqual([]);
+    expect(painted.program.canvas.toSVG()).toMatch(/fill="currentColor"/u);
+  });
+
+  it("expands an open house stroke into filled bars instead of a blank", () => {
+    const painted = compilePaint("tick", ["M4 12L12 20L20 4"], "filled");
+    expect(painted.program.errors).toEqual([]);
+    expect(painted.program.canvas.toSVG()).toMatch(/<path/u);
+    expect(painted.program.canvas.toSVG()).not.toBe(
+      `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n\n</svg>`
+    );
+  });
+
+  it("keeps a filled evenodd compound as one part so holes stay holes", () => {
+    const evenodd = "M2 2H22V22H2ZM8 8H16V16H8Z";
+    const painted = compilePaint("lock", [evenodd], "filled");
+    expect(painted.extras).toHaveLength(1);
+    expect(painted.source.match(/^part /gmu)?.length).toBe(1);
+    expect(painted.program.canvas.toSVG()).toContain('fill-rule="evenodd"');
+    expect(painted.program.errors).toEqual([]);
+  });
+
+  it("compileArm uses options.finish so a filled house is not restroked", async () => {
+    const result = await compileArm()(
+      { name: "plus" },
+      { finish: "filled", targetPaths: [PATH] }
+    );
+    expect(result.program).toContain("finish filled");
+    expect(result.doc.finish).toBe("filled");
+    expect(result.extras?.length).toBeGreaterThan(0);
   });
 });

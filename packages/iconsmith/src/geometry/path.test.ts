@@ -6,6 +6,7 @@ import {
   parsePath,
   PathError,
   points,
+  polylineDistance,
   q,
   rotateQuarter,
   scale,
@@ -195,4 +196,34 @@ test("exponents, negatives and implicit repeats still parse unchanged", () => {
   expect_ok(
     points(sp[0]).every(([x, y]) => Number.isFinite(x) && Number.isFinite(y))
   );
+});
+
+test("polylineDistance is segment-to-segment, not vertex-to-vertex", () => {
+  // Staggered parallels: endpoints are ~4px apart, the edges sit 0.50 apart.
+  expect(
+    polylineDistance(
+      [
+        [4, 12],
+        [16, 12],
+      ],
+      [
+        [8, 12.5],
+        [20, 12.5],
+      ]
+    )
+  ).toBeCloseTo(0.5, 6);
+  // Crossing segments are coincident, not an endpoint overhang.
+  expect(
+    polylineDistance(
+      [
+        [6, 6],
+        [18, 18],
+      ],
+      [
+        [6, 18],
+        [18, 6],
+      ]
+    )
+  ).toBeCloseTo(0, 6);
+  expect(polylineDistance([], [[0, 0]])).toBeNull();
 });

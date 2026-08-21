@@ -21,6 +21,7 @@ import {
   buildPage,
   paintsOf,
   cardIssues,
+  compileHouseTwin,
   constructionSteps,
   counterpartSlug,
   discoverIcons,
@@ -29,11 +30,13 @@ import {
   keylineOf,
   loadMetrics,
   loadTrace,
+  loadViewParts,
   parseLog,
   placeOnScale,
   stagedHouse,
   twinProgram,
   twinShapes,
+  withRecordedStatus,
 } from "./view.js";
 
 const temp = () => mkdtempSync(path.join(tmpdir(), "iconsmith-view-"));
@@ -611,7 +614,12 @@ describe("buildPage", () => {
       opts
     );
     expect(html).toContain("<h3>as recorded</h3>");
-    expect(html).toContain("without recording a finding");
+    expect(html).toContain("without recording an error");
+    expect(html).toContain("1 icon(s) · 1 error(s)");
+    expect(html).toContain("has-error");
+    expect(html).not.toContain(
+      "clean — every house check passed, in every paint"
+    );
   });
 
   it("shows a waiver as its own state, not as a pass", () => {
@@ -674,6 +682,20 @@ describe("cardIssues", () => {
     ).toHaveLength(1);
   });
 
+  it("promotes a dirty record without an error into a card error", () => {
+    const dirty = withRecordedStatus(
+      card({ metrics: { clean: false, policy: "compile" } })
+    );
+    expect(dirty.issues).toEqual([
+      {
+        message:
+          "The arm recorded this drawing as not clean without recording an error. Whatever it objected to is not in this list.",
+        rule: "recorded",
+        severity: "error",
+      },
+    ]);
+  });
+
   it("keeps what the arm recorded", () => {
     expect(
       cardIssues(
@@ -717,6 +739,60 @@ describe("paintsOf", () => {
     );
     expect(issues.filter((i) => i.rule === "dsl")).toEqual([]);
     expect(paints.map((p) => p.finish)).toEqual(["outlined", "filled"]);
+    expect(issues.filter((i) => i.rule === "extent")).toEqual([]);
+  });
+
+  it("replays a compile program when extras sit beside the svg", () => {
+    const dir = temp();
+    const file = path.join(dir, "heart.svg");
+    writeFileSync(file, ICON);
+    const extra = {
+      closed: true,
+      d: "M4 4H20V20H4Z",
+      h: 16,
+      icons: ["heart"],
+      id: "heart-0",
+      instances: 1,
+      nodes: 4,
+      sizeRange: [16, 16] as [number, number],
+      w: 16,
+    };
+    writeFileSync(
+      path.join(dir, "heart.parts.json"),
+      `${JSON.stringify({ parts: [extra] })}\n`
+    );
+    const { issues, paints } = paintsOf(
+      { file, group: null, slug: "heart" },
+      ICON,
+      "icon heart\nfinish outlined\npart heart-0 at 4,4 size 16\n"
+    );
+    expect(issues.filter((i) => i.rule === "dsl")).toEqual([]);
+    expect(paints[0]?.shapes.length).toBeGreaterThan(0);
+    expect(loadViewParts(file).map((p) => p.id)).toEqual(["heart-0"]);
+  });
+
+  it("compiles a staged filled house instead of adapting the outline", () => {
+    const dir = temp();
+    const file = path.join(dir, "box.svg");
+    writeFileSync(file, ICON);
+    writeFileSync(
+      path.join(dir, "box-filled.house.svg"),
+      '<svg viewBox="0 0 24 24"><path d="M2 2H22V22H2Z" fill="currentColor"/></svg>'
+    );
+    const compiled = compileHouseTwin(file, "box", "filled");
+    expect(compiled?.source).toContain("finish filled");
+    expect(compiled?.source).toContain("part box-");
+    const { issues, paints } = paintsOf(
+      { file, group: null, slug: "box" },
+      ICON,
+      "icon box\nfinish outlined\ncircle 12,12 r8\n"
+    );
+    expect(issues.filter((i) => i.rule === "dsl")).toEqual([]);
+    expect(paints.map((p) => p.finish)).toEqual(["outlined", "filled"]);
+    expect(paints[1]?.program).toContain("finish filled");
+    expect(paints[1]?.program).toContain("part box-");
+    // Two house files are different constructions — do not pair them.
+    expect(issues.filter((i) => i.rule === "extent")).toEqual([]);
   });
 });
 

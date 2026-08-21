@@ -24,6 +24,7 @@ import type { Finish, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
+import { recipeBrief } from "./recipe.js";
 import { overlap, rankParts, tokens } from "./search.js";
 import type { Aliases } from "./search.js";
 
@@ -338,7 +339,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     hole: tool({
       description:
-        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
+        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
       execute: ({ cutFrom, cx, cy, h, r, shape, w, x, y }) =>
         track("hole", () => {
           // The two shapes take different fields, so the schema is flat and
@@ -419,7 +420,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     lint: tool({
       description:
-        "Check the drawing against the house spec. Errors must be fixed; warnings are judgment calls.",
+        "Check the drawing against the house spec. Errors must be fixed; warnings are judgment calls. `gap` is the true edge-to-edge distance between strokes (not vertex-to-vertex): crossing marks are coincident, staggered parallels report the perpendicular gap.",
       execute: ({ keyline: k }) =>
         track("lint", () => {
           const issues = lint(canvas, { keyline: k ?? keyline });
@@ -444,22 +445,26 @@ export const createTools = (options: ToolsOptions = {}) => {
       // is this tool's own: a model deciding whether to place a mark wants its
       // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
-        track("listParts", () => ({
-          matches: rankParts(parts, query, limit, aliases).map(
-            ({ hits, part }) => ({
-              h: part.h,
-              id: part.id,
-              name: part.name ?? null,
-              // Why it matched. An unnamed part is only useful if the model can
-              // tell what it is, and the icons it came from say that better
-              // than `p0044` does.
-              seenIn: hits.slice(0, 5),
-              usedByIcons: part.icons.length,
-              w: part.w,
-            })
-          ),
-          searched: parts.length,
-        })),
+        track("listParts", () => {
+          const construction = recipeBrief(query, finish);
+          return {
+            ...(construction ? { construction } : {}),
+            matches: rankParts(parts, query, limit, aliases).map(
+              ({ hits, part }) => ({
+                h: part.h,
+                id: part.id,
+                name: part.name ?? null,
+                // Why it matched. An unnamed part is only useful if the model can
+                // tell what it is, and the icons it came from say that better
+                // than `p0044` does.
+                seenIn: hits.slice(0, 5),
+                usedByIcons: part.icons.length,
+                w: part.w,
+              })
+            ),
+            searched: parts.length,
+          };
+        }),
       inputSchema: z.object({
         limit: z.number().int().min(1).max(50).optional(),
         query: z

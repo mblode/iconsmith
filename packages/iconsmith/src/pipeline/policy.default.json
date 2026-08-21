@@ -129,7 +129,7 @@
       "enabled": true,
       "provenance": "measured",
       "evidence": "97.5% of stroked shapes are exactly 2 units wide (SPEC.stroke).",
-      "text": "- **Stroke** {{stroke}} units at {{size}}px, round caps, round joins. Every shape you\n  place is an outline; a filled twin is that stroke expanded, never a fill on a path."
+      "text": "- **Stroke** {{stroke}} units at {{size}}px, round caps, round joins. {{paintRule}}"
     },
     {
       "id": "house.grid",
@@ -345,6 +345,15 @@
       "text": "- `part` — place a shape from the extracted vocabulary by id. Prefer this over\n  drawing a common form from scratch: it is *the same* folder, chevron, or\n  magnifier that the rest of the set already uses, which is the whole point.\n  `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors\n  the part before turning it. A part is stored at one orientation because the\n  clusterer folds a mark together with its turns and its mirror, so these are\n  how you reach the other seven. Ask for `flip` on purpose — chirality is the\n  one symmetry that can be simply wrong."
     },
     {
+      "id": "grammar.paint",
+      "section": "grammar",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "The 20-set: filled plus/lock/check/clock/heart are one evenodd compound; outlined plus-large is four open strokes; outlined clock is circle 12,12 r9 plus a polyline; 45% of filled icons knock a hole; a mark between circle and hole ships a solid disc.",
+      "text": "- **Paints are constructions, not a restamp** filled marks are evenodd\n  compounds. Plus: open strokes vs one evenodd solid. Clock: ring+hands\n  vs disc with hands cut out. Check: open tick vs badge+cutout. A ring\n  is `circle` then `hole` immediately after (or `cutFrom`)."
+    },
+    {
       "id": "grammar.remove",
       "section": "grammar",
       "enabled": true,
@@ -413,7 +422,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "inferred",
-      "text": "6. Stop. When it lints clean and reads correctly, reply with one sentence\n   describing what you drew. Stopping is the finished state, not a step you\n   skipped: an icon you have rendered, compared and linted is done, and the\n   most common way to make a good icon worse is a further change it did not\n   need. If you find yourself looking for something to adjust, that is the\n   signal to reply, not to adjust it."
+      "text": "6. Stop. When it lints clean and reads correctly, reply with one sentence\n   describing what you drew. If you find yourself looking for something to\n   adjust, that is the signal to reply, not to adjust it."
     },
     {
       "id": "proposal.what-it-is",

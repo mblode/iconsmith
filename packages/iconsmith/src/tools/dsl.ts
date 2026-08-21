@@ -25,6 +25,7 @@
  *   diamond  <cx>,<cy> r<n>
  *   hole     rect <x>,<y> <w>x<h> [r<n>]
  *   hole     circle <cx>,<cy> r<n>
+ *   hole     line <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
  *   line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
  *   dot      <cx>,<cy> [terminal|more|floating|node]
  *   center                      -- recentre everything on (12,12)
@@ -381,7 +382,7 @@ const rectArgs = (
   return { h, r: t[2] ? num(t[2], "radius") : 2, w, x, y };
 };
 
-/** `hole <shape> ...` — the same two shapes as solids, subtracted instead. */
+/** `hole <shape> ...` — the same shapes as solids, subtracted instead. */
 const holeOp = (canvas: Canvas, t: string[]): void => {
   const [, shape] = t;
   if (shape === "rect") {
@@ -389,9 +390,18 @@ const holeOp = (canvas: Canvas, t: string[]): void => {
   } else if (shape === "circle") {
     const [cx, cy] = pair(t[2]);
     canvas.hole({ cx, cy, r: num(t[3], "radius"), shape: "circle" });
+  } else if (shape === "line") {
+    canvas.hole({
+      offAxis: t.includes(OFF_AXIS),
+      points: t
+        .slice(2)
+        .filter((v) => v !== OFF_AXIS)
+        .map(pair),
+      shape: "line",
+    });
   } else {
     throw new Error(
-      `hole needs a shape to cut with: "rect" or "circle" — got "${shape ?? ""}"`
+      `hole needs a shape to cut with: "rect", "circle", or "line" — got "${shape ?? ""}"`
     );
   }
 };

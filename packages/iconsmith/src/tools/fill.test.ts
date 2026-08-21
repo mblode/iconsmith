@@ -135,7 +135,7 @@ test("cutFrom reaches back past a later solid, and the hole sits with it", () =>
   expect(c.toSVG().match(/<path/gu)).toHaveLength(2);
 });
 
-test("a filled canvas refuses geometry that would paint nothing", () => {
+test("a filled canvas refuses a polyline, and expands an open part to bars", () => {
   const c = filled([OPEN_PART, CLOSED_PART]);
   expect(() =>
     c.line({
@@ -147,7 +147,10 @@ test("a filled canvas refuses geometry that would paint nothing", () => {
       ],
     })
   ).toThrow(/polyline paints nothing in a filled icon/u);
-  expect(() => c.part({ id: OPEN_PART.id, x: 4, y: 4 })).toThrow(/open mark/u);
+  // OPEN_PART is L4,0 then L4,4 — two segments, two filled bars, not a blank.
+  expect(() => c.part({ id: OPEN_PART.id, x: 4, y: 4 })).not.toThrow();
+  expect(c.elements.length).toBeGreaterThanOrEqual(2);
+  expect(c.toSVG()).toMatch(/<path/u);
   expect(() => c.part({ id: CLOSED_PART.id, x: 4, y: 4 })).not.toThrow();
 });
 
@@ -293,6 +296,26 @@ test("the DSL refuses a finish declared after geometry, or an unknown one", () =
 test("the DSL's hole needs a shape it knows", () => {
   const r = run("finish filled\ncircle 12,12 r8\nhole blob 12,12 r2");
   expect(r.errors[0]).toMatch(/hole needs a shape to cut with/u);
+});
+
+test("a filled badge can cut a tick with hole line", () => {
+  const r = run(`
+    icon checkmark
+    keyline wide
+    finish filled
+    rect 2,3 20x16 r4
+    hole line 3,14 7,18 21,4
+    fit
+  `);
+  expect(r.errors).toEqual([]);
+  expect(r.canvas.elements.some((e) => e.op === "knockout")).toBe(true);
+  expect(r.canvas.toSVG()).toContain('fill-rule="evenodd"');
+  const back = r.canvas.toJSON();
+  expect(
+    back.draw.some(
+      (op) => (op.op === "line" || op.op === "rect") && op.knockout
+    )
+  ).toBe(true);
 });
 
 test("`fit` scales a filled drawing to the keyline without a stroke allowance", () => {

@@ -39,7 +39,7 @@ import { fileURLToPath } from "node:url";
 import type { Cohort } from "../tools/cohort.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import type { Issue } from "../types.js";
+import type { Finish, Issue } from "../types.js";
 import {
   AUDIT_FILE,
   audit,
@@ -50,6 +50,7 @@ import {
 import type { AuditAsk, AuditResult } from "./audit.js";
 import { applyGatewayEnv } from "./gateway.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
+import { pairAdapted } from "./pair.js";
 import type { CohortBrief, Concept } from "./prompt.js";
 import type { PartHint } from "./search.js";
 import { assembleAddressable, assembleVocabulary } from "./select.js";
@@ -212,6 +213,9 @@ const hintLine = (h: PartHint): string => {
 export interface BriefContext {
   /** Absolute path of the `.icon` file the agent must write. */
   file: string;
+  /** Which paint this run draws. The skill describes both; the brief
+   *  names this one so a filled spawn does not write an outline. */
+  finish?: Finish;
   /** Search hits for this concept, listed in the brief so the agent does not
    *  have to invent `listParts`. Ids are addressable; names are when present. */
   hints: readonly PartHint[];
@@ -242,6 +246,17 @@ export const harnessBrief = (
     "",
     `Draw the icon \`${concept.name}\`.`,
   ];
+  if (ctx.finish === "filled") {
+    lines.push(
+      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is illegal.",
+      "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
+      "Compose the named object from listed parts and primitives. A frame with a centre dot is not the concept."
+    );
+  } else {
+    lines.push(
+      "Paint: outlined. Compose the named object from listed parts and primitives, not a generic frame-and-dot."
+    );
+  }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);
   }
@@ -425,6 +440,28 @@ const appendRepair = (base: string, reviewed: AuditResult): string =>
     `Edit ${PROGRAM_FILE} only. Do not write SVG. Do not emit path data.`,
   ].join("\n");
 
+const programIssues = (
+  drawn: ReturnType<typeof runDsl>,
+  source: string,
+  finish: Finish | undefined,
+  parts: GenerateOptions["parts"],
+  spec: GenerateOptions["spec"]
+): Issue[] =>
+  pairAdapted(
+    [
+      ...drawn.errors.map((message) => ({
+        message,
+        rule: "dsl" as const,
+        severity: "error" as const,
+      })),
+      ...lint(drawn.canvas, { keyline: drawn.keyline }),
+    ],
+    finish ?? "outlined",
+    source,
+    parts ?? [],
+    spec
+  );
+
 /**
  * An external coding agent as a `GenerateFn`.
  *
@@ -472,6 +509,7 @@ export const harnessArm =
     }
     const ctx: BriefContext = {
       file,
+      finish: generateOptions.finish,
       hints,
       keyline: generateOptions.keyline ?? null,
       parts: partsFile,
@@ -551,14 +589,13 @@ export const harnessArm =
     // program is what the agent produced, and a run that half-drew scores as a
     // half-drawn icon. Carrying them as issues keeps `clean` honest and leaves
     // the eval's median measuring drawings rather than infrastructure.
-    const issues: Issue[] = [
-      ...program.errors.map((message) => ({
-        message,
-        rule: "dsl",
-        severity: "error" as const,
-      })),
-      ...lint(program.canvas, { keyline: program.keyline }),
-    ];
+    const issues = programIssues(
+      program,
+      source,
+      generateOptions.finish,
+      parts,
+      spec
+    );
     if (!keep) {
       rmSync(dir, { force: true, recursive: true });
     }

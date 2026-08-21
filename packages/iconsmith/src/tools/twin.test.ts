@@ -12,8 +12,10 @@ import {
   lozenge,
   mass,
   program,
+  programFromDoc,
   ring,
   sameExtent,
+  twinPairIssues,
   vbar,
   visualSize,
 } from "./twin.js";
@@ -247,6 +249,68 @@ test("adaptProgram round-trips a ring and a frame back to their centre lines", (
   }
 });
 
+test("twinPairIssues is quiet on a ring that occupies one extent", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const filled = draw("filled", ring("filled", 12, 12, 8));
+  expect(twinPairIssues(outlined, filled)).toEqual([]);
+});
+
+test("twinPairIssues fails a filled disc that restamps a stroked ring", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const filled = draw("filled", ["circle 12,12 r8"]);
+  const issues = twinPairIssues(outlined, filled);
+  expect(issues.some((issue) => issue.rule === "extent")).toBe(true);
+  expect(issues.find((issue) => issue.rule === "extent")?.severity).toBe(
+    "error"
+  );
+  expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+});
+
+test("twinPairIssues still sees a restamp after fit to the same keyline", () => {
+  const outlined = run(
+    [
+      "icon hoop",
+      "keyline circle",
+      "finish outlined",
+      "circle 12,12 r8",
+      "fit",
+    ].join("\n")
+  ).canvas;
+  const filled = run(
+    [
+      "icon hoop",
+      "keyline circle",
+      "finish filled",
+      "circle 12,12 r8",
+      "fit",
+    ].join("\n")
+  ).canvas;
+  const issues = twinPairIssues(outlined, filled);
+  expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+  expect(issues.find((issue) => issue.rule === "paint")?.message).toContain(
+    "fit"
+  );
+});
+
+test("twinPairIssues fails a finish-stamped outline posing as filled", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const issues = twinPairIssues(outlined, outlined);
+  expect(issues.some((issue) => issue.rule === "finish")).toBe(true);
+});
+
+test("twinPairIssues fails an empty paint", () => {
+  const outlined = draw("outlined", ring("outlined", 12, 12, 8));
+  const empty = {
+    bbox: () => null,
+    elements: [],
+    finish: "filled" as const,
+    inkWidth: 0,
+  };
+  expect(
+    twinPairIssues(outlined, empty).some((issue) => issue.rule === "empty")
+  ).toBe(true);
+});
+
 test("adaptProgram leaves an op it does not model untouched", () => {
   const outlined = [
     "icon parted",
@@ -257,4 +321,19 @@ test("adaptProgram leaves an op it does not model untouched", () => {
   const filled = adaptProgram(outlined, "filled");
   expect(filled).toContain("part folder at 4,4 size 16");
   expect(filled).toContain("# a note");
+});
+
+test("programFromDoc writes the paint the canvas already ran", () => {
+  const outlined = draw("outlined", ["circle 12,12 r8"]);
+  const source = programFromDoc(
+    outlined.toJSON({ icon: "ring", keyline: "circle" })
+  );
+  expect(source).toContain("icon ring");
+  expect(source).toContain("keyline circle");
+  expect(source).toContain("finish outlined");
+  expect(source).toContain("circle 12,12 r8");
+  const filled = draw("filled", ["circle 12,12 r9", "hole circle 12,12 r7"]);
+  expect(programFromDoc(filled.toJSON({ icon: "ring" }))).toContain(
+    "hole circle 12,12 r7"
+  );
 });

@@ -15,10 +15,11 @@
 import { SPEC } from "../tools/canvas.js";
 import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
-import type { Keyline } from "../types.js";
+import type { Finish, Keyline } from "../types.js";
 import type { Reference } from "./licence.js";
 import type { Condition, Policy, Tokens } from "./policy.js";
 import { DEFAULT_POLICY, renderPolicy } from "./policy.js";
+import { recipeBrief } from "./recipe.js";
 
 export interface Concept {
   /** Category from the host set, when the concept comes from one. */
@@ -62,9 +63,25 @@ const axis = (t: [number, number] | null, name: string): string =>
     ? `- ${name} spans ${t[0].toFixed(2)}..${t[1].toFixed(2)}.`
     : `- ${name} has no agreed extent in this family; centre it.`;
 
+/** The outlined house sentence. Kept verbatim so the default prompt
+ *  identity baseline does not move when a filled run substitutes another. */
+export const OUTLINED_PAINT_RULE =
+  "Every shape you\n  place is an outline; a filled twin is that stroke expanded, never a fill on a path.";
+
+/** This run is the solid variant. The outlined sentence would tell the
+ *  model to draw strokes on a canvas that has no `line` tool. */
+export const FILLED_PAINT_RULE =
+  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and `line` is not a tool. Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox. A ring is `circle` then `hole` immediately after; a plus is an evenodd compound or two bars, not lines; a clock is a disc with hands cut out; a check is a badge with a cutout.";
+
 export interface PromptOptions {
   /** The family the icon joins, when it joins one; enables the `cohort` op. */
   cohort?: CohortBrief | null;
+  /**
+   * Which paint this run draws. Supplies `{{paintRule}}` so the house
+   * stroke sentence is true for this canvas, not a description of the
+   * other variant. Default outlined, matching `generate`.
+   */
+  finish?: Finish;
   /** Forces a keyline instead of letting the model pick. */
   keyline?: Keyline | null;
   /**
@@ -98,6 +115,8 @@ export const systemPrompt = (opts: PromptOptions = {}): string => {
     maxElements: String(spec.maxElements),
     minFeature: String(spec.minFeature),
     minGap: String(spec.minGap),
+    paintRule:
+      opts.finish === "filled" ? FILLED_PAINT_RULE : OUTLINED_PAINT_RULE,
     radius: String(spec.radius),
     radiusTiers: spec.radiusTiers.join(", "),
     size: String(spec.size),
@@ -122,11 +141,32 @@ export const systemPrompt = (opts: PromptOptions = {}): string => {
   return renderPolicy(opts.policy ?? DEFAULT_POLICY, { conditions, tokens });
 };
 
-/** The per-icon brief. Deliberately thin: name, senses, and — when the concept
- *  comes from an existing set — the category, which fixes the sense far more
- *  cheaply than tags do ("mouse" in Devices is not "mouse" in Nature). */
-export const conceptPrompt = (concept: Concept): string => {
+/** The per-icon brief. Deliberately thin: name, paint, senses, and — when
+ *  the concept comes from an existing set — the category, which fixes the
+ *  sense far more cheaply than tags do ("mouse" in Devices is not "mouse"
+ *  in Nature). Paint belongs here: the system prompt used to describe
+ *  outlined on a filled run, and the model then spent turns looking for
+ *  `line` on a canvas that had deleted it. */
+export const conceptPrompt = (
+  concept: Concept,
+  finish: Finish = "outlined"
+): string => {
   const lines = [`Draw the icon \`${concept.name}\`.`];
+  if (finish === "filled") {
+    lines.push(
+      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is not available.",
+      "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
+      "Compose the named object from `listParts` and primitives. A frame with a centre dot is not the concept."
+    );
+  } else {
+    lines.push(
+      "Paint: outlined. Compose the named object from `listParts` and primitives, not a generic frame-and-dot."
+    );
+  }
+  const recipe = recipeBrief(concept.name, finish);
+  if (recipe) {
+    lines.push(recipe);
+  }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);
   }

@@ -23,7 +23,7 @@ import { fingerprint, flatten, match } from "../parts/shape.js";
 import { declareKeyline } from "../tools/declare.js";
 import type { Declared } from "../tools/declare.js";
 import { lint } from "../tools/lint.js";
-import type { Issue, Part, Subpath } from "../types.js";
+import type { Finish, Issue, Part, Subpath } from "../types.js";
 import type { GenerateLike } from "./harness.js";
 
 const GRID = 4;
@@ -94,17 +94,20 @@ const mixedSize = (part: Part, target: number): boolean => {
   return inRange && ratio > MIXED_SCALE && target >= HOUSE_SPAN;
 };
 
-const asLocal = (slug: string, n: number, sp: Subpath): Part => {
-  const box = bbox([sp]);
+const asLocal = (slug: string, n: number, sps: readonly Subpath[]): Part => {
+  const box = bbox(sps);
   return {
-    closed: sp.closed,
-    d: serialise([translate(sp, -box.x0, -box.y0)], { grid: PART_GRID }),
+    closed: sps.every((sp) => sp.closed),
+    d: serialise(
+      sps.map((sp) => translate(sp, -box.x0, -box.y0)),
+      { grid: PART_GRID }
+    ),
     h: box.h,
     icons: [slug],
     id: `${slug}-${n}`,
     instances: 1,
     name: slug,
-    nodes: sp.segs.length,
+    nodes: sps.reduce((sum, sp) => sum + sp.segs.length, 0),
     sizeRange: [Math.max(box.w, box.h), Math.max(box.w, box.h)],
     w: box.w,
   };
@@ -113,13 +116,13 @@ const asLocal = (slug: string, n: number, sp: Subpath): Part => {
 const placeLocal = (
   slug: string,
   n: number,
-  sp: Subpath,
+  sps: readonly Subpath[],
   extras: Part[],
   lines: string[]
 ): number => {
-  const house = asLocal(slug, n, sp);
+  const house = asLocal(slug, n, sps);
   extras.push(house);
-  const box = bbox([sp]);
+  const box = bbox(sps);
   const size = quant(Math.max(box.w, box.h));
   lines.push(
     `part ${house.id} at ${quant(box.x0)},${quant(box.y0)} size ${size || 1}`
@@ -144,7 +147,8 @@ export const compileIcon = (
   slug: string,
   paths: readonly string[],
   parts: readonly Part[],
-  extras: Part[] = []
+  extras: Part[] = [],
+  finish: Finish = "outlined"
 ): string => {
   const fps = parts.map((p) => {
     const [sp] = parsePath(p.d);
@@ -153,7 +157,16 @@ export const compileIcon = (
   const lines = [`icon ${slug}`];
   let local = 0;
   for (const d of paths) {
-    for (const sp of parsePath(d)) {
+    const subs = parsePath(d);
+    // A filled house path is often one evenodd compound: the solid plus the
+    // holes it knocks out. Splitting those into separate parts paints the
+    // cutouts as ink (lock 0.949, check as a badge with a solid tick). Keep
+    // the compound together so `fill-rule="evenodd"` still cuts.
+    if (finish === "filled" && subs.filter((s) => s.closed).length > 1) {
+      local = placeLocal(slug, local, subs, extras, lines);
+      continue;
+    }
+    for (const sp of subs) {
       const ring = asCircle(sp);
       if (ring) {
         lines.push(`circle ${ring.cx},${ring.cy} r${ring.r}`);
@@ -185,7 +198,7 @@ export const compileIcon = (
       const box = bbox([sp]);
       const size = quant(Math.max(box.w, box.h));
       if (!best || best.d > MATCH_OK || mixedSize(best.part, size)) {
-        local = placeLocal(slug, local, sp, extras, lines);
+        local = placeLocal(slug, local, [sp], extras, lines);
         continue;
       }
       const turn = TURN_WORD[best.turn];
@@ -207,6 +220,39 @@ export const compileIcon = (
     }
   }
   return `${lines.join("\n")}\n`;
+};
+
+/** Stamp a finish onto a compiled program without disturbing a declaration
+ *  that is already there. Filled house files have to be run as filled, or
+ *  the compiler strokes the solid's outline and the twin is a different
+ *  drawing. */
+export const finishProgram = (source: string, finish: Finish): string =>
+  /^finish\b/mu.test(source)
+    ? source.replace(/^finish\s+\w+/mu, `finish ${finish}`)
+    : source.replace(/^(?<icon>icon[^\n]*\n)/u, `$<icon>finish ${finish}\n`);
+
+/**
+ * Compile one paint of a house file: the path data, the extras it parks,
+ * and the finish that paint actually is.
+ *
+ * Two house files of one slug are two reconstructions, not one skeleton
+ * re-painted. The outlined compile of `plus-large` is four open strokes;
+ * the filled house file is a single evenodd plus. Deriving the second from
+ * the first is the fallback for a net-new icon. When both files exist,
+ * compile each.
+ */
+export const compilePaint = (
+  slug: string,
+  paths: readonly string[],
+  finish: Finish = "outlined",
+  parts: readonly Part[] = []
+): Declared & { extras: Part[] } => {
+  const extras: Part[] = [];
+  const bare = finishProgram(
+    compileIcon(slug, paths, parts, extras, finish),
+    finish
+  );
+  return { extras, ...declareKeyline(bare, slug, [...parts, ...extras]) };
 };
 
 /** Thrown when there is nothing to compile: no target paths, or no part in
@@ -232,21 +278,6 @@ const hasCompileOp = (source: string): boolean =>
   source.split("\n").some((l) => /^\s*(?:part|circle)\s/u.test(l));
 
 /**
- * Draw the compile, then declare the keyline it turned out to be on.
- *
- * The order matters and it is the fix. A declared keyline the drawing misses
- * is an error, so a compiler that declares first and draws second is a
- * compiler that can fail its own icons — which is how `fingerprint` shipped
- * carrying `severity: "error"`. `tools/declare.ts` is the shared reading, used
- * here and by the analog arm, which had the same bug by two other routes.
- */
-const declared = (
-  bare: string,
-  vocabulary: readonly Part[],
-  slug: string
-): Declared => declareKeyline(bare, slug, vocabulary);
-
-/**
  * Keyed reconstruction as a `GenerateFn`.
  *
  * `cost` is absent: there is no model. Absent means "not measured", and filling
@@ -263,10 +294,14 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
-  const parts = options.parts ?? [];
-  const extras: Part[] = [];
-  const bare = compileIcon(concept.name, paths, parts, extras);
-  if (!hasCompileOp(bare)) {
+  const finish = options.finish ?? "outlined";
+  const painted = compilePaint(
+    concept.name,
+    paths,
+    finish,
+    options.parts ?? []
+  );
+  if (!hasCompileOp(painted.source)) {
     return Promise.reject(
       new CompileError(
         `compile produced no part or circle ops for \`${concept.name}\`. ` +
@@ -274,8 +309,7 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
-  const vocabulary = [...parts, ...extras];
-  const { program, source } = declared(bare, vocabulary, concept.name);
+  const { extras, program, source } = painted;
   const issues: Issue[] = [
     ...program.errors.map((message) => ({
       message,
@@ -293,6 +327,7 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       icon: program.icon ?? concept.name,
       keyline: program.keyline,
     }),
+    extras,
     issues,
     program: source,
     steps: trace.length,

@@ -19,6 +19,7 @@ import {
   serialise,
   translate,
 } from "../geometry/path.js";
+import { flatten } from "../parts/shape.js";
 import type {
   Box,
   DotRole,
@@ -27,6 +28,7 @@ import type {
   IconDoc,
   Keyline,
   Part,
+  Subpath,
 } from "../types.js";
 
 /**
@@ -471,10 +473,10 @@ const offAxisMessage = (
  * What an element does to the ink: adds to it, or takes it away.
  *
  * Carried as an intersection rather than as a member of every variant of the
- * union because it is orthogonal to `kind` — a knockout is a rect or a circle
- * that happens to be subtracted, not a seventh kind of shape — and because
- * `hole()` is the only thing that ever writes it. Absent means `add`, so an
- * element written before this existed still means what it meant.
+ * union because it is orthogonal to `kind` — a knockout is a rect, a circle,
+ * or a line-bar that happens to be subtracted, not a seventh kind of shape —
+ * and because `hole()` is the only thing that ever writes it. Absent means
+ * `add`, so an element written before this existed still means what it meant.
  */
 export type Op = "add" | "knockout";
 
@@ -733,13 +735,19 @@ export interface CanvasOptions {
   spec?: Spec;
 }
 
-/** The shapes a knockout may take. The same two the corpus cuts with — 23.8%
- *  of its 1,807 holes are rects and 22.3% are discs — and deliberately no
- *  others: `hole` routes straight into `rect` and `circle`, so a knockout is
- *  quantised, tiered and clamped by exactly the code that draws a solid and
- *  there is no second path by which a coordinate could reach the document. */
+/** The shapes a knockout may take. Rect and circle are what the corpus cuts
+ *  with (23.8% / 22.3% of 1,807 holes). Line is the same two-point bar
+ *  `#filledBar` already draws as a solid — a tick cut out of a badge is that
+ *  stroke subtracted, not a free path. Every knockout still goes through the
+ *  solid builder, so there is no second path by which a coordinate could
+ *  reach the document. */
 export type HoleShape =
   | { cx: number; cy: number; r: number; shape: "circle" }
+  | {
+      offAxis?: boolean;
+      points: [number, number][];
+      shape: "line";
+    }
   | { h: number; r?: number; shape: "rect"; w: number; x: number; y: number };
 
 export class Canvas {
@@ -950,6 +958,9 @@ export class Canvas {
       );
     }
     const target = this.#solidFor(shape.cutFrom);
+    if (shape.shape === "line") {
+      return this.#holeLine(target, shape);
+    }
     const make = (id: string): Element => ({
       ...(shape.shape === "circle"
         ? circleElement(id, shape, this.spec)
@@ -958,6 +969,129 @@ export class Canvas {
     });
     // Built once to measure it, then handed to `#push` as-is: `#push` mints the
     // id, and a probe that minted its own would burn one on every call.
+    const probe = make("probe");
+    const inside = bbox(parsePath(this.elements[target].d));
+    const cut = bbox(parsePath(probe.d));
+    if (
+      cut.x0 < inside.x0 ||
+      cut.y0 < inside.y0 ||
+      cut.x1 > inside.x1 ||
+      cut.y1 > inside.y1
+    ) {
+      throw new Error(
+        `that hole is not inside ${this.elements[target].id}: it spans ` +
+          `${cut.x0}..${cut.x1} x ${cut.y0}..${cut.y1}, the solid spans ` +
+          `${inside.x0}..${inside.x1} x ${inside.y0}..${inside.y1}. Under ` +
+          "`evenodd` the part that hangs outside would paint ink rather than " +
+          "remove it, so the shape would come out inverted. Shrink the hole, " +
+          "or draw the piece you want as a solid."
+      );
+    }
+    return this.#push((id) => ({ ...probe, id }), this.#groupEnd(target));
+  }
+
+  /**
+   * Cut the filled bar of each segment. Axis-aligned bars are `hole rect`
+   * (the same builder `#filledBar` uses as ink). A diagonal is that stadium
+   * subtracted, stored as a `line` so `fit` re-emits it as a hole.
+   */
+  #holeLine(
+    target: number,
+    {
+      offAxis = false,
+      points: pts,
+    }: { offAxis?: boolean; points: [number, number][] }
+  ): string {
+    if (!Array.isArray(pts) || pts.length < 2) {
+      throw new Error("hole line needs >= 2 points");
+    }
+    const out: [number, number][] = [
+      [onCanvas(pts[0][0], this.spec), onCanvas(pts[0][1], this.spec)],
+    ];
+    let free = false;
+    for (let i = 1; i < pts.length; i += 1) {
+      const [px, py] = out[i - 1];
+      const {
+        offBy,
+        point: [sx, sy],
+      } = snapAngle(
+        px,
+        py,
+        onCanvas(pts[i][0], this.spec),
+        onCanvas(pts[i][1], this.spec)
+      );
+      if (offBy > 0) {
+        if (!offAxis) {
+          throw new Error(offAxisMessage(i, [px, py], [sx, sy], offBy));
+        }
+        free = true;
+      }
+      out.push([q(sx, this.spec.grid), q(sy, this.spec.grid)]);
+    }
+    let last = "";
+    for (let i = 1; i < out.length; i += 1) {
+      last = this.#holeBar(target, out[i - 1], out[i], free);
+    }
+    return last;
+  }
+
+  /** Stadium path of a two-point stroke, matching `#filledBar`. */
+  #barPath(a: [number, number], b: [number, number]): string {
+    const half = this.spec.stroke / 2;
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    const len = Math.hypot(dx, dy) || 1;
+    const px = (-dy / len) * half;
+    const py = (dx / len) * half;
+    const qn = (v: number): number => q(v, this.spec.grid);
+    const body =
+      `M${qn(a[0] + px)} ${qn(a[1] + py)}L${qn(b[0] + px)} ${qn(b[1] + py)}` +
+      `L${qn(b[0] - px)} ${qn(b[1] - py)}L${qn(a[0] - px)} ${qn(a[1] - py)}Z`;
+    return (
+      circlePath(qn(a[0]), qn(a[1]), qn(half)) +
+      circlePath(qn(b[0]), qn(b[1]), qn(half)) +
+      body
+    );
+  }
+
+  #holeBar(
+    target: number,
+    a: [number, number],
+    b: [number, number],
+    offAxis: boolean
+  ): string {
+    const bar = this.spec.stroke;
+    const half = bar / 2;
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    if (Math.abs(dy) < this.spec.grid / 2) {
+      const x = Math.min(a[0], b[0]);
+      return this.hole({
+        h: bar,
+        shape: "rect",
+        w: Math.abs(dx) + bar,
+        x: x - half,
+        y: a[1] - half,
+      });
+    }
+    if (Math.abs(dx) < this.spec.grid / 2) {
+      const y = Math.min(a[1], b[1]);
+      return this.hole({
+        h: Math.abs(dy) + bar,
+        shape: "rect",
+        w: bar,
+        x: a[0] - half,
+        y: y - half,
+      });
+    }
+    const make = (id: string): Element => ({
+      d: this.#barPath(a, b),
+      id,
+      kind: "line",
+      op: "knockout",
+      points: [a, b],
+      ...(offAxis ? { offAxis: true as const } : {}),
+    });
     const probe = make("probe");
     const inside = bbox(parsePath(this.elements[target].d));
     const cut = bbox(parsePath(probe.d));
@@ -1278,16 +1412,6 @@ export class Canvas {
         `unknown part ${id} — call listParts to see the vocabulary`
       );
     }
-    if (this.finish === "filled" && !p.closed) {
-      // The vocabulary is extracted from a stroked set, so most of its marks
-      // are open runs. Filled, an open run encloses nothing and paints
-      // nothing — the same silent blank `line` is refused for.
-      throw new Error(
-        `part ${id} is an open mark, extracted from the stroked set, and an ` +
-          "open mark paints nothing when it is filled rather than stroked. " +
-          "Use a closed part, or draw the shape with rect/circle and hole."
-      );
-    }
     const t = quarterTurn(turn);
     // Reflect then turn, the order `parts/shape.ts` compares under, so a
     // `{turn, flip}` the clusterer measured places back as the same shape.
@@ -1298,6 +1422,13 @@ export class Canvas {
     const moved = placed.map((sp) =>
       translate(scale(sp, k), x - b.x0 * k, y - b.y0 * k)
     );
+    if (this.finish === "filled" && !p.closed) {
+      // The vocabulary is extracted from a stroked set, so most of its marks
+      // are open runs. Filling the path as-is encloses nothing. The filled
+      // twin is the same stroke expanded to a bar, segment by segment — the
+      // same bargain `#filledBar` already makes for a two-point `line`.
+      return this.#fillOpenPart(moved);
+    }
     return this.#push((elId) =>
       flip
         ? {
@@ -1322,6 +1453,35 @@ export class Canvas {
             y,
           }
     );
+  }
+
+  /** Expand an open part into the filled bars of its centre-line, one
+   *  segment at a time. A zero-length run is skipped; a part with no
+   *  remaining length is still nothing, and is refused. */
+  #fillOpenPart(moved: readonly Subpath[]): string {
+    let last = "";
+    const min = this.spec.grid / 2;
+    for (const sp of moved) {
+      const poly = flatten(sp);
+      for (let i = 1; i < poly.length; i += 1) {
+        const a = poly[i - 1];
+        const b = poly[i];
+        if (Math.hypot(b[0] - a[0], b[1] - a[1]) < min) {
+          continue;
+        }
+        last = this.#filledBar(
+          [q(a[0], this.spec.grid), q(a[1], this.spec.grid)],
+          [q(b[0], this.spec.grid), q(b[1], this.spec.grid)]
+        );
+      }
+    }
+    if (last === "") {
+      throw new Error(
+        "an open part painted nothing when filled: every segment was shorter " +
+          "than the grid. Use a closed part, or draw the shape with rect/circle."
+      );
+    }
+    return last;
   }
 
   /** Import existing path data unchanged, so any icon can enter a document. */
@@ -1366,6 +1526,12 @@ export class Canvas {
           w: e.w * k,
           x: e.x * k + tx,
           y: e.y * k + ty,
+        });
+      } else if (e.op === "knockout" && e.kind === "line") {
+        this.hole({
+          offAxis: e.offAxis,
+          points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
+          shape: "line",
         });
       } else if (e.kind === "rect") {
         this.rect({
@@ -1560,8 +1726,8 @@ export class Canvas {
           // gains the geometry — a diff that shows `offAxis` shows a real
           // change of shape, not a change of how the line was requested.
           return e.offAxis
-            ? { offAxis: true, op: "line", points: e.points }
-            : { op: "line", points: e.points };
+            ? { offAxis: true, op: "line", points: e.points, ...cut }
+            : { op: "line", points: e.points, ...cut };
         }
         if (e.kind === "part") {
           const op = {
@@ -1615,7 +1781,15 @@ export class Canvas {
       } else if (op.op === "dot") {
         c.dot(op);
       } else if (op.op === "line") {
-        c.line({ offAxis: op.offAxis, points: op.points });
+        if (op.knockout) {
+          c.hole({
+            offAxis: op.offAxis,
+            points: op.points,
+            shape: "line",
+          });
+        } else {
+          c.line({ offAxis: op.offAxis, points: op.points });
+        }
       } else if (op.op === "part") {
         c.part(op);
       } else if (op.op === "raw") {

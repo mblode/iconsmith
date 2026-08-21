@@ -14,13 +14,15 @@ import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
 import type { Canvas, Spec } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
-import type { IconDoc, Issue, Keyline, Part } from "../types.js";
+import { programFromDoc } from "../tools/twin.js";
+import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { Proposal } from "./compose.js";
 import type { TokenUsage } from "./cost.js";
 import { resolveModel } from "./gateway.js";
 import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
+import { pairAdapted } from "./pair.js";
 import type { Policy } from "./policy.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
@@ -31,9 +33,13 @@ import type { ToolState } from "./tools.js";
 
 export {
   DEFAULT_MODEL,
+  DEFAULT_OPENROUTER_MODEL,
   MissingApiKeyError,
+  OPENROUTER_INKLING,
   gatewayModelId,
+  openrouterModelId,
   resolveModel,
+  usesOpenRouter,
 } from "./gateway.js";
 
 export type { Concept } from "./prompt.js";
@@ -120,9 +126,12 @@ export interface GenerateOptions {
   keyline?: Keyline | null;
   maxSteps?: number;
   /**
-   * A model instance, or a gateway model id (`anthropic/claude-opus-5`). A
-   * bare id is namespaced as Anthropic. Passing an instance is how tests run
-   * this loop with no network.
+   * A model instance, or a provider model id (`anthropic/claude-opus-5`,
+   * `thinkingmachines/inkling:free`). A bare id is namespaced as Anthropic
+   * and sent to the gateway. An OpenRouter slug (`openrouter/…`, a `:free`
+   * variant, or `thinkingmachines/…` when `OPENROUTER_API_KEY` is set) is
+   * the other generate arm. Passing an instance is how tests run this loop
+   * with no network.
    */
   model?: LanguageModel;
   parts?: Part[];
@@ -184,6 +193,13 @@ export interface GenerateOptions {
   /** CLI for `unkeyed: "harness"`. Default `claude`. */
   harnessCommand?: string;
   /**
+   * Which paint to draw. Keyed compile uses this to pick the house file and
+   * stamp `finish` — a filled house file is compiled as filled, not adapted
+   * from the outline. Analog families write each paint; generate draws one
+   * and pairs the other via `adaptProgram`. Default outlined.
+   */
+  finish?: Finish;
+  /**
    * Stroke, family radius, optical size. Defaults to the house 24px / stroke 2
    * / radius 3 cut. 16px drops hairline corners and terminal dots.
    */
@@ -237,6 +253,8 @@ export interface GenerateResult {
   log?: string;
   /** The `.icon` source, when the generator is a program rather than a canvas. */
   program?: string;
+  /** Local house parts parked by compile, so a viewer can replay `part slug-0`. */
+  extras?: Part[];
   /** Host look at the drawing, when the harness ran with an `ask`. */
   audit?: AuditResult;
   /** The model's closing sentence about what it drew. */
@@ -400,6 +418,7 @@ export const generate = async (
     apiKey,
     cohort = null,
     corpus = [],
+    finish = "outlined",
     keyline = null,
     maxSteps = DEFAULT_MAX_STEPS,
     model,
@@ -415,6 +434,7 @@ export const generate = async (
     aliases,
     cohort: cohort?.extent ?? null,
     corpus,
+    finish,
     keyline,
     parts,
     proposal,
@@ -435,7 +455,7 @@ export const generate = async (
     prepareStep: ({ messages: stepMessages }) => ({
       messages: withCacheBreakpoints(stepMessages),
     }),
-    prompt: conceptPrompt(concept),
+    prompt: conceptPrompt(concept, finish),
     stopWhen: [
       stepCountIs(maxSteps),
       drawnAndClean(canvas, state, end),
@@ -443,6 +463,7 @@ export const generate = async (
     ],
     system: systemPrompt({
       cohort,
+      finish,
       keyline,
       policy,
       proposal: proposal !== null,
@@ -454,7 +475,15 @@ export const generate = async (
 
   // Linted here rather than trusting the model's last `lint` call: it may have
   // drawn after checking, and this is the number that gets reported.
-  const issues = lint(canvas, { keyline });
+  const doc = canvas.toJSON({ icon: concept.name, keyline });
+  const program = programFromDoc(doc);
+  const issues = pairAdapted(
+    lint(canvas, { keyline }),
+    finish,
+    program,
+    parts,
+    spec
+  );
   const usage = result.totalUsage;
   const toolCalls: Record<string, number> = {};
   for (const name of state.calls) {
@@ -486,8 +515,9 @@ export const generate = async (
         reasoningTokens: usage.outputTokenDetails.reasoningTokens ?? 0,
       },
     },
-    doc: canvas.toJSON({ icon: concept.name, keyline }),
+    doc,
     issues,
+    program,
     steps: result.steps.length,
     svg: canvas.toSVG(),
     text: result.text,

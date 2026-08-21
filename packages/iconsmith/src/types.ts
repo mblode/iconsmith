@@ -140,6 +140,9 @@ export type DrawOp =
       y: number;
     }
   | {
+      /** See the note on `circle`. A line knockout is the filled bar of that
+       *  stroke subtracted — a tick cut out of a badge, not a free path. */
+      knockout?: true;
       /** Present when a segment sits off every permitted axis. Off-axis edges
        *  are legitimate — 29.3% of the set's stroked icons have one, on
        *  rational slopes between two grid points — but the canvas refuses them

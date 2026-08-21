@@ -10,9 +10,11 @@
  * the boundary) and the house stroke when outlined. That is the quantity that
  * matches in 94% of house pairs.
  */
-import type { Finish, Keyline } from "../types.js";
+import type { DrawOp, Finish, IconDoc, Issue, Keyline } from "../types.js";
 import { SPEC } from "./canvas.js";
 import type { Spec } from "./canvas.js";
+import { lint } from "./lint.js";
+import type { LintTarget } from "./lint.js";
 
 /** The house stroke, and half of it. Prefer the spec argument on each helper. */
 export const BAR = SPEC.stroke;
@@ -495,4 +497,223 @@ export const adaptProgram = (
     out.splice(headerAt, 0, `finish ${finish}`);
   }
   return out.join("\n");
+};
+
+const TURN_WORD: Record<number, string> = {
+  1: "cw",
+  2: "half",
+  3: "ccw",
+};
+
+const fmt = (n: number): string => String(Number(n.toFixed(4)));
+
+const pointsOf = (points: readonly [number, number][]): string =>
+  points.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join(" ");
+
+const lineOf = (op: Extract<DrawOp, { op: "line" }>): string => {
+  const hole = op.knockout ? "hole " : "";
+  const axis = op.offAxis ? " off-axis" : "";
+  return `${hole}line ${pointsOf(op.points)}${axis}`;
+};
+
+const partOf = (op: Extract<DrawOp, { op: "part" }>): string => {
+  const bits = [`part ${op.id}`, "at", `${fmt(op.x)},${fmt(op.y)}`];
+  if (op.scale !== 1) {
+    bits.push("size", fmt(op.scale));
+  }
+  const turn = TURN_WORD[op.turn];
+  if (turn) {
+    bits.push("turn", turn);
+  }
+  if (op.flip) {
+    bits.push("flip");
+  }
+  return bits.join(" ");
+};
+
+const opLine = (op: DrawOp): string | null => {
+  if (op.op === "raw") {
+    return null;
+  }
+  if (op.op === "circle") {
+    const hole = op.knockout ? "hole " : "";
+    return `${hole}circle ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.r)}`;
+  }
+  if (op.op === "rect") {
+    const hole = op.knockout ? "hole " : "";
+    const corner = op.r > 0 ? ` r${fmt(op.r)}` : "";
+    return `${hole}rect ${fmt(op.x)},${fmt(op.y)} ${fmt(op.w)}x${fmt(op.h)}${corner}`;
+  }
+  if (op.op === "line") {
+    return lineOf(op);
+  }
+  if (op.op === "arc") {
+    const ccw = op.ccw ? " ccw" : "";
+    return `arc ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.r)} ${op.sweep} from ${op.from}${ccw}`;
+  }
+  if (op.op === "dot") {
+    return `dot ${fmt(op.cx)},${fmt(op.cy)} ${op.role}`;
+  }
+  return partOf(op);
+};
+
+/**
+ * The DSL a canvas already ran, so the other paint can be derived.
+ *
+ * The model never wrote these coordinates — the primitives did. Emitting
+ * them back is how generate and harness pair a single paint: adapt the
+ * program, then {@link twinPairIssues}. A `raw` escape has no DSL word
+ * and is dropped; pairing then sees whatever else the canvas drew.
+ */
+export const programFromDoc = (doc: IconDoc): string => {
+  const lines = [`icon ${doc.icon ?? "icon"}`];
+  if (doc.keyline) {
+    lines.push(`keyline ${doc.keyline}`);
+  }
+  lines.push(`finish ${doc.finish ?? "outlined"}`);
+  for (const op of doc.draw) {
+    const line = opLine(op);
+    if (line !== null) {
+      lines.push(line);
+    }
+  }
+  return `${lines.join("\n")}\n`;
+};
+
+/** One paint of a twin pair: lintable, and sized the way {@link sameExtent} is. */
+export type TwinPaint = LintTarget & Sized;
+
+const isHole = (e: { hole?: boolean; op?: string }): boolean =>
+  e.hole === true || e.op === "knockout";
+
+/**
+ * A ring restamped as a disc.
+ *
+ * `sameExtent` cannot see this after `fit`: both paints scale onto the
+ * same keyline, so a filled disc of a stroked ring occupies the box and
+ * looks paired. House filled rings knock a hole immediately after the
+ * circle. A bare outlined circle against a bare filled circle with no
+ * knockout is that restamp — sun (disc + rays) and clock (disc + hands)
+ * have other marks and stay quiet.
+ */
+export const restampIssues = (
+  outlined: TwinPaint,
+  filled: TwinPaint
+): Issue[] => {
+  const hoops = outlined.elements.filter(
+    (e) => e.kind === "circle" && !isHole(e)
+  );
+  const disc = filled.elements.filter((e) => e.kind === "circle" && !isHole(e));
+  const holes = filled.elements.filter((e) => isHole(e));
+  const outlinedElse = outlined.elements.filter(
+    (e) => !(e.kind === "circle" && !isHole(e))
+  );
+  const filledElse = filled.elements.filter(
+    (e) => !(e.kind === "circle" && !isHole(e)) && !isHole(e)
+  );
+  if (
+    hoops.length === 0 ||
+    disc.length === 0 ||
+    holes.length > 0 ||
+    outlinedElse.length > 0 ||
+    filledElse.length > 0
+  ) {
+    return [];
+  }
+  return [
+    {
+      message:
+        "Filled restamped a ring as a disc. Knock a hole immediately after the circle — `fit` to the same keyline does not hide a missing knockout.",
+      rule: "paint",
+      severity: "error",
+    },
+  ];
+};
+
+/**
+ * Whether two paints are one skeleton.
+ *
+ * `sameExtent` catches a flood-fill or a restamped finish (a filled disc
+ * of a stroked ring shrinks by a stroke). After `fit` that shrink
+ * disappears, so {@link restampIssues} reads the construction. Forcing
+ * each paint through the rule that belongs to it catches a finish
+ * mix-up: `gap` on a filled drawing, `feature` on an outlined one.
+ * Empty tiles fail here rather than looking like a quiet pair.
+ */
+export const twinPairIssues = (
+  outlined: TwinPaint,
+  filled: TwinPaint,
+  tol = 0.01
+): Issue[] => {
+  const issues: Issue[] = [];
+  if (outlined.elements.length === 0 || filled.elements.length === 0) {
+    issues.push({
+      message: "A twin pair needs both paints; an empty tile is a failed twin.",
+      rule: "empty",
+      severity: "error",
+    });
+    return issues;
+  }
+  issues.push(...restampIssues(outlined, filled));
+  const left = visualSize(outlined);
+  const right = visualSize(filled);
+  if (!sameExtent(outlined, filled, tol)) {
+    const outlinedBox = left
+      ? `${left.w.toFixed(1)}×${left.h.toFixed(1)}`
+      : "none";
+    const filledBox = right
+      ? `${right.w.toFixed(1)}×${right.h.toFixed(1)}`
+      : "none";
+    issues.push({
+      message: `Filled visual extent ${filledBox} does not match outlined ${outlinedBox}. Expand the stroke — do not flood the bbox or restamp finish.`,
+      rule: "extent",
+      severity: "error",
+    });
+  }
+  if (outlined.finish === "filled") {
+    issues.push({
+      message: "Outlined paint is stamped `filled`. The pair swapped finishes.",
+      rule: "finish",
+      severity: "error",
+    });
+  }
+  if (filled.finish !== undefined && filled.finish !== "filled") {
+    issues.push({
+      message: `Filled paint is stamped \`${filled.finish}\`. A twin is two paints, not one program with the wrong label.`,
+      rule: "finish",
+      severity: "error",
+    });
+  }
+  const outlinedLint = lint({
+    elements: outlined.elements,
+    finish: "outlined",
+    spec: outlined.spec,
+  });
+  const filledLint = lint({
+    elements: filled.elements,
+    finish: "filled",
+    spec: filled.spec,
+  });
+  // `feature` is fill-only: a hole too thin to survive at 16px.
+  issues.push(...filledLint.filter((issue) => issue.rule === "feature"));
+  // Filled shapes are meant to touch or to knock out. Linting the filled
+  // solids as outlined is how a second fill sitting 0.5px off another
+  // (a hole drawn as ink) shows up as `gap`.
+  const asOutlined = lint({
+    elements: filled.elements,
+    finish: "outlined",
+    spec: filled.spec,
+  });
+  for (const issue of asOutlined.filter((row) => row.rule === "gap")) {
+    issues.push({
+      ...issue,
+      message: `${issue.message} Filled solids that sit that close should coincide or be a hole, not a second fill.`,
+    });
+  }
+  for (const issue of [...outlinedLint, ...filledLint]) {
+    if (issue.severity === "error") {
+      issues.push(issue);
+    }
+  }
+  return issues;
 };

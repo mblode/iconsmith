@@ -19,6 +19,7 @@ describe("markArm", () => {
     expect(drawn.svg).toContain('fill="currentColor"');
     expect(drawn.svg).not.toContain("stroke=");
     expect(drawn.trace).toContain("rect");
+    expect(drawn.issues.filter((issue) => issue.rule === "extent")).toEqual([]);
   });
 
   it("refuses a slug that is not a mark", async () => {

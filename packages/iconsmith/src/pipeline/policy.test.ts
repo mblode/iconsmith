@@ -24,6 +24,8 @@ const TOKENS = {
   maxElements: "8",
   minFeature: "1.5",
   minGap: "1",
+  paintRule:
+    "Every shape you\n  place is an outline; a filled twin is that stroke expanded, never a fill on a path.",
   radius: "3",
   radiusTiers: "0.5, 1, 2, 3",
   size: "24",

@@ -9,17 +9,73 @@ import type { Part } from "../types.js";
 import {
   analogArm,
   analogConstructions,
+  ANALOG_ALIASES,
+  ANALOG_KINS,
+  ANALOG_MODIFIERS,
+  contentTokens,
+  familyFromToken,
+  familyFromTokens,
+  anchor,
+  apple,
+  banana,
+  bell,
+  book,
+  camera,
+  car,
+  check,
+  clock,
+  cloud,
+  composeFromParts,
+  envelope,
+  fish,
+  flag,
+  flask,
+  flower,
+  hammer,
   hasStackRim,
+  heart,
+  home,
+  horn,
+  hourglass,
   hub,
   HUB_HINT,
+  HORN_HINT,
+  key,
   kinScore,
+  kiwi,
+  ladder,
+  leaf,
+  lock,
+  magnet,
+  moon,
+  mushroom,
+  peak,
+  pencil,
   pickKin,
+  pin,
+  plant,
+  plus,
+  PLANT_HINT,
   preferStroked,
   replay,
   retitle,
+  rocket,
+  ring,
+  sailboat,
   sameLetters,
+  shield,
   stack,
+  stapler,
+  sun,
+  tent,
+  tower,
+  TOWER_HINT,
   trays,
+  trophy,
+  tube,
+  unknown,
+  volcano,
+  wine,
 } from "./analog.js";
 
 const BOX = "M4 4H12V12H4Z";
@@ -176,11 +232,78 @@ describe("analogConstructions", () => {
     expect(row?.id).toBe("trays");
   });
 
-  it("draws a hub for an unkeyed name that is not a stack", () => {
-    const [row] = analogConstructions("unicorn", [], "unicorn", false);
-    expect(row?.id).toBe("hub");
+  it("draws unknown for an unkeyed name that is not a stack or a family", () => {
+    const [row] = analogConstructions("xyzzy", [], "xyzzy", false);
+    expect(row?.id).toBe("unknown");
     expect(HUB_HINT.test("org-chart")).toBe(true);
     expect(HUB_HINT.test("unicorn")).toBe(false);
+    expect(HORN_HINT.test("unicorn")).toBe(true);
+  });
+
+  it("picks a concept family instead of a generic hub", () => {
+    expect(analogConstructions("cactus", [], "cactus", false)[0]?.id).toBe(
+      "plant"
+    );
+    expect(
+      analogConstructions("lighthouse", [], "lighthouse", false)[0]?.id
+    ).toBe("tower");
+    expect(analogConstructions("volcano", [], "volcano", false)[0]?.id).toBe(
+      "volcano"
+    );
+    expect(analogConstructions("mountain", [], "mountain", false)[0]?.id).toBe(
+      "peak"
+    );
+    expect(analogConstructions("mushroom", [], "mushroom", false)[0]?.id).toBe(
+      "mushroom"
+    );
+    expect(
+      analogConstructions("hourglass", [], "hourglass", false)[0]?.id
+    ).toBe("hourglass");
+    expect(analogConstructions("sailboat", [], "sailboat", false)[0]?.id).toBe(
+      "sailboat"
+    );
+    expect(
+      analogConstructions("telescope", [], "telescope", false)[0]?.id
+    ).toBe("tube");
+    expect(analogConstructions("unicorn", [], "unicorn", false)[0]?.id).toBe(
+      "horn"
+    );
+    expect(analogConstructions("bananas", [], "bananas", false)[0]?.id).toBe(
+      "banana"
+    );
+    expect(analogConstructions("kiwi", [], "kiwi", false)[0]?.id).toBe("kiwi");
+    expect(analogConstructions("stapler", [], "stapler", false)[0]?.id).toBe(
+      "stapler"
+    );
+    expect(analogConstructions("envelope", [], "envelope", false)[0]?.id).toBe(
+      "envelope"
+    );
+    expect(analogConstructions("mail", [], "mail", false)[0]?.id).toBe(
+      "envelope"
+    );
+    expect(analogConstructions("bell", [], "bell", false)[0]?.id).toBe("bell");
+    expect(analogConstructions("moon", [], "moon", false)[0]?.id).toBe("moon");
+    expect(analogConstructions("clock", [], "clock", false)[0]?.id).toBe(
+      "clock"
+    );
+    expect(
+      analogConstructions("plus-sign", [], "plus-sign", false)[0]?.id
+    ).toBe("plus");
+    expect(analogConstructions("map-pin", [], "map-pin", false)[0]?.id).toBe(
+      "pin"
+    );
+    expect(TOWER_HINT.test("beacon")).toBe(true);
+    expect(PLANT_HINT.test("succulent")).toBe(true);
+  });
+
+  it("resolves a paint recipe to its family, not unknown", () => {
+    expect(
+      analogConstructions("checkmark", [], "checkmark", false)[0]?.id
+    ).toBe("check");
+    expect(analogConstructions("tick", [], "tick", false)[0]?.id).toBe("check");
+    expect(analogConstructions("lock", [], "lock", false)[0]?.id).toBe("lock");
+    expect(analogConstructions("ring", [], "ring", false)[0]?.id).toBe("ring");
+    expect(analogConstructions("home", [], "home", false)[0]?.id).toBe("home");
   });
 
   /**
@@ -194,7 +317,8 @@ describe("analogConstructions", () => {
   it("does not answer with a host glyph for a name that has one", () => {
     const rows = analogConstructions("compass", [], "compass", false);
     expect(rows.map((r) => r.id)).not.toContain("glyph");
-    expect(rows[0]?.id).toBe("hub");
+    expect(rows[0]?.id).toBe("unknown");
+    expect(rows[0]?.source).not.toContain("diamond 12,12 r5");
   });
 
   it("replays a house kin instead of a hub", () => {
@@ -215,11 +339,11 @@ describe("analogConstructions", () => {
     expect(row?.id).toBe("trays");
   });
 
-  it("collides trays and hub when a look will curate", () => {
+  it("collides the hinted family with trays and hub when a look will curate", () => {
     const ids = analogConstructions("unicorn", [], "unicorn", true).map(
       (r) => r.id
     );
-    expect(ids).toEqual(["trays", "hub"]);
+    expect(ids).toEqual(["horn", "trays", "hub"]);
   });
 });
 
@@ -256,12 +380,422 @@ describe("analogArm", () => {
             findings: [],
             pq: 8,
             reason: null,
-            sc: n === 2 ? 9 : 3,
+            sc: n === 3 ? 9 : 3,
           });
         },
       }
     );
     expect(result.brief).toBe("analog hub unicorn");
     expect(result.audit?.sc).toBe(9);
+  });
+
+  it("draws a concept family for a held-out name, not a hub", async () => {
+    const result = await analogArm()({ name: "cactus" });
+    expect(result.brief).toBe("analog plant cactus");
+    expect(result.program).toContain("rect ");
+    expect(result.program).not.toContain("circle 12,6 r2");
+    expect(result.clean).toBe(true);
+  });
+
+  it("falls to unknown, not a hub, when no token names a family", async () => {
+    const result = await analogArm()({ name: "xyzzy" });
+    expect(result.brief).toBe("analog unknown xyzzy");
+    expect(result.program).toContain("dot 12,12 node");
+    expect(result.program).not.toContain("circle 12,6 r2");
+    expect(result.clean).toBe(true);
+  });
+
+  it("draws bananas, kiwi, and stapler as themselves, not unknown", async () => {
+    const drawn = await Promise.all(
+      (
+        [
+          ["bananas", "banana"],
+          ["kiwi", "kiwi"],
+          ["stapler", "stapler"],
+        ] as const
+      ).map(([name, id]) =>
+        analogArm()({ name }).then((result) => ({ id, name, result }))
+      )
+    );
+    for (const { id, name, result } of drawn) {
+      expect(result.brief, name).toBe(`analog ${id} ${name}`);
+      expect(result.clean, name).toBe(true);
+      expect(
+        result.issues.some((i) => i.severity === "error"),
+        name
+      ).toBe(false);
+    }
+  });
+
+  it("writes the filled paint of a family, not an adapted hub", async () => {
+    const result = await analogArm()(
+      { name: "lighthouse" },
+      { finish: "filled" }
+    );
+    expect(result.brief).toBe("analog tower lighthouse");
+    expect(result.program).toContain("finish filled");
+    expect(result.svg).toContain('fill="currentColor"');
+    expect(result.svg).toMatch(/<path/u);
+  });
+});
+
+describe("analog families", () => {
+  const families = [
+    { draw: plant, id: "plant", slug: "cactus" },
+    { draw: tower, id: "tower", slug: "lighthouse" },
+    { draw: peak, id: "peak", slug: "mountain" },
+    { draw: volcano, id: "volcano", slug: "volcano" },
+    { draw: tube, id: "tube", slug: "telescope" },
+    { draw: horn, id: "horn", slug: "unicorn" },
+    { draw: mushroom, id: "mushroom", slug: "mushroom" },
+    { draw: hourglass, id: "hourglass", slug: "hourglass" },
+    { draw: sailboat, id: "sailboat", slug: "sailboat" },
+    { draw: banana, id: "banana", slug: "bananas" },
+    { draw: kiwi, id: "kiwi", slug: "kiwi" },
+    { draw: stapler, id: "stapler", slug: "stapler" },
+    { draw: envelope, id: "envelope", slug: "envelope" },
+    { draw: bell, id: "bell", slug: "bell" },
+    { draw: moon, id: "moon", slug: "moon" },
+    { draw: sun, id: "sun", slug: "sun" },
+    { draw: cloud, id: "cloud", slug: "cloud" },
+    { draw: heart, id: "heart", slug: "heart" },
+    { draw: home, id: "home", slug: "home" },
+    { draw: pin, id: "pin", slug: "pin" },
+    { draw: flag, id: "flag", slug: "flag" },
+    { draw: key, id: "key", slug: "key" },
+    { draw: book, id: "book", slug: "book" },
+    { draw: camera, id: "camera", slug: "camera" },
+    { draw: check, id: "check", slug: "checkmark" },
+    { draw: lock, id: "lock", slug: "lock" },
+    { draw: ring, id: "ring", slug: "ring" },
+    { draw: pencil, id: "pencil", slug: "pencil" },
+    { draw: shield, id: "shield", slug: "shield" },
+    { draw: flask, id: "flask", slug: "flask" },
+    { draw: leaf, id: "leaf", slug: "leaf" },
+    { draw: apple, id: "apple", slug: "apple" },
+    { draw: rocket, id: "rocket", slug: "rocket" },
+    { draw: tent, id: "tent", slug: "tent" },
+    { draw: fish, id: "fish", slug: "fish" },
+    { draw: car, id: "car", slug: "car" },
+    { draw: trophy, id: "trophy", slug: "trophy" },
+    { draw: hammer, id: "hammer", slug: "hammer" },
+    { draw: ladder, id: "ladder", slug: "ladder" },
+    { draw: magnet, id: "magnet", slug: "magnet" },
+    { draw: wine, id: "wine", slug: "wine" },
+    { draw: flower, id: "flower", slug: "flower" },
+    { draw: anchor, id: "anchor", slug: "anchor" },
+  ] as const;
+
+  it("runs each held-out family in both paints without a dsl error", () => {
+    for (const { draw, slug } of families) {
+      for (const finish of ["outlined", "filled"] as const) {
+        const source = draw(slug, finish);
+        const drawn = run(source, []);
+        expect(drawn.errors, `${slug} ${finish}`).toEqual([]);
+        expect(drawn.canvas.toSVG(), `${slug} ${finish}`).toMatch(/<path/u);
+        expect(source, slug).toContain(`finish ${finish}`);
+      }
+    }
+  });
+
+  it("does not volunteer a glyph construction for a name that has one", () => {
+    const [row] = analogConstructions("compass", [], "compass", false);
+    expect(row?.id).toBe("unknown");
+    expect(row?.source).not.toContain("diamond 12,12 r5");
+  });
+
+  it("composes a named vocabulary part at a named anchor", () => {
+    const rim = {
+      ...part("ellipse-flat", BOX),
+      name: "cactus",
+    };
+    const source = composeFromParts("cactus", [rim]);
+    expect(source).toContain("part cactus fill");
+    expect(run(source ?? "", [rim]).errors).toEqual([]);
+  });
+
+  it("does not compose from provenance alone", () => {
+    expect(composeFromParts("cactus", [part("p-box", BOX)])).toBeNull();
+  });
+
+  it("composes a plural query onto the singular part name", () => {
+    const fruit = { ...part("p-widget", BOX), name: "widget" };
+    const source = composeFromParts("widgets", [fruit]);
+    expect(source).toContain("part widget fill");
+    expect(
+      analogConstructions("widgets", [fruit], "widgets", false)[0]?.id
+    ).toBe("compose");
+  });
+
+  it("resolves analog aliases offline without a parts extract", () => {
+    expect(ANALOG_ALIASES.plantain).toBe("banana");
+    expect(ANALOG_KINS.mail).toBe("envelope");
+    expect(analogConstructions("plantain", [], "plantain", false)[0]?.id).toBe(
+      "banana"
+    );
+    expect(
+      analogConstructions("kiwifruit", [], "kiwifruit", false)[0]?.id
+    ).toBe("kiwi");
+    expect(
+      analogConstructions("staple-gun", [], "staple-gun", false)[0]?.id
+    ).toBe("stapler");
+    expect(analogConstructions("mail", [], "mail", false)[0]?.id).toBe(
+      "envelope"
+    );
+  });
+
+  it("composes a shipped kin offline when the extract is empty", () => {
+    const source = composeFromParts("bananas", []);
+    expect(source).toContain("arc ");
+    expect(source).toContain("icon bananas");
+    expect(composeFromParts("mail", [])).toContain("off-axis");
+    expect(composeFromParts("plus-sign", [])).toContain("line 4,12");
+    expect(composeFromParts("wall-clock", [])).toContain("circle 12,12 r9");
+    expect(composeFromParts("checkmark", [])).toContain("line 3,14");
+    expect(composeFromParts("xyzzy", [])).toBeNull();
+  });
+
+  it("resolves a new compound from name tokens, not a new kin row", () => {
+    expect(ANALOG_KINS["office-mail"]).toBeUndefined();
+    expect(ANALOG_KINS["mail-icon"]).toBeUndefined();
+    expect(ANALOG_KINS["red-flag"]).toBeUndefined();
+    expect(ANALOG_KINS.check).toBeUndefined();
+    expect(ANALOG_KINS.tick).toBeUndefined();
+    expect(ANALOG_KINS.checkmark).toBeUndefined();
+    expect(ANALOG_KINS.lock).toBeUndefined();
+    expect(ANALOG_KINS.ring).toBeUndefined();
+    expect(ANALOG_KINS.home).toBeUndefined();
+    expect(contentTokens("mail-icon")).toEqual(["mail"]);
+    expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
+    expect(familyFromToken("checkmark")).toBe("check");
+    expect(familyFromToken("tick")).toBe("check");
+    expect(familyFromTokens("tick")).toBe("check");
+    expect(familyFromToken("mail")).toBe("envelope");
+    expect(familyFromTokens("office-mail")).toBe("envelope");
+    expect(familyFromTokens("mail-icon")).toBe("envelope");
+    expect(familyFromTokens("red-flag")).toBe("flag");
+    expect(familyFromTokens("hourglass-timer")).toBe("hourglass");
+    expect(familyFromTokens("cactus-pot")).toBe("plant");
+    expect(familyFromTokens("bananas-bunch")).toBe("banana");
+    expect(
+      analogConstructions("office-mail", [], "office-mail", false)[0]?.id
+    ).toBe("envelope");
+    expect(
+      analogConstructions("mail-icon", [], "mail-icon", false)[0]?.id
+    ).toBe("envelope");
+    expect(analogConstructions("red-flag", [], "red-flag", false)[0]?.id).toBe(
+      "flag"
+    );
+    expect(
+      analogConstructions("cactus-pot", [], "cactus-pot", false)[0]?.id
+    ).toBe("plant");
+  });
+
+  it("does not invent a drawing when tokens name two families or a glyph", () => {
+    expect(familyFromTokens("flag-mail")).toBeNull();
+    expect(familyFromTokens("mailbox")).toBeNull();
+    expect(familyFromTokens("compass-rose")).toBeNull();
+    expect(familyFromTokens("star")).toBeNull();
+    expect(
+      analogConstructions("flag-mail", [], "flag-mail", false)[0]?.id
+    ).toBe("unknown");
+    expect(analogConstructions("mailbox", [], "mailbox", false)[0]?.id).toBe(
+      "unknown"
+    );
+    expect(
+      analogConstructions("compass-rose", [], "compass-rose", false)[0]?.id
+    ).toBe("unknown");
+    expect(analogConstructions("compass", [], "compass", false)[0]?.id).toBe(
+      "unknown"
+    );
+  });
+
+  it("does not treat a leftover hub word as an org chart", () => {
+    expect(
+      analogConstructions("org-chart", [], "org-chart", false)[0]?.id
+    ).toBe("hub");
+    expect(analogConstructions("tree", [], "tree", false)[0]?.id).toBe("hub");
+    expect(
+      analogConstructions("apple-tree", [], "apple-tree", false)[0]?.id
+    ).toBe("apple");
+    expect(
+      analogConstructions("tree-house", [], "tree-house", false)[0]?.id
+    ).toBe("unknown");
+    expect(analogConstructions("house", [], "house", false)[0]?.id).toBe(
+      "unknown"
+    );
+  });
+
+  it("reaches a named part through a token kin, not a new catalog row", () => {
+    const flap = { ...part("p-flap", BOX), name: "envelope" };
+    const source = composeFromParts("office-mail", [flap]);
+    expect(source).toContain("part envelope fill");
+    expect(composeFromParts("flag-mail", [flap])).toContain(
+      "part envelope fill"
+    );
+  });
+
+  it("keeps volcano smoke off a bare mountain", () => {
+    expect(volcano("volcano")).toContain("dot ");
+    expect(peak("mountain")).not.toContain("dot ");
+    expect(tower("lighthouse")).toContain("rect 9,3 6x5");
+    expect(tower("lighthouse")).not.toContain("circle 12,6 r2");
+  });
+
+  it("draws each named concept with an iconic primitive, not a stack of trays", () => {
+    expect(mushroom("mushroom")).toContain("circle 12,9 r7");
+    expect(hourglass("hourglass")).toContain("off-axis");
+    expect(sailboat("sailboat")).toContain("diamond ");
+    expect(peak("mountain")).toContain("diamond ");
+    expect(volcano("volcano")).toContain("diamond ");
+    expect(horn("unicorn")).toContain("diamond ");
+    expect(banana("bananas")).toContain("arc ");
+    expect(kiwi("kiwi")).toContain("circle 12,12");
+    expect(stapler("stapler")).toContain("rect ");
+    expect(envelope("envelope")).toContain("off-axis");
+    expect(moon("moon")).toContain("three-quarter");
+    expect(unknown("xyzzy")).toContain("dot 12,12 node");
+    expect(unknown("xyzzy")).not.toContain("circle 12,6 r2");
+    expect(plus("plus-sign")).toContain("line 4,12 20,12");
+    expect(plus("plus-sign", "filled")).toContain("rect 3,11 18x2");
+    expect(clock("wall-clock")).toContain("circle 12,12 r9");
+    expect(clock("wall-clock", "filled")).toContain("hole rect");
+    expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
+    expect(check("checkmark", "filled")).toContain("hole line");
+    expect(lock("lock", "filled")).toContain("hole circle");
+    expect(ring("ring", "filled")).toContain("hole circle");
+    expect(home("home")).toContain("line 4,10 12,2 20,10");
+    expect(home("home")).not.toContain("diamond ");
+    expect(home("home", "filled")).toContain("diamond 12,10 r8");
+    expect(home("home", "filled")).not.toContain("dot 12,12 node");
+  });
+
+  it("keeps cactus arms on the trunk so gap does not warn", async () => {
+    const result = await analogArm()({ name: "cactus" });
+    expect(result.issues.filter((i) => i.rule === "gap")).toEqual([]);
+    expect(result.issues.filter((i) => i.rule === "extent")).toEqual([]);
+    expect(result.clean).toBe(true);
+  });
+
+  it("keeps unicorn, telescope, and lighthouse free of errors and 0.02px gaps", async () => {
+    const names = ["unicorn", "telescope", "lighthouse", "hourglass"] as const;
+    const drawn = await Promise.all(
+      names.flatMap((name) =>
+        (["outlined", "filled"] as const).map((finish) =>
+          analogArm()({ name }, { finish }).then((result) => ({
+            finish,
+            name,
+            result,
+          }))
+        )
+      )
+    );
+    for (const { finish, name, result } of drawn) {
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      expect(
+        result.issues.filter((i) => i.severity === "error"),
+        `${name} ${finish}`
+      ).toEqual([]);
+      expect(
+        result.issues.filter(
+          (i) => i.rule === "gap" && i.message.includes("0.02px")
+        ),
+        `${name} ${finish}`
+      ).toEqual([]);
+      expect(
+        result.issues.filter((i) => i.rule === "keyline"),
+        `${name} ${finish}`
+      ).toEqual([]);
+    }
+  });
+
+  it("draws ordinary names as themselves, not unknown or a hub", async () => {
+    const cases = [
+      ["mail", "envelope"],
+      ["bell", "bell"],
+      ["moon", "moon"],
+      ["map-pin", "pin"],
+      ["key", "key"],
+      ["book", "book"],
+      ["camera", "camera"],
+      ["heart", "heart"],
+      ["plus-sign", "plus"],
+      ["wall-clock", "clock"],
+      ["checkmark", "check"],
+      ["lock", "lock"],
+      ["home", "home"],
+    ] as const;
+    const drawn = await Promise.all(
+      cases.map(([name, id]) =>
+        analogArm()({ name }).then((result) => ({ id, name, result }))
+      )
+    );
+    for (const { id, name, result } of drawn) {
+      expect(result.brief, name).toBe(`analog ${id} ${name}`);
+      expect(result.clean, name).toBe(true);
+      expect(result.program, name).not.toContain("circle 12,6 r2");
+    }
+  });
+
+  it("leaves names it cannot draw honestly as unknown", () => {
+    for (const name of ["xyzzy", "fnord", "quokka", "star", "compass"]) {
+      const [row] = analogConstructions(name, [], name, false);
+      expect(row?.id, name).toBe("unknown");
+    }
+  });
+
+  it("keeps unknown clean in both paints", () => {
+    for (const finish of ["outlined", "filled"] as const) {
+      const source = unknown("bananas", finish);
+      const drawn = run(source, []);
+      expect(drawn.errors, finish).toEqual([]);
+      expect(source).toContain(`finish ${finish}`);
+    }
+  });
+
+  it("draws held-out names that are not in the house or glyph set", async () => {
+    const cases = [
+      ["mushroom", "mushroom"],
+      ["hourglass", "hourglass"],
+      ["sailboat", "sailboat"],
+      ["bananas", "banana"],
+      ["kiwi", "kiwi"],
+      ["stapler", "stapler"],
+      ["envelope", "envelope"],
+      ["bell", "bell"],
+      ["moon", "moon"],
+      ["plus-sign", "plus"],
+      ["wall-clock", "clock"],
+      ["checkmark", "check"],
+      ["lock", "lock"],
+      ["home", "home"],
+    ] as const;
+    const drawn = await Promise.all(
+      cases.flatMap(([name, id]) => [
+        analogArm()({ name }).then((result) => ({
+          finish: "outlined",
+          id,
+          name,
+          result,
+        })),
+        analogArm()({ name }, { finish: "filled" }).then((result) => ({
+          finish: "filled",
+          id,
+          name,
+          result,
+        })),
+      ])
+    );
+    for (const { finish, id, name, result } of drawn) {
+      expect(result.brief, `${name} ${finish}`).toBe(`analog ${id} ${name}`);
+      expect(result.program, `${name} ${finish}`).not.toContain(
+        "circle 12,6 r2"
+      );
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      if (finish === "filled") {
+        expect(result.program, `${name} filled`).toContain("finish filled");
+        expect(result.svg, `${name} filled`).toMatch(/<path/u);
+      }
+    }
   });
 });

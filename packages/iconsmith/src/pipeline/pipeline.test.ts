@@ -27,6 +27,7 @@ import type { EvalIcon } from "./eval.js";
 import {
   DEFAULT_MODEL,
   MissingApiKeyError,
+  OPENROUTER_INKLING,
   generate,
   resolveModel,
 } from "./generate.js";
@@ -140,6 +141,8 @@ const envGet = {
   anthropic: (): string | undefined => process.env.ANTHROPIC_API_KEY,
   gateway: (): string | undefined => process.env.AI_GATEWAY_API_KEY,
   oidc: (): string | undefined => process.env.VERCEL_OIDC_TOKEN,
+  openrouter: (): string | undefined => process.env.OPENROUTER_API_KEY,
+  provider: (): string | undefined => process.env.ICONSMITH_PROVIDER,
 };
 
 const envSet = {
@@ -164,18 +167,38 @@ const envSet = {
       process.env.VERCEL_OIDC_TOKEN = value;
     }
   },
+  openrouter: (value: string | undefined): void => {
+    if (value === undefined) {
+      delete process.env.OPENROUTER_API_KEY;
+    } else {
+      process.env.OPENROUTER_API_KEY = value;
+    }
+  },
+  provider: (value: string | undefined): void => {
+    if (value === undefined) {
+      delete process.env.ICONSMITH_PROVIDER;
+    } else {
+      process.env.ICONSMITH_PROVIDER = value;
+    }
+  },
 };
 
 const withoutGateway = (run: () => void): void => {
   const gw = envGet.gateway();
   const oidc = envGet.oidc();
+  const or = envGet.openrouter();
+  const provider = envGet.provider();
   process.env.AI_GATEWAY_API_KEY = "";
   process.env.VERCEL_OIDC_TOKEN = "";
+  process.env.OPENROUTER_API_KEY = "";
+  delete process.env.ICONSMITH_PROVIDER;
   try {
     run();
   } finally {
     envSet.gateway(gw);
     envSet.oidc(oidc);
+    envSet.openrouter(or);
+    envSet.provider(provider);
   }
 };
 
@@ -231,8 +254,10 @@ describe("resolveModel", () => {
   it("fails before any drawing when generate() has no model and no key", async () => {
     const gw = envGet.gateway();
     const oidc = envGet.oidc();
+    const or = envGet.openrouter();
     process.env.AI_GATEWAY_API_KEY = "";
     process.env.VERCEL_OIDC_TOKEN = "";
+    process.env.OPENROUTER_API_KEY = "";
     try {
       await expect(generate({ name: "folder" })).rejects.toThrow(
         MissingApiKeyError
@@ -240,6 +265,7 @@ describe("resolveModel", () => {
     } finally {
       envSet.gateway(gw);
       envSet.oidc(oidc);
+      envSet.openrouter(or);
     }
   });
 
@@ -251,6 +277,44 @@ describe("resolveModel", () => {
   it("defaults to the house model when a key is present", () => {
     const model = resolveModel(undefined, "sk-test-not-a-real-key");
     expect(modelIdOf(model)).toBe(DEFAULT_MODEL);
+  });
+
+  it("routes an OpenRouter slug through OpenRouter, not the gateway", () => {
+    const model = resolveModel("thinkingmachines/inkling:free", "or-test-key");
+    expect(modelIdOf(model)).toBe("thinkingmachines/inkling:free");
+    expect(typeof model === "string" ? "string" : model.provider).toBe(
+      "openrouter"
+    );
+  });
+
+  it("strips the openrouter/ routing prefix before the API slug", () => {
+    const model = resolveModel(
+      "openrouter/thinkingmachines/inkling:free",
+      "or-test-key"
+    );
+    expect(modelIdOf(model)).toBe("thinkingmachines/inkling:free");
+  });
+
+  it("fails with an OpenRouter line when that slug has no OpenRouter key", () => {
+    withoutGateway(() => {
+      expect(() => resolveModel("thinkingmachines/inkling:free")).toThrow(
+        MissingApiKeyError
+      );
+      expect(() => resolveModel("thinkingmachines/inkling:free")).toThrow(
+        /OPENROUTER_API_KEY/u
+      );
+    });
+  });
+
+  it("defaults to Inkling when the only credential is OpenRouter", () => {
+    withoutGateway(() => {
+      process.env.OPENROUTER_API_KEY = "or-test-key";
+      const model = resolveModel();
+      expect(modelIdOf(model)).toBe(OPENROUTER_INKLING);
+      expect(typeof model === "string" ? "string" : model.provider).toBe(
+        "openrouter"
+      );
+    });
   });
 });
 
@@ -274,6 +338,42 @@ describe("tools", () => {
         { messages: [], toolCallId: "t1" }
       )
     ).toThrow(/unknown part/u);
+  });
+
+  it("steers listParts toward the house paint construction the query asked for", async () => {
+    const outlined = createTools({ finish: "outlined" });
+    const filled = createTools({ finish: "filled" });
+    const clock = await outlined.tools.listParts.execute?.(
+      { query: "clock" },
+      { messages: [], toolCallId: "t1" }
+    );
+    const plus = await filled.tools.listParts.execute?.(
+      { query: "plus-sign" },
+      { messages: [], toolCallId: "t2" }
+    );
+    const other = await outlined.tools.listParts.execute?.(
+      { query: "quokka" },
+      { messages: [], toolCallId: "t3" }
+    );
+    expect(clock?.construction).toContain(
+      "House construction (clock, outlined)"
+    );
+    expect(plus?.construction).toContain("House construction (plus, filled)");
+    const mark = await outlined.tools.listParts.execute?.(
+      { query: "checkmark" },
+      { messages: [], toolCallId: "t4" }
+    );
+    expect(mark?.construction).toContain(
+      "House construction (check, outlined)"
+    );
+    const house = await outlined.tools.listParts.execute?.(
+      { query: "home" },
+      { messages: [], toolCallId: "t5" }
+    );
+    expect(house?.construction).toContain(
+      "House construction (home, outlined)"
+    );
+    expect(other?.construction).toBeUndefined();
   });
 });
 
@@ -353,6 +453,23 @@ describe("generate", () => {
     expect(result.clean).toBe(false);
     expect(result.issues[0].rule).toBe("empty");
     expect(result.text).toBe("I would rather not.");
+  });
+
+  it("pairs the other paint so a filled disc is not a quiet twin", async () => {
+    const result = await generate(
+      { name: "ring" },
+      {
+        finish: "filled",
+        model: scripted([
+          { input: { cx: 12, cy: 12, r: 8 }, tool: "circle" },
+          { text: "A disc." },
+        ]),
+      }
+    );
+    expect(result.program).toContain("finish filled");
+    expect(result.program).toContain("circle 12,12 r8");
+    expect(result.clean).toBe(false);
+    expect(result.issues.map((i) => i.rule)).toContain("paint");
   });
 
   it("puts the concept, but never the answer, in the prompt", async () => {
