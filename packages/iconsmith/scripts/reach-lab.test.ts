@@ -1,10 +1,12 @@
 /**
- * The staging harness, and the five invariants it refuses to stage without.
+ * The staging harness: the invariants it refuses to stage without, and the one
+ * thing it must never do quietly.
  *
- * Each one is a bug the reach dashboard shipped, so each is worth failing a
- * run over rather than reporting on the page afterwards: a directory that
- * cannot be trusted is worse than none, because the viewer shows it anyway and
- * the plausible cards carry the rest.
+ * Each invariant is a bug the reach dashboard shipped, so each is worth failing
+ * a run over rather than reporting on the page afterwards. The refusal to
+ * substitute is the newer lesson: a previous revision drew all ten on the host,
+ * reported `0 error(s)`, and so answered a question about the generator with a
+ * fact about the house.
  */
 import { existsSync, mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -12,14 +14,20 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import { GLYPH_NAMES } from "../src/pipeline/glyphs.js";
 import type { Thinking } from "../src/pipeline/thinking.js";
 import { run } from "../src/tools/dsl.js";
 import { lint } from "../src/tools/lint.js";
-import { runReachLab } from "./reach-lab.js";
+import { REACH_SET, runReachLab, unavailable } from "./reach-lab.js";
 
-const out = mkdtempSync(path.join(tmpdir(), "iconsmith-reach-"));
-const records = await runReachLab(out);
+const temp = (): string => mkdtempSync(path.join(tmpdir(), "iconsmith-reach-"));
+
+/** `analog` is the one arm on the list that runs with no credential and no
+ *  corpus, so it is what exercises the invariants here. */
+const ANALOG = REACH_SET.map((e) => ({ ...e, arm: "analog" as const }));
+
+const out = temp();
+const staged = await runReachLab(out, ANALOG);
+const records = staged.flatMap((s) => s.records ?? []);
 
 const ops = (program: string): string[] =>
   program
@@ -27,10 +35,55 @@ const ops = (program: string): string[] =>
     .map((line) => line.trim())
     .filter((line) => line !== "" && !line.startsWith("#"));
 
+describe("unavailable", () => {
+  it("names the missing credential rather than letting the arm throw", () => {
+    // Neither is set in CI, and the message has to say which one to set.
+    expect(unavailable("agent")).toMatch(/AI_GATEWAY_API_KEY/u);
+    expect(unavailable("harness")).toMatch(/CLI on PATH/u);
+  });
+
+  it("lets through the arms that need nothing", () => {
+    expect(unavailable("analog")).toBeNull();
+    expect(unavailable("glyph")).toBeNull();
+  });
+});
+
 describe("runReachLab", () => {
-  it("stages both paints of every icon in the set", () => {
-    expect(records).toHaveLength(GLYPH_NAMES.length * 2);
-    for (const name of GLYPH_NAMES) {
+  /**
+   * The regression that matters most. Asking for an arm this machine cannot run
+   * must produce a *recorded skip*, never a drawing from somewhere else: a set
+   * that quietly answers with the house is how ten host programs came to be
+   * read as ten agent draws.
+   */
+  it("records a skip rather than substituting another arm", async () => {
+    const dir = temp();
+    const asked = await runReachLab(dir, [
+      { arm: "agent", name: "compass" },
+      { arm: "harness", name: "wifi" },
+    ]);
+    for (const one of asked) {
+      expect(one.records, one.name).toBeUndefined();
+      expect(one.skipped, one.name).toBeTruthy();
+      expect(existsSync(path.join(dir, one.name, `${one.name}.svg`))).toBe(
+        false
+      );
+    }
+    // And the reason survives to disk, so a reader of the directory learns it
+    // without re-running anything.
+    expect(readFileSync(path.join(dir, "reach.json"), "utf-8")).toContain(
+      "AI_GATEWAY_API_KEY"
+    );
+  });
+
+  it("credits the arm that drew it, not the finish of the brief", () => {
+    for (const record of records) {
+      expect(record.policy, record.brief).toBe("analog");
+    }
+  });
+
+  it("stages both paints of every icon it drew", () => {
+    expect(records).toHaveLength(REACH_SET.length * 2);
+    for (const { name } of REACH_SET) {
       for (const slug of [name, `${name}-filled`]) {
         for (const suffix of [".svg", ".icon", ".json", ".brief.md"]) {
           expect(existsSync(path.join(out, name, `${slug}${suffix}`))).toBe(
@@ -49,7 +102,12 @@ describe("runReachLab", () => {
     }
   });
 
-  it("stages nothing with a lint error, in either paint", () => {
+  /**
+   * Warnings are allowed through and errors are not. The analog fallback trips
+   * plenty of the former — that is the arm telling the truth about a generic
+   * construction — and the run is still valid.
+   */
+  it("stages findings but no errors, in either paint", () => {
     for (const record of records) {
       const drawn = run(record.program, []);
       expect(drawn.errors, record.brief).toEqual([]);
@@ -58,6 +116,7 @@ describe("runReachLab", () => {
       );
       expect(errors, record.brief).toEqual([]);
     }
+    expect(records.some((r) => r.issues.length > 0)).toBe(true);
   });
 
   /** The whole point of the sidecar: the page reads it, so `clean` may not
@@ -70,14 +129,18 @@ describe("runReachLab", () => {
   });
 
   it("cuts a hole rather than painting over the solid", () => {
-    const filled = readFileSync(
-      path.join(out, "compass", "compass-filled.svg"),
-      "utf-8"
-    );
-    expect(
-      readFileSync(path.join(out, "compass", "compass-filled.icon"), "utf-8")
-    ).toContain("hole circle 12,12 r8");
-    expect(filled).toContain('fill-rule="evenodd"');
+    for (const { name } of REACH_SET) {
+      const program = readFileSync(
+        path.join(out, name, `${name}-filled.icon`),
+        "utf-8"
+      );
+      if (ops(program).some((line) => line.startsWith("hole "))) {
+        expect(
+          readFileSync(path.join(out, name, `${name}-filled.svg`), "utf-8"),
+          name
+        ).toContain('fill-rule="evenodd"');
+      }
+    }
   });
 
   it("writes a sidecar the viewer can read back as a verdict", () => {
@@ -92,10 +155,9 @@ describe("runReachLab", () => {
       "policy",
       "program",
       "steps",
-      "suppressed",
       "trace",
     ]);
     expect(sidecar.finish).toBe("outlined");
-    expect(sidecar.policy).toBe("glyph");
+    expect(sidecar.policy).toBe("analog");
   });
 });
