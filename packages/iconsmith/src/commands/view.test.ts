@@ -19,6 +19,7 @@ import type { ViewCard, ViewPaint } from "./view.js";
 import {
   FLOOR,
   buildPage,
+  paintsOf,
   cardIssues,
   constructionSteps,
   counterpartSlug,
@@ -680,6 +681,42 @@ describe("cardIssues", () => {
         [{ message: "recorded", rule: "keyline", severity: "error" }]
       )
     ).toEqual([{ message: "recorded", rule: "keyline", severity: "error" }]);
+  });
+});
+
+/**
+ * A program the DSL refuses has to reach the card.
+ *
+ * Dropping it left a refused op indistinguishable from one nobody asked for:
+ * the paint simply did not appear, and the reason — a real defect in the
+ * drawing or in the derivation — reached nobody.
+ */
+describe("paintsOf", () => {
+  const icon = { file: "/tmp/x/kite.svg", group: null, slug: "kite" };
+
+  it("reports a program the DSL refused instead of falling back in silence", () => {
+    // An undeclared diagonal: `canvas.ts` refuses it, so this program does not
+    // draw. The card must say so rather than quietly showing the shipped file.
+    const { issues, paints } = paintsOf(
+      icon,
+      ICON,
+      "icon kite\nfinish outlined\n\nline 4,4 18,11\nfit\n"
+    );
+    const dsl = issues.find((i) => i.rule === "dsl");
+    expect(dsl?.severity).toBe("error");
+    expect(dsl?.message).toContain("could not be drawn");
+    // The shipped file is still worth showing; it just does not excuse silence.
+    expect(paints.length).toBeGreaterThan(0);
+  });
+
+  it("says nothing about the DSL when both paints draw", () => {
+    const { issues, paints } = paintsOf(
+      icon,
+      ICON,
+      "icon kite\nfinish outlined\n\ncircle 12,12 r8\nfit\n"
+    );
+    expect(issues.filter((i) => i.rule === "dsl")).toEqual([]);
+    expect(paints.map((p) => p.finish)).toEqual(["outlined", "filled"]);
   });
 });
 

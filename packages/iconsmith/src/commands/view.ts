@@ -254,6 +254,26 @@ const shapesFromProgram = (source: string): CorpusShape[] | null => {
 };
 
 /**
+ * A program the DSL refused, as a finding rather than as a missing paint.
+ *
+ * Returning `null` and moving on made a refused op indistinguishable from one
+ * nobody asked for: the derived twin simply did not appear, the card showed one
+ * paint, and the reason — which is a real defect in the drawing or in the
+ * derivation — reached nobody. This is the same failure the reach set shipped in
+ * four other places, so it gets the same treatment: say what broke, on the card,
+ * at `error`, because a paint the page cannot draw is not a judgement call.
+ */
+const refusal = (
+  what: string,
+  finish: Finish,
+  errors: readonly string[]
+): Issue => ({
+  message: `The ${finish} paint could not be drawn from its ${what}: ${errors.join("; ")}`,
+  rule: "dsl",
+  severity: "error",
+});
+
+/**
  * One paint of one drawing: the program that made it, what it drew, and what
  * the house spec makes of it.
  *
@@ -285,17 +305,22 @@ export interface ViewPaint {
  * asked for by name. Draw the program, lint the canvas, render the shapes:
  * one drawing, and the page cannot report a different one than it shows.
  */
-const paintProgram = (source: string): ViewPaint | null => {
+const paintProgram = (
+  source: string
+): { errors: readonly string[]; paint: ViewPaint | null } => {
   const drawn = runDsl(source, []);
   if (drawn.errors.length > 0) {
-    return null;
+    return { errors: drawn.errors, paint: null };
   }
   const { canvas } = drawn;
   return {
-    checks: review(canvas, { keyline: drawn.keyline }),
-    finish: canvas.finish,
-    program: source,
-    shapes: parseIconSvg(canvas.toSVG()),
+    errors: [],
+    paint: {
+      checks: review(canvas, { keyline: drawn.keyline }),
+      finish: canvas.finish,
+      program: source,
+      shapes: parseIconSvg(canvas.toSVG()),
+    },
   };
 };
 
@@ -1045,30 +1070,55 @@ const paintFile = (
  * then the twin can only come from a sibling file, because nothing here will
  * invent one.
  */
-const paintsOf = (
+/**
+ * Every paint the page can draw for one icon, and every reason it could not
+ * draw another.
+ *
+ * The refusals come back rather than being dropped. A DSL error while deriving
+ * the twin used to leave the card with one paint and no explanation, which is
+ * the same "a refused op is indistinguishable from one nobody asked for" hole
+ * the reach set shipped in its filled programs.
+ */
+export const paintsOf = (
   icon: ViewIcon,
   source: string,
   program: string | null
-): ViewPaint[] => {
+): { issues: Issue[]; paints: ViewPaint[] } => {
   const fromFile = parseIconSvg(source);
   const fileFinish = finishOf(fromFile);
   const primarySource = program ?? hostProgram(icon.slug, fileFinish);
-  const primary = primarySource === null ? null : paintProgram(primarySource);
+  const drawn =
+    primarySource === null
+      ? { errors: [] as readonly string[], paint: null }
+      : paintProgram(primarySource);
+  const issues: Issue[] = [];
+  if (drawn.errors.length > 0) {
+    issues.push(refusal("program", fileFinish, drawn.errors));
+  }
+  const primary = drawn.paint;
   if (primary === null || primary.shapes.length === 0) {
+    // The shipped file is still a drawing worth showing, but on its own it says
+    // nothing about why the program beside it did not run.
     const paints = [paintFile(fromFile, keylineOf(program))];
     const twin = twinShapes(icon.slug, icon.file, fileFinish, null);
     if (twin && twin.length > 0) {
       paints.push(paintFile(twin, null));
     }
-    return paints;
+    return { issues, paints };
   }
   const paints = [primary];
   const twinSource = twinProgram(icon.slug, primary.finish, primary.program);
-  const twin = twinSource === null ? null : paintProgram(twinSource);
-  if (twin && twin.shapes.length > 0) {
-    paints.push(twin);
+  if (twinSource !== null) {
+    const other = paintProgram(twinSource);
+    if (other.errors.length > 0) {
+      issues.push(
+        refusal("outlined twin", otherFinish(primary.finish), other.errors)
+      );
+    } else if (other.paint && other.paint.shapes.length > 0) {
+      paints.push(other.paint);
+    }
   }
-  return paints;
+  return { issues, paints };
 };
 
 const scored = async (
@@ -1149,12 +1199,12 @@ const buildCard = async (
 ): Promise<ViewCard> => {
   const source = readText(icon.file, "an .svg icon");
   const trace = loadTrace(icon.file);
-  const paints = paintsOf(icon, source, trace.program);
+  const { issues: refused, paints } = paintsOf(icon, source, trace.program);
   const metrics = loadMetrics(icon.file);
   return {
     against: await compare(icon, source, paints[0].finish, against, scores),
     icon,
-    issues: cardIssues(paints, metrics?.issues),
+    issues: cardIssues(paints, [...refused, ...(metrics?.issues ?? [])]),
     metrics,
     paints,
     trace: {
