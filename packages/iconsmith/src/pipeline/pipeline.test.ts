@@ -295,6 +295,13 @@ describe("tools", () => {
       "House construction (clock, outlined)"
     );
     expect(plus?.construction).toContain("House construction (plus, filled)");
+    const mark = await outlined.tools.listParts.execute?.(
+      { query: "checkmark" },
+      { messages: [], toolCallId: "t4" }
+    );
+    expect(mark?.construction).toContain(
+      "House construction (check, outlined)"
+    );
     expect(other?.construction).toBeUndefined();
   });
 });
