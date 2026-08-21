@@ -52,6 +52,9 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   expect(conceptPrompt({ name: "checkmark" })).toContain(
     "House construction (check, outlined)"
   );
+  expect(conceptPrompt({ name: "home" })).toContain(
+    "House construction (home, outlined)"
+  );
   expect(conceptPrompt({ name: "quokka" })).not.toContain("House construction");
   expect(conceptPrompt({ name: "star" })).not.toContain("House construction");
 });

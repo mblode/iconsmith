@@ -130,6 +130,7 @@ export {
   flower,
   hammer,
   heart,
+  home,
   horn,
   hourglass,
   hub,

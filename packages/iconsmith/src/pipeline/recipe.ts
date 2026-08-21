@@ -5,7 +5,8 @@
  * clock, lock, …). A recipe names a construction, not a glyph to volunteer
  * for an unasked name — `recipeFor` only fires when a content token of the
  * query is the recipe. Analog resolves that id to a family in both paints
- * (`checkmark` draws the house check). `star` and host glyphs stay unknown.
+ * (`checkmark` draws the house check; `home` draws the pentagon). `star`
+ * and host glyphs stay unknown.
  *
  * The model never emits a coordinate. These sentences steer `listParts`,
  * the per-icon brief, and the skill toward the programs compile already
@@ -60,6 +61,14 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
     outlined:
       "shackle, body, and a keyhole mark as separate strokes — not one slab.",
     tokens: ["lock"],
+  },
+  {
+    filled:
+      "one evenodd pentagon: peaked roof sitting on the body. Not a frame-and-dot, not a diamond through the walls, and not a door nobody asked for.",
+    id: "home",
+    outlined:
+      "one closed pentagon — roof peak and walls as the outer stroke. Not a box, and not a roof drawn through the body.",
+    tokens: ["home"],
   },
 ];
 

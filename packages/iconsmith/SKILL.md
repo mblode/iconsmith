@@ -126,6 +126,8 @@ A clock. Outlined is a ring plus hands as a polyline from the centre (`circle 12
 
 A check. Outlined is an open tick stroke. Filled is a badge disc with the tick cut out (evenodd). Not a thick tick, and not a tick drawn on top of a disc.
 
+A home. Outlined is one closed pentagon — roof peak and walls as the outer stroke. Filled is that silhouette (body plus a roof seated on the eaves), not a frame-and-dot and not a door nobody asked for.
+
 These are constructions, not glyphs to volunteer for an unasked name.
 
 A strike-through. Two half-arcs of one circle, plus a bar. Not a zigzag S.
