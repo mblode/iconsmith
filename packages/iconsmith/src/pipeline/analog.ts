@@ -13,7 +13,9 @@
  * not because a new drawing was written. Two different families in one name
  * stay `unknown` — overlaying them is not the named object. A leftover hub
  * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
- * The composer writes the program. The model does not.
+ * A paint recipe that can fire must resolve to a family in both paints —
+ * `checkmark` draws the house check, not unknown. The composer writes the
+ * program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -25,7 +27,7 @@ import {
   lozenge,
   mass,
   program as iconProgram,
-  ring,
+  ring as paintRing,
   vbar,
 } from "../tools/twin.js";
 import type { Finish, Issue, Part } from "../types.js";
@@ -33,6 +35,7 @@ import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
 import { pairPrograms } from "./pair.js";
+import { recipeFor } from "./recipe.js";
 import { compileIcon } from "./reconstruct.js";
 import { overlap, tokens } from "./search.js";
 
@@ -302,7 +305,7 @@ export const tube = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     mass(finish, 3, 5, 6, 5, 1),
     mass(finish, 6, 4, 13, 7, 2),
-    ...ring(finish, 18, 7.5, 3),
+    ...paintRing(finish, 18, 7.5, 3),
     vbar(finish, 8, 10, 8),
     vbar(finish, 15, 10, 8),
     hbar(finish, 8, 10, 7),
@@ -448,6 +451,51 @@ export const clock = (slug: string, finish: Finish = "outlined"): string =>
       : ["circle 12,12 r9", "line 12,7 12,12 16,12"]
   );
 
+/**
+ * House check: outlined is the open tick (`M20 6 9 17l-5-5`); filled is a
+ * badge disc with that tick cut out (evenodd). Not a thick tick, and not a
+ * tick drawn on top of a disc. Recipe tokens (`check`, `tick`, `checkmark`)
+ * resolve here — not a new kin row.
+ */
+export const check = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "wide",
+    finish === "filled"
+      ? ["rect 2,3 20x16 r4", "hole line 3,14 7,18 21,4"]
+      : ["line 3,14 7,18 21,4"]
+  );
+
+/**
+ * House lock: shackle, body, keyhole as separate strokes; filled is one
+ * evenodd compound with each hole immediately after the solid it cuts.
+ */
+export const lock = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "tall",
+    finish === "filled"
+      ? [
+          "rect 4,9 16x13 r4",
+          "hole rect 11,13 2x5",
+          "circle 12,7 r5",
+          "hole circle 12,7 r3",
+        ]
+      : [
+          "rect 5,10 14x11 r3",
+          "arc 12,7 r4 half from left",
+          "line 8,7 8,10",
+          "line 16,7 16,10",
+          "line 12,14 12,17",
+        ]
+  );
+
+/** House ring: centre-line hoop, or `circle` then `hole circle` immediately. */
+export const ring = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "circle", paintRing(finish, 12, 12, 9));
+
 /** Three overlapping discs — a cloud. */
 export const cloud = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
@@ -481,7 +529,7 @@ export const flag = (slug: string, finish: Finish = "outlined"): string =>
 /** Bow, shaft, bit — a key. Path 18×14 + stroke is wide 20×16. */
 export const key = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
-    ...ring(finish, 7, 12, 6),
+    ...paintRing(finish, 7, 12, 6),
     hbar(finish, 13, 12, 6),
     vbar(finish, 17, 5, 14),
     vbar(finish, 19, 12, 5),
@@ -499,7 +547,7 @@ export const book = (slug: string, finish: Finish = "outlined"): string =>
 export const camera = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     mass(finish, 3, 8, 18, 10, 2),
-    ...ring(finish, 12, 13, 3),
+    ...paintRing(finish, 12, 13, 3),
     mass(finish, 7, 5, 5, 4, 1),
   ]);
 
@@ -611,7 +659,7 @@ export const magnet = (slug: string, finish: Finish = "outlined"): string =>
 /** Ring, shank, flukes — an anchor. Path 14×18 + stroke is tall 16×20. */
 export const anchor = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    ...ring(finish, 12, 6, 3),
+    ...paintRing(finish, 12, 6, 3),
     vbar(finish, 12, 9, 7),
     hbar(finish, 5, 16, 14),
     ...lozenge(finish, 12, 18, 3),
@@ -667,6 +715,7 @@ const FAMILY_DRAW = {
   book,
   camera,
   car,
+  check,
   clock,
   cloud,
   envelope,
@@ -682,6 +731,7 @@ const FAMILY_DRAW = {
   kiwi,
   ladder,
   leaf,
+  lock,
   magnet,
   moon,
   mushroom,
@@ -690,6 +740,7 @@ const FAMILY_DRAW = {
   pin,
   plant,
   plus,
+  ring,
   rocket,
   sailboat,
   shield,
@@ -831,12 +882,25 @@ export const contentTokens = (...parts: readonly string[]): string[] => {
  * Exact family id, exact kin, or a plural stem. No substring (`mailbox`
  * is not mail; that would volunteer a family the name did not ask for).
  */
+/** Recipe id → family, when that construction exists. One table, both paints. */
+const familyFromRecipe = (query: string): AnalogFamilyId | null => {
+  const recipe = recipeFor(query);
+  if (recipe !== null && Object.hasOwn(FAMILY_DRAW, recipe.id)) {
+    return recipe.id as AnalogFamilyId;
+  }
+  return null;
+};
+
 export const familyFromToken = (token: string): AnalogFamilyId | null => {
   if (token.length < 3 || UNVOLUNTEERED.has(token)) {
     return null;
   }
   if (Object.hasOwn(FAMILY_DRAW, token)) {
     return token as AnalogFamilyId;
+  }
+  const fromRecipe = familyFromRecipe(token);
+  if (fromRecipe !== null) {
+    return fromRecipe;
   }
   const kin = ANALOG_KINS[token];
   if (kin !== undefined) {
@@ -982,6 +1046,10 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
 ];
 
 const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
+  const asked = familyFromRecipe(slug);
+  if (asked !== null) {
+    return asked;
+  }
   const kin = ANALOG_KINS[slug];
   if (kin !== undefined) {
     return kin;

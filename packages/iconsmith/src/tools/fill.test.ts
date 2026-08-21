@@ -298,6 +298,26 @@ test("the DSL's hole needs a shape it knows", () => {
   expect(r.errors[0]).toMatch(/hole needs a shape to cut with/u);
 });
 
+test("a filled badge can cut a tick with hole line", () => {
+  const r = run(`
+    icon checkmark
+    keyline wide
+    finish filled
+    rect 2,3 20x16 r4
+    hole line 3,14 7,18 21,4
+    fit
+  `);
+  expect(r.errors).toEqual([]);
+  expect(r.canvas.elements.some((e) => e.op === "knockout")).toBe(true);
+  expect(r.canvas.toSVG()).toContain('fill-rule="evenodd"');
+  const back = r.canvas.toJSON();
+  expect(
+    back.draw.some(
+      (op) => (op.op === "line" || op.op === "rect") && op.knockout
+    )
+  ).toBe(true);
+});
+
 test("`fit` scales a filled drawing to the keyline without a stroke allowance", () => {
   const r = run(`
     keyline square

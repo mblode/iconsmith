@@ -22,6 +22,7 @@ import {
   book,
   camera,
   car,
+  check,
   clock,
   cloud,
   composeFromParts,
@@ -43,6 +44,7 @@ import {
   kiwi,
   ladder,
   leaf,
+  lock,
   magnet,
   moon,
   mushroom,
@@ -57,6 +59,7 @@ import {
   replay,
   retitle,
   rocket,
+  ring,
   sailboat,
   sameLetters,
   shield,
@@ -292,6 +295,15 @@ describe("analogConstructions", () => {
     expect(PLANT_HINT.test("succulent")).toBe(true);
   });
 
+  it("resolves a paint recipe to its family, not unknown", () => {
+    expect(
+      analogConstructions("checkmark", [], "checkmark", false)[0]?.id
+    ).toBe("check");
+    expect(analogConstructions("tick", [], "tick", false)[0]?.id).toBe("check");
+    expect(analogConstructions("lock", [], "lock", false)[0]?.id).toBe("lock");
+    expect(analogConstructions("ring", [], "ring", false)[0]?.id).toBe("ring");
+  });
+
   /**
    * Analog collates its own families and does not reach into `glyphs.ts`.
    *
@@ -450,6 +462,9 @@ describe("analog families", () => {
     { draw: key, id: "key", slug: "key" },
     { draw: book, id: "book", slug: "book" },
     { draw: camera, id: "camera", slug: "camera" },
+    { draw: check, id: "check", slug: "checkmark" },
+    { draw: lock, id: "lock", slug: "lock" },
+    { draw: ring, id: "ring", slug: "ring" },
     { draw: pencil, id: "pencil", slug: "pencil" },
     { draw: shield, id: "shield", slug: "shield" },
     { draw: flask, id: "flask", slug: "flask" },
@@ -533,6 +548,7 @@ describe("analog families", () => {
     expect(composeFromParts("mail", [])).toContain("off-axis");
     expect(composeFromParts("plus-sign", [])).toContain("line 4,12");
     expect(composeFromParts("wall-clock", [])).toContain("circle 12,12 r9");
+    expect(composeFromParts("checkmark", [])).toContain("line 3,14");
     expect(composeFromParts("xyzzy", [])).toBeNull();
   });
 
@@ -540,8 +556,16 @@ describe("analog families", () => {
     expect(ANALOG_KINS["office-mail"]).toBeUndefined();
     expect(ANALOG_KINS["mail-icon"]).toBeUndefined();
     expect(ANALOG_KINS["red-flag"]).toBeUndefined();
+    expect(ANALOG_KINS.check).toBeUndefined();
+    expect(ANALOG_KINS.tick).toBeUndefined();
+    expect(ANALOG_KINS.checkmark).toBeUndefined();
+    expect(ANALOG_KINS.lock).toBeUndefined();
+    expect(ANALOG_KINS.ring).toBeUndefined();
     expect(contentTokens("mail-icon")).toEqual(["mail"]);
     expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
+    expect(familyFromToken("checkmark")).toBe("check");
+    expect(familyFromToken("tick")).toBe("check");
+    expect(familyFromTokens("tick")).toBe("check");
     expect(familyFromToken("mail")).toBe("envelope");
     expect(familyFromTokens("office-mail")).toBe("envelope");
     expect(familyFromTokens("mail-icon")).toBe("envelope");
@@ -629,6 +653,10 @@ describe("analog families", () => {
     expect(plus("plus-sign", "filled")).toContain("rect 3,11 18x2");
     expect(clock("wall-clock")).toContain("circle 12,12 r9");
     expect(clock("wall-clock", "filled")).toContain("hole rect");
+    expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
+    expect(check("checkmark", "filled")).toContain("hole line");
+    expect(lock("lock", "filled")).toContain("hole circle");
+    expect(ring("ring", "filled")).toContain("hole circle");
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {
@@ -682,6 +710,8 @@ describe("analog families", () => {
       ["heart", "heart"],
       ["plus-sign", "plus"],
       ["wall-clock", "clock"],
+      ["checkmark", "check"],
+      ["lock", "lock"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -724,6 +754,8 @@ describe("analog families", () => {
       ["moon", "moon"],
       ["plus-sign", "plus"],
       ["wall-clock", "clock"],
+      ["checkmark", "check"],
+      ["lock", "lock"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

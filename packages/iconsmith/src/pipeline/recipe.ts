@@ -4,7 +4,8 @@
  * Measured from the 20-set (heart, star, home, bell, check, plus-large,
  * clock, lock, …). A recipe names a construction, not a glyph to volunteer
  * for an unasked name — `recipeFor` only fires when a content token of the
- * query is the recipe. Analog still leaves `star` and host glyphs unknown.
+ * query is the recipe. Analog resolves that id to a family in both paints
+ * (`checkmark` draws the house check). `star` and host glyphs stay unknown.
  *
  * The model never emits a coordinate. These sentences steer `listParts`,
  * the per-icon brief, and the skill toward the programs compile already

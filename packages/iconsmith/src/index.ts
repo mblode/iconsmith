@@ -99,6 +99,7 @@ export {
 } from "./pipeline/eval.js";
 export {
   DEFAULT_MODEL,
+  DEFAULT_OPENROUTER_MODEL,
   generate,
   MissingApiKeyError,
 } from "./pipeline/generate.js";
@@ -117,6 +118,7 @@ export {
   book,
   camera,
   car,
+  check,
   clock,
   cloud,
   composeFromParts,
@@ -134,6 +136,7 @@ export {
   kiwi,
   ladder,
   leaf,
+  lock,
   magnet,
   moon,
   mushroom,
@@ -143,6 +146,7 @@ export {
   plant,
   plus,
   rocket,
+  ring,
   sailboat,
   shield,
   stack,
