@@ -19,9 +19,10 @@ npx tsx scripts/reach-lab.ts [dir] [--arm analog|glyph|agent|harness]
 npx tsx scripts/twin-eval.ts --house <dir> [--out <dir>] # both paints vs house files
 npx tsx scripts/research.ts   # harness lab judge; 0 arrived, 1 not yet, 2 unscorable
 npx tsx scripts/loop.ts --enable <ids> …   # policy campaign; refuses a dirty tree
+npx tsx scripts/autoresearch.ts --rounds N # analog/recipe campaign; offline; never writes autoresearch.md
 ```
 
-`lab.md` is the standing instructions for the harness campaign (what you look at in `iconsmith view`). `program.md` is the standing instructions for the policy campaign. Neither file is written by its loop. Arrival is house-indistinguishable (panel clean, ≥1 `part` for keyed/unkeyed, keyed cosine ≥ 0.737; compile with parts may be ≥0.95; leak is ≥0.95 AND 0 part ops AND a model wrote the program). A host mark at ≥0.95 is reconstruction (`twin.ts`), not a leak; 0 parts is OK and sample cosine must stay null. N≥5 is a finding except compile, analog on unkeyed, and mark, where N=1 is decide.
+`lab.md` is the standing instructions for the harness campaign (what you look at in `iconsmith view`). `program.md` is the standing instructions for the policy campaign. `autoresearch.md` is the standing instructions for the offline analog/recipe campaign. None of those files is written by its loop. Arrival is house-indistinguishable (panel clean, ≥1 `part` for keyed/unkeyed, keyed cosine ≥ 0.737; compile with parts may be ≥0.95; leak is ≥0.95 AND 0 part ops AND a model wrote the program). A host mark at ≥0.95 is reconstruction (`twin.ts`), not a leak; 0 parts is OK and sample cosine must stay null. N≥5 is a finding except compile, analog on unkeyed, and mark, where N=1 is decide.
 
 `scripts/reach-lab.ts` writes `.staging/reach-10` — both paints of each icon, with a `.icon`, a brief and a normalised `Thinking` sidecar each — and asserts four invariants on the way past rather than reporting them on the page: both paints run as programs with ops (a comment is not a program), neither has a lint error, the two occupy one visual extent, and a `hole` is cut rather than painted over. It throws instead of staging a set that fails one.
 
