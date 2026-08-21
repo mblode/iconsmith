@@ -29,6 +29,7 @@ test("a filled run tells the model this canvas is solid, not outlined", () => {
   expect(outlined).toContain("place is an outline");
   expect(outlined).not.toContain("This run is the solid variant");
   expect(filled).toContain(FILLED_PAINT_RULE);
+  expect(filled).toContain("immediately after");
   expect(filled).not.toContain("place is an outline");
 });
 
@@ -42,4 +43,12 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   expect(filled).toContain("`hole`");
   expect(filled).toContain("do not flood the bbox");
   expect(filled).toContain("frame with a centre dot is not the concept");
+  expect(conceptPrompt({ name: "wall-clock" })).toContain(
+    "House construction (clock, outlined)"
+  );
+  expect(conceptPrompt({ name: "plus-sign" }, "filled")).toContain(
+    "House construction (plus, filled)"
+  );
+  expect(conceptPrompt({ name: "quokka" })).not.toContain("House construction");
+  expect(conceptPrompt({ name: "star" })).not.toContain("House construction");
 });

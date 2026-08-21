@@ -262,6 +262,33 @@ test("twinPairIssues fails a filled disc that restamps a stroked ring", () => {
   expect(issues.find((issue) => issue.rule === "extent")?.severity).toBe(
     "error"
   );
+  expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+});
+
+test("twinPairIssues still sees a restamp after fit to the same keyline", () => {
+  const outlined = run(
+    [
+      "icon hoop",
+      "keyline circle",
+      "finish outlined",
+      "circle 12,12 r8",
+      "fit",
+    ].join("\n")
+  ).canvas;
+  const filled = run(
+    [
+      "icon hoop",
+      "keyline circle",
+      "finish filled",
+      "circle 12,12 r8",
+      "fit",
+    ].join("\n")
+  ).canvas;
+  const issues = twinPairIssues(outlined, filled);
+  expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+  expect(issues.find((issue) => issue.rule === "paint")?.message).toContain(
+    "fit"
+  );
 });
 
 test("twinPairIssues fails a finish-stamped outline posing as filled", () => {

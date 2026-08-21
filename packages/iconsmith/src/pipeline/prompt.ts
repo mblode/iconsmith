@@ -19,6 +19,7 @@ import type { Finish, Keyline } from "../types.js";
 import type { Reference } from "./licence.js";
 import type { Condition, Policy, Tokens } from "./policy.js";
 import { DEFAULT_POLICY, renderPolicy } from "./policy.js";
+import { recipeBrief } from "./recipe.js";
 
 export interface Concept {
   /** Category from the host set, when the concept comes from one. */
@@ -70,7 +71,7 @@ export const OUTLINED_PAINT_RULE =
 /** This run is the solid variant. The outlined sentence would tell the
  *  model to draw strokes on a canvas that has no `line` tool. */
 export const FILLED_PAINT_RULE =
-  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and `line` is not a tool. Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.";
+  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and `line` is not a tool. Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox. A ring is `circle` then `hole` immediately after; a plus is an evenodd compound or two bars, not lines; a clock is a disc with hands cut out; a check is a badge with a cutout.";
 
 export interface PromptOptions {
   /** The family the icon joins, when it joins one; enables the `cohort` op. */
@@ -161,6 +162,10 @@ export const conceptPrompt = (
     lines.push(
       "Paint: outlined. Compose the named object from `listParts` and primitives, not a generic frame-and-dot."
     );
+  }
+  const recipe = recipeBrief(concept.name, finish);
+  if (recipe) {
+    lines.push(recipe);
   }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);

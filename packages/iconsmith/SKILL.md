@@ -118,7 +118,15 @@ One skeleton, two paints. Outlined is a centre-line stroke. Filled is that strok
 
 Do not flood-fill the path bbox (that grows the icon); invert the line drawing; run a bar through a hollow ring (timeline crescents); bury a solid inside another element; mix a stroke into a filled icon; or declare `finish` after geometry.
 
-A plus. Outlined is two `line`s; filled is two 2-wide `rect`s on the same centre-lines, each bar half a stroke past both endpoints so the two occupy the same visual extent. A ring is the same skeleton: `circle`, or `circle` then `hole circle`.
+A plus. Outlined is two `line`s (house `plus-large` is four open strokes from the hub); filled is one evenodd compound, or two 2-wide `rect`s on the same centre-lines, each bar half a stroke past both endpoints so the two occupy the same visual extent. Not two `line`s under `finish filled`, and not a flood of the bbox.
+
+A ring is the same skeleton: `circle`, or `circle` then `hole circle` immediately after. A mark between them ships a solid disc. `fit` to the same keyline does not hide a missing knockout — pairing after `fit` has to read the construction, not the box.
+
+A clock. Outlined is a ring plus hands as a polyline from the centre (`circle 12,12 r9` and `line 12,7 12,12 16,12`). Filled is a solid disc with the hands cut out, `hole` immediately after the disc — not a ring restamped as a disc, and not hands drawn on top of a filled face.
+
+A check. Outlined is an open tick stroke. Filled is a badge disc with the tick cut out (evenodd). Not a thick tick, and not a tick drawn on top of a disc.
+
+These are constructions, not glyphs to volunteer for an unasked name.
 
 A strike-through. Two half-arcs of one circle, plus a bar. Not a zigzag S.
 
@@ -144,6 +152,16 @@ keyline square
 finish filled
 rect 3,11 18x2
 rect 11,3 2x18
+```
+
+```icon
+icon clock
+keyline circle
+finish filled
+circle 12,12 r10
+hole rect 11,7 2x6
+hole rect 12,11 5x2
+fit
 ```
 
 - **`center`** — recentre the drawing's content on (12,12).

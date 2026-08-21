@@ -502,14 +502,62 @@ export const adaptProgram = (
 /** One paint of a twin pair: lintable, and sized the way {@link sameExtent} is. */
 export type TwinPaint = LintTarget & Sized;
 
+const isHole = (e: { hole?: boolean; op?: string }): boolean =>
+  e.hole === true || e.op === "knockout";
+
+/**
+ * A ring restamped as a disc.
+ *
+ * `sameExtent` cannot see this after `fit`: both paints scale onto the
+ * same keyline, so a filled disc of a stroked ring occupies the box and
+ * looks paired. House filled rings knock a hole immediately after the
+ * circle. A bare outlined circle against a bare filled circle with no
+ * knockout is that restamp — sun (disc + rays) and clock (disc + hands)
+ * have other marks and stay quiet.
+ */
+export const restampIssues = (
+  outlined: TwinPaint,
+  filled: TwinPaint
+): Issue[] => {
+  const hoops = outlined.elements.filter(
+    (e) => e.kind === "circle" && !isHole(e)
+  );
+  const disc = filled.elements.filter((e) => e.kind === "circle" && !isHole(e));
+  const holes = filled.elements.filter((e) => isHole(e));
+  const outlinedElse = outlined.elements.filter(
+    (e) => !(e.kind === "circle" && !isHole(e))
+  );
+  const filledElse = filled.elements.filter(
+    (e) => !(e.kind === "circle" && !isHole(e)) && !isHole(e)
+  );
+  if (
+    hoops.length === 0 ||
+    disc.length === 0 ||
+    holes.length > 0 ||
+    outlinedElse.length > 0 ||
+    filledElse.length > 0
+  ) {
+    return [];
+  }
+  return [
+    {
+      message:
+        "Filled restamped a ring as a disc. Knock a hole immediately after the circle — `fit` to the same keyline does not hide a missing knockout.",
+      rule: "paint",
+      severity: "error",
+    },
+  ];
+};
+
 /**
  * Whether two paints are one skeleton.
  *
  * `sameExtent` catches a flood-fill or a restamped finish (a filled disc
- * of a stroked ring shrinks by a stroke). Forcing each paint through the
- * rule that belongs to it catches a finish mix-up: `gap` on a filled
- * drawing, `feature` on an outlined one. Empty tiles fail here rather
- * than looking like a quiet pair.
+ * of a stroked ring shrinks by a stroke). After `fit` that shrink
+ * disappears, so {@link restampIssues} reads the construction. Forcing
+ * each paint through the rule that belongs to it catches a finish
+ * mix-up: `gap` on a filled drawing, `feature` on an outlined one.
+ * Empty tiles fail here rather than looking like a quiet pair.
  */
 export const twinPairIssues = (
   outlined: TwinPaint,
@@ -525,6 +573,7 @@ export const twinPairIssues = (
     });
     return issues;
   }
+  issues.push(...restampIssues(outlined, filled));
   const left = visualSize(outlined);
   const right = visualSize(filled);
   if (!sameExtent(outlined, filled, tol)) {

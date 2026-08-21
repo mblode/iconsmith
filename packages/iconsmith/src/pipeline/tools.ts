@@ -24,6 +24,7 @@ import type { Finish, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
+import { recipeBrief } from "./recipe.js";
 import { overlap, rankParts, tokens } from "./search.js";
 import type { Aliases } from "./search.js";
 
@@ -444,22 +445,26 @@ export const createTools = (options: ToolsOptions = {}) => {
       // is this tool's own: a model deciding whether to place a mark wants its
       // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
-        track("listParts", () => ({
-          matches: rankParts(parts, query, limit, aliases).map(
-            ({ hits, part }) => ({
-              h: part.h,
-              id: part.id,
-              name: part.name ?? null,
-              // Why it matched. An unnamed part is only useful if the model can
-              // tell what it is, and the icons it came from say that better
-              // than `p0044` does.
-              seenIn: hits.slice(0, 5),
-              usedByIcons: part.icons.length,
-              w: part.w,
-            })
-          ),
-          searched: parts.length,
-        })),
+        track("listParts", () => {
+          const construction = recipeBrief(query, finish);
+          return {
+            ...(construction ? { construction } : {}),
+            matches: rankParts(parts, query, limit, aliases).map(
+              ({ hits, part }) => ({
+                h: part.h,
+                id: part.id,
+                name: part.name ?? null,
+                // Why it matched. An unnamed part is only useful if the model can
+                // tell what it is, and the icons it came from say that better
+                // than `p0044` does.
+                seenIn: hits.slice(0, 5),
+                usedByIcons: part.icons.length,
+                w: part.w,
+              })
+            ),
+            searched: parts.length,
+          };
+        }),
       inputSchema: z.object({
         limit: z.number().int().min(1).max(50).optional(),
         query: z

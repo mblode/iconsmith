@@ -345,6 +345,15 @@
       "text": "- `part` — place a shape from the extracted vocabulary by id. Prefer this over\n  drawing a common form from scratch: it is *the same* folder, chevron, or\n  magnifier that the rest of the set already uses, which is the whole point.\n  `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors\n  the part before turning it. A part is stored at one orientation because the\n  clusterer folds a mark together with its turns and its mirror, so these are\n  how you reach the other seven. Ask for `flip` on purpose — chirality is the\n  one symmetry that can be simply wrong."
     },
     {
+      "id": "grammar.paint",
+      "section": "grammar",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "measured",
+      "evidence": "The 20-set: filled plus/lock/check/clock/heart are one evenodd compound; outlined plus-large is four open strokes; outlined clock is circle 12,12 r9 plus a polyline; 45% of filled icons knock a hole; a mark between circle and hole ships a solid disc.",
+      "text": "- **Paints are different constructions, not a restamp** outlined plus is\n  open strokes; filled plus is one evenodd compound (or two 2-wide rects).\n  Outlined clock is a ring plus hands; filled clock is a disc with the hands\n  cut out. Outlined check is an open tick; filled check is a badge with the\n  tick cut out. A ring is `circle` then `hole circle` immediately after — a\n  mark between them ships a solid disc. `fit` to the same keyline does not\n  make a restamped disc a twin of a ring. Do not volunteer a glyph the name\n  did not ask for."
+    },
+    {
       "id": "grammar.remove",
       "section": "grammar",
       "enabled": true,

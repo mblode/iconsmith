@@ -275,6 +275,28 @@ describe("tools", () => {
       )
     ).toThrow(/unknown part/u);
   });
+
+  it("steers listParts toward the house paint construction the query asked for", async () => {
+    const outlined = createTools({ finish: "outlined" });
+    const filled = createTools({ finish: "filled" });
+    const clock = await outlined.tools.listParts.execute?.(
+      { query: "clock" },
+      { messages: [], toolCallId: "t1" }
+    );
+    const plus = await filled.tools.listParts.execute?.(
+      { query: "plus-sign" },
+      { messages: [], toolCallId: "t2" }
+    );
+    const other = await outlined.tools.listParts.execute?.(
+      { query: "quokka" },
+      { messages: [], toolCallId: "t3" }
+    );
+    expect(clock?.construction).toContain(
+      "House construction (clock, outlined)"
+    );
+    expect(plus?.construction).toContain("House construction (plus, filled)");
+    expect(other?.construction).toBeUndefined();
+  });
 });
 
 describe("generate", () => {

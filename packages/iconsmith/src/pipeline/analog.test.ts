@@ -22,6 +22,7 @@ import {
   book,
   camera,
   car,
+  clock,
   cloud,
   composeFromParts,
   envelope,
@@ -50,6 +51,7 @@ import {
   pickKin,
   pin,
   plant,
+  plus,
   PLANT_HINT,
   preferStroked,
   replay,
@@ -277,6 +279,12 @@ describe("analogConstructions", () => {
     );
     expect(analogConstructions("bell", [], "bell", false)[0]?.id).toBe("bell");
     expect(analogConstructions("moon", [], "moon", false)[0]?.id).toBe("moon");
+    expect(analogConstructions("clock", [], "clock", false)[0]?.id).toBe(
+      "clock"
+    );
+    expect(
+      analogConstructions("plus-sign", [], "plus-sign", false)[0]?.id
+    ).toBe("plus");
     expect(analogConstructions("map-pin", [], "map-pin", false)[0]?.id).toBe(
       "pin"
     );
@@ -484,7 +492,7 @@ describe("analog families", () => {
       name: "cactus",
     };
     const source = composeFromParts("cactus", [rim]);
-    expect(source).toContain("part cactus at center size 12");
+    expect(source).toContain("part cactus fill");
     expect(run(source ?? "", [rim]).errors).toEqual([]);
   });
 
@@ -495,7 +503,7 @@ describe("analog families", () => {
   it("composes a plural query onto the singular part name", () => {
     const fruit = { ...part("p-widget", BOX), name: "widget" };
     const source = composeFromParts("widgets", [fruit]);
-    expect(source).toContain("part widget at center size 12");
+    expect(source).toContain("part widget fill");
     expect(
       analogConstructions("widgets", [fruit], "widgets", false)[0]?.id
     ).toBe("compose");
@@ -523,6 +531,8 @@ describe("analog families", () => {
     expect(source).toContain("arc ");
     expect(source).toContain("icon bananas");
     expect(composeFromParts("mail", [])).toContain("off-axis");
+    expect(composeFromParts("plus-sign", [])).toContain("line 4,12");
+    expect(composeFromParts("wall-clock", [])).toContain("circle 12,12 r9");
     expect(composeFromParts("xyzzy", [])).toBeNull();
   });
 
@@ -588,9 +598,9 @@ describe("analog families", () => {
   it("reaches a named part through a token kin, not a new catalog row", () => {
     const flap = { ...part("p-flap", BOX), name: "envelope" };
     const source = composeFromParts("office-mail", [flap]);
-    expect(source).toContain("part envelope at center size 12");
+    expect(source).toContain("part envelope fill");
     expect(composeFromParts("flag-mail", [flap])).toContain(
-      "part envelope at center size 12"
+      "part envelope fill"
     );
   });
 
@@ -615,6 +625,10 @@ describe("analog families", () => {
     expect(moon("moon")).toContain("three-quarter");
     expect(unknown("xyzzy")).toContain("dot 12,12 node");
     expect(unknown("xyzzy")).not.toContain("circle 12,6 r2");
+    expect(plus("plus-sign")).toContain("line 4,12 20,12");
+    expect(plus("plus-sign", "filled")).toContain("rect 3,11 18x2");
+    expect(clock("wall-clock")).toContain("circle 12,12 r9");
+    expect(clock("wall-clock", "filled")).toContain("hole rect");
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {
@@ -666,6 +680,8 @@ describe("analog families", () => {
       ["book", "book"],
       ["camera", "camera"],
       ["heart", "heart"],
+      ["plus-sign", "plus"],
+      ["wall-clock", "clock"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -706,6 +722,8 @@ describe("analog families", () => {
       ["envelope", "envelope"],
       ["bell", "bell"],
       ["moon", "moon"],
+      ["plus-sign", "plus"],
+      ["wall-clock", "clock"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

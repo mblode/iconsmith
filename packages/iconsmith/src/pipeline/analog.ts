@@ -422,6 +422,32 @@ export const sun = (slug: string, finish: Finish = "outlined"): string =>
     hbar(finish, 17, 12, 4),
   ]);
 
+/**
+ * Two strokes crossing at the centre. House outlined plus-large is four
+ * open strokes from the hub; filled is one evenodd compound. The bars
+ * are the primitive form that occupies the same visual extent.
+ */
+export const plus = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    hbar(finish, 4, 12, 16),
+    vbar(finish, 12, 4, 16),
+  ]);
+
+/**
+ * A face and hands. House outlined is `circle 12,12 r9` plus a polyline;
+ * filled is a solid disc with the hands cut out, hole immediately after
+ * the disc — not a ring restamped as a disc.
+ */
+export const clock = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "circle",
+    finish === "filled"
+      ? ["circle 12,12 r10", "hole rect 11,7 2x6", "hole rect 12,11 5x2"]
+      : ["circle 12,12 r9", "line 12,7 12,12 16,12"]
+  );
+
 /** Three overlapping discs — a cloud. */
 export const cloud = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
@@ -641,6 +667,7 @@ const FAMILY_DRAW = {
   book,
   camera,
   car,
+  clock,
   cloud,
   envelope,
   fish,
@@ -662,6 +689,7 @@ const FAMILY_DRAW = {
   pencil,
   pin,
   plant,
+  plus,
   rocket,
   sailboat,
   shield,
@@ -906,6 +934,8 @@ export const ANCHOR_HINT = /\b(?:anchors?)\b/iu;
 export const WINE_HINT =
   /\b(?:wines?|goblets?|wine-glass|champagne|glasses)\b/iu;
 export const FLOWER_HINT = /\b(?:flowers?)\b/iu;
+export const PLUS_HINT = /\b(?:plus)\b/iu;
+export const CLOCK_HINT = /\b(?:clocks?)\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: TOWER_HINT, id: "tower" },
@@ -947,6 +977,8 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: ANCHOR_HINT, id: "anchor" },
   { hint: WINE_HINT, id: "wine" },
   { hint: FLOWER_HINT, id: "flower" },
+  { hint: PLUS_HINT, id: "plus" },
+  { hint: CLOCK_HINT, id: "clock" },
 ];
 
 const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
@@ -1025,17 +1057,14 @@ export const composeFromParts = (
     );
   });
   if (named.length > 0) {
-    const ops = named.slice(0, 3).map((p, i) => {
-      const address = p.name ?? p.id;
-      let place = "bottom";
-      if (i === 0) {
-        place = "center";
-      } else if (i === 1) {
-        place = "top";
-      }
-      return `part ${address} at ${place} size 12`;
-    });
-    return iconProgram(slug, finish, "square", ops);
+    // House compile of a named silhouette is one `part … fill`, not a
+    // stack of three marks at arbitrary anchors. The model never emits
+    // a coordinate; `fill` is the canvas scaling to the keyline.
+    const address = named[0]?.name ?? named[0]?.id;
+    if (!address) {
+      return null;
+    }
+    return iconProgram(slug, finish, "square", [`part ${address} fill`]);
   }
   if (parts.length === 0) {
     const id = resolveFamilyId(slug, slug);

@@ -42,6 +42,26 @@ describe("pairPrograms", () => {
   it("fails a filled disc that restamps a stroked ring", () => {
     const issues = pairPrograms([], "outlined", RING, DISC);
     expect(issues.some((issue) => issue.rule === "extent")).toBe(true);
+    expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
     expect(issues.every((issue) => issue.severity === "error")).toBe(true);
+  });
+
+  it("fails a restamp after fit, when extent alone would match the keyline", () => {
+    const outlined = [
+      "icon ring",
+      "keyline circle",
+      "finish outlined",
+      "circle 12,12 r8",
+      "fit",
+    ].join("\n");
+    const filled = [
+      "icon ring",
+      "keyline circle",
+      "finish filled",
+      "circle 12,12 r8",
+      "fit",
+    ].join("\n");
+    const issues = pairPrograms([], "outlined", outlined, filled);
+    expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
   });
 });
