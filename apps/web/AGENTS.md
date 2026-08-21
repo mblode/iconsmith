@@ -32,6 +32,10 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
 
 ## Gotchas
 
+- **Vercel Root Directory is `apps/web`.** There is no lockfile in this folder — the
+  monorepo lock lives at the repo root — so `vercel.json` must `npm install` rather
+  than `npm ci`. `ignoreCommand` must not skip `main` (exit 0 on preview only);
+  skipping `main` is what GitHub reports as the red Vercel check.
 - **Verify metadata against a build, never `next dev`.** Dev rewrites `metadataBase`
   to the dev origin and reports the opposite of production on exactly the questions
   that matter. `npm run build && npm start`, then check that `og:image` contains
