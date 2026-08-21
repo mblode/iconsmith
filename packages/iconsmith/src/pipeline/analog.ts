@@ -350,11 +350,16 @@ export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
     hbar(finish, 4, 20, 16),
   ]);
 
-/** Two stacked crescents — a banana thick enough to occupy wide 20×16. */
+/** Two stacked crescents — a banana thick enough to occupy wide 20×16.
+ *  A filled half-arc does not hang a stroke below its diameter, so the
+ *  lower crescent sits one unit lower under fill and both paints occupy
+ *  20×16 before `fit`. */
 export const banana = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     "arc 12,11 r9 half from left",
-    "arc 12,17 r9 half from left",
+    finish === "filled"
+      ? "arc 12,17 r9 half from left"
+      : "arc 12,16 r9 half from left",
   ]);
 
 /** Fruit, calyx, seeds — kiwi, not a cookie glyph.
@@ -427,8 +432,8 @@ export const cloud = (slug: string, finish: Finish = "outlined"): string =>
 /** Two lobes and a diamond point — a geometric heart. Landscape 20×18. */
 export const heart = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
-    "circle 8,9 r5",
-    "circle 16,9 r5",
+    finish === "filled" ? "circle 8,9 r6" : "circle 8,9 r5",
+    finish === "filled" ? "circle 16,9 r6" : "circle 16,9 r5",
     ...lozenge(finish, 12, 14, 6),
   ]);
 
@@ -490,7 +495,7 @@ export const shield = (slug: string, finish: Finish = "outlined"): string =>
 export const flask = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
     mass(finish, 10, 3, 4, 6, 1),
-    ...lozenge(finish, 12, 15, 7),
+    ...lozenge(finish, 12, 15, 8),
   ]);
 
 /** Blade and a stem — a leaf. */
@@ -537,8 +542,8 @@ export const car = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     mass(finish, 7, 5, 10, 5, 1),
     mass(finish, 3, 8, 18, 7, 2),
-    "circle 8,17 r2",
-    "circle 16,17 r2",
+    finish === "filled" ? "circle 8,17 r3" : "circle 8,17 r2",
+    finish === "filled" ? "circle 16,17 r3" : "circle 16,17 r2",
   ]);
 
 /** Cup, handles, stem, base — a trophy. */

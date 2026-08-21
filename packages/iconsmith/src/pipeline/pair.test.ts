@@ -2,36 +2,22 @@ import { describe, expect, it } from "vitest";
 
 import { mergeIssues, pairPrograms } from "./pair.js";
 
-const RING = [
-  "icon ring",
-  "keyline circle",
-  "finish outlined",
-  "",
-  "circle 12,12 r8",
-  "fit",
-  "",
-].join("\n");
+const RING = ["icon ring", "finish outlined", "", "circle 12,12 r8", ""].join(
+  "\n"
+);
 
 const RING_FILLED = [
   "icon ring",
-  "keyline circle",
   "finish filled",
   "",
   "circle 12,12 r9",
   "hole circle 12,12 r7",
-  "fit",
   "",
 ].join("\n");
 
-const DISC = [
-  "icon ring",
-  "keyline circle",
-  "finish filled",
-  "",
-  "circle 12,12 r8",
-  "fit",
-  "",
-].join("\n");
+const DISC = ["icon ring", "finish filled", "", "circle 12,12 r8", ""].join(
+  "\n"
+);
 
 describe("mergeIssues", () => {
   it("appends a finding the base list does not already carry", () => {
