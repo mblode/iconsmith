@@ -9,13 +9,13 @@
  *
  * `replay` still compiles caller-supplied path `d` strings — this module does
  * not import `corpus/`. Beyond stack / trays / hub, name tokens pick a
- * concept family (tower, peak, volcano, tube, plant, horn, mushroom,
- * hourglass, sailboat, banana, kiwi, stapler) written with the same twin
- * helpers glyphs use. `ANALOG_ALIASES` maps ordinary synonyms onto those
- * families so `bananas` / `kiwifruit` / `staple-gun` resolve offline, without
- * a corpus extract. A name with no token, alias, kin, or named part falls
- * to `unknown`, not a hub. Glyphs stay unvolunteered. The composer writes
- * the program. The model does not.
+ * concept family written with the same twin helpers glyphs use.
+ * `ANALOG_KINS` / `ANALOG_ALIASES` map ordinary names and synonyms onto those
+ * families so `bananas` / `mail` / `map-pin` resolve offline, without a
+ * corpus extract. `composeFromParts` consults that table when the extract is
+ * empty. A name with no token, alias, kin, or named part falls to `unknown`,
+ * not a hub. Glyphs stay unvolunteered. The composer writes the program.
+ * The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -268,23 +268,16 @@ export const trays = (slug: string, finish: Finish = "outlined"): string =>
     mass(finish, 5, 18, 14, 3, 2),
   ]);
 
-/**
- * Lantern room, beams, a tapering shaft, a door, footing.
- * Analog family, not a glyph: selected by a name token, never volunteered
- * for a name that does not ask for it.
+/** Lantern room, one beam pair, a shaft, footing.
+ *  Under the 8-element ceiling; shaft meets lantern and footing.
  */
 export const tower = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    ...frame(finish, 9, 3, 6, 4, 1),
-    "circle 12,5 r1",
-    hbar(finish, 5, 4.5, 3),
-    hbar(finish, 16, 4.5, 3),
-    hbar(finish, 5, 6, 3),
-    hbar(finish, 16, 6, 3),
-    mass(finish, 10.5, 8, 3, 5, 1),
-    mass(finish, 9.5, 13, 5, 4, 1),
-    mass(finish, 7, 17, 10, 3, 1),
-    mass(finish, 11, 17.5, 2, 2.5, 0.5),
+    ...frame(finish, 9, 3, 6, 5, 1),
+    hbar(finish, 5, 5, 4),
+    hbar(finish, 15, 5, 4),
+    mass(finish, 9.5, 7, 5, 11, 1),
+    mass(finish, 5, 18, 14, 3, 1),
   ]);
 
 /** A mountain range: a 45° peak and a shoulder. Square so `fit` cannot shear. */
@@ -304,15 +297,16 @@ export const volcano = (slug: string, finish: Finish = "outlined"): string =>
     "dot 14,5 terminal",
   ]);
 
-/** Eyepiece, barrel, objective, tripod. Wide 20×16 — the tube is not landscape-tall. */
+/** Eyepiece, barrel, objective, tripod. Wide 20×16 — the tube is not landscape-tall.
+ *  Barrel meets the objective ring so a 0.3px almost-touch cannot warn. */
 export const tube = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
-    mass(finish, 3, 5.5, 3, 4, 1),
-    mass(finish, 6, 4.5, 11, 6, 2),
-    ...ring(finish, 19, 7.5, 3),
-    vbar(finish, 8, 11.5, 7),
-    vbar(finish, 15, 11.5, 7),
-    hbar(finish, 8, 11.5, 7),
+    mass(finish, 3, 5, 6, 5, 1),
+    mass(finish, 6, 4, 13, 7, 2),
+    ...ring(finish, 18, 7.5, 3),
+    vbar(finish, 8, 10, 8),
+    vbar(finish, 15, 10, 8),
+    hbar(finish, 8, 10, 7),
   ]);
 
 /** Saguaro: trunk and two arms that meet it, a pot.
@@ -325,17 +319,17 @@ export const plant = (slug: string, finish: Finish = "outlined"): string =>
     mass(finish, 5, 16, 14, 4, 1),
   ]);
 
-/** Horse body, neck, head, a 45° diamond horn, ear, legs.
- *  Square so the horn stays on 45° after `fit`. */
+/** Horse body, neck, head, a 45° diamond horn, legs.
+ *  Pieces overlap so almost-touch gaps cannot warn. Square so the horn
+ *  stays on 45° after `fit`. */
 export const horn = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
-    mass(finish, 3, 12, 11, 5, 3),
-    mass(finish, 12, 8, 4, 6, 2),
-    "circle 17,8 r2.5",
-    ...lozenge(finish, 19, 4, 3),
-    mass(finish, 16, 5, 2, 2, 0.5),
-    vbar(finish, 7, 17, 3),
-    vbar(finish, 13, 17, 3),
+    mass(finish, 4, 12, 13, 6, 3),
+    mass(finish, 11, 8, 7, 9, 2),
+    "circle 17,8 r3.5",
+    ...lozenge(finish, 18, 5, 3),
+    vbar(finish, 7, 15, 5),
+    vbar(finish, 13, 15, 5),
   ]);
 
 /** Dome cap, stem, spots — the mushroom, not a rounded tray.
@@ -348,12 +342,13 @@ export const mushroom = (slug: string, finish: Finish = "outlined"): string =>
     "dot 15,8 floating",
   ]);
 
-/** Two bulbs and a pinched neck — a readable hourglass on tall 16×20. */
+/** Two 45° triangles meeting at a pinch — the readable hourglass, on square. */
 export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "tall", [
-    mass(finish, 5, 3, 14, 6, 2),
-    mass(finish, 10, 9, 4, 6, 1),
-    mass(finish, 5, 15, 14, 5, 2),
+  iconProgram(slug, finish, "square", [
+    hbar(finish, 4, 4, 16),
+    "line 4,4 20,20 off-axis",
+    "line 20,4 4,20 off-axis",
+    hbar(finish, 4, 20, 16),
   ]);
 
 /** Two stacked crescents — a banana thick enough to occupy wide 20×16. */
@@ -363,12 +358,13 @@ export const banana = (slug: string, finish: Finish = "outlined"): string =>
     "arc 12,17 r9 half from left",
   ]);
 
-/** Fruit, calyx, seeds — kiwi, not a cookie glyph. */
+/** Fruit, calyx, seeds — kiwi, not a cookie glyph.
+ *  Calyx sits on the fruit so the 0.46px almost-touch cannot warn. */
 export const kiwi = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
     finish === "filled" ? "circle 12,12 r9" : "circle 12,12 r8",
-    vbar(finish, 12, 3, 2),
-    mass(finish, 13, 3, 3, 2, 1),
+    vbar(finish, 12, 4, 4),
+    mass(finish, 12, 4, 4, 3, 1),
     "dot 10,12 more",
     "dot 14,12 more",
     "dot 12,15 more",
@@ -388,6 +384,224 @@ export const sailboat = (slug: string, finish: Finish = "outlined"): string =>
     vbar(finish, 8, 4, 14),
     ...lozenge(finish, 14, 10, 6),
     mass(finish, 4, 16, 16, 4, 2),
+  ]);
+
+/** Rectangle and a V flap — envelope / mail. */
+export const envelope = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    ...frame(finish, 3, 5, 18, 14, 2),
+    "line 3,5 12,13 off-axis",
+    "line 12,13 21,5 off-axis",
+  ]);
+
+/** Dome, skirt, clapper — a bell, not a hub. */
+export const bell = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 10, 3, 4, 4, 1),
+    "circle 12,11 r6",
+    mass(finish, 5, 15, 14, 4, 2),
+    "dot 12,20 terminal",
+  ]);
+
+/** A C-shaped crescent — moon, not a full disc. */
+export const moon = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", ["arc 12,12 r8 three-quarter from top"]);
+
+/** Disc and four axial rays. */
+export const sun = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    finish === "filled" ? "circle 12,12 r5" : "circle 12,12 r4",
+    vbar(finish, 12, 3, 4),
+    vbar(finish, 12, 17, 4),
+    hbar(finish, 3, 12, 4),
+    hbar(finish, 17, 12, 4),
+  ]);
+
+/** Three overlapping discs — a cloud. */
+export const cloud = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    "circle 8,12 r5",
+    "circle 16,12 r5",
+    finish === "filled" ? "circle 12,9 r6" : "circle 12,9 r5.5",
+  ]);
+
+/** Two lobes and a diamond point — a geometric heart. Landscape 20×18. */
+export const heart = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "landscape", [
+    "circle 8,9 r5",
+    "circle 16,9 r5",
+    ...lozenge(finish, 12, 14, 6),
+  ]);
+
+/** Head and a diamond tip — map pin. Path 14×18 + stroke is tall 16×20. */
+export const pin = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    finish === "filled" ? "circle 12,8 r8" : "circle 12,8 r7",
+    ...lozenge(finish, 12, 15, 4),
+  ]);
+
+/** Pole and a fly — flag. */
+export const flag = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    vbar(finish, 5, 3, 18),
+    mass(finish, 5, 3, 14, 9, 1),
+  ]);
+
+/** Bow, shaft, bit — a key. Path 18×14 + stroke is wide 20×16. */
+export const key = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    ...ring(finish, 7, 12, 6),
+    hbar(finish, 13, 12, 6),
+    vbar(finish, 17, 5, 14),
+    vbar(finish, 19, 12, 5),
+  ]);
+
+/** Two leaves and a spine — a book. */
+export const book = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    mass(finish, 4, 4, 7, 16, 1),
+    mass(finish, 13, 4, 7, 16, 1),
+    vbar(finish, 12, 4, 16),
+  ]);
+
+/** Body, lens, viewfinder — a camera. */
+export const camera = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 3, 8, 18, 10, 2),
+    ...ring(finish, 12, 13, 3),
+    mass(finish, 7, 5, 5, 4, 1),
+  ]);
+
+/** Shaft, eraser, diamond tip — a pencil. */
+export const pencil = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 5, 3, 14, 4, 1),
+    mass(finish, 5, 7, 14, 8, 0.5),
+    ...lozenge(finish, 12, 17, 4),
+  ]);
+
+/** Diamond body — a shield. */
+export const shield = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    ...lozenge(finish, 12, 13, 8),
+    mass(finish, 7, 5, 10, 5, 1),
+  ]);
+
+/** Neck and a diamond body — a flask, not a beaker stack. */
+export const flask = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 10, 3, 4, 6, 1),
+    ...lozenge(finish, 12, 15, 7),
+  ]);
+
+/** Blade and a stem — a leaf. */
+export const leaf = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    ...lozenge(finish, 12, 12, 8),
+    vbar(finish, 12, 18, 2),
+  ]);
+
+/** Fruit and a leaf — apple, no seeds (those are kiwi). */
+export const apple = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    finish === "filled" ? "circle 12,12 r9" : "circle 12,12 r8",
+    vbar(finish, 12, 4, 3),
+    mass(finish, 13, 4, 4, 2.5, 1),
+  ]);
+
+/** Nose, body, fins — a rocket. Path 14×18 + stroke is tall 16×20. */
+export const rocket = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    ...lozenge(finish, 12, 6, 3),
+    mass(finish, 8, 8, 8, 9, 2),
+    mass(finish, 5, 15, 5, 6, 1),
+    mass(finish, 14, 15, 5, 6, 1),
+  ]);
+
+/** Diamond fly and a floor — a tent. */
+export const tent = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    ...lozenge(finish, 12, 10, 8),
+    hbar(finish, 4, 18, 16),
+  ]);
+
+/** Body, tail, eye — a fish. */
+export const fish = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 3, 5, 12, 14, 5),
+    ...lozenge(finish, 17, 12, 4),
+    "circle 8,11 r1",
+  ]);
+
+/** Cabin, body, wheels — a car. */
+export const car = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 7, 5, 10, 5, 1),
+    mass(finish, 3, 8, 18, 7, 2),
+    "circle 8,17 r2",
+    "circle 16,17 r2",
+  ]);
+
+/** Cup, handles, stem, base — a trophy. */
+export const trophy = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 5, 3, 14, 7, 3),
+    hbar(finish, 5, 6, 3),
+    hbar(finish, 16, 6, 3),
+    vbar(finish, 12, 10, 8),
+    mass(finish, 5, 18, 14, 3, 1),
+  ]);
+
+/** Head and a handle — a hammer. */
+export const hammer = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    mass(finish, 4, 6, 14, 5, 1),
+    vbar(finish, 8, 11, 10),
+  ]);
+
+/** Rails and rungs — a ladder. */
+export const ladder = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    vbar(finish, 5, 3, 18),
+    vbar(finish, 19, 3, 18),
+    hbar(finish, 5, 7, 14),
+    hbar(finish, 5, 12, 14),
+    hbar(finish, 5, 17, 14),
+  ]);
+
+/** Two legs joined at the foot — a horseshoe magnet. */
+export const magnet = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    mass(finish, 4, 4, 4, 13, 1),
+    mass(finish, 16, 4, 4, 13, 1),
+    mass(finish, 4, 14, 16, 6, 2),
+  ]);
+
+/** Ring, shank, flukes — an anchor. Path 14×18 + stroke is tall 16×20. */
+export const anchor = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    ...ring(finish, 12, 6, 3),
+    vbar(finish, 12, 9, 7),
+    hbar(finish, 5, 16, 14),
+    ...lozenge(finish, 12, 18, 3),
+  ]);
+
+/** Bowl, stem, foot — a wine glass. */
+export const wine = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 7, 3, 10, 8, 3),
+    vbar(finish, 12, 11, 6),
+    hbar(finish, 6, 18, 12),
+  ]);
+
+/** Centre and four petals — a flower. */
+export const flower = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    "circle 12,6 r3.5",
+    "circle 18,12 r3.5",
+    "circle 12,18 r3.5",
+    "circle 6,12 r3.5",
+    finish === "filled" ? "circle 12,12 r3.5" : "circle 12,12 r3",
   ]);
 
 /**
@@ -414,54 +628,101 @@ const sameStem = (query: string, name: string): boolean => {
   return q === `${n}s` || n === `${q}s` || q === `${n}es` || n === `${q}es`;
 };
 
-/**
- * Ordinary synonyms → a family token, so analog resolves offline without a
- * parts extract. Values are words the HINT regexes already answer.
- * Glyph slugs are deliberately absent: analog must not volunteer those.
- */
-export const ANALOG_ALIASES: Readonly<Record<string, string>> = {
-  kiwifruit: "kiwi",
-  plantain: "banana",
-  "staple-gun": "stapler",
-};
+const FAMILY_DRAW = {
+  anchor,
+  apple,
+  banana,
+  bell,
+  book,
+  camera,
+  car,
+  cloud,
+  envelope,
+  fish,
+  flag,
+  flask,
+  flower,
+  hammer,
+  heart,
+  horn,
+  hourglass,
+  key,
+  kiwi,
+  ladder,
+  leaf,
+  magnet,
+  moon,
+  mushroom,
+  peak,
+  pencil,
+  pin,
+  plant,
+  rocket,
+  sailboat,
+  shield,
+  stapler,
+  sun,
+  tent,
+  tower,
+  trophy,
+  tube,
+  volcano,
+  wine,
+} as const;
+
+export type AnalogFamilyId = keyof typeof FAMILY_DRAW;
 
 /**
- * Place the vocabulary marks whose names share a token or a plural stem
- * with the query. Named anchors only — the model never emits a coordinate.
- * Null when no named part answers, so a provenance-only hit does not
- * become a drawing.
+ * Ordinary names and synonyms → a family id, so analog and composeFromParts
+ * resolve offline without a corpus extract. Glyph slugs are deliberately
+ * absent: analog must not volunteer those.
  */
-export const composeFromParts = (
-  slug: string,
-  parts: readonly Part[],
-  finish: Finish = "outlined"
-): string | null => {
-  const want = tokens(slug);
-  const named = parts.filter((p) => {
-    const name = p.name ?? "";
-    const alias = ANALOG_ALIASES[slug] ?? "";
-    return (
-      name.length > 0 &&
-      (overlap(tokens(name), want) > 0 ||
-        sameStem(slug, name) ||
-        (alias.length > 0 && sameStem(alias, name)))
-    );
-  });
-  if (named.length === 0) {
-    return null;
-  }
-  const ops = named.slice(0, 3).map((p, i) => {
-    const address = p.name ?? p.id;
-    let anchor = "bottom";
-    if (i === 0) {
-      anchor = "center";
-    } else if (i === 1) {
-      anchor = "top";
-    }
-    return `part ${address} at ${anchor} size 12`;
-  });
-  return iconProgram(slug, finish, "square", ops);
+export const ANALOG_KINS: Readonly<Record<string, AnalogFamilyId>> = {
+  aloe: "plant",
+  beacon: "tower",
+  binoculars: "tube",
+  cactus: "plant",
+  champagne: "wine",
+  crescent: "moon",
+  "e-mail": "envelope",
+  email: "envelope",
+  eruption: "volcano",
+  fungi: "mushroom",
+  glass: "wine",
+  goblet: "wine",
+  keys: "key",
+  kiwifruit: "kiwi",
+  letter: "envelope",
+  lighthouse: "tower",
+  location: "pin",
+  mail: "envelope",
+  "map-pin": "pin",
+  marker: "pin",
+  minaret: "tower",
+  mountain: "peak",
+  narwhal: "horn",
+  notification: "bell",
+  obelisk: "tower",
+  plantain: "banana",
+  pushpin: "pin",
+  pyramid: "peak",
+  saguaro: "plant",
+  sandglass: "hourglass",
+  skiff: "sailboat",
+  spyglass: "tube",
+  "staple-gun": "stapler",
+  succulent: "plant",
+  summit: "peak",
+  telescope: "tube",
+  toadstool: "mushroom",
+  unicorn: "horn",
+  "wine-glass": "wine",
+  yacht: "sailboat",
 };
+
+/** Synonym → family token. Same table as {@link ANALOG_KINS}. */
+export const ANALOG_ALIASES: Readonly<Record<string, AnalogFamilyId>> =
+  ANALOG_KINS;
 
 /** Names that are a pile of rims, not a tree. Whole tokens, not `data`. */
 export const STACK_HINT =
@@ -480,6 +741,145 @@ export const SAILBOAT_HINT = /\b(?:sailboat|yacht|skiff)\b/iu;
 export const BANANA_HINT = /\b(?:bananas?|plantain)\b/iu;
 export const KIWI_HINT = /\b(?:kiwi|kiwifruit)\b/iu;
 export const STAPLER_HINT = /\b(?:staplers?|staple-gun)\b/iu;
+export const ENVELOPE_HINT = /\b(?:envelopes?|mails?|letters?|e-?mails?)\b/iu;
+export const BELL_HINT = /\b(?:bells?|notification)\b/iu;
+export const MOON_HINT = /\b(?:moons?|crescent)\b/iu;
+export const SUN_HINT = /\b(?:suns?)\b/iu;
+export const CLOUD_HINT = /\b(?:clouds?)\b/iu;
+export const HEART_HINT = /\b(?:hearts?)\b/iu;
+export const PIN_HINT = /\b(?:pins?|map-pin|location|pushpin|marker)\b/iu;
+export const FLAG_HINT = /\b(?:flags?)\b/iu;
+export const KEY_HINT = /\b(?:keys?)\b/iu;
+export const BOOK_HINT = /\b(?:books?)\b/iu;
+export const CAMERA_HINT = /\b(?:cameras?)\b/iu;
+export const PENCIL_HINT = /\b(?:pencils?)\b/iu;
+export const SHIELD_HINT = /\b(?:shields?)\b/iu;
+export const FLASK_HINT = /\b(?:flasks?)\b/iu;
+export const LEAF_HINT = /\b(?:leaf|leaves)\b/iu;
+export const APPLE_HINT = /\b(?:apples?)\b/iu;
+export const ROCKET_HINT = /\b(?:rockets?)\b/iu;
+export const TENT_HINT = /\b(?:tents?)\b/iu;
+export const FISH_HINT = /\b(?:fish(?:es)?)\b/iu;
+export const CAR_HINT = /\b(?:cars?)\b/iu;
+export const TROPHY_HINT = /\b(?:troph(?:y|ies))\b/iu;
+export const HAMMER_HINT = /\b(?:hammers?)\b/iu;
+export const LADDER_HINT = /\b(?:ladders?)\b/iu;
+export const MAGNET_HINT = /\b(?:magnets?)\b/iu;
+export const ANCHOR_HINT = /\b(?:anchors?)\b/iu;
+export const WINE_HINT =
+  /\b(?:wines?|goblets?|wine-glass|champagne|glasses)\b/iu;
+export const FLOWER_HINT = /\b(?:flowers?)\b/iu;
+
+const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
+  { hint: TOWER_HINT, id: "tower" },
+  { hint: VOLCANO_HINT, id: "volcano" },
+  { hint: PEAK_HINT, id: "peak" },
+  { hint: TUBE_HINT, id: "tube" },
+  { hint: PLANT_HINT, id: "plant" },
+  { hint: HORN_HINT, id: "horn" },
+  { hint: MUSHROOM_HINT, id: "mushroom" },
+  { hint: HOURGLASS_HINT, id: "hourglass" },
+  { hint: SAILBOAT_HINT, id: "sailboat" },
+  { hint: BANANA_HINT, id: "banana" },
+  { hint: KIWI_HINT, id: "kiwi" },
+  { hint: STAPLER_HINT, id: "stapler" },
+  { hint: ENVELOPE_HINT, id: "envelope" },
+  { hint: BELL_HINT, id: "bell" },
+  { hint: MOON_HINT, id: "moon" },
+  { hint: SUN_HINT, id: "sun" },
+  { hint: CLOUD_HINT, id: "cloud" },
+  { hint: HEART_HINT, id: "heart" },
+  { hint: PIN_HINT, id: "pin" },
+  { hint: FLAG_HINT, id: "flag" },
+  { hint: KEY_HINT, id: "key" },
+  { hint: BOOK_HINT, id: "book" },
+  { hint: CAMERA_HINT, id: "camera" },
+  { hint: PENCIL_HINT, id: "pencil" },
+  { hint: SHIELD_HINT, id: "shield" },
+  { hint: FLASK_HINT, id: "flask" },
+  { hint: LEAF_HINT, id: "leaf" },
+  { hint: APPLE_HINT, id: "apple" },
+  { hint: ROCKET_HINT, id: "rocket" },
+  { hint: TENT_HINT, id: "tent" },
+  { hint: FISH_HINT, id: "fish" },
+  { hint: CAR_HINT, id: "car" },
+  { hint: TROPHY_HINT, id: "trophy" },
+  { hint: HAMMER_HINT, id: "hammer" },
+  { hint: LADDER_HINT, id: "ladder" },
+  { hint: MAGNET_HINT, id: "magnet" },
+  { hint: ANCHOR_HINT, id: "anchor" },
+  { hint: WINE_HINT, id: "wine" },
+  { hint: FLOWER_HINT, id: "flower" },
+];
+
+const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
+  const kin = ANALOG_KINS[slug];
+  if (kin !== undefined) {
+    return kin;
+  }
+  for (const id of Object.keys(FAMILY_DRAW) as AnalogFamilyId[]) {
+    if (sameStem(slug, id)) {
+      return id;
+    }
+  }
+  for (const [name, id] of Object.entries(ANALOG_KINS)) {
+    if (sameStem(slug, name)) {
+      return id;
+    }
+  }
+  for (const { hint, id } of FAMILY_HINTS) {
+    if (hint.test(text)) {
+      return id;
+    }
+  }
+  return null;
+};
+
+/**
+ * Place the vocabulary marks whose names share a token or a plural stem
+ * with the query. Named anchors only — the model never emits a coordinate.
+ * When the extract is empty, a shipped kin / stem that names a family
+ * returns that family's program — offline, no corpus. Null when neither a
+ * named part nor a kin answers, so a provenance-only hit does not become a
+ * drawing.
+ */
+export const composeFromParts = (
+  slug: string,
+  parts: readonly Part[],
+  finish: Finish = "outlined"
+): string | null => {
+  const want = tokens(slug);
+  const named = parts.filter((p) => {
+    const name = p.name ?? "";
+    const alias = ANALOG_KINS[slug] ?? "";
+    return (
+      name.length > 0 &&
+      (overlap(tokens(name), want) > 0 ||
+        sameStem(slug, name) ||
+        (alias.length > 0 && sameStem(alias, name)))
+    );
+  });
+  if (named.length > 0) {
+    const ops = named.slice(0, 3).map((p, i) => {
+      const address = p.name ?? p.id;
+      let place = "bottom";
+      if (i === 0) {
+        place = "center";
+      } else if (i === 1) {
+        place = "top";
+      }
+      return `part ${address} at ${place} size 12`;
+    });
+    return iconProgram(slug, finish, "square", ops);
+  }
+  if (parts.length === 0) {
+    const id = resolveFamilyId(slug, slug);
+    if (id !== null) {
+      return FAMILY_DRAW[id](slug, finish);
+    }
+  }
+  return null;
+};
 
 export const hasStackRim = (parts: readonly Part[]): boolean =>
   parts.some((p) => p.name === STACK_PART || p.id === STACK_PART);
@@ -512,45 +912,11 @@ const familyOf = (
   text: string,
   finish: Finish
 ): { id: string; source: string } | null => {
-  const alias = ANALOG_ALIASES[slug];
-  const hay = alias === undefined ? text : `${text} ${alias}`;
-  if (TOWER_HINT.test(hay)) {
-    return { id: "tower", source: tower(slug, finish) };
+  const id = resolveFamilyId(slug, text);
+  if (id !== null) {
+    return { id, source: FAMILY_DRAW[id](slug, finish) };
   }
-  if (VOLCANO_HINT.test(hay)) {
-    return { id: "volcano", source: volcano(slug, finish) };
-  }
-  if (PEAK_HINT.test(hay)) {
-    return { id: "peak", source: peak(slug, finish) };
-  }
-  if (TUBE_HINT.test(hay)) {
-    return { id: "tube", source: tube(slug, finish) };
-  }
-  if (PLANT_HINT.test(hay)) {
-    return { id: "plant", source: plant(slug, finish) };
-  }
-  if (HORN_HINT.test(hay)) {
-    return { id: "horn", source: horn(slug, finish) };
-  }
-  if (MUSHROOM_HINT.test(hay)) {
-    return { id: "mushroom", source: mushroom(slug, finish) };
-  }
-  if (HOURGLASS_HINT.test(hay)) {
-    return { id: "hourglass", source: hourglass(slug, finish) };
-  }
-  if (SAILBOAT_HINT.test(hay)) {
-    return { id: "sailboat", source: sailboat(slug, finish) };
-  }
-  if (BANANA_HINT.test(hay)) {
-    return { id: "banana", source: banana(slug, finish) };
-  }
-  if (KIWI_HINT.test(hay)) {
-    return { id: "kiwi", source: kiwi(slug, finish) };
-  }
-  if (STAPLER_HINT.test(hay)) {
-    return { id: "stapler", source: stapler(slug, finish) };
-  }
-  if (HUB_HINT.test(hay)) {
+  if (HUB_HINT.test(text)) {
     return { id: "hub", source: hub(slug, 3, finish) };
   }
   return null;
