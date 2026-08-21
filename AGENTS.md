@@ -33,7 +33,7 @@ npm run fix
   `src/corpus/load.ts` defaults to a cwd-relative `"corpus"`, and turbo runs
   tasks with the cwd set to the workspace. Move the directory and five
   corpus-gated tests stop running without failing. The test count is the canary:
-  it is 1072 across 81 files as of 2026-08-21, and a *drop* means the corpus is
+  it is 1096 across 82 files as of 2026-08-21, and a *drop* means the corpus is
   not where the code expects it. Update this number when you add tests, or the
   canary stops being one.
 - **The corpus is ignored by full path: `/packages/iconsmith/corpus/`.** Not a bare
