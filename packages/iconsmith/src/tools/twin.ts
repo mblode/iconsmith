@@ -10,7 +10,7 @@
  * the boundary) and the house stroke when outlined. That is the quantity that
  * matches in 94% of house pairs.
  */
-import type { Finish, Issue, Keyline } from "../types.js";
+import type { DrawOp, Finish, IconDoc, Issue, Keyline } from "../types.js";
 import { SPEC } from "./canvas.js";
 import type { Spec } from "./canvas.js";
 import { lint } from "./lint.js";
@@ -497,6 +497,87 @@ export const adaptProgram = (
     out.splice(headerAt, 0, `finish ${finish}`);
   }
   return out.join("\n");
+};
+
+const TURN_WORD: Record<number, string> = {
+  1: "cw",
+  2: "half",
+  3: "ccw",
+};
+
+const fmt = (n: number): string => String(Number(n.toFixed(4)));
+
+const pointsOf = (points: readonly [number, number][]): string =>
+  points.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join(" ");
+
+const lineOf = (op: Extract<DrawOp, { op: "line" }>): string => {
+  const hole = op.knockout ? "hole " : "";
+  const axis = op.offAxis ? " off-axis" : "";
+  return `${hole}line ${pointsOf(op.points)}${axis}`;
+};
+
+const partOf = (op: Extract<DrawOp, { op: "part" }>): string => {
+  const bits = [`part ${op.id}`, "at", `${fmt(op.x)},${fmt(op.y)}`];
+  if (op.scale !== 1) {
+    bits.push("size", fmt(op.scale));
+  }
+  const turn = TURN_WORD[op.turn];
+  if (turn) {
+    bits.push("turn", turn);
+  }
+  if (op.flip) {
+    bits.push("flip");
+  }
+  return bits.join(" ");
+};
+
+const opLine = (op: DrawOp): string | null => {
+  if (op.op === "raw") {
+    return null;
+  }
+  if (op.op === "circle") {
+    const hole = op.knockout ? "hole " : "";
+    return `${hole}circle ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.r)}`;
+  }
+  if (op.op === "rect") {
+    const hole = op.knockout ? "hole " : "";
+    const corner = op.r > 0 ? ` r${fmt(op.r)}` : "";
+    return `${hole}rect ${fmt(op.x)},${fmt(op.y)} ${fmt(op.w)}x${fmt(op.h)}${corner}`;
+  }
+  if (op.op === "line") {
+    return lineOf(op);
+  }
+  if (op.op === "arc") {
+    const ccw = op.ccw ? " ccw" : "";
+    return `arc ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.r)} ${op.sweep} from ${op.from}${ccw}`;
+  }
+  if (op.op === "dot") {
+    return `dot ${fmt(op.cx)},${fmt(op.cy)} ${op.role}`;
+  }
+  return partOf(op);
+};
+
+/**
+ * The DSL a canvas already ran, so the other paint can be derived.
+ *
+ * The model never wrote these coordinates — the primitives did. Emitting
+ * them back is how generate and harness pair a single paint: adapt the
+ * program, then {@link twinPairIssues}. A `raw` escape has no DSL word
+ * and is dropped; pairing then sees whatever else the canvas drew.
+ */
+export const programFromDoc = (doc: IconDoc): string => {
+  const lines = [`icon ${doc.icon ?? "icon"}`];
+  if (doc.keyline) {
+    lines.push(`keyline ${doc.keyline}`);
+  }
+  lines.push(`finish ${doc.finish ?? "outlined"}`);
+  for (const op of doc.draw) {
+    const line = opLine(op);
+    if (line !== null) {
+      lines.push(line);
+    }
+  }
+  return `${lines.join("\n")}\n`;
 };
 
 /** One paint of a twin pair: lintable, and sized the way {@link sameExtent} is. */

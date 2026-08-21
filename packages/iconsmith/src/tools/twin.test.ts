@@ -12,6 +12,7 @@ import {
   lozenge,
   mass,
   program,
+  programFromDoc,
   ring,
   sameExtent,
   twinPairIssues,
@@ -320,4 +321,19 @@ test("adaptProgram leaves an op it does not model untouched", () => {
   const filled = adaptProgram(outlined, "filled");
   expect(filled).toContain("part folder at 4,4 size 16");
   expect(filled).toContain("# a note");
+});
+
+test("programFromDoc writes the paint the canvas already ran", () => {
+  const outlined = draw("outlined", ["circle 12,12 r8"]);
+  const source = programFromDoc(
+    outlined.toJSON({ icon: "ring", keyline: "circle" })
+  );
+  expect(source).toContain("icon ring");
+  expect(source).toContain("keyline circle");
+  expect(source).toContain("finish outlined");
+  expect(source).toContain("circle 12,12 r8");
+  const filled = draw("filled", ["circle 12,12 r9", "hole circle 12,12 r7"]);
+  expect(programFromDoc(filled.toJSON({ icon: "ring" }))).toContain(
+    "hole circle 12,12 r7"
+  );
 });

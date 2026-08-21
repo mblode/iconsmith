@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { mergeIssues, pairPrograms } from "./pair.js";
+import { mergeIssues, pairAdapted, pairPrograms } from "./pair.js";
 
 const RING = ["icon ring", "finish outlined", "", "circle 12,12 r8", ""].join(
   "\n"
@@ -63,5 +63,17 @@ describe("pairPrograms", () => {
     ].join("\n");
     const issues = pairPrograms([], "outlined", outlined, filled);
     expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+  });
+});
+
+describe("pairAdapted", () => {
+  it("is quiet when the other paint is the derived twin", () => {
+    expect(pairAdapted([], "outlined", RING)).toEqual([]);
+  });
+
+  it("fails a filled disc that restamps the derived hoop", () => {
+    const issues = pairAdapted([], "filled", DISC);
+    expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+    expect(issues.every((issue) => issue.severity === "error")).toBe(true);
   });
 });

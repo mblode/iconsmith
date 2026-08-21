@@ -14,6 +14,7 @@ import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
 import type { Canvas, Spec } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
+import { programFromDoc } from "../tools/twin.js";
 import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { Proposal } from "./compose.js";
@@ -21,6 +22,7 @@ import type { TokenUsage } from "./cost.js";
 import { resolveModel } from "./gateway.js";
 import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
+import { pairAdapted } from "./pair.js";
 import type { Policy } from "./policy.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
@@ -193,8 +195,8 @@ export interface GenerateOptions {
   /**
    * Which paint to draw. Keyed compile uses this to pick the house file and
    * stamp `finish` — a filled house file is compiled as filled, not adapted
-   * from the outline. Analog families write both paints the same way.
-   * Default outlined.
+   * from the outline. Analog families write each paint; generate draws one
+   * and pairs the other via `adaptProgram`. Default outlined.
    */
   finish?: Finish;
   /**
@@ -473,7 +475,15 @@ export const generate = async (
 
   // Linted here rather than trusting the model's last `lint` call: it may have
   // drawn after checking, and this is the number that gets reported.
-  const issues = lint(canvas, { keyline });
+  const doc = canvas.toJSON({ icon: concept.name, keyline });
+  const program = programFromDoc(doc);
+  const issues = pairAdapted(
+    lint(canvas, { keyline }),
+    finish,
+    program,
+    parts,
+    spec
+  );
   const usage = result.totalUsage;
   const toolCalls: Record<string, number> = {};
   for (const name of state.calls) {
@@ -505,8 +515,9 @@ export const generate = async (
         reasoningTokens: usage.outputTokenDetails.reasoningTokens ?? 0,
       },
     },
-    doc: canvas.toJSON({ icon: concept.name, keyline }),
+    doc,
     issues,
+    program,
     steps: result.steps.length,
     svg: canvas.toSVG(),
     text: result.text,

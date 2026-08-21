@@ -50,6 +50,7 @@ import {
 import type { AuditAsk, AuditResult } from "./audit.js";
 import { applyGatewayEnv } from "./gateway.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
+import { pairAdapted } from "./pair.js";
 import type { CohortBrief, Concept } from "./prompt.js";
 import type { PartHint } from "./search.js";
 import { assembleAddressable, assembleVocabulary } from "./select.js";
@@ -439,6 +440,28 @@ const appendRepair = (base: string, reviewed: AuditResult): string =>
     `Edit ${PROGRAM_FILE} only. Do not write SVG. Do not emit path data.`,
   ].join("\n");
 
+const programIssues = (
+  drawn: ReturnType<typeof runDsl>,
+  source: string,
+  finish: Finish | undefined,
+  parts: GenerateOptions["parts"],
+  spec: GenerateOptions["spec"]
+): Issue[] =>
+  pairAdapted(
+    [
+      ...drawn.errors.map((message) => ({
+        message,
+        rule: "dsl" as const,
+        severity: "error" as const,
+      })),
+      ...lint(drawn.canvas, { keyline: drawn.keyline }),
+    ],
+    finish ?? "outlined",
+    source,
+    parts ?? [],
+    spec
+  );
+
 /**
  * An external coding agent as a `GenerateFn`.
  *
@@ -566,14 +589,13 @@ export const harnessArm =
     // program is what the agent produced, and a run that half-drew scores as a
     // half-drawn icon. Carrying them as issues keeps `clean` honest and leaves
     // the eval's median measuring drawings rather than infrastructure.
-    const issues: Issue[] = [
-      ...program.errors.map((message) => ({
-        message,
-        rule: "dsl",
-        severity: "error" as const,
-      })),
-      ...lint(program.canvas, { keyline: program.keyline }),
-    ];
+    const issues = programIssues(
+      program,
+      source,
+      generateOptions.finish,
+      parts,
+      spec
+    );
     if (!keep) {
       rmSync(dir, { force: true, recursive: true });
     }

@@ -56,6 +56,12 @@ keyline square
 circle 12,12 r8
 fit`;
 
+const FILLED_DISC = `icon box
+keyline square
+finish filled
+circle 12,12 r8
+fit`;
+
 const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47]);
 const throwAsk: AuditAsk = () => Promise.reject(new Error("gateway down"));
 
@@ -133,6 +139,13 @@ describe("harnessArm", () => {
     expect(brief).toContain("x spans 3.00..21.00");
     expect(brief).toContain("y spans 4.00..20.00");
     expect(brief).toContain("`cohort` rather than `fit`");
+  });
+
+  it("pairs the other paint so a filled disc is not a quiet twin", async () => {
+    const { spawn } = fake(FILLED_DISC);
+    const result = await harnessArm({ spawn })(concept, { finish: "filled" });
+    expect(result.clean).toBe(false);
+    expect(result.issues.map((i) => i.rule)).toContain("paint");
   });
 
   it("names the filled paint so the skill is not the only place that says so", async () => {
