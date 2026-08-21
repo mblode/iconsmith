@@ -1,8 +1,13 @@
 /**
- * Offline analog/recipe campaign. Karpathy's org, not his train.py.
+ * Generation-pipeline meta-loop. Karpathy's org, not his train.py.
  *
  * A human writes `autoresearch.md`. This loop reads it and never writes it.
- * One editable surface per round, a documented scoreboard, keep or revert.
+ * The training surface is the generation pipeline (pipeline / tools /
+ * commands / tests / SKILL / generate prompts), not two analog files.
+ * One change per round, a documented scoreboard, keep or revert.
+ * After each measure it writes `.staging/autoresearch/NEXT.md` for a human
+ * (or Cursor Automation) to paste into a new Cloud Agent — this environment
+ * can list Cloud Agents and cannot launch one.
  * The policy campaign (`program.md` + `loop.ts`) and the harness campaign
  * (`lab.md` + `research.ts`) are not this file and stay intact.
  *
@@ -10,6 +15,7 @@
  *   npx tsx scripts/autoresearch.ts --rounds 50
  *
  * `--rounds` omitted defaults to 1. Overnight is `--rounds 50`.
+ * Exhausted playbook rows stay idle and still write NEXT.md.
  */
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -48,12 +54,27 @@ export const DEFAULT_PROBED = [
 ] as const;
 
 export const DEFAULT_BRANCH = "iconsmith/autoresearch";
+export const WORKER_BRANCHES = [
+  "iconsmith/autoresearch",
+  "cursor/autoresearch-c1f5",
+] as const;
 export const DEFAULT_ROUNDS = 1;
 export const OVERNIGHT_ROUNDS = 50;
+export const CLOUD_AGENTS_URL = "https://cursor.com/agents";
+export const NEXT_REL = ".staging/autoresearch/NEXT.md";
+export const CLOUD_ROUND_REL = "packages/iconsmith/scripts/cloud-round.md";
+/** One change plus its neighbour test. A fourth path is a dump. */
+export const MAX_TOUCHED = 3;
 
 const WORKSPACE = path.join(import.meta.dirname, "..");
 const STANDING_NAME = "autoresearch.md";
 const RESULTS_REL = ".staging/autoresearch/results.tsv";
+const DENIED_PREFIXES = [
+  ".staging/",
+  "packages/iconsmith/.staging/",
+  "packages/iconsmith/corpus/",
+] as const;
+const LIMITS_TOTAL = /totalText:\s*(?<n>[\d_]+)/u;
 
 const FENCE = (name: string): RegExp =>
   new RegExp(`\`\`\`${name}\\n(?<body>[\\s\\S]*?)\`\`\``, "gu");
@@ -205,13 +226,53 @@ const allowedUntracked = (rel: string): boolean => {
   const norm = rel.replace(/^\.\//u, "").replace(/\/$/u, "");
   return (
     norm === RESULTS_REL ||
+    norm === NEXT_REL ||
     norm === "results.tsv" ||
+    norm === "NEXT.md" ||
     norm === ".staging" ||
     norm === "packages/iconsmith/.staging" ||
     norm.startsWith(".staging/autoresearch") ||
     norm.startsWith("packages/iconsmith/.staging/autoresearch")
   );
 };
+
+export const pathMatches = (rel: string, pattern: string): boolean => {
+  const norm = rel.replaceAll("\\", "/").replace(/^\.\//u, "");
+  const pat = pattern.replaceAll("\\", "/").replace(/^\.\//u, "");
+  if (pat === norm) {
+    return true;
+  }
+  if (pat.endsWith("/**")) {
+    const prefix = pat.slice(0, -3);
+    return norm === prefix || norm.startsWith(`${prefix}/`);
+  }
+  if (pat.endsWith("/*")) {
+    const prefix = pat.slice(0, -2);
+    if (norm === prefix) {
+      return true;
+    }
+    if (!norm.startsWith(`${prefix}/`)) {
+      return false;
+    }
+    return !norm.slice(prefix.length + 1).includes("/");
+  }
+  return false;
+};
+
+export const isDeniedPath = (rel: string): boolean => {
+  const norm = rel.replaceAll("\\", "/").replace(/^\.\//u, "");
+  return DENIED_PREFIXES.some(
+    (prefix) => norm === prefix.slice(0, -1) || norm.startsWith(prefix)
+  );
+};
+
+export const isFrozenPath = (rel: string, standing: Standing): boolean =>
+  standing.frozen.some((pattern) => pathMatches(rel, pattern));
+
+export const isEditablePath = (rel: string, standing: Standing): boolean =>
+  !isDeniedPath(rel) &&
+  !isFrozenPath(rel, standing) &&
+  standing.editable.some((pattern) => pathMatches(rel, pattern));
 
 /**
  * Tracked edits plus untracked files, minus the untracked ledger.
@@ -265,13 +326,19 @@ export const assertEditableOnly = (
   touched: readonly string[],
   standing: Standing
 ): void => {
-  const frozenHit = touched.filter((p) => standing.frozen.includes(p));
+  const frozenHit = touched.filter((p) => isFrozenPath(p, standing));
   if (frozenHit.length > 0) {
     throw new AutoresearchError(
       `refusing to keep: the edit touched frozen paths:\n${bullets(frozenHit)}`
     );
   }
-  const extra = touched.filter((p) => !standing.editable.includes(p));
+  const denied = touched.filter((p) => isDeniedPath(p));
+  if (denied.length > 0) {
+    throw new AutoresearchError(
+      `refusing to keep: the edit dumped denied paths:\n${bullets(denied)}`
+    );
+  }
+  const extra = touched.filter((p) => !isEditablePath(p, standing));
   if (extra.length > 0) {
     throw new AutoresearchError(
       `refusing to keep: the commit touches paths outside the editable set.\n${bullets(touched)}`
@@ -280,6 +347,11 @@ export const assertEditableOnly = (
   if (touched.length === 0) {
     throw new AutoresearchError(
       "refusing to keep: the working tree is byte-identical to HEAD."
+    );
+  }
+  if (touched.length > MAX_TOUCHED) {
+    throw new AutoresearchError(
+      `refusing to keep: ${touched.length} paths is an unbounded dump (max ${MAX_TOUCHED}).`
     );
   }
 };
@@ -389,6 +461,130 @@ const recipeDraws = (id: string): boolean =>
 
 export const recipeHolesOf = (): number =>
   PAINT_RECIPES.filter((recipe) => !recipeDraws(recipe.id)).length;
+
+export const leftoverOf = (standing: Standing, board: Scoreboard): string => {
+  const holes = PAINT_RECIPES.filter((recipe) => !recipeDraws(recipe.id)).map(
+    (recipe) => recipe.id
+  );
+  if (holes.length > 0) {
+    return `recipe-without-drawing: ${holes.join(", ")}`;
+  }
+  for (const name of standing.probed) {
+    if (standing.holdout.includes(name)) {
+      continue;
+    }
+    if (isUnknown(name)) {
+      return (
+        `concept-correct net-new: analog still unknown for ${name}. ` +
+        "One family or one mapping, not a kin dump. tree-house stays unknown."
+      );
+    }
+  }
+  if (recipeFor("heart") === null) {
+    return "heart-recipe: family exists, paint recipe missing";
+  }
+  if (recipeFor("bell") === null) {
+    return "bell-recipe: family exists, paint recipe missing";
+  }
+  if (board.twinPairErrors > 0) {
+    return `twin-pair errors still ${board.twinPairErrors} (empty / extent / finish)`;
+  }
+  if (board.gapErrors > 0) {
+    return `gap errors still ${board.gapErrors}`;
+  }
+  return (
+    "no scripted leftover; one honest generation-pipeline change that " +
+    "advances the scoreboard without raising LIMITS.totalText or volunteering glyphs"
+  );
+};
+
+export interface CloudBriefInput {
+  branch: string;
+  lastKeep: string;
+  leftover: string;
+  metric: string;
+  standing: Standing;
+}
+
+export const renderCloudBrief = (input: CloudBriefInput): string => {
+  const editable = input.standing.editable.join("\n");
+  const frozen = input.standing.frozen.join("\n");
+  return [
+    "# Cloud Agent spawn brief",
+    "",
+    `Paste this file into a **new** Cloud Agent at ${CLOUD_AGENTS_URL}.`,
+    "",
+    "The `cursor-cloud` MCP can list/inspect Cloud Agents. It cannot launch one.",
+    "This VM has no spawn CLI or API token either. Do not invent a launcher.",
+    "",
+    "## Repo and branch",
+    "",
+    `- Work ONLY on \`${WORKER_BRANCHES[0]}\` or \`${WORKER_BRANCHES[1]}\` (this run: \`${input.branch}\`).`,
+    "- Do not edit `cursor/filled-twins-c1f5`.",
+    "- Do not merge. Commit + push. If the floor drops, revert.",
+    "- Do not commit secrets, corpus, results.tsv, or NEXT.md.",
+    "",
+    "## Current metric / last keep",
+    "",
+    `- metric: \`${input.metric}\``,
+    `- last keep: ${input.lastKeep}`,
+    `- standing sha: \`${input.standing.sha}\``,
+    "",
+    "## The one leftover to attack",
+    "",
+    input.leftover,
+    "",
+    "One change. Hacky complexity is a discard. Do not volunteer star/compass/quokka/xyzzy.",
+    "Do not raise LIMITS.totalText.",
+    "",
+    "## Editable",
+    "",
+    "```",
+    editable,
+    "```",
+    "",
+    "## Frozen",
+    "",
+    "```",
+    frozen,
+    "```",
+    "",
+    "## After the edit",
+    "",
+    "Run the tests you invoke. Commit + push editable paths only. Do not merge.",
+    "If the floor drops, revert.",
+    "",
+  ].join("\n");
+};
+
+export const nextPath = (root: string): string =>
+  existsSync(path.join(root, "packages/iconsmith"))
+    ? path.join(root, "packages/iconsmith", NEXT_REL)
+    : path.join(root, NEXT_REL);
+
+export const writeCloudBrief = (
+  root: string,
+  input: CloudBriefInput
+): string => {
+  const dest = nextPath(root);
+  mkdirSync(path.dirname(dest), { recursive: true });
+  writeFileSync(dest, renderCloudBrief(input));
+  return dest;
+};
+
+export const findCloudAgentLauncher = (): string | null => {
+  for (const cmd of [
+    "cursor-cloud-spawn",
+    "cursor-agent-spawn",
+    "agent-spawn",
+  ]) {
+    const found = spawnSync("which", [cmd], { encoding: "utf-8" });
+    if (found.status === 0 && found.stdout.trim().length > 0) {
+      return found.stdout.trim();
+    }
+  }
+  return null;
+};
 
 const countIssues = async (
   names: readonly string[],
@@ -518,6 +714,40 @@ const workspaceFile = (root: string, rel: string): string => {
   return path.join(root, rel.replace(/^packages\/iconsmith\//u, ""));
 };
 
+export const totalTextLimit = (root: string): number | null => {
+  const file = workspaceFile(root, "packages/iconsmith/src/pipeline/policy.ts");
+  if (!existsSync(file)) {
+    return null;
+  }
+  const match = LIMITS_TOTAL.exec(readFileSync(file, "utf-8"));
+  const raw = match?.groups?.n;
+  return raw === undefined ? null : Number(raw.replaceAll("_", ""));
+};
+
+const neighborTestsOf = (
+  root: string,
+  touched: readonly string[]
+): string[] => {
+  const extra: string[] = [];
+  for (const rel of touched) {
+    const local = rel.replace(/^packages\/iconsmith\//u, "");
+    if (local.endsWith(".test.ts")) {
+      extra.push(local);
+    } else if (local.endsWith(".ts")) {
+      const testRel = local.replace(/\.ts$/u, ".test.ts");
+      if (
+        existsSync(path.join(root, "packages/iconsmith", testRel)) ||
+        existsSync(path.join(root, testRel))
+      ) {
+        extra.push(testRel);
+      }
+    } else if (local.endsWith("SKILL.md")) {
+      extra.push("src/pipeline/skill.test.ts");
+    }
+  }
+  return extra;
+};
+
 const insertOnce = (
   source: string,
   find: string,
@@ -536,8 +766,8 @@ const insertOnce = (
 const HOME_FN = `/** Roof diamond on a body — a house, not a tent (tent is a floor bar). */
 export const home = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
-    ...lozenge(finish, 12, 8, 6),
-    mass(finish, 6, 12, 12, 8, 1),
+    ...lozenge(finish, 12, 9, 5),
+    mass(finish, 7, 13, 10, 6, 1),
   ]);
 
 `;
@@ -590,7 +820,7 @@ export const unknown`,
     src,
     String.raw`export const HEART_HINT = /\b(?:hearts?)\b/iu;`,
     String.raw`export const HEART_HINT = /\b(?:hearts?)\b/iu;
-export const HOME_HINT = /\b(?:homes?|houses?)\b/iu;`,
+export const HOME_HINT = /^(?:homes?|houses?)$/iu;`,
     "home-family HOME_HINT"
   );
   src = insertOnce(
@@ -667,6 +897,11 @@ export const playbookDone = async (item: PlaybookItem): Promise<boolean> => {
     case "bell-recipe": {
       return recipeFor("bell") !== null;
     }
+    case "skill-steer":
+    case "twin-pair":
+    case "gap-error": {
+      return true;
+    }
     default: {
       return false;
     }
@@ -692,6 +927,14 @@ export const applyPlaybook = (
     }
     case "bell-recipe": {
       return applyRecipe(root, "bell", BELL_RECIPE);
+    }
+    case "skill-steer":
+    case "twin-pair":
+    case "gap-error": {
+      return {
+        description: `${item.id}: Cloud Agent leftover (local skip)`,
+        kind: "skip",
+      };
     }
     default: {
       throw new AutoresearchError(`unknown playbook id ${item.id}`);
@@ -719,7 +962,7 @@ const applyUnifiedOrReplace = (
   payload: { find?: string; path: string; replace?: string }
 ): ApplyResult => {
   const rel = payload.path.split(path.sep).join("/");
-  if (!standing.editable.includes(rel) || standing.frozen.includes(rel)) {
+  if (!isEditablePath(rel, standing)) {
     throw new AutoresearchError(`propose refused ${rel}`);
   }
   if (rel.endsWith(STANDING_NAME)) {
@@ -749,8 +992,8 @@ const proposeOpenRouter = async (
         messages: [
           {
             content:
-              'Propose one small find/replace on exactly one editable file. JSON only: {"path","find","replace"}. ' +
-              `editable=${standing.editable.join(", ")}. Do not write autoresearch.md. Do not volunteer star/compass/quokka/xyzzy.`,
+              'Propose one small find/replace on exactly one editable generation-pipeline file. JSON only: {"path","find","replace"}. ' +
+              `editable=${standing.editable.join(", ")}. Frozen wins. Do not write autoresearch.md. Do not raise LIMITS.totalText. Do not volunteer star/compass/quokka/xyzzy.`,
             role: "system",
           },
           {
@@ -1003,6 +1246,26 @@ const settle = (
   before: Scoreboard,
   after: Scoreboard
 ): RoundRecord => {
+  const afterLimit = totalTextLimit(root);
+  const shown = spawnSync(
+    "git",
+    ["show", "HEAD:packages/iconsmith/src/pipeline/policy.ts"],
+    { cwd: root, encoding: "utf-8" }
+  );
+  const headMatch = shown.status === 0 ? LIMITS_TOTAL.exec(shown.stdout) : null;
+  const beforeLimit =
+    headMatch?.groups?.n === undefined
+      ? null
+      : Number(headMatch.groups.n.replaceAll("_", ""));
+  if (beforeLimit !== null && afterLimit !== null && afterLimit > beforeLimit) {
+    restoreTree(root);
+    return {
+      commit: git(root, ["rev-parse", "HEAD"]),
+      description: `${applied.description}; LIMITS.totalText raised`,
+      metric: metricOf(after),
+      status: "discard",
+    };
+  }
   const verdict = decide(before, after);
   if (verdict.status !== "keep") {
     restoreTree(root);
@@ -1038,6 +1301,8 @@ export const runCampaign = async (
   const ledger = resultsPath(root);
   const tried = new Set<string>();
   const records: RoundRecord[] = [];
+  let lastKeep = "none";
+  const branch = options.branch ?? DEFAULT_BRANCH;
   const takeBoard = async (): Promise<Scoreboard> =>
     deps.measure
       ? await deps.measure(root, standing)
@@ -1045,6 +1310,15 @@ export const runCampaign = async (
           floor: options.floor,
           house: options.house,
         });
+  const brief = (board: Scoreboard): void => {
+    writeCloudBrief(root, {
+      branch,
+      lastKeep,
+      leftover: leftoverOf(standing, board),
+      metric: metricOf(board),
+      standing,
+    });
+  };
 
   try {
     for (let spent = 0; spent < options.rounds;) {
@@ -1056,23 +1330,39 @@ export const runCampaign = async (
       if (!picked) {
         note(records, ledger, standing.sha, {
           commit: git(root, ["rev-parse", "HEAD"]),
-          description: "playbook exhausted",
+          description: "playbook exhausted; Cloud Agent brief written",
           metric: metricOf(before),
           status: "idle",
         });
+        brief(before);
         spent += 1;
         continue;
       }
       try {
         guardStanding(root, standingFile, standing, standingBefore);
+        const extra = neighborTestsOf(root, touchedAgainst(root, "HEAD"));
         // oxlint-disable-next-line no-await-in-loop
         const after = await takeBoard();
-        note(
-          records,
-          ledger,
-          standing.sha,
-          settle(root, standing, picked.applied, picked.item, before, after)
+        if (
+          extra.length > 0 &&
+          options.floor !== "full" &&
+          !runVitest(root, extra)
+        ) {
+          after.testsOk = false;
+        }
+        const row = settle(
+          root,
+          standing,
+          picked.applied,
+          picked.item,
+          before,
+          after
         );
+        if (row.status === "keep") {
+          lastKeep = `${row.commit.slice(0, 12)} ${row.description}`;
+        }
+        note(records, ledger, standing.sha, row);
+        brief(row.status === "crash" ? before : after);
       } catch (error) {
         restoreTree(root);
         if (readFileSync(standingFile, "utf-8") !== standingBefore) {
@@ -1084,6 +1374,7 @@ export const runCampaign = async (
           standing.sha,
           crashOf(picked.applied.description, error)
         );
+        brief(before);
       }
       spent += 1;
     }

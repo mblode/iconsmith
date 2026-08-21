@@ -15,9 +15,14 @@ import {
   AutoresearchError,
   decide,
   dirtyPaths,
+  findCloudAgentLauncher,
   HOLD_OUT_UNKNOWN,
+  isEditablePath,
+  isFrozenPath,
   parseStanding,
+  pathMatches,
   readStanding,
+  renderCloudBrief,
   runCampaign,
 } from "./autoresearch.js";
 import type { Scoreboard } from "./autoresearch.js";
@@ -54,11 +59,32 @@ describe("autoresearch.md", () => {
     expect(standing.frozen).toContain("packages/iconsmith/autoresearch.md");
     expect(standing.frozen).toContain("packages/iconsmith/program.md");
     expect(standing.frozen).toContain("packages/iconsmith/scripts/loop.ts");
-    expect(standing.editable).toContain(
-      "packages/iconsmith/src/pipeline/analog.ts"
+    expect(standing.editable).toContain("packages/iconsmith/src/pipeline/**");
+    expect(standing.editable).toContain("packages/iconsmith/src/tools/**");
+    expect(standing.editable).toContain("packages/iconsmith/src/commands/**");
+    expect(standing.editable).toContain("packages/iconsmith/SKILL.md");
+    expect(
+      isEditablePath("packages/iconsmith/src/pipeline/analog.ts", standing)
+    ).toBe(true);
+    expect(
+      isEditablePath("packages/iconsmith/src/pipeline/recipe.ts", standing)
+    ).toBe(true);
+    expect(
+      isEditablePath("packages/iconsmith/src/pipeline/prompt.ts", standing)
+    ).toBe(true);
+    expect(
+      isFrozenPath("packages/iconsmith/src/tools/render.ts", standing)
+    ).toBe(true);
+    expect(
+      isEditablePath("packages/iconsmith/src/tools/render.ts", standing)
+    ).toBe(false);
+    expect(isFrozenPath("packages/iconsmith/scripts/loop.ts", standing)).toBe(
+      true
     );
-    expect(standing.editable).toContain(
-      "packages/iconsmith/src/pipeline/recipe.ts"
+    expect(isFrozenPath("package.json", standing)).toBe(true);
+    expect(standing.frozen).toContain("packages/iconsmith/scripts/research.ts");
+    expect(standing.frozen).toContain(
+      "packages/iconsmith/scripts/cloud-round.md"
     );
     expect(standing.holdout).toEqual([...HOLD_OUT_UNKNOWN]);
     for (const name of ["star", "compass", "quokka", "xyzzy"] as const) {
@@ -295,6 +321,31 @@ xyzzy
     ).toBe(standingText);
   });
 
+  it("writes NEXT.md on an exhausted playbook instead of dying", async () => {
+    const records = await runCampaign(
+      {
+        branch: BRANCH,
+        cwd: repo,
+        restoreBranch: false,
+        rounds: 2,
+        standing: path.join(repo, "packages/iconsmith/autoresearch.md"),
+      },
+      {
+        applyEdit: () => ({ description: "nothing left", kind: "skip" }),
+        measure: () => Promise.resolve(board({ correctAndClean: 10 })),
+      }
+    );
+    expect(records).toHaveLength(2);
+    expect(records.every((row) => row.status === "idle")).toBe(true);
+    const next = path.join(
+      repo,
+      "packages/iconsmith/.staging/autoresearch/NEXT.md"
+    );
+    expect(readFileSync(next, "utf-8")).toMatch(/Cloud Agent spawn brief/u);
+    expect(readFileSync(next, "utf-8")).toMatch(/cannot launch/u);
+    expect(dirtyPaths(repo)).toEqual([]);
+  });
+
   it("allows the untracked ledger and refuses any other dirty path", () => {
     mkdirSync(path.join(repo, "packages/iconsmith/.staging/autoresearch"), {
       recursive: true,
@@ -306,6 +357,78 @@ xyzzy
     expect(dirtyPaths(repo)).toEqual([]);
     writeFileSync(path.join(repo, RECIPE), "export const recipes = 1;\n");
     expect(dirtyPaths(repo)).toEqual([RECIPE]);
+  });
+});
+
+describe("editable globs", () => {
+  it("matches a pipeline file and freezes render.ts over tools/**", () => {
+    expect(
+      pathMatches(
+        "packages/iconsmith/src/pipeline/analog.ts",
+        "packages/iconsmith/src/pipeline/**"
+      )
+    ).toBe(true);
+    expect(
+      pathMatches(
+        "packages/iconsmith/src/tools/twin.ts",
+        "packages/iconsmith/src/tools/**"
+      )
+    ).toBe(true);
+    expect(
+      pathMatches(
+        "packages/iconsmith/src/tools/render.ts",
+        "packages/iconsmith/src/tools/**"
+      )
+    ).toBe(true);
+    const standing = parseStanding(`# t
+
+\`\`\`editable
+packages/iconsmith/src/pipeline/**
+packages/iconsmith/src/tools/**
+\`\`\`
+
+\`\`\`frozen
+packages/iconsmith/src/tools/render.ts
+\`\`\`
+`);
+    expect(
+      isEditablePath("packages/iconsmith/src/pipeline/analog.ts", standing)
+    ).toBe(true);
+    expect(
+      isEditablePath("packages/iconsmith/src/tools/twin.ts", standing)
+    ).toBe(true);
+    expect(
+      isFrozenPath("packages/iconsmith/src/tools/render.ts", standing)
+    ).toBe(true);
+    expect(
+      isEditablePath("packages/iconsmith/src/tools/render.ts", standing)
+    ).toBe(false);
+  });
+});
+
+describe("the Cloud Agent brief", () => {
+  it("does not invent a launcher in this environment", () => {
+    expect(findCloudAgentLauncher()).toBeNull();
+  });
+
+  it("renders a pasteable spawn brief with metric, leftover, and gates", () => {
+    const standing = readStanding(STANDING);
+    const body = renderCloudBrief({
+      branch: "cursor/autoresearch-c1f5",
+      lastKeep: "none",
+      leftover: "concept-correct net-new: analog still unknown for home",
+      metric: "correct=10 holes=0 pair=0 gap=0",
+      standing,
+    });
+    expect(body).toMatch(/https:\/\/cursor\.com\/agents/u);
+    expect(body).toMatch(/cannot launch/u);
+    expect(body).toMatch(/cursor\/autoresearch-c1f5/u);
+    expect(body).toMatch(/iconsmith\/autoresearch/u);
+    expect(body).toMatch(/Do not merge/u);
+    expect(body).toMatch(/If the floor drops, revert/u);
+    expect(body).toMatch(/unknown for home/u);
+    expect(body).toContain("packages/iconsmith/src/pipeline/**");
+    expect(body).toContain("packages/iconsmith/src/tools/render.ts");
   });
 });
 
