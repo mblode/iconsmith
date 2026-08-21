@@ -26,6 +26,31 @@ export const OPENROUTER_URL = "https://openrouter.ai/api/v1";
 export const OPENROUTER_PREFIX = "openrouter/";
 /** Thinking Machines Inkling on OpenRouter's free tier. */
 export const DEFAULT_OPENROUTER_MODEL = "thinkingmachines/inkling:free";
+/**
+ * Same weights, billed. `:free` is allowlisted to OpenRouter's listed
+ * agentic apps; this CLI is not one of them, so the generate arm uses
+ * the paid slug when the caller does not name a model that already
+ * routes.
+ */
+export const OPENROUTER_INKLING = "thinkingmachines/inkling";
+/**
+ * Per-step output cap. The AI SDK default is 65536; OpenRouter reserves
+ * that against remaining credits and 402s a small key. Tool args here
+ * are tiny, so 4096 is the honest ceiling, not a quality knob.
+ */
+export const DEFAULT_OPENROUTER_MAX_TOKENS = 4096;
+
+/** Bound a generate step so a missing `maxOutputTokens` cannot reserve 64k. */
+export const openrouterMaxTokens = (requested?: number): number => {
+  if (
+    requested === undefined ||
+    !Number.isFinite(requested) ||
+    requested <= 0
+  ) {
+    return DEFAULT_OPENROUTER_MAX_TOKENS;
+  }
+  return Math.min(Math.floor(requested), DEFAULT_OPENROUTER_MAX_TOKENS);
+};
 
 export type FetchLike = (
   input: string,
@@ -375,20 +400,30 @@ const requestHeaders = (apiKey: string): Record<string, string> => ({
 
 const errorText = async (response: Response): Promise<string> => {
   const body = await response.text();
+  let message = body.slice(0, 400) || `OpenRouter HTTP ${response.status}`;
   try {
     const parsed = JSON.parse(body) as {
       error?: { message?: string } | string;
     };
     if (typeof parsed.error === "string") {
-      return parsed.error;
-    }
-    if (parsed.error?.message) {
-      return parsed.error.message;
+      message = parsed.error;
+    } else if (parsed.error) {
+      const { message: fromError } = parsed.error;
+      if (fromError) {
+        message = fromError;
+      }
     }
   } catch {
     // Keep the raw body when it is not JSON.
   }
-  return body.slice(0, 400) || `OpenRouter HTTP ${response.status}`;
+  if (response.status === 403 && /agentic harness/iu.test(message)) {
+    return (
+      `${message} iconsmith is not a listed OpenRouter app, so ` +
+      `\`${DEFAULT_OPENROUTER_MODEL}\` is blocked. Use ` +
+      `\`--model ${OPENROUTER_INKLING}\` (same weights, billed).`
+    );
+  }
+  return message;
 };
 
 /** A LanguageModelV4 that speaks OpenRouter chat completions, tools included. */
@@ -402,7 +437,7 @@ export const createOpenRouterModel = (
     call: LanguageModelV4CallOptions
   ): Promise<LanguageModelV4GenerateResult> => {
     const body = {
-      max_tokens: call.maxOutputTokens,
+      max_tokens: openrouterMaxTokens(call.maxOutputTokens),
       messages: toOpenAIMessages(call.prompt),
       model: modelId,
       temperature: call.temperature,

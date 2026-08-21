@@ -8,7 +8,7 @@
  *
  *   OPENROUTER_API_KEY=… npx tsx scripts/agent-twin-eval.ts \
  *     --house /tmp/eval-20/house \
- *     --model thinkingmachines/inkling:free \
+ *     --model thinkingmachines/inkling \
  *     --out /tmp/inkling-eval
  */
 import {
@@ -25,7 +25,7 @@ import { parseIconSvg } from "../src/corpus/load.js";
 import { analogArm } from "../src/pipeline/analog.js";
 import { generate } from "../src/pipeline/generate.js";
 import type { GenerateResult } from "../src/pipeline/generate.js";
-import { DEFAULT_OPENROUTER_MODEL } from "../src/pipeline/openrouter.js";
+import { OPENROUTER_INKLING } from "../src/pipeline/openrouter.js";
 import { compilePaint } from "../src/pipeline/reconstruct.js";
 import { Canvas } from "../src/tools/canvas.js";
 import { run as runDsl } from "../src/tools/dsl.js";
@@ -323,7 +323,7 @@ if (process.argv[1]?.endsWith("agent-twin-eval.ts")) {
   const args = process.argv.slice(2);
   const house = flag(args, "--house") ?? "/tmp/eval-20/house";
   const out = flag(args, "--out") ?? path.join(".staging", "agent-twin-eval");
-  const model = flag(args, "--model") ?? DEFAULT_OPENROUTER_MODEL;
+  const model = flag(args, "--model") ?? OPENROUTER_INKLING;
   const maxSteps = Number(flag(args, "--max-steps") ?? 20);
   if (!existsSync(house)) {
     process.stderr.write(`house directory not found: ${house}\n`);

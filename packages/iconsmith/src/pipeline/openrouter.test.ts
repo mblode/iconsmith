@@ -14,9 +14,12 @@ import type {
 import { describe, expect, it } from "vitest";
 
 import {
+  DEFAULT_OPENROUTER_MAX_TOKENS,
   DEFAULT_OPENROUTER_MODEL,
+  OPENROUTER_INKLING,
   OPENROUTER_URL,
   createOpenRouterModel,
+  openrouterMaxTokens,
   openrouterModelId,
   toOpenAIMessages,
   usesOpenRouter,
@@ -168,6 +171,8 @@ describe("createOpenRouterModel", () => {
       "circle",
       "lint",
     ]);
+    const posted = seen[0]?.body as { max_tokens: number } | undefined;
+    expect(posted?.max_tokens).toBe(DEFAULT_OPENROUTER_MAX_TOKENS);
     expect(result.finishReason.unified).toBe("tool-calls");
     expect(result.content).toEqual([
       {
@@ -199,5 +204,44 @@ describe("createOpenRouterModel", () => {
         call([{ content: [{ text: "hi", type: "text" }], role: "user" }])
       )
     ).rejects.not.toThrow(/sk-or-secret/u);
+  });
+
+  it("explains a harness-gated :free 403 without leaking the key", async () => {
+    const model = createOpenRouterModel({
+      apiKey: "sk-or-secret-should-not-leak",
+      fetch: () =>
+        Promise.resolve(
+          jsonResponse(
+            {
+              error: {
+                message:
+                  "thinkingmachines/inkling:free is only available on agentic harnesses.",
+              },
+            },
+            403
+          )
+        ),
+      modelId: DEFAULT_OPENROUTER_MODEL,
+    });
+    await expect(
+      model.doGenerate(
+        call([{ content: [{ text: "hi", type: "text" }], role: "user" }])
+      )
+    ).rejects.toThrow(
+      new RegExp(`--model ${OPENROUTER_INKLING.replace("/", "\\/")}`, "u")
+    );
+    await expect(
+      model.doGenerate(
+        call([{ content: [{ text: "hi", type: "text" }], role: "user" }])
+      )
+    ).rejects.not.toThrow(/sk-or-secret/u);
+  });
+});
+
+describe("openrouterMaxTokens", () => {
+  it("caps the SDK 64k default so OpenRouter cannot reserve it", () => {
+    expect(openrouterMaxTokens()).toBe(DEFAULT_OPENROUTER_MAX_TOKENS);
+    expect(openrouterMaxTokens(65_536)).toBe(DEFAULT_OPENROUTER_MAX_TOKENS);
+    expect(openrouterMaxTokens(512)).toBe(512);
   });
 });

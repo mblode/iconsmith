@@ -26,8 +26,8 @@ import {
 import type { EvalIcon } from "./eval.js";
 import {
   DEFAULT_MODEL,
-  DEFAULT_OPENROUTER_MODEL,
   MissingApiKeyError,
+  OPENROUTER_INKLING,
   generate,
   resolveModel,
 } from "./generate.js";
@@ -310,7 +310,7 @@ describe("resolveModel", () => {
     withoutGateway(() => {
       process.env.OPENROUTER_API_KEY = "or-test-key";
       const model = resolveModel();
-      expect(modelIdOf(model)).toBe(DEFAULT_OPENROUTER_MODEL);
+      expect(modelIdOf(model)).toBe(OPENROUTER_INKLING);
       expect(typeof model === "string" ? "string" : model.provider).toBe(
         "openrouter"
       );

@@ -102,6 +102,7 @@ export {
   DEFAULT_OPENROUTER_MODEL,
   generate,
   MissingApiKeyError,
+  OPENROUTER_INKLING,
 } from "./pipeline/generate.js";
 export {
   analogArm,

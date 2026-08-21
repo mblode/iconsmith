@@ -18,16 +18,20 @@ import type { LanguageModel } from "ai";
 
 import {
   DEFAULT_OPENROUTER_MODEL,
+  OPENROUTER_INKLING,
   createOpenRouterModel,
   openrouterModelId,
   usesOpenRouter,
 } from "./openrouter.js";
 
 export {
+  DEFAULT_OPENROUTER_MAX_TOKENS,
   DEFAULT_OPENROUTER_MODEL,
+  OPENROUTER_INKLING,
   OPENROUTER_PREFIX,
   OPENROUTER_URL,
   createOpenRouterModel,
+  openrouterMaxTokens,
   openrouterModelId,
   usesOpenRouter,
 } from "./openrouter.js";
@@ -51,12 +55,12 @@ export class MissingApiKeyError extends Error {
     super(
       kind === "openrouter"
         ? "No OpenRouter credential found. Set OPENROUTER_API_KEY and pass " +
-            `an OpenRouter model id (\`${DEFAULT_OPENROUTER_MODEL}\` or ` +
-            "`openrouter/…`)."
+            `an OpenRouter model id (\`${OPENROUTER_INKLING}\`, ` +
+            `\`${DEFAULT_OPENROUTER_MODEL}\`, or \`openrouter/…\`).`
         : "No AI Gateway credential found. Set AI_GATEWAY_API_KEY (or " +
             "VERCEL_OIDC_TOKEN) and use a namespaced model id " +
             `(\`${DEFAULT_MODEL}\`). OpenRouter is OPENROUTER_API_KEY plus ` +
-            `\`--model ${DEFAULT_OPENROUTER_MODEL}\`.`
+            `\`--model ${OPENROUTER_INKLING}\`.`
     );
     this.name = "MissingApiKeyError";
   }
@@ -96,8 +100,9 @@ const agentName = (command: string): string =>
  *
  * OpenRouter wins when the id is an OpenRouter slug, or when the only
  * credential on the machine is `OPENROUTER_API_KEY` and the caller did not
- * name a model — then the default is Inkling, not a gateway Anthropic id
- * that this key cannot reach.
+ * name a model — then the default is billed Inkling (`thinkingmachines/inkling`),
+ * not `:free` (allowlisted to listed OpenRouter apps) and not a gateway
+ * Anthropic id that this key cannot reach.
  */
 export const resolveModel = (
   model?: LanguageModel,
@@ -127,7 +132,7 @@ export const resolveModel = (
     }
     return createOpenRouterModel({
       apiKey: orToken,
-      modelId: openrouterModelId(requested ?? DEFAULT_OPENROUTER_MODEL),
+      modelId: openrouterModelId(requested ?? OPENROUTER_INKLING),
     });
   }
 

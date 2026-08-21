@@ -33,6 +33,7 @@ export {
   DEFAULT_MODEL,
   DEFAULT_OPENROUTER_MODEL,
   MissingApiKeyError,
+  OPENROUTER_INKLING,
   gatewayModelId,
   openrouterModelId,
   resolveModel,
