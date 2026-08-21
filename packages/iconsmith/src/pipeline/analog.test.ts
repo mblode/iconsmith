@@ -166,13 +166,13 @@ describe("analogConstructions", () => {
   };
 
   it("picks the vocabulary stack when the name says cylinder and the rim exists", () => {
-    const [row] = analogConstructions("database", [rim], "database", false);
+    const [row] = analogConstructions("server", [rim], "server", false);
     expect(row?.id).toBe("stack");
     expect(hasStackRim([rim])).toBe(true);
   });
 
   it("falls back to trays when the name says cylinder but the extract is empty", () => {
-    const [row] = analogConstructions("database", [], "database", false);
+    const [row] = analogConstructions("server", [], "server", false);
     expect(row?.id).toBe("trays");
   });
 
@@ -190,17 +190,17 @@ describe("analogConstructions", () => {
   });
 
   it("replays a house kin instead of a hub", () => {
-    const [row] = analogConstructions("cookie", [], "cookie", false, {
+    const [row] = analogConstructions("waffle", [], "waffle", false, {
       paths: [BOX],
-      slug: "cookies",
+      slug: "waffles",
     });
     expect(row?.id).toBe("replay");
-    expect(row?.source.startsWith("icon cookie\n")).toBe(true);
+    expect(row?.source.startsWith("icon waffle\n")).toBe(true);
     expect(row?.source).toContain("part ");
   });
 
   it("keeps a cylinder name on trays even when a kin is offered", () => {
-    const [row] = analogConstructions("database", [], "database", false, {
+    const [row] = analogConstructions("storage", [], "storage", false, {
       paths: [BOX],
       slug: "server",
     });
@@ -216,20 +216,20 @@ describe("analogConstructions", () => {
 });
 
 describe("analogArm", () => {
-  it("draws trays for database with no model and no extract", async () => {
-    const result = await analogArm()({ name: "database" });
+  it("draws trays for a cylinder name with no model and no extract", async () => {
+    const result = await analogArm()({ name: "server" });
     expect(result.cost).toBeUndefined();
-    expect(result.brief).toBe("analog trays database");
+    expect(result.brief).toBe("analog trays server");
     expect(result.program).toContain("rect ");
     expect(result.clean).toBe(true);
   });
 
   it("compiles a house kin as the concept, with no model", async () => {
     const result = await analogArm()(
-      { name: "cookie" },
-      { analogOf: "cookies", analogPaths: [BOX] }
+      { name: "waffle" },
+      { analogOf: "waffles", analogPaths: [BOX] }
     );
-    expect(result.brief).toBe("analog replay cookies cookie");
+    expect(result.brief).toBe("analog replay waffles waffle");
     expect(result.program).toContain("part ");
     expect(result.cost).toBeUndefined();
     expect(result.issues.some((i) => i.message.includes("unknown part"))).toBe(

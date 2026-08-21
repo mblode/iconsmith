@@ -33,10 +33,63 @@ describe("glyphs", () => {
         }
         return drawn.canvas;
       });
-      if (name !== "wifi") {
-        expect(sameExtent(canvases[0], canvases[1]), name).toBe(true);
-      }
+      // No exception any more, wifi included. `fit` scales each paint to the
+      // declared box, and a paint that lands on the box its twin landed on is
+      // the whole claim "one skeleton, two paints" makes.
+      expect(sameExtent(canvases[0], canvases[1]), name).toBe(true);
     }
+  });
+
+  /**
+   * A comment is not a program.
+   *
+   * The reach set shipped filled halves that were a lone `#` note — "host band
+   * ribbons — open arcs enclose nothing under fill" — beside a filled
+   * thumbnail rendered some other way, and two others with no filled half at
+   * all. Every glyph writes ops in both paints, and where the outline enclosed
+   * canvas the fill knocks it out rather than swallowing it.
+   */
+  it("writes ops, not notes, for the filled half of every glyph", () => {
+    for (const name of GLYPH_NAMES) {
+      const source = GLYPHS[name](name, "filled");
+      const ops = source
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line !== "" && !line.startsWith("#"));
+      expect(ops.length, name).toBeGreaterThan(3);
+      expect(source, name).toContain("finish filled");
+      const drawn = run(source, []);
+      expect(drawn.errors, name).toEqual([]);
+      expect(drawn.canvas.toSVG(), name).toContain('fill="currentColor"');
+    }
+  });
+
+  it("punches a hoop into a ring rather than painting a disc", () => {
+    for (const name of ["compass", "cookie"] as const) {
+      const source = GLYPHS[name](name, "filled");
+      expect(source, name).toContain("hole circle 12,12 r8");
+      const svg = run(source, []).canvas.toSVG();
+      // One `<path>` carrying two subpaths under evenodd is what makes the
+      // hole a hole; two paths would paint the knockout as ink.
+      expect(svg, name).toContain('fill-rule="evenodd"');
+    }
+  });
+
+  /** The set the dashboard staged, all of it host-drawn. Named rather than
+   *  counted, so dropping one is a failure and not a smaller number. */
+  it("draws every icon the reach set asked for", () => {
+    expect(GLYPH_NAMES.toSorted()).toEqual([
+      "briefcase",
+      "cake",
+      "compass",
+      "cookie",
+      "database",
+      "fingerprint",
+      "microscope",
+      "strikethrough",
+      "umbrella",
+      "wifi",
+    ]);
   });
 
   it("lints without errors or the screenshot warnings", () => {
@@ -126,7 +179,11 @@ describe("glyphs", () => {
       finish: "outlined",
       glyph: "wifi",
     });
-    expect(glyphFromSlug("briefcase")).toBeNull();
+    expect(glyphFromSlug("briefcase")).toEqual({
+      finish: "outlined",
+      glyph: "briefcase",
+    });
+    expect(glyphFromSlug("bananas")).toBeNull();
   });
 });
 

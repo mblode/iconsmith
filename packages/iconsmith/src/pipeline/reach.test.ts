@@ -33,8 +33,30 @@ describe("classifyReach", () => {
     });
   });
 
-  it("analogs an unkeyed name", () => {
-    expect(classifyReach("database", hasHouse)).toEqual({ kind: "analog" });
+  it("analogs an unkeyed name the host has no construction for", () => {
+    expect(classifyReach("unicorn", hasHouse)).toEqual({ kind: "analog" });
+  });
+
+  /** Host DRAW first. The ten the reach dashboard staged are all host
+   *  constructions now, so none of them reaches the analog or agent arm. */
+  it("draws every reach-set object on the host", () => {
+    for (const slug of [
+      "briefcase",
+      "cake",
+      "compass",
+      "cookie",
+      "database",
+      "fingerprint",
+      "microscope",
+      "strikethrough",
+      "umbrella",
+      "wifi",
+    ]) {
+      expect(
+        classifyReach(slug, () => false),
+        slug
+      ).toEqual({ kind: "glyph" });
+    }
   });
 
   it("compiles a hyphen twin as the house file", () => {
@@ -83,22 +105,22 @@ describe("reach", () => {
   });
 
   it("analogs an unkeyed cylinder name as trays", async () => {
-    const result = await reach({ name: "database" });
-    expect(result.brief).toBe("analog trays database");
+    const result = await reach({ name: "server" });
+    expect(result.brief).toBe("analog trays server");
     expect(result.cost).toBeUndefined();
   });
 
   it("replays a Central kin when the exact slug is missing", async () => {
     const result = await reach(
-      { name: "cookie" },
+      { name: "waffle" },
       {},
       {
-        ...house({ cookies: [BOX] }),
-        kin: (query) => (query === "cookie" ? ["cookies"] : []),
+        ...house({ waffles: [BOX] }),
+        kin: (query) => (query === "waffle" ? ["waffles"] : []),
       }
     );
-    expect(result.brief).toBe("analog replay cookies cookie");
-    expect(result.program).toContain("part cookie-");
+    expect(result.brief).toBe("analog replay waffles waffle");
+    expect(result.program).toContain("part waffle-");
     expect(result.cost).toBeUndefined();
     expect(result.issues.some((i) => i.message.includes("unknown part"))).toBe(
       false
