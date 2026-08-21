@@ -20,9 +20,9 @@
  */
 import { bbox, parsePath, serialise, translate } from "../geometry/path.js";
 import { fingerprint, flatten, match } from "../parts/shape.js";
-import { run as runDsl } from "../tools/dsl.js";
-import { declarableKeyline, lint } from "../tools/lint.js";
-import { visualSize } from "../tools/twin.js";
+import { declareKeyline } from "../tools/declare.js";
+import type { Declared } from "../tools/declare.js";
+import { lint } from "../tools/lint.js";
 import type { Issue, Part, Subpath } from "../types.js";
 import type { GenerateLike } from "./harness.js";
 
@@ -237,34 +237,14 @@ const hasCompileOp = (source: string): boolean =>
  * The order matters and it is the fix. A declared keyline the drawing misses
  * is an error, so a compiler that declares first and draws second is a
  * compiler that can fail its own icons — which is how `fingerprint` shipped
- * carrying `severity: "error"`. Measuring first means the claim is a reading:
- * when the reconstruction lands on a key shape the program says so, and when
- * it lands between them it says nothing and lint's off-keyline **warning**
- * stands, which is the honest tier for an extent Central chose itself.
+ * carrying `severity: "error"`. `tools/declare.ts` is the shared reading, used
+ * here and by the analog arm, which had the same bug by two other routes.
  */
 const declared = (
   bare: string,
   vocabulary: readonly Part[],
   slug: string
-): { program: ReturnType<typeof runDsl>; source: string } => {
-  const first = runDsl(bare, [...vocabulary]);
-  if (first.errors.length > 0) {
-    return { program: first, source: bare };
-  }
-  const extent = visualSize(first.canvas);
-  const keyline =
-    extent === null ? null : declarableKeyline(extent.w, extent.h);
-  if (keyline === null) {
-    return { program: first, source: bare };
-  }
-  // Spliced after `icon`, where the grammar wants it. Geometrically inert —
-  // nothing here emits `fit` — so the first drawing is still the drawing.
-  const source = bare.replace(
-    `icon ${slug}\n`,
-    `icon ${slug}\nkeyline ${keyline}\n`
-  );
-  return { program: runDsl(source, [...vocabulary]), source };
-};
+): Declared => declareKeyline(bare, slug, vocabulary);
 
 /**
  * Keyed reconstruction as a `GenerateFn`.
