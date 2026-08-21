@@ -32,6 +32,7 @@ import type { Finish, Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
+import { pairPrograms } from "./pair.js";
 import { compileIcon } from "./reconstruct.js";
 import { overlap, tokens } from "./search.js";
 
@@ -1178,6 +1179,49 @@ const fromProgram = (
   };
 };
 
+/** Replay compiles one paint; families write both. Pair the counterpart. */
+const withPair = (
+  result: Omit<GenerateResult, "text"> & { text?: string },
+  id: string,
+  extras: readonly Part[] | undefined,
+  slug: string,
+  parts: readonly Part[],
+  text: string,
+  collide: boolean,
+  neighbor: AnalogNeighbor | undefined,
+  finish: Finish,
+  spec?: Spec
+): Omit<GenerateResult, "text"> & { text?: string } => {
+  if (id === "replay" || result.program === undefined) {
+    return result;
+  }
+  const want = finish === "filled" ? "outlined" : "filled";
+  const other = analogConstructions(
+    slug,
+    parts,
+    text,
+    collide,
+    neighbor,
+    want
+  ).find((row) => row.id === id);
+  if (other === undefined) {
+    return result;
+  }
+  const issues = pairPrograms(
+    result.issues,
+    finish,
+    result.program,
+    other.source,
+    [...parts, ...(extras ?? []), ...(other.extras ?? [])],
+    spec
+  );
+  return {
+    ...result,
+    clean: issues.every((issue) => issue.severity !== "error"),
+    issues,
+  };
+};
+
 /**
  * Unkeyed DRAW as a `GenerateFn`.
  *
@@ -1247,8 +1291,20 @@ export const analogArm =
       }
       if (best) {
         const brief = analogBrief(best.id, concept.name, options.analogOf);
+        const paired = withPair(
+          best.result,
+          best.id,
+          best.extras,
+          concept.name,
+          parts,
+          text,
+          collide,
+          neighbor,
+          finish,
+          options.spec
+        );
         return {
-          ...best.result,
+          ...paired,
           audit: best.audit,
           brief,
           extras: best.extras,
@@ -1257,5 +1313,17 @@ export const analogArm =
       }
     }
     const brief = analogBrief(chosen.id, concept.name, options.analogOf);
-    return { ...chosen.result, brief, extras: chosen.extras, text: brief };
+    const paired = withPair(
+      chosen.result,
+      chosen.id,
+      chosen.extras,
+      concept.name,
+      parts,
+      text,
+      collide,
+      neighbor,
+      finish,
+      options.spec
+    );
+    return { ...paired, brief, extras: chosen.extras, text: brief };
   };

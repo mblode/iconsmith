@@ -50,6 +50,7 @@ import { loadParts } from "../pipeline/generate.js";
 import { glyphFromSlug, GLYPH_WHY, GLYPHS } from "../pipeline/glyphs.js";
 import { markFromSlug } from "../pipeline/kind.js";
 import { MARKS } from "../pipeline/marks.js";
+import { pairCanvases } from "../pipeline/pair.js";
 import { compilePaint } from "../pipeline/reconstruct.js";
 import { SPEC } from "../tools/canvas.js";
 import { run as runDsl } from "../tools/dsl.js";
@@ -346,13 +347,18 @@ export interface ViewPaint {
 const paintProgram = (
   source: string,
   extras: readonly Part[] = []
-): { errors: readonly string[]; paint: ViewPaint | null } => {
+): {
+  canvas?: ReturnType<typeof runDsl>["canvas"];
+  errors: readonly string[];
+  paint: ViewPaint | null;
+} => {
   const drawn = runDsl(source, [...extras]);
   if (drawn.errors.length > 0) {
     return { errors: drawn.errors, paint: null };
   }
   const { canvas } = drawn;
   return {
+    canvas,
     errors: [],
     paint: {
       checks: review(canvas, { keyline: drawn.keyline }),
@@ -860,12 +866,35 @@ const issuesMarkup = (checks: readonly Check[]): string => {
   return `${banner}${checkList(checks)}`;
 };
 
+/** `clean` means no errors. An arm that said dirty without naming one
+ *  cannot look like 0 error(s) — that is the fingerprint lie. */
+export const recordedUncleanIssue = (): Issue => ({
+  message:
+    "The arm recorded this drawing as not clean without recording an error. Whatever it objected to is not in this list.",
+  rule: "recorded",
+  severity: "error",
+});
+
+/** Fold the arm's `clean: false` into the card's findings so the header
+ *  and the verdict count the same thing. */
+export const withRecordedStatus = (card: ViewCard): ViewCard => {
+  if (card.metrics?.clean !== false) {
+    return card;
+  }
+  if (card.issues.some((issue) => issue.severity === "error")) {
+    return card;
+  }
+  return { ...card, issues: [...card.issues, recordedUncleanIssue()] };
+};
+
 /** The arm's own verdict, shown next to the page's. Only when it has something
- *  the page's lint did not reach: `clean: false` with no issue attached is the
+ *  the page's lint did not reach: `clean: false` with no error attached is the
  *  state that let `fingerprint` pass, so it is stated rather than dropped. */
 const recordedMarkup = (metrics: ViewMetrics | undefined): string => {
-  const issues = metrics?.issues ?? [];
-  const contradicts = metrics?.clean === false && issues.length === 0;
+  const issues = [...(metrics?.issues ?? [])];
+  const contradicts =
+    metrics?.clean === false &&
+    issues.every((issue) => issue.severity !== "error");
   if (issues.length === 0 && !contradicts) {
     return "";
   }
@@ -875,11 +904,11 @@ const recordedMarkup = (metrics: ViewMetrics | undefined): string => {
     status: i.severity,
   }));
   if (contradicts) {
+    const extra = recordedUncleanIssue();
     checks.push({
-      message:
-        "The arm recorded this drawing as not clean without recording a finding. Whatever it objected to is not in this list.",
-      rule: "recorded",
-      status: "warn",
+      message: extra.message,
+      rule: extra.rule,
+      status: extra.severity,
     });
   }
   return `<section class="paint recorded"><h3>as recorded</h3>${checkList(checks)}</section>`;
@@ -978,6 +1007,7 @@ const cardMarkup = (card: ViewCard): string => {
   }
   const errors = card.issues.filter((i) => i.severity === "error").length;
   const warnings = card.issues.filter((i) => i.severity === "warn").length;
+  const recordedDirty = metrics?.clean === false;
   const picked = icon.group !== null && icon.slug === icon.group;
   const badges = [
     picked ? '<span class="pick">selected</span>' : "",
@@ -987,11 +1017,11 @@ const cardMarkup = (card: ViewCard): string => {
   // Stated once, above both paints, so the card answers "is this finished"
   // before the reader has to take a union of two lists themselves.
   const verdict =
-    card.issues.length === 0
+    errors === 0 && !recordedDirty && card.issues.length === 0
       ? '<p class="clean">clean — every house check passed, in every paint</p>'
       : `<p class="verdict">${errors} error(s) · ${warnings} warning(s) across ${paints.length} paint(s)</p>`;
   return [
-    `<article class="card${errors > 0 ? " has-error" : ""}${picked ? " selected" : ""}" id="${escapeHtml(icon.slug)}">`,
+    `<article class="card${errors > 0 || recordedDirty ? " has-error" : ""}${picked ? " selected" : ""}" id="${escapeHtml(icon.slug)}">`,
     `<div class="stages">${stages.join("")}</div>`,
     `<h2><a href="#${escapeHtml(icon.slug)}">${escapeHtml(icon.slug)}</a>${badges}</h2>`,
     `<p class="meta">${escapeHtml(icon.group ?? path.dirname(icon.file))} · ${paints.map((p) => p.finish).join(" + ")}</p>`,
@@ -1085,14 +1115,15 @@ export interface PageOptions {
  * recorded `severity: "error"` in it announced itself as "0 error(s)".
  */
 export const buildPage = (cards: ViewCard[], opts: PageOptions): string => {
-  const errors = cards.reduce(
+  const shown = cards.map(withRecordedStatus);
+  const errors = shown.reduce(
     (n, c) => n + c.issues.filter((i) => i.severity === "error").length,
     0
   );
   const body =
-    cards.length === 0
+    shown.length === 0
       ? `<p class="empty">No .svg files in ${escapeHtml(opts.dir)} or one level below it.</p>`
-      : `<div class="grid">${cards.map(cardMarkup).join("")}</div>`;
+      : `<div class="grid">${shown.map(cardMarkup).join("")}</div>`;
   return [
     "<!doctype html>",
     '<html lang="en"><head><meta charset="utf-8">',
@@ -1214,6 +1245,11 @@ export const paintsOf = (
       issues.push(refusal("outlined twin", want, other.errors));
     } else if (other.paint && other.paint.shapes.length > 0) {
       paints.push(other.paint);
+      if (drawn.canvas !== undefined && other.canvas !== undefined) {
+        issues.push(
+          ...pairCanvases([], primary.finish, drawn.canvas, other.canvas)
+        );
+      }
     }
   }
   return { issues, paints };
@@ -1305,7 +1341,7 @@ const buildCard = async (
     extras
   );
   const metrics = loadMetrics(icon.file);
-  return {
+  return withRecordedStatus({
     against: await compare(icon, source, paints[0].finish, against, scores),
     icon,
     issues: cardIssues(paints, [...refused, ...(metrics?.issues ?? [])]),
@@ -1316,7 +1352,7 @@ const buildCard = async (
       log: trace.log,
       program: trace.program,
     },
-  };
+  });
 };
 
 /** Hand the URL to whatever the platform uses to open one. Detached and

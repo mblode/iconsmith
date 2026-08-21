@@ -381,7 +381,9 @@ describe("review", () => {
     drawn.rect({ h: 16, w: 16, x: 4, y: 4 });
     const checks = review(drawn);
     expect(checks.map((check) => check.rule)).toContain("feature");
+    expect(checks.map((check) => check.rule)).toContain("hole");
     expect(checks.map((check) => check.rule)).not.toContain("gap");
+    expect(checks.find((check) => check.rule === "hole")?.status).toBe("pass");
   });
 
   /**
@@ -423,5 +425,41 @@ describe("review", () => {
     const found = lint(drawn).filter((i) => i.rule === "off-axis");
     expect(found).toHaveLength(1);
     expect(found[0].declared).toBe("off-axis");
+  });
+
+  it("fires `hole` when a mark sits between a disc and its knockout", () => {
+    const drawn = new Canvas([], { finish: "filled" });
+    drawn.circle({ cx: 12, cy: 12, r: 8 });
+    drawn.rect({ h: 4, r: 0, w: 4, x: 10, y: 10 });
+    drawn.hole({ cx: 12, cy: 12, r: 1.5, shape: "circle" });
+    const found = lint(drawn).filter((issue) => issue.rule === "hole");
+    expect(found).toHaveLength(1);
+    expect(found[0]?.severity).toBe("error");
+    expect(found[0]?.message).toContain("solid disc");
+    expect(found[0]?.message).toContain("cutFrom");
+  });
+
+  it("stays quiet when the hole follows the disc", () => {
+    const drawn = new Canvas([], { finish: "filled" });
+    drawn.circle({ cx: 12, cy: 12, r: 8 });
+    drawn.hole({ cx: 12, cy: 12, r: 6, shape: "circle" });
+    drawn.rect({ h: 8, r: 0, w: 2, x: 11, y: 4 });
+    expect(rules(lint(drawn))).not.toContain("hole");
+  });
+
+  it("stays quiet when cutFrom names the disc after a later solid", () => {
+    const drawn = new Canvas([], { finish: "filled" });
+    const ring = drawn.circle({ cx: 12, cy: 12, r: 8 });
+    drawn.rect({ h: 4, r: 0, w: 4, x: 10, y: 10 });
+    drawn.hole({ cutFrom: ring, cx: 12, cy: 12, r: 6, shape: "circle" });
+    expect(rules(lint(drawn))).not.toContain("hole");
+  });
+
+  it("does not call a wide body that contains a later lens a solid disc", () => {
+    const drawn = new Canvas([], { finish: "filled" });
+    drawn.rect({ h: 10, r: 2, w: 18, x: 3, y: 8 });
+    drawn.circle({ cx: 12, cy: 13, r: 4 });
+    drawn.hole({ cx: 12, cy: 13, r: 2, shape: "circle" });
+    expect(rules(lint(drawn))).not.toContain("hole");
   });
 });

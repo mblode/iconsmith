@@ -12,6 +12,7 @@ import type { Issue } from "../types.js";
 import { audit } from "./audit.js";
 import { glyphFromSlug, GLYPH_WHY, GLYPHS } from "./glyphs.js";
 import type { GenerateLike } from "./harness.js";
+import { pairPrograms } from "./pair.js";
 
 export class GlyphError extends Error {
   constructor(message: string) {
@@ -65,6 +66,15 @@ export const glyphArm =
     const { finish, glyph } = resolved;
     const source = GLYPHS[glyph](concept.name, finish);
     const drawn = fromSource(source, concept.name, options.spec);
+    const other = finish === "filled" ? "outlined" : "filled";
+    const issues = pairPrograms(
+      drawn.issues,
+      finish,
+      source,
+      GLYPHS[glyph](concept.name, other),
+      [],
+      options.spec
+    );
     const brief = `${finish} ${glyph} — ${GLYPH_WHY[glyph]}`;
     const reviewed = options.ask
       ? await audit({
@@ -80,6 +90,8 @@ export const glyphArm =
       audit: reviewed,
       brief,
       ...drawn,
+      clean: issues.every((issue) => issue.severity !== "error"),
+      issues,
       text: brief,
     };
   };

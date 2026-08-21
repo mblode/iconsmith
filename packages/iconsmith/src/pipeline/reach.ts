@@ -21,6 +21,7 @@ import { glyphFromSlug } from "./glyphs.js";
 import { harnessArm } from "./harness.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
+import { pairCanvases } from "./pair.js";
 import type { Concept } from "./prompt.js";
 import { compileArm } from "./reconstruct.js";
 import { splicePair, splicePaths } from "./splice.js";
@@ -145,19 +146,22 @@ const adaptFilledFrom = (
   }
   const adapted = adaptProgram(source, "filled");
   const extras: Part[] = drawn.extras ?? options.parts ?? [];
-  const program = runDsl(
-    adapted,
-    extras,
-    options.spec ? { spec: options.spec } : {}
+  const opts = options.spec ? { spec: options.spec } : {};
+  const outlined = runDsl(source, extras, opts);
+  const program = runDsl(adapted, extras, opts);
+  const issues: Issue[] = pairCanvases(
+    [
+      ...program.errors.map((message) => ({
+        message,
+        rule: "dsl" as const,
+        severity: "error" as const,
+      })),
+      ...lint(program.canvas, { keyline: program.keyline }),
+    ],
+    "filled",
+    program.canvas,
+    outlined.canvas
   );
-  const issues: Issue[] = [
-    ...program.errors.map((message) => ({
-      message,
-      rule: "dsl" as const,
-      severity: "error" as const,
-    })),
-    ...lint(program.canvas, { keyline: program.keyline }),
-  ];
   return {
     ...drawn,
     brief:

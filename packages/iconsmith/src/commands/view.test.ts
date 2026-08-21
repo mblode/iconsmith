@@ -36,6 +36,7 @@ import {
   stagedHouse,
   twinProgram,
   twinShapes,
+  withRecordedStatus,
 } from "./view.js";
 
 const temp = () => mkdtempSync(path.join(tmpdir(), "iconsmith-view-"));
@@ -613,7 +614,12 @@ describe("buildPage", () => {
       opts
     );
     expect(html).toContain("<h3>as recorded</h3>");
-    expect(html).toContain("without recording a finding");
+    expect(html).toContain("without recording an error");
+    expect(html).toContain("1 icon(s) · 1 error(s)");
+    expect(html).toContain("has-error");
+    expect(html).not.toContain(
+      "clean — every house check passed, in every paint"
+    );
   });
 
   it("shows a waiver as its own state, not as a pass", () => {
@@ -676,6 +682,20 @@ describe("cardIssues", () => {
     ).toHaveLength(1);
   });
 
+  it("promotes a dirty record without an error into a card error", () => {
+    const dirty = withRecordedStatus(
+      card({ metrics: { clean: false, policy: "compile" } })
+    );
+    expect(dirty.issues).toEqual([
+      {
+        message:
+          "The arm recorded this drawing as not clean without recording an error. Whatever it objected to is not in this list.",
+        rule: "recorded",
+        severity: "error",
+      },
+    ]);
+  });
+
   it("keeps what the arm recorded", () => {
     expect(
       cardIssues(
@@ -719,6 +739,7 @@ describe("paintsOf", () => {
     );
     expect(issues.filter((i) => i.rule === "dsl")).toEqual([]);
     expect(paints.map((p) => p.finish)).toEqual(["outlined", "filled"]);
+    expect(issues.filter((i) => i.rule === "extent")).toEqual([]);
   });
 
   it("replays a compile program when extras sit beside the svg", () => {
@@ -770,6 +791,8 @@ describe("paintsOf", () => {
     expect(paints.map((p) => p.finish)).toEqual(["outlined", "filled"]);
     expect(paints[1]?.program).toContain("finish filled");
     expect(paints[1]?.program).toContain("part box-");
+    // Two house files are different constructions — do not pair them.
+    expect(issues.filter((i) => i.rule === "extent")).toEqual([]);
   });
 });
 

@@ -171,6 +171,8 @@ describe("reach", () => {
     );
     expect(result.brief).toBe("adapt filled compile box");
     expect(result.program).toContain("finish filled");
+    expect(result.issues.some((issue) => issue.rule === "empty")).toBe(false);
+    expect(result.issues.some((issue) => issue.rule === "finish")).toBe(false);
   });
 
   it("compiles a letter-twin instead of analog replay", async () => {

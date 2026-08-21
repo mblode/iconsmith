@@ -338,7 +338,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     hole: tool({
       description:
-        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
+        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
       execute: ({ cutFrom, cx, cy, h, r, shape, w, x, y }) =>
         track("hole", () => {
           // The two shapes take different fields, so the schema is flat and

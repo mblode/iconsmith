@@ -4,7 +4,7 @@
  * Split by who can act on the result: `error` blocks a commit, `warn` is a
  * judgment call the model is told about and a human arbitrates. `lint` returns
  * only those; `review` keeps the questions that passed, so a viewer can show
- * the whole chain (keyline, gap, axes) rather than a blank "clean". Nothing
+ * the whole chain (keyline, gap, hole, axes) rather than a blank "clean". Nothing
  * here repairs geometry — repair belongs to the primitives, which never emit a
  * violation in the first place. This catches composition mistakes: bad keyline,
  * off-centre, elements too close, empty canvas, and — `substance` — a canvas
@@ -73,6 +73,19 @@ export interface LintElement {
    * inherited a 2 it does not have. See {@link offAxisIssues}.
    */
   strokeWidth?: number;
+  /**
+   * A knockout (`hole`). Canvas writes `op: "knockout"`; a document
+   * round-trip may set `hole` instead. Absent means ink.
+   */
+  hole?: boolean;
+  /**
+   * The primitive that drew this element. Present on a `Canvas`; absent
+   * when linting a shipped SVG. Hole targeting uses it so a wide body
+   * that happens to contain a later knockout is not called a solid disc.
+   */
+  kind?: string;
+  /** Canvas knockout flag. Same meaning as {@link hole}. */
+  op?: "add" | "knockout";
 }
 
 export interface LintTarget {
@@ -374,6 +387,101 @@ const gapIssues = (els: LintElement[], spec: Spec): Issue[] => {
  * work below the line (`safari` alone has 11 holes under 0.44 units), so this
  * is a prompt to look, not a gate.
  */
+const isHole = (e: LintElement): boolean =>
+  e.hole === true || e.op === "knockout";
+
+const boxOf = (e: LintElement): Box => bbox(parsePath(e.d));
+
+const containsBox = (outer: Box, inner: Box): boolean =>
+  inner.x0 >= outer.x0 - TOUCHING &&
+  inner.y0 >= outer.y0 - TOUCHING &&
+  inner.x1 <= outer.x1 + TOUCHING &&
+  inner.y1 <= outer.y1 + TOUCHING;
+
+const centreOf = (b: Box): [number, number] => [b.x0 + b.w / 2, b.y0 + b.h / 2];
+
+const nearCentre = (a: Box, b: Box): boolean => {
+  const [ax, ay] = centreOf(a);
+  const [bx, by] = centreOf(b);
+  const tol = Math.max(1.5, 0.2 * Math.min(a.w, a.h));
+  return Math.hypot(ax - bx, ay - by) <= tol;
+};
+
+/** A disc or square frame that a concentric hole would turn into a ring. */
+const isDisc = (e: LintElement, b: Box): boolean => {
+  if (e.kind === "dot" || e.kind === "line" || e.kind === "arc") {
+    return false;
+  }
+  if (e.kind === "circle") {
+    return true;
+  }
+  const minor = Math.min(b.w, b.h);
+  return minor > 0 && Math.max(b.w, b.h) / minor <= 1.2;
+};
+
+interface SolidGroup { holes: LintElement[]; solid: LintElement }
+
+const groupsOf = (els: LintElement[]): SolidGroup[] => {
+  const groups: SolidGroup[] = [];
+  for (const e of els) {
+    if (isHole(e) && groups.length > 0) {
+      groups.at(-1)?.holes.push(e);
+    } else if (!isHole(e)) {
+      groups.push({ holes: [], solid: e });
+    }
+  }
+  return groups;
+};
+
+/**
+ * A hole that cut the wrong solid and left a disc uncut.
+ *
+ * `Canvas.hole` defaults to the most recently drawn solid. A mark between
+ * `circle` and `hole` takes the knockout — or is refused if the hole does
+ * not fit — and the circle ships as a solid disc. `cutFrom` stores the
+ * hole with the named solid, so that order is quiet.
+ *
+ * Filled only. The earlier solid has to look like a disc or square frame
+ * (a wide body that merely contains a later lens is not one), the hole
+ * has to sit inside it and share its centre, and the intervening mark
+ * has to sit inside it too — a mark between a ring and its counter.
+ */
+const holeIssues = (els: LintElement[], finish: Finish): Issue[] => {
+  if (finish !== "filled") {
+    return [];
+  }
+  const groups = groupsOf(els);
+  const issues: Issue[] = [];
+  for (let i = 0; i < groups.length; i += 1) {
+    const { holes, solid } = groups[i];
+    const host = boxOf(solid);
+    for (const hole of holes) {
+      const cut = boxOf(hole);
+      for (let j = 0; j < i; j += 1) {
+        const earlier = groups[j];
+        if (earlier.holes.length > 0) {
+          continue;
+        }
+        const disc = boxOf(earlier.solid);
+        if (
+          !isDisc(earlier.solid, disc) ||
+          !containsBox(disc, cut) ||
+          !containsBox(disc, host) ||
+          !nearCentre(disc, cut)
+        ) {
+          continue;
+        }
+        issues.push({
+          message: `${hole.id} sits inside ${earlier.solid.id} but cuts ${solid.id}; ${earlier.solid.id} ships as a solid disc — \`cutFrom ${earlier.solid.id}\`, or draw the hole immediately after the ring.`,
+          rule: "hole",
+          severity: "error",
+        });
+      }
+    }
+  }
+  return issues;
+};
+
 const featureIssues = (els: LintElement[], spec: Spec): Issue[] =>
   els.flatMap((e) => {
     const b = bbox(parsePath(e.d));
@@ -598,6 +706,7 @@ export const lint = (
   // answer worth having and "is this feature big enough to see" does.
   issues.push(
     ...(finish === "filled" ? featureIssues(els, spec) : gapIssues(els, spec)),
+    ...holeIssues(els, finish),
     ...cutIssues(els),
     ...offAxisIssues(els, spec, finish)
   );
@@ -702,6 +811,9 @@ const passMessage = (
     case "gap": {
       return `Every separated pair is at least ${ctx.spec.minGap}px apart, or coincident.`;
     }
+    case "hole": {
+      return "Every hole cuts the solid it sits in — none left a disc uncut.";
+    }
     case "keyline": {
       if (ctx.keyline) {
         const [w, h] = SPEC.keylines[ctx.keyline];
@@ -728,7 +840,7 @@ const passMessage = (
  * The same questions `lint` asks, with the passes kept.
  *
  * Order matches `lint`: substance, centring, keyline, bleed, then gap or
- * feature, then cut, off-axis, density. Cohort alignment leads when a
+ * feature, then hole (filled), then cut, off-axis, density. Cohort alignment leads when a
  * family was supplied. A rule that fired more than once (two gaps) keeps
  * every failure; a rule that fired none gets one pass line.
  */
@@ -764,6 +876,7 @@ export const review = (
     "keyline",
     "bleed",
     finish === "filled" ? "feature" : "gap",
+    ...(finish === "filled" ? ["hole"] : []),
     "cut",
     "off-axis",
     "density",

@@ -620,6 +620,7 @@ describe("analog families", () => {
   it("keeps cactus arms on the trunk so gap does not warn", async () => {
     const result = await analogArm()({ name: "cactus" });
     expect(result.issues.filter((i) => i.rule === "gap")).toEqual([]);
+    expect(result.issues.filter((i) => i.rule === "extent")).toEqual([]);
     expect(result.clean).toBe(true);
   });
 
