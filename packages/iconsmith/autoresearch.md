@@ -12,46 +12,26 @@ The loop refuses to start if this file is missing. Every ledger row records
 its hash, so an iteration can be attributed to the instructions that were in
 force when it ran.
 
-This is the Karpathy org, not his `train.py`. The human writes the standing
-file. The worker edits the *training surface* — here the generation pipeline
-(pipeline / tools / commands / tests / SKILL / generate prompts), not two
-analog files. One change per round. Measure, edit one editable surface,
-remeasure, keep or revert.
+This is the Karpathy org, not his `train.py`. The product is: run
+`scripts/autoresearch.ts` here. It edits the generation codebase in process
+(playbook and/or OpenRouter), measures, and keeps or `git reset`s. Cursor
+Cloud Agents are not this loop. There is no `NEXT.md`, no spawn brief, and
+nothing to paste into cursor.com/agents.
+
+The training surface is the generation pipeline (pipeline / tools /
+commands / tests / SKILL / generate prompts), not two analog files. One
+change per round.
 
 `accept.ts` already rejected naive single-set `val_bpb` as selection on
 noise; this scoreboard is not "unknown rate went down" (that is gamed by
 drawing hubs) and is not a growing `ANALOG_KINS` dump.
 
-## Cloud Agent worker (this environment cannot spawn one)
-
-The `cursor-cloud` MCP in this environment can **list/inspect** Cloud Agents.
-It **cannot launch** a new Cloud Agent. There is also no `cursor` /
-env-token launcher on this VM that starts a run. Do not fake one.
-
-The loop's Cloud Agent integration is therefore:
-
-1. **This run / inner Task workers** apply one codebase change and ratchet
-   (keep or revert).
-2. After every measure the loop **writes a spawn brief** —
-   `.staging/autoresearch/NEXT.md` (untracked) — from the committed template
-   `packages/iconsmith/scripts/cloud-round.md`. A human (or a Cursor
-   Automation) pastes that brief into a **new** Cloud Agent at
-   https://cursor.com/agents — same repo, branch `iconsmith/autoresearch` or
-   `cursor/autoresearch-c1f5`.
-3. If a later environment grows a real CLI/API that can spawn an agent, use
-   it. Until then, the brief is the integration.
-
-`--rounds N` does not die when the local playbook is exhausted. Remaining
-rounds are `idle` and still write `NEXT.md` for the next Cloud Agent.
-
 ## What the loop may change
 
 Only paths that match the `editable` block and do not match `frozen`.
 Globs are directory prefixes, not a licence to dump. A kept iteration
-commits those files to `iconsmith/autoresearch` (or the `--branch` you
-passed) and nothing else. The branch tip is the champion;
-`git log iconsmith/autoresearch` is the record of what survived.
-`results.tsv` and `NEXT.md` are untracked.
+commits those files on the current branch (or `--branch`) and nothing
+else. `results.tsv` is untracked under `.staging/`.
 
 ```editable
 # Generation pipeline. One change per round. Not an unbounded dump of kins,
@@ -84,7 +64,6 @@ packages/iconsmith/scripts/research.ts
 packages/iconsmith/scripts/autoresearch.ts
 packages/iconsmith/scripts/gate.ts
 packages/iconsmith/scripts/check-boundaries.ts
-packages/iconsmith/scripts/cloud-round.md
 packages/iconsmith/src/eval/blindspot.ts
 packages/iconsmith/src/tools/render.ts
 packages/iconsmith/bench/reconstruction.json
@@ -153,17 +132,20 @@ sailboat
 
 ## NEVER STOP
 
-When `--rounds` is large (overnight is `--rounds 50`) the loop does not
-stop because a round was a keep, a discard, or "good enough". It walks the
-playbook, one change per round, until N is spent. Exhausted playbook rows
-are idle, not invented work — and they still write `NEXT.md` so a Cloud
-Agent can take the leftover. `--rounds` omitted defaults to **1** so a
-forgotten invocation cannot run overnight on a dirty hypothesis; pass
-`--rounds 50` to leave it running. Do not ask the human mid-loop.
+`--rounds N` applies one in-process change per round until N is spent.
+A keep, a discard, or "good enough" does not stop the loop. Exhausted
+playbook rows are idle, not invented work and not a brief for another
+agent. `--rounds` omitted defaults to **1** so a forgotten invocation
+cannot run overnight on a dirty hypothesis; pass `--rounds 50` to leave
+it running. Do not ask the human mid-loop.
+
+OpenRouter is used when `OPENROUTER_API_KEY` is set, or when
+`/tmp/openrouter.env` contains that key. The key is never committed.
 
 ## What to try
 
-One item per round. Skip an item that is already true.
+One item per round. Skip an item that is already true. Apply the rest
+in process — playbook hardcode and/or one OpenRouter find/replace.
 
 1. **recipe-drawings** — Wire a remaining recipe-without-drawing (a
    `PAINT_RECIPES` id with no family program). Skip if every recipe already
@@ -185,13 +167,12 @@ One item per round. Skip an item that is already true.
 8. **skill-steer** — One edit to `SKILL.md` or `prompt.ts` /
    `prompt.baseline.txt` that steers the model toward a remaining house
    paint recipe or a remaining probed name. Skip if no such leftover
-   remains. The local worker records a Cloud Agent brief rather than
-   inventing skill prose.
+   remains. Apply in process; do not write a spawn brief.
 9. **twin-pair** — One pipeline/tools edit that drops a twin-pair **error**
    (empty / extent / finish) on a probed name. Skip if `twinPairErrors` is
-   0. Local worker: brief, do not invent a hacky restamp.
+   0. Apply in process; do not invent a hacky restamp.
 10. **gap-error** — One pipeline/tools edit that drops a gap **error** on a
-    probed name. Skip if gap errors are 0. Local worker: brief.
+    probed name. Skip if gap errors are 0. Apply in process.
 
 ## What not to try
 
@@ -202,7 +183,5 @@ One item per round. Skip an item that is already true.
 - Do not grow `ANALOG_KINS` as the win.
 - Do not write this file, `program.md`, `lab.md`, the gates, `render.ts`,
   or an unbounded dump under `pipeline/`.
-- Do not commit corpus, `results.tsv`, `NEXT.md`, OpenRouter keys, or
-  staging dumps.
-- Do not merge. Commit + push the experiment branch; if the floor drops,
-  revert.
+- Do not commit corpus, `results.tsv`, OpenRouter keys, or staging dumps.
+- Do not merge. If the floor drops, revert.

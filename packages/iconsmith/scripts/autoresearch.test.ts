@@ -1,5 +1,6 @@
 import { execFileSync } from "node:child_process";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -15,14 +16,12 @@ import {
   AutoresearchError,
   decide,
   dirtyPaths,
-  findCloudAgentLauncher,
   HOLD_OUT_UNKNOWN,
   isEditablePath,
   isFrozenPath,
   parseStanding,
   pathMatches,
   readStanding,
-  renderCloudBrief,
   runCampaign,
 } from "./autoresearch.js";
 import type { Scoreboard } from "./autoresearch.js";
@@ -83,9 +82,18 @@ describe("autoresearch.md", () => {
     );
     expect(isFrozenPath("package.json", standing)).toBe(true);
     expect(standing.frozen).toContain("packages/iconsmith/scripts/research.ts");
+    expect(standing.frozen).toContain("packages/iconsmith/scripts/gate.ts");
     expect(standing.frozen).toContain(
+      "packages/iconsmith/scripts/check-boundaries.ts"
+    );
+    expect(standing.frozen).toContain(
+      "packages/iconsmith/src/eval/blindspot.ts"
+    );
+    expect(standing.frozen).not.toContain(
       "packages/iconsmith/scripts/cloud-round.md"
     );
+    expect(standing.text).not.toMatch(/cursor\.com\/agents/u);
+    expect(standing.text).not.toMatch(/NEXT\.md/u);
     expect(standing.holdout).toEqual([...HOLD_OUT_UNKNOWN]);
     for (const name of ["star", "compass", "quokka", "xyzzy"] as const) {
       expect(standing.holdout).toContain(name);
@@ -321,7 +329,7 @@ xyzzy
     ).toBe(standingText);
   });
 
-  it("writes NEXT.md on an exhausted playbook instead of dying", async () => {
+  it("idles an exhausted playbook in process and does not write NEXT.md", async () => {
     const records = await runCampaign(
       {
         branch: BRANCH,
@@ -337,13 +345,31 @@ xyzzy
     );
     expect(records).toHaveLength(2);
     expect(records.every((row) => row.status === "idle")).toBe(true);
+    expect(records[0]?.description).toBe("playbook exhausted");
     const next = path.join(
       repo,
       "packages/iconsmith/.staging/autoresearch/NEXT.md"
     );
-    expect(readFileSync(next, "utf-8")).toMatch(/Cloud Agent spawn brief/u);
-    expect(readFileSync(next, "utf-8")).toMatch(/cannot launch/u);
+    expect(existsSync(next)).toBe(false);
     expect(dirtyPaths(repo)).toEqual([]);
+  });
+
+  it("stays on the current branch when --branch is omitted", async () => {
+    const here = gitIn(repo, ["rev-parse", "--abbrev-ref", "HEAD"]);
+    await runCampaign(
+      {
+        cwd: repo,
+        restoreBranch: false,
+        rounds: 1,
+        standing: path.join(repo, "packages/iconsmith/autoresearch.md"),
+      },
+      {
+        applyEdit: () => ({ description: "nothing left", kind: "skip" }),
+        measure: () => Promise.resolve(board()),
+      }
+    );
+    expect(gitIn(repo, ["rev-parse", "--abbrev-ref", "HEAD"])).toBe(here);
+    expect(here).not.toBe(BRANCH);
   });
 
   it("allows the untracked ledger and refuses any other dirty path", () => {
@@ -406,29 +432,60 @@ packages/iconsmith/src/tools/render.ts
   });
 });
 
-describe("the Cloud Agent brief", () => {
-  it("does not invent a launcher in this environment", () => {
-    expect(findCloudAgentLauncher()).toBeNull();
-  });
+describe("in-process propose", () => {
+  it("applies one deps.propose edit per round without a spawn brief", async () => {
+    const repo = mkdtempSync(path.join(tmpdir(), "autoresearch-propose-"));
+    const analog = "packages/iconsmith/src/pipeline/analog.ts";
+    const standingText = `# test
 
-  it("renders a pasteable spawn brief with metric, leftover, and gates", () => {
-    const standing = readStanding(STANDING);
-    const body = renderCloudBrief({
-      branch: "cursor/autoresearch-c1f5",
-      lastKeep: "none",
-      leftover: "concept-correct net-new: analog still unknown for home",
-      metric: "correct=10 holes=0 pair=0 gap=0",
-      standing,
-    });
-    expect(body).toMatch(/https:\/\/cursor\.com\/agents/u);
-    expect(body).toMatch(/cannot launch/u);
-    expect(body).toMatch(/cursor\/autoresearch-c1f5/u);
-    expect(body).toMatch(/iconsmith\/autoresearch/u);
-    expect(body).toMatch(/Do not merge/u);
-    expect(body).toMatch(/If the floor drops, revert/u);
-    expect(body).toMatch(/unknown for home/u);
-    expect(body).toContain("packages/iconsmith/src/pipeline/**");
-    expect(body).toContain("packages/iconsmith/src/tools/render.ts");
+\`\`\`editable
+${analog}
+\`\`\`
+
+\`\`\`frozen
+packages/iconsmith/autoresearch.md
+\`\`\`
+
+1. **alpha** — first edit
+`;
+    mkdirSync(path.dirname(path.join(repo, analog)), { recursive: true });
+    writeFileSync(path.join(repo, analog), "export const analog = 0;\n");
+    writeFileSync(
+      path.join(repo, "packages/iconsmith/autoresearch.md"),
+      standingText
+    );
+    gitIn(repo, ["init", "--initial-branch=main"]);
+    gitIn(repo, ["config", "user.email", "loop@test"]);
+    gitIn(repo, ["config", "user.name", "loop"]);
+    gitIn(repo, ["add", "-A"]);
+    gitIn(repo, ["commit", "-m", "base"]);
+    let proposes = 0;
+    const records = await runCampaign(
+      {
+        cwd: repo,
+        restoreBranch: false,
+        rounds: 1,
+        standing: path.join(repo, "packages/iconsmith/autoresearch.md"),
+      },
+      {
+        measure: () => Promise.resolve(board()),
+        propose: (_standing, root) => {
+          proposes += 1;
+          writeFileSync(path.join(root, analog), "export const analog = 1;\n");
+          return Promise.resolve({
+            description: "in-process propose",
+            kind: "applied",
+          });
+        },
+      }
+    );
+    expect(proposes).toBe(1);
+    expect(records).toHaveLength(1);
+    expect(records[0]?.status).toBe("discard");
+    expect(existsSync(path.join(repo, ".staging/autoresearch/NEXT.md"))).toBe(
+      false
+    );
+    rmSync(repo, { force: true, recursive: true });
   });
 });
 

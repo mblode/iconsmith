@@ -2,11 +2,13 @@
 "iconsmith": patch
 ---
 
-Widen the offline analog campaign into a generation-pipeline meta-loop.
+Run the generation-pipeline meta-loop inline.
 
-`autoresearch.md` is still the standing file the loop cannot write. The
-training surface is now pipeline / tools / commands / SKILL / generate
-prompts (frozen gates unchanged). After each measure the loop writes an
-untracked Cloud Agent spawn brief; this environment can list Cloud Agents
-and cannot launch one. `--rounds` still bounds a run; exhausted playbook
-rows stay idle and still write the brief. Overnight is `--rounds 50`.
+`npx tsx scripts/autoresearch.ts --rounds N` applies one in-process change
+per round (playbook and/or OpenRouter from `OPENROUTER_API_KEY` /
+`/tmp/openrouter.env`), measures, and keeps or `git reset`s.
+`autoresearch.md` stays the standing file the loop cannot write. The
+editable surface is pipeline / tools / commands / tests / SKILL. Frozen
+gates and bench calibrations stay put. Cursor Cloud Agents are not this
+loop — no `NEXT.md`, no spawn brief, nothing to paste into
+cursor.com/agents. Overnight is `--rounds 50`.
