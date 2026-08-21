@@ -13,6 +13,7 @@
  * prompt told it were different. One source, formatted twice.
  */
 import { SPEC } from "../tools/canvas.js";
+import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
 import type { Keyline } from "../types.js";
 import type { Reference } from "./licence.js";
@@ -43,8 +44,8 @@ const list = (o: Record<string, number>): string =>
     .map(([k, v]) => `${k} = ${v}`)
     .join(", ");
 
-const keylines = (): string =>
-  Object.entries(SPEC.keylines)
+const keylines = (spec: Spec): string =>
+  Object.entries(spec.keylines)
     .map(([k, [w, h]]) => `- \`${k}\` — ${w}×${h}`)
     .join("\n");
 
@@ -74,6 +75,7 @@ export interface PromptOptions {
   policy?: Policy;
   /** Whether this run carries a raster proposal; enables the `proposal` op. */
   proposal?: boolean;
+  spec?: Spec;
 }
 
 /**
@@ -85,16 +87,21 @@ export interface PromptOptions {
  * `{{stroke}}`, not `2`, so a reworded principle cannot restate the spec wrong.
  */
 export const systemPrompt = (opts: PromptOptions = {}): string => {
+  const spec = opts.spec ?? SPEC;
   const conditions: Condition[] = [];
   const tokens: Tokens = {
-    canvas: String(SPEC.canvas),
-    clearance: String(SPEC.clearance),
-    dots: list(SPEC.dots),
-    grid: String(SPEC.grid),
-    keylines: keylines(),
-    minGap: String(SPEC.minGap),
-    radiusTiers: SPEC.radiusTiers.join(", "),
-    stroke: String(SPEC.stroke),
+    canvas: String(spec.canvas),
+    clearance: String(spec.clearance),
+    dots: list(spec.dots),
+    grid: String(spec.grid),
+    keylines: keylines(spec),
+    maxElements: String(spec.maxElements),
+    minFeature: String(spec.minFeature),
+    minGap: String(spec.minGap),
+    radius: String(spec.radius),
+    radiusTiers: spec.radiusTiers.join(", "),
+    size: String(spec.size),
+    stroke: String(spec.stroke),
   };
   if (opts.proposal) {
     conditions.push("proposal");

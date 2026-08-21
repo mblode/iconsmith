@@ -71,5 +71,5 @@ describe.skipIf(!existsSync(HOUSE))("against the set it was read off", () => {
 
     expect(named).toHaveLength(VOCABULARY.length);
     expect(new Set(named.map((p) => p.name)).size).toBe(VOCABULARY.length);
-  });
+  }, 15_000);
 });

@@ -15,19 +15,32 @@ import { tool } from "ai";
 import { z } from "zod";
 
 import { Canvas, SPEC } from "../tools/canvas.js";
+import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
 import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
-import type { DotRole, Finish, Issue, Keyline, Part } from "../types.js";
+import type { Finish, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
 import { overlap, rankParts, tokens } from "./search.js";
+import type { Aliases } from "./search.js";
 
 export type { Reference } from "./licence.js";
 
 export interface ToolsOptions {
+  /**
+   * The words each source icon also answers to, from `corpus/aliases.ts`.
+   *
+   * `listParts` is the only place in the run where a model asks the vocabulary
+   * a question in its own words, so it is the place the widening has to reach:
+   * the model types "open link" because that is what it is drawing, and without
+   * the table the query dies on the fact that nobody put those words in a
+   * filename. Empty by default — `commands/` loads it, and a caller that has
+   * not been wired gets exactly the old ranking.
+   */
+  aliases?: Aliases;
   /**
    * Existing icons `compare` can draw from — the set the draft is trying to
    * join, rendered into a contact sheet beside it.
@@ -47,6 +60,8 @@ export interface ToolsOptions {
    * disappears, because an open polyline paints nothing under a fill.
    */
   finish?: Finish;
+  /** Stroke, family radius, optical size. Defaults to the house 24/2/3 cut. */
+  spec?: Spec;
   /** Fixed keyline; `fit` uses it when the model does not name one. */
   keyline?: Keyline | null;
   /** Pixel size for `render`. 96 is four times the design size: big enough to
@@ -98,7 +113,6 @@ export interface ToolState {
 }
 
 const KEYLINE_NAMES = Object.keys(SPEC.keylines) as [Keyline, ...Keyline[]];
-const ROLE_NAMES = Object.keys(SPEC.dots) as [DotRole, ...DotRole[]];
 /** The turns, from the DSL's own table rather than a second copy: the language
  *  and the tools must name the same three or a program and a generation mean
  *  different things by `cw`. */
@@ -144,15 +158,18 @@ const placed = (canvas: Canvas, id: string) => {
 
 export const createTools = (options: ToolsOptions = {}) => {
   const {
+    aliases = new Map(),
     cohort = null,
     corpus = [],
     finish = "outlined",
+    spec = SPEC,
     keyline = null,
     parts = [],
     proposal = null,
     renderSize = 96,
   } = options;
-  const canvas = new Canvas(parts, { finish });
+  const canvas = new Canvas(parts, { finish, spec });
+  const roleNames = Object.keys(spec.dots) as [string, ...string[]];
   const state: ToolState = {
     calls: [],
     issues: null,
@@ -175,6 +192,25 @@ export const createTools = (options: ToolsOptions = {}) => {
   };
 
   const tools = {
+    arc: tool({
+      description:
+        "Draw an open circular arc. Same cubics as circle. Name a pole (top/right/bottom/left), a sweep (quarter/half/three-quarter), and optionally ccw. Use this for canopies, wifi fans, C-shapes and the lobes of an S. Do not approximate a curve with a polyline of grid points.",
+      execute: (input) => track("arc", () => placed(canvas, canvas.arc(input))),
+      inputSchema: z.object({
+        ccw: z
+          .boolean()
+          .optional()
+          .describe(
+            "run counter-clockwise; default follows circle (top → right → bottom → left)"
+          ),
+        cx: coord,
+        cy: coord,
+        from: z.enum(["bottom", "left", "right", "top"]),
+        r: z.number().positive(),
+        sweep: z.enum(["half", "quarter", "three-quarter"]),
+      }),
+    }),
+
     center: tool({
       description:
         "Recentre the whole drawing on the canvas centre. Does not change its size.",
@@ -262,12 +298,12 @@ export const createTools = (options: ToolsOptions = {}) => {
     }),
 
     dot: tool({
-      description: `Place a dot. The role picks the size, so the set's dots stay one of ${ROLE_NAMES.length} sizes rather than a continuum.`,
+      description: `Place a dot. The role picks the size, so the set's dots stay one of ${roleNames.length} sizes rather than a continuum.`,
       execute: (input) => track("dot", () => placed(canvas, canvas.dot(input))),
       inputSchema: z.object({
         cx: coord,
         cy: coord,
-        role: z.enum(ROLE_NAMES).optional(),
+        role: z.enum(roleNames).optional(),
       }),
     }),
 
@@ -334,7 +370,7 @@ export const createTools = (options: ToolsOptions = {}) => {
           .min(0)
           .optional()
           .describe(
-            `radius: the circle's, or a rect's corners. Filled tiers: ${SPEC.fillRadiusTiers.join(", ")}`
+            `radius: the circle's, or a rect's corners. Filled tiers: ${spec.fillRadiusTiers.join(", ")}`
           ),
         shape: z.enum(["rect", "circle"]),
         w: z.number().positive().optional().describe("rect only"),
@@ -392,17 +428,19 @@ export const createTools = (options: ToolsOptions = {}) => {
       // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
         track("listParts", () => ({
-          matches: rankParts(parts, query, limit).map(({ hits, part }) => ({
-            h: part.h,
-            id: part.id,
-            name: part.name ?? null,
-            // Why it matched. An unnamed part is only useful if the model can
-            // tell what it is, and the icons it came from say that better
-            // than `p0044` does.
-            seenIn: hits.slice(0, 5),
-            usedByIcons: part.icons.length,
-            w: part.w,
-          })),
+          matches: rankParts(parts, query, limit, aliases).map(
+            ({ hits, part }) => ({
+              h: part.h,
+              id: part.id,
+              name: part.name ?? null,
+              // Why it matched. An unnamed part is only useful if the model can
+              // tell what it is, and the icons it came from say that better
+              // than `p0044` does.
+              seenIn: hits.slice(0, 5),
+              usedByIcons: part.icons.length,
+              w: part.w,
+            })
+          ),
           searched: parts.length,
         })),
       inputSchema: z.object({
@@ -505,7 +543,7 @@ export const createTools = (options: ToolsOptions = {}) => {
           .min(0)
           .optional()
           .describe(
-            `tiers: ${(finish === "filled" ? SPEC.fillRadiusTiers : SPEC.radiusTiers).join(", ")}`
+            `tiers: ${(finish === "filled" ? spec.fillRadiusTiers : spec.radiusTiers).join(", ")}`
           ),
         w: z.number().positive(),
         x: coord,

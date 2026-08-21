@@ -29,6 +29,32 @@ export const overlap = (a: string[], b: string[]): number => {
   return a.filter((t) => set.has(t)).length;
 };
 
+/**
+ * Slug → the words it also answers to, from `corpus/aliases.ts`.
+ *
+ * Restated here as a bare `ReadonlyMap` rather than imported, so that
+ * `pipeline/` does not depend on `corpus/`. The layering DAG in
+ * `scripts/check-boundaries.ts` runs `geometry ← parts ← tools ← pipeline ←
+ * commands`; `corpus/` is not in it, which makes an import from here legal to
+ * the checker and wrong to the design. `commands/` loads the table and passes
+ * it down, which is the direction the arrows already point.
+ */
+export type Aliases = ReadonlyMap<string, readonly string[]>;
+
+/**
+ * What an alias hit is worth against a slug hit, which is worth 1.
+ *
+ * Below a slug because it is one inference further from the shape: the set says
+ * this *icon* means "open link", and the part is a piece of that icon, so the
+ * piece may or may not be the part that means it. Above zero because the whole
+ * point is that a word nobody put in a filename still has to reach the drawing.
+ *
+ * A half was picked before the coverage number was measured, on that reasoning
+ * alone, so that the number is a test of the choice rather than a description
+ * of it.
+ */
+const ALIAS_WEIGHT = 0.5;
+
 /** Marks named per shortlist. Enough that a concept drawn from several parts
  *  finds all of them, few enough that the shortlist is a shortlist. */
 export const DEFAULT_SHORTLIST = 24;
@@ -71,11 +97,24 @@ export interface PartMatch {
  * — a search for "database" would find nothing while the cylinder it wanted sat
  * in the set, unnamed. The provenance is free and already recorded, so it is
  * what the query runs against as well.
+ *
+ * `aliases` widens that provenance from the icon's filename to the words its
+ * set says it means. It is the third rung of the same ladder and is weighted
+ * accordingly: a curated **name** is a deliberate label about this shape and
+ * scores 10; a matching source **slug** is provenance and scores 1; a matching
+ * **alias** is somebody's synonym for an icon this shape appeared in, one
+ * inference further out, and scores below a slug without scoring zero. It never
+ * promotes a part above one the slug itself answered, which is what keeps a
+ * query for `folder` returning the folder before the thing tagged "folder".
+ *
+ * Empty by default, so a caller that has not been wired up gets exactly the old
+ * ranking and the difference between the two is attributable to this argument.
  */
 export const rankParts = (
   parts: readonly Part[],
   query: string,
-  limit = DEFAULT_SHORTLIST
+  limit = DEFAULT_SHORTLIST,
+  aliases: Aliases = new Map()
 ): PartMatch[] => {
   const want = tokens(query);
   if (want.length === 0) {
@@ -83,13 +122,25 @@ export const rankParts = (
   }
   return parts
     .map((part) => {
-      const hits = part.icons.filter((icon) => overlap(tokens(icon), want) > 0);
+      const direct = part.icons.filter(
+        (icon) => overlap(tokens(icon), want) > 0
+      );
+      // Only icons the slug did not already answer. An icon matched both ways
+      // is one match, not two, or a part whose provenance is rich in a word
+      // would be counted twice for the same evidence.
+      const byAlias = part.icons.filter(
+        (icon) =>
+          !direct.includes(icon) &&
+          overlap(tokens((aliases.get(icon) ?? []).join(" ")), want) > 0
+      );
+      const hits = [...direct, ...byAlias];
       return {
         hits,
         part,
         score:
           overlap(tokens(part.name ?? part.id), want) * 10 +
-          hits.length +
+          direct.length +
+          byAlias.length * ALIAS_WEIGHT +
           hits.length / Math.max(1, part.icons.length),
       };
     })
@@ -105,9 +156,10 @@ export const rankParts = (
 export const searchParts = (
   parts: readonly Part[],
   query: string,
-  limit = DEFAULT_SHORTLIST
+  limit = DEFAULT_SHORTLIST,
+  aliases: Aliases = new Map()
 ): PartHint[] =>
-  rankParts(parts, query, limit).map(({ hits, part }) => ({
+  rankParts(parts, query, limit, aliases).map(({ hits, part }) => ({
     id: part.id,
     name: part.name ?? null,
     seenIn: hits.slice(0, 5),

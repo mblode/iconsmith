@@ -139,14 +139,34 @@ test("a filled canvas refuses geometry that would paint nothing", () => {
   const c = filled([OPEN_PART, CLOSED_PART]);
   expect(() =>
     c.line({
+      offAxis: true,
       points: [
         [4, 4],
-        [12, 4],
+        [8, 4],
+        [12, 8],
       ],
     })
-  ).toThrow(/paints nothing in a filled icon/u);
+  ).toThrow(/polyline paints nothing in a filled icon/u);
   expect(() => c.part({ id: OPEN_PART.id, x: 4, y: 4 })).toThrow(/open mark/u);
   expect(() => c.part({ id: CLOSED_PART.id, x: 4, y: 4 })).not.toThrow();
+});
+
+test("a filled two-point line is the stroke expanded to a bar", () => {
+  const c = filled();
+  c.line({
+    points: [
+      [4, 12],
+      [20, 12],
+    ],
+  });
+  expect(c.elements).toHaveLength(1);
+  expect(c.elements[0]).toMatchObject({
+    h: 2,
+    kind: "rect",
+    w: 18,
+    x: 3,
+    y: 11,
+  });
 });
 
 test("hole is unreachable while the finish is outlined", () => {

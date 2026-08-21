@@ -50,7 +50,7 @@
     "check:boundaries": "node scripts/check-boundaries.ts"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^4.0.39",
+    "@ai-sdk/gateway": "^4.0.54",
     "ai": "^7.0.66",
     "commander": "^15.0.0",
     "sharp": "^0.34.4",

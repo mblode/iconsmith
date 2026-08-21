@@ -121,7 +121,7 @@
       "enabled": true,
       "provenance": "measured",
       "evidence": "The whole corpus draws on a 24×24 viewBox (SPEC.canvas).",
-      "text": "You draw on a {{canvas}}×{{canvas}} canvas. Y grows downward; (0,0) is\ntop-left."
+      "text": "You draw on a {{canvas}}×{{canvas}} canvas, shown at {{size}}px. Y grows downward; (0,0) is\ntop-left."
     },
     {
       "id": "house.stroke",
@@ -129,7 +129,7 @@
       "enabled": true,
       "provenance": "measured",
       "evidence": "97.5% of stroked shapes are exactly 2 units wide (SPEC.stroke).",
-      "text": "- **Stroke** {{stroke}}px, round caps, round joins, no fills. Every shape you\n  place is an outline, so a \"solid\" shape does not exist — suggest mass with an\n  enclosing outline, never by filling one."
+      "text": "- **Stroke** {{stroke}} units at {{size}}px, round caps, round joins. Every shape you\n  place is an outline; a filled twin is that stroke expanded, never a fill on a path."
     },
     {
       "id": "house.grid",
@@ -156,7 +156,7 @@
       "gap": "tight",
       "provenance": "measured",
       "evidence": "Symmetric-handle corner arcs, n=6,188: the flat tier set matches 78.4% exactly (SPEC.radiusTiers).",
-      "text": "- **Corner radii** come from tiers, not from taste: {{radiusTiers}}.\n  Ask for the one you want and the nearest legal tier for that shape's size is\n  what gets drawn."
+      "text": "- **Corner radii** family {{radius}}, legal tiers {{radiusTiers}}.\n  Ask for the one you want; the nearest legal tier is what gets drawn."
     },
     {
       "id": "house.dots",
@@ -174,7 +174,7 @@
       "gap": "tight",
       "provenance": "measured",
       "evidence": "Tightest positive ink gap per icon, n=1,306: median 2.00, p25 1.16, p10 0.83. The floor sits at the tail (SPEC.minGap).",
-      "text": "- **Minimum gap** {{minGap}}px of clear space between any two strokes that\n  are not meant to touch. Below that they merge into a smudge at 16px."
+      "text": "- **Minimum gap** {{minGap}}px of clear space between any two strokes that\n  are not meant to touch. Below that they merge into a smudge at {{size}}px."
     },
     {
       "id": "house.clearance",
@@ -309,7 +309,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "inferred",
-      "text": "- `circle` — a circle. Heads, lenses, clock faces, buttons."
+      "text": "- `circle` / `arc` — closed ring, or open cubics from a pole. Never a polyline."
     },
     {
       "id": "grammar.line",

@@ -170,7 +170,9 @@ export interface Rendering {
 }
 
 export interface IconRecord {
-  /** Blode's category, where the set states one. */
+  /** The set's own category, where the set states one. Blode's from
+   *  `icons-data/*.json`, Central's from its bundle — never one set's applied
+   *  to another's drawings. */
   category: string | null;
   /** The icons this one swaps with — `cohortOf`, manifest first. */
   cohort: string | null;
@@ -184,6 +186,9 @@ export interface IconRecord {
   schema: number;
   set: string;
   slug: string;
+  /** Words the set says this icon also answers to. Blode's editorial tags,
+   *  Central's aliases; both are the same idea and share the field. Unlike
+   *  `concepts`, a tag asserts nothing about which icon is *the* answer. */
   tags: string[];
 }
 

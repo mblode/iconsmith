@@ -27,6 +27,7 @@ import { flatten } from "../parts/shape.js";
 import type { Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
 import { SPEC } from "./canvas.js";
+import type { Spec } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
 import { verdict } from "./cohort.js";
 import { cuts } from "./cut.js";
@@ -53,6 +54,8 @@ export interface LintTarget {
    * it was. A `Canvas` carries its own finish, so passing one is enough.
    */
   finish?: Finish;
+  /** The cut to judge against. Absent means the house 24/2/3 spec. */
+  spec?: Spec;
 }
 
 export interface LintOptions {
@@ -66,7 +69,6 @@ export interface LintOptions {
   keyline?: Keyline | null;
 }
 
-const CENTRE = 12;
 const CENTRE_TOLERANCE = 0.25;
 /** Half a unit is stricter than the set's own practice: 61% of visual extents
  *  land on a whole unit, so ±1 is the window that measures intent. */
@@ -88,9 +90,7 @@ const KEYLINE_TOLERANCE = 1;
  * one rule landing within 0.2 points of each other is what a correct
  * translation looks like.
  */
-const LIVE_INSET: Record<Finish, number> = { filled: 0, outlined: 1 };
-const MAX_ELEMENTS = 8;
-/** Below this two points are the same point, not a gap worth reporting. */
+const LIVE_INSET_FILLED = 0;
 const TOUCHING = 0.01;
 /** Segments per curve when flattening for distance. Coarser than fingerprinting
  *  needs, because a gap only has to be measured to a fraction of a px. */
@@ -139,17 +139,22 @@ const minDistance = (a: LintElement, b: LintElement): number | null => {
  * deliberate work: nudging one member onto (12,12) to satisfy this rule breaks
  * an alignment and introduces the flicker `cohort-align` exists to catch.
  */
-const centring = (b: Box, agreesWithCohort: boolean): Issue | null => {
+const centring = (
+  b: Box,
+  agreesWithCohort: boolean,
+  spec: Spec
+): Issue | null => {
+  const centre = spec.canvas / 2;
   const cx = b.x0 + b.w / 2;
   const cy = b.y0 + b.h / 2;
   if (
     agreesWithCohort ||
-    (near(cx, CENTRE, CENTRE_TOLERANCE) && near(cy, CENTRE, CENTRE_TOLERANCE))
+    (near(cx, centre, CENTRE_TOLERANCE) && near(cy, centre, CENTRE_TOLERANCE))
   ) {
     return null;
   }
   return {
-    message: `Content centre is (${cx.toFixed(2)}, ${cy.toFixed(2)}); the house spec is (12, 12) within ${CENTRE_TOLERANCE}. Shift by (${(CENTRE - cx).toFixed(2)}, ${(CENTRE - cy).toFixed(2)}) unless the icons this one swaps with sit here too.`,
+    message: `Content centre is (${cx.toFixed(2)}, ${cy.toFixed(2)}); the house spec is (${centre}, ${centre}) within ${CENTRE_TOLERANCE}. Shift by (${(centre - cx).toFixed(2)}, ${(centre - cy).toFixed(2)}) unless the icons this one swaps with sit here too.`,
     rule: "centred",
     severity: "warn",
   };
@@ -293,9 +298,9 @@ const substanceIssue = (vx: number, vy: number): Issue | null => {
   };
 };
 
-const bleedIssue = (b: Box, finish: Finish): Issue | null => {
-  const lo = LIVE_INSET[finish];
-  const hi = SPEC.canvas - lo;
+const bleedIssue = (b: Box, finish: Finish, spec: Spec): Issue | null => {
+  const lo = finish === "filled" ? LIVE_INSET_FILLED : spec.stroke / 2;
+  const hi = spec.canvas - lo;
   return b.x0 < lo || b.y0 < lo || b.x1 > hi || b.y1 > hi
     ? {
         message: `Geometry reaches the canvas edge; the live area is ${lo}..${hi}, measured on the path bounds rather than the visual extent.`,
@@ -307,14 +312,14 @@ const bleedIssue = (b: Box, finish: Finish): Issue | null => {
 
 /** Minimum gap, measured between flattened polylines rather than bboxes, so two
  *  nested shapes are not falsely reported as touching. */
-const gapIssues = (els: LintElement[]): Issue[] => {
+const gapIssues = (els: LintElement[], spec: Spec): Issue[] => {
   const issues: Issue[] = [];
   for (let i = 0; i < els.length; i += 1) {
     for (let j = i + 1; j < els.length; j += 1) {
       const gap = minDistance(els[i], els[j]);
-      if (gap !== null && gap > TOUCHING && gap < SPEC.minGap) {
+      if (gap !== null && gap > TOUCHING && gap < spec.minGap) {
         issues.push({
-          message: `${els[i].id} and ${els[j].id} are ${gap.toFixed(2)}px apart; minimum is ${SPEC.minGap}px. Move them apart or knock one out of the other.`,
+          message: `${els[i].id} and ${els[j].id} are ${gap.toFixed(2)}px apart; minimum is ${spec.minGap}px. Move them apart or knock one out of the other.`,
           rule: "gap",
           severity: "warn",
         });
@@ -346,15 +351,15 @@ const gapIssues = (els: LintElement[]): Issue[] => {
  * work below the line (`safari` alone has 11 holes under 0.44 units), so this
  * is a prompt to look, not a gate.
  */
-const featureIssues = (els: LintElement[]): Issue[] =>
+const featureIssues = (els: LintElement[], spec: Spec): Issue[] =>
   els.flatMap((e) => {
     const b = bbox(parsePath(e.d));
     const minor = Math.min(b.w, b.h);
-    return minor >= SPEC.minFeature
+    return minor >= spec.minFeature
       ? []
       : [
           {
-            message: `${e.id} is ${minor.toFixed(2)}px across its short axis; below ${SPEC.minFeature}px a filled feature closes up at 16px, where one unit is 0.667px. Widen it, or drop it — a hole nobody can see is ink nobody asked for.`,
+            message: `${e.id} is ${minor.toFixed(2)}px across its short axis; below ${spec.minFeature}px a filled feature closes up at ${spec.size}px. Widen it, or drop it — a hole nobody can see is ink nobody asked for.`,
             rule: "feature",
             severity: "warn" as const,
           },
@@ -421,9 +426,9 @@ const cutIssues = (els: LintElement[]): Issue[] =>
  * `graduate-cap`, and the cubes that motivate the exemption (`ar-cube-1` and
  * `ar-cube-2` at 29.36°, `ar-scan-cube` at 29.75°) fall outside it anyway.
  */
-const offAxisIssues = (els: LintElement[]): Issue[] =>
+const offAxisIssues = (els: LintElement[], spec: Spec): Issue[] =>
   els
-    .filter((e) => (e.strokeWidth ?? SPEC.stroke) > 0)
+    .filter((e) => (e.strokeWidth ?? spec.stroke) > 0)
     .flatMap((e) =>
       offAxisEdges(iconEdgeAngles([e.d])).map((edge) => ({
         message: `"${e.id}" has an edge at ${edge.angle.toFixed(1)}°, ${edge.offBy.toFixed(1)}° off the nearest permitted axis (${edge.axis}°). The house axes are 0/45/90; an edge between two grid points is not automatically on one.`,
@@ -442,6 +447,7 @@ export const lint = (
   }
 
   const finish = canvas.finish ?? "outlined";
+  const spec = canvas.spec ?? SPEC;
   const b = bbox(els.flatMap((e) => parsePath(e.d)));
   // Visual extent includes half the ink on each side — the distinction that
   // invalidated the previous revision's keyline measurements, and the one
@@ -449,7 +455,7 @@ export const lint = (
   // filled path *is* its own boundary, so there is nothing to add. That the
   // rules then carry over is measured, not assumed — filled and outlined twins
   // occupy the same visual extent in 94% of 2,085 pairs.
-  const ink = finish === "filled" ? 0 : SPEC.stroke;
+  const ink = finish === "filled" ? 0 : spec.stroke;
   const vx = b.w + ink;
   const vy = b.h + ink;
 
@@ -466,9 +472,9 @@ export const lint = (
     // First, because a drawing that fails this answers every question below it
     // acceptably and means none of the answers.
     substanceIssue(vx, vy),
-    centring(b, cohortVerdict?.agrees ?? false),
+    centring(b, cohortVerdict?.agrees ?? false, spec),
     keylineIssue(vx, vy, keyline),
-    bleedIssue(b, finish),
+    bleedIssue(b, finish, spec),
   ]) {
     if (issue) {
       issues.push(issue);
@@ -478,14 +484,14 @@ export const lint = (
   // filled icon shapes are meant to touch, so "how far apart are these" has no
   // answer worth having and "is this feature big enough to see" does.
   issues.push(
-    ...(finish === "filled" ? featureIssues(els) : gapIssues(els)),
+    ...(finish === "filled" ? featureIssues(els, spec) : gapIssues(els, spec)),
     ...cutIssues(els),
-    ...offAxisIssues(els)
+    ...offAxisIssues(els, spec)
   );
 
-  if (els.length > MAX_ELEMENTS) {
+  if (els.length > spec.maxElements) {
     issues.push({
-      message: `${els.length} elements. Blode icons are median 3-4; consider reducing detail.`,
+      message: `${els.length} elements. At ${spec.size}px the ceiling is ${spec.maxElements}; fewer, larger marks survive.`,
       rule: "density",
       severity: "warn",
     });

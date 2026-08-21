@@ -64,14 +64,17 @@ import { inspect, measureIcon } from "../eval/blindspot.js";
 import { registeredSimilarity } from "../tools/registration.js";
 import { similarity } from "../tools/render.js";
 import type { Issue, Part } from "../types.js";
+import { analogArm } from "./analog.js";
 import type { Proposal } from "./compose.js";
 import { assertNoGeometry } from "./compose.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { generate } from "./generate.js";
 import type { Reference } from "./licence.js";
+import { markArm } from "./mark.js";
 import type { Concept } from "./prompt.js";
 import type { ProposalOptions, ProposalRun } from "./propose.js";
 import { propose } from "./propose.js";
+import { compileArm } from "./reconstruct.js";
 import type { PartHint } from "./search.js";
 import { DEFAULT_SHORTLIST, searchParts } from "./search.js";
 
@@ -295,7 +298,8 @@ export const selectPartFirst = (
     const found = searchParts(
       parts,
       `${concept.name} ${concept.tags?.join(" ") ?? ""} ${concept.category ?? ""}`,
-      limit
+      limit,
+      ctx.options.aliases
     );
     // A composition's own part ids come first: they were matched against the
     // sketch's shapes, which is evidence about this icon rather than about the
@@ -351,6 +355,33 @@ export const drawWith = (
 
 /** DRAW: the built-in tool-calling loop. */
 export const drawInLoop = drawWith("tool-loop", generate);
+
+/**
+ * DRAW: keyed reconstruction.
+ *
+ * `compileArm` places vocabulary parts from `GenerateOptions.targetPaths`.
+ * There is no model on this path, so there is no coordinate a model could
+ * emit. Callers that have no path data must not use this stage — the arm
+ * throws rather than inventing.
+ */
+export const drawCompile = drawWith("compile", compileArm());
+
+/**
+ * DRAW: host twins from `MARKS` / `twin.ts`.
+ *
+ * There is no model on this path. 0 `part` ops is the construction, not a leak.
+ * The slug is a MARKS key (`plus`, `plus-filled`); anything else throws.
+ */
+export const drawMark = drawWith("mark", markArm());
+
+/**
+ * DRAW: unkeyed host constructions (replay a Central kin, else `stack` /
+ * `trays` / `hub`).
+ *
+ * There is no model on this path. Cosine against a house file must stay null:
+ * these are new objects, not reconstructions.
+ */
+export const drawAnalog = drawWith("analog", analogArm());
 
 /**
  * CHECK: the lint the drawer already ran.
@@ -440,10 +471,45 @@ export const partFirst: Route = {
   select: selectPartFirst(),
 };
 
+/** `direct` with one variable changed: DRAW compiles house paths onto parts. */
+export const compile: Route = {
+  ...direct,
+  description:
+    "DRAW compiles house path data onto vocabulary parts. There is no model " +
+    "and no coordinate a model could emit: the compiler places parts. " +
+    "Requires `targetPaths`. Differs from `direct` in exactly one stage.",
+  draw: drawCompile,
+  name: "compile",
+};
+
+/** `direct` with one variable changed: DRAW writes host twins, no model. */
+export const mark: Route = {
+  ...direct,
+  description:
+    "DRAW writes host twins via MARKS and twin.ts. There is no model and no " +
+    "coordinate a model could emit. Differs from `direct` in exactly one stage.",
+  draw: drawMark,
+  name: "mark",
+};
+
+/** `direct` with one variable changed: DRAW writes analog constructions. */
+export const analog: Route = {
+  ...direct,
+  description:
+    "DRAW writes host analog constructions (replay a Central kin, else " +
+    "stack, trays, hub). There is no model and no coordinate a model could " +
+    "emit. Differs from `direct` in exactly one stage.",
+  draw: drawAnalog,
+  name: "analog",
+};
+
 /** Every route, by name. Flat and enumerable on purpose: this is the listing a
  *  JSON file would have been written for. */
 export const ROUTES: Readonly<Record<string, Route>> = {
+  analog,
+  compile,
   direct,
+  mark,
   "part-first": partFirst,
 };
 

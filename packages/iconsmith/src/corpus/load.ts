@@ -68,6 +68,11 @@ export interface Corpus {
  */
 export const HOUSE_VARIANT = "round-outlined-radius-3-stroke-2";
 
+/** The filled twin of {@link HOUSE_VARIANT}: same 2,085 concepts, same corner
+ *  tier and nominal stroke, drawn as solids. A filled card scored against the
+ *  outlined variant is a finish mismatch, not a drawing score. */
+export const FILLED_VARIANT = "round-filled-radius-3-stroke-2";
+
 const KEY =
   /^(?<corner>round|square)-(?<style>filled|outlined)-radius-(?<radius>\d+(?:\.\d+)?)-stroke-(?<stroke>\d+(?:\.\d+)?)$/u;
 

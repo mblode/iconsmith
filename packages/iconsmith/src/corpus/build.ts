@@ -83,6 +83,9 @@ const MANIFEST = "manifest.json";
 const HOUSE_SET = "blode-icons";
 /** Where that metadata lives under the house set's root. */
 const HOUSE_DATA = "icons-data";
+/** Central's editorial fields, lifted out of its bundle by
+ *  `scripts/extract-central-metadata.ts`. Derived, gitignored, optional. */
+const CENTRAL_METADATA = ".corpus/central-metadata.json";
 const COHORTS = "_cohorts.json";
 const FINGERPRINTS = "fingerprints.f32";
 const INK = "ink.f32";
@@ -301,12 +304,18 @@ export interface SourceMetadata {
 }
 
 /**
- * blode-icons' own metadata, which is the only set here that has any.
+ * blode-icons' own metadata.
  *
  * Central ships 2,085 slugs that are all already among blode's 2,221, so it
- * adds no concept — it is a finish-variation corpus, and its records carry the
- * geometry and no editorial fields. Giving it blode's categories would assert
- * that Central's editors agreed with blode's, which nobody has checked.
+ * adds no concept — it is a finish-variation corpus. Its records used to carry
+ * the geometry and no editorial fields, on the reasoning that giving it blode's
+ * categories would assert that Central's editors agreed with blode's, which
+ * nobody has checked.
+ *
+ * That reasoning stands and no longer applies. The objection was to *borrowing*
+ * blode's labels; `centralMetadata` reads Central's own, lifted out of the
+ * set's own bundle by `scripts/extract-central-metadata.ts`. The fields were
+ * empty because nobody had them, not because they had been refused.
  *
  * Cohorts are the one field that would be wrong to infer here. `cohortOf` falls
  * back to a name prefix, and a prefix is not a swap graph — `play` and `pause`
@@ -365,15 +374,49 @@ const blodeMetadata = async (
   };
 };
 
-/** Editorial fields for a source, by slug. Only blode-icons has any; every
+/**
+ * Central's own metadata, as its editors state it.
+ *
+ * Aliases land in `tags` rather than in a field of their own. A tag already is
+ * "a word this icon answers to" — blode's `icons-data/*.json` uses it for
+ * exactly that — and a second name for one idea would leave every consumer
+ * having to read both and merge them, which is the kind of thing that gets
+ * done in one place and forgotten in the next.
+ *
+ * `concepts` stays empty. A concept is the *single canonical answer* to a UI
+ * intent and blode blesses those by hand in `_concepts.json`; Central's
+ * synonyms are a list of words, not a claim about canonicality, and writing
+ * them into that field would silently assert one.
+ *
+ * The file is derived and optional. A store built before the extractor was run
+ * gets what it always got.
+ */
+const centralMetadata = async (): Promise<(slug: string) => SourceMetadata> => {
+  const table =
+    (await readJson<Record<string, { aliases?: string[]; category?: string }>>(
+      CENTRAL_METADATA
+    )) ?? {};
+  return (slug: string) => ({
+    category: table[slug]?.category ?? null,
+    cohort: cohortOf(slug),
+    tags: table[slug]?.aliases ?? [],
+  });
+};
+
+/** Editorial fields for a source, by slug. Two sets state their own; every
  *  other set gets the inferred cohort and nothing else. */
 const metadataFor = async (
   source: Source,
   root: string
-): Promise<(slug: string) => SourceMetadata> =>
-  source.id === "blode-icons"
-    ? await blodeMetadata(root)
-    : (slug: string) => ({ cohort: cohortOf(slug) });
+): Promise<(slug: string) => SourceMetadata> => {
+  if (source.id === "blode-icons") {
+    return await blodeMetadata(root);
+  }
+  if (source.id === "central") {
+    return await centralMetadata();
+  }
+  return (slug: string) => ({ cohort: cohortOf(slug) });
+};
 
 /**
  * The house set's cohort manifest, read back at report time.

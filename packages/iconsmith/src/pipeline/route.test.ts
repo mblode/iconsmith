@@ -18,12 +18,15 @@ import type { Brief, Drawing, PartHint, Route } from "./route.js";
 import {
   ROUTES,
   RouteError,
+  analog,
   arm,
   checkStructural,
+  compile,
   describeRoute,
   direct,
   drawWith,
   getRoute,
+  mark,
   partFirst,
   proposeFromRaster,
   routeNames,
@@ -379,14 +382,85 @@ describe("the part-first route", () => {
   });
 });
 
+describe("the compile route", () => {
+  it("differs from direct in exactly one stage", () => {
+    const a = describeRoute(direct).stages;
+    const b = describeRoute(compile).stages;
+    const changed = Object.keys(a).filter((k) => a[k] !== b[k]);
+    expect(changed).toEqual(["draw"]);
+  });
+
+  it("compiles target path data onto vocabulary parts", async () => {
+    const result = await runRoute(
+      compile,
+      { name: "box" },
+      { parts: PARTS, targetPaths: [PARTS[0].d] }
+    );
+    expect(result.program).toContain("part ");
+    expect(result.trace).toContain("part");
+    expect(result.brief).toBe("compile box");
+    expect(result.cost).toBeUndefined();
+  });
+
+  it("refuses to run without targetPaths", async () => {
+    const boom = runRoute(compile, { name: "box" }, { parts: PARTS });
+    await expect(boom).rejects.toThrow(RouteError);
+    await expect(boom).rejects.toThrow(/targetPaths/u);
+  });
+});
+
+describe("the mark route", () => {
+  it("differs from direct in exactly one stage", () => {
+    const a = describeRoute(direct).stages;
+    const b = describeRoute(mark).stages;
+    const changed = Object.keys(a).filter((k) => a[k] !== b[k]);
+    expect(changed).toEqual(["draw"]);
+  });
+
+  it("draws a host twin without a model, parts, or target paths", async () => {
+    const result = await runRoute(mark, { name: "plus" });
+    expect(result.clean).toBe(true);
+    expect(result.svg).toContain("stroke");
+    expect(result.program).toContain("finish outlined");
+    expect(result.cost).toBeUndefined();
+  });
+});
+
+describe("the analog route", () => {
+  it("differs from direct in exactly one stage", () => {
+    const a = describeRoute(direct).stages;
+    const b = describeRoute(analog).stages;
+    const changed = Object.keys(a).filter((k) => a[k] !== b[k]);
+    expect(changed).toEqual(["draw"]);
+  });
+
+  it("draws a host construction without a model", async () => {
+    const result = await runRoute(analog, { name: "database" });
+    expect(result.cost).toBeUndefined();
+    expect(result.program).toContain("rect ");
+    expect(result.brief).toContain("analog trays");
+  });
+});
+
 describe("the registry", () => {
-  it("lists both routes", () => {
-    expect(routeNames()).toEqual(["direct", "part-first"]);
+  it("lists the routes", () => {
+    expect(routeNames()).toEqual([
+      "analog",
+      "compile",
+      "direct",
+      "mark",
+      "part-first",
+    ]);
   });
 
   it("resolves by name and says what it knows when it cannot", () => {
     expect(getRoute("part-first")).toBe(partFirst);
-    expect(() => getRoute("nope")).toThrow(/direct, part-first/u);
+    expect(getRoute("compile")).toBe(compile);
+    expect(getRoute("mark")).toBe(mark);
+    expect(getRoute("analog")).toBe(analog);
+    expect(() => getRoute("nope")).toThrow(
+      /analog, compile, direct, mark, part-first/u
+    );
   });
 
   it("names a stage for every step of every route", () => {

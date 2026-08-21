@@ -21,6 +21,7 @@
  *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] [flip]
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
+ *   arc      <cx>,<cy> r<n> quarter|half|three-quarter from top|right|bottom|left [ccw]
  *   hole     rect <x>,<y> <w>x<h> [r<n>]
  *   hole     circle <cx>,<cy> r<n>
  *   line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
@@ -64,6 +65,11 @@
  * vocabulary could not express at all: 932 of the set's 2,085 filled icons
  * knock one out, so without this word fill mode reaches under half the set.
  *
+ * `arc` is the open curve `circle` does not draw. Central's strike-through is
+ * two half-arcs and a bar; wifi is concentric half-arcs. The model names a
+ * pole, a named sweep and optionally `ccw`; the cubics are the ones `circle`
+ * already uses. A polyline of grid points is a different shape.
+ *
  * `cohort` versus `fit`: both are a single similarity transform onto a target
  * extent, so the last one wins and running `fit` after `cohort` throws the
  * inheritance away — that is reported as an error rather than silently obeyed.
@@ -74,7 +80,8 @@
  * blode-icons, 371 of them ≥1px). The keyline still governs `part ... fill`.
  */
 import type { DotRole, Finish, Keyline, Part } from "../types.js";
-import { Canvas, SPEC } from "./canvas.js";
+import { ARC_FROM, ARC_SWEEP, Canvas, SPEC } from "./canvas.js";
+import type { ArcFrom, ArcSweep, Spec } from "./canvas.js";
 import type { Cohort, CohortTarget } from "./cohort.js";
 import { COHORT_TOLERANCE, canonicalExtent, findCohort } from "./cohort.js";
 
@@ -109,6 +116,7 @@ export const TURNS: Record<string, number> = { ccw: 3, cw: 1, half: 2 };
  * slope as well would be stating twice what the coordinates already fix.
  */
 const OFF_AXIS = "off-axis";
+const CCW = "ccw";
 
 /** Permission to mirror a part, spelled out in the program. See the grammar
  *  note above: chirality is the one symmetry that must be asked for. */
@@ -121,6 +129,7 @@ const OPS = [
   "part",
   "rect",
   "circle",
+  "arc",
   "hole",
   "line",
   "dot",
@@ -139,6 +148,10 @@ const ROLES = Object.keys(SPEC.dots) as DotRole[];
 const isKeyline = (v: string): v is Keyline =>
   (KEYLINES as string[]).includes(v);
 const isRole = (v: string): v is DotRole => (ROLES as string[]).includes(v);
+const isArcFrom = (v: string): v is ArcFrom =>
+  (ARC_FROM as readonly string[]).includes(v);
+const isArcSweep = (v: string): v is ArcSweep =>
+  (ARC_SWEEP as readonly string[]).includes(v);
 
 const pair = (tok: string | undefined): [number, number] => {
   const [a, b] = String(tok).split(",").map(Number.parseFloat);
@@ -381,7 +394,7 @@ const holeOp = (canvas: Canvas, t: string[]): void => {
   }
 };
 
-/** The five ops that put geometry on the canvas. Returns false if `op` is not
+/** The ops that put geometry on the canvas. Returns false if `op` is not
  *  one of them, so `run` can carry on to the ops that change state instead. */
 const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
   if (op === "rect") {
@@ -389,6 +402,27 @@ const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
   } else if (op === "circle") {
     const [cx, cy] = pair(t[1]);
     canvas.circle({ cx, cy, r: num(t[2], "radius") });
+  } else if (op === "arc") {
+    const [centre, radiusTok, sweep, fromKw, from] = t.slice(1);
+    const [cx, cy] = pair(centre);
+    if (sweep === undefined || !isArcSweep(sweep)) {
+      throw new Error(
+        `arc sweep "${sweep ?? ""}" — expected one of ${ARC_SWEEP.join(", ")}`
+      );
+    }
+    if (fromKw !== "from" || from === undefined || !isArcFrom(from)) {
+      throw new Error(
+        `arc needs \`from top|right|bottom|left\` — got "${[fromKw, from].filter(Boolean).join(" ")}"`
+      );
+    }
+    canvas.arc({
+      ccw: t.includes(CCW),
+      cx,
+      cy,
+      from,
+      r: num(radiusTok, "radius"),
+      sweep,
+    });
   } else if (op === "hole") {
     holeOp(canvas, t);
   } else if (op === "line") {
@@ -508,7 +542,17 @@ export interface RunOptions {
    * lint-time expectation come out of one call.
    */
   cohorts?: Cohort[];
+  /** Stroke, family radius, optical size. Defaults to the house 24/2/3 cut. */
+  spec?: Spec;
 }
+
+const defaults = ({ cohorts = [], spec = SPEC }: RunOptions = {}): {
+  cohorts: Cohort[];
+  spec: Spec;
+} => ({
+  cohorts,
+  spec,
+});
 
 /**
  * @param src   program text
@@ -517,8 +561,9 @@ export interface RunOptions {
 export const run = (
   src: string,
   parts: Part[] = [],
-  { cohorts = [] }: RunOptions = {}
+  options: RunOptions = {}
 ): RunResult => {
+  const { cohorts, spec } = defaults(options);
   const byName = new Map<string, Part>();
   for (const p of parts) {
     byName.set(p.id, p);
@@ -537,7 +582,7 @@ export const run = (
     .map((l) => l.replace(/(?<lead>^|\s)#.*$/u, "").trim())
     .filter(Boolean);
   const finish = scanFinish(lines);
-  const canvas = new Canvas(parts, { finish });
+  const canvas = new Canvas(parts, { finish, spec });
   const layout: Layout = { cohort: false };
 
   for (const [n, line] of lines.entries()) {

@@ -323,6 +323,36 @@ test("an unknown dot role is rejected rather than silently sized", () => {
   );
 });
 
+test("a quarter arc from the top is the first cubic of circle", () => {
+  const ring = new Canvas();
+  ring.circle({ cx: 12, cy: 12, r: 8 });
+  const lobe = new Canvas();
+  lobe.arc({ cx: 12, cy: 12, from: "top", r: 8, sweep: "quarter" });
+  const circle = ring.elements[0]?.d ?? "";
+  const arc = lobe.elements[0]?.d ?? "";
+  expect(circle.startsWith(arc)).toBe(true);
+  expect(arc.startsWith("M")).toBe(true);
+  expect(arc).toContain("C");
+  expect(arc.endsWith("Z")).toBe(false);
+});
+
+test("ccw is the other semicircle from the same pole", () => {
+  const cw = new Canvas();
+  cw.arc({ cx: 12, cy: 12, from: "left", r: 8, sweep: "half" });
+  const ccw = new Canvas();
+  ccw.arc({ ccw: true, cx: 12, cy: 12, from: "left", r: 8, sweep: "half" });
+  expect(cw.elements[0]?.d).not.toBe(ccw.elements[0]?.d);
+  const doc = cw.toJSON();
+  expect(Canvas.fromJSON(doc).toSVG()).toBe(cw.toSVG());
+});
+
+test("an open arc is refused under fill", () => {
+  const c = new Canvas([], { finish: "filled" });
+  expect(() =>
+    c.arc({ cx: 12, cy: 12, from: "top", r: 8, sweep: "half" })
+  ).toThrow(/filled/u);
+});
+
 test("toJSON → fromJSON → toSVG round-trips identically", () => {
   const c = new Canvas(PARTS);
   c.rect({ h: 6.61, r: 1.7, w: 7.3, x: 2.13, y: 3.87 });

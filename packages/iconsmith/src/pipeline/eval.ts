@@ -55,7 +55,12 @@ import {
   reachPoints,
   usdOf,
 } from "./cost.js";
-import { generate, resolveModel } from "./generate.js";
+import {
+  DEFAULT_MODEL,
+  generate,
+  gatewayModelId,
+  resolveModel,
+} from "./generate.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { asReferences } from "./licence.js";
 import type { Reference } from "./licence.js";
@@ -330,6 +335,22 @@ export type GenerateFn = (
   options: GenerateOptions
 ) => Promise<GenerateResult>;
 
+/** Price and resolve the model before any drawing. An injected `generate` is
+ *  the test seam and never calls the gateway, so it does not need a key. */
+const modelForEval = (
+  gen: GenerateFn,
+  model: LanguageModel | undefined
+): { modelId: string; resolved: LanguageModel | undefined } => {
+  const modelId =
+    model && typeof model !== "string"
+      ? model.modelId
+      : gatewayModelId(model ?? DEFAULT_MODEL);
+  return {
+    modelId,
+    resolved: gen === generate ? resolveModel(model) : model,
+  };
+};
+
 export interface EvalOptions {
   /** The committed benchmark's entries. Required: there is no unseeded,
    *  uncommitted sampling path any more, because that is the thing that made
@@ -566,10 +587,7 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
   if (entries.length === 0) {
     throw new Error("The benchmark slice is empty: nothing to evaluate.");
   }
-  // Resolved once, before any work: a missing key should fail on the first line
-  // of output, not `n` times after the first generation has already run.
-  const resolved = resolveModel(model);
-  const modelId = typeof resolved === "string" ? resolved : resolved.modelId;
+  const { modelId, resolved } = modelForEval(gen, model);
   const rate = rateFor(modelId, rates);
   assertCapCanBind(maxSpendUsd, rate, modelId);
 

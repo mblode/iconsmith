@@ -17,6 +17,7 @@ export {
   unnumbered,
 } from "./corpus/concepts.js";
 export {
+  FILLED_VARIANT,
   HOUSE_VARIANT,
   loadCorpus,
   parseIconSvg,
@@ -94,6 +95,10 @@ export {
   generate,
   MissingApiKeyError,
 } from "./pipeline/generate.js";
+export { analogArm, hub, stack, trays } from "./pipeline/analog.js";
+export { classifyReach, reach } from "./pipeline/reach.js";
+export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
+export { splicePair, splicePaths } from "./pipeline/splice.js";
 // The gate, exported so a caller outside the package builds references the same
 // way this one does. `asReference` is the sole constructor of `Reference`; there
 // is no route around it from out here either.
@@ -107,7 +112,8 @@ export {
   QUALITY_MODEL,
 } from "./pipeline/propose.js";
 export { referenceSet, SLOTS } from "./pipeline/references.js";
-export { Canvas, SPEC } from "./tools/canvas.js";
+export { Canvas, SPEC, specAt } from "./tools/canvas.js";
+export type { OpticalSize, Spec } from "./tools/canvas.js";
 export {
   buildCohorts,
   canonicalExtent,

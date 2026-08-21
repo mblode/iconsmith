@@ -29,6 +29,7 @@ import { bbox, parsePath } from "../geometry/path.js";
 import { foldedAspect } from "../parts/shape.js";
 import { cosine } from "../tools/render.js";
 import type { Part } from "../types.js";
+import { resolveModel } from "./gateway.js";
 
 /** Analysis raster. Coarse on purpose: at 64px a 24-unit icon's stroke is ~5px,
  *  so components merge the way they read at small size, which is the level the
@@ -502,7 +503,7 @@ const readWithModel = async (
           role: "user",
         },
       ],
-      model,
+      model: resolveModel(model),
       schema: readSchema,
     });
     const n = object.blocks.length;

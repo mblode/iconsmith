@@ -9,21 +9,32 @@
  */
 import { readFileSync } from "node:fs";
 
-import { anthropic, createAnthropic } from "@ai-sdk/anthropic";
 import { generateText, stepCountIs } from "ai";
 import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
-import type { Canvas } from "../tools/canvas.js";
+import type { Canvas, Spec } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
 import type { IconDoc, Issue, Keyline, Part } from "../types.js";
+import type { AuditAsk, AuditResult } from "./audit.js";
 import type { Proposal } from "./compose.js";
 import type { TokenUsage } from "./cost.js";
+import { resolveModel } from "./gateway.js";
+import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
 import type { Policy } from "./policy.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
+import type { Aliases, PartHint } from "./search.js";
+import type { SelectKind } from "./select.js";
 import { createTools } from "./tools.js";
 import type { ToolState } from "./tools.js";
+
+export {
+  DEFAULT_MODEL,
+  MissingApiKeyError,
+  gatewayModelId,
+  resolveModel,
+} from "./gateway.js";
 
 export type { Concept } from "./prompt.js";
 export type { Reference } from "./licence.js";
@@ -62,27 +73,9 @@ export const withCacheBreakpoints = (
   return marked;
 };
 
-export const DEFAULT_MODEL = "claude-opus-5";
 /** Enough turns for a search, a dozen primitives, three looks and a fix. Past
  *  this the model is polishing, and polishing is where it drifts. */
 export const DEFAULT_MAX_STEPS = 24;
-
-/** Thrown, and only thrown, when the caller has given us no way to reach a
- *  model. The CLI prints `.message` and exits non-zero; there is nothing in a
- *  stack trace here that helps anyone. */
-export class MissingApiKeyError extends Error {
-  constructor() {
-    super(
-      "No model credential found. Set AI_GATEWAY_API_KEY and use a namespaced " +
-        // The id in the example is the default one, read from it rather than
-        // typed out: an example that names an older model is an instruction to
-        // downgrade, and it is the line a stuck caller is most likely to copy.
-        `model id (\`anthropic/${DEFAULT_MODEL}\`), or set ANTHROPIC_API_KEY for a ` +
-        "bare id, or pass a model instance to generate()."
-    );
-    this.name = "MissingApiKeyError";
-  }
-}
 
 export interface GenerateOptions {
   /**
@@ -91,6 +84,15 @@ export interface GenerateOptions {
    * between two arms is the prose the model was given.
    */
   policy?: Policy;
+
+  /**
+   * The words each source icon also answers to, from `corpus/aliases.ts`.
+   *
+   * Passed through to `createTools`, so `listParts` and SELECT's shortlist
+   * search the same widened surface — the property `search.ts` exists to
+   * protect. Empty by default; `commands/` loads the table.
+   */
+  aliases?: Aliases;
 
   apiKey?: string;
   /**
@@ -105,15 +107,44 @@ export interface GenerateOptions {
   /** Existing icons the model can hold the draft up against. Licensed, because
    *  they reach the model: see `ToolsOptions.corpus`. */
   corpus?: Reference[];
+  /**
+   * A SELECT shortlist already chosen by the caller. When set, the harness arm
+   * puts these hints in the brief instead of searching. The built-in loop
+   * ignores it — it has `listParts`. Undefined means "search"; an empty array
+   * is a real island (no suggested marks).
+   */
+  hints?: PartHint[];
   keyline?: Keyline | null;
   maxSteps?: number;
   /**
-   * A model instance, or a model id. Anything that is not an object is treated
-   * as an Anthropic model id and needs a key; passing an instance is how tests
-   * run this loop with no network.
+   * A model instance, or a gateway model id (`anthropic/claude-opus-5`). A
+   * bare id is namespaced as Anthropic. Passing an instance is how tests run
+   * this loop with no network.
    */
   model?: LanguageModel;
   parts?: Part[];
+  /**
+   * Which SELECT policy built `hints` when the caller did not pass them.
+   * Default `auto` — slug then tag fallback, the current hill — so existing
+   * arms do not change. N=5 demo passes an island kind instead.
+   */
+  select?: SelectKind;
+  /**
+   * House path `d` strings to compile onto the vocabulary.
+   *
+   * Keyed reconstruction: `compileArm` / `ROUTES.compile` match each subpath
+   * to a part and place it. The compiler emits the placement; the model never
+   * does. Undefined means the run is not keyed.
+   */
+  targetPaths?: readonly string[];
+  /**
+   * A Central kin of an unkeyed name, for analog replay. `analogOf` is the
+   * house slug (`cookies` when drawing `cookie`); `analogPaths` are that
+   * file's `d` strings. The compiler places them; the model never does.
+   * Third-party packs do not belong here.
+   */
+  analogOf?: string;
+  analogPaths?: readonly string[];
   /**
    * A composition read out of a raster proposal by `compose.ts`.
    *
@@ -123,6 +154,35 @@ export interface GenerateOptions {
    */
   proposal?: Proposal | null;
   renderSize?: number;
+  /**
+   * Host look. When set, DRAW may screenshot and (for marks) apply one catalog
+   * repair. Agent routes record the look at CHECK; the harness arm still
+   * re-spawns once on a decide fail.
+   */
+  ask?: AuditAsk;
+  lookKind?: DrawKind;
+  lookReferences?: readonly Buffer[];
+  lookTwin?: MarkTwin;
+  /**
+   * Skip host DRAW (compile / mark / splice / analog) and hire the
+   * tool-calling loop. `iconsmith new --agent`. Default for a new glyph is
+   * already the loop (`unkeyed: "agent"`); this flag also redraws a house file.
+   */
+  forceAgent?: boolean;
+  /**
+   * What to do with an unkeyed name. Default `analog` keeps labs and tests on
+   * the host constructions. `iconsmith new` passes `agent` (built-in loop) or
+   * `harness` (Claude Code / Codex CLI) so a new glyph is drawn, not replayed
+   * from a neighbour.
+   */
+  unkeyed?: "agent" | "analog" | "harness";
+  /** CLI for `unkeyed: "harness"`. Default `claude`. */
+  harnessCommand?: string;
+  /**
+   * Stroke, family radius, optical size. Defaults to the house 24px / stroke 2
+   * / radius 3 cut. 16px drops hairline corners and terminal dots.
+   */
+  spec?: Spec;
 }
 
 /**
@@ -162,8 +222,18 @@ export interface GenerateResult {
   /** Tokens, wall time, tool-call mix and stop reason. Absent when the
    *  generator is a stub. */
   cost?: GenerateCost;
+  /** The brief the agent was given. Present on the harness arm so a demo can
+   *  keep it after scratch is deleted. */
+  brief?: string;
   doc: IconDoc;
   issues: Issue[];
+  /** Combined stdout/stderr of an external agent. Absent on the built-in loop,
+   *  whose thinking is `trace`. */
+  log?: string;
+  /** The `.icon` source, when the generator is a program rather than a canvas. */
+  program?: string;
+  /** Host look at the drawing, when the harness ran with an `ask`. */
+  audit?: AuditResult;
   /** The model's closing sentence about what it drew. */
   text: string;
   /** Tool calls made, in order — the trace of how the icon was arrived at. */
@@ -171,40 +241,6 @@ export interface GenerateResult {
   steps: number;
   svg: string;
 }
-
-/**
- * Resolve a model, failing early and legibly when the key is missing.
- *
- * A model *instance* is used as given: that is the seam tests reach through,
- * and it is deliberately the only one, so there is no second code path that
- * behaves differently from the real thing.
- */
-export const resolveModel = (
-  model?: LanguageModel,
-  apiKey?: string
-): LanguageModel => {
-  if (model && typeof model !== "string") {
-    return model;
-  }
-  const id = model ?? DEFAULT_MODEL;
-
-  // A namespaced id (`anthropic/claude-opus-4.5`) is a Vercel AI Gateway route,
-  // and the AI SDK resolves a bare string through its global provider, which is
-  // the gateway. Returning the id unchanged is what routes it there; wrapping it
-  // in a provider would pin it to that vendor and defeat the gateway.
-  if (id.includes("/")) {
-    if (!(apiKey ?? process.env.AI_GATEWAY_API_KEY)) {
-      throw new MissingApiKeyError();
-    }
-    return id;
-  }
-
-  const key = apiKey ?? process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    throw new MissingApiKeyError();
-  }
-  return apiKey ? createAnthropic({ apiKey })(id) : anthropic(id);
-};
 
 /** Read a `parts.json` written by `writeParts`. */
 export const loadParts = (file: string): Part[] => {
@@ -355,6 +391,7 @@ export const generate = async (
   options: GenerateOptions = {}
 ): Promise<GenerateResult> => {
   const {
+    aliases = new Map(),
     apiKey,
     cohort = null,
     corpus = [],
@@ -365,16 +402,19 @@ export const generate = async (
     policy,
     proposal = null,
     renderSize,
+    spec,
   } = options;
 
   const resolved = resolveModel(model, apiKey);
   const { canvas, state, tools } = createTools({
+    aliases,
     cohort: cohort?.extent ?? null,
     corpus,
     keyline,
     parts,
     proposal,
     renderSize,
+    spec,
   });
 
   const end: Termination = {
@@ -401,6 +441,7 @@ export const generate = async (
       keyline,
       policy,
       proposal: proposal !== null,
+      spec,
     }),
     tools,
   });

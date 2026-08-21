@@ -136,62 +136,110 @@ const entry = (slug: string, closure: string[] = []): BenchmarkEntry => ({
 const bench = (...slugs: string[]): BenchmarkEntry[] =>
   slugs.map((slug, rank) => ({ ...entry(slug), rank }));
 
-describe("resolveModel", () => {
-  it("fails with one clear line when there is no key and no model", () => {
-    const key = process.env.ANTHROPIC_API_KEY;
-    process.env.ANTHROPIC_API_KEY = "";
-    try {
-      expect(() => resolveModel()).toThrow(MissingApiKeyError);
-      expect(() => resolveModel()).toThrow(/No model credential found/u);
-    } finally {
-      process.env.ANTHROPIC_API_KEY = key;
+const envGet = {
+  anthropic: (): string | undefined => process.env.ANTHROPIC_API_KEY,
+  gateway: (): string | undefined => process.env.AI_GATEWAY_API_KEY,
+  oidc: (): string | undefined => process.env.VERCEL_OIDC_TOKEN,
+};
+
+const envSet = {
+  anthropic: (value: string | undefined): void => {
+    if (value === undefined) {
+      delete process.env.ANTHROPIC_API_KEY;
+    } else {
+      process.env.ANTHROPIC_API_KEY = value;
     }
+  },
+  gateway: (value: string | undefined): void => {
+    if (value === undefined) {
+      delete process.env.AI_GATEWAY_API_KEY;
+    } else {
+      process.env.AI_GATEWAY_API_KEY = value;
+    }
+  },
+  oidc: (value: string | undefined): void => {
+    if (value === undefined) {
+      delete process.env.VERCEL_OIDC_TOKEN;
+    } else {
+      process.env.VERCEL_OIDC_TOKEN = value;
+    }
+  },
+};
+
+const withoutGateway = (run: () => void): void => {
+  const gw = envGet.gateway();
+  const oidc = envGet.oidc();
+  process.env.AI_GATEWAY_API_KEY = "";
+  process.env.VERCEL_OIDC_TOKEN = "";
+  try {
+    run();
+  } finally {
+    envSet.gateway(gw);
+    envSet.oidc(oidc);
+  }
+};
+
+const modelIdOf = (model: ReturnType<typeof resolveModel>): string =>
+  typeof model === "string" ? model : model.modelId;
+
+describe("resolveModel", () => {
+  it("fails with one clear line when there is no gateway credential", () => {
+    withoutGateway(() => {
+      expect(() => resolveModel()).toThrow(MissingApiKeyError);
+      expect(() => resolveModel()).toThrow(/No AI Gateway credential found/u);
+    });
   });
 
   /**
-   * A namespaced id is a gateway route, and the AI SDK resolves a bare string
-   * through its global provider. Returning the id *unchanged* is what sends it
-   * there — wrapping it in `anthropic()` would pin it to one vendor and quietly
-   * defeat the gateway, which is the failure these two tests exist to catch.
+   * A namespaced id is a gateway route. Wrapping it in a vendor SDK would pin
+   * the call to that vendor and quietly defeat the gateway.
    */
-  it("passes a namespaced id straight through to the gateway", () => {
-    const key = process.env.AI_GATEWAY_API_KEY;
-    process.env.AI_GATEWAY_API_KEY = "test-key";
+  it("routes a namespaced id through the gateway", () => {
+    const model = resolveModel("anthropic/claude-opus-4.5", "test-key");
+    expect(modelIdOf(model)).toBe("anthropic/claude-opus-4.5");
+  });
+
+  it("namespaces a bare Anthropic id rather than calling Anthropic directly", () => {
+    expect(modelIdOf(resolveModel("claude-opus-5", "test-key"))).toBe(
+      "anthropic/claude-opus-5"
+    );
+  });
+
+  it("will not route with an Anthropic key and no gateway credential", () => {
+    const anth = envGet.anthropic();
+    process.env.ANTHROPIC_API_KEY = "sk-not-a-gateway-key";
     try {
-      expect(resolveModel("anthropic/claude-opus-4.5")).toBe(
-        "anthropic/claude-opus-4.5"
-      );
+      withoutGateway(() => {
+        expect(() => resolveModel("anthropic/claude-opus-4.5")).toThrow(
+          MissingApiKeyError
+        );
+      });
     } finally {
-      process.env.AI_GATEWAY_API_KEY = key;
+      envSet.anthropic(anth);
     }
   });
 
-  it("will not route a namespaced id with no gateway key", () => {
-    const gw = process.env.AI_GATEWAY_API_KEY;
-    const anth = process.env.ANTHROPIC_API_KEY;
-    process.env.AI_GATEWAY_API_KEY = "";
-    // An Anthropic key must not stand in for a gateway key: the request would
-    // go somewhere the caller did not ask for.
-    process.env.ANTHROPIC_API_KEY = "sk-not-a-gateway-key";
-    try {
-      expect(() => resolveModel("anthropic/claude-opus-4.5")).toThrow(
-        MissingApiKeyError
+  it("accepts VERCEL_OIDC_TOKEN as the gateway credential", () => {
+    withoutGateway(() => {
+      process.env.VERCEL_OIDC_TOKEN = "oidc-not-a-real-token";
+      expect(modelIdOf(resolveModel("google/gemini-3.5-flash"))).toBe(
+        "google/gemini-3.5-flash"
       );
-    } finally {
-      process.env.AI_GATEWAY_API_KEY = gw;
-      process.env.ANTHROPIC_API_KEY = anth;
-    }
+    });
   });
 
   it("fails before any drawing when generate() has no model and no key", async () => {
-    const key = process.env.ANTHROPIC_API_KEY;
-    process.env.ANTHROPIC_API_KEY = "";
+    const gw = envGet.gateway();
+    const oidc = envGet.oidc();
+    process.env.AI_GATEWAY_API_KEY = "";
+    process.env.VERCEL_OIDC_TOKEN = "";
     try {
       await expect(generate({ name: "folder" })).rejects.toThrow(
         MissingApiKeyError
       );
     } finally {
-      process.env.ANTHROPIC_API_KEY = key;
+      envSet.gateway(gw);
+      envSet.oidc(oidc);
     }
   });
 
@@ -202,9 +250,7 @@ describe("resolveModel", () => {
 
   it("defaults to the house model when a key is present", () => {
     const model = resolveModel(undefined, "sk-test-not-a-real-key");
-    expect(typeof model === "string" ? model : model.modelId).toBe(
-      DEFAULT_MODEL
-    );
+    expect(modelIdOf(model)).toBe(DEFAULT_MODEL);
   });
 });
 

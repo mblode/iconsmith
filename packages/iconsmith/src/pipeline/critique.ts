@@ -21,6 +21,7 @@
 import { generateObject } from "ai";
 import { z } from "zod";
 
+import { resolveModel } from "./gateway.js";
 import type { Concept } from "./prompt.js";
 
 /** A small text model with vision. The judgement is "which of these two has
@@ -96,7 +97,7 @@ export const critique = async (
           role: "user",
         },
       ],
-      model,
+      model: resolveModel(model),
       schema,
     });
     const index = Math.min(Math.max(object.choice, 1), images.length) - 1;

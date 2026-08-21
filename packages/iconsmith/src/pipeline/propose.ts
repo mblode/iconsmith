@@ -27,6 +27,7 @@ import type { Part } from "../types.js";
 import { READER_MODEL, compose } from "./compose.js";
 import type { Proposal } from "./compose.js";
 import { critique } from "./critique.js";
+import { resolveModel } from "./gateway.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { generate } from "./generate.js";
 import type { Reference } from "./licence.js";
@@ -142,7 +143,7 @@ const sketch = async (
         role: "user",
       },
     ],
-    model,
+    model: resolveModel(model),
     // Gemini's image models are language models that may answer in either
     // modality; without this they reply with a paragraph describing an icon.
     providerOptions: { google: { responseModalities: ["IMAGE"] } },

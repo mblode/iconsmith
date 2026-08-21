@@ -4,11 +4,13 @@ import path from "node:path";
 import type { Command } from "commander";
 import { Option } from "commander";
 
+import { loadAliases } from "../corpus/aliases.js";
 import type { StyleSelection } from "../parts/extract.js";
 import { extractParts, writeParts } from "../parts/extract.js";
 import { nameParts } from "../parts/vocabulary.js";
 import type { PartCoverage } from "../pipeline/coverage.js";
 import { partCoverage } from "../pipeline/coverage.js";
+import type { Part } from "../types.js";
 import { assertDirectory, InputError } from "./read.js";
 
 const pct = (n: number) => `${Math.round(n)}%`;
@@ -61,10 +63,60 @@ const houseConcepts = (store: string): string[] => {
   return [...seen].toSorted((a, b) => a.localeCompare(b));
 };
 
-const coverageText = (c: PartCoverage): string[] => [
+/**
+ * Coverage on three channels, because two of them are quotable and one is not.
+ *
+ * `covered` is provenance alone — the old number, and the one every earlier
+ * measurement was taken against. `independent` adds a source that has never
+ * seen this concept list. `all` adds the house's own concept map, which is
+ * where the list came from, so it rises almost by definition; it is reported
+ * because the drawer really does search that wide, and labelled because a
+ * reader who saw only it would think the vocabulary was nearly complete.
+ *
+ * The same discipline as `corpus/concepts.ts`' informative-vs-nominal pair and
+ * `partCoverage`'s own covered-vs-byName pair: quote them together, or quote
+ * the narrow one.
+ */
+const coverageOf = async (
+  parts: Part[],
+  concepts: string[]
+): Promise<Coverage> => {
+  const { aliases, from, independent } = await loadAliases();
+  const provenance = partCoverage(parts, concepts);
+  const widest = partCoverage(parts, concepts, aliases);
+  return {
+    all: widest.covered,
+    byName: provenance.byName,
+    concepts: provenance.concepts,
+    covered: provenance.covered,
+    from,
+    // The backlog is what the *widest* search still cannot reach. A gap list
+    // taken from the narrow number is a list of missing synonyms with real
+    // inventory buried in it, and the point of the file is to separate those.
+    gaps: widest.gaps,
+    independent: partCoverage(parts, concepts, independent).covered,
+  };
+};
+
+interface Coverage extends PartCoverage {
+  /** Every table, the house's own map included. Not a result on its own. */
+  all: number;
+  /** Which alias tables were found. An empty table and an unwired one look the
+   *  same from the number, and the second is a bug. */
+  from: string[];
+  /** Sources that did not also supply the concept list. */
+  independent: number;
+}
+
+const coverageText = (c: Coverage): string[] => [
   `concepts            ${c.concepts}`,
   `  a part answers    ${share(c.covered, c.concepts)}`,
   `  a name answers    ${share(c.byName, c.concepts)}`,
+  `  + other sets say  ${share(c.independent, c.concepts)}`,
+  // Named for what it is on the line itself, because this is the number that
+  // gets copied into a summary without its caveat.
+  `  + our own map     ${share(c.all, c.concepts)} (scored against itself)`,
+  `alias tables        ${c.from.length > 0 ? c.from.join(", ") : "none found"}`,
   `no part             ${c.gaps.length}`,
 ];
 
@@ -95,7 +147,7 @@ export const registerPartsCommand = (program: Command): void => {
       ).choices(["auto", "stroked", "expanded", "all"])
     )
     .action(
-      (
+      async (
         dir: string,
         opts: {
           coverage?: boolean;
@@ -127,17 +179,22 @@ export const registerPartsCommand = (program: Command): void => {
         // reads it unbidden fails on a fresh clone for a number nobody wanted.
         const coverage =
           opts.coverage === true || opts.gaps !== undefined
-            ? partCoverage(result.parts, houseConcepts(opts.store))
+            ? await coverageOf(result.parts, houseConcepts(opts.store))
             : null;
         if (coverage && opts.gaps) {
           writeFileSync(
             opts.gaps,
             `${JSON.stringify(
               {
+                all: coverage.all,
                 byName: coverage.byName,
                 concepts: coverage.concepts,
                 covered: coverage.covered,
+                // The tables that were loaded, so a file written without them
+                // is distinguishable from one written with them and no effect.
+                from: coverage.from,
                 gaps: coverage.gaps,
+                independent: coverage.independent,
                 names: result.parts.filter((p) => p.name).length,
                 parts: result.parts.length,
               },

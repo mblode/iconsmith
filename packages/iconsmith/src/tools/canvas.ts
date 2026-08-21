@@ -44,7 +44,7 @@ import type {
  * the specification. Where they disagree, the corpus wins and the article's
  * value is recorded in the comment.
  */
-export const SPEC = {
+const HOUSE = {
   // Unchanged: the whole corpus draws on a 24×24 viewBox.
   canvas: 24,
   // Measured: margin from the visual extent to the nearest canvas edge, n=2085,
@@ -188,21 +188,154 @@ export const SPEC = {
   radiusTiers: [0.5, 1, 2, 3],
   // Unchanged. Measured: 97.5% of stroked shapes are exactly 2.
   stroke: 2,
-} as const satisfies {
+} as const;
+
+/** Optical size the drawing is meant to be shown at, in CSS pixels. The design
+ *  grid stays 24; this is the cut. 16px drops hairline corners and terminal
+ *  dots because they do not survive a two-thirds scale. */
+export type OpticalSize = 16 | 20 | 24;
+
+export interface Spec {
   canvas: number;
   clearance: number;
-  dots: Record<DotRole, number>;
+  dots: Record<string, number>;
   fillRadiusTiers: readonly number[];
   grid: number;
   keylines: Record<Keyline, readonly [number, number]>;
+  /** Density ceiling. Smaller optical sizes allow fewer marks. */
+  maxElements: number;
   minFeature: number;
   minGap: number;
+  /** Family corner, Central's `radius-N`. Caps the outlined tier set. */
+  radius: number;
   radiusTiers: readonly number[];
+  size: OpticalSize;
   stroke: number;
+}
+
+const HOUSE_RADIUS_TIERS = [0.5, 1, 2, 3] as const;
+const HOUSE_DOTS: Record<DotRole, number> = { ...HOUSE.dots };
+
+/** Fill tiers are outlined tiers unioned with themselves offset by ±half a
+ *  stroke — the derivation behind `HOUSE.fillRadiusTiers`. */
+const fillTiersFrom = (
+  radiusTiers: readonly number[],
+  stroke: number
+): number[] => {
+  const half = stroke / 2;
+  const seen = new Set<number>();
+  for (const t of radiusTiers) {
+    for (const v of [t, t + half, t - half]) {
+      if (v > 0) {
+        seen.add(v);
+      }
+    }
+  }
+  return [...seen].toSorted((a, b) => a - b);
 };
+
+const densityFor = (size: OpticalSize): number => {
+  if (size <= 16) {
+    return 5;
+  }
+  if (size <= 20) {
+    return 6;
+  }
+  return 8;
+};
+
+/**
+ * A cut of the house spec. The design viewBox stays 24; `size` is what it is
+ * shown at. Stroke and family radius are the other two knobs Central already
+ * names (`stroke-2`, `radius-3`).
+ *
+ * At 16px, one design unit is 0.667px: the 0.5 radius tier and the 2.0
+ * terminal dot fall under a pixel and drop out, `minFeature` grows so a hole
+ * still clears a device pixel, and density tightens. The model never picks
+ * those numbers — `specAt` does, and the canvas snaps to what remains.
+ */
+export const specAt = ({
+  radius = 3,
+  size = 24,
+  stroke = 2,
+}: {
+  radius?: number;
+  size?: OpticalSize;
+  stroke?: number;
+} = {}): Spec => {
+  if (size === 24 && stroke === 2 && radius === 3) {
+    return {
+      canvas: HOUSE.canvas,
+      clearance: HOUSE.clearance,
+      dots: { ...HOUSE.dots },
+      fillRadiusTiers: HOUSE.fillRadiusTiers,
+      grid: HOUSE.grid,
+      keylines: HOUSE.keylines,
+      maxElements: 8,
+      minFeature: HOUSE.minFeature,
+      minGap: HOUSE.minGap,
+      radius: 3,
+      radiusTiers: HOUSE.radiusTiers,
+      size: 24,
+      stroke: 2,
+    };
+  }
+  const radiusTiers = HOUSE_RADIUS_TIERS.filter(
+    (t) => t <= radius && (size >= 24 || t >= 1)
+  );
+  const unitPx = size / HOUSE.canvas;
+  const dots = Object.fromEntries(
+    Object.entries(HOUSE_DOTS).filter(
+      ([, d]) => size >= 24 || d * unitPx >= 1.5
+    )
+  );
+  return {
+    canvas: HOUSE.canvas,
+    clearance: HOUSE.clearance,
+    dots: Object.keys(dots).length > 0 ? dots : { node: HOUSE_DOTS.node },
+    fillRadiusTiers: fillTiersFrom(radiusTiers, stroke),
+    grid: HOUSE.grid,
+    keylines: HOUSE.keylines,
+    maxElements: densityFor(size),
+    minFeature: Math.max(HOUSE.minFeature, 1.5 / unitPx),
+    minGap: HOUSE.minGap * (HOUSE.canvas / size),
+    radius,
+    radiusTiers,
+    size,
+    stroke,
+  };
+};
+
+/** House cut: 24px, stroke 2, radius 3. Every existing call site. */
+export const SPEC: Spec = specAt();
 
 /** Circular arc → cubic control handle ratio. */
 const K = 0.5523;
+
+/**
+ * Where an open arc starts. The four poles of the circle, so both endpoints
+ * stay on the grid: a free start angle would put the node off 0.25, which is
+ * the one thing `circle` never does.
+ */
+export const ARC_FROM = ["bottom", "left", "right", "top"] as const;
+export type ArcFrom = (typeof ARC_FROM)[number];
+
+/** How far the arc travels, in named quarters. A full turn is `circle`. */
+export const ARC_SWEEP = ["half", "quarter", "three-quarter"] as const;
+export type ArcSweep = (typeof ARC_SWEEP)[number];
+
+const FROM_ANGLE: Record<ArcFrom, number> = {
+  bottom: Math.PI / 2,
+  left: Math.PI,
+  right: 0,
+  top: -Math.PI / 2,
+};
+
+const SWEEP_STEPS: Record<ArcSweep, number> = {
+  half: 2,
+  quarter: 1,
+  "three-quarter": 3,
+};
 
 /**
  * Degrees of slop forgiven before a segment counts as off-axis.
@@ -226,7 +359,8 @@ const HEADINGS = [...AXES, ...AXES.map((a) => a - 180), 180];
 
 const clamp = (v: number, lo: number, hi: number) =>
   Math.min(hi, Math.max(lo, v));
-const onCanvas = (v: number) => q(clamp(v, 0, SPEC.canvas), SPEC.grid);
+const onCanvas = (v: number, spec: Spec) =>
+  q(clamp(v, 0, spec.canvas), spec.grid);
 const nearest = (targets: readonly number[], v: number): number => {
   let [best] = targets;
   for (const t of targets) {
@@ -262,10 +396,10 @@ const quarterTurn = (t: number): number => {
  *  Which tier set is asked for depends on the finish, not on the shape: a
  *  filled corner is a boundary and a stroked one is a centre line, so they are
  *  measurably different distributions. See `SPEC.fillRadiusTiers`. */
-const tierRadius = (r: number, finish: Finish): number =>
+const tierRadius = (r: number, finish: Finish, spec: Spec): number =>
   r === 0
     ? 0
-    : nearest(finish === "filled" ? SPEC.fillRadiusTiers : SPEC.radiusTiers, r);
+    : nearest(finish === "filled" ? spec.fillRadiusTiers : spec.radiusTiers, r);
 
 /**
  * Snap a segment onto the nearest permitted axis when it is within tolerance.
@@ -347,6 +481,19 @@ export type Op = "add" | "knockout";
 export type Element = {
   op?: Op;
 } & (
+  | {
+      /** Present when the arc runs counter-clockwise. Absent, not `false`,
+       *  when it follows `circle` (top → right → bottom → left). */
+      ccw?: true;
+      cx: number;
+      cy: number;
+      d: string;
+      from: ArcFrom;
+      id: string;
+      kind: "arc";
+      r: number;
+      sweep: ArcSweep;
+    }
   | { cx: number; cy: number; d: string; id: string; kind: "circle"; r: number }
   | {
       cx: number;
@@ -420,6 +567,49 @@ const circlePath = (x: number, y: number, r: number): string => {
   );
 };
 
+const atCircle = (
+  cx: number,
+  cy: number,
+  r: number,
+  a: number
+): [number, number] => [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+
+/**
+ * Open circular arc as cubics, the same K `circlePath` uses.
+ *
+ * Clockwise matches `circle` (top → right → bottom → left). `ccw` is the
+ * other semicircle from the same start, so a wifi fan and a U-shape are
+ * both `half from left`, one of them flipped. Quarters only: a free sweep
+ * is an angle, and an angle is a coordinate.
+ */
+export const arcPath = (
+  cx: number,
+  cy: number,
+  r: number,
+  from: ArcFrom,
+  sweep: ArcSweep,
+  ccw = false
+): string => {
+  const steps = SWEEP_STEPS[sweep];
+  const dir = ccw ? -1 : 1;
+  const h = r * K;
+  let a = FROM_ANGLE[from];
+  const [x0, y0] = atCircle(cx, cy, r, a);
+  let d = `M${x0} ${y0}`;
+  for (let i = 0; i < steps; i += 1) {
+    const a0 = a;
+    a += dir * (Math.PI / 2);
+    const [sx, sy] = atCircle(cx, cy, r, a0);
+    const [x1, y1] = atCircle(cx, cy, r, a);
+    const t0x = dir * -Math.sin(a0) * h;
+    const t0y = dir * Math.cos(a0) * h;
+    const t1x = dir * -Math.sin(a) * h;
+    const t1y = dir * Math.cos(a) * h;
+    d += `C${sx + t0x} ${sy + t0y} ${x1 - t1x} ${y1 - t1y} ${x1} ${y1}`;
+  }
+  return d;
+};
+
 /** The quantised circle, before it is decided whether it adds ink or removes
  *  it. Shared, like `#rectElement`, so a knockout cannot reach the document by
  *  any route a solid did not already take. A free function rather than a
@@ -427,11 +617,12 @@ const circlePath = (x: number, y: number, r: number): string => {
  *  nothing about a circle depends on the canvas. */
 const circleElement = (
   id: string,
-  { cx, cy, r }: { cx: number; cy: number; r: number }
+  { cx, cy, r }: { cx: number; cy: number; r: number },
+  spec: Spec
 ): Element => {
-  const x = onCanvas(cx);
-  const y = onCanvas(cy);
-  const rr = q(r, SPEC.grid);
+  const x = onCanvas(cx, spec);
+  const y = onCanvas(cy, spec);
+  const rr = q(r, spec.grid);
   return { cx: x, cy: y, d: circlePath(x, y, rr), id, kind: "circle", r: rr };
 };
 
@@ -460,6 +651,8 @@ export interface CanvasOptions {
    * silently restate what it had already drawn.
    */
   finish?: Finish;
+  /** Stroke, family radius, and optical size. Defaults to the house 24/2/3 cut. */
+  spec?: Spec;
 }
 
 /** The shapes a knockout may take. The same two the corpus cuts with — 23.8%
@@ -478,6 +671,8 @@ export class Canvas {
 
   /** Stroked or filled. See {@link Finish}: chosen once, for the document. */
   readonly finish: Finish;
+  /** The cut this canvas draws under. Stroke, radius family, optical size. */
+  readonly spec: Spec;
 
   /**
    * Ids are minted from a counter, never from `elements.length`.
@@ -498,9 +693,13 @@ export class Canvas {
    */
   #version = 0;
 
-  constructor(parts: Part[] = [], { finish = "outlined" }: CanvasOptions = {}) {
+  constructor(
+    parts: Part[] = [],
+    { finish = "outlined", spec = SPEC }: CanvasOptions = {}
+  ) {
     this.parts = new Map(parts.map((p) => [p.id, p]));
     this.finish = finish;
+    this.spec = spec;
   }
 
   /** Mutation count. Monotonic, and meaningless as an absolute number: only
@@ -523,7 +722,7 @@ export class Canvas {
    * unchanged.
    */
   get inkWidth(): number {
-    return this.finish === "filled" ? 0 : SPEC.stroke;
+    return this.finish === "filled" ? 0 : this.spec.stroke;
   }
 
   /** @param at index to insert at; appends when omitted. Only `hole` passes
@@ -555,11 +754,11 @@ export class Canvas {
       r = 2,
     }: { h: number; r?: number; w: number; x: number; y: number }
   ): Element {
-    const X = onCanvas(x);
-    const Y = onCanvas(y);
-    const W = q(w, SPEC.grid);
-    const H = q(h, SPEC.grid);
-    const R = Math.min(tierRadius(r, this.finish), W / 2, H / 2);
+    const X = onCanvas(x, this.spec);
+    const Y = onCanvas(y, this.spec);
+    const W = q(w, this.spec.grid);
+    const H = q(h, this.spec.grid);
+    const R = Math.min(tierRadius(r, this.finish, this.spec), W / 2, H / 2);
     return {
       d: rectPath(X, Y, W, H, R),
       h: H,
@@ -584,7 +783,47 @@ export class Canvas {
   }
 
   circle(args: { cx: number; cy: number; r: number }): string {
-    return this.#push((id) => circleElement(id, args));
+    return this.#push((id) => circleElement(id, args, this.spec));
+  }
+
+  /**
+   * Open circular arc. The model names a pole, a named sweep, and optionally
+   * `ccw`; the cubics are the same ones `circle` already draws. A polyline
+   * of grid points is a different primitive, and approximating a curve with
+   * one is how an umbrella canopy becomes a zigzag.
+   *
+   * Outlined only: like `line`, an open arc encloses no area under fill.
+   */
+  arc(args: {
+    ccw?: boolean;
+    cx: number;
+    cy: number;
+    from: ArcFrom;
+    r: number;
+    sweep: ArcSweep;
+  }): string {
+    if (this.finish === "filled") {
+      throw new Error(
+        "an arc paints nothing in a filled icon: it encloses no area. " +
+          "Draw a circle (and a hole, if the fill is a ring), or the " +
+          "filled twin of the stroke this arc is."
+      );
+    }
+    const cx = onCanvas(args.cx, this.spec);
+    const cy = onCanvas(args.cy, this.spec);
+    const r = q(args.r, this.spec.grid);
+    const ccw = Boolean(args.ccw);
+    return this.#push((id) => ({
+      ...(ccw ? { ccw: true as const } : {}),
+      cx,
+      cy,
+      d: arcPath(cx, cy, r, args.from, args.sweep, ccw),
+      from: args.from,
+      id,
+      kind: "arc" as const,
+      r,
+      sweep: args.sweep,
+    }));
   }
 
   /**
@@ -628,7 +867,7 @@ export class Canvas {
     const target = this.#solidFor(shape.cutFrom);
     const make = (id: string): Element => ({
       ...(shape.shape === "circle"
-        ? circleElement(id, shape)
+        ? circleElement(id, shape, this.spec)
         : this.#rectElement(id, shape)),
       op: "knockout",
     });
@@ -733,23 +972,11 @@ export class Canvas {
     offAxis?: boolean;
     points: [number, number][];
   }): string {
-    if (this.finish === "filled") {
-      // An open polyline encloses no area, so under a fill rule it paints
-      // nothing at all. Refusing it is the difference between a drawer that is
-      // told and one that renders a blank icon and cannot see why — the same
-      // failure the measurement found 107 icons of in the shipped set, where a
-      // solid buried in another solid draws nothing and nobody noticed.
-      throw new Error(
-        "a line paints nothing in a filled icon: it encloses no area, so the " +
-          "fill has no inside to cover. Draw the stroke as the thin rect it " +
-          "is — `rect` with a width of 2 is the filled twin of a 2-unit stroke."
-      );
-    }
     if (!Array.isArray(pts) || pts.length < 2) {
       throw new Error("line needs >= 2 points");
     }
     const out: [number, number][] = [
-      [onCanvas(pts[0][0]), onCanvas(pts[0][1])],
+      [onCanvas(pts[0][0], this.spec), onCanvas(pts[0][1], this.spec)],
     ];
     let free = false;
     for (let i = 1; i < pts.length; i += 1) {
@@ -757,14 +984,33 @@ export class Canvas {
       const {
         offBy,
         point: [sx, sy],
-      } = snapAngle(px, py, onCanvas(pts[i][0]), onCanvas(pts[i][1]));
+      } = snapAngle(
+        px,
+        py,
+        onCanvas(pts[i][0], this.spec),
+        onCanvas(pts[i][1], this.spec)
+      );
       if (offBy > 0) {
         if (!offAxis) {
           throw new Error(offAxisMessage(i, [px, py], [sx, sy], offBy));
         }
         free = true;
       }
-      out.push([q(sx, SPEC.grid), q(sy, SPEC.grid)]);
+      out.push([q(sx, this.spec.grid), q(sy, this.spec.grid)]);
+    }
+    if (this.finish === "filled") {
+      // An open polyline encloses no area. The filled twin is that stroke
+      // expanded to a bar: axis-aligned becomes a 2-wide rect; a diagonal
+      // becomes a stadium of the same visual width. A polyline with more
+      // than two points still has no inside, so it is still refused.
+      if (out.length !== 2) {
+        throw new Error(
+          "a polyline paints nothing in a filled icon: it encloses no area, " +
+            "so the fill has no inside to cover. Draw each segment as its " +
+            "own line, or as the thin rect that segment is."
+        );
+      }
+      return this.#filledBar(out[0], out[1]);
     }
     const rest = out
       .slice(1)
@@ -775,6 +1021,44 @@ export class Canvas {
       free
         ? { d, id, kind: "line", offAxis: true, points: out }
         : { d, id, kind: "line", points: out }
+    );
+  }
+
+  /** The filled twin of a two-point stroke: same visual extent as outlined. */
+  #filledBar(a: [number, number], b: [number, number]): string {
+    const bar = this.spec.stroke;
+    const half = bar / 2;
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    if (Math.abs(dy) < this.spec.grid / 2) {
+      const x = Math.min(a[0], b[0]);
+      return this.rect({
+        h: bar,
+        w: Math.abs(dx) + bar,
+        x: x - half,
+        y: a[1] - half,
+      });
+    }
+    if (Math.abs(dx) < this.spec.grid / 2) {
+      const y = Math.min(a[1], b[1]);
+      return this.rect({
+        h: Math.abs(dy) + bar,
+        w: bar,
+        x: a[0] - half,
+        y: y - half,
+      });
+    }
+    const len = Math.hypot(dx, dy) || 1;
+    const px = (-dy / len) * half;
+    const py = (dx / len) * half;
+    const qn = (v: number): number => q(v, this.spec.grid);
+    const body =
+      `M${qn(a[0] + px)} ${qn(a[1] + py)}L${qn(b[0] + px)} ${qn(b[1] + py)}` +
+      `L${qn(b[0] - px)} ${qn(b[1] - py)}L${qn(a[0] - px)} ${qn(a[1] - py)}Z`;
+    return this.raw(
+      circlePath(qn(a[0]), qn(a[1]), qn(half)) +
+        circlePath(qn(b[0]), qn(b[1]), qn(half)) +
+        body
     );
   }
 
@@ -793,31 +1077,34 @@ export class Canvas {
   dot({
     cx,
     cy,
-    role = "terminal",
+    role: requested,
   }: {
     cx: number;
     cy: number;
-    role?: DotRole;
+    role?: string;
   }): string {
-    const size = SPEC.dots[role];
+    const role =
+      requested ??
+      (this.spec.dots.terminal === undefined ? "node" : "terminal");
+    const size = this.spec.dots[role];
     if (!size) {
       throw new Error(
-        `dot role must be one of ${Object.keys(SPEC.dots).join(", ")} — got "${role}"`
+        `dot role must be one of ${Object.keys(this.spec.dots).join(", ")} — got "${role}"`
       );
     }
-    const X = onCanvas(cx);
-    const Y = onCanvas(cy);
+    const X = onCanvas(cx, this.spec);
+    const Y = onCanvas(cy, this.spec);
     // The role's number is a visual diameter either way; what changes is how
     // much of it the stroke supplies. Filled, none of it does, so the disc is
     // drawn at the full tier.
-    const r = q(Math.max(0, (size - this.inkWidth) / 2), SPEC.grid);
+    const r = q(Math.max(0, (size - this.inkWidth) / 2), this.spec.grid);
     return this.#push((id) => ({
       cx: X,
       cy: Y,
       d: r === 0 ? `M${X} ${Y}L${X} ${Y}` : circlePath(X, Y, r),
       id,
       kind: "dot",
-      role,
+      role: role as DotRole,
     }));
   }
 
@@ -891,7 +1178,7 @@ export class Canvas {
     return this.#push((elId) =>
       flip
         ? {
-            d: serialise(moved, { grid: SPEC.grid }),
+            d: serialise(moved, { grid: this.spec.grid }),
             flip: true,
             id: elId,
             kind: "part",
@@ -902,7 +1189,7 @@ export class Canvas {
             y,
           }
         : {
-            d: serialise(moved, { grid: SPEC.grid }),
+            d: serialise(moved, { grid: this.spec.grid }),
             id: elId,
             kind: "part",
             partId: id,
@@ -967,6 +1254,15 @@ export class Canvas {
         });
       } else if (e.kind === "circle") {
         this.circle({ cx: e.cx * k + tx, cy: e.cy * k + ty, r: e.r * k });
+      } else if (e.kind === "arc") {
+        this.arc({
+          ccw: e.ccw,
+          cx: e.cx * k + tx,
+          cy: e.cy * k + ty,
+          from: e.from,
+          r: e.r * k,
+          sweep: e.sweep,
+        });
       } else if (e.kind === "dot") {
         this.dot({ cx: e.cx * k + tx, cy: e.cy * k + ty, role: e.role });
       } else if (e.kind === "line") {
@@ -991,7 +1287,7 @@ export class Canvas {
         const moved = parsePath(e.d).map((sp) =>
           translate(scale(sp, k), tx, ty)
         );
-        this.raw(serialise(moved, { grid: SPEC.grid }));
+        this.raw(serialise(moved, { grid: this.spec.grid }));
       }
     }
     // Re-emitting mints fresh ids, but a fit is not a redraw: the handles the
@@ -1009,7 +1305,9 @@ export class Canvas {
     // see that.
     this.#version = version + (k === 1 && tx === 0 && ty === 0 ? 0 : 1);
     this.log = log;
-    this.log.push(`transform ×${k} +${q(tx, SPEC.grid)},${q(ty, SPEC.grid)}`);
+    this.log.push(
+      `transform ×${k} +${q(tx, this.spec.grid)},${q(ty, this.spec.grid)}`
+    );
   }
 
   /**
@@ -1062,8 +1360,9 @@ export class Canvas {
    * and the eval harness pass the house width to everything they draw, and a
    * filled icon has no stroke for it to change.
    */
-  toSVG({ stroke = SPEC.stroke }: { stroke?: number } = {}): string {
-    const { canvas: size } = SPEC;
+  toSVG({ stroke }: { stroke?: number } = {}): string {
+    const width = stroke ?? this.spec.stroke;
+    const { canvas: size } = this.spec;
     const paths =
       this.finish === "filled"
         ? this.#groups()
@@ -1075,7 +1374,7 @@ export class Canvas {
         : this.elements
             .map(
               (e) =>
-                `<path d="${e.d}" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`
+                `<path d="${e.d}" stroke="currentColor" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"/>`
             )
             .join("\n");
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${paths}\n</svg>`;
@@ -1109,6 +1408,26 @@ export class Canvas {
         }
         if (e.kind === "circle") {
           return { cx: e.cx, cy: e.cy, op: "circle", r: e.r, ...cut };
+        }
+        if (e.kind === "arc") {
+          return e.ccw
+            ? {
+                ccw: true as const,
+                cx: e.cx,
+                cy: e.cy,
+                from: e.from,
+                op: "arc" as const,
+                r: e.r,
+                sweep: e.sweep,
+              }
+            : {
+                cx: e.cx,
+                cy: e.cy,
+                from: e.from,
+                op: "arc" as const,
+                r: e.r,
+                sweep: e.sweep,
+              };
         }
         if (e.kind === "dot") {
           return { cx: e.cx, cy: e.cy, op: "dot", role: e.role };
@@ -1146,8 +1465,8 @@ export class Canvas {
     return this.finish === "filled" ? { ...doc, finish: "filled" } : doc;
   }
 
-  static fromJSON(doc: IconDoc, parts: Part[] = []): Canvas {
-    const c = new Canvas(parts, { finish: doc.finish ?? "outlined" });
+  static fromJSON(doc: IconDoc, parts: Part[] = [], spec: Spec = SPEC): Canvas {
+    const c = new Canvas(parts, { finish: doc.finish ?? "outlined", spec });
     for (const op of doc.draw ?? []) {
       if (op.op === "rect") {
         if (op.knockout) {
@@ -1168,6 +1487,8 @@ export class Canvas {
         } else {
           c.circle(op);
         }
+      } else if (op.op === "arc") {
+        c.arc(op);
       } else if (op.op === "dot") {
         c.dot(op);
       } else if (op.op === "line") {

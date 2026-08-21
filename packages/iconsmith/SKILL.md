@@ -80,6 +80,7 @@ finish   outlined | filled
 part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] [flip]
 rect     <x>,<y> <w>x<h> [r<n>]
 circle   <cx>,<cy> r<n>
+arc      <cx>,<cy> r<n> quarter|half|three-quarter from top|right|bottom|left [ccw]
 hole     rect <x>,<y> <w>x<h> [r<n>]  |  circle <cx>,<cy> r<n>
 line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
 dot      <cx>,<cy> [terminal|more|floating|node]
@@ -90,11 +91,59 @@ cohort   [<name>]           -- scale everything to the family's measured extent
 
 - **`rect`** — bodies, screens, cards, frames. `r<n>` asks for a radius; the nearest legal tier for that shape is what gets drawn. Default 2.
 - **`circle`** — heads, lenses, clock faces, buttons.
-- **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid.
+- **`arc`** — an open circular arc. Same cubics as `circle`. Name a pole (`top` / `right` / `bottom` / `left`), a sweep (`quarter` / `half` / `three-quarter`), and optionally `ccw`. Wifi fans, umbrella canopies, C-shapes, the lobes of an S. A curve is never a polyline of grid points.
+- **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid. If the stroke is a curve, use `arc` or `circle`.
 - **`hole`** — cut a rect or a circle out of the solid drawn most recently. Filled icons only, and it is how interior white is made: 45% of the set's filled icons knock at least one hole out of a solid, so a ring is `circle` then `hole circle`, and a card with a slot is `rect` then `hole rect`. The hole has to sit inside the solid it cuts — a piece hanging outside would paint ink rather than remove it, and is refused.
 - **`dot`** — a solid disc with one of the four roles above. Default `terminal`.
-- **`part`** — place a shape from the set's extracted vocabulary by name. Prefer this over drawing a common form from scratch: it is _the same_ folder, chevron or magnifier the rest of the set already uses, which is the whole point. A bare `<x>,<y>` names the part's top-left; a named anchor names its centre. Anchors: `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`, `bottom-right`. `size <n>` sets the long axis; `fill` scales the part to the declared keyline. `turn` names a quarter — `cw`, `half`, `ccw`, never an angle, because only the quarters keep every node on the grid. `flip` mirrors the part, and is applied before the turn. Ask for `flip` on purpose: a check mark, a comma and every letterform are chiral, so an implicit mirror is a backwards glyph rather than an orientation. Parts come from a `parts.json` for the set, passed as `iconsmith draw prog.icon --parts parts.json`; without one, `part` has nothing to place.
-- **`finish`** — `outlined` (the default: a stroked skeleton) or `filled` (solid shapes). Declare it before you draw anything, because a corner radius and a dot diameter both mean different things under each. Filled changes three things and nothing else: `hole` becomes available, `line` is refused because an open run of points encloses nothing and so paints nothing, and corners come from the filled radius tiers (0.5, 1, 1.5, 2, 3, 4 — the outlined tiers shifted by half a stroke, since a filled edge is a boundary where a stroked one is a centre line). Keylines, clearance and centring are unchanged: a filled icon and its outlined twin occupy the same visual extent in 94% of the set's pairs.
+- **`part`** — place a shape from the set's extracted vocabulary by name or id. Prefer this over drawing a common form from scratch: it is _the same_ folder, chevron or magnifier the rest of the set already uses, which is the whole point. A bare `<x>,<y>` names the part's top-left; a named anchor names its centre. Anchors: `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`, `bottom-right`. `size <n>` sets the long axis; `fill` scales the part to the declared keyline. `turn` names a quarter — `cw`, `half`, `ccw`, never an angle, because only the quarters keep every node on the grid. `flip` mirrors the part, and is applied before the turn. Ask for `flip` on purpose: a check mark, a comma and every letterform are chiral, so an implicit mirror is a backwards glyph rather than an orientation. Parts come from a `parts.json` for the set, passed as `iconsmith draw prog.icon --parts parts.json`; without one, `part` has nothing to place. An unnamed mark is addressed by the `id` in that file (`part p0123`), which is what the brief lists when search hits one.
+- **`finish`** — `outlined` (the default: a stroked skeleton) or `filled` (solid shapes). Declare it before you draw anything, because a corner radius and a dot diameter both mean different things under each. Filled changes three things and nothing else: `hole` becomes available, `line` and `arc` are refused because an open stroke encloses nothing and so paints nothing, and corners come from the filled radius tiers (0.5, 1, 1.5, 2, 3, 4 — the outlined tiers shifted by half a stroke, since a filled edge is a boundary where a stroked one is a centre line). Keylines, clearance and centring are unchanged: a filled icon and its outlined twin occupy the same visual extent in 94% of the set's pairs.
+
+### Twins (outlined ↔ filled)
+
+One skeleton, two paints. Outlined is a centre-line stroke. Filled is that stroke expanded into a solid whose outer edge is the ink the outline already occupied. Interiors that were canvas become `hole`s.
+
+94% of 2,085 house pairs share visual extent; 45% knock a hole; 2,078 of 2,085 filled icons carry no stroke. Keylines, clearance and centre do not move.
+
+**Outlined → filled**
+
+1. **Expand** — closed strokes become solids. Outer path = centre-line + ½ stroke. Outer corner += ½ stroke (house 3 becomes 4).
+2. **Knock out** — canvas through a ring or an interior mark becomes `hole`. Inner radius shrinks by ½ stroke. A plus inside a circle is a white plus, not a plus drawn on top.
+3. **Bar the opens** — `line` is illegal in filled. Draw a 2-wide `rect` on the same centre-line, half a stroke past both endpoints (plus, hamburger, flag pole). Thickening only the short axis leaves the filled twin two units short.
+4. **Keep the gap** — overlapping layers stay separated by white at least a stroke wide. The gap is a hole or a cut, not a second stroke.
+5. **Simplify** — filled is a shadow of the object, not an invert of every stroke. Drop hatch that would become unreadable cutouts.
+
+**Filled → outlined** — inset the silhouette by ½ stroke; holes become inner strokes (or drop if too thin); 2-wide rects become `line`s; do not add a new metaphor.
+
+Do not flood-fill the path bbox (that grows the icon); invert the line drawing; run a bar through a hollow ring (timeline crescents); bury a solid inside another element; mix a stroke into a filled icon; or declare `finish` after geometry.
+
+A plus. Outlined is two `line`s; filled is two 2-wide `rect`s on the same centre-lines, each bar half a stroke past both endpoints so the two occupy the same visual extent. A ring is the same skeleton: `circle`, or `circle` then `hole circle`.
+
+A strike-through. Two half-arcs of one circle, plus a bar. Not a zigzag S.
+
+```icon
+icon strikethrough
+keyline circle
+arc 12,12 r9 half from left
+arc 12,12 r9 half from left ccw
+line 3,12 21,12
+fit
+```
+
+```icon
+icon plus
+keyline square
+line 4,12 20,12
+line 12,4 12,20
+```
+
+```icon
+icon plus
+keyline square
+finish filled
+rect 3,11 18x2
+rect 11,3 2x18
+```
+
 - **`center`** — recentre the drawing's content on (12,12).
 - **`fit`** — scale the drawing to the declared keyline. Once, near the end.
 - **`cohort`** — scale the drawing onto the measured extent of the family it joins, when the family has one. Use it **instead of** `fit`: they are the same operation against different targets, so a `fit` after a `cohort` throws the inherited extent away, and is refused rather than silently obeyed. Where the two disagree the family wins — a 1px disagreement is a visible jump when one icon swaps for another.

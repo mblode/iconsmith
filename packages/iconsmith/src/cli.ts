@@ -11,6 +11,7 @@ import { registerEvalCommand } from "./commands/eval.js";
 import { registerLintCommand } from "./commands/lint.js";
 import { registerNewCommand } from "./commands/new.js";
 import { registerPartsCommand } from "./commands/parts.js";
+import { registerViewCommand } from "./commands/view.js";
 
 // stdout carries data only; stderr carries logs, progress, and human hints.
 const isInteractive =
@@ -35,6 +36,7 @@ registerNewCommand(program);
 registerAuditCommands(program);
 registerCorpusCommands(program);
 registerConceptsCommand(program);
+registerViewCommand(program);
 
 try {
   await program.parseAsync();

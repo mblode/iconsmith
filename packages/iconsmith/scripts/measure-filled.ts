@@ -32,16 +32,19 @@
  */
 import { writeFileSync } from "node:fs";
 
-import { HOUSE_VARIANT, loadCorpus, parseIconSvg } from "../src/corpus/load.js";
+import {
+  FILLED_VARIANT,
+  HOUSE_VARIANT,
+  loadCorpus,
+  parseIconSvg,
+} from "../src/corpus/load.js";
 import { circleRadius, cornerRadii, summarise } from "../src/corpus/measure.js";
 import { bbox, parsePath } from "../src/geometry/path.js";
 import { flatten } from "../src/parts/shape.js";
 import { SPEC } from "../src/tools/canvas.js";
 import type { Box, Subpath } from "../src/types.js";
 
-/** The filled twin of the house variant: same 2,085 concepts, same corner tier
- *  and nominal stroke, drawn as solids. */
-export const FILLED_VARIANT = "round-filled-radius-3-stroke-2";
+export { FILLED_VARIANT } from "../src/corpus/load.js";
 
 /** Segments per curve when flattening for containment and area. Coarser than
  *  fingerprinting needs — a hole only has to be located, not matched. */

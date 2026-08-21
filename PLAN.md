@@ -11,18 +11,22 @@ drawn to house quality on demand. Every number below serves that one.
 
 ---
 
-## Where it stands, measured 2026-08-19
+## Where it stands, measured 2026-08-20
 
 | | |
 |---|---|
-| treatment | **0.740** on 10 selection icons × 3 seeds |
+| treatment | **0.740** on 10 selection icons × 3 seeds (2026-08-19) |
 | baseline | 0.737 — two mature sets, same concept |
 | floor | 0.482 — a random house icon against the target |
 | seed spread | **0.019** — the acceptance threshold |
 | cost | $0.174–$0.30 per icon metered; **$0.00** through the local CLI |
+| part coverage | provenance **548** / 2,201; + Central aliases **926** (42.1%); curated names 76. The 1,972 line is the house concept map scored against itself — not the headline. |
+| demo `pull-request` | keyed. After slug-filtered shortlist, N=1 through `codex exec`: cosine **0.792**, 6 `part` ops, panel clean (three nodes, merge, incoming chevron). N=5 in flight. Reach 12 → 13 with aliases. |
+| demo `database` | no answer key, so no cosine. N=1: 4 `part` ops, panel clean, stacked cylinders. Reach 9 → 16 with aliases. |
 
-The pipeline draws at professional parity. That is the headline and it was not
-true this morning.
+The pipeline draws at professional parity. Alias-widened search moved independent
+coverage 548 → 926. The product claim — a concept the set does not draw — is
+the `database` row, judged by the panel and by whether the program used parts.
 
 ### The three numbers, in Goldratt's terms
 
@@ -143,6 +147,8 @@ feature size, because solids are *meant* to touch.
 `iconsmith lint` over the outlined corpus still reports substance 3, bleed 57,
 cohort-align 210 — unchanged.
 
+The construction (one skeleton, two paints) is in `PLAN.notes.md`, 2026-08-21.
+
 ### Slice 4 — routes as arms
 
 In flight (`router`). The stages already exist as separate files; they are not
@@ -208,6 +214,7 @@ npm run typecheck
 npm run check       # lint + boundaries
 npx tsx scripts/gate.ts cosine              # exit 0; AUC vs a SHA-pinned baseline
 npx tsx scripts/gate.ts structure --dir <d> # element count, extent, corners, margins
+npx tsx scripts/research.ts                 # harness lab; N=1 is a screen, N≥5 decides
 npx tsx scripts/loop.ts --enable <ids> …    # refuses without bench/noise-floor.json
 ```
 

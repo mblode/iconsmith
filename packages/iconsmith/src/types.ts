@@ -92,6 +92,17 @@ export type Finish = "filled" | "outlined";
 
 export type DrawOp =
   | {
+      /** Present when the arc runs counter-clockwise. Absent, not `false`,
+       *  when it follows `circle` (top → right → bottom → left). */
+      ccw?: true;
+      cx: number;
+      cy: number;
+      from: "bottom" | "left" | "right" | "top";
+      op: "arc";
+      r: number;
+      sweep: "half" | "quarter" | "three-quarter";
+    }
+  | {
       cx: number;
       cy: number;
       /** Present when this shape is cut out of the solid before it rather than

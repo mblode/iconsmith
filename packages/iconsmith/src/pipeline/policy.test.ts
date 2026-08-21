@@ -21,8 +21,12 @@ const TOKENS = {
   dots: "floating = 3",
   grid: "0.25",
   keylines: "- `circle` — 20×20",
+  maxElements: "8",
+  minFeature: "1.5",
   minGap: "1",
+  radius: "3",
   radiusTiers: "0.5, 1, 2, 3",
+  size: "24",
   stroke: "2",
 };
 

@@ -19,9 +19,18 @@
  * in the search: `database` returns nothing because the set draws no database,
  * and `academia` because it is a synonym no icon spells. That is inventory, and
  * a backlog is what inventory looks like when somebody writes it down.
+ *
+ * `aliases` moves the boundary between those two cases. `academia` was a gap
+ * because no filename spells it; `_concepts.json` has said it means `school`
+ * all along. What is left after the table is applied is closer to real
+ * inventory, which is the only reason to widen the search here rather than only
+ * in the drawer's tool: a coverage number measured against a narrower search
+ * than the drawer runs reports reach the drawer does not have, and one measured
+ * against a wider one reports inventory that is only a missing synonym.
  */
 import type { Part } from "../types.js";
 import { rankParts, tokens } from "./search.js";
+import type { Aliases } from "./search.js";
 
 export interface PartCoverage {
   /** Concepts a curated name reaches — the channel naming moves. */
@@ -44,7 +53,8 @@ export interface PartCoverage {
  */
 export const partCoverage = (
   parts: readonly Part[],
-  concepts: readonly string[]
+  concepts: readonly string[],
+  aliases: Aliases = new Map()
 ): PartCoverage => {
   const names = parts
     .filter((p) => p.name !== undefined)
@@ -56,7 +66,7 @@ export const partCoverage = (
     if (names.some((n) => n.some((t) => want.includes(t)))) {
       byName += 1;
     }
-    if (rankParts(parts, concept, 1).length === 0) {
+    if (rankParts(parts, concept, 1, aliases).length === 0) {
       gaps.push(concept);
     }
   }

@@ -37,6 +37,25 @@ const extent = (canvas: ReturnType<typeof run>["canvas"]) => {
   };
 };
 
+test("an arc is the house strike-through construction: two half-circles and a bar", () => {
+  const r = run(
+    `
+    icon strikethrough
+    keyline circle
+    finish outlined
+    arc 12,12 r9 half from left
+    arc 12,12 r9 half from left ccw
+    line 3,12 21,12
+    fit
+    `
+  );
+  expect(r.errors).toStrictEqual([]);
+  expect(r.canvas.elements.map((e) => e.kind)).toEqual(["arc", "arc", "line"]);
+  expect(
+    lint(r.canvas, { keyline: "circle" }).filter((i) => i.severity === "error")
+  ).toEqual([]);
+});
+
 test("every op parses", () => {
   const r = run(
     `
@@ -46,6 +65,7 @@ test("every op parses", () => {
     keyline wide
     rect    2,3 8x6 r2
     circle  12,12 r4
+    arc     12,12 r8 half from left
     line    4,18 9,18 14,18
     dot     18,18 floating
     part    cloud at 3,4 size 8
@@ -60,6 +80,7 @@ test("every op parses", () => {
   expect(r.canvas.elements.map((e) => e.kind)).toStrictEqual([
     "rect",
     "circle",
+    "arc",
     "line",
     "dot",
     "part",
@@ -95,7 +116,16 @@ test("an unknown op reports the fix instead of throwing", () => {
   expect(r.errors[0]).toContain('unknown op "squiggle"');
   // The message has to name the way out, not just the wall.
   expect(r.errors[0]).toContain("expected one of");
-  for (const op of ["rect", "circle", "line", "dot", "part", "center", "fit"]) {
+  for (const op of [
+    "rect",
+    "circle",
+    "arc",
+    "line",
+    "dot",
+    "part",
+    "center",
+    "fit",
+  ]) {
     expect(r.errors[0]).toContain(op);
   }
 });

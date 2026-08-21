@@ -24,10 +24,12 @@
 import { spawn as spawnProcess } from "node:child_process";
 import { once } from "node:events";
 import {
+  copyFileSync,
   existsSync,
   mkdtempSync,
   readFileSync,
   rmSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -38,8 +40,19 @@ import type { Cohort } from "../tools/cohort.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import type { Issue } from "../types.js";
+import {
+  AUDIT_FILE,
+  audit,
+  PREVIEW_FILE,
+  writeAudit,
+  writePreview,
+} from "./audit.js";
+import type { AuditAsk, AuditResult } from "./audit.js";
+import { applyGatewayEnv } from "./gateway.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import type { CohortBrief, Concept } from "./prompt.js";
+import type { PartHint } from "./search.js";
+import { assembleAddressable, assembleVocabulary } from "./select.js";
 
 /** What a harness invocation asks the operating system for. Passed to
  *  {@link Spawn} as one object so a fake can assert on it whole. */
@@ -60,6 +73,18 @@ export interface HarnessRun {
   stdout: string;
 }
 
+/** Stdout then stderr. Codex `--json` is a JSONL stream on stdout; a crash
+ *  dumps the session on stderr. Both are the thinking; dropping either is how
+ *  a sample looks rogue with no record of why. */
+export const joinLog = (run: HarnessRun): string => {
+  const out = run.stdout.trim();
+  const err = run.stderr.trim();
+  if (out && err) {
+    return `${out}\n\n--- stderr ---\n${err}\n`;
+  }
+  return `${out}${err}`;
+};
+
 /**
  * The injection seam.
  *
@@ -74,9 +99,18 @@ export type Spawn = (invocation: HarnessInvocation) => Promise<HarnessRun>;
  *  wrote no program. Distinct from a program that ran and drew badly, which is
  *  a score rather than an error. */
 export class HarnessError extends Error {
-  constructor(message: string) {
+  readonly brief: string;
+  readonly log: string;
+  readonly program: string | null;
+  constructor(
+    message: string,
+    extras: { brief?: string; log?: string; program?: string | null } = {}
+  ) {
     super(message);
     this.name = "HarnessError";
+    this.brief = extras.brief ?? "";
+    this.log = extras.log ?? "";
+    this.program = extras.program ?? null;
   }
 }
 
@@ -86,9 +120,61 @@ export const DEFAULT_TIMEOUT_MS = 10 * 60 * 1000;
 
 /** The file the agent is told to write, relative to the scratch directory. */
 const PROGRAM_FILE = "icon.icon";
+/**
+ * The vocabulary, written beside the brief when the caller supplies one.
+ *
+ * Without it this arm is not the same experiment as the built-in loop. That
+ * loop's model has `listParts` and `part`; an external agent has neither, so it
+ * draws every folder and every chevron from scratch and the route comparison
+ * reads as a model difference when it is a tooling difference. Worse, the skill
+ * tells it `part` exists — so it writes one, runs `iconsmith draw` to check its
+ * own work, gets "no parts file", and spends the timeout trying to find one.
+ * Measured: a brief that mentions parts without shipping them ran to the full
+ * 10-minute kill; the same brief with this file finished in about two minutes.
+ */
+const PARTS_FILE = "parts.json";
 /** The brief, written beside it so an agent that reads files rather than argv
  *  has somewhere to look, and so a failed run leaves the question on disk. */
 const BRIEF_FILE = "BRIEF.md";
+const SKILL_FILE = "SKILL.md";
+
+/** Copy the skill into scratch when it is a real file. A stub path is left
+ *  unchanged so tests can name one without touching the disk. */
+const stageSkill = (dir: string, skill: string): string => {
+  if (!existsSync(skill)) {
+    return skill;
+  }
+  const dest = path.join(dir, SKILL_FILE);
+  copyFileSync(skill, dest);
+  return dest;
+};
+
+/** The packaged CLI, so `iconsmith draw` in the skill is a command the agent
+ *  can actually run. Same lookup as {@link skillPath}: src vs dist. Missing
+ *  is fine — a test never builds `dist/`, and the brief still asks for a
+ *  program file, which is the deliverable. */
+const cliPath = (): string | null => {
+  for (const rel of ["./cli.js", "../../dist/cli.js"]) {
+    const candidate = fileURLToPath(new URL(rel, import.meta.url));
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  return null;
+};
+
+/** Put `iconsmith` on PATH inside the scratch directory. The skill tells the
+ *  agent to `iconsmith draw` / `lint`; a temp dir has neither the package
+ *  binary nor a global install, so without this the agent invents geometry
+ *  it never compiled. */
+const stageCli = (dir: string, env: NodeJS.ProcessEnv): NodeJS.ProcessEnv => {
+  const cli = cliPath();
+  if (!cli) {
+    return env;
+  }
+  symlinkSync(cli, path.join(dir, "iconsmith"));
+  return { ...env, PATH: `${dir}${path.delimiter}${env.PATH ?? ""}` };
+};
 
 /**
  * The packaged skill.
@@ -116,10 +202,24 @@ const axisLine = (t: [number, number] | null, name: string): string =>
     ? `- ${name} spans ${t[0].toFixed(2)}..${t[1].toFixed(2)}.`
     : `- ${name} has no agreed extent in this family; centre it.`;
 
+const hintLine = (h: PartHint): string => {
+  const seen = h.seenIn.length > 0 ? ` — seen in ${h.seenIn.join(", ")}` : "";
+  return h.name
+    ? `- \`${h.name}\` (\`${h.id}\`)${seen}`
+    : `- \`${h.id}\`${seen}`;
+};
+
 export interface BriefContext {
   /** Absolute path of the `.icon` file the agent must write. */
   file: string;
+  /** Search hits for this concept, listed in the brief so the agent does not
+   *  have to invent `listParts`. Ids are addressable; names are when present. */
+  hints: readonly PartHint[];
   keyline: string | null;
+  /** Absolute path of the written vocabulary, when there is one. `null` means
+   *  the agent has no `part` available and the brief says so rather than
+   *  letting the skill promise an op that cannot run. */
+  parts: string | null;
   /** Absolute path of the skill that carries the procedure. */
   skill: string;
 }
@@ -151,6 +251,26 @@ export const harnessBrief = (
   if (ctx.keyline) {
     lines.push(`Use the \`${ctx.keyline}\` keyline.`);
   }
+  if (ctx.parts) {
+    lines.push(
+      "",
+      `The set's vocabulary is at ${ctx.parts} — read \`id\` and \`name\`, not the path data. \`part\` accepts either. Prefer a listed mark over redrawing a common shape.`
+    );
+    if (ctx.hints.length > 0) {
+      lines.push(
+        "These matched this concept (the same ranking `listParts` uses):",
+        ...ctx.hints.map(hintLine)
+      );
+    }
+    lines.push(
+      `Check your work with \`iconsmith draw ${ctx.file} --parts ${ctx.parts}\`; without the flag every \`part\` op fails.`
+    );
+  } else {
+    lines.push(
+      "",
+      "No parts vocabulary is available in this run, so the `part` op has nothing to place. Draw with the primitives."
+    );
+  }
   if (cohort) {
     lines.push(
       "",
@@ -176,13 +296,16 @@ export const harnessBrief = (
 const defaultArgs = (brief: string): string[] => ["-p", brief];
 
 /** Collect a child process into a {@link HarnessRun}. The timeout kills the
- *  child rather than leaving it holding the run open; a killed child reports a
- *  null code, which the caller turns into a `HarnessError`. */
+ *  process group rather than leaving a nested agent CLI holding the run open;
+ *  a killed child reports a null code, which the caller turns into a
+ *  `HarnessError`. `spawn`'s own `timeout` only signals the direct child, and
+ *  `codex exec` wraps a second binary that kept running past it. */
 const nodeSpawn: Spawn = async (invocation) => {
   const child = spawnProcess(invocation.command, invocation.args, {
     cwd: invocation.cwd,
+    detached: true,
     env: invocation.env,
-    timeout: invocation.timeoutMs,
+    stdio: ["ignore", "pipe", "pipe"],
   });
   let stdout = "";
   let stderr = "";
@@ -192,15 +315,36 @@ const nodeSpawn: Spawn = async (invocation) => {
   child.stderr?.on("data", (chunk: Buffer) => {
     stderr += chunk.toString();
   });
-  // `once` rejects if the child emits `error` — a command that is not on PATH
-  // — and resolves with the close arguments otherwise.
-  const [code] = (await once(child, "close")) as [number | null];
-  return { code, stderr, stdout };
+  const killer = setTimeout(() => {
+    if (child.pid === undefined) {
+      return;
+    }
+    try {
+      process.kill(-child.pid, "SIGKILL");
+    } catch {
+      child.kill("SIGKILL");
+    }
+  }, invocation.timeoutMs);
+  try {
+    // `once` rejects if the child emits `error` — a command that is not on PATH
+    // — and resolves with the close arguments otherwise.
+    const [code] = (await once(child, "close")) as [number | null];
+    return { code, stderr, stdout };
+  } finally {
+    clearTimeout(killer);
+  }
 };
 
 export interface HarnessOptions {
   /** Build the command line from the brief. Default: `["-p", brief]`. */
   args?: (brief: string, ctx: BriefContext) => string[];
+  /**
+   * Host-side look at the rendered drawing. When omitted the arm skips the
+   * preview, the audit, and the repair spawn — existing tests stay one-spawn
+   * and never reach the gateway. Pass `ask` to enable the seam; production
+   * and the demo can do that later without changing the default.
+   */
+  ask?: AuditAsk;
   /** The families this program may join, already measured — `buildCohorts`
    *  over the set, the same value `iconsmith lint --cohorts` builds. Without
    *  them the `cohort` op has no measured extent to inherit and says so. */
@@ -211,6 +355,12 @@ export interface HarnessOptions {
   /** Keep the scratch directory after a successful run, to read the program
    *  and the brief. A failed run always keeps it, and names it in the error. */
   keep?: boolean;
+  /**
+   * Whether to re-spawn after an audit that is not ok. Default 1, and this
+   * slice only spends that one: the host writes the new preview and stops.
+   * `0` disables the repair spawn.
+   */
+  repairs?: number;
   /** Where scratch directories are made. Default the system temp directory. */
   root?: string;
   /** Path to the skill the agent is pointed at. Default: the packaged one. */
@@ -239,6 +389,42 @@ const traceOf = (source: string): string[] =>
     .filter(Boolean)
     .map((l) => l.split(/\s+/u)[0].toLowerCase());
 
+const vocabularyFor = (
+  concept: Concept,
+  generateOptions: GenerateOptions
+): {
+  addressable: ReturnType<typeof assembleAddressable>;
+  hints: PartHint[];
+} => {
+  const parts = generateOptions.parts ?? [];
+  const aliases = generateOptions.aliases ?? new Map();
+  if (generateOptions.hints === undefined) {
+    return assembleVocabulary(
+      concept,
+      parts,
+      aliases,
+      generateOptions.select ?? "auto"
+    );
+  }
+  return {
+    addressable: assembleAddressable(parts, generateOptions.hints),
+    hints: generateOptions.hints,
+  };
+};
+
+/**
+ * Findings the host already wrote beside the program. The agent rewrites
+ * `icon.icon`; it does not draw from the raster or invent path data.
+ */
+const appendRepair = (base: string, reviewed: AuditResult): string =>
+  [
+    base,
+    "",
+    `The host audited the drawing. Look at ${PREVIEW_FILE} and ${AUDIT_FILE}.`,
+    ...reviewed.findings.map((f) => `- ${f.kind}: ${f.message}`),
+    `Edit ${PROGRAM_FILE} only. Do not write SVG. Do not emit path data.`,
+  ].join("\n");
+
 /**
  * An external coding agent as a `GenerateFn`.
  *
@@ -253,10 +439,12 @@ export const harnessArm =
   async (concept, generateOptions) => {
     const {
       args = defaultArgs,
+      ask,
       cohorts = [],
       command = "claude",
       env = process.env,
       keep = false,
+      repairs = 1,
       root = tmpdir(),
       skill = skillPath(),
       spawn = nodeSpawn,
@@ -265,39 +453,100 @@ export const harnessArm =
 
     const dir = mkdtempSync(path.join(root, "iconsmith-harness-"));
     const file = path.join(dir, PROGRAM_FILE);
+    // The skill is a capability, same as `parts.json`: name it in the brief
+    // only if the agent can actually open it. `codex exec --sandbox
+    // workspace-write` cannot read a path outside the scratch directory.
+    const skillForBrief = stageSkill(dir, skill);
+    const runEnv = applyGatewayEnv(command, dir, stageCli(dir, env));
+    const { parts = [], spec } = generateOptions;
+    const { addressable, hints } = vocabularyFor(concept, generateOptions);
+    let partsFile: string | null = null;
+    if (addressable.length > 0) {
+      partsFile = path.join(dir, PARTS_FILE);
+      // The shape `iconsmith draw --parts` reads. `generated` and `threshold`
+      // describe an extraction run this arm did not do.
+      writeFileSync(
+        partsFile,
+        `${JSON.stringify({ parts: addressable }, null, 2)}\n`
+      );
+    }
     const ctx: BriefContext = {
       file,
+      hints,
       keyline: generateOptions.keyline ?? null,
-      skill,
+      parts: partsFile,
+      skill: skillForBrief,
     };
     const brief = harnessBrief(concept, ctx, generateOptions.cohort);
     writeFileSync(path.join(dir, BRIEF_FILE), `${brief}\n`);
 
-    const fail = (why: string): never => {
-      throw new HarnessError(
-        `${command} ${why} while drawing \`${concept.name}\`. Scratch kept at ${dir}.`
-      );
+    const logs: string[] = [];
+    const runAgent = async (prompt: string): Promise<HarnessRun> => {
+      const run = await spawn({
+        args: args(prompt, ctx),
+        command,
+        cwd: dir,
+        env: runEnv,
+        timeoutMs,
+      });
+      logs.push(joinLog(run));
+      const fail = (why: string): never => {
+        throw new HarnessError(
+          `${command} ${why} while drawing \`${concept.name}\`. Scratch kept at ${dir}.`,
+          {
+            brief: prompt,
+            log: logs.join("\n\n"),
+            program: existsSync(file) ? readFileSync(file, "utf-8") : null,
+          }
+        );
+      };
+      if (run.code === null) {
+        fail(`was killed (no exit code; the timeout is ${timeoutMs}ms)`);
+      }
+      if (run.code !== 0) {
+        fail(`exited ${run.code}: ${run.stderr.trim() || "(no stderr)"}`);
+      }
+      if (!existsSync(file)) {
+        fail(`wrote no program at ${PROGRAM_FILE}`);
+      }
+      return run;
     };
 
-    const result = await spawn({
-      args: args(brief, ctx),
-      command,
-      cwd: dir,
-      env,
-      timeoutMs,
-    });
-    if (result.code === null) {
-      fail(`was killed (no exit code; the timeout is ${timeoutMs}ms)`);
-    }
-    if (result.code !== 0) {
-      fail(`exited ${result.code}: ${result.stderr.trim() || "(no stderr)"}`);
-    }
-    if (!existsSync(file)) {
-      fail(`wrote no program at ${PROGRAM_FILE}`);
+    let last = await runAgent(brief);
+    let source = readFileSync(file, "utf-8");
+    let program = runDsl(source, parts, { cohorts, spec });
+
+    // No `ask` means no gateway and no second spawn. Passing one runs the
+    // host screenshot, then `audit` (sanitize + fail-open live there), then
+    // at most one rewrite of the program.
+    let reviewed: AuditResult | undefined;
+    if (ask !== undefined) {
+      const screen = async (): Promise<AuditResult> => {
+        const svg = program.canvas.toSVG();
+        await writePreview(dir, svg);
+        const next = await audit({
+          ask,
+          concept,
+          finish: program.canvas.finish,
+          kind: generateOptions.lookKind,
+          references: generateOptions.lookReferences ?? [],
+          svg,
+          twin: generateOptions.lookTwin,
+        });
+        writeAudit(dir, next);
+        return next;
+      };
+      reviewed = await screen();
+      if (!reviewed.ok && reviewed.scorable && repairs > 0) {
+        const revised = appendRepair(brief, reviewed);
+        writeFileSync(path.join(dir, BRIEF_FILE), `${revised}\n`);
+        last = await runAgent(revised);
+        source = readFileSync(file, "utf-8");
+        program = runDsl(source, parts, { cohorts, spec });
+        reviewed = await screen();
+      }
     }
 
-    const source = readFileSync(file, "utf-8");
-    const program = runDsl(source, generateOptions.parts ?? [], { cohorts });
     // A refused op is an error against this drawing, not a broken run: the
     // program is what the agent produced, and a run that half-drew scores as a
     // half-drawn icon. Carrying them as issues keeps `clean` honest and leaves
@@ -316,17 +565,21 @@ export const harnessArm =
 
     const trace = traceOf(source);
     return {
+      audit: reviewed,
+      brief,
       clean: issues.every((i) => i.severity !== "error"),
       doc: program.canvas.toJSON({
         icon: program.icon ?? concept.name,
         keyline: program.keyline,
       }),
       issues,
+      log: logs.join("\n\n"),
+      program: source,
       // Ops written, not model turns: how many turns the external agent took is
       // its own business and it does not report it.
       steps: trace.length,
       svg: program.canvas.toSVG(),
-      text: result.stdout.trim(),
+      text: last.stdout.trim(),
       trace,
     };
   };
