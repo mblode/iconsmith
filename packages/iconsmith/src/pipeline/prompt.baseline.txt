@@ -86,14 +86,8 @@ back rather than trying to force the original numbers through.
   clusterer folds a mark together with its turns and its mirror, so these are
   how you reach the other seven. Ask for `flip` on purpose — chirality is the
   one symmetry that can be simply wrong.
-- **Paints are different constructions, not a restamp** outlined plus is
-  open strokes; filled plus is one evenodd compound (or two 2-wide rects).
-  Outlined clock is a ring plus hands; filled clock is a disc with the hands
-  cut out. Outlined check is an open tick; filled check is a badge with the
-  tick cut out. A ring is `circle` then `hole circle` immediately after — a
-  mark between them ships a solid disc. `fit` to the same keyline does not
-  make a restamped disc a twin of a ring. Do not volunteer a glyph the name
-  did not ask for.
+- **Paints are constructions, not a restamp** hole a ring immediately.
+  Do not volunteer an unasked glyph.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -206,14 +200,8 @@ back rather than trying to force the original numbers through.
   clusterer folds a mark together with its turns and its mirror, so these are
   how you reach the other seven. Ask for `flip` on purpose — chirality is the
   one symmetry that can be simply wrong.
-- **Paints are different constructions, not a restamp** outlined plus is
-  open strokes; filled plus is one evenodd compound (or two 2-wide rects).
-  Outlined clock is a ring plus hands; filled clock is a disc with the hands
-  cut out. Outlined check is an open tick; filled check is a badge with the
-  tick cut out. A ring is `circle` then `hole circle` immediately after — a
-  mark between them ships a solid disc. `fit` to the same keyline does not
-  make a restamped disc a twin of a ring. Do not volunteer a glyph the name
-  did not ask for.
+- **Paints are constructions, not a restamp** hole a ring immediately.
+  Do not volunteer an unasked glyph.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -328,14 +316,8 @@ back rather than trying to force the original numbers through.
   clusterer folds a mark together with its turns and its mirror, so these are
   how you reach the other seven. Ask for `flip` on purpose — chirality is the
   one symmetry that can be simply wrong.
-- **Paints are different constructions, not a restamp** outlined plus is
-  open strokes; filled plus is one evenodd compound (or two 2-wide rects).
-  Outlined clock is a ring plus hands; filled clock is a disc with the hands
-  cut out. Outlined check is an open tick; filled check is a badge with the
-  tick cut out. A ring is `circle` then `hole circle` immediately after — a
-  mark between them ships a solid disc. `fit` to the same keyline does not
-  make a restamped disc a twin of a ring. Do not volunteer a glyph the name
-  did not ask for.
+- **Paints are constructions, not a restamp** hole a ring immediately.
+  Do not volunteer an unasked glyph.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -466,14 +448,8 @@ back rather than trying to force the original numbers through.
   clusterer folds a mark together with its turns and its mirror, so these are
   how you reach the other seven. Ask for `flip` on purpose — chirality is the
   one symmetry that can be simply wrong.
-- **Paints are different constructions, not a restamp** outlined plus is
-  open strokes; filled plus is one evenodd compound (or two 2-wide rects).
-  Outlined clock is a ring plus hands; filled clock is a disc with the hands
-  cut out. Outlined check is an open tick; filled check is a badge with the
-  tick cut out. A ring is `circle` then `hole circle` immediately after — a
-  mark between them ships a solid disc. `fit` to the same keyline does not
-  make a restamped disc a twin of a ring. Do not volunteer a glyph the name
-  did not ask for.
+- **Paints are constructions, not a restamp** hole a ring immediately.
+  Do not volunteer an unasked glyph.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -604,14 +580,8 @@ back rather than trying to force the original numbers through.
   clusterer folds a mark together with its turns and its mirror, so these are
   how you reach the other seven. Ask for `flip` on purpose — chirality is the
   one symmetry that can be simply wrong.
-- **Paints are different constructions, not a restamp** outlined plus is
-  open strokes; filled plus is one evenodd compound (or two 2-wide rects).
-  Outlined clock is a ring plus hands; filled clock is a disc with the hands
-  cut out. Outlined check is an open tick; filled check is a badge with the
-  tick cut out. A ring is `circle` then `hole circle` immediately after — a
-  mark between them ships a solid disc. `fit` to the same keyline does not
-  make a restamped disc a twin of a ring. Do not volunteer a glyph the name
-  did not ask for.
+- **Paints are constructions, not a restamp** hole a ring immediately.
+  Do not volunteer an unasked glyph.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
