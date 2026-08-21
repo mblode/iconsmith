@@ -9,13 +9,15 @@ import type { Part } from "../types.js";
 import {
   analogArm,
   analogConstructions,
-  compose,
+  composeFromParts,
   hasStackRim,
   horn,
+  hourglass,
   hub,
   HUB_HINT,
   HORN_HINT,
   kinScore,
+  mushroom,
   peak,
   pickKin,
   plant,
@@ -23,12 +25,14 @@ import {
   preferStroked,
   replay,
   retitle,
+  sailboat,
   sameLetters,
   stack,
   tower,
   TOWER_HINT,
   trays,
   tube,
+  volcano,
 } from "./analog.js";
 
 const BOX = "M4 4H12V12H4Z";
@@ -201,7 +205,19 @@ describe("analogConstructions", () => {
       analogConstructions("lighthouse", [], "lighthouse", false)[0]?.id
     ).toBe("tower");
     expect(analogConstructions("volcano", [], "volcano", false)[0]?.id).toBe(
+      "volcano"
+    );
+    expect(analogConstructions("mountain", [], "mountain", false)[0]?.id).toBe(
       "peak"
+    );
+    expect(analogConstructions("mushroom", [], "mushroom", false)[0]?.id).toBe(
+      "mushroom"
+    );
+    expect(
+      analogConstructions("hourglass", [], "hourglass", false)[0]?.id
+    ).toBe("hourglass");
+    expect(analogConstructions("sailboat", [], "sailboat", false)[0]?.id).toBe(
+      "sailboat"
     );
     expect(
       analogConstructions("telescope", [], "telescope", false)[0]?.id
@@ -319,9 +335,13 @@ describe("analog families", () => {
   const families = [
     { draw: plant, id: "plant", slug: "cactus" },
     { draw: tower, id: "tower", slug: "lighthouse" },
-    { draw: peak, id: "peak", slug: "volcano" },
+    { draw: peak, id: "peak", slug: "mountain" },
+    { draw: volcano, id: "volcano", slug: "volcano" },
     { draw: tube, id: "tube", slug: "telescope" },
     { draw: horn, id: "horn", slug: "unicorn" },
+    { draw: mushroom, id: "mushroom", slug: "mushroom" },
+    { draw: hourglass, id: "hourglass", slug: "hourglass" },
+    { draw: sailboat, id: "sailboat", slug: "sailboat" },
   ] as const;
 
   it("runs each held-out family in both paints without a dsl error", () => {
@@ -347,12 +367,54 @@ describe("analog families", () => {
       ...part("ellipse-flat", BOX),
       name: "cactus",
     };
-    const source = compose("cactus", [rim]);
+    const source = composeFromParts("cactus", [rim]);
     expect(source).toContain("part cactus at center size 12");
     expect(run(source ?? "", [rim]).errors).toEqual([]);
   });
 
   it("does not compose from provenance alone", () => {
-    expect(compose("cactus", [part("p-box", BOX)])).toBeNull();
+    expect(composeFromParts("cactus", [part("p-box", BOX)])).toBeNull();
+  });
+
+  it("keeps volcano smoke off a bare mountain", () => {
+    expect(volcano("volcano")).toContain("dot ");
+    expect(peak("mountain")).not.toContain("dot ");
+    expect(tower("lighthouse")).toContain("circle 12,5 r1");
+    expect(tower("lighthouse")).not.toContain("circle 12,6 r2");
+  });
+
+  it("draws held-out names that are not in the house or glyph set", async () => {
+    const cases = [
+      ["mushroom", "mushroom"],
+      ["hourglass", "hourglass"],
+      ["sailboat", "sailboat"],
+    ] as const;
+    const drawn = await Promise.all(
+      cases.flatMap(([name, id]) => [
+        analogArm()({ name }).then((result) => ({
+          finish: "outlined",
+          id,
+          name,
+          result,
+        })),
+        analogArm()({ name }, { finish: "filled" }).then((result) => ({
+          finish: "filled",
+          id,
+          name,
+          result,
+        })),
+      ])
+    );
+    for (const { finish, id, name, result } of drawn) {
+      expect(result.brief, `${name} ${finish}`).toBe(`analog ${id} ${name}`);
+      expect(result.program, `${name} ${finish}`).not.toContain(
+        "circle 12,6 r2"
+      );
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      if (finish === "filled") {
+        expect(result.program, `${name} filled`).toContain("finish filled");
+        expect(result.svg, `${name} filled`).toMatch(/<path/u);
+      }
+    }
   });
 });

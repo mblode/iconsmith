@@ -277,6 +277,15 @@ part plus-0 at 4,4 size 16
     );
   });
 
+  it("keeps a filled evenodd compound as one part so holes stay holes", () => {
+    const evenodd = "M2 2H22V22H2ZM8 8H16V16H8Z";
+    const painted = compilePaint("lock", [evenodd], "filled");
+    expect(painted.extras).toHaveLength(1);
+    expect(painted.source.match(/^part /gmu)?.length).toBe(1);
+    expect(painted.program.canvas.toSVG()).toContain('fill-rule="evenodd"');
+    expect(painted.program.errors).toEqual([]);
+  });
+
   it("compileArm uses options.finish so a filled house is not restroked", async () => {
     const result = await compileArm()(
       { name: "plus" },

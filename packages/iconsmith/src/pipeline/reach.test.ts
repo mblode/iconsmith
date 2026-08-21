@@ -11,7 +11,8 @@ const hasWifiFull = (slug: string): boolean => slug === "wifi-full";
 
 const house = (slugs: Record<string, string[]>): HouseSource => ({
   has: (slug) => slug in slugs,
-  paths: (slug) => slugs[slug] ?? null,
+  paths: (slug, finish = "outlined") =>
+    finish === "filled" ? null : (slugs[slug] ?? null),
 });
 
 describe("classifyReach", () => {

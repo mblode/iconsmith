@@ -417,7 +417,7 @@ const cubicExtrema = (a: number, b: number, c: number, d: number): number[] => {
  * Tight bounding box, solving cubic extrema rather than using control points —
  * a control-point hull overestimates and would corrupt every keyline measurement.
  */
-export const bbox = (subpaths: Subpath[]): Box => {
+export const bbox = (subpaths: readonly Subpath[]): Box => {
   let x0 = Number.POSITIVE_INFINITY;
   let y0 = Number.POSITIVE_INFINITY;
   let x1 = Number.NEGATIVE_INFINITY;

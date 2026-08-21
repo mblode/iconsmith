@@ -9,17 +9,20 @@
  *
  * `replay` still compiles caller-supplied path `d` strings — this module does
  * not import `corpus/`. Beyond stack / trays / hub, name tokens pick a
- * concept family (tower, peak, tube, plant, horn) written with the same
- * twin helpers glyphs use, so both paints are ops, not a generic tree.
+ * concept family (tower, peak, volcano, tube, plant, horn, mushroom,
+ * hourglass, sailboat) written with the same twin helpers glyphs use, so
+ * both paints are ops, not a generic tree. Families are host constructions,
+ * not house twins: a cactus is a plant, not a hub, and still not Central.
  * Those families are analog, not glyphs: a token must ask for them.
- * `compose` places a named vocabulary part at a named anchor when one
- * answers. The composer writes the program. The model does not.
+ * `composeFromParts` places a named vocabulary part at a named anchor when
+ * one answers. The composer writes the program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import {
+  frame,
   hbar,
   lozenge,
   mass,
@@ -266,48 +269,96 @@ export const trays = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * A vertical shaft with a lantern and a footing — lighthouse, beacon, tower.
+ * Lantern room, beams, shaft, footing — lighthouse, beacon, tower.
  * Analog family, not a glyph: selected by a name token, never volunteered
  * for a name that does not ask for it.
  */
 export const tower = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    mass(finish, 9, 3, 6, 5, 1),
-    vbar(finish, 12, 8, 10),
-    hbar(finish, 6, 18, 12),
+    ...frame(finish, 9, 3, 6, 4, 1),
+    "circle 12,5 r1",
+    hbar(finish, 5, 5, 3),
+    hbar(finish, 16, 5, 3),
+    mass(finish, 10, 8, 4, 9, 1),
+    hbar(finish, 8, 8, 8),
+    mass(finish, 7, 17, 10, 3, 1),
   ]);
 
-/** A cone on a ground line — volcano, mountain, peak. */
+/** Stepped cone — mountain, peak, pyramid. Smoke belongs on volcano. */
 export const peak = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
-    ...lozenge(finish, 12, 11, 7),
-    hbar(finish, 4, 18, 16),
+    mass(finish, 4, 15, 16, 4, 1),
+    mass(finish, 7, 11, 10, 4, 1),
+    mass(finish, 10, 7, 4, 4, 1),
   ]);
 
-/** A barrel with a lens — telescope, spyglass, binoculars. */
+/** Stepped cone, crater lip, and three smoke dots — volcano. */
+export const volcano = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 4, 15, 16, 4, 1),
+    mass(finish, 7, 11, 10, 4, 1),
+    mass(finish, 10, 8, 4, 3, 1),
+    "dot 10,5 floating",
+    "dot 12,3 floating",
+    "dot 14,5 floating",
+  ]);
+
+/** Barrel, eyepiece, objective, tripod — telescope, spyglass. */
 export const tube = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
-    mass(finish, 3, 9, 14, 5, 2),
-    ...ring(finish, 18, 11.5, 3),
-    vbar(finish, 8, 14, 4),
+    mass(finish, 3, 9, 13, 5, 2),
+    mass(finish, 16, 10, 2, 3, 1),
+    ...ring(finish, 18, 11.5, 2.5),
+    vbar(finish, 7, 15, 4),
+    vbar(finish, 13, 15, 4),
+    hbar(finish, 7, 15, 6),
   ]);
 
-/** A column with two arms — cactus, succulent. */
+/** Saguaro trunk, two arms, a pot — cactus, succulent. */
 export const plant = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    mass(finish, 10, 4, 4, 16, 2),
-    mass(finish, 6, 8, 4, 5, 2),
-    mass(finish, 14, 11, 4, 5, 2),
+    mass(finish, 10, 3, 4, 13, 2),
+    mass(finish, 6, 7, 4, 5, 2),
+    mass(finish, 14, 10, 4, 5, 2),
+    mass(finish, 8, 16, 8, 4, 1),
   ]);
 
-/** A body, a head, and a diamond horn — unicorn, narwhal. */
+/** Body, neck, head, diamond horn, legs — unicorn, narwhal. */
 export const horn = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
     mass(finish, 4, 11, 11, 6, 3),
-    "circle 16,10 r3",
-    ...lozenge(finish, 18, 6, 2.5),
-    vbar(finish, 7, 17, 2),
-    vbar(finish, 12, 17, 2),
+    mass(finish, 13, 8, 4, 5, 2),
+    "circle 17,8 r2.5",
+    ...lozenge(finish, 19, 4.5, 2),
+    vbar(finish, 7, 17, 3),
+    vbar(finish, 12, 17, 3),
+    hbar(finish, 3, 13, 2),
+  ]);
+
+/** Cap, stem, spots — mushroom, toadstool. */
+export const mushroom = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 5, 5, 14, 7, 3),
+    mass(finish, 10, 12, 4, 6, 1),
+    "dot 8,8 floating",
+    "dot 13,7 floating",
+    hbar(finish, 6, 19, 12),
+  ]);
+
+/** Two bulbs and a waist — hourglass, sandglass. */
+export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 6, 3, 12, 6, 1),
+    mass(finish, 9, 9, 6, 6, 1),
+    mass(finish, 6, 15, 12, 6, 1),
+  ]);
+
+/** Hull, mast, sail — sailboat, yacht. */
+export const sailboat = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "landscape", [
+    mass(finish, 4, 16, 16, 4, 2),
+    vbar(finish, 12, 5, 11),
+    mass(finish, 13, 6, 6, 8, 1),
   ]);
 
 /**
@@ -315,7 +366,7 @@ export const horn = (slug: string, finish: Finish = "outlined"): string =>
  * Named anchors only — the model never emits a coordinate. Null when no
  * named part answers, so a provenance-only hit does not become a drawing.
  */
-export const compose = (
+export const composeFromParts = (
   slug: string,
   parts: readonly Part[],
   finish: Finish = "outlined"
@@ -346,10 +397,14 @@ export const STACK_HINT =
 /** Names that are a connected tree. `org-chart` hits `org`. */
 export const HUB_HINT = /\b(?:graph|hierarchy|network|org|sitemap|tree)\b/iu;
 export const TOWER_HINT = /\b(?:lighthouse|beacon|tower|minaret|obelisk)\b/iu;
-export const PEAK_HINT = /\b(?:volcano|mountain|peak|pyramid|summit)\b/iu;
+export const PEAK_HINT = /\b(?:mountain|peak|pyramid|summit)\b/iu;
+export const VOLCANO_HINT = /\b(?:volcano|eruption)\b/iu;
 export const TUBE_HINT = /\b(?:telescope|spyglass|binoculars)\b/iu;
 export const PLANT_HINT = /\b(?:cactus|succulent|aloe|saguaro)\b/iu;
 export const HORN_HINT = /\b(?:unicorn|narwhal)\b/iu;
+export const MUSHROOM_HINT = /\b(?:mushroom|toadstool|fungi)\b/iu;
+export const HOURGLASS_HINT = /\b(?:hourglass|sandglass)\b/iu;
+export const SAILBOAT_HINT = /\b(?:sailboat|yacht|skiff)\b/iu;
 
 export const hasStackRim = (parts: readonly Part[]): boolean =>
   parts.some((p) => p.name === STACK_PART || p.id === STACK_PART);
@@ -365,8 +420,8 @@ export interface AnalogNeighbor {
  *
  * With a look (`collide`), volume then curate: a house kin if one was handed
  * in, the hinted family, then stack (if the rim exists), trays, hub. Without
- * one, a name token picks a family, else a house kin, else `compose`, else
- * hub. A cylinder name stays `stack` / `trays` so `database` does not become
+ * one, a name token picks a family, else a house kin, else composeFromParts,
+ * else hub. A cylinder name stays `stack` / `trays` so `database` does not become
  * a retitled `server` when no kin file exists.
  *
  * `glyphs.ts` is deliberately not consulted here. A revision that put it first
@@ -384,6 +439,9 @@ const familyOf = (
   if (TOWER_HINT.test(text)) {
     return { id: "tower", source: tower(slug, finish) };
   }
+  if (VOLCANO_HINT.test(text)) {
+    return { id: "volcano", source: volcano(slug, finish) };
+  }
   if (PEAK_HINT.test(text)) {
     return { id: "peak", source: peak(slug, finish) };
   }
@@ -395,6 +453,15 @@ const familyOf = (
   }
   if (HORN_HINT.test(text)) {
     return { id: "horn", source: horn(slug, finish) };
+  }
+  if (MUSHROOM_HINT.test(text)) {
+    return { id: "mushroom", source: mushroom(slug, finish) };
+  }
+  if (HOURGLASS_HINT.test(text)) {
+    return { id: "hourglass", source: hourglass(slug, finish) };
+  }
+  if (SAILBOAT_HINT.test(text)) {
+    return { id: "sailboat", source: sailboat(slug, finish) };
   }
   if (HUB_HINT.test(text)) {
     return { id: "hub", source: hub(slug, 3, finish) };
@@ -451,7 +518,7 @@ export const analogConstructions = (
   if (replayed.length > 0) {
     return replayed;
   }
-  const composed = compose(slug, parts, finish);
+  const composed = composeFromParts(slug, parts, finish);
   if (composed !== null) {
     return [{ id: "compose", source: composed }];
   }
@@ -506,7 +573,7 @@ const fromProgram = (
  * No model. A look, when the caller passed `ask`, collides the catalog and
  * keeps the construction the vision scores as the named object. Without a
  * look, a name hint picks one construction so `database` is trays and
- * `unicorn` is a hub rather than both.
+ * `unicorn` is a horn rather than both.
  */
 export const analogArm =
   (): GenerateLike =>

@@ -8,4 +8,6 @@ Keyed filled twins compile the filled house file. `iconsmith new --finish filled
 
 The viewer loads sibling `parts.json` extras so a compile program (`part heart-0`)
 replays instead of showing a dsl error. Analog picks a concept family
-(tower / peak / tube / plant / horn) from a name token so a cactus is not a hub.
+(tower / peak / volcano / tube / plant / horn / mushroom / hourglass / sailboat)
+from a name token so a cactus is not a hub. A filled house path with holes
+stays one evenodd compound so cutouts are not painted as ink.

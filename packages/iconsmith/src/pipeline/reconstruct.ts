@@ -94,17 +94,20 @@ const mixedSize = (part: Part, target: number): boolean => {
   return inRange && ratio > MIXED_SCALE && target >= HOUSE_SPAN;
 };
 
-const asLocal = (slug: string, n: number, sp: Subpath): Part => {
-  const box = bbox([sp]);
+const asLocal = (slug: string, n: number, sps: readonly Subpath[]): Part => {
+  const box = bbox(sps);
   return {
-    closed: sp.closed,
-    d: serialise([translate(sp, -box.x0, -box.y0)], { grid: PART_GRID }),
+    closed: sps.every((sp) => sp.closed),
+    d: serialise(
+      sps.map((sp) => translate(sp, -box.x0, -box.y0)),
+      { grid: PART_GRID }
+    ),
     h: box.h,
     icons: [slug],
     id: `${slug}-${n}`,
     instances: 1,
     name: slug,
-    nodes: sp.segs.length,
+    nodes: sps.reduce((sum, sp) => sum + sp.segs.length, 0),
     sizeRange: [Math.max(box.w, box.h), Math.max(box.w, box.h)],
     w: box.w,
   };
@@ -113,13 +116,13 @@ const asLocal = (slug: string, n: number, sp: Subpath): Part => {
 const placeLocal = (
   slug: string,
   n: number,
-  sp: Subpath,
+  sps: readonly Subpath[],
   extras: Part[],
   lines: string[]
 ): number => {
-  const house = asLocal(slug, n, sp);
+  const house = asLocal(slug, n, sps);
   extras.push(house);
-  const box = bbox([sp]);
+  const box = bbox(sps);
   const size = quant(Math.max(box.w, box.h));
   lines.push(
     `part ${house.id} at ${quant(box.x0)},${quant(box.y0)} size ${size || 1}`
@@ -144,7 +147,8 @@ export const compileIcon = (
   slug: string,
   paths: readonly string[],
   parts: readonly Part[],
-  extras: Part[] = []
+  extras: Part[] = [],
+  finish: Finish = "outlined"
 ): string => {
   const fps = parts.map((p) => {
     const [sp] = parsePath(p.d);
@@ -153,7 +157,16 @@ export const compileIcon = (
   const lines = [`icon ${slug}`];
   let local = 0;
   for (const d of paths) {
-    for (const sp of parsePath(d)) {
+    const subs = parsePath(d);
+    // A filled house path is often one evenodd compound: the solid plus the
+    // holes it knocks out. Splitting those into separate parts paints the
+    // cutouts as ink (lock 0.949, check as a badge with a solid tick). Keep
+    // the compound together so `fill-rule="evenodd"` still cuts.
+    if (finish === "filled" && subs.filter((s) => s.closed).length > 1) {
+      local = placeLocal(slug, local, subs, extras, lines);
+      continue;
+    }
+    for (const sp of subs) {
       const ring = asCircle(sp);
       if (ring) {
         lines.push(`circle ${ring.cx},${ring.cy} r${ring.r}`);
@@ -185,7 +198,7 @@ export const compileIcon = (
       const box = bbox([sp]);
       const size = quant(Math.max(box.w, box.h));
       if (!best || best.d > MATCH_OK || mixedSize(best.part, size)) {
-        local = placeLocal(slug, local, sp, extras, lines);
+        local = placeLocal(slug, local, [sp], extras, lines);
         continue;
       }
       const turn = TURN_WORD[best.turn];
@@ -235,7 +248,10 @@ export const compilePaint = (
   parts: readonly Part[] = []
 ): Declared & { extras: Part[] } => {
   const extras: Part[] = [];
-  const bare = finishProgram(compileIcon(slug, paths, parts, extras), finish);
+  const bare = finishProgram(
+    compileIcon(slug, paths, parts, extras, finish),
+    finish
+  );
   return { extras, ...declareKeyline(bare, slug, [...parts, ...extras]) };
 };
 

@@ -97,15 +97,19 @@ export {
 } from "./pipeline/generate.js";
 export {
   analogArm,
-  compose,
+  composeFromParts,
   horn,
+  hourglass,
   hub,
+  mushroom,
   peak,
   plant,
+  sailboat,
   stack,
   tower,
   trays,
   tube,
+  volcano,
 } from "./pipeline/analog.js";
 export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
