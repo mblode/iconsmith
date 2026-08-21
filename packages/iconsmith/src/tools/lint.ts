@@ -419,7 +419,10 @@ const isDisc = (e: LintElement, b: Box): boolean => {
   return minor > 0 && Math.max(b.w, b.h) / minor <= 1.2;
 };
 
-interface SolidGroup { holes: LintElement[]; solid: LintElement }
+interface SolidGroup {
+  holes: LintElement[];
+  solid: LintElement;
+}
 
 const groupsOf = (els: LintElement[]): SolidGroup[] => {
   const groups: SolidGroup[] = [];
