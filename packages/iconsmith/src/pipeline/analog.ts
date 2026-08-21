@@ -8,23 +8,31 @@
  * stack of the set's own `ellipse-flat` rim, not a retitled server.
  *
  * `replay` still compiles caller-supplied path `d` strings — this module does
- * not import `corpus/`. `stack` is a pile of one vocabulary mark; `trays` is
- * the same pile in primitives so DRAW still speaks cylinder without an
- * extract; `hub` is a tree of the `circle` primitive. When a Central file
- * shares a name with the concept (`cookies` for `cookie`, `wifi-full` for
- * `wifi`), replay compiles that file: the house drawing is the program, so
- * curves stay house curves. The composer writes the program. The model does
- * not.
+ * not import `corpus/`. Beyond stack / trays / hub, name tokens pick a
+ * concept family (tower, peak, tube, plant, horn) written with the same
+ * twin helpers glyphs use, so both paints are ops, not a generic tree.
+ * Those families are analog, not glyphs: a token must ask for them.
+ * `compose` places a named vocabulary part at a named anchor when one
+ * answers. The composer writes the program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import type { Issue, Part } from "../types.js";
+import {
+  hbar,
+  lozenge,
+  mass,
+  program as iconProgram,
+  ring,
+  vbar,
+} from "../tools/twin.js";
+import type { Finish, Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
 import { compileIcon } from "./reconstruct.js";
+import { overlap, rankParts, tokens } from "./search.js";
 
 /** The rim of a stack seen edge-on. Named in the vocabulary; `stack` looks it
  *  up by that name so a coordinate never has to name a part id. */
@@ -184,7 +192,8 @@ const quantize = (n: number): number => Math.round(n * 4) / 4;
 export const stack = (
   slug: string,
   parts: readonly Part[],
-  count = 3
+  count = 3,
+  finish: Finish = "outlined"
 ): string => {
   const part = parts.find((p) => p.name === STACK_PART || p.id === STACK_PART);
   if (!part) {
@@ -194,7 +203,7 @@ export const stack = (
   const band = part.h * (size / part.w);
   const stride = band + 1 + 1.9;
   const address = part.name ?? part.id;
-  const lines = [`icon ${slug}`, "keyline tall", "finish outlined", ""];
+  const lines = [`icon ${slug}`, "keyline tall", `finish ${finish}`, ""];
   for (let i = 0; i < count; i += 1) {
     lines.push(`part ${address} at 4,${quantize(3 + i * stride)} size ${size}`);
   }
@@ -210,7 +219,11 @@ export const stack = (
  * sitemap, an org chart — need the joins. The nodes are `circle`, not a
  * clustered part: the same reason keyed compile emits `circle` for a ring.
  */
-export const hub = (slug: string, leaves = 3): string => {
+export const hub = (
+  slug: string,
+  leaves = 3,
+  finish: Finish = "outlined"
+): string => {
   if (leaves !== 3) {
     throw new Error("hub draws three children; other fan-outs are not written");
   }
@@ -221,15 +234,15 @@ export const hub = (slug: string, leaves = 3): string => {
   return declareKeyline(
     [
       `icon ${slug}`,
-      "finish outlined",
+      `finish ${finish}`,
       "",
       "circle 12,6 r2",
       "circle 5,17 r2",
       "circle 12,17 r2",
       "circle 19,17 r2",
-      "line 12,8 12,15",
-      "line 7,17 10,17",
-      "line 14,17 17,17",
+      vbar(finish, 12, 8, 7),
+      hbar(finish, 7, 17, 3),
+      hbar(finish, 14, 17, 3),
       "fit",
       "",
     ].join("\n"),
@@ -245,25 +258,98 @@ export const hub = (slug: string, leaves = 3): string => {
  * to speak "cylinder" when `-p` was never passed. The rim geometry is the
  * primitive, not a medoid: same host coordinates `stack` already writes.
  */
-export const trays = (slug: string): string =>
-  [
-    `icon ${slug}`,
-    "keyline tall",
-    "finish outlined",
-    "",
-    // Path box 14×18 + stroke 2 → visual 16×20, the tall keyline.
-    "rect 5,3 14x3 r2",
-    "rect 5,10.5 14x3 r2",
-    "rect 5,18 14x3 r2",
-    "fit",
-    "",
-  ].join("\n");
+export const trays = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 5, 3, 14, 3, 2),
+    mass(finish, 5, 10.5, 14, 3, 2),
+    mass(finish, 5, 18, 14, 3, 2),
+  ]);
+
+/**
+ * A vertical shaft with a lantern and a footing — lighthouse, beacon, tower.
+ * Analog family, not a glyph: selected by a name token, never volunteered
+ * for a name that does not ask for it.
+ */
+export const tower = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 9, 3, 6, 5, 1),
+    vbar(finish, 12, 8, 10),
+    hbar(finish, 6, 18, 12),
+  ]);
+
+/** A cone on a ground line — volcano, mountain, peak. */
+export const peak = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    ...lozenge(finish, 12, 11, 7),
+    hbar(finish, 4, 18, 16),
+  ]);
+
+/** A barrel with a lens — telescope, spyglass, binoculars. */
+export const tube = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "landscape", [
+    mass(finish, 3, 9, 14, 5, 2),
+    ...ring(finish, 18, 11.5, 3),
+    vbar(finish, 8, 14, 4),
+  ]);
+
+/** A column with two arms — cactus, succulent. */
+export const plant = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    mass(finish, 10, 4, 4, 16, 2),
+    mass(finish, 6, 8, 4, 5, 2),
+    mass(finish, 14, 11, 4, 5, 2),
+  ]);
+
+/** A body, a head, and a diamond horn — unicorn, narwhal. */
+export const horn = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "landscape", [
+    mass(finish, 4, 11, 11, 6, 3),
+    "circle 16,10 r3",
+    ...lozenge(finish, 18, 6, 2.5),
+    vbar(finish, 7, 17, 2),
+    vbar(finish, 12, 17, 2),
+  ]);
+
+/**
+ * Place the vocabulary marks whose names share a token with the query.
+ * Named anchors only — the model never emits a coordinate. Null when no
+ * named part answers, so a provenance-only hit does not become a drawing.
+ */
+export const compose = (
+  slug: string,
+  parts: readonly Part[],
+  finish: Finish = "outlined"
+): string | null => {
+  const want = tokens(slug);
+  const named = rankParts(parts, slug, 3).filter(
+    (m) => overlap(tokens(m.part.name ?? ""), want) > 0
+  );
+  if (named.length === 0) {
+    return null;
+  }
+  const ops = named.slice(0, 3).map((m, i) => {
+    const address = m.part.name ?? m.part.id;
+    let anchor = "bottom";
+    if (i === 0) {
+      anchor = "center";
+    } else if (i === 1) {
+      anchor = "top";
+    }
+    return `part ${address} at ${anchor} size 12`;
+  });
+  return iconProgram(slug, finish, "square", ops);
+};
 
 /** Names that are a pile of rims, not a tree. Whole tokens, not `data`. */
 export const STACK_HINT =
   /\b(?:beaker|cylinder|database|drum|server|storage|trays?)\b/iu;
 /** Names that are a connected tree. `org-chart` hits `org`. */
 export const HUB_HINT = /\b(?:graph|hierarchy|network|org|sitemap|tree)\b/iu;
+export const TOWER_HINT = /\b(?:lighthouse|beacon|tower|minaret|obelisk)\b/iu;
+export const PEAK_HINT = /\b(?:volcano|mountain|peak|pyramid|summit)\b/iu;
+export const TUBE_HINT = /\b(?:telescope|spyglass|binoculars)\b/iu;
+export const PLANT_HINT = /\b(?:cactus|succulent|aloe|saguaro)\b/iu;
+export const HORN_HINT = /\b(?:unicorn|narwhal)\b/iu;
 
 export const hasStackRim = (parts: readonly Part[]): boolean =>
   parts.some((p) => p.name === STACK_PART || p.id === STACK_PART);
@@ -278,9 +364,9 @@ export interface AnalogNeighbor {
  * Which host programs to collide.
  *
  * With a look (`collide`), volume then curate: a house kin if one was handed
- * in, then stack (if the rim exists), trays, hub. Without one, a house kin
- * is the drawing — existing icons feed the design — unless the name is a
- * cylinder stack, which stays `stack` / `trays` so `database` does not become
+ * in, the hinted family, then stack (if the rim exists), trays, hub. Without
+ * one, a name token picks a family, else a house kin, else `compose`, else
+ * hub. A cylinder name stays `stack` / `trays` so `database` does not become
  * a retitled `server` when no kin file exists.
  *
  * `glyphs.ts` is deliberately not consulted here. A revision that put it first
@@ -290,12 +376,39 @@ export interface AnalogNeighbor {
  * draws in the record. A host form is a thing to ask for by name
  * (`unkeyed: "glyph"`), not a thing another arm quietly answers with.
  */
+const familyOf = (
+  slug: string,
+  text: string,
+  finish: Finish
+): { id: string; source: string } | null => {
+  if (TOWER_HINT.test(text)) {
+    return { id: "tower", source: tower(slug, finish) };
+  }
+  if (PEAK_HINT.test(text)) {
+    return { id: "peak", source: peak(slug, finish) };
+  }
+  if (TUBE_HINT.test(text)) {
+    return { id: "tube", source: tube(slug, finish) };
+  }
+  if (PLANT_HINT.test(text)) {
+    return { id: "plant", source: plant(slug, finish) };
+  }
+  if (HORN_HINT.test(text)) {
+    return { id: "horn", source: horn(slug, finish) };
+  }
+  if (HUB_HINT.test(text)) {
+    return { id: "hub", source: hub(slug, 3, finish) };
+  }
+  return null;
+};
+
 export const analogConstructions = (
   slug: string,
   parts: readonly Part[],
   text: string,
   collide: boolean,
-  neighbor?: AnalogNeighbor
+  neighbor?: AnalogNeighbor,
+  finish: Finish = "outlined"
 ): readonly { extras?: Part[]; id: string; source: string }[] => {
   const extras: Part[] = [];
   const replayed =
@@ -308,26 +421,41 @@ export const analogConstructions = (
           },
         ]
       : [];
+  const family = familyOf(slug, text, finish);
   if (collide) {
-    const out: { id: string; source: string }[] = [...replayed];
+    const out: { extras?: Part[]; id: string; source: string }[] = [
+      ...replayed,
+    ];
+    if (family !== null) {
+      out.push(family);
+    }
     if (hasStackRim(parts)) {
-      out.push({ id: "stack", source: stack(slug, parts) });
+      out.push({ id: "stack", source: stack(slug, parts, 3, finish) });
     }
     out.push(
-      { id: "trays", source: trays(slug) },
-      { id: "hub", source: hub(slug) }
+      { id: "trays", source: trays(slug, finish) },
+      { id: "hub", source: hub(slug, 3, finish) }
     );
-    return out;
+    return out.filter(
+      (row, i, all) => all.findIndex((r) => r.id === row.id) === i
+    );
   }
   if (STACK_HINT.test(text)) {
     return hasStackRim(parts)
-      ? [{ id: "stack", source: stack(slug, parts) }]
-      : [{ id: "trays", source: trays(slug) }];
+      ? [{ id: "stack", source: stack(slug, parts, 3, finish) }]
+      : [{ id: "trays", source: trays(slug, finish) }];
+  }
+  if (family !== null) {
+    return [family];
   }
   if (replayed.length > 0) {
     return replayed;
   }
-  return [{ id: "hub", source: hub(slug) }];
+  const composed = compose(slug, parts, finish);
+  if (composed !== null) {
+    return [{ id: "compose", source: composed }];
+  }
+  return [{ id: "hub", source: hub(slug, 3, finish) }];
 };
 
 const traceOf = (source: string): string[] =>
@@ -348,26 +476,26 @@ const fromProgram = (
   parts: readonly Part[],
   spec?: Spec
 ): Omit<GenerateResult, "text"> & { text?: string } => {
-  const program = runDsl(source, [...parts], spec ? { spec } : {});
+  const drawn = runDsl(source, [...parts], spec ? { spec } : {});
   const issues: Issue[] = [
-    ...program.errors.map((message) => ({
+    ...drawn.errors.map((message) => ({
       message,
       rule: "dsl",
       severity: "error" as const,
     })),
-    ...lint(program.canvas, { keyline: program.keyline }),
+    ...lint(drawn.canvas, { keyline: drawn.keyline }),
   ];
   const trace = traceOf(source);
   return {
     clean: issues.every((i) => i.severity !== "error"),
-    doc: program.canvas.toJSON({
-      icon: program.icon ?? slug,
-      keyline: program.keyline,
+    doc: drawn.canvas.toJSON({
+      icon: drawn.icon ?? slug,
+      keyline: drawn.keyline,
     }),
     issues,
     program: source,
     steps: trace.length,
-    svg: program.canvas.toSVG(),
+    svg: drawn.canvas.toSVG(),
     trace,
   };
 };
@@ -384,6 +512,7 @@ export const analogArm =
   (): GenerateLike =>
   async (concept, options = {}) => {
     const parts = options.parts ?? [];
+    const finish = options.finish ?? "outlined";
     const text = [concept.name, ...(concept.tags ?? [])].join(" ");
     const collide = options.ask !== undefined;
     const neighbor =
@@ -395,7 +524,8 @@ export const analogArm =
       parts,
       text,
       collide,
-      neighbor
+      neighbor,
+      finish
     );
     const drawn = catalog.map((row) => ({
       ...row,
@@ -423,7 +553,7 @@ export const analogArm =
         const reviewed = await audit({
           ask,
           concept,
-          finish: "outlined",
+          finish,
           kind: "analog",
           references: lookReferences,
           svg: row.result.svg,
@@ -442,10 +572,11 @@ export const analogArm =
           ...best.result,
           audit: best.audit,
           brief,
+          extras: best.extras,
           text: brief,
         };
       }
     }
     const brief = analogBrief(chosen.id, concept.name, options.analogOf);
-    return { ...chosen.result, brief, text: brief };
+    return { ...chosen.result, brief, extras: chosen.extras, text: brief };
   };

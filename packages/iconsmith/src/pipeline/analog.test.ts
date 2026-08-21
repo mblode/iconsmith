@@ -9,17 +9,26 @@ import type { Part } from "../types.js";
 import {
   analogArm,
   analogConstructions,
+  compose,
   hasStackRim,
+  horn,
   hub,
   HUB_HINT,
+  HORN_HINT,
   kinScore,
+  peak,
   pickKin,
+  plant,
+  PLANT_HINT,
   preferStroked,
   replay,
   retitle,
   sameLetters,
   stack,
+  tower,
+  TOWER_HINT,
   trays,
+  tube,
 } from "./analog.js";
 
 const BOX = "M4 4H12V12H4Z";
@@ -176,11 +185,32 @@ describe("analogConstructions", () => {
     expect(row?.id).toBe("trays");
   });
 
-  it("draws a hub for an unkeyed name that is not a stack", () => {
-    const [row] = analogConstructions("unicorn", [], "unicorn", false);
+  it("draws a hub for an unkeyed name that is not a stack or a family", () => {
+    const [row] = analogConstructions("bananas", [], "bananas", false);
     expect(row?.id).toBe("hub");
     expect(HUB_HINT.test("org-chart")).toBe(true);
     expect(HUB_HINT.test("unicorn")).toBe(false);
+    expect(HORN_HINT.test("unicorn")).toBe(true);
+  });
+
+  it("picks a concept family instead of a generic hub", () => {
+    expect(analogConstructions("cactus", [], "cactus", false)[0]?.id).toBe(
+      "plant"
+    );
+    expect(
+      analogConstructions("lighthouse", [], "lighthouse", false)[0]?.id
+    ).toBe("tower");
+    expect(analogConstructions("volcano", [], "volcano", false)[0]?.id).toBe(
+      "peak"
+    );
+    expect(
+      analogConstructions("telescope", [], "telescope", false)[0]?.id
+    ).toBe("tube");
+    expect(analogConstructions("unicorn", [], "unicorn", false)[0]?.id).toBe(
+      "horn"
+    );
+    expect(TOWER_HINT.test("beacon")).toBe(true);
+    expect(PLANT_HINT.test("succulent")).toBe(true);
   });
 
   /**
@@ -215,11 +245,11 @@ describe("analogConstructions", () => {
     expect(row?.id).toBe("trays");
   });
 
-  it("collides trays and hub when a look will curate", () => {
+  it("collides the hinted family with trays and hub when a look will curate", () => {
     const ids = analogConstructions("unicorn", [], "unicorn", true).map(
       (r) => r.id
     );
-    expect(ids).toEqual(["trays", "hub"]);
+    expect(ids).toEqual(["horn", "trays", "hub"]);
   });
 });
 
@@ -256,12 +286,73 @@ describe("analogArm", () => {
             findings: [],
             pq: 8,
             reason: null,
-            sc: n === 2 ? 9 : 3,
+            sc: n === 3 ? 9 : 3,
           });
         },
       }
     );
     expect(result.brief).toBe("analog hub unicorn");
     expect(result.audit?.sc).toBe(9);
+  });
+
+  it("draws a concept family for a held-out name, not a hub", async () => {
+    const result = await analogArm()({ name: "cactus" });
+    expect(result.brief).toBe("analog plant cactus");
+    expect(result.program).toContain("rect ");
+    expect(result.program).not.toContain("circle 12,6 r2");
+    expect(result.clean).toBe(true);
+  });
+
+  it("writes the filled paint of a family, not an adapted hub", async () => {
+    const result = await analogArm()(
+      { name: "lighthouse" },
+      { finish: "filled" }
+    );
+    expect(result.brief).toBe("analog tower lighthouse");
+    expect(result.program).toContain("finish filled");
+    expect(result.svg).toContain('fill="currentColor"');
+    expect(result.svg).toMatch(/<path/u);
+  });
+});
+
+describe("analog families", () => {
+  const families = [
+    { draw: plant, id: "plant", slug: "cactus" },
+    { draw: tower, id: "tower", slug: "lighthouse" },
+    { draw: peak, id: "peak", slug: "volcano" },
+    { draw: tube, id: "tube", slug: "telescope" },
+    { draw: horn, id: "horn", slug: "unicorn" },
+  ] as const;
+
+  it("runs each held-out family in both paints without a dsl error", () => {
+    for (const { draw, slug } of families) {
+      for (const finish of ["outlined", "filled"] as const) {
+        const source = draw(slug, finish);
+        const drawn = run(source, []);
+        expect(drawn.errors, `${slug} ${finish}`).toEqual([]);
+        expect(drawn.canvas.toSVG(), `${slug} ${finish}`).toMatch(/<path/u);
+        expect(source, slug).toContain(`finish ${finish}`);
+      }
+    }
+  });
+
+  it("does not volunteer a glyph construction for a name that has one", () => {
+    const [row] = analogConstructions("compass", [], "compass", false);
+    expect(row?.id).toBe("hub");
+    expect(row?.source).not.toContain("diamond 12,12 r5");
+  });
+
+  it("composes a named vocabulary part at a named anchor", () => {
+    const rim = {
+      ...part("ellipse-flat", BOX),
+      name: "cactus",
+    };
+    const source = compose("cactus", [rim]);
+    expect(source).toContain("part cactus at center size 12");
+    expect(run(source ?? "", [rim]).errors).toEqual([]);
+  });
+
+  it("does not compose from provenance alone", () => {
+    expect(compose("cactus", [part("p-box", BOX)])).toBeNull();
   });
 });

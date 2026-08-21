@@ -276,4 +276,14 @@ part plus-0 at 4,4 size 16
       `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n\n</svg>`
     );
   });
+
+  it("compileArm uses options.finish so a filled house is not restroked", async () => {
+    const result = await compileArm()(
+      { name: "plus" },
+      { finish: "filled", targetPaths: [PATH] }
+    );
+    expect(result.program).toContain("finish filled");
+    expect(result.doc.finish).toBe("filled");
+    expect(result.extras?.length).toBeGreaterThan(0);
+  });
 });

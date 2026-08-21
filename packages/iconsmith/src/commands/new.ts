@@ -4,7 +4,7 @@ import { styleText } from "node:util";
 
 import type { Command } from "commander";
 
-import { HOUSE_VARIANT, parseIconSvg } from "../corpus/load.js";
+import { FILLED_VARIANT, HOUSE_VARIANT, parseIconSvg } from "../corpus/load.js";
 import {
   KIN_FLOOR,
   kinScore,
@@ -23,7 +23,7 @@ import { reach } from "../pipeline/reach.js";
 import { specAt } from "../tools/canvas.js";
 import type { OpticalSize } from "../tools/canvas.js";
 import { format } from "../tools/lint.js";
-import type { Keyline } from "../types.js";
+import type { Finish, Keyline } from "../types.js";
 import { assertWritable } from "./read.js";
 
 const KEYLINES = new Set([
@@ -53,6 +53,7 @@ interface NewOptions {
   agent?: boolean;
   analog?: boolean;
   corpus?: string;
+  finish?: string;
   force?: boolean;
   harness?: boolean | string;
   keyline?: string;
@@ -72,16 +73,24 @@ const isFilledSvg = (svg: string): boolean => {
   return shapes.length > 0 && shapes.every((s) => s.filled);
 };
 
-const houseAt = (root: string): HouseSource => {
-  const dir = path.join(root, HOUSE_VARIANT);
-  const fileOf = (slug: string) => path.join(dir, `${slug}.svg`);
+const variantOf = (finish: Finish): string =>
+  finish === "filled" ? FILLED_VARIANT : HOUSE_VARIANT;
+
+/** Corpus house lookup for both paints. Exported so tests can prove filled
+ *  twins compile the filled file rather than adapting the outline. */
+export const houseAt = (root: string): HouseSource => {
+  const outlinedDir = path.join(root, HOUSE_VARIANT);
+  const fileOf = (slug: string, finish: Finish = "outlined") =>
+    path.join(root, variantOf(finish), `${slug}.svg`);
   return {
-    has: (slug) => existsSync(fileOf(slug)),
+    has: (slug) =>
+      existsSync(fileOf(slug, "outlined")) ||
+      existsSync(fileOf(slug, "filled")),
     kin: (query) => {
-      if (!existsSync(dir)) {
+      if (!existsSync(outlinedDir)) {
         return [];
       }
-      const names = readdirSync(dir)
+      const names = readdirSync(outlinedDir)
         .filter((f) => f.endsWith(".svg"))
         .map((f) => f.slice(0, -4));
       const [twin] = names
@@ -100,7 +109,7 @@ const houseAt = (root: string): HouseSource => {
         .toSorted((a, b) => b.score - a.score || a.slug.localeCompare(b.slug))
         .slice(0, 12)
         .map((c) => {
-          const file = fileOf(c.slug);
+          const file = fileOf(c.slug, "outlined");
           return {
             filled: existsSync(file)
               ? isFilledSvg(readFileSync(file, "utf-8"))
@@ -111,8 +120,8 @@ const houseAt = (root: string): HouseSource => {
       const picked = pickKin(query, shortlist);
       return picked === null ? [] : [picked];
     },
-    paths: (slug) => {
-      const file = fileOf(slug);
+    paths: (slug, finish = "outlined") => {
+      const file = fileOf(slug, finish);
       if (!existsSync(file)) {
         return null;
       }
@@ -136,6 +145,7 @@ const drawNew = (name: string, opts: NewOptions) =>
     { name, tags: opts.tags },
     {
       ask: opts.look ? gatewayAsk : undefined,
+      finish: opts.finish === "filled" ? "filled" : "outlined",
       forceAgent: Boolean(opts.agent),
       harnessCommand:
         typeof opts.harness === "string" && opts.harness.length > 0
@@ -159,6 +169,15 @@ const reportNew = (
 ): void => {
   if (opts.out) {
     writeFileSync(opts.out, result.svg);
+    if (result.program) {
+      writeFileSync(opts.out.replace(/\.svg$/u, ".icon"), result.program);
+    }
+    if ((result.extras?.length ?? 0) > 0) {
+      writeFileSync(
+        opts.out.replace(/\.svg$/u, ".parts.json"),
+        `${JSON.stringify({ parts: result.extras }, null, 2)}\n`
+      );
+    }
   }
   if (json) {
     process.stdout.write(
@@ -203,11 +222,14 @@ const reportNew = (
 /**
  * `iconsmith new "<name>"` — describe an icon, get one drawn to the house spec.
  *
- * Host DRAW first for a house file or a MARKS key. A new glyph — no house
- * drawing of this concept — is written by a coding agent (`generate`, or
- * `--harness claude|codex`). `--analog` is the lab path: replay a Central kin,
- * else stack / trays / hub. `--agent` forces the tool-calling loop even when
- * a house file exists. The model never emits a coordinate on any of those paths.
+ * Host DRAW first for a house file or a MARKS key. A filled house file is
+ * compiled as filled (`--finish filled`); adapting the outline is only the
+ * fallback when that file is missing. A new glyph — no house drawing of this
+ * concept — is written by a coding agent (`generate`, or `--harness
+ * claude|codex`). `--analog` is the lab path: replay a Central kin, else a
+ * name-hinted family, else stack / trays / hub. `--agent` forces the
+ * tool-calling loop even when a house file exists. The model never emits a
+ * coordinate on any of those paths.
  */
 export const registerNewCommand = (program: Command): void => {
   program
@@ -240,6 +262,11 @@ export const registerNewCommand = (program: Command): void => {
       "--look",
       "collide analog constructions under a vision look (needs a gateway key)"
     )
+    .option(
+      "--finish <paint>",
+      "outlined (default) or filled; a filled house file is compiled as itself",
+      "outlined"
+    )
     .option("--corpus <dir>", "corpus root for house-file lookup", "corpus")
     .option("-p, --parts <file>", "parts JSON, so analog can place named rims")
     .option("-o, --out <file>", "write the SVG here instead of stdout")
@@ -256,6 +283,15 @@ export const registerNewCommand = (program: Command): void => {
       if (opts.keyline && !KEYLINES.has(opts.keyline)) {
         throw new Error(
           `Unknown keyline "${opts.keyline}". One of: ${[...KEYLINES].join(", ")}.`
+        );
+      }
+      if (
+        opts.finish &&
+        opts.finish !== "outlined" &&
+        opts.finish !== "filled"
+      ) {
+        throw new Error(
+          `Unknown finish "${opts.finish}". One of: outlined, filled.`
         );
       }
       if (opts.out) {

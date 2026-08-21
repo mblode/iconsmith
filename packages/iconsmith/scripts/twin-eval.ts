@@ -68,6 +68,8 @@ export const evaluateTwins = async (
     const outlined = compilePaint(name, pathsOf(outlinedFile), "outlined");
     const outlinedSvg = outlined.program.canvas.toSVG();
     let filledSvg: string;
+    let filledSource = "";
+    let filledExtras = outlined.extras;
     let sourceFilled: "adapt" | "compile" = "adapt";
     if (existsSync(filledFile)) {
       const filled = compilePaint(
@@ -76,10 +78,12 @@ export const evaluateTwins = async (
         "filled"
       );
       filledSvg = filled.program.canvas.toSVG();
+      filledSource = filled.source;
+      filledExtras = filled.extras;
       sourceFilled = "compile";
     } else {
-      const adapted = adaptProgram(outlined.source, "filled");
-      filledSvg = runDsl(adapted, outlined.extras).canvas.toSVG();
+      filledSource = adaptProgram(outlined.source, "filled");
+      filledSvg = runDsl(filledSource, outlined.extras).canvas.toSVG();
     }
     const houseOut = readFileSync(outlinedFile, "utf-8");
     const houseFill = existsSync(filledFile)
@@ -89,6 +93,16 @@ export const evaluateTwins = async (
     mkdirSync(dir, { recursive: true });
     writeFileSync(path.join(dir, `${name}.svg`), outlinedSvg);
     writeFileSync(path.join(dir, `${name}-filled.svg`), filledSvg);
+    writeFileSync(path.join(dir, `${name}.icon`), outlined.source);
+    writeFileSync(
+      path.join(dir, `${name}.parts.json`),
+      `${JSON.stringify({ parts: outlined.extras }, null, 2)}\n`
+    );
+    writeFileSync(path.join(dir, `${name}-filled.icon`), filledSource);
+    writeFileSync(
+      path.join(dir, `${name}-filled.parts.json`),
+      `${JSON.stringify({ parts: filledExtras }, null, 2)}\n`
+    );
     writeFileSync(path.join(dir, `${name}.house.svg`), houseOut);
     if (houseFill !== null) {
       writeFileSync(path.join(dir, `${name}-filled.house.svg`), houseFill);

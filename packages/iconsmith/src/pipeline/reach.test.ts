@@ -140,6 +140,38 @@ describe("reach", () => {
     );
   });
 
+  it("compiles a filled house file as finish filled, not an adapted outline", async () => {
+    const outlined = "M4 4H20V20H4Z";
+    const filled = "M2 2H22V22H2Z";
+    const result = await reach(
+      { name: "box" },
+      { finish: "filled" },
+      {
+        has: (slug) => slug === "box",
+        paths: (slug, finish = "outlined") => {
+          if (slug !== "box") {
+            return null;
+          }
+          return finish === "filled" ? [filled] : [outlined];
+        },
+      }
+    );
+    expect(result.brief).toBe("compile box");
+    expect(result.program).toContain("finish filled");
+    expect(result.doc.finish).toBe("filled");
+    expect(result.program).not.toContain("adapt");
+  });
+
+  it("adapts a compiled outline when the filled house is missing", async () => {
+    const result = await reach(
+      { name: "box" },
+      { finish: "filled" },
+      house({ box: [BOX] })
+    );
+    expect(result.brief).toBe("adapt filled compile box");
+    expect(result.program).toContain("finish filled");
+  });
+
   it("compiles a letter-twin instead of analog replay", async () => {
     const d = "M12 4C16.4183 4 20 7.5817 20 12C20 16.4183 16.4183 20 12 20";
     const result = await reach(

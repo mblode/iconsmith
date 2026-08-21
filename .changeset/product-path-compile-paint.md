@@ -1,0 +1,11 @@
+---
+"iconsmith": patch
+---
+
+Keyed filled twins compile the filled house file. `iconsmith new --finish filled`,
+`reach`, and `iconsmith view` use `compilePaint` when that file exists;
+`adaptProgram` is only the fallback for a missing filled house or a net-new name.
+
+The viewer loads sibling `parts.json` extras so a compile program (`part heart-0`)
+replays instead of showing a dsl error. Analog picks a concept family
+(tower / peak / tube / plant / horn) from a name token so a cactus is not a hub.

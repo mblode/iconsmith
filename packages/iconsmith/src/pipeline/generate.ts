@@ -14,7 +14,7 @@ import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
 import type { Canvas, Spec } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
-import type { IconDoc, Issue, Keyline, Part } from "../types.js";
+import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { Proposal } from "./compose.js";
 import type { TokenUsage } from "./cost.js";
@@ -184,6 +184,13 @@ export interface GenerateOptions {
   /** CLI for `unkeyed: "harness"`. Default `claude`. */
   harnessCommand?: string;
   /**
+   * Which paint to draw. Keyed compile uses this to pick the house file and
+   * stamp `finish` — a filled house file is compiled as filled, not adapted
+   * from the outline. Analog families write both paints the same way.
+   * Default outlined.
+   */
+  finish?: Finish;
+  /**
    * Stroke, family radius, optical size. Defaults to the house 24px / stroke 2
    * / radius 3 cut. 16px drops hairline corners and terminal dots.
    */
@@ -237,6 +244,8 @@ export interface GenerateResult {
   log?: string;
   /** The `.icon` source, when the generator is a program rather than a canvas. */
   program?: string;
+  /** Local house parts parked by compile, so a viewer can replay `part slug-0`. */
+  extras?: Part[];
   /** Host look at the drawing, when the harness ran with an `ask`. */
   audit?: AuditResult;
   /** The model's closing sentence about what it drew. */
@@ -400,6 +409,7 @@ export const generate = async (
     apiKey,
     cohort = null,
     corpus = [],
+    finish = "outlined",
     keyline = null,
     maxSteps = DEFAULT_MAX_STEPS,
     model,
@@ -415,6 +425,7 @@ export const generate = async (
     aliases,
     cohort: cohort?.extent ?? null,
     corpus,
+    finish,
     keyline,
     parts,
     proposal,

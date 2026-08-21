@@ -278,10 +278,11 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
+  const finish = options.finish ?? "outlined";
   const painted = compilePaint(
     concept.name,
     paths,
-    "outlined",
+    finish,
     options.parts ?? []
   );
   if (!hasCompileOp(painted.source)) {
@@ -292,7 +293,7 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
-  const { program, source } = painted;
+  const { extras, program, source } = painted;
   const issues: Issue[] = [
     ...program.errors.map((message) => ({
       message,
@@ -310,6 +311,7 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       icon: program.icon ?? concept.name,
       keyline: program.keyline,
     }),
+    extras,
     issues,
     program: source,
     steps: trace.length,

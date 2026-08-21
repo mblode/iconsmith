@@ -46,16 +46,18 @@ import {
   parseIconSvg,
 } from "../corpus/load.js";
 import { BASELINE, CEILING } from "../pipeline/eval.js";
+import { loadParts } from "../pipeline/generate.js";
 import { glyphFromSlug, GLYPH_WHY, GLYPHS } from "../pipeline/glyphs.js";
 import { markFromSlug } from "../pipeline/kind.js";
 import { MARKS } from "../pipeline/marks.js";
+import { compilePaint } from "../pipeline/reconstruct.js";
 import { SPEC } from "../tools/canvas.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { review } from "../tools/lint.js";
 import type { Check } from "../tools/lint.js";
 import { similarity } from "../tools/render.js";
 import { adaptProgram } from "../tools/twin.js";
-import type { Finish, Issue, Keyline } from "../types.js";
+import type { Finish, Issue, Keyline, Part } from "../types.js";
 import { assertDirectory, readText } from "./read.js";
 
 /**
@@ -245,8 +247,44 @@ export const constructionSteps = (program: string): ReasonStep[] =>
 const otherFinish = (finish: Finish): Finish =>
   finish === "filled" ? "outlined" : "filled";
 
-const shapesFromProgram = (source: string): CorpusShape[] | null => {
-  const drawn = runDsl(source, []);
+/**
+ * Sidecar extras for a compile program: `{stem}.parts.json`, then
+ * `{stem}.extras.json`, then a directory `parts.json`. A compile that parks
+ * `part heart-0` cannot replay without these; a paint that still cannot be
+ * drawn is a dsl error.
+ */
+export const loadViewParts = (file: string): Part[] => {
+  const base = file.replace(/\.svg$/u, "");
+  const dir = path.dirname(file);
+  const candidates = [
+    `${base}.parts.json`,
+    `${base}.extras.json`,
+    path.join(dir, "parts.json"),
+  ];
+  for (const candidate of candidates) {
+    if (!existsSync(candidate)) {
+      continue;
+    }
+    try {
+      const raw = JSON.parse(readFileSync(candidate, "utf-8")) as unknown;
+      if (Array.isArray(raw)) {
+        return raw as Part[];
+      }
+      if (raw !== null && typeof raw === "object" && "parts" in raw) {
+        return loadParts(candidate);
+      }
+    } catch {
+      // One bad sidecar must not take the page down.
+    }
+  }
+  return [];
+};
+
+const shapesFromProgram = (
+  source: string,
+  extras: readonly Part[] = []
+): CorpusShape[] | null => {
+  const drawn = runDsl(source, [...extras]);
   if (drawn.errors.length > 0) {
     return null;
   }
@@ -306,9 +344,10 @@ export interface ViewPaint {
  * one drawing, and the page cannot report a different one than it shows.
  */
 const paintProgram = (
-  source: string
+  source: string,
+  extras: readonly Part[] = []
 ): { errors: readonly string[]; paint: ViewPaint | null } => {
-  const drawn = runDsl(source, []);
+  const drawn = runDsl(source, [...extras]);
   if (drawn.errors.length > 0) {
     return { errors: drawn.errors, paint: null };
   }
@@ -351,15 +390,52 @@ const hostProgram = (slug: string, finish: Finish): string | null => {
  * both finishes, or `adaptProgram` re-painting the one program there is. Both
  * return ops. Neither invents a coordinate.
  */
+/**
+ * Compile the other paint from a staged house sibling, when one exists.
+ *
+ * `{stem}-filled.house.svg` next to `{stem}.svg` is the filled house file
+ * twin-eval writes. Compiling it is the keyed path; `adaptProgram` is only
+ * the fallback when that file is missing.
+ */
+export const compileHouseTwin = (
+  file: string,
+  slug: string,
+  want: Finish,
+  extras: readonly Part[] = []
+): { extras: Part[]; source: string } | null => {
+  const dir = path.dirname(file);
+  const stem = stemOf(slug);
+  const houseFile =
+    want === "filled"
+      ? path.join(dir, `${stem}-filled.house.svg`)
+      : path.join(dir, `${stem}.house.svg`);
+  if (!existsSync(houseFile) || houseFile === file) {
+    return null;
+  }
+  const paths = parseIconSvg(readFileSync(houseFile, "utf-8")).map((s) => s.d);
+  if (paths.length === 0) {
+    return null;
+  }
+  return compilePaint(stem, paths, want, extras);
+};
+
 export const twinProgram = (
   slug: string,
   finish: Finish,
-  program: string | null
+  program: string | null,
+  file?: string,
+  extras: readonly Part[] = []
 ): string | null => {
   const want = otherFinish(finish);
   const host = hostProgram(slug, want);
   if (host !== null) {
     return host;
+  }
+  if (file !== undefined) {
+    const compiled = compileHouseTwin(file, slug, want, extras);
+    if (compiled !== null) {
+      return compiled.source;
+    }
   }
   return program === null ? null : adaptProgram(program, want);
 };
@@ -370,12 +446,17 @@ export const twinShapes = (
   slug: string,
   file: string,
   finish: Finish,
-  program: string | null
+  program: string | null,
+  extras: readonly Part[] = []
 ): CorpusShape[] | null => {
   const want = otherFinish(finish);
-  const source = twinProgram(slug, finish, program);
+  const compiled = compileHouseTwin(file, slug, want, extras);
+  if (compiled !== null) {
+    return shapesFromProgram(compiled.source, [...extras, ...compiled.extras]);
+  }
+  const source = twinProgram(slug, finish, program, file, extras);
   if (source !== null) {
-    return shapesFromProgram(source);
+    return shapesFromProgram(source, extras);
   }
   const twinFile =
     want === "filled"
@@ -1082,15 +1163,17 @@ const paintFile = (
 export const paintsOf = (
   icon: ViewIcon,
   source: string,
-  program: string | null
+  program: string | null,
+  extras: readonly Part[] = []
 ): { issues: Issue[]; paints: ViewPaint[] } => {
+  const parts = extras.length > 0 ? extras : loadViewParts(icon.file);
   const fromFile = parseIconSvg(source);
   const fileFinish = finishOf(fromFile);
   const primarySource = program ?? hostProgram(icon.slug, fileFinish);
   const drawn =
     primarySource === null
       ? { errors: [] as readonly string[], paint: null }
-      : paintProgram(primarySource);
+      : paintProgram(primarySource, parts);
   const issues: Issue[] = [];
   if (drawn.errors.length > 0) {
     issues.push(refusal("program", fileFinish, drawn.errors));
@@ -1100,20 +1183,35 @@ export const paintsOf = (
     // The shipped file is still a drawing worth showing, but on its own it says
     // nothing about why the program beside it did not run.
     const paints = [paintFile(fromFile, keylineOf(program))];
-    const twin = twinShapes(icon.slug, icon.file, fileFinish, null);
+    const twin = twinShapes(icon.slug, icon.file, fileFinish, null, parts);
     if (twin && twin.length > 0) {
       paints.push(paintFile(twin, null));
     }
     return { issues, paints };
   }
   const paints = [primary];
-  const twinSource = twinProgram(icon.slug, primary.finish, primary.program);
-  if (twinSource !== null) {
-    const other = paintProgram(twinSource);
+  const want = otherFinish(primary.finish);
+  const compiled = compileHouseTwin(icon.file, icon.slug, want, parts);
+  if (compiled !== null) {
+    const other = paintProgram(compiled.source, [...parts, ...compiled.extras]);
     if (other.errors.length > 0) {
-      issues.push(
-        refusal("outlined twin", otherFinish(primary.finish), other.errors)
-      );
+      issues.push(refusal("house twin", want, other.errors));
+    } else if (other.paint && other.paint.shapes.length > 0) {
+      paints.push(other.paint);
+    }
+    return { issues, paints };
+  }
+  const twinSource = twinProgram(
+    icon.slug,
+    primary.finish,
+    primary.program,
+    icon.file,
+    parts
+  );
+  if (twinSource !== null) {
+    const other = paintProgram(twinSource, parts);
+    if (other.errors.length > 0) {
+      issues.push(refusal("outlined twin", want, other.errors));
     } else if (other.paint && other.paint.shapes.length > 0) {
       paints.push(other.paint);
     }
@@ -1199,7 +1297,13 @@ const buildCard = async (
 ): Promise<ViewCard> => {
   const source = readText(icon.file, "an .svg icon");
   const trace = loadTrace(icon.file);
-  const { issues: refused, paints } = paintsOf(icon, source, trace.program);
+  const extras = loadViewParts(icon.file);
+  const { issues: refused, paints } = paintsOf(
+    icon,
+    source,
+    trace.program,
+    extras
+  );
   const metrics = loadMetrics(icon.file);
   return {
     against: await compare(icon, source, paints[0].finish, against, scores),

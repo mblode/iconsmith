@@ -95,9 +95,25 @@ export {
   generate,
   MissingApiKeyError,
 } from "./pipeline/generate.js";
-export { analogArm, hub, stack, trays } from "./pipeline/analog.js";
+export {
+  analogArm,
+  compose,
+  horn,
+  hub,
+  peak,
+  plant,
+  stack,
+  tower,
+  trays,
+  tube,
+} from "./pipeline/analog.js";
 export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
+export {
+  compileArm,
+  compilePaint,
+  finishProgram,
+} from "./pipeline/reconstruct.js";
 export { glyphArm } from "./pipeline/glyph.js";
 export { glyphFromSlug, GLYPHS, GLYPH_WHY } from "./pipeline/glyphs.js";
 export type { GlyphName } from "./pipeline/glyphs.js";
