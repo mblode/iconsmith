@@ -16,13 +16,18 @@ import {
   familyFromToken,
   familyFromTokens,
   anchor,
+  airdrop,
+  airplane,
   apple,
+  arrow,
   banana,
   bell,
   book,
+  bookmark,
   camera,
   car,
   check,
+  chevron,
   clock,
   cloud,
   composeFromParts,
@@ -49,11 +54,13 @@ import {
   magnet,
   moon,
   mushroom,
+  pause,
   peak,
   pencil,
   pickKin,
   pin,
   plant,
+  play,
   plus,
   PLANT_HINT,
   preferStroked,
@@ -63,6 +70,7 @@ import {
   ring,
   sailboat,
   sameLetters,
+  share,
   shield,
   stack,
   stapler,
@@ -469,6 +477,14 @@ describe("analog families", () => {
     { draw: heart, id: "heart", slug: "heart" },
     { draw: home, id: "home", slug: "home" },
     { draw: zap, id: "zap", slug: "zap" },
+    { draw: pause, id: "pause", slug: "pause" },
+    { draw: play, id: "play", slug: "play" },
+    { draw: chevron, id: "chevron", slug: "chevron-right" },
+    { draw: arrow, id: "arrow", slug: "arrow-right" },
+    { draw: bookmark, id: "bookmark", slug: "bookmark" },
+    { draw: share, id: "share", slug: "share" },
+    { draw: airdrop, id: "airdrop", slug: "airdrop" },
+    { draw: airplane, id: "airplane", slug: "airplane" },
     { draw: pin, id: "pin", slug: "pin" },
     { draw: flag, id: "flag", slug: "flag" },
     { draw: key, id: "key", slug: "key" },
@@ -578,6 +594,14 @@ describe("analog families", () => {
     expect(ANALOG_KINS.shield).toBeUndefined();
     expect(ANALOG_KINS.zap).toBeUndefined();
     expect(ANALOG_KINS.lightning).toBeUndefined();
+    expect(ANALOG_KINS.pause).toBeUndefined();
+    expect(ANALOG_KINS.play).toBeUndefined();
+    expect(ANALOG_KINS.chevron).toBeUndefined();
+    expect(ANALOG_KINS.arrow).toBeUndefined();
+    expect(ANALOG_KINS.bookmark).toBeUndefined();
+    expect(ANALOG_KINS.share).toBeUndefined();
+    expect(ANALOG_KINS.airdrop).toBeUndefined();
+    expect(ANALOG_KINS.airplane).toBeUndefined();
     expect(ANALOG_KINS.star).toBeUndefined();
     expect(contentTokens("mail-icon")).toEqual(["mail"]);
     expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
@@ -676,6 +700,16 @@ describe("analog families", () => {
     expect(clock("wall-clock", "filled")).toContain("hole rect");
     expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
     expect(check("checkmark", "filled")).toContain("hole line");
+    expect(pause("pause")).toContain("rect 4,3 4x18");
+    expect(play("play")).toContain("line 5,3 21,12 5,21");
+    expect(chevron("chevron-right")).toContain("line 9,6 15,12");
+    expect(arrow("arrow-right")).toContain("line 5,12 19,12");
+    expect(bookmark("bookmark")).toContain("line 5,17 12,21");
+    expect(share("share")).toContain("circle 18,5 r3");
+    expect(airdrop("airdrop")).toContain("line 4,11 11,16.5");
+    expect(airplane("airplane")).toContain("line 3,6 20,10");
+    expect(sun("sun")).toContain("line 12,2 12,3");
+    expect(sun("sun")).toContain("dot 5,5");
     expect(lock("lock", "filled")).toContain("hole circle");
     expect(ring("ring", "filled")).toContain("hole circle");
     expect(home("home")).toContain("line 12,3 20,8 20,20 4,20 4,8 12,3");
@@ -754,6 +788,14 @@ describe("analog families", () => {
       ["zap", "zap"],
       ["lightning", "zap"],
       ["shield", "shield"],
+      ["pause", "pause"],
+      ["play", "play"],
+      ["chevron-right", "chevron"],
+      ["arrow-right", "arrow"],
+      ["bookmark", "bookmark"],
+      ["share", "share"],
+      ["airdrop", "airdrop"],
+      ["airplane", "airplane"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -802,6 +844,14 @@ describe("analog families", () => {
       ["zap", "zap"],
       ["shield", "shield"],
       ["heart", "heart"],
+      ["pause", "pause"],
+      ["play", "play"],
+      ["chevron-right", "chevron"],
+      ["arrow-right", "arrow"],
+      ["bookmark", "bookmark"],
+      ["share", "share"],
+      ["airdrop", "airdrop"],
+      ["airplane", "airplane"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

@@ -178,6 +178,8 @@ describe("SKILL.md steers the paints the generate brief names", () => {
     expect(SKILL).toContain("not three circles");
     expect(SKILL).toContain("one heater silhouette");
     expect(SKILL).toContain("one bolt silhouette");
+    expect(SKILL).toContain("two rounded uprights");
+    expect(SKILL).toContain("right-pointing triangle");
     expect(SKILL).toContain("Do not volunteer a star");
     expect(SKILL).toContain("Not a star");
   });

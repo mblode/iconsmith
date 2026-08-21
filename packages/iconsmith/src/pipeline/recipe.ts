@@ -95,6 +95,56 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
       "one closed lightning bolt. Not a frame-and-dot, and not a Z of open ticks.",
     tokens: ["zap", "lightning"],
   },
+  {
+    filled: "two rounded uprights. Not one slab, and not a frame-and-dot.",
+    id: "pause",
+    outlined: "two rounded uprights. Not one slab.",
+    tokens: ["pause"],
+  },
+  {
+    filled:
+      "a solid right-pointing triangle. Not a chevron, and not a frame-and-dot.",
+    id: "play",
+    outlined: "one closed right-pointing triangle. Not a chevron.",
+    tokens: ["play"],
+  },
+  {
+    filled: "that tick as two bars. Not a triangle, and not an arrow.",
+    id: "chevron",
+    outlined: "one open tick pointing right. Not a triangle.",
+    tokens: ["chevron"],
+  },
+  {
+    filled: "a shaft bar plus two head bars. Not a bare chevron.",
+    id: "arrow",
+    outlined: "a shaft plus a chevron head. Not a bare chevron.",
+    tokens: ["arrow"],
+  },
+  {
+    filled: "the ribbon body plus the two V tails. Not a plain rect.",
+    id: "bookmark",
+    outlined: "a tall ribbon with a V bite at the foot. Not a plain rect.",
+    tokens: ["bookmark"],
+  },
+  {
+    filled: "three discs plus the two connector bars. Not a hub tree.",
+    id: "share",
+    outlined: "three nodes and two connectors. Not a hub tree.",
+    tokens: ["share"],
+  },
+  {
+    filled: "the same dome, beams, stem, and capsule as solids.",
+    id: "airdrop",
+    outlined:
+      "a dome, two off-axis beams (`M4 11L11 16.5`), a stem, and a seated capsule.",
+    tokens: ["airdrop"],
+  },
+  {
+    filled: "three bars on the fuselage and wings. Not a paper dart only.",
+    id: "airplane",
+    outlined: "one closed jet silhouette on the circle keyline.",
+    tokens: ["airplane"],
+  },
 ];
 
 const recipeTokens = (query: string): string[] =>

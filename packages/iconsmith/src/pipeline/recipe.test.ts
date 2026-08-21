@@ -14,6 +14,14 @@ describe("recipeFor", () => {
     expect(recipeFor("zap")?.id).toBe("zap");
     expect(recipeFor("lightning")?.id).toBe("zap");
     expect(recipeFor("shield")?.id).toBe("shield");
+    expect(recipeFor("pause")?.id).toBe("pause");
+    expect(recipeFor("play")?.id).toBe("play");
+    expect(recipeFor("arrow-right")?.id).toBe("arrow");
+    expect(recipeFor("chevron-right")?.id).toBe("chevron");
+    expect(recipeFor("bookmark")?.id).toBe("bookmark");
+    expect(recipeFor("share")?.id).toBe("share");
+    expect(recipeFor("airdrop")?.id).toBe("airdrop");
+    expect(recipeFor("airplane")?.id).toBe("airplane");
   });
 
   it("does not volunteer a glyph the name did not ask for", () => {

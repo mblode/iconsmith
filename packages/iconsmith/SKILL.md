@@ -134,6 +134,8 @@ A shield. House compile is one heater silhouette. Outlined is that closed outlin
 
 A zap. House compile is one bolt silhouette. Outlined is that closed lightning, not a frame-and-dot. Filled is the same zigzag as three bars on the bolt's centre-lines.
 
+A pause is two rounded uprights. A play is a right-pointing triangle, not a chevron. An arrow-right is a shaft plus a chevron head. A chevron-right is the head alone. A bookmark is a tall ribbon with a V bite at the foot. A share is three nodes and two connectors, not a hub tree. An airdrop is a dome, two off-axis beams, a stem, and a seated capsule. An airplane is a jet silhouette, not a paper dart.
+
 Do not volunteer a star. Analog has no star family. A diamond is a compass needle; a chevron or four diamonds is not the house star.
 
 These are constructions, not glyphs to volunteer for an unasked name.
