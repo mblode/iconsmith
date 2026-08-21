@@ -81,6 +81,7 @@ part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] 
 rect     <x>,<y> <w>x<h> [r<n>]
 circle   <cx>,<cy> r<n>
 arc      <cx>,<cy> r<n> quarter|half|three-quarter from top|right|bottom|left [ccw]
+diamond  <cx>,<cy> r<n>
 hole     rect <x>,<y> <w>x<h> [r<n>]  |  circle <cx>,<cy> r<n>
 line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
 dot      <cx>,<cy> [terminal|more|floating|node]
@@ -91,12 +92,13 @@ cohort   [<name>]           -- scale everything to the family's measured extent
 
 - **`rect`** — bodies, screens, cards, frames. `r<n>` asks for a radius; the nearest legal tier for that shape is what gets drawn. Default 2.
 - **`circle`** — heads, lenses, clock faces, buttons.
-- **`arc`** — an open circular arc. Same cubics as `circle`. Name a pole (`top` / `right` / `bottom` / `left`), a sweep (`quarter` / `half` / `three-quarter`), and optionally `ccw`. Wifi fans, umbrella canopies, C-shapes, the lobes of an S. A curve is never a polyline of grid points.
-- **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid. If the stroke is a curve, use `arc` or `circle`.
+- **`arc`** — an open circular arc. Same cubics as `circle`. Name a pole (`top` / `right` / `bottom` / `left`), a sweep (`quarter` / `half` / `three-quarter`), and optionally `ccw`. Wifi fans, umbrella canopies, C-shapes, the lobes of an S. A curve is never a polyline of grid points. Filled, the stroke expands into an annular sector — the ink the outline already occupied, not a pie of the sweep.
+- **`diamond`** — a square rotated 45°. `r` is centre to vertex, so every edge sits on 45°/135°. A compass needle, a card suit, a lozenge. A kite that is only grid-legal (unequal diagonals) is off-axis and is a `line … off-axis`, not this op.
+- **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid. If the stroke is a curve, use `arc` or `circle`. A diamond that should be on 45° is `diamond`, not a polyline of unequal run and rise.
 - **`hole`** — cut a rect or a circle out of the solid drawn most recently. Filled icons only, and it is how interior white is made: 45% of the set's filled icons knock at least one hole out of a solid, so a ring is `circle` then `hole circle`, and a card with a slot is `rect` then `hole rect`. The hole has to sit inside the solid it cuts — a piece hanging outside would paint ink rather than remove it, and is refused.
 - **`dot`** — a solid disc with one of the four roles above. Default `terminal`.
 - **`part`** — place a shape from the set's extracted vocabulary by name or id. Prefer this over drawing a common form from scratch: it is _the same_ folder, chevron or magnifier the rest of the set already uses, which is the whole point. A bare `<x>,<y>` names the part's top-left; a named anchor names its centre. Anchors: `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`, `bottom-right`. `size <n>` sets the long axis; `fill` scales the part to the declared keyline. `turn` names a quarter — `cw`, `half`, `ccw`, never an angle, because only the quarters keep every node on the grid. `flip` mirrors the part, and is applied before the turn. Ask for `flip` on purpose: a check mark, a comma and every letterform are chiral, so an implicit mirror is a backwards glyph rather than an orientation. Parts come from a `parts.json` for the set, passed as `iconsmith draw prog.icon --parts parts.json`; without one, `part` has nothing to place. An unnamed mark is addressed by the `id` in that file (`part p0123`), which is what the brief lists when search hits one.
-- **`finish`** — `outlined` (the default: a stroked skeleton) or `filled` (solid shapes). Declare it before you draw anything, because a corner radius and a dot diameter both mean different things under each. Filled changes three things and nothing else: `hole` becomes available, `line` and `arc` are refused because an open stroke encloses nothing and so paints nothing, and corners come from the filled radius tiers (0.5, 1, 1.5, 2, 3, 4 — the outlined tiers shifted by half a stroke, since a filled edge is a boundary where a stroked one is a centre line). Keylines, clearance and centring are unchanged: a filled icon and its outlined twin occupy the same visual extent in 94% of the set's pairs.
+- **`finish`** — `outlined` (the default: a stroked skeleton) or `filled` (solid shapes). Declare it before you draw anything, because a corner radius and a dot diameter both mean different things under each. Filled changes three things and nothing else: `hole` becomes available, a two-point `line` expands into a bar and an `arc` into an annular sector (a polyline still encloses nothing and is refused), and corners come from the filled radius tiers (0.5, 1, 1.5, 2, 3, 4 — the outlined tiers shifted by half a stroke, since a filled edge is a boundary where a stroked one is a centre line). Keylines, clearance and centring are unchanged: a filled icon and its outlined twin occupy the same visual extent in 94% of the set's pairs.
 
 ### Twins (outlined ↔ filled)
 
@@ -197,6 +199,40 @@ line 4,4 20,20
 fit
 ```
 
+A compass. The needle is a `diamond`, not a kite of unequal diagonals — those sit 20° off 135°.
+
+```icon
+icon compass
+keyline circle
+circle 12,12 r9
+diamond 12,12 r5
+fit
+```
+
+Wifi. Concentric upper half-arcs plus an emitter below, so the visual box is `wide` 20×16 rather than a drifted 20×11.5 fan.
+
+```icon
+icon wifi
+keyline wide
+arc 12,14 r9 half from left
+arc 12,14 r6 half from left
+arc 12,14 r3 half from left
+dot 12,19 terminal
+fit
+```
+
+A microscope. Optical stack on `tall` 16×20 so the stage stays at x=4–20 — portrait 18×20 would put that bar in the 4×4 corners. Neighbours 1px apart on the centre-line, never a 0.50px almost-touch.
+
+```icon
+icon microscope
+keyline tall
+circle 12,5 r2
+rect 10.5,8 3x6 r1
+circle 12,17 r2
+line 5,20.5 19,20.5
+fit
+```
+
 ## What the linter checks
 
 Fix every `error`. A `warn` is a prompt to confirm the choice was deliberate.
@@ -210,9 +246,13 @@ Fix every `error`. A `warn` is a prompt to confirm the choice was deliberate.
 | `cut` | warn | shapes knock out of each other by the wrong amount |
 | `gap` | warn | two strokes sit closer than `minGap` without touching (outlined only) |
 | `feature` | warn | a filled shape or hole is narrower than `minFeature` (filled only — filled shapes are meant to touch, so `gap` has nothing to say about them) |
-| `off-axis` | warn | a straight run leaves 0/45/90 |
+| `off-axis` | warn | a straight run leaves 0/45/90 (outlined only — an expanded fill's joins are the flattener's angles, not a decision) |
 | `centred` | warn | content centre is not (12,12), and the family does not agree |
 | `cohort-align` | warn | the icon sits off the extent of the family it swaps with |
 | `density` | warn | more ink than the set draws at this size |
 
 When a warning and the drawing disagree, the drawing usually wins — but say why. Reaching for the ordinary solution is the rule: an icon that is _correct_ but drawn in its own dialect is worse than one that is plain and drawn in the set's.
+
+Saying `off-axis` does not silence the `off-axis` warning, and is not meant to. The modifier is permission to _draw_ the diagonal — without it the canvas refuses the segment outright — and the warning is the prompt to confirm the diagonal is the drawing. So a declared diagonal reads as "confirm this", an undeclared one never gets past `draw`, and the rule still has something to say about every icon it measures. Expect one `off-axis` warn per element per distinct heading: a `line … off-axis` closing a kite is two headings and two warns, not four.
+
+A 0.5px air gap is not a construction: move the strokes to 1px or knock one out of the other. Off-keyline is legal — Central's key shapes are guidelines — but treat it as a prompt to check the size was chosen, not drifted. A wifi fan that lands at 20×11.5 has drifted; `wide` is 20×16.

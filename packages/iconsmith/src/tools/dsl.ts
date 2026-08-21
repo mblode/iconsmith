@@ -22,6 +22,7 @@
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
  *   arc      <cx>,<cy> r<n> quarter|half|three-quarter from top|right|bottom|left [ccw]
+ *   diamond  <cx>,<cy> r<n>
  *   hole     rect <x>,<y> <w>x<h> [r<n>]
  *   hole     circle <cx>,<cy> r<n>
  *   line     <x>,<y> <x>,<y> [<x>,<y> ...] [off-axis]
@@ -130,6 +131,7 @@ const OPS = [
   "rect",
   "circle",
   "arc",
+  "diamond",
   "hole",
   "line",
   "dot",
@@ -402,6 +404,9 @@ const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
   } else if (op === "circle") {
     const [cx, cy] = pair(t[1]);
     canvas.circle({ cx, cy, r: num(t[2], "radius") });
+  } else if (op === "diamond") {
+    const [cx, cy] = pair(t[1]);
+    canvas.diamond({ cx, cy, reach: num(t[2], "reach") });
   } else if (op === "arc") {
     const [centre, radiusTok, sweep, fromKw, from] = t.slice(1);
     const [cx, cy] = pair(centre);

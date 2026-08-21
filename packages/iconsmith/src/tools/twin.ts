@@ -187,3 +187,312 @@ export const program = (
     ...(keyline === null ? [] : ["fit"]),
     "",
   ].join("\n");
+
+/**
+ * A square rotated 45°: vertices on the axes, every edge on 45/135.
+ *
+ * `reach` is the centre-to-vertex distance, so equal run and equal rise.
+ * A kite that is merely grid-legal (2 wide, 4 tall) sits ~20° off 135° —
+ * that is the compass needle that lint flags. Outlined is one closed
+ * polyline; filled is four two-point bars, because a polyline encloses
+ * nothing under fill.
+ */
+export const lozenge = (
+  _finish: Finish,
+  cx: number,
+  cy: number,
+  reach: number
+): string[] => [`diamond ${cx},${cy} r${reach}`];
+
+/**
+ * Concentric upper half-arcs: a wifi fan, an umbrella canopy stack.
+ *
+ * `half from left` is the upper semicircle (left → top → right). The
+ * emitter sits on the shared centre so the visual box is the outer arc
+ * plus whatever is drawn below it — for wifi, a `dot` on that centre
+ * is a 20×11.5 fan; a `dot` several units below is how the drawing
+ * occupies `wide` 20×16 on purpose.
+ */
+export const fan = (
+  _finish: Finish,
+  cx: number,
+  cy: number,
+  radii: readonly number[]
+): string[] => radii.map((r) => `arc ${cx},${cy} r${r} half from left`);
+
+const OFF_AXIS = "off-axis";
+
+/** Split a closed or open polyline into two-point segments. Filled `line`
+ *  only paints a two-point bar; a diamond written as one op has to become
+ *  four before the other paint can run. */
+const splitPolyline = (line: string): string[] => {
+  const tokens = line.trim().split(/\s+/u).slice(1);
+  const off = tokens.includes(OFF_AXIS);
+  const points = tokens.filter((t) => t !== OFF_AXIS);
+  if (points.length < 3) {
+    return [line];
+  }
+  const flag = off ? ` ${OFF_AXIS}` : "";
+  const out: string[] = [];
+  for (let i = 1; i < points.length; i += 1) {
+    if (points[i] === points[0] && i === points.length - 1 && out.length > 0) {
+      // Closing vertex: last segment already listed if it is a real edge.
+    }
+    out.push(`line ${points[i - 1]} ${points[i]}${flag}`);
+  }
+  return out;
+};
+
+/** `12,7.5` → `[12, 7.5]`. Null when the token is not a pair, so a malformed
+ *  op is passed through untouched rather than silently reshaped. */
+const asPair = (token: string | undefined): [number, number] | null => {
+  const m = token?.match(/^(?<x>-?[\d.]+),(?<y>-?[\d.]+)$/u)?.groups;
+  if (!m) {
+    return null;
+  }
+  const x = Number(m.x);
+  const y = Number(m.y);
+  return Number.isFinite(x) && Number.isFinite(y) ? [x, y] : null;
+};
+
+const asRadius = (token: string | undefined): number | null => {
+  const m = token?.match(/^r(?<r>-?[\d.]+)$/u)?.groups;
+  const v = m ? Number(m.r) : Number.NaN;
+  return Number.isFinite(v) ? v : null;
+};
+
+/** `18x11` → `[18, 11]`. */
+const asSize = (token: string | undefined): [number, number] | null => {
+  const m = token?.match(/^(?<w>-?[\d.]+)x(?<h>-?[\d.]+)$/u)?.groups;
+  if (!m) {
+    return null;
+  }
+  const w = Number(m.w);
+  const h = Number(m.h);
+  return Number.isFinite(w) && Number.isFinite(h) ? [w, h] : null;
+};
+
+/** Quarter-grid, the only grid a coordinate in this language may land on. */
+const g = (v: number): number => Math.round(v * 4) / 4;
+
+const num = (v: number): string => String(g(v));
+
+interface Op {
+  /** Tokens after the op word. */
+  args: string[];
+  /** Verbatim source, so anything this module does not understand survives. */
+  raw: string;
+  word: string;
+}
+
+const parseOp = (line: string): Op => {
+  const trimmed = line.trim();
+  const [word = "", ...args] = trimmed.split(/\s+/u);
+  return { args, raw: line, word: word.toLowerCase() };
+};
+
+const CIRCLE = "circle";
+const RECT = "rect";
+
+/**
+ * A stroked circle is a hoop, so its ink is an annulus.
+ *
+ * This is the whole of the outlined→filled derivation in one example. The
+ * previous revision emitted `circle` unchanged under the other finish, which
+ * is a *solid disc* — and that is why the filled compass rendered as a black
+ * circle with the needle lost inside it. A ring is not a disc with a different
+ * paint; it is the ink the outline occupied, and the hole is where the canvas
+ * always was.
+ *
+ * A circle no wider than the stroke is the exception, and it is geometry
+ * rather than a special case: its own stroke closes the hole, so the ink is a
+ * disc and there is nothing to knock out.
+ */
+const filledCircle = (args: string[], half: number): string[] | null => {
+  const centre = asPair(args[0]);
+  const r = asRadius(args[1]);
+  if (!centre || r === null) {
+    return null;
+  }
+  const [cx, cy] = centre;
+  const at = `${num(cx)},${num(cy)}`;
+  if (r <= half) {
+    return [`${CIRCLE} ${at} r${num(r + half)}`];
+  }
+  return [
+    `${CIRCLE} ${at} r${num(r + half)}`,
+    `hole ${CIRCLE} ${at} r${num(r - half)}`,
+  ];
+};
+
+/** A stroked rect is a frame, so its ink is a border. Same argument as
+ *  {@link filledCircle}; a rect no thicker than the stroke on either axis is
+ *  a bar, and its ink is the solid. */
+const filledRect = (args: string[], bar: number): string[] | null => {
+  const at = asPair(args[0]);
+  const size = asSize(args[1]);
+  if (!at || !size) {
+    return null;
+  }
+  const half = bar / 2;
+  const [x, y] = at;
+  const [w, h] = size;
+  const r = asRadius(args[2]);
+  const corner = (v: number): string => (r === null ? "" : ` r${num(v)}`);
+  const outer = `${RECT} ${num(x - half)},${num(y - half)} ${num(w + bar)}x${num(h + bar)}${corner((r ?? 0) + half)}`;
+  if (w <= bar || h <= bar) {
+    return [outer];
+  }
+  return [
+    outer,
+    `hole ${RECT} ${num(x + half)},${num(y + half)} ${num(w - bar)}x${num(h - bar)}${corner(Math.max(0, (r ?? 0) - half))}`,
+  ];
+};
+
+/** The centre-line a solid-plus-hole pair was expanded from: {@link
+ *  filledCircle} run backwards. */
+const outlinedRing = (
+  solid: string[],
+  hole: string[] | null,
+  half: number
+): string[] | null => {
+  const centre = asPair(solid[0]);
+  const outer = asRadius(solid[1]);
+  if (!centre || outer === null) {
+    return null;
+  }
+  const at = `${num(centre[0])},${num(centre[1])}`;
+  const inner = hole ? asRadius(hole[1]) : null;
+  const r = inner === null ? outer - half : (outer + inner) / 2;
+  return [`${CIRCLE} ${at} r${num(r)}`];
+};
+
+/**
+ * {@link filledRect} run backwards.
+ *
+ * The hole is not consulted, and that is not an oversight: a frame's outer
+ * edge already fixes the centre-line, since both the outer edge and the hole
+ * were derived from it half a stroke either way. A lone solid — a mass, with
+ * no hole — inverts through the same inset, so one expression covers both.
+ */
+const outlinedFrame = (solid: string[], bar: number): string[] | null => {
+  const at = asPair(solid[0]);
+  const size = asSize(solid[1]);
+  if (!at || !size) {
+    return null;
+  }
+  const half = bar / 2;
+  const r = asRadius(solid[2]);
+  const corner = r === null ? "" : ` r${num(Math.max(0, r - half))}`;
+  return [
+    `${RECT} ${num(at[0] + half)},${num(at[1] + half)} ${num(size[0] - bar)}x${num(size[1] - bar)}${corner}`,
+  ];
+};
+
+const isHeader = (word: string): boolean =>
+  word === "icon" || word === "keyline" || word === "cohort";
+
+/** The filled ink of one stroked op, or null when this module does not model
+ *  the op and the line should survive verbatim. */
+const grow = (op: Op, bar: number, half: number): string[] | null => {
+  if (op.word === CIRCLE) {
+    return filledCircle(op.args, half);
+  }
+  if (op.word === RECT) {
+    return filledRect(op.args, bar);
+  }
+  return null;
+};
+
+/** {@link grow} backwards: the centre line a solid, optionally paired with the
+ *  hole it was knocked out with, was expanded from. */
+const shrink = (
+  op: Op,
+  hole: string[] | null,
+  bar: number,
+  half: number
+): string[] | null => {
+  if (op.word === CIRCLE) {
+    return outlinedRing(op.args, hole, half);
+  }
+  if (op.word === RECT) {
+    return outlinedFrame(op.args, bar);
+  }
+  return null;
+};
+
+/**
+ * The same drawing in the other paint, derived rather than relabelled.
+ *
+ * "Filled and outlined are one skeleton, two paints" is only true if something
+ * actually re-paints it. Swapping the `finish` line and leaving the ops alone
+ * does not: under `filled` a `circle` is a disc and a `rect` is a slab, so a
+ * ring becomes a blob and a frame becomes a tile. Every icon in the reach set
+ * that is not a host glyph went through that path, which is why their filled
+ * cards were solid shapes with the interior detail swallowed.
+ *
+ * So the closed primitives are re-derived here — `circle` → {@link ring},
+ * `rect` → {@link frame}, and back — and the open ones are left alone because
+ * `canvas.ts` already paints them as the ink they occupied: a two-point `line`
+ * expands to a bar, an `arc` to an annular sector, a `diamond` to a lozenge
+ * grown by half a stroke, a `dot` to its tier. A polyline is split into its
+ * segments, because an open run encloses nothing and fill has no inside to
+ * cover.
+ *
+ * What is deliberately *not* attempted: turning a hoop into a mass. A designer
+ * filling a briefcase paints the body solid and knocks out the clasp, and that
+ * is a composition decision the skeleton does not contain. This derivation
+ * preserves the visual extent and every interior — the property that is
+ * checkable — and `glyphs.ts` is where a chosen filled composition goes.
+ */
+export const adaptProgram = (
+  source: string,
+  finish: Finish,
+  spec: Spec = SPEC
+): string => {
+  const { bar, half } = paint(spec);
+  const ops = source.split("\n").map(parseOp);
+  const out: string[] = [];
+  let sawFinish = false;
+  let headerAt = 0;
+  for (let i = 0; i < ops.length; i += 1) {
+    const op = ops[i];
+    if (isHeader(op.word)) {
+      headerAt = out.length + 1;
+    }
+    if (op.word === "finish") {
+      out.push(`finish ${finish}`);
+      sawFinish = true;
+      continue;
+    }
+    if (finish === "filled") {
+      if (op.word === "line") {
+        out.push(...splitPolyline(op.raw.trim()));
+        continue;
+      }
+      const grown = grow(op, bar, half);
+      if (grown) {
+        out.push(...grown);
+        continue;
+      }
+      out.push(op.raw);
+      continue;
+    }
+    // Filled → outlined. A knockout only means anything as the absence inside
+    // the solid before it, so the pair collapses to one centre-line shape and
+    // the hole is consumed rather than emitted as a second stroke.
+    if (op.word === "hole") {
+      continue;
+    }
+    const next = ops[i + 1];
+    const paired =
+      next?.word === "hole" && next.args[0]?.toLowerCase() === op.word
+        ? next.args.slice(1)
+        : null;
+    out.push(...(shrink(op, paired, bar, half) ?? [op.raw]));
+  }
+  if (!sawFinish) {
+    out.splice(headerAt, 0, `finish ${finish}`);
+  }
+  return out.join("\n");
+};

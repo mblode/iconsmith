@@ -2,8 +2,10 @@
  * House-spec checks over a drawn icon.
  *
  * Split by who can act on the result: `error` blocks a commit, `warn` is a
- * judgment call the model is told about and a human arbitrates. Nothing here
- * repairs geometry — repair belongs to the primitives, which never emit a
+ * judgment call the model is told about and a human arbitrates. `lint` returns
+ * only those; `review` keeps the questions that passed, so a viewer can show
+ * the whole chain (keyline, gap, axes) rather than a blank "clean". Nothing
+ * here repairs geometry — repair belongs to the primitives, which never emit a
  * violation in the first place. This catches composition mistakes: bad keyline,
  * off-centre, elements too close, empty canvas, and — `substance` — a canvas
  * with a stroke on it that nobody would call an icon.
@@ -37,10 +39,38 @@ export interface LintElement {
   d: string;
   id: string;
   /**
-   * 0 for a filled shape. Omitted means stroked at the house width: a `Canvas`
-   * only ever draws strokes, so its elements satisfy this interface unchanged.
-   * A caller reading shipped SVGs has the real widths and should pass them —
-   * `off-axis` measures nothing useful on an outline-expanded fill.
+   * The program asked for this geometry off 0/45/90 by name.
+   *
+   * `Canvas.line` writes it only when a segment *actually* stayed off every
+   * axis, so it is the geometry and the permission at once — a line that asked
+   * and did not need to has no flag.
+   *
+   * It does not silence the rule, and the reasoning is worth keeping because
+   * an earlier revision had it the other way round. `canvas.ts` calls the flag
+   * "permission, not instruction" and puts the request in the `IconDoc` so
+   * that "a reviewer sees it"; suppressing the finding is the one outcome that
+   * defeats that purpose. Worse, it would make the rule structurally dead on
+   * the path that matters: the canvas *refuses* an undeclared diagonal, so
+   * every off-axis edge that reaches lint from a program is declared by
+   * construction, and declared-means-silent leaves nothing for the rule to
+   * ever say about a generated icon. It is calibrated at 29.3% of the corpus
+   * precisely because it is meant to fire and be read.
+   *
+   * So a declared diagonal warns, carrying {@link Issue.declared} so the
+   * message can ask a reviewer to agree rather than telling them to fix it.
+   *
+   * Absent on a caller reading a shipped SVG, which carries no declaration —
+   * an unasked-for diagonal in the corpus is exactly what the rule is for.
+   */
+  offAxis?: boolean;
+  /**
+   * 0 for a filled shape, and the house width when omitted.
+   *
+   * A caller reading shipped SVGs has the real widths and should pass them.
+   * A `Canvas` sets no width at all, which is why the finish is consulted
+   * rather than this field alone: before fill mode a canvas only ever drew
+   * strokes, so the default was the truth, and afterwards every filled element
+   * inherited a 2 it does not have. See {@link offAxisIssues}.
    */
   strokeWidth?: number;
 }
@@ -426,17 +456,107 @@ const cutIssues = (els: LintElement[]): Issue[] =>
  * `graduate-cap`, and the cubes that motivate the exemption (`ar-cube-1` and
  * `ar-cube-2` at 29.36°, `ar-scan-cube` at 29.75°) fall outside it anyway.
  */
-const offAxisIssues = (els: LintElement[], spec: Spec): Issue[] =>
-  els
-    .filter((e) => (e.strokeWidth ?? spec.stroke) > 0)
-    .flatMap((e) =>
-      offAxisEdges(iconEdgeAngles([e.d])).map((edge) => ({
-        message: `"${e.id}" has an edge at ${edge.angle.toFixed(1)}°, ${edge.offBy.toFixed(1)}° off the nearest permitted axis (${edge.axis}°). The house axes are 0/45/90; an edge between two grid points is not automatically on one.`,
-        rule: "off-axis",
-        severity: "warn" as const,
-      }))
-    );
+/**
+ * One line per element per distinct angle, not per segment.
+ *
+ * A closed diamond has four edges and two distinct headings, so measuring
+ * per segment reports the same two facts twice each — four warnings naming one
+ * element, with two angles repeated. That reads as four problems and is one.
+ * The count is kept in the message, because "two edges at 114.4°" and "one
+ * edge at 114.4°" are different drawings.
+ */
+const offAxisFindings = (
+  e: LintElement
+): { angle: number; axis: number; count: number; offBy: number }[] => {
+  const groups = new Map<
+    string,
+    { angle: number; axis: number; count: number; offBy: number }
+  >();
+  for (const edge of offAxisEdges(iconEdgeAngles([e.d]))) {
+    const key = `${edge.angle.toFixed(1)}@${edge.axis}`;
+    const seen = groups.get(key);
+    if (seen) {
+      seen.count += 1;
+    } else {
+      groups.set(key, {
+        angle: edge.angle,
+        axis: edge.axis,
+        count: 1,
+        offBy: edge.offBy,
+      });
+    }
+  }
+  return [...groups.values()];
+};
 
+const edgeWord = (n: number): string => (n === 1 ? "an edge" : `${n} edges`);
+
+/**
+ * Off-axis findings, one per element per distinct heading.
+ *
+ * Filled drawings are skipped whole rather than filtered by width. `angle.ts`
+ * says to hand in stroked shapes only — an outline-expanded fill puts a fan of
+ * short segments at whatever angle the flattener chose around every round join,
+ * 30% of them off-axis against 15% of the stroked ones, so measuring one
+ * reports the expander and not a decision. `strokeWidth` cannot carry that
+ * distinction on its own: a `Canvas` sets no width, so every filled element
+ * read as stroked-at-2 the moment fill mode existed. The finish is the field
+ * that knows, and it is the same swap `gap`/`feature` already makes.
+ */
+const offAxisIssues = (
+  els: LintElement[],
+  spec: Spec,
+  finish: Finish
+): Issue[] => {
+  if (finish === "filled") {
+    return [];
+  }
+  const issues: Issue[] = [];
+  for (const e of els.filter((x) => (x.strokeWidth ?? spec.stroke) > 0)) {
+    for (const f of offAxisFindings(e)) {
+      const at = `"${e.id}" has ${edgeWord(f.count)} at ${f.angle.toFixed(1)}°, ${f.offBy.toFixed(1)}° off the nearest permitted axis (${f.axis}°)`;
+      issues.push(
+        e.offAxis
+          ? {
+              declared: "off-axis",
+              message: `${at}, and the program declared \`off-axis\` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.`,
+              rule: "off-axis",
+              severity: "warn",
+            }
+          : {
+              message: `${at}. The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — \`off-axis\` on the line — and this becomes a confirmation rather than a fix.`,
+              rule: "off-axis",
+              severity: "warn",
+            }
+      );
+    }
+  }
+  return issues;
+};
+
+/**
+ * The same finding twice is one finding.
+ *
+ * Rules are composed here rather than being one pass, so two of them can reach
+ * the same conclusion about the same pair — and a caller that lints a drawing
+ * once per finish concatenates. A duplicate reads as a second problem, which is
+ * the difference between "four things are wrong with the compass" and "one
+ * thing is". Identity is the rule and the message: the message names the
+ * element and the measurement, so two identical strings are the same fact.
+ */
+const dedupe = (issues: Issue[]): Issue[] => {
+  const seen = new Set<string>();
+  return issues.filter((i) => {
+    const key = `${i.severity}\u0000${i.rule}\u0000${i.message}`;
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+};
+
+/** Everything the house spec has to say about a drawing. */
 export const lint = (
   canvas: LintTarget,
   { cohort = null, keyline = null }: LintOptions = {}
@@ -486,7 +606,7 @@ export const lint = (
   issues.push(
     ...(finish === "filled" ? featureIssues(els, spec) : gapIssues(els, spec)),
     ...cutIssues(els),
-    ...offAxisIssues(els, spec)
+    ...offAxisIssues(els, spec, finish)
   );
 
   if (els.length > spec.maxElements) {
@@ -496,7 +616,181 @@ export const lint = (
       severity: "warn",
     });
   }
-  return issues;
+  return dedupe(issues);
+};
+
+/**
+ * Three states, because a declared diagonal is a `warn` and not a fourth thing.
+ *
+ * An earlier revision had a `waived` state here, on the reasoning that "the
+ * compass needle is deliberately off 135°" and "the compass needle happens to
+ * be on 135°" are different drawings and must not collapse into one `pass`.
+ * They are different, and they still do not collapse: the declared case is a
+ * `warn` carrying {@link Issue.declared} and the on-axis case is a `pass`. The
+ * distinction the fourth state was introduced to protect is the reason it is
+ * not needed.
+ */
+export type CheckStatus = "error" | "pass" | "warn";
+
+/** One house-spec question, including the ones that passed. `lint` returns
+ *  only failures; the viewer needs the rest of the chain so a clean card
+ *  still says *why* it is clean (keyline, gap, axes), not only that it is. */
+export interface Check {
+  message: string;
+  rule: string;
+  status: CheckStatus;
+}
+
+/**
+ * The keyline an extent may honestly claim, or null when it sits on none.
+ *
+ * Exported because {@link keylineIssue} holds a *declared* keyline to an
+ * **error**: an icon that states an intent and misses it is a contradiction
+ * inside one document. That rung only works if whatever writes the `keyline`
+ * line can check the claim before making it, and `reconstruct.ts` could not —
+ * it wrote `keyline square` on every compile without measuring anything, so
+ * `fingerprint` at 18.5×19.8, which is the portrait 18×20 to within half a
+ * unit, was failed for missing a box it had never been aimed at. A rule that
+ * strict needs a way to tell the truth beside it.
+ */
+export const declarableKeyline = (vx: number, vy: number): Keyline | null => {
+  for (const [name, [w, h]] of Object.entries(SPEC.keylines)) {
+    if (near(vx, w, KEYLINE_TOLERANCE) && near(vy, h, KEYLINE_TOLERANCE)) {
+      return name as Keyline;
+    }
+  }
+  return null;
+};
+
+const matchedKeyline = (vx: number, vy: number): string | null => {
+  const name = declarableKeyline(vx, vy);
+  if (name === null) {
+    return null;
+  }
+  const [w, h] = SPEC.keylines[name];
+  return `${name} ${w}×${h}`;
+};
+
+const passMessage = (
+  rule: string,
+  ctx: {
+    box: Box;
+    finish: Finish;
+    keyline: Keyline | null;
+    n: number;
+    spec: Spec;
+    vx: number;
+    vy: number;
+  }
+): string => {
+  switch (rule) {
+    case "bleed": {
+      const lo =
+        ctx.finish === "filled" ? LIVE_INSET_FILLED : ctx.spec.stroke / 2;
+      return `Path bounds sit inside the live area ${lo}..${ctx.spec.canvas - lo}.`;
+    }
+    case "centred": {
+      const cx = ctx.box.x0 + ctx.box.w / 2;
+      const cy = ctx.box.y0 + ctx.box.h / 2;
+      return `Content centre (${cx.toFixed(2)}, ${cy.toFixed(2)}) sits on (${ctx.spec.canvas / 2}, ${ctx.spec.canvas / 2}).`;
+    }
+    case "cohort-align": {
+      return "Agrees with the icons it swaps with.";
+    }
+    case "cut": {
+      return `Every notch along a stroke is at least ${MIN_CUT}px.`;
+    }
+    case "density": {
+      return `${ctx.n} element(s), under the ceiling of ${ctx.spec.maxElements} at ${ctx.spec.size}px.`;
+    }
+    case "feature": {
+      return `Every filled feature is at least ${ctx.spec.minFeature}px across its short axis.`;
+    }
+    case "gap": {
+      return `Every separated pair is at least ${ctx.spec.minGap}px apart, or coincident.`;
+    }
+    case "keyline": {
+      if (ctx.keyline) {
+        const [w, h] = SPEC.keylines[ctx.keyline];
+        return `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} matches declared keyline "${ctx.keyline}" (${w}×${h}).`;
+      }
+      const hit = matchedKeyline(ctx.vx, ctx.vy);
+      return hit
+        ? `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} matches ${hit}.`
+        : `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} was compared to the key shapes.`;
+    }
+    case "off-axis": {
+      return "Every stroked edge sits on 0/45/90.";
+    }
+    case "substance": {
+      return `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} has a second dimension — this is a drawing, not a stroke.`;
+    }
+    default: {
+      return "Passed.";
+    }
+  }
+};
+
+/**
+ * The same questions `lint` asks, with the passes kept.
+ *
+ * Order matches `lint`: substance, centring, keyline, bleed, then gap or
+ * feature, then cut, off-axis, density. Cohort alignment leads when a
+ * family was supplied. A rule that fired more than once (two gaps) keeps
+ * every failure; a rule that fired none gets one pass line.
+ */
+export const review = (
+  canvas: LintTarget,
+  options: LintOptions = {}
+): Check[] => {
+  const issues = lint(canvas, options);
+  if (canvas.elements.length === 0) {
+    return issues.map((i) => ({
+      message: i.message,
+      rule: i.rule,
+      status: i.severity,
+    }));
+  }
+  const finish = canvas.finish ?? "outlined";
+  const spec = canvas.spec ?? SPEC;
+  const b = bbox(canvas.elements.flatMap((e) => parsePath(e.d)));
+  const ink = finish === "filled" ? 0 : spec.stroke;
+  const ctx = {
+    box: b,
+    finish,
+    keyline: options.keyline ?? null,
+    n: canvas.elements.length,
+    spec,
+    vx: b.w + ink,
+    vy: b.h + ink,
+  };
+  const rules = [
+    ...(options.cohort ? ["cohort-align"] : []),
+    "substance",
+    "centred",
+    "keyline",
+    "bleed",
+    finish === "filled" ? "feature" : "gap",
+    "cut",
+    "off-axis",
+    "density",
+  ];
+  const checks: Check[] = [];
+  for (const rule of rules) {
+    const found = issues.filter((i) => i.rule === rule);
+    if (found.length === 0) {
+      checks.push({ message: passMessage(rule, ctx), rule, status: "pass" });
+      continue;
+    }
+    checks.push(
+      ...found.map((i) => ({
+        message: i.message,
+        rule: i.rule,
+        status: i.severity as CheckStatus,
+      }))
+    );
+  }
+  return checks;
 };
 
 export const format = (issues: Issue[]): string =>

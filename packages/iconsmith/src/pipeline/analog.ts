@@ -17,6 +17,7 @@
  * not.
  */
 import type { Spec } from "../tools/canvas.js";
+import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import type { Issue, Part } from "../types.js";
@@ -34,19 +35,29 @@ export const STACK_PART = "ellipse-flat";
 export const retitle = (program: string, slug: string): string =>
   program.replace(/^icon[^\n]*/mu, `icon ${slug}`);
 
-/** Compile `analogPaths` onto `parts`, then name the program `slug`.
- *  Local unmatched subpaths are pushed onto `extras` so the DSL runner
- *  can place them — same seam as `compileArm`. */
+/**
+ * Compile `analogPaths` onto `parts`, then name the program `slug`. Local
+ * unmatched subpaths are pushed onto `extras` so the DSL runner can place
+ * them — same seam as `compileArm`.
+ *
+ * The keyline is declared here rather than by `compileIcon`, but it is
+ * *measured* rather than assumed. An earlier revision appended `keyline square`
+ * unconditionally, reasoning that an analog ends in `fit` and so keeps the
+ * promise; `fit` scales content into the live area and preserves its aspect, so
+ * it makes nothing square that was not, and a fan that lands at 18.0×15.5
+ * declared a box it misses. `declareKeyline` names what the drawing measures.
+ */
 export const replay = (
   slug: string,
   analogPaths: readonly string[],
   parts: readonly Part[],
   extras: Part[] = []
 ): string => {
-  const source = retitle(compileIcon(slug, analogPaths, parts, extras), slug);
-  return /(?:^|\n)fit(?:\s|$)/mu.test(source)
-    ? source
-    : `${source.trimEnd()}\nfit\n`;
+  const compiled = retitle(compileIcon(slug, analogPaths, parts, extras), slug);
+  const fitted = /(?:^|\n)fit(?:\s|$)/mu.test(compiled)
+    ? compiled
+    : `${compiled.trimEnd()}\nfit\n`;
+  return declareKeyline(fitted, slug, [...parts, ...extras]).source;
 };
 
 /**
@@ -203,21 +214,27 @@ export const hub = (slug: string, leaves = 3): string => {
   if (leaves !== 3) {
     throw new Error("hub draws three children; other fan-outs are not written");
   }
-  return [
-    `icon ${slug}`,
-    "keyline square",
-    "finish outlined",
-    "",
-    "circle 12,6 r2",
-    "circle 5,17 r2",
-    "circle 12,17 r2",
-    "circle 19,17 r2",
-    "line 12,8 12,15",
-    "line 7,17 10,17",
-    "line 14,17 17,17",
-    "fit",
-    "",
-  ].join("\n");
+  // No `keyline` line: a node over three children fits at 18.0×15.5, which is
+  // no house keyline, and the honest reading of that is a `keyline` warn rather
+  // than a `square` this drawing misses by 2.5. `declareKeyline` adds one if a
+  // caller's spec ever makes the fan land on a box.
+  return declareKeyline(
+    [
+      `icon ${slug}`,
+      "finish outlined",
+      "",
+      "circle 12,6 r2",
+      "circle 5,17 r2",
+      "circle 12,17 r2",
+      "circle 19,17 r2",
+      "line 12,8 12,15",
+      "line 7,17 10,17",
+      "line 14,17 17,17",
+      "fit",
+      "",
+    ].join("\n"),
+    slug
+  ).source;
 };
 
 /**
@@ -265,6 +282,13 @@ export interface AnalogNeighbor {
  * is the drawing — existing icons feed the design — unless the name is a
  * cylinder stack, which stays `stack` / `trays` so `database` does not become
  * a retitled `server` when no kin file exists.
+ *
+ * `glyphs.ts` is deliberately not consulted here. A revision that put it first
+ * returned the host construction alone for any name that had one, which meant
+ * analog stopped collating its own families for exactly the concepts somebody
+ * had already hand-drawn — and made a set of ten of them look like ten analog
+ * draws in the record. A host form is a thing to ask for by name
+ * (`unkeyed: "glyph"`), not a thing another arm quietly answers with.
  */
 export const analogConstructions = (
   slug: string,

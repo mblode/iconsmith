@@ -65,6 +65,7 @@ test("every op parses", () => {
     keyline wide
     rect    2,3 8x6 r2
     circle  12,12 r4
+    diamond 12,12 r5
     arc     12,12 r8 half from left
     line    4,18 9,18 14,18
     dot     18,18 floating
@@ -80,6 +81,7 @@ test("every op parses", () => {
   expect(r.canvas.elements.map((e) => e.kind)).toStrictEqual([
     "rect",
     "circle",
+    "line",
     "arc",
     "line",
     "dot",

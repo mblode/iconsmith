@@ -46,10 +46,16 @@ import {
   parseIconSvg,
 } from "../corpus/load.js";
 import { BASELINE, CEILING } from "../pipeline/eval.js";
+import { glyphFromSlug, GLYPH_WHY, GLYPHS } from "../pipeline/glyphs.js";
+import { markFromSlug } from "../pipeline/kind.js";
+import { MARKS } from "../pipeline/marks.js";
 import { SPEC } from "../tools/canvas.js";
-import { lint } from "../tools/lint.js";
+import { run as runDsl } from "../tools/dsl.js";
+import { review } from "../tools/lint.js";
+import type { Check } from "../tools/lint.js";
 import { similarity } from "../tools/render.js";
-import type { Finish, Issue } from "../types.js";
+import { adaptProgram } from "../tools/twin.js";
+import type { Finish, Issue, Keyline } from "../types.js";
 import { assertDirectory, readText } from "./read.js";
 
 /**
@@ -139,6 +145,253 @@ export interface ViewTrace {
   program: string | null;
 }
 
+const KEYLINE_NAMES: readonly Keyline[] = [
+  "circle",
+  "landscape",
+  "portrait",
+  "square",
+  "tall",
+  "wide",
+];
+
+const isKeyline = (name: string): name is Keyline =>
+  KEYLINE_NAMES.some((k) => k === name);
+
+/** The keyline a `.icon` program declared, so lint judges the drawing against
+ *  the box it claimed rather than whichever box happens to fit. */
+export const keylineOf = (program: string | null): Keyline | null => {
+  const match = program?.match(
+    /^keyline\s+(?<name>circle|landscape|portrait|square|tall|wide)\b/mu
+  );
+  const name = match?.groups?.name;
+  return name !== undefined && isKeyline(name) ? name : null;
+};
+
+export interface ReasonStep {
+  kind: string;
+  text: string;
+}
+
+const textsOf = (value: unknown): string[] => {
+  if (typeof value === "string" && value.trim() !== "") {
+    return [value];
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap(textsOf);
+  }
+  if (value !== null && typeof value === "object") {
+    const rec = value as Record<string, unknown>;
+    const out: string[] = [];
+    for (const key of [
+      "text",
+      "thinking",
+      "content",
+      "message",
+      "delta",
+      "reasoning",
+      "item",
+    ]) {
+      if (key in rec) {
+        out.push(...textsOf(rec[key]));
+      }
+    }
+    return out;
+  }
+  return [];
+};
+
+/** JSONL (Codex `--json`, session dumps) becomes titled steps; prose stays one
+ *  block. The viewer shows this always, not only when something failed. */
+export const parseLog = (log: string): ReasonStep[] => {
+  const steps: ReasonStep[] = [];
+  const seen = new Set<string>();
+  for (const line of log.split(/\r?\n/u)) {
+    const trimmed = line.trim();
+    if (trimmed === "") {
+      continue;
+    }
+    try {
+      const row = JSON.parse(trimmed) as Record<string, unknown>;
+      const kind = String(row.type ?? row.role ?? "step");
+      for (const text of textsOf(row)) {
+        const key = `${kind}\0${text}`;
+        if (seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        steps.push({ kind, text });
+      }
+    } catch {
+      steps.push({ kind: "log", text: trimmed });
+    }
+  }
+  return steps;
+};
+
+/** The ops in a program, as the construction chain. Comments stay as notes. */
+export const constructionSteps = (program: string): ReasonStep[] =>
+  program
+    .split(/\r?\n/u)
+    .map((line) => line.trim())
+    .filter((line) => line !== "")
+    .map((line) => {
+      if (line.startsWith("#")) {
+        return { kind: "note", text: line.replace(/^#\s*/u, "") };
+      }
+      const [kind, ...rest] = line.split(/\s+/u);
+      return { kind: kind ?? "op", text: rest.join(" ") || kind };
+    });
+
+const otherFinish = (finish: Finish): Finish =>
+  finish === "filled" ? "outlined" : "filled";
+
+const shapesFromProgram = (source: string): CorpusShape[] | null => {
+  const drawn = runDsl(source, []);
+  if (drawn.errors.length > 0) {
+    return null;
+  }
+  return parseIconSvg(drawn.canvas.toSVG());
+};
+
+/**
+ * A program the DSL refused, as a finding rather than as a missing paint.
+ *
+ * Returning `null` and moving on made a refused op indistinguishable from one
+ * nobody asked for: the derived twin simply did not appear, the card showed one
+ * paint, and the reason — which is a real defect in the drawing or in the
+ * derivation — reached nobody. This is the same failure the reach set shipped in
+ * four other places, so it gets the same treatment: say what broke, on the card,
+ * at `error`, because a paint the page cannot draw is not a judgement call.
+ */
+const refusal = (
+  what: string,
+  finish: Finish,
+  errors: readonly string[]
+): Issue => ({
+  message: `The ${finish} paint could not be drawn from its ${what}: ${errors.join("; ")}`,
+  rule: "dsl",
+  severity: "error",
+});
+
+/**
+ * One paint of one drawing: the program that made it, what it drew, and what
+ * the house spec makes of it.
+ *
+ * A card holds a list of these rather than a drawing plus a "twin", because
+ * the twin was a second-class citizen and it showed. Its lint ran into a
+ * separate block that the card's status did not read, so an icon whose filled
+ * paint sat off-keyline and off-centre was labelled clean; and its program was
+ * never rendered at all, so a thumbnail appeared with nothing to explain it.
+ * Both paints are the same kind of thing and are now the same type.
+ */
+export interface ViewPaint {
+  /** The full house-spec chain for this paint, passes and waivers included. */
+  checks: Check[];
+  finish: Finish;
+  /** Null only for a paint read off disk with no program to derive from — a
+   *  repair dump, or a shipped corpus icon. */
+  program: string | null;
+  shapes: CorpusShape[];
+}
+
+/**
+ * Lint a paint through its own canvas rather than through its rendered SVG.
+ *
+ * The re-parse is what silenced the `off-axis` escape hatch. `Canvas.line`
+ * records `offAxis` on the element that needed it, `lint.ts` reads that flag
+ * and waives the rule — and `parseIconSvg` keeps path data, stroke width and
+ * cap, so a round trip through the SVG drops the declaration on the floor.
+ * The compass then warned four times about a diagonal its own program had
+ * asked for by name. Draw the program, lint the canvas, render the shapes:
+ * one drawing, and the page cannot report a different one than it shows.
+ */
+const paintProgram = (
+  source: string
+): { errors: readonly string[]; paint: ViewPaint | null } => {
+  const drawn = runDsl(source, []);
+  if (drawn.errors.length > 0) {
+    return { errors: drawn.errors, paint: null };
+  }
+  const { canvas } = drawn;
+  return {
+    errors: [],
+    paint: {
+      checks: review(canvas, { keyline: drawn.keyline }),
+      finish: canvas.finish,
+      program: source,
+      shapes: parseIconSvg(canvas.toSVG()),
+    },
+  };
+};
+
+const stemOf = (slug: string): string =>
+  slug.endsWith("-filled") ? slug.slice(0, -"-filled".length) : slug;
+
+/** The program the host would write for this slug in this finish, when the
+ *  slug names a glyph or a mark. Both write each finish directly rather than
+ *  deriving one from the other, so a chosen filled composition survives. */
+const hostProgram = (slug: string, finish: Finish): string | null => {
+  const stem = stemOf(slug);
+  const glyph = glyphFromSlug(stem);
+  if (glyph !== null) {
+    return GLYPHS[glyph.glyph](stem, finish);
+  }
+  const mark = markFromSlug(stem);
+  return mark === null ? null : MARKS[mark.mark](stem, finish);
+};
+
+/**
+ * The program for the other paint of this drawing, as a program.
+ *
+ * A comment is not a program. The reach set shipped filled "programs" that
+ * were a single `#` note — "host band ribbons — open arcs enclose nothing
+ * under fill" — beside a filled thumbnail that had been rendered some other
+ * way, which is the page describing one drawing and showing another. There are
+ * only two honest sources for the other paint: a host construction that writes
+ * both finishes, or `adaptProgram` re-painting the one program there is. Both
+ * return ops. Neither invents a coordinate.
+ */
+export const twinProgram = (
+  slug: string,
+  finish: Finish,
+  program: string | null
+): string | null => {
+  const want = otherFinish(finish);
+  const host = hostProgram(slug, want);
+  if (host !== null) {
+    return host;
+  }
+  return program === null ? null : adaptProgram(program, want);
+};
+
+/** The other paint's shapes. Derived from {@link twinProgram} when there is a
+ *  program to derive from; a sibling `*-filled.svg` is the last resort. */
+export const twinShapes = (
+  slug: string,
+  file: string,
+  finish: Finish,
+  program: string | null
+): CorpusShape[] | null => {
+  const want = otherFinish(finish);
+  const source = twinProgram(slug, finish, program);
+  if (source !== null) {
+    return shapesFromProgram(source);
+  }
+  const twinFile =
+    want === "filled"
+      ? file.replace(/\.svg$/u, "-filled.svg")
+      : file.replace(/-filled\.svg$/u, ".svg");
+  if (twinFile !== file && existsSync(twinFile)) {
+    return parseIconSvg(readFileSync(twinFile, "utf-8"));
+  }
+  return null;
+};
+
+const hostBrief = (slug: string): string | null => {
+  const glyph = glyphFromSlug(stemOf(slug));
+  return glyph === null ? null : GLYPH_WHY[glyph.glyph];
+};
+
 /** Sidecars next to `slug.svg`: `slug.brief.md`, `slug.log.jsonl`, `slug.icon`. */
 export const loadTrace = (file: string): ViewTrace => {
   const base = file.replace(/\.svg$/u, "");
@@ -156,10 +409,42 @@ export const loadTrace = (file: string): ViewTrace => {
 /** What the demo (and any later arm) records beside a sample. Optional fields:
  *  a repair dump has none of these, and a lost sample has `lost` but no cosine. */
 export interface ViewMetrics {
+  /**
+   * What the arm concluded about its own drawing.
+   *
+   * Read, not ignored. The reach set recorded `clean: false` and a
+   * `severity: "error"` keyline issue for `fingerprint`, and the card said
+   * clean and the header said zero errors — because the page re-linted the
+   * staged SVG and never opened the sidecar. Two verdicts on one drawing, with
+   * the page showing whichever one flattered it. A recorded finding is now part
+   * of the icon's status; when the page's own lint disagrees, both are shown
+   * and the disagreement is the finding.
+   */
+  clean?: boolean;
+  issues?: Issue[];
   lost?: boolean;
   partsFound?: number;
   policy?: string;
 }
+
+const SEVERITIES = new Set(["error", "warn"]);
+
+const asIssue = (raw: unknown): Issue | null => {
+  if (raw === null || typeof raw !== "object" || Array.isArray(raw)) {
+    return null;
+  }
+  const rec = raw as Record<string, unknown>;
+  const { message, rule, severity } = rec;
+  if (
+    typeof message !== "string" ||
+    typeof rule !== "string" ||
+    typeof severity !== "string" ||
+    !SEVERITIES.has(severity)
+  ) {
+    return null;
+  }
+  return { message, rule, severity: severity as Issue["severity"] };
+};
 
 const asMetrics = (raw: unknown): ViewMetrics | undefined => {
   if (raw === null || typeof raw !== "object" || Array.isArray(raw)) {
@@ -167,6 +452,17 @@ const asMetrics = (raw: unknown): ViewMetrics | undefined => {
   }
   const rec = raw as Record<string, unknown>;
   const metrics: ViewMetrics = {};
+  if (typeof rec.clean === "boolean") {
+    metrics.clean = rec.clean;
+  }
+  if (Array.isArray(rec.issues)) {
+    const issues = rec.issues
+      .map(asIssue)
+      .filter((i): i is Issue => i !== null);
+    if (issues.length > 0) {
+      metrics.issues = issues;
+    }
+  }
   if (typeof rec.lost === "boolean") {
     metrics.lost = rec.lost;
   }
@@ -176,14 +472,7 @@ const asMetrics = (raw: unknown): ViewMetrics | undefined => {
   if (typeof rec.policy === "string" && rec.policy !== "") {
     metrics.policy = rec.policy;
   }
-  if (
-    metrics.lost === undefined &&
-    metrics.partsFound === undefined &&
-    metrics.policy === undefined
-  ) {
-    return undefined;
-  }
-  return metrics;
+  return Object.keys(metrics).length === 0 ? undefined : metrics;
 };
 
 /** Sidecar next to `slug.svg`: `slug.json`. Demo writes `policy`, `partsFound`
@@ -206,13 +495,61 @@ export const loadMetrics = (file: string): ViewMetrics | undefined => {
  *  without a socket, a corpus or a filesystem. */
 export interface ViewCard {
   against: ViewComparison | null;
-  finish: Finish;
   icon: ViewIcon;
+  /**
+   * Every finding this icon has, from any paint and from the arm's own record,
+   * deduplicated. **This is the icon's status**, and the only thing the header
+   * counts.
+   *
+   * It is one field rather than one per paint because the previous arrangement
+   * had two, and a reader has to be able to answer "is this icon finished"
+   * without reading three lists and taking the union themselves. Where a
+   * finding came from is a display detail, kept on the paint that found it.
+   */
   issues: Issue[];
   metrics?: ViewMetrics;
-  shapes: CorpusShape[];
+  /** Outlined first, then filled. Never empty: the file on disk is always one
+   *  paint even when nothing can derive the other. */
+  paints: ViewPaint[];
   trace?: ViewTrace;
 }
+
+/**
+ * Every finding about an icon, from every paint and from the arm's record.
+ *
+ * A `pass` contributes nothing. A declared `off-axis` does contribute: it is a
+ * `warn` like any other, because the declaration is the choice and the warning
+ * is the request to confirm it. Duplicates collapse, because the same
+ * measurement reached twice (both paints sit off the same keyline) is one fact
+ * about the drawing.
+ */
+export const cardIssues = (
+  paints: readonly ViewPaint[],
+  recorded: readonly Issue[] = []
+): Issue[] => {
+  const out: Issue[] = [];
+  for (const paint of paints) {
+    for (const check of paint.checks) {
+      if (check.status === "error" || check.status === "warn") {
+        out.push({
+          message: check.message,
+          rule: check.rule,
+          severity: check.status,
+        });
+      }
+    }
+  }
+  out.push(...recorded);
+  const seen = new Set<string>();
+  return out.filter((i) => {
+    const key = `${i.severity}\u0000${i.rule}\u0000${i.message}`;
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+};
 
 /**
  * Every `.svg` in `dir`, plus every `.svg` one level below it.
@@ -226,12 +563,25 @@ export interface ViewCard {
 export const discoverIcons = (dir: string): ViewIcon[] => {
   const icons: ViewIcon[] = [];
   const collect = (from: string, group: string | null): void => {
-    for (const name of readdirSync(from).toSorted()) {
+    const names = readdirSync(from).toSorted();
+    const present = new Set(names);
+    for (const name of names) {
       if (name.endsWith(".svg")) {
         // Demo stages the house SVG next to the samples as `slug.house.svg`.
         // That file is the answer key, not a drawing to review, and looking it
         // up as a slug would search the corpus for `pull-request.house`.
         if (name.endsWith(".house.svg")) {
+          continue;
+        }
+        // `plus-filled.svg` beside `plus.svg` is the same concept in the other
+        // paint — which is what `counterpartSlug` already says about it — and a
+        // card shows every paint it can reach. Two cards for one icon put the
+        // same pair of thumbnails on the page twice and made a ten-icon set
+        // read as twenty. A filled file standing alone still gets its own card.
+        if (
+          name.endsWith("-filled.svg") &&
+          present.has(`${name.slice(0, -"-filled.svg".length)}.svg`)
+        ) {
           continue;
         }
         icons.push({
@@ -410,17 +760,113 @@ const scaleMarkup = (
   ].join("");
 };
 
-const issuesMarkup = (issues: Issue[]): string => {
-  if (issues.length === 0) {
-    return '<p class="clean">clean</p>';
-  }
-  return `<ul class="issues">${issues
+const checkList = (checks: readonly Check[]): string =>
+  `<ul class="qa">${checks
     .map(
-      (i) =>
-        `<li class="${i.severity}"><span class="rule">${escapeHtml(i.rule)}</span>${escapeHtml(i.message)}</li>`
+      (c) =>
+        `<li class="${c.status}"><span class="status">${c.status}</span><span class="rule">${escapeHtml(c.rule)}</span>${escapeHtml(c.message)}</li>`
     )
     .join("")}</ul>`;
+
+const issuesMarkup = (checks: readonly Check[]): string => {
+  if (checks.length === 0) {
+    return '<p class="clean">clean</p>';
+  }
+  const dirty = checks.some((c) => c.status !== "pass");
+  const banner = dirty
+    ? ""
+    : '<p class="clean">clean — every house check passed</p>';
+  return `${banner}${checkList(checks)}`;
 };
+
+/** The arm's own verdict, shown next to the page's. Only when it has something
+ *  the page's lint did not reach: `clean: false` with no issue attached is the
+ *  state that let `fingerprint` pass, so it is stated rather than dropped. */
+const recordedMarkup = (metrics: ViewMetrics | undefined): string => {
+  const issues = metrics?.issues ?? [];
+  const contradicts = metrics?.clean === false && issues.length === 0;
+  if (issues.length === 0 && !contradicts) {
+    return "";
+  }
+  const checks: Check[] = issues.map((i) => ({
+    message: i.message,
+    rule: i.rule,
+    status: i.severity,
+  }));
+  if (contradicts) {
+    checks.push({
+      message:
+        "The arm recorded this drawing as not clean without recording a finding. Whatever it objected to is not in this list.",
+      rule: "recorded",
+      status: "warn",
+    });
+  }
+  return `<section class="paint recorded"><h3>as recorded</h3>${checkList(checks)}</section>`;
+};
+
+const stepsMarkup = (steps: ReasonStep[]): string =>
+  `<ol class="steps">${steps
+    .map(
+      (s) =>
+        `<li><span class="kind">${escapeHtml(s.kind)}</span>${escapeHtml(s.text)}</li>`
+    )
+    .join("")}</ol>`;
+
+const reasonMarkup = (title: string, inner: string): string =>
+  inner === ""
+    ? ""
+    : `<section class="reason"><h3>${escapeHtml(title)}</h3>${inner}</section>`;
+
+const thinkingMarkup = (log: string, steps: ReasonStep[]): string => {
+  if (steps.length === 0) {
+    return "";
+  }
+  if (steps.every((s) => s.kind === "log")) {
+    return `<pre>${escapeHtml(log)}</pre>`;
+  }
+  return stepsMarkup(steps);
+};
+
+const reasoningMarkup = (trace: ViewTrace | undefined): string => {
+  const brief = trace?.brief?.trim() || "";
+  const log = trace?.log?.trim() || "";
+  const thinking = log === "" ? [] : parseLog(log);
+  return [
+    reasonMarkup("Brief", brief === "" ? "" : `<p>${escapeHtml(brief)}</p>`),
+    reasonMarkup("Thinking", thinkingMarkup(log, thinking)),
+  ].join("");
+};
+
+/** The construction and the source for one paint. Both, because the ops read
+ *  as a chain and the program is the artefact — and neither is the other. */
+const programMarkup = (paint: ViewPaint): string => {
+  const program = paint.program?.trim() || "";
+  if (program === "") {
+    return reasonMarkup(
+      `Program (${paint.finish})`,
+      '<p class="absent">no program — this paint was read off disk</p>'
+    );
+  }
+  const built = constructionSteps(program);
+  return [
+    reasonMarkup(
+      `Construction (${paint.finish})`,
+      built.length === 0 ? "" : stepsMarkup(built)
+    ),
+    reasonMarkup(
+      `Program (${paint.finish})`,
+      `<pre>${escapeHtml(program)}</pre>`
+    ),
+  ].join("");
+};
+
+const paintMarkup = (paint: ViewPaint): string =>
+  [
+    `<section class="paint"><h3>${escapeHtml(paint.finish)}</h3>`,
+    issuesMarkup(paint.checks),
+    programMarkup(paint),
+    "</section>",
+  ].join("");
 
 const comparisonMarkup = (
   against: ViewComparison,
@@ -435,37 +881,44 @@ const comparisonMarkup = (
     : scaleMarkup(against.score, partsFound, policy);
 };
 
-const detailsMarkup = (title: string, body: string | null): string => {
-  if (!body?.trim()) {
-    return "";
-  }
-  return `<details class="trace"><summary>${escapeHtml(title)}</summary><pre>${escapeHtml(body)}</pre></details>`;
-};
+const paintOrder = (finish: Finish): number => (finish === "outlined" ? 0 : 1);
 
 const cardMarkup = (card: ViewCard): string => {
   const { against, icon, metrics, trace } = card;
   const { lost, partsFound, policy } = metrics ?? {};
-  const stages = [stage(card.shapes, "generated")];
+  const paints = card.paints.toSorted(
+    (a, b) => paintOrder(a.finish) - paintOrder(b.finish)
+  );
+  const stages = paints
+    .filter((p) => p.shapes.length > 0)
+    .map((p) => stage(p.shapes, p.finish));
   if (against?.shapes) {
     stages.push(stage(against.shapes, "house"));
   }
   const errors = card.issues.filter((i) => i.severity === "error").length;
+  const warnings = card.issues.filter((i) => i.severity === "warn").length;
   const picked = icon.group !== null && icon.slug === icon.group;
   const badges = [
     picked ? '<span class="pick">selected</span>' : "",
     policy ? `<span class="policy">${escapeHtml(policy)}</span>` : "",
     lost ? '<span class="lost">lost</span>' : "",
   ].join("");
+  // Stated once, above both paints, so the card answers "is this finished"
+  // before the reader has to take a union of two lists themselves.
+  const verdict =
+    card.issues.length === 0
+      ? '<p class="clean">clean — every house check passed, in every paint</p>'
+      : `<p class="verdict">${errors} error(s) · ${warnings} warning(s) across ${paints.length} paint(s)</p>`;
   return [
     `<article class="card${errors > 0 ? " has-error" : ""}${picked ? " selected" : ""}" id="${escapeHtml(icon.slug)}">`,
     `<div class="stages">${stages.join("")}</div>`,
     `<h2><a href="#${escapeHtml(icon.slug)}">${escapeHtml(icon.slug)}</a>${badges}</h2>`,
-    `<p class="meta">${escapeHtml(icon.group ?? path.dirname(icon.file))} · ${card.finish}</p>`,
-    issuesMarkup(card.issues),
+    `<p class="meta">${escapeHtml(icon.group ?? path.dirname(icon.file))} · ${paints.map((p) => p.finish).join(" + ")}</p>`,
+    verdict,
+    paints.map(paintMarkup).join(""),
+    recordedMarkup(metrics),
     against ? comparisonMarkup(against, partsFound, policy) : "",
-    detailsMarkup("brief", trace?.brief ?? null),
-    detailsMarkup("thinking", trace?.log ?? null),
-    detailsMarkup("program", trace?.program ?? null),
+    reasoningMarkup(trace),
     "</article>",
   ].join("");
 };
@@ -484,7 +937,7 @@ header { margin: 0 0 1.5rem; display: flex; gap: 1rem; align-items: baseline; fl
 h1 { font-size: 1.1rem; margin: 0; }
 header .count { color: var(--muted); }
 .sprite { position: absolute; width: 0; height: 0; }
-.grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); }
+.grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr)); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
 .card.has-error { border-color: var(--error); }
 .card.selected { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 18%, transparent); }
@@ -494,16 +947,24 @@ header .count { color: var(--muted); }
 .card h2 { font-size: 0.95rem; margin: 0.75rem 0 0.1rem; font-weight: 600; }
 .card h2 a { color: inherit; text-decoration: none; }
 .meta { margin: 0 0 0.6rem; color: var(--muted); font-size: 0.78rem; }
-.stages { display: flex; gap: 0.75rem; }
-.stage { flex: 1 1 0; margin: 0; }
+.stages { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); }
+.stage { margin: 0; }
 .stage svg { width: 100%; height: auto; display: block; color: var(--fg); }
-.stage figcaption { color: var(--muted); font-size: 0.7rem; text-align: center; padding-top: 0.35rem; }
-.clean { margin: 0; color: var(--muted); }
-.issues { margin: 0; padding: 0; list-style: none; font-size: 0.8rem; }
-.issues li { padding: 0.25rem 0; border-top: 1px solid var(--line); }
-.issues .rule { display: inline-block; min-width: 7rem; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.72rem; }
-.issues .error { color: var(--error); }
-.issues .warn { color: var(--warn); }
+.stage figcaption { color: var(--muted); font-size: 0.7rem; text-align: center; padding-top: 0.35rem; letter-spacing: 0.04em; text-transform: lowercase; }
+.clean { margin: 0 0 0.35rem; color: #1f8a4c; font-size: 0.8rem; }
+.verdict { margin: 0 0 0.5rem; font-size: 0.8rem; font-weight: 600; }
+.paint { margin: 0.7rem 0 0; border-top: 1px solid var(--line); padding-top: 0.45rem; }
+.paint h3 { margin: 0 0 0.3rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.paint.recorded h3 { color: var(--warn); }
+.qa .declared .status { color: var(--muted); }
+.qa, .issues { margin: 0; padding: 0; list-style: none; font-size: 0.8rem; }
+.qa li, .issues li { padding: 0.28rem 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 3.2rem 6.2rem 1fr; gap: 0.45rem; align-items: start; }
+.qa .status, .issues .rule, .qa .rule { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.68rem; }
+.qa .status { font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding-top: 0.12rem; }
+.qa .pass .status { color: #1f8a4c; }
+.qa .warn .status, .issues .warn { color: var(--warn); }
+.qa .error .status, .issues .error { color: var(--error); }
+.qa .rule, .issues .rule { color: var(--muted); padding-top: 0.12rem; }
 .scale { margin-top: 0.9rem; }
 .track { position: relative; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--line), color-mix(in srgb, var(--fg) 30%, var(--line))); }
 .mark { position: absolute; top: -4px; width: 2px; height: 14px; margin-left: -1px; border-radius: 1px; }
@@ -515,6 +976,14 @@ header .count { color: var(--muted); }
 .legend .at { position: absolute; top: 0.3rem; transform: translateX(-50%); white-space: nowrap; }
 .reading-out { margin: 0.4rem 0 0; font-size: 0.8rem; }
 .absent { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.8rem; }
+.reason { margin: 0.7rem 0 0; border-top: 1px solid var(--line); padding-top: 0.45rem; }
+.reason h3 { margin: 0 0 0.3rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.reason p { margin: 0; font-size: 0.82rem; }
+.reason pre { margin: 0.15rem 0 0; max-height: 16rem; overflow: auto; white-space: pre-wrap; word-break: break-word;
+  font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.reason .steps { margin: 0; padding: 0; list-style: none; }
+.reason .steps li { padding: 0.22rem 0; border-top: 1px solid var(--line); font-size: 0.8rem; }
+.reason .steps .kind { display: inline-block; min-width: 5.4rem; margin-right: 0.45rem; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.68rem; color: var(--muted); }
 .trace { margin: 0.55rem 0 0; border-top: 1px solid var(--line); padding-top: 0.35rem; }
 .trace summary { cursor: pointer; color: var(--muted); font-size: 0.78rem; }
 .trace pre { margin: 0.4rem 0 0; max-height: 16rem; overflow: auto; white-space: pre-wrap; word-break: break-word;
@@ -527,7 +996,13 @@ export interface PageOptions {
   dir: string;
 }
 
-/** The whole page, from cards. Pure: same cards in, same bytes out. */
+/**
+ * The whole page, from cards. Pure: same cards in, same bytes out.
+ *
+ * The header counts `card.issues`, which is every paint's findings and the
+ * arm's own record. It used to count one paint's, which is how a set with a
+ * recorded `severity: "error"` in it announced itself as "0 error(s)".
+ */
 export const buildPage = (cards: ViewCard[], opts: PageOptions): string => {
   const errors = cards.reduce(
     (n, c) => n + c.issues.filter((i) => i.severity === "error").length,
@@ -553,32 +1028,161 @@ export const buildPage = (cards: ViewCard[], opts: PageOptions): string => {
   ].join("");
 };
 
-/** Lint one shipped icon exactly as `iconsmith lint` does, so the page and the
- *  command never disagree. The finish is read off the file rather than assumed:
- *  a filled icon carries no stroke, and judging it as outlined inflates every
- *  extent by the house stroke width and reports a 20×20 disc as 22×22. */
-const inspect = (
-  shapes: CorpusShape[]
-): { finish: Finish; issues: Issue[] } => {
-  const finish: Finish =
-    shapes.length > 0 && shapes.every((s) => s.filled) ? "filled" : "outlined";
-  return {
-    finish,
-    issues: lint({
-      elements: shapes.map((s, i) => ({
-        d: s.d,
-        id: `e${i}`,
-        strokeWidth: s.strokeWidth,
-      })),
-      finish,
-    }),
-  };
-};
-
 interface Against {
   corpus: Corpus;
   variant: string;
 }
+
+const finishOf = (shapes: CorpusShape[]): Finish =>
+  shapes.length > 0 && shapes.every((s) => s.filled) ? "filled" : "outlined";
+
+/**
+ * A paint that only exists as a file: lint it exactly as `iconsmith lint`
+ * does, so the page and the command never disagree.
+ *
+ * No `offAxis` is passed and that is correct rather than a shortfall — a
+ * shipped SVG carries no declaration, and an undeclared diagonal in a file
+ * somebody handed you is exactly what the rule is for. See `LintElement`.
+ */
+const paintFile = (
+  shapes: CorpusShape[],
+  keyline: Keyline | null
+): ViewPaint => {
+  const finish = finishOf(shapes);
+  const target = {
+    elements: shapes.map((s, i) => ({
+      d: s.d,
+      id: `e${i}`,
+      strokeWidth: s.strokeWidth,
+    })),
+    finish,
+  };
+  return { checks: review(target, { keyline }), finish, program: null, shapes };
+};
+
+/**
+ * Both paints of one staged icon, each with its own program and its own lint.
+ *
+ * The order of preference is the order of trust. A program is the artefact this
+ * project claims to produce, so when there is one it is drawn and linted and
+ * the file on disk is only a cross-check; a host construction is the same thing
+ * written by the host. Only with neither does the file become the drawing, and
+ * then the twin can only come from a sibling file, because nothing here will
+ * invent one.
+ */
+/**
+ * Every paint the page can draw for one icon, and every reason it could not
+ * draw another.
+ *
+ * The refusals come back rather than being dropped. A DSL error while deriving
+ * the twin used to leave the card with one paint and no explanation, which is
+ * the same "a refused op is indistinguishable from one nobody asked for" hole
+ * the reach set shipped in its filled programs.
+ */
+export const paintsOf = (
+  icon: ViewIcon,
+  source: string,
+  program: string | null
+): { issues: Issue[]; paints: ViewPaint[] } => {
+  const fromFile = parseIconSvg(source);
+  const fileFinish = finishOf(fromFile);
+  const primarySource = program ?? hostProgram(icon.slug, fileFinish);
+  const drawn =
+    primarySource === null
+      ? { errors: [] as readonly string[], paint: null }
+      : paintProgram(primarySource);
+  const issues: Issue[] = [];
+  if (drawn.errors.length > 0) {
+    issues.push(refusal("program", fileFinish, drawn.errors));
+  }
+  const primary = drawn.paint;
+  if (primary === null || primary.shapes.length === 0) {
+    // The shipped file is still a drawing worth showing, but on its own it says
+    // nothing about why the program beside it did not run.
+    const paints = [paintFile(fromFile, keylineOf(program))];
+    const twin = twinShapes(icon.slug, icon.file, fileFinish, null);
+    if (twin && twin.length > 0) {
+      paints.push(paintFile(twin, null));
+    }
+    return { issues, paints };
+  }
+  const paints = [primary];
+  const twinSource = twinProgram(icon.slug, primary.finish, primary.program);
+  if (twinSource !== null) {
+    const other = paintProgram(twinSource);
+    if (other.errors.length > 0) {
+      issues.push(
+        refusal("outlined twin", otherFinish(primary.finish), other.errors)
+      );
+    } else if (other.paint && other.paint.shapes.length > 0) {
+      paints.push(other.paint);
+    }
+  }
+  return { issues, paints };
+};
+
+const scored = async (
+  scores: Map<string, number | null>,
+  key: string,
+  left: string,
+  right: string
+): Promise<number | null> => {
+  const cached = scores.get(key);
+  if (cached !== undefined) {
+    return cached;
+  }
+  const score = await similarity(left, right);
+  scores.set(key, score);
+  return score;
+};
+
+const compare = async (
+  icon: ViewIcon,
+  source: string,
+  finish: Finish,
+  against: Against | null,
+  scores: Map<string, number | null>
+): Promise<ViewComparison | null> => {
+  const staged = stagedHouse(icon.file);
+  if (staged) {
+    return {
+      score: await scored(
+        scores,
+        `${icon.file}:${statSync(icon.file).mtimeMs}:staged`,
+        source,
+        staged
+      ),
+      shapes: parseIconSvg(staged),
+      variant:
+        finish === "filled"
+          ? FILLED_VARIANT
+          : (against?.variant ?? HOUSE_VARIANT),
+    };
+  }
+  if (against === null) {
+    return null;
+  }
+  const { corpus, variant: outlined } = against;
+  const slug = counterpartSlug(icon);
+  const variant =
+    finish === "filled" && corpus.has(slug, FILLED_VARIANT)
+      ? FILLED_VARIANT
+      : outlined;
+  if (!corpus.has(slug, variant)) {
+    return { score: null, shapes: null, variant };
+  }
+  const house = await corpus.svg(slug, variant);
+  return {
+    score: await scored(
+      scores,
+      `${icon.file}:${statSync(icon.file).mtimeMs}:${variant}`,
+      source,
+      house
+    ),
+    shapes: parseIconSvg(house),
+    variant,
+  };
+};
 
 /**
  * Read one icon and everything said about it.
@@ -594,70 +1198,20 @@ const buildCard = async (
   scores: Map<string, number | null>
 ): Promise<ViewCard> => {
   const source = readText(icon.file, "an .svg icon");
-  const shapes = parseIconSvg(source);
-  const { finish, issues } = inspect(shapes);
   const trace = loadTrace(icon.file);
+  const { issues: refused, paints } = paintsOf(icon, source, trace.program);
   const metrics = loadMetrics(icon.file);
-  const staged = stagedHouse(icon.file);
-  if (staged) {
-    const key = `${icon.file}:${statSync(icon.file).mtimeMs}:staged`;
-    let score = scores.get(key);
-    if (score === undefined) {
-      score = await similarity(source, staged);
-      scores.set(key, score);
-    }
-    return {
-      against: {
-        score,
-        shapes: parseIconSvg(staged),
-        variant:
-          finish === "filled"
-            ? FILLED_VARIANT
-            : (against?.variant ?? HOUSE_VARIANT),
-      },
-      finish,
-      icon,
-      issues,
-      metrics,
-      shapes,
-      trace,
-    };
-  }
-  if (!against) {
-    return { against: null, finish, icon, issues, metrics, shapes, trace };
-  }
-  const { corpus, variant: outlined } = against;
-  const slug = counterpartSlug(icon);
-  const variant =
-    finish === "filled" && corpus.has(slug, FILLED_VARIANT)
-      ? FILLED_VARIANT
-      : outlined;
-  if (!corpus.has(slug, variant)) {
-    return {
-      against: { score: null, shapes: null, variant },
-      finish,
-      icon,
-      issues,
-      metrics,
-      shapes,
-      trace,
-    };
-  }
-  const house = await corpus.svg(slug, variant);
-  const key = `${icon.file}:${statSync(icon.file).mtimeMs}:${variant}`;
-  let score = scores.get(key);
-  if (score === undefined) {
-    score = await similarity(source, house);
-    scores.set(key, score);
-  }
   return {
-    against: { score, shapes: parseIconSvg(house), variant },
-    finish,
+    against: await compare(icon, source, paints[0].finish, against, scores),
     icon,
-    issues,
+    issues: cardIssues(paints, [...refused, ...(metrics?.issues ?? [])]),
     metrics,
-    shapes,
-    trace,
+    paints,
+    trace: {
+      brief: trace.brief ?? hostBrief(icon.slug),
+      log: trace.log,
+      program: trace.program,
+    },
   };
 };
 

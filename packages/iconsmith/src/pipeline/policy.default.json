@@ -321,6 +321,14 @@
       "text": "- `line` — a polyline through two or more points, angles snapped. Arrows,\n  ticks, strokes, connectors, chart lines. Segments within a few degrees of\n  0/45/90 are pulled onto the axis; one further out is refused unless you add\n  `off-axis`, which says the diagonal is the shape rather than a slip. Roughly\n  one edge in seven in this set is off-axis, so it is a real choice — but make\n  it on purpose, and keep both endpoints on the grid."
     },
     {
+      "id": "grammar.diamond",
+      "section": "grammar",
+      "enabled": true,
+      "gap": "tight",
+      "provenance": "inferred",
+      "text": "- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°."
+    },
+    {
       "id": "grammar.dot",
       "section": "grammar",
       "enabled": true,
@@ -334,7 +342,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "inferred",
-      "text": "- `part` — place a shape from the extracted vocabulary by id. Prefer this over\n  drawing a common form from scratch: it is *the same* folder, chevron, or\n  magnifier that the rest of the set already uses, which is the whole point.\n  `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors\n  the part before turning it. A part is stored at one orientation because the\n  clusterer folds a mark together with its turns and its mirror, so these are\n  how you reach the other seven. Quarters only, and never an angle: only the\n  quarter-turns keep every node on the grid. Ask for `flip` on purpose —\n  chirality is the one symmetry that can be simply wrong."
+      "text": "- `part` — place a shape from the extracted vocabulary by id. Prefer this over\n  drawing a common form from scratch: it is *the same* folder, chevron, or\n  magnifier that the rest of the set already uses, which is the whole point.\n  `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors\n  the part before turning it. A part is stored at one orientation because the\n  clusterer folds a mark together with its turns and its mirror, so these are\n  how you reach the other seven. Ask for `flip` on purpose — chirality is the\n  one symmetry that can be simply wrong."
     },
     {
       "id": "grammar.remove",

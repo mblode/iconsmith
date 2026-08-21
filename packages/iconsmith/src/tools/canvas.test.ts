@@ -346,11 +346,11 @@ test("ccw is the other semicircle from the same pole", () => {
   expect(Canvas.fromJSON(doc).toSVG()).toBe(cw.toSVG());
 });
 
-test("an open arc is refused under fill", () => {
+test("a filled arc is an annular sector, not refused", () => {
   const c = new Canvas([], { finish: "filled" });
-  expect(() =>
-    c.arc({ cx: 12, cy: 12, from: "top", r: 8, sweep: "half" })
-  ).toThrow(/filled/u);
+  c.arc({ cx: 12, cy: 12, from: "top", r: 8, sweep: "half" });
+  expect(c.elements).toHaveLength(1);
+  expect(c.toSVG()).toContain('fill="currentColor"');
 });
 
 test("toJSON → fromJSON → toSVG round-trips identically", () => {

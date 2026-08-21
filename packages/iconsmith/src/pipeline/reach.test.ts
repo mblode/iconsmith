@@ -33,8 +33,41 @@ describe("classifyReach", () => {
     });
   });
 
-  it("analogs an unkeyed name", () => {
-    expect(classifyReach("database", hasHouse)).toEqual({ kind: "analog" });
+  it("analogs an unkeyed name the host has no construction for", () => {
+    expect(classifyReach("unicorn", hasHouse)).toEqual({ kind: "analog" });
+  });
+
+  /**
+   * The ten the reach dashboard staged go to the generator, not to the house.
+   *
+   * `glyphs.ts` has a construction for every one of them, and for a while that
+   * was enough to claim the name: the badge on all ten read `glyph`, an
+   * `unkeyed: "agent"` request came back as a host program, and a staged set of
+   * them reported `0 error(s)` about a generator it had never run. A host form
+   * is asked for by name (`unkeyed: "glyph"`) or not used.
+   */
+  it("leaves every reach-set object to the arm the caller picks", () => {
+    for (const slug of [
+      "briefcase",
+      "cake",
+      "compass",
+      "cookie",
+      "database",
+      "fingerprint",
+      "microscope",
+      "strikethrough",
+      "umbrella",
+      "wifi",
+    ]) {
+      expect(
+        classifyReach(slug, () => false),
+        slug
+      ).toEqual({ kind: "analog" });
+      expect(
+        classifyReach(slug, () => false, false, undefined, "glyph"),
+        slug
+      ).toEqual({ kind: "glyph" });
+    }
   });
 
   it("compiles a hyphen twin as the house file", () => {
@@ -47,6 +80,8 @@ describe("classifyReach", () => {
   });
 
   it("does not compile a variant as the concept", () => {
+    // `wifi-full` is a different drawing, not `wifi` under another name, so the
+    // house file is no answer and the name stays unkeyed.
     expect(classifyReach("wifi", hasWifiFull, false, "wifi-full")).toEqual({
       kind: "analog",
     });
@@ -83,22 +118,22 @@ describe("reach", () => {
   });
 
   it("analogs an unkeyed cylinder name as trays", async () => {
-    const result = await reach({ name: "database" });
-    expect(result.brief).toBe("analog trays database");
+    const result = await reach({ name: "server" });
+    expect(result.brief).toBe("analog trays server");
     expect(result.cost).toBeUndefined();
   });
 
   it("replays a Central kin when the exact slug is missing", async () => {
     const result = await reach(
-      { name: "cookie" },
+      { name: "waffle" },
       {},
       {
-        ...house({ cookies: [BOX] }),
-        kin: (query) => (query === "cookie" ? ["cookies"] : []),
+        ...house({ waffles: [BOX] }),
+        kin: (query) => (query === "waffle" ? ["waffles"] : []),
       }
     );
-    expect(result.brief).toBe("analog replay cookies cookie");
-    expect(result.program).toContain("part cookie-");
+    expect(result.brief).toBe("analog replay waffles waffle");
+    expect(result.program).toContain("part waffle-");
     expect(result.cost).toBeUndefined();
     expect(result.issues.some((i) => i.message.includes("unknown part"))).toBe(
       false

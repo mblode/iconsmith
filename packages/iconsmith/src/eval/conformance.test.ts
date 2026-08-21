@@ -42,6 +42,24 @@ describe("the gate", () => {
       ])
     ).toEqual({ errors: 1, warnings: 2 });
   });
+
+  /**
+   * A declared diagonal is a warning, so it clears the gate and misses strict —
+   * which is what both docstrings claim and what the house spec says, since the
+   * permitted axes are 0/45/90 and this edge is on none of them.
+   *
+   * Worth pinning because a revision that suppressed the finding moved the icon
+   * into *strict*: an off-axis drawing came back as satisfying the house spec
+   * outright, on the strength of the program having admitted it.
+   */
+  it("clears the gate on a declared diagonal without calling it strict", () => {
+    const declared = countIssues([
+      { declared: "off-axis", message: "", rule: "off-axis", severity: "warn" },
+    ]);
+    expect(declared).toEqual({ errors: 0, warnings: 1 });
+    expect(passesGate(declared)).toBe(true);
+    expect(passesStrict(declared)).toBe(false);
+  });
 });
 
 describe("packRates", () => {

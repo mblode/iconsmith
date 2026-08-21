@@ -77,6 +77,9 @@ export const withCacheBreakpoints = (
  *  this the model is polishing, and polishing is where it drifts. */
 export const DEFAULT_MAX_STEPS = 24;
 
+/** Who draws a name the house has no file for. See `GenerateOptions.unkeyed`. */
+export type Unkeyed = "agent" | "analog" | "glyph" | "harness";
+
 export interface GenerateOptions {
   /**
    * The design language to draw under. A variant is how an experiment is run:
@@ -173,9 +176,11 @@ export interface GenerateOptions {
    * What to do with an unkeyed name. Default `analog` keeps labs and tests on
    * the host constructions. `iconsmith new` passes `agent` (built-in loop) or
    * `harness` (Claude Code / Codex CLI) so a new glyph is drawn, not replayed
-   * from a neighbour.
+   * from a neighbour. `glyph` asks for a host construction from `glyphs.ts`,
+   * for the handful of names that have one — it has to be asked for, so that a
+   * caller who wanted a generator never quietly gets the house answer instead.
    */
-  unkeyed?: "agent" | "analog" | "harness";
+  unkeyed?: Unkeyed;
   /** CLI for `unkeyed: "harness"`. Default `claude`. */
   harnessCommand?: string;
   /**

@@ -6,8 +6,10 @@ import { expect, test } from "vitest";
 import type { Finish } from "../types.js";
 import { run } from "./dsl.js";
 import {
+  adaptProgram,
   frame,
   hbar,
+  lozenge,
   mass,
   program,
   ring,
@@ -120,4 +122,139 @@ const sized = (w: number, h: number, inkWidth: number) => ({
 
 test("sameExtent is false when sizes differ by more than 0.01", () => {
   expect(sameExtent(sized(18, 18, 0), sized(18.02, 18, 0))).toBe(false);
+});
+
+test("a lozenge is a 45° diamond in both paints", () => {
+  expect(lozenge("outlined", 12, 12, 5)).toEqual(["diamond 12,12 r5"]);
+  expect(lozenge("filled", 12, 12, 5)).toEqual(["diamond 12,12 r5"]);
+  expect(
+    sameExtent(
+      draw("outlined", lozenge("outlined", 12, 12, 5)),
+      draw("filled", lozenge("filled", 12, 12, 5))
+    )
+  ).toBe(true);
+});
+
+test("adaptProgram splits a closed polyline so filled bars can run", () => {
+  const outlined = [
+    "icon diamond",
+    "finish outlined",
+    "line 12,7 17,12 12,17 7,12 12,7",
+  ].join("\n");
+  const filled = adaptProgram(outlined, "filled");
+  expect(filled).toContain("finish filled");
+  expect(filled.split("\n").filter((l) => l.startsWith("line "))).toHaveLength(
+    4
+  );
+  const drawn = run(filled);
+  expect(drawn.errors).toEqual([]);
+});
+
+const HOOP = [
+  "icon hoop",
+  "keyline circle",
+  "finish outlined",
+  "circle 12,12 r9",
+].join("\n");
+
+/** The bug this rules out is a black disc where a ring belongs: relabelling
+ *  the finish leaves `circle` meaning "solid" and swallows the interior. */
+test("adaptProgram punches a stroked circle into a ring, not a solid disc", () => {
+  const filled = adaptProgram(HOOP, "filled");
+  expect(filled).toContain("circle 12,12 r10");
+  expect(filled).toContain("hole circle 12,12 r8");
+  const drawn = run(filled);
+  expect(drawn.errors).toEqual([]);
+  const knockouts = drawn.canvas.elements.filter((e) => e.op === "knockout");
+  expect(knockouts).toHaveLength(1);
+  // Two subpaths in one `<path>` under evenodd is what makes the hole a hole.
+  expect(drawn.canvas.toSVG().match(/<path/gu)).toHaveLength(1);
+});
+
+test("adaptProgram punches a stroked rect into a frame, not a slab", () => {
+  const filled = adaptProgram(
+    ["icon card", "finish outlined", "rect 3,7.5 18x11 r2"].join("\n"),
+    "filled"
+  );
+  expect(filled).toContain("rect 2,6.5 20x13 r3");
+  expect(filled).toContain("hole rect 4,8.5 16x9 r1");
+});
+
+/** A circle no wider than the stroke has no hole to knock out: its own ink
+ *  closes it. Emitting one would be refused as a hole outside its solid. */
+test("adaptProgram leaves a stroke-width circle solid", () => {
+  const filled = adaptProgram(
+    ["icon pip", "finish outlined", "circle 12,12 r1"].join("\n"),
+    "filled"
+  );
+  expect(filled).toContain("circle 12,12 r2");
+  expect(filled).not.toContain("hole");
+});
+
+test("both paints of an adapted program occupy the same visual extent", () => {
+  for (const ops of [
+    "circle 12,12 r9",
+    "rect 3,7.5 18x11 r2",
+    "diamond 12,12 r5",
+    "dot 12,12 floating",
+  ]) {
+    const outlined = ["icon x", "finish outlined", ops].join("\n");
+    const filled = adaptProgram(outlined, "filled");
+    const drawn = run(filled);
+    expect(drawn.errors, ops).toEqual([]);
+    expect(sameExtent(run(outlined).canvas, drawn.canvas), ops).toBe(true);
+  }
+});
+
+/**
+ * The one primitive where `sameExtent` disagrees with the ink, and the
+ * disagreement is the measurement's rather than the derivation's.
+ *
+ * `visualSize` is `bbox + inkWidth`, which inflates both axes by a full stroke.
+ * That is right for a closed shape, whose ink hangs half a width outside the
+ * path all the way round, and wrong at the butt cap of an open one: the stroke
+ * of a half-arc ending at (3,14) spreads perpendicular to the tangent, so it
+ * runs 2..4 in x and stops dead at y=14. The annular sector the filled twin
+ * draws is exactly that ink, one unit shorter than the formula predicts. The
+ * formula is left alone — every threshold in `lint.ts` is calibrated against it
+ * over 62,550 icons — but it is the reason an open-arc icon's reported extent
+ * can miss a keyline it visually sits on.
+ */
+test("a filled arc is the annular sector its stroke occupied", () => {
+  const outlined = [
+    "icon x",
+    "finish outlined",
+    "arc 12,14 r9 half from left",
+  ].join("\n");
+  const filled = adaptProgram(outlined, "filled");
+  expect(filled).toContain("arc 12,14 r9 half from left");
+  const drawn = run(filled);
+  expect(drawn.errors).toEqual([]);
+  expect(visualSize(drawn.canvas).h).toBeCloseTo(10, 6);
+  expect(visualSize(drawn.canvas).w).toBeCloseTo(20, 6);
+  // The formula's reading of the outlined twin, one unit taller than its ink.
+  expect(visualSize(run(outlined).canvas).h).toBeCloseTo(11, 6);
+});
+
+/** The derivation is invertible on the closed primitives, which is the
+ *  property that says it is a re-paint and not a reshape. */
+test("adaptProgram round-trips a ring and a frame back to their centre lines", () => {
+  for (const ops of ["circle 12,12 r9", "rect 3,7.5 18x11 r2"]) {
+    const outlined = ["icon x", "finish outlined", ops].join("\n");
+    expect(adaptProgram(adaptProgram(outlined, "filled"), "outlined")).toBe(
+      outlined
+    );
+  }
+});
+
+test("adaptProgram leaves an op it does not model untouched", () => {
+  const outlined = [
+    "icon parted",
+    "finish outlined",
+    "part folder at 4,4 size 16",
+    "# a note",
+  ].join("\n");
+  const filled = adaptProgram(outlined, "filled");
+  expect(filled).toContain("part folder at 4,4 size 16");
+  expect(filled).toContain("# a note");
 });

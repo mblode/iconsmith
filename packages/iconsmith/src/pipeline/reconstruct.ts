@@ -20,7 +20,8 @@
  */
 import { bbox, parsePath, serialise, translate } from "../geometry/path.js";
 import { fingerprint, flatten, match } from "../parts/shape.js";
-import { run as runDsl } from "../tools/dsl.js";
+import { declareKeyline } from "../tools/declare.js";
+import type { Declared } from "../tools/declare.js";
 import { lint } from "../tools/lint.js";
 import type { Issue, Part, Subpath } from "../types.js";
 import type { GenerateLike } from "./harness.js";
@@ -126,13 +127,19 @@ const placeLocal = (
   return n + 1;
 };
 
-/** A `.icon` program that rebuilds these path `d`s from primitives and
- *  `parts`. Circles stay `circle`. Vocabulary matches become `part` ops.
- *  Anything else — unmatched, or a mixed-size cluster whose medoid would
- *  cook — is the house subpath itself, parked in `extras` and placed by id.
- *  Keyed compile therefore still draws when the extract is empty: the house
- *  file is the vocabulary for that icon, which is reconstruction, not a
- *  model inventing geometry. */
+/**
+ * A `.icon` program that rebuilds these path `d`s from primitives and `parts`.
+ * Circles stay `circle`. Vocabulary matches become `part` ops. Anything else —
+ * unmatched, or a mixed-size cluster whose medoid would cook — is the house
+ * subpath itself, parked in `extras` and placed by id. Keyed compile therefore
+ * still draws when the extract is empty: the house file is the vocabulary for
+ * that icon, which is reconstruction, not a model inventing geometry.
+ *
+ * No `keyline` line, and no `fit`. Both would be the compiler overruling
+ * Central about the size of Central's own drawing: a compile reproduces an
+ * extent that already exists, so the box is a measurement rather than a
+ * choice. {@link compileArm} measures it and declares it when it lands on one.
+ */
 export const compileIcon = (
   slug: string,
   paths: readonly string[],
@@ -143,7 +150,7 @@ export const compileIcon = (
     const [sp] = parsePath(p.d);
     return { fp: sp ? fingerprint(sp) : null, part: p };
   });
-  const lines = [`icon ${slug}`, "keyline square"];
+  const lines = [`icon ${slug}`];
   let local = 0;
   for (const d of paths) {
     for (const sp of parsePath(d)) {
@@ -225,6 +232,21 @@ const hasCompileOp = (source: string): boolean =>
   source.split("\n").some((l) => /^\s*(?:part|circle)\s/u.test(l));
 
 /**
+ * Draw the compile, then declare the keyline it turned out to be on.
+ *
+ * The order matters and it is the fix. A declared keyline the drawing misses
+ * is an error, so a compiler that declares first and draws second is a
+ * compiler that can fail its own icons — which is how `fingerprint` shipped
+ * carrying `severity: "error"`. `tools/declare.ts` is the shared reading, used
+ * here and by the analog arm, which had the same bug by two other routes.
+ */
+const declared = (
+  bare: string,
+  vocabulary: readonly Part[],
+  slug: string
+): Declared => declareKeyline(bare, slug, vocabulary);
+
+/**
  * Keyed reconstruction as a `GenerateFn`.
  *
  * `cost` is absent: there is no model. Absent means "not measured", and filling
@@ -243,8 +265,8 @@ export const compileArm = (): GenerateLike => (concept, options) => {
   }
   const parts = options.parts ?? [];
   const extras: Part[] = [];
-  const source = compileIcon(concept.name, paths, parts, extras);
-  if (!hasCompileOp(source)) {
+  const bare = compileIcon(concept.name, paths, parts, extras);
+  if (!hasCompileOp(bare)) {
     return Promise.reject(
       new CompileError(
         `compile produced no part or circle ops for \`${concept.name}\`. ` +
@@ -252,7 +274,8 @@ export const compileArm = (): GenerateLike => (concept, options) => {
       )
     );
   }
-  const program = runDsl(source, [...parts, ...extras]);
+  const vocabulary = [...parts, ...extras];
+  const { program, source } = declared(bare, vocabulary, concept.name);
   const issues: Issue[] = [
     ...program.errors.map((message) => ({
       message,

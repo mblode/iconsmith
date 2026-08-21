@@ -435,7 +435,9 @@ describe("the analog route", () => {
   });
 
   it("draws a host construction without a model", async () => {
-    const result = await runRoute(analog, { name: "database" });
+    // Not `database`: that is a host glyph now, so the analog route would
+    // hand back the glyph rather than the trays this test is about.
+    const result = await runRoute(analog, { name: "server" });
     expect(result.cost).toBeUndefined();
     expect(result.program).toContain("rect ");
     expect(result.brief).toContain("analog trays");

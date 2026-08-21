@@ -72,6 +72,7 @@ back rather than trying to force the original numbers through.
   `off-axis`, which says the diagonal is the shape rather than a slip. Roughly
   one edge in seven in this set is off-axis, so it is a real choice — but make
   it on purpose, and keep both endpoints on the grid.
+- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°.
 - `dot` — a small solid disc with a role: `terminal` ends a stroke,
   `more` is one of an ellipsis or a list bullet, `floating` is a separate
   interior mark (a dice pip, an eye, a day on a calendar), and `node` is a
@@ -83,9 +84,8 @@ back rather than trying to force the original numbers through.
   `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors
   the part before turning it. A part is stored at one orientation because the
   clusterer folds a mark together with its turns and its mirror, so these are
-  how you reach the other seven. Quarters only, and never an angle: only the
-  quarter-turns keep every node on the grid. Ask for `flip` on purpose —
-  chirality is the one symmetry that can be simply wrong.
+  how you reach the other seven. Ask for `flip` on purpose — chirality is the
+  one symmetry that can be simply wrong.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -184,6 +184,7 @@ back rather than trying to force the original numbers through.
   `off-axis`, which says the diagonal is the shape rather than a slip. Roughly
   one edge in seven in this set is off-axis, so it is a real choice — but make
   it on purpose, and keep both endpoints on the grid.
+- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°.
 - `dot` — a small solid disc with a role: `terminal` ends a stroke,
   `more` is one of an ellipsis or a list bullet, `floating` is a separate
   interior mark (a dice pip, an eye, a day on a calendar), and `node` is a
@@ -195,9 +196,8 @@ back rather than trying to force the original numbers through.
   `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors
   the part before turning it. A part is stored at one orientation because the
   clusterer folds a mark together with its turns and its mirror, so these are
-  how you reach the other seven. Quarters only, and never an angle: only the
-  quarter-turns keep every node on the grid. Ask for `flip` on purpose —
-  chirality is the one symmetry that can be simply wrong.
+  how you reach the other seven. Ask for `flip` on purpose — chirality is the
+  one symmetry that can be simply wrong.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -298,6 +298,7 @@ back rather than trying to force the original numbers through.
   `off-axis`, which says the diagonal is the shape rather than a slip. Roughly
   one edge in seven in this set is off-axis, so it is a real choice — but make
   it on purpose, and keep both endpoints on the grid.
+- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°.
 - `dot` — a small solid disc with a role: `terminal` ends a stroke,
   `more` is one of an ellipsis or a list bullet, `floating` is a separate
   interior mark (a dice pip, an eye, a day on a calendar), and `node` is a
@@ -309,9 +310,8 @@ back rather than trying to force the original numbers through.
   `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors
   the part before turning it. A part is stored at one orientation because the
   clusterer folds a mark together with its turns and its mirror, so these are
-  how you reach the other seven. Quarters only, and never an angle: only the
-  quarter-turns keep every node on the grid. Ask for `flip` on purpose —
-  chirality is the one symmetry that can be simply wrong.
+  how you reach the other seven. Ask for `flip` on purpose — chirality is the
+  one symmetry that can be simply wrong.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -428,6 +428,7 @@ back rather than trying to force the original numbers through.
   `off-axis`, which says the diagonal is the shape rather than a slip. Roughly
   one edge in seven in this set is off-axis, so it is a real choice — but make
   it on purpose, and keep both endpoints on the grid.
+- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°.
 - `dot` — a small solid disc with a role: `terminal` ends a stroke,
   `more` is one of an ellipsis or a list bullet, `floating` is a separate
   interior mark (a dice pip, an eye, a day on a calendar), and `node` is a
@@ -439,9 +440,8 @@ back rather than trying to force the original numbers through.
   `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors
   the part before turning it. A part is stored at one orientation because the
   clusterer folds a mark together with its turns and its mirror, so these are
-  how you reach the other seven. Quarters only, and never an angle: only the
-  quarter-turns keep every node on the grid. Ask for `flip` on purpose —
-  chirality is the one symmetry that can be simply wrong.
+  how you reach the other seven. Ask for `flip` on purpose — chirality is the
+  one symmetry that can be simply wrong.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.
@@ -558,6 +558,7 @@ back rather than trying to force the original numbers through.
   `off-axis`, which says the diagonal is the shape rather than a slip. Roughly
   one edge in seven in this set is off-axis, so it is a real choice — but make
   it on purpose, and keep both endpoints on the grid.
+- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°.
 - `dot` — a small solid disc with a role: `terminal` ends a stroke,
   `more` is one of an ellipsis or a list bullet, `floating` is a separate
   interior mark (a dice pip, an eye, a day on a calendar), and `node` is a
@@ -569,9 +570,8 @@ back rather than trying to force the original numbers through.
   `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors
   the part before turning it. A part is stored at one orientation because the
   clusterer folds a mark together with its turns and its mirror, so these are
-  how you reach the other seven. Quarters only, and never an angle: only the
-  quarter-turns keep every node on the grid. Ask for `flip` on purpose —
-  chirality is the one symmetry that can be simply wrong.
+  how you reach the other seven. Ask for `flip` on purpose — chirality is the
+  one symmetry that can be simply wrong.
 - `remove` — delete an element by the id the draw tool returned (`e3`,
   not `3`) when you change your mind.
 - `center` — recentre the drawing optically on the canvas.

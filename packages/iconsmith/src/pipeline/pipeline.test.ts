@@ -620,6 +620,9 @@ describe("a cap that cannot be enforced", () => {
     await expect(
       evaluate({
         benchmark: bench("square"),
+        generate: () => {
+          throw new Error("the cap must refuse before any drawing");
+        },
         icons: FAKE_SET,
         maxSpendUsd: 5,
         model: "some-model-nobody-priced",
