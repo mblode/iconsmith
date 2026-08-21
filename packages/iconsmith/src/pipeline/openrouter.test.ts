@@ -245,3 +245,45 @@ describe("openrouterMaxTokens", () => {
     expect(openrouterMaxTokens(512)).toBe(512);
   });
 });
+
+describe("429 retry", () => {
+  it("waits and retries a rate-limited POST", async () => {
+    let hits = 0;
+    const slept: number[] = [];
+    const model = createOpenRouterModel({
+      apiKey: "or-test-key",
+      fetch: () => {
+        hits += 1;
+        if (hits === 1) {
+          return Promise.resolve(
+            Response.json(
+              { error: { message: "rate" } },
+              { headers: { "retry-after": "2" }, status: 429 }
+            )
+          );
+        }
+        return Promise.resolve(
+          jsonResponse({
+            choices: [
+              {
+                finish_reason: "stop",
+                message: { content: "ok" },
+              },
+            ],
+          })
+        );
+      },
+      modelId: OPENROUTER_INKLING,
+      sleep: (ms) => {
+        slept.push(ms);
+        return Promise.resolve();
+      },
+    });
+    const result = await model.doGenerate(
+      call([{ content: [{ text: "hi", type: "text" }], role: "user" }])
+    );
+    expect(hits).toBe(2);
+    expect(slept).toEqual([2000]);
+    expect(result.content).toEqual([{ text: "ok", type: "text" }]);
+  });
+});

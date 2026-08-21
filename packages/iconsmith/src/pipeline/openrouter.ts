@@ -6,6 +6,8 @@
  * `https://openrouter.ai/api/v1/chat/completions`. `fetch` is injected so
  * tests stay hermetic.
  */
+import { setTimeout as delay } from "node:timers/promises";
+
 import type {
   LanguageModelV4,
   LanguageModelV4CallOptions,
@@ -67,9 +69,24 @@ export interface OpenRouterModelOptions {
   /** Injected in tests. Defaults to global `fetch`. */
   fetch?: FetchLike;
   modelId: string;
+  /** Injected in tests so a 429 retry does not sleep the suite. */
+  sleep?: (ms: number) => Promise<void>;
   /** Override the OpenRouter root. Default {@link OPENROUTER_URL}. */
   url?: string;
 }
+
+/** New OpenRouter accounts are 10 rpm on Inkling; each generate step is one POST. */
+export const OPENROUTER_RETRY_429 = 8;
+export const OPENROUTER_RETRY_WAIT_MS = 7000;
+
+export const retryAfterMs = (response: Response, attempt: number): number => {
+  const raw = response.headers.get("retry-after");
+  const seconds = raw === null ? Number.NaN : Number(raw);
+  if (Number.isFinite(seconds) && seconds >= 0) {
+    return Math.min(seconds * 1000, 60_000);
+  }
+  return Math.min(OPENROUTER_RETRY_WAIT_MS * (attempt + 1), 60_000);
+};
 
 const present = (value: string | undefined): string | undefined => {
   const trimmed = value?.trim();
@@ -433,6 +450,7 @@ export const createOpenRouterModel = (
   const modelId = openrouterModelId(options.modelId);
   const root = (options.url ?? OPENROUTER_URL).replace(/\/$/u, "");
   const fetchFn = options.fetch ?? globalThis.fetch;
+  const sleep = options.sleep ?? delay;
   const generate = async (
     call: LanguageModelV4CallOptions
   ): Promise<LanguageModelV4GenerateResult> => {
@@ -450,12 +468,20 @@ export const createOpenRouterModel = (
         headers[key] = value;
       }
     }
-    const response = await fetchFn(`${root}/chat/completions`, {
-      body: JSON.stringify(body),
-      headers,
-      method: "POST",
-      signal: call.abortSignal,
-    });
+    const post = async (attempt: number): Promise<Response> => {
+      const next = await fetchFn(`${root}/chat/completions`, {
+        body: JSON.stringify(body),
+        headers,
+        method: "POST",
+        signal: call.abortSignal,
+      });
+      if (next.status !== 429 || attempt >= OPENROUTER_RETRY_429) {
+        return next;
+      }
+      await sleep(retryAfterMs(next, attempt));
+      return post(attempt + 1);
+    };
+    const response = await post(0);
     if (!response.ok) {
       throw new Error(
         `OpenRouter ${response.status}: ${await errorText(response)}`
