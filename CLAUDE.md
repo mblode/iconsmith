@@ -31,11 +31,18 @@ npm run fix
 
 - **The corpus lives at `packages/iconsmith/corpus`, and must stay there.**
   `src/corpus/load.ts` defaults to a cwd-relative `"corpus"`, and turbo runs
-  tasks with the cwd set to the workspace. Move the directory and five
-  corpus-gated tests stop running without failing. The test count is the canary:
-  it is 1138 across 84 files as of 2026-08-21, and a *drop* means the corpus is
-  not where the code expects it. Update this number when you add tests, or the
-  canary stops being one.
+  tasks with the cwd set to the workspace. Move the directory and twelve
+  corpus-gated tests stop running without failing. **The canary is the skipped
+  count, not the total.** Those twelve are gated with `describe.skipIf` /
+  `it.skipIf`, which still *collects* them, so an absent corpus reports them as
+  skipped and leaves the total untouched — `1138 (84 files)` either way, of which
+  1126 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
+  was found and `12 skipped` means it was not; a drop in the *total* is test-count
+  drift, a different fault. Update both numbers when you add tests, or neither is
+  a canary. The gated twelve live in `corpus/measure.test.ts` (5),
+  `pipeline/bench.test.ts` (2), `pipeline/reconstruct.test.ts` (2), and one each
+  in `scripts/demo.test.ts`, `eval/conformance.test.ts` and
+  `parts/vocabulary.test.ts`.
 - **The corpus is ignored by full path: `/packages/iconsmith/corpus/`.** Not a bare
   `corpus/`, which has no anchor and so matches a directory at any depth, including
   `packages/iconsmith/src/corpus/`, which silently hid new source files there from
