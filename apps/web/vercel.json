@@ -3,5 +3,5 @@
   "buildCommand": "npm run build",
   "framework": "nextjs",
   "ignoreCommand": "if [ \"$VERCEL_GIT_COMMIT_REF\" = \"main\" ] || [ \"$VERCEL_ENV\" = \"production\" ]; then exit 1; fi; exit 0",
-  "installCommand": "npm install"
+  "installCommand": "if [ -f ../../package-lock.json ]; then cd ../.. && npm ci; else npm install; fi"
 }

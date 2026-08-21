@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+# pull-requests: write is not enough on its own. The repo must also enable
+# Settings → Actions → General → "Allow GitHub Actions to create and approve
+# pull requests". Without that, changesets/action versions changeset-release/main
+# and then fails: "GitHub Actions is not permitted to create or approve pull
+# requests."
 permissions:
   contents: write
   pull-requests: write

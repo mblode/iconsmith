@@ -1,6 +1,13 @@
+import path from "node:path";
+
 import type { NextConfig } from "next";
 
 import { BASE_PATH, REPO_URL } from "./lib/site-url";
+
+// Vercel Root Directory is apps/web, but the lockfile and workspace live at
+// the repo root. Tracing from this file keeps Next from treating the zone as
+// a standalone app and missing files outside the Root Directory.
+const repoRoot = path.join(import.meta.dirname, "../..");
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -118,6 +125,7 @@ const nextConfig: NextConfig = {
       { headers: [{ key: "Link", value: linkHeader }], source: "/" },
     ]);
   },
+  outputFileTracingRoot: repoRoot,
   reactCompiler: true,
 };
 
