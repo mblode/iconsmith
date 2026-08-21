@@ -15,13 +15,16 @@ npm run check      # ultracite check: lint (CI)
 npx tsx scripts/architect-lab.ts # keyed compiler vs agent; no credits
 npx tsx scripts/analog-lab.ts  # unkeyed analog replay; no agent
 npx tsx scripts/select-lab.ts  # cheap SELECT islands; no agent
+npx tsx scripts/reach-lab.ts [dir] # stage the reach set for `view`; no agent
 npx tsx scripts/research.ts   # harness lab judge; 0 arrived, 1 not yet, 2 unscorable
 npx tsx scripts/loop.ts --enable <ids> …   # policy campaign; refuses a dirty tree
 ```
 
 `lab.md` is the standing instructions for the harness campaign (what you look at in `iconsmith view`). `program.md` is the standing instructions for the policy campaign. Neither file is written by its loop. Arrival is house-indistinguishable (panel clean, ≥1 `part` for keyed/unkeyed, keyed cosine ≥ 0.737; compile with parts may be ≥0.95; leak is ≥0.95 AND 0 part ops AND a model wrote the program). A host mark at ≥0.95 is reconstruction (`twin.ts`), not a leak; 0 parts is OK and sample cosine must stay null. N≥5 is a finding except compile, analog on unkeyed, and mark, where N=1 is decide.
 
-After build, `iconsmith view [dir]` serves staged SVGs on a 24×24 grid (`--port`, `--open`). Each card shows both paints (outlined and filled) when the program or a host twin can produce the other, plus the full QA chain — checks that passed, not only failures. `--against house` scores each slug against the house variant; filled cards use the filled variant. A staged `*.house.svg` sibling wins over a slug lookup, so a mark named `plus` can sit beside house `plus-large`. The mark on the scale is 0.737, not 1.0. Cosine ≥0.95 with `part` ops is reconstruction; without parts it is a leak _unless_ policy is `mark` (host twin matching the same construction). The card reads `slug.json` for policy (`compile`, `analog`, `mark`, `glyph`, …). Numbered samples in a concept directory (`pull-request/pull-request-1.svg`) compare against that concept. Staged `*.house.svg` copies are skipped as cards. The unnumbered file in the directory is labelled selected. Sidecars `*.brief.md`, `*.log.jsonl` and `*.icon` open as always-visible reasoning on the card. The host look writes `*.preview.png` and `*.audit.json` beside the same stem.
+`scripts/reach-lab.ts` writes `.staging/reach-10` — both paints of all ten host glyphs, with a `.icon`, a brief and a normalised `Thinking` sidecar each — and asserts five invariants on the way past rather than reporting them on the page: both paints run as programs with ops (a comment is not a program), neither has a lint error, the two occupy one visual extent, a `hole` is cut rather than painted over, and each record's `clean` agrees with its own `issues`. It throws instead of staging a set that fails one.
+
+After build, `iconsmith view [dir]` serves staged SVGs on a 24×24 grid (`--port`, `--open`). Each card shows every paint it can produce — outlined and filled, each with its own program and its own house-spec chain — and one status above them, taken from the union of every paint's findings and whatever the arm recorded in `slug.json`. The header counts that union: a recorded `severity: "error"` is an error even when the page's own lint is content. `waived` is a fourth check state beside pass/warn/error, for a rule a program declared its way past (`off-axis` on a `line`); paints are linted through their canvas rather than their rendered SVG, because `parseIconSvg` keeps geometry and drops the declaration. The full QA chain is shown, checks that passed included, not only failures. `--against house` scores each slug against the house variant; filled cards use the filled variant. A staged `*.house.svg` sibling wins over a slug lookup, so a mark named `plus` can sit beside house `plus-large`. The mark on the scale is 0.737, not 1.0. Cosine ≥0.95 with `part` ops is reconstruction; without parts it is a leak _unless_ policy is `mark` (host twin matching the same construction). The card reads `slug.json` for policy (`compile`, `analog`, `mark`, `glyph`, …). Numbered samples in a concept directory (`pull-request/pull-request-1.svg`) compare against that concept. Staged `*.house.svg` copies are skipped as cards. The unnumbered file in the directory is labelled selected. Sidecars `*.brief.md`, `*.log.jsonl` and `*.icon` open as always-visible reasoning on the card. The host look writes `*.preview.png` and `*.audit.json` beside the same stem.
 
 ## Architecture
 
@@ -47,8 +50,9 @@ src/
     kind.ts           # DrawKind, CounterpartClass, MARK_TWINS
     marks.ts          # ten host twins, both finishes
     mark.ts           # DRAW: host twins via MARKS/twin.ts (no model)
-    glyphs.ts         # compass / microscope / wifi — host DRAW, both finishes
+    glyphs.ts         # the ten reach objects — host DRAW, both finishes
     glyph.ts          # DRAW: those object constructions (no model)
+    thinking.ts       # the one shape an arm records; `clean` is derived, never passed
     reach.ts          # house file / mark / splice compile / glyph; else analog or agent
     splice.ts         # base × badge: two house files, one compile
     search.ts         # the one vocabulary ranking, shared by three callers
