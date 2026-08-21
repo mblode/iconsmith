@@ -1,7 +1,9 @@
 /**
  * Host DRAW first for a house file or a MARKS key. A new glyph is written by
- * a coding agent (`unkeyed: "agent"` / `"harness"`). Analog replay is the lab
- * path, not the product path for `iconsmith new`.
+ * a coding agent (`unkeyed: "agent"` / `"harness"`), or taken from `glyphs.ts`
+ * where the house has a construction and the caller asks for it
+ * (`unkeyed: "glyph"`). Analog replay is the lab path, not the product path
+ * for `iconsmith new`.
  *
  * Keyed compile scored 0.999 on `pull-request`; N=5 agent redraws of the same
  * file scored 0.58–0.79. `forceAgent` skips host DRAW entirely.
@@ -9,7 +11,7 @@
 import { analogArm, sameLetters } from "./analog.js";
 import { LOOK_SCREEN } from "./audit.js";
 import { generate } from "./generate.js";
-import type { GenerateOptions, GenerateResult } from "./generate.js";
+import type { GenerateOptions, GenerateResult, Unkeyed } from "./generate.js";
 import { glyphArm } from "./glyph.js";
 import { glyphFromSlug } from "./glyphs.js";
 import { harnessArm } from "./harness.js";
@@ -41,11 +43,30 @@ export interface HouseSource {
   paths: (slug: string) => readonly string[] | null;
 }
 
+/**
+ * Which arm draws this name.
+ *
+ * A keyed name — a mark, a house file, a splice of two — is decided by the name
+ * alone, because the house has already drawn it. An *unkeyed* name is not: the
+ * caller says who draws it, and `unkeyed` is that choice.
+ *
+ * `glyph` is in the second group, which an earlier revision got wrong by
+ * putting it in the first. Ten host constructions had been written for the
+ * concepts the reach dashboard staged, and classifying by slug meant any of
+ * those names silently returned the house drawing — including for a caller who
+ * had asked for `unkeyed: "agent"` in as many words. Two things went with it.
+ * The badge stopped meaning anything, because every icon in the set read
+ * `glyph` whichever arm had been requested. And the set stopped being able to
+ * fail: a staged run of host programs reports what the house can draw, which is
+ * not the question anybody was asking of a generator. A host form is worth
+ * having and worth asking for; it is not worth having instead of an answer.
+ */
 export const classifyReach = (
   name: string,
   hasHouse: (slug: string) => boolean,
   forceAgent = false,
-  twin?: string
+  twin?: string,
+  unkeyed?: Unkeyed
 ): ReachPlan => {
   if (forceAgent) {
     return { kind: "agent" };
@@ -63,7 +84,7 @@ export const classifyReach = (
   if (pair) {
     return { badge: pair.badge, base: pair.base, kind: "compile" };
   }
-  if (glyphFromSlug(name) !== null) {
+  if (unkeyed === "glyph" && glyphFromSlug(name) !== null) {
     return { kind: "glyph" };
   }
   return { kind: "analog" };
@@ -143,7 +164,8 @@ export const reach = (
     concept.name,
     hasHouse,
     options.forceAgent === true,
-    twin
+    twin,
+    options.unkeyed
   );
   if (plan.kind === "agent") {
     return generate(concept, options);

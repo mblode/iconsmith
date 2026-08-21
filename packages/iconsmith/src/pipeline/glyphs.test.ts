@@ -187,22 +187,54 @@ describe("glyphs", () => {
   });
 });
 
-describe("reach prefers host glyphs", () => {
-  it("classifies compass / microscope / wifi as glyph, not analog or agent", () => {
-    expect(classifyReach("compass", () => false)).toEqual({ kind: "glyph" });
-    expect(classifyReach("microscope", () => false)).toEqual({ kind: "glyph" });
-    expect(classifyReach("wifi", () => false)).toEqual({ kind: "glyph" });
+/**
+ * A host glyph is available, not preferred.
+ *
+ * Classifying by slug meant any of these names silently returned the house
+ * drawing — including for a caller who had asked for the agent in as many
+ * words — which made every badge read `glyph` and made a staged set unable to
+ * fail. So the arm has to be named.
+ */
+describe("reach reaches a host glyph only when asked", () => {
+  it("leaves compass / microscope / wifi to the generator by default", () => {
+    for (const slug of ["compass", "microscope", "wifi"]) {
+      expect(
+        classifyReach(slug, () => false),
+        slug
+      ).toEqual({
+        kind: "analog",
+      });
+    }
     expect(classifyReach("compass", () => false, true)).toEqual({
       kind: "agent",
     });
   });
 
-  it("draws compass with no model and a clean panel", async () => {
-    const result = await reach({ name: "compass" });
+  it("classifies as glyph on `unkeyed: glyph`, and only for a name it has", () => {
+    expect(
+      classifyReach("compass", () => false, false, undefined, "glyph")
+    ).toEqual({ kind: "glyph" });
+    expect(
+      classifyReach("bananas", () => false, false, undefined, "glyph")
+    ).toEqual({ kind: "analog" });
+  });
+
+  it("never displaces an explicitly requested arm", () => {
+    // The bug this pins: `unkeyed: "agent"` on a name with a glyph used to come
+    // back as a glyph, so the request was silently overruled.
+    expect(
+      classifyReach("compass", () => false, false, undefined, "agent")
+    ).toEqual({ kind: "analog" });
+  });
+
+  it("draws compass with no model and a clean panel when asked for", async () => {
+    const result = await reach({ name: "compass" }, { unkeyed: "glyph" });
     expect(result.cost).toBeUndefined();
     expect(result.brief).toContain("compass");
     expect(result.program).toContain("diamond 12,12 r5");
     expect(result.issues.filter((i) => i.severity === "error")).toEqual([]);
+    // The needle is a `diamond`, so its edges are on 45° and there is nothing
+    // for `off-axis` to say — no declaration, and so no warning either.
     expect(result.issues.filter((i) => i.rule === "off-axis")).toEqual([]);
   });
 });

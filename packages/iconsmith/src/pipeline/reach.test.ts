@@ -37,9 +37,16 @@ describe("classifyReach", () => {
     expect(classifyReach("unicorn", hasHouse)).toEqual({ kind: "analog" });
   });
 
-  /** Host DRAW first. The ten the reach dashboard staged are all host
-   *  constructions now, so none of them reaches the analog or agent arm. */
-  it("draws every reach-set object on the host", () => {
+  /**
+   * The ten the reach dashboard staged go to the generator, not to the house.
+   *
+   * `glyphs.ts` has a construction for every one of them, and for a while that
+   * was enough to claim the name: the badge on all ten read `glyph`, an
+   * `unkeyed: "agent"` request came back as a host program, and a staged set of
+   * them reported `0 error(s)` about a generator it had never run. A host form
+   * is asked for by name (`unkeyed: "glyph"`) or not used.
+   */
+  it("leaves every reach-set object to the arm the caller picks", () => {
     for (const slug of [
       "briefcase",
       "cake",
@@ -55,6 +62,10 @@ describe("classifyReach", () => {
       expect(
         classifyReach(slug, () => false),
         slug
+      ).toEqual({ kind: "analog" });
+      expect(
+        classifyReach(slug, () => false, false, undefined, "glyph"),
+        slug
       ).toEqual({ kind: "glyph" });
     }
   });
@@ -69,8 +80,10 @@ describe("classifyReach", () => {
   });
 
   it("does not compile a variant as the concept", () => {
+    // `wifi-full` is a different drawing, not `wifi` under another name, so the
+    // house file is no answer and the name stays unkeyed.
     expect(classifyReach("wifi", hasWifiFull, false, "wifi-full")).toEqual({
-      kind: "glyph",
+      kind: "analog",
     });
   });
 

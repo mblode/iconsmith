@@ -17,12 +17,12 @@
  * not.
  */
 import type { Spec } from "../tools/canvas.js";
+import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import type { Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
-import { GLYPHS, isGlyphName } from "./glyphs.js";
 import type { GenerateLike } from "./harness.js";
 import { compileIcon } from "./reconstruct.js";
 
@@ -40,11 +40,12 @@ export const retitle = (program: string, slug: string): string =>
  * unmatched subpaths are pushed onto `extras` so the DSL runner can place
  * them — same seam as `compileArm`.
  *
- * The keyline is declared here rather than by `compileIcon`, and the split is
- * the point: an analog ends in `fit`, so declaring `square` is a promise the
- * program keeps. A keyed compile has no `fit` — it reproduces the extent
- * Central already chose — so the same declaration there is a claim nothing
- * verifies, which is what failed `fingerprint`.
+ * The keyline is declared here rather than by `compileIcon`, but it is
+ * *measured* rather than assumed. An earlier revision appended `keyline square`
+ * unconditionally, reasoning that an analog ends in `fit` and so keeps the
+ * promise; `fit` scales content into the live area and preserves its aspect, so
+ * it makes nothing square that was not, and a fan that lands at 18.0×15.5
+ * declared a box it misses. `declareKeyline` names what the drawing measures.
  */
 export const replay = (
   slug: string,
@@ -53,12 +54,10 @@ export const replay = (
   extras: Part[] = []
 ): string => {
   const compiled = retitle(compileIcon(slug, analogPaths, parts, extras), slug);
-  const source = /^keyline\b/mu.test(compiled)
+  const fitted = /(?:^|\n)fit(?:\s|$)/mu.test(compiled)
     ? compiled
-    : compiled.replace(/^icon[^\n]*\n/mu, (line) => `${line}keyline square\n`);
-  return /(?:^|\n)fit(?:\s|$)/mu.test(source)
-    ? source
-    : `${source.trimEnd()}\nfit\n`;
+    : `${compiled.trimEnd()}\nfit\n`;
+  return declareKeyline(fitted, slug, [...parts, ...extras]).source;
 };
 
 /**
@@ -215,21 +214,27 @@ export const hub = (slug: string, leaves = 3): string => {
   if (leaves !== 3) {
     throw new Error("hub draws three children; other fan-outs are not written");
   }
-  return [
-    `icon ${slug}`,
-    "keyline square",
-    "finish outlined",
-    "",
-    "circle 12,6 r2",
-    "circle 5,17 r2",
-    "circle 12,17 r2",
-    "circle 19,17 r2",
-    "line 12,8 12,15",
-    "line 7,17 10,17",
-    "line 14,17 17,17",
-    "fit",
-    "",
-  ].join("\n");
+  // No `keyline` line: a node over three children fits at 18.0×15.5, which is
+  // no house keyline, and the honest reading of that is a `keyline` warn rather
+  // than a `square` this drawing misses by 2.5. `declareKeyline` adds one if a
+  // caller's spec ever makes the fan land on a box.
+  return declareKeyline(
+    [
+      `icon ${slug}`,
+      "finish outlined",
+      "",
+      "circle 12,6 r2",
+      "circle 5,17 r2",
+      "circle 12,17 r2",
+      "circle 19,17 r2",
+      "line 12,8 12,15",
+      "line 7,17 10,17",
+      "line 14,17 17,17",
+      "fit",
+      "",
+    ].join("\n"),
+    slug
+  ).source;
 };
 
 /**
@@ -277,6 +282,13 @@ export interface AnalogNeighbor {
  * is the drawing — existing icons feed the design — unless the name is a
  * cylinder stack, which stays `stack` / `trays` so `database` does not become
  * a retitled `server` when no kin file exists.
+ *
+ * `glyphs.ts` is deliberately not consulted here. A revision that put it first
+ * returned the host construction alone for any name that had one, which meant
+ * analog stopped collating its own families for exactly the concepts somebody
+ * had already hand-drawn — and made a set of ten of them look like ten analog
+ * draws in the record. A host form is a thing to ask for by name
+ * (`unkeyed: "glyph"`), not a thing another arm quietly answers with.
  */
 export const analogConstructions = (
   slug: string,
@@ -296,14 +308,8 @@ export const analogConstructions = (
           },
         ]
       : [];
-  const glyphed = isGlyphName(slug)
-    ? [{ id: "glyph", source: GLYPHS[slug](slug, "outlined") }]
-    : [];
-  if (!collide && glyphed.length > 0) {
-    return glyphed;
-  }
   if (collide) {
-    const out: { id: string; source: string }[] = [...glyphed, ...replayed];
+    const out: { id: string; source: string }[] = [...replayed];
     if (hasStackRim(parts)) {
       out.push({ id: "stack", source: stack(slug, parts) });
     }

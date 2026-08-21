@@ -183,10 +183,18 @@ describe("analogConstructions", () => {
     expect(HUB_HINT.test("unicorn")).toBe(false);
   });
 
-  it("picks the host glyph for a named object construction", () => {
-    const [row] = analogConstructions("compass", [], "compass", false);
-    expect(row?.id).toBe("glyph");
-    expect(row?.source).toContain("diamond 12,12 r5");
+  /**
+   * Analog collates its own families and does not reach into `glyphs.ts`.
+   *
+   * A revision that consulted it returned the host construction *alone* for any
+   * name that had one, so analog stopped collating for exactly the concepts
+   * somebody had hand-drawn — and ten of them then read as ten analog draws in
+   * the record. A host form is asked for by name, through `unkeyed: "glyph"`.
+   */
+  it("does not answer with a host glyph for a name that has one", () => {
+    const rows = analogConstructions("compass", [], "compass", false);
+    expect(rows.map((r) => r.id)).not.toContain("glyph");
+    expect(rows[0]?.id).toBe("hub");
   });
 
   it("replays a house kin instead of a hub", () => {
