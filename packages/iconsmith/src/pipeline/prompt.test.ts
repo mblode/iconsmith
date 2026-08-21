@@ -55,6 +55,21 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   expect(conceptPrompt({ name: "home" })).toContain(
     "House construction (home, outlined)"
   );
+  expect(conceptPrompt({ name: "heart" })).toContain(
+    "House construction (heart, outlined)"
+  );
+  expect(conceptPrompt({ name: "heart" })).toContain("Not three circles");
+  expect(conceptPrompt({ name: "heart" }, "filled")).toContain("Not a disc");
   expect(conceptPrompt({ name: "quokka" })).not.toContain("House construction");
   expect(conceptPrompt({ name: "star" })).not.toContain("House construction");
+  expect(conceptPrompt({ name: "star" })).toContain(
+    "Do not volunteer a star glyph"
+  );
+});
+
+test("the filled paint rule steers heart lobes and holds out a star", () => {
+  expect(FILLED_PAINT_RULE).toContain("heart is one evenodd compound of lobes");
+  expect(FILLED_PAINT_RULE).toContain("not a disc");
+  expect(FILLED_PAINT_RULE).toContain("Do not volunteer a star");
+  expect(systemPrompt({ finish: "filled" })).toContain("lobes, not a disc");
 });

@@ -5,13 +5,15 @@
  * clock, lock, …). A recipe names a construction, not a glyph to volunteer
  * for an unasked name — `recipeFor` only fires when a content token of the
  * query is the recipe. Analog resolves that id to a family in both paints
- * (`checkmark` draws the house check; `home` draws the pentagon). `star`
- * and host glyphs stay unknown.
+ * (`checkmark` draws the house check; `home` draws the pentagon; `heart`
+ * draws the lobes). `star` and host glyphs stay unknown.
  *
  * The model never emits a coordinate. These sentences steer `listParts`,
  * the per-icon brief, and the skill toward the programs compile already
  * reads off house files: evenodd compounds, hole-immediately-after-ring,
- * open strokes vs a solid plus, clock disc+hands, check badge+cutout.
+ * open strokes vs a solid plus, clock disc+hands, check badge+cutout,
+ * heart lobes. `star` stays a holdout — analog must not volunteer a
+ * diamond or a chevron for that name.
  */
 import type { Finish } from "../types.js";
 import { tokens } from "./search.js";
@@ -70,7 +72,23 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
       "one closed pentagon — roof peak and walls as the outer stroke. Not a box, and not a roof drawn through the body.",
     tokens: ["home"],
   },
+  {
+    filled:
+      "one evenodd compound of two lobes and a point. Not a disc, and not three circles restamped as solids.",
+    id: "heart",
+    outlined:
+      "two lobes and a point as one silhouette (house compile is one evenodd compound). Not three circles.",
+    tokens: ["heart"],
+  },
 ];
+
+/**
+ * Names analog must not volunteer a glyph for. A diamond is a compass
+ * needle; a chevron or four diamonds is not the house star.
+ */
+const HOLDOUTS: Readonly<Record<string, string>> = {
+  star: "Do not volunteer a star glyph. A diamond is a compass needle; a chevron or four diamonds is not the house star.",
+};
 
 const recipeTokens = (query: string): string[] =>
   tokens(query).filter((t) => t.length > 0 && !/^\d+$/u.test(t));
@@ -99,3 +117,18 @@ export const recipeBrief = (
   const how = finish === "filled" ? recipe.filled : recipe.outlined;
   return `House construction (${recipe.id}, ${finish}): ${how}`;
 };
+
+/** A holdout the query asked for, or null. Two content tokens stay null. */
+export const holdoutBrief = (query: string): string | null => {
+  const want = recipeTokens(query);
+  if (want.length !== 1) {
+    return null;
+  }
+  return HOLDOUTS[want[0] ?? ""] ?? null;
+};
+
+/** Recipe or holdout for this query — what `listParts` and the brief share. */
+export const steerBrief = (
+  query: string,
+  finish: Finish = "outlined"
+): string | null => recipeBrief(query, finish) ?? holdoutBrief(query);

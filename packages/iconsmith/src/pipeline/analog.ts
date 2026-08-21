@@ -15,8 +15,9 @@
  * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
  * A paint recipe that can fire must resolve to a family in both paints —
  * `checkmark` draws the house check, not unknown. `home` draws the house
- * pentagon, not a frame-and-dot. The composer writes the program. The
- * model does not.
+ * pentagon, not a frame-and-dot. `heart` draws the house lobes, not
+ * three circles or a disc. Analog must not volunteer a star. The
+ * composer writes the program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -527,13 +528,24 @@ export const home = (slug: string, finish: Finish = "outlined"): string =>
         ]
   );
 
-/** Two lobes and a diamond point — a geometric heart. Landscape 20×18. */
+/**
+ * House heart: compile of the blode file is one evenodd compound of
+ * lobes (`part heart-0` / `part heart-filled-0`). Not three circles,
+ * not a disc. Recipe tokens resolve here — not a new kin row.
+ */
 export const heart = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "landscape", [
-    finish === "filled" ? "circle 8,9 r6" : "circle 8,9 r5",
-    finish === "filled" ? "circle 16,9 r6" : "circle 16,9 r5",
-    ...lozenge(finish, 12, 14, 6),
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    "landscape",
+    finish === "filled"
+      ? ["circle 8,9 r6", "circle 16,9 r6", ...lozenge(finish, 12, 14, 6)]
+      : [
+          "arc 8,9 r5 half from left",
+          "arc 16,9 r5 half from left",
+          ...lozenge(finish, 12, 14, 6),
+        ]
+  );
 
 /** Head and a diamond tip — map pin. Path 14×18 + stroke is tall 16×20. */
 export const pin = (slug: string, finish: Finish = "outlined"): string =>

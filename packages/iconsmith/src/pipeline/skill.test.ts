@@ -172,6 +172,15 @@ describe("SKILL.md's examples are programs, not prose", () => {
   );
 });
 
+describe("SKILL.md steers the paints the generate brief names", () => {
+  it("teaches house heart lobes and holds out a star", () => {
+    expect(SKILL).toContain("evenodd compound of two lobes");
+    expect(SKILL).toContain("not three circles");
+    expect(SKILL).toContain("Do not volunteer a star");
+    expect(SKILL).toContain("Not a star");
+  });
+});
+
 describe("SKILL.md's frontmatter is a skill's frontmatter", () => {
   it("opens with name and description", () => {
     const match = /^---\n(?<body>[\s\S]*?)\n---\n/u.exec(SKILL);

@@ -373,6 +373,28 @@ describe("tools", () => {
     expect(house?.construction).toContain(
       "House construction (home, outlined)"
     );
+    const love = await outlined.tools.listParts.execute?.(
+      { query: "heart" },
+      { messages: [], toolCallId: "t6" }
+    );
+    expect(love?.construction).toContain(
+      "House construction (heart, outlined)"
+    );
+    expect(love?.construction).toContain("Not three circles");
+    const filledHeart = await filled.tools.listParts.execute?.(
+      { query: "heart" },
+      { messages: [], toolCallId: "t7" }
+    );
+    expect(filledHeart?.construction).toContain(
+      "House construction (heart, filled)"
+    );
+    expect(filledHeart?.construction).toContain("Not a disc");
+    const star = await outlined.tools.listParts.execute?.(
+      { query: "star" },
+      { messages: [], toolCallId: "t8" }
+    );
+    expect(star?.construction).toContain("Do not volunteer a star glyph");
+    expect(star?.construction).not.toContain("House construction");
     expect(other?.construction).toBeUndefined();
   });
 });

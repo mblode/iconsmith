@@ -565,6 +565,8 @@ describe("analog families", () => {
     expect(ANALOG_KINS.lock).toBeUndefined();
     expect(ANALOG_KINS.ring).toBeUndefined();
     expect(ANALOG_KINS.home).toBeUndefined();
+    expect(ANALOG_KINS.heart).toBeUndefined();
+    expect(ANALOG_KINS.star).toBeUndefined();
     expect(contentTokens("mail-icon")).toEqual(["mail"]);
     expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
     expect(familyFromToken("checkmark")).toBe("check");
@@ -668,6 +670,17 @@ describe("analog families", () => {
     expect(home("home")).not.toContain("diamond ");
     expect(home("home", "filled")).toContain("diamond 12,10 r8");
     expect(home("home", "filled")).not.toContain("dot 12,12 node");
+    expect(heart("heart")).toContain("arc 8,9 r5 half from left");
+    expect(heart("heart")).toContain("diamond 12,14 r6");
+    expect(heart("heart")).not.toContain("circle ");
+    expect(heart("heart", "filled")).toContain("circle 8,9 r6");
+    expect(heart("heart", "filled")).toContain("diamond 12,14 r6");
+    expect(heart("heart", "filled")).not.toContain("dot 12,12 node");
+    expect(
+      heart("heart", "filled")
+        .split("\n")
+        .filter((l) => l.startsWith("circle "))
+    ).toHaveLength(2);
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {

@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 
 import { analogArm, analogConstructions, ANALOG_KINS } from "./analog.js";
-import { PAINT_RECIPES, recipeBrief, recipeFor } from "./recipe.js";
+import {
+  holdoutBrief,
+  PAINT_RECIPES,
+  recipeBrief,
+  recipeFor,
+  steerBrief,
+} from "./recipe.js";
 
 describe("recipeFor", () => {
   it("names a construction only when the query asked for it", () => {
@@ -10,6 +16,7 @@ describe("recipeFor", () => {
     expect(recipeFor("checkmark")?.id).toBe("check");
     expect(recipeFor("plus-large")?.id).toBe("plus");
     expect(recipeFor("home")?.id).toBe("home");
+    expect(recipeFor("heart")?.id).toBe("heart");
   });
 
   it("does not volunteer a glyph the name did not ask for", () => {
@@ -17,6 +24,7 @@ describe("recipeFor", () => {
     expect(recipeFor("compass")).toBeNull();
     expect(recipeFor("quokka")).toBeNull();
     expect(recipeFor("clock-check")).toBeNull();
+    expect(recipeFor("clock-heart")).toBeNull();
   });
 });
 
@@ -25,7 +33,30 @@ describe("recipeBrief", () => {
     expect(recipeBrief("clock", "outlined")).toContain("polyline");
     expect(recipeBrief("clock", "filled")).toContain("cut out");
     expect(recipeBrief("plus", "filled")).toContain("evenodd");
+    expect(recipeBrief("heart", "outlined")).toContain("lobes");
+    expect(recipeBrief("heart", "outlined")).toContain("Not three circles");
+    expect(recipeBrief("heart", "filled")).toContain("evenodd");
+    expect(recipeBrief("heart", "filled")).toContain("Not a disc");
+    expect(recipeBrief("star")).toBeNull();
     expect(recipeBrief("xyzzy")).toBeNull();
+  });
+});
+
+describe("steerBrief", () => {
+  it("names the house heart and holds out a star", () => {
+    expect(steerBrief("heart", "outlined")).toContain(
+      "House construction (heart, outlined)"
+    );
+    expect(steerBrief("heart", "filled")).toContain("Not a disc");
+    expect(holdoutBrief("star")).toContain("Do not volunteer a star glyph");
+    expect(holdoutBrief("star")).toContain("four diamonds");
+    expect(steerBrief("star")).toBe(holdoutBrief("star"));
+    expect(steerBrief("star")).not.toContain("House construction");
+    expect(holdoutBrief("heart")).toBeNull();
+    expect(holdoutBrief("north-star")).toBeNull();
+    expect(Object.hasOwn(ANALOG_KINS, "star")).toBe(false);
+    expect(Object.hasOwn(ANALOG_KINS, "heart")).toBe(false);
+    expect(Object.keys(ANALOG_KINS)).toHaveLength(40);
   });
 });
 
@@ -63,6 +94,17 @@ describe("recipe → family", () => {
     expect(cottage.clean).toBe(true);
     expect(cottageFill.program).toContain("diamond 12,10 r8");
     expect(cottageFill.clean).toBe(true);
+    const love = await analogArm()({ name: "heart" });
+    const loveFill = await analogArm()({ name: "heart" }, { finish: "filled" });
+    expect(love.brief).toBe("analog heart heart");
+    expect(love.program).toContain("arc 8,9 r5 half from left");
+    expect(love.program).toContain("diamond 12,14 r6");
+    expect(love.program).not.toContain("circle ");
+    expect(love.program).not.toContain("dot 12,12 node");
+    expect(love.clean).toBe(true);
+    expect(loveFill.program).toContain("circle 8,9 r6");
+    expect(loveFill.program).not.toMatch(/^circle 12,12 r\d+$/mu);
+    expect(loveFill.clean).toBe(true);
     const [holdout] = analogConstructions("quokka", [], "quokka", false);
     expect(recipeFor("quokka")).toBeNull();
     expect(holdout?.id).toBe("unknown");
