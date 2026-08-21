@@ -366,6 +366,13 @@ describe("tools", () => {
     expect(mark?.construction).toContain(
       "House construction (check, outlined)"
     );
+    const house = await outlined.tools.listParts.execute?.(
+      { query: "home" },
+      { messages: [], toolCallId: "t5" }
+    );
+    expect(house?.construction).toContain(
+      "House construction (home, outlined)"
+    );
     expect(other?.construction).toBeUndefined();
   });
 });

@@ -14,8 +14,9 @@
  * stay `unknown` — overlaying them is not the named object. A leftover hub
  * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
  * A paint recipe that can fire must resolve to a family in both paints —
- * `checkmark` draws the house check, not unknown. The composer writes the
- * program. The model does not.
+ * `checkmark` draws the house check, not unknown. `home` draws the house
+ * pentagon, not a frame-and-dot. The composer writes the program. The
+ * model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -504,6 +505,28 @@ export const cloud = (slug: string, finish: Finish = "outlined"): string =>
     finish === "filled" ? "circle 12,9 r6" : "circle 12,9 r5.5",
   ]);
 
+/**
+ * House home: one pentagon, both paints. Outlined is the outer stroke
+ * (peak and walls, no inner roof). Filled is the same silhouette — a
+ * body mass with the roof diamond seated on its top edge so the lower
+ * half is inside the walls, not a diamond drawn through them. No door:
+ * the house files are a solid pentagon. Portrait 18×20.
+ */
+export const home = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "portrait",
+    finish === "filled"
+      ? [mass(finish, 4, 10, 16, 10, 1), ...lozenge(finish, 12, 10, 8)]
+      : [
+          "line 4,10 12,2 20,10",
+          "line 4,10 4,20",
+          "line 4,20 20,20",
+          "line 20,20 20,10",
+        ]
+  );
+
 /** Two lobes and a diamond point — a geometric heart. Landscape 20×18. */
 export const heart = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
@@ -725,6 +748,7 @@ const FAMILY_DRAW = {
   flower,
   hammer,
   heart,
+  home,
   horn,
   hourglass,
   key,
@@ -976,6 +1000,7 @@ export const MOON_HINT = /\b(?:moons?|crescent)\b/iu;
 export const SUN_HINT = /\b(?:suns?)\b/iu;
 export const CLOUD_HINT = /\b(?:clouds?)\b/iu;
 export const HEART_HINT = /\b(?:hearts?)\b/iu;
+export const HOME_HINT = /\bhomes?\b/iu;
 export const PIN_HINT = /\b(?:pins?|map-pin|location|pushpin|marker)\b/iu;
 export const FLAG_HINT = /\b(?:flags?)\b/iu;
 export const KEY_HINT = /\b(?:keys?)\b/iu;
@@ -1020,6 +1045,7 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: SUN_HINT, id: "sun" },
   { hint: CLOUD_HINT, id: "cloud" },
   { hint: HEART_HINT, id: "heart" },
+  { hint: HOME_HINT, id: "home" },
   { hint: PIN_HINT, id: "pin" },
   { hint: FLAG_HINT, id: "flag" },
   { hint: KEY_HINT, id: "key" },

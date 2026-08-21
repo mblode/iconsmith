@@ -9,6 +9,7 @@ describe("recipeFor", () => {
     expect(recipeFor("plus-sign")?.id).toBe("plus");
     expect(recipeFor("checkmark")?.id).toBe("check");
     expect(recipeFor("plus-large")?.id).toBe("plus");
+    expect(recipeFor("home")?.id).toBe("home");
   });
 
   it("does not volunteer a glyph the name did not ask for", () => {
@@ -51,6 +52,17 @@ describe("recipe → family", () => {
     expect(filled.brief).toBe("analog check checkmark");
     expect(filled.program).toContain("hole line");
     expect(filled.clean).toBe(true);
+    const cottage = await analogArm()({ name: "home" });
+    const cottageFill = await analogArm()(
+      { name: "home" },
+      { finish: "filled" }
+    );
+    expect(cottage.brief).toBe("analog home home");
+    expect(cottage.program).toContain("line 4,10 12,2 20,10");
+    expect(cottage.program).not.toContain("dot 12,12 node");
+    expect(cottage.clean).toBe(true);
+    expect(cottageFill.program).toContain("diamond 12,10 r8");
+    expect(cottageFill.clean).toBe(true);
     const [holdout] = analogConstructions("quokka", [], "quokka", false);
     expect(recipeFor("quokka")).toBeNull();
     expect(holdout?.id).toBe("unknown");

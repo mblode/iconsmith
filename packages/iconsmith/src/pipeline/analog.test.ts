@@ -34,6 +34,7 @@ import {
   hammer,
   hasStackRim,
   heart,
+  home,
   horn,
   hourglass,
   hub,
@@ -302,6 +303,7 @@ describe("analogConstructions", () => {
     expect(analogConstructions("tick", [], "tick", false)[0]?.id).toBe("check");
     expect(analogConstructions("lock", [], "lock", false)[0]?.id).toBe("lock");
     expect(analogConstructions("ring", [], "ring", false)[0]?.id).toBe("ring");
+    expect(analogConstructions("home", [], "home", false)[0]?.id).toBe("home");
   });
 
   /**
@@ -457,6 +459,7 @@ describe("analog families", () => {
     { draw: sun, id: "sun", slug: "sun" },
     { draw: cloud, id: "cloud", slug: "cloud" },
     { draw: heart, id: "heart", slug: "heart" },
+    { draw: home, id: "home", slug: "home" },
     { draw: pin, id: "pin", slug: "pin" },
     { draw: flag, id: "flag", slug: "flag" },
     { draw: key, id: "key", slug: "key" },
@@ -561,6 +564,7 @@ describe("analog families", () => {
     expect(ANALOG_KINS.checkmark).toBeUndefined();
     expect(ANALOG_KINS.lock).toBeUndefined();
     expect(ANALOG_KINS.ring).toBeUndefined();
+    expect(ANALOG_KINS.home).toBeUndefined();
     expect(contentTokens("mail-icon")).toEqual(["mail"]);
     expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
     expect(familyFromToken("checkmark")).toBe("check");
@@ -617,6 +621,9 @@ describe("analog families", () => {
     expect(
       analogConstructions("tree-house", [], "tree-house", false)[0]?.id
     ).toBe("unknown");
+    expect(analogConstructions("house", [], "house", false)[0]?.id).toBe(
+      "unknown"
+    );
   });
 
   it("reaches a named part through a token kin, not a new catalog row", () => {
@@ -657,6 +664,10 @@ describe("analog families", () => {
     expect(check("checkmark", "filled")).toContain("hole line");
     expect(lock("lock", "filled")).toContain("hole circle");
     expect(ring("ring", "filled")).toContain("hole circle");
+    expect(home("home")).toContain("line 4,10 12,2 20,10");
+    expect(home("home")).not.toContain("diamond ");
+    expect(home("home", "filled")).toContain("diamond 12,10 r8");
+    expect(home("home", "filled")).not.toContain("dot 12,12 node");
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {
@@ -712,6 +723,7 @@ describe("analog families", () => {
       ["wall-clock", "clock"],
       ["checkmark", "check"],
       ["lock", "lock"],
+      ["home", "home"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -756,6 +768,7 @@ describe("analog families", () => {
       ["wall-clock", "clock"],
       ["checkmark", "check"],
       ["lock", "lock"],
+      ["home", "home"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [
