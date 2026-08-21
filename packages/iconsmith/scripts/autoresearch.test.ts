@@ -432,7 +432,7 @@ packages/iconsmith/src/tools/render.ts
   });
 });
 
-describe("in-process propose", () => {
+describe("in-process propose", GIT, () => {
   it("applies one deps.propose edit per round without a spawn brief", async () => {
     const repo = mkdtempSync(path.join(tmpdir(), "autoresearch-propose-"));
     const analog = "packages/iconsmith/src/pipeline/analog.ts";
