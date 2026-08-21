@@ -76,6 +76,7 @@ import {
   unknown,
   volcano,
   wine,
+  zap,
 } from "./analog.js";
 
 const BOX = "M4 4H12V12H4Z";
@@ -304,6 +305,13 @@ describe("analogConstructions", () => {
     expect(analogConstructions("lock", [], "lock", false)[0]?.id).toBe("lock");
     expect(analogConstructions("ring", [], "ring", false)[0]?.id).toBe("ring");
     expect(analogConstructions("home", [], "home", false)[0]?.id).toBe("home");
+    expect(analogConstructions("zap", [], "zap", false)[0]?.id).toBe("zap");
+    expect(
+      analogConstructions("lightning", [], "lightning", false)[0]?.id
+    ).toBe("zap");
+    expect(analogConstructions("shield", [], "shield", false)[0]?.id).toBe(
+      "shield"
+    );
   });
 
   /**
@@ -460,6 +468,7 @@ describe("analog families", () => {
     { draw: cloud, id: "cloud", slug: "cloud" },
     { draw: heart, id: "heart", slug: "heart" },
     { draw: home, id: "home", slug: "home" },
+    { draw: zap, id: "zap", slug: "zap" },
     { draw: pin, id: "pin", slug: "pin" },
     { draw: flag, id: "flag", slug: "flag" },
     { draw: key, id: "key", slug: "key" },
@@ -565,6 +574,11 @@ describe("analog families", () => {
     expect(ANALOG_KINS.lock).toBeUndefined();
     expect(ANALOG_KINS.ring).toBeUndefined();
     expect(ANALOG_KINS.home).toBeUndefined();
+    expect(ANALOG_KINS.heart).toBeUndefined();
+    expect(ANALOG_KINS.shield).toBeUndefined();
+    expect(ANALOG_KINS.zap).toBeUndefined();
+    expect(ANALOG_KINS.lightning).toBeUndefined();
+    expect(ANALOG_KINS.star).toBeUndefined();
     expect(contentTokens("mail-icon")).toEqual(["mail"]);
     expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
     expect(familyFromToken("checkmark")).toBe("check");
@@ -664,10 +678,23 @@ describe("analog families", () => {
     expect(check("checkmark", "filled")).toContain("hole line");
     expect(lock("lock", "filled")).toContain("hole circle");
     expect(ring("ring", "filled")).toContain("hole circle");
-    expect(home("home")).toContain("line 4,10 12,2 20,10");
+    expect(home("home")).toContain("line 12,3 20,8 20,20 4,20 4,8 12,3");
     expect(home("home")).not.toContain("diamond ");
-    expect(home("home", "filled")).toContain("diamond 12,10 r8");
+    expect(home("home", "filled")).toContain("diamond 12,8 r5");
     expect(home("home", "filled")).not.toContain("dot 12,12 node");
+    expect(heart("heart")).toContain("line 8,4 3,8 3,11 12,20");
+    expect(heart("heart")).toContain("off-axis");
+    expect(heart("heart")).not.toContain("circle ");
+    expect(heart("heart")).not.toContain("arc ");
+    expect(heart("heart", "filled")).toContain("rect ");
+    expect(heart("heart", "filled")).toContain("diamond 12,13.5 r6.5");
+    expect(heart("heart", "filled")).not.toContain("circle ");
+    expect(heart("heart", "filled")).not.toContain("dot 12,12 node");
+    expect(shield("shield")).toContain("line 12,3 20,7 20,13 12,21");
+    expect(shield("shield", "filled")).toContain("diamond 12,14 r8");
+    expect(zap("zap")).toContain("line 13,3 13,9 20,9 11,21");
+    expect(zap("zap", "filled")).toContain("line 13,4 5,14");
+    expect(zap("zap")).not.toContain("dot 12,12 node");
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {
@@ -724,6 +751,9 @@ describe("analog families", () => {
       ["checkmark", "check"],
       ["lock", "lock"],
       ["home", "home"],
+      ["zap", "zap"],
+      ["lightning", "zap"],
+      ["shield", "shield"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -769,6 +799,9 @@ describe("analog families", () => {
       ["checkmark", "check"],
       ["lock", "lock"],
       ["home", "home"],
+      ["zap", "zap"],
+      ["shield", "shield"],
+      ["heart", "heart"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

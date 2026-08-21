@@ -15,8 +15,11 @@
  * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
  * A paint recipe that can fire must resolve to a family in both paints —
  * `checkmark` draws the house check, not unknown. `home` draws the house
- * pentagon, not a frame-and-dot. The composer writes the program. The
- * model does not.
+ * pentagon, not a frame-and-dot. `heart` draws the closed lobes, not
+ * three circles or a disc. `shield` draws the heater, not a diamond
+ * with a cap. `zap` draws the bolt, not a frame-and-dot. Analog must
+ * not volunteer a star. The composer writes the program. The model
+ * does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -508,9 +511,10 @@ export const cloud = (slug: string, finish: Finish = "outlined"): string =>
 /**
  * House home: one pentagon, both paints. Outlined is the outer stroke
  * (peak and walls, no inner roof). Filled is the same silhouette — a
- * body mass with the roof diamond seated on its top edge so the lower
- * half is inside the walls, not a diamond drawn through them. No door:
- * the house files are a solid pentagon. Portrait 18×20.
+ * body mass with the roof diamond seated on the eaves, not a diamond
+ * drawn through the walls. No door: the house files are a solid
+ * pentagon. Portrait 18×20. The eaves sit high (y=8) so the roof
+ * matches the house file rather than a tall A-frame.
  */
 export const home = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -518,22 +522,30 @@ export const home = (slug: string, finish: Finish = "outlined"): string =>
     finish,
     "portrait",
     finish === "filled"
-      ? [mass(finish, 4, 10, 16, 10, 1), ...lozenge(finish, 12, 10, 8)]
-      : [
-          "line 4,10 12,2 20,10",
-          "line 4,10 4,20",
-          "line 4,20 20,20",
-          "line 20,20 20,10",
-        ]
+      ? [mass(finish, 4, 8, 16, 12, 1), ...lozenge(finish, 12, 8, 5)]
+      : ["line 12,3 20,8 20,20 4,20 4,8 12,3 off-axis"]
   );
 
-/** Two lobes and a diamond point — a geometric heart. Landscape 20×18. */
+/**
+ * House heart: compile of the blode file is one evenodd compound
+ * (`part heart-0`). Outlined is that closed silhouette, not two arcs
+ * or three circles. Filled is the same body — overlapping lobe masses
+ * and a seated point — not a disc and not three circles restamped as
+ * solids. Recipe tokens resolve here — not a new kin row.
+ */
 export const heart = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "landscape", [
-    finish === "filled" ? "circle 8,9 r6" : "circle 8,9 r5",
-    finish === "filled" ? "circle 16,9 r6" : "circle 16,9 r5",
-    ...lozenge(finish, 12, 14, 6),
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    "landscape",
+    finish === "filled"
+      ? [
+          mass(finish, 3, 4, 9, 8, 3),
+          mass(finish, 12, 4, 9, 8, 3),
+          ...lozenge(finish, 12, 13.5, 6.5),
+        ]
+      : ["line 8,4 3,8 3,11 12,20 21,11 21,8 16,4 12,6 8,4 off-axis"]
+  );
 
 /** Head and a diamond tip — map pin. Path 14×18 + stroke is tall 16×20. */
 export const pin = (slug: string, finish: Finish = "outlined"): string =>
@@ -582,12 +594,41 @@ export const pencil = (slug: string, finish: Finish = "outlined"): string =>
     ...lozenge(finish, 12, 17, 4),
   ]);
 
-/** Diamond body — a shield. */
+/**
+ * House shield: compile is one heater silhouette (`part shield-0`) on
+ * portrait. Outlined is that closed outline — peaked top, sides, a
+ * point — not a 45° diamond with a cap. Filled is the same body (a
+ * mass seated on a diamond point). Recipe tokens resolve here.
+ */
 export const shield = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "square", [
-    ...lozenge(finish, 12, 13, 8),
-    mass(finish, 7, 5, 10, 5, 1),
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    "portrait",
+    finish === "filled"
+      ? [mass(finish, 4, 4, 16, 11, 2), ...lozenge(finish, 12, 14, 8)]
+      : ["line 12,3 20,7 20,13 12,21 4,13 4,7 12,3 off-axis"]
+  );
+
+/**
+ * House zap: compile is one bolt silhouette (`part zap-0`). Outlined
+ * is that closed zigzag, not a frame-and-dot. Filled is the same
+ * lightning as three bars on the bolt's centre-lines. Recipe tokens
+ * (`zap`, `lightning`) resolve here — not a new kin row.
+ */
+export const zap = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "portrait",
+    finish === "filled"
+      ? [
+          "line 13,4 5,14 off-axis",
+          "line 5,14 19,10 off-axis",
+          "line 19,10 11,20 off-axis",
+        ]
+      : ["line 13,3 13,9 20,9 11,21 11,15 4,15 13,3 off-axis"]
+  );
 
 /** Neck and a diamond body — a flask, not a beaker stack. */
 export const flask = (slug: string, finish: Finish = "outlined"): string =>
@@ -776,6 +817,7 @@ const FAMILY_DRAW = {
   tube,
   volcano,
   wine,
+  zap,
 } as const;
 
 export type AnalogFamilyId = keyof typeof FAMILY_DRAW;
@@ -1025,6 +1067,7 @@ export const WINE_HINT =
 export const FLOWER_HINT = /\b(?:flowers?)\b/iu;
 export const PLUS_HINT = /\b(?:plus)\b/iu;
 export const CLOCK_HINT = /\b(?:clocks?)\b/iu;
+export const ZAP_HINT = /\b(?:zaps?|lightning)\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: TOWER_HINT, id: "tower" },
@@ -1069,6 +1112,7 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: FLOWER_HINT, id: "flower" },
   { hint: PLUS_HINT, id: "plus" },
   { hint: CLOCK_HINT, id: "clock" },
+  { hint: ZAP_HINT, id: "zap" },
 ];
 
 const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {

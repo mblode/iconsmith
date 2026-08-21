@@ -162,6 +162,7 @@ export {
   unknown,
   volcano,
   wine,
+  zap,
 } from "./pipeline/analog.js";
 export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";

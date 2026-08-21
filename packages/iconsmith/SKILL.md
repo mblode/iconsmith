@@ -128,6 +128,14 @@ A check. Outlined is an open tick stroke. Filled is a badge disc with the tick c
 
 A home. Outlined is one closed pentagon — roof peak and walls as the outer stroke. Filled is that silhouette (body plus a roof seated on the eaves), not a frame-and-dot and not a door nobody asked for.
 
+A heart. House compile is one evenodd compound of two lobes and a point. Outlined is that closed silhouette, not three circles. Filled is the same compound, not a disc and not three circles restamped as solids.
+
+A shield. House compile is one heater silhouette. Outlined is that closed outline — peaked top, sides, a point — not a 45° diamond with a cap. Filled is the same body (a mass seated on a diamond point).
+
+A zap. House compile is one bolt silhouette. Outlined is that closed lightning, not a frame-and-dot. Filled is the same zigzag as three bars on the bolt's centre-lines.
+
+Do not volunteer a star. Analog has no star family. A diamond is a compass needle; a chevron or four diamonds is not the house star.
+
 These are constructions, not glyphs to volunteer for an unasked name.
 
 A strike-through. Two half-arcs of one circle, plus a bar. Not a zigzag S.

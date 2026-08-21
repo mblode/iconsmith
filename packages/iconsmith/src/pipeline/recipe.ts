@@ -5,8 +5,9 @@
  * clock, lock, …). A recipe names a construction, not a glyph to volunteer
  * for an unasked name — `recipeFor` only fires when a content token of the
  * query is the recipe. Analog resolves that id to a family in both paints
- * (`checkmark` draws the house check; `home` draws the pentagon). `star`
- * and host glyphs stay unknown.
+ * (`checkmark` draws the house check; `home` draws the pentagon; `heart`
+ * draws the closed lobes; `zap` draws the bolt). `star` and host glyphs
+ * stay unknown.
  *
  * The model never emits a coordinate. These sentences steer `listParts`,
  * the per-icon brief, and the skill toward the programs compile already
@@ -69,6 +70,30 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
     outlined:
       "one closed pentagon — roof peak and walls as the outer stroke. Not a box, and not a roof drawn through the body.",
     tokens: ["home"],
+  },
+  {
+    filled:
+      "one evenodd compound of two lobes and a point. Not a disc, and not three circles restamped as solids.",
+    id: "heart",
+    outlined:
+      "two lobes and a point as one closed silhouette (house compile is one evenodd compound). Not three circles.",
+    tokens: ["heart"],
+  },
+  {
+    filled:
+      "one evenodd heater: a body mass seated on a diamond point. Not a 45° diamond with a cap, and not a frame-and-dot.",
+    id: "shield",
+    outlined:
+      "one closed heater — peaked top, sides, a point. Not a diamond with a hat.",
+    tokens: ["shield"],
+  },
+  {
+    filled:
+      "the bolt as three bars on the zigzag's centre-lines. Not a frame-and-dot, and not a flood of the bbox.",
+    id: "zap",
+    outlined:
+      "one closed lightning bolt. Not a frame-and-dot, and not a Z of open ticks.",
+    tokens: ["zap", "lightning"],
   },
 ];
 
