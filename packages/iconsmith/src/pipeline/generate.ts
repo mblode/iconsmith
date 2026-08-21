@@ -16,6 +16,7 @@ import type { Canvas, Spec } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
 import { programFromDoc } from "../tools/twin.js";
 import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
+import { adoptHost, hostConstruction } from "./analog.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { Proposal } from "./compose.js";
 import type { TokenUsage } from "./cost.js";
@@ -409,6 +410,21 @@ const outcomeOf = (
   return "budget";
 };
 
+const seedHost = (
+  canvas: Canvas,
+  state: ToolState,
+  name: string,
+  finish: Finish,
+  parts: readonly Part[],
+  spec?: Spec
+): void => {
+  if (hostConstruction(name, finish) === null) {
+    return;
+  }
+  adoptHost(canvas, name, finish, parts, spec);
+  state.constructed = true;
+};
+
 export const generate = async (
   concept: Concept,
   options: GenerateOptions = {}
@@ -441,6 +457,7 @@ export const generate = async (
     renderSize,
     spec,
   });
+  seedHost(canvas, state, concept.name, finish, parts, spec);
 
   const end: Termination = {
     clean: false,

@@ -80,11 +80,11 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
     "Do not volunteer a star glyph"
   );
   expect(conceptPrompt({ name: "heart" })).toContain(
-    "Call `construct` to place the host heart analog"
+    "The canvas already holds the host heart analog"
   );
   expect(conceptPrompt({ name: "lantern" })).toContain(
-    "Call `construct` to place the host lantern analog"
+    "The canvas already holds the host lantern analog"
   );
-  expect(conceptPrompt({ name: "star" })).not.toContain("Call `construct`");
-  expect(conceptPrompt({ name: "quokka" })).not.toContain("Call `construct`");
+  expect(conceptPrompt({ name: "star" })).not.toContain("already holds");
+  expect(conceptPrompt({ name: "quokka" })).not.toContain("already holds");
 });

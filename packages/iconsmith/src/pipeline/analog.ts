@@ -24,7 +24,7 @@
  * volunteer a star. The composer writes the program. The model does
  * not. `construct` in the generate loop adopts that program.
  */
-import type { Spec } from "../tools/canvas.js";
+import type { Canvas, Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
@@ -1456,6 +1456,29 @@ export const hostConstruction = (
     return null;
   }
   return familyOf(query, query, finish);
+};
+
+/** Write the host analog onto a generate canvas. Coordinates stay in analog. */
+export const adoptHost = (
+  canvas: Canvas,
+  query: string,
+  finish: Finish = "outlined",
+  parts: readonly Part[] = [],
+  spec?: Spec
+): { family: string; placed: number } => {
+  const host = hostConstruction(query, finish);
+  if (!host) {
+    throw new Error(
+      `no host analog for "${query}" — compose it from listParts and primitives`
+    );
+  }
+  const drawn = runDsl(host.source, [...parts], spec ? { spec } : {});
+  if (drawn.errors.length > 0) {
+    throw new Error(drawn.errors.join("; "));
+  }
+  canvas.clear();
+  canvas.elements.push(...drawn.canvas.elements);
+  return { family: host.id, placed: canvas.elements.length };
 };
 
 export const analogConstructions = (

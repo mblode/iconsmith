@@ -171,7 +171,7 @@ export const conceptPrompt = (
   const host = hostConstruction(concept.name, finish);
   if (host) {
     lines.push(
-      `Call \`construct\` to place the host ${host.id} analog. Do not invent that silhouette from primitives.`
+      `The canvas already holds the host ${host.id} analog. Confirm with render and lint. Do not clear it to invent circles or diamonds.`
     );
   }
   if (concept.category) {

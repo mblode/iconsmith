@@ -17,11 +17,11 @@ import { z } from "zod";
 import { Canvas, SPEC } from "../tools/canvas.js";
 import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
-import { TURNS, alignCohort, fitKeyline, recentre, run } from "../tools/dsl.js";
+import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
 import type { Finish, Issue, Keyline, Part } from "../types.js";
-import { hostConstruction } from "./analog.js";
+import { adoptHost, hostConstruction } from "./analog.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
@@ -305,7 +305,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     construct: tool({
       description:
-        "Place the host analog for this name. The model never emits those coordinates — the canvas writes the program. Call this when listParts reports constructable, before inventing a silhouette from circles or diamonds. Available once.",
+        "Place the host analog for this name. The model never emits those coordinates — the canvas writes the program. Generate already adopts it when one exists; call this only if the canvas is still empty. Available once.",
       execute: ({ query }) =>
         track("construct", () => {
           if (state.constructed) {
@@ -313,23 +313,12 @@ export const createTools = (options: ToolsOptions = {}) => {
               "construct has already placed a host analog. Edit with the primitives, or remove and start over."
             );
           }
-          const host = hostConstruction(query, finish);
-          if (!host) {
-            throw new Error(
-              `no host analog for "${query}" — compose it from listParts and primitives`
-            );
-          }
-          const drawn = run(host.source, [...parts], { spec });
-          if (drawn.errors.length > 0) {
-            throw new Error(drawn.errors.join("; "));
-          }
-          canvas.clear();
-          canvas.elements.push(...drawn.canvas.elements);
+          const adopted = adoptHost(canvas, query, finish, parts, spec);
           state.constructed = true;
           return {
             elements: canvas.describe(),
-            family: host.id,
-            placed: canvas.elements.length,
+            family: adopted.family,
+            placed: adopted.placed,
           };
         }),
       inputSchema: z.object({

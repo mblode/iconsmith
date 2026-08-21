@@ -444,19 +444,18 @@ describe("generate", () => {
     expect(result.trace).toEqual(["rect", "fit", "render", "lint"]);
   });
 
-  it("constructs a host analog and can lint it clean", async () => {
+  it("starts from the host analog so the model does not invent the silhouette", async () => {
     const result = await generate(
       { name: "heart" },
       {
         model: scripted([
-          { input: { query: "heart" }, tool: "construct" },
           { input: {}, tool: "render" },
           { input: {}, tool: "lint" },
           { text: "House heart analog." },
         ]),
       }
     );
-    expect(result.trace).toEqual(["construct", "render", "lint"]);
+    expect(result.trace).toEqual(["render", "lint"]);
     expect(result.clean).toBe(true);
     expect(result.svg).toContain("<path");
     expect(result.program).toContain("line ");
@@ -519,7 +518,7 @@ describe("generate", () => {
 
   it("pairs the other paint so a filled disc is not a quiet twin", async () => {
     const result = await generate(
-      { name: "ring" },
+      { name: "washer" },
       {
         finish: "filled",
         model: scripted([
