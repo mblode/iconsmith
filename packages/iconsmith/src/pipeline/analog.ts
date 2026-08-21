@@ -10,13 +10,12 @@
  * `replay` still compiles caller-supplied path `d` strings — this module does
  * not import `corpus/`. Beyond stack / trays / hub, name tokens pick a
  * concept family (tower, peak, volcano, tube, plant, horn, mushroom,
- * hourglass, sailboat) written with the same twin helpers glyphs use, so
- * both paints are ops, not a generic tree. Families are host constructions,
- * not house twins. A name with no token, kin, or named part falls to
- * `unknown` (a framed mark), not a hub — hub is only for graph / tree / org.
- * Glyphs stay unvolunteered. `composeFromParts` places a named vocabulary
- * part at a named anchor when one answers, including a plural stem. The
- * composer writes the program. The model does not.
+ * hourglass, sailboat, banana, kiwi, stapler) written with the same twin
+ * helpers glyphs use. `ANALOG_ALIASES` maps ordinary synonyms onto those
+ * families so `bananas` / `kiwifruit` / `staple-gun` resolve offline, without
+ * a corpus extract. A name with no token, alias, kin, or named part falls
+ * to `unknown`, not a hub. Glyphs stay unvolunteered. The composer writes
+ * the program. The model does not.
  */
 import type { Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -278,8 +277,10 @@ export const tower = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
     ...frame(finish, 9, 3, 6, 4, 1),
     "circle 12,5 r1",
-    hbar(finish, 5, 5, 3),
-    hbar(finish, 16, 5, 3),
+    hbar(finish, 5, 4.5, 3),
+    hbar(finish, 16, 4.5, 3),
+    hbar(finish, 5, 6, 3),
+    hbar(finish, 16, 6, 3),
     mass(finish, 10.5, 8, 3, 5, 1),
     mass(finish, 9.5, 13, 5, 4, 1),
     mass(finish, 7, 17, 10, 3, 1),
@@ -306,33 +307,32 @@ export const volcano = (slug: string, finish: Finish = "outlined"): string =>
 /** Eyepiece, barrel, objective, tripod. Wide 20×16 — the tube is not landscape-tall. */
 export const tube = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
-    mass(finish, 3, 5.5, 4, 4, 1),
-    mass(finish, 7, 4.5, 10, 6, 2),
+    mass(finish, 3, 5.5, 3, 4, 1),
+    mass(finish, 6, 4.5, 11, 6, 2),
     ...ring(finish, 19, 7.5, 3),
     vbar(finish, 8, 11.5, 7),
-    vbar(finish, 14, 11.5, 7),
-    hbar(finish, 8, 11.5, 6),
+    vbar(finish, 15, 11.5, 7),
+    hbar(finish, 8, 11.5, 7),
   ]);
 
-/** Saguaro: trunk, two arms with pad discs, a pot. */
+/** Saguaro: trunk and two arms that meet it, a pot.
+ *  Separate pad discs sat 0.02px off the arms after `fit` and warned. */
 export const plant = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
     mass(finish, 10, 2, 4, 14, 2),
-    mass(finish, 5, 6, 4, 5, 2),
-    "circle 7,6 r2",
-    mass(finish, 15, 8, 4, 5, 2),
-    "circle 17,8 r2",
+    mass(finish, 5, 7, 5, 4, 2),
+    mass(finish, 14, 9, 5, 4, 2),
     mass(finish, 5, 16, 14, 4, 1),
   ]);
 
-/** Horse body, neck, head, 45° diamond horn, ear, legs.
+/** Horse body, neck, head, a 45° diamond horn, ear, legs.
  *  Square so the horn stays on 45° after `fit`. */
 export const horn = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
-    mass(finish, 4, 11, 11, 6, 3),
-    mass(finish, 13, 8, 4, 5, 2),
+    mass(finish, 3, 12, 11, 5, 3),
+    mass(finish, 12, 8, 4, 6, 2),
     "circle 17,8 r2.5",
-    ...lozenge(finish, 19, 5, 2),
+    ...lozenge(finish, 19, 4, 3),
     mass(finish, 16, 5, 2, 2, 0.5),
     vbar(finish, 7, 17, 3),
     vbar(finish, 13, 17, 3),
@@ -348,13 +348,38 @@ export const mushroom = (slug: string, finish: Finish = "outlined"): string =>
     "dot 15,8 floating",
   ]);
 
-/** Wide bulbs and a pinched waist — an hourglass, not three equal trays.
- *  Two stacked diamonds are 1:2 and miss every house keyline. */
+/** Two bulbs and a pinched neck — a readable hourglass on tall 16×20. */
 export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    mass(finish, 5, 3, 14, 5, 1),
-    mass(finish, 10, 8, 4, 8, 1),
-    mass(finish, 5, 16, 14, 4, 1),
+    mass(finish, 5, 3, 14, 6, 2),
+    mass(finish, 10, 9, 4, 6, 1),
+    mass(finish, 5, 15, 14, 5, 2),
+  ]);
+
+/** Two stacked crescents — a banana thick enough to occupy wide 20×16. */
+export const banana = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    "arc 12,11 r9 half from left",
+    "arc 12,17 r9 half from left",
+  ]);
+
+/** Fruit, calyx, seeds — kiwi, not a cookie glyph. */
+export const kiwi = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    finish === "filled" ? "circle 12,12 r9" : "circle 12,12 r8",
+    vbar(finish, 12, 3, 2),
+    mass(finish, 13, 3, 3, 2, 1),
+    "dot 10,12 more",
+    "dot 14,12 more",
+    "dot 12,15 more",
+  ]);
+
+/** Body, anvil, hinge — stapler on wide 20×16. */
+export const stapler = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 3, 5, 18, 6, 2),
+    mass(finish, 3, 13, 18, 5, 1),
+    vbar(finish, 5, 5, 8),
   ]);
 
 /** Hull, mast, diamond sail. Square so the sail stays on 45°. */
@@ -390,6 +415,17 @@ const sameStem = (query: string, name: string): boolean => {
 };
 
 /**
+ * Ordinary synonyms → a family token, so analog resolves offline without a
+ * parts extract. Values are words the HINT regexes already answer.
+ * Glyph slugs are deliberately absent: analog must not volunteer those.
+ */
+export const ANALOG_ALIASES: Readonly<Record<string, string>> = {
+  kiwifruit: "kiwi",
+  plantain: "banana",
+  "staple-gun": "stapler",
+};
+
+/**
  * Place the vocabulary marks whose names share a token or a plural stem
  * with the query. Named anchors only — the model never emits a coordinate.
  * Null when no named part answers, so a provenance-only hit does not
@@ -403,9 +439,12 @@ export const composeFromParts = (
   const want = tokens(slug);
   const named = parts.filter((p) => {
     const name = p.name ?? "";
+    const alias = ANALOG_ALIASES[slug] ?? "";
     return (
       name.length > 0 &&
-      (overlap(tokens(name), want) > 0 || sameStem(slug, name))
+      (overlap(tokens(name), want) > 0 ||
+        sameStem(slug, name) ||
+        (alias.length > 0 && sameStem(alias, name)))
     );
   });
   if (named.length === 0) {
@@ -438,6 +477,9 @@ export const HORN_HINT = /\b(?:unicorn|narwhal)\b/iu;
 export const MUSHROOM_HINT = /\b(?:mushroom|toadstool|fungi)\b/iu;
 export const HOURGLASS_HINT = /\b(?:hourglass|sandglass)\b/iu;
 export const SAILBOAT_HINT = /\b(?:sailboat|yacht|skiff)\b/iu;
+export const BANANA_HINT = /\b(?:bananas?|plantain)\b/iu;
+export const KIWI_HINT = /\b(?:kiwi|kiwifruit)\b/iu;
+export const STAPLER_HINT = /\b(?:staplers?|staple-gun)\b/iu;
 
 export const hasStackRim = (parts: readonly Part[]): boolean =>
   parts.some((p) => p.name === STACK_PART || p.id === STACK_PART);
@@ -470,34 +512,45 @@ const familyOf = (
   text: string,
   finish: Finish
 ): { id: string; source: string } | null => {
-  if (TOWER_HINT.test(text)) {
+  const alias = ANALOG_ALIASES[slug];
+  const hay = alias === undefined ? text : `${text} ${alias}`;
+  if (TOWER_HINT.test(hay)) {
     return { id: "tower", source: tower(slug, finish) };
   }
-  if (VOLCANO_HINT.test(text)) {
+  if (VOLCANO_HINT.test(hay)) {
     return { id: "volcano", source: volcano(slug, finish) };
   }
-  if (PEAK_HINT.test(text)) {
+  if (PEAK_HINT.test(hay)) {
     return { id: "peak", source: peak(slug, finish) };
   }
-  if (TUBE_HINT.test(text)) {
+  if (TUBE_HINT.test(hay)) {
     return { id: "tube", source: tube(slug, finish) };
   }
-  if (PLANT_HINT.test(text)) {
+  if (PLANT_HINT.test(hay)) {
     return { id: "plant", source: plant(slug, finish) };
   }
-  if (HORN_HINT.test(text)) {
+  if (HORN_HINT.test(hay)) {
     return { id: "horn", source: horn(slug, finish) };
   }
-  if (MUSHROOM_HINT.test(text)) {
+  if (MUSHROOM_HINT.test(hay)) {
     return { id: "mushroom", source: mushroom(slug, finish) };
   }
-  if (HOURGLASS_HINT.test(text)) {
+  if (HOURGLASS_HINT.test(hay)) {
     return { id: "hourglass", source: hourglass(slug, finish) };
   }
-  if (SAILBOAT_HINT.test(text)) {
+  if (SAILBOAT_HINT.test(hay)) {
     return { id: "sailboat", source: sailboat(slug, finish) };
   }
-  if (HUB_HINT.test(text)) {
+  if (BANANA_HINT.test(hay)) {
+    return { id: "banana", source: banana(slug, finish) };
+  }
+  if (KIWI_HINT.test(hay)) {
+    return { id: "kiwi", source: kiwi(slug, finish) };
+  }
+  if (STAPLER_HINT.test(hay)) {
+    return { id: "stapler", source: stapler(slug, finish) };
+  }
+  if (HUB_HINT.test(hay)) {
     return { id: "hub", source: hub(slug, 3, finish) };
   }
   return null;

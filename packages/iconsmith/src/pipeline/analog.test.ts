@@ -9,6 +9,8 @@ import type { Part } from "../types.js";
 import {
   analogArm,
   analogConstructions,
+  ANALOG_ALIASES,
+  banana,
   composeFromParts,
   hasStackRim,
   horn,
@@ -17,6 +19,7 @@ import {
   HUB_HINT,
   HORN_HINT,
   kinScore,
+  kiwi,
   mushroom,
   peak,
   pickKin,
@@ -28,6 +31,7 @@ import {
   sailboat,
   sameLetters,
   stack,
+  stapler,
   tower,
   TOWER_HINT,
   trays,
@@ -191,7 +195,7 @@ describe("analogConstructions", () => {
   });
 
   it("draws unknown for an unkeyed name that is not a stack or a family", () => {
-    const [row] = analogConstructions("bananas", [], "bananas", false);
+    const [row] = analogConstructions("xyzzy", [], "xyzzy", false);
     expect(row?.id).toBe("unknown");
     expect(HUB_HINT.test("org-chart")).toBe(true);
     expect(HUB_HINT.test("unicorn")).toBe(false);
@@ -225,6 +229,13 @@ describe("analogConstructions", () => {
     ).toBe("tube");
     expect(analogConstructions("unicorn", [], "unicorn", false)[0]?.id).toBe(
       "horn"
+    );
+    expect(analogConstructions("bananas", [], "bananas", false)[0]?.id).toBe(
+      "banana"
+    );
+    expect(analogConstructions("kiwi", [], "kiwi", false)[0]?.id).toBe("kiwi");
+    expect(analogConstructions("stapler", [], "stapler", false)[0]?.id).toBe(
+      "stapler"
     );
     expect(TOWER_HINT.test("beacon")).toBe(true);
     expect(PLANT_HINT.test("succulent")).toBe(true);
@@ -322,11 +333,33 @@ describe("analogArm", () => {
   });
 
   it("falls to unknown, not a hub, when no token names a family", async () => {
-    const result = await analogArm()({ name: "bananas" });
-    expect(result.brief).toBe("analog unknown bananas");
+    const result = await analogArm()({ name: "xyzzy" });
+    expect(result.brief).toBe("analog unknown xyzzy");
     expect(result.program).toContain("dot 12,12 node");
     expect(result.program).not.toContain("circle 12,6 r2");
     expect(result.clean).toBe(true);
+  });
+
+  it("draws bananas, kiwi, and stapler as themselves, not unknown", async () => {
+    const drawn = await Promise.all(
+      (
+        [
+          ["bananas", "banana"],
+          ["kiwi", "kiwi"],
+          ["stapler", "stapler"],
+        ] as const
+      ).map(([name, id]) =>
+        analogArm()({ name }).then((result) => ({ id, name, result }))
+      )
+    );
+    for (const { id, name, result } of drawn) {
+      expect(result.brief, name).toBe(`analog ${id} ${name}`);
+      expect(result.clean, name).toBe(true);
+      expect(
+        result.issues.some((i) => i.severity === "error"),
+        name
+      ).toBe(false);
+    }
   });
 
   it("writes the filled paint of a family, not an adapted hub", async () => {
@@ -352,6 +385,9 @@ describe("analog families", () => {
     { draw: mushroom, id: "mushroom", slug: "mushroom" },
     { draw: hourglass, id: "hourglass", slug: "hourglass" },
     { draw: sailboat, id: "sailboat", slug: "sailboat" },
+    { draw: banana, id: "banana", slug: "bananas" },
+    { draw: kiwi, id: "kiwi", slug: "kiwi" },
+    { draw: stapler, id: "stapler", slug: "stapler" },
   ] as const;
 
   it("runs each held-out family in both paints without a dsl error", () => {
@@ -387,12 +423,25 @@ describe("analog families", () => {
   });
 
   it("composes a plural query onto the singular part name", () => {
-    const fruit = { ...part("p-banana", BOX), name: "banana" };
-    const source = composeFromParts("bananas", [fruit]);
-    expect(source).toContain("part banana at center size 12");
+    const fruit = { ...part("p-widget", BOX), name: "widget" };
+    const source = composeFromParts("widgets", [fruit]);
+    expect(source).toContain("part widget at center size 12");
     expect(
-      analogConstructions("bananas", [fruit], "bananas", false)[0]?.id
+      analogConstructions("widgets", [fruit], "widgets", false)[0]?.id
     ).toBe("compose");
+  });
+
+  it("resolves analog aliases offline without a parts extract", () => {
+    expect(ANALOG_ALIASES.plantain).toBe("banana");
+    expect(analogConstructions("plantain", [], "plantain", false)[0]?.id).toBe(
+      "banana"
+    );
+    expect(
+      analogConstructions("kiwifruit", [], "kiwifruit", false)[0]?.id
+    ).toBe("kiwi");
+    expect(
+      analogConstructions("staple-gun", [], "staple-gun", false)[0]?.id
+    ).toBe("stapler");
   });
 
   it("keeps volcano smoke off a bare mountain", () => {
@@ -404,14 +453,22 @@ describe("analog families", () => {
 
   it("draws each named concept with an iconic primitive, not a stack of trays", () => {
     expect(mushroom("mushroom")).toContain("circle 12,9 r7");
-    expect(hourglass("hourglass")).toContain("4x8");
+    expect(hourglass("hourglass")).toContain("4x6");
     expect(sailboat("sailboat")).toContain("diamond ");
     expect(peak("mountain")).toContain("diamond ");
     expect(volcano("volcano")).toContain("diamond ");
     expect(horn("unicorn")).toContain("diamond ");
-    expect(plant("cactus")).toContain("circle 7,6 r2");
-    expect(unknown("bananas")).toContain("dot 12,12 node");
-    expect(unknown("bananas")).not.toContain("circle 12,6 r2");
+    expect(banana("bananas")).toContain("arc ");
+    expect(kiwi("kiwi")).toContain("circle 12,12");
+    expect(stapler("stapler")).toContain("rect ");
+    expect(unknown("xyzzy")).toContain("dot 12,12 node");
+    expect(unknown("xyzzy")).not.toContain("circle 12,6 r2");
+  });
+
+  it("keeps cactus arms on the trunk so gap does not warn", async () => {
+    const result = await analogArm()({ name: "cactus" });
+    expect(result.issues.filter((i) => i.rule === "gap")).toEqual([]);
+    expect(result.clean).toBe(true);
   });
 
   it("keeps unknown clean in both paints", () => {
@@ -428,6 +485,9 @@ describe("analog families", () => {
       ["mushroom", "mushroom"],
       ["hourglass", "hourglass"],
       ["sailboat", "sailboat"],
+      ["bananas", "banana"],
+      ["kiwi", "kiwi"],
+      ["stapler", "stapler"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [
