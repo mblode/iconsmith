@@ -15,8 +15,8 @@ force when it ran.
 This is the Karpathy org, not his `train.py`. The product is: run
 `scripts/autoresearch.ts` here. It edits the generation codebase in process
 (playbook and/or OpenRouter), measures, and keeps or `git reset`s. Cursor
-Cloud Agents are not this loop. There is no `NEXT.md`, no spawn brief, and
-nothing to paste into cursor.com/agents.
+Cloud Agents are not this loop. There is no spawn brief and nothing to
+paste into an external agent runner.
 
 The training surface is the generation pipeline (pipeline / tools /
 commands / tests / SKILL / generate prompts), not two analog files. One

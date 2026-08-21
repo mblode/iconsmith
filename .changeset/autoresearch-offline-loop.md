@@ -10,5 +10,5 @@ per round (playbook and/or OpenRouter from `OPENROUTER_API_KEY` /
 `autoresearch.md` stays the standing file the loop cannot write. The
 editable surface is pipeline / tools / commands / tests / SKILL. Frozen
 gates and bench calibrations stay put. Cursor Cloud Agents are not this
-loop — no `NEXT.md`, no spawn brief, nothing to paste into
-cursor.com/agents. Overnight is `--rounds 50`.
+loop — no spawn brief, nothing to paste into an external agent
+runner. Overnight is `--rounds 50`.
