@@ -24,7 +24,7 @@ import type { Finish, Issue, Keyline, Part } from "../types.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
-import { recipeBrief } from "./recipe.js";
+import { steerBrief } from "./recipe.js";
 import { overlap, rankParts, tokens } from "./search.js";
 import type { Aliases } from "./search.js";
 
@@ -300,7 +300,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     diamond: tool({
       description:
-        "Draw a square rotated 45°, vertices on the axes. Reach is centre to vertex — equal run and rise, so every edge sits on 45°/135°. Use this for a compass needle, a card suit, a lozenge. A kite that is only grid-legal (unequal diagonals) is off-axis and is not this op.",
+        "Draw a square rotated 45°, vertices on the axes. Reach is centre to vertex — equal run and rise, so every edge sits on 45°/135°. Use this for a compass needle, a card suit, a lozenge. Not a star. A kite that is only grid-legal (unequal diagonals) is off-axis and is not this op.",
       execute: ({ cx, cy, r }) =>
         track("diamond", () =>
           placed(canvas, canvas.diamond({ cx, cy, reach: r }))
@@ -439,14 +439,14 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     listParts: tool({
       description:
-        "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it.",
+        "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it. When the query asked for a house paint construction, the result names it as `construction`. Analog does not volunteer a star glyph.",
       // Ranked by `rankParts`, which SELECT's shortlist and the coverage report
       // also call, so all three agree about what "relevant" means. The shaping
       // is this tool's own: a model deciding whether to place a mark wants its
       // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
         track("listParts", () => {
-          const construction = recipeBrief(query, finish);
+          const construction = steerBrief(query, finish);
           return {
             ...(construction ? { construction } : {}),
             matches: rankParts(parts, query, limit, aliases).map(

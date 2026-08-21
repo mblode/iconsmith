@@ -373,6 +373,11 @@ describe("tools", () => {
     expect(house?.construction).toContain(
       "House construction (home, outlined)"
     );
+    const star = await outlined.tools.listParts.execute?.(
+      { query: "star" },
+      { messages: [], toolCallId: "t6" }
+    );
+    expect(star?.construction).toContain("Do not volunteer a star glyph");
     expect(other?.construction).toBeUndefined();
   });
 });

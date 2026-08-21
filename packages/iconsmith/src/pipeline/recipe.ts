@@ -174,3 +174,26 @@ export const recipeBrief = (
   const how = finish === "filled" ? recipe.filled : recipe.outlined;
   return `House construction (${recipe.id}, ${finish}): ${how}`;
 };
+
+/**
+ * Names analog must not volunteer a glyph for. A diamond is a compass
+ * needle; a chevron or four diamonds is not the house star.
+ */
+const HOLDOUTS: Readonly<Record<string, string>> = {
+  star: "Do not volunteer a star glyph. A diamond is a compass needle; a chevron or four diamonds is not the house star.",
+};
+
+/** A holdout the query asked for, or null. Two content tokens stay null. */
+export const holdoutBrief = (query: string): string | null => {
+  const want = recipeTokens(query);
+  if (want.length !== 1) {
+    return null;
+  }
+  return HOLDOUTS[want[0] ?? ""] ?? null;
+};
+
+/** Recipe or holdout for this query — what `listParts` and the brief share. */
+export const steerBrief = (
+  query: string,
+  finish: Finish = "outlined"
+): string | null => recipeBrief(query, finish) ?? holdoutBrief(query);

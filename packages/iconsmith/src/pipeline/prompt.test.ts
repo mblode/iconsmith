@@ -30,6 +30,8 @@ test("a filled run tells the model this canvas is solid, not outlined", () => {
   expect(outlined).not.toContain("This run is the solid variant");
   expect(filled).toContain(FILLED_PAINT_RULE);
   expect(filled).toContain("immediately after");
+  expect(filled).toContain("not a disc");
+  expect(filled).toContain("Do not volunteer a star from diamonds");
   expect(filled).not.toContain("place is an outline");
 });
 
@@ -74,4 +76,7 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   );
   expect(conceptPrompt({ name: "quokka" })).not.toContain("House construction");
   expect(conceptPrompt({ name: "star" })).not.toContain("House construction");
+  expect(conceptPrompt({ name: "star" })).toContain(
+    "Do not volunteer a star glyph"
+  );
 });

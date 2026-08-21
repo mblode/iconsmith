@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 
 import { analogArm, analogConstructions, ANALOG_KINS } from "./analog.js";
-import { PAINT_RECIPES, recipeBrief, recipeFor } from "./recipe.js";
+import {
+  holdoutBrief,
+  PAINT_RECIPES,
+  recipeBrief,
+  recipeFor,
+  steerBrief,
+} from "./recipe.js";
 
 describe("recipeFor", () => {
   it("names a construction only when the query asked for it", () => {
@@ -45,6 +51,23 @@ describe("recipeBrief", () => {
     expect(recipeBrief("shield", "outlined")).toContain("heater");
     expect(recipeBrief("star")).toBeNull();
     expect(recipeBrief("xyzzy")).toBeNull();
+  });
+});
+
+describe("steerBrief", () => {
+  it("names the house heart and holds out a star", () => {
+    expect(steerBrief("heart", "outlined")).toContain(
+      "House construction (heart, outlined)"
+    );
+    expect(steerBrief("heart", "filled")).toContain("Not a disc");
+    expect(holdoutBrief("star")).toContain("Do not volunteer a star glyph");
+    expect(holdoutBrief("star")).toContain("four diamonds");
+    expect(steerBrief("star")).toBe(holdoutBrief("star"));
+    expect(steerBrief("star")).not.toContain("House construction");
+    expect(holdoutBrief("heart")).toBeNull();
+    expect(holdoutBrief("north-star")).toBeNull();
+    expect(ANALOG_KINS.star).toBeUndefined();
+    expect(ANALOG_KINS.heart).toBeUndefined();
   });
 });
 
