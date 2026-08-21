@@ -48,7 +48,7 @@ describe("classifyReach", () => {
 
   it("does not compile a variant as the concept", () => {
     expect(classifyReach("wifi", hasWifiFull, false, "wifi-full")).toEqual({
-      kind: "analog",
+      kind: "glyph",
     });
   });
 

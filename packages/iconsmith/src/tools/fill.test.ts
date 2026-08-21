@@ -382,3 +382,12 @@ test("the feature rule stays out of stroke mode, and gap stays out of fill", () 
   expect(issues).toContain("gap");
   expect(issues).not.toContain("feature");
 });
+
+test("a filled arc is that stroke expanded, not refused", () => {
+  const c = filled();
+  c.arc({ cx: 12, cy: 14, from: "left", r: 9, sweep: "half" });
+  expect(c.elements).toHaveLength(1);
+  expect(c.elements[0].kind).toBe("arc");
+  expect(c.toSVG()).toContain('fill="currentColor"');
+  expect(c.toSVG()).not.toContain("stroke=");
+});

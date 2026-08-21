@@ -98,6 +98,9 @@ export {
 export { analogArm, hub, stack, trays } from "./pipeline/analog.js";
 export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
+export { glyphArm } from "./pipeline/glyph.js";
+export { glyphFromSlug, GLYPHS, GLYPH_WHY } from "./pipeline/glyphs.js";
+export type { GlyphName } from "./pipeline/glyphs.js";
 export { splicePair, splicePaths } from "./pipeline/splice.js";
 // The gate, exported so a caller outside the package builds references the same
 // way this one does. `asReference` is the sole constructor of `Reference`; there
@@ -127,6 +130,7 @@ export {
   verdict,
 } from "./tools/cohort.js";
 export { run as runDsl } from "./tools/dsl.js";
+export { adaptProgram, fan, lozenge } from "./tools/twin.js";
 export {
   CONFORMANCE,
   clusterExtents,
@@ -148,7 +152,14 @@ export {
   measureLegibility,
   parsePieces,
 } from "./tools/legibility.js";
-export { format as formatIssues, lint } from "./tools/lint.js";
+export { format as formatIssues, lint, review } from "./tools/lint.js";
+export type {
+  Check,
+  CheckStatus,
+  LintElement,
+  LintOptions,
+  LintTarget,
+} from "./tools/lint.js";
 export { cosine, inkVector, png, sheet, similarity } from "./tools/render.js";
 export { isSlashName, slashRule } from "./tools/slash.js";
 export type {

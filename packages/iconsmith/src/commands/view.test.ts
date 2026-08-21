@@ -19,14 +19,18 @@ import type { ViewCard } from "./view.js";
 import {
   FLOOR,
   buildPage,
+  constructionSteps,
   counterpartSlug,
   discoverIcons,
   escapeHtml,
   iconMarkup,
+  keylineOf,
   loadMetrics,
   loadTrace,
+  parseLog,
   placeOnScale,
   stagedHouse,
+  twinShapes,
 } from "./view.js";
 
 const temp = () => mkdtempSync(path.join(tmpdir(), "iconsmith-view-"));
@@ -398,7 +402,7 @@ describe("buildPage", () => {
       ],
       { against: "round-outlined-radius-3-stroke-2", dir: ".staging" }
     );
-    expect(html).toContain(">generated<");
+    expect(html).toContain(">outlined<");
     expect(html).toContain(">house<");
   });
 
@@ -437,7 +441,7 @@ describe("buildPage", () => {
     expect(html).not.toContain('class="mark reading"');
   });
 
-  it("opens brief, thinking and program as escaped stages", () => {
+  it("opens brief, thinking and program as always-visible stages", () => {
     const html = buildPage(
       [
         card({
@@ -450,13 +454,49 @@ describe("buildPage", () => {
       ],
       opts
     );
-    expect(html).toContain("<summary>brief</summary>");
-    expect(html).toContain("<summary>thinking</summary>");
-    expect(html).toContain("<summary>program</summary>");
+    expect(html).toContain("<h3>Brief</h3>");
+    expect(html).toContain("<h3>Thinking</h3>");
+    expect(html).toContain("<h3>Program</h3>");
+    expect(html).toContain("<h3>Construction</h3>");
     expect(html).toContain("Draw `pull-request`.");
     expect(html).toContain("part git-fork");
     expect(html).not.toContain("<img");
     expect(html).toContain("&lt;img");
+  });
+
+  it("shows both paints and the full QA chain, not only failures", () => {
+    const html = buildPage(
+      [
+        card({
+          review: [
+            {
+              message:
+                'Visual extent 18.0×18.0 matches declared keyline "square" (18×18).',
+              rule: "keyline",
+              status: "pass",
+            },
+            {
+              message: "Every stroked edge sits on 0/45/90.",
+              rule: "off-axis",
+              status: "pass",
+            },
+          ],
+          twin: {
+            finish: "filled",
+            shapes: parseIconSvg(
+              '<svg><path d="M4 4L20 20Z" fill="currentColor"/></svg>'
+            ),
+          },
+        }),
+      ],
+      opts
+    );
+    expect(html).toContain(">outlined<");
+    expect(html).toContain(">filled<");
+    expect(html).toContain("clean — every house check passed");
+    expect(html).toContain('<li class="pass">');
+    expect(html).toContain("0/45/90");
+    expect(html).toContain("declared keyline &quot;square&quot;");
   });
 });
 
@@ -503,5 +543,51 @@ describe("loadMetrics", () => {
     const file = path.join(dir, "loose.svg");
     writeFileSync(file, ICON);
     expect(loadMetrics(file)).toBeUndefined();
+  });
+});
+
+describe("keylineOf", () => {
+  it("reads the declared keyline from a program", () => {
+    expect(keylineOf("icon wifi\nkeyline wide\nfinish outlined\n")).toBe(
+      "wide"
+    );
+    expect(keylineOf("rect 4,4 16x16\n")).toBeNull();
+  });
+});
+
+describe("parseLog / constructionSteps", () => {
+  it("turns JSONL thinking into titled steps, not a raw dump", () => {
+    const log = [
+      '{"type":"reasoning","text":"needle on 45"}',
+      '{"type":"item","item":{"type":"agent_message","text":"drew the ring"}}',
+    ].join("\n");
+    expect(parseLog(log)).toEqual([
+      { kind: "reasoning", text: "needle on 45" },
+      { kind: "item", text: "drew the ring" },
+    ]);
+  });
+
+  it("lists the ops in a program as the construction chain", () => {
+    const steps = constructionSteps(
+      "icon compass\nkeyline circle\nfinish outlined\n\ndiamond 12,12 r5\n"
+    );
+    expect(steps.map((s) => s.kind)).toEqual([
+      "icon",
+      "keyline",
+      "finish",
+      "diamond",
+    ]);
+    expect(steps.find((s) => s.kind === "diamond")?.text).toBe("12,12 r5");
+  });
+});
+
+describe("twinShapes", () => {
+  it("emits the other paint of a host glyph from the same program", () => {
+    const dir = temp();
+    const file = path.join(dir, "compass.svg");
+    writeFileSync(file, ICON);
+    const twin = twinShapes("compass", file, "outlined", null);
+    expect(twin).not.toBeNull();
+    expect(twin?.every((s) => s.filled)).toBe(true);
   });
 });

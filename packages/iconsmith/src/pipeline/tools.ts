@@ -297,6 +297,23 @@ export const createTools = (options: ToolsOptions = {}) => {
             },
     }),
 
+    diamond: tool({
+      description:
+        "Draw a square rotated 45°, vertices on the axes. Reach is centre to vertex — equal run and rise, so every edge sits on 45°/135°. Use this for a compass needle, a card suit, a lozenge. A kite that is only grid-legal (unequal diagonals) is off-axis and is not this op.",
+      execute: ({ cx, cy, r }) =>
+        track("diamond", () =>
+          placed(canvas, canvas.diamond({ cx, cy, reach: r }))
+        ),
+      inputSchema: z.object({
+        cx: coord,
+        cy: coord,
+        r: z
+          .number()
+          .positive()
+          .describe("centre to vertex, so the diagonals are equal"),
+      }),
+    }),
+
     dot: tool({
       description: `Place a dot. The role picks the size, so the set's dots stay one of ${roleNames.length} sizes rather than a continuum.`,
       execute: (input) => track("dot", () => placed(canvas, canvas.dot(input))),

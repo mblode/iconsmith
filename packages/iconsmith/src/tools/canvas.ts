@@ -610,6 +610,84 @@ export const arcPath = (
   return d;
 };
 
+const POLES_CW: readonly ArcFrom[] = ["right", "bottom", "left", "top"];
+
+/** The pole an arc lands on after its named sweep. */
+const poleAfter = (from: ArcFrom, sweep: ArcSweep, ccw: boolean): ArcFrom => {
+  const i = POLES_CW.indexOf(from);
+  const dir = ccw ? -1 : 1;
+  return POLES_CW[(i + dir * SWEEP_STEPS[sweep] + POLES_CW.length * 4) % 4];
+};
+
+/** Cubic body of an open arc, plus the endpoints, so a filled twin can offset
+ *  the same sweep rather than re-derive it. */
+const arcCommands = (
+  cx: number,
+  cy: number,
+  r: number,
+  from: ArcFrom,
+  sweep: ArcSweep,
+  ccw: boolean
+): { cubics: string; end: [number, number]; start: [number, number] } => {
+  const steps = SWEEP_STEPS[sweep];
+  const dir = ccw ? -1 : 1;
+  const h = r * K;
+  let a = FROM_ANGLE[from];
+  const start = atCircle(cx, cy, r, a);
+  let cubics = "";
+  let end = start;
+  for (let i = 0; i < steps; i += 1) {
+    const a0 = a;
+    a += dir * (Math.PI / 2);
+    const [sx, sy] = atCircle(cx, cy, r, a0);
+    const [x1, y1] = atCircle(cx, cy, r, a);
+    const t0x = dir * -Math.sin(a0) * h;
+    const t0y = dir * Math.cos(a0) * h;
+    const t1x = dir * -Math.sin(a) * h;
+    const t1y = dir * Math.cos(a) * h;
+    cubics += `C${sx + t0x} ${sy + t0y} ${x1 - t1x} ${y1 - t1y} ${x1} ${y1}`;
+    end = [x1, y1];
+  }
+  return { cubics, end, start };
+};
+
+/**
+ * The filled twin of an open arc: that stroke expanded into an annular
+ * sector whose outer edge is the ink the outline already occupied. Round
+ * caps at both poles match `#filledBar`. A radius at or below half a stroke
+ * collapses to a pie, the same way a `terminal` dot is the cap alone.
+ */
+export const filledArcPath = (
+  cx: number,
+  cy: number,
+  r: number,
+  from: ArcFrom,
+  sweep: ArcSweep,
+  ccw: boolean,
+  half: number
+): string => {
+  const outer = arcCommands(cx, cy, r + half, from, sweep, ccw);
+  if (r <= half) {
+    return `M${outer.start[0]} ${outer.start[1]}${outer.cubics}L${cx} ${cy}Z`;
+  }
+  const inner = arcCommands(
+    cx,
+    cy,
+    r - half,
+    poleAfter(from, sweep, ccw),
+    sweep,
+    !ccw
+  );
+  // Radial closes at the poles, no extra cap discs: three wifi bands
+  // would otherwise be 9 cap-subpaths and blow the 9-mark panel cap,
+  // and caps centred on the outer radius would sit a stroke past the
+  // outlined visual edge.
+  return (
+    `M${outer.start[0]} ${outer.start[1]}${outer.cubics}` +
+    `L${inner.start[0]} ${inner.start[1]}${inner.cubics}Z`
+  );
+};
+
 /** The quantised circle, before it is decided whether it adds ink or removes
  *  it. Shared, like `#rectElement`, so a knockout cannot reach the document by
  *  any route a solid did not already take. A free function rather than a
@@ -792,7 +870,9 @@ export class Canvas {
    * of grid points is a different primitive, and approximating a curve with
    * one is how an umbrella canopy becomes a zigzag.
    *
-   * Outlined only: like `line`, an open arc encloses no area under fill.
+   * Filled, this is that stroke expanded into an annular sector — the same
+   * twin `#filledBar` is for a two-point `line`. An open arc still encloses
+   * no area; the fill is the ink, not a pie of the sweep.
    */
   arc(args: {
     ccw?: boolean;
@@ -802,22 +882,27 @@ export class Canvas {
     r: number;
     sweep: ArcSweep;
   }): string {
-    if (this.finish === "filled") {
-      throw new Error(
-        "an arc paints nothing in a filled icon: it encloses no area. " +
-          "Draw a circle (and a hole, if the fill is a ring), or the " +
-          "filled twin of the stroke this arc is."
-      );
-    }
     const cx = onCanvas(args.cx, this.spec);
     const cy = onCanvas(args.cy, this.spec);
     const r = q(args.r, this.spec.grid);
     const ccw = Boolean(args.ccw);
+    const d =
+      this.finish === "filled"
+        ? filledArcPath(
+            cx,
+            cy,
+            r,
+            args.from,
+            args.sweep,
+            ccw,
+            this.spec.stroke / 2
+          )
+        : arcPath(cx, cy, r, args.from, args.sweep, ccw);
     return this.#push((id) => ({
       ...(ccw ? { ccw: true as const } : {}),
       cx,
       cy,
-      d: arcPath(cx, cy, r, args.from, args.sweep, ccw),
+      d,
       from: args.from,
       id,
       kind: "arc" as const,
@@ -1059,6 +1144,40 @@ export class Canvas {
       circlePath(qn(a[0]), qn(a[1]), qn(half)) +
         circlePath(qn(b[0]), qn(b[1]), qn(half)) +
         body
+    );
+  }
+
+  /**
+   * A square rotated 45°: vertices on the axes, every edge on 45/135.
+   *
+   * `reach` is centre to vertex. Equal run and equal rise, so a kite that is
+   * only grid-legal — 2 wide and 4 tall, 20.6° off 135° — cannot be written
+   * here. Outlined is the closed polyline; filled is that lozenge expanded by
+   * half a stroke, one subpath, so a compass needle is one mark not four
+   * stadiums.
+   */
+  diamond({
+    cx,
+    cy,
+    reach,
+  }: {
+    cx: number;
+    cy: number;
+    reach: number;
+  }): string {
+    const pad = this.finish === "filled" ? this.spec.stroke / 2 : 0;
+    const r = q(reach + pad, this.spec.grid);
+    const x = onCanvas(cx, this.spec);
+    const y = onCanvas(cy, this.spec);
+    const n: [number, number] = [x, y - r];
+    const e: [number, number] = [x + r, y];
+    const s: [number, number] = [x, y + r];
+    const w: [number, number] = [x - r, y];
+    if (this.finish !== "filled") {
+      return this.line({ points: [n, e, s, w, n] });
+    }
+    return this.raw(
+      `M${n[0]} ${n[1]}L${e[0]} ${e[1]}L${s[0]} ${s[1]}L${w[0]} ${w[1]}Z`
     );
   }
 

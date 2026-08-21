@@ -22,6 +22,7 @@ import { lint } from "../tools/lint.js";
 import type { Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
+import { GLYPHS, isGlyphName } from "./glyphs.js";
 import type { GenerateLike } from "./harness.js";
 import { compileIcon } from "./reconstruct.js";
 
@@ -284,8 +285,14 @@ export const analogConstructions = (
           },
         ]
       : [];
+  const glyphed = isGlyphName(slug)
+    ? [{ id: "glyph", source: GLYPHS[slug](slug, "outlined") }]
+    : [];
+  if (!collide && glyphed.length > 0) {
+    return glyphed;
+  }
   if (collide) {
-    const out: { id: string; source: string }[] = [...replayed];
+    const out: { id: string; source: string }[] = [...glyphed, ...replayed];
     if (hasStackRim(parts)) {
       out.push({ id: "stack", source: stack(slug, parts) });
     }

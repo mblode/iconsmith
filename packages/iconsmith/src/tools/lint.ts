@@ -2,8 +2,10 @@
  * House-spec checks over a drawn icon.
  *
  * Split by who can act on the result: `error` blocks a commit, `warn` is a
- * judgment call the model is told about and a human arbitrates. Nothing here
- * repairs geometry — repair belongs to the primitives, which never emit a
+ * judgment call the model is told about and a human arbitrates. `lint` returns
+ * only those; `review` keeps the questions that passed, so a viewer can show
+ * the whole chain (keyline, gap, axes) rather than a blank "clean". Nothing
+ * here repairs geometry — repair belongs to the primitives, which never emit a
  * violation in the first place. This catches composition mistakes: bad keyline,
  * off-centre, elements too close, empty canvas, and — `substance` — a canvas
  * with a stroke on it that nobody would call an icon.
@@ -37,6 +39,21 @@ export interface LintElement {
   d: string;
   id: string;
   /**
+   * The program asked for this geometry off 0/45/90 by name.
+   *
+   * `Canvas.line` writes it only when a segment *actually* stayed off every
+   * axis, so it is the geometry and the permission at once — a line that asked
+   * and did not need to has no flag, and nothing to suppress. Reading it here
+   * is what makes the escape hatch mean anything: `canvas.ts` refuses an
+   * undeclared diagonal, so every off-axis edge that reaches a document was
+   * asked for, and a rule that warns about it anyway is telling the drawer off
+   * for using the door the spec put there. See {@link Suppression}.
+   *
+   * Absent on a caller reading a shipped SVG, which carries no declaration —
+   * an unasked-for diagonal in the corpus is exactly what the rule is for.
+   */
+  offAxis?: boolean;
+  /**
    * 0 for a filled shape. Omitted means stroked at the house width: a `Canvas`
    * only ever draws strokes, so its elements satisfy this interface unchanged.
    * A caller reading shipped SVGs has the real widths and should pass them —
@@ -56,6 +73,41 @@ export interface LintTarget {
   finish?: Finish;
   /** The cut to judge against. Absent means the house 24/2/3 spec. */
   spec?: Spec;
+}
+
+/**
+ * A rule that would have fired and did not, because the program asked for the
+ * geometry by name.
+ *
+ * The point is that a suppression is *louder* than a warning, not quieter. A
+ * warning nobody can act on — "this edge is off-axis", on a line whose whole
+ * declaration is that the edge is off-axis — trains a reader to skip the list,
+ * and once the list is skipped the errors go with it. Recording the waiver
+ * instead keeps the fact reviewable while leaving `issues` to mean "something
+ * to decide".
+ *
+ * There are exactly two waivers, and both are the escapes `canvas.ts` names:
+ * `off-axis` on a `line`, and `raw` path data. Nothing here waives a rule on
+ * the strength of a policy, a slug or a comment; an exemption that a program
+ * cannot ask for is an exemption a reviewer cannot see.
+ */
+export interface Suppression {
+  /** The modifier that asked for it, spelled as the DSL spells it. */
+  declared: string;
+  /** How many findings the declaration covered. */
+  findings: number;
+  /** Why the waiver holds, in the terms the rule would have complained in. */
+  reason: string;
+  rule: string;
+  /** Element id the waiver applies to. */
+  subject: string;
+}
+
+/** Everything the house spec has to say about a drawing: what to decide, and
+ *  what was already decided in the program. */
+export interface LintReport {
+  issues: Issue[];
+  suppressed: Suppression[];
 }
 
 export interface LintOptions {
@@ -426,24 +478,117 @@ const cutIssues = (els: LintElement[]): Issue[] =>
  * `graduate-cap`, and the cubes that motivate the exemption (`ar-cube-1` and
  * `ar-cube-2` at 29.36°, `ar-scan-cube` at 29.75°) fall outside it anyway.
  */
-const offAxisIssues = (els: LintElement[], spec: Spec): Issue[] =>
-  els
-    .filter((e) => (e.strokeWidth ?? spec.stroke) > 0)
-    .flatMap((e) =>
-      offAxisEdges(iconEdgeAngles([e.d])).map((edge) => ({
-        message: `"${e.id}" has an edge at ${edge.angle.toFixed(1)}°, ${edge.offBy.toFixed(1)}° off the nearest permitted axis (${edge.axis}°). The house axes are 0/45/90; an edge between two grid points is not automatically on one.`,
-        rule: "off-axis",
-        severity: "warn" as const,
-      }))
-    );
+/**
+ * One line per element per distinct angle, not per segment.
+ *
+ * A closed diamond has four edges and two distinct headings, so measuring
+ * per segment reports the same two facts twice each — four warnings naming one
+ * element, with two angles repeated. That reads as four problems and is one.
+ * The count is kept in the message, because "two edges at 114.4°" and "one
+ * edge at 114.4°" are different drawings.
+ */
+const offAxisFindings = (
+  e: LintElement
+): { angle: number; axis: number; count: number; offBy: number }[] => {
+  const groups = new Map<
+    string,
+    { angle: number; axis: number; count: number; offBy: number }
+  >();
+  for (const edge of offAxisEdges(iconEdgeAngles([e.d]))) {
+    const key = `${edge.angle.toFixed(1)}@${edge.axis}`;
+    const seen = groups.get(key);
+    if (seen) {
+      seen.count += 1;
+    } else {
+      groups.set(key, {
+        angle: edge.angle,
+        axis: edge.axis,
+        count: 1,
+        offBy: edge.offBy,
+      });
+    }
+  }
+  return [...groups.values()];
+};
 
-export const lint = (
+const edgeWord = (n: number): string => (n === 1 ? "an edge" : `${n} edges`);
+
+const offAxisReview = (els: LintElement[], spec: Spec): LintReport => {
+  const issues: Issue[] = [];
+  const suppressed: Suppression[] = [];
+  for (const e of els.filter((x) => (x.strokeWidth ?? spec.stroke) > 0)) {
+    const findings = offAxisFindings(e);
+    if (findings.length === 0) {
+      continue;
+    }
+    if (e.offAxis) {
+      suppressed.push({
+        declared: "off-axis",
+        findings: findings.reduce((n, f) => n + f.count, 0),
+        reason: `"${e.id}" runs at ${findings
+          .map((f) => `${f.angle.toFixed(1)}°`)
+          .join(
+            ", "
+          )}, and the program asked for the diagonal by name. Off-axis edges are 29.3% of the set's stroked icons; the canvas refuses an undeclared one, so a declared one is the shape rather than a slip.`,
+        rule: "off-axis",
+        subject: e.id,
+      });
+      continue;
+    }
+    for (const f of findings) {
+      issues.push({
+        message: `"${e.id}" has ${edgeWord(f.count)} at ${f.angle.toFixed(1)}°, ${f.offBy.toFixed(1)}° off the nearest permitted axis (${f.axis}°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — \`off-axis\` on the line — and this stops being a warning.`,
+        rule: "off-axis",
+        severity: "warn",
+      });
+    }
+  }
+  return { issues, suppressed };
+};
+
+/**
+ * The same finding twice is one finding.
+ *
+ * Rules are composed here rather than being one pass, so two of them can reach
+ * the same conclusion about the same pair — and a caller that lints a drawing
+ * once per finish concatenates. A duplicate reads as a second problem, which is
+ * the difference between "four things are wrong with the compass" and "one
+ * thing is". Identity is the rule and the message: the message names the
+ * element and the measurement, so two identical strings are the same fact.
+ */
+const dedupe = (issues: Issue[]): Issue[] => {
+  const seen = new Set<string>();
+  return issues.filter((i) => {
+    const key = `${i.severity}\u0000${i.rule}\u0000${i.message}`;
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+};
+
+/**
+ * The full house-spec verdict: findings to act on, and waivers the program
+ * already asked for. See {@link Suppression}.
+ *
+ * {@link lint} is this without the waivers, which is what almost every caller
+ * wants; a reviewer — the dashboard, the reach harness — wants both, because a
+ * rule that silently stops firing and a rule that was waived on the record are
+ * very different states of the same drawing.
+ */
+export const lintReport = (
   canvas: LintTarget,
   { cohort = null, keyline = null }: LintOptions = {}
-): Issue[] => {
+): LintReport => {
   const els = canvas.elements;
   if (els.length === 0) {
-    return [{ message: "Canvas is empty.", rule: "empty", severity: "error" }];
+    return {
+      issues: [
+        { message: "Canvas is empty.", rule: "empty", severity: "error" },
+      ],
+      suppressed: [],
+    };
   }
 
   const finish = canvas.finish ?? "outlined";
@@ -480,13 +625,14 @@ export const lint = (
       issues.push(issue);
     }
   }
+  const axis = offAxisReview(els, spec);
   // The one rule that swaps rather than adapts. See `featureIssues`: in a
   // filled icon shapes are meant to touch, so "how far apart are these" has no
   // answer worth having and "is this feature big enough to see" does.
   issues.push(
     ...(finish === "filled" ? featureIssues(els, spec) : gapIssues(els, spec)),
     ...cutIssues(els),
-    ...offAxisIssues(els, spec)
+    ...axis.issues
   );
 
   if (els.length > spec.maxElements) {
@@ -496,7 +642,175 @@ export const lint = (
       severity: "warn",
     });
   }
-  return issues;
+  return { issues: dedupe(issues), suppressed: axis.suppressed };
+};
+
+export const lint = (canvas: LintTarget, options: LintOptions = {}): Issue[] =>
+  lintReport(canvas, options).issues;
+
+/**
+ * `waived` is a fourth state, not a shade of `pass`.
+ *
+ * A pass means the rule looked and found nothing. A waiver means the rule
+ * found something and the program had already said it was the shape — the two
+ * are the same for a gate and very different for a reader, because only one of
+ * them is a decision somebody made. Collapsing them is how "the compass needle
+ * is deliberately off 135°" becomes indistinguishable from "the compass needle
+ * happens to be on 135°", and the second is a different drawing.
+ */
+export type CheckStatus = "error" | "pass" | "waived" | "warn";
+
+/** One house-spec question, including the ones that passed. `lint` returns
+ *  only failures; the viewer needs the rest of the chain so a clean card
+ *  still says *why* it is clean (keyline, gap, axes), not only that it is. */
+export interface Check {
+  message: string;
+  rule: string;
+  status: CheckStatus;
+}
+
+const matchedKeyline = (vx: number, vy: number): string | null => {
+  for (const [name, [w, h]] of Object.entries(SPEC.keylines)) {
+    if (near(vx, w, KEYLINE_TOLERANCE) && near(vy, h, KEYLINE_TOLERANCE)) {
+      return `${name} ${w}×${h}`;
+    }
+  }
+  return null;
+};
+
+const passMessage = (
+  rule: string,
+  ctx: {
+    box: Box;
+    finish: Finish;
+    keyline: Keyline | null;
+    n: number;
+    spec: Spec;
+    vx: number;
+    vy: number;
+  }
+): string => {
+  switch (rule) {
+    case "bleed": {
+      const lo =
+        ctx.finish === "filled" ? LIVE_INSET_FILLED : ctx.spec.stroke / 2;
+      return `Path bounds sit inside the live area ${lo}..${ctx.spec.canvas - lo}.`;
+    }
+    case "centred": {
+      const cx = ctx.box.x0 + ctx.box.w / 2;
+      const cy = ctx.box.y0 + ctx.box.h / 2;
+      return `Content centre (${cx.toFixed(2)}, ${cy.toFixed(2)}) sits on (${ctx.spec.canvas / 2}, ${ctx.spec.canvas / 2}).`;
+    }
+    case "cohort-align": {
+      return "Agrees with the icons it swaps with.";
+    }
+    case "cut": {
+      return `Every notch along a stroke is at least ${MIN_CUT}px.`;
+    }
+    case "density": {
+      return `${ctx.n} element(s), under the ceiling of ${ctx.spec.maxElements} at ${ctx.spec.size}px.`;
+    }
+    case "feature": {
+      return `Every filled feature is at least ${ctx.spec.minFeature}px across its short axis.`;
+    }
+    case "gap": {
+      return `Every separated pair is at least ${ctx.spec.minGap}px apart, or coincident.`;
+    }
+    case "keyline": {
+      if (ctx.keyline) {
+        const [w, h] = SPEC.keylines[ctx.keyline];
+        return `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} matches declared keyline "${ctx.keyline}" (${w}×${h}).`;
+      }
+      const hit = matchedKeyline(ctx.vx, ctx.vy);
+      return hit
+        ? `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} matches ${hit}.`
+        : `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} was compared to the key shapes.`;
+    }
+    case "off-axis": {
+      return "Every stroked edge sits on 0/45/90.";
+    }
+    case "substance": {
+      return `Visual extent ${ctx.vx.toFixed(1)}×${ctx.vy.toFixed(1)} has a second dimension — this is a drawing, not a stroke.`;
+    }
+    default: {
+      return "Passed.";
+    }
+  }
+};
+
+/**
+ * The same questions `lint` asks, with the passes kept.
+ *
+ * Order matches `lint`: substance, centring, keyline, bleed, then gap or
+ * feature, then cut, off-axis, density. Cohort alignment leads when a
+ * family was supplied. A rule that fired more than once (two gaps) keeps
+ * every failure; a rule that fired none gets one pass line.
+ */
+export const review = (
+  canvas: LintTarget,
+  options: LintOptions = {}
+): Check[] => {
+  const { issues, suppressed } = lintReport(canvas, options);
+  if (canvas.elements.length === 0) {
+    return issues.map((i) => ({
+      message: i.message,
+      rule: i.rule,
+      status: i.severity,
+    }));
+  }
+  const finish = canvas.finish ?? "outlined";
+  const spec = canvas.spec ?? SPEC;
+  const b = bbox(canvas.elements.flatMap((e) => parsePath(e.d)));
+  const ink = finish === "filled" ? 0 : spec.stroke;
+  const ctx = {
+    box: b,
+    finish,
+    keyline: options.keyline ?? null,
+    n: canvas.elements.length,
+    spec,
+    vx: b.w + ink,
+    vy: b.h + ink,
+  };
+  const rules = [
+    ...(options.cohort ? ["cohort-align"] : []),
+    "substance",
+    "centred",
+    "keyline",
+    "bleed",
+    finish === "filled" ? "feature" : "gap",
+    "cut",
+    "off-axis",
+    "density",
+  ];
+  const checks: Check[] = [];
+  for (const rule of rules) {
+    const found = issues.filter((i) => i.rule === rule);
+    const waived = suppressed.filter((s) => s.rule === rule);
+    if (found.length > 0) {
+      checks.push(
+        ...found.map((i) => ({
+          message: i.message,
+          rule: i.rule,
+          status: i.severity as CheckStatus,
+        }))
+      );
+    }
+    checks.push(
+      ...waived.map((s) => ({
+        message: `Waived by \`${s.declared}\`: ${s.reason}`,
+        rule: s.rule,
+        status: "waived" as const,
+      }))
+    );
+    if (found.length === 0 && waived.length === 0) {
+      checks.push({
+        message: passMessage(rule, ctx),
+        rule,
+        status: "pass",
+      });
+    }
+  }
+  return checks;
 };
 
 export const format = (issues: Issue[]): string =>

@@ -6,8 +6,10 @@ import { expect, test } from "vitest";
 import type { Finish } from "../types.js";
 import { run } from "./dsl.js";
 import {
+  adaptProgram,
   frame,
   hbar,
+  lozenge,
   mass,
   program,
   ring,
@@ -120,4 +122,30 @@ const sized = (w: number, h: number, inkWidth: number) => ({
 
 test("sameExtent is false when sizes differ by more than 0.01", () => {
   expect(sameExtent(sized(18, 18, 0), sized(18.02, 18, 0))).toBe(false);
+});
+
+test("a lozenge is a 45° diamond in both paints", () => {
+  expect(lozenge("outlined", 12, 12, 5)).toEqual(["diamond 12,12 r5"]);
+  expect(lozenge("filled", 12, 12, 5)).toEqual(["diamond 12,12 r5"]);
+  expect(
+    sameExtent(
+      draw("outlined", lozenge("outlined", 12, 12, 5)),
+      draw("filled", lozenge("filled", 12, 12, 5))
+    )
+  ).toBe(true);
+});
+
+test("adaptProgram splits a closed polyline so filled bars can run", () => {
+  const outlined = [
+    "icon diamond",
+    "finish outlined",
+    "line 12,7 17,12 12,17 7,12 12,7",
+  ].join("\n");
+  const filled = adaptProgram(outlined, "filled");
+  expect(filled).toContain("finish filled");
+  expect(filled.split("\n").filter((l) => l.startsWith("line "))).toHaveLength(
+    4
+  );
+  const drawn = run(filled);
+  expect(drawn.errors).toEqual([]);
 });

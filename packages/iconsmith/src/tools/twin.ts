@@ -187,3 +187,93 @@ export const program = (
     ...(keyline === null ? [] : ["fit"]),
     "",
   ].join("\n");
+
+/**
+ * A square rotated 45°: vertices on the axes, every edge on 45/135.
+ *
+ * `reach` is the centre-to-vertex distance, so equal run and equal rise.
+ * A kite that is merely grid-legal (2 wide, 4 tall) sits ~20° off 135° —
+ * that is the compass needle that lint flags. Outlined is one closed
+ * polyline; filled is four two-point bars, because a polyline encloses
+ * nothing under fill.
+ */
+export const lozenge = (
+  _finish: Finish,
+  cx: number,
+  cy: number,
+  reach: number
+): string[] => [`diamond ${cx},${cy} r${reach}`];
+
+/**
+ * Concentric upper half-arcs: a wifi fan, an umbrella canopy stack.
+ *
+ * `half from left` is the upper semicircle (left → top → right). The
+ * emitter sits on the shared centre so the visual box is the outer arc
+ * plus whatever is drawn below it — for wifi, a `dot` on that centre
+ * is a 20×11.5 fan; a `dot` several units below is how the drawing
+ * occupies `wide` 20×16 on purpose.
+ */
+export const fan = (
+  _finish: Finish,
+  cx: number,
+  cy: number,
+  radii: readonly number[]
+): string[] => radii.map((r) => `arc ${cx},${cy} r${r} half from left`);
+
+const OFF_AXIS = "off-axis";
+
+/** Split a closed or open polyline into two-point segments. Filled `line`
+ *  only paints a two-point bar; a diamond written as one op has to become
+ *  four before the other paint can run. */
+const splitPolyline = (line: string): string[] => {
+  const tokens = line.trim().split(/\s+/u).slice(1);
+  const off = tokens.includes(OFF_AXIS);
+  const points = tokens.filter((t) => t !== OFF_AXIS);
+  if (points.length < 3) {
+    return [line];
+  }
+  const flag = off ? ` ${OFF_AXIS}` : "";
+  const out: string[] = [];
+  for (let i = 1; i < points.length; i += 1) {
+    if (points[i] === points[0] && i === points.length - 1 && out.length > 0) {
+      // Closing vertex: last segment already listed if it is a real edge.
+    }
+    out.push(`line ${points[i - 1]} ${points[i]}${flag}`);
+  }
+  return out;
+};
+
+/**
+ * The same program in the other paint.
+ *
+ * Swaps `finish`, splits polylines so filled bars can run, and leaves
+ * `arc` / `circle` / `rect` as the primitives they are: filled `arc` is
+ * the annular sector, filled `circle` a solid (call {@link ring} when
+ * the outlined circle was a hoop). `part` is unchanged.
+ */
+export const adaptProgram = (source: string, finish: Finish): string => {
+  const lines = source.split("\n");
+  const out: string[] = [];
+  let sawFinish = false;
+  let headerAt = 0;
+  for (const [i, line] of lines.entries()) {
+    const trimmed = line.trim();
+    if (/^icon\b/u.test(trimmed) || /^keyline\b/u.test(trimmed)) {
+      headerAt = i + 1;
+    }
+    if (/^finish\b/u.test(trimmed)) {
+      out.push(`finish ${finish}`);
+      sawFinish = true;
+      continue;
+    }
+    if (finish === "filled" && /^line\b/u.test(trimmed)) {
+      out.push(...splitPolyline(trimmed));
+      continue;
+    }
+    out.push(line);
+  }
+  if (!sawFinish) {
+    out.splice(headerAt, 0, `finish ${finish}`);
+  }
+  return out.join("\n");
+};

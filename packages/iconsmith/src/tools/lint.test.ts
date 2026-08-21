@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { Canvas, SPEC } from "./canvas.js";
-import { format, lint } from "./lint.js";
+import { format, lint, review } from "./lint.js";
 import type { LintElement } from "./lint.js";
 
 const el = (id: string, d: string): LintElement => ({ d, id });
@@ -230,5 +230,45 @@ describe("lint over a real canvas", () => {
     const c = new Canvas();
     c.rect({ h: 16, r: 0, w: 16, x: 4, y: 4 });
     expect(lint(c)).toEqual([]);
+  });
+});
+
+describe("review", () => {
+  it("keeps the questions that passed, not only the failures", () => {
+    const checks = review(canvas(el("e0", SQUARE)), { keyline: "square" });
+    expect(checks.every((c) => c.status === "pass")).toBe(true);
+    expect(checks.map((c) => c.rule)).toEqual([
+      "substance",
+      "centred",
+      "keyline",
+      "bleed",
+      "gap",
+      "cut",
+      "off-axis",
+      "density",
+    ]);
+    const keyline = checks.find((c) => c.rule === "keyline");
+    expect(keyline?.message).toContain('declared keyline "square"');
+    expect(keyline?.message).toContain("18×18");
+    expect(checks.find((c) => c.rule === "off-axis")?.message).toContain(
+      "0/45/90"
+    );
+    expect(checks.find((c) => c.rule === "gap")?.message).toContain("1px");
+  });
+
+  it("reports a warning as a check rather than dropping the rest of the chain", () => {
+    const checks = review(canvas(el("e0", "M6 4L22 4L22 20L6 20Z")));
+    const centred = checks.find((c) => c.rule === "centred");
+    expect(centred?.status).toBe("warn");
+    expect(checks.find((c) => c.rule === "substance")?.status).toBe("pass");
+    expect(checks.find((c) => c.rule === "bleed")?.status).toBe("pass");
+  });
+
+  it("swaps gap for feature under fill, matching lint", () => {
+    const drawn = new Canvas([], { finish: "filled" });
+    drawn.rect({ h: 16, w: 16, x: 4, y: 4 });
+    const checks = review(drawn);
+    expect(checks.map((check) => check.rule)).toContain("feature");
+    expect(checks.map((check) => check.rule)).not.toContain("gap");
   });
 });

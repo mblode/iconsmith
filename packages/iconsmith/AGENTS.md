@@ -21,7 +21,7 @@ npx tsx scripts/loop.ts --enable <ids> …   # policy campaign; refuses a dirty 
 
 `lab.md` is the standing instructions for the harness campaign (what you look at in `iconsmith view`). `program.md` is the standing instructions for the policy campaign. Neither file is written by its loop. Arrival is house-indistinguishable (panel clean, ≥1 `part` for keyed/unkeyed, keyed cosine ≥ 0.737; compile with parts may be ≥0.95; leak is ≥0.95 AND 0 part ops AND a model wrote the program). A host mark at ≥0.95 is reconstruction (`twin.ts`), not a leak; 0 parts is OK and sample cosine must stay null. N≥5 is a finding except compile, analog on unkeyed, and mark, where N=1 is decide.
 
-After build, `iconsmith view [dir]` serves staged SVGs on a 24×24 grid (`--port`, `--open`). `--against house` scores each slug against the house variant; filled cards use the filled variant. A staged `*.house.svg` sibling wins over a slug lookup, so a mark named `plus` can sit beside house `plus-large`. The mark on the scale is 0.737, not 1.0. Cosine ≥0.95 with `part` ops is reconstruction; without parts it is a leak _unless_ policy is `mark` (host twin matching the same construction). The card reads `slug.json` for policy (`compile`, `analog`, `mark`, …). Numbered samples in a concept directory (`pull-request/pull-request-1.svg`) compare against that concept. Staged `*.house.svg` copies are skipped as cards. The unnumbered file in the directory is labelled selected. Sidecars `*.brief.md`, `*.log.jsonl` and `*.icon` open as stages on the card. The host look writes `*.preview.png` and `*.audit.json` beside the same stem.
+After build, `iconsmith view [dir]` serves staged SVGs on a 24×24 grid (`--port`, `--open`). Each card shows both paints (outlined and filled) when the program or a host twin can produce the other, plus the full QA chain — checks that passed, not only failures. `--against house` scores each slug against the house variant; filled cards use the filled variant. A staged `*.house.svg` sibling wins over a slug lookup, so a mark named `plus` can sit beside house `plus-large`. The mark on the scale is 0.737, not 1.0. Cosine ≥0.95 with `part` ops is reconstruction; without parts it is a leak _unless_ policy is `mark` (host twin matching the same construction). The card reads `slug.json` for policy (`compile`, `analog`, `mark`, `glyph`, …). Numbered samples in a concept directory (`pull-request/pull-request-1.svg`) compare against that concept. Staged `*.house.svg` copies are skipped as cards. The unnumbered file in the directory is labelled selected. Sidecars `*.brief.md`, `*.log.jsonl` and `*.icon` open as always-visible reasoning on the card. The host look writes `*.preview.png` and `*.audit.json` beside the same stem.
 
 ## Architecture
 
@@ -40,14 +40,16 @@ src/
     canvas.ts         # constrained primitives; specAt({ size, stroke, radius }) is the cut
     dsl.ts            # the icon language the model writes
     twin.ts           # filled/outlined as one skeleton, two paints
-    lint.ts           # house-spec checks
+    lint.ts           # house-spec checks; review() keeps the passes
     render.ts         # png / contact sheet / cosine similarity
     pipeline/           # BRIEF → PROPOSE → SELECT → DRAW → CHECK → SCORE
     route.ts          # those stages, swappable; a route is an arm (`analog`, `compile`, `direct`, `mark`, `part-first`)
     kind.ts           # DrawKind, CounterpartClass, MARK_TWINS
     marks.ts          # ten host twins, both finishes
     mark.ts           # DRAW: host twins via MARKS/twin.ts (no model)
-    reach.ts          # house file / mark / splice compile; new glyphs via agent
+    glyphs.ts         # compass / microscope / wifi — host DRAW, both finishes
+    glyph.ts          # DRAW: those object constructions (no model)
+    reach.ts          # house file / mark / splice compile / glyph; else analog or agent
     splice.ts         # base × badge: two house files, one compile
     search.ts         # the one vocabulary ranking, shared by three callers
     select.ts         # SELECT as competing policies, not five seeds of one

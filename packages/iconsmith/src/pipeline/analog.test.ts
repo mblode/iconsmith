@@ -183,6 +183,12 @@ describe("analogConstructions", () => {
     expect(HUB_HINT.test("unicorn")).toBe(false);
   });
 
+  it("picks the host glyph for a named object construction", () => {
+    const [row] = analogConstructions("compass", [], "compass", false);
+    expect(row?.id).toBe("glyph");
+    expect(row?.source).toContain("diamond 12,12 r5");
+  });
+
   it("replays a house kin instead of a hub", () => {
     const [row] = analogConstructions("cookie", [], "cookie", false, {
       paths: [BOX],

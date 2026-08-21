@@ -10,6 +10,8 @@ import { analogArm, sameLetters } from "./analog.js";
 import { LOOK_SCREEN } from "./audit.js";
 import { generate } from "./generate.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
+import { glyphArm } from "./glyph.js";
+import { glyphFromSlug } from "./glyphs.js";
 import { harnessArm } from "./harness.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
@@ -17,7 +19,7 @@ import type { Concept } from "./prompt.js";
 import { compileArm } from "./reconstruct.js";
 import { splicePair, splicePaths } from "./splice.js";
 
-export type ReachKind = "agent" | "analog" | "compile" | "mark";
+export type ReachKind = "agent" | "analog" | "compile" | "glyph" | "mark";
 
 export interface ReachPlan {
   readonly badge?: string;
@@ -60,6 +62,9 @@ export const classifyReach = (
   const pair = splicePair(name, hasHouse);
   if (pair) {
     return { badge: pair.badge, base: pair.base, kind: "compile" };
+  }
+  if (glyphFromSlug(name) !== null) {
+    return { kind: "glyph" };
   }
   return { kind: "analog" };
 };
@@ -145,6 +150,9 @@ export const reach = (
   }
   if (plan.kind === "mark") {
     return markArm()(concept, options);
+  }
+  if (plan.kind === "glyph") {
+    return glyphArm()(concept, options);
   }
   if (plan.kind === "compile") {
     return compileArm()(concept, {
