@@ -205,6 +205,7 @@ export {
   adaptProgram,
   fan,
   lozenge,
+  programFromDoc,
   sameExtent,
   twinPairIssues,
 } from "./tools/twin.js";

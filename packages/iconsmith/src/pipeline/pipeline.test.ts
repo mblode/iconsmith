@@ -448,6 +448,23 @@ describe("generate", () => {
     expect(result.text).toBe("I would rather not.");
   });
 
+  it("pairs the other paint so a filled disc is not a quiet twin", async () => {
+    const result = await generate(
+      { name: "ring" },
+      {
+        finish: "filled",
+        model: scripted([
+          { input: { cx: 12, cy: 12, r: 8 }, tool: "circle" },
+          { text: "A disc." },
+        ]),
+      }
+    );
+    expect(result.program).toContain("finish filled");
+    expect(result.program).toContain("circle 12,12 r8");
+    expect(result.clean).toBe(false);
+    expect(result.issues.map((i) => i.rule)).toContain("paint");
+  });
+
   it("puts the concept, but never the answer, in the prompt", async () => {
     const model = scripted([{ text: "done" }]);
     await generate(
