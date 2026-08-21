@@ -24,7 +24,6 @@ import { lint } from "../tools/lint.js";
 import {
   frame,
   hbar,
-  lozenge,
   mass,
   program as iconProgram,
   ring,
@@ -292,65 +291,73 @@ export const peak = (slug: string, finish: Finish = "outlined"): string =>
     mass(finish, 10, 7, 4, 4, 1),
   ]);
 
-/** Stepped cone, crater lip, and three smoke dots — volcano. */
+/** Stepped cone, crater lip, and three smoke dots — volcano.
+ *  Path 18×14 + stroke is the wide 20×16 keyline. */
 export const volcano = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
-    mass(finish, 4, 15, 16, 4, 1),
-    mass(finish, 7, 11, 10, 4, 1),
-    mass(finish, 10, 8, 4, 3, 1),
-    "dot 10,5 floating",
-    "dot 12,3 floating",
-    "dot 14,5 floating",
+    mass(finish, 3, 14, 18, 4, 1),
+    mass(finish, 6, 10, 12, 4, 1),
+    mass(finish, 9, 6, 6, 4, 1),
+    "dot 8,5 terminal",
+    "dot 12,4 terminal",
+    "dot 16,5 terminal",
   ]);
 
-/** Barrel, eyepiece, objective, tripod — telescope, spyglass. */
+/** Barrel, eyepiece, objective, tripod — telescope, spyglass.
+ *  Path 18×16 + stroke is the landscape 20×18 keyline. */
 export const tube = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
-    mass(finish, 3, 9, 13, 5, 2),
-    mass(finish, 16, 10, 2, 3, 1),
-    ...ring(finish, 18, 11.5, 2.5),
-    vbar(finish, 7, 15, 4),
-    vbar(finish, 13, 15, 4),
-    hbar(finish, 7, 15, 6),
+    mass(finish, 3, 4, 13, 6, 2),
+    mass(finish, 16, 5, 2, 4, 1),
+    ...ring(finish, 18, 7, 2),
+    vbar(finish, 7, 11, 9),
+    vbar(finish, 13, 11, 9),
+    hbar(finish, 7, 11, 6),
   ]);
 
-/** Saguaro trunk, two arms, a pot — cactus, succulent. */
+/** Saguaro trunk, two arms, a pot — cactus, succulent.
+ *  Path 14×18 + stroke is the tall 16×20 keyline. */
 export const plant = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    mass(finish, 10, 3, 4, 13, 2),
-    mass(finish, 6, 7, 4, 5, 2),
-    mass(finish, 14, 10, 4, 5, 2),
-    mass(finish, 8, 16, 8, 4, 1),
+    mass(finish, 10, 2, 4, 14, 2),
+    mass(finish, 5, 6, 4, 5, 2),
+    mass(finish, 15, 8, 4, 5, 2),
+    mass(finish, 5, 16, 14, 4, 1),
   ]);
 
-/** Body, neck, head, diamond horn, legs — unicorn, narwhal. */
+/** Body, neck, head, on-axis horn, legs — unicorn, narwhal.
+ *  A diamond horn shears off 45° when `fit` snaps to the landscape box.
+ *  The horn is a vertical bar so both paints stay on-axis. */
 export const horn = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
-    mass(finish, 4, 11, 11, 6, 3),
-    mass(finish, 13, 8, 4, 5, 2),
-    "circle 17,8 r2.5",
-    ...lozenge(finish, 19, 4.5, 2),
-    vbar(finish, 7, 17, 3),
-    vbar(finish, 12, 17, 3),
-    hbar(finish, 3, 13, 2),
+    mass(finish, 3, 10, 14, 6, 3),
+    mass(finish, 14, 7, 3, 5, 2),
+    "circle 19,8 r2",
+    vbar(finish, 19, 4, 2),
+    vbar(finish, 7, 16, 4),
+    vbar(finish, 14, 16, 4),
+    hbar(finish, 3, 12, 2),
   ]);
 
-/** Cap, stem, spots — mushroom, toadstool. */
+/** Cap, stem, spots — mushroom, toadstool.
+ *  Path 16×16 + stroke is the square 18×18 keyline. Tall would bind on
+ *  width and leave the height 4 units short. */
 export const mushroom = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "tall", [
-    mass(finish, 5, 5, 14, 7, 3),
-    mass(finish, 10, 12, 4, 6, 1),
-    "dot 8,8 floating",
-    "dot 13,7 floating",
-    hbar(finish, 6, 19, 12),
+  iconProgram(slug, finish, "square", [
+    mass(finish, 4, 3, 16, 8, 3),
+    mass(finish, 10, 11, 4, 7, 1),
+    "dot 8,6 floating",
+    "dot 14,7 floating",
+    hbar(finish, 4, 19, 16),
   ]);
 
-/** Two bulbs and a waist — hourglass, sandglass. */
+/** Two bulbs and a waist — hourglass, sandglass.
+ *  Path 14×18 + stroke is the tall 16×20 keyline. */
 export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
-    mass(finish, 6, 3, 12, 6, 1),
-    mass(finish, 9, 9, 6, 6, 1),
-    mass(finish, 6, 15, 12, 6, 1),
+    mass(finish, 5, 3, 14, 5, 1),
+    mass(finish, 8, 8, 8, 6, 1),
+    mass(finish, 5, 14, 14, 6, 1),
   ]);
 
 /** Hull, mast, sail — sailboat, yacht. */
