@@ -92,7 +92,8 @@ export interface ToolsOptions {
   proposal?: Proposal | null;
   /**
    * The host analog is already on the canvas. Draw, remove, construct,
-   * fit, and center are withheld — a tool the model can only be refused
+   * fit, center, and the separate render/lint pair are withheld — the
+   * remaining tool is `confirm`. A tool the model can only be refused
    * by costs a step, and those steps are how a seeded heart becomes
    * three circles or a pause gets stretched off the house bars.
    */
@@ -218,7 +219,7 @@ export const createTools = (options: ToolsOptions = {}) => {
       return;
     }
     throw new Error(
-      `the host analog is already on the canvas. Confirm with render and lint; do not ${action} it.`
+      `the host analog is already on the canvas. Call confirm; do not ${action} it.`
     );
   };
 
@@ -734,33 +735,23 @@ export const createTools = (options: ToolsOptions = {}) => {
     ] as const) {
       Reflect.deleteProperty(tools, name);
     }
-    // Confirm-only schemas. The long lint/render copy (keyline enum,
-    // size bounds, gap lecture) is what blew a 1730-token credit cap
-    // after fit/center were already gone.
-    tools.lint = tool({
-      description: "Check the drawing against the house spec.",
-      execute: () =>
-        track("lint", () => {
+    // One tool, empty schema. Two leftover lint/render schemas still
+    // 402'd a 1560-token prompt-credit remainder.
+    Reflect.deleteProperty(tools, "lint");
+    Reflect.deleteProperty(tools, "render");
+    tools.confirm = tool({
+      description: "Look at the drawing and check it against the house spec.",
+      execute: async () =>
+        await track("confirm", async () => {
+          state.renderedAt = canvas.version;
           const issues = lint(canvas, { keyline });
           state.issues = issues;
           state.lintedAt = canvas.version;
-          return {
-            clean: issues.every((i) => i.severity !== "error"),
-            issues,
-            report: format(issues),
-          };
-        }),
-      inputSchema: z.object({}),
-    });
-    tools.render = tool({
-      description: "Render the current drawing.",
-      execute: async () =>
-        await track("render", async () => {
-          state.renderedAt = canvas.version;
           const image = await png(canvas.toSVG(), renderSize);
           return {
-            elements: canvas.describe(),
+            clean: issues.every((i) => i.severity !== "error"),
             image: image.toString("base64"),
+            report: format(issues),
           };
         }),
       inputSchema: z.object({}),
@@ -772,10 +763,7 @@ export const createTools = (options: ToolsOptions = {}) => {
             mediaType: "image/png",
             type: "file",
           },
-          {
-            text: `Elements: ${JSON.stringify(output.elements)}`,
-            type: "text",
-          },
+          { text: output.report, type: "text" },
         ],
       }),
     });

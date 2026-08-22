@@ -438,8 +438,9 @@ describe("tools", () => {
     expect(locked.tools.construct).toBeUndefined();
     expect(locked.tools.fit).toBeUndefined();
     expect(locked.tools.center).toBeUndefined();
-    expect(locked.tools.render).toBeDefined();
-    expect(locked.tools.lint).toBeDefined();
+    expect(locked.tools.render).toBeUndefined();
+    expect(locked.tools.lint).toBeUndefined();
+    expect(locked.tools.confirm).toBeDefined();
   });
 });
 
@@ -472,13 +473,12 @@ describe("generate", () => {
       { name: "heart" },
       {
         model: scripted([
-          { input: {}, tool: "render" },
-          { input: {}, tool: "lint" },
+          { input: {}, tool: "confirm" },
           { text: "House heart analog." },
         ]),
       }
     );
-    expect(result.trace).toEqual(["render", "lint"]);
+    expect(result.trace).toEqual(["confirm"]);
     expect(result.clean).toBe(true);
     expect(result.svg).toContain("<path");
     expect(result.program).toContain("line ");
@@ -487,22 +487,13 @@ describe("generate", () => {
 
   it("does not offer draw tools once the host analog is seeded", async () => {
     const model = scripted([
-      { input: {}, tool: "render" },
-      { input: {}, tool: "lint" },
+      { input: {}, tool: "confirm" },
       { text: "House heart analog." },
     ]);
     const result = await generate({ name: "heart" }, { model });
     const call = model.doGenerateCalls[0] as LanguageModelV4CallOptions;
     const names = (call.tools ?? []).map((t) => t.name);
-    expect(names).toContain("render");
-    expect(names).toContain("lint");
-    expect(names).not.toContain("circle");
-    expect(names).not.toContain("rect");
-    expect(names).not.toContain("remove");
-    expect(names).not.toContain("construct");
-    expect(names).not.toContain("listParts");
-    expect(names).not.toContain("fit");
-    expect(names).not.toContain("center");
+    expect(names).toEqual(["confirm"]);
     expect(result.program).not.toContain("circle ");
   });
 

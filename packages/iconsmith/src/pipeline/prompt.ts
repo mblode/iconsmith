@@ -120,7 +120,7 @@ export const confirmSystemPrompt = (
     opts.finish === "filled"
       ? "Paint: filled. The analog is already the solid silhouette."
       : "Paint: outlined. The analog is already the centre-line stroke.",
-    "Confirm with render and lint. Do not invent geometry.",
+    "Call confirm. Do not invent geometry.",
   ].join("\n");
 };
 
@@ -196,7 +196,7 @@ export const conceptPrompt = (
     // names the family without restating how to draw it.
     lines.push(
       `House construction (${host.id}, ${finish}).`,
-      `The canvas already holds the host ${host.id} analog. Confirm with render and lint. Do not add, remove, or redraw it.`
+      `The canvas already holds the host ${host.id} analog. Call confirm. Do not add, remove, or redraw it.`
     );
   } else if (steer) {
     lines.push(steer);

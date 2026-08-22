@@ -11,7 +11,7 @@ test("a seeded confirm prompt is the spec and the paint, not the grammar", () =>
   const outlined = confirmSystemPrompt();
   expect(outlined).toContain("24×24");
   expect(outlined).toContain("Paint: outlined");
-  expect(outlined).toContain("Confirm with render and lint");
+  expect(outlined).toContain("Call confirm");
   expect(outlined).not.toContain("Every shape you");
   const filled = confirmSystemPrompt({ finish: "filled" });
   expect(filled).toContain("Paint: filled");
@@ -103,6 +103,7 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   expect(conceptPrompt({ name: "heart" })).not.toContain(
     "Compose the named object"
   );
+  expect(conceptPrompt({ name: "heart" })).toContain("Call confirm");
   expect(conceptPrompt({ name: "heart" })).toContain(
     "Do not add, remove, or redraw it"
   );
