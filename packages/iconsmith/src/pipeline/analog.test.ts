@@ -706,9 +706,11 @@ describe("analog families", () => {
     expect(sun("sun")).not.toContain("keyline ");
     expect(bell("bell")).toContain("rect 5,3 14x16");
     expect(bell("bell")).not.toContain("keyline ");
-    expect(play("play")).toContain("line 14,4 21,12");
-    expect(play("play")).toContain("rect 6,4 8x16");
+    expect(play("play")).toContain("line 6,6 10.5,3.5 20,9.5 21,12");
+    expect(play("play")).not.toContain("rect 6,4 8x16");
     expect(play("play")).not.toContain("keyline ");
+    expect(play("play", "filled")).toContain("rect 5,5 10x14");
+    expect(play("play", "filled")).toContain("line 10.5,3.5 21,12");
     expect(cloud("cloud")).toContain("arc 9,12 r7 three-quarter from bottom");
     expect(cloud("cloud")).toContain("arc 17,14 r5 half from top");
     expect(cloud("cloud")).toContain("line 9,19 17,19");

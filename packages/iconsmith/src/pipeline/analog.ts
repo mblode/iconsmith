@@ -674,17 +674,27 @@ export const pause = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House play: a rounded-back triangle pointing right. Outlined is that
- * silhouette — a stadium back seated on the house upright at x=6, plus
- * two edges to the point — not a sharp chevron. Filled is the same
- * marks; a closed polyline has no inside under fill. No portrait
- * `fit`: the body already sits on the house box.
+ * closed silhouette on the house vertices. Filled is an inset mass plus
+ * the two-point edges — a closed polyline has no inside under fill, and
+ * the old stadium back read as a rounded slab, not the house triangle.
+ * No portrait `fit`: the body already sits on the house box.
  */
 export const play = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, null, [
-    mass(finish, 6, 4, 8, 16, 2),
-    "line 14,4 21,12 off-axis",
-    "line 21,12 14,20 off-axis",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          mass(finish, 6, 6, 8, 12, 2),
+          "line 6,6 10.5,3.5 off-axis",
+          "line 10.5,3.5 21,12 off-axis",
+          "line 21,12 10.5,20.5 off-axis",
+          "line 10.5,20.5 6,18 off-axis",
+          "line 6,18 6,6",
+        ]
+      : ["line 6,6 10.5,3.5 20,9.5 21,12 20,14.5 10.5,20.5 6,18 6,6 off-axis"]
+  );
 
 /**
  * House chevron-right: one open tick pointing right. Filled is that
