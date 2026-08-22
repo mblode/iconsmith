@@ -14,6 +14,7 @@ import { MockLanguageModelV4 } from "ai/test";
  */
 import { describe, expect, it } from "vitest";
 
+import { analogArm } from "./analog.js";
 import type { BenchmarkEntry } from "./bench.js";
 import {
   BASELINE,
@@ -373,7 +374,74 @@ describe("tools", () => {
     expect(house?.construction).toContain(
       "House construction (home, outlined)"
     );
+    const star = await outlined.tools.listParts.execute?.(
+      { query: "star" },
+      { messages: [], toolCallId: "t6" }
+    );
+    expect(star?.construction).toContain("Do not volunteer a star glyph");
+    expect(star?.constructable).toBeUndefined();
     expect(other?.construction).toBeUndefined();
+  });
+
+  it("adopts a host analog through construct, without the model naming a coordinate", async () => {
+    const { canvas, tools } = createTools({ finish: "outlined" });
+    const listed = await tools.listParts.execute?.(
+      { query: "heart" },
+      { messages: [], toolCallId: "t0" }
+    );
+    expect(listed?.constructable).toBe(true);
+    expect(listed?.family).toBe("heart");
+    const placed = await tools.construct.execute?.(
+      { query: "heart" },
+      { messages: [], toolCallId: "t1" }
+    );
+    expect(placed?.family).toBe("heart");
+    expect(placed?.placed).toBeGreaterThan(0);
+    expect(canvas.elements.length).toBeGreaterThan(0);
+    expect(canvas.toSVG()).toContain("<path");
+    expect(() =>
+      tools.construct.execute?.(
+        { query: "heart" },
+        { messages: [], toolCallId: "t2" }
+      )
+    ).toThrow(/already placed/u);
+    const empty = createTools();
+    expect(() =>
+      empty.tools.construct.execute?.(
+        { query: "star" },
+        { messages: [], toolCallId: "t3" }
+      )
+    ).toThrow(/no host analog/u);
+    expect(() =>
+      empty.tools.construct.execute?.(
+        { query: "quokka" },
+        { messages: [], toolCallId: "t4" }
+      )
+    ).toThrow(/no host analog/u);
+    expect(() =>
+      tools.circle.execute?.(
+        { cx: 12, cy: 12, r: 8 },
+        { messages: [], toolCallId: "t5" }
+      )
+    ).toThrow(/already on the canvas/u);
+    expect(() =>
+      tools.remove.execute?.({ id: "e1" }, { messages: [], toolCallId: "t6" })
+    ).toThrow(/already on the canvas/u);
+    expect(() =>
+      tools.fit.execute?.(
+        { keyline: "square" },
+        { messages: [], toolCallId: "t7" }
+      )
+    ).toThrow(/already on the canvas/u);
+    const locked = createTools({ hostLocked: true });
+    expect(locked.tools.circle).toBeUndefined();
+    expect(locked.tools.rect).toBeUndefined();
+    expect(locked.tools.construct).toBeUndefined();
+    expect(locked.tools.fit).toBeUndefined();
+    expect(locked.tools.center).toBeUndefined();
+    expect(locked.tools.render).toBeUndefined();
+    expect(locked.tools.lint).toBeUndefined();
+    expect(locked.tools.confirm).toBeDefined();
   });
 });
 
@@ -399,6 +467,53 @@ describe("generate", () => {
     expect(result.doc.icon).toBe("square");
     expect(result.svg).toContain("<path");
     expect(result.trace).toEqual(["rect", "fit", "render", "lint"]);
+  });
+
+  it("returns the host analog without hiring a model", async () => {
+    const model = scripted([{ text: "should not run" }]);
+    const result = await generate({ name: "heart" }, { model });
+    expect(model.doGenerateCalls).toEqual([]);
+    expect(result.trace).toEqual([]);
+    expect(result.steps).toBe(0);
+    expect(result.cost?.usage.inputTokens).toBe(0);
+    expect(result.clean).toBe(true);
+    expect(result.svg).toContain("<path");
+    expect(result.program).toContain("line ");
+    expect(result.program).not.toContain("circle ");
+    expect(result.text).toBe("host heart heart");
+  });
+
+  it("pairs a seeded filled analog of diagonal bars, not an empty programFromDoc", async () => {
+    const result = await generate(
+      { name: "paper-plane" },
+      { finish: "filled" }
+    );
+    expect(result.trace).toEqual([]);
+    expect(result.program).toContain("line 4,12 20,6");
+    expect(result.svg).toContain("<path");
+    expect(result.issues.some((i) => i.rule === "empty")).toBe(false);
+    expect(result.clean).toBe(true);
+  });
+
+  it("matches analogArm on a house name and a net-new name, both paints", async () => {
+    const analog = analogArm();
+    const cases = (["lock", "paper-plane", "check"] as const).flatMap((name) =>
+      (["outlined", "filled"] as const).map((finish) => ({ finish, name }))
+    );
+    const drawn = await Promise.all(
+      cases.map(async ({ finish, name }) => ({
+        finish,
+        generated: await generate({ name }, { finish }),
+        name,
+        replayed: await analog({ name }, { finish }),
+      }))
+    );
+    for (const { finish, generated, name, replayed } of drawn) {
+      expect(generated.program, `${name} ${finish}`).toBe(replayed.program);
+      expect(generated.svg, `${name} ${finish}`).toBe(replayed.svg);
+      expect(generated.clean, `${name} ${finish}`).toBe(true);
+      expect(generated.cost?.usage.inputTokens, `${name} ${finish}`).toBe(0);
+    }
   });
 
   it("hands the render back as an image the model can actually see", async () => {
@@ -457,7 +572,7 @@ describe("generate", () => {
 
   it("pairs the other paint so a filled disc is not a quiet twin", async () => {
     const result = await generate(
-      { name: "ring" },
+      { name: "washer" },
       {
         finish: "filled",
         model: scripted([
@@ -475,15 +590,15 @@ describe("generate", () => {
   it("puts the concept, but never the answer, in the prompt", async () => {
     const model = scripted([{ text: "done" }]);
     await generate(
-      { category: "Arrows", name: "arrow-up", tags: ["north", "up"] },
+      { category: "Animals", name: "quokka", tags: ["marsupial", "smile"] },
       { model }
     );
 
     const call = model.doGenerateCalls[0] as LanguageModelV4CallOptions;
     const text = JSON.stringify(call.prompt);
-    expect(text).toContain("arrow-up");
-    expect(text).toContain("Arrows");
-    expect(text).toContain("north");
+    expect(text).toContain("quokka");
+    expect(text).toContain("Animals");
+    expect(text).toContain("marsupial");
     expect(text).toContain("24×24");
   });
 });

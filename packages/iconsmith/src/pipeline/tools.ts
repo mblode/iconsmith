@@ -21,10 +21,11 @@ import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
 import { png, sheet } from "../tools/render.js";
 import type { Finish, Issue, Keyline, Part } from "../types.js";
+import { adoptHost, hostConstruction } from "./analog.js";
 import type { Proposal } from "./compose.js";
 import { describeProposal } from "./compose.js";
 import type { Reference } from "./licence.js";
-import { recipeBrief } from "./recipe.js";
+import { steerBrief } from "./recipe.js";
 import { overlap, rankParts, tokens } from "./search.js";
 import type { Aliases } from "./search.js";
 
@@ -89,6 +90,14 @@ export interface ToolsOptions {
    * the target.
    */
   proposal?: Proposal | null;
+  /**
+   * The host analog is already on the canvas. Draw, remove, construct,
+   * fit, center, and the separate render/lint pair are withheld — the
+   * remaining tool is `confirm`. A tool the model can only be refused
+   * by costs a step, and those steps are how a seeded heart becomes
+   * three circles or a pause gets stretched off the house bars.
+   */
+  hostLocked?: boolean;
 }
 
 /** What the loop needs to know afterwards; the model cannot see any of it. */
@@ -110,6 +119,9 @@ export interface ToolState {
   /** Set by the first `proposal` call. The second one is refused, which is the
    *  mechanism that keeps the raster a brief rather than a target. */
   proposed: boolean;
+  /** Set by the first `construct` call. The host analog is adopted once;
+   *  calling again would let the model shop constructions. */
+  constructed: boolean;
   calls: string[];
 }
 
@@ -168,11 +180,13 @@ export const createTools = (options: ToolsOptions = {}) => {
     parts = [],
     proposal = null,
     renderSize = 96,
+    hostLocked = false,
   } = options;
   const canvas = new Canvas(parts, { finish, spec });
   const roleNames = Object.keys(spec.dots) as [string, ...string[]];
   const state: ToolState = {
     calls: [],
+    constructed: false,
     issues: null,
     lintedAt: -1,
     proposed: false,
@@ -192,11 +206,32 @@ export const createTools = (options: ToolsOptions = {}) => {
     return fn();
   };
 
+  /**
+   * Once the host analog is on the canvas, the model confirms it — it
+   * does not invent a second silhouette. Generate seeds that analog;
+   * `construct` places it when the canvas started empty. Either way the
+   * coordinates already came from analog, and a `circle`, `remove`, or
+   * `fit` after that is how a heart becomes three discs or a pause
+   * gets stretched off the house bars.
+   */
+  const refuseHostEdit = (action: string): void => {
+    if (!state.constructed) {
+      return;
+    }
+    throw new Error(
+      `the host analog is already on the canvas. Call confirm; do not ${action} it.`
+    );
+  };
+
   const tools = {
     arc: tool({
       description:
         "Draw an open circular arc. Same cubics as circle. Name a pole (top/right/bottom/left), a sweep (quarter/half/three-quarter), and optionally ccw. Use this for canopies, wifi fans, C-shapes and the lobes of an S. Do not approximate a curve with a polyline of grid points.",
-      execute: (input) => track("arc", () => placed(canvas, canvas.arc(input))),
+      execute: (input) =>
+        track("arc", () => {
+          refuseHostEdit("arc");
+          return placed(canvas, canvas.arc(input));
+        }),
       inputSchema: z.object({
         ccw: z
           .boolean()
@@ -217,6 +252,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Recentre the whole drawing on the canvas centre. Does not change its size.",
       execute: () =>
         track("center", () => {
+          refuseHostEdit("recentre");
           recentre(canvas);
           return { bbox: canvas.bbox(), elements: canvas.describe() };
         }),
@@ -226,7 +262,10 @@ export const createTools = (options: ToolsOptions = {}) => {
     circle: tool({
       description: "Draw a circle from its centre.",
       execute: (input) =>
-        track("circle", () => placed(canvas, canvas.circle(input))),
+        track("circle", () => {
+          refuseHostEdit("circle");
+          return placed(canvas, canvas.circle(input));
+        }),
       inputSchema: z.object({ cx: coord, cy: coord, r: z.number().positive() }),
     }),
 
@@ -298,13 +337,68 @@ export const createTools = (options: ToolsOptions = {}) => {
             },
     }),
 
+    confirm: tool({
+      description: "Look at the drawing and check it against the house spec.",
+      execute: async () =>
+        await track("confirm", async () => {
+          state.renderedAt = canvas.version;
+          const issues = lint(canvas, { keyline });
+          state.issues = issues;
+          state.lintedAt = canvas.version;
+          const image = await png(canvas.toSVG(), renderSize);
+          return {
+            clean: issues.every((i) => i.severity !== "error"),
+            image: image.toString("base64"),
+            report: format(issues),
+          };
+        }),
+      inputSchema: z.object({}),
+      toModelOutput: ({ output }) => ({
+        type: "content",
+        value: [
+          {
+            data: { data: output.image, type: "data" },
+            mediaType: "image/png",
+            type: "file",
+          },
+          { text: output.report, type: "text" },
+        ],
+      }),
+    }),
+
+    construct: tool({
+      description:
+        "Place the host analog for this name. The model never emits those coordinates — the canvas writes the program. Generate already adopts it when one exists; call this only if the canvas is still empty. Available once. After it lands, confirm with render and lint — do not redraw it.",
+      execute: ({ query }) =>
+        track("construct", () => {
+          if (state.constructed) {
+            throw new Error(
+              "construct has already placed a host analog. Confirm with render and lint."
+            );
+          }
+          const adopted = adoptHost(canvas, query, finish, parts, spec);
+          state.constructed = true;
+          return {
+            elements: canvas.describe(),
+            family: adopted.family,
+            placed: adopted.placed,
+          };
+        }),
+      inputSchema: z.object({
+        query: z
+          .string()
+          .describe("the icon name this run is drawing, e.g. heart, lantern"),
+      }),
+    }),
+
     diamond: tool({
       description:
-        "Draw a square rotated 45°, vertices on the axes. Reach is centre to vertex — equal run and rise, so every edge sits on 45°/135°. Use this for a compass needle, a card suit, a lozenge. A kite that is only grid-legal (unequal diagonals) is off-axis and is not this op.",
+        "Draw a square rotated 45°, vertices on the axes. Reach is centre to vertex — equal run and rise, so every edge sits on 45°/135°. Use this for a compass needle, a card suit, a lozenge. Not a star. A kite that is only grid-legal (unequal diagonals) is off-axis and is not this op.",
       execute: ({ cx, cy, r }) =>
-        track("diamond", () =>
-          placed(canvas, canvas.diamond({ cx, cy, reach: r }))
-        ),
+        track("diamond", () => {
+          refuseHostEdit("diamond");
+          return placed(canvas, canvas.diamond({ cx, cy, reach: r }));
+        }),
       inputSchema: z.object({
         cx: coord,
         cy: coord,
@@ -317,7 +411,11 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     dot: tool({
       description: `Place a dot. The role picks the size, so the set's dots stay one of ${roleNames.length} sizes rather than a continuum.`,
-      execute: (input) => track("dot", () => placed(canvas, canvas.dot(input))),
+      execute: (input) =>
+        track("dot", () => {
+          refuseHostEdit("dot");
+          return placed(canvas, canvas.dot(input));
+        }),
       inputSchema: z.object({
         cx: coord,
         cy: coord,
@@ -330,6 +428,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Scale and centre the whole drawing so its visual extent — the strokes' outer edges, not the path bounds — matches a keyline. Do this once, near the end.",
       execute: ({ keyline: k }) =>
         track("fit", () => {
+          refuseHostEdit("fit");
           const used = k ?? keyline ?? "square";
           fitKeyline(canvas, used);
           return { bbox: canvas.bbox(), keyline: used };
@@ -342,6 +441,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
       execute: ({ cutFrom, cx, cy, h, r, shape, w, x, y }) =>
         track("hole", () => {
+          refuseHostEdit("hole");
           // The two shapes take different fields, so the schema is flat and
           // the pairing is checked here. A discriminated union in the schema
           // would say it once instead — but it lands in the wire format as a
@@ -401,12 +501,13 @@ export const createTools = (options: ToolsOptions = {}) => {
       description:
         "Draw a polyline through two or more points. Segments within a few degrees of 0/45/90 are snapped onto the axis, so a nearly-horizontal line becomes horizontal. A segment further off than that is refused unless offAxis is set, so a diagonal is something you choose rather than something arithmetic drift hands you.",
       execute: ({ offAxis, points }) =>
-        track("line", () =>
-          placed(
+        track("line", () => {
+          refuseHostEdit("line");
+          return placed(
             canvas,
             canvas.line({ offAxis, points: points as [number, number][] })
-          )
-        ),
+          );
+        }),
       inputSchema: z.object({
         offAxis: z
           .boolean()
@@ -439,16 +540,19 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     listParts: tool({
       description:
-        "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it.",
+        "Search the extracted parts vocabulary by name. These are the shapes the existing set is built from; placing one is how a new icon inherits the set's drawing rather than approximating it. When the query asked for a house paint construction, the result names it as `construction`. When a host analog exists, `constructable` is true — call `construct` instead of inventing the silhouette. Analog does not volunteer a star glyph.",
       // Ranked by `rankParts`, which SELECT's shortlist and the coverage report
       // also call, so all three agree about what "relevant" means. The shaping
       // is this tool's own: a model deciding whether to place a mark wants its
       // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
         track("listParts", () => {
-          const construction = recipeBrief(query, finish);
+          const construction = steerBrief(query, finish);
+          const host = hostConstruction(query, finish);
           return {
+            ...(host ? { constructable: true as const } : {}),
             ...(construction ? { construction } : {}),
+            ...(host ? { family: host.id } : {}),
             matches: rankParts(parts, query, limit, aliases).map(
               ({ hits, part }) => ({
                 h: part.h,
@@ -478,6 +582,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Place a part from the vocabulary by id or name, scaled about its top-left corner. `turn` names a quarter-turn clockwise and `flip` mirrors the part in x before turning it — the clusterer folds a mark together with its quarter-turns and its mirror, so a part is stored at one orientation and these are how you reach the others.",
       execute: ({ flip, id, scale, turn, x, y }) =>
         track("part", () => {
+          refuseHostEdit("part");
           const p = byName.get(id);
           if (!p) {
             throw new Error(
@@ -557,7 +662,10 @@ export const createTools = (options: ToolsOptions = {}) => {
       description:
         "Draw a rectangle from its top-left corner. The radius is snapped to the nearest tier for the shape's size; pass 0 for a hard corner.",
       execute: (input) =>
-        track("rect", () => placed(canvas, canvas.rect(input))),
+        track("rect", () => {
+          refuseHostEdit("rect");
+          return placed(canvas, canvas.rect(input));
+        }),
       inputSchema: z.object({
         h: z.number().positive(),
         r: z
@@ -575,7 +683,11 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     remove: tool({
       description: "Delete an element by the id a draw tool returned.",
-      execute: ({ id }) => track("remove", () => canvas.remove(id)),
+      execute: ({ id }) =>
+        track("remove", () => {
+          refuseHostEdit("remove");
+          return canvas.remove(id);
+        }),
       inputSchema: z.object({ id: z.string() }),
     }),
 
@@ -632,6 +744,30 @@ export const createTools = (options: ToolsOptions = {}) => {
     Reflect.deleteProperty(tools, "line");
   } else {
     Reflect.deleteProperty(tools, "hole");
+  }
+  if (hostLocked) {
+    for (const name of [
+      "arc",
+      "center",
+      "circle",
+      "compare",
+      "construct",
+      "diamond",
+      "dot",
+      "fit",
+      "hole",
+      "line",
+      "lint",
+      "listParts",
+      "part",
+      "rect",
+      "remove",
+      "render",
+    ] as const) {
+      Reflect.deleteProperty(tools, name);
+    }
+  } else {
+    Reflect.deleteProperty(tools, "confirm");
   }
 
   return { canvas, state, tools };

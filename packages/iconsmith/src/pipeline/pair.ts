@@ -58,6 +58,42 @@ export const pairPrograms = (
 };
 
 /**
+ * House outlined and filled occupy different extents for these families
+ * (check tick vs disc; chevron stroke vs thick `>`). Extent stays a
+ * finding so a restamp is still visible, but it is a warn — matching
+ * house construction is the twin, and the house files themselves fail
+ * the error gate.
+ */
+const HOUSE_DIVERGENT = new Set(["check", "chevron"]);
+
+/** True when house outlined and filled are different constructions. */
+export const paintsDiverge = (id: string): boolean => HOUSE_DIVERGENT.has(id);
+
+const softenExtent = (issues: readonly Issue[], family: string): Issue[] =>
+  paintsDiverge(family)
+    ? issues.map((issue) =>
+        issue.rule === "extent" && issue.severity === "error"
+          ? { ...issue, severity: "warn" as const }
+          : issue
+      )
+    : [...issues];
+
+/** Pair two analog paints, warning — not erroring — on a house-divergent extent. */
+export const pairFamily = (
+  issues: readonly Issue[],
+  thisFinish: Finish,
+  thisSource: string,
+  otherSource: string,
+  family: string,
+  parts: readonly Part[] = [],
+  spec?: Spec
+): Issue[] =>
+  softenExtent(
+    pairPrograms(issues, thisFinish, thisSource, otherSource, parts, spec),
+    family
+  );
+
+/**
  * Pair this paint with the other finish derived from the same program.
  *
  * Generate and harness draw one paint. The counterpart is `adaptProgram`,

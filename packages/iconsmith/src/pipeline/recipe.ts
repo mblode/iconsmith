@@ -5,8 +5,9 @@
  * clock, lock, …). A recipe names a construction, not a glyph to volunteer
  * for an unasked name — `recipeFor` only fires when a content token of the
  * query is the recipe. Analog resolves that id to a family in both paints
- * (`checkmark` draws the house check; `home` draws the pentagon). `star`
- * and host glyphs stay unknown.
+ * (`checkmark` draws the house check; `home` draws the pentagon; `heart`
+ * draws the closed lobes; `zap` draws the bolt). `star` and host glyphs
+ * stay unknown.
  *
  * The model never emits a coordinate. These sentences steer `listParts`,
  * the per-icon brief, and the skill toward the programs compile already
@@ -70,6 +71,83 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
       "one closed pentagon — roof peak and walls as the outer stroke. Not a box, and not a roof drawn through the body.",
     tokens: ["home"],
   },
+  {
+    filled:
+      "one evenodd compound of two lobes and a point. Not a disc, and not three circles restamped as solids.",
+    id: "heart",
+    outlined:
+      "two lobes and a point as one closed silhouette (house compile is one evenodd compound). Not three circles.",
+    tokens: ["heart"],
+  },
+  {
+    filled:
+      "one evenodd heater: a body mass seated on a diamond point. Not a 45° diamond with a cap, and not a frame-and-dot.",
+    id: "shield",
+    outlined:
+      "one closed heater — peaked top, sides, a point. Not a diamond with a hat.",
+    tokens: ["shield"],
+  },
+  {
+    filled:
+      "the bolt as three bars on the zigzag's centre-lines. Not a frame-and-dot, and not a flood of the bbox.",
+    id: "zap",
+    outlined:
+      "one closed lightning bolt. Not a frame-and-dot, and not a Z of open ticks.",
+    tokens: ["zap", "lightning"],
+  },
+  {
+    filled: "two rounded uprights. Not one slab, and not a frame-and-dot.",
+    id: "pause",
+    outlined: "two rounded uprights. Not one slab.",
+    tokens: ["pause"],
+  },
+  {
+    filled:
+      "a solid right-pointing triangle. Not a chevron, and not a frame-and-dot.",
+    id: "play",
+    outlined: "one closed right-pointing triangle. Not a chevron.",
+    tokens: ["play"],
+  },
+  {
+    filled:
+      "the house thick `>`, a taller band than the stroke. Not a thin pair of bars, and not a triangle.",
+    id: "chevron",
+    outlined: "one open tick pointing right (`m9 18 6-6-6-6`). Not a triangle.",
+    tokens: ["chevron"],
+  },
+  {
+    filled: "a shaft bar plus two head bars. Not a bare chevron.",
+    id: "arrow",
+    outlined: "a shaft plus a chevron head. Not a bare chevron.",
+    tokens: ["arrow"],
+  },
+  {
+    filled: "the ribbon body plus the two V tails. Not a plain rect.",
+    id: "bookmark",
+    outlined: "a tall ribbon with a V bite at the foot. Not a plain rect.",
+    tokens: ["bookmark"],
+  },
+  {
+    filled: "three discs plus the two connector bars. Not a hub tree.",
+    id: "share",
+    outlined: "three nodes and two connectors. Not a hub tree.",
+    tokens: ["share"],
+  },
+  {
+    filled: "the same dome, beams, stem, and capsule as solids.",
+    id: "airdrop",
+    outlined:
+      "a dome, two off-axis beams (`M4 11L11 16.5`), a stem, and a seated capsule.",
+    tokens: ["airdrop"],
+  },
+  {
+    filled:
+      "a fuselage mass plus bars on the house edges. Not a paper dart only.",
+    id: "airplane",
+    outlined:
+      "one closed jet silhouette on the house vertices. Not a paper dart.",
+    tokens: ["airplane"],
+  },
 ];
 
 const recipeTokens = (query: string): string[] =>
@@ -99,3 +177,26 @@ export const recipeBrief = (
   const how = finish === "filled" ? recipe.filled : recipe.outlined;
   return `House construction (${recipe.id}, ${finish}): ${how}`;
 };
+
+/**
+ * Names analog must not volunteer a glyph for. A diamond is a compass
+ * needle; a chevron or four diamonds is not the house star.
+ */
+const HOLDOUTS: Readonly<Record<string, string>> = {
+  star: "Do not volunteer a star glyph. A diamond is a compass needle; a chevron or four diamonds is not the house star.",
+};
+
+/** A holdout the query asked for, or null. Two content tokens stay null. */
+export const holdoutBrief = (query: string): string | null => {
+  const want = recipeTokens(query);
+  if (want.length !== 1) {
+    return null;
+  }
+  return HOLDOUTS[want[0] ?? ""] ?? null;
+};
+
+/** Recipe or holdout for this query — what `listParts` and the brief share. */
+export const steerBrief = (
+  query: string,
+  finish: Finish = "outlined"
+): string | null => recipeBrief(query, finish) ?? holdoutBrief(query);

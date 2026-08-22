@@ -15,10 +15,16 @@
  * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
  * A paint recipe that can fire must resolve to a family in both paints —
  * `checkmark` draws the house check, not unknown. `home` draws the house
- * pentagon, not a frame-and-dot. The composer writes the program. The
- * model does not.
+ * pentagon, not a frame-and-dot. `heart` draws the closed lobes, not
+ * three circles or a disc. `shield` draws the heater, not a diamond
+ * with a cap. `zap` draws the bolt, not a frame-and-dot. Pause, play,
+ * chevron, arrow, bookmark, share, airdrop, and airplane resolve the
+ * same way — recipe tokens, no kin row. Lantern, otter, and paper-plane
+ * are net-new families: no house file, no kin row. Analog must not
+ * volunteer a star. The composer writes the program. The model does
+ * not. `construct` in the generate loop adopts that program.
  */
-import type { Spec } from "../tools/canvas.js";
+import type { Canvas, Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
@@ -35,8 +41,8 @@ import type { Finish, Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
-import { pairPrograms } from "./pair.js";
-import { recipeFor } from "./recipe.js";
+import { pairFamily } from "./pair.js";
+import { holdoutBrief, recipeFor } from "./recipe.js";
 import { compileIcon } from "./reconstruct.js";
 import { overlap, tokens } from "./search.js";
 
@@ -403,27 +409,55 @@ export const envelope = (slug: string, finish: Finish = "outlined"): string =>
     "line 12,13 21,5 off-axis",
   ]);
 
-/** Dome, skirt, clapper — a bell, not a hub. */
+/**
+ * House bell: outlined is the vase — upper half-arc, flared lip, seated
+ * clapper. Filled is a dome disc plus the same lip and clapper. A single
+ * rounded mass read as a capsule, not the house vase. No portrait `fit`.
+ */
 export const bell = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "tall", [
-    mass(finish, 10, 3, 4, 4, 1),
-    "circle 12,11 r6",
-    mass(finish, 5, 15, 14, 4, 2),
-    "dot 12,20 terminal",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          "circle 12,10.5 r8.5",
+          mass(finish, 4.5, 10, 15, 8, 2),
+          mass(finish, 8, 17, 8, 4, 2),
+        ]
+      : [
+          "arc 12,10 r7 half from left",
+          "line 5,10 4.5,15",
+          "line 19,10 19.5,15",
+          "line 4.5,15 7.4,18",
+          "line 19.5,15 16.6,18",
+          "line 7.4,18 16.6,18",
+          "line 8,18 12,21 off-axis",
+          "line 16,18 12,21 off-axis",
+        ]
+  );
 
 /** A C-shaped crescent — moon, not a full disc. */
 export const moon = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", ["arc 12,12 r8 three-quarter from top"]);
 
-/** Disc and four axial rays. */
+/**
+ * House sun: a disc and eight short ticks at the compass points. Not four
+ * long bars — those read as a plus, not rays. No square `fit`: the ticks
+ * already sit on the 24 canvas, and scaling them onto 20×20 is what
+ * dropped the house match.
+ */
 export const sun = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "square", [
-    finish === "filled" ? "circle 12,12 r5" : "circle 12,12 r4",
-    vbar(finish, 12, 3, 4),
-    vbar(finish, 12, 17, 4),
-    hbar(finish, 3, 12, 4),
-    hbar(finish, 17, 12, 4),
+  iconProgram(slug, finish, null, [
+    finish === "filled" ? "circle 12,12 r6" : "circle 12,12 r5",
+    "line 12,2 12,3",
+    "line 12,21 12,22",
+    "line 2,12 3,12",
+    "line 21,12 22,12",
+    "line 5,5 4,4 off-axis",
+    "line 19,5 20,4 off-axis",
+    "line 19,19 20,20 off-axis",
+    "line 5,19 4,20 off-axis",
   ]);
 
 /**
@@ -453,19 +487,20 @@ export const clock = (slug: string, finish: Finish = "outlined"): string =>
   );
 
 /**
- * House check: outlined is the open tick (`M20 6 9 17l-5-5`); filled is a
+ * House check: outlined is the Lucide tick (`M20 6 9 17l-5-5`); filled is a
  * badge disc with that tick cut out (evenodd). Not a thick tick, and not a
- * tick drawn on top of a disc. Recipe tokens (`check`, `tick`, `checkmark`)
- * resolve here — not a new kin row.
+ * tick drawn on top of a disc. House paints occupy different extents
+ * (18×13 vs 20×20) — pairing `extent` is a warn. Recipe tokens
+ * (`check`, `tick`, `checkmark`) resolve here — not a new kin row.
  */
 export const check = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
-    "wide",
+    null,
     finish === "filled"
-      ? ["rect 2,3 20x16 r4", "hole line 3,14 7,18 21,4"]
-      : ["line 3,14 7,18 21,4"]
+      ? ["circle 12,12 r10", "hole line 20,6 9,17 4,12 off-axis"]
+      : ["line 20,6 9,17 4,12 off-axis"]
   );
 
 /**
@@ -497,43 +532,70 @@ export const lock = (slug: string, finish: Finish = "outlined"): string =>
 export const ring = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "circle", paintRing(finish, 12, 12, 9));
 
-/** Three overlapping discs — a cloud. */
+/**
+ * House cloud: a union silhouette, not two overlapping stroked circles.
+ * Outlined traces the outer lobes (left three-quarter from the baseline,
+ * right half from the saddle) plus the house chord `M17 19H9`. Filled
+ * is the same two discs the house file floods. Two full circles under
+ * stroke left a figure-8 crease the house path does not have.
+ */
 export const cloud = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "wide", [
-    "circle 8,12 r5",
-    "circle 16,12 r5",
-    finish === "filled" ? "circle 12,9 r6" : "circle 12,9 r5.5",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? ["circle 9,12 r8", "circle 17,14 r6", "line 9,19 17,19"]
+      : [
+          "arc 9,12 r7 three-quarter from bottom",
+          "arc 17,14 r5 half from top",
+          "line 9,19 17,19",
+        ]
+  );
 
 /**
  * House home: one pentagon, both paints. Outlined is the outer stroke
  * (peak and walls, no inner roof). Filled is the same silhouette — a
- * body mass with the roof diamond seated on its top edge so the lower
- * half is inside the walls, not a diamond drawn through them. No door:
- * the house files are a solid pentagon. Portrait 18×20.
+ * body mass with the roof diamond seated on the eaves, not a diamond
+ * drawn through the walls. No door: the house files are a solid
+ * pentagon. The eaves sit high (y=8) so the roof matches the house
+ * file rather than a tall A-frame. No portrait `fit`: the walls are
+ * already 18×18, and stretching them onto 18×20 dropped the match.
  */
 export const home = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
-    "portrait",
+    null,
     finish === "filled"
-      ? [mass(finish, 4, 10, 16, 10, 1), ...lozenge(finish, 12, 10, 8)]
-      : [
-          "line 4,10 12,2 20,10",
-          "line 4,10 4,20",
-          "line 4,20 20,20",
-          "line 20,20 20,10",
-        ]
+      ? [mass(finish, 4, 8, 16, 12, 1), ...lozenge(finish, 12, 8, 5)]
+      : ["line 12,3 20,8 20,20 4,20 4,8 12,3 off-axis"]
   );
 
-/** Two lobes and a diamond point — a geometric heart. Landscape 20×18. */
+/**
+ * House heart: compile of the blode file is one evenodd compound
+ * (`part heart-0`). Outlined is that closed silhouette, not two arcs
+ * or three circles. The outline samples the house bezier (lobe tops,
+ * sides at y=10, point, cleft). Filled is the same taller body —
+ * overlapping lobe masses and a seated point — not a disc and not
+ * three circles restamped as solids. Recipe tokens resolve here —
+ * not a new kin row.
+ */
 export const heart = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "landscape", [
-    finish === "filled" ? "circle 8,9 r6" : "circle 8,9 r5",
-    finish === "filled" ? "circle 16,9 r6" : "circle 16,9 r5",
-    ...lozenge(finish, 12, 14, 6),
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    "landscape",
+    finish === "filled"
+      ? [
+          mass(finish, 3, 4, 9, 9, 3),
+          mass(finish, 12, 4, 9, 9, 3),
+          ...lozenge(finish, 12, 13.5, 6.5),
+        ]
+      : [
+          "line 8,4 9.7,4.2 10.9,4.8 11.7,5.3 12,5.5 12.3,5.3 13.1,4.8 14.3,4.2 16,4 17.8,4.4 19.4,5.5 20.6,7.4 21,10 19.7,14 16.8,17.2 13.7,19.2 12,20 10.3,19.2 7.2,17.2 4.3,14 3,10 3.4,7.4 4.6,5.5 6.2,4.4 8,4 off-axis",
+        ]
+  );
 
 /** Head and a diamond tip — map pin. Path 14×18 + stroke is tall 16×20. */
 export const pin = (slug: string, finish: Finish = "outlined"): string =>
@@ -582,12 +644,234 @@ export const pencil = (slug: string, finish: Finish = "outlined"): string =>
     ...lozenge(finish, 12, 17, 4),
   ]);
 
-/** Diamond body — a shield. */
+/**
+ * House shield: compile is one heater silhouette (`part shield-0`).
+ * Outlined is that closed outline — peaked top, inset shoulders, sides,
+ * a point — not a 45° diamond with a cap. Extra samples on the house
+ * bottom curves (`16,19` / `8,19`) keep the heater inside the 18×20
+ * pair box. Filled is the same body (a mass seated on a diamond
+ * point). No portrait `fit`.
+ */
 export const shield = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "square", [
-    ...lozenge(finish, 12, 13, 8),
-    mass(finish, 7, 5, 10, 5, 1),
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [mass(finish, 4, 4, 16, 11, 2), ...lozenge(finish, 12, 14, 8)]
+      : [
+          "line 12,3 19,6 20,7 20,12 16,19 12,21 8,19 4,12 4,7 5,6 12,3 off-axis",
+        ]
+  );
+
+/**
+ * House zap: compile is one bolt silhouette (`part zap-0`). Outlined
+ * is that closed zigzag on the house vertices, not a frame-and-dot.
+ * Filled is a core mass plus parallel bars on those edges — a closed
+ * polyline has no inside under fill. No portrait `fit`: the house
+ * bolt is 18×22.
+ */
+export const zap = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          mass(finish, 8, 8, 8, 8, 1),
+          "line 12.1,2.1 4,14.2 off-axis",
+          "line 13,2.4 4.4,15 off-axis",
+          "line 14,3 5.4,15 off-axis",
+          "line 4.4,15 11,15",
+          "line 11,15.5 11,21.6",
+          "line 11.9,21.9 20,9.8 off-axis",
+          "line 10.9,21.9 18.6,9 off-axis",
+          "line 19.6,9 13,9",
+          "line 13,9 13,2.4",
+        ]
+      : [
+          "line 19.6,9 13.5,9 13,8.5 13,2.4 12.1,2.1 4,14.2 4.4,15 10.5,15 11,15.5 11,21.6 11.9,21.9 20,9.8 19.6,9 off-axis",
+        ]
+  );
+
+/**
+ * House pause: two rounded uprights at x=5–9 and x=15–19. Compile is
+ * those two bars in both paints — not a frame-and-dot, and not one
+ * slab. No portrait `fit`: stretching 16×18 onto 18×20 is what kept
+ * this off 1.000.
+ */
+export const pause = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, null, [
+    mass(finish, 5, 4, 4, 16, 2),
+    mass(finish, 15, 4, 4, 16, 2),
   ]);
+
+/**
+ * House play: a rounded-back triangle pointing right. Outlined is that
+ * closed silhouette on the house vertices. Filled is an inset mass plus
+ * the two-point edges — a closed polyline has no inside under fill, and
+ * the old stadium back read as a rounded slab, not the house triangle.
+ * No portrait `fit`: the body already sits on the house box.
+ */
+export const play = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          mass(finish, 6, 6, 8, 12, 2),
+          "line 6,6 10.5,3.5 off-axis",
+          "line 10.5,3.5 21,12 off-axis",
+          "line 21,12 10.5,20.5 off-axis",
+          "line 10.5,20.5 6,18 off-axis",
+          "line 6,18 6,6",
+        ]
+      : ["line 6,6 10.5,3.5 20,9.5 21,12 20,14.5 10.5,20.5 6,18 6,6 off-axis"]
+  );
+
+/**
+ * House chevron-right: outlined is the open tick (`m9 18 6-6-6-6`).
+ * Filled is the house thick `>`, a taller band than the stroke. House
+ * paints occupy different extents (8×14 vs 8.8×18) — pairing `extent`
+ * is a warn. `chevron-right` tokens here — not a kin row.
+ */
+export const chevron = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? ["line 8.3,3.3 17,12 off-axis", "line 17,12 8.3,20.7 off-axis"]
+      : ["line 9,6 15,12 off-axis", "line 15,12 9,18 off-axis"]
+  );
+
+/**
+ * House arrow-right: a shaft plus a chevron head. Filled is those three
+ * bars (compile is one evenodd compound). `arrow-right` tokens here.
+ */
+export const arrow = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, null, [
+    "line 5,12 19,12",
+    "line 12,5 19,12 off-axis",
+    "line 19,12 12,19 off-axis",
+  ]);
+
+/**
+ * House bookmark: a tall ribbon with a V bite cut *into* the foot
+ * (house `M5 19.99` / `L12 18.2`), not two tails hanging below. Filled
+ * is the same body. No tall `fit`: the ribbon already occupies 16×20.
+ */
+export const bookmark = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, null, [
+    mass(finish, 5, 3, 14, 17, 3),
+    "line 5,20 12,17.5 off-axis",
+    "line 19,20 12,17.5 off-axis",
+  ]);
+
+/**
+ * House share: three nodes at (17,6), (6,12), (17,18) and the two
+ * house connectors. Outlined is r3 (stroke 2 is visual r4); filled is
+ * those discs at r4. No circle `fit`: the nodes already sit on the
+ * house box, and stretching them dropped the pair.
+ */
+export const share = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, null, [
+    finish === "filled" ? "circle 17,6 r4" : "circle 17,6 r3",
+    finish === "filled" ? "circle 6,12 r4" : "circle 6,12 r3",
+    finish === "filled" ? "circle 17,18 r4" : "circle 17,18 r3",
+    "line 14.3,7.4 8.7,10.6 off-axis",
+    "line 8.7,13.4 14.3,16.6 off-axis",
+  ]);
+
+/**
+ * House airdrop: a dome, two off-axis beams (`M4 11L11 16.5`), a stem,
+ * and a seated capsule. Filled is a solid dome (house evenodd is that
+ * disc plus the beams), not a stroked arc restamped as a thin lid.
+ */
+export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "portrait", [
+    finish === "filled" ? "circle 12,11 r9" : "arc 12,11 r8 half from left",
+    "line 4,11 11,16.5 off-axis",
+    "line 13,16.5 20,11 off-axis",
+    "line 12,11 12,16",
+    mass(finish, 8, 17, 8, 4, 2),
+  ]);
+
+/**
+ * House airplane: a jet silhouette pointing NE. Outlined is that
+ * closed outline on the house vertices; filled is a fuselage mass
+ * plus two-point bars on those edges. A handful of open ticks reads
+ * as a sketch, not the house path. No circle `fit`.
+ */
+export const airplane = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          mass(finish, 8, 7, 10, 8, 2),
+          "line 21,3 16.3,4.2 off-axis",
+          "line 16.3,4.2 13.5,7 off-axis",
+          "line 13.5,7 6.8,4.6 off-axis",
+          "line 6.8,4.6 3,6 off-axis",
+          "line 3,6 9.5,11 off-axis",
+          "line 9.5,11 7.5,13 off-axis",
+          "line 7.5,13 3,15.5 off-axis",
+          "line 3,15.5 8.5,21 off-axis",
+          "line 8.5,21 11,16.5 off-axis",
+          "line 11,16.5 13,14.5 off-axis",
+          "line 13,14.5 18,21 off-axis",
+          "line 18,21 17,10.5 off-axis",
+          "line 17,10.5 21,3 off-axis",
+        ]
+      : [
+          "line 21,3 19.2,3 16.3,4.2 13.5,7 6.8,4.6 3.7,5.3 3,6 9.5,11 7.5,13 6.7,13 4.6,13.9 3,15.5 5.7,16.5 7.5,18.3 8.5,21 10.1,19.4 11,17.3 11,16.5 13,14.5 18,21 18.7,20.3 19.4,17.2 17,10.5 19.8,7.7 21,4.8 21,3 off-axis",
+        ]
+  );
+
+/**
+ * Net-new hanging lantern: handle, body, flame. No house file. Both
+ * paints share the same masses so pairing stays clean.
+ */
+export const lantern = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "tall", [
+    "arc 12,5 r5 half from left",
+    mass(finish, 4, 7, 16, 13, 2),
+    finish === "filled" ? "circle 12,14 r2.5" : "circle 12,14 r2",
+  ]);
+
+/**
+ * Net-new otter: head, body, tail. No house file. Two-point tail so
+ * filled paint is a bar, not a closed polyline.
+ */
+export const otter = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, null, [
+    mass(finish, 2, 6, 8, 8, 4),
+    mass(finish, 7, 6, 12, 10, 3),
+    "line 18,14 21,18 off-axis",
+  ]);
+
+/**
+ * Net-new paper plane: a dart, not a jet. `paper-plane` must not fall
+ * through to airplane via `plane`. Outlined is the closed silhouette;
+ * filled is those edges as two-point bars.
+ */
+export const paperplane = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(
+    slug,
+    finish,
+    "wide",
+    finish === "filled"
+      ? [
+          "line 4,12 20,6 off-axis",
+          "line 20,6 13,12 off-axis",
+          "line 13,12 20,18 off-axis",
+          "line 20,18 4,12 off-axis",
+        ]
+      : ["line 4,12 20,6 13,12 20,18 4,12 off-axis"]
+  );
 
 /** Neck and a diamond body — a flask, not a beaker stack. */
 export const flask = (slug: string, finish: Finish = "outlined"): string =>
@@ -731,14 +1015,19 @@ const sameStem = (query: string, name: string): boolean => {
 };
 
 const FAMILY_DRAW = {
+  airdrop,
+  airplane,
   anchor,
   apple,
+  arrow,
   banana,
   bell,
   book,
+  bookmark,
   camera,
   car,
   check,
+  chevron,
   clock,
   cloud,
   envelope,
@@ -754,19 +1043,25 @@ const FAMILY_DRAW = {
   key,
   kiwi,
   ladder,
+  lantern,
   leaf,
   lock,
   magnet,
   moon,
   mushroom,
+  otter,
+  paperplane,
+  pause,
   peak,
   pencil,
   pin,
   plant,
+  play,
   plus,
   ring,
   rocket,
   sailboat,
+  share,
   shield,
   stapler,
   sun,
@@ -776,6 +1071,7 @@ const FAMILY_DRAW = {
   tube,
   volcano,
   wine,
+  zap,
 } as const;
 
 export type AnalogFamilyId = keyof typeof FAMILY_DRAW;
@@ -1025,6 +1321,18 @@ export const WINE_HINT =
 export const FLOWER_HINT = /\b(?:flowers?)\b/iu;
 export const PLUS_HINT = /\b(?:plus)\b/iu;
 export const CLOCK_HINT = /\b(?:clocks?)\b/iu;
+export const ZAP_HINT = /\b(?:zaps?|lightning)\b/iu;
+export const PAUSE_HINT = /\b(?:pause|pauses)\b/iu;
+export const PLAY_HINT = /\b(?:play|plays)\b/iu;
+export const CHEVRON_HINT = /\b(?:chevrons?)\b/iu;
+export const ARROW_HINT = /\b(?:arrows?)\b/iu;
+export const BOOKMARK_HINT = /\b(?:bookmarks?)\b/iu;
+export const SHARE_HINT = /\b(?:shares?)\b/iu;
+export const AIRDROP_HINT = /\b(?:airdrops?)\b/iu;
+export const PAPER_PLANE_HINT = /\bpaper[- ]?planes?\b/iu;
+export const LANTERN_HINT = /\b(?:lanterns?)\b/iu;
+export const OTTER_HINT = /\b(?:otters?)\b/iu;
+export const AIRPLANE_HINT = /\b(?:airplanes?|aeroplanes?|planes?)\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: TOWER_HINT, id: "tower" },
@@ -1069,6 +1377,18 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: FLOWER_HINT, id: "flower" },
   { hint: PLUS_HINT, id: "plus" },
   { hint: CLOCK_HINT, id: "clock" },
+  { hint: ZAP_HINT, id: "zap" },
+  { hint: PAUSE_HINT, id: "pause" },
+  { hint: PLAY_HINT, id: "play" },
+  { hint: CHEVRON_HINT, id: "chevron" },
+  { hint: ARROW_HINT, id: "arrow" },
+  { hint: BOOKMARK_HINT, id: "bookmark" },
+  { hint: SHARE_HINT, id: "share" },
+  { hint: AIRDROP_HINT, id: "airdrop" },
+  { hint: PAPER_PLANE_HINT, id: "paperplane" },
+  { hint: LANTERN_HINT, id: "lantern" },
+  { hint: OTTER_HINT, id: "otter" },
+  { hint: AIRPLANE_HINT, id: "airplane" },
 ];
 
 const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
@@ -1210,6 +1530,44 @@ const familyOf = (
   return null;
 };
 
+/**
+ * The host analog the generate loop may adopt. A holdout (`star`) and
+ * an honest unknown stay null — `construct` must not place a
+ * frame-and-dot as if it were the named object.
+ */
+export const hostConstruction = (
+  query: string,
+  finish: Finish = "outlined"
+): { id: string; source: string } | null => {
+  if (holdoutBrief(query) !== null) {
+    return null;
+  }
+  return familyOf(query, query, finish);
+};
+
+/** Write the host analog onto a generate canvas. Coordinates stay in analog. */
+export const adoptHost = (
+  canvas: Canvas,
+  query: string,
+  finish: Finish = "outlined",
+  parts: readonly Part[] = [],
+  spec?: Spec
+): { family: string; placed: number } => {
+  const host = hostConstruction(query, finish);
+  if (!host) {
+    throw new Error(
+      `no host analog for "${query}" — compose it from listParts and primitives`
+    );
+  }
+  const drawn = runDsl(host.source, [...parts], spec ? { spec } : {});
+  if (drawn.errors.length > 0) {
+    throw new Error(drawn.errors.join("; "));
+  }
+  canvas.clear();
+  canvas.elements.push(...drawn.canvas.elements);
+  return { family: host.id, placed: canvas.elements.length };
+};
+
 export const analogConstructions = (
   slug: string,
   parts: readonly Part[],
@@ -1336,11 +1694,12 @@ const withPair = (
   if (other === undefined) {
     return result;
   }
-  const issues = pairPrograms(
+  const issues = pairFamily(
     result.issues,
     finish,
     result.program,
     other.source,
+    id,
     [...parts, ...(extras ?? []), ...(other.extras ?? [])],
     spec
   );

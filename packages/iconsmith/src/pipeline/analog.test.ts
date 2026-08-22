@@ -16,13 +16,18 @@ import {
   familyFromToken,
   familyFromTokens,
   anchor,
+  airdrop,
+  airplane,
   apple,
+  arrow,
   banana,
   bell,
   book,
+  bookmark,
   camera,
   car,
   check,
+  chevron,
   clock,
   cloud,
   composeFromParts,
@@ -36,6 +41,7 @@ import {
   heart,
   home,
   horn,
+  hostConstruction,
   hourglass,
   hub,
   HUB_HINT,
@@ -49,11 +55,13 @@ import {
   magnet,
   moon,
   mushroom,
+  pause,
   peak,
   pencil,
   pickKin,
   pin,
   plant,
+  play,
   plus,
   PLANT_HINT,
   preferStroked,
@@ -63,6 +71,7 @@ import {
   ring,
   sailboat,
   sameLetters,
+  share,
   shield,
   stack,
   stapler,
@@ -76,6 +85,7 @@ import {
   unknown,
   volcano,
   wine,
+  zap,
 } from "./analog.js";
 
 const BOX = "M4 4H12V12H4Z";
@@ -304,6 +314,13 @@ describe("analogConstructions", () => {
     expect(analogConstructions("lock", [], "lock", false)[0]?.id).toBe("lock");
     expect(analogConstructions("ring", [], "ring", false)[0]?.id).toBe("ring");
     expect(analogConstructions("home", [], "home", false)[0]?.id).toBe("home");
+    expect(analogConstructions("zap", [], "zap", false)[0]?.id).toBe("zap");
+    expect(
+      analogConstructions("lightning", [], "lightning", false)[0]?.id
+    ).toBe("zap");
+    expect(analogConstructions("shield", [], "shield", false)[0]?.id).toBe(
+      "shield"
+    );
   });
 
   /**
@@ -460,6 +477,15 @@ describe("analog families", () => {
     { draw: cloud, id: "cloud", slug: "cloud" },
     { draw: heart, id: "heart", slug: "heart" },
     { draw: home, id: "home", slug: "home" },
+    { draw: zap, id: "zap", slug: "zap" },
+    { draw: pause, id: "pause", slug: "pause" },
+    { draw: play, id: "play", slug: "play" },
+    { draw: chevron, id: "chevron", slug: "chevron-right" },
+    { draw: arrow, id: "arrow", slug: "arrow-right" },
+    { draw: bookmark, id: "bookmark", slug: "bookmark" },
+    { draw: share, id: "share", slug: "share" },
+    { draw: airdrop, id: "airdrop", slug: "airdrop" },
+    { draw: airplane, id: "airplane", slug: "airplane" },
     { draw: pin, id: "pin", slug: "pin" },
     { draw: flag, id: "flag", slug: "flag" },
     { draw: key, id: "key", slug: "key" },
@@ -551,7 +577,7 @@ describe("analog families", () => {
     expect(composeFromParts("mail", [])).toContain("off-axis");
     expect(composeFromParts("plus-sign", [])).toContain("line 4,12");
     expect(composeFromParts("wall-clock", [])).toContain("circle 12,12 r9");
-    expect(composeFromParts("checkmark", [])).toContain("line 3,14");
+    expect(composeFromParts("checkmark", [])).toContain("line 20,6");
     expect(composeFromParts("xyzzy", [])).toBeNull();
   });
 
@@ -565,6 +591,19 @@ describe("analog families", () => {
     expect(ANALOG_KINS.lock).toBeUndefined();
     expect(ANALOG_KINS.ring).toBeUndefined();
     expect(ANALOG_KINS.home).toBeUndefined();
+    expect(ANALOG_KINS.heart).toBeUndefined();
+    expect(ANALOG_KINS.shield).toBeUndefined();
+    expect(ANALOG_KINS.zap).toBeUndefined();
+    expect(ANALOG_KINS.lightning).toBeUndefined();
+    expect(ANALOG_KINS.pause).toBeUndefined();
+    expect(ANALOG_KINS.play).toBeUndefined();
+    expect(ANALOG_KINS.chevron).toBeUndefined();
+    expect(ANALOG_KINS.arrow).toBeUndefined();
+    expect(ANALOG_KINS.bookmark).toBeUndefined();
+    expect(ANALOG_KINS.share).toBeUndefined();
+    expect(ANALOG_KINS.airdrop).toBeUndefined();
+    expect(ANALOG_KINS.airplane).toBeUndefined();
+    expect(ANALOG_KINS.star).toBeUndefined();
     expect(contentTokens("mail-icon")).toEqual(["mail"]);
     expect(ANALOG_MODIFIERS.has("icon")).toBe(true);
     expect(familyFromToken("checkmark")).toBe("check");
@@ -660,14 +699,88 @@ describe("analog families", () => {
     expect(plus("plus-sign", "filled")).toContain("rect 3,11 18x2");
     expect(clock("wall-clock")).toContain("circle 12,12 r9");
     expect(clock("wall-clock", "filled")).toContain("hole rect");
-    expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
-    expect(check("checkmark", "filled")).toContain("hole line");
+    expect(check("checkmark")).toContain("line 20,6 9,17 4,12");
+    expect(check("checkmark", "filled")).toContain("circle 12,12 r10");
+    expect(check("checkmark", "filled")).toContain("hole line 20,6 9,17 4,12");
+    expect(pause("pause")).toContain("rect 5,4 4x16");
+    expect(pause("pause")).not.toContain("keyline ");
+    expect(sun("sun")).not.toContain("keyline ");
+    expect(bell("bell")).toContain("arc 12,10 r7 half from left");
+    expect(bell("bell")).not.toContain("keyline ");
+    expect(bell("bell", "filled")).toContain("circle 12,10.5 r8.5");
+    expect(play("play")).toContain("line 6,6 10.5,3.5 20,9.5 21,12");
+    expect(play("play")).not.toContain("rect 6,4 8x16");
+    expect(play("play")).not.toContain("keyline ");
+    expect(play("play", "filled")).toContain("rect 5,5 10x14");
+    expect(play("play", "filled")).toContain("line 10.5,3.5 21,12");
+    expect(cloud("cloud")).toContain("arc 9,12 r7 three-quarter from bottom");
+    expect(cloud("cloud")).toContain("arc 17,14 r5 half from top");
+    expect(cloud("cloud")).toContain("line 9,19 17,19");
+    expect(cloud("cloud")).not.toContain("circle 9,12 r7");
+    expect(cloud("cloud")).not.toContain("keyline ");
+    expect(cloud("cloud", "filled")).toContain("circle 9,12 r8");
+    expect(chevron("chevron-right")).toContain("line 9,6 15,12");
+    expect(chevron("chevron-right", "filled")).toContain("line 8.3,3.3 17,12");
+    expect(arrow("arrow-right")).toContain("line 5,12 19,12");
+    expect(bookmark("bookmark")).toContain("line 5,20 12,17.5");
+    expect(bookmark("bookmark")).not.toContain("keyline ");
+    expect(airdrop("airdrop", "filled")).toContain("circle 12,11 r9");
+    expect(share("share")).toContain("circle 17,6 r3");
+    expect(share("share")).not.toContain("keyline ");
+    expect(share("share", "filled")).toContain("circle 17,6 r4");
+    expect(airdrop("airdrop")).toContain("line 4,11 11,16.5");
+    expect(airplane("airplane")).toContain("line 21,3 19.2,3 16.3,4.2");
+    expect(airplane("airplane")).not.toContain("keyline ");
+    expect(airplane("airplane", "filled")).toContain("rect ");
+    expect(sun("sun")).toContain("line 12,2 12,3");
+    expect(sun("sun")).toContain("line 5,5 4,4");
+    expect(sun("sun")).not.toContain("dot 5,5");
     expect(lock("lock", "filled")).toContain("hole circle");
     expect(ring("ring", "filled")).toContain("hole circle");
-    expect(home("home")).toContain("line 4,10 12,2 20,10");
+    expect(home("home")).toContain("line 12,3 20,8 20,20 4,20 4,8 12,3");
     expect(home("home")).not.toContain("diamond ");
-    expect(home("home", "filled")).toContain("diamond 12,10 r8");
+    expect(home("home")).not.toContain("keyline ");
+    expect(home("home", "filled")).toContain("diamond 12,8 r5");
     expect(home("home", "filled")).not.toContain("dot 12,12 node");
+    expect(heart("heart")).toContain("line 8,4 9.7,4.2 10.9,4.8");
+    expect(heart("heart")).toContain("off-axis");
+    expect(heart("heart")).not.toContain("circle ");
+    expect(heart("heart")).not.toContain("arc ");
+    expect(heart("heart", "filled")).toContain("rect ");
+    expect(heart("heart", "filled")).toContain("diamond 12,13.5 r6.5");
+    expect(heart("heart", "filled")).not.toContain("circle ");
+    expect(heart("heart", "filled")).not.toContain("dot 12,12 node");
+    expect(shield("shield")).toContain("line 12,3 19,6 20,7 20,12 16,19");
+    expect(shield("shield")).not.toContain("keyline ");
+    expect(shield("shield", "filled")).toContain("diamond 12,14 r8");
+    expect(zap("zap")).toContain("line 19.6,9 13.5,9 13,8.5");
+    expect(zap("zap", "filled")).toContain("rect 7,7 10x10");
+    expect(zap("zap", "filled")).toContain("line 12.1,2.1 4,14.2");
+    expect(zap("zap")).not.toContain("dot 12,12 node");
+  });
+
+  it("keeps house-divergent check and chevron clean, with extent as a warn", async () => {
+    const names = ["checkmark", "chevron-right"] as const;
+    const drawn = await Promise.all(
+      names.flatMap((name) =>
+        (["outlined", "filled"] as const).map((finish) =>
+          analogArm()({ name }, { finish }).then((result) => ({
+            finish,
+            name,
+            result,
+          }))
+        )
+      )
+    );
+    for (const { finish, name, result } of drawn) {
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      const extent = result.issues.filter((i) => i.rule === "extent");
+      expect(extent.length, `${name} ${finish} extent`).toBeGreaterThan(0);
+      expect(
+        extent.every((i) => i.severity === "warn"),
+        `${name} ${finish} extent warn`
+      ).toBe(true);
+    }
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {
@@ -724,6 +837,18 @@ describe("analog families", () => {
       ["checkmark", "check"],
       ["lock", "lock"],
       ["home", "home"],
+      ["zap", "zap"],
+      ["lightning", "zap"],
+      ["shield", "shield"],
+      ["pause", "pause"],
+      ["play", "play"],
+      ["chevron-right", "chevron"],
+      ["arrow-right", "arrow"],
+      ["bookmark", "bookmark"],
+      ["share", "share"],
+      ["airdrop", "airdrop"],
+      ["airplane", "airplane"],
+      ["cloud", "cloud"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -741,6 +866,46 @@ describe("analog families", () => {
     for (const name of ["xyzzy", "fnord", "quokka", "star", "compass"]) {
       const [row] = analogConstructions(name, [], name, false);
       expect(row?.id, name).toBe("unknown");
+    }
+  });
+
+  it("draws net-new names that have no house file", async () => {
+    expect(hostConstruction("star")).toBeNull();
+    expect(hostConstruction("quokka")).toBeNull();
+    expect(
+      analogConstructions("paper-plane", [], "paper-plane", false)[0]?.id
+    ).toBe("paperplane");
+    expect(
+      analogConstructions("paper-plane", [], "paper-plane", false)[0]?.id
+    ).not.toBe("airplane");
+    const cases = [
+      ["lantern", "lantern"],
+      ["otter", "otter"],
+      ["paper-plane", "paperplane"],
+    ] as const;
+    const drawn = await Promise.all(
+      cases.flatMap(([name, id]) => [
+        analogArm()({ name }).then((result) => ({
+          finish: "outlined" as const,
+          id,
+          name,
+          result,
+        })),
+        analogArm()({ name }, { finish: "filled" }).then((result) => ({
+          finish: "filled" as const,
+          id,
+          name,
+          result,
+        })),
+      ])
+    );
+    for (const { finish, id, name, result } of drawn) {
+      expect(hostConstruction(name)?.id).toBe(id);
+      expect(result.brief, `${name} ${finish}`).toBe(`analog ${id} ${name}`);
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      expect(result.program, `${name} ${finish}`).not.toContain(
+        "dot 12,12 node"
+      );
     }
   });
 
@@ -769,6 +934,18 @@ describe("analog families", () => {
       ["checkmark", "check"],
       ["lock", "lock"],
       ["home", "home"],
+      ["zap", "zap"],
+      ["shield", "shield"],
+      ["heart", "heart"],
+      ["pause", "pause"],
+      ["play", "play"],
+      ["chevron-right", "chevron"],
+      ["arrow-right", "arrow"],
+      ["bookmark", "bookmark"],
+      ["share", "share"],
+      ["airdrop", "airdrop"],
+      ["airplane", "airplane"],
+      ["cloud", "cloud"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [
