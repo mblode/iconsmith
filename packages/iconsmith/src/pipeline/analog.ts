@@ -409,17 +409,33 @@ export const envelope = (slug: string, finish: Finish = "outlined"): string =>
     "line 12,13 21,5 off-axis",
   ]);
 
-/** Dome, skirt, clapper — a bell, not a hub. */
 /**
- * House bell: outlined is the dome plus a seated clapper; filled is one
- * evenodd silhouette. Not a stack of discs and a terminal dot. No
- * portrait `fit`: the dome is already the house box.
+ * House bell: outlined is the vase — upper half-arc, flared lip, seated
+ * clapper. Filled is a dome disc plus the same lip and clapper. A single
+ * rounded mass read as a capsule, not the house vase. No portrait `fit`.
  */
 export const bell = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, null, [
-    mass(finish, 5, 3, 14, 16, 6),
-    mass(finish, 8, 17, 8, 4, 2),
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          "circle 12,10.5 r8.5",
+          mass(finish, 4.5, 10, 15, 8, 2),
+          mass(finish, 8, 17, 8, 4, 2),
+        ]
+      : [
+          "arc 12,10 r7 half from left",
+          "line 5,10 4.5,15",
+          "line 19,10 19.5,15",
+          "line 4.5,15 7.4,18",
+          "line 19.5,15 16.6,18",
+          "line 7.4,18 16.6,18",
+          "line 8,18 12,21 off-axis",
+          "line 16,18 12,21 off-axis",
+        ]
+  );
 
 /** A C-shaped crescent — moon, not a full disc. */
 export const moon = (slug: string, finish: Finish = "outlined"): string =>
@@ -559,8 +575,8 @@ export const home = (slug: string, finish: Finish = "outlined"): string =>
 /**
  * House heart: compile of the blode file is one evenodd compound
  * (`part heart-0`). Outlined is that closed silhouette, not two arcs
- * or three circles. The lobes sit on the house tops (`3,6` / `21,6`)
- * rather than halfway down the sides. Filled is the same taller body —
+ * or three circles. The outline samples the house bezier (lobe tops,
+ * sides at y=10, point, cleft). Filled is the same taller body —
  * overlapping lobe masses and a seated point — not a disc and not
  * three circles restamped as solids. Recipe tokens resolve here —
  * not a new kin row.
@@ -576,7 +592,9 @@ export const heart = (slug: string, finish: Finish = "outlined"): string =>
           mass(finish, 12, 4, 9, 9, 3),
           ...lozenge(finish, 12, 13.5, 6.5),
         ]
-      : ["line 8,4 3,6 3,11 12,20 21,11 21,6 16,4 12,5.5 8,4 off-axis"]
+      : [
+          "line 8,4 5.5,4 3,6 3,10 3,15.8 12,20 21,15.8 21,10 21,6 18.5,4 16,4 12,5.5 8,4 off-axis",
+        ]
   );
 
 /** Head and a diamond tip — map pin. Path 14×18 + stroke is tall 16×20. */
@@ -645,22 +663,28 @@ export const shield = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House zap: compile is one bolt silhouette (`part zap-0`). Outlined
- * is that closed zigzag, not a frame-and-dot. Filled is the same
- * lightning as three bars on the bolt's centre-lines. Recipe tokens
- * (`zap`, `lightning`) resolve here — not a new kin row.
+ * is that closed zigzag on the house vertices, not a frame-and-dot.
+ * Filled is parallel bars on those edges — a closed polyline has no
+ * inside under fill. No portrait `fit`: the bolt is 17×21.5.
  */
 export const zap = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
-    "portrait",
+    null,
     finish === "filled"
       ? [
-          "line 13,4 5,14 off-axis",
-          "line 5,14 19,10 off-axis",
-          "line 19,10 11,20 off-axis",
+          "line 13,3 4.4,15 off-axis",
+          "line 14,3 5.4,15 off-axis",
+          "line 4.4,15 11,15",
+          "line 11,15 11.9,21.9 off-axis",
+          "line 12,15 12.9,21.9 off-axis",
+          "line 11.9,21.9 19.6,9 off-axis",
+          "line 10.9,21.9 18.6,9 off-axis",
+          "line 19.6,9 13,9",
+          "line 13,9 13,2.4",
         ]
-      : ["line 13,3 13,9 20,9 11,21 11,15 4,15 13,3 off-axis"]
+      : ["line 13,2.4 13,9 19.6,9 11.9,21.9 11,15 4.4,15 13,2.4 off-axis"]
   );
 
 /**

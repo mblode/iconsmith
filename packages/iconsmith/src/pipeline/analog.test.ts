@@ -705,8 +705,9 @@ describe("analog families", () => {
     expect(pause("pause")).toContain("rect 5,4 4x16");
     expect(pause("pause")).not.toContain("keyline ");
     expect(sun("sun")).not.toContain("keyline ");
-    expect(bell("bell")).toContain("rect 5,3 14x16");
+    expect(bell("bell")).toContain("arc 12,10 r7 half from left");
     expect(bell("bell")).not.toContain("keyline ");
+    expect(bell("bell", "filled")).toContain("circle 12,10.5 r8.5");
     expect(play("play")).toContain("line 6,6 10.5,3.5 20,9.5 21,12");
     expect(play("play")).not.toContain("rect 6,4 8x16");
     expect(play("play")).not.toContain("keyline ");
@@ -741,7 +742,7 @@ describe("analog families", () => {
     expect(home("home")).not.toContain("keyline ");
     expect(home("home", "filled")).toContain("diamond 12,8 r5");
     expect(home("home", "filled")).not.toContain("dot 12,12 node");
-    expect(heart("heart")).toContain("line 8,4 3,6 3,11 12,20");
+    expect(heart("heart")).toContain("line 8,4 5.5,4 3,6 3,10");
     expect(heart("heart")).toContain("off-axis");
     expect(heart("heart")).not.toContain("circle ");
     expect(heart("heart")).not.toContain("arc ");
@@ -752,8 +753,8 @@ describe("analog families", () => {
     expect(shield("shield")).toContain("line 12,3 19,6 20,7 20,13 12,21");
     expect(shield("shield")).not.toContain("keyline ");
     expect(shield("shield", "filled")).toContain("diamond 12,14 r8");
-    expect(zap("zap")).toContain("line 13,3 13,9 20,9 11,21");
-    expect(zap("zap", "filled")).toContain("line 13,4 5,14");
+    expect(zap("zap")).toContain("line 13,2.4 13,9 19.6,9");
+    expect(zap("zap", "filled")).toContain("line 13,3 4.4,15");
     expect(zap("zap")).not.toContain("dot 12,12 node");
   });
 

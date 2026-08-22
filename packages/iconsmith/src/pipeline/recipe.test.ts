@@ -108,7 +108,7 @@ describe("recipe → family", () => {
     const love = await analogArm()({ name: "heart" });
     const loveFill = await analogArm()({ name: "heart" }, { finish: "filled" });
     expect(love.brief).toBe("analog heart heart");
-    expect(love.program).toContain("line 8,4 3,6 3,11 12,20");
+    expect(love.program).toContain("line 8,4 5.5,4 3,6 3,10");
     expect(love.program).not.toContain("circle ");
     expect(love.program).not.toContain("arc ");
     expect(love.program).not.toContain("dot 12,12 node");
@@ -120,10 +120,10 @@ describe("recipe → family", () => {
     const bolt = await analogArm()({ name: "zap" });
     const boltFill = await analogArm()({ name: "zap" }, { finish: "filled" });
     expect(bolt.brief).toBe("analog zap zap");
-    expect(bolt.program).toContain("line 13,3 13,9 20,9 11,21");
+    expect(bolt.program).toContain("line 13,2.4 13,9 19.6,9");
     expect(bolt.program).not.toContain("dot 12,12 node");
     expect(bolt.clean).toBe(true);
-    expect(boltFill.program).toContain("line 13,4 5,14");
+    expect(boltFill.program).toContain("line 13,3 4.4,15");
     expect(boltFill.clean).toBe(true);
     const [holdout] = analogConstructions("quokka", [], "quokka", false);
     expect(recipeFor("quokka")).toBeNull();
