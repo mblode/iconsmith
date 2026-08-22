@@ -412,11 +412,12 @@ export const envelope = (slug: string, finish: Finish = "outlined"): string =>
 /** Dome, skirt, clapper — a bell, not a hub. */
 /**
  * House bell: outlined is the dome plus a seated clapper; filled is one
- * evenodd silhouette. Not a stack of discs and a terminal dot.
+ * evenodd silhouette. Not a stack of discs and a terminal dot. No
+ * portrait `fit`: the dome is already the house box.
  */
 export const bell = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "portrait", [
-    mass(finish, 4, 3, 16, 14, 5),
+  iconProgram(slug, finish, null, [
+    mass(finish, 5, 3, 14, 15, 6),
     mass(finish, 8, 17, 8, 4, 2),
   ]);
 
@@ -426,10 +427,12 @@ export const moon = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House sun: a disc and eight short ticks at the compass points. Not four
- * long bars — those read as a plus, not rays.
+ * long bars — those read as a plus, not rays. No square `fit`: the ticks
+ * already sit on the 24 canvas, and scaling them onto 20×20 is what
+ * dropped the house match.
  */
 export const sun = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "square", [
+  iconProgram(slug, finish, null, [
     finish === "filled" ? "circle 12,12 r6" : "circle 12,12 r5",
     "line 12,2 12,3",
     "line 12,21 12,22",
@@ -647,13 +650,15 @@ export const zap = (slug: string, finish: Finish = "outlined"): string =>
   );
 
 /**
- * House pause: two rounded uprights. Compile is those two bars in both
- * paints — not a frame-and-dot, and not one slab.
+ * House pause: two rounded uprights at x=5–9 and x=15–19. Compile is
+ * those two bars in both paints — not a frame-and-dot, and not one
+ * slab. No portrait `fit`: stretching 16×18 onto 18×20 is what kept
+ * this off 1.000.
  */
 export const pause = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "portrait", [
-    mass(finish, 4, 3, 4, 18, 2),
-    mass(finish, 16, 3, 4, 18, 2),
+  iconProgram(slug, finish, null, [
+    mass(finish, 5, 4, 4, 16, 2),
+    mass(finish, 15, 4, 4, 16, 2),
   ]);
 
 /**

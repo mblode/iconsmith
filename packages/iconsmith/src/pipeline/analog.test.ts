@@ -701,7 +701,11 @@ describe("analog families", () => {
     expect(clock("wall-clock", "filled")).toContain("hole rect");
     expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
     expect(check("checkmark", "filled")).toContain("hole line");
-    expect(pause("pause")).toContain("rect 4,3 4x18");
+    expect(pause("pause")).toContain("rect 5,4 4x16");
+    expect(pause("pause")).not.toContain("keyline ");
+    expect(sun("sun")).not.toContain("keyline ");
+    expect(bell("bell")).toContain("rect 5,3 14x15");
+    expect(bell("bell")).not.toContain("keyline ");
     expect(play("play")).toContain("line 15,4 21,12");
     expect(play("play")).toContain("rect 5,4 10x16");
     expect(play("play")).not.toContain("keyline ");
