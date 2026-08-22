@@ -708,11 +708,12 @@ describe("analog families", () => {
     expect(bell("bell")).toContain("arc 12,10 r7 half from left");
     expect(bell("bell")).not.toContain("keyline ");
     expect(bell("bell", "filled")).toContain("circle 12,10.5 r8.5");
-    expect(play("play")).toContain("line 6,6 10.5,3.5 20,9.5 21,12");
+    expect(play("play")).toContain("line 19.7,9.5 10.6,3.6 9.1,3.1");
     expect(play("play")).not.toContain("rect 6,4 8x16");
     expect(play("play")).not.toContain("keyline ");
     expect(play("play", "filled")).toContain("rect 5,5 10x14");
-    expect(play("play", "filled")).toContain("line 10.5,3.5 21,12");
+    expect(play("play", "filled")).toContain("diamond 14,12 r6");
+    expect(play("play", "filled")).toContain("line 19.7,9.5 10.6,3.6");
     expect(cloud("cloud")).toContain("arc 9,12 r7 three-quarter from bottom");
     expect(cloud("cloud")).toContain("arc 17,14 r5 half from top");
     expect(cloud("cloud")).toContain("line 9,19 17,19");
@@ -722,9 +723,13 @@ describe("analog families", () => {
     expect(chevron("chevron-right")).toContain("line 9,6 15,12");
     expect(chevron("chevron-right", "filled")).toContain("line 8.3,3.3 17,12");
     expect(arrow("arrow-right")).toContain("line 5,12 19,12");
-    expect(bookmark("bookmark")).toContain("line 5,20 12,17.5");
+    expect(arrow("arrow-right", "filled")).toContain("rect 3,10.5 13x3");
+    expect(bookmark("bookmark")).toContain("line 5,20 6.6,20.8 10.3,18.2");
     expect(bookmark("bookmark")).not.toContain("keyline ");
     expect(airdrop("airdrop", "filled")).toContain("circle 12,11 r9");
+    expect(airdrop("airdrop", "filled")).toContain("hole circle 8,14 r3.5");
+    expect(airdrop("airdrop")).toContain("line 4,11 12,10.5 20,11");
+    expect(airdrop("airdrop")).not.toContain("keyline ");
     expect(share("share")).toContain("circle 17,6 r3");
     expect(share("share")).not.toContain("keyline ");
     expect(share("share", "filled")).toContain("circle 17,6 r4");
@@ -733,14 +738,14 @@ describe("analog families", () => {
     expect(airplane("airplane")).not.toContain("keyline ");
     expect(airplane("airplane", "filled")).toContain("rect ");
     expect(sun("sun")).toContain("line 12,2 12,3");
-    expect(sun("sun")).toContain("line 5,5 4,4");
+    expect(sun("sun")).toContain("line 18.4,5.6 19.1,4.9");
     expect(sun("sun")).not.toContain("dot 5,5");
     expect(lock("lock", "filled")).toContain("hole circle");
     expect(ring("ring", "filled")).toContain("hole circle");
-    expect(home("home")).toContain("line 12,3 20,8 20,20 4,20 4,8 12,3");
+    expect(home("home")).toContain("line 12,2.5 15,4 18.2,6.6");
     expect(home("home")).not.toContain("diamond ");
     expect(home("home")).not.toContain("keyline ");
-    expect(home("home", "filled")).toContain("diamond 12,8 r5");
+    expect(home("home", "filled")).toContain("diamond 12,8 r5.5");
     expect(home("home", "filled")).not.toContain("dot 12,12 node");
     expect(heart("heart")).toContain("line 8,4 9.7,4.2 10.9,4.8");
     expect(heart("heart")).toContain("off-axis");
@@ -750,7 +755,7 @@ describe("analog families", () => {
     expect(heart("heart", "filled")).toContain("diamond 12,13.5 r6.5");
     expect(heart("heart", "filled")).not.toContain("circle ");
     expect(heart("heart", "filled")).not.toContain("dot 12,12 node");
-    expect(shield("shield")).toContain("line 12,3 19,6 20,7 20,12 16,19");
+    expect(shield("shield")).toContain("line 20,7.2 19.9,6.6 19.6,6");
     expect(shield("shield")).not.toContain("keyline ");
     expect(shield("shield", "filled")).toContain("diamond 12,14 r8");
     expect(zap("zap")).toContain("line 19.6,9 13.5,9 13,8.5");
@@ -759,8 +764,8 @@ describe("analog families", () => {
     expect(zap("zap")).not.toContain("dot 12,12 node");
   });
 
-  it("keeps house-divergent check and chevron clean, with extent as a warn", async () => {
-    const names = ["checkmark", "chevron-right"] as const;
+  it("keeps house-divergent check, chevron, and arrow clean, with extent as a warn", async () => {
+    const names = ["checkmark", "chevron-right", "arrow-right"] as const;
     const drawn = await Promise.all(
       names.flatMap((name) =>
         (["outlined", "filled"] as const).map((finish) =>

@@ -68,7 +68,7 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
       "one evenodd pentagon: peaked roof sitting on the body. Not a frame-and-dot, not a diamond through the walls, and not a door nobody asked for.",
     id: "home",
     outlined:
-      "one closed pentagon — roof peak and walls as the outer stroke. Not a box, and not a roof drawn through the body.",
+      "one closed pentagon on the house eaves, peak, and rounded foot. Not a sharp box, and not a roof drawn through the body.",
     tokens: ["home"],
   },
   {
@@ -84,7 +84,7 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
       "one evenodd heater: a body mass seated on a diamond point. Not a 45° diamond with a cap, and not a frame-and-dot.",
     id: "shield",
     outlined:
-      "one closed heater — peaked top, sides, a point. Not a diamond with a hat.",
+      "one closed heater on the house cubics — peaked top, sides, a point. Not a diamond with a hat.",
     tokens: ["shield"],
   },
   {
@@ -103,9 +103,10 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
   },
   {
     filled:
-      "a solid right-pointing triangle. Not a chevron, and not a frame-and-dot.",
+      "a body mass seated on a diamond, plus bars on the house triangle. Not a chevron, and not a frame-and-dot.",
     id: "play",
-    outlined: "one closed right-pointing triangle. Not a chevron.",
+    outlined:
+      "one closed right-pointing triangle on the house cubics. Not a chevron.",
     tokens: ["play"],
   },
   {
@@ -116,15 +117,17 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
     tokens: ["chevron"],
   },
   {
-    filled: "a shaft bar plus two head bars. Not a bare chevron.",
+    filled:
+      "a thick rounded shaft plus a solid chevron head. House paints occupy different extents. Not a thin trio of bars.",
     id: "arrow",
     outlined: "a shaft plus a chevron head. Not a bare chevron.",
     tokens: ["arrow"],
   },
   {
-    filled: "the ribbon body plus the two V tails. Not a plain rect.",
+    filled: "the ribbon body plus the curved V bite. Not a plain rect.",
     id: "bookmark",
-    outlined: "a tall ribbon with a V bite at the foot. Not a plain rect.",
+    outlined:
+      "a tall ribbon with a curved V bite at the foot. Not a plain rect.",
     tokens: ["bookmark"],
   },
   {
@@ -134,15 +137,16 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
     tokens: ["share"],
   },
   {
-    filled: "the same dome, beams, stem, and capsule as solids.",
+    filled:
+      "a solid dome with the two under-beam pockets cut out, plus the beams, stem, and capsule.",
     id: "airdrop",
     outlined:
-      "a dome, two off-axis beams (`M4 11L11 16.5`), a stem, and a seated capsule.",
+      "a dome with its flattened inner chord, two off-axis beams (`M4 11L11 16.5`), a stem, and a seated capsule.",
     tokens: ["airdrop"],
   },
   {
     filled:
-      "a fuselage mass plus bars on the house edges. Not a paper dart only.",
+      "a fuselage mass plus bars on the outlined house vertices. Not a paper dart only.",
     id: "airplane",
     outlined:
       "one closed jet silhouette on the house vertices. Not a paper dart.",
