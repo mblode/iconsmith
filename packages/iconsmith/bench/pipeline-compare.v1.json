@@ -1,0 +1,48 @@
+{
+  "agent": "skipped — no AI_GATEWAY_API_KEY / OPENROUTER_API_KEY",
+  "compile": "skipped — no house files on this machine",
+  "names": [
+    "plus",
+    "home",
+    "database",
+    "briefcase",
+    "inbox",
+    "qr-code",
+    "fingerprint",
+    "umbrella",
+    "wifi"
+  ],
+  "pipelines": {
+    "analog": {
+      "errors": 3,
+      "named": 6,
+      "note": "host families; unknown on wifi / fingerprint / umbrella"
+    },
+    "glyph": {
+      "errors": 4,
+      "named": 5,
+      "note": "throws on plus / home / inbox / qr-code"
+    },
+    "glyph-first": {
+      "applied": false,
+      "errors": 0,
+      "named": 9,
+      "note": "try glyph, fall through to analog; volunteers glyph when both exist"
+    },
+    "mixture": {
+      "errors": 3,
+      "named": 6,
+      "note": "product default; cheap-only here, so same as analog"
+    },
+    "pick-cheap": {
+      "applied": false,
+      "errors": 0,
+      "named": 9,
+      "note": "rank analog / glyph / mark with pick.better; analog wins ties"
+    }
+  },
+  "scorer": "pick.better: structural, then errors, then part ops, then cosine",
+  "winner": "pick-cheap and glyph-first tie at 9/9 named, 0 errors",
+  "wouldApply": false,
+  "whyNot": "glyph is asked for by name. Routing it first, or picking it whenever analog is unknown, is the failure mode that made the reach set un-failable. Default mixture stays analog then agent."
+}

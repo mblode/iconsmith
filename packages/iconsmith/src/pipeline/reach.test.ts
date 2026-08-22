@@ -118,6 +118,21 @@ describe("reach", () => {
     expect(result.program).toMatch(/part folder-clock-/u);
   });
 
+  it("routes unkeyed mixture through the analog-family gate", async () => {
+    const result = await reach({ name: "home" }, { unkeyed: "mixture" });
+    expect(result.cost).toBeUndefined();
+    expect(result.brief).toMatch(/mixture analog-family analog/u);
+    expect(result.brief).not.toMatch(/unknown/u);
+  });
+
+  it("draws a pack-inventory name on the host analog, no model", async () => {
+    const result = await reach({ name: "database" }, { unkeyed: "mixture" });
+    expect(result.cost).toBeUndefined();
+    expect(result.brief).toMatch(/mixture pack-inventory analog/u);
+    expect(result.brief).toMatch(/analog trays/u);
+    expect(result.brief).not.toMatch(/unknown/u);
+  });
+
   it("analogs an unkeyed cylinder name as trays", async () => {
     const result = await reach({ name: "server" });
     expect(result.brief).toBe("analog trays server");

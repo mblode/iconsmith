@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { mergeIssues, pairAdapted, pairPrograms } from "./pair.js";
+import {
+  mergeIssues,
+  paintsDiverge,
+  pairAdapted,
+  pairFamily,
+  pairPrograms,
+} from "./pair.js";
 
 const RING = ["icon ring", "finish outlined", "", "circle 12,12 r8", ""].join(
   "\n"
@@ -63,6 +69,46 @@ describe("pairPrograms", () => {
     ].join("\n");
     const issues = pairPrograms([], "outlined", outlined, filled);
     expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
+  });
+});
+
+describe("pairFamily", () => {
+  it("downgrades extent to a warn for house-divergent families only", () => {
+    const tick = [
+      "icon check",
+      "finish outlined",
+      "",
+      "line 20,6 9,17 4,12 off-axis",
+      "",
+    ].join("\n");
+    const disc = [
+      "icon check",
+      "finish filled",
+      "",
+      "circle 12,12 r10",
+      "hole line 20,6 9,17 4,12 off-axis",
+      "",
+    ].join("\n");
+    const raw = pairPrograms([], "outlined", tick, disc);
+    const softened = pairFamily([], "outlined", tick, disc, "check");
+    expect(paintsDiverge("arrow")).toBe(true);
+    expect(paintsDiverge("check")).toBe(true);
+    expect(paintsDiverge("chevron")).toBe(true);
+    expect(paintsDiverge("lock")).toBe(false);
+    expect(raw.some((i) => i.rule === "extent" && i.severity === "error")).toBe(
+      true
+    );
+    expect(
+      softened.some((i) => i.rule === "extent" && i.severity === "warn")
+    ).toBe(true);
+    expect(
+      softened.some((i) => i.rule === "extent" && i.severity === "error")
+    ).toBe(false);
+    expect(
+      pairFamily([], "outlined", RING, DISC, "ring").some(
+        (i) => i.rule === "extent" && i.severity === "error"
+      )
+    ).toBe(true);
   });
 });
 

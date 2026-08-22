@@ -22,7 +22,10 @@ This is not a style guide you can drift away from. Off-spec geometry is unrepres
 npx iconsmith draw cloud-check.icon > cloud-check.svg
 npx iconsmith lint cloud-check.svg --keyline wide
 npx iconsmith --output json lint cloud-check.svg   # machine-readable
+npx iconsmith new database -o database.svg
 ```
+
+`iconsmith new` is the product path: cheap host experts (compile / mark / analog) first, the gateway or OpenRouter agent only if they fail. Third-party packs (Lucide, Heroicons, Tabler, Remix) contribute _names_ for inventory, never drawings. `iconsmith improve --control analog --treatment agent --class pack-inventory --concepts …` is the A/B that updates that routing table. Do not paste Lucide path data into a program.
 
 `draw` writes SVG on stdout and diagnostics on stderr, so the redirect above always produces a valid file. Both commands exit non-zero on an error and 0 on warnings alone. Every command takes `--output json`; the default text output is for humans.
 
@@ -42,6 +45,12 @@ Every number here is measured from the set, not chosen. They are quoted from `SP
 | `minFeature` | 1.5 | the narrowest a filled shape or hole may be; below it the feature closes up at 16px |
 
 Outlined is the default and the set's main variant: suggest mass with an enclosing outline rather than by filling one. `finish filled` switches to the set's solid variant, where a shape _is_ its silhouette and interior white is cut with `hole`. Pick one at the top of the program and stay in it — a mixture is neither variant.
+
+### House voice
+
+The set is Central / [blode-icons](https://blode.co/icons): those numbers, this stroke. [Cursor's icon essay](https://minoradventures.co/blog/the-making-of-cursors-icons) and [Lucide's design guide](https://lucide.dev/contribute/icon-design-guide) describe the same craft — technical drawing, closed forms, optical keylines, one stroke, no decoration — and they are not the spec. Cursor packs looser (min gap ~3.75, clearance 2.5); Lucide pads 1px. Where they disagree, the corpus wins.
+
+Draw the ordinary solution. Median four elements, one dominant mass of 18–20u, empty 4×4 corners, optical centre (12,12). On-axis unless the subject itself is a slope. Closed over open. Filled is the outline expanded, not a second dialect. Recurring elements (the wifi fan, a tray, a handle) stay the same across the set. Tall subjects stay tall; wide ones stay wide — squashing either into a square is the toy look. An icon that is correct but drawn in its own dialect is worse than one that is plain and drawn in the set's.
 
 ### Keylines
 
@@ -93,7 +102,7 @@ cohort   [<name>]           -- scale everything to the family's measured extent
 - **`rect`** — bodies, screens, cards, frames. `r<n>` asks for a radius; the nearest legal tier for that shape is what gets drawn. Default 2.
 - **`circle`** — heads, lenses, clock faces, buttons.
 - **`arc`** — an open circular arc. Same cubics as `circle`. Name a pole (`top` / `right` / `bottom` / `left`), a sweep (`quarter` / `half` / `three-quarter`), and optionally `ccw`. Wifi fans, umbrella canopies, C-shapes, the lobes of an S. A curve is never a polyline of grid points. Filled, the stroke expands into an annular sector — the ink the outline already occupied, not a pie of the sweep.
-- **`diamond`** — a square rotated 45°. `r` is centre to vertex, so every edge sits on 45°/135°. A compass needle, a card suit, a lozenge. A kite that is only grid-legal (unequal diagonals) is off-axis and is a `line … off-axis`, not this op.
+- **`diamond`** — a square rotated 45°. `r` is centre to vertex, so every edge sits on 45°/135°. A compass needle, a card suit, a lozenge. Not a star. A kite that is only grid-legal (unequal diagonals) is off-axis and is a `line … off-axis`, not this op.
 - **`line`** — a polyline through two or more points. Arrows, ticks, connectors, chart lines. A segment within 6° of 0/45/90 is pulled onto the axis; one further out is **refused** unless the line says `off-axis`. About one edge in seven in this set is off-axis, so it is a real choice — make it on purpose, and keep both endpoints on the grid. If the stroke is a curve, use `arc` or `circle`. A diamond that should be on 45° is `diamond`, not a polyline of unequal run and rise.
 - **`hole`** — cut a rect or a circle out of the solid drawn most recently. Filled icons only, and it is how interior white is made: 45% of the set's filled icons knock at least one hole out of a solid, so a ring is `circle` then `hole circle`, and a card with a slot is `rect` then `hole rect`. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. Name the solid with `cutFrom` when you have to come back to it. The hole has to sit inside the solid it cuts — a piece hanging outside would paint ink rather than remove it, and is refused.
 - **`dot`** — a solid disc with one of the four roles above. Default `terminal`.
@@ -127,6 +136,16 @@ A clock. Outlined is a ring plus hands as a polyline from the centre (`circle 12
 A check. Outlined is an open tick stroke. Filled is a badge disc with the tick cut out (evenodd). Not a thick tick, and not a tick drawn on top of a disc.
 
 A home. Outlined is one closed pentagon — roof peak and walls as the outer stroke. Filled is that silhouette (body plus a roof seated on the eaves), not a frame-and-dot and not a door nobody asked for.
+
+A heart. House compile is one evenodd compound of two lobes and a point. Outlined is that closed silhouette, not three circles. Filled is the same compound, not a disc and not three circles restamped as solids.
+
+A shield. House compile is one heater silhouette. Outlined is that closed outline — peaked top, sides, a point — not a 45° diamond with a cap. Filled is the same body (a mass seated on a diamond point).
+
+A zap. House compile is one bolt silhouette. Outlined is that closed lightning, not a frame-and-dot. Filled is the same zigzag as three bars on the bolt's centre-lines.
+
+A pause is two rounded uprights. A play is a right-pointing triangle, not a chevron. An arrow-right is a shaft plus a chevron head. A chevron-right is the head alone. A bookmark is a tall ribbon with a V bite at the foot. A share is three nodes and two connectors, not a hub tree. An airdrop is a dome, two off-axis beams, a stem, and a seated capsule. An airplane is a jet silhouette, not a paper dart.
+
+Do not volunteer a star. Analog has no star family. A diamond is a compass needle; a chevron or four diamonds is not the house star.
 
 These are constructions, not glyphs to volunteer for an unasked name.
 

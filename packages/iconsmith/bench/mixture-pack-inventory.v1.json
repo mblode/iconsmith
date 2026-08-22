@@ -1,0 +1,35 @@
+{
+  "applied": false,
+  "class": "pack-inventory",
+  "control": "analog",
+  "refused": "glyph is asked for by name; routing it first would make the product path un-failable",
+  "status": "keep",
+  "treatment": "glyph",
+  "trials": {
+    "screen": {
+      "briefcase": "glyph",
+      "database": "tie"
+    },
+    "selection": {
+      "fingerprint": "glyph",
+      "umbrella": "glyph",
+      "wifi": "glyph"
+    }
+  },
+  "verdict": {
+    "decision": {
+      "controlErrors": 3,
+      "controlWins": 0,
+      "ties": 0,
+      "treatmentErrors": 0,
+      "treatmentWins": 3
+    },
+    "screen": {
+      "controlErrors": 1,
+      "controlWins": 0,
+      "ties": 1,
+      "treatmentErrors": 0,
+      "treatmentWins": 1
+    }
+  }
+}

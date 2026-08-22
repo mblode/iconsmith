@@ -266,6 +266,22 @@ test("twinPairIssues fails a filled disc that restamps a stroked ring", () => {
   expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
 });
 
+test("twinPairIssues is quiet on overlapping discs that are a cloud", () => {
+  const outlined = draw("outlined", [
+    "circle 8,12 r5",
+    "circle 16,12 r5",
+    "circle 12,9 r5.5",
+  ]);
+  const filled = draw("filled", [
+    "circle 8,12 r5",
+    "circle 16,12 r5",
+    "circle 12,9 r6",
+  ]);
+  expect(
+    twinPairIssues(outlined, filled).some((issue) => issue.rule === "paint")
+  ).toBe(false);
+});
+
 test("twinPairIssues still sees a restamp after fit to the same keyline", () => {
   const outlined = run(
     [

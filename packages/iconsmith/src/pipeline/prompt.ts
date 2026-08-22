@@ -16,10 +16,11 @@ import { SPEC } from "../tools/canvas.js";
 import type { Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
 import type { Finish, Keyline } from "../types.js";
+import { hostConstruction } from "./analog.js";
 import type { Reference } from "./licence.js";
 import type { Condition, Policy, Tokens } from "./policy.js";
 import { DEFAULT_POLICY, renderPolicy } from "./policy.js";
-import { recipeBrief } from "./recipe.js";
+import { steerBrief } from "./recipe.js";
 
 export interface Concept {
   /** Category from the host set, when the concept comes from one. */
@@ -71,7 +72,7 @@ export const OUTLINED_PAINT_RULE =
 /** This run is the solid variant. The outlined sentence would tell the
  *  model to draw strokes on a canvas that has no `line` tool. */
 export const FILLED_PAINT_RULE =
-  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and `line` is not a tool. Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox. A ring is `circle` then `hole` immediately after; a plus is an evenodd compound or two bars, not lines; a clock is a disc with hands cut out; a check is a badge with a cutout.";
+  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and `line` is not a tool. Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox. A ring is `circle` then `hole` immediately after; a plus is an evenodd compound or two bars, not lines; a clock is a disc with hands cut out; a check is a badge with a cutout; a heart is one evenodd compound of lobes, not a disc. Do not volunteer a star from diamonds.";
 
 export interface PromptOptions {
   /** The family the icon joins, when it joins one; enables the `cohort` op. */
@@ -103,6 +104,26 @@ export interface PromptOptions {
  * typed into the prose, for the reason the file header gives — the policy holds
  * `{{stroke}}`, not `2`, so a reworded principle cannot restate the spec wrong.
  */
+/**
+ * The confirm-only system prompt. Generate uses this when the host analog
+ * is already on the canvas and draw tools are withheld — the full policy
+ * would spend thousands of tokens teaching a grammar the model cannot
+ * use, and that prefix is what blew the OpenRouter prompt-token cap.
+ * Numbers still come from `SPEC`.
+ */
+export const confirmSystemPrompt = (
+  opts: Pick<PromptOptions, "finish" | "spec"> = {}
+): string => {
+  const spec = opts.spec ?? SPEC;
+  return [
+    `The canvas is ${spec.canvas}×${spec.canvas}. Stroke ${spec.stroke}. Radius ${spec.radius}.`,
+    opts.finish === "filled"
+      ? "Paint: filled. The analog is already the solid silhouette."
+      : "Paint: outlined. The analog is already the centre-line stroke.",
+    "Call confirm. Do not invent geometry.",
+  ].join("\n");
+};
+
 export const systemPrompt = (opts: PromptOptions = {}): string => {
   const spec = opts.spec ?? SPEC;
   const conditions: Condition[] = [];
@@ -151,8 +172,13 @@ export const conceptPrompt = (
   concept: Concept,
   finish: Finish = "outlined"
 ): string => {
+  const host = hostConstruction(concept.name, finish);
   const lines = [`Draw the icon \`${concept.name}\`.`];
-  if (finish === "filled") {
+  if (host) {
+    // The analog is already on the canvas. "Compose from primitives"
+    // is how a seeded heart becomes three circles.
+    lines.push(finish === "filled" ? "Paint: filled." : "Paint: outlined.");
+  } else if (finish === "filled") {
     lines.push(
       "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is not available.",
       "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
@@ -163,9 +189,17 @@ export const conceptPrompt = (
       "Paint: outlined. Compose the named object from `listParts` and primitives, not a generic frame-and-dot."
     );
   }
-  const recipe = recipeBrief(concept.name, finish);
-  if (recipe) {
-    lines.push(recipe);
+  const steer = steerBrief(concept.name, finish);
+  if (host) {
+    // The analog is already the construction. The recipe paragraph is
+    // how a confirm-only prompt blows a prompt-token cap; the title
+    // names the family without restating how to draw it.
+    lines.push(
+      `House construction (${host.id}, ${finish}).`,
+      `The canvas already holds the host ${host.id} analog. Call confirm. Do not add, remove, or redraw it.`
+    );
+  } else if (steer) {
+    lines.push(steer);
   }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);

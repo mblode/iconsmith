@@ -3,7 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SquareCheckIcon } from "@/components/square-check-icon";
 import { VocabularyGrid } from "@/components/vocabulary-grid";
 import { ZoneBreadcrumb } from "@/components/zone-breadcrumb";
-import { SITE_NAME } from "@/lib/site-url";
+import { asset, SITE_NAME } from "@/lib/site-url";
 
 const PROGRAM = `icon square-check
 keyline square
@@ -76,8 +76,14 @@ const Home = () => (
           tier. It can&apos;t express free path data, so it can&apos;t write drift.
         </p>
 
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
           <NewsletterForm />
+          <a
+            className="font-medium text-sm underline-offset-4 hover:underline"
+            href={asset("/studio")}
+          >
+            Or open the studio
+          </a>
         </div>
       </header>
 

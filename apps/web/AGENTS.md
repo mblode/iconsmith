@@ -1,7 +1,10 @@
 # iconsmith-web
 
-The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith). One route. Its
-job is to collect launch-list addresses.
+The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith) and the
+studio at [blode.co/iconsmith/studio](https://blode.co/iconsmith/studio). The
+root still collects launch-list addresses. `/studio` is the chat drawer:
+shadcn message UI, attachments, human-in-the-loop questions, and every
+version's program.
 
 ## Commands
 
@@ -32,6 +35,12 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
 
 ## Gotchas
 
+- **Vercel Root Directory is `apps/web`.** The lockfile lives at the repo root, so
+  `installCommand` runs `npm ci` from there when that file is visible, and
+  `npm install` only if this folder is copied out alone. `ignoreCommand` must
+  not skip `main` (exit 0 on preview only); skipping `main` is what GitHub
+  reports as the red Vercel check. A dashboard Ignore Build Step or a Root
+  Directory of `.` still wins over this file.
 - **Verify metadata against a build, never `next dev`.** Dev rewrites `metadataBase`
   to the dev origin and reports the opposite of production on exactly the questions
   that matter. `npm run build && npm start`, then check that `og:image` contains
