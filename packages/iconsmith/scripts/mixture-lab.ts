@@ -12,11 +12,14 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import {
+  CONCEPT_CLASSES,
   DEFAULT_INVENTORY,
+  DEFAULT_MIXTURE,
   evidenceOf,
   gate,
   mixtureArm,
 } from "../src/pipeline/mixture.js";
+import type { MixturePolicy } from "../src/pipeline/mixture.js";
 
 const OUT = path.join(".staging", "mixture", "lab.json");
 
@@ -29,6 +32,14 @@ export const labNames = (argv: readonly string[]): string[] => {
 
 const main = async (): Promise<void> => {
   const names = labNames(process.argv);
+  const cheapWeights = Object.fromEntries(
+    CONCEPT_CLASSES.map((id) => {
+      const cheap = DEFAULT_MIXTURE.weights[id].filter(
+        (expert) => expert !== "agent"
+      );
+      return [id, cheap.length > 0 ? cheap : (["analog"] as const)];
+    })
+  ) as unknown as MixturePolicy["weights"];
   const arm = mixtureArm({
     experts: {
       agent: () => {
@@ -36,6 +47,10 @@ const main = async (): Promise<void> => {
       },
     },
     inventory: DEFAULT_INVENTORY,
+    policy: {
+      ...DEFAULT_MIXTURE,
+      weights: cheapWeights,
+    },
   });
   const rows = await Promise.all(
     names.map(async (name) => {

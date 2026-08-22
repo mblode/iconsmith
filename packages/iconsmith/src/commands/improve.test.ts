@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { inventoryNames, splitConcepts } from "./improve.js";
+import { DEFAULT_INVENTORY } from "../pipeline/mixture.js";
+import {
+  conceptNames,
+  inventoryNames,
+  splitConcepts,
+  startingInventory,
+} from "./improve.js";
 
 describe("splitConcepts", () => {
   it("halves an unnamed list and keeps an explicit split", () => {
@@ -42,5 +48,15 @@ describe("inventoryNames", () => {
     expect(() =>
       inventoryNames([{ d: "M0 0", name: "database", sets: ["lucide"] }])
     ).toThrow(/d/u);
+  });
+});
+
+describe("startingInventory", () => {
+  it("keeps the committed table when no overlay is passed", () => {
+    expect(startingInventory().get("database")).toEqual(
+      DEFAULT_INVENTORY.get("database")
+    );
+    expect(startingInventory(new Map()).get("wifi")).toHaveLength(4);
+    expect(conceptNames([], [], startingInventory())).toContain("database");
   });
 });

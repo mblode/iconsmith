@@ -20,10 +20,12 @@ import {
 } from "../pipeline/experiment.js";
 import type { ExperimentReport, Hypothesis } from "../pipeline/experiment.js";
 import {
+  DEFAULT_INVENTORY,
   assertNamesOnly,
   defaultExperts,
   evidenceOf,
   gate,
+  mergePackIndex,
   packIndexFromSlugs,
   parseMixturePolicy,
 } from "../pipeline/mixture.js";
@@ -53,6 +55,35 @@ interface ImproveOptions {
   selection?: string[];
   treatment: string;
 }
+
+/** Overlay listings onto the committed names-only table. An empty overlay
+ *  is the table itself — a missing `--packs` must not hide `database`. */
+export const startingInventory = (overlay: PackIndex = new Map()): PackIndex =>
+  overlay.size > 0
+    ? mergePackIndex(DEFAULT_INVENTORY, overlay)
+    : DEFAULT_INVENTORY;
+
+const rowsFromUnknown = (raw: unknown, label: string): PackIndex => {
+  assertNamesOnly(raw, label);
+  if (!Array.isArray(raw)) {
+    throw new TypeError(`${label} must be an array of { pack, slug }.`);
+  }
+  return packIndexFromSlugs(raw as { pack: string; slug: string }[]);
+};
+
+export const conceptNames = (
+  requested: readonly string[],
+  listed: readonly string[],
+  inventory: PackIndex
+): string[] => {
+  if (requested.length > 0) {
+    return [...requested];
+  }
+  if (listed.length > 0) {
+    return [...listed];
+  }
+  return [...inventory.keys()].toSorted((a, b) => a.localeCompare(b));
+};
 
 export const splitConcepts = (
   names: readonly string[],
@@ -107,6 +138,52 @@ export const inventoryNames = (
   }
   return { names, packs: packIndexFromSlugs(rows) };
 };
+
+const overlayOf = async (
+  opts: ImproveOptions
+): Promise<{
+  listed: string[];
+  overlay: PackIndex;
+}> => {
+  const fromFile = opts.inventory
+    ? inventoryNames(
+        readJson<unknown>(opts.inventory, "a gap inventory JSON file")
+      )
+    : { names: [] as string[], packs: new Map() as PackIndex };
+  let overlay: PackIndex = fromFile.packs;
+  if (opts.packs) {
+    overlay = mergePackIndex(
+      overlay,
+      rowsFromUnknown(
+        readJson<unknown>(opts.packs, "a pack slug index JSON file"),
+        "pack slug index"
+      )
+    );
+  }
+  if (opts.packsRoot !== undefined && existsSync(opts.packsRoot)) {
+    const baselines = await loadBaselines(opts.packsRoot);
+    overlay = mergePackIndex(
+      overlay,
+      packIndexFromSlugs(
+        baselines.entries.map((e) => ({ pack: e.pack, slug: e.icon }))
+      )
+    );
+  }
+  return { listed: fromFile.names, overlay };
+};
+
+const namesInClass = (
+  names: readonly string[],
+  klass: ConceptClass,
+  inventory: PackIndex,
+  house: ReturnType<typeof houseAt> | undefined,
+  policy: ReturnType<typeof parseMixturePolicy>
+): string[] =>
+  names.filter(
+    (name) =>
+      gate(evidenceOf({ name }, {}, { house, inventory }), policy).class ===
+      klass
+  );
 
 const loadPolicy = (file: string) =>
   parseMixturePolicy(readJson<unknown>(file, "a mixture policy JSON file"));
@@ -191,44 +268,18 @@ export const registerImproveCommand = (program: Command): void => {
       const treatment = parseExpertId(opts.treatment);
       const klass = parseConceptClass(opts.class ?? "pack-inventory");
       const policy = loadPolicy(opts.policy ?? DEFAULT_POLICY);
-      const requested = [...(opts.concepts ?? [])];
-      const fromInventory = opts.inventory
-        ? inventoryNames(
-            readJson<unknown>(opts.inventory, "a gap inventory JSON file")
-          )
-        : { names: [] as string[], packs: new Map() as PackIndex };
-      let inventory: PackIndex = fromInventory.packs;
-      const names = requested.length > 0 ? requested : fromInventory.names;
-      if (opts.packs) {
-        const rows = readJson<unknown>(
-          opts.packs,
-          "a pack slug index JSON file"
-        );
-        assertNamesOnly(rows, "pack slug index");
-        if (!Array.isArray(rows)) {
-          throw new TypeError("packs file must be an array of { pack, slug }.");
-        }
-        inventory = packIndexFromSlugs(
-          rows as { pack: string; slug: string }[]
-        );
-      }
-      if (opts.packsRoot !== undefined && existsSync(opts.packsRoot)) {
-        const baselines = await loadBaselines(opts.packsRoot);
-        inventory = packIndexFromSlugs(
-          baselines.entries.map((e) => ({ pack: e.pack, slug: e.icon }))
-        );
-      }
-
+      const { listed, overlay } = await overlayOf(opts);
+      const inventory = startingInventory(overlay);
       const house = existsSync(opts.corpus ?? "corpus")
         ? houseAt(opts.corpus ?? "corpus")
         : undefined;
-      const matched = names.filter((name) => {
-        const decision = gate(
-          evidenceOf({ name }, {}, { house, inventory }),
-          policy
-        );
-        return decision.class === klass;
-      });
+      const matched = namesInClass(
+        conceptNames(opts.concepts ?? [], listed, inventory),
+        klass,
+        inventory,
+        house,
+        policy
+      );
       if (matched.length === 0) {
         throw new Error(
           `no concepts classified as ${klass}. Pass --concepts or --inventory.`
