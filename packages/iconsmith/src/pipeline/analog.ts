@@ -417,7 +417,7 @@ export const envelope = (slug: string, finish: Finish = "outlined"): string =>
  */
 export const bell = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
-    mass(finish, 5, 3, 14, 15, 6),
+    mass(finish, 5, 3, 14, 16, 6),
     mass(finish, 8, 17, 8, 4, 2),
   ]);
 
@@ -517,14 +517,15 @@ export const ring = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House cloud: two overlapping blobs that share a baseline
- * (`circle 9,12` left, `circle 17,14` right). Three discs on `wide`
- * read as balloons, and `fit` onto 20×16 squashes the 22×16 silhouette
- * the house files actually occupy.
+ * (`circle 9,12` left, `circle 17,14` right) plus the house chord
+ * `M17 19H9`. Three discs on `wide` read as balloons, and `fit` onto
+ * 20×16 squashes the 22×16 silhouette the house files actually occupy.
  */
 export const cloud = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
     finish === "filled" ? "circle 9,12 r8" : "circle 9,12 r7",
     finish === "filled" ? "circle 17,14 r6" : "circle 17,14 r5",
+    "line 9,19 17,19",
   ]);
 
 /**
