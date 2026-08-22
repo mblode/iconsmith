@@ -26,7 +26,7 @@ import type { TokenUsage } from "./cost.js";
 import { resolveModel } from "./gateway.js";
 import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
-import { pairAdapted, pairPrograms } from "./pair.js";
+import { pairAdapted, pairFamily } from "./pair.js";
 import type { Policy } from "./policy.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
@@ -429,7 +429,15 @@ const pairGenerate = (
     finish === "filled" ? "outlined" : "filled"
   );
   if (other !== null) {
-    return pairPrograms(issues, finish, program, other.source, parts, spec);
+    return pairFamily(
+      issues,
+      finish,
+      program,
+      other.source,
+      other.id,
+      parts,
+      spec
+    );
   }
   return pairAdapted(issues, finish, program, parts, spec);
 };

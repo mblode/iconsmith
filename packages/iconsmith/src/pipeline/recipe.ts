@@ -109,9 +109,10 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
     tokens: ["play"],
   },
   {
-    filled: "that tick as two bars. Not a triangle, and not an arrow.",
+    filled:
+      "the house thick `>`, a taller band than the stroke. Not a thin pair of bars, and not a triangle.",
     id: "chevron",
-    outlined: "one open tick pointing right. Not a triangle.",
+    outlined: "one open tick pointing right (`m9 18 6-6-6-6`). Not a triangle.",
     tokens: ["chevron"],
   },
   {

@@ -577,7 +577,7 @@ describe("analog families", () => {
     expect(composeFromParts("mail", [])).toContain("off-axis");
     expect(composeFromParts("plus-sign", [])).toContain("line 4,12");
     expect(composeFromParts("wall-clock", [])).toContain("circle 12,12 r9");
-    expect(composeFromParts("checkmark", [])).toContain("line 3,14");
+    expect(composeFromParts("checkmark", [])).toContain("line 20,6");
     expect(composeFromParts("xyzzy", [])).toBeNull();
   });
 
@@ -699,8 +699,9 @@ describe("analog families", () => {
     expect(plus("plus-sign", "filled")).toContain("rect 3,11 18x2");
     expect(clock("wall-clock")).toContain("circle 12,12 r9");
     expect(clock("wall-clock", "filled")).toContain("hole rect");
-    expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
-    expect(check("checkmark", "filled")).toContain("hole line");
+    expect(check("checkmark")).toContain("line 20,6 9,17 4,12");
+    expect(check("checkmark", "filled")).toContain("circle 12,12 r10");
+    expect(check("checkmark", "filled")).toContain("hole line 20,6 9,17 4,12");
     expect(pause("pause")).toContain("rect 5,4 4x16");
     expect(pause("pause")).not.toContain("keyline ");
     expect(sun("sun")).not.toContain("keyline ");
@@ -718,6 +719,7 @@ describe("analog families", () => {
     expect(cloud("cloud")).not.toContain("keyline ");
     expect(cloud("cloud", "filled")).toContain("circle 9,12 r8");
     expect(chevron("chevron-right")).toContain("line 9,6 15,12");
+    expect(chevron("chevron-right", "filled")).toContain("line 8.3,3.3 17,12");
     expect(arrow("arrow-right")).toContain("line 5,12 19,12");
     expect(bookmark("bookmark")).toContain("line 5,20 12,17.5");
     expect(bookmark("bookmark")).not.toContain("keyline ");
@@ -753,6 +755,30 @@ describe("analog families", () => {
     expect(zap("zap")).toContain("line 13,3 13,9 20,9 11,21");
     expect(zap("zap", "filled")).toContain("line 13,4 5,14");
     expect(zap("zap")).not.toContain("dot 12,12 node");
+  });
+
+  it("keeps house-divergent check and chevron clean, with extent as a warn", async () => {
+    const names = ["checkmark", "chevron-right"] as const;
+    const drawn = await Promise.all(
+      names.flatMap((name) =>
+        (["outlined", "filled"] as const).map((finish) =>
+          analogArm()({ name }, { finish }).then((result) => ({
+            finish,
+            name,
+            result,
+          }))
+        )
+      )
+    );
+    for (const { finish, name, result } of drawn) {
+      expect(result.clean, `${name} ${finish}`).toBe(true);
+      const extent = result.issues.filter((i) => i.rule === "extent");
+      expect(extent.length, `${name} ${finish} extent`).toBeGreaterThan(0);
+      expect(
+        extent.every((i) => i.severity === "warn"),
+        `${name} ${finish} extent warn`
+      ).toBe(true);
+    }
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {

@@ -41,7 +41,7 @@ import type { Finish, Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
-import { pairPrograms } from "./pair.js";
+import { pairFamily } from "./pair.js";
 import { holdoutBrief, recipeFor } from "./recipe.js";
 import { compileIcon } from "./reconstruct.js";
 import { overlap, tokens } from "./search.js";
@@ -471,19 +471,20 @@ export const clock = (slug: string, finish: Finish = "outlined"): string =>
   );
 
 /**
- * House check: outlined is the open tick (`M20 6 9 17l-5-5`); filled is a
+ * House check: outlined is the Lucide tick (`M20 6 9 17l-5-5`); filled is a
  * badge disc with that tick cut out (evenodd). Not a thick tick, and not a
- * tick drawn on top of a disc. Recipe tokens (`check`, `tick`, `checkmark`)
- * resolve here — not a new kin row.
+ * tick drawn on top of a disc. House paints occupy different extents
+ * (18×13 vs 20×20) — pairing `extent` is a warn. Recipe tokens
+ * (`check`, `tick`, `checkmark`) resolve here — not a new kin row.
  */
 export const check = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
-    "wide",
+    null,
     finish === "filled"
-      ? ["rect 2,3 20x16 r4", "hole line 3,14 7,18 21,4"]
-      : ["line 3,14 7,18 21,4"]
+      ? ["circle 12,12 r10", "hole line 20,6 9,17 4,12 off-axis"]
+      : ["line 20,6 9,17 4,12 off-axis"]
   );
 
 /**
@@ -699,14 +700,20 @@ export const play = (slug: string, finish: Finish = "outlined"): string =>
   );
 
 /**
- * House chevron-right: one open tick pointing right. Filled is that
- * stroke as two bars. `chevron-right` tokens to this family — not a kin row.
+ * House chevron-right: outlined is the open tick (`m9 18 6-6-6-6`).
+ * Filled is the house thick `>`, a taller band than the stroke. House
+ * paints occupy different extents (8×14 vs 8.8×18) — pairing `extent`
+ * is a warn. `chevron-right` tokens here — not a kin row.
  */
 export const chevron = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, null, [
-    "line 9,6 15,12 off-axis",
-    "line 15,12 9,18 off-axis",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? ["line 8.3,3.3 17,12 off-axis", "line 17,12 8.3,20.7 off-axis"]
+      : ["line 9,6 15,12 off-axis", "line 15,12 9,18 off-axis"]
+  );
 
 /**
  * House arrow-right: a shaft plus a chevron head. Filled is those three
@@ -1656,11 +1663,12 @@ const withPair = (
   if (other === undefined) {
     return result;
   }
-  const issues = pairPrograms(
+  const issues = pairFamily(
     result.issues,
     finish,
     result.program,
     other.source,
+    id,
     [...parts, ...(extras ?? []), ...(other.extras ?? [])],
     spec
   );

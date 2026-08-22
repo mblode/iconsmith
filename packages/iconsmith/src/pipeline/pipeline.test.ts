@@ -497,7 +497,7 @@ describe("generate", () => {
 
   it("matches analogArm on a house name and a net-new name, both paints", async () => {
     const analog = analogArm();
-    const cases = (["lock", "paper-plane"] as const).flatMap((name) =>
+    const cases = (["lock", "paper-plane", "check"] as const).flatMap((name) =>
       (["outlined", "filled"] as const).map((finish) => ({ finish, name }))
     );
     const drawn = await Promise.all(

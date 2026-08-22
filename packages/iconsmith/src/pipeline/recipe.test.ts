@@ -88,7 +88,7 @@ describe("recipe → family", () => {
       { finish: "filled" }
     );
     expect(leftover.brief).toBe("analog check checkmark");
-    expect(leftover.program).toContain("line 3,14");
+    expect(leftover.program).toContain("line 20,6");
     expect(leftover.program).not.toContain("dot 12,12 node");
     expect(leftover.clean).toBe(true);
     expect(filled.brief).toBe("analog check checkmark");
