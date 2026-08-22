@@ -1,7 +1,10 @@
 # iconsmith-web
 
-The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith). One route. Its
-job is to collect launch-list addresses.
+The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith) and the
+studio at [blode.co/iconsmith/studio](https://blode.co/iconsmith/studio). The
+root still collects launch-list addresses. `/studio` is the chat drawer:
+shadcn message UI, attachments, human-in-the-loop questions, and every
+version's program.
 
 ## Commands
 

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-url";
 
 /**
- * The zone root is the only URL here, so it is the only entry.
+ * Zone URLs this app owns. The host sitemap at blode.co does not list children.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -11,6 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       priority: 1,
       url: SITE_URL,
+    },
+    {
+      changeFrequency: "weekly",
+      lastModified: new Date(),
+      priority: 0.8,
+      url: `${SITE_URL}/studio`,
     },
   ];
 }
