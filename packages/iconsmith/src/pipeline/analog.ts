@@ -19,10 +19,12 @@
  * three circles or a disc. `shield` draws the heater, not a diamond
  * with a cap. `zap` draws the bolt, not a frame-and-dot. Pause, play,
  * chevron, arrow, bookmark, share, airdrop, and airplane resolve the
- * same way — recipe tokens, no kin row. Lantern, otter, and paper-plane
- * are net-new families: no house file, no kin row. Analog must not
- * volunteer a star. The composer writes the program. The model does
- * not. `construct` in the generate loop adopts that program.
+ * same way — recipe tokens, no kin row. Lantern, otter, paper-plane,
+ * inbox, and qr-code are net-new families: no house file, no kin row.
+ * Briefcase is analog's own case-and-tab, not the glyph's three-bar
+ * handle. Analog must not volunteer a star. The composer writes the
+ * program. The model does not. `construct` in the generate loop adopts
+ * that program.
  */
 import type { Canvas, Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
@@ -963,6 +965,42 @@ export const paperplane = (slug: string, finish: Finish = "outlined"): string =>
       : ["line 4,12 20,6 13,12 20,18 4,12 off-axis"]
   );
 
+/**
+ * Open U-tray on wide 20×16 — inbox, not a sealed envelope.
+ * Bars meet at the corners so gap has nothing to measure. A slot
+ * bar inside the mouth is the paper, not a second lid.
+ */
+export const inbox = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    vbar(finish, 3, 4, 14),
+    vbar(finish, 21, 4, 14),
+    hbar(finish, 3, 18, 18),
+    hbar(finish, 7, 10, 10),
+  ]);
+
+/**
+ * Three finder squares on the 20×20 box — a QR code, not a grid dump.
+ * Corner modules at (3,3), (15,3), (3,15) leave a 6-unit gap, well
+ * above minGap. Path 18×18 + stroke is square.
+ */
+export const qrcode = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    mass(finish, 3, 3, 6, 6, 1),
+    mass(finish, 15, 3, 6, 6, 1),
+    mass(finish, 3, 15, 6, 6, 1),
+  ]);
+
+/**
+ * Case and a tab handle on wide 20×16 — briefcase, not the glyph's
+ * landscape three-bar handle. The tab sits on the case so the pair
+ * is coincident.
+ */
+export const briefcase = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "wide", [
+    mass(finish, 3, 8, 18, 10, 2),
+    mass(finish, 8, 4, 8, 5, 1),
+  ]);
+
 /** Neck and a diamond body — a flask, not a beaker stack. */
 export const flask = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
@@ -1114,6 +1152,7 @@ const FAMILY_DRAW = {
   bell,
   book,
   bookmark,
+  briefcase,
   camera,
   car,
   check,
@@ -1130,6 +1169,7 @@ const FAMILY_DRAW = {
   home,
   horn,
   hourglass,
+  inbox,
   key,
   kiwi,
   ladder,
@@ -1148,6 +1188,7 @@ const FAMILY_DRAW = {
   plant,
   play,
   plus,
+  qrcode,
   ring,
   rocket,
   sailboat,
@@ -1200,6 +1241,7 @@ export const ANALOG_KINS: Readonly<Record<string, AnalogFamilyId>> = {
   plantain: "banana",
   pushpin: "pin",
   pyramid: "peak",
+  "qr-code": "qrcode",
   saguaro: "plant",
   sandglass: "hourglass",
   skiff: "sailboat",
@@ -1244,7 +1286,6 @@ export const ANALOG_MODIFIERS: ReadonlySet<string> = new Set([
  * not import `glyphs.ts` — a host form is asked for by name.
  */
 const UNVOLUNTEERED = new Set([
-  "briefcase",
   "cake",
   "compass",
   "cookie",
@@ -1423,6 +1464,9 @@ export const PAPER_PLANE_HINT = /\bpaper[- ]?planes?\b/iu;
 export const LANTERN_HINT = /\b(?:lanterns?)\b/iu;
 export const OTTER_HINT = /\b(?:otters?)\b/iu;
 export const AIRPLANE_HINT = /\b(?:airplanes?|aeroplanes?|planes?)\b/iu;
+export const INBOX_HINT = /\binbox(?:es)?\b/iu;
+export const QR_HINT = /\bqr[- ]?codes?\b/iu;
+export const BRIEFCASE_HINT = /\bbriefcases?\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: TOWER_HINT, id: "tower" },
@@ -1479,6 +1523,9 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: LANTERN_HINT, id: "lantern" },
   { hint: OTTER_HINT, id: "otter" },
   { hint: AIRPLANE_HINT, id: "airplane" },
+  { hint: INBOX_HINT, id: "inbox" },
+  { hint: QR_HINT, id: "qrcode" },
+  { hint: BRIEFCASE_HINT, id: "briefcase" },
 ];
 
 const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
