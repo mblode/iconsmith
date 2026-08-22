@@ -532,14 +532,15 @@ export const cloud = (slug: string, finish: Finish = "outlined"): string =>
  * (peak and walls, no inner roof). Filled is the same silhouette — a
  * body mass with the roof diamond seated on the eaves, not a diamond
  * drawn through the walls. No door: the house files are a solid
- * pentagon. Portrait 18×20. The eaves sit high (y=8) so the roof
- * matches the house file rather than a tall A-frame.
+ * pentagon. The eaves sit high (y=8) so the roof matches the house
+ * file rather than a tall A-frame. No portrait `fit`: the walls are
+ * already 18×18, and stretching them onto 18×20 dropped the match.
  */
 export const home = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
-    "portrait",
+    null,
     finish === "filled"
       ? [mass(finish, 4, 8, 16, 12, 1), ...lozenge(finish, 12, 8, 5)]
       : ["line 12,3 20,8 20,20 4,20 4,8 12,3 off-axis"]
