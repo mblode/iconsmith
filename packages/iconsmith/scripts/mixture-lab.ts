@@ -11,7 +11,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { evidenceOf, gate, mixtureArm, packIndexFromSlugs } from "../src/pipeline/mixture.js";
+import {
+  evidenceOf,
+  gate,
+  mixtureArm,
+  packIndexFromSlugs,
+} from "../src/pipeline/mixture.js";
 
 const OUT = path.join(".staging", "mixture", "lab.json");
 
@@ -43,29 +48,31 @@ const main = async (): Promise<void> => {
     },
     inventory: DEMO_PACKS,
   });
-  const rows = [];
-  for (const name of names) {
-    const decision = gate(evidenceOf({ name }, {}, { inventory: DEMO_PACKS }));
-    const cheap = decision.candidates.filter((id) => id !== "agent");
-    if (cheap.length === 0) {
-      rows.push({
+  const rows = await Promise.all(
+    names.map(async (name) => {
+      const decision = gate(
+        evidenceOf({ name }, {}, { inventory: DEMO_PACKS })
+      );
+      const cheap = decision.candidates.filter((id) => id !== "agent");
+      if (cheap.length === 0) {
+        return {
+          candidates: [...decision.candidates],
+          class: decision.class,
+          name,
+          skipped: "gate lists only the agent",
+        };
+      }
+      const drawn = await arm({ name }, {});
+      return {
+        brief: drawn.brief ?? null,
         candidates: [...decision.candidates],
         class: decision.class,
+        clean: drawn.clean,
         name,
-        skipped: "gate lists only the agent",
-      });
-      continue;
-    }
-    const drawn = await arm({ name });
-    rows.push({
-      brief: drawn.brief ?? null,
-      candidates: [...decision.candidates],
-      class: decision.class,
-      clean: drawn.clean,
-      name,
-      reason: decision.reason,
-    });
-  }
+        reason: decision.reason,
+      };
+    })
+  );
   mkdirSync(path.dirname(OUT), { recursive: true });
   writeFileSync(OUT, `${JSON.stringify(rows, null, 2)}\n`);
   process.stdout.write(`${JSON.stringify(rows, null, 2)}\n`);

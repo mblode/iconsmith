@@ -50,13 +50,13 @@ import { glyphArm } from "./glyph.js";
 import type { GenerateLike } from "./harness.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
+import raw from "./mixture.default.json" with { type: "json" };
 import { pick } from "./pick.js";
 import type { Concept } from "./prompt.js";
 import type { HouseSource } from "./reach.js";
 import { compileArm } from "./reconstruct.js";
 import { rankParts } from "./search.js";
 import { splicePair, splicePaths } from "./splice.js";
-import raw from "./mixture.default.json" with { type: "json" };
 
 export const EXPERT_IDS = [
   "agent",
@@ -148,10 +148,15 @@ const GEOMETRY_KEYS = new Set(["d", "path", "paths", "source", "svg"]);
 
 /** Pack inventory may carry names. A `d` or `svg` is the leak `licence.ts`
  *  exists to stop, arriving as data rather than as an import. */
-export const assertNamesOnly = (value: unknown, label = "pack inventory"): void => {
+export const assertNamesOnly = (
+  value: unknown,
+  label = "pack inventory"
+): void => {
   const walk = (node: unknown, path: string): void => {
     if (Array.isArray(node)) {
-      node.forEach((item, i) => walk(item, `${path}[${i}]`));
+      for (const [i, item] of node.entries()) {
+        walk(item, `${path}[${i}]`);
+      }
       return;
     }
     if (node === null || typeof node !== "object") {
@@ -187,7 +192,11 @@ export const parseMixturePolicy = (value: unknown): MixturePolicy => {
       `mixture policy is missing weights for ${missing.join(", ")}`
     );
   }
-  return parsed.data;
+  return {
+    packInventoryFloor: parsed.data.packInventoryFloor,
+    stopOnCleanCheap: parsed.data.stopOnCleanCheap,
+    weights: parsed.data.weights as MixturePolicy["weights"],
+  };
 };
 
 export const DEFAULT_MIXTURE: MixturePolicy = parseMixturePolicy(raw);
@@ -219,24 +228,22 @@ export const packIndexFromSlugs = (
 };
 
 export const isUnknownAnalog = (result: GenerateResult): boolean =>
-  (result.brief ?? "").startsWith("analog unknown");
+  /\banalog unknown\b/u.test(result.brief ?? "");
 
 export const partOpsOf = (program: string | undefined): number =>
-  (program ?? "")
-    .split("\n")
-    .filter((line) => /^\s*part\s/u.test(line)).length;
+  (program ?? "").split("\n").filter((line) => /^\s*part\s/u.test(line)).length;
 
-const hasHouseOf = (
-  concept: Concept,
-  options: GenerateOptions,
-  house?: HouseSource
-): ((slug: string) => boolean) => {
-  return (slug: string) =>
+const hasHouseOf =
+  (
+    concept: Concept,
+    options: GenerateOptions,
+    house?: HouseSource
+  ): ((slug: string) => boolean) =>
+  (slug) =>
     Boolean(
       house?.has(slug) ||
       (slug === concept.name && (options.targetPaths?.length ?? 0) > 0)
     );
-};
 
 export const evidenceOf = (
   concept: Concept,
@@ -244,19 +251,18 @@ export const evidenceOf = (
   deps: Pick<MixtureDeps, "house" | "inventory"> = {}
 ): Evidence => {
   const has = hasHouseOf(concept, options, deps.house);
-  const { packs, sets } = consensusOf(concept.name, deps.inventory ?? new Map());
+  const { packs, sets } = consensusOf(
+    concept.name,
+    deps.inventory ?? new Map()
+  );
   return {
     analogFamily: familyFromTokens(concept.name, ...(concept.tags ?? [])),
     hasHouse: has(concept.name),
     isMark: markFromSlug(concept.name) !== null,
     packConsensus: packs,
     packs: sets,
-    partHits: rankParts(
-      options.parts ?? [],
-      concept.name,
-      8,
-      options.aliases
-    ).length,
+    partHits: rankParts(options.parts ?? [], concept.name, 8, options.aliases)
+      .length,
     splice: splicePair(concept.name, has),
   };
 };
@@ -272,42 +278,42 @@ export const gate = (
   evidence: Evidence,
   policy: MixturePolicy = DEFAULT_MIXTURE
 ): GateDecision => {
-  const pick = (id: ConceptClass, reason: string): GateDecision => ({
+  const choose = (id: ConceptClass, reason: string): GateDecision => ({
     candidates: policy.weights[id],
     class: id,
     reason,
   });
   if (evidence.isMark) {
-    return pick("keyed-mark", "MARKS key — host twin, no model");
+    return choose("keyed-mark", "MARKS key — host twin, no model");
   }
   if (evidence.hasHouse) {
-    return pick("keyed-house", "house file — compile onto parts");
+    return choose("keyed-house", "house file — compile onto parts");
   }
   if (evidence.splice !== null) {
-    return pick(
+    return choose(
       "keyed-splice",
       `splice ${evidence.splice.base} × ${evidence.splice.badge}`
     );
   }
   if (evidence.analogFamily !== null) {
-    return pick(
+    return choose(
       "analog-family",
       `named analog family ${evidence.analogFamily}`
     );
   }
   if (evidence.partHits > 0) {
-    return pick(
+    return choose(
       "part-covered",
       `${evidence.partHits} vocabulary hit(s) for this name`
     );
   }
   if (evidence.packConsensus >= policy.packInventoryFloor) {
-    return pick(
+    return choose(
       "pack-inventory",
       `${evidence.packConsensus} analysis-only packs name this (${evidence.packs.join(", ")})`
     );
   }
-  return pick(
+  return choose(
     "net-new",
     "no house file, family, part, or pack consensus — hire the agent"
   );
@@ -316,7 +322,7 @@ export const gate = (
 const miss = (slug: string): Error =>
   new Error(`expert compile has no house path data for "${slug}"`);
 
-const compileExpert = async (
+const compileExpert = (
   concept: Concept,
   options: GenerateOptions,
   house?: HouseSource
@@ -396,51 +402,6 @@ const annotate = (
   trace: [`mixture/${decision.class}/${expert}`, ...result.trace],
 });
 
-/**
- * DRAW: try the gated experts in order. Cheap and clean wins; unknown analog
- * and dirty drawings fall through. The last attempted result is what a
- * caller gets when nothing won — so a hold-out that stays unknown stays
- * unknown, and an agent failure is not replaced by a silent hub.
- */
-export const mixtureArm =
-  (deps: MixtureDeps = {}): GenerateLike =>
-  async (concept, options = {}) => {
-    const policy = deps.policy ?? DEFAULT_MIXTURE;
-    const evidence = evidenceOf(concept, options, deps);
-    const decision = gate(evidence, policy);
-    const experts = { ...defaultExperts(deps.house), ...deps.experts };
-    const ran: { id: ExpertId; result: GenerateResult }[] = [];
-    for (const id of decision.candidates) {
-      const result = await experts[id](concept, options);
-      deps.onExpert?.(id, result);
-      ran.push({ id, result });
-      if (policy.stopOnCleanCheap && isWin(id, result)) {
-        return annotate(result, decision, id);
-      }
-    }
-    if (ran.length === 0) {
-      throw new MixtureError(
-        `mixture gate for "${concept.name}" listed no experts`
-      );
-    }
-    if (!policy.stopOnCleanCheap && ran.length > 1) {
-      const samples = ran.map(({ id, result }) => ({
-        id,
-        result,
-        ...mixtureSample(id, concept.name, result),
-      }));
-      const best = pick(samples);
-      return annotate(best.result, decision, best.id);
-    }
-    const last = ran.at(-1);
-    if (last === undefined) {
-      throw new MixtureError(
-        `mixture gate for "${concept.name}" listed no experts`
-      );
-    }
-    return annotate(last.result, decision, last.id);
-  };
-
 /** Ranked sample the experiment and `pick()` share. */
 export const mixtureSample = (
   expert: ExpertId,
@@ -470,3 +431,49 @@ export const mixtureSample = (
     unknown,
   };
 };
+
+/**
+ * DRAW: try the gated experts in order. Cheap and clean wins; unknown analog
+ * and dirty drawings fall through. The last attempted result is what a
+ * caller gets when nothing won — so a hold-out that stays unknown stays
+ * unknown, and an agent failure is not replaced by a silent hub.
+ */
+export const mixtureArm =
+  (deps: MixtureDeps = {}): GenerateLike =>
+  async (concept, options = {}) => {
+    const policy = deps.policy ?? DEFAULT_MIXTURE;
+    const evidence = evidenceOf(concept, options, deps);
+    const decision = gate(evidence, policy);
+    const experts = { ...defaultExperts(deps.house), ...deps.experts };
+    const ran: { id: ExpertId; result: GenerateResult }[] = [];
+    for (const id of decision.candidates) {
+      // oxlint-disable-next-line no-await-in-loop -- stop on first cheap win
+      const result = await experts[id](concept, options);
+      deps.onExpert?.(id, result);
+      ran.push({ id, result });
+      if (policy.stopOnCleanCheap && isWin(id, result)) {
+        return annotate(result, decision, id);
+      }
+    }
+    if (ran.length === 0) {
+      throw new MixtureError(
+        `mixture gate for "${concept.name}" listed no experts`
+      );
+    }
+    if (!policy.stopOnCleanCheap && ran.length > 1) {
+      const samples = ran.map(({ id, result }) => ({
+        id,
+        result,
+        ...mixtureSample(id, concept.name, result),
+      }));
+      const best = pick(samples);
+      return annotate(best.result, decision, best.id);
+    }
+    const last = ran.at(-1);
+    if (last === undefined) {
+      throw new MixtureError(
+        `mixture gate for "${concept.name}" listed no experts`
+      );
+    }
+    return annotate(last.result, decision, last.id);
+  };

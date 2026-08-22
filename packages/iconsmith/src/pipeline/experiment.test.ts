@@ -50,23 +50,19 @@ const hypothesis: Hypothesis = {
   treatment: "agent",
 };
 
-const trial = (
-  concept: string,
-  winner: "agent" | "analog" | "tie"
-): Trial => {
+const trial = (concept: string, winner: "agent" | "analog" | "tie"): Trial => {
   const control = sample("analog", concept, {
     parts: winner === "analog" ? 2 : 0,
     unknown: winner === "agent",
   });
   const treatment = sample("agent", concept, {
-    parts: winner === "agent" ? 2 : winner === "tie" ? 0 : 0,
+    parts: winner === "agent" ? 2 : 0,
   });
   return {
     concept,
     control,
     treatment,
-    winner:
-      winner === "tie" ? "tie" : winner === "agent" ? "agent" : "analog",
+    winner,
   };
 };
 
@@ -81,9 +77,9 @@ describe("winnerOf", () => {
   });
 
   it("ties two equal clean drawings", () => {
-    expect(
-      winnerOf(sample("analog", "home"), sample("agent", "home"))
-    ).toBe("tie");
+    expect(winnerOf(sample("analog", "home"), sample("agent", "home"))).toBe(
+      "tie"
+    );
   });
 });
 

@@ -24,8 +24,9 @@ import {
   defaultExperts,
   evidenceOf,
   gate,
+  packIndexFromSlugs,
+  parseMixturePolicy,
 } from "../pipeline/mixture.js";
-import { packIndexFromSlugs, parseMixturePolicy } from "../pipeline/mixture.js";
 import type { ConceptClass, ExpertId, PackIndex } from "../pipeline/mixture.js";
 import { houseAt } from "./new.js";
 import { readJson } from "./read.js";
@@ -79,7 +80,7 @@ export const inventoryNames = (
 ): { names: string[]; packs: PackIndex } => {
   assertNamesOnly(raw, "gap inventory");
   if (!Array.isArray(raw)) {
-    throw new Error("inventory must be a JSON array of { name, sets }.");
+    throw new TypeError("inventory must be a JSON array of { name, sets }.");
   }
   const rows: { pack: string; slug: string }[] = [];
   const names: string[] = [];
@@ -93,7 +94,7 @@ export const inventoryNames = (
     }
     const rec = entry as { name?: unknown; sets?: unknown };
     if (typeof rec.name !== "string") {
-      throw new Error("inventory entry is missing name.");
+      throw new TypeError("inventory entry is missing name.");
     }
     names.push(rec.name);
     if (Array.isArray(rec.sets)) {
@@ -163,11 +164,7 @@ export const registerImproveCommand = (program: Command): void => {
     )
     .requiredOption("--control <expert>", "incumbent expert")
     .requiredOption("--treatment <expert>", "challenger expert")
-    .option(
-      "--class <id>",
-      "concept class this A/B is about",
-      "pack-inventory"
-    )
+    .option("--class <id>", "concept class this A/B is about", "pack-inventory")
     .option("--claim <text>", "one-line hypothesis for the ledger")
     .option("--concepts <name...>", "names to split into screen / selection")
     .option("--feedback <name...>", "screen names; not evidence")
@@ -194,18 +191,14 @@ export const registerImproveCommand = (program: Command): void => {
       const treatment = parseExpertId(opts.treatment);
       const klass = parseConceptClass(opts.class ?? "pack-inventory");
       const policy = loadPolicy(opts.policy ?? DEFAULT_POLICY);
-      let inventory: PackIndex = new Map();
-      let names = [...(opts.concepts ?? [])];
-
-      if (opts.inventory) {
-        const loaded = inventoryNames(
-          readJson<unknown>(opts.inventory, "a gap inventory JSON file")
-        );
-        inventory = loaded.packs;
-        if (names.length === 0) {
-          names = loaded.names;
-        }
-      }
+      const requested = [...(opts.concepts ?? [])];
+      const fromInventory = opts.inventory
+        ? inventoryNames(
+            readJson<unknown>(opts.inventory, "a gap inventory JSON file")
+          )
+        : { names: [] as string[], packs: new Map() as PackIndex };
+      let inventory: PackIndex = fromInventory.packs;
+      const names = requested.length > 0 ? requested : fromInventory.names;
       if (opts.packs) {
         const rows = readJson<unknown>(
           opts.packs,
@@ -213,9 +206,11 @@ export const registerImproveCommand = (program: Command): void => {
         );
         assertNamesOnly(rows, "pack slug index");
         if (!Array.isArray(rows)) {
-          throw new Error("packs file must be an array of { pack, slug }.");
+          throw new TypeError("packs file must be an array of { pack, slug }.");
         }
-        inventory = packIndexFromSlugs(rows as { pack: string; slug: string }[]);
+        inventory = packIndexFromSlugs(
+          rows as { pack: string; slug: string }[]
+        );
       }
       if (opts.packsRoot !== undefined && existsSync(opts.packsRoot)) {
         const baselines = await loadBaselines(opts.packsRoot);
@@ -241,9 +236,7 @@ export const registerImproveCommand = (program: Command): void => {
       }
       const split = splitConcepts(matched, opts.feedback, opts.selection);
       const hypothesis: Hypothesis = {
-        claim:
-          opts.claim ??
-          `${treatment} beats ${control} on ${klass}`,
+        claim: opts.claim ?? `${treatment} beats ${control} on ${klass}`,
         class: klass,
         control,
         id: `${klass}-${control}-vs-${treatment}`,

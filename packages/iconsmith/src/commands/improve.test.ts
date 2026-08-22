@@ -12,16 +12,21 @@ describe("splitConcepts", () => {
       feedback: ["only"],
       selection: [],
     });
-    expect(
-      splitConcepts(["a", "b"], ["a"], ["b"])
-    ).toEqual({ feedback: ["a"], selection: ["b"] });
+    expect(splitConcepts(["a", "b"], ["a"], ["b"])).toEqual({
+      feedback: ["a"],
+      selection: ["b"],
+    });
   });
 });
 
 describe("inventoryNames", () => {
   it("reads names and pack consensus, never geometry", () => {
     const loaded = inventoryNames([
-      { name: "database", packs: 4, sets: ["heroicons", "lucide", "remix", "tabler"] },
+      {
+        name: "database",
+        packs: 4,
+        sets: ["heroicons", "lucide", "remix", "tabler"],
+      },
       "wifi",
     ]);
     expect(loaded.names).toEqual(["database", "wifi"]);
@@ -35,7 +40,7 @@ describe("inventoryNames", () => {
 
   it("refuses a d field on an inventory row", () => {
     expect(() =>
-      inventoryNames([{ name: "database", d: "M0 0", sets: ["lucide"] }])
+      inventoryNames([{ d: "M0 0", name: "database", sets: ["lucide"] }])
     ).toThrow(/d/u);
   });
 });

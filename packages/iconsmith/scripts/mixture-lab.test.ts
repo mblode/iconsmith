@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { evidenceOf, gate, packIndexFromSlugs } from "../src/pipeline/mixture.js";
-
+import {
+  evidenceOf,
+  gate,
+  packIndexFromSlugs,
+} from "../src/pipeline/mixture.js";
 import { labNames } from "./mixture-lab.js";
 
 describe("mixture-lab", () => {

@@ -20,11 +20,7 @@
  * model does not vote.
  */
 import type { GenerateResult } from "./generate.js";
-import {
-  CONCEPT_CLASSES,
-  EXPERT_IDS,
-  mixtureSample,
-} from "./mixture.js";
+import { CONCEPT_CLASSES, EXPERT_IDS, mixtureSample } from "./mixture.js";
 import type { ConceptClass, ExpertId } from "./mixture.js";
 import { better } from "./pick.js";
 import type { Concept } from "./prompt.js";
@@ -229,32 +225,39 @@ export interface RunExperimentOptions {
   selection: readonly string[];
 }
 
+const trialFor = async (
+  name: string,
+  draw: RunExperimentOptions["draw"],
+  hypothesis: Hypothesis
+): Promise<Trial> => {
+  const concept = { name };
+  const [controlResult, treatmentResult] = await Promise.all([
+    draw(hypothesis.control, concept),
+    draw(hypothesis.treatment, concept),
+  ]);
+  return trialOf(
+    name,
+    hypothesis.control,
+    hypothesis.treatment,
+    controlResult,
+    treatmentResult
+  );
+};
+
 export const runExperiment = async ({
   draw,
   feedback,
   hypothesis,
   selection,
 }: RunExperimentOptions): Promise<ExperimentReport> => {
-  const screenTrials: Trial[] = [];
-  for (const name of feedback) {
-    const concept = { name };
-    const [controlResult, treatmentResult] = await Promise.all([
-      draw(hypothesis.control, concept),
-      draw(hypothesis.treatment, concept),
-    ]);
-    screenTrials.push(
-      trialOf(
-        name,
-        hypothesis.control,
-        hypothesis.treatment,
-        controlResult,
-        treatmentResult
-      )
-    );
-  }
+  const screenTrials = await Promise.all(
+    feedback.map((name) => trialFor(name, draw, hypothesis))
+  );
   const screen = scoreSlice(screenTrials);
-  const screened = decideExperiment(screen, null);
-  if (screened.status === "screened-out" || selection.length === 0) {
+  if (
+    decideExperiment(screen, null).status === "screened-out" ||
+    selection.length === 0
+  ) {
     return {
       ...decideExperiment(screen, null),
       hypothesis,
@@ -262,26 +265,11 @@ export const runExperiment = async ({
       selectionTrials: [],
     };
   }
-  const selectionTrials: Trial[] = [];
-  for (const name of selection) {
-    const concept = { name };
-    const [controlResult, treatmentResult] = await Promise.all([
-      draw(hypothesis.control, concept),
-      draw(hypothesis.treatment, concept),
-    ]);
-    selectionTrials.push(
-      trialOf(
-        name,
-        hypothesis.control,
-        hypothesis.treatment,
-        controlResult,
-        treatmentResult
-      )
-    );
-  }
-  const verdict = decideExperiment(screen, scoreSlice(selectionTrials));
+  const selectionTrials = await Promise.all(
+    selection.map((name) => trialFor(name, draw, hypothesis))
+  );
   return {
-    ...verdict,
+    ...decideExperiment(screen, scoreSlice(selectionTrials)),
     hypothesis,
     screenTrials,
     selectionTrials,

@@ -35,12 +35,10 @@ const result = (
   ...over,
 });
 
-const expert = (
-  id: ExpertId,
-  fn: (name: string) => GenerateResult
-): GenerateLike => {
-  return (concept) => Promise.resolve(fn(concept.name));
-};
+const expert =
+  (id: ExpertId, fn: (name: string) => GenerateResult): GenerateLike =>
+  (concept) =>
+    Promise.resolve(fn(concept.name));
 
 const policy = (over: Partial<MixturePolicy> = {}): MixturePolicy => ({
   ...DEFAULT_MIXTURE,
@@ -90,7 +88,7 @@ describe("pack index is names only", () => {
       /svg/u
     );
     expect(() =>
-      packIndexFromSlugs([{ pack: "lucide", slug: "x", d: "M0 0" } as never])
+      packIndexFromSlugs([{ d: "M0 0", pack: "lucide", slug: "x" } as never])
     ).toThrow(/d/u);
   });
 });
@@ -102,9 +100,9 @@ describe("gate", () => {
       paths: () => null,
     };
     expect(gate(evidenceOf({ name: "plus" })).class).toBe("keyed-mark");
-    expect(
-      gate(evidenceOf({ name: "clock" }, {}, { house })).class
-    ).toBe("keyed-house");
+    expect(gate(evidenceOf({ name: "clock" }, {}, { house })).class).toBe(
+      "keyed-house"
+    );
     expect(
       gate(evidenceOf({ name: "folder-clock" }, {}, { house })).class
     ).toBe("keyed-splice");
