@@ -435,10 +435,10 @@ export const sun = (slug: string, finish: Finish = "outlined"): string =>
     "line 12,21 12,22",
     "line 2,12 3,12",
     "line 21,12 22,12",
-    "dot 5,5",
-    "dot 19,19",
-    "dot 19,5",
-    "dot 5,19",
+    "line 5,5 4,4 off-axis",
+    "line 19,5 20,4 off-axis",
+    "line 19,19 20,20 off-axis",
+    "line 5,19 4,20 off-axis",
   ]);
 
 /**
@@ -656,24 +656,17 @@ export const pause = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House play: a right-pointing triangle on portrait. Outlined is that
- * closed outline; filled is the same body as stacked bars (a polyline
- * has no inside under fill).
+ * House play: a rounded-back triangle pointing right. Outlined is that
+ * silhouette — a stadium back plus two edges to the point — not a
+ * sharp chevron. Filled is the same marks; a closed polyline has no
+ * inside under fill.
  */
 export const play = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(
-    slug,
-    finish,
-    "portrait",
-    finish === "filled"
-      ? [
-          mass(finish, 4, 3, 4, 18, 1),
-          mass(finish, 8, 5, 4, 14, 1),
-          mass(finish, 12, 8, 4, 8, 1),
-          mass(finish, 16, 10, 4, 4, 1),
-        ]
-      : ["line 5,3 21,12 5,21 5,3 off-axis"]
-  );
+  iconProgram(slug, finish, "portrait", [
+    mass(finish, 5, 4, 6, 16, 3),
+    "line 11,4 20,12 off-axis",
+    "line 20,12 11,20 off-axis",
+  ]);
 
 /**
  * House chevron-right: one open tick pointing right. Filled is that
@@ -739,9 +732,11 @@ export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
  */
 export const airplane = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
-    "line 3,6 20,10 off-axis",
-    "line 20,10 4,16 off-axis",
-    "line 9,11 18,20 off-axis",
+    "line 3,6 13.5,7 off-axis",
+    "line 13.5,7 21,4 off-axis",
+    "line 9.5,11 3,15.5 off-axis",
+    "line 13,8 18,21 off-axis",
+    "line 7.5,13 8.5,21 off-axis",
   ]);
 
 /**
