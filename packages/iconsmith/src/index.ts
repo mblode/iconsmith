@@ -168,11 +168,13 @@ export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
 export {
   CONCEPT_CLASSES,
+  DEFAULT_INVENTORY,
   DEFAULT_MIXTURE,
   EXPERT_IDS,
   assertNamesOnly,
   evidenceOf,
   gate,
+  mergePackIndex,
   mixtureArm,
   packIndexFromSlugs,
   parseMixturePolicy,

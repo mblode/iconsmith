@@ -5,8 +5,10 @@ import type { GenerateLike } from "./harness.js";
 import {
   CHEAP_EXPERTS,
   CONCEPT_CLASSES,
+  DEFAULT_INVENTORY,
   DEFAULT_MIXTURE,
   EXPERT_IDS,
+  mergePackIndex,
   assertNamesOnly,
   consensusOf,
   evidenceOf,
@@ -147,6 +149,17 @@ describe("gate", () => {
       ).class
     ).toBe("pack-inventory");
     expect(gate(evidenceOf({ name: "xyzzy" })).class).toBe("net-new");
+  });
+
+  it("ships pack names so a consensus gap is inventory, not net-new", () => {
+    expect(gate(evidenceOf({ name: "database" })).class).toBe("pack-inventory");
+    expect(
+      gate(evidenceOf({ name: "database" }, {}, { inventory: new Map() })).class
+    ).toBe("net-new");
+    expect(DEFAULT_INVENTORY.get("wifi")).toHaveLength(4);
+    expect(
+      mergePackIndex(new Map(), DEFAULT_INVENTORY).get("database")
+    ).toEqual([...(DEFAULT_INVENTORY.get("database") ?? [])]);
   });
 
   it("does not let pack consensus outrank a house file", () => {

@@ -64,6 +64,7 @@ src/
     select.ts         # SELECT as competing policies, not five seeds of one
     mixture.ts        # sparse expert gate: compile / mark / analog / glyph / agent
     mixture.default.json # routing table the improve command may rewrite
+    mixture.inventory.json # names-only pack slugs; overlay from commands/
     experiment.ts     # two-stage A/B of two experts (screen then decide)
     reconstruct.ts    # keyed: compile house subpaths onto parts (not an agent)
     analog.ts         # lab: replay a Central kin, else a name-hinted family / kin / alias, else compose a named part, else unknown

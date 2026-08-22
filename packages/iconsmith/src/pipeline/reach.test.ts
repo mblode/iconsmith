@@ -125,6 +125,14 @@ describe("reach", () => {
     expect(result.brief).not.toMatch(/unknown/u);
   });
 
+  it("draws a pack-inventory name on the host analog, no model", async () => {
+    const result = await reach({ name: "database" }, { unkeyed: "mixture" });
+    expect(result.cost).toBeUndefined();
+    expect(result.brief).toMatch(/mixture pack-inventory analog/u);
+    expect(result.brief).toMatch(/analog trays/u);
+    expect(result.brief).not.toMatch(/unknown/u);
+  });
+
   it("analogs an unkeyed cylinder name as trays", async () => {
     const result = await reach({ name: "server" });
     expect(result.brief).toBe("analog trays server");

@@ -2,8 +2,8 @@
  * Host DRAW first for a house file or a MARKS key. A new glyph is written by
  * a coding agent (`unkeyed: "agent"` / `"harness"`), or taken from `glyphs.ts`
  * where the house has a construction and the caller asks for it
- * (`unkeyed: "glyph"`). Analog replay is the lab path, not the product path
- * for `iconsmith new`.
+ * (`unkeyed: "glyph"`). Analog replay is the lab path. `iconsmith new`
+ * defaults to `unkeyed: "mixture"` — cheap host arms, then the agent.
  *
  * Keyed compile scored 0.999 on `pull-request`; N=5 agent redraws of the same
  * file scored 0.58–0.79. `forceAgent` skips host DRAW entirely.
@@ -22,6 +22,7 @@ import { harnessArm } from "./harness.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
 import { mixtureArm } from "./mixture.js";
+import type { PackIndex } from "./mixture.js";
 import { pairCanvases } from "./pair.js";
 import type { Concept } from "./prompt.js";
 import { compileArm } from "./reconstruct.js";
@@ -212,7 +213,8 @@ const analogOrAgent = async (
 export const reach = (
   concept: Concept,
   options: GenerateOptions = {},
-  house?: HouseSource
+  house?: HouseSource,
+  inventory?: PackIndex
 ): Promise<GenerateResult> => {
   const hasHouse = (slug: string): boolean =>
     Boolean(
@@ -270,7 +272,7 @@ export const reach = (
     return generate(concept, options);
   }
   if (options.unkeyed === "mixture") {
-    return mixtureArm({ house })(concept, options);
+    return mixtureArm({ house, inventory })(concept, options);
   }
   return analogOrAgent(concept, options, house);
 };

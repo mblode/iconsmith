@@ -112,4 +112,5 @@ Sparse routing over the DRAW arms that already exist. Analysis-only packs are in
 - [x] `src/pipeline/mixture.ts` — evidence, gate, cheap-first DRAW
 - [x] `src/pipeline/experiment.ts` — screen on feedback, decide on selection
 - [x] `iconsmith new --mixture` / `iconsmith improve` / `scripts/mixture-lab.ts`
+- [x] `iconsmith new` defaults to mixture; `mixture.inventory.json` is names only
 - [x] Third-party packs contribute slugs only; `assertNamesOnly` refuses `d` / `svg`

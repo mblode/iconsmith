@@ -28,7 +28,10 @@
  *    coordinate. The agent (Vercel AI Gateway or OpenRouter) is the
  *    expensive layer, hired only when the gate lists it and a cheap expert
  *    did not already draw clean. `stopOnCleanCheap` is the default because
- *    a clean analog *is* the house language.
+ *    a clean analog *is* the house language. `mixture.inventory.json` is
+ *    the names-only table so a pack-consensus name is inventory, not
+ *    net-new, even when the corpus is not on disk. Overlay it from
+ *    `commands/` when a packs-root listing exists.
  * 4. **Unknown analog is not a win.** `analog unknown xyzzy` is a hold-out
  *    staying unknown, not a drawing. The gate falls through.
  *
@@ -51,6 +54,7 @@ import type { GenerateLike } from "./harness.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
 import raw from "./mixture.default.json" with { type: "json" };
+import rawInventory from "./mixture.inventory.json" with { type: "json" };
 import { pick } from "./pick.js";
 import type { Concept } from "./prompt.js";
 import type { HouseSource } from "./reach.js";
@@ -227,6 +231,26 @@ export const packIndexFromSlugs = (
   return map;
 };
 
+/** Merge slug × pack rows. Later indexes add packs; they never drop one. */
+export const mergePackIndex = (...indexes: readonly PackIndex[]): PackIndex => {
+  const rows: { pack: string; slug: string }[] = [];
+  for (const index of indexes) {
+    for (const [slug, packs] of index) {
+      for (const pack of packs) {
+        rows.push({ pack, slug });
+      }
+    }
+  }
+  return packIndexFromSlugs(rows);
+};
+
+/**
+ * Names only. The seven analysis-only packs as a committed slug table, so
+ * `database` is inventory on a machine that has no corpus. `commands/` may
+ * overlay a packs-root listing; geometry still cannot enter.
+ */
+export const DEFAULT_INVENTORY: PackIndex = packIndexFromSlugs(rawInventory);
+
 export const isUnknownAnalog = (result: GenerateResult): boolean =>
   /\banalog unknown\b/u.test(result.brief ?? "");
 
@@ -253,7 +277,7 @@ export const evidenceOf = (
   const has = hasHouseOf(concept, options, deps.house);
   const { packs, sets } = consensusOf(
     concept.name,
-    deps.inventory ?? new Map()
+    deps.inventory ?? DEFAULT_INVENTORY
   );
   return {
     analogFamily: familyFromTokens(concept.name, ...(concept.tags ?? [])),

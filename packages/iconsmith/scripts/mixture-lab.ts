@@ -2,8 +2,8 @@
  * Sparse expert gate, no agent, no credits.
  *
  * Prints the class and cheap-expert drawing for each name. Pack consensus is
- * a fixture of slugs — Lucide / Tabler / Heroicons / Remix *names*, not
- * drawings. `xyzzy` stays unknown.
+ * the committed names-only table — Lucide / Tabler / Heroicons / Remix
+ * *names*, not drawings. `xyzzy` stays unknown.
  *
  *   npx tsx scripts/mixture-lab.ts
  *   npx tsx scripts/mixture-lab.ts home database xyzzy plus
@@ -12,24 +12,13 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import {
+  DEFAULT_INVENTORY,
   evidenceOf,
   gate,
   mixtureArm,
-  packIndexFromSlugs,
 } from "../src/pipeline/mixture.js";
 
 const OUT = path.join(".staging", "mixture", "lab.json");
-
-const DEMO_PACKS = packIndexFromSlugs([
-  { pack: "heroicons", slug: "database" },
-  { pack: "lucide", slug: "database" },
-  { pack: "remix", slug: "database" },
-  { pack: "tabler", slug: "database" },
-  { pack: "heroicons", slug: "wifi" },
-  { pack: "lucide", slug: "wifi" },
-  { pack: "phosphor", slug: "wifi" },
-  { pack: "tabler", slug: "wifi" },
-]);
 
 const DEFAULT_NAMES = ["plus", "home", "database", "xyzzy"] as const;
 
@@ -46,13 +35,11 @@ const main = async (): Promise<void> => {
         throw new Error("mixture-lab does not hire the agent");
       },
     },
-    inventory: DEMO_PACKS,
+    inventory: DEFAULT_INVENTORY,
   });
   const rows = await Promise.all(
     names.map(async (name) => {
-      const decision = gate(
-        evidenceOf({ name }, {}, { inventory: DEMO_PACKS })
-      );
+      const decision = gate(evidenceOf({ name }));
       const cheap = decision.candidates.filter((id) => id !== "agent");
       if (cheap.length === 0) {
         return {

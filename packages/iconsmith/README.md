@@ -21,7 +21,7 @@ iconsmith parts ./icons-svg -o parts.json      # cluster subpaths into a vocabul
 iconsmith draw cloud-check.icon -p parts.json  # run a DSL program, emit SVG
 iconsmith lint ./icons-svg/*.svg               # check against the house spec
 iconsmith eval --dir ./icon-set --slice 12     # reconstruction score (needs AI_GATEWAY_API_KEY or OPENROUTER_API_KEY)
-iconsmith new database --mixture -o database.svg  # net-new: cheap host arms, then the agent
+iconsmith new database -o database.svg            # mixture: analog trays, no model
 iconsmith improve --control analog --treatment agent --class pack-inventory --concepts database wifi --dry-run
 ```
 
