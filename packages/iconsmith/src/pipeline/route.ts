@@ -71,6 +71,7 @@ import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { generate } from "./generate.js";
 import type { Reference } from "./licence.js";
 import { markArm } from "./mark.js";
+import { mixtureArm } from "./mixture.js";
 import type { Concept } from "./prompt.js";
 import type { ProposalOptions, ProposalRun } from "./propose.js";
 import { propose } from "./propose.js";
@@ -503,6 +504,21 @@ export const analog: Route = {
   name: "analog",
 };
 
+/** DRAW: sparse expert gate. Cheap host arms first; agent if they fail. */
+export const drawMixture = drawWith("mixture", mixtureArm());
+
+/** `direct` with one variable changed: DRAW is the mixture gate. */
+export const mixture: Route = {
+  ...direct,
+  description:
+    "DRAW routes to compile / mark / analog / glyph / agent from evidence " +
+    "(house file, MARKS key, named family, part hit, pack-name consensus). " +
+    "Third-party packs contribute names only. Differs from `direct` in " +
+    "exactly one stage.",
+  draw: drawMixture,
+  name: "mixture",
+};
+
 /** Every route, by name. Flat and enumerable on purpose: this is the listing a
  *  JSON file would have been written for. */
 export const ROUTES: Readonly<Record<string, Route>> = {
@@ -510,6 +526,7 @@ export const ROUTES: Readonly<Record<string, Route>> = {
   compile,
   direct,
   mark,
+  mixture,
   "part-first": partFirst,
 };
 

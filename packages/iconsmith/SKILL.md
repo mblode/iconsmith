@@ -22,7 +22,10 @@ This is not a style guide you can drift away from. Off-spec geometry is unrepres
 npx iconsmith draw cloud-check.icon > cloud-check.svg
 npx iconsmith lint cloud-check.svg --keyline wide
 npx iconsmith --output json lint cloud-check.svg   # machine-readable
+npx iconsmith new database -o database.svg
 ```
+
+`iconsmith new` is the product path: cheap host experts (compile / mark / analog) first, the gateway or OpenRouter agent only if they fail. Third-party packs (Lucide, Heroicons, Tabler, Remix) contribute _names_ for inventory, never drawings. `iconsmith improve --control analog --treatment agent --class pack-inventory --concepts …` is the A/B that updates that routing table. Do not paste Lucide path data into a program.
 
 `draw` writes SVG on stdout and diagnostics on stderr, so the redirect above always produces a valid file. Both commands exit non-zero on an error and 0 on warnings alone. Every command takes `--output json`; the default text output is for humans.
 

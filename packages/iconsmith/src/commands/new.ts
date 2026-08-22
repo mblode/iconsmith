@@ -4,6 +4,7 @@ import { styleText } from "node:util";
 
 import type { Command } from "commander";
 
+import { loadBaselines } from "../corpus/baselines.js";
 import { FILLED_VARIANT, HOUSE_VARIANT, parseIconSvg } from "../corpus/load.js";
 import {
   KIN_FLOOR,
@@ -17,13 +18,20 @@ import {
   loadParts,
   MissingApiKeyError,
 } from "../pipeline/generate.js";
+import type { Unkeyed } from "../pipeline/generate.js";
+import {
+  DEFAULT_INVENTORY,
+  mergePackIndex,
+  packIndexFromSlugs,
+} from "../pipeline/mixture.js";
+import type { PackIndex } from "../pipeline/mixture.js";
 import type { HouseSource } from "../pipeline/reach.js";
 import { reach } from "../pipeline/reach.js";
 import { specAt } from "../tools/canvas.js";
 import type { OpticalSize } from "../tools/canvas.js";
 import { format } from "../tools/lint.js";
-import type { Finish, Keyline } from "../types.js";
-import { assertWritable } from "./read.js";
+import type { Finish, Keyline, Part } from "../types.js";
+import { assertWritable, readJson } from "./read.js";
 
 const KEYLINES = new Set([
   "circle",
@@ -55,11 +63,14 @@ interface NewOptions {
   finish?: string;
   force?: boolean;
   harness?: boolean | string;
+  inventory?: string;
   keyline?: string;
   look?: boolean;
   maxSteps?: string;
+  mixture?: boolean;
   model?: string;
   out?: string;
+  packsRoot?: string;
   parts?: string;
   radius?: string;
   size?: string;
@@ -129,18 +140,66 @@ export const houseAt = (root: string): HouseSource => {
   };
 };
 
-const unkeyedOf = (opts: NewOptions): "agent" | "analog" | "harness" => {
+/** Product default is the sparse gate. `--analog` and `--harness` opt out. */
+export const unkeyedOf = (opts: NewOptions): Unkeyed => {
   if (opts.analog) {
     return "analog";
   }
   if (opts.harness !== undefined && opts.harness !== false) {
     return "harness";
   }
-  return "agent";
+  return "mixture";
 };
 
-const drawNew = (name: string, opts: NewOptions) =>
-  reach(
+/** `parts.json` next to the command, or under the corpus, if nobody passed one. */
+export const resolveParts = (
+  explicit?: string,
+  cwd = process.cwd()
+): Part[] => {
+  const candidates = [
+    explicit,
+    path.join(cwd, "parts.json"),
+    path.join(cwd, "corpus", "parts.json"),
+  ].filter((file): file is string => file !== undefined && file.length > 0);
+  for (const file of candidates) {
+    if (existsSync(file)) {
+      return loadParts(file);
+    }
+  }
+  return [];
+};
+
+export const resolveInventory = async (
+  opts: Pick<NewOptions, "inventory" | "packsRoot">
+): Promise<PackIndex> => {
+  let extra: PackIndex = new Map();
+  if (opts.inventory !== undefined) {
+    const rows = readJson<unknown>(
+      opts.inventory,
+      "a pack slug index JSON file"
+    );
+    if (!Array.isArray(rows)) {
+      throw new TypeError("inventory file must be an array of { pack, slug }.");
+    }
+    extra = packIndexFromSlugs(rows as { pack: string; slug: string }[]);
+  }
+  if (opts.packsRoot !== undefined && existsSync(opts.packsRoot)) {
+    const baselines = await loadBaselines(opts.packsRoot);
+    extra = mergePackIndex(
+      extra,
+      packIndexFromSlugs(
+        baselines.entries.map((e) => ({ pack: e.pack, slug: e.icon }))
+      )
+    );
+  }
+  return extra.size > 0
+    ? mergePackIndex(DEFAULT_INVENTORY, extra)
+    : DEFAULT_INVENTORY;
+};
+
+const drawNew = async (name: string, opts: NewOptions) => {
+  const inventory = await resolveInventory(opts);
+  return reach(
     { name, tags: opts.tags },
     {
       ask: opts.look ? gatewayAsk : undefined,
@@ -153,12 +212,14 @@ const drawNew = (name: string, opts: NewOptions) =>
       keyline: (opts.keyline as Keyline | undefined) ?? null,
       maxSteps: Number(opts.maxSteps ?? DEFAULT_MAX_STEPS),
       model: opts.model,
-      parts: opts.parts ? loadParts(opts.parts) : [],
+      parts: resolveParts(opts.parts),
       spec: cutFrom(opts),
       unkeyed: unkeyedOf(opts),
     },
-    houseAt(opts.corpus ?? "corpus")
+    houseAt(opts.corpus ?? "corpus"),
+    inventory
   );
+};
 
 const reportNew = (
   result: Awaited<ReturnType<typeof reach>>,
@@ -223,12 +284,12 @@ const reportNew = (
  *
  * Host DRAW first for a house file or a MARKS key. A filled house file is
  * compiled as filled (`--finish filled`); adapting the outline is only the
- * fallback when that file is missing. A new glyph — no house drawing of this
- * concept — is written by a coding agent (`generate`, or `--harness
- * claude|codex`). `--analog` is the lab path: replay a Central kin, else a
- * name-hinted family, else compose a named part, else unknown. `--agent` forces the
- * tool-calling loop even when a house file exists. The model never emits a
- * coordinate on any of those paths.
+ * fallback when that file is missing. An unkeyed name goes through the
+ * sparse mixture: cheap host arms, then the gateway / OpenRouter agent.
+ * `--analog` is the lab path. `--harness` is a coding-agent CLI.
+ * `--agent` forces the tool-calling loop even when a house file exists.
+ * `--mixture` is the default and is kept so older scripts still parse.
+ * The model never emits a coordinate on any of those paths.
  */
 export const registerNewCommand = (program: Command): void => {
   program
@@ -251,6 +312,18 @@ export const registerNewCommand = (program: Command): void => {
     .option(
       "--analog",
       "host constructions / kin replay; default for a new glyph is to hire an agent"
+    )
+    .option(
+      "--mixture",
+      "sparse expert routing (default): cheap host arms first, agent if they fail"
+    )
+    .option(
+      "--inventory <file>",
+      "JSON array of { pack, slug } — names only, merged onto the committed table"
+    )
+    .option(
+      "--packs-root <dir>",
+      "baseline pack tree; listings only, files are not opened"
     )
     .option(
       "--harness [command]",

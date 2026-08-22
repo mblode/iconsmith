@@ -616,6 +616,14 @@ describe("analog families", () => {
     expect(familyFromTokens("hourglass-timer")).toBe("hourglass");
     expect(familyFromTokens("cactus-pot")).toBe("plant");
     expect(familyFromTokens("bananas-bunch")).toBe("banana");
+    expect(familyFromTokens("inbox")).toBe("inbox");
+    expect(familyFromTokens("briefcase")).toBe("briefcase");
+    expect(familyFromTokens("wifi")).toBe("wifi");
+    expect(familyFromTokens("umbrella")).toBe("umbrella");
+    expect(familyFromTokens("fingerprint")).toBe("fingerprint");
+    expect(analogConstructions("qr-code", [], "qr-code", false)[0]?.id).toBe(
+      "qrcode"
+    );
     expect(
       analogConstructions("office-mail", [], "office-mail", false)[0]?.id
     ).toBe("envelope");
@@ -868,7 +876,15 @@ describe("analog families", () => {
   });
 
   it("leaves names it cannot draw honestly as unknown", () => {
-    for (const name of ["xyzzy", "fnord", "quokka", "star", "compass"]) {
+    for (const name of [
+      "xyzzy",
+      "fnord",
+      "quokka",
+      "star",
+      "compass",
+      "microscope",
+      "cookie",
+    ]) {
       const [row] = analogConstructions(name, [], name, false);
       expect(row?.id, name).toBe("unknown");
     }
@@ -887,6 +903,12 @@ describe("analog families", () => {
       ["lantern", "lantern"],
       ["otter", "otter"],
       ["paper-plane", "paperplane"],
+      ["inbox", "inbox"],
+      ["qr-code", "qrcode"],
+      ["briefcase", "briefcase"],
+      ["wifi", "wifi"],
+      ["umbrella", "umbrella"],
+      ["fingerprint", "fingerprint"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

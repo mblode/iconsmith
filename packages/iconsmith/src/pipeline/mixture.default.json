@@ -1,0 +1,13 @@
+{
+  "packInventoryFloor": 4,
+  "stopOnCleanCheap": true,
+  "weights": {
+    "analog-family": ["analog", "agent"],
+    "keyed-house": ["compile"],
+    "keyed-mark": ["mark"],
+    "keyed-splice": ["compile"],
+    "net-new": ["agent"],
+    "pack-inventory": ["analog", "agent"],
+    "part-covered": ["analog", "agent"]
+  }
+}

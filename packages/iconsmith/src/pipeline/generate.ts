@@ -88,7 +88,7 @@ export const withCacheBreakpoints = (
 export const DEFAULT_MAX_STEPS = 24;
 
 /** Who draws a name the house has no file for. See `GenerateOptions.unkeyed`. */
-export type Unkeyed = "agent" | "analog" | "glyph" | "harness";
+export type Unkeyed = "agent" | "analog" | "glyph" | "harness" | "mixture";
 
 export interface GenerateOptions {
   /**
@@ -181,17 +181,19 @@ export interface GenerateOptions {
   lookTwin?: MarkTwin;
   /**
    * Skip host DRAW (compile / mark / splice / analog) and hire the
-   * tool-calling loop. `iconsmith new --agent`. Default for a new glyph is
-   * already the loop (`unkeyed: "agent"`); this flag also redraws a house file.
+   * tool-calling loop. `iconsmith new --agent`. This flag also redraws a
+   * house file. The product default for an unkeyed name is `mixture`.
    */
   forceAgent?: boolean;
   /**
    * What to do with an unkeyed name. Default `analog` keeps labs and tests on
-   * the host constructions. `iconsmith new` passes `agent` (built-in loop) or
-   * `harness` (Claude Code / Codex CLI) so a new glyph is drawn, not replayed
-   * from a neighbour. `glyph` asks for a host construction from `glyphs.ts`,
-   * for the handful of names that have one — it has to be asked for, so that a
-   * caller who wanted a generator never quietly gets the house answer instead.
+   * the host constructions. `iconsmith new` defaults to `mixture` — cheap
+   * host arms first, gateway / OpenRouter only if they fail. `harness` is
+   * a coding-agent CLI. `glyph` asks for a host construction from
+   * `glyphs.ts`, for the handful of names that have one — it has to be
+   * asked for, so that a caller who wanted a generator never quietly gets
+   * the house answer instead. `--agent` is `forceAgent` and redraws a
+   * house file too.
    */
   unkeyed?: Unkeyed;
   /** CLI for `unkeyed: "harness"`. Default `claude`. */

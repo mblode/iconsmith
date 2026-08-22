@@ -20,6 +20,7 @@ npx tsx scripts/twin-eval.ts --house <dir> [--out <dir>] # both paints vs house 
 npx tsx scripts/research.ts   # harness lab judge; 0 arrived, 1 not yet, 2 unscorable
 npx tsx scripts/loop.ts --enable <ids> …   # policy campaign; refuses a dirty tree
 npx tsx scripts/autoresearch.ts --rounds N # pipeline meta-loop; one in-process change per round; never writes autoresearch.md
+npx tsx scripts/mixture-lab.ts  # sparse expert gate; no agent, no credits
 ```
 
 `lab.md` is the standing instructions for the harness campaign (what you look at in `iconsmith view`). `program.md` is the standing instructions for the policy campaign. `autoresearch.md` is the standing instructions for the generation-pipeline meta-loop. None of those files is written by its loop. Arrival is house-indistinguishable (panel clean, ≥1 `part` for keyed/unkeyed, keyed cosine ≥ 0.737; compile with parts may be ≥0.95; leak is ≥0.95 AND 0 part ops AND a model wrote the program). A host mark at ≥0.95 is reconstruction (`twin.ts`), not a leak; 0 parts is OK and sample cosine must stay null. N≥5 is a finding except compile, analog on unkeyed, and mark, where N=1 is decide.
@@ -61,6 +62,10 @@ src/
     splice.ts         # base × badge: two house files, one compile
     search.ts         # the one vocabulary ranking, shared by three callers
     select.ts         # SELECT as competing policies, not five seeds of one
+    mixture.ts        # sparse expert gate: compile / mark / analog / glyph / agent
+    mixture.default.json # routing table the improve command may rewrite
+    mixture.inventory.json # names-only pack slugs; overlay from commands/
+    experiment.ts     # two-stage A/B of two experts (screen then decide)
     reconstruct.ts    # keyed: compile house subpaths onto parts (not an agent)
     analog.ts         # lab: replay a Central kin, else a name-hinted family / kin / alias, else compose a named part, else unknown
     audit.ts          # host screenshot + vision look at a drawn SVG
