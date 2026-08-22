@@ -485,6 +485,24 @@ describe("generate", () => {
     expect(result.program).not.toContain("circle ");
   });
 
+  it("pairs a seeded filled analog of diagonal bars, not an empty programFromDoc", async () => {
+    const result = await generate(
+      { name: "paper-plane" },
+      {
+        finish: "filled",
+        model: scripted([
+          { input: {}, tool: "confirm" },
+          { text: "Host paper-plane analog." },
+        ]),
+      }
+    );
+    expect(result.trace).toEqual(["confirm"]);
+    expect(result.program).toContain("line 4,12 20,6");
+    expect(result.svg).toContain("<path");
+    expect(result.issues.some((i) => i.rule === "empty")).toBe(false);
+    expect(result.clean).toBe(true);
+  });
+
   it("does not offer draw tools once the host analog is seeded", async () => {
     const model = scripted([
       { input: {}, tool: "confirm" },

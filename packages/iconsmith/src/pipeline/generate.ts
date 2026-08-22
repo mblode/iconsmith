@@ -23,7 +23,7 @@ import type { TokenUsage } from "./cost.js";
 import { resolveModel } from "./gateway.js";
 import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
-import { pairAdapted } from "./pair.js";
+import { pairAdapted, pairPrograms } from "./pair.js";
 import type { Policy } from "./policy.js";
 import { conceptPrompt, confirmSystemPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
@@ -425,6 +425,27 @@ const systemFor = (
     ? confirmSystemPrompt({ finish, spec })
     : systemPrompt({ finish, spec, ...rest });
 
+const programOf = (name: string, finish: Finish, doc: IconDoc): string =>
+  hostConstruction(name, finish)?.source ?? programFromDoc(doc);
+
+const pairGenerate = (
+  issues: readonly Issue[],
+  name: string,
+  finish: Finish,
+  program: string,
+  parts: readonly Part[],
+  spec?: Spec
+): Issue[] => {
+  const other = hostConstruction(
+    name,
+    finish === "filled" ? "outlined" : "filled"
+  );
+  if (other !== null) {
+    return pairPrograms(issues, finish, program, other.source, parts, spec);
+  }
+  return pairAdapted(issues, finish, program, parts, spec);
+};
+
 const seedHost = (
   canvas: Canvas,
   state: ToolState,
@@ -508,9 +529,14 @@ export const generate = async (
   // Linted here rather than trusting the model's last `lint` call: it may have
   // drawn after checking, and this is the number that gets reported.
   const doc = canvas.toJSON({ icon: concept.name, keyline });
-  const program = programFromDoc(doc);
-  const issues = pairAdapted(
+  // A seeded host already has a program. `programFromDoc` drops filled
+  // diagonal bars (`raw`), so pairing a paper-plane fill looked empty
+  // even though the canvas held the analog. Pair the two analog paints,
+  // not an adapt of the lossy round-trip.
+  const program = programOf(concept.name, finish, doc);
+  const issues = pairGenerate(
     lint(canvas, { keyline }),
+    concept.name,
     finish,
     program,
     parts,
