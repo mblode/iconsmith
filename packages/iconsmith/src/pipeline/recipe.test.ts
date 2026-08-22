@@ -108,7 +108,7 @@ describe("recipe → family", () => {
     const love = await analogArm()({ name: "heart" });
     const loveFill = await analogArm()({ name: "heart" }, { finish: "filled" });
     expect(love.brief).toBe("analog heart heart");
-    expect(love.program).toContain("line 8,4 5.5,4 3,6 3,10");
+    expect(love.program).toContain("line 8,4 6,4 4,5 3,7 3,10");
     expect(love.program).not.toContain("circle ");
     expect(love.program).not.toContain("arc ");
     expect(love.program).not.toContain("dot 12,12 node");

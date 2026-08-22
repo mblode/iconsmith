@@ -593,7 +593,7 @@ export const heart = (slug: string, finish: Finish = "outlined"): string =>
           ...lozenge(finish, 12, 13.5, 6.5),
         ]
       : [
-          "line 8,4 5.5,4 3,6 3,10 3,15.8 12,20 21,15.8 21,10 21,6 18.5,4 16,4 12,5.5 8,4 off-axis",
+          "line 8,4 6,4 4,5 3,7 3,10 4,16 8,19 12,20 16,19 20,16 21,10 21,7 20,5 18,4 16,4 12,5.5 8,4 off-axis",
         ]
   );
 
