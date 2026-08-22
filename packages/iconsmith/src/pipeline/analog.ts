@@ -668,8 +668,8 @@ export const shield = (slug: string, finish: Finish = "outlined"): string =>
  * House zap: compile is one bolt silhouette (`part zap-0`). Outlined
  * is that closed zigzag on the house vertices, not a frame-and-dot.
  * Filled is a core mass plus parallel bars on those edges — a closed
- * polyline has no inside under fill. No portrait `fit`: the bolt is
- * 17×21.5.
+ * polyline has no inside under fill. No portrait `fit`: the house
+ * bolt is 18×22.
  */
 export const zap = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -679,17 +679,19 @@ export const zap = (slug: string, finish: Finish = "outlined"): string =>
     finish === "filled"
       ? [
           mass(finish, 8, 8, 8, 8, 1),
-          "line 13,3 4.4,15 off-axis",
+          "line 12.1,2.1 4,14.2 off-axis",
+          "line 13,2.4 4.4,15 off-axis",
           "line 14,3 5.4,15 off-axis",
           "line 4.4,15 11,15",
-          "line 11,15 11.9,21.9 off-axis",
-          "line 12,15 12.9,21.9 off-axis",
-          "line 11.9,21.9 19.6,9 off-axis",
+          "line 11,15.5 11,21.6",
+          "line 11.9,21.9 20,9.8 off-axis",
           "line 10.9,21.9 18.6,9 off-axis",
           "line 19.6,9 13,9",
           "line 13,9 13,2.4",
         ]
-      : ["line 13,2.4 13,9 19.6,9 11.9,21.9 11,15 4.4,15 13,2.4 off-axis"]
+      : [
+          "line 19.6,9 13.5,9 13,8.5 13,2.4 12.1,2.1 4,14.2 4.4,15 10.5,15 11,15.5 11,21.6 11.9,21.9 20,9.8 19.6,9 off-axis",
+        ]
   );
 
 /**
@@ -825,7 +827,7 @@ export const airplane = (slug: string, finish: Finish = "outlined"): string =>
           "line 17,10.5 21,3 off-axis",
         ]
       : [
-          "line 21,3 16.3,4.2 13.5,7 6.8,4.6 3,6 9.5,11 7.5,13 3,15.5 8.5,21 11,16.5 13,14.5 18,21 17,10.5 21,3 off-axis",
+          "line 21,3 19.2,3 16.3,4.2 13.5,7 6.8,4.6 3.7,5.3 3,6 9.5,11 7.5,13 6.7,13 4.6,13.9 3,15.5 5.7,16.5 7.5,18.3 8.5,21 10.1,19.4 11,17.3 11,16.5 13,14.5 18,21 18.7,20.3 19.4,17.2 17,10.5 19.8,7.7 21,4.8 21,3 off-axis",
         ]
   );
 

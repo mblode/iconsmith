@@ -729,7 +729,7 @@ describe("analog families", () => {
     expect(share("share")).not.toContain("keyline ");
     expect(share("share", "filled")).toContain("circle 17,6 r4");
     expect(airdrop("airdrop")).toContain("line 4,11 11,16.5");
-    expect(airplane("airplane")).toContain("line 21,3 16.3,4.2");
+    expect(airplane("airplane")).toContain("line 21,3 19.2,3 16.3,4.2");
     expect(airplane("airplane")).not.toContain("keyline ");
     expect(airplane("airplane", "filled")).toContain("rect ");
     expect(sun("sun")).toContain("line 12,2 12,3");
@@ -753,9 +753,9 @@ describe("analog families", () => {
     expect(shield("shield")).toContain("line 12,3 19,6 20,7 20,12 16,19");
     expect(shield("shield")).not.toContain("keyline ");
     expect(shield("shield", "filled")).toContain("diamond 12,14 r8");
-    expect(zap("zap")).toContain("line 13,2.4 13,9 19.6,9");
+    expect(zap("zap")).toContain("line 19.6,9 13.5,9 13,8.5");
     expect(zap("zap", "filled")).toContain("rect 7,7 10x10");
-    expect(zap("zap", "filled")).toContain("line 13,3 4.4,15");
+    expect(zap("zap", "filled")).toContain("line 12.1,2.1 4,14.2");
     expect(zap("zap")).not.toContain("dot 12,12 node");
   });
 

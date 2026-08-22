@@ -120,11 +120,11 @@ describe("recipe → family", () => {
     const bolt = await analogArm()({ name: "zap" });
     const boltFill = await analogArm()({ name: "zap" }, { finish: "filled" });
     expect(bolt.brief).toBe("analog zap zap");
-    expect(bolt.program).toContain("line 13,2.4 13,9 19.6,9");
+    expect(bolt.program).toContain("line 19.6,9 13.5,9 13,8.5");
     expect(bolt.program).not.toContain("dot 12,12 node");
     expect(bolt.clean).toBe(true);
     expect(boltFill.program).toContain("rect 7,7 10x10");
-    expect(boltFill.program).toContain("line 13,3 4.4,15");
+    expect(boltFill.program).toContain("line 12.1,2.1 4,14.2");
     expect(boltFill.clean).toBe(true);
     const [holdout] = analogConstructions("quokka", [], "quokka", false);
     expect(recipeFor("quokka")).toBeNull();
