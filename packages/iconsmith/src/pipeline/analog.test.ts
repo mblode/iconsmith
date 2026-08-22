@@ -754,6 +754,7 @@ describe("analog families", () => {
     expect(shield("shield")).not.toContain("keyline ");
     expect(shield("shield", "filled")).toContain("diamond 12,14 r8");
     expect(zap("zap")).toContain("line 13,2.4 13,9 19.6,9");
+    expect(zap("zap", "filled")).toContain("rect 7,7 10x10");
     expect(zap("zap", "filled")).toContain("line 13,3 4.4,15");
     expect(zap("zap")).not.toContain("dot 12,12 node");
   });

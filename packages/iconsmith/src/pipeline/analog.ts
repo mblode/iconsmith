@@ -667,8 +667,9 @@ export const shield = (slug: string, finish: Finish = "outlined"): string =>
 /**
  * House zap: compile is one bolt silhouette (`part zap-0`). Outlined
  * is that closed zigzag on the house vertices, not a frame-and-dot.
- * Filled is parallel bars on those edges — a closed polyline has no
- * inside under fill. No portrait `fit`: the bolt is 17×21.5.
+ * Filled is a core mass plus parallel bars on those edges — a closed
+ * polyline has no inside under fill. No portrait `fit`: the bolt is
+ * 17×21.5.
  */
 export const zap = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -677,6 +678,7 @@ export const zap = (slug: string, finish: Finish = "outlined"): string =>
     null,
     finish === "filled"
       ? [
+          mass(finish, 8, 8, 8, 8, 1),
           "line 13,3 4.4,15 off-axis",
           "line 14,3 5.4,15 off-axis",
           "line 4.4,15 11,15",
