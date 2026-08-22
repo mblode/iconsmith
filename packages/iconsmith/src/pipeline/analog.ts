@@ -558,9 +558,11 @@ export const home = (slug: string, finish: Finish = "outlined"): string =>
 /**
  * House heart: compile of the blode file is one evenodd compound
  * (`part heart-0`). Outlined is that closed silhouette, not two arcs
- * or three circles. Filled is the same body — overlapping lobe masses
- * and a seated point — not a disc and not three circles restamped as
- * solids. Recipe tokens resolve here — not a new kin row.
+ * or three circles. The lobes sit on the house tops (`3,6` / `21,6`)
+ * rather than halfway down the sides. Filled is the same taller body —
+ * overlapping lobe masses and a seated point — not a disc and not
+ * three circles restamped as solids. Recipe tokens resolve here —
+ * not a new kin row.
  */
 export const heart = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -569,11 +571,11 @@ export const heart = (slug: string, finish: Finish = "outlined"): string =>
     "landscape",
     finish === "filled"
       ? [
-          mass(finish, 3, 4, 9, 8, 3),
-          mass(finish, 12, 4, 9, 8, 3),
+          mass(finish, 3, 4, 9, 9, 3),
+          mass(finish, 12, 4, 9, 9, 3),
           ...lozenge(finish, 12, 13.5, 6.5),
         ]
-      : ["line 8,4 3,8 3,11 12,20 21,11 21,8 16,4 12,6 8,4 off-axis"]
+      : ["line 8,4 3,6 3,11 12,20 21,11 21,6 16,4 12,5.5 8,4 off-axis"]
   );
 
 /** Head and a diamond tip — map pin. Path 14×18 + stroke is tall 16×20. */

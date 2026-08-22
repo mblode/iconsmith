@@ -739,7 +739,7 @@ describe("analog families", () => {
     expect(home("home")).not.toContain("keyline ");
     expect(home("home", "filled")).toContain("diamond 12,8 r5");
     expect(home("home", "filled")).not.toContain("dot 12,12 node");
-    expect(heart("heart")).toContain("line 8,4 3,8 3,11 12,20");
+    expect(heart("heart")).toContain("line 8,4 3,6 3,11 12,20");
     expect(heart("heart")).toContain("off-axis");
     expect(heart("heart")).not.toContain("circle ");
     expect(heart("heart")).not.toContain("arc ");
