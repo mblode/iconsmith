@@ -100,10 +100,10 @@ describe("recipe → family", () => {
       { finish: "filled" }
     );
     expect(cottage.brief).toBe("analog home home");
-    expect(cottage.program).toContain("line 12,3 20,8 20,20 4,20 4,8 12,3");
+    expect(cottage.program).toContain("line 12,2.5 15,4 18.2,6.6");
     expect(cottage.program).not.toContain("dot 12,12 node");
     expect(cottage.clean).toBe(true);
-    expect(cottageFill.program).toContain("diamond 12,8 r5");
+    expect(cottageFill.program).toContain("diamond 12,8 r5.5");
     expect(cottageFill.clean).toBe(true);
     const love = await analogArm()({ name: "heart" });
     const loveFill = await analogArm()({ name: "heart" }, { finish: "filled" });

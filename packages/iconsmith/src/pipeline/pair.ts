@@ -59,12 +59,12 @@ export const pairPrograms = (
 
 /**
  * House outlined and filled occupy different extents for these families
- * (check tick vs disc; chevron stroke vs thick `>`). Extent stays a
- * finding so a restamp is still visible, but it is a warn — matching
- * house construction is the twin, and the house files themselves fail
- * the error gate.
+ * (check tick vs disc; chevron stroke vs thick `>`; arrow shaft+head
+ * vs fat arrow). Extent stays a finding so a restamp is still visible,
+ * but it is a warn — matching house construction is the twin, and the
+ * house files themselves fail the error gate.
  */
-const HOUSE_DIVERGENT = new Set(["check", "chevron"]);
+const HOUSE_DIVERGENT = new Set(["arrow", "check", "chevron"]);
 
 /** True when house outlined and filled are different constructions. */
 export const paintsDiverge = (id: string): boolean => HOUSE_DIVERGENT.has(id);

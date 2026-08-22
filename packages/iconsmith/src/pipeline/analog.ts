@@ -442,10 +442,10 @@ export const moon = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", ["arc 12,12 r8 three-quarter from top"]);
 
 /**
- * House sun: a disc and eight short ticks at the compass points. Not four
- * long bars — those read as a plus, not rays. No square `fit`: the ticks
- * already sit on the 24 canvas, and scaling them onto 20×20 is what
- * dropped the house match.
+ * House sun: a disc and eight short ticks at the compass points. Axial
+ * ticks run r9→r10; diagonal ticks sit on the same 45° rays
+ * (`18.36,5.64` → `19.07,4.93`), not a longer (5,5)→(4,4) dash. No
+ * square `fit`.
  */
 export const sun = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
@@ -454,10 +454,10 @@ export const sun = (slug: string, finish: Finish = "outlined"): string =>
     "line 12,21 12,22",
     "line 2,12 3,12",
     "line 21,12 22,12",
-    "line 5,5 4,4 off-axis",
-    "line 19,5 20,4 off-axis",
-    "line 19,19 20,20 off-axis",
-    "line 5,19 4,20 off-axis",
+    "line 18.4,5.6 19.1,4.9 off-axis",
+    "line 5.6,18.4 4.9,19.1 off-axis",
+    "line 18.4,18.4 19.1,19.1 off-axis",
+    "line 5.6,5.6 4.9,4.9 off-axis",
   ]);
 
 /**
@@ -553,23 +553,59 @@ export const cloud = (slug: string, finish: Finish = "outlined"): string =>
         ]
   );
 
+/** Closed outline as one polyline; filled as two-point bars on those edges. */
+const polyLine = (pts: readonly (readonly [number, number])[]): string =>
+  `line ${pts.map(([x, y]) => `${x},${y}`).join(" ")} off-axis`;
+
+const edgeBars = (pts: readonly (readonly [number, number])[]): string[] => {
+  const out: string[] = [];
+  for (let i = 0; i < pts.length - 1; i += 1) {
+    const a = pts[i];
+    const b = pts[i + 1];
+    if (a === undefined || b === undefined) {
+      continue;
+    }
+    const axis = a[0] === b[0] || a[1] === b[1];
+    out.push(`line ${a[0]},${a[1]} ${b[0]},${b[1]}${axis ? "" : " off-axis"}`);
+  }
+  return out;
+};
+
 /**
- * House home: one pentagon, both paints. Outlined is the outer stroke
- * (peak and walls, no inner roof). Filled is the same silhouette — a
- * body mass with the roof diamond seated on the eaves, not a diamond
- * drawn through the walls. No door: the house files are a solid
- * pentagon. The eaves sit high (y=8) so the roof matches the house
- * file rather than a tall A-frame. No portrait `fit`: the walls are
- * already 18×18, and stretching them onto 18×20 dropped the match.
+ * House home: one pentagon, both paints. Outlined samples the house
+ * eaves, peak, and rounded foot — a sharp 12,3 20,8 box missed the
+ * cubics. Filled is the same silhouette — a body mass with the roof
+ * diamond seated on the eaves. No door. No portrait `fit`.
  */
+const HOME_VERTS = [
+  [12, 2.5],
+  [15, 4],
+  [18.2, 6.6],
+  [19.4, 7.7],
+  [20, 10.3],
+  [20, 15.2],
+  [19.7, 18.4],
+  [18.4, 19.7],
+  [15.2, 20],
+  [8.8, 20],
+  [5.6, 19.7],
+  [4.3, 18.4],
+  [4, 15.2],
+  [4, 10.3],
+  [4.6, 7.7],
+  [5.8, 6.6],
+  [9, 4],
+  [12, 2.5],
+] as const;
+
 export const home = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
     null,
     finish === "filled"
-      ? [mass(finish, 4, 8, 16, 12, 1), ...lozenge(finish, 12, 8, 5)]
-      : ["line 12,3 20,8 20,20 4,20 4,8 12,3 off-axis"]
+      ? [mass(finish, 4, 8, 16, 12, 1), ...lozenge(finish, 12, 8, 5.5)]
+      : [polyLine(HOME_VERTS)]
   );
 
 /**
@@ -646,11 +682,9 @@ export const pencil = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House shield: compile is one heater silhouette (`part shield-0`).
- * Outlined is that closed outline — peaked top, inset shoulders, sides,
- * a point — not a 45° diamond with a cap. Extra samples on the house
- * bottom curves (`16,19` / `8,19`) keep the heater inside the 18×20
- * pair box. Filled is the same body (a mass seated on a diamond
- * point). No portrait `fit`.
+ * Outlined samples the house cubics (shoulders, peak, bottom curves).
+ * A faceted 12,3 19,6 heater missed those. Filled is the same body (a
+ * mass seated on a diamond point). No portrait `fit`.
  */
 export const shield = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -660,7 +694,7 @@ export const shield = (slug: string, finish: Finish = "outlined"): string =>
     finish === "filled"
       ? [mass(finish, 4, 4, 16, 11, 2), ...lozenge(finish, 12, 14, 8)]
       : [
-          "line 12,3 19,6 20,7 20,12 16,19 12,21 8,19 4,12 4,7 5,6 12,3 off-axis",
+          "line 20,7.2 19.9,6.6 19.6,6 19.2,5.6 18.6,5.3 13,3.3 12.5,3.2 12,3.2 11.5,3.2 11,3.3 5.3,5.3 4.8,5.6 4.4,6 4.1,6.6 4,7.2 4,11.9 4.7,15.2 6.5,17.6 9.1,19.5 12,21.2 14.9,19.5 17.5,17.6 19.3,15.2 20,11.9 20,7.2 off-axis",
         ]
   );
 
@@ -707,12 +741,30 @@ export const pause = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House play: a rounded-back triangle pointing right. Outlined is that
- * closed silhouette on the house vertices. Filled is an inset mass plus
- * the two-point edges — a closed polyline has no inside under fill, and
- * the old stadium back read as a rounded slab, not the house triangle.
- * No portrait `fit`: the body already sits on the house box.
+ * House play: a rounded-back triangle pointing right. Outlined samples
+ * the house cubics (rounded back and tip). Filled is a body mass seated
+ * on a diamond plus bars on those edges — a closed polyline has no
+ * inside under fill. No portrait `fit`.
  */
+const PLAY_VERTS = [
+  [19.7, 9.5],
+  [10.6, 3.6],
+  [9.1, 3.1],
+  [7.6, 3.4],
+  [6.4, 4.5],
+  [6, 6.1],
+  [6, 17.9],
+  [6.4, 19.5],
+  [7.6, 20.6],
+  [9.1, 20.9],
+  [10.7, 20.4],
+  [19.7, 14.5],
+  [20.7, 13.4],
+  [21, 12],
+  [20.7, 10.6],
+  [19.7, 9.5],
+] as const;
+
 export const play = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
@@ -721,13 +773,10 @@ export const play = (slug: string, finish: Finish = "outlined"): string =>
     finish === "filled"
       ? [
           mass(finish, 6, 6, 8, 12, 2),
-          "line 6,6 10.5,3.5 off-axis",
-          "line 10.5,3.5 21,12 off-axis",
-          "line 21,12 10.5,20.5 off-axis",
-          "line 10.5,20.5 6,18 off-axis",
-          "line 6,18 6,6",
+          ...lozenge(finish, 14, 12, 6),
+          ...edgeBars(PLAY_VERTS),
         ]
-      : ["line 6,6 10.5,3.5 20,9.5 21,12 20,14.5 10.5,20.5 6,18 6,6 off-axis"]
+      : [polyLine(PLAY_VERTS)]
   );
 
 /**
@@ -747,26 +796,52 @@ export const chevron = (slug: string, finish: Finish = "outlined"): string =>
   );
 
 /**
- * House arrow-right: a shaft plus a chevron head. Filled is those three
- * bars (compile is one evenodd compound). `arrow-right` tokens here.
+ * House arrow-right: outlined is a shaft plus a chevron head. Filled is
+ * the house fat arrow — a 3-wide rounded shaft plus a solid chevron.
+ * House paints occupy different extents (16×16 vs 18×14) — pairing
+ * `extent` is a warn. `arrow-right` tokens here.
  */
 export const arrow = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, null, [
-    "line 5,12 19,12",
-    "line 12,5 19,12 off-axis",
-    "line 19,12 12,19 off-axis",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          "rect 3,10.5 13x3 r1.5",
+          "line 12.9,5.4 20.6,12 off-axis",
+          "line 20.6,12 12.9,18.6 off-axis",
+          "line 13.5,6.5 19.5,12 off-axis",
+          "line 19.5,12 13.5,17.5 off-axis",
+        ]
+      : [
+          "line 5,12 19,12",
+          "line 12,5 19,12 off-axis",
+          "line 19,12 12,19 off-axis",
+        ]
+  );
 
 /**
- * House bookmark: a tall ribbon with a V bite cut *into* the foot
- * (house `M5 19.99` / `L12 18.2`), not two tails hanging below. Filled
- * is the same body. No tall `fit`: the ribbon already occupies 16×20.
+ * House bookmark: a tall ribbon with a curved V bite cut *into* the
+ * foot (house `M6.58 20.81` / `L10.27 18.21`), not two tails hanging
+ * below. Filled is the same body. No tall `fit`.
  */
+const BOOKMARK_NOTCH = [
+  [5, 20],
+  [6.6, 20.8],
+  [10.3, 18.2],
+  [12, 17.5],
+  [13.7, 18.2],
+  [17.4, 20.8],
+  [19, 20],
+] as const;
+
 export const bookmark = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
     mass(finish, 5, 3, 14, 17, 3),
-    "line 5,20 12,17.5 off-axis",
-    "line 19,20 12,17.5 off-axis",
+    ...(finish === "filled"
+      ? edgeBars(BOOKMARK_NOTCH)
+      : [polyLine(BOOKMARK_NOTCH)]),
   ]);
 
 /**
@@ -785,13 +860,16 @@ export const share = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House airdrop: a dome, two off-axis beams (`M4 11L11 16.5`), a stem,
- * and a seated capsule. Filled is a solid dome (house evenodd is that
- * disc plus the beams), not a stroked arc restamped as a thin lid.
+ * House airdrop: a dome with its flattened inner chord (`12,10.5`),
+ * two off-axis beams (`M4 11L11 16.5`), a stem, and a seated capsule.
+ * Filled is that disc with the two under-beam pockets cut out, not a
+ * stroked arc restamped as a thin lid. No portrait `fit`.
  */
 export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "portrait", [
-    finish === "filled" ? "circle 12,11 r9" : "arc 12,11 r8 half from left",
+  iconProgram(slug, finish, null, [
+    ...(finish === "filled"
+      ? ["circle 12,11 r9", "hole circle 8,14 r3.5", "hole circle 16,14 r3.5"]
+      : ["arc 12,11 r8 half from left", "line 4,11 12,10.5 20,11"]),
     "line 4,11 11,16.5 off-axis",
     "line 13,16.5 20,11 off-axis",
     "line 12,11 12,16",
@@ -801,34 +879,46 @@ export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
 /**
  * House airplane: a jet silhouette pointing NE. Outlined is that
  * closed outline on the house vertices; filled is a fuselage mass
- * plus two-point bars on those edges. A handful of open ticks reads
- * as a sketch, not the house path. No circle `fit`.
+ * plus two-point bars on those same edges. A thinner vertex set
+ * under fill left the wings hollow. No circle `fit`.
  */
+const AIRPLANE_VERTS = [
+  [21, 3],
+  [19.2, 3],
+  [16.3, 4.2],
+  [13.5, 7],
+  [6.8, 4.6],
+  [3.7, 5.3],
+  [3, 6],
+  [9.5, 11],
+  [7.5, 13],
+  [6.7, 13],
+  [4.6, 13.9],
+  [3, 15.5],
+  [5.7, 16.5],
+  [7.5, 18.3],
+  [8.5, 21],
+  [10.1, 19.4],
+  [11, 17.3],
+  [11, 16.5],
+  [13, 14.5],
+  [18, 21],
+  [18.7, 20.3],
+  [19.4, 17.2],
+  [17, 10.5],
+  [19.8, 7.7],
+  [21, 4.8],
+  [21, 3],
+] as const;
+
 export const airplane = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
     null,
     finish === "filled"
-      ? [
-          mass(finish, 8, 7, 10, 8, 2),
-          "line 21,3 16.3,4.2 off-axis",
-          "line 16.3,4.2 13.5,7 off-axis",
-          "line 13.5,7 6.8,4.6 off-axis",
-          "line 6.8,4.6 3,6 off-axis",
-          "line 3,6 9.5,11 off-axis",
-          "line 9.5,11 7.5,13 off-axis",
-          "line 7.5,13 3,15.5 off-axis",
-          "line 3,15.5 8.5,21 off-axis",
-          "line 8.5,21 11,16.5 off-axis",
-          "line 11,16.5 13,14.5 off-axis",
-          "line 13,14.5 18,21 off-axis",
-          "line 18,21 17,10.5 off-axis",
-          "line 17,10.5 21,3 off-axis",
-        ]
-      : [
-          "line 21,3 19.2,3 16.3,4.2 13.5,7 6.8,4.6 3.7,5.3 3,6 9.5,11 7.5,13 6.7,13 4.6,13.9 3,15.5 5.7,16.5 7.5,18.3 8.5,21 10.1,19.4 11,17.3 11,16.5 13,14.5 18,21 18.7,20.3 19.4,17.2 17,10.5 19.8,7.7 21,4.8 21,3 off-axis",
-        ]
+      ? [mass(finish, 7, 6, 11, 10, 2), ...edgeBars(AIRPLANE_VERTS)]
+      : [polyLine(AIRPLANE_VERTS)]
   );
 
 /**

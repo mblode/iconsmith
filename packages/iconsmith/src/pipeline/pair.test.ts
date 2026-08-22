@@ -91,6 +91,7 @@ describe("pairFamily", () => {
     ].join("\n");
     const raw = pairPrograms([], "outlined", tick, disc);
     const softened = pairFamily([], "outlined", tick, disc, "check");
+    expect(paintsDiverge("arrow")).toBe(true);
     expect(paintsDiverge("check")).toBe(true);
     expect(paintsDiverge("chevron")).toBe(true);
     expect(paintsDiverge("lock")).toBe(false);
