@@ -140,9 +140,11 @@ export const PAINT_RECIPES: readonly PaintRecipe[] = [
     tokens: ["airdrop"],
   },
   {
-    filled: "three bars on the fuselage and wings. Not a paper dart only.",
+    filled:
+      "a fuselage mass plus bars on the house edges. Not a paper dart only.",
     id: "airplane",
-    outlined: "one closed jet silhouette on the circle keyline.",
+    outlined:
+      "one closed jet silhouette on the house vertices. Not a paper dart.",
     tokens: ["airplane"],
   },
 ];

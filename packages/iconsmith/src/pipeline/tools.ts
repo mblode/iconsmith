@@ -91,9 +91,10 @@ export interface ToolsOptions {
    */
   proposal?: Proposal | null;
   /**
-   * The host analog is already on the canvas. Draw, remove, and construct
-   * are withheld — a tool the model can only be refused by costs a step,
-   * and those steps are how a seeded heart becomes three circles.
+   * The host analog is already on the canvas. Draw, remove, construct,
+   * fit, and center are withheld — a tool the model can only be refused
+   * by costs a step, and those steps are how a seeded heart becomes
+   * three circles or a pause gets stretched off the house bars.
    */
   hostLocked?: boolean;
 }
@@ -208,8 +209,9 @@ export const createTools = (options: ToolsOptions = {}) => {
    * Once the host analog is on the canvas, the model confirms it — it
    * does not invent a second silhouette. Generate seeds that analog;
    * `construct` places it when the canvas started empty. Either way the
-   * coordinates already came from analog, and a `circle` or `remove`
-   * after that is how a heart becomes three discs.
+   * coordinates already came from analog, and a `circle`, `remove`, or
+   * `fit` after that is how a heart becomes three discs or a pause
+   * gets stretched off the house bars.
    */
   const refuseHostEdit = (action: string): void => {
     if (!state.constructed) {
@@ -249,6 +251,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Recentre the whole drawing on the canvas centre. Does not change its size.",
       execute: () =>
         track("center", () => {
+          refuseHostEdit("recentre");
           recentre(canvas);
           return { bbox: canvas.bbox(), elements: canvas.describe() };
         }),
@@ -395,6 +398,7 @@ export const createTools = (options: ToolsOptions = {}) => {
         "Scale and centre the whole drawing so its visual extent — the strokes' outer edges, not the path bounds — matches a keyline. Do this once, near the end.",
       execute: ({ keyline: k }) =>
         track("fit", () => {
+          refuseHostEdit("fit");
           const used = k ?? keyline ?? "square";
           fitKeyline(canvas, used);
           return { bbox: canvas.bbox(), keyline: used };
@@ -714,11 +718,13 @@ export const createTools = (options: ToolsOptions = {}) => {
   if (hostLocked) {
     for (const name of [
       "arc",
+      "center",
       "circle",
       "compare",
       "construct",
       "diamond",
       "dot",
+      "fit",
       "hole",
       "line",
       "listParts",

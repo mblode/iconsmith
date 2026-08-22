@@ -665,16 +665,16 @@ export const pause = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House play: a rounded-back triangle pointing right. Outlined is that
- * silhouette — a stadium back plus two edges to the point — not a
- * sharp chevron. Filled is the same marks; a closed polyline has no
- * inside under fill. No portrait `fit`: the body is 18×18, and
- * stretching it onto 18×20 is what dropped the house match.
+ * silhouette — a stadium back seated on the house upright at x=6, plus
+ * two edges to the point — not a sharp chevron. Filled is the same
+ * marks; a closed polyline has no inside under fill. No portrait
+ * `fit`: the body already sits on the house box.
  */
 export const play = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
-    mass(finish, 5, 4, 10, 16, 3),
-    "line 15,4 21,12 off-axis",
-    "line 21,12 15,20 off-axis",
+    mass(finish, 6, 4, 8, 16, 2),
+    "line 14,4 21,12 off-axis",
+    "line 21,12 14,20 off-axis",
   ]);
 
 /**
@@ -711,16 +711,18 @@ export const bookmark = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House share: three nodes and two connectors. Filled is those discs
- * plus the bars (compile is one evenodd compound).
+ * House share: three nodes at (17,6), (6,12), (17,18) and the two
+ * house connectors. Outlined is r3 (stroke 2 is visual r4); filled is
+ * those discs at r4. No circle `fit`: the nodes already sit on the
+ * house box, and stretching them dropped the pair.
  */
 export const share = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "circle", [
-    "circle 18,5 r3",
-    "circle 5,12 r3",
-    "circle 18,19 r3",
-    "line 15,7 8,11 off-axis",
-    "line 8,13 15,17 off-axis",
+  iconProgram(slug, finish, null, [
+    finish === "filled" ? "circle 17,6 r4" : "circle 17,6 r3",
+    finish === "filled" ? "circle 6,12 r4" : "circle 6,12 r3",
+    finish === "filled" ? "circle 17,18 r4" : "circle 17,18 r3",
+    "line 14.3,7.4 8.7,10.6 off-axis",
+    "line 8.7,13.4 14.3,16.6 off-axis",
   ]);
 
 /**
@@ -739,8 +741,9 @@ export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House airplane: a jet silhouette pointing NE. Outlined is that
- * closed outline; filled is two-point bars on the same edges. A
- * handful of open ticks reads as a sketch, not the house path.
+ * closed outline on the house vertices; filled is a fuselage mass
+ * plus two-point bars on those edges. A handful of open ticks reads
+ * as a sketch, not the house path. No circle `fit`.
  */
 export const airplane = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -749,16 +752,23 @@ export const airplane = (slug: string, finish: Finish = "outlined"): string =>
     null,
     finish === "filled"
       ? [
+          mass(finish, 8, 7, 10, 8, 2),
+          "line 21,3 16.3,4.2 off-axis",
+          "line 16.3,4.2 13.5,7 off-axis",
+          "line 13.5,7 6.8,4.6 off-axis",
+          "line 6.8,4.6 3,6 off-axis",
           "line 3,6 9.5,11 off-axis",
-          "line 9.5,11 13.5,7 off-axis",
-          "line 13.5,7 21,4 off-axis",
-          "line 9.5,11 3,15.5 off-axis",
-          "line 13,8 18,21 off-axis",
-          "line 7.5,13 8.5,21 off-axis",
-          "line 17,10.5 19.5,7.5 off-axis",
+          "line 9.5,11 7.5,13 off-axis",
+          "line 7.5,13 3,15.5 off-axis",
+          "line 3,15.5 8.5,21 off-axis",
+          "line 8.5,21 11,16.5 off-axis",
+          "line 11,16.5 13,14.5 off-axis",
+          "line 13,14.5 18,21 off-axis",
+          "line 18,21 17,10.5 off-axis",
+          "line 17,10.5 21,3 off-axis",
         ]
       : [
-          "line 3,6 13.5,7 21,4 17,10.5 18,21 13,14 9.5,11 8.5,21 3,15.5 9.5,11 3,6 off-axis",
+          "line 21,3 16.3,4.2 13.5,7 6.8,4.6 3,6 9.5,11 7.5,13 3,15.5 8.5,21 11,16.5 13,14.5 18,21 17,10.5 21,3 off-axis",
         ]
   );
 

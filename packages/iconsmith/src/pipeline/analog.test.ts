@@ -706,8 +706,8 @@ describe("analog families", () => {
     expect(sun("sun")).not.toContain("keyline ");
     expect(bell("bell")).toContain("rect 5,3 14x15");
     expect(bell("bell")).not.toContain("keyline ");
-    expect(play("play")).toContain("line 15,4 21,12");
-    expect(play("play")).toContain("rect 5,4 10x16");
+    expect(play("play")).toContain("line 14,4 21,12");
+    expect(play("play")).toContain("rect 6,4 8x16");
     expect(play("play")).not.toContain("keyline ");
     expect(cloud("cloud")).toContain("circle 9,12 r7");
     expect(cloud("cloud")).not.toContain("keyline ");
@@ -717,9 +717,13 @@ describe("analog families", () => {
     expect(bookmark("bookmark")).toContain("line 5,20 12,17.5");
     expect(bookmark("bookmark")).not.toContain("keyline ");
     expect(airdrop("airdrop", "filled")).toContain("circle 12,11 r9");
-    expect(share("share")).toContain("circle 18,5 r3");
+    expect(share("share")).toContain("circle 17,6 r3");
+    expect(share("share")).not.toContain("keyline ");
+    expect(share("share", "filled")).toContain("circle 17,6 r4");
     expect(airdrop("airdrop")).toContain("line 4,11 11,16.5");
-    expect(airplane("airplane")).toContain("line 3,6 13.5,7");
+    expect(airplane("airplane")).toContain("line 21,3 16.3,4.2");
+    expect(airplane("airplane")).not.toContain("keyline ");
+    expect(airplane("airplane", "filled")).toContain("rect ");
     expect(sun("sun")).toContain("line 12,2 12,3");
     expect(sun("sun")).toContain("line 5,5 4,4");
     expect(sun("sun")).not.toContain("dot 5,5");

@@ -426,10 +426,18 @@ describe("tools", () => {
     expect(() =>
       tools.remove.execute?.({ id: "e1" }, { messages: [], toolCallId: "t6" })
     ).toThrow(/already on the canvas/u);
+    expect(() =>
+      tools.fit.execute?.(
+        { keyline: "square" },
+        { messages: [], toolCallId: "t7" }
+      )
+    ).toThrow(/already on the canvas/u);
     const locked = createTools({ hostLocked: true });
     expect(locked.tools.circle).toBeUndefined();
     expect(locked.tools.rect).toBeUndefined();
     expect(locked.tools.construct).toBeUndefined();
+    expect(locked.tools.fit).toBeUndefined();
+    expect(locked.tools.center).toBeUndefined();
     expect(locked.tools.render).toBeDefined();
     expect(locked.tools.lint).toBeDefined();
   });
@@ -493,6 +501,8 @@ describe("generate", () => {
     expect(names).not.toContain("remove");
     expect(names).not.toContain("construct");
     expect(names).not.toContain("listParts");
+    expect(names).not.toContain("fit");
+    expect(names).not.toContain("center");
     expect(result.program).not.toContain("circle ");
   });
 
