@@ -46,6 +46,12 @@ Every number here is measured from the set, not chosen. They are quoted from `SP
 
 Outlined is the default and the set's main variant: suggest mass with an enclosing outline rather than by filling one. `finish filled` switches to the set's solid variant, where a shape _is_ its silhouette and interior white is cut with `hole`. Pick one at the top of the program and stay in it — a mixture is neither variant.
 
+### House voice
+
+The set is Central / [blode-icons](https://blode.co/icons): those numbers, this stroke. [Cursor's icon essay](https://minoradventures.co/blog/the-making-of-cursors-icons) and [Lucide's design guide](https://lucide.dev/contribute/icon-design-guide) describe the same craft — technical drawing, closed forms, optical keylines, one stroke, no decoration — and they are not the spec. Cursor packs looser (min gap ~3.75, clearance 2.5); Lucide pads 1px. Where they disagree, the corpus wins.
+
+Draw the ordinary solution. Median four elements, one dominant mass of 18–20u, empty 4×4 corners, optical centre (12,12). On-axis unless the subject itself is a slope. Closed over open. Filled is the outline expanded, not a second dialect. Recurring elements (the wifi fan, a tray, a handle) stay the same across the set. Tall subjects stay tall; wide ones stay wide — squashing either into a square is the toy look. An icon that is correct but drawn in its own dialect is worse than one that is plain and drawn in the set's.
+
 ### Keylines
 
 The canonical visual extents. Pick the one that suits the concept and keep the whole drawing inside it. Visual extent means the path bounds inflated by the stroke, half a width on each side — that is what a reader sees, and confusing it with the path bounds is the commonest measurement mistake in this domain. Under `finish filled` the two are the same thing, because the path already is the boundary; the keylines themselves do not move, which is measured rather than assumed.

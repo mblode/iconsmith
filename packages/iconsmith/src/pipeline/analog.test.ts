@@ -934,6 +934,18 @@ describe("analog families", () => {
         "dot 12,12 node"
       );
     }
+    const house = Object.fromEntries(
+      drawn
+        .filter((row) => row.finish === "outlined")
+        .map((row) => [row.id, row.result.program])
+    );
+    expect(house.inbox).toContain("keyline wide");
+    expect(house.inbox).not.toContain("off-axis");
+    expect(house.qrcode?.match(/^dot /gmu)).toBeNull();
+    expect(house.wifi).toContain("keyline wide");
+    expect(house.wifi).toContain("dot 12,19 terminal");
+    expect(house.umbrella).not.toContain("arc 6,12");
+    expect(house.briefcase).toContain("line 3,12 21,12");
   });
 
   it("keeps unknown clean in both paints", () => {
