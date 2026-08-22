@@ -1,11 +1,14 @@
 /**
  * The loop.
  *
- * A concept goes in; a drawn, linted `IconDoc` comes out. The model works by
- * calling primitives and looking at renders of what it has made, which is the
- * only part of this that resembles how the icons were drawn by hand. Nothing it
- * emits reaches the document without passing through `Canvas`, so a bad turn
- * costs a step, never a spec violation.
+ * A concept goes in; a drawn, linted `IconDoc` comes out. A known family
+ * is the host analog — the model never sees that canvas, because it
+ * cannot invent geometry the analog already placed. Unknown names hire
+ * the model: it works by calling primitives and looking at renders of
+ * what it has made, which is the only part of this that resembles how
+ * the icons were drawn by hand. Nothing it emits reaches the document
+ * without passing through `Canvas`, so a bad turn costs a step, never a
+ * spec violation.
  */
 import { readFileSync } from "node:fs";
 
@@ -25,7 +28,7 @@ import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
 import { pairAdapted, pairPrograms } from "./pair.js";
 import type { Policy } from "./policy.js";
-import { conceptPrompt, confirmSystemPrompt, systemPrompt } from "./prompt.js";
+import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
 import type { Aliases, PartHint } from "./search.js";
 import type { SelectKind } from "./select.js";
@@ -410,21 +413,6 @@ const outcomeOf = (
   return "budget";
 };
 
-const systemFor = (
-  hostLocked: boolean,
-  finish: Finish,
-  spec: Spec | undefined,
-  rest: {
-    cohort: GenerateOptions["cohort"];
-    keyline: GenerateOptions["keyline"];
-    policy: GenerateOptions["policy"];
-    proposal: boolean;
-  }
-): string =>
-  hostLocked
-    ? confirmSystemPrompt({ finish, spec })
-    : systemPrompt({ finish, spec, ...rest });
-
 const programOf = (name: string, finish: Finish, doc: IconDoc): string =>
   hostConstruction(name, finish)?.source ?? programFromDoc(doc);
 
@@ -461,6 +449,164 @@ const seedHost = (
   state.constructed = true;
 };
 
+const ZERO_USAGE = {
+  cacheReadTokens: 0,
+  cacheWriteTokens: 0,
+  inputTokens: 0,
+  outputTokens: 0,
+  reasoningTokens: 0,
+} as const;
+
+const resultOf = (
+  canvas: Canvas,
+  concept: Concept,
+  finish: Finish,
+  parts: readonly Part[],
+  spec: Spec | undefined,
+  keyline: Keyline | null,
+  extras: {
+    finishReason: string;
+    ms: number;
+    outcome: (issues: Issue[]) => Outcome;
+    steps: number;
+    text: string;
+    toolCalls: Record<string, number>;
+    trace: string[];
+    usage: GenerateCost["usage"];
+  }
+): GenerateResult => {
+  const doc = canvas.toJSON({ icon: concept.name, keyline });
+  // A seeded host already has a program. `programFromDoc` drops filled
+  // diagonal bars (`raw`), so pairing a paper-plane fill looked empty
+  // even though the canvas held the analog. Pair the two analog paints,
+  // not an adapt of the lossy round-trip.
+  const program = programOf(concept.name, finish, doc);
+  const issues = pairGenerate(
+    lint(canvas, { keyline }),
+    concept.name,
+    finish,
+    program,
+    parts,
+    spec
+  );
+  return {
+    clean: issues.every((i) => i.severity !== "error"),
+    cost: {
+      finishReason: extras.finishReason,
+      ms: extras.ms,
+      outcome: extras.outcome(issues),
+      toolCalls: extras.toolCalls,
+      usage: extras.usage,
+    },
+    doc,
+    issues,
+    program,
+    steps: extras.steps,
+    svg: canvas.toSVG(),
+    text: extras.text,
+    trace: extras.trace,
+  };
+};
+
+const fromHost = (
+  canvas: Canvas,
+  concept: Concept,
+  finish: Finish,
+  parts: readonly Part[],
+  spec: Spec | undefined,
+  keyline: Keyline | null,
+  host: { id: string },
+  startedAt: number
+): GenerateResult =>
+  resultOf(canvas, concept, finish, parts, spec, keyline, {
+    finishReason: "stop",
+    ms: Date.now() - startedAt,
+    outcome: (issues) =>
+      issues.every((i) => i.severity !== "error") ? "clean" : "stalled",
+    steps: 0,
+    text: `host ${host.id} ${concept.name}`,
+    toolCalls: {},
+    trace: [],
+    usage: { ...ZERO_USAGE },
+  });
+
+const fromModel = async (
+  canvas: Canvas,
+  concept: Concept,
+  finish: Finish,
+  parts: readonly Part[],
+  spec: Spec | undefined,
+  keyline: Keyline | null,
+  state: ToolState,
+  opts: {
+    apiKey?: string;
+    cohort: GenerateOptions["cohort"];
+    maxSteps: number;
+    model: GenerateOptions["model"];
+    policy: GenerateOptions["policy"];
+    proposal: GenerateOptions["proposal"];
+    startedAt: number;
+    tools: ReturnType<typeof createTools>["tools"];
+  }
+): Promise<GenerateResult> => {
+  const resolved = resolveModel(opts.model, opts.apiKey);
+  const end: Termination = {
+    clean: false,
+    converged: false,
+    idle: 0,
+    version: canvas.version,
+  };
+  const result = await generateText({
+    model: resolved,
+    prepareStep: ({ messages: stepMessages }) => ({
+      messages: withCacheBreakpoints(stepMessages),
+    }),
+    prompt: conceptPrompt(concept, finish),
+    stopWhen: [
+      stepCountIs(opts.maxSteps),
+      drawnAndClean(canvas, state, end),
+      noProgress(canvas, state, end),
+    ],
+    system: systemPrompt({
+      cohort: opts.cohort,
+      finish,
+      keyline,
+      policy: opts.policy,
+      proposal: opts.proposal !== null,
+      spec,
+    }),
+    tools: opts.tools,
+  });
+  const usage = result.totalUsage;
+  const toolCalls: Record<string, number> = {};
+  for (const name of state.calls) {
+    toolCalls[name] = (toolCalls[name] ?? 0) + 1;
+  }
+  return resultOf(canvas, concept, finish, parts, spec, keyline, {
+    // `totalUsage` is the sum across every step, which is the number that gets
+    // billed; `usage` alone would report the last step only. Each field is
+    // `number | undefined` — a provider that does not break out cache reads
+    // leaves them undefined, and 0 is the honest reading of "this provider
+    // reported none".
+    finishReason: result.finishReason,
+    ms: Date.now() - opts.startedAt,
+    outcome: (issues) =>
+      outcomeOf(end, result.finishReason, canvas.elements.length, issues),
+    steps: result.steps.length,
+    text: result.text,
+    toolCalls,
+    trace: state.calls,
+    usage: {
+      cacheReadTokens: usage.inputTokenDetails.cacheReadTokens ?? 0,
+      cacheWriteTokens: usage.inputTokenDetails.cacheWriteTokens ?? 0,
+      inputTokens:
+        usage.inputTokenDetails.noCacheTokens ?? usage.inputTokens ?? 0,
+      outputTokens: usage.outputTokens ?? 0,
+      reasoningTokens: usage.outputTokenDetails.reasoningTokens ?? 0,
+    },
+  });
+};
+
 export const generate = async (
   concept: Concept,
   options: GenerateOptions = {}
@@ -481,8 +627,8 @@ export const generate = async (
     spec,
   } = options;
 
-  const resolved = resolveModel(model, apiKey);
-  const hostLocked = hostConstruction(concept.name, finish) !== null;
+  const host = hostConstruction(concept.name, finish);
+  const hostLocked = host !== null;
   const { canvas, state, tools } = createTools({
     aliases,
     cohort: cohort?.extent ?? null,
@@ -497,88 +643,32 @@ export const generate = async (
   });
   seedHost(canvas, state, concept.name, finish, parts, spec);
 
-  const end: Termination = {
-    clean: false,
-    converged: false,
-    idle: 0,
-    version: canvas.version,
-  };
-
   const startedAt = Date.now();
-  const result = await generateText({
-    model: resolved,
-    prepareStep: ({ messages: stepMessages }) => ({
-      messages: withCacheBreakpoints(stepMessages),
-    }),
-    prompt: conceptPrompt(concept, finish),
-    stopWhen: [
-      stepCountIs(maxSteps),
-      drawnAndClean(canvas, state, end),
-      noProgress(canvas, state, end),
-    ],
-    system: systemFor(hostLocked, finish, spec, {
-      cohort,
+  // A known family is already the house analog. Hiring a model to call
+  // `confirm` on a canvas it cannot edit only burns tokens — and when
+  // the prompt-token cap is exhausted, it fails a drawing that was
+  // already done. Return the host. The model path stays for unknowns.
+  if (host !== null) {
+    return fromHost(
+      canvas,
+      concept,
+      finish,
+      parts,
+      spec,
       keyline,
-      policy,
-      proposal: proposal !== null,
-    }),
+      host,
+      startedAt
+    );
+  }
+
+  return await fromModel(canvas, concept, finish, parts, spec, keyline, state, {
+    apiKey,
+    cohort,
+    maxSteps,
+    model,
+    policy,
+    proposal,
+    startedAt,
     tools,
   });
-  const ms = Date.now() - startedAt;
-
-  // Linted here rather than trusting the model's last `lint` call: it may have
-  // drawn after checking, and this is the number that gets reported.
-  const doc = canvas.toJSON({ icon: concept.name, keyline });
-  // A seeded host already has a program. `programFromDoc` drops filled
-  // diagonal bars (`raw`), so pairing a paper-plane fill looked empty
-  // even though the canvas held the analog. Pair the two analog paints,
-  // not an adapt of the lossy round-trip.
-  const program = programOf(concept.name, finish, doc);
-  const issues = pairGenerate(
-    lint(canvas, { keyline }),
-    concept.name,
-    finish,
-    program,
-    parts,
-    spec
-  );
-  const usage = result.totalUsage;
-  const toolCalls: Record<string, number> = {};
-  for (const name of state.calls) {
-    toolCalls[name] = (toolCalls[name] ?? 0) + 1;
-  }
-  return {
-    clean: issues.every((i) => i.severity !== "error"),
-    // `totalUsage` is the sum across every step, which is the number that gets
-    // billed; `usage` alone would report the last step only. Each field is
-    // `number | undefined` — a provider that does not break out cache reads
-    // leaves them undefined, and 0 is the honest reading of "this provider
-    // reported none".
-    cost: {
-      finishReason: result.finishReason,
-      ms,
-      outcome: outcomeOf(
-        end,
-        result.finishReason,
-        canvas.elements.length,
-        issues
-      ),
-      toolCalls,
-      usage: {
-        cacheReadTokens: usage.inputTokenDetails.cacheReadTokens ?? 0,
-        cacheWriteTokens: usage.inputTokenDetails.cacheWriteTokens ?? 0,
-        inputTokens:
-          usage.inputTokenDetails.noCacheTokens ?? usage.inputTokens ?? 0,
-        outputTokens: usage.outputTokens ?? 0,
-        reasoningTokens: usage.outputTokenDetails.reasoningTokens ?? 0,
-      },
-    },
-    doc,
-    issues,
-    program,
-    steps: result.steps.length,
-    svg: canvas.toSVG(),
-    text: result.text,
-    trace: state.calls,
-  };
 };

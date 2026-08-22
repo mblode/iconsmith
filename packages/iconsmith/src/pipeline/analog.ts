@@ -516,17 +516,25 @@ export const ring = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "circle", paintRing(finish, 12, 12, 9));
 
 /**
- * House cloud: two overlapping blobs that share a baseline
- * (`circle 9,12` left, `circle 17,14` right) plus the house chord
- * `M17 19H9`. Three discs on `wide` read as balloons, and `fit` onto
- * 20×16 squashes the 22×16 silhouette the house files actually occupy.
+ * House cloud: a union silhouette, not two overlapping stroked circles.
+ * Outlined traces the outer lobes (left three-quarter from the baseline,
+ * right half from the saddle) plus the house chord `M17 19H9`. Filled
+ * is the same two discs the house file floods. Two full circles under
+ * stroke left a figure-8 crease the house path does not have.
  */
 export const cloud = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, null, [
-    finish === "filled" ? "circle 9,12 r8" : "circle 9,12 r7",
-    finish === "filled" ? "circle 17,14 r6" : "circle 17,14 r5",
-    "line 9,19 17,19",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? ["circle 9,12 r8", "circle 17,14 r6", "line 9,19 17,19"]
+      : [
+          "arc 9,12 r7 three-quarter from bottom",
+          "arc 17,14 r5 half from top",
+          "line 9,19 17,19",
+        ]
+  );
 
 /**
  * House home: one pentagon, both paints. Outlined is the outer stroke

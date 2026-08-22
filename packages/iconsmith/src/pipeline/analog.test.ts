@@ -709,8 +709,10 @@ describe("analog families", () => {
     expect(play("play")).toContain("line 14,4 21,12");
     expect(play("play")).toContain("rect 6,4 8x16");
     expect(play("play")).not.toContain("keyline ");
-    expect(cloud("cloud")).toContain("circle 9,12 r7");
+    expect(cloud("cloud")).toContain("arc 9,12 r7 three-quarter from bottom");
+    expect(cloud("cloud")).toContain("arc 17,14 r5 half from top");
     expect(cloud("cloud")).toContain("line 9,19 17,19");
+    expect(cloud("cloud")).not.toContain("circle 9,12 r7");
     expect(cloud("cloud")).not.toContain("keyline ");
     expect(cloud("cloud", "filled")).toContain("circle 9,12 r8");
     expect(chevron("chevron-right")).toContain("line 9,6 15,12");
