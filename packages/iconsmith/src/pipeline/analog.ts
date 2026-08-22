@@ -615,16 +615,17 @@ export const pencil = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House shield: compile is one heater silhouette (`part shield-0`) on
- * portrait. Outlined is that closed outline — peaked top, sides, a
- * point — not a 45° diamond with a cap. Filled is the same body (a
- * mass seated on a diamond point). Recipe tokens resolve here.
+ * House shield: compile is one heater silhouette (`part shield-0`).
+ * Outlined is that closed outline — peaked top, sides, a point — not
+ * a 45° diamond with a cap. Filled is the same body (a mass seated on
+ * a diamond point). No portrait `fit`: the heater already occupies
+ * the house box, and scaling it dropped the filled match.
  */
 export const shield = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
     slug,
     finish,
-    "portrait",
+    null,
     finish === "filled"
       ? [mass(finish, 4, 4, 16, 11, 2), ...lozenge(finish, 12, 14, 8)]
       : ["line 12,3 20,7 20,13 12,21 4,13 4,7 12,3 off-axis"]
