@@ -58,6 +58,7 @@ interface NewOptions {
   keyline?: string;
   look?: boolean;
   maxSteps?: string;
+  mixture?: boolean;
   model?: string;
   out?: string;
   parts?: string;
@@ -129,9 +130,14 @@ export const houseAt = (root: string): HouseSource => {
   };
 };
 
-const unkeyedOf = (opts: NewOptions): "agent" | "analog" | "harness" => {
+const unkeyedOf = (
+  opts: NewOptions
+): "agent" | "analog" | "harness" | "mixture" => {
   if (opts.analog) {
     return "analog";
+  }
+  if (opts.mixture) {
+    return "mixture";
   }
   if (opts.harness !== undefined && opts.harness !== false) {
     return "harness";
@@ -251,6 +257,10 @@ export const registerNewCommand = (program: Command): void => {
     .option(
       "--analog",
       "host constructions / kin replay; default for a new glyph is to hire an agent"
+    )
+    .option(
+      "--mixture",
+      "sparse expert routing: cheap host arms first, agent if they fail"
     )
     .option(
       "--harness [command]",

@@ -167,6 +167,35 @@ export {
 export { classifyReach, reach } from "./pipeline/reach.js";
 export type { HouseSource, ReachKind, ReachPlan } from "./pipeline/reach.js";
 export {
+  CONCEPT_CLASSES,
+  DEFAULT_MIXTURE,
+  EXPERT_IDS,
+  assertNamesOnly,
+  evidenceOf,
+  gate,
+  mixtureArm,
+  packIndexFromSlugs,
+  parseMixturePolicy,
+} from "./pipeline/mixture.js";
+export type {
+  ConceptClass,
+  Evidence,
+  ExpertId,
+  GateDecision,
+  MixturePolicy,
+  PackIndex,
+} from "./pipeline/mixture.js";
+export {
+  applyVerdict,
+  decideExperiment,
+  runExperiment,
+} from "./pipeline/experiment.js";
+export type {
+  ExperimentReport,
+  ExperimentStatus,
+  Hypothesis,
+} from "./pipeline/experiment.js";
+export {
   compileArm,
   compilePaint,
   finishProgram,

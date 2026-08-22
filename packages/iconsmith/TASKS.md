@@ -104,3 +104,12 @@ Known: changing stroke changes geometry in ~90% of icons, but median visual exte
 - [x] `centred` drops to `warn`, suppressed when the icon agrees with its cohort — agreement is per edge: recentring moves both edges, so an icon sharing one with a sibling cannot be recentred without breaking an alignment
 - [x] Cohort definition beyond name prefix — a `CohortManifest` (cohort name → members) overrides first-segment inference. Does not catch: unlisted semantic swaps (`play`/`pause`), singular/plural (`folder`/`folders`), or anything inside the outer box, e.g. a badge that moved
 - [x] Report the real cohort splits across blode-icons — 116 split axes over 79 cohorts, 143 icons on the wrong side; `iconsmith lint <files...>` prints them
+
+## 11 — Mixture of experts (owner: agent `mixture`)
+
+Sparse routing over the DRAW arms that already exist. Analysis-only packs are inventory (names), never conditioning.
+
+- [x] `src/pipeline/mixture.ts` — evidence, gate, cheap-first DRAW
+- [x] `src/pipeline/experiment.ts` — screen on feedback, decide on selection
+- [x] `iconsmith new --mixture` / `iconsmith improve` / `scripts/mixture-lab.ts`
+- [x] Third-party packs contribute slugs only; `assertNamesOnly` refuses `d` / `svg`

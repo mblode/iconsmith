@@ -19,6 +19,7 @@ import type { GenerateOptions, GenerateResult, Unkeyed } from "./generate.js";
 import { glyphArm } from "./glyph.js";
 import { glyphFromSlug } from "./glyphs.js";
 import { harnessArm } from "./harness.js";
+import { mixtureArm } from "./mixture.js";
 import { markFromSlug } from "./kind.js";
 import { markArm } from "./mark.js";
 import { pairCanvases } from "./pair.js";
@@ -267,6 +268,9 @@ export const reach = (
   }
   if (options.unkeyed === "agent") {
     return generate(concept, options);
+  }
+  if (options.unkeyed === "mixture") {
+    return mixtureArm({ house })(concept, options);
   }
   return analogOrAgent(concept, options, house);
 };

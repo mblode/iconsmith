@@ -88,7 +88,7 @@ export const withCacheBreakpoints = (
 export const DEFAULT_MAX_STEPS = 24;
 
 /** Who draws a name the house has no file for. See `GenerateOptions.unkeyed`. */
-export type Unkeyed = "agent" | "analog" | "glyph" | "harness";
+export type Unkeyed = "agent" | "analog" | "glyph" | "harness" | "mixture";
 
 export interface GenerateOptions {
   /**
@@ -192,6 +192,8 @@ export interface GenerateOptions {
    * from a neighbour. `glyph` asks for a host construction from `glyphs.ts`,
    * for the handful of names that have one — it has to be asked for, so that a
    * caller who wanted a generator never quietly gets the house answer instead.
+   * `mixture` is the sparse expert gate: cheap host arms first, agent only
+   * if they fail. It does not change keyed compile / mark / splice.
    */
   unkeyed?: Unkeyed;
   /** CLI for `unkeyed: "harness"`. Default `claude`. */

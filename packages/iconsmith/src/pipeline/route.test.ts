@@ -451,6 +451,7 @@ describe("the registry", () => {
       "compile",
       "direct",
       "mark",
+      "mixture",
       "part-first",
     ]);
   });
@@ -460,8 +461,9 @@ describe("the registry", () => {
     expect(getRoute("compile")).toBe(compile);
     expect(getRoute("mark")).toBe(mark);
     expect(getRoute("analog")).toBe(analog);
+    expect(getRoute("mixture").name).toBe("mixture");
     expect(() => getRoute("nope")).toThrow(
-      /analog, compile, direct, mark, part-first/u
+      /analog, compile, direct, mark, mixture, part-first/u
     );
   });
 
