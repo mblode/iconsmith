@@ -337,6 +337,35 @@ export const createTools = (options: ToolsOptions = {}) => {
             },
     }),
 
+    confirm: tool({
+      description: "Look at the drawing and check it against the house spec.",
+      execute: async () =>
+        await track("confirm", async () => {
+          state.renderedAt = canvas.version;
+          const issues = lint(canvas, { keyline });
+          state.issues = issues;
+          state.lintedAt = canvas.version;
+          const image = await png(canvas.toSVG(), renderSize);
+          return {
+            clean: issues.every((i) => i.severity !== "error"),
+            image: image.toString("base64"),
+            report: format(issues),
+          };
+        }),
+      inputSchema: z.object({}),
+      toModelOutput: ({ output }) => ({
+        type: "content",
+        value: [
+          {
+            data: { data: output.image, type: "data" },
+            mediaType: "image/png",
+            type: "file",
+          },
+          { text: output.report, type: "text" },
+        ],
+      }),
+    }),
+
     construct: tool({
       description:
         "Place the host analog for this name. The model never emits those coordinates — the canvas writes the program. Generate already adopts it when one exists; call this only if the canvas is still empty. Available once. After it lands, confirm with render and lint — do not redraw it.",
@@ -728,45 +757,17 @@ export const createTools = (options: ToolsOptions = {}) => {
       "fit",
       "hole",
       "line",
+      "lint",
       "listParts",
       "part",
       "rect",
       "remove",
+      "render",
     ] as const) {
       Reflect.deleteProperty(tools, name);
     }
-    // One tool, empty schema. Two leftover lint/render schemas still
-    // 402'd a 1560-token prompt-credit remainder.
-    Reflect.deleteProperty(tools, "lint");
-    Reflect.deleteProperty(tools, "render");
-    tools.confirm = tool({
-      description: "Look at the drawing and check it against the house spec.",
-      execute: async () =>
-        await track("confirm", async () => {
-          state.renderedAt = canvas.version;
-          const issues = lint(canvas, { keyline });
-          state.issues = issues;
-          state.lintedAt = canvas.version;
-          const image = await png(canvas.toSVG(), renderSize);
-          return {
-            clean: issues.every((i) => i.severity !== "error"),
-            image: image.toString("base64"),
-            report: format(issues),
-          };
-        }),
-      inputSchema: z.object({}),
-      toModelOutput: ({ output }) => ({
-        type: "content",
-        value: [
-          {
-            data: { data: output.image, type: "data" },
-            mediaType: "image/png",
-            type: "file",
-          },
-          { text: output.report, type: "text" },
-        ],
-      }),
-    });
+  } else {
+    Reflect.deleteProperty(tools, "confirm");
   }
 
   return { canvas, state, tools };
