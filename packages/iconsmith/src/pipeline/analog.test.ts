@@ -714,7 +714,9 @@ describe("analog families", () => {
     expect(cloud("cloud", "filled")).toContain("circle 9,12 r8");
     expect(chevron("chevron-right")).toContain("line 9,6 15,12");
     expect(arrow("arrow-right")).toContain("line 5,12 19,12");
-    expect(bookmark("bookmark")).toContain("line 5,17 12,21");
+    expect(bookmark("bookmark")).toContain("line 5,20 12,17.5");
+    expect(bookmark("bookmark")).not.toContain("keyline ");
+    expect(airdrop("airdrop", "filled")).toContain("circle 12,11 r9");
     expect(share("share")).toContain("circle 18,5 r3");
     expect(airdrop("airdrop")).toContain("line 4,11 11,16.5");
     expect(airplane("airplane")).toContain("line 3,6 13.5,7");

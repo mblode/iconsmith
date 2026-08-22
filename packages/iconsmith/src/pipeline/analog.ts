@@ -699,14 +699,15 @@ export const arrow = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House bookmark: a tall ribbon with a V bite at the foot. Outlined is
- * that closed outline; filled is the body plus the two tails.
+ * House bookmark: a tall ribbon with a V bite cut *into* the foot
+ * (house `M5 19.99` / `L12 18.2`), not two tails hanging below. Filled
+ * is the same body. No tall `fit`: the ribbon already occupies 16×20.
  */
 export const bookmark = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "tall", [
-    mass(finish, 5, 3, 14, 14, 2),
-    "line 5,17 12,21 off-axis",
-    "line 19,17 12,21 off-axis",
+  iconProgram(slug, finish, null, [
+    mass(finish, 5, 3, 14, 17, 3),
+    "line 5,20 12,17.5 off-axis",
+    "line 19,20 12,17.5 off-axis",
   ]);
 
 /**
@@ -724,11 +725,12 @@ export const share = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * House airdrop: a dome, two off-axis beams (`M4 11L11 16.5`), a stem,
- * and a seated capsule. Filled is the same marks as solids.
+ * and a seated capsule. Filled is a solid dome (house evenodd is that
+ * disc plus the beams), not a stroked arc restamped as a thin lid.
  */
 export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "portrait", [
-    "arc 12,11 r8 half from left",
+    finish === "filled" ? "circle 12,11 r9" : "arc 12,11 r8 half from left",
     "line 4,11 11,16.5 off-axis",
     "line 13,16.5 20,11 off-axis",
     "line 12,11 12,16",
