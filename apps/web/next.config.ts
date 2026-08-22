@@ -119,6 +119,9 @@ const nextConfig: NextConfig = {
     ]);
   },
   reactCompiler: true,
+  // The CLI package is Node-only (sharp, gateway). Route handlers import it;
+  // the browser bundle must never see it.
+  serverExternalPackages: ["ai", "@ai-sdk/gateway", "iconsmith", "sharp"],
 };
 
 export default nextConfig;
