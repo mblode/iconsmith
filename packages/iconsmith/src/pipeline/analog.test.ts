@@ -799,6 +799,7 @@ describe("analog families", () => {
       ["share", "share"],
       ["airdrop", "airdrop"],
       ["airplane", "airplane"],
+      ["cloud", "cloud"],
     ] as const;
     const drawn = await Promise.all(
       cases.map(([name, id]) =>
@@ -895,6 +896,7 @@ describe("analog families", () => {
       ["share", "share"],
       ["airdrop", "airdrop"],
       ["airplane", "airplane"],
+      ["cloud", "cloud"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

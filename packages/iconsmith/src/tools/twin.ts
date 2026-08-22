@@ -594,7 +594,8 @@ const isHole = (e: { hole?: boolean; op?: string }): boolean =>
  * looks paired. House filled rings knock a hole immediately after the
  * circle. A bare outlined circle against a bare filled circle with no
  * knockout is that restamp — sun (disc + rays) and clock (disc + hands)
- * have other marks and stay quiet.
+ * have other marks and stay quiet. A cloud of overlapping discs is not
+ * a ring: only one hoop against one disc is the restamp.
  */
 export const restampIssues = (
   outlined: TwinPaint,
@@ -612,8 +613,8 @@ export const restampIssues = (
     (e) => !(e.kind === "circle" && !isHole(e)) && !isHole(e)
   );
   if (
-    hoops.length === 0 ||
-    disc.length === 0 ||
+    hoops.length !== 1 ||
+    disc.length !== 1 ||
     holes.length > 0 ||
     outlinedElse.length > 0 ||
     filledElse.length > 0
