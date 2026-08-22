@@ -647,9 +647,10 @@ export const pencil = (slug: string, finish: Finish = "outlined"): string =>
 /**
  * House shield: compile is one heater silhouette (`part shield-0`).
  * Outlined is that closed outline — peaked top, inset shoulders, sides,
- * a point — not a 45° diamond with a cap. The shoulders stay inside the
- * 18×20 pair box; house-true vertices unpair. Filled is the same body
- * (a mass seated on a diamond point). No portrait `fit`.
+ * a point — not a 45° diamond with a cap. Extra samples on the house
+ * bottom curves (`16,19` / `8,19`) keep the heater inside the 18×20
+ * pair box. Filled is the same body (a mass seated on a diamond
+ * point). No portrait `fit`.
  */
 export const shield = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(
@@ -658,7 +659,9 @@ export const shield = (slug: string, finish: Finish = "outlined"): string =>
     null,
     finish === "filled"
       ? [mass(finish, 4, 4, 16, 11, 2), ...lozenge(finish, 12, 14, 8)]
-      : ["line 12,3 19,6 20,7 20,13 12,21 4,13 4,7 5,6 12,3 off-axis"]
+      : [
+          "line 12,3 19,6 20,7 20,12 16,19 12,21 8,19 4,12 4,7 5,6 12,3 off-axis",
+        ]
   );
 
 /**
