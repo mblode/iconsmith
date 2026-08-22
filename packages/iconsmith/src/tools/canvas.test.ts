@@ -6,7 +6,7 @@ import { expect, test } from "vitest";
 
 import { bbox, parsePath } from "../geometry/path.js";
 import { extractParts } from "../parts/extract.js";
-import { fingerprint, match } from "../parts/shape.js";
+import { fingerprint, flatten, match } from "../parts/shape.js";
 import type { IconDoc, Part } from "../types.js";
 import { Canvas, SPEC } from "./canvas.js";
 
@@ -351,6 +351,37 @@ test("a filled arc is an annular sector, not refused", () => {
   c.arc({ cx: 12, cy: 12, from: "top", r: 8, sweep: "half" });
   expect(c.elements).toHaveLength(1);
   expect(c.toSVG()).toContain('fill="currentColor"');
+});
+
+test("a filled diagonal unions its cap and body subpaths", () => {
+  const c = new Canvas([], { finish: "filled" });
+  c.line({
+    points: [
+      [12, 7],
+      [15, 4],
+    ],
+  });
+  const shapePath = c.elements[0]?.d ?? "";
+  expect(shapePath.match(/M/gu)).toHaveLength(3);
+  const winding = parsePath(shapePath).map((subpath) => {
+    const points = flatten(subpath, 8);
+    let area = 0;
+    for (const [index, point] of points.entries()) {
+      const next = points[(index + 1) % points.length];
+      area += point[0] * next[1] - next[0] * point[1];
+    }
+    return area;
+  });
+  expect(
+    winding.every((area) => Math.sign(area) === Math.sign(winding[0]))
+  ).toBe(true);
+  expect(c.elements[0]?.fillRule).toBe("nonzero");
+  expect(c.toSVG()).toContain('fill-rule="nonzero"');
+  expect(c.toJSON().draw[0]).toMatchObject({
+    fillRule: "nonzero",
+    op: "raw",
+  });
+  expect(Canvas.fromJSON(c.toJSON()).toSVG()).toBe(c.toSVG());
 });
 
 test("toJSON → fromJSON → toSVG round-trips identically", () => {

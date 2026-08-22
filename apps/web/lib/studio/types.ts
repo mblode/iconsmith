@@ -2,10 +2,35 @@ export type StudioFinish = "outlined" | "filled";
 
 export interface StudioAttachment {
   readonly dataUrl?: string;
-  readonly kind: "image" | "svg" | "file";
+  readonly kind: "image" | "svg" | "file" | "library";
   readonly name: string;
   readonly size: number;
+  readonly source?: string;
+  readonly text?: string;
   readonly type: string;
+}
+
+export interface StudioAnnotation {
+  readonly id: string;
+  readonly text: string;
+  readonly versionId: string;
+  readonly x: number;
+  readonly y: number;
+}
+
+export interface StudioLibraryResult {
+  readonly dataUrl: string;
+  readonly id: string;
+  readonly license: string;
+  readonly licenseUrl: string;
+  readonly name: string;
+  readonly source: string;
+  readonly sourceUrl: string;
+}
+
+export interface StudioLibraryResponse {
+  readonly degraded?: boolean;
+  readonly results: readonly StudioLibraryResult[];
 }
 
 export interface StudioIssue {
@@ -14,7 +39,23 @@ export interface StudioIssue {
   readonly severity: "error" | "warn";
 }
 
+export type StudioExpert = "agent" | "analog" | "compile" | "glyph" | "mark";
+
+export interface StudioAgentRun {
+  readonly attempted: readonly StudioExpert[];
+  readonly findings: readonly { kind: string; message: string }[];
+  readonly mode: "draw-and-review" | "review";
+  readonly ok: boolean;
+  readonly pq: number;
+  readonly reason: string | null;
+  readonly sc: number;
+  readonly scorable: boolean;
+  readonly selected: StudioExpert;
+}
+
 export interface StudioVersion {
+  readonly agent: StudioAgentRun;
+  readonly batchId: string;
   readonly brief: string;
   readonly clean: boolean;
   readonly finish: StudioFinish;
@@ -44,6 +85,7 @@ export interface StudioApproval {
 }
 
 export interface StudioRequest {
+  readonly annotations?: readonly StudioAnnotation[];
   readonly answers?: Record<string, string | string[]>;
   readonly approved?: boolean;
   readonly attachments?: readonly StudioAttachment[];

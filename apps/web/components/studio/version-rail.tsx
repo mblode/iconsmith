@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { safeStudioSvg } from "@/lib/studio/svg";
 import { cn } from "@/lib/utils";
 import type { StudioVersion } from "@/lib/studio/types";
 
@@ -13,14 +14,14 @@ export const VersionRail = ({
   selectedId: string | null;
   versions: readonly StudioVersion[];
 }) => (
-  <aside className="flex flex-col gap-2">
+  <aside className="flex min-h-0 flex-1 flex-col gap-2">
     <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">Versions</p>
     {versions.length === 0 ? (
       <p className="text-muted-foreground text-sm">
         Each draw lands here. Chat to branch a new one.
       </p>
     ) : (
-      <ol className="flex max-h-64 flex-col gap-2 overflow-y-auto sm:max-h-none">
+      <ol className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pr-1">
         {versions.map((version, index) => (
           <li key={version.id}>
             <Button
@@ -46,7 +47,7 @@ export const VersionRail = ({
                   className="size-8 text-foreground [&_svg]:size-8"
                   // oxlint-disable-next-line react/no-danger -- house SVG thumbnail
                   dangerouslySetInnerHTML={{
-                    __html: version.svg.includes("<script") ? "" : version.svg,
+                    __html: safeStudioSvg(version.svg),
                   }}
                 />
               </span>

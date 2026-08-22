@@ -1,9 +1,16 @@
-import { mixtureArm } from "iconsmith";
+import { audit, compose, describeProposal, EXPERT_IDS, gatewayAsk, mixtureArm } from "iconsmith";
+import type { ExpertId } from "iconsmith";
 import type { NextRequest } from "next/server";
 
 import { clientIp, rateLimit } from "@/lib/request-guards";
 import { conceptOf, isVague } from "@/lib/studio/concept";
-import type { StudioIssue, StudioRequest, StudioResponse, StudioVersion } from "@/lib/studio/types";
+import type {
+  StudioAgentRun,
+  StudioIssue,
+  StudioRequest,
+  StudioResponse,
+  StudioVersion,
+} from "@/lib/studio/types";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -45,6 +52,49 @@ const asIssues = (
       severity: issue.severity as "error" | "warn",
     }));
 
+const visualProposal = async (request: StudioRequest) => {
+  const attachment = request.attachments?.find(
+    (file) => (file.kind === "image" || file.kind === "svg") && file.dataUrl,
+  );
+  if (!attachment?.dataUrl) {
+    return null;
+  }
+  const separator = attachment.dataUrl.indexOf(",");
+  const header = attachment.dataUrl.slice(0, separator);
+  const payload = attachment.dataUrl.slice(separator + 1);
+  if (
+    separator === -1 ||
+    !/^data:image\/[\w.+-]+;base64$/iu.test(header) ||
+    !/^[a-z\d+/=]+$/iu.test(payload) ||
+    payload.length > 2_100_000
+  ) {
+    throw new Error("That visual reference could not be read safely.");
+  }
+  const proposal = await compose(Buffer.from(payload, "base64"), { model: null });
+  return proposal;
+};
+
+const selectedExpert = (trace: readonly string[], attempted: readonly ExpertId[]): ExpertId => {
+  const head = trace[0] ?? "";
+  return EXPERT_IDS.find((id) => head.endsWith(`/${id}`)) ?? attempted.at(-1) ?? "agent";
+};
+
+const agentRun = (
+  selected: ExpertId,
+  attempted: readonly ExpertId[],
+  reviewed: Awaited<ReturnType<typeof audit>>,
+): StudioAgentRun => ({
+  attempted,
+  findings: reviewed.findings,
+  mode: selected === "agent" ? "draw-and-review" : "review",
+  ok: reviewed.ok,
+  pq: reviewed.pq,
+  reason: reviewed.reason,
+  sc: reviewed.sc,
+  scorable: reviewed.scorable,
+  selected,
+});
+
 const draw = async (request: StudioRequest): Promise<StudioResponse> => {
   const { finish, name, tags } = conceptOf(request);
   if (name === "icon" || (isVague(request.text) && !request.answers?.object)) {
@@ -55,37 +105,54 @@ const draw = async (request: StudioRequest): Promise<StudioResponse> => {
     };
   }
 
-  const hasRefs = (request.attachments?.length ?? 0) > 0;
-  if (hasRefs && request.approved !== true && request.pending !== "approval") {
+  const hasVisualRefs = request.attachments?.some(
+    (file) => file.kind === "image" || file.kind === "svg",
+  );
+  if (hasVisualRefs && request.approved !== true && request.pending !== "approval") {
     return {
       approval: {
-        body: "I will treat the file as a reference in words — what it depicts, not its path data. The model never emits a coordinate, and I will not trace Lucide, Hero, or a screenshot into the set.",
+        body: "Iconsmith will reduce the first image to composition words — element count, coarse region, scale band, and adjacency — then discard its geometry. It will not trace the file or imitate another library's paths.",
         id: "reference",
-        title: "Use the attachment as a reference?",
+        title: "Read the attachment as composition?",
       },
       kind: "approval",
-      text: "That file never becomes a path. I need your approval to keep going.",
+      text: "The file can inform composition without becoming a path. I need your approval to read it.",
     };
   }
-  if (hasRefs && request.approved === false) {
+  if (hasVisualRefs && request.approved === false) {
     return {
       kind: "error",
       text: "Okay, leaving the attachment out. Send the object noun and I will draw from the house grammar.",
     };
   }
 
-  const arm = mixtureArm();
   const concept = { name, tags };
+  const proposal = hasVisualRefs ? await visualProposal(request) : null;
+  const batchId = `${name}-${crypto.randomUUID()}`;
   const paints =
     finish === "filled" ? (["filled", "outlined"] as const) : (["outlined", "filled"] as const);
   const drawn = await Promise.all(
     paints.map(async (paint) => {
-      const result = await arm(concept, { finish: paint });
+      const attempted: ExpertId[] = [];
+      const arm = mixtureArm({ onExpert: (id) => attempted.push(id) });
+      const result = await arm(concept, { finish: paint, proposal });
+      const selected = selectedExpert(result.trace, attempted);
+      const reviewed =
+        result.audit ??
+        (await audit({
+          ask: gatewayAsk,
+          concept,
+          finish: paint,
+          kind: selected === "compile" || selected === "mark" ? selected : "analog",
+          svg: result.svg,
+        }));
       const version: StudioVersion = {
+        agent: agentRun(selected, attempted, reviewed),
+        batchId,
         brief: result.brief ?? `mixture ${name}`,
         clean: result.clean,
         finish: paint,
-        id: `${name}-${paint}-${result.steps}`,
+        id: `${batchId}-${paint}`,
         issues: asIssues(result.issues),
         name,
         program: result.program ?? "",
@@ -99,9 +166,12 @@ const draw = async (request: StudioRequest): Promise<StudioResponse> => {
 
   const unknown = drawn.some((row) => /\bunknown\b/iu.test(row.brief));
   const [lead] = drawn;
+  const referenceNote = proposal
+    ? ` Reference read: ${describeProposal(proposal).replaceAll("\n", " ").slice(0, 240)}`
+    : "";
   const text = unknown
     ? `I do not have a house drawing for “${name}”, so the cheap arm returned an honest unknown — a frame and a dot, not the object. Chat the object noun (tray, fan, canopy) and I will try again.`
-    : `${lead?.brief ?? name} — both paints. Chat to intervene, or attach a reference I will not trace.`;
+    : `${lead?.brief ?? name} — both paints. Chat to intervene, or attach a reference I will not trace.${referenceNote}`;
 
   return { kind: "drawn", text, versions: drawn };
 };

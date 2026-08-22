@@ -1199,6 +1199,38 @@ export const flower = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
+ * Two branch rails and an incoming arrow.
+ *
+ * The model version put a two-unit chevron directly against the right rail.
+ * Filled paint expanded all three strokes into one blunt knot, so the arrow
+ * read as a bent post. This host construction gives the arrow a three-unit
+ * shoulder. Filled nodes are solid; outlined nodes remain rings.
+ */
+export const pullRequest = (
+  slug: string,
+  finish: Finish = "outlined"
+): string => {
+  const tip = finish === "filled" ? 11 : 12;
+  const shoulder = 15;
+  const shoulderTop = finish === "filled" ? 3 : 4;
+  const shoulderBottom = finish === "filled" ? 11 : 10;
+  const node = (cx: number, cy: number): string[] =>
+    finish === "filled"
+      ? [`circle ${cx},${cy} r3`]
+      : paintRing(finish, cx, cy, 2);
+  return iconProgram(slug, finish, "portrait", [
+    ...node(6, 5),
+    ...node(6, 19),
+    vbar(finish, 6, 7, 10),
+    ...node(18, 19),
+    vbar(finish, 18, 7, 10),
+    `line ${tip},7 18,7`,
+    `line ${tip},7 ${shoulder},${shoulderTop}`,
+    `line ${tip},7 ${shoulder},${shoulderBottom}`,
+  ]);
+};
+
+/**
  * A framed mark with a centre node. The honest drawing when no token, kin,
  * or named part answers — not a hub, which is an org chart.
  */
@@ -1269,6 +1301,7 @@ const FAMILY_DRAW = {
   plant,
   play,
   plus,
+  "pull-request": pullRequest,
   qrcode,
   ring,
   rocket,
@@ -1472,6 +1505,12 @@ export const familyFromTokens = (
 ): AnalogFamilyId | null => {
   const found = new Set<AnalogFamilyId>();
   let glyph = false;
+  for (const part of parts) {
+    const exact = familyFromToken(part.toLowerCase().trim());
+    if (exact !== null) {
+      found.add(exact);
+    }
+  }
   for (const token of contentTokens(...parts)) {
     if (UNVOLUNTEERED.has(token)) {
       glyph = true;

@@ -1,11 +1,18 @@
 "use client";
 
+import Focus from "blode-icons-react/icons/focus";
+import Grid from "blode-icons-react/icons/layers-three";
+import Library from "blode-icons-react/icons/library";
 import PaperPlane from "blode-icons-react/icons/paper-plane";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
+import ChatBubbles from "blode-icons-react/icons/chat-bubbles";
 import X from "blode-icons-react/icons/x";
 import { useId, useRef, useState } from "react";
 
+import { AnnotationPanel } from "@/components/studio/annotation-panel";
+import { ExplorationBoard } from "@/components/studio/exploration-board";
 import { IconStage } from "@/components/studio/icon-stage";
+import { LibraryBrowser } from "@/components/studio/library-browser";
 import { ThinkingCard } from "@/components/studio/thinking-card";
 import { VersionRail } from "@/components/studio/version-rail";
 import {
@@ -36,6 +43,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { asset } from "@/lib/site-url";
 import type {
   StudioApproval,
+  StudioAnnotation,
   StudioAttachment,
   StudioFinish,
   StudioQuestion,
@@ -81,10 +89,16 @@ const readFile = async (file: File): Promise<StudioAttachment> => {
     throw new Error(`${file.name} is over 1.5MB.`);
   }
   if (kind === "file") {
+    const readable =
+      file.type.startsWith("text/") ||
+      file.type === "application/json" ||
+      /\.(?:json|md|txt)$/iu.test(file.name);
+    const content = readable ? await file.text() : undefined;
     return {
       kind,
       name: file.name,
       size: file.size,
+      text: content?.slice(0, 30_000),
       type: file.type || "application/octet-stream",
     };
   }
@@ -102,6 +116,11 @@ const readFile = async (file: File): Promise<StudioAttachment> => {
   };
 };
 
+const attachmentKey = (file: StudioAttachment) => `${file.source ?? "local"}:${file.name}`;
+
+type WorkspaceView = "focus" | "explorations";
+type InspectorView = "versions" | "library" | "comments";
+
 const SUGGESTIONS = ["wifi", "inbox", "briefcase", "umbrella", "qr-code", "home"];
 
 const promptHint = (pending: "questions" | "approval" | null, intervening: boolean): string => {
@@ -114,6 +133,7 @@ const promptHint = (pending: "questions" | "approval" | null, intervening: boole
   return "wifi, a tray for mail, briefcase…";
 };
 
+// oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
 export const StudioApp = () => {
   const fileId = useId();
   const fileRef = useRef<HTMLInputElement>(null);
@@ -127,10 +147,16 @@ export const StudioApp = () => {
   const [fault, setFault] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [pending, setPending] = useState<"questions" | "approval" | null>(null);
+  const [workspaceView, setWorkspaceView] = useState<WorkspaceView>("focus");
+  const [inspectorView, setInspectorView] = useState<InspectorView>("versions");
+  const [annotations, setAnnotations] = useState<StudioAnnotation[]>([]);
+  const [selectedAnnotationId, setSelectedAnnotationId] = useState<string | null>(null);
+  const [annotationMode, setAnnotationMode] = useState(false);
 
   const [firstVersion] = versions;
+  const selectedVersion = versions.find((row) => row.id === selectedId);
   const selected =
-    versions.find((row) => row.id === selectedId && row.finish === finish) ??
+    versions.find((row) => row.batchId === selectedVersion?.batchId && row.finish === finish) ??
     versions.find((row) => row.finish === finish) ??
     firstVersion ??
     null;
@@ -177,6 +203,8 @@ export const StudioApp = () => {
       if (lead) {
         setSelectedId(lead.id);
         setFinish(lead.finish);
+        setWorkspaceView("focus");
+        setInspectorView("versions");
       }
       setTurns((current) => [
         ...current,
@@ -199,6 +227,12 @@ export const StudioApp = () => {
     setText("");
     setFiles([]);
     await send({
+      annotations: selected
+        ? annotations.filter(
+            (annotation) =>
+              annotation.versionId === selected.id && annotation.text.trim().length > 0,
+          )
+        : [],
       attachments,
       finish,
       lastName,
@@ -218,17 +252,60 @@ export const StudioApp = () => {
     }
   };
 
+  const addLibraryReference = (attachment: StudioAttachment) => {
+    setFiles((current) => {
+      if (current.some((file) => attachmentKey(file) === attachmentKey(attachment))) {
+        return current;
+      }
+      return [...current, attachment].slice(0, 4);
+    });
+    setText((current) => current || attachment.name);
+  };
+
+  const selectVersion = (id: string) => {
+    const row = versions.find((version) => version.id === id);
+    setSelectedId(id);
+    setSelectedAnnotationId(null);
+    setAnnotationMode(false);
+    if (row) {
+      setFinish(row.finish);
+    }
+  };
+
+  const addAnnotation = ({ x, y }: { x: number; y: number }) => {
+    if (!selected) {
+      return;
+    }
+    const annotation: StudioAnnotation = {
+      id: uid(),
+      text: "",
+      versionId: selected.id,
+      x: Math.max(0, Math.min(100, x)),
+      y: Math.max(0, Math.min(100, y)),
+    };
+    setAnnotations((current) => [...current, annotation]);
+    setSelectedAnnotationId(annotation.id);
+    setAnnotationMode(false);
+    setInspectorView("comments");
+  };
+
   return (
-    <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
-      <section className="flex min-h-[32rem] min-w-0 flex-col rounded-3xl border bg-card/60 shadow-xs">
+    <div className="grid min-h-0 flex-1 overflow-hidden rounded-2xl border bg-border lg:grid-cols-[22rem_minmax(0,1fr)] xl:h-[calc(100svh-7rem)] xl:min-h-[42rem] xl:flex-none xl:grid-cols-[22rem_minmax(0,1fr)_19rem]">
+      <section className="flex min-h-[38rem] min-w-0 flex-col bg-background lg:border-r">
+        <header className="flex flex-col gap-1 border-b px-4 py-3">
+          <h2 className="font-medium">Chat</h2>
+          <p className="text-base text-muted-foreground sm:text-sm">
+            Brief, references, and branches
+          </p>
+        </header>
         <MessageScroller>
-          <MessageScrollerContent>
+          <MessageScrollerContent className="max-w-none">
             {turns.length === 0 ? (
               <div className="flex flex-col gap-4">
                 <Marker variant="separator">
                   <MarkerContent>Start with the object noun</MarkerContent>
                 </Marker>
-                <p className="max-w-[46ch] text-muted-foreground text-sm leading-relaxed">
+                <p className="max-w-[46ch] text-base text-muted-foreground sm:text-sm">
                   Type <code className="font-mono text-foreground">wifi</code> or{" "}
                   <code className="font-mono text-foreground">a tray for mail</code>. Attach a
                   reference if you have one — I will not trace it. Chat after a draw to intervene.
@@ -259,7 +336,7 @@ export const StudioApp = () => {
                     {turn.attachments.length > 0 ? (
                       <AttachmentGroup>
                         {turn.attachments.map((file) => (
-                          <Attachment key={file.name} orientation="vertical" size="sm">
+                          <Attachment key={attachmentKey(file)} orientation="vertical" size="sm">
                             <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
                               {file.dataUrl ? (
                                 // oxlint-disable-next-line nextjs/no-img-element -- user attachment preview
@@ -293,6 +370,7 @@ export const StudioApp = () => {
                         items={[...turn.questions]}
                         onSubmit={async () => {
                           await send({
+                            annotations,
                             answers,
                             attachments: referenceFiles,
                             finish,
@@ -316,9 +394,9 @@ export const StudioApp = () => {
                       </Questionnaire>
                     ) : null}
                     {turn.approval ? (
-                      <div className="flex max-w-lg flex-col gap-3 rounded-2xl border bg-card p-4 shadow-xs">
+                      <div className="flex max-w-lg flex-col gap-3 rounded-xl border bg-card p-4">
                         <h3 className="font-heading font-medium text-lg">{turn.approval.title}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
+                        <p className="text-base text-muted-foreground sm:text-sm">
                           {turn.approval.body}
                         </p>
                         <div className="flex gap-2">
@@ -326,6 +404,7 @@ export const StudioApp = () => {
                             disabled={busy}
                             onClick={async () => {
                               await send({
+                                annotations,
                                 approved: false,
                                 attachments: referenceFiles,
                                 finish,
@@ -343,6 +422,7 @@ export const StudioApp = () => {
                             disabled={busy}
                             onClick={async () => {
                               await send({
+                                annotations,
                                 approved: true,
                                 attachments: referenceFiles,
                                 finish,
@@ -352,6 +432,7 @@ export const StudioApp = () => {
                               });
                             }}
                             type="button"
+                            variant="outline"
                           >
                             Approve
                           </Button>
@@ -364,14 +445,16 @@ export const StudioApp = () => {
             )}
 
             {busy ? (
-              <Marker>
-                <MarkerContent>
-                  Drawing — cheap experts first, the agent only if they fail.
-                </MarkerContent>
+              <Marker asChild>
+                <output aria-atomic="true" aria-live="polite">
+                  <MarkerContent className="animate-pulse">
+                    Agent pipeline running — drawing both paints, rendering, and visually reviewing.
+                  </MarkerContent>
+                </output>
               </Marker>
             ) : null}
             {fault ? (
-              <Marker>
+              <Marker role="alert">
                 <MarkerContent>{fault}</MarkerContent>
               </Marker>
             ) : null}
@@ -387,9 +470,9 @@ export const StudioApp = () => {
           }}
         >
           {files.length > 0 ? (
-            <AttachmentGroup className="mb-3">
+            <AttachmentGroup className="pb-3">
               {files.map((file) => (
-                <Attachment key={file.name} size="sm">
+                <Attachment key={attachmentKey(file)} size="sm">
                   <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
                     {file.dataUrl ? (
                       // oxlint-disable-next-line nextjs/no-img-element -- local attachment chip
@@ -400,13 +483,17 @@ export const StudioApp = () => {
                   </AttachmentMedia>
                   <AttachmentContent>
                     <AttachmentTitle>{file.name}</AttachmentTitle>
-                    <AttachmentDescription>{file.kind}</AttachmentDescription>
+                    <AttachmentDescription>
+                      {file.source ? `${file.source} · name only` : file.kind}
+                    </AttachmentDescription>
                   </AttachmentContent>
                   <AttachmentActions>
                     <AttachmentAction
                       aria-label={`Remove ${file.name}`}
                       onClick={() =>
-                        setFiles((current) => current.filter((row) => row.name !== file.name))
+                        setFiles((current) =>
+                          current.filter((row) => attachmentKey(row) !== attachmentKey(file)),
+                        )
                       }
                       type="button"
                     >
@@ -423,6 +510,7 @@ export const StudioApp = () => {
               className="sr-only"
               id={fileId}
               multiple
+              name="attachments"
               onChange={async (event) => {
                 await addFiles(event.target.files);
                 event.target.value = "";
@@ -450,6 +538,7 @@ export const StudioApp = () => {
                 }
               }}
               placeholder={promptHint(pending, Boolean(lastAssistant))}
+              name="studio-prompt"
               value={text}
             />
             <Button
@@ -464,26 +553,150 @@ export const StudioApp = () => {
               <PaperPlane />
             </Button>
           </div>
-          <p className="mt-2 px-1 text-muted-foreground text-xs">
+          <p className="px-1 pt-2 text-muted-foreground text-xs">
             Enter to draw · Shift+Enter for a new line · Drop images on this bar
           </p>
         </div>
       </section>
 
-      <div className="flex min-h-0 flex-col gap-6">
-        <IconStage finish={finish} onFinish={setFinish} version={selected} />
-        <VersionRail
-          onSelect={(id) => {
-            const row = versions.find((version) => version.id === id);
-            setSelectedId(id);
-            if (row) {
-              setFinish(row.finish);
-            }
-          }}
-          selectedId={selected?.id ?? null}
-          versions={versions}
-        />
-      </div>
+      <section className="flex min-h-[38rem] min-w-0 flex-col bg-background">
+        <header className="flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3">
+          <div className="flex flex-col gap-1">
+            <h2 className="font-medium">Canvas</h2>
+            <p className="text-base text-muted-foreground sm:text-sm">
+              Focus at real sizes or scan every attempt
+            </p>
+          </div>
+          <div className="flex gap-1" role="tablist" aria-label="Canvas view">
+            <Button
+              aria-selected={workspaceView === "focus"}
+              onClick={() => setWorkspaceView("focus")}
+              role="tab"
+              size="sm"
+              type="button"
+              variant={workspaceView === "focus" ? "outline" : "ghost"}
+            >
+              <Focus />
+              Focus
+            </Button>
+            <Button
+              aria-selected={workspaceView === "explorations"}
+              onClick={() => setWorkspaceView("explorations")}
+              role="tab"
+              size="sm"
+              type="button"
+              variant={workspaceView === "explorations" ? "outline" : "ghost"}
+            >
+              <Grid />
+              Explorations
+            </Button>
+          </div>
+        </header>
+        <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-6">
+          {workspaceView === "focus" ? (
+            <IconStage
+              annotationMode={annotationMode}
+              annotations={annotations}
+              finish={finish}
+              onAnnotate={addAnnotation}
+              onAnnotationModeChange={setAnnotationMode}
+              onFinish={setFinish}
+              onSelectAnnotation={(id) => {
+                setSelectedAnnotationId(id);
+                setInspectorView("comments");
+              }}
+              selectedAnnotationId={selectedAnnotationId}
+              version={selected}
+            />
+          ) : (
+            <ExplorationBoard
+              onSelect={(id) => {
+                selectVersion(id);
+                setWorkspaceView("focus");
+              }}
+              selectedId={selected?.id ?? null}
+              versions={versions}
+            />
+          )}
+        </div>
+      </section>
+
+      <aside className="flex min-h-[24rem] min-w-0 flex-col border-t bg-card lg:col-span-2 xl:col-span-1 xl:border-t-0 xl:border-l">
+        <div
+          aria-label="Studio inspector"
+          className="flex gap-1 overflow-x-auto border-b p-2"
+          role="tablist"
+        >
+          <Button
+            aria-selected={inspectorView === "versions"}
+            onClick={() => setInspectorView("versions")}
+            role="tab"
+            size="sm"
+            type="button"
+            variant={inspectorView === "versions" ? "outline" : "ghost"}
+          >
+            <Grid />
+            Versions
+          </Button>
+          <Button
+            aria-selected={inspectorView === "library"}
+            onClick={() => setInspectorView("library")}
+            role="tab"
+            size="sm"
+            type="button"
+            variant={inspectorView === "library" ? "outline" : "ghost"}
+          >
+            <Library />
+            Library
+          </Button>
+          <Button
+            aria-selected={inspectorView === "comments"}
+            onClick={() => setInspectorView("comments")}
+            role="tab"
+            size="sm"
+            type="button"
+            variant={inspectorView === "comments" ? "outline" : "ghost"}
+          >
+            <ChatBubbles />
+            Comments
+          </Button>
+        </div>
+        <div className="flex min-h-0 flex-1 flex-col p-4">
+          {inspectorView === "versions" ? (
+            <VersionRail
+              onSelect={selectVersion}
+              selectedId={selected?.id ?? null}
+              versions={versions}
+            />
+          ) : null}
+          {inspectorView === "library" ? <LibraryBrowser onAttach={addLibraryReference} /> : null}
+          {inspectorView === "comments" ? (
+            <AnnotationPanel
+              annotations={annotations}
+              onDelete={(id) => {
+                setAnnotations((current) => current.filter((annotation) => annotation.id !== id));
+                setSelectedAnnotationId((current) => (current === id ? null : current));
+              }}
+              onRefine={(open) => {
+                if (!selected) {
+                  return;
+                }
+                setText(`Refine ${selected.name}: ${open.map((item) => item.text).join("; ")}`);
+              }}
+              onSelect={setSelectedAnnotationId}
+              onTextChange={(id, next) =>
+                setAnnotations((current) =>
+                  current.map((annotation) =>
+                    annotation.id === id ? { ...annotation, text: next } : annotation,
+                  ),
+                )
+              }
+              selectedId={selectedAnnotationId}
+              version={selected}
+            />
+          ) : null}
+        </div>
+      </aside>
     </div>
   );
 };

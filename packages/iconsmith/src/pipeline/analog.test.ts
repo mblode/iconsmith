@@ -63,6 +63,7 @@ import {
   plant,
   play,
   plus,
+  pullRequest,
   PLANT_HINT,
   preferStroked,
   replay,
@@ -510,6 +511,7 @@ describe("analog families", () => {
     { draw: wine, id: "wine", slug: "wine" },
     { draw: flower, id: "flower", slug: "flower" },
     { draw: anchor, id: "anchor", slug: "anchor" },
+    { draw: pullRequest, id: "pull-request", slug: "pull-request" },
   ] as const;
 
   it("runs each held-out family in both paints without a dsl error", () => {
@@ -621,6 +623,7 @@ describe("analog families", () => {
     expect(familyFromTokens("wifi")).toBe("wifi");
     expect(familyFromTokens("umbrella")).toBe("umbrella");
     expect(familyFromTokens("fingerprint")).toBe("fingerprint");
+    expect(familyFromTokens("pull-request")).toBe("pull-request");
     expect(analogConstructions("qr-code", [], "qr-code", false)[0]?.id).toBe(
       "qrcode"
     );
@@ -794,6 +797,19 @@ describe("analog families", () => {
         `${name} ${finish} extent warn`
       ).toBe(true);
     }
+  });
+
+  it("keeps the filled pull-request arrow open and its branch nodes solid", async () => {
+    const result = await analogArm()(
+      { name: "pull-request" },
+      { finish: "filled" }
+    );
+    expect(result.brief).toBe("analog pull-request pull-request");
+    expect(result.program).toContain("line 11,7 15,3");
+    expect(result.program).not.toContain("hole circle");
+    expect(result.issues.filter((issue) => issue.severity === "error")).toEqual(
+      []
+    );
   });
 
   it("keeps cactus arms on the trunk so gap does not warn", async () => {

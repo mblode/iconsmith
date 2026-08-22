@@ -114,7 +114,7 @@ export type DrawOp =
       r: number;
     }
   | { cx: number; cy: number; op: "dot"; role: DotRole }
-  | { d: string; op: "raw" }
+  | { d: string; fillRule?: "nonzero"; op: "raw" }
   | {
       h: number;
       /** See the note on `circle`. */

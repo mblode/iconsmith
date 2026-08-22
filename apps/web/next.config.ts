@@ -93,6 +93,8 @@ const linkHeader = [
 ].join(", ");
 
 const nextConfig: NextConfig = {
+  agentRules: false,
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   assetPrefix: BASE_PATH,
   basePath: BASE_PATH,
   experimental: {

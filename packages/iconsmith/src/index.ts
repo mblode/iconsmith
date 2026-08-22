@@ -87,6 +87,13 @@ export {
 } from "./pipeline/compose.js";
 export { RATES, rateFor, reachPoints, usdOf } from "./pipeline/cost.js";
 export { critique } from "./pipeline/critique.js";
+export { audit, gatewayAsk } from "./pipeline/audit.js";
+export type {
+  AuditAsk,
+  AuditFinding,
+  AuditKind,
+  AuditResult,
+} from "./pipeline/audit.js";
 export {
   assertNoFilledTwin,
   BASELINE,
@@ -147,6 +154,7 @@ export {
   pin,
   plant,
   plus,
+  pullRequest,
   rocket,
   ring,
   sailboat,

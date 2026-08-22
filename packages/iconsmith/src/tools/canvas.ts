@@ -481,6 +481,7 @@ const offAxisMessage = (
 export type Op = "add" | "knockout";
 
 export type Element = {
+  fillRule?: "nonzero";
   op?: Op;
 } & (
   | {
@@ -1035,7 +1036,12 @@ export class Canvas {
     return last;
   }
 
-  /** Stadium path of a two-point stroke, matching `#filledBar`. */
+  /** A round-capped bar with the same measured extent as an outlined line.
+   *
+   * The cap circles deliberately overlap the rectangular body. A filled bar's
+   * caller renders this path with `nonzero`, unioning those subpaths instead of
+   * letting `evenodd` cancel their joins into white dots.
+   */
   #barPath(a: [number, number], b: [number, number]): string {
     const half = this.spec.stroke / 2;
     const dx = b[0] - a[0];
@@ -1045,8 +1051,8 @@ export class Canvas {
     const py = (dx / len) * half;
     const qn = (v: number): number => q(v, this.spec.grid);
     const body =
-      `M${qn(a[0] + px)} ${qn(a[1] + py)}L${qn(b[0] + px)} ${qn(b[1] + py)}` +
-      `L${qn(b[0] - px)} ${qn(b[1] - py)}L${qn(a[0] - px)} ${qn(a[1] - py)}Z`;
+      `M${qn(a[0] + px)} ${qn(a[1] + py)}L${qn(a[0] - px)} ${qn(a[1] - py)}` +
+      `L${qn(b[0] - px)} ${qn(b[1] - py)}L${qn(b[0] + px)} ${qn(b[1] + py)}Z`;
     return (
       circlePath(qn(a[0]), qn(a[1]), qn(half)) +
       circlePath(qn(b[0]), qn(b[1]), qn(half)) +
@@ -1271,18 +1277,7 @@ export class Canvas {
         y: y - half,
       });
     }
-    const len = Math.hypot(dx, dy) || 1;
-    const px = (-dy / len) * half;
-    const py = (dx / len) * half;
-    const qn = (v: number): number => q(v, this.spec.grid);
-    const body =
-      `M${qn(a[0] + px)} ${qn(a[1] + py)}L${qn(b[0] + px)} ${qn(b[1] + py)}` +
-      `L${qn(b[0] - px)} ${qn(b[1] - py)}L${qn(a[0] - px)} ${qn(a[1] - py)}Z`;
-    return this.raw(
-      circlePath(qn(a[0]), qn(a[1]), qn(half)) +
-        circlePath(qn(b[0]), qn(b[1]), qn(half)) +
-        body
-    );
+    return this.raw(this.#barPath(a, b), "nonzero");
   }
 
   /**
@@ -1485,8 +1480,13 @@ export class Canvas {
   }
 
   /** Import existing path data unchanged, so any icon can enter a document. */
-  raw(d: string): string {
-    return this.#push((id) => ({ d, id, kind: "raw" }));
+  raw(d: string, fillRule?: "nonzero"): string {
+    return this.#push((id) => ({
+      d,
+      id,
+      kind: "raw",
+      ...(fillRule ? { fillRule } : {}),
+    }));
   }
 
   /**
@@ -1576,7 +1576,7 @@ export class Canvas {
         const moved = parsePath(e.d).map((sp) =>
           translate(scale(sp, k), tx, ty)
         );
-        this.raw(serialise(moved, { grid: this.spec.grid }));
+        this.raw(serialise(moved, { grid: this.spec.grid }), e.fillRule);
       }
     }
     // Re-emitting mints fresh ids, but a fit is not a redraw: the handles the
@@ -1655,10 +1655,10 @@ export class Canvas {
     const paths =
       this.finish === "filled"
         ? this.#groups()
-            .map(
-              (g) =>
-                `<path d="${g.map((e) => e.d).join("")}" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>`
-            )
+            .map((g) => {
+              const fillRule = g[0]?.fillRule ?? "evenodd";
+              return `<path d="${g.map((e) => e.d).join("")}" fill="currentColor" fill-rule="${fillRule}" clip-rule="${fillRule}"/>`;
+            })
             .join("\n")
         : this.elements
             .map(
@@ -1744,7 +1744,11 @@ export class Canvas {
         }
         // Escape hatch: geometry the primitives cannot express is kept verbatim
         // rather than approximated. Fidelity beats format purity.
-        return { d: e.d, op: "raw" };
+        return {
+          d: e.d,
+          op: "raw",
+          ...(e.fillRule ? { fillRule: e.fillRule } : {}),
+        };
       }),
       icon,
       keyline,
@@ -1793,7 +1797,7 @@ export class Canvas {
       } else if (op.op === "part") {
         c.part(op);
       } else if (op.op === "raw") {
-        c.raw(op.d);
+        c.raw(op.d, op.fillRule);
       } else {
         throw new Error(`unknown op ${JSON.stringify(op)}`);
       }

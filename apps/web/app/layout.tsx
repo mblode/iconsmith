@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Agentation } from "agentation";
 
 import "./globals.css";
 import { JsonLd } from "@/components/json-ld";
@@ -113,6 +114,7 @@ const RootLayout = ({
       </a>
       {children}
       <WebMcp />
+      {process.env.NODE_ENV === "development" && <Agentation />}
     </body>
   </html>
 );

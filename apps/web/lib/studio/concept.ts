@@ -5,6 +5,7 @@ const INTENT = new Set([
   "and",
   "draw",
   "for",
+  "filled",
   "generate",
   "icon",
   "icons",
@@ -15,14 +16,17 @@ const INTENT = new Set([
   "my",
   "new",
   "nice",
+  "outline",
+  "outlined",
   "picture",
   "please",
   "something",
+  "solid",
   "the",
 ]);
 
 const TWEAK =
-  /^(?:again|bigger|change|filled|less|make|more|outlined|smaller|taller|try|use|wider)\b/iu;
+  /^(?:again|bigger|change|filled|less|make|more|outlined|refine|smaller|taller|try|use|wider)\b/iu;
 
 export const tokensOf = (text: string): string[] =>
   text
@@ -53,11 +57,20 @@ export const conceptOf = (
     : object || request.lastName || "icon";
   const finishAnswer = answerText(request.answers?.finish);
   const finish: StudioFinish =
-    finishAnswer === "filled" || request.finish === "filled" ? "filled" : "outlined";
+    finishAnswer === "filled" ||
+    request.finish === "filled" ||
+    /\b(?:filled|solid)\b/iu.test(request.text)
+      ? "filled"
+      : "outlined";
   const tags = [
     ...tokensOf(request.text),
     ...tokensOf(answerText(request.answers?.notes)),
-    ...(request.attachments ?? []).map((file) => `ref:${file.kind}`),
+    ...(request.attachments ?? []).flatMap((file) => [
+      `ref:${file.kind}`,
+      ...tokensOf(file.name),
+      ...tokensOf(file.text ?? "").slice(0, 12),
+    ]),
+    ...(request.annotations ?? []).flatMap((annotation) => tokensOf(annotation.text).slice(0, 12)),
   ];
   return { finish, name, tags };
 };
