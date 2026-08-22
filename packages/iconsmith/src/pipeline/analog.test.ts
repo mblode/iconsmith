@@ -618,9 +618,9 @@ describe("analog families", () => {
     expect(familyFromTokens("bananas-bunch")).toBe("banana");
     expect(familyFromTokens("inbox")).toBe("inbox");
     expect(familyFromTokens("briefcase")).toBe("briefcase");
-    expect(familyFromTokens("wifi")).toBeNull();
-    expect(familyFromTokens("umbrella")).toBeNull();
-    expect(familyFromTokens("fingerprint")).toBeNull();
+    expect(familyFromTokens("wifi")).toBe("wifi");
+    expect(familyFromTokens("umbrella")).toBe("umbrella");
+    expect(familyFromTokens("fingerprint")).toBe("fingerprint");
     expect(analogConstructions("qr-code", [], "qr-code", false)[0]?.id).toBe(
       "qrcode"
     );
@@ -882,9 +882,8 @@ describe("analog families", () => {
       "quokka",
       "star",
       "compass",
-      "wifi",
-      "umbrella",
-      "fingerprint",
+      "microscope",
+      "cookie",
     ]) {
       const [row] = analogConstructions(name, [], name, false);
       expect(row?.id, name).toBe("unknown");
@@ -907,6 +906,9 @@ describe("analog families", () => {
       ["inbox", "inbox"],
       ["qr-code", "qrcode"],
       ["briefcase", "briefcase"],
+      ["wifi", "wifi"],
+      ["umbrella", "umbrella"],
+      ["fingerprint", "fingerprint"],
     ] as const;
     const drawn = await Promise.all(
       cases.flatMap(([name, id]) => [

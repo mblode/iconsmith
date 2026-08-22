@@ -12,7 +12,8 @@
  * existing family: `office-mail` is envelope because `mail` is already a kin,
  * not because a new drawing was written. Two different families in one name
  * stay `unknown` — overlaying them is not the named object. A leftover hub
- * word (`tree-house`) is not an org chart. Glyph slugs stay unvolunteered.
+ * word (`tree-house`) is not an org chart. A slug analog has no drawing
+ * for stays unvolunteered — `compass` and `microscope` are `unknown` here.
  * A paint recipe that can fire must resolve to a family in both paints —
  * `checkmark` draws the house check, not unknown. `home` draws the house
  * pentagon, not a frame-and-dot. `heart` draws the closed lobes, not
@@ -21,16 +22,20 @@
  * chevron, arrow, bookmark, share, airdrop, and airplane resolve the
  * same way — recipe tokens, no kin row. Lantern, otter, paper-plane,
  * inbox, and qr-code are net-new families: no house file, no kin row.
- * Briefcase is analog's own case-and-tab, not the glyph's three-bar
- * handle. Analog must not volunteer a star. The composer writes the
- * program. The model does not. `construct` in the generate loop adopts
- * that program.
+ * Briefcase, wifi, umbrella and fingerprint are analog's own drawings of
+ * objects the glyph set also draws — a case under an arched handle, a fan
+ * hung on landscape, a canopy with a scalloped rim, ridges that run past
+ * the horizon — and each is a different program from the glyph's, not
+ * the same one under another arm. Analog must not volunteer a star. The
+ * composer writes the program. The model does not. `construct` in the
+ * generate loop adopts that program.
  */
 import type { Canvas, Spec } from "../tools/canvas.js";
 import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import {
+  fan,
   frame,
   hbar,
   lozenge,
@@ -966,39 +971,135 @@ export const paperplane = (slug: string, finish: Finish = "outlined"): string =>
   );
 
 /**
- * Open U-tray on wide 20×16 — inbox, not a sealed envelope.
- * Bars meet at the corners so gap has nothing to measure. A slot
- * bar inside the mouth is the paper, not a second lid.
+ * A sheet of paper standing in an open tray — inbox, not a crate.
+ *
+ * The old U was two 14-deep vertical walls, a floor and a dash floating
+ * in the mouth, which is a crate with a shelf in it. Two things fix it.
+ * The mark inside is a *sheet* — an 8×10 mass, not a bar — and the walls
+ * splay: they run from the floor's ends up and outward, so the tray is
+ * wider at its mouth than at its base and reads as something you drop
+ * paper into rather than a box you nail shut. That splay is the reason
+ * for the two declared diagonals, and they are the drawing: at 14° off
+ * vertical they are what makes this a tray, and forcing them upright is
+ * what made the old one a crate. Landscape 20×18, the sheet 5 clear of
+ * each wall on the centre-line.
  */
 export const inbox = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "wide", [
-    vbar(finish, 3, 4, 14),
-    vbar(finish, 21, 4, 14),
-    hbar(finish, 3, 18, 18),
-    hbar(finish, 7, 10, 10),
+  iconProgram(slug, finish, "landscape", [
+    "line 5,20 3,12 off-axis",
+    "line 19,20 21,12 off-axis",
+    hbar(finish, 5, 20, 14),
+    mass(finish, 8, 4, 8, 10, 1),
   ]);
 
 /**
- * Three finder squares on the 20×20 box — a QR code, not a grid dump.
- * Corner modules at (3,3), (15,3), (3,15) leave a 6-unit gap, well
- * above minGap. Path 18×18 + stroke is square.
+ * Three finder patterns and a four-module data cluster — a QR code.
+ *
+ * Three hollow squares alone is a code with nothing encoded in it, which
+ * is why it read as unfinished; the cluster in the empty quadrant is the
+ * data, and it is four `more` dots rather than a 21-module dump because
+ * the ceiling here is eight marks and modules smaller than a dot close up
+ * at 16px. The eyes are `mass`, so filled paints them as the solid blocks
+ * a scanner's finder patterns are and outlined leaves them as rings. The
+ * 4-unit pitch between eye and cluster is the code's quiet zone.
  */
 export const qrcode = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
-    mass(finish, 3, 3, 6, 6, 1),
-    mass(finish, 15, 3, 6, 6, 1),
-    mass(finish, 3, 15, 6, 6, 1),
+    mass(finish, 4, 4, 6, 6, 1),
+    mass(finish, 14, 4, 6, 6, 1),
+    mass(finish, 4, 14, 6, 6, 1),
+    "dot 14.5,14.5 more",
+    "dot 19,14.5 more",
+    "dot 14.5,19 more",
+    "dot 19,19 more",
   ]);
 
 /**
- * Case and a tab handle on wide 20×16 — briefcase, not the glyph's
- * landscape three-bar handle. The tab sits on the case so the pair
- * is coincident.
+ * Case, arched handle, clasp — a briefcase, not a toolbox tab.
+ *
+ * Two stacked rounded rects is a lid on a box: the upper one is a tab
+ * because you cannot see through it, and a handle is a thing you can see
+ * through. So the handle is an `arc` — a half-hoop seated on the case's
+ * top edge, coincident with it at both feet, which is also a different
+ * construction from the glyph's squared three-bar handle rather than the
+ * same drawing at another size. The case is a `mass`, so filled is the
+ * solid case a designer paints; the clasp is the one interior mark, and
+ * it inverts the way the twin rules say an interior mark must — a stroked
+ * latch outlined, the same latch as a knockout filled, cut immediately
+ * after the body so the case cannot ship uncut. Landscape 20×18.
  */
 export const briefcase = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "wide", [
-    mass(finish, 3, 8, 18, 10, 2),
-    mass(finish, 8, 4, 8, 5, 1),
+  iconProgram(slug, finish, "landscape", [
+    mass(finish, 3, 8, 18, 12, 2),
+    finish === "filled" ? "hole rect 10,13 4x2" : "rect 9,12 6x4 r1",
+    "arc 12,8 r4 half from left",
+  ]);
+
+/**
+ * Three bands and an emitter — wifi, on landscape 20×18.
+ *
+ * The house glyph fans r=9/6/3 from (12,14) and terminates at (12,19) on
+ * wide 20×16. This is the same object drawn to a different box: the fan
+ * hangs from (12,13) and the emitter is a `floating` dot at (12,19.5), so
+ * the drawing is a unit taller and the terminal is a mark you can see at
+ * 16px rather than a bare stroke cap. The outer radius is not a free
+ * choice — a fan centred on the canvas spans 2r, so 20 units of width is
+ * r=9 whatever keyline it hangs on, and the three bands then take the
+ * only spacing that leaves a whole unit of ink between them.
+ */
+export const wifi = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "landscape", [
+    ...fan(finish, 12, 13, [9, 6, 3]),
+    "dot 12,19.5 floating",
+  ]);
+
+/**
+ * Canopy, scalloped rim, stem, hook — an umbrella on square 18×18.
+ *
+ * The glyph is one bare half-arc, a stem and a foot bar, and a bare
+ * half-arc is a dome: nothing in it says fabric. The rim is what does,
+ * so the canopy closes along its own diameter with four lower half-arcs,
+ * each one a panel between two ribs. They tile the rim exactly — r=2 at
+ * x=6/10/14/18 under an r=8 dome — so every junction is coincident and
+ * `gap` has nothing to measure, and the two middle panels meet on the
+ * stem's head. The hook is a lower half-arc off the stem's foot, so the
+ * handle curls rather than ending in the glyph's straight foot bar.
+ */
+export const umbrella = (slug: string, finish: Finish = "outlined"): string =>
+  iconProgram(slug, finish, "square", [
+    ...fan(finish, 12, 12, [8]),
+    "arc 6,12 r2 half from right",
+    "arc 10,12 r2 half from right",
+    "arc 14,12 r2 half from right",
+    "arc 18,12 r2 half from right",
+    vbar(finish, 12, 12, 6),
+    "arc 10,18 r2 half from right",
+  ]);
+
+/**
+ * Broken concentric ridges around a core — a fingerprint.
+ *
+ * The glyph is three upper half-arcs and a stem down the middle, which is
+ * the wifi fan with a mast on it. A ridge is not a band of a fan: it runs
+ * past the horizon and ends, and no two ridges end in the same place. So
+ * the outer two are three-quarter arcs that carry on down the right and
+ * stop at the bottom pole, while the innermost stays a bare arch — three
+ * ridges, six endings, no two of them level. The core is the whorl they
+ * run out from, and it is a `terminal` dot rather than a `more` one
+ * because the innermost ridge's filled edge sits at r=2: a 2.5 core
+ * leaves 0.75 of white there, and 0.75 of white is not a construction.
+ * Circle 20×20, Δr=3 so the ink between ridges is exactly minGap — the
+ * same spacing the house fan runs at.
+ */
+export const fingerprint = (
+  slug: string,
+  finish: Finish = "outlined"
+): string =>
+  iconProgram(slug, finish, "circle", [
+    "arc 12,12 r9 three-quarter from left",
+    "arc 12,12 r6 three-quarter from left",
+    "arc 12,12 r3 half from left",
+    "dot 12,12 terminal",
   ]);
 
 /** Neck and a diamond body — a flask, not a beaker stack. */
@@ -1160,6 +1261,7 @@ const FAMILY_DRAW = {
   clock,
   cloud,
   envelope,
+  fingerprint,
   fish,
   flag,
   flask,
@@ -1200,7 +1302,9 @@ const FAMILY_DRAW = {
   tower,
   trophy,
   tube,
+  umbrella,
   volcano,
+  wifi,
   wine,
   zap,
 } as const;
@@ -1238,6 +1342,7 @@ export const ANALOG_KINS: Readonly<Record<string, AnalogFamilyId>> = {
   narwhal: "horn",
   notification: "bell",
   obelisk: "tower",
+  parasol: "umbrella",
   plantain: "banana",
   pushpin: "pin",
   pyramid: "peak",
@@ -1284,17 +1389,24 @@ export const ANALOG_MODIFIERS: ReadonlySet<string> = new Set([
 /**
  * Glyph slugs analog must not volunteer. Restated here so this module does
  * not import `glyphs.ts` — a host form is asked for by name.
+ *
+ * A name leaves this set when analog has written its *own* drawing of the
+ * object, not when the glyph exists: `wifi`, `umbrella` and `fingerprint`
+ * are analog-native families now — a fan hung on landscape rather than
+ * wide, a canopy with a scalloped rim, ridges that run past the horizon —
+ * so answering to those names is analog collating its own catalogue
+ * rather than quietly returning the host construction. The ones still
+ * here have no analog drawing, and `unknown` is the honest answer for
+ * them. Sharing a name with a glyph was never the rule; volunteering
+ * somebody else's drawing for it was.
  */
 const UNVOLUNTEERED = new Set([
   "cake",
   "compass",
   "cookie",
   "database",
-  "fingerprint",
   "microscope",
   "strikethrough",
-  "umbrella",
-  "wifi",
 ]);
 
 /** Words that *are* a connected tree. `chart` only counts next to one of these. */
@@ -1467,6 +1579,9 @@ export const AIRPLANE_HINT = /\b(?:airplanes?|aeroplanes?|planes?)\b/iu;
 export const INBOX_HINT = /\binbox(?:es)?\b/iu;
 export const QR_HINT = /\bqr[- ]?codes?\b/iu;
 export const BRIEFCASE_HINT = /\bbriefcases?\b/iu;
+export const WIFI_HINT = /\bwi[- ]?fi\b/iu;
+export const UMBRELLA_HINT = /\b(?:umbrellas?|parasols?)\b/iu;
+export const FINGERPRINT_HINT = /\bfinger[- ]?prints?\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: TOWER_HINT, id: "tower" },
@@ -1526,6 +1641,9 @@ const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: INBOX_HINT, id: "inbox" },
   { hint: QR_HINT, id: "qrcode" },
   { hint: BRIEFCASE_HINT, id: "briefcase" },
+  { hint: WIFI_HINT, id: "wifi" },
+  { hint: UMBRELLA_HINT, id: "umbrella" },
+  { hint: FINGERPRINT_HINT, id: "fingerprint" },
 ];
 
 const resolveFamilyId = (slug: string, text: string): AnalogFamilyId | null => {
