@@ -513,14 +513,15 @@ export const ring = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "circle", paintRing(finish, 12, 12, 9));
 
 /**
- * House cloud: a flat-bottomed silhouette (compile is one evenodd path).
- * Three discs without a floor read as balloons.
+ * House cloud: two overlapping blobs that share a baseline
+ * (`circle 9,12` left, `circle 17,14` right). Three discs on `wide`
+ * read as balloons, and `fit` onto 20×16 squashes the 22×16 silhouette
+ * the house files actually occupy.
  */
 export const cloud = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "wide", [
-    "circle 8,12 r5",
-    "circle 16,12 r5",
-    finish === "filled" ? "circle 12,9 r6" : "circle 12,9 r5.5",
+  iconProgram(slug, finish, null, [
+    finish === "filled" ? "circle 9,12 r8" : "circle 9,12 r7",
+    finish === "filled" ? "circle 17,14 r6" : "circle 17,14 r5",
   ]);
 
 /**
@@ -659,13 +660,14 @@ export const pause = (slug: string, finish: Finish = "outlined"): string =>
  * House play: a rounded-back triangle pointing right. Outlined is that
  * silhouette — a stadium back plus two edges to the point — not a
  * sharp chevron. Filled is the same marks; a closed polyline has no
- * inside under fill.
+ * inside under fill. No portrait `fit`: the body is 18×18, and
+ * stretching it onto 18×20 is what dropped the house match.
  */
 export const play = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, "portrait", [
-    mass(finish, 5, 4, 6, 16, 3),
-    "line 11,4 20,12 off-axis",
-    "line 20,12 11,20 off-axis",
+  iconProgram(slug, finish, null, [
+    mass(finish, 5, 4, 10, 16, 3),
+    "line 15,4 21,12 off-axis",
+    "line 21,12 15,20 off-axis",
   ]);
 
 /**
@@ -727,17 +729,29 @@ export const airdrop = (slug: string, finish: Finish = "outlined"): string =>
   ]);
 
 /**
- * House airplane: a jet silhouette on the circle keyline. Outlined is
- * that closed outline; filled is three bars on the fuselage and wings.
+ * House airplane: a jet silhouette pointing NE. Outlined is that
+ * closed outline; filled is two-point bars on the same edges. A
+ * handful of open ticks reads as a sketch, not the house path.
  */
 export const airplane = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(slug, finish, null, [
-    "line 3,6 13.5,7 off-axis",
-    "line 13.5,7 21,4 off-axis",
-    "line 9.5,11 3,15.5 off-axis",
-    "line 13,8 18,21 off-axis",
-    "line 7.5,13 8.5,21 off-axis",
-  ]);
+  iconProgram(
+    slug,
+    finish,
+    null,
+    finish === "filled"
+      ? [
+          "line 3,6 9.5,11 off-axis",
+          "line 9.5,11 13.5,7 off-axis",
+          "line 13.5,7 21,4 off-axis",
+          "line 9.5,11 3,15.5 off-axis",
+          "line 13,8 18,21 off-axis",
+          "line 7.5,13 8.5,21 off-axis",
+          "line 17,10.5 19.5,7.5 off-axis",
+        ]
+      : [
+          "line 3,6 13.5,7 21,4 17,10.5 18,21 13,14 9.5,11 8.5,21 3,15.5 9.5,11 3,6 off-axis",
+        ]
+  );
 
 /**
  * Net-new hanging lantern: handle, body, flame. No house file. Both

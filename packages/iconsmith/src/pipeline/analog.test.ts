@@ -702,8 +702,12 @@ describe("analog families", () => {
     expect(check("checkmark")).toContain("line 3,14 7,18 21,4");
     expect(check("checkmark", "filled")).toContain("hole line");
     expect(pause("pause")).toContain("rect 4,3 4x18");
-    expect(play("play")).toContain("line 11,4 20,12");
-    expect(play("play")).toContain("rect 5,4 6x16");
+    expect(play("play")).toContain("line 15,4 21,12");
+    expect(play("play")).toContain("rect 5,4 10x16");
+    expect(play("play")).not.toContain("keyline ");
+    expect(cloud("cloud")).toContain("circle 9,12 r7");
+    expect(cloud("cloud")).not.toContain("keyline ");
+    expect(cloud("cloud", "filled")).toContain("circle 9,12 r8");
     expect(chevron("chevron-right")).toContain("line 9,6 15,12");
     expect(arrow("arrow-right")).toContain("line 5,12 19,12");
     expect(bookmark("bookmark")).toContain("line 5,17 12,21");

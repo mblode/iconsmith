@@ -25,7 +25,7 @@ import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
 import { pairAdapted } from "./pair.js";
 import type { Policy } from "./policy.js";
-import { conceptPrompt, systemPrompt } from "./prompt.js";
+import { conceptPrompt, confirmSystemPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
 import type { Aliases, PartHint } from "./search.js";
 import type { SelectKind } from "./select.js";
@@ -410,6 +410,21 @@ const outcomeOf = (
   return "budget";
 };
 
+const systemFor = (
+  hostLocked: boolean,
+  finish: Finish,
+  spec: Spec | undefined,
+  rest: {
+    cohort: GenerateOptions["cohort"];
+    keyline: GenerateOptions["keyline"];
+    policy: GenerateOptions["policy"];
+    proposal: boolean;
+  }
+): string =>
+  hostLocked
+    ? confirmSystemPrompt({ finish, spec })
+    : systemPrompt({ finish, spec, ...rest });
+
 const seedHost = (
   canvas: Canvas,
   state: ToolState,
@@ -446,11 +461,13 @@ export const generate = async (
   } = options;
 
   const resolved = resolveModel(model, apiKey);
+  const hostLocked = hostConstruction(concept.name, finish) !== null;
   const { canvas, state, tools } = createTools({
     aliases,
     cohort: cohort?.extent ?? null,
     corpus,
     finish,
+    hostLocked,
     keyline,
     parts,
     proposal,
@@ -478,13 +495,11 @@ export const generate = async (
       drawnAndClean(canvas, state, end),
       noProgress(canvas, state, end),
     ],
-    system: systemPrompt({
+    system: systemFor(hostLocked, finish, spec, {
       cohort,
-      finish,
       keyline,
       policy,
       proposal: proposal !== null,
-      spec,
     }),
     tools,
   });

@@ -104,6 +104,26 @@ export interface PromptOptions {
  * typed into the prose, for the reason the file header gives — the policy holds
  * `{{stroke}}`, not `2`, so a reworded principle cannot restate the spec wrong.
  */
+/**
+ * The confirm-only system prompt. Generate uses this when the host analog
+ * is already on the canvas and draw tools are withheld — the full policy
+ * would spend thousands of tokens teaching a grammar the model cannot
+ * use, and that prefix is what blew the OpenRouter prompt-token cap.
+ * Numbers still come from `SPEC`.
+ */
+export const confirmSystemPrompt = (
+  opts: Pick<PromptOptions, "finish" | "spec"> = {}
+): string => {
+  const spec = opts.spec ?? SPEC;
+  return [
+    `The canvas is ${spec.canvas}×${spec.canvas}. Stroke ${spec.stroke}. Radius ${spec.radius}.`,
+    opts.finish === "filled"
+      ? "Paint: filled. The analog is already the solid silhouette."
+      : "Paint: outlined. The analog is already the centre-line stroke.",
+    "Confirm with render and lint. Do not invent geometry.",
+  ].join("\n");
+};
+
 export const systemPrompt = (opts: PromptOptions = {}): string => {
   const spec = opts.spec ?? SPEC;
   const conditions: Condition[] = [];
@@ -152,8 +172,13 @@ export const conceptPrompt = (
   concept: Concept,
   finish: Finish = "outlined"
 ): string => {
+  const host = hostConstruction(concept.name, finish);
   const lines = [`Draw the icon \`${concept.name}\`.`];
-  if (finish === "filled") {
+  if (host) {
+    // The analog is already on the canvas. "Compose from primitives"
+    // is how a seeded heart becomes three circles.
+    lines.push(finish === "filled" ? "Paint: filled." : "Paint: outlined.");
+  } else if (finish === "filled") {
     lines.push(
       "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is not available.",
       "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
@@ -168,10 +193,9 @@ export const conceptPrompt = (
   if (steer) {
     lines.push(steer);
   }
-  const host = hostConstruction(concept.name, finish);
   if (host) {
     lines.push(
-      `The canvas already holds the host ${host.id} analog. Confirm with render and lint. Do not clear it to invent circles or diamonds.`
+      `The canvas already holds the host ${host.id} analog. Confirm with render and lint. Do not add, remove, or redraw it.`
     );
   }
   if (concept.category) {

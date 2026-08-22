@@ -417,6 +417,21 @@ describe("tools", () => {
         { messages: [], toolCallId: "t4" }
       )
     ).toThrow(/no host analog/u);
+    expect(() =>
+      tools.circle.execute?.(
+        { cx: 12, cy: 12, r: 8 },
+        { messages: [], toolCallId: "t5" }
+      )
+    ).toThrow(/already on the canvas/u);
+    expect(() =>
+      tools.remove.execute?.({ id: "e1" }, { messages: [], toolCallId: "t6" })
+    ).toThrow(/already on the canvas/u);
+    const locked = createTools({ hostLocked: true });
+    expect(locked.tools.circle).toBeUndefined();
+    expect(locked.tools.rect).toBeUndefined();
+    expect(locked.tools.construct).toBeUndefined();
+    expect(locked.tools.render).toBeDefined();
+    expect(locked.tools.lint).toBeDefined();
   });
 });
 
@@ -459,6 +474,25 @@ describe("generate", () => {
     expect(result.clean).toBe(true);
     expect(result.svg).toContain("<path");
     expect(result.program).toContain("line ");
+    expect(result.program).not.toContain("circle ");
+  });
+
+  it("does not offer draw tools once the host analog is seeded", async () => {
+    const model = scripted([
+      { input: {}, tool: "render" },
+      { input: {}, tool: "lint" },
+      { text: "House heart analog." },
+    ]);
+    const result = await generate({ name: "heart" }, { model });
+    const call = model.doGenerateCalls[0] as LanguageModelV4CallOptions;
+    const names = (call.tools ?? []).map((t) => t.name);
+    expect(names).toContain("render");
+    expect(names).toContain("lint");
+    expect(names).not.toContain("circle");
+    expect(names).not.toContain("rect");
+    expect(names).not.toContain("remove");
+    expect(names).not.toContain("construct");
+    expect(names).not.toContain("listParts");
     expect(result.program).not.toContain("circle ");
   });
 

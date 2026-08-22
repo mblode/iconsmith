@@ -1,6 +1,22 @@
 import { expect, test } from "vitest";
 
-import { conceptPrompt, FILLED_PAINT_RULE, systemPrompt } from "./prompt.js";
+import {
+  conceptPrompt,
+  confirmSystemPrompt,
+  FILLED_PAINT_RULE,
+  systemPrompt,
+} from "./prompt.js";
+
+test("a seeded confirm prompt is the spec and the paint, not the grammar", () => {
+  const outlined = confirmSystemPrompt();
+  expect(outlined).toContain("24×24");
+  expect(outlined).toContain("Paint: outlined");
+  expect(outlined).toContain("Confirm with render and lint");
+  expect(outlined).not.toContain("Every shape you");
+  const filled = confirmSystemPrompt({ finish: "filled" });
+  expect(filled).toContain("Paint: filled");
+  expect(filled).not.toContain(FILLED_PAINT_RULE);
+});
 
 test("the cohort brief appears only when a family has been measured", () => {
   // `cohort` targets a measurement, so naming the op with nothing to measure
@@ -81,6 +97,12 @@ test("the per-icon brief names the paint and refuses a frame-and-dot", () => {
   );
   expect(conceptPrompt({ name: "heart" })).toContain(
     "The canvas already holds the host heart analog"
+  );
+  expect(conceptPrompt({ name: "heart" })).not.toContain(
+    "Compose the named object"
+  );
+  expect(conceptPrompt({ name: "heart" })).toContain(
+    "Do not add, remove, or redraw it"
   );
   expect(conceptPrompt({ name: "lantern" })).toContain(
     "The canvas already holds the host lantern analog"
