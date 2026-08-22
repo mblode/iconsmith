@@ -190,13 +190,16 @@ export const conceptPrompt = (
     );
   }
   const steer = steerBrief(concept.name, finish);
-  if (steer) {
-    lines.push(steer);
-  }
   if (host) {
+    // The analog is already the construction. The recipe paragraph is
+    // how a confirm-only prompt blows a prompt-token cap; the title
+    // names the family without restating how to draw it.
     lines.push(
+      `House construction (${host.id}, ${finish}).`,
       `The canvas already holds the host ${host.id} analog. Confirm with render and lint. Do not add, remove, or redraw it.`
     );
+  } else if (steer) {
+    lines.push(steer);
   }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);

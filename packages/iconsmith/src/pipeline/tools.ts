@@ -734,6 +734,51 @@ export const createTools = (options: ToolsOptions = {}) => {
     ] as const) {
       Reflect.deleteProperty(tools, name);
     }
+    // Confirm-only schemas. The long lint/render copy (keyline enum,
+    // size bounds, gap lecture) is what blew a 1730-token credit cap
+    // after fit/center were already gone.
+    tools.lint = tool({
+      description: "Check the drawing against the house spec.",
+      execute: () =>
+        track("lint", () => {
+          const issues = lint(canvas, { keyline });
+          state.issues = issues;
+          state.lintedAt = canvas.version;
+          return {
+            clean: issues.every((i) => i.severity !== "error"),
+            issues,
+            report: format(issues),
+          };
+        }),
+      inputSchema: z.object({}),
+    });
+    tools.render = tool({
+      description: "Render the current drawing.",
+      execute: async () =>
+        await track("render", async () => {
+          state.renderedAt = canvas.version;
+          const image = await png(canvas.toSVG(), renderSize);
+          return {
+            elements: canvas.describe(),
+            image: image.toString("base64"),
+          };
+        }),
+      inputSchema: z.object({}),
+      toModelOutput: ({ output }) => ({
+        type: "content",
+        value: [
+          {
+            data: { data: output.image, type: "data" },
+            mediaType: "image/png",
+            type: "file",
+          },
+          {
+            text: `Elements: ${JSON.stringify(output.elements)}`,
+            type: "text",
+          },
+        ],
+      }),
+    });
   }
 
   return { canvas, state, tools };
