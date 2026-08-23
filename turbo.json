@@ -3,6 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": ["AI_GATEWAY_API_KEY"],
       "outputs": ["dist/**", ".next/**"]
     },
     "dev": {
