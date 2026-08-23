@@ -483,6 +483,25 @@ describe("generate", () => {
     expect(result.text).toBe("host heart heart");
   });
 
+  it("redraws a known host construction when forceAgent is explicit", async () => {
+    const model = scripted([
+      { input: square, tool: "rect" },
+      { input: { keyline: "square" }, tool: "fit" },
+      { input: {}, tool: "render" },
+      { input: { keyline: "square" }, tool: "lint" },
+      { text: "A fresh heart candidate." },
+    ]);
+    const result = await generate(
+      { name: "heart" },
+      { forceAgent: true, keyline: "square", model }
+    );
+
+    expect(model.doGenerateCalls.length).toBeGreaterThan(0);
+    expect(result.trace).toEqual(["rect", "fit", "render", "lint"]);
+    expect(result.program).toContain("rect 4,4 16x16 r2");
+    expect(result.text).not.toBe("host heart heart");
+  });
+
   it("pairs a seeded filled analog of diagonal bars, not an empty programFromDoc", async () => {
     const result = await generate(
       { name: "paper-plane" },

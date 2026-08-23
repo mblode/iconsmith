@@ -21,7 +21,9 @@
 import { generateObject } from "ai";
 import { z } from "zod";
 
-import { resolveModel } from "./gateway.js";
+import type { ApiCost } from "./cost.js";
+import { tokenUsageOf } from "./cost.js";
+import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { Concept } from "./prompt.js";
 
 /** A small text model with vision. The judgement is "which of these two has
@@ -30,6 +32,7 @@ import type { Concept } from "./prompt.js";
 export const CRITIQUE_MODEL = "google/gemini-3.5-flash";
 
 export interface Verdict {
+  cost?: ApiCost;
   index: number;
   reason: string | null;
 }
@@ -63,7 +66,8 @@ export const critique = async (
     return { index: 0, reason: null };
   }
   try {
-    const { object } = await generateObject({
+    const costTracker = gatewayCostTracker();
+    const result = await generateObject({
       messages: [
         {
           content: [
@@ -100,8 +104,18 @@ export const critique = async (
       model: resolveModel(model),
       schema,
     });
-    const index = Math.min(Math.max(object.choice, 1), images.length) - 1;
-    return { index, reason: object.reason };
+    costTracker.record(result.providerMetadata);
+    const index =
+      Math.min(Math.max(result.object.choice, 1), images.length) - 1;
+    return {
+      cost: await costTracker.measure({
+        model,
+        operation: "proposal-selection",
+        usage: tokenUsageOf(result.usage),
+      }),
+      index,
+      reason: result.object.reason,
+    };
   } catch (error) {
     return {
       index: 0,

@@ -5,15 +5,59 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { safeStudioSvg } from "@/lib/studio/svg";
-import type { StudioVersion } from "@/lib/studio/types";
+import type { StudioTournament, StudioVersion } from "@/lib/studio/types";
 
-export const ThinkingCard = ({ versions }: { versions: readonly StudioVersion[] }) => {
+const tournamentStatus = (candidate: StudioTournament["candidates"][number]): string => {
+  if (candidate.failure) {
+    return "Arm failed";
+  }
+  return `${candidate.score.toFixed(1)}/10 · ${candidate.accepted ? "gate passed" : "rejected"}`;
+};
+
+const displayCost = (usd: number | null): string =>
+  usd === null ? "cost incomplete" : `$${usd.toFixed(4)}`;
+
+export const ThinkingCard = ({
+  tournament,
+  versions,
+}: {
+  tournament?: StudioTournament;
+  versions: readonly StudioVersion[];
+}) => {
   const [open, setOpen] = useState(true);
   const panelId = useId();
   const [lead] = versions;
-  if (!lead) {
+  if (!(lead || tournament)) {
     return null;
   }
+  const proposalCard = (() => {
+    if (tournament?.proposal) {
+      return (
+        <div className="rounded-xl border bg-muted/30 p-3 text-xs">
+          <p className="font-medium">
+            Image composition · chose sketch {tournament.proposal.chosen + 1} of{" "}
+            {tournament.proposal.images}
+          </p>
+          {tournament.proposal.reason ? (
+            <p className="mt-1 text-muted-foreground">{tournament.proposal.reason}</p>
+          ) : null}
+          <p className="mt-1 text-muted-foreground">
+            Sampled {tournament.proposal.references.length} licensed house icons across{" "}
+            {tournament.proposal.models.length} image-model calls ·{" "}
+            {displayCost(tournament.proposal.cost.totalUsd)}.
+          </p>
+        </div>
+      );
+    }
+    if (tournament?.proposalFailure) {
+      return (
+        <p className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-xs">
+          Image proposal unavailable: {tournament.proposalFailure}
+        </p>
+      );
+    }
+    return null;
+  })();
 
   return (
     <div className="w-full max-w-xl rounded-2xl border bg-card p-3 shadow-xs" data-slot="pipeline">
@@ -34,6 +78,92 @@ export const ThinkingCard = ({ versions }: { versions: readonly StudioVersion[] 
       </div>
       {open ? (
         <div className="mt-3 flex flex-col gap-4" id={panelId}>
+          {tournament ? (
+            <section className="flex flex-col gap-3">
+              <div>
+                <h4 className="font-medium text-sm">Candidate tournament</h4>
+                <p className="text-muted-foreground text-xs">
+                  Both paints must clear SC {tournament.minimum.sc}/10, PQ {tournament.minimum.pq}
+                  /10, lint, and zero visual findings.
+                </p>
+                <p className="mt-1 text-muted-foreground text-xs">
+                  Evaluated {tournament.strategy.evaluated} of {tournament.strategy.eligible} pairs
+                  · {tournament.cost.calls} billed calls · {displayCost(tournament.cost.totalUsd)}
+                  {tournament.strategy.stoppedEarly
+                    ? ` · stopped at ${tournament.strategy.stopScore?.toFixed(1)}/10 confidence`
+                    : ""}
+                </p>
+              </div>
+              {tournament.ranking ? (
+                <div className="rounded-xl border bg-muted/30 p-3 text-xs">
+                  <p className="font-medium">
+                    Candidate ranking · {tournament.ranking.order[0] ?? "no library pair"} first
+                  </p>
+                  {tournament.ranking.reason ? (
+                    <p className="mt-1 text-muted-foreground">{tournament.ranking.reason}</p>
+                  ) : null}
+                </div>
+              ) : null}
+              {proposalCard}
+              <div className="grid gap-3 sm:grid-cols-2">
+                {tournament.candidates.map((candidate) => {
+                  const selected = candidate.id === tournament.selected;
+                  return (
+                    <article
+                      className={`rounded-xl border p-3 ${
+                        selected ? "border-foreground bg-muted/40" : "bg-background"
+                      }`}
+                      key={candidate.id}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <h5 className="font-medium text-xs">{candidate.label}</h5>
+                          <p className="text-muted-foreground text-[11px]">
+                            {tournamentStatus(candidate)}
+                          </p>
+                          <p className="text-muted-foreground text-[11px]">
+                            {candidate.cost.calls} calls · {displayCost(candidate.cost.totalUsd)}
+                          </p>
+                        </div>
+                        {selected ? (
+                          <span className="rounded-full bg-foreground px-2 py-1 font-mono text-[9px] text-background uppercase">
+                            selected
+                          </span>
+                        ) : null}
+                      </div>
+                      {candidate.failure ? (
+                        <p className="mt-2 line-clamp-4 text-destructive text-[11px]">
+                          {candidate.failure}
+                        </p>
+                      ) : (
+                        <div className="mt-3 grid grid-cols-2 gap-2">
+                          {candidate.paints.map((paint) => {
+                            const svg = safeStudioSvg(paint.svg);
+                            return (
+                              <div className="min-w-0" key={paint.finish}>
+                                <div className="flex aspect-square items-center justify-center rounded-lg border bg-card text-foreground">
+                                  <Image
+                                    alt={`${candidate.label} ${paint.finish} candidate`}
+                                    height={56}
+                                    src={`data:image/svg+xml,${encodeURIComponent(svg)}`}
+                                    unoptimized
+                                    width={56}
+                                  />
+                                </div>
+                                <p className="mt-1 truncate text-[10px] capitalize">
+                                  {paint.finish} · SC {paint.sc} · PQ {paint.pq}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
           {versions.map((version) => {
             const svg = safeStudioSvg(version.svg);
             const agentLabel =

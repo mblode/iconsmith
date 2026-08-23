@@ -22,8 +22,9 @@ import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
 import { adoptHost, hostConstruction } from "./analog.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { Proposal } from "./compose.js";
-import type { TokenUsage } from "./cost.js";
-import { resolveModel } from "./gateway.js";
+import type { ApiCost, TokenUsage } from "./cost.js";
+import { tokenUsageOf } from "./cost.js";
+import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { DrawKind, MarkTwin } from "./kind.js";
 import type { Reference } from "./licence.js";
 import { pairAdapted, pairFamily } from "./pair.js";
@@ -244,6 +245,8 @@ export interface GenerateCost {
 }
 
 export interface GenerateResult {
+  /** Individually billed model operations used to produce this drawing. */
+  apiCosts?: ApiCost[];
   /** No lint errors. Warnings do not block. */
   clean: boolean;
   /** Tokens, wall time, tool-call mix and stop reason. Absent when the
@@ -415,8 +418,14 @@ const outcomeOf = (
   return "budget";
 };
 
-const programOf = (name: string, finish: Finish, doc: IconDoc): string =>
-  hostConstruction(name, finish)?.source ?? programFromDoc(doc);
+const programOf = (
+  name: string,
+  finish: Finish,
+  doc: IconDoc,
+  useHost: boolean
+): string =>
+  (useHost ? hostConstruction(name, finish)?.source : undefined) ??
+  programFromDoc(doc);
 
 const pairGenerate = (
   issues: readonly Issue[],
@@ -424,12 +433,12 @@ const pairGenerate = (
   finish: Finish,
   program: string,
   parts: readonly Part[],
-  spec?: Spec
+  spec: Spec | undefined,
+  useHost: boolean
 ): Issue[] => {
-  const other = hostConstruction(
-    name,
-    finish === "filled" ? "outlined" : "filled"
-  );
+  const other = useHost
+    ? hostConstruction(name, finish === "filled" ? "outlined" : "filled")
+    : null;
   if (other !== null) {
     return pairFamily(
       issues,
@@ -475,6 +484,7 @@ const resultOf = (
   spec: Spec | undefined,
   keyline: Keyline | null,
   extras: {
+    apiCosts?: ApiCost[];
     finishReason: string;
     ms: number;
     outcome: (issues: Issue[]) => Outcome;
@@ -483,6 +493,7 @@ const resultOf = (
     toolCalls: Record<string, number>;
     trace: string[];
     usage: GenerateCost["usage"];
+    useHost: boolean;
   }
 ): GenerateResult => {
   const doc = canvas.toJSON({ icon: concept.name, keyline });
@@ -490,16 +501,18 @@ const resultOf = (
   // diagonal bars (`raw`), so pairing a paper-plane fill looked empty
   // even though the canvas held the analog. Pair the two analog paints,
   // not an adapt of the lossy round-trip.
-  const program = programOf(concept.name, finish, doc);
+  const program = programOf(concept.name, finish, doc, extras.useHost);
   const issues = pairGenerate(
     lint(canvas, { keyline }),
     concept.name,
     finish,
     program,
     parts,
-    spec
+    spec,
+    extras.useHost
   );
   return {
+    apiCosts: extras.apiCosts,
     clean: issues.every((i) => i.severity !== "error"),
     cost: {
       finishReason: extras.finishReason,
@@ -538,6 +551,7 @@ const fromHost = (
     toolCalls: {},
     trace: [],
     usage: { ...ZERO_USAGE },
+    useHost: true,
   });
 
 const fromModel = async (
@@ -551,6 +565,7 @@ const fromModel = async (
   opts: {
     apiKey?: string;
     cohort: GenerateOptions["cohort"];
+    forceAgent: boolean;
     maxSteps: number;
     model: GenerateOptions["model"];
     policy: GenerateOptions["policy"];
@@ -560,6 +575,7 @@ const fromModel = async (
   }
 ): Promise<GenerateResult> => {
   const resolved = resolveModel(opts.model, opts.apiKey);
+  const costTracker = gatewayCostTracker(opts.apiKey);
   const end: Termination = {
     clean: false,
     converged: false,
@@ -568,6 +584,7 @@ const fromModel = async (
   };
   const result = await generateText({
     model: resolved,
+    onLanguageModelCallEnd: costTracker.capture,
     prepareStep: ({ messages: stepMessages }) => ({
       messages: withCacheBreakpoints(stepMessages),
     }),
@@ -588,11 +605,21 @@ const fromModel = async (
     tools: opts.tools,
   });
   const usage = result.totalUsage;
+  const measuredUsage = tokenUsageOf(usage);
+  const modelId =
+    typeof opts.model === "string" ? opts.model : resolved.modelId;
+  const apiCost = await costTracker.measure({
+    calls: result.steps.length,
+    model: modelId,
+    operation: "icon-generation",
+    usage: measuredUsage,
+  });
   const toolCalls: Record<string, number> = {};
   for (const name of state.calls) {
     toolCalls[name] = (toolCalls[name] ?? 0) + 1;
   }
   return resultOf(canvas, concept, finish, parts, spec, keyline, {
+    apiCosts: [apiCost],
     // `totalUsage` is the sum across every step, which is the number that gets
     // billed; `usage` alone would report the last step only. Each field is
     // `number | undefined` — a provider that does not break out cache reads
@@ -606,14 +633,8 @@ const fromModel = async (
     text: result.text,
     toolCalls,
     trace: state.calls,
-    usage: {
-      cacheReadTokens: usage.inputTokenDetails.cacheReadTokens ?? 0,
-      cacheWriteTokens: usage.inputTokenDetails.cacheWriteTokens ?? 0,
-      inputTokens:
-        usage.inputTokenDetails.noCacheTokens ?? usage.inputTokens ?? 0,
-      outputTokens: usage.outputTokens ?? 0,
-      reasoningTokens: usage.outputTokenDetails.reasoningTokens ?? 0,
-    },
+    usage: measuredUsage,
+    useHost: !opts.forceAgent,
   });
 };
 
@@ -637,7 +658,13 @@ export const generate = async (
     spec,
   } = options;
 
-  const host = hostConstruction(concept.name, finish);
+  // `forceAgent` is an explicit request for a fresh drawing. It used to be
+  // consumed by `reach()` and then lost here, so a known host construction
+  // (home, heart, lock…) still short-circuited before the model ran. That made
+  // an agent tournament compare the same host drawing under several labels.
+  const host = options.forceAgent
+    ? null
+    : hostConstruction(concept.name, finish);
   const hostLocked = host !== null;
   const { canvas, state, tools } = createTools({
     aliases,
@@ -651,7 +678,9 @@ export const generate = async (
     renderSize,
     spec,
   });
-  seedHost(canvas, state, concept.name, finish, parts, spec);
+  if (host !== null) {
+    seedHost(canvas, state, concept.name, finish, parts, spec);
+  }
 
   const startedAt = Date.now();
   // A known family is already the house analog. Hiring a model to call
@@ -674,6 +703,7 @@ export const generate = async (
   return await fromModel(canvas, concept, finish, parts, spec, keyline, state, {
     apiKey,
     cohort,
+    forceAgent: options.forceAgent === true,
     maxSteps,
     model,
     policy,

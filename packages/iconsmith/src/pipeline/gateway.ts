@@ -16,6 +16,8 @@ import path from "node:path";
 import { createGateway } from "@ai-sdk/gateway";
 import type { LanguageModel } from "ai";
 
+import type { ApiCost, TokenUsage } from "./cost.js";
+import { rateFor, usdOf } from "./cost.js";
 import {
   DEFAULT_OPENROUTER_MODEL,
   OPENROUTER_INKLING,
@@ -141,6 +143,121 @@ export const resolveModel = (
   }
   const id = gatewayModelId(requested ?? DEFAULT_MODEL);
   return createGateway({ apiKey: gwToken })(id);
+};
+
+const generationIdOf = (metadata: unknown): string | null => {
+  if (!(metadata && typeof metadata === "object" && "gateway" in metadata)) {
+    return null;
+  }
+  const gatewayMetadata = (metadata as { gateway?: unknown }).gateway;
+  if (!(gatewayMetadata && typeof gatewayMetadata === "object")) {
+    return null;
+  }
+  const id = (gatewayMetadata as { generationId?: unknown }).generationId;
+  return typeof id === "string" ? id : null;
+};
+
+const gatewayUsdOf = (metadata: unknown): number | null => {
+  if (!(metadata && typeof metadata === "object" && "gateway" in metadata)) {
+    return null;
+  }
+  const gatewayMetadata = (metadata as { gateway?: unknown }).gateway;
+  if (!(gatewayMetadata && typeof gatewayMetadata === "object")) {
+    return null;
+  }
+  const raw = (gatewayMetadata as { cost?: unknown }).cost;
+  const parsed = typeof raw === "string" ? Number(raw) : raw;
+  return typeof parsed === "number" && Number.isFinite(parsed) ? parsed : null;
+};
+
+export interface GatewayCostTracker {
+  capture: (event: { providerMetadata?: unknown }) => void;
+  measure: (input: {
+    calls?: number;
+    fallbackUsd?: number;
+    model: string;
+    operation: string;
+    usage: TokenUsage;
+  }) => Promise<ApiCost>;
+  record: (metadata: unknown) => void;
+}
+
+/** Capture Gateway generation ids and resolve them to the amount the Gateway
+ * actually billed. The rate table or a fixed image price is only a fallback
+ * when metadata lookup is unavailable. Cost lookup failure never fails a draw. */
+export const gatewayCostTracker = (apiKey?: string): GatewayCostTracker => {
+  const generationIds: string[] = [];
+  const gatewayCosts: number[] = [];
+  const record = (metadata: unknown): void => {
+    const id = generationIdOf(metadata);
+    if (id && !generationIds.includes(id)) {
+      generationIds.push(id);
+    }
+    const usd = gatewayUsdOf(metadata);
+    if (usd !== null) {
+      gatewayCosts.push(usd);
+    }
+  };
+  return {
+    capture: ({ providerMetadata }) => record(providerMetadata),
+    measure: async ({ calls = 1, fallbackUsd, model, operation, usage }) => {
+      const ids = [...generationIds];
+      const tokenRate = rateFor(model);
+      const fallback =
+        fallbackUsd ?? (tokenRate ? usdOf(usage, tokenRate) : null);
+      let fallbackSource: ApiCost["source"] = "unpriced";
+      if (fallbackUsd !== undefined) {
+        fallbackSource = "fixed";
+      } else if (tokenRate) {
+        fallbackSource = "rate-table";
+      }
+      const token = gatewayToken(apiKey);
+      if (gatewayCosts.length > 0) {
+        return {
+          calls: Math.max(gatewayCosts.length, ids.length),
+          generationIds: ids,
+          model,
+          operation,
+          source: "gateway" as const,
+          usage,
+          usd: gatewayCosts.reduce((sum, cost) => sum + cost, 0),
+        };
+      }
+      if (token && ids.length > 0) {
+        try {
+          const gateway = createGateway({ apiKey: token });
+          const generations = await Promise.all(
+            ids.map((id) => gateway.getGenerationInfo({ id }))
+          );
+          return {
+            calls: ids.length,
+            generationIds: ids,
+            model,
+            operation,
+            source: "gateway" as const,
+            usage,
+            usd: generations.reduce(
+              (sum, generation) => sum + generation.totalCost,
+              0
+            ),
+          };
+        } catch {
+          // The drawing remains valid and the explicit fallback remains
+          // auditable. Cost measurement must not become an availability gate.
+        }
+      }
+      return {
+        calls: Math.max(calls, ids.length),
+        generationIds: ids,
+        model,
+        operation,
+        source: fallbackSource,
+        usage,
+        usd: fallback,
+      };
+    },
+    record,
+  };
 };
 
 /** Scratch Codex config: provider vercel, Responses wire, no desktop home. */

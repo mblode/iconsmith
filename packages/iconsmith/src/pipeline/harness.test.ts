@@ -683,6 +683,36 @@ describe("harnessArm audit", () => {
     );
   });
 
+  it("spends the configured repair budget until the visual audit passes", async () => {
+    const { calls, spawn } = fake((n) => (n < 3 ? SQUARE : DISC));
+    let looks = 0;
+    const ask: AuditAsk = () => {
+      looks += 1;
+      return Promise.resolve(
+        looks < 3
+          ? {
+              findings: [
+                { kind: "object", message: `attempt ${looks} is wrong` },
+              ],
+              pq: 4,
+              reason: "wrong object",
+              sc: 3,
+            }
+          : pass
+      );
+    };
+
+    const result = await harnessArm({ ask, repairs: 2, spawn })(
+      concept,
+      noOptions
+    );
+
+    expect(calls).toHaveLength(3);
+    expect(looks).toBe(3);
+    expect(result.audit).toEqual(pass);
+    expect(result.program).toContain("circle 12,12 r8");
+  });
+
   it("keeps the drawing when the audit throws", async () => {
     const { calls, spawn } = fake(SQUARE);
     const result = await harnessArm({ ask: throwAsk, spawn })(

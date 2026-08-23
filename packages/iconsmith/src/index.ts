@@ -85,7 +85,15 @@ export {
   describeProposal,
   READER_MODEL,
 } from "./pipeline/compose.js";
-export { RATES, rateFor, reachPoints, usdOf } from "./pipeline/cost.js";
+export {
+  RATES,
+  rateFor,
+  reachPoints,
+  tokenUsageOf,
+  totalUsd,
+  usdOf,
+} from "./pipeline/cost.js";
+export type { ApiCost, TokenUsage } from "./pipeline/cost.js";
 export { critique } from "./pipeline/critique.js";
 export { audit, gatewayAsk } from "./pipeline/audit.js";
 export type {
@@ -111,6 +119,44 @@ export {
   MissingApiKeyError,
   OPENROUTER_INKLING,
 } from "./pipeline/generate.js";
+export {
+  DEFAULT_TIMEOUT_MS,
+  harnessArm,
+  HarnessError,
+  harnessBrief,
+} from "./pipeline/harness.js";
+export type {
+  BriefContext,
+  HarnessInvocation,
+  HarnessOptions,
+  HarnessRun,
+  Spawn,
+} from "./pipeline/harness.js";
+export {
+  gatewayHarnessSpawn,
+  programFromHarnessText,
+} from "./pipeline/model-harness.js";
+export type {
+  GatewayHarnessAsk,
+  GatewayHarnessOptions,
+  GatewayHarnessRequest,
+} from "./pipeline/model-harness.js";
+export {
+  gatewayPairRankAsk,
+  PAIR_RANK_MODEL,
+  rankPairCandidates,
+  runPairTournament,
+  TOURNAMENT_MINIMUM,
+} from "./pipeline/tournament.js";
+export type {
+  PairCandidate,
+  PairCandidateRanking,
+  PairRankAsk,
+  PairTournamentOptions,
+  PairTournamentResult,
+  TournamentPaint,
+  TournamentRun,
+} from "./pipeline/tournament.js";
 export {
   analogArm,
   ANALOG_ALIASES,

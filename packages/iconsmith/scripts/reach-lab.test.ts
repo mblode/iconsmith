@@ -39,13 +39,16 @@ const withoutModelKeys = (fn: () => void | Promise<void>): Promise<void> => {
   const or = process.env.OPENROUTER_API_KEY;
   const gw = process.env.AI_GATEWAY_API_KEY;
   const oidc = process.env.VERCEL_OIDC_TOKEN;
+  const harness = process.env.ICONSMITH_HARNESS;
   process.env.OPENROUTER_API_KEY = "";
   process.env.AI_GATEWAY_API_KEY = "";
   process.env.VERCEL_OIDC_TOKEN = "";
+  process.env.ICONSMITH_HARNESS = "iconsmith-test-missing-harness";
   return Promise.resolve(fn()).finally(() => {
     process.env.OPENROUTER_API_KEY = or;
     process.env.AI_GATEWAY_API_KEY = gw;
     process.env.VERCEL_OIDC_TOKEN = oidc;
+    process.env.ICONSMITH_HARNESS = harness;
   });
 };
 

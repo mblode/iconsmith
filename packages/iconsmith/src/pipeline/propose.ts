@@ -26,8 +26,10 @@ import { png } from "../tools/render.js";
 import type { Part } from "../types.js";
 import { READER_MODEL, compose } from "./compose.js";
 import type { Proposal } from "./compose.js";
+import type { ApiCost } from "./cost.js";
+import { tokenUsageOf } from "./cost.js";
 import { critique } from "./critique.js";
-import { resolveModel } from "./gateway.js";
+import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { generate } from "./generate.js";
 import type { Reference } from "./licence.js";
@@ -91,6 +93,8 @@ export interface ProposalOptions {
  *  only thing that may travel further in. */
 export interface ProposalRun {
   chosen: number;
+  /** Every image, selection, and vision-reader bill in this proposal. */
+  costs?: ApiCost[];
   images: Buffer[];
   models: string[];
   ms: number;
@@ -126,7 +130,8 @@ const sketch = async (
   model: string,
   refs: Buffer[],
   text: string
-): Promise<Buffer> => {
+): Promise<{ cost: ApiCost; image: Buffer }> => {
+  const costTracker = gatewayCostTracker();
   const result = await generateText({
     messages: [
       {
@@ -148,6 +153,7 @@ const sketch = async (
     // modality; without this they reply with a paragraph describing an icon.
     providerOptions: { google: { responseModalities: ["IMAGE"] } },
   });
+  costTracker.record(result.providerMetadata);
   const image = result.files.find((f) => f.mediaType.startsWith("image/"));
   if (!image) {
     throw new ProposalError(
@@ -156,7 +162,15 @@ const sketch = async (
         "would quietly turn a treatment run into a control run."
     );
   }
-  return Buffer.from(image.uint8Array);
+  return {
+    cost: await costTracker.measure({
+      fallbackUsd: IMAGE_RATES[model],
+      model,
+      operation: "proposal-image",
+      usage: tokenUsageOf(result.totalUsage),
+    }),
+    image: Buffer.from(image.uint8Array),
+  };
 };
 
 /**
@@ -202,21 +216,28 @@ export const propose = async (
     ...Array.from({ length: Math.max(1, ideas) }, () => ideationModel),
     ...(qualityModel ? [qualityModel] : []),
   ];
-  const images = await Promise.all(models.map((m) => sketch(m, refs, text)));
+  const sketches = await Promise.all(models.map((m) => sketch(m, refs, text)));
+  const images = sketches.map((item) => item.image);
+  const costs = sketches.map((item) => item.cost);
 
   const picked =
     images.length === 1
       ? { index: 0, reason: null }
       : await critique(concept, images, refs);
+  if (picked.cost) {
+    costs.push(picked.cost);
+  }
 
   const rates = models.map((m) => IMAGE_RATES[m]);
   return {
     chosen: picked.index,
+    costs,
     images,
     models,
     ms: Date.now() - startedAt,
     proposal: await compose(images[picked.index], {
       model: readerModel,
+      onCost: (cost) => costs.push(cost),
       parts,
     }),
     reason: picked.reason,

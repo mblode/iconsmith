@@ -29,7 +29,9 @@ import { bbox, parsePath } from "../geometry/path.js";
 import { foldedAspect } from "../parts/shape.js";
 import { cosine } from "../tools/render.js";
 import type { Part } from "../types.js";
-import { resolveModel } from "./gateway.js";
+import type { ApiCost } from "./cost.js";
+import { tokenUsageOf } from "./cost.js";
+import { gatewayCostTracker, resolveModel } from "./gateway.js";
 
 /** Analysis raster. Coarse on purpose: at 64px a 24-unit icon's stroke is ~5px,
  *  so components merge the way they read at small size, which is the level the
@@ -415,6 +417,8 @@ export interface ComposeOptions {
    * other way to count elements is to ask something that can see.
    */
   model?: string | null;
+  /** Receives the live vision reader's billed operation. */
+  onCost?: (cost: ApiCost) => void;
   /** The extracted vocabulary, for the part shortlist. Omit it and the
    *  proposal simply carries no part suggestions. */
   parts?: Part[];
@@ -490,10 +494,12 @@ weight, style, subject matter or quality.`;
  *  the pixel reader rather than losing the icon. */
 const readWithModel = async (
   image: Buffer,
-  model: string
+  model: string,
+  onCost?: (cost: ApiCost) => void
 ): Promise<Pick<Proposal, "adjacency" | "blocks"> | null> => {
   try {
-    const { object } = await generateObject({
+    const costTracker = gatewayCostTracker();
+    const result = await generateObject({
       messages: [
         {
           content: [
@@ -506,14 +512,22 @@ const readWithModel = async (
       model: resolveModel(model),
       schema: readSchema,
     });
-    const n = object.blocks.length;
+    costTracker.record(result.providerMetadata);
+    onCost?.(
+      await costTracker.measure({
+        model,
+        operation: "proposal-reading",
+        usage: tokenUsageOf(result.usage),
+      })
+    );
+    const n = result.object.blocks.length;
     return {
-      adjacency: object.relations
+      adjacency: result.object.relations
         .filter(
           (r) => r.a >= 1 && r.a <= n && r.b >= 1 && r.b <= n && r.a !== r.b
         )
         .map((r) => RELATION_SENTENCE[r.relation](r.a, r.b)),
-      blocks: object.blocks,
+      blocks: result.object.blocks,
     };
   } catch {
     return null;
@@ -602,7 +616,7 @@ export const assertNoGeometry = (p: Proposal): void => {
  */
 export const compose = async (
   image: Buffer,
-  { model = null, parts = [] }: ComposeOptions = {}
+  { model = null, onCost, parts = [] }: ComposeOptions = {}
 ): Promise<Proposal> => {
   // The regions are computed whichever reader is used: the part shortlist is a
   // silhouette question, and a silhouette is a thing the pixels answer better
@@ -620,7 +634,8 @@ export const compose = async (
       size: sizeBand(Math.max(r.x1 - r.x0, r.y1 - r.y0), largest),
     })),
   };
-  const read = (model ? await readWithModel(image, model) : null) ?? pixels;
+  const read =
+    (model ? await readWithModel(image, model, onCost) : null) ?? pixels;
   const proposal: Proposal = {
     ...read,
     elements: read.blocks.length,

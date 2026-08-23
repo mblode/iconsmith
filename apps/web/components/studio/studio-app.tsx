@@ -7,8 +7,11 @@ import PaperPlane from "blode-icons-react/icons/paper-plane";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
 import ChatBubbles from "blode-icons-react/icons/chat-bubbles";
 import X from "blode-icons-react/icons/x";
-import { useId, useRef, useState } from "react";
+import type { MessageStreamEvent } from "eve/client";
+import { useEveAgent } from "eve/react";
+import { useCallback, useId, useRef, useState } from "react";
 
+import { AgentActivityCard } from "@/components/studio/agent-activity-card";
 import { AnnotationPanel } from "@/components/studio/annotation-panel";
 import { ExplorationBoard } from "@/components/studio/exploration-board";
 import { IconStage } from "@/components/studio/icon-stage";
@@ -40,17 +43,19 @@ import {
   QuestionnaireTitle,
 } from "@/components/ui/questionnaire";
 import { Textarea } from "@/components/ui/textarea";
-import { asset } from "@/lib/site-url";
+import { BASE_PATH } from "@/lib/site-url";
 import type {
+  StudioActivity,
   StudioApproval,
   StudioAnnotation,
   StudioAttachment,
   StudioFinish,
   StudioQuestion,
   StudioRequest,
-  StudioResponse,
+  StudioTournament,
   StudioVersion,
 } from "@/lib/studio/types";
+import { studioResponseSchema } from "@/lib/studio/types";
 
 type Turn =
   | {
@@ -60,11 +65,13 @@ type Turn =
       text: string;
     }
   | {
+      activities?: readonly StudioActivity[];
       approval?: StudioApproval;
       id: string;
       questions?: readonly StudioQuestion[];
       role: "assistant";
       text: string;
+      tournament?: StudioTournament;
       versions?: readonly StudioVersion[];
     };
 
@@ -133,6 +140,85 @@ const promptHint = (pending: "questions" | "approval" | null, intervening: boole
   return "wifi, a tray for mail, briefcase…";
 };
 
+const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
+  if (event.type === "session.started") {
+    return {
+      id: "eve-session",
+      label: "Durable Eve session started",
+      state: "complete",
+    };
+  }
+  if (event.type === "turn.started") {
+    return {
+      detail: "The turn is recorded and can be streamed or resumed.",
+      id: `turn:${event.data.turnId}`,
+      label: "Studio request accepted",
+      state: "complete",
+    };
+  }
+  if (event.type === "reasoning.appended") {
+    return {
+      detail: "Private model reasoning stays private; the actionable pipeline events appear below.",
+      id: `reasoning:${event.data.turnId}`,
+      label: "Icon agent is planning the tool call",
+      state: "active",
+    };
+  }
+  if (event.type === "actions.requested") {
+    const action = event.data.actions.find(
+      (candidate) => candidate.kind === "tool-call" && candidate.toolName === "generate_icon_pair",
+    );
+    if (!action || action.kind !== "tool-call") {
+      return null;
+    }
+    return {
+      detail:
+        "Validating the request, drawing both paints, rendering, linting, and visual reviewing.",
+      id: `action:${action.callId}`,
+      label: "Running the paired icon pipeline",
+      state: "active",
+    };
+  }
+  if (event.type === "action.result" && event.data.result.kind === "tool-result") {
+    return {
+      detail:
+        event.data.status === "completed"
+          ? "Exact renders and audit records returned to Studio."
+          : event.data.error?.message,
+      id: `action:${event.data.result.callId}`,
+      label:
+        event.data.status === "completed"
+          ? "Paired icon pipeline completed"
+          : "Paired icon pipeline failed",
+      state: event.data.status === "completed" ? "complete" : "failed",
+    };
+  }
+  if (event.type === "step.completed") {
+    return {
+      id: `step:${event.data.turnId}:${event.data.stepIndex}`,
+      label: `Agent step ${event.data.stepIndex + 1} completed`,
+      state: "complete",
+    };
+  }
+  if (event.type === "turn.completed") {
+    return {
+      detail: "The session is ready for the next intervention.",
+      id: `turn-complete:${event.data.turnId}`,
+      label: "Eve turn committed",
+      state: "complete",
+    };
+  }
+  if (event.type === "turn.failed" || event.type === "step.failed") {
+    return {
+      detail: event.data.message,
+      id: `failure:${event.meta.id}`,
+      label: "Agent turn failed",
+      state: "failed",
+    };
+  }
+  return null;
+};
+
 // oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
 export const StudioApp = () => {
   const fileId = useId();
@@ -152,6 +238,142 @@ export const StudioApp = () => {
   const [annotations, setAnnotations] = useState<StudioAnnotation[]>([]);
   const [selectedAnnotationId, setSelectedAnnotationId] = useState<string | null>(null);
   const [annotationMode, setAnnotationMode] = useState(false);
+  const [activeActivities, setActiveActivities] = useState<StudioActivity[]>([]);
+  const [resultDelivered, setResultDelivered] = useState(false);
+  const activityRef = useRef<StudioActivity[]>([]);
+  const assistantTurnIdRef = useRef<string | null>(null);
+  const pendingRequestRef = useRef<StudioRequest | null>(null);
+  const processedEventIdsRef = useRef(new Set<string>());
+  const resultDeliveredRef = useRef(false);
+
+  const applyStudioResponse = useCallback((body: ReturnType<typeof studioResponseSchema.parse>) => {
+    const payload = pendingRequestRef.current;
+    const assistantId = uid();
+    assistantTurnIdRef.current = assistantId;
+    resultDeliveredRef.current = true;
+    setResultDelivered(true);
+    if (body.kind === "questions") {
+      setPending("questions");
+      setTurns((current) => [
+        ...current,
+        {
+          activities: [...activityRef.current],
+          id: assistantId,
+          questions: body.items,
+          role: "assistant",
+          text: body.text,
+        },
+      ]);
+      return;
+    }
+    if (body.kind === "approval") {
+      setPending("approval");
+      setTurns((current) => [
+        ...current,
+        {
+          activities: [...activityRef.current],
+          approval: body.approval,
+          id: assistantId,
+          role: "assistant",
+          text: body.text,
+        },
+      ]);
+      return;
+    }
+    if (body.kind === "error") {
+      setPending(null);
+      setTurns((current) => [
+        ...current,
+        {
+          activities: [...activityRef.current],
+          id: assistantId,
+          role: "assistant",
+          text: body.text,
+          tournament: body.tournament,
+        },
+      ]);
+      return;
+    }
+    setPending(null);
+    setVersions((current) => [...current, ...body.versions]);
+    const lead = body.versions.find((row) => row.finish === payload?.finish) ?? body.versions[0];
+    if (lead) {
+      setSelectedId(lead.id);
+      setFinish(lead.finish);
+      setWorkspaceView("focus");
+      setInspectorView("versions");
+    }
+    setTurns((current) => [
+      ...current,
+      {
+        activities: [...activityRef.current],
+        id: assistantId,
+        role: "assistant",
+        text: body.text,
+        tournament: body.tournament,
+        versions: body.versions,
+      },
+    ]);
+  }, []);
+
+  const upsertActivity = (activity: StudioActivity) => {
+    const index = activityRef.current.findIndex((candidate) => candidate.id === activity.id);
+    activityRef.current =
+      index === -1
+        ? [...activityRef.current, activity]
+        : activityRef.current.map((candidate, candidateIndex) =>
+            candidateIndex === index ? activity : candidate,
+          );
+    setActiveActivities(activityRef.current);
+
+    const assistantId = assistantTurnIdRef.current;
+    if (assistantId) {
+      setTurns((current) =>
+        current.map((turn) =>
+          turn.role === "assistant" && turn.id === assistantId
+            ? { ...turn, activities: [...activityRef.current] }
+            : turn,
+        ),
+      );
+    }
+  };
+
+  const agent = useEveAgent({
+    host: BASE_PATH,
+    onError(error) {
+      setBusy(false);
+      setFault(error.message);
+    },
+    onEvent(event) {
+      if (processedEventIdsRef.current.has(event.meta.id)) {
+        return;
+      }
+      processedEventIdsRef.current.add(event.meta.id);
+
+      const activity = agentActivity(event);
+      if (activity) {
+        upsertActivity(activity);
+      }
+
+      if (event.type === "action.result" && event.data.result.kind === "tool-result") {
+        if (event.data.result.toolName !== "generate_icon_pair" || resultDeliveredRef.current) {
+          return;
+        }
+        const parsed = studioResponseSchema.safeParse(event.data.result.output);
+        if (!parsed.success) {
+          setFault("The icon agent returned an invalid Studio result.");
+          return;
+        }
+        applyStudioResponse(parsed.data);
+      }
+    },
+    onFinish() {
+      setBusy(false);
+      if (!resultDeliveredRef.current) {
+        setFault("The icon agent finished without returning a render result.");
+      }
+    },
+  });
 
   const [firstVersion] = versions;
   const selectedVersion = versions.find((row) => row.id === selectedId);
@@ -169,47 +391,14 @@ export const StudioApp = () => {
   const send = async (payload: StudioRequest) => {
     setBusy(true);
     setFault(null);
+    setActiveActivities([]);
+    activityRef.current = [];
+    assistantTurnIdRef.current = null;
+    pendingRequestRef.current = payload;
+    resultDeliveredRef.current = false;
+    setResultDelivered(false);
     try {
-      const response = await fetch(asset("/api/studio"), {
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-      });
-      const body = (await response.json()) as StudioResponse;
-      if (body.kind === "questions") {
-        setPending("questions");
-        setTurns((current) => [
-          ...current,
-          { id: uid(), questions: body.items, role: "assistant", text: body.text },
-        ]);
-        return;
-      }
-      if (body.kind === "approval") {
-        setPending("approval");
-        setTurns((current) => [
-          ...current,
-          { approval: body.approval, id: uid(), role: "assistant", text: body.text },
-        ]);
-        return;
-      }
-      if (body.kind === "error") {
-        setPending(null);
-        setTurns((current) => [...current, { id: uid(), role: "assistant", text: body.text }]);
-        return;
-      }
-      setPending(null);
-      setVersions((current) => [...current, ...body.versions]);
-      const lead = body.versions.find((row) => row.finish === payload.finish) ?? body.versions[0];
-      if (lead) {
-        setSelectedId(lead.id);
-        setFinish(lead.finish);
-        setWorkspaceView("focus");
-        setInspectorView("versions");
-      }
-      setTurns((current) => [
-        ...current,
-        { id: uid(), role: "assistant", text: body.text, versions: body.versions },
-      ]);
+      await agent.send(`STUDIO_REQUEST\n${JSON.stringify(payload)}`);
     } catch (error) {
       setFault(error instanceof Error ? error.message : "The studio could not reach the drawer.");
     } finally {
@@ -361,10 +550,13 @@ export const StudioApp = () => {
                 <Message key={turn.id}>
                   <MessageContent>
                     <MessageHeader>Iconsmith</MessageHeader>
+                    {turn.activities ? <AgentActivityCard activities={turn.activities} /> : null}
                     <Bubble variant="muted">
                       <BubbleContent>{turn.text}</BubbleContent>
                     </Bubble>
-                    {turn.versions ? <ThinkingCard versions={turn.versions} /> : null}
+                    {turn.versions || turn.tournament ? (
+                      <ThinkingCard tournament={turn.tournament} versions={turn.versions ?? []} />
+                    ) : null}
                     {turn.questions ? (
                       <Questionnaire
                         items={[...turn.questions]}
@@ -372,7 +564,7 @@ export const StudioApp = () => {
                           await send({
                             annotations,
                             answers,
-                            attachments: referenceFiles,
+                            attachments: [...referenceFiles],
                             finish,
                             lastName,
                             pending: "questions",
@@ -406,7 +598,7 @@ export const StudioApp = () => {
                               await send({
                                 annotations,
                                 approved: false,
-                                attachments: referenceFiles,
+                                attachments: [...referenceFiles],
                                 finish,
                                 lastName,
                                 pending: "approval",
@@ -424,7 +616,7 @@ export const StudioApp = () => {
                               await send({
                                 annotations,
                                 approved: true,
-                                attachments: referenceFiles,
+                                attachments: [...referenceFiles],
                                 finish,
                                 lastName,
                                 pending: "approval",
@@ -444,6 +636,7 @@ export const StudioApp = () => {
               ),
             )}
 
+            {busy && !resultDelivered ? <AgentActivityCard activities={activeActivities} /> : null}
             {busy ? (
               <Marker asChild>
                 <output aria-atomic="true" aria-live="polite">

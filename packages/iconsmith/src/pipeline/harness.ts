@@ -25,8 +25,10 @@ import { spawn as spawnProcess } from "node:child_process";
 import { once } from "node:events";
 import {
   copyFileSync,
+  closeSync,
   existsSync,
   mkdtempSync,
+  openSync,
   readFileSync,
   rmSync,
   symlinkSync,
@@ -48,6 +50,8 @@ import {
   writePreview,
 } from "./audit.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
+import { describeProposal } from "./compose.js";
+import type { ApiCost } from "./cost.js";
 import { applyGatewayEnv } from "./gateway.js";
 import type { GenerateOptions, GenerateResult } from "./generate.js";
 import { pairAdapted } from "./pair.js";
@@ -70,6 +74,8 @@ export interface HarnessInvocation {
 export interface HarnessRun {
   /** Null when the process was killed by a signal, which includes the timeout. */
   code: number | null;
+  /** Provider calls made by an in-process harness adapter. */
+  costs?: ApiCost[];
   stderr: string;
   stdout: string;
 }
@@ -150,6 +156,27 @@ const stageSkill = (dir: string, skill: string): string => {
   return dest;
 };
 
+/** Find a workspace or installed-package asset after this module has been
+ * bundled into a web-agent runtime, where `import.meta.url` no longer sits
+ * beside the original package files. */
+const findFromCwd = (relatives: readonly string[]): string | null => {
+  let cursor = process.cwd();
+  for (let depth = 0; depth < 8; depth += 1) {
+    for (const relative of relatives) {
+      const candidate = path.join(cursor, relative);
+      if (existsSync(candidate)) {
+        return candidate;
+      }
+    }
+    const parent = path.dirname(cursor);
+    if (parent === cursor) {
+      break;
+    }
+    cursor = parent;
+  }
+  return null;
+};
+
 /** The packaged CLI, so `iconsmith draw` in the skill is a command the agent
  *  can actually run. Same lookup as {@link skillPath}: src vs dist. Missing
  *  is fine — a test never builds `dist/`, and the brief still asks for a
@@ -161,7 +188,10 @@ const cliPath = (): string | null => {
       return candidate;
     }
   }
-  return null;
+  return findFromCwd([
+    path.join("packages", "iconsmith", "dist", "cli.js"),
+    path.join("node_modules", "iconsmith", "dist", "cli.js"),
+  ]);
 };
 
 /** Put `iconsmith` on PATH inside the scratch directory. The skill tells the
@@ -192,6 +222,13 @@ export const skillPath = (): string => {
     if (existsSync(candidate)) {
       return candidate;
     }
+  }
+  const installed = findFromCwd([
+    path.join("packages", "iconsmith", "SKILL.md"),
+    path.join("node_modules", "iconsmith", "SKILL.md"),
+  ]);
+  if (installed) {
+    return installed;
   }
   throw new HarnessError(
     "SKILL.md was not found beside this build. Pass `skill` with its path."
@@ -224,6 +261,9 @@ export interface BriefContext {
    *  the agent has no `part` available and the brief says so rather than
    *  letting the skill promise an op that cannot run. */
   parts: string | null;
+  /** Composition extracted from an image-model sketch. Words only: no path
+   *  data or coordinates can cross this seam. */
+  proposal?: string | null;
   /** Absolute path of the skill that carries the procedure. */
   skill: string;
 }
@@ -286,6 +326,14 @@ export const harnessBrief = (
       "No parts vocabulary is available in this run, so the `part` op has nothing to place. Draw with the primitives."
     );
   }
+  if (ctx.proposal) {
+    lines.push(
+      "",
+      "An image-model sketch was reduced to this composition hypothesis:",
+      ctx.proposal,
+      "Use it as semantic and layout evidence, not as geometry. The DSL remains the only drawing source."
+    );
+  }
   if (cohort) {
     lines.push(
       "",
@@ -310,32 +358,35 @@ export const harnessBrief = (
  *  differently and none of them is more canonical than another. */
 const defaultArgs = (brief: string): string[] => ["-p", brief];
 
-/** Collect a child process into a {@link HarnessRun}. The timeout kills the
- *  process group rather than leaving a nested agent CLI holding the run open;
- *  a killed child reports a null code, which the caller turns into a
- *  `HarnessError`. `spawn`'s own `timeout` only signals the direct child, and
- *  `codex exec` wraps a second binary that kept running past it. */
+/** Collect a child process into a {@link HarnessRun}. A killed child reports a
+ *  null code, which the caller turns into a `HarnessError`. Eve executes this
+ *  in its own runtime, where detached process groups and child pipe handles can
+ *  fail with `spawn EBADF` on macOS. Keep the child attached and collect its
+ *  output through ordinary files in the already-isolated scratch directory. */
 const nodeSpawn: Spawn = async (invocation) => {
-  const child = spawnProcess(invocation.command, invocation.args, {
-    cwd: invocation.cwd,
-    detached: true,
-    env: invocation.env,
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  let stdout = "";
-  let stderr = "";
-  child.stdout?.on("data", (chunk: Buffer) => {
-    stdout += chunk.toString();
-  });
-  child.stderr?.on("data", (chunk: Buffer) => {
-    stderr += chunk.toString();
-  });
+  const stdoutPath = path.join(invocation.cwd, ".harness-stdout.log");
+  const stderrPath = path.join(invocation.cwd, ".harness-stderr.log");
+  const stdoutFd = openSync(stdoutPath, "w");
+  const stderrFd = openSync(stderrPath, "w");
+  let child: ReturnType<typeof spawnProcess>;
+  try {
+    child = spawnProcess(invocation.command, invocation.args, {
+      cwd: invocation.cwd,
+      detached: false,
+      env: invocation.env,
+      stdio: ["ignore", stdoutFd, stderrFd],
+    });
+  } catch (error) {
+    closeSync(stdoutFd);
+    closeSync(stderrFd);
+    throw error;
+  }
   const killer = setTimeout(() => {
     if (child.pid === undefined) {
       return;
     }
     try {
-      process.kill(-child.pid, "SIGKILL");
+      child.kill("SIGKILL");
     } catch {
       child.kill("SIGKILL");
     }
@@ -344,9 +395,15 @@ const nodeSpawn: Spawn = async (invocation) => {
     // `once` rejects if the child emits `error` — a command that is not on PATH
     // — and resolves with the close arguments otherwise.
     const [code] = (await once(child, "close")) as [number | null];
-    return { code, stderr, stdout };
+    return {
+      code,
+      stderr: readFileSync(stderrPath, "utf-8"),
+      stdout: readFileSync(stdoutPath, "utf-8"),
+    };
   } finally {
     clearTimeout(killer);
+    closeSync(stdoutFd);
+    closeSync(stderrFd);
   }
 };
 
@@ -371,9 +428,8 @@ export interface HarnessOptions {
    *  and the brief. A failed run always keeps it, and names it in the error. */
   keep?: boolean;
   /**
-   * Whether to re-spawn after an audit that is not ok. Default 1, and this
-   * slice only spends that one: the host writes the new preview and stops.
-   * `0` disables the repair spawn.
+   * How many times to re-spawn after a scored audit that is not ok. Each pass
+   * sees the latest preview and findings. `0` disables repair.
    */
   repairs?: number;
   /** Where scratch directories are made. Default the system temp directory. */
@@ -465,11 +521,9 @@ const programIssues = (
 /**
  * An external coding agent as a `GenerateFn`.
  *
- * `cost` is deliberately absent from the result. The external harness bills on
- * its own account and reports nothing this process can observe, and
- * `GenerateCost`'s own docstring says absent means "not measured", never
- * "free" — filling it with zeros would enter a paid arm into the eval's dollar
- * column at nothing, which is worse than a blank.
+ * Native child-process harnesses cannot expose a bill, so their cost remains
+ * absent. In-process adapters may return `HarnessRun.costs`; every repair pass
+ * is accumulated on the generated result rather than disappearing as setup.
  */
 export const harnessArm =
   (options: HarnessOptions = {}): GenerateLike =>
@@ -513,12 +567,16 @@ export const harnessArm =
       hints,
       keyline: generateOptions.keyline ?? null,
       parts: partsFile,
+      proposal: generateOptions.proposal
+        ? describeProposal(generateOptions.proposal)
+        : null,
       skill: skillForBrief,
     };
     const brief = harnessBrief(concept, ctx, generateOptions.cohort);
     writeFileSync(path.join(dir, BRIEF_FILE), `${brief}\n`);
 
     const logs: string[] = [];
+    const apiCosts: ApiCost[] = [];
     const runAgent = async (prompt: string): Promise<HarnessRun> => {
       const run = await spawn({
         args: args(prompt, ctx),
@@ -528,6 +586,7 @@ export const harnessArm =
         timeoutMs,
       });
       logs.push(joinLog(run));
+      apiCosts.push(...(run.costs ?? []));
       const fail = (why: string): never => {
         throw new HarnessError(
           `${command} ${why} while drawing \`${concept.name}\`. Scratch kept at ${dir}.`,
@@ -574,15 +633,19 @@ export const harnessArm =
         writeAudit(dir, next);
         return next;
       };
-      reviewed = await screen();
-      if (!reviewed.ok && reviewed.scorable && repairs > 0) {
+      const repairFrom = async (remaining: number): Promise<void> => {
+        reviewed = await screen();
+        if (reviewed.ok || !reviewed.scorable || remaining <= 0) {
+          return;
+        }
         const revised = appendRepair(brief, reviewed);
         writeFileSync(path.join(dir, BRIEF_FILE), `${revised}\n`);
         last = await runAgent(revised);
         source = readFileSync(file, "utf-8");
         program = runDsl(source, parts, { cohorts, spec });
-        reviewed = await screen();
-      }
+        await repairFrom(remaining - 1);
+      };
+      await repairFrom(Math.max(0, repairs));
     }
 
     // A refused op is an error against this drawing, not a broken run: the
@@ -602,6 +665,7 @@ export const harnessArm =
 
     const trace = traceOf(source);
     return {
+      apiCosts: apiCosts.length > 0 ? apiCosts : undefined,
       audit: reviewed,
       brief,
       clean: issues.every((i) => i.severity !== "error"),

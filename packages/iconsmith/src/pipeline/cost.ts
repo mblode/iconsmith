@@ -7,8 +7,8 @@
  * number with no rates beside it cannot be checked, compared or corrected. The
  * table below is the source; `CostReport.rates` is the copy that travels.
  *
- * Rates are USD per million tokens, from the Anthropic price list as of
- * 2026-08-19. Cache multipliers are the standard ones — a 5-minute cache write
+ * Rates are USD per million tokens, from the provider and Vercel Gateway model
+ * lists as of 2026-08-23. Cache multipliers are the standard ones — a 5-minute cache write
  * is 1.25× the input rate and a read is 0.1× — applied here rather than left
  * implicit, so the arithmetic in a report is visible without knowing the
  * convention.
@@ -42,6 +42,24 @@ export const RATES: RateTable = {
   "claude-opus-5": rate(5, 25),
   "claude-sonnet-4-6": rate(3, 15),
   "claude-sonnet-5": rate(3, 15),
+  "gemini-3.1-flash-lite": {
+    cacheRead: 0.03,
+    cacheWrite: 0,
+    input: 0.25,
+    output: 1.5,
+  },
+  "gemini-3.5-flash": {
+    cacheRead: 0.15,
+    cacheWrite: 0,
+    input: 1.5,
+    output: 9,
+  },
+  "gemini-3.5-flash-lite": {
+    cacheRead: 0.03,
+    cacheWrite: 0,
+    input: 0.3,
+    output: 2.5,
+  },
 };
 
 /**
@@ -73,6 +91,31 @@ export interface TokenUsage {
   reasoningTokens: number;
 }
 
+/** One externally billed operation. `usd: null` means the provider did not
+ * expose a bill and the local rate table had no honest fallback. */
+export interface ApiCost {
+  calls: number;
+  generationIds: string[];
+  model: string;
+  operation: string;
+  source: "fixed" | "gateway" | "rate-table" | "unpriced";
+  usage: TokenUsage;
+  usd: number | null;
+}
+
+/** The subset of AI SDK usage consumed here. Kept structural so this module
+ * remains usable by the CLI and benchmark without importing the SDK. */
+export interface UsageLike {
+  inputTokenDetails?: {
+    cacheReadTokens?: number;
+    cacheWriteTokens?: number;
+    noCacheTokens?: number;
+  };
+  inputTokens?: number;
+  outputTokenDetails?: { reasoningTokens?: number };
+  outputTokens?: number;
+}
+
 export const EMPTY_USAGE: TokenUsage = {
   cacheReadTokens: 0,
   cacheWriteTokens: 0,
@@ -88,6 +131,20 @@ export const addUsage = (a: TokenUsage, b: TokenUsage): TokenUsage => ({
   outputTokens: a.outputTokens + b.outputTokens,
   reasoningTokens: a.reasoningTokens + b.reasoningTokens,
 });
+
+export const tokenUsageOf = (usage: UsageLike): TokenUsage => ({
+  cacheReadTokens: usage.inputTokenDetails?.cacheReadTokens ?? 0,
+  cacheWriteTokens: usage.inputTokenDetails?.cacheWriteTokens ?? 0,
+  inputTokens: usage.inputTokenDetails?.noCacheTokens ?? usage.inputTokens ?? 0,
+  outputTokens: usage.outputTokens ?? 0,
+  reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? 0,
+});
+
+/** Null propagates: an unpriced call makes the total unknown, never free. */
+export const totalUsd = (costs: readonly ApiCost[]): number | null =>
+  costs.some((cost) => cost.usd === null)
+    ? null
+    : costs.reduce((sum, cost) => sum + (cost.usd ?? 0), 0);
 
 const PER_MILLION = 1e6;
 

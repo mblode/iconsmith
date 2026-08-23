@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import { withEve } from "eve/next";
 import type { NextConfig } from "next";
 
 import { BASE_PATH, REPO_URL } from "./lib/site-url";
@@ -134,4 +135,4 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["ai", "@ai-sdk/gateway", "iconsmith", "sharp"],
 };
 
-export default nextConfig;
+export default withEve(nextConfig, { eveRoot: import.meta.dirname });

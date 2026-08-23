@@ -3,6 +3,8 @@ dist/
 .next/
 .turbo/
 .vercel/
+/apps/web/.eve/
+/apps/web/.output/
 *.tsbuildinfo
 .env
 .env.local

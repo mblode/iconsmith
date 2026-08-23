@@ -16,7 +16,9 @@ import { z } from "zod";
 
 import { png } from "../tools/render.js";
 import type { Finish } from "../types.js";
-import { resolveModel } from "./gateway.js";
+import type { ApiCost } from "./cost.js";
+import { tokenUsageOf } from "./cost.js";
+import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { CounterpartClass, DrawKind, MarkTwin } from "./kind.js";
 
 export const AUDIT_MODEL = "google/gemini-3.5-flash";
@@ -44,6 +46,8 @@ export interface AuditFinding {
 }
 
 export interface AuditResult {
+  /** The visual judge call, when this result came from a live provider. */
+  cost?: ApiCost;
   findings: AuditFinding[];
   /**
    * Decide pass for agent arms (no findings + screen). Screen pass for host
@@ -178,6 +182,7 @@ export const judged = (
   const decide = screen && raw.findings.length === 0;
   const host = kind === "mark";
   return {
+    cost: raw.cost,
     findings: raw.findings,
     ok: host ? screen : decide,
     pq: raw.pq,
@@ -235,7 +240,8 @@ export const gatewayAsk: AuditAsk = async ({
   references,
   twin,
 }) => {
-  const { object } = await generateObject({
+  const costTracker = gatewayCostTracker();
+  const result = await generateObject({
     messages: [
       {
         content: [
@@ -273,11 +279,17 @@ export const gatewayAsk: AuditAsk = async ({
     model: resolveModel(AUDIT_MODEL),
     schema,
   });
+  costTracker.record(result.providerMetadata);
   return {
-    findings: object.findings.map(sanitizeFinding),
-    pq: object.pq,
-    reason: object.reason,
-    sc: object.sc,
+    cost: await costTracker.measure({
+      model: AUDIT_MODEL,
+      operation: "visual-audit",
+      usage: tokenUsageOf(result.usage),
+    }),
+    findings: result.object.findings.map(sanitizeFinding),
+    pq: result.object.pq,
+    reason: result.object.reason,
+    sc: result.object.sc,
   };
 };
 
@@ -314,7 +326,7 @@ export const audit = async ({
     });
     const findings = raw.findings.map(sanitizeFinding);
     return judged(
-      { findings, pq: raw.pq, reason: raw.reason, sc: raw.sc },
+      { cost: raw.cost, findings, pq: raw.pq, reason: raw.reason, sc: raw.sc },
       kind ?? "analog"
     );
   } catch (error) {
