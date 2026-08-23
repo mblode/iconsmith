@@ -1,0 +1,169 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 20,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG0JNYJH3BW08V9JY58WKC"],
+        "model": "google/gemini-3.1-flash-lite-image",
+        "operation": "proposal-image",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 5867,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1008,
+          "outputTokens": 1120,
+          "reasoningTokens": 0
+        },
+        "usd": 0.03442801
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG0WMVE0TSRK3TW9H9N7DQ"],
+        "model": "google/gemini-3.1-flash-lite",
+        "operation": "proposal-reading",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1613,
+          "outputTokens": 173,
+          "reasoningTokens": 0
+        },
+        "usd": 0.00066275
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG0C5G37DH33Z60YMXXPJQ"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 312,
+          "reasoningTokens": 230
+        },
+        "usd": 0.00805125
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG0CBHDPQDWV10PAC6W51S"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 408,
+          "reasoningTokens": 306
+        },
+        "usd": 0.00841125
+      },
+      {
+        "calls": 7,
+        "generationIds": [
+          "gen_01M0RG0YQD5YWTVDJ16A8GM40H",
+          "gen_01M0RG11WABMFT4GG36Z5F0ZWY",
+          "gen_01M0RG14N95TEF800QX2S0G0CQ",
+          "gen_01M0RG17GMSZQJJKJ641RPVH42",
+          "gen_01M0RG1GZ6S3TXNT6GP17D16K4",
+          "gen_01M0RG1KNHWJV92434M2TWHAG0",
+          "gen_01M0RG25EHPTC8MJW0VNNXAJTG"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 3550,
+          "cacheWriteTokens": 0,
+          "inputTokens": 39493,
+          "outputTokens": 3155,
+          "reasoningTokens": 2819
+        },
+        "usd": 0.041717250000000004
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG3RJ49FPHBPY01G5CJ5HF"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 183,
+          "reasoningTokens": 112
+        },
+        "usd": 0.0075675
+      },
+      {
+        "calls": 7,
+        "generationIds": [
+          "gen_01M0RG2C398BC0HZMZJ23JK2H6",
+          "gen_01M0RG2E6CS72F3DM385H9N8FC",
+          "gen_01M0RG2MX9G6RV4FG85GQJC1DP",
+          "gen_01M0RG2QNQ30X9KTN1HQ91T0P1",
+          "gen_01M0RG2XSZZJKXT6004VCHJBNE",
+          "gen_01M0RG3AMPZWCK1ZC0BRC9AM3K",
+          "gen_01M0RG3MMPDNRYPMPQKWBT84CN"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 21158,
+          "cacheWriteTokens": 0,
+          "inputTokens": 23562,
+          "outputTokens": 1312,
+          "reasoningTokens": 994
+        },
+        "usd": 0.02417835
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG3RSDXVA41W3BK4SH6CP3"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 462,
+          "reasoningTokens": 365
+        },
+        "usd": 0.00861375
+      }
+    ],
+    "totalUsd": 0.13363011,
+    "unpricedCalls": 0
+  },
+  "kind": "error",
+  "minimum": {
+    "pq": 8,
+    "sc": 8
+  },
+  "selected": "host-analog",
+  "strategy": {
+    "budget": {
+      "actualCalls": 20,
+      "actualUsd": 0.13363011,
+      "exhausted": true,
+      "maxCalls": 20,
+      "maxUsd": 0.25,
+      "overrun": false,
+      "reservedCalls": 20,
+      "reservedUsd": 0.25
+    },
+    "eligible": 4,
+    "evaluated": 2,
+    "stopScore": 9.75,
+    "stoppedEarly": true
+  },
+  "text": "I rejected every candidate for “alarm-smoke” instead of returning another weak icon. The best pair was Host analog baseline at 1.1/10. The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate."
+}

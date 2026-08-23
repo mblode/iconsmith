@@ -98,6 +98,9 @@ export interface ToolsOptions {
    * three circles or a pause gets stretched off the house bars.
    */
   hostLocked?: boolean;
+  /** Maximum vocabulary searches in one agent run. Direct tool consumers are
+   * unbounded; generation sets two so browsing cannot consume every step. */
+  maxPartSearches?: number;
 }
 
 /** What the loop needs to know afterwards; the model cannot see any of it. */
@@ -169,6 +172,7 @@ const placed = (canvas: Canvas, id: string) => {
   return { elements: canvas.elements.length, id, placed: el ?? null };
 };
 
+// oxlint-disable-next-line eslint/complexity -- one factory keeps every model tool on the same canvas and shared call budget
 export const createTools = (options: ToolsOptions = {}) => {
   const {
     aliases = new Map(),
@@ -177,6 +181,7 @@ export const createTools = (options: ToolsOptions = {}) => {
     finish = "outlined",
     spec = SPEC,
     keyline = null,
+    maxPartSearches = Number.POSITIVE_INFINITY,
     parts = [],
     proposal = null,
     renderSize = 96,
@@ -515,7 +520,11 @@ export const createTools = (options: ToolsOptions = {}) => {
           .describe(
             "allow a segment to sit off 0/45/90 — the set does this on about one edge in seven, always between two grid points"
           ),
-        points: z.array(z.tuple([coord, coord])).min(2),
+        // Google tool declarations use protobuf Schema, whose `items` field
+        // accepts one schema rather than JSON Schema's tuple array. A fixed
+        // length array preserves the exact [x, y] contract while remaining
+        // portable across Gateway providers.
+        points: z.array(z.array(coord).length(2)).min(2),
       }),
     }),
 
@@ -547,6 +556,14 @@ export const createTools = (options: ToolsOptions = {}) => {
       // proportions, and a shortlist carried between stages does not.
       execute: ({ limit = 12, query }) =>
         track("listParts", () => {
+          const searches = state.calls.filter(
+            (call) => call === "listParts"
+          ).length;
+          if (searches > maxPartSearches) {
+            throw new Error(
+              `listParts is limited to ${maxPartSearches} searches in this run; draw from the searches already returned`
+            );
+          }
           const construction = steerBrief(query, finish);
           const host = hostConstruction(query, finish);
           return {

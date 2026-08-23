@@ -1,11 +1,8 @@
-import { createOpenAI } from "@ai-sdk/openai";
 import { defineAgent } from "eve";
 
 import "./lib/trust-system-ca";
 
-const model = process.env.OPENAI_API_KEY
-  ? createOpenAI({ apiKey: process.env.OPENAI_API_KEY })("gpt-5.4-mini")
-  : "anthropic/claude-haiku-4.5";
+const model = "google/gemini-3.1-flash-lite";
 
 export default defineAgent({
   description:

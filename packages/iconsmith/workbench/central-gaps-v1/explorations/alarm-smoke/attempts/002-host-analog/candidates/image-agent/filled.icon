@@ -1,0 +1,5 @@
+icon alarm-smoke
+finish filled
+rect 3,14 18x6 r3
+dot 12,17 floating
+arc 10,8 r3 half from bottom

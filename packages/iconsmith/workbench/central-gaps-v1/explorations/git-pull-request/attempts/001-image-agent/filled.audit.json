@@ -1,0 +1,27 @@
+{
+  "agent": {
+    "attempted": ["agent"],
+    "findings": [],
+    "mode": "draw-and-review",
+    "ok": true,
+    "pq": 10,
+    "reason": "The icon perfectly represents the 'git-pull-request' concept in the filled finish. The stroke weight, node fills, and arrow curves are clean, professional, and fully consistent with the design language of the set.",
+    "sc": 10,
+    "scorable": true,
+    "selected": "agent"
+  },
+  "clean": true,
+  "issues": [],
+  "steps": 5,
+  "trace": [
+    "tournament/image-agent",
+    "proposal",
+    "listParts",
+    "listParts",
+    "listParts",
+    "construct",
+    "construct",
+    "render",
+    "lint"
+  ]
+}

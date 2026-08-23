@@ -16,8 +16,8 @@ import path from "node:path";
 import { createGateway } from "@ai-sdk/gateway";
 import type { LanguageModel } from "ai";
 
-import type { ApiCost, TokenUsage } from "./cost.js";
-import { rateFor, usdOf } from "./cost.js";
+import type { ApiCost, TokenUsage, UsageLike } from "./cost.js";
+import { addUsage, EMPTY_USAGE, rateFor, tokenUsageOf, usdOf } from "./cost.js";
 import {
   DEFAULT_OPENROUTER_MODEL,
   OPENROUTER_INKLING,
@@ -171,7 +171,7 @@ const gatewayUsdOf = (metadata: unknown): number | null => {
 };
 
 export interface GatewayCostTracker {
-  capture: (event: { providerMetadata?: unknown }) => void;
+  capture: (event: { providerMetadata?: unknown; usage?: UsageLike }) => void;
   measure: (input: {
     calls?: number;
     fallbackUsd?: number;
@@ -179,6 +179,9 @@ export interface GatewayCostTracker {
     operation: string;
     usage: TokenUsage;
   }) => Promise<ApiCost>;
+  /** Cost observed after completed model calls. Gateway metadata wins; the
+   * checked-in rate table is the fallback. Null means the model is unpriced. */
+  observed: (model: string) => { calls: number; usd: number | null };
   record: (metadata: unknown) => void;
 }
 
@@ -188,6 +191,10 @@ export interface GatewayCostTracker {
 export const gatewayCostTracker = (apiKey?: string): GatewayCostTracker => {
   const generationIds: string[] = [];
   const gatewayCosts: number[] = [];
+  const capturedGatewayCosts: (number | null)[] = [];
+  let capturedCalls = 0;
+  let capturedUsage: TokenUsage = { ...EMPTY_USAGE };
+  let capturedUsageCalls = 0;
   const record = (metadata: unknown): void => {
     const id = generationIdOf(metadata);
     if (id && !generationIds.includes(id)) {
@@ -199,31 +206,53 @@ export const gatewayCostTracker = (apiKey?: string): GatewayCostTracker => {
     }
   };
   return {
-    capture: ({ providerMetadata }) => record(providerMetadata),
+    capture: ({ providerMetadata, usage }) => {
+      capturedCalls += 1;
+      const measuredUsage = usage ? tokenUsageOf(usage) : null;
+      if (
+        measuredUsage &&
+        Object.values(measuredUsage).some((tokens) => tokens > 0)
+      ) {
+        capturedUsage = addUsage(capturedUsage, measuredUsage);
+        capturedUsageCalls += 1;
+      }
+      capturedGatewayCosts.push(gatewayUsdOf(providerMetadata));
+      record(providerMetadata);
+    },
     measure: async ({ calls = 1, fallbackUsd, model, operation, usage }) => {
       const ids = [...generationIds];
       const tokenRate = rateFor(model);
+      const hasUsage = Object.values(usage).some((tokens) => tokens > 0);
       const fallback =
-        fallbackUsd ?? (tokenRate ? usdOf(usage, tokenRate) : null);
+        fallbackUsd ?? (tokenRate && hasUsage ? usdOf(usage, tokenRate) : null);
       let fallbackSource: ApiCost["source"] = "unpriced";
       if (fallbackUsd !== undefined) {
         fallbackSource = "fixed";
-      } else if (tokenRate) {
+      } else if (tokenRate && hasUsage) {
         fallbackSource = "rate-table";
       }
       const token = gatewayToken(apiKey);
-      if (gatewayCosts.length > 0) {
+      const capturedCostsComplete =
+        capturedCalls > 0 &&
+        capturedGatewayCosts.every((cost): cost is number => cost !== null);
+      const recordedCostsComplete =
+        capturedCalls === 0 && gatewayCosts.length > 0;
+      if (capturedCostsComplete || recordedCostsComplete) {
+        const exactCosts = capturedCostsComplete
+          ? capturedGatewayCosts
+          : gatewayCosts;
         return {
-          calls: Math.max(gatewayCosts.length, ids.length),
+          calls: Math.max(calls, capturedCalls, exactCosts.length, ids.length),
           generationIds: ids,
           model,
           operation,
           source: "gateway" as const,
           usage,
-          usd: gatewayCosts.reduce((sum, cost) => sum + cost, 0),
+          usd: exactCosts.reduce((sum, cost) => sum + cost, 0),
         };
       }
-      if (token && ids.length > 0) {
+      const expectedCalls = Math.max(calls, capturedCalls);
+      if (token && ids.length === expectedCalls) {
         try {
           const gateway = createGateway({ apiKey: token });
           const generations = await Promise.all(
@@ -247,13 +276,32 @@ export const gatewayCostTracker = (apiKey?: string): GatewayCostTracker => {
         }
       }
       return {
-        calls: Math.max(calls, ids.length),
+        calls: Math.max(calls, capturedCalls, ids.length),
         generationIds: ids,
         model,
         operation,
         source: fallbackSource,
         usage,
         usd: fallback,
+      };
+    },
+    observed: (model) => {
+      if (
+        capturedCalls > 0 &&
+        capturedGatewayCosts.every((cost): cost is number => cost !== null)
+      ) {
+        return {
+          calls: capturedCalls,
+          usd: capturedGatewayCosts.reduce((sum, cost) => sum + cost, 0),
+        };
+      }
+      const tokenRate = rateFor(model);
+      return {
+        calls: capturedCalls,
+        usd:
+          tokenRate && capturedUsageCalls === capturedCalls
+            ? usdOf(capturedUsage, tokenRate)
+            : null,
       };
     },
     record,

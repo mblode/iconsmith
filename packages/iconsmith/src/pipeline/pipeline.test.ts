@@ -2,6 +2,7 @@ import type {
   LanguageModelV4CallOptions,
   LanguageModelV4GenerateResult,
 } from "@ai-sdk/provider";
+import { APICallError } from "@ai-sdk/provider";
 import { MockLanguageModelV4 } from "ai/test";
 /**
  * The pipeline, exercised without a network.
@@ -26,6 +27,7 @@ import {
 } from "./eval.js";
 import type { EvalIcon } from "./eval.js";
 import {
+  BUDGETED_MAX_OUTPUT_TOKENS,
   DEFAULT_MODEL,
   MissingApiKeyError,
   OPENROUTER_INKLING,
@@ -39,10 +41,15 @@ const USAGE = {
   outputTokens: { reasoning: 0, text: 1, total: 1 },
 };
 
-type Turn = { input: unknown; tool: string } | { text: string };
+type Turn = ({ input: unknown; tool: string } | { text: string }) & {
+  cost?: string;
+};
 
 /** A model that plays a fixed sequence of turns, then stops. */
-const scripted = (turns: Turn[]): MockLanguageModelV4 => {
+const scripted = (
+  turns: Turn[],
+  modelId = "mock-model-id"
+): MockLanguageModelV4 => {
   let n = 0;
   return new MockLanguageModelV4({
     doGenerate: (): LanguageModelV4GenerateResult => {
@@ -52,6 +59,9 @@ const scripted = (turns: Turn[]): MockLanguageModelV4 => {
         return {
           content: [{ text: turn.text, type: "text" }],
           finishReason: "stop",
+          providerMetadata: turn.cost
+            ? { gateway: { cost: turn.cost } }
+            : undefined,
           usage: USAGE,
           warnings: [],
         };
@@ -66,10 +76,14 @@ const scripted = (turns: Turn[]): MockLanguageModelV4 => {
           },
         ],
         finishReason: "tool-calls",
+        providerMetadata: turn.cost
+          ? { gateway: { cost: turn.cost } }
+          : undefined,
         usage: USAGE,
         warnings: [],
       };
     },
+    modelId,
   });
 };
 
@@ -575,6 +589,117 @@ describe("generate", () => {
     expect(result.clean).toBe(false);
     expect(result.issues.map((i) => i.rule)).toContain("keyline");
     expect(result.issues.map((i) => i.rule)).toContain("centred");
+  });
+
+  it("limits vocabulary browsing to two searches inside a seven-step run", async () => {
+    const model = scripted([
+      { input: { limit: 1, query: "square" }, tool: "listParts" },
+    ]);
+    const result = await generate(
+      { name: "search-loop" },
+      { maxSteps: 7, model }
+    );
+
+    expect(result.steps).toBe(7);
+    expect(model.doGenerateCalls).toHaveLength(7);
+    expect(result.trace).toEqual(Array.from({ length: 7 }, () => "listParts"));
+    expect(JSON.stringify(model.doGenerateCalls[2]?.prompt)).not.toContain(
+      "listParts is limited"
+    );
+    expect(JSON.stringify(model.doGenerateCalls[3]?.prompt)).toContain(
+      "listParts is limited to 2 searches"
+    );
+  });
+
+  it("stops after the model call that reaches the observed Gateway cost budget", async () => {
+    const model = scripted([
+      { cost: "0.03", input: { cx: 5, cy: 5, r: 2 }, tool: "circle" },
+    ]);
+    const result = await generate(
+      { name: "cost-loop" },
+      { maxSteps: 20, maxUsd: 0.05, model }
+    );
+
+    expect(result.steps).toBe(2);
+    expect(model.doGenerateCalls).toHaveLength(2);
+    expect(result.apiCosts?.[0].calls).toBe(2);
+    expect(result.apiCosts?.[0].usd).toBeCloseTo(0.06);
+  });
+
+  it("stops an unpriced model after one call instead of spending blind", async () => {
+    const model = scripted([{ input: { cx: 5, cy: 5, r: 2 }, tool: "circle" }]);
+    const result = await generate(
+      { name: "unpriced-cost-loop" },
+      { maxSteps: 20, maxUsd: 0.05, model }
+    );
+
+    expect(result.steps).toBe(1);
+    expect(model.doGenerateCalls).toHaveLength(1);
+    expect(result.apiCosts?.[0].usd).toBeNull();
+  });
+
+  it("uses reported usage to stop a priced model when Gateway cost metadata is absent", async () => {
+    const model = scripted(
+      [{ input: { cx: 5, cy: 5, r: 2 }, tool: "circle" }],
+      "gemini-3.5-flash-lite"
+    );
+    const result = await generate(
+      { name: "rate-table-cost-loop" },
+      { maxSteps: 20, maxUsd: 0.000004, model }
+    );
+
+    expect(result.steps).toBe(2);
+    expect(model.doGenerateCalls).toHaveLength(2);
+    expect(result.apiCosts?.[0].source).toBe("rate-table");
+    expect(result.apiCosts?.[0].usd).toBeCloseTo(0.0000056);
+  });
+
+  it("bounds output and disables retries for a budgeted model call", async () => {
+    let calls = 0;
+    const model = new MockLanguageModelV4({
+      doGenerate: () => {
+        calls += 1;
+        throw new APICallError({
+          isRetryable: true,
+          message: "retryable provider failure",
+          requestBodyValues: {},
+          url: "https://example.invalid/model",
+        });
+      },
+    });
+
+    await expect(
+      generate({ name: "retry-loop" }, { maxSteps: 20, maxUsd: 0.05, model })
+    ).rejects.toThrow("retryable provider failure");
+
+    expect(calls).toBe(1);
+    expect(model.doGenerateCalls[0]?.maxOutputTokens).toBe(
+      BUDGETED_MAX_OUTPUT_TOKENS
+    );
+  });
+
+  it("rejects invalid step and dollar budgets before calling a model", async () => {
+    const invalidSteps = [0, -1, 1.5];
+    const invalidUsd = [0, -1, Number.POSITIVE_INFINITY, Number.NaN];
+
+    await Promise.all(
+      invalidSteps.map(async (maxSteps) => {
+        const model = scripted([{ text: "unused" }]);
+        await expect(
+          generate({ name: "invalid-steps" }, { maxSteps, model })
+        ).rejects.toThrow("maxSteps must be a positive integer");
+        expect(model.doGenerateCalls).toHaveLength(0);
+      })
+    );
+    await Promise.all(
+      invalidUsd.map(async (maxUsd) => {
+        const model = scripted([{ text: "unused" }]);
+        await expect(
+          generate({ name: "invalid-usd" }, { maxUsd, model })
+        ).rejects.toThrow("maxUsd must be a finite positive number");
+        expect(model.doGenerateCalls).toHaveLength(0);
+      })
+    );
   });
 
   it("returns an empty-canvas error rather than throwing when nothing is drawn", async () => {

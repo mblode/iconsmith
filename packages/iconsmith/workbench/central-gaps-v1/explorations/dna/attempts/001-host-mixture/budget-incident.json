@@ -1,0 +1,23 @@
+{
+  "automaticBudget": {
+    "maxCalls": 20,
+    "maxUsd": 0.25
+  },
+  "campaignKnownGatewayUsdAfterAttempt": 9.91157668,
+  "completeCampaignUsd": null,
+  "disposition": "revision",
+  "observed": {
+    "calls": 57,
+    "usd": 8.46303863
+  },
+  "rootCause": "The candidate labelled host-mixture routed net-new concepts through the default Claude Opus agent instead of a deterministic host arm. Its reservation described a free host candidate but did not match the implementation.",
+  "status": "closed-by-guardrail-change",
+  "unknownCostReason": "Eve orchestration did not expose a priced cost record.",
+  "workCompleted": [
+    "Replaced the automatic host-mixture candidate with the deterministic analog arm.",
+    "Added post-call per-paint soft USD cutoffs.",
+    "Added tournament actual-cost accounting and fail-closed overrun behavior.",
+    "Added a final Studio gate over ranking, proposal, generation, and audit records.",
+    "Changed automatic generation and judging to lower-cost Gateway models selected from the live registry."
+  ]
+}

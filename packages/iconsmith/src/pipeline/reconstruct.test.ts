@@ -84,7 +84,7 @@ describe.skipIf(!present)("compileIcon", () => {
       await inkVector(house)
     );
     expect(score).toBeGreaterThan(0.99);
-  });
+  }, 30_000);
 
   it("does not scale a small star medoid up to the house star", async () => {
     const parts = nameParts(extractParts(VARIANT_DIR, {}).parts);

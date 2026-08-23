@@ -1,0 +1,235 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 57,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RDWB3WWGYBAN1E0S9W50YV"],
+        "model": "google/gemini-3.1-flash-lite-image",
+        "operation": "proposal-image",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 3796,
+          "cacheWriteTokens": 0,
+          "inputTokens": 835,
+          "outputTokens": 1120,
+          "reasoningTokens": 0
+        },
+        "usd": 0.03432263
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RDWJANPSF68E3JHNV10S7S"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "proposal-reading",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1613,
+          "outputTokens": 3117,
+          "reasoningTokens": 2672
+        },
+        "usd": 0.0304725
+      },
+      {
+        "calls": 15,
+        "generationIds": [
+          "gen_01M0RD00ATV1A20RBTE6J0QNK6",
+          "gen_01M0RD047YT9S2W2YXVEXYYCGP",
+          "gen_01M0RD079X90P7840JG9MA6JCE",
+          "gen_01M0RD0AHM92T5F0T7GNE6N58S",
+          "gen_01M0RD2E0T3ZP5A3WK569R58TZ",
+          "gen_01M0RD2GD5K95Y3TJPW5DEV8P3",
+          "gen_01M0RD7103CSTS15S9E8NJK7ER",
+          "gen_01M0RD74XK5M9DCGPY8JVQP8D6",
+          "gen_01M0RD77VMYEQX23E8BMGKBXPX",
+          "gen_01M0RD7XB3PCGBG6M0QWNRM635",
+          "gen_01M0RD81HABMHQHRXEZBM39T4V",
+          "gen_01M0RD84H2MS2C212JFNPB29EN",
+          "gen_01M0RDBP9TFPC1WBG0G5FQCYZF",
+          "gen_01M0RDC0A17FKSQ201M25CKBR9",
+          "gen_01M0RDC3N8J6ED081VW4MYKSGY"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 94808,
+          "cacheWriteTokens": 6846,
+          "inputTokens": 217020,
+          "outputTokens": 32898,
+          "reasoningTokens": 29416
+        },
+        "usd": 1.954954
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RDW2XRNYCCVA718YN0T9RQ"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6995,
+          "outputTokens": 924,
+          "reasoningTokens": 747
+        },
+        "usd": 0.0188085
+      },
+      {
+        "calls": 24,
+        "generationIds": [
+          "gen_01M0RD00B555K35YK7S7B4EPMK",
+          "gen_01M0RD03242HFWGHTMN3X02187",
+          "gen_01M0RD06011718J6MN5JJCJ6E5",
+          "gen_01M0RD09TRSGGQEM5SA8YBR4W0",
+          "gen_01M0RD63MFC0APYGM6NSPPRA6Z",
+          "gen_01M0RD6729JBYFYFQQT27J0FG0",
+          "gen_01M0RD7577T5QVT2Z81HB292ZE",
+          "gen_01M0RD7C9ZF8T1JZK85TP5PBY2",
+          "gen_01M0RD83W2QM668768XNVZFV31",
+          "gen_01M0RD8BAFFSXRR68EDC3EVXQQ",
+          "gen_01M0RD8J7N69WC2AA8X0RAJXKG",
+          "gen_01M0RD8MVQ5PYXACTB0X8X9BA9",
+          "gen_01M0RDDZWNTJSSRVFKRDMAH6V5",
+          "gen_01M0RDE8ZTA03WV7QN8N3206TT",
+          "gen_01M0RDEMWVXNWC1TDS2CAP0HMR",
+          "gen_01M0RDH28Z3Z71TRT5HFXNDEV8",
+          "gen_01M0RDH91TH9RBN43WWVH4VXB3",
+          "gen_01M0RDQ01X09DQ8ER729X60G4B",
+          "gen_01M0RDQA8DR753M3MVB2295FCN",
+          "gen_01M0RDS3AFCCAWPW14KTVPF64P",
+          "gen_01M0RDSFNGRDVHMC9RC0G6VAWB",
+          "gen_01M0RDSQVZ0823743KMJPR1AJF",
+          "gen_01M0RDSW4PXK822EBMH57PNN6E",
+          "gen_01M0RDT4BQY6XA4RY437542KRV"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 166199,
+          "cacheWriteTokens": 7275,
+          "inputTokens": 839816,
+          "outputTokens": 67509,
+          "reasoningTokens": 57105
+        },
+        "usd": 5.969904500000001
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RDW33G33X7TEZPG645CNEC"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6995,
+          "outputTokens": 732,
+          "reasoningTokens": 581
+        },
+        "usd": 0.0170805
+      },
+      {
+        "calls": 6,
+        "generationIds": [
+          "gen_01M0RDX6AMXT9XJ6ZMV37C0W3J",
+          "gen_01M0RDX9DH9TS1TEWVSDYC4N0J",
+          "gen_01M0RDXD36HGHG1Q1ARE7MD01H",
+          "gen_01M0RDXGY8B3WD1ZZMX5XY5Q7Q",
+          "gen_01M0RDYDBSAXWSNK8W8G63K24T",
+          "gen_01M0RDYFXH25MGJX9E65753EXN"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 36607,
+          "cacheWriteTokens": 7613,
+          "inputTokens": 6134,
+          "outputTokens": 7910,
+          "reasoningTokens": 6478
+        },
+        "usd": 0.24672349999999998
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RE31YN06FR0GE1DWPEZKBH"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6995,
+          "outputTokens": 404,
+          "reasoningTokens": 313
+        },
+        "usd": 0.0141285
+      },
+      {
+        "calls": 6,
+        "generationIds": [
+          "gen_01M0RE0KFNGXBKZTB3XK7GHXYJ",
+          "gen_01M0RE0PPNHRY9G2M44D19KASC",
+          "gen_01M0RE0VZMQ0607JBRAHQYF9HK",
+          "gen_01M0RE0YWD83KT21JHYYR573XN",
+          "gen_01M0RE125VBYR96Y0QV6ZBK61T",
+          "gen_01M0RE1XK3W1A2J9RDMXK6XWTG"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 38129,
+          "cacheWriteTokens": 7845,
+          "inputTokens": 3068,
+          "outputTokens": 5123,
+          "reasoningTokens": 4008
+        },
+        "usd": 0.1624795
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RE31Y918GFET3R554E84RE"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6995,
+          "outputTokens": 408,
+          "reasoningTokens": 364
+        },
+        "usd": 0.0141645
+      }
+    ],
+    "totalUsd": 8.463038630000002,
+    "unpricedCalls": 0
+  },
+  "kind": "error",
+  "minimum": {
+    "pq": 8,
+    "sc": 8
+  },
+  "selected": "host-mixture",
+  "strategy": {
+    "budget": {
+      "exhausted": true,
+      "maxCalls": 20,
+      "maxUsd": 0.25,
+      "reservedCalls": 18,
+      "reservedUsd": 0.235
+    },
+    "eligible": 4,
+    "evaluated": 2,
+    "stopScore": 9.75,
+    "stoppedEarly": true
+  },
+  "text": "I rejected every candidate for “dna” instead of returning another weak icon. The best pair was Host mixture baseline at 3.2/10. The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate."
+}

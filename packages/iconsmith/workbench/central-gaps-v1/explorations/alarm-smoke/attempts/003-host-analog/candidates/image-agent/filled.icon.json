@@ -1,0 +1,30 @@
+{
+  "draw": [
+    {
+      "h": 10,
+      "op": "rect",
+      "r": 2,
+      "w": 12,
+      "x": 6,
+      "y": 12
+    },
+    {
+      "cx": 14,
+      "cy": 17,
+      "op": "circle",
+      "r": 1.25,
+      "knockout": true
+    },
+    {
+      "cx": 12,
+      "cy": 6,
+      "from": "left",
+      "op": "arc",
+      "r": 4,
+      "sweep": "half"
+    }
+  ],
+  "icon": "alarm-smoke",
+  "keyline": null,
+  "finish": "filled"
+}

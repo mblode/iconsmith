@@ -1,0 +1,5 @@
+icon alarm-smoke
+finish filled
+rect 6,12 12x10 r2
+hole circle 14,17 r1.25
+arc 12,6 r4 half from left

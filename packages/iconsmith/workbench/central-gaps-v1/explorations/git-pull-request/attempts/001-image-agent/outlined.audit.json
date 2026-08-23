@@ -1,0 +1,26 @@
+{
+  "agent": {
+    "attempted": ["agent"],
+    "findings": [],
+    "mode": "draw-and-review",
+    "ok": true,
+    "pq": 10,
+    "reason": "The candidate icon matches the style, proportions, and finish of the reference set perfectly. It is a clean, competent representation of 'git-pull-request' in an outlined style, using open circular nodes with holes where appropriate and a solid arrow head. No visual or technical issues were found.",
+    "sc": 10,
+    "scorable": true,
+    "selected": "agent"
+  },
+  "clean": true,
+  "issues": [],
+  "steps": 5,
+  "trace": [
+    "tournament/image-agent",
+    "proposal",
+    "listParts",
+    "listParts",
+    "construct",
+    "construct",
+    "render",
+    "lint"
+  ]
+}

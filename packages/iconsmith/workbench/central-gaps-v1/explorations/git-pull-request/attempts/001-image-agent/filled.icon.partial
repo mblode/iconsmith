@@ -1,0 +1,8 @@
+icon git-pull-request
+finish filled
+circle 6,5 r3
+circle 6,19 r3
+rect 5,6 2x12 r1
+circle 18,19 r3
+rect 17,6 2x12 r1
+rect 10,6 9x2 r1

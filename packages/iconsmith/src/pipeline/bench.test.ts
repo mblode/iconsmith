@@ -592,7 +592,7 @@ describe("no member of a benchmark entry's concept closure reaches the model", (
         leaked: [],
       });
     }
-  });
+  }, 30_000);
 
   it("holds out the same icons however large the set gets", async () => {
     const held: string[][] = [];

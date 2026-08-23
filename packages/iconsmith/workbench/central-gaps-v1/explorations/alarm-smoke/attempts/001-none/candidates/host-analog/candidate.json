@@ -1,0 +1,122 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 2,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RFBCQXMRCZ4SQ3A34YGMGK"],
+        "model": "google/gemini-3.6-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 566,
+          "reasoningTokens": 424
+        },
+        "usd": 0.00900375
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RFBCQK4KRTHPHGTX23PQGK"],
+        "model": "google/gemini-3.6-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 588,
+          "reasoningTokens": 486
+        },
+        "usd": 0.00908625
+      }
+    ],
+    "totalUsd": 0.018090000000000002,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "host-analog",
+  "label": "Host analog baseline",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "analog compose alarm-smoke",
+      "clean": false,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon shows a simple tilted semi-circle outline rather than a recognizable smoke detector or alarm."
+        },
+        {
+          "kind": "empty",
+          "message": "Missing key visual identifiers for a smoke alarm, such as the circular ceiling unit, sensor vents, or smoke waves."
+        }
+      ],
+      "finish": "outlined",
+      "generation": null,
+      "issues": [
+        {
+          "message": "Visual extent is 18.0×12.0; keyline \"square\" wants 18×18 (±1). Scale by 1.506.",
+          "rule": "keyline",
+          "severity": "error"
+        },
+        {
+          "message": "Filled visual extent 18.0×11.0 does not match outlined 18.0×12.0. Expand the stroke — do not flood the bbox or restamp finish.",
+          "rule": "extent",
+          "severity": "error"
+        }
+      ],
+      "pq": 3,
+      "programComplete": true,
+      "reason": "The candidate depicts an unrecognizable tilted bowl/semicircle shape that lacks the essential components of a smoke alarm icon.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 5,
+      "text": "analog compose alarm-smoke",
+      "trace": ["icon", "keyline", "finish", "part", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "analog compose alarm-smoke",
+      "clean": false,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts a tilted semi-circle shape instead of a smoke detector or smoke alarm."
+        }
+      ],
+      "finish": "filled",
+      "generation": null,
+      "issues": [
+        {
+          "message": "Visual extent is 18.0×11.0; keyline \"square\" wants 18×18 (±1). Scale by 1.634.",
+          "rule": "keyline",
+          "severity": "error"
+        },
+        {
+          "message": "Filled visual extent 18.0×11.0 does not match outlined 18.0×12.0. Expand the stroke — do not flood the bbox or restamp finish.",
+          "rule": "extent",
+          "severity": "error"
+        }
+      ],
+      "pq": 2,
+      "programComplete": true,
+      "reason": "The candidate icon shows an abstract, tilted half-disk/bowl shape that completely fails to convey the concept of a smoke alarm.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 5,
+      "text": "analog compose alarm-smoke",
+      "trace": ["icon", "keyline", "finish", "part", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 1.23
+}

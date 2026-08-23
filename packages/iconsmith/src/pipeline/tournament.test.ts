@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { AuditResult } from "./audit.js";
+import type { ApiCost } from "./cost.js";
 import type { GenerateResult } from "./generate.js";
 import { rankPairCandidates, runPairTournament } from "./tournament.js";
 
@@ -34,6 +35,25 @@ const result = (audit: AuditResult, warnings = 0): GenerateResult =>
     text: "done",
     trace: ["icon", "finish"],
   }) as GenerateResult;
+
+const pricedResult = (usd: number): GenerateResult => {
+  const cost: ApiCost = {
+    calls: 1,
+    generationIds: [],
+    model: "test/cheap",
+    operation: "icon-generation",
+    source: "gateway",
+    usage: {
+      cacheReadTokens: 0,
+      cacheWriteTokens: 0,
+      inputTokens: 1,
+      outputTokens: 1,
+      reasoningTokens: 0,
+    },
+    usd,
+  };
+  return { ...result(review(10, 10)), apiCosts: [cost] };
+};
 
 describe("runPairTournament", () => {
   it("selects the strongest complete pair, not the best single paint", async () => {
@@ -172,6 +192,220 @@ describe("runPairTournament", () => {
     expect(tournament.stoppedEarly).toBe(true);
     expect(tournament.winner?.id).toBe("library");
   });
+
+  it("reserves a complete pair before starting it and fails closed on budget exhaustion", async () => {
+    const attempted: string[] = [];
+    const tournament = await runPairTournament({
+      budget: { maxCalls: 4, maxUsd: 0.1 },
+      candidates: [
+        {
+          generate: (finish) => {
+            attempted.push(`baseline-${finish}`);
+            return Promise.resolve(result(review(9, 9)));
+          },
+          id: "baseline",
+          label: "Baseline",
+          reserveCalls: 2,
+          reserveUsd: 0.05,
+        },
+        {
+          generate: (finish) => {
+            attempted.push(`frontier-${finish}`);
+            return Promise.resolve(result(review(10, 10)));
+          },
+          id: "frontier",
+          label: "Frontier",
+          reserveCalls: 3,
+          reserveUsd: 0.06,
+        },
+      ],
+      concept: { name: "home" },
+      stopScore: 9.75,
+    });
+
+    expect(attempted).toEqual(["baseline-outlined", "baseline-filled"]);
+    expect(tournament.best?.id).toBe("baseline");
+    expect(tournament.budget).toEqual({
+      actualCalls: 0,
+      actualUsd: 0,
+      exhausted: true,
+      maxCalls: 4,
+      maxUsd: 0.1,
+      overrun: false,
+      reservedCalls: 2,
+      reservedUsd: 0.05,
+    });
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("fails closed when a candidate exceeds its conservative reservation", async () => {
+    const tournament = await runPairTournament({
+      budget: { maxCalls: 2, maxUsd: 0.1 },
+      candidates: [
+        {
+          generate: () => Promise.resolve(pricedResult(0.08)),
+          id: "underestimated",
+          label: "Underestimated",
+          reserveCalls: 2,
+          reserveUsd: 0.05,
+        },
+      ],
+      concept: { name: "home" },
+      stopScore: 9.75,
+    });
+
+    expect(tournament.budget).toEqual({
+      actualCalls: 2,
+      actualUsd: 0.16,
+      exhausted: true,
+      maxCalls: 2,
+      maxUsd: 0.1,
+      overrun: true,
+      reservedCalls: 2,
+      reservedUsd: 0.05,
+    });
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("stops escalation when a serial pair fails after paid work may have completed", async () => {
+    const attempted: string[] = [];
+    const tournament = await runPairTournament({
+      budget: { maxCalls: 4, maxUsd: 0.2 },
+      candidates: [
+        {
+          generate: (finish) => {
+            attempted.push(`partial-${finish}`);
+            return finish === "outlined"
+              ? Promise.resolve(pricedResult(0.02))
+              : Promise.reject(new Error("filled generation failed"));
+          },
+          id: "partial",
+          label: "Partial paid pair",
+          reserveCalls: 2,
+          reserveUsd: 0.05,
+          serial: true,
+        },
+        {
+          generate: (finish) => {
+            attempted.push(`next-${finish}`);
+            return Promise.resolve(pricedResult(0.02));
+          },
+          id: "next",
+          label: "Next candidate",
+          reserveCalls: 2,
+          reserveUsd: 0.05,
+        },
+      ],
+      concept: { name: "home" },
+      stopScore: 9.75,
+    });
+
+    expect(attempted).toEqual(["partial-outlined", "partial-filled"]);
+    expect(tournament.candidates[0]?.failure).toContain(
+      "filled generation failed"
+    );
+    expect(tournament.budget).toMatchObject({
+      actualUsd: null,
+      exhausted: true,
+      overrun: true,
+    });
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("stops escalation when either parallel paint fails", async () => {
+    const attempted: string[] = [];
+    const tournament = await runPairTournament({
+      budget: { maxCalls: 4, maxUsd: 0.2 },
+      candidates: [
+        {
+          generate: (finish) => {
+            attempted.push(`partial-${finish}`);
+            return finish === "outlined"
+              ? Promise.resolve(pricedResult(0.02))
+              : Promise.reject(new Error("parallel filled failed"));
+          },
+          id: "partial",
+          label: "Parallel partial pair",
+          reserveCalls: 2,
+          reserveUsd: 0.05,
+        },
+        {
+          generate: (finish) => {
+            attempted.push(`next-${finish}`);
+            return Promise.resolve(pricedResult(0.02));
+          },
+          id: "next",
+          label: "Next candidate",
+          reserveCalls: 2,
+          reserveUsd: 0.05,
+        },
+      ],
+      concept: { name: "home" },
+      stopScore: 9.75,
+    });
+
+    expect(attempted).toEqual(["partial-outlined", "partial-filled"]);
+    expect(tournament.candidates[0]?.failure).toContain(
+      "parallel filled failed"
+    );
+    expect(tournament.budget).toMatchObject({
+      actualUsd: null,
+      exhausted: true,
+      overrun: true,
+    });
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("does not start an unpriced candidate inside a dollar budget", async () => {
+    let called = false;
+    const tournament = await runPairTournament({
+      budget: { maxCalls: 10, maxUsd: 1 },
+      candidates: [
+        {
+          generate: () => {
+            called = true;
+            return Promise.resolve(result(review(10, 10)));
+          },
+          id: "unknown-price",
+          label: "Unknown price",
+          reserveCalls: 2,
+        },
+      ],
+      concept: { name: "home" },
+      stopScore: 9.75,
+    });
+
+    expect(called).toBe(false);
+    expect(tournament.budget?.exhausted).toBe(true);
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("fails the budget closed when visual audit output cannot be priced", async () => {
+    const unreviewed = { ...result(review(10, 10)), audit: undefined };
+    const tournament = await runPairTournament({
+      ask: () => Promise.reject(new Error("structured output failed")),
+      budget: { maxCalls: 2, maxUsd: 0.1 },
+      candidates: [
+        {
+          generate: () => Promise.resolve(unreviewed),
+          id: "candidate",
+          label: "Candidate",
+          reserveCalls: 2,
+          reserveUsd: 0.1,
+        },
+      ],
+      concept: { name: "home" },
+      stopScore: 9.75,
+    });
+
+    expect(tournament.budget).toMatchObject({
+      actualCalls: 2,
+      actualUsd: null,
+      exhausted: true,
+      overrun: true,
+    });
+    expect(tournament.winner).toBeNull();
+  });
 });
 
 describe("rankPairCandidates", () => {
@@ -191,5 +425,27 @@ describe("rankPairCandidates", () => {
     });
 
     expect(ranking.order).toEqual(["canonical", "modifier", "badge"]);
+  });
+
+  it("marks a failed ranking call as unpriced instead of treating it as free", async () => {
+    const candidates = ["first", "second"].map((id) => ({
+      generate: () => Promise.resolve(result(review(9, 9))),
+      id,
+      label: id,
+    }));
+    const ranking = await rankPairCandidates({
+      ask: () => Promise.reject(new Error("structured output failed")),
+      candidates,
+      concept: { name: "home" },
+    });
+
+    expect(ranking.cost).toMatchObject({
+      calls: 1,
+      operation: "candidate-ranking",
+      source: "unpriced",
+      usd: null,
+    });
+    expect(ranking.order).toEqual(["first", "second"]);
+    expect(ranking.reason).toContain("structured output failed");
   });
 });

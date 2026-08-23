@@ -3,6 +3,11 @@ import { z } from "zod";
 export const studioFinishSchema = z.enum(["outlined", "filled"]);
 export type StudioFinish = z.infer<typeof studioFinishSchema>;
 
+export const studioBudgetSchema = z.object({
+  maxCalls: z.number().int().positive().max(200),
+  maxUsd: z.number().positive().max(100),
+});
+
 export const studioAttachmentSchema = z.object({
   dataUrl: z.string().max(2_100_000).optional(),
   kind: z.enum(["image", "svg", "file", "library"]),
@@ -39,6 +44,7 @@ export interface StudioLibraryResponse {
 }
 
 export const studioIssueSchema = z.object({
+  declared: z.string().optional(),
   message: z.string(),
   rule: z.string(),
   severity: z.enum(["error", "warn"]),
@@ -61,25 +67,55 @@ export const studioAgentRunSchema = z.object({
 });
 export type StudioAgentRun = z.infer<typeof studioAgentRunSchema>;
 
-export const studioTournamentPaintSchema = z.object({
-  accepted: z.boolean(),
-  clean: z.boolean(),
-  findings: z.array(z.object({ kind: z.string(), message: z.string() })),
-  finish: studioFinishSchema,
-  pq: z.number(),
-  reason: z.string().nullable(),
-  sc: z.number(),
-  scorable: z.boolean(),
-  svg: z.string(),
+export const studioTokenUsageSchema = z.object({
+  cacheReadTokens: z.number().int().nonnegative(),
+  cacheWriteTokens: z.number().int().nonnegative(),
+  inputTokens: z.number().int().nonnegative(),
+  outputTokens: z.number().int().nonnegative(),
+  reasoningTokens: z.number().int().nonnegative(),
 });
 
-export const studioCostRecordSchema = z.object({
+export const studioApiCostRecordSchema = z.object({
   calls: z.number().int().nonnegative(),
+  generationIds: z.array(z.string()),
   model: z.string(),
   operation: z.string(),
   source: z.enum(["fixed", "gateway", "rate-table", "unpriced"]),
+  usage: studioTokenUsageSchema,
   usd: z.number().nonnegative().nullable(),
 });
+
+export const studioGenerationCostSchema = z.object({
+  finishReason: z.string(),
+  ms: z.number().nonnegative(),
+  outcome: z.enum(["budget", "clean", "converged", "stalled"]),
+  toolCalls: z.record(z.string(), z.number().int().nonnegative()),
+  usage: studioTokenUsageSchema,
+});
+
+export const studioTournamentPaintSchema = z.object({
+  accepted: z.boolean(),
+  apiCosts: z.array(studioApiCostRecordSchema),
+  brief: z.string().nullable(),
+  clean: z.boolean(),
+  document: z.unknown(),
+  findings: z.array(z.object({ kind: z.string(), message: z.string() })),
+  finish: studioFinishSchema,
+  generation: studioGenerationCostSchema.nullable(),
+  issues: z.array(studioIssueSchema),
+  pq: z.number(),
+  program: z.string().nullable(),
+  programComplete: z.boolean(),
+  reason: z.string().nullable(),
+  sc: z.number(),
+  scorable: z.boolean(),
+  steps: z.number().int().nonnegative(),
+  svg: z.string(),
+  text: z.string(),
+  trace: z.array(z.string()),
+});
+
+export const studioCostRecordSchema = studioApiCostRecordSchema;
 
 export const studioCostSummarySchema = z.object({
   calls: z.number().int().nonnegative(),
@@ -116,6 +152,18 @@ export const studioTournamentSchema = z.object({
   ranking: z.object({ order: z.array(z.string()), reason: z.string().nullable() }).nullable(),
   selected: z.string(),
   strategy: z.object({
+    budget: z
+      .object({
+        actualCalls: z.number().int().nonnegative(),
+        actualUsd: z.number().nonnegative().nullable(),
+        exhausted: z.boolean(),
+        maxCalls: z.number().int().nonnegative(),
+        maxUsd: z.number().nonnegative(),
+        overrun: z.boolean(),
+        reservedCalls: z.number().int().nonnegative(),
+        reservedUsd: z.number().nonnegative(),
+      })
+      .nullable(),
     eligible: z.number().int().nonnegative(),
     evaluated: z.number().int().nonnegative(),
     stopScore: z.number().nullable(),
@@ -129,11 +177,13 @@ export const studioVersionSchema = z.object({
   batchId: z.string(),
   brief: z.string(),
   clean: z.boolean(),
+  document: z.unknown(),
   finish: studioFinishSchema,
   id: z.string(),
   issues: z.array(studioIssueSchema),
   name: z.string(),
   program: z.string(),
+  programComplete: z.boolean(),
   steps: z.number().int().nonnegative(),
   svg: z.string(),
   trace: z.array(z.string()),
@@ -163,6 +213,7 @@ export const studioRequestSchema = z.object({
   answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
   approved: z.boolean().optional(),
   attachments: z.array(studioAttachmentSchema).max(4).optional(),
+  budget: studioBudgetSchema.optional(),
   finish: studioFinishSchema.optional(),
   lastName: z.string().max(240).optional(),
   pending: z.enum(["questions", "approval"]).optional(),

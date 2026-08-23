@@ -1,0 +1,29 @@
+{
+  "draw": [
+    {
+      "h": 6,
+      "op": "rect",
+      "r": 3,
+      "w": 18,
+      "x": 3,
+      "y": 14
+    },
+    {
+      "cx": 12,
+      "cy": 17,
+      "op": "dot",
+      "role": "floating"
+    },
+    {
+      "cx": 10,
+      "cy": 8,
+      "from": "bottom",
+      "op": "arc",
+      "r": 3,
+      "sweep": "half"
+    }
+  ],
+  "icon": "alarm-smoke",
+  "keyline": null,
+  "finish": "filled"
+}

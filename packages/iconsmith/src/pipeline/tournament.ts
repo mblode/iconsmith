@@ -20,7 +20,7 @@ import type { Finish } from "../types.js";
 import { audit } from "./audit.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
-import { tokenUsageOf } from "./cost.js";
+import { EMPTY_USAGE, tokenUsageOf, totalUsd } from "./cost.js";
 import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { GenerateResult } from "./generate.js";
 import type { Concept } from "./prompt.js";
@@ -33,6 +33,12 @@ export interface PairCandidate {
   /** Human-readable arm name. */
   label: string;
   generate: (finish: Finish) => Promise<GenerateResult>;
+  /** Conservative paid-call reservation used before an automatic run starts
+   * this complete pair. A failed arm does not refund it. */
+  reserveCalls?: number;
+  /** Conservative USD reservation. Gateway reports exact cost after a call,
+   * so automatic runs fail closed when a whole pair does not fit. */
+  reserveUsd?: number;
   /** Resource-heavy subprocess arms run after the parallel pool, one paint at
    *  a time. This prevents a local coding harness from competing with a full
    *  image/model fan-out for process handles while preserving its evidence. */
@@ -66,7 +72,7 @@ const rankSchema = z.object({
 
 /** Ranking ten already-rendered rows is a coarse selection task. The stronger
  * audit model still independently accepts or rejects both winner paints. */
-export const PAIR_RANK_MODEL = "google/gemini-3.5-flash-lite";
+export const PAIR_RANK_MODEL = "google/gemini-3.1-flash-lite";
 
 export const gatewayPairRankAsk: PairRankAsk = async ({
   concept,
@@ -171,6 +177,15 @@ export const rankPairCandidates = async ({
   } catch (error) {
     return {
       candidates: [...candidates],
+      cost: {
+        calls: 1,
+        generationIds: [],
+        model: PAIR_RANK_MODEL,
+        operation: "candidate-ranking",
+        source: "unpriced",
+        usage: { ...EMPTY_USAGE },
+        usd: null,
+      },
       order: candidates.map((candidate) => candidate.id),
       reason: `candidate ranking failed (${failureMessage(error)}); kept library order`,
     };
@@ -198,6 +213,16 @@ export interface TournamentRun {
 export interface PairTournamentResult {
   /** Best generated pair even when it missed the acceptance gate. */
   best: TournamentRun | null;
+  budget: {
+    actualCalls: number;
+    actualUsd: number | null;
+    exhausted: boolean;
+    maxCalls: number;
+    maxUsd: number;
+    overrun: boolean;
+    reservedCalls: number;
+    reservedUsd: number;
+  } | null;
   candidates: TournamentRun[];
   /** Candidates available before an accuracy gate stopped escalation. */
   eligible: number;
@@ -209,6 +234,7 @@ export interface PairTournamentResult {
 
 export interface PairTournamentOptions {
   ask?: AuditAsk;
+  budget?: { maxCalls: number; maxUsd: number };
   candidates: readonly PairCandidate[];
   concept: Concept;
   minimumPq?: number;
@@ -261,8 +287,10 @@ const compareRuns = (a: TournamentRun, b: TournamentRun): number =>
  * CLI failure, provider outage, or malformed program cannot erase good work
  * from another arm.
  */
+// oxlint-disable-next-line eslint/complexity -- one state machine owns pair generation, quality gates, and pre/post-call budget accounting
 export const runPairTournament = async ({
   ask,
+  budget,
   candidates,
   concept,
   minimumPq = TOURNAMENT_MINIMUM,
@@ -334,19 +362,95 @@ export const runPairTournament = async ({
     }
   };
   const runs: TournamentRun[] = [];
+  let reservedCalls = 0;
+  let reservedUsd = 0;
+  let actualCalls = 0;
+  let actualUsd = 0;
+  let hasUnpricedCalls = false;
+  let budgetExhausted = false;
+  const reserve = (candidate: PairCandidate): boolean => {
+    if (!budget) {
+      return true;
+    }
+    const calls = candidate.reserveCalls ?? 0;
+    const usd = candidate.reserveUsd;
+    if (
+      usd === undefined ||
+      reservedCalls + calls > budget.maxCalls ||
+      reservedUsd + usd > budget.maxUsd
+    ) {
+      budgetExhausted = true;
+      return false;
+    }
+    reservedCalls += calls;
+    reservedUsd += usd;
+    return true;
+  };
+  const recordActual = (run: TournamentRun): void => {
+    const costs = run.paints.flatMap((paint) => [
+      ...(paint.result.apiCosts ?? []),
+      ...(paint.audit.cost ? [paint.audit.cost] : []),
+    ]);
+    actualCalls += costs.reduce((sum, cost) => sum + cost.calls, 0);
+    const measured = totalUsd(costs);
+    if (measured === null) {
+      hasUnpricedCalls = true;
+    } else {
+      actualUsd += measured;
+    }
+    // A pair-level failure can happen after one paint has already completed
+    // and been billed. `runCandidate` intentionally collapses that incomplete
+    // pair to failure evidence, so its total is unknowable here. Automatic
+    // escalation must stop rather than treating the missing paint ledger as
+    // free and starting another candidate.
+    if (budget && run.failure !== null) {
+      hasUnpricedCalls = true;
+      budgetExhausted = true;
+    }
+    if (
+      budget &&
+      (actualCalls > budget.maxCalls ||
+        hasUnpricedCalls ||
+        actualUsd > budget.maxUsd)
+    ) {
+      budgetExhausted = true;
+    }
+  };
   if (stopScore === null) {
-    const parallel = candidates.filter((candidate) => !candidate.serial);
-    const serial = candidates.filter((candidate) => candidate.serial);
-    runs.push(...(await Promise.all(parallel.map(runCandidate))));
-    for (const candidate of serial) {
-      // oxlint-disable-next-line eslint/no-await-in-loop -- serial candidates must not overlap the parallel pool or one another.
-      runs.push(await runCandidate(candidate));
+    if (budget) {
+      for (const candidate of candidates) {
+        if (!reserve(candidate)) {
+          break;
+        }
+        // oxlint-disable-next-line eslint/no-await-in-loop -- a budget is reserved pair by pair before paid work starts.
+        const run = await runCandidate(candidate);
+        runs.push(run);
+        recordActual(run);
+        if (budgetExhausted) {
+          break;
+        }
+      }
+    } else {
+      const parallel = candidates.filter((candidate) => !candidate.serial);
+      const serial = candidates.filter((candidate) => candidate.serial);
+      runs.push(...(await Promise.all(parallel.map(runCandidate))));
+      for (const candidate of serial) {
+        // oxlint-disable-next-line eslint/no-await-in-loop -- serial candidates must not overlap the parallel pool or one another.
+        runs.push(await runCandidate(candidate));
+      }
     }
   } else {
     for (const candidate of candidates) {
+      if (!reserve(candidate)) {
+        break;
+      }
       // oxlint-disable-next-line eslint/no-await-in-loop -- accuracy-gated escalation is intentionally sequential so later paid arms remain uncalled.
       const run = await runCandidate(candidate);
       runs.push(run);
+      recordActual(run);
+      if (budgetExhausted) {
+        break;
+      }
       if (run.accepted && run.score >= stopScore) {
         break;
       }
@@ -356,10 +460,27 @@ export const runPairTournament = async ({
   const best = ranked.find((run) => run.paints.length > 0) ?? null;
   return {
     best,
+    budget: budget
+      ? {
+          actualCalls,
+          actualUsd: hasUnpricedCalls ? null : actualUsd,
+          exhausted: budgetExhausted,
+          maxCalls: budget.maxCalls,
+          maxUsd: budget.maxUsd,
+          overrun:
+            actualCalls > budget.maxCalls ||
+            hasUnpricedCalls ||
+            actualUsd > budget.maxUsd,
+          reservedCalls,
+          reservedUsd,
+        }
+      : null,
     candidates: runs,
     eligible: candidates.length,
     minimum: { pq: minimumPq, sc: minimumSc },
     stoppedEarly: runs.length < candidates.length,
-    winner: ranked.find((run) => run.accepted) ?? null,
+    winner: budgetExhausted
+      ? null
+      : (ranked.find((run) => run.accepted) ?? null),
   };
 };

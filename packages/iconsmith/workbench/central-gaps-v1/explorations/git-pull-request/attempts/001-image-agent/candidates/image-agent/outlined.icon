@@ -1,0 +1,10 @@
+icon git-pull-request
+finish outlined
+circle 6,5 r2
+circle 6,19 r2
+line 6,7 6,17
+circle 18,19 r2
+line 18,7 18,17
+line 12,7 18,7
+line 12,7 15,4
+line 12,7 15,10

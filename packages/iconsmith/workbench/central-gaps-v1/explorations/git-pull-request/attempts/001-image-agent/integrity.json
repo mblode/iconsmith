@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "sourceOfTruth": "rendered-svg-only",
+  "documentAvailable": false,
+  "programRoundTrip": {
+    "outlined": "exact",
+    "filled": "lossy"
+  },
+  "finding": "The saved filled DSL omits two diagonal arrow segments that are present in the rendered SVG.",
+  "disposition": "rejected"
+}

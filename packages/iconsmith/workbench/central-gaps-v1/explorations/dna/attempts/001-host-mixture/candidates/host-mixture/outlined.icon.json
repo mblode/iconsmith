@@ -1,0 +1,65 @@
+{
+  "draw": [
+    {
+      "cx": 12,
+      "cy": 6,
+      "from": "top",
+      "op": "arc",
+      "r": 3,
+      "sweep": "half"
+    },
+    {
+      "ccw": true,
+      "cx": 12,
+      "cy": 12,
+      "from": "top",
+      "op": "arc",
+      "r": 3,
+      "sweep": "half"
+    },
+    {
+      "cx": 12,
+      "cy": 18,
+      "from": "top",
+      "op": "arc",
+      "r": 3,
+      "sweep": "half"
+    },
+    {
+      "cx": 12,
+      "cy": 3,
+      "from": "right",
+      "op": "arc",
+      "r": 3,
+      "sweep": "quarter"
+    },
+    {
+      "ccw": true,
+      "cx": 12,
+      "cy": 9,
+      "from": "top",
+      "op": "arc",
+      "r": 3,
+      "sweep": "half"
+    },
+    {
+      "cx": 12,
+      "cy": 15,
+      "from": "top",
+      "op": "arc",
+      "r": 3,
+      "sweep": "half"
+    },
+    {
+      "ccw": true,
+      "cx": 12,
+      "cy": 21,
+      "from": "top",
+      "op": "arc",
+      "r": 3,
+      "sweep": "quarter"
+    }
+  ],
+  "icon": "dna",
+  "keyline": null
+}

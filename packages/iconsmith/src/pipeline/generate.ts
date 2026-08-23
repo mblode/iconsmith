@@ -87,6 +87,10 @@ export const withCacheBreakpoints = (
 /** Enough turns for a search, a dozen primitives, three looks and a fix. Past
  *  this the model is polishing, and polishing is where it drifts. */
 export const DEFAULT_MAX_STEPS = 24;
+/** Budgeted runs must bound the cost of the one response that can cross the
+ * observed-dollar threshold. This is deliberately lower than the SDK's model
+ * default while leaving enough room for a primitive call and a short reason. */
+export const BUDGETED_MAX_OUTPUT_TOKENS = 4096;
 
 /** Who draws a name the house has no file for. See `GenerateOptions.unkeyed`. */
 export type Unkeyed = "agent" | "analog" | "glyph" | "harness" | "mixture";
@@ -130,6 +134,10 @@ export interface GenerateOptions {
   hints?: PartHint[];
   keyline?: Keyline | null;
   maxSteps?: number;
+  /** Stop after the first completed model call that reaches this observed
+   * Gateway spend. A single in-flight call can cross the threshold. Unpriced
+   * calls stop immediately after their first response rather than run blind. */
+  maxUsd?: number;
   /**
    * A model instance, or a provider model id (`anthropic/claude-opus-5`,
    * `thinkingmachines/inkling:free`). A bare id is namespaced as Anthropic
@@ -567,6 +575,7 @@ const fromModel = async (
     cohort: GenerateOptions["cohort"];
     forceAgent: boolean;
     maxSteps: number;
+    maxUsd: number | undefined;
     model: GenerateOptions["model"];
     policy: GenerateOptions["policy"];
     proposal: GenerateOptions["proposal"];
@@ -576,6 +585,14 @@ const fromModel = async (
 ): Promise<GenerateResult> => {
   const resolved = resolveModel(opts.model, opts.apiKey);
   const costTracker = gatewayCostTracker(opts.apiKey);
+  let modelId: string;
+  if (typeof opts.model === "string") {
+    modelId = opts.model;
+  } else if (typeof resolved === "string") {
+    modelId = resolved;
+  } else {
+    ({ modelId } = resolved);
+  }
   const end: Termination = {
     clean: false,
     converged: false,
@@ -583,6 +600,9 @@ const fromModel = async (
     version: canvas.version,
   };
   const result = await generateText({
+    maxOutputTokens:
+      opts.maxUsd === undefined ? undefined : BUDGETED_MAX_OUTPUT_TOKENS,
+    maxRetries: opts.maxUsd === undefined ? undefined : 0,
     model: resolved,
     onLanguageModelCallEnd: costTracker.capture,
     prepareStep: ({ messages: stepMessages }) => ({
@@ -591,6 +611,16 @@ const fromModel = async (
     prompt: conceptPrompt(concept, finish),
     stopWhen: [
       stepCountIs(opts.maxSteps),
+      () => {
+        if (opts.maxUsd === undefined) {
+          return false;
+        }
+        const observed = costTracker.observed(modelId);
+        return (
+          observed.calls > 0 &&
+          (observed.usd === null || observed.usd >= opts.maxUsd)
+        );
+      },
       drawnAndClean(canvas, state, end),
       noProgress(canvas, state, end),
     ],
@@ -606,8 +636,6 @@ const fromModel = async (
   });
   const usage = result.totalUsage;
   const measuredUsage = tokenUsageOf(usage);
-  const modelId =
-    typeof opts.model === "string" ? opts.model : resolved.modelId;
   const apiCost = await costTracker.measure({
     calls: result.steps.length,
     model: modelId,
@@ -650,6 +678,7 @@ export const generate = async (
     finish = "outlined",
     keyline = null,
     maxSteps = DEFAULT_MAX_STEPS,
+    maxUsd,
     model,
     parts = [],
     policy,
@@ -657,6 +686,13 @@ export const generate = async (
     renderSize,
     spec,
   } = options;
+
+  if (!Number.isInteger(maxSteps) || maxSteps < 1) {
+    throw new RangeError("maxSteps must be a positive integer");
+  }
+  if (maxUsd !== undefined && (!Number.isFinite(maxUsd) || maxUsd <= 0)) {
+    throw new RangeError("maxUsd must be a finite positive number");
+  }
 
   // `forceAgent` is an explicit request for a fresh drawing. It used to be
   // consumed by `reach()` and then lost here, so a known host construction
@@ -673,6 +709,7 @@ export const generate = async (
     finish,
     hostLocked,
     keyline,
+    maxPartSearches: 2,
     parts,
     proposal,
     renderSize,
@@ -705,6 +742,7 @@ export const generate = async (
     cohort,
     forceAgent: options.forceAgent === true,
     maxSteps,
+    maxUsd,
     model,
     policy,
     proposal,

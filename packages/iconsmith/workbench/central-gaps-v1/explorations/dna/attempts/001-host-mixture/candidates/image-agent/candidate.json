@@ -1,0 +1,282 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 14,
+    "records": [
+      {
+        "calls": 6,
+        "generationIds": [
+          "gen_01M0RDX6AMXT9XJ6ZMV37C0W3J",
+          "gen_01M0RDX9DH9TS1TEWVSDYC4N0J",
+          "gen_01M0RDXD36HGHG1Q1ARE7MD01H",
+          "gen_01M0RDXGY8B3WD1ZZMX5XY5Q7Q",
+          "gen_01M0RDYDBSAXWSNK8W8G63K24T",
+          "gen_01M0RDYFXH25MGJX9E65753EXN"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 36607,
+          "cacheWriteTokens": 7613,
+          "inputTokens": 6134,
+          "outputTokens": 7910,
+          "reasoningTokens": 6478
+        },
+        "usd": 0.24672349999999998
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RE31YN06FR0GE1DWPEZKBH"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6995,
+          "outputTokens": 404,
+          "reasoningTokens": 313
+        },
+        "usd": 0.0141285
+      },
+      {
+        "calls": 6,
+        "generationIds": [
+          "gen_01M0RE0KFNGXBKZTB3XK7GHXYJ",
+          "gen_01M0RE0PPNHRY9G2M44D19KASC",
+          "gen_01M0RE0VZMQ0607JBRAHQYF9HK",
+          "gen_01M0RE0YWD83KT21JHYYR573XN",
+          "gen_01M0RE125VBYR96Y0QV6ZBK61T",
+          "gen_01M0RE1XK3W1A2J9RDMXK6XWTG"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 38129,
+          "cacheWriteTokens": 7845,
+          "inputTokens": 3068,
+          "outputTokens": 5123,
+          "reasoningTokens": 4008
+        },
+        "usd": 0.1624795
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RE31Y918GFET3R554E84RE"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6995,
+          "outputTokens": 408,
+          "reasoningTokens": 364
+        },
+        "usd": 0.0141645
+      }
+    ],
+    "totalUsd": 0.437496,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "image-agent",
+  "label": "Image-guided Gateway agent",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 6,
+          "generationIds": [
+            "gen_01M0RDX6AMXT9XJ6ZMV37C0W3J",
+            "gen_01M0RDX9DH9TS1TEWVSDYC4N0J",
+            "gen_01M0RDXD36HGHG1Q1ARE7MD01H",
+            "gen_01M0RDXGY8B3WD1ZZMX5XY5Q7Q",
+            "gen_01M0RDYDBSAXWSNK8W8G63K24T",
+            "gen_01M0RDYFXH25MGJX9E65753EXN"
+          ],
+          "model": "anthropic/claude-opus-5",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 36607,
+            "cacheWriteTokens": 7613,
+            "inputTokens": 6134,
+            "outputTokens": 7910,
+            "reasoningTokens": 6478
+          },
+          "usd": 0.24672349999999998
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [
+        {
+          "kind": "empty",
+          "message": "The candidate icon is completely empty and contains no visible strokes or paths."
+        }
+      ],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 111972,
+        "outcome": "stalled",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 4,
+          "construct": 1,
+          "arc": 6,
+          "render": 1,
+          "remove": 6
+        },
+        "usage": {
+          "cacheReadTokens": 36607,
+          "cacheWriteTokens": 7613,
+          "inputTokens": 6134,
+          "outputTokens": 7910,
+          "reasoningTokens": 6478
+        }
+      },
+      "issues": [
+        {
+          "message": "Canvas is empty.",
+          "rule": "empty",
+          "severity": "error"
+        },
+        {
+          "message": "A twin pair needs both paints; an empty tile is a failed twin.",
+          "rule": "empty",
+          "severity": "error"
+        }
+      ],
+      "pq": 0,
+      "programComplete": true,
+      "reason": "The candidate image is entirely blank, so it does not represent the requested 'dna' concept or any icon at all.",
+      "sc": 0,
+      "scorable": true,
+      "steps": 6,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "listParts",
+        "listParts",
+        "construct",
+        "arc",
+        "arc",
+        "arc",
+        "arc",
+        "arc",
+        "arc",
+        "render",
+        "remove",
+        "remove",
+        "remove",
+        "remove",
+        "remove",
+        "remove"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 6,
+          "generationIds": [
+            "gen_01M0RE0KFNGXBKZTB3XK7GHXYJ",
+            "gen_01M0RE0PPNHRY9G2M44D19KASC",
+            "gen_01M0RE0VZMQ0607JBRAHQYF9HK",
+            "gen_01M0RE0YWD83KT21JHYYR573XN",
+            "gen_01M0RE125VBYR96Y0QV6ZBK61T",
+            "gen_01M0RE1XK3W1A2J9RDMXK6XWTG"
+          ],
+          "model": "anthropic/claude-opus-5",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 38129,
+            "cacheWriteTokens": 7845,
+            "inputTokens": 3068,
+            "outputTokens": 5123,
+            "reasoningTokens": 4008
+          },
+          "usd": 0.1624795
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [
+        {
+          "kind": "empty",
+          "message": "The candidate icon is completely blank/empty."
+        }
+      ],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 80337,
+        "outcome": "stalled",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 4,
+          "construct": 1,
+          "arc": 4,
+          "render": 1,
+          "remove": 4
+        },
+        "usage": {
+          "cacheReadTokens": 38129,
+          "cacheWriteTokens": 7845,
+          "inputTokens": 3068,
+          "outputTokens": 5123,
+          "reasoningTokens": 4008
+        }
+      },
+      "issues": [
+        {
+          "message": "Canvas is empty.",
+          "rule": "empty",
+          "severity": "error"
+        },
+        {
+          "message": "A twin pair needs both paints; an empty tile is a failed twin.",
+          "rule": "empty",
+          "severity": "error"
+        }
+      ],
+      "pq": 0,
+      "programComplete": true,
+      "reason": "The candidate image is completely blank, with no visible artwork rendered.",
+      "sc": 0,
+      "scorable": true,
+      "steps": 6,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "construct",
+        "listParts",
+        "listParts",
+        "arc",
+        "arc",
+        "arc",
+        "arc",
+        "render",
+        "remove",
+        "remove",
+        "remove",
+        "remove"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 0
+}

@@ -1,0 +1,270 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 14,
+    "records": [
+      {
+        "calls": 6,
+        "generationIds": [
+          "gen_01M0RFG2D0V8F1J49BAJRWYPRA",
+          "gen_01M0RFG4DRCV1ZH2FTAWNEZRMB",
+          "gen_01M0RFG75KRWDBW4A25YTS7ZP8",
+          "gen_01M0RFGA07268A4DZXXBAJ6TB2",
+          "gen_01M0RFGCEXKPJX9KDSX9E2GJ9E",
+          "gen_01M0RFGHE34GEQBT3460DA65KV"
+        ],
+        "model": "google/gemini-3.6-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 3390,
+          "cacheWriteTokens": 0,
+          "inputTokens": 29182,
+          "outputTokens": 771,
+          "reasoningTokens": 619
+        },
+        "usd": 0.025032
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RFH7VE9W1V91H2PBCYH26X"],
+        "model": "google/gemini-3.6-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 491,
+          "reasoningTokens": 446
+        },
+        "usd": 0.0087225
+      },
+      {
+        "calls": 6,
+        "generationIds": [
+          "gen_01M0RFGKJGXT5EK896DAWXR8QQ",
+          "gen_01M0RFGNFRHWBGEZ4CRX7XKKEC",
+          "gen_01M0RFGQC56QTST1JM5X5VGEPG",
+          "gen_01M0RFGS4NR3DW1SCGKA49H3S1",
+          "gen_01M0RFGWR3VE4JRH8Y6KC74PDB",
+          "gen_01M0RFH4J4W1A7HQBANQ2Y0CC2"
+        ],
+        "model": "google/gemini-3.6-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 37319,
+          "outputTokens": 1657,
+          "reasoningTokens": 1369
+        },
+        "usd": 0.034203000000000004
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RFH7TVPTND9NXZXM2KG3WW"],
+        "model": "google/gemini-3.6-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 789,
+          "reasoningTokens": 672
+        },
+        "usd": 0.00984
+      }
+    ],
+    "totalUsd": 0.0777975,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "image-agent",
+  "label": "Image-guided Gateway agent",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 6,
+          "generationIds": [
+            "gen_01M0RFG2D0V8F1J49BAJRWYPRA",
+            "gen_01M0RFG4DRCV1ZH2FTAWNEZRMB",
+            "gen_01M0RFG75KRWDBW4A25YTS7ZP8",
+            "gen_01M0RFGA07268A4DZXXBAJ6TB2",
+            "gen_01M0RFGCEXKPJX9KDSX9E2GJ9E",
+            "gen_01M0RFGHE34GEQBT3460DA65KV"
+          ],
+          "model": "google/gemini-3.6-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 3390,
+            "cacheWriteTokens": 0,
+            "inputTokens": 29182,
+            "outputTokens": 771,
+            "reasoningTokens": 619
+          },
+          "usd": 0.025032
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [
+        {
+          "kind": "empty",
+          "message": "The candidate image is completely blank with no visible paths or elements."
+        }
+      ],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 17269,
+        "outcome": "stalled",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 6,
+          "construct": 1,
+          "compare": 2
+        },
+        "usage": {
+          "cacheReadTokens": 3390,
+          "cacheWriteTokens": 0,
+          "inputTokens": 29182,
+          "outputTokens": 771,
+          "reasoningTokens": 619
+        }
+      },
+      "issues": [
+        {
+          "message": "Canvas is empty.",
+          "rule": "empty",
+          "severity": "error"
+        },
+        {
+          "message": "A twin pair needs both paints; an empty tile is a failed twin.",
+          "rule": "empty",
+          "severity": "error"
+        }
+      ],
+      "pq": 0,
+      "programComplete": true,
+      "reason": "The candidate icon is empty and contains no artwork.",
+      "sc": 0,
+      "scorable": true,
+      "steps": 6,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "listParts",
+        "listParts",
+        "listParts",
+        "listParts",
+        "construct",
+        "compare",
+        "compare"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 6,
+          "generationIds": [
+            "gen_01M0RFGKJGXT5EK896DAWXR8QQ",
+            "gen_01M0RFGNFRHWBGEZ4CRX7XKKEC",
+            "gen_01M0RFGQC56QTST1JM5X5VGEPG",
+            "gen_01M0RFGS4NR3DW1SCGKA49H3S1",
+            "gen_01M0RFGWR3VE4JRH8Y6KC74PDB",
+            "gen_01M0RFH4J4W1A7HQBANQ2Y0CC2"
+          ],
+          "model": "google/gemini-3.6-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "inputTokens": 37319,
+            "outputTokens": 1657,
+            "reasoningTokens": 1369
+          },
+          "usd": 0.034203000000000004
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The motif fails to depict a smoke alarm, showing only a pill-shaped bar and an off-center arc rather than a recognizable detector body with smoke or alarm indicators."
+        }
+      ],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 20777,
+        "outcome": "budget",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 10,
+          "construct": 1,
+          "compare": 1,
+          "rect": 1,
+          "dot": 1,
+          "arc": 1,
+          "render": 1
+        },
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 37319,
+          "outputTokens": 1657,
+          "reasoningTokens": 1369
+        }
+      },
+      "issues": [
+        {
+          "message": "Visual extent 18.0×16.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is landscape 20×18 (2.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "pq": 3.5,
+      "programComplete": true,
+      "reason": "The icon does not read as a smoke alarm, consisting only of a horizontal capsule and an isolated arc without recognizable smoke detector features.",
+      "sc": 2.5,
+      "scorable": true,
+      "steps": 6,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "listParts",
+        "listParts",
+        "construct",
+        "compare",
+        "listParts",
+        "listParts",
+        "listParts",
+        "rect",
+        "dot",
+        "arc",
+        "render",
+        "listParts",
+        "listParts",
+        "listParts"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 0.4
+}

@@ -4,11 +4,42 @@ import { defineTool } from "eve/tools";
 import { generateStudioResponse } from "../../lib/studio/generate";
 import { studioRequestSchema } from "../../lib/studio/types";
 
+const activeTurns = new Map<string, ReturnType<typeof generateStudioResponse>>();
+
+const clearFailedTurn = async (
+  operationId: string,
+  run: ReturnType<typeof generateStudioResponse>,
+): Promise<void> => {
+  try {
+    await run;
+  } catch {
+    if (activeTurns.get(operationId) === run) {
+      activeTurns.delete(operationId);
+    }
+  }
+};
+
+const generateOnce = (
+  request: Parameters<typeof generateStudioResponse>[0],
+  operationId: string,
+): ReturnType<typeof generateStudioResponse> => {
+  const active = activeTurns.get(operationId);
+  if (active) {
+    return active;
+  }
+
+  const run = generateStudioResponse(request, { operationId });
+  activeTurns.set(operationId, run);
+  void clearFailedTurn(operationId, run);
+  return run;
+};
+
 export default defineTool({
   description:
     "Run one exact Iconsmith Studio request through clarification or approval handling, paired outlined/filled generation, linting, rendering, and AI visual review. Use exactly once per user turn.",
   execute(request, ctx) {
-    return generateStudioResponse(request, { operationId: ctx.callId });
+    const operationId = `${ctx.session.id}-${ctx.session.turn.id}`;
+    return generateOnce(request, operationId);
   },
   inputSchema: studioRequestSchema,
   toModelOutput(output) {

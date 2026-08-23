@@ -190,6 +190,12 @@ describe("audit", () => {
     });
     expect(result.ok).toBe(false);
     expect(result.scorable).toBe(false);
+    expect(result.cost).toMatchObject({
+      calls: 1,
+      operation: "visual-audit",
+      source: "unpriced",
+      usd: null,
+    });
     expect(result.findings).toEqual([]);
     expect(result.reason).toMatch(/audit failed/u);
   });

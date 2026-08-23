@@ -1,0 +1,14 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 0,
+    "records": [],
+    "totalUsd": 0,
+    "unpricedCalls": 0
+  },
+  "failure": "Invalid JSON payload received. Unknown name \"items\" at 'tools[0].function_declarations[8].parameters.properties[1].value.items': Proto field is not repeating, cannot start list.",
+  "id": "image-agent",
+  "label": "Image-guided Gateway agent",
+  "paints": [],
+  "score": 0
+}

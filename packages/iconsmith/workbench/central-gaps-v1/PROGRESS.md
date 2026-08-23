@@ -1,0 +1,223 @@
+# Central gaps progress
+
+> Generated from campaign.json. Do not edit by hand.
+
+- Approved: 0/200
+- In review: 0
+- Needs revision: 2
+- Exploring: 0
+- Blocked: 0
+- Todo: 198
+- Superseded: 3
+
+## todo
+
+- [ ] briefcase · H/G/L/T · 0 attempt(s) · semantic review required
+- [ ] alert-circle · G/L/T · 0 attempt(s) · semantic review required
+- [ ] ampersand · G/L/T · 0 attempt(s)
+- [ ] axe · G/L/T · 0 attempt(s)
+- [ ] bandage · G/L/T · 0 attempt(s)
+- [ ] barrel · G/L/T · 0 attempt(s)
+- [ ] bath · G/L/T · 0 attempt(s) · semantic review required
+- [ ] cloud-lightning · G/L · 0 attempt(s)
+- [ ] beer-off · G/L/T · 0 attempt(s)
+- [ ] bell-minus · G/L/T · 0 attempt(s)
+- [ ] bell-plus · G/L/T · 0 attempt(s)
+- [ ] binary · G/L/T · 0 attempt(s) · semantic review required
+- [ ] binoculars · G/L/T · 0 attempt(s)
+- [ ] biohazard · G/L/T · 0 attempt(s)
+- [ ] blender · G/L/T · 0 attempt(s)
+- [ ] bluetooth-connected · G/L/T · 0 attempt(s)
+- [ ] bluetooth-off · G/L/T · 0 attempt(s)
+- [ ] bone · G/L/T · 0 attempt(s)
+- [ ] book-open · H/G/L · 0 attempt(s)
+- [ ] braces · G/L/T · 0 attempt(s)
+- [ ] calendar-cog · G/L/T · 0 attempt(s)
+- [ ] calendar-heart · G/L/T · 0 attempt(s)
+- [ ] calendar-x · G/L/T · 0 attempt(s)
+- [ ] cannabis · G/L/T · 0 attempt(s)
+- [ ] caravan · G/L/T · 0 attempt(s)
+- [ ] carrot · G/L/T · 0 attempt(s)
+- [ ] chart-area · G/L/T · 0 attempt(s)
+- [ ] chart-column · G/L/T · 0 attempt(s)
+- [ ] chart-scatter · G/L/T · 0 attempt(s)
+- [ ] chef-hat · G/L/T · 0 attempt(s)
+- [ ] chess-bishop · G/L/T · 0 attempt(s)
+- [ ] chess-king · G/L/T · 0 attempt(s)
+- [ ] chess-knight · G/L/T · 0 attempt(s)
+- [ ] chess-queen · G/L/T · 0 attempt(s)
+- [ ] chess-rook · G/L/T · 0 attempt(s)
+- [ ] circle-chevron-down · G/L/T · 0 attempt(s) · semantic review required
+- [ ] circle-chevron-left · G/L/T · 0 attempt(s) · semantic review required
+- [ ] circle-chevron-right · G/L/T · 0 attempt(s) · semantic review required
+- [ ] circle-chevron-up · G/L/T · 0 attempt(s) · semantic review required
+- [ ] clipboard-check · G/L/T · 0 attempt(s)
+- [ ] clipboard-plus · G/L/T · 0 attempt(s)
+- [ ] clipboard-x · G/L/T · 0 attempt(s)
+- [ ] clock-check · G/L/T · 0 attempt(s)
+- [ ] clock-plus · G/L/T · 0 attempt(s)
+- [ ] cloud-cog · G/L/T · 0 attempt(s)
+- [ ] cloud-fog · G/L/T · 0 attempt(s)
+- [ ] cloud-rain · G/L/T · 0 attempt(s)
+- [ ] clover · G/L/T · 0 attempt(s)
+- [ ] book-headphones · G/L · 0 attempt(s)
+- [ ] container · G/L/T · 0 attempt(s)
+- [ ] copy-check · G/L/T · 0 attempt(s)
+- [ ] copy-minus · G/L/T · 0 attempt(s)
+- [ ] copy-plus · G/L/T · 0 attempt(s)
+- [ ] copy-x · G/L/T · 0 attempt(s)
+- [ ] copyleft · G/L/T · 0 attempt(s)
+- [ ] creative-commons · G/L/T · 0 attempt(s)
+- [ ] cylinder · G/L/T · 0 attempt(s) · semantic review required
+- [ ] database-search · G/L/T · 0 attempt(s)
+- [ ] dna-off · G/L/T · 0 attempt(s)
+- [ ] drone · G/L/T · 0 attempt(s)
+- [ ] droplet · G/L/T · 0 attempt(s)
+- [ ] droplet-off · G/L/T · 0 attempt(s)
+- [ ] droplets · G/L/T · 0 attempt(s)
+- [ ] chart-gantt · G/L · 0 attempt(s)
+- [ ] ear-off · G/L/T · 0 attempt(s)
+- [ ] egg · G/L/T · 0 attempt(s)
+- [ ] egg-off · G/L/T · 0 attempt(s)
+- [ ] fence · G/L/T · 0 attempt(s)
+- [ ] file-check · G/L/T · 0 attempt(s)
+- [ ] file-diff · G/L/T · 0 attempt(s)
+- [ ] file-digit · G/L/T · 0 attempt(s)
+- [ ] file-minus · G/L/T · 0 attempt(s)
+- [ ] file-music · G/L/T · 0 attempt(s)
+- [ ] file-plus · G/L/T · 0 attempt(s)
+- [ ] file-signal · G/L/T · 0 attempt(s)
+- [ ] file-spreadsheet · G/L/T · 0 attempt(s)
+- [ ] file-stack · G/L/T · 0 attempt(s)
+- [ ] fish · G/L/T · 0 attempt(s)
+- [ ] fish-off · G/L/T · 0 attempt(s)
+- [ ] flag-off · G/L/T · 0 attempt(s)
+- [ ] flip-horizontal · G/L/T · 0 attempt(s) · semantic review required
+- [ ] flip-vertical · G/L/T · 0 attempt(s) · semantic review required
+- [ ] folder-check · G/L/T · 0 attempt(s)
+- [ ] folder-code · G/L/T · 0 attempt(s)
+- [ ] folder-cog · G/L/T · 0 attempt(s)
+- [ ] folder-heart · G/L/T · 0 attempt(s)
+- [ ] folder-root · G/L/T · 0 attempt(s)
+- [ ] folder-search · G/L/T · 0 attempt(s)
+- [ ] folder-symlink · G/L/T · 0 attempt(s) · semantic review required
+- [ ] forklift · G/L/T · 0 attempt(s)
+- [ ] cctv · G/L · 0 attempt(s)
+- [ ] git-branch · G/L/T · 0 attempt(s)
+- [ ] git-commit · G/L/T · 0 attempt(s)
+- [ ] git-compare · G/L/T · 0 attempt(s)
+- [ ] bow-arrow · G/L · 0 attempt(s)
+- [ ] git-merge · G/L/T · 0 attempt(s)
+- [ ] broccoli · G/L · 0 attempt(s)
+- [ ] git-pull-request-closed · G/L/T · 0 attempt(s)
+- [ ] git-pull-request-draft · G/L/T · 0 attempt(s)
+- [ ] globe-off · G/L/T · 0 attempt(s)
+- [ ] grape · G/L/T · 0 attempt(s)
+- [ ] grip-horizontal · G/L/T · 0 attempt(s)
+- [ ] grip-vertical · G/L/T · 0 attempt(s)
+- [ ] hand-grab · G/L/T · 0 attempt(s)
+- [ ] hash · G/L/T · 0 attempt(s) · semantic review required
+- [ ] haze · G/L/T · 0 attempt(s)
+- [ ] headset · G/L/T · 0 attempt(s)
+- [ ] heart-minus · G/L/T · 0 attempt(s)
+- [ ] heart-off · G/L/T · 0 attempt(s)
+- [ ] heart-plus · G/L/T · 0 attempt(s)
+- [ ] helicopter · G/L/T · 0 attempt(s)
+- [ ] cloud-hail · G/L · 0 attempt(s)
+- [ ] hospital · G/L/T · 0 attempt(s)
+- [ ] kayak · G/L/T · 0 attempt(s)
+- [ ] code-xml · G/L · 0 attempt(s)
+- [ ] list-tree · G/L/T · 0 attempt(s)
+- [ ] mail-search · G/L/T · 0 attempt(s)
+- [ ] map-pin-check · G/L/T · 0 attempt(s)
+- [ ] map-pin-minus · G/L/T · 0 attempt(s)
+- [ ] map-pin-plus · G/L/T · 0 attempt(s)
+- [ ] map-pin-x · G/L/T · 0 attempt(s)
+- [ ] message-circle-code · G/L/T · 0 attempt(s)
+- [ ] microscope · G/L/T · 0 attempt(s)
+- [ ] microwave · G/L/T · 0 attempt(s)
+- [ ] motorbike · G/L/T · 0 attempt(s)
+- [ ] mountain · G/L/T · 0 attempt(s)
+- [ ] navigation-off · G/L/T · 0 attempt(s)
+- [ ] nut · G/L/T · 0 attempt(s) · semantic review required
+- [ ] brick-wall · G/L · 0 attempt(s)
+- [ ] parking-meter · G/L/T · 0 attempt(s)
+- [ ] brain-cog · G/L · 0 attempt(s)
+- [ ] phone-off · G/L/T · 0 attempt(s)
+- [ ] podium · G/L/T · 0 attempt(s)
+- [ ] cooking-pot · G/L · 0 attempt(s)
+- [ ] receipt-euro · G/L/T · 0 attempt(s)
+- [ ] regex · G/L/T · 0 attempt(s)
+- [ ] replace · G/L/T · 0 attempt(s) · semantic review required
+- [ ] road · G/L/T · 0 attempt(s)
+- [ ] router · G/L/T · 0 attempt(s)
+- [ ] salad · G/L/T · 0 attempt(s)
+- [ ] scan-eye · G/L/T · 0 attempt(s)
+- [ ] section · G/L/T · 0 attempt(s) · semantic review required
+- [ ] separator-horizontal · G/L/T · 0 attempt(s)
+- [ ] shield-half · G/L/T · 0 attempt(s)
+- [ ] shield-minus · G/L/T · 0 attempt(s)
+- [ ] shield-plus · G/L/T · 0 attempt(s)
+- [ ] shirt · G/L/T · 0 attempt(s)
+- [ ] skull · G/L/T · 0 attempt(s)
+- [ ] square-asterisk · G/L/T · 0 attempt(s)
+- [ ] church · G/L · 0 attempt(s)
+- [ ] star-off · G/L/T · 0 attempt(s)
+- [ ] strikethrough · H/L/T · 0 attempt(s)
+- [ ] tent · G/L/T · 0 attempt(s)
+- [ ] text-wrap · G/L/T · 0 attempt(s)
+- [ ] thermometer · G/L/T · 0 attempt(s)
+- [ ] tornado · G/L/T · 0 attempt(s)
+- [ ] tractor · G/L/T · 0 attempt(s)
+- [ ] cloud-drizzle · G/L · 0 attempt(s)
+- [ ] trending-up-down · G/L/T · 0 attempt(s)
+- [ ] triangle · G/L/T · 0 attempt(s) · semantic review required
+- [ ] umbrella-off · G/L/T · 0 attempt(s)
+- [ ] user-search · G/L/T · 0 attempt(s) · semantic review required
+- [ ] webhook-off · G/L/T · 0 attempt(s)
+- [ ] wheat-off · G/L/T · 0 attempt(s)
+- [ ] wifi-off · G/L/T · 0 attempt(s)
+- [ ] abacus · G/T · 0 attempt(s)
+- [ ] affiliate · G/T · 0 attempt(s)
+- [ ] air-vent · G/L · 0 attempt(s)
+- [ ] alarm-clock-check · G/L · 0 attempt(s)
+- [ ] alarm-clock-minus · G/L · 0 attempt(s)
+- [ ] alarm-clock-off · G/L · 0 attempt(s)
+- [ ] alarm-clock-plus · G/L · 0 attempt(s)
+- [ ] alert-octagon · L/T · 0 attempt(s) · semantic review required
+- [ ] align-end-horizontal · G/L · 0 attempt(s)
+- [ ] align-end-vertical · G/L · 0 attempt(s)
+- [ ] align-horizontal-distribute-center · G/L · 0 attempt(s)
+- [ ] align-horizontal-distribute-end · G/L · 0 attempt(s)
+- [ ] align-horizontal-distribute-start · G/L · 0 attempt(s)
+- [ ] align-horizontal-space-around · G/L · 0 attempt(s)
+- [ ] align-horizontal-space-between · G/L · 0 attempt(s)
+- [ ] align-start-horizontal · G/L · 0 attempt(s)
+- [ ] align-start-vertical · G/L · 0 attempt(s)
+- [ ] align-vertical-distribute-center · G/L · 0 attempt(s)
+- [ ] align-vertical-distribute-end · G/L · 0 attempt(s)
+- [ ] align-vertical-distribute-start · G/L · 0 attempt(s)
+- [ ] align-vertical-space-around · G/L · 0 attempt(s)
+- [ ] align-vertical-space-between · G/L · 0 attempt(s)
+- [ ] app-window-mac · G/L · 0 attempt(s)
+- [ ] archive-off · G/T · 0 attempt(s)
+- [ ] archive-restore · G/L · 0 attempt(s) · semantic review required
+- [ ] archive-x · G/L · 0 attempt(s)
+- [ ] audio-lines · G/L · 0 attempt(s)
+- [ ] audio-waveform · G/L · 0 attempt(s)
+- [ ] baby-bottle · G/T · 0 attempt(s)
+- [ ] baggage-claim · G/L · 0 attempt(s)
+- [ ] biceps-flexed · G/L · 0 attempt(s)
+- [ ] brain-circuit · G/L · 0 attempt(s)
+- [ ] circuit-board · G/L · 0 attempt(s)
+
+## revision
+
+- [ ] alarm-smoke · G/L/T · 3 attempt(s)
+- [ ] dna · G/L/T · 1 attempt(s)
+
+## superseded
+
+- [ ] git-fork · G/L/T · 0 attempt(s) · Superseded after destination audit: git-fork already exists as an outlined/filled Central pair.
+- [ ] git-pull-request · G/L/T · 1 attempt(s) · Superseded after destination audit: git-pull-request already exists as an outlined/filled Central pair.
+- [ ] star-half · G/L/T · 0 attempt(s) · Superseded after destination audit: star-half already exists as an outlined/filled Central pair.

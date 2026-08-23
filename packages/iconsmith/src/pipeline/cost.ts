@@ -60,6 +60,18 @@ export const RATES: RateTable = {
     input: 0.3,
     output: 2.5,
   },
+  "gemini-3.6-flash": {
+    cacheRead: 0.075,
+    cacheWrite: 0,
+    input: 0.75,
+    output: 3.75,
+  },
+  "gemini-3.7-flash": {
+    cacheRead: 0.075,
+    cacheWrite: 0,
+    input: 0.75,
+    output: 3.75,
+  },
 };
 
 /**
@@ -102,6 +114,16 @@ export interface ApiCost {
   usage: TokenUsage;
   usd: number | null;
 }
+
+/** Compare final measured spend at microdollar precision. Unknown provider
+ * spend fails closed; an exact boundary remains allowed. */
+export const exceedsCostBudget = (
+  actual: { calls: number; usd: number | null },
+  budget: { maxCalls: number; maxUsd: number }
+): boolean =>
+  actual.calls > budget.maxCalls ||
+  actual.usd === null ||
+  Math.round(actual.usd * 1_000_000) > Math.round(budget.maxUsd * 1_000_000);
 
 /** The subset of AI SDK usage consumed here. Kept structural so this module
  * remains usable by the CLI and benchmark without importing the SDK. */

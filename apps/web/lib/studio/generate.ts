@@ -1,23 +1,24 @@
 import {
+  analogArm,
   compose,
   describeProposal,
+  exceedsCostBudget,
   EXPERT_IDS,
   generate as generateIcon,
   gatewayHarnessSpawn,
   gatewayAsk,
   harnessArm,
-  mixtureArm,
   compileArm,
   parseIconSvg,
   png,
   propose,
-  QUALITY_MODEL,
   rankPairCandidates,
   referenceSet,
+  runDsl,
   runPairTournament,
   totalUsd,
 } from "iconsmith";
-import type { ApiCost, AuditResult, ExpertId, PairCandidate } from "iconsmith";
+import type { ApiCost, AuditResult, ExpertId, IconDoc, PairCandidate, Part } from "iconsmith";
 
 import { loadStudioArsenal } from "./arsenal";
 import { conceptOf, isVague } from "./concept";
@@ -60,13 +61,28 @@ const CLARIFY: StudioQuestion[] = [
  * It keeps a 9.9 licensed house pair and escalates an merely acceptable 8.x
  * pair to the generative arsenal. */
 const CONFIDENT_PAIR_SCORE = 9.75;
+const IMAGE_AGENT_MAX_STEPS = 7;
+const IMAGE_AGENT_MAX_USD_PER_PAINT = 0.05;
+const IMAGE_AGENT_MODEL = "google/gemini-3.7-flash";
+const GATEWAY_AGENT_MODEL = "google/gemini-3.7-flash";
+const GATEWAY_AGENT_MAX_STEPS = 16;
+const HARNESS_MODEL = "anthropic/claude-sonnet-5";
+const PAIR_AUDIT_RESERVE_USD = 0.055;
+const IMAGE_PAIR_RESERVE_CALLS = IMAGE_AGENT_MAX_STEPS * 2 + 4;
+const IMAGE_PAIR_RESERVE_USD = 0.195;
 
 const asIssues = (
-  issues: readonly { message: string; rule: string; severity: string }[],
+  issues: readonly {
+    declared?: string;
+    message: string;
+    rule: string;
+    severity: string;
+  }[],
 ): StudioIssue[] =>
   issues
     .filter((issue) => issue.severity === "error" || issue.severity === "warn")
     .map((issue) => ({
+      ...(issue.declared ? { declared: issue.declared } : {}),
       message: issue.message,
       rule: issue.rule,
       severity: issue.severity as "error" | "warn",
@@ -116,11 +132,13 @@ const agentRun = (
 
 const costSummary = (costs: readonly ApiCost[]) => ({
   calls: costs.reduce((sum, cost) => sum + cost.calls, 0),
-  records: costs.map(({ calls, model, operation, source, usd }) => ({
+  records: costs.map(({ calls, generationIds, model, operation, source, usage, usd }) => ({
     calls,
+    generationIds,
     model,
     operation,
     source,
+    usage,
     usd,
   })),
   totalUsd: totalUsd(costs),
@@ -141,7 +159,7 @@ const costText = (usd: number | null): string =>
   usd === null ? "with an incomplete cost total" : `for $${usd.toFixed(4)}`;
 
 export interface GenerateStudioOptions {
-  /** Stable Eve call id when invoked as a durable tool; random for direct HTTP calls. */
+  /** Stable Eve session/turn id when invoked as a durable tool; random for direct HTTP calls. */
   readonly operationId?: string;
 }
 
@@ -173,7 +191,27 @@ const libraryCandidates = (
       },
       id: `library-${reference.name}`,
       label: `Existing library · ${reference.name}`,
+      reserveCalls: 2,
+      reserveUsd: PAIR_AUDIT_RESERVE_USD,
     }));
+};
+
+const completeProgram = (
+  doc: IconDoc,
+  program: string | undefined,
+  parts: readonly Part[],
+): boolean => {
+  if (!program || doc.draw.some((op) => op.op === "raw")) {
+    return false;
+  }
+  const replay = runDsl(program, [...parts]);
+  if (replay.errors.length > 0) {
+    return false;
+  }
+  return (
+    JSON.stringify(replay.canvas.toJSON({ icon: replay.icon, keyline: replay.keyline })) ===
+    JSON.stringify(doc)
+  );
 };
 
 // oxlint-disable-next-line eslint/complexity -- one orchestration owns approval, proposal, tournament, and response assembly
@@ -231,9 +269,9 @@ export const generateStudioResponse = async (
       try {
         const run = await propose(concept, {
           corpus: arsenal.references,
-          ideas: 2,
+          ideas: 1,
           parts: arsenal.parts,
-          qualityModel: QUALITY_MODEL,
+          qualityModel: null,
         });
         generatedProposal = run;
         ({ proposal } = run);
@@ -257,7 +295,7 @@ export const generateStudioResponse = async (
     ask: gatewayAsk,
     command: "claude",
     repairs: 2,
-    spawn: gatewayHarnessSpawn(),
+    spawn: gatewayHarnessSpawn({ model: HARNESS_MODEL }),
   });
   const ranking = await rankPairCandidates({
     candidates: libraryCandidates(concept, arsenal),
@@ -267,24 +305,15 @@ export const generateStudioResponse = async (
     ...ranking.candidates,
     {
       generate: (paint) =>
-        mixtureArm()(concept, {
+        analogArm()(concept, {
           corpus: arsenal.references,
           finish: paint,
           parts: arsenal.parts,
         }),
-      id: "host-mixture",
-      label: "Host mixture baseline",
-    },
-    {
-      generate: (paint) =>
-        generateIcon(concept, {
-          ...common,
-          finish: paint,
-          proposal: null,
-          select: "slug",
-        }),
-      id: "gateway-agent",
-      label: "Vercel Gateway tool agent",
+      id: "host-analog",
+      label: "Host analog baseline",
+      reserveCalls: 2,
+      reserveUsd: PAIR_AUDIT_RESERVE_USD,
     },
     {
       generate: async (paint) => {
@@ -295,13 +324,33 @@ export const generateStudioResponse = async (
         return generateIcon(concept, {
           ...common,
           finish: paint,
+          maxSteps: IMAGE_AGENT_MAX_STEPS,
+          maxUsd: IMAGE_AGENT_MAX_USD_PER_PAINT,
+          model: IMAGE_AGENT_MODEL,
           proposal: imageProposal,
           select: "contrast",
         });
       },
       id: "image-agent",
       label: "Image-guided Gateway agent",
+      reserveCalls: IMAGE_PAIR_RESERVE_CALLS,
+      reserveUsd: IMAGE_PAIR_RESERVE_USD,
       serial: true,
+    },
+    {
+      generate: (paint) =>
+        generateIcon(concept, {
+          ...common,
+          finish: paint,
+          maxSteps: GATEWAY_AGENT_MAX_STEPS,
+          model: GATEWAY_AGENT_MODEL,
+          proposal: null,
+          select: "slug",
+        }),
+      id: "gateway-agent",
+      label: "Vercel Gateway tool agent",
+      reserveCalls: GATEWAY_AGENT_MAX_STEPS * 2 + 2,
+      reserveUsd: 1.5,
     },
     {
       generate: async (paint) =>
@@ -313,11 +362,22 @@ export const generateStudioResponse = async (
         }),
       id: "claude-harness",
       label: "Claude Gateway code harness + repair",
+      reserveCalls: 8,
+      reserveUsd: 1,
       serial: true,
     },
   ];
+  const rankingCalls = ranking.cost?.calls ?? 0;
+  const rankingUsd = ranking.cost ? totalUsd([ranking.cost]) : 0;
+  const budget = request.budget
+    ? {
+        maxCalls: Math.max(0, request.budget.maxCalls - rankingCalls),
+        maxUsd: Math.max(0, request.budget.maxUsd - (rankingUsd ?? request.budget.maxUsd)),
+      }
+    : undefined;
   const tournament = await runPairTournament({
     ask: gatewayAsk,
+    budget,
     candidates,
     concept,
     references: referenceImages,
@@ -330,7 +390,34 @@ export const generateStudioResponse = async (
   const runCosts = tournament.candidates.flatMap(candidateCosts);
   const rankingCosts = ranking.cost ? [ranking.cost] : [];
   const allCosts = [...rankingCosts, ...proposalCosts, ...runCosts];
-  const measuredCost = costSummary(allCosts);
+  const accountedCost = costSummary(allCosts);
+  // A pair can fail after one provider call completes but before its
+  // GenerateResult is available. The tournament marks that ledger unknown;
+  // keep the Studio total unknown too instead of presenting the visible
+  // records as a complete total.
+  const measuredCost =
+    tournament.budget?.actualUsd === null
+      ? {
+          ...accountedCost,
+          totalUsd: null,
+          unpricedCalls: Math.max(1, accountedCost.unpricedCalls),
+        }
+      : accountedCost;
+  const measuredBudgetOverrun = request.budget
+    ? exceedsCostBudget({ calls: measuredCost.calls, usd: measuredCost.totalUsd }, request.budget)
+    : false;
+  const completeBudget = request.budget
+    ? {
+        actualCalls: measuredCost.calls,
+        actualUsd: measuredCost.totalUsd,
+        exhausted: tournament.budget?.exhausted === true || measuredBudgetOverrun,
+        maxCalls: request.budget.maxCalls,
+        maxUsd: request.budget.maxUsd,
+        overrun: tournament.budget?.overrun === true || measuredBudgetOverrun,
+        reservedCalls: rankingCalls + (tournament.budget?.reservedCalls ?? 0),
+        reservedUsd: (rankingUsd ?? request.budget.maxUsd) + (tournament.budget?.reservedUsd ?? 0),
+      }
+    : null;
   const tournamentSummary = {
     candidates: tournament.candidates.map((candidate) => ({
       accepted: candidate.accepted,
@@ -340,14 +427,27 @@ export const generateStudioResponse = async (
       label: candidate.label,
       paints: candidate.paints.map((paint) => ({
         accepted: paint.accepted,
+        apiCosts: paint.result.apiCosts ?? [],
+        brief: paint.result.brief ?? null,
         clean: paint.result.clean,
+        document: paint.result.doc,
         findings: paint.audit.findings,
         finish: paint.finish,
+        generation: paint.result.cost ?? null,
+        issues: asIssues(paint.result.issues),
         pq: paint.audit.pq,
+        program: paint.result.program ?? null,
+        programComplete: completeProgram(paint.result.doc, paint.result.program, [
+          ...arsenal.parts,
+          ...(paint.result.extras ?? []),
+        ]),
         reason: paint.audit.reason,
         sc: paint.audit.sc,
         scorable: paint.audit.scorable,
+        steps: paint.result.steps,
         svg: paint.result.svg,
+        text: paint.result.text,
+        trace: paint.result.trace,
       })),
       score: candidate.score,
     })),
@@ -368,22 +468,39 @@ export const generateStudioResponse = async (
       order: ranking.order,
       reason: ranking.reason,
     },
-    selected: tournament.winner?.id ?? tournament.best?.id ?? "none",
+    selected: measuredBudgetOverrun
+      ? "none"
+      : (tournament.winner?.id ?? tournament.best?.id ?? "none"),
     strategy: {
+      budget: completeBudget,
       eligible: tournament.eligible,
       evaluated: tournament.candidates.length,
       stopScore: CONFIDENT_PAIR_SCORE,
       stoppedEarly: tournament.stoppedEarly,
     },
   };
+  if (measuredBudgetOverrun) {
+    return {
+      kind: "error",
+      text:
+        `I stopped “${name}” in revision because the measured run crossed ` +
+        `the requested automatic budget after an in-flight provider call ` +
+        `${costText(measuredCost.totalUsd)} across ${measuredCost.calls} billed API calls. ` +
+        "No candidate can be delivered while any cost is unknown or over budget.",
+      tournament: tournamentSummary,
+    };
+  }
   if (!tournament.winner) {
     const { best } = tournament;
     const quality = best
       ? ` The best pair was ${best.label} at ${best.score.toFixed(1)}/10.`
       : " Every candidate arm failed before it produced a pair.";
+    const next = completeBudget?.exhausted
+      ? " The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate."
+      : " Try a more specific object noun or attach a composition reference.";
     return {
       kind: "error",
-      text: `I rejected every candidate for “${name}” instead of returning another weak icon.${quality} Try a more specific object noun or attach a composition reference.`,
+      text: `I rejected every candidate for “${name}” instead of returning another weak icon.${quality}${next}`,
       tournament: tournamentSummary,
     };
   }
@@ -402,11 +519,16 @@ export const generateStudioResponse = async (
       batchId,
       brief: `${winner.label} · selected from ${tournament.candidates.length} candidate pairs`,
       clean: result.clean,
+      document: result.doc,
       finish: paint,
       id: `${batchId}-${paint}`,
       issues: asIssues(result.issues),
       name,
       program: result.program ?? "",
+      programComplete: completeProgram(result.doc, result.program, [
+        ...arsenal.parts,
+        ...(result.extras ?? []),
+      ]),
       steps: result.steps,
       svg: result.svg,
       trace: [`tournament/${winner.id}`, ...result.trace],

@@ -1,0 +1,9 @@
+icon dna
+finish outlined
+arc 12,6 r3 half from top
+arc 12,12 r3 half from top ccw
+arc 12,18 r3 half from top
+arc 12,3 r3 quarter from right
+arc 12,9 r3 half from top ccw
+arc 12,15 r3 half from top
+arc 12,21 r3 quarter from top ccw

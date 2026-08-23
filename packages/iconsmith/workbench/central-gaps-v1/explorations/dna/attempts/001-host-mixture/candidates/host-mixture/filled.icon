@@ -1,0 +1,12 @@
+icon dna
+finish filled
+arc 7,8 r4 quarter from top ccw
+arc 3,12 r4 quarter from top
+arc 11,12 r4 quarter from left ccw
+arc 11,20 r4 quarter from top ccw
+arc 15,8 r4 quarter from top ccw
+arc 11,12 r4 quarter from top
+arc 19,12 r4 quarter from left ccw
+arc 19,20 r4 quarter from top ccw
+rect 3,7 8x2 r1
+rect 11,15 8x2 r1

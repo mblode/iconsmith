@@ -1,0 +1,221 @@
+{
+  "accepted": true,
+  "cost": {
+    "calls": 12,
+    "records": [
+      {
+        "calls": 5,
+        "generationIds": [
+          "gen_01M0RBWD7MSBR2MGKRAPT64DZ7",
+          "gen_01M0RBWH1MD08RKZPBD99Y3FMZ",
+          "gen_01M0RBWMDXN15R3ZR6G6KJXWXW",
+          "gen_01M0RBWPZT4K0E2ZPEHHGG3TN8",
+          "gen_01M0RBWVF3KTG9Q85KWHS5741W"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 38873,
+          "cacheWriteTokens": 1984,
+          "inputTokens": 492,
+          "outputTokens": 471,
+          "reasoningTokens": 183
+        },
+        "usd": 0.0336715
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBXAB2JTNR7W447XWD4YN0"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 14201,
+          "cacheWriteTokens": 0,
+          "inputTokens": 3688,
+          "outputTokens": 991,
+          "reasoningTokens": 915
+        },
+        "usd": 0.01658115
+      },
+      {
+        "calls": 5,
+        "generationIds": [
+          "gen_01M0RBWXJTXZ3FCX2BWRQQ08TF",
+          "gen_01M0RBX04E7XQKM7D1MMGFVXVB",
+          "gen_01M0RBX2XWQQAPBPZFQT61VKCY",
+          "gen_01M0RBX5BVVMXCMQMJMR6JEKJJ",
+          "gen_01M0RBX80SCF984G936S9QKB00"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 35531,
+          "cacheWriteTokens": 10112,
+          "inputTokens": 357,
+          "outputTokens": 380,
+          "reasoningTokens": 43
+        },
+        "usd": 0.0290505
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBXAC4ANZR8906VA21B3FZ"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 16229,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1660,
+          "outputTokens": 1281,
+          "reasoningTokens": 1205
+        },
+        "usd": 0.01645335
+      }
+    ],
+    "totalUsd": 0.0957565,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "image-agent",
+  "label": "Image-guided Gateway agent",
+  "paints": [
+    {
+      "accepted": true,
+      "apiCosts": [
+        {
+          "calls": 5,
+          "generationIds": [
+            "gen_01M0RBWD7MSBR2MGKRAPT64DZ7",
+            "gen_01M0RBWH1MD08RKZPBD99Y3FMZ",
+            "gen_01M0RBWMDXN15R3ZR6G6KJXWXW",
+            "gen_01M0RBWPZT4K0E2ZPEHHGG3TN8",
+            "gen_01M0RBWVF3KTG9Q85KWHS5741W"
+          ],
+          "model": "anthropic/claude-opus-5",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 38873,
+            "cacheWriteTokens": 1984,
+            "inputTokens": 492,
+            "outputTokens": 471,
+            "reasoningTokens": 183
+          },
+          "usd": 0.0336715
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 16523,
+        "outcome": "clean",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 2,
+          "construct": 2,
+          "render": 1,
+          "lint": 1
+        },
+        "usage": {
+          "cacheReadTokens": 38873,
+          "cacheWriteTokens": 1984,
+          "inputTokens": 492,
+          "outputTokens": 471,
+          "reasoningTokens": 183
+        }
+      },
+      "issues": [],
+      "pq": 10,
+      "reason": "The candidate icon matches the style, proportions, and finish of the reference set perfectly. It is a clean, competent representation of 'git-pull-request' in an outlined style, using open circular nodes with holes where appropriate and a solid arrow head. No visual or technical issues were found.",
+      "sc": 10,
+      "scorable": true,
+      "steps": 5,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "construct",
+        "construct",
+        "render",
+        "lint"
+      ],
+      "hasProgram": true
+    },
+    {
+      "accepted": true,
+      "apiCosts": [
+        {
+          "calls": 5,
+          "generationIds": [
+            "gen_01M0RBWXJTXZ3FCX2BWRQQ08TF",
+            "gen_01M0RBX04E7XQKM7D1MMGFVXVB",
+            "gen_01M0RBX2XWQQAPBPZFQT61VKCY",
+            "gen_01M0RBX5BVVMXCMQMJMR6JEKJJ",
+            "gen_01M0RBX80SCF984G936S9QKB00"
+          ],
+          "model": "anthropic/claude-opus-5",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 35531,
+            "cacheWriteTokens": 10112,
+            "inputTokens": 357,
+            "outputTokens": 380,
+            "reasoningTokens": 43
+          },
+          "usd": 0.0290505
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 13080,
+        "outcome": "clean",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 3,
+          "construct": 2,
+          "render": 1,
+          "lint": 1
+        },
+        "usage": {
+          "cacheReadTokens": 35531,
+          "cacheWriteTokens": 10112,
+          "inputTokens": 357,
+          "outputTokens": 380,
+          "reasoningTokens": 43
+        }
+      },
+      "issues": [],
+      "pq": 10,
+      "reason": "The icon perfectly represents the 'git-pull-request' concept in the filled finish. The stroke weight, node fills, and arrow curves are clean, professional, and fully consistent with the design language of the set.",
+      "sc": 10,
+      "scorable": true,
+      "steps": 5,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "listParts",
+        "construct",
+        "construct",
+        "render",
+        "lint"
+      ],
+      "hasProgram": true
+    }
+  ],
+  "score": 10
+}

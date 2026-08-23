@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "reviewer": "independent-visual-agent",
+  "outlined": {
+    "semanticConsistency": 9,
+    "perceptualQuality": 8,
+    "finding": "Recognizable pull-request branch, but the nodes, elbow, and arrow alignment are less resolved than the existing Central icon."
+  },
+  "filled": {
+    "semanticConsistency": 9,
+    "perceptualQuality": 6,
+    "finding": "The heavy filled nodes and bars feel uneven, and the persisted DSL cannot reproduce the rendered arrow."
+  },
+  "destinationEvidence": [
+    "../blode-icons/packages/blode-icons-react/icons-svg/git-pull-request.svg",
+    "../blode-icons/packages/blode-icons-react/icons-svg/git-pull-request-filled.svg"
+  ],
+  "verdict": "wont-do"
+}

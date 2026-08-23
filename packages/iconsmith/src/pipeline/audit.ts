@@ -17,11 +17,14 @@ import { z } from "zod";
 import { png } from "../tools/render.js";
 import type { Finish } from "../types.js";
 import type { ApiCost } from "./cost.js";
-import { tokenUsageOf } from "./cost.js";
+import { EMPTY_USAGE, tokenUsageOf } from "./cost.js";
 import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { CounterpartClass, DrawKind, MarkTwin } from "./kind.js";
 
-export const AUDIT_MODEL = "google/gemini-3.5-flash";
+/** High-value visual judge from the live Gateway catalog (2026-08-24).
+ * Gemini 3.7 Flash is the current discounted workhorse for agents, vision,
+ * and tool use. Acceptance remains independent of the generation model. */
+export const AUDIT_MODEL = "google/gemini-3.7-flash";
 export const PREVIEW_FILE = "PREVIEW.png";
 export const AUDIT_FILE = "AUDIT.json";
 /** Same size `eval/judge-model.ts` uses: eyes, not the 48px cosine raster. */
@@ -332,6 +335,15 @@ export const audit = async ({
   } catch (error) {
     return judged(
       {
+        cost: {
+          calls: 1,
+          generationIds: [],
+          model: AUDIT_MODEL,
+          operation: "visual-audit",
+          source: "unpriced",
+          usage: { ...EMPTY_USAGE },
+          usd: null,
+        },
         findings: [],
         pq: 0,
         reason: `audit failed (${(error as Error).message}); kept the drawing`,

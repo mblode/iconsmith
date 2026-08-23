@@ -1,0 +1,15 @@
+{
+  "draw": [
+    {
+      "id": "bell-alarm-1",
+      "op": "part",
+      "scale": 9.133305488919515,
+      "turn": 0,
+      "x": 2.941411626251362,
+      "y": 6.449102037757742
+    }
+  ],
+  "icon": "alarm-smoke",
+  "keyline": "square",
+  "finish": "filled"
+}

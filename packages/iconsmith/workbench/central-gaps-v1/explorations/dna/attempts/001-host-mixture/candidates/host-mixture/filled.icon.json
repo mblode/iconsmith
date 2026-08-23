@@ -1,0 +1,93 @@
+{
+  "draw": [
+    {
+      "ccw": true,
+      "cx": 7,
+      "cy": 8,
+      "from": "top",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "cx": 3,
+      "cy": 12,
+      "from": "top",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "ccw": true,
+      "cx": 11,
+      "cy": 12,
+      "from": "left",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "ccw": true,
+      "cx": 11,
+      "cy": 20,
+      "from": "top",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "ccw": true,
+      "cx": 15,
+      "cy": 8,
+      "from": "top",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "cx": 11,
+      "cy": 12,
+      "from": "top",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "ccw": true,
+      "cx": 19,
+      "cy": 12,
+      "from": "left",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "ccw": true,
+      "cx": 19,
+      "cy": 20,
+      "from": "top",
+      "op": "arc",
+      "r": 4,
+      "sweep": "quarter"
+    },
+    {
+      "h": 2,
+      "op": "rect",
+      "r": 1,
+      "w": 8,
+      "x": 3,
+      "y": 7
+    },
+    {
+      "h": 2,
+      "op": "rect",
+      "r": 1,
+      "w": 8,
+      "x": 11,
+      "y": 15
+    }
+  ],
+  "icon": "dna",
+  "keyline": null,
+  "finish": "filled"
+}

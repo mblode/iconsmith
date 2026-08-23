@@ -1,0 +1,593 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 2,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBNKFWWDW48E2T9KXW86G8"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 16229,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1660,
+          "outputTokens": 1016,
+          "reasoningTokens": 933
+        },
+        "usd": 0.01406835
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBNKG3GW8KX25C9ZT7V2H2"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 17889,
+          "outputTokens": 863,
+          "reasoningTokens": 756
+        },
+        "usd": 0.0346005
+      }
+    ],
+    "totalUsd": 0.04866885,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "host-mixture",
+  "label": "Host mixture baseline",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "mixture part-covered analog — analog compose git-pull-request",
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon is a simple circle and completely lacks the branches and arrow elements of a git-pull-request."
+        }
+      ],
+      "finish": "outlined",
+      "generation": null,
+      "issues": [
+        {
+          "message": "e0 and e3 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e0 and e45 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e1 and e4 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e1 and e46 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e2 and e5 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e2 and e47 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e3 and e6 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e4 and e7 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e5 and e8 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e6 and e9 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e7 and e10 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e8 and e11 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e9 and e12 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e10 and e13 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e11 and e14 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e12 and e15 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e13 and e16 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e14 and e17 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e15 and e18 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e16 and e19 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e17 and e20 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e18 and e21 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e19 and e22 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e20 and e23 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e21 and e24 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e22 and e25 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e23 and e26 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e24 and e27 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e25 and e28 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e26 and e29 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e27 and e30 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e28 and e31 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e29 and e32 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e30 and e33 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e31 and e34 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e32 and e35 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e33 and e36 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e34 and e37 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e35 and e38 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e36 and e39 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e37 and e40 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e38 and e41 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e39 and e42 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e40 and e43 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e41 and e44 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e42 and e45 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e43 and e46 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e44 and e47 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ],
+      "pq": 10,
+      "reason": "The candidate icon is a simple circle ring, which completely lacks the visual motifs of a 'git-pull-request' icon (the main line, the curved branch, and the arrow).",
+      "sc": 0,
+      "scorable": true,
+      "steps": 5,
+      "text": "analog compose git-pull-request",
+      "trace": [
+        "mixture/part-covered/analog",
+        "icon",
+        "keyline",
+        "finish",
+        "part",
+        "fit"
+      ],
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "mixture part-covered analog — analog compose git-pull-request",
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon is a simple ring (circle) and does not depict a git pull request, which requires branch lines, nodes, and an arrow."
+        }
+      ],
+      "finish": "filled",
+      "generation": null,
+      "issues": [
+        {
+          "message": "48 elements. At 24px the ceiling is 8; fewer, larger marks survive.",
+          "rule": "density",
+          "severity": "warn"
+        },
+        {
+          "message": "e0 and e3 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e0 and e45 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e1 and e4 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e1 and e46 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e2 and e5 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e2 and e47 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e3 and e6 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e4 and e7 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e5 and e8 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e6 and e9 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e7 and e10 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e8 and e11 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e9 and e12 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e10 and e13 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e11 and e14 are 0.26px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e12 and e15 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e13 and e16 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e14 and e17 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e15 and e18 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e16 and e19 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e17 and e20 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e18 and e21 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e19 and e22 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e20 and e23 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e21 and e24 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e22 and e25 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e23 and e26 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e24 and e27 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e25 and e28 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e26 and e29 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e27 and e30 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e28 and e31 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e29 and e32 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e30 and e33 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e31 and e34 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e32 and e35 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e33 and e36 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e34 and e37 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e35 and e38 are 0.29px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e36 and e39 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e37 and e40 are 0.20px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e38 and e41 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e39 and e42 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e40 and e43 are 0.18px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e41 and e44 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e42 and e45 are 0.33px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e43 and e46 are 0.22px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e44 and e47 are 0.36px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ],
+      "pq": 9,
+      "reason": "The candidate is a perfectly rendered circle ring, but it is completely the wrong icon and does not represent a git pull request.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 5,
+      "text": "analog compose git-pull-request",
+      "trace": [
+        "mixture/part-covered/analog",
+        "icon",
+        "keyline",
+        "finish",
+        "part",
+        "fit"
+      ],
+      "hasProgram": true
+    }
+  ],
+  "score": 0.5
+}

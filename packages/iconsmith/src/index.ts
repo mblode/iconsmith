@@ -86,6 +86,7 @@ export {
   READER_MODEL,
 } from "./pipeline/compose.js";
 export {
+  exceedsCostBudget,
   RATES,
   rateFor,
   reachPoints,
@@ -383,7 +384,7 @@ export type {
   Split,
   Strata,
 } from "./pipeline/bench.js";
-export type { Rate, RateTable, TokenUsage } from "./pipeline/cost.js";
+export type { Rate, RateTable } from "./pipeline/cost.js";
 export type {
   ConditioningProvenance,
   CostReport,

@@ -1,0 +1,1636 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-23T20:44:16.958Z",
+  "target": "central",
+  "requestedSources": {
+    "H": "heroicons",
+    "L": "lucide",
+    "T": "tabler",
+    "G": "hugeicons"
+  },
+  "count": 200,
+  "highConfidence": 180,
+  "review": 20,
+  "icons": [
+    {
+      "id": 1,
+      "name": "briefcase",
+      "sources": ["H", "G", "L", "T"],
+      "sourceNames": ["heroicons", "hugeicons", "lucide", "tabler"],
+      "sourceCount": 4,
+      "confidence": "review",
+      "risk": "May overlap Central work-bag/suitcase semantics under a non-aliased name."
+    },
+    {
+      "id": 2,
+      "name": "alarm-smoke",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 3,
+      "name": "alert-circle",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap Central exclamation-circle/warning-circle semantics; drawing should be visually differentiated."
+    },
+    {
+      "id": 4,
+      "name": "ampersand",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 5,
+      "name": "axe",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 6,
+      "name": "bandage",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 7,
+      "name": "barrel",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 8,
+      "name": "bath",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central has person-in-bath variants; this candidate is only useful as a generic bathtub."
+    },
+    {
+      "id": 9,
+      "name": "cloud-lightning",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 10,
+      "name": "beer-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 11,
+      "name": "bell-minus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 12,
+      "name": "bell-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 13,
+      "name": "binary",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central concept proposals associate binary with a generic numbers glyph; keep only if 0/1 code is distinct."
+    },
+    {
+      "id": 14,
+      "name": "binoculars",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 15,
+      "name": "biohazard",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 16,
+      "name": "blender",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 17,
+      "name": "bluetooth-connected",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 18,
+      "name": "bluetooth-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 19,
+      "name": "bone",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 20,
+      "name": "book-open",
+      "sources": ["H", "G", "L"],
+      "sourceNames": ["heroicons", "hugeicons", "lucide"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 21,
+      "name": "braces",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 22,
+      "name": "calendar-cog",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 23,
+      "name": "calendar-heart",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 24,
+      "name": "calendar-x",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 25,
+      "name": "cannabis",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 26,
+      "name": "caravan",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 27,
+      "name": "carrot",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 28,
+      "name": "chart-area",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 29,
+      "name": "chart-column",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 30,
+      "name": "chart-scatter",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 31,
+      "name": "chef-hat",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 32,
+      "name": "chess-bishop",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 33,
+      "name": "chess-king",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 34,
+      "name": "chess-knight",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 35,
+      "name": "chess-queen",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 36,
+      "name": "chess-rook",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 37,
+      "name": "circle-chevron-down",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central has multiple chevron sizes; verify it lacks the circled control."
+    },
+    {
+      "id": 38,
+      "name": "circle-chevron-left",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central has multiple chevron sizes; verify it lacks the circled control."
+    },
+    {
+      "id": 39,
+      "name": "circle-chevron-right",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central has multiple chevron sizes; verify it lacks the circled control."
+    },
+    {
+      "id": 40,
+      "name": "circle-chevron-up",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central has multiple chevron sizes; verify it lacks the circled control."
+    },
+    {
+      "id": 41,
+      "name": "clipboard-check",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 42,
+      "name": "clipboard-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 43,
+      "name": "clipboard-x",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 44,
+      "name": "clock-check",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 45,
+      "name": "clock-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 46,
+      "name": "cloud-cog",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 47,
+      "name": "cloud-fog",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 48,
+      "name": "cloud-rain",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 49,
+      "name": "clover",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 50,
+      "name": "book-headphones",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 51,
+      "name": "container",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 52,
+      "name": "copy-check",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 53,
+      "name": "copy-minus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 54,
+      "name": "copy-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 55,
+      "name": "copy-x",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 56,
+      "name": "copyleft",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 57,
+      "name": "creative-commons",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 58,
+      "name": "cylinder",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central concept proposals weakly associate cylinder with fire-extinguisher; visually inspect before generation."
+    },
+    {
+      "id": 59,
+      "name": "database-search",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 60,
+      "name": "dna",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 61,
+      "name": "dna-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 62,
+      "name": "drone",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 63,
+      "name": "droplet",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 64,
+      "name": "droplet-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 65,
+      "name": "droplets",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 66,
+      "name": "chart-gantt",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 67,
+      "name": "ear-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 68,
+      "name": "egg",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 69,
+      "name": "egg-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 70,
+      "name": "fence",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 71,
+      "name": "file-check",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 72,
+      "name": "file-diff",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 73,
+      "name": "file-digit",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 74,
+      "name": "file-minus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 75,
+      "name": "file-music",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 76,
+      "name": "file-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 77,
+      "name": "file-signal",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 78,
+      "name": "file-spreadsheet",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 79,
+      "name": "file-stack",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 80,
+      "name": "fish",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 81,
+      "name": "fish-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 82,
+      "name": "flag-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 83,
+      "name": "flip-horizontal",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap a Central mirror/reflect transform under different wording."
+    },
+    {
+      "id": 84,
+      "name": "flip-vertical",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap a Central mirror/reflect transform under different wording."
+    },
+    {
+      "id": 85,
+      "name": "folder-check",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 86,
+      "name": "folder-code",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 87,
+      "name": "folder-cog",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 88,
+      "name": "folder-heart",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 89,
+      "name": "folder-root",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 90,
+      "name": "folder-search",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 91,
+      "name": "folder-symlink",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap Central folder-link, depending on whether symlink and hyperlink are intentionally distinct."
+    },
+    {
+      "id": 92,
+      "name": "forklift",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 93,
+      "name": "cctv",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 94,
+      "name": "git-branch",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 95,
+      "name": "git-commit",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 96,
+      "name": "git-compare",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 97,
+      "name": "bow-arrow",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 98,
+      "name": "git-merge",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 99,
+      "name": "broccoli",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 100,
+      "name": "git-pull-request-closed",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 101,
+      "name": "git-pull-request-draft",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 102,
+      "name": "globe-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 103,
+      "name": "grape",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 104,
+      "name": "grip-horizontal",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 105,
+      "name": "grip-vertical",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 106,
+      "name": "hand-grab",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 107,
+      "name": "hash",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May visually overlap Central grid; keep only as the hash/number-sign symbol."
+    },
+    {
+      "id": 108,
+      "name": "haze",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 109,
+      "name": "headset",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 110,
+      "name": "heart-minus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 111,
+      "name": "heart-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 112,
+      "name": "heart-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 113,
+      "name": "helicopter",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 114,
+      "name": "cloud-hail",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 115,
+      "name": "hospital",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 116,
+      "name": "kayak",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 117,
+      "name": "code-xml",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 118,
+      "name": "list-tree",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 119,
+      "name": "mail-search",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 120,
+      "name": "map-pin-check",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 121,
+      "name": "map-pin-minus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 122,
+      "name": "map-pin-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 123,
+      "name": "map-pin-x",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 124,
+      "name": "message-circle-code",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 125,
+      "name": "microscope",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 126,
+      "name": "microwave",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 127,
+      "name": "motorbike",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 128,
+      "name": "mountain",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 129,
+      "name": "navigation-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 130,
+      "name": "nut",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap Central bolt/hardware semantics; generate only as the distinct hex nut object."
+    },
+    {
+      "id": 131,
+      "name": "brick-wall",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 132,
+      "name": "parking-meter",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 133,
+      "name": "brain-cog",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 134,
+      "name": "phone-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 135,
+      "name": "podium",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 136,
+      "name": "cooking-pot",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 137,
+      "name": "receipt-euro",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 138,
+      "name": "regex",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 139,
+      "name": "replace",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap Central swap/refresh semantics, though the source glyph is a distinct replace action."
+    },
+    {
+      "id": 140,
+      "name": "road",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 141,
+      "name": "router",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 142,
+      "name": "salad",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 143,
+      "name": "scan-eye",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 144,
+      "name": "section",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Generic concept; inspect drawing against Central layout/divider icons before generation."
+    },
+    {
+      "id": 145,
+      "name": "separator-horizontal",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 146,
+      "name": "shield-half",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 147,
+      "name": "shield-minus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 148,
+      "name": "shield-plus",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 149,
+      "name": "shirt",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 150,
+      "name": "skull",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 151,
+      "name": "square-asterisk",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 152,
+      "name": "church",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 153,
+      "name": "star-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 154,
+      "name": "strikethrough",
+      "sources": ["H", "L", "T"],
+      "sourceNames": ["heroicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 155,
+      "name": "tent",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 156,
+      "name": "text-wrap",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 157,
+      "name": "thermometer",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 158,
+      "name": "tornado",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 159,
+      "name": "tractor",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 160,
+      "name": "cloud-drizzle",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 161,
+      "name": "trending-up-down",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 162,
+      "name": "triangle",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "Central has triangle-bearing icons but no generic triangle slug/alias."
+    },
+    {
+      "id": 163,
+      "name": "umbrella-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 164,
+      "name": "user-search",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "review",
+      "risk": "May overlap Central people-search semantics if present only as an unindexed visual variant."
+    },
+    {
+      "id": 165,
+      "name": "webhook-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 166,
+      "name": "wheat-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 167,
+      "name": "wifi-off",
+      "sources": ["G", "L", "T"],
+      "sourceNames": ["hugeicons", "lucide", "tabler"],
+      "sourceCount": 3,
+      "confidence": "high"
+    },
+    {
+      "id": 168,
+      "name": "abacus",
+      "sources": ["G", "T"],
+      "sourceNames": ["hugeicons", "tabler"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 169,
+      "name": "affiliate",
+      "sources": ["G", "T"],
+      "sourceNames": ["hugeicons", "tabler"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 170,
+      "name": "air-vent",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 171,
+      "name": "alarm-clock-check",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 172,
+      "name": "alarm-clock-minus",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 173,
+      "name": "alarm-clock-off",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 174,
+      "name": "alarm-clock-plus",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 175,
+      "name": "alert-octagon",
+      "sources": ["L", "T"],
+      "sourceNames": ["lucide", "tabler"],
+      "sourceCount": 2,
+      "confidence": "review",
+      "risk": "May overlap a Central stop/warning octagon under different wording."
+    },
+    {
+      "id": 176,
+      "name": "align-end-horizontal",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 177,
+      "name": "align-end-vertical",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 178,
+      "name": "align-horizontal-distribute-center",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 179,
+      "name": "align-horizontal-distribute-end",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 180,
+      "name": "align-horizontal-distribute-start",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 181,
+      "name": "align-horizontal-space-around",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 182,
+      "name": "align-horizontal-space-between",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 183,
+      "name": "align-start-horizontal",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 184,
+      "name": "align-start-vertical",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 185,
+      "name": "align-vertical-distribute-center",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 186,
+      "name": "align-vertical-distribute-end",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 187,
+      "name": "align-vertical-distribute-start",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 188,
+      "name": "align-vertical-space-around",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 189,
+      "name": "align-vertical-space-between",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 190,
+      "name": "app-window-mac",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 191,
+      "name": "archive-off",
+      "sources": ["G", "T"],
+      "sourceNames": ["hugeicons", "tabler"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 192,
+      "name": "archive-restore",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "review",
+      "risk": "May overlap Central unarchive/restore-from-box semantics under another name."
+    },
+    {
+      "id": 193,
+      "name": "archive-x",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 194,
+      "name": "audio-lines",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 195,
+      "name": "audio-waveform",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 196,
+      "name": "baby-bottle",
+      "sources": ["G", "T"],
+      "sourceNames": ["hugeicons", "tabler"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 197,
+      "name": "baggage-claim",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 198,
+      "name": "biceps-flexed",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 199,
+      "name": "brain-circuit",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    },
+    {
+      "id": 200,
+      "name": "circuit-board",
+      "sources": ["G", "L"],
+      "sourceNames": ["hugeicons", "lucide"],
+      "sourceCount": 2,
+      "confidence": "high"
+    }
+  ]
+}

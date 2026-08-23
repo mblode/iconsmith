@@ -1,0 +1,294 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 44,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBTXPYJB4WGCPJ88E0Q91F"],
+        "model": "google/gemini-3.1-flash-lite-image",
+        "operation": "proposal-image",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 14185,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1654,
+          "outputTokens": 1120,
+          "reasoningTokens": 0
+        },
+        "usd": 0.03483905
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBTXQFJ64WZAX6H4YGZVZT"],
+        "model": "google/gemini-3.1-flash-lite-image",
+        "operation": "proposal-image",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 14185,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1654,
+          "outputTokens": 1120,
+          "reasoningTokens": 0
+        },
+        "usd": 0.03483905
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBTXQPVKE9ZCTT3JHTE316"],
+        "model": "google/gemini-3-pro-image",
+        "operation": "proposal-image",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 4008,
+          "cacheWriteTokens": 0,
+          "inputTokens": 3991,
+          "outputTokens": 1914,
+          "reasoningTokens": 794
+        },
+        "usd": 0.1527116
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBVNQSK88NM8DA3MRNFH85"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "proposal-selection",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 18686,
+          "outputTokens": 1897,
+          "reasoningTokens": 1860
+        },
+        "usd": 0.045102
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBW564RDN65PX8R8C6DS4Z"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "proposal-reading",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1613,
+          "outputTokens": 1043,
+          "reasoningTokens": 931
+        },
+        "usd": 0.0118065
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBNKFWWDW48E2T9KXW86G8"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 16229,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1660,
+          "outputTokens": 1016,
+          "reasoningTokens": 933
+        },
+        "usd": 0.01406835
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBNKG3GW8KX25C9ZT7V2H2"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 17889,
+          "outputTokens": 863,
+          "reasoningTokens": 756
+        },
+        "usd": 0.0346005
+      },
+      {
+        "calls": 10,
+        "generationIds": [
+          "gen_01M0RBNVGHV1SQ3R20FQPKKHJW",
+          "gen_01M0RBPPTWCVFBW9NVSDE2HGA1",
+          "gen_01M0RBPW5Q10YDX658C1S2ZHC8",
+          "gen_01M0RBPYNC0QZE5WFDCE9XSEB8",
+          "gen_01M0RBQF7A4TTKD09RVG0F1FZX",
+          "gen_01M0RBQY4CE87HTDR1AW0P0HBR",
+          "gen_01M0RBR50J804NW0YNN7VXPN7S",
+          "gen_01M0RBR97TD85HYWSFMG8B245J",
+          "gen_01M0RBRVV0GYWKT7M71NDN02QY",
+          "gen_01M0RBS28N333WAM0S13EZNBS5"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 88609,
+          "cacheWriteTokens": 10483,
+          "inputTokens": 30474,
+          "outputTokens": 7427,
+          "reasoningTokens": 4728
+        },
+        "usd": 0.3823495
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBTN0CZDDQYHFQ7HSYYDQ1"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 17889,
+          "outputTokens": 575,
+          "reasoningTokens": 510
+        },
+        "usd": 0.0320085
+      },
+      {
+        "calls": 13,
+        "generationIds": [
+          "gen_01M0RBNVGN53456M295PHT8K83",
+          "gen_01M0RBNYBP60PE1363HWYYJADB",
+          "gen_01M0RBP1RK12N6T3JTTJ3V6C1W",
+          "gen_01M0RBPM5KKH7VRSSG1HFPWVX5",
+          "gen_01M0RBQ0WHX4ZCQJ5F3MB6BVPE",
+          "gen_01M0RBQBV07NN0NWBZQQ299J26",
+          "gen_01M0RBRTSAKN8D440HD6MJC48Y",
+          "gen_01M0RBRYQEDRR7YZ8BA0X0TKRM",
+          "gen_01M0RBSDHM2DRCSB55V5MB8ADG",
+          "gen_01M0RBSG4479P3DWVKV2WZSA7Z",
+          "gen_01M0RBT9SWG28NFPHXSPY0NEYD",
+          "gen_01M0RBTC56X6BXBQ9FTFN1P8HD",
+          "gen_01M0RBTH2CHTDFPW8P0R61E4PS"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 126694,
+          "cacheWriteTokens": 11470,
+          "inputTokens": 56413,
+          "outputTokens": 9194,
+          "reasoningTokens": 7820
+        },
+        "usd": 0.5752619999999999
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBTMTW97Y0Q4G9VDKVTKQR"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 17889,
+          "outputTokens": 929,
+          "reasoningTokens": 854
+        },
+        "usd": 0.0351945
+      },
+      {
+        "calls": 5,
+        "generationIds": [
+          "gen_01M0RBWD7MSBR2MGKRAPT64DZ7",
+          "gen_01M0RBWH1MD08RKZPBD99Y3FMZ",
+          "gen_01M0RBWMDXN15R3ZR6G6KJXWXW",
+          "gen_01M0RBWPZT4K0E2ZPEHHGG3TN8",
+          "gen_01M0RBWVF3KTG9Q85KWHS5741W"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 38873,
+          "cacheWriteTokens": 1984,
+          "inputTokens": 492,
+          "outputTokens": 471,
+          "reasoningTokens": 183
+        },
+        "usd": 0.0336715
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBXAB2JTNR7W447XWD4YN0"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 14201,
+          "cacheWriteTokens": 0,
+          "inputTokens": 3688,
+          "outputTokens": 991,
+          "reasoningTokens": 915
+        },
+        "usd": 0.01658115
+      },
+      {
+        "calls": 5,
+        "generationIds": [
+          "gen_01M0RBWXJTXZ3FCX2BWRQQ08TF",
+          "gen_01M0RBX04E7XQKM7D1MMGFVXVB",
+          "gen_01M0RBX2XWQQAPBPZFQT61VKCY",
+          "gen_01M0RBX5BVVMXCMQMJMR6JEKJJ",
+          "gen_01M0RBX80SCF984G936S9QKB00"
+        ],
+        "model": "anthropic/claude-opus-5",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 35531,
+          "cacheWriteTokens": 10112,
+          "inputTokens": 357,
+          "outputTokens": 380,
+          "reasoningTokens": 43
+        },
+        "usd": 0.0290505
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RBXAC4ANZR8906VA21B3FZ"],
+        "model": "google/gemini-3.5-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 16229,
+          "cacheWriteTokens": 0,
+          "inputTokens": 1660,
+          "outputTokens": 1281,
+          "reasoningTokens": 1205
+        },
+        "usd": 0.01645335
+      }
+    ],
+    "totalUsd": 1.4485380499999998,
+    "unpricedCalls": 0
+  },
+  "kind": "drawn",
+  "minimum": {
+    "pq": 8,
+    "sc": 8
+  },
+  "selected": "image-agent",
+  "strategy": {
+    "eligible": 4,
+    "evaluated": 3,
+    "stopScore": 9.75,
+    "stoppedEarly": true
+  },
+  "text": "Image-guided Gateway agent won a 3-pair tournament at 10.0/10 for $1.4485 across 44 billed API calls. Both paints cleared SC 8/10, PQ 8/10, lint, and zero-finding gates. Reference read: 2 element(s): - block 1: large, tall, sitting left - block 2: large, tall, sitting right  Arrangement: - block 2 sits right of block 1  Parts whose shape resembles a block: clock-2, pull-request-closed-simple-1, pull-request-closed-simple-2",
+  "reviewOverride": {
+    "destinationDuplicate": true,
+    "programIntegrity": {
+      "filled": "lossy",
+      "outlined": "exact"
+    },
+    "reason": "Rejected after destination and independent visual audits: an existing Central pair is better, and the filled SVG does not round-trip through its saved DSL program.",
+    "verdict": "wont-do"
+  }
+}

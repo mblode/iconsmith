@@ -1,0 +1,54 @@
+{
+  "asOf": "2026-08-24",
+  "currency": "USD",
+  "pricingSource": "Vercel AI Gateway live model registry",
+  "proposalImageFallbackUsd": {
+    "google/gemini-3.1-flash-lite-image": 0.034
+  },
+  "ratesPerMillionTokens": {
+    "anthropic/claude-sonnet-5": {
+      "cachedInput": 0.2,
+      "cacheWrite": 2.5,
+      "input": 2,
+      "output": 10
+    },
+    "google/gemini-3.1-flash-lite": {
+      "cachedInput": 0.03,
+      "input": 0.25,
+      "output": 1.5
+    },
+    "google/gemini-3.1-flash-lite-image": {
+      "cachedInput": 0.03,
+      "input": 0.25,
+      "output": 1.5
+    },
+    "google/gemini-3.6-flash": {
+      "cachedInput": 0.075,
+      "input": 0.75,
+      "output": 3.75
+    },
+    "google/gemini-3.7-flash": {
+      "cachedInput": 0.075,
+      "input": 0.75,
+      "output": 3.75
+    }
+  },
+  "roles": {
+    "codingHarnessEscalation": "anthropic/claude-sonnet-5",
+    "compositionCritique": "google/gemini-3.1-flash-lite",
+    "compositionReader": "google/gemini-3.1-flash-lite",
+    "eveOrchestrator": "google/gemini-3.1-flash-lite",
+    "iconDslGeneration": "google/gemini-3.7-flash",
+    "pairCandidateRanking": "google/gemini-3.1-flash-lite",
+    "proposalImage": "google/gemini-3.1-flash-lite-image",
+    "visualAcceptance": "google/gemini-3.7-flash"
+  },
+  "rules": [
+    "Use deterministic library and analog candidates before paid generation.",
+    "Use cheap multimodal models for coarse selection and closed-vocabulary extraction.",
+    "Use a stronger model for icon DSL generation and independent final visual acceptance.",
+    "Do not start Claude harness escalation unless the complete pair reservation fits.",
+    "Treat a missing price as unknown, never zero.",
+    "Treat per-call USD limits as soft cutoffs and reject over-budget final ledgers."
+  ]
+}

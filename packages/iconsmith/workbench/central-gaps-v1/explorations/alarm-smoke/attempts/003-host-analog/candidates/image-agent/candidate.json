@@ -1,0 +1,294 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 16,
+    "records": [
+      {
+        "calls": 7,
+        "generationIds": [
+          "gen_01M0RG0YQD5YWTVDJ16A8GM40H",
+          "gen_01M0RG11WABMFT4GG36Z5F0ZWY",
+          "gen_01M0RG14N95TEF800QX2S0G0CQ",
+          "gen_01M0RG17GMSZQJJKJ641RPVH42",
+          "gen_01M0RG1GZ6S3TXNT6GP17D16K4",
+          "gen_01M0RG1KNHWJV92434M2TWHAG0",
+          "gen_01M0RG25EHPTC8MJW0VNNXAJTG"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 3550,
+          "cacheWriteTokens": 0,
+          "inputTokens": 39493,
+          "outputTokens": 3155,
+          "reasoningTokens": 2819
+        },
+        "usd": 0.041717250000000004
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG3RJ49FPHBPY01G5CJ5HF"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 183,
+          "reasoningTokens": 112
+        },
+        "usd": 0.0075675
+      },
+      {
+        "calls": 7,
+        "generationIds": [
+          "gen_01M0RG2C398BC0HZMZJ23JK2H6",
+          "gen_01M0RG2E6CS72F3DM385H9N8FC",
+          "gen_01M0RG2MX9G6RV4FG85GQJC1DP",
+          "gen_01M0RG2QNQ30X9KTN1HQ91T0P1",
+          "gen_01M0RG2XSZZJKXT6004VCHJBNE",
+          "gen_01M0RG3AMPZWCK1ZC0BRC9AM3K",
+          "gen_01M0RG3MMPDNRYPMPQKWBT84CN"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 21158,
+          "cacheWriteTokens": 0,
+          "inputTokens": 23562,
+          "outputTokens": 1312,
+          "reasoningTokens": 994
+        },
+        "usd": 0.02417835
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RG3RSDXVA41W3BK4SH6CP3"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9175,
+          "outputTokens": 462,
+          "reasoningTokens": 365
+        },
+        "usd": 0.00861375
+      }
+    ],
+    "totalUsd": 0.08207685,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "image-agent",
+  "label": "Image-guided Gateway agent",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 7,
+          "generationIds": [
+            "gen_01M0RG0YQD5YWTVDJ16A8GM40H",
+            "gen_01M0RG11WABMFT4GG36Z5F0ZWY",
+            "gen_01M0RG14N95TEF800QX2S0G0CQ",
+            "gen_01M0RG17GMSZQJJKJ641RPVH42",
+            "gen_01M0RG1GZ6S3TXNT6GP17D16K4",
+            "gen_01M0RG1KNHWJV92434M2TWHAG0",
+            "gen_01M0RG25EHPTC8MJW0VNNXAJTG"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 3550,
+            "cacheWriteTokens": 0,
+            "inputTokens": 39493,
+            "outputTokens": 3155,
+            "reasoningTokens": 2819
+          },
+          "usd": 0.041717250000000004
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [
+        {
+          "kind": "empty",
+          "message": "The canvas is completely empty with no visible icon drawn."
+        }
+      ],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 46450,
+        "outcome": "stalled",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 5,
+          "construct": 1,
+          "compare": 2,
+          "rect": 1,
+          "dot": 1,
+          "arc": 2,
+          "render": 1,
+          "remove": 4
+        },
+        "usage": {
+          "cacheReadTokens": 3550,
+          "cacheWriteTokens": 0,
+          "inputTokens": 39493,
+          "outputTokens": 3155,
+          "reasoningTokens": 2819
+        }
+      },
+      "issues": [
+        {
+          "message": "Canvas is empty.",
+          "rule": "empty",
+          "severity": "error"
+        },
+        {
+          "message": "A twin pair needs both paints; an empty tile is a failed twin.",
+          "rule": "empty",
+          "severity": "error"
+        }
+      ],
+      "pq": 0,
+      "programComplete": true,
+      "reason": "The submitted candidate is completely blank.",
+      "sc": 0,
+      "scorable": true,
+      "steps": 7,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "construct",
+        "listParts",
+        "listParts",
+        "listParts",
+        "compare",
+        "compare",
+        "rect",
+        "dot",
+        "arc",
+        "arc",
+        "render",
+        "remove",
+        "remove",
+        "remove",
+        "remove"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 7,
+          "generationIds": [
+            "gen_01M0RG2C398BC0HZMZJ23JK2H6",
+            "gen_01M0RG2E6CS72F3DM385H9N8FC",
+            "gen_01M0RG2MX9G6RV4FG85GQJC1DP",
+            "gen_01M0RG2QNQ30X9KTN1HQ91T0P1",
+            "gen_01M0RG2XSZZJKXT6004VCHJBNE",
+            "gen_01M0RG3AMPZWCK1ZC0BRC9AM3K",
+            "gen_01M0RG3MMPDNRYPMPQKWBT84CN"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 21158,
+            "cacheWriteTokens": 0,
+            "inputTokens": 23562,
+            "outputTokens": 1312,
+            "reasoningTokens": 994
+          },
+          "usd": 0.02417835
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts an open padlock or lock body rather than a smoke alarm."
+        }
+      ],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 45678,
+        "outcome": "budget",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 4,
+          "compare": 1,
+          "construct": 1,
+          "rect": 1,
+          "hole": 1,
+          "circle": 3,
+          "render": 1,
+          "remove": 3,
+          "arc": 1
+        },
+        "usage": {
+          "cacheReadTokens": 21158,
+          "cacheWriteTokens": 0,
+          "inputTokens": 23562,
+          "outputTokens": 1312,
+          "reasoningTokens": 994
+        }
+      },
+      "issues": [
+        {
+          "message": "Content centre is (12.00, 11.50); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        },
+        {
+          "message": "Visual extent 12.0×21.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is tall 16×20 (4.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "pq": 3,
+      "programComplete": true,
+      "reason": "The candidate does not represent a smoke alarm; it resembles an unlocked padlock with a disconnected shackle floating above a lock body.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 7,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "listParts",
+        "listParts",
+        "compare",
+        "construct",
+        "rect",
+        "hole",
+        "circle",
+        "circle",
+        "circle",
+        "render",
+        "remove",
+        "remove",
+        "remove",
+        "arc"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 0.2
+}
