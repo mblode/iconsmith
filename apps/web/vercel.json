@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build",
+  "buildCommand": "cd ../.. && npm run build -w iconsmith && npm run build -w iconsmith-web",
   "framework": "nextjs",
   "ignoreCommand": "if [ \"$VERCEL_GIT_COMMIT_REF\" = \"main\" ] || [ \"$VERCEL_ENV\" = \"production\" ]; then exit 1; fi; exit 0",
   "installCommand": "if [ -f ../../package-lock.json ]; then cd ../.. && npm ci; else npm install; fi"
