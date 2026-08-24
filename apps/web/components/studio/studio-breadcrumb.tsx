@@ -3,7 +3,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SITE_URL } from "@/lib/site-url";
@@ -26,10 +25,6 @@ export const StudioBreadcrumb = () => (
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <BreadcrumbLink href={SITE_URL}>Iconsmith</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbPage>Studio</BreadcrumbPage>
       </BreadcrumbItem>
     </BreadcrumbList>
   </Breadcrumb>

@@ -6,12 +6,16 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 /**
- * Holds the three studio panes.
+ * Holds whichever studio panes currently have something to show.
+ *
+ * Before the first draw there is no icon to judge and no version to inspect, so
+ * the canvas and inspector would be two empty columns explaining that they are
+ * empty. They arrive when they have work in them, and until then the brief gets
+ * the whole window.
  *
  * On a wide viewport the panes are resizable, because how much room the chat,
- * the icon, and the inspector deserve depends on what you are doing: writing a
- * brief, judging a render at real size, or reading the pipeline record. Below
- * that width there is not enough room to divide, so the panes stack and the
+ * the icon, and the pipeline record deserve depends on what you are doing.
+ * Below that width there is not enough room to divide, so they stack and the
  * handles would be a control with nothing to control.
  */
 export const StudioWorkspace = ({
@@ -19,11 +23,16 @@ export const StudioWorkspace = ({
   chat,
   inspector,
 }: {
-  canvas: ReactNode;
+  canvas: ReactNode | null;
   chat: ReactNode;
-  inspector: ReactNode;
+  inspector: ReactNode | null;
 }) => {
   const resizable = useMediaQuery("(min-width: 80rem)");
+  const extras = [canvas, inspector].filter(Boolean).length;
+
+  if (extras === 0) {
+    return <div className="flex min-h-0 flex-1 flex-col overflow-hidden">{chat}</div>;
+  }
 
   if (!resizable) {
     // Narrow viewports stack and scroll: the panes each keep a workable height
@@ -31,8 +40,8 @@ export const StudioWorkspace = ({
     return (
       <div className="flex min-h-0 flex-1 flex-col divide-y overflow-y-auto">
         <div className="flex min-h-[34rem] shrink-0 flex-col">{chat}</div>
-        <div className="flex min-h-[30rem] shrink-0 flex-col">{canvas}</div>
-        <div className="flex min-h-[20rem] shrink-0 flex-col">{inspector}</div>
+        {canvas ? <div className="flex min-h-[30rem] shrink-0 flex-col">{canvas}</div> : null}
+        {inspector ? <div className="flex min-h-[20rem] shrink-0 flex-col">{inspector}</div> : null}
       </div>
     );
   }
@@ -42,15 +51,30 @@ export const StudioWorkspace = ({
       className="min-h-0 flex-1 overflow-hidden bg-border"
       orientation="horizontal"
     >
-      <ResizablePanel defaultSize="24%" maxSize="40%" minSize="18%">
+      {/* Percentages renormalise across whichever panels are mounted, so the
+          chat's share is stated per configuration rather than left to scale. */}
+      <ResizablePanel defaultSize={canvas ? "24%" : "74%"} maxSize="80%" minSize="18%">
         {chat}
       </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel minSize="30%">{canvas}</ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel collapsible defaultSize="21%" maxSize="34%" minSize="15%">
-        {inspector}
-      </ResizablePanel>
+      {canvas ? (
+        <>
+          <ResizableHandle withHandle />
+          <ResizablePanel minSize="30%">{canvas}</ResizablePanel>
+        </>
+      ) : null}
+      {inspector ? (
+        <>
+          <ResizableHandle withHandle />
+          <ResizablePanel
+            collapsible
+            defaultSize={canvas ? "21%" : "26%"}
+            maxSize="40%"
+            minSize="15%"
+          >
+            {inspector}
+          </ResizablePanel>
+        </>
+      ) : null}
     </ResizablePanelGroup>
   );
 };

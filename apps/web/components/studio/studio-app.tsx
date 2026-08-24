@@ -1,13 +1,12 @@
 "use client";
 
-import PaperPlane from "blode-icons-react/icons/paper-plane";
 import Stop from "blode-icons-react/icons/stop";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
 import X from "blode-icons-react/icons/x";
 import type { MessageStreamEvent } from "eve/client";
 import type { EveMessageInputRequest } from "eve/react";
 import { useEveAgent } from "eve/react";
-import { useCallback, useId, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { AgentActivityCard } from "@/components/studio/agent-activity-card";
 import { AnnotationPanel } from "@/components/studio/annotation-panel";
@@ -19,10 +18,7 @@ import { StudioWorkspace } from "@/components/studio/studio-workspace";
 import { VersionRail } from "@/components/studio/version-rail";
 import {
   Attachment,
-  AttachmentAction,
-  AttachmentActions,
   AttachmentContent,
-  AttachmentDescription,
   AttachmentGroup,
   AttachmentMedia,
   AttachmentTitle,
@@ -41,6 +37,7 @@ import {
   QuestionnaireProgress,
   QuestionnaireTitle,
 } from "@/components/ui/questionnaire";
+import { InputMessage } from "@/components/ui/input-message";
 import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
 import type {
@@ -77,6 +74,9 @@ const uid = () =>
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random()}`;
 
+/** Matches the server's per-attachment cap in `studioAttachmentSchema`. */
+const MAX_ATTACHMENT_BYTES = 1_500_000;
+
 const kindOf = (file: File): StudioAttachment["kind"] => {
   if (file.type === "image/svg+xml" || file.name.endsWith(".svg")) {
     return "svg";
@@ -89,7 +89,7 @@ const kindOf = (file: File): StudioAttachment["kind"] => {
 
 const readFile = async (file: File): Promise<StudioAttachment> => {
   const kind = kindOf(file);
-  if (file.size > 1_500_000) {
+  if (file.size > MAX_ATTACHMENT_BYTES) {
     throw new Error(`${file.name} is over 1.5MB.`);
   }
   if (kind === "file") {
@@ -245,10 +245,10 @@ const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
 
 // oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
 export const StudioApp = () => {
-  const fileId = useId();
-  const fileRef = useRef<HTMLInputElement>(null);
   const [text, setText] = useState("");
-  const [files, setFiles] = useState<StudioAttachment[]>([]);
+  const [uploads, setUploads] = useState<File[]>([]);
+  const [libraryRefs, setLibraryRefs] = useState<StudioAttachment[]>([]);
+  const [inspectorPinned, setInspectorPinned] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [versions, setVersions] = useState<StudioVersion[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -409,6 +409,16 @@ export const StudioApp = () => {
     }
   };
 
+  /**
+   * The canvas and the inspector earn their column by having something in it.
+   * Before the first draw they would be two panes explaining that they are
+   * empty, so the brief gets the whole window until a version lands. The
+   * inspector can also be summoned early, because the reference library is
+   * useful before there is anything to inspect.
+   */
+  const hasWork = versions.length > 0;
+  const inspectorVisible = hasWork || inspectorPinned;
+
   const [firstVersion] = versions;
   const selectedVersion = versions.find((row) => row.id === selectedId);
   const selected =
@@ -420,7 +430,7 @@ export const StudioApp = () => {
   const lastName = versions.at(-1)?.name;
   const lastAssistant = turns.findLast((turn) => turn.role === "assistant");
   const lastUser = turns.findLast((turn) => turn.role === "user");
-  const referenceFiles = lastUser?.attachments ?? files;
+  const referenceFiles = lastUser?.attachments ?? libraryRefs;
   /**
    * The brief the user actually typed. Resubmitting `lastName` instead sends
    * the *drawn icon's* name, and on a first turn there is no drawn icon, so the
@@ -475,7 +485,13 @@ export const StudioApp = () => {
     if (!next || busy) {
       return;
     }
-    const attachments = files;
+    let attachments: StudioAttachment[];
+    try {
+      attachments = [...(await Promise.all(uploads.map(readFile))), ...libraryRefs];
+    } catch (error) {
+      setFault(error instanceof Error ? error.message : "Could not read that file.");
+      return;
+    }
     setTurns((current) => [...current, { attachments, id: uid(), role: "user", text: next }]);
     const accepted = await send({
       annotations: annotationsFor(selected?.id),
@@ -488,29 +504,29 @@ export const StudioApp = () => {
     // the work only recoverable by retyping it.
     if (accepted) {
       setText("");
-      setFiles([]);
+      setUploads([]);
+      setLibraryRefs([]);
     }
   };
 
-  const addFiles = async (list: FileList | null) => {
-    if (!list) {
+  /** Rejects oversized files at the point of attaching, not at submit. */
+  const acceptFiles = (next: File[]) => {
+    const tooBig = next.find((file) => file.size > MAX_ATTACHMENT_BYTES);
+    if (tooBig) {
+      setFault(`${tooBig.name} is over 1.5MB.`);
+      setUploads(next.filter((file) => file.size <= MAX_ATTACHMENT_BYTES));
       return;
     }
-    try {
-      const next = await Promise.all([...list].slice(0, 4 - files.length).map(readFile));
-      setFiles((current) => [...current, ...next].slice(0, 4));
-    } catch (error) {
-      setFault(error instanceof Error ? error.message : "Could not attach that file.");
-    }
+    setFault(null);
+    setUploads(next);
   };
 
   const addLibraryReference = (attachment: StudioAttachment) => {
-    setFiles((current) => {
-      if (current.some((file) => attachmentKey(file) === attachmentKey(attachment))) {
-        return current;
-      }
-      return [...current, attachment].slice(0, 4);
-    });
+    setLibraryRefs((current) =>
+      current.some((row) => attachmentKey(row) === attachmentKey(attachment))
+        ? current
+        : [...current, attachment].slice(0, 4),
+    );
     setText((current) => current || attachment.name);
   };
 
@@ -544,87 +560,89 @@ export const StudioApp = () => {
   return (
     <StudioWorkspace
       canvas={
-        <section className="flex h-full min-w-0 flex-col overflow-hidden bg-background">
-          <header className="flex flex-wrap items-center gap-1 border-b px-4 py-2">
-            <div className="flex gap-1" role="tablist" aria-label="Canvas view">
-              <Button
-                aria-selected={workspaceView === "focus"}
-                onClick={() => setWorkspaceView("focus")}
-                role="tab"
-                size="sm"
-                type="button"
-                variant={workspaceView === "focus" ? "outline" : "ghost"}
-              >
-                Focus
-              </Button>
-              <Button
-                aria-selected={workspaceView === "explorations"}
-                onClick={() => setWorkspaceView("explorations")}
-                role="tab"
-                size="sm"
-                type="button"
-                variant={workspaceView === "explorations" ? "outline" : "ghost"}
-              >
-                Explorations
-              </Button>
-            </div>
-            {workspaceView === "focus" ? (
-              <div className="ml-auto flex flex-wrap justify-end gap-1">
+        hasWork ? (
+          <section className="flex h-full min-w-0 flex-col overflow-hidden bg-background">
+            <header className="flex flex-wrap items-center gap-1 border-b px-4 py-2">
+              <div className="flex gap-1" role="tablist" aria-label="Canvas view">
                 <Button
-                  aria-pressed={annotationMode}
-                  disabled={!selected}
-                  onClick={() => setAnnotationMode(!annotationMode)}
+                  aria-selected={workspaceView === "focus"}
+                  onClick={() => setWorkspaceView("focus")}
+                  role="tab"
                   size="sm"
                   type="button"
-                  variant={annotationMode ? "outline" : "ghost"}
+                  variant={workspaceView === "focus" ? "outline" : "ghost"}
                 >
-                  {annotationMode ? "Click the icon" : "Comment"}
+                  Focus
                 </Button>
-                {(["outlined", "filled"] as const).map((paint) => (
+                <Button
+                  aria-selected={workspaceView === "explorations"}
+                  onClick={() => setWorkspaceView("explorations")}
+                  role="tab"
+                  size="sm"
+                  type="button"
+                  variant={workspaceView === "explorations" ? "outline" : "ghost"}
+                >
+                  Explorations
+                </Button>
+              </div>
+              {workspaceView === "focus" ? (
+                <div className="ml-auto flex flex-wrap justify-end gap-1">
                   <Button
-                    aria-pressed={finish === paint}
-                    key={paint}
-                    onClick={() => setFinish(paint)}
+                    aria-pressed={annotationMode}
+                    disabled={!selected}
+                    onClick={() => setAnnotationMode(!annotationMode)}
                     size="sm"
                     type="button"
-                    variant={finish === paint ? "default" : "ghost"}
+                    variant={annotationMode ? "outline" : "ghost"}
                   >
-                    {paint}
+                    {annotationMode ? "Click the icon" : "Comment"}
                   </Button>
-                ))}
-              </div>
-            ) : null}
-          </header>
-          <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-6">
-            {workspaceView === "focus" ? (
-              <IconStage
-                annotationMode={annotationMode}
-                annotations={annotations}
-                onAnnotate={addAnnotation}
-                onSelectAnnotation={(id) => {
-                  setSelectedAnnotationId(id);
-                  setInspectorView("comments");
-                }}
-                selectedAnnotationId={selectedAnnotationId}
-                version={selected}
-              />
-            ) : (
-              <ExplorationBoard
-                onSelect={(id) => {
-                  selectVersion(id);
-                  setWorkspaceView("focus");
-                }}
-                selectedId={selected?.id ?? null}
-                versions={versions}
-              />
-            )}
-          </div>
-        </section>
+                  {(["outlined", "filled"] as const).map((paint) => (
+                    <Button
+                      aria-pressed={finish === paint}
+                      key={paint}
+                      onClick={() => setFinish(paint)}
+                      size="sm"
+                      type="button"
+                      variant={finish === paint ? "default" : "ghost"}
+                    >
+                      {paint}
+                    </Button>
+                  ))}
+                </div>
+              ) : null}
+            </header>
+            <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-6">
+              {workspaceView === "focus" ? (
+                <IconStage
+                  annotationMode={annotationMode}
+                  annotations={annotations}
+                  onAnnotate={addAnnotation}
+                  onSelectAnnotation={(id) => {
+                    setSelectedAnnotationId(id);
+                    setInspectorView("comments");
+                  }}
+                  selectedAnnotationId={selectedAnnotationId}
+                  version={selected}
+                />
+              ) : (
+                <ExplorationBoard
+                  onSelect={(id) => {
+                    selectVersion(id);
+                    setWorkspaceView("focus");
+                  }}
+                  selectedId={selected?.id ?? null}
+                  versions={versions}
+                />
+              )}
+            </div>
+          </section>
+        ) : null
       }
       chat={
         <section className="flex h-full min-w-0 flex-col overflow-hidden bg-background">
           <MessageScroller>
-            <MessageScrollerContent className="max-w-none flex-1 px-4 py-4">
+            <MessageScrollerContent className="flex-1 px-4 py-4">
               {turns.length === 0 ? (
                 <div className="flex flex-1 flex-col justify-center gap-4">
                   <h2 className="font-heading font-medium text-base">Start with the object noun</h2>
@@ -798,211 +816,177 @@ export const StudioApp = () => {
             </MessageScrollerContent>
           </MessageScroller>
 
-          <div
-            className="border-t p-3 pb-4"
-            onDragOver={(event) => event.preventDefault()}
-            onDrop={async (event) => {
-              event.preventDefault();
-              await addFiles(event.dataTransfer.files);
-            }}
-          >
-            {files.length > 0 ? (
-              <AttachmentGroup className="pb-3">
-                {files.map((file) => (
-                  <Attachment key={attachmentKey(file)} size="sm">
-                    <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
-                      {file.dataUrl ? (
-                        // oxlint-disable-next-line nextjs/no-img-element -- local attachment chip
-                        <img alt="" src={file.dataUrl} />
-                      ) : (
-                        <Paperclip />
-                      )}
-                    </AttachmentMedia>
-                    <AttachmentContent>
-                      <AttachmentTitle>{file.name}</AttachmentTitle>
-                      <AttachmentDescription>
-                        {file.source ? `${file.source} · name only` : file.kind}
-                      </AttachmentDescription>
-                    </AttachmentContent>
-                    <AttachmentActions>
-                      <AttachmentAction
-                        aria-label={`Remove ${file.name}`}
-                        onClick={() =>
-                          setFiles((current) =>
-                            current.filter((row) => attachmentKey(row) !== attachmentKey(file)),
-                          )
-                        }
-                        type="button"
-                      >
-                        <X />
-                      </AttachmentAction>
-                    </AttachmentActions>
-                  </Attachment>
-                ))}
-              </AttachmentGroup>
-            ) : null}
-            <div className="flex items-end gap-2">
-              <input
+          <div className="border-t px-3 pt-3 pb-5">
+            <div className="mx-auto w-full max-w-3xl">
+              {libraryRefs.length > 0 ? (
+                /* Library references carry a name and a licence, never geometry,
+                 so they read as text rather than as a picture of an icon. */
+                <ul className="flex flex-wrap gap-1.5 pb-2">
+                  {libraryRefs.map((ref) => (
+                    <li key={attachmentKey(ref)}>
+                      <span className="inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs">
+                        {ref.name}
+                        <span className="text-muted-foreground">{ref.source}</span>
+                        <button
+                          aria-label={`Remove ${ref.name}`}
+                          className="text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
+                          onClick={() =>
+                            setLibraryRefs((current) =>
+                              current.filter((row) => attachmentKey(row) !== attachmentKey(ref)),
+                            )
+                          }
+                          type="button"
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <InputMessage
                 accept="image/*,.svg,.json,.txt"
-                className="sr-only"
-                id={fileId}
-                multiple
-                name="attachments"
-                onChange={async (event) => {
-                  await addFiles(event.target.files);
-                  event.target.value = "";
-                }}
-                ref={fileRef}
-                type="file"
-              />
-              <Button
-                aria-label="Attach a reference"
-                onClick={() => fileRef.current?.click()}
-                size="icon"
-                type="button"
-                variant="ghost"
-              >
-                <Paperclip />
-              </Button>
-              <Textarea
-                aria-label="Describe the icon"
                 disabled={busy}
-                onChange={(event) => setText(event.target.value)}
-                onKeyDown={async (event) => {
-                  if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault();
-                    await submitPrompt();
-                  }
-                }}
+                files={uploads}
+                leftSlot={
+                  inspectorVisible ? null : (
+                    <Button
+                      onClick={() => {
+                        setInspectorPinned(true);
+                        setInspectorView("library");
+                      }}
+                      size="sm"
+                      type="button"
+                      variant="ghost"
+                    >
+                      Browse reference libraries
+                    </Button>
+                  )
+                }
+                maxFiles={4}
+                onFilesChange={acceptFiles}
+                onSend={submitPrompt}
+                onValueChange={setText}
                 placeholder={promptHint(
                   pending,
                   Boolean(lastAssistant),
                   pendingRequests.length > 0,
                 )}
-                name="studio-prompt"
+                rightSlot={
+                  busy ? (
+                    <Button
+                      aria-label="Stop drawing"
+                      onClick={async () => {
+                        try {
+                          await agent.cancel();
+                        } catch {
+                          setBusy(false);
+                        }
+                      }}
+                      size="icon-sm"
+                      type="button"
+                      variant="outline"
+                    >
+                      <Stop />
+                    </Button>
+                  ) : null
+                }
+                sendLabel="Draw"
                 value={text}
               />
-              {busy ? (
-                /* A five-arm tournament is long enough that watching it finish is
-                   not a reasonable ask. `cancel()` stops the durable turn. */
-                <Button
-                  aria-label="Stop drawing"
-                  onClick={async () => {
-                    try {
-                      await agent.cancel();
-                    } catch {
-                      setBusy(false);
-                    }
-                  }}
-                  size="icon"
-                  type="button"
-                  variant="outline"
-                >
-                  <Stop />
-                </Button>
-              ) : (
-                <Button
-                  aria-label="Draw"
-                  disabled={text.trim().length === 0}
-                  onClick={async () => {
-                    await submitPrompt();
-                  }}
-                  size="icon"
-                  type="button"
-                >
-                  <PaperPlane />
-                </Button>
-              )}
             </div>
-            <p className="px-1 pt-2 text-muted-foreground text-xs">
-              Enter to draw. Shift+Enter for a new line.
-            </p>
           </div>
         </section>
       }
       inspector={
-        <aside className="flex h-full min-w-0 flex-col overflow-hidden bg-card">
-          <div
-            aria-label="Studio inspector"
-            className="flex gap-1 overflow-x-auto border-b p-2"
-            role="tablist"
-          >
-            <Button
-              aria-selected={inspectorView === "versions"}
-              onClick={() => setInspectorView("versions")}
-              role="tab"
-              size="sm"
-              type="button"
-              variant={inspectorView === "versions" ? "outline" : "ghost"}
+        inspectorVisible ? (
+          <aside className="flex h-full min-w-0 flex-col overflow-hidden bg-card">
+            <div
+              aria-label="Studio inspector"
+              className="flex gap-1 overflow-x-auto border-b p-2"
+              role="tablist"
             >
-              Versions
-            </Button>
-            <Button
-              aria-selected={inspectorView === "library"}
-              onClick={() => setInspectorView("library")}
-              role="tab"
-              size="sm"
-              type="button"
-              variant={inspectorView === "library" ? "outline" : "ghost"}
-            >
-              Library
-            </Button>
-            <Button
-              aria-selected={inspectorView === "comments"}
-              onClick={() => setInspectorView("comments")}
-              role="tab"
-              size="sm"
-              type="button"
-              variant={inspectorView === "comments" ? "outline" : "ghost"}
-            >
-              Comments
-            </Button>
-          </div>
-          <div className="flex min-h-0 flex-1 flex-col p-4">
-            {inspectorView === "versions" ? (
-              <VersionRail
-                onSelect={selectVersion}
-                selectedId={selected?.id ?? null}
-                versions={versions}
-              />
-            ) : null}
-            {inspectorView === "library" ? <LibraryBrowser onAttach={addLibraryReference} /> : null}
-            {inspectorView === "comments" ? (
-              <AnnotationPanel
-                annotations={annotations}
-                onDelete={(id) => {
-                  setAnnotations((current) => current.filter((annotation) => annotation.id !== id));
-                  setSelectedAnnotationId((current) => (current === id ? null : current));
-                }}
-                /* The comment is only in memory, so undo is honest here — cheaper
+              <Button
+                aria-selected={inspectorView === "versions"}
+                onClick={() => setInspectorView("versions")}
+                role="tab"
+                size="sm"
+                type="button"
+                variant={inspectorView === "versions" ? "outline" : "ghost"}
+              >
+                Versions
+              </Button>
+              <Button
+                aria-selected={inspectorView === "library"}
+                onClick={() => setInspectorView("library")}
+                role="tab"
+                size="sm"
+                type="button"
+                variant={inspectorView === "library" ? "outline" : "ghost"}
+              >
+                Library
+              </Button>
+              <Button
+                aria-selected={inspectorView === "comments"}
+                onClick={() => setInspectorView("comments")}
+                role="tab"
+                size="sm"
+                type="button"
+                variant={inspectorView === "comments" ? "outline" : "ghost"}
+              >
+                Comments
+              </Button>
+            </div>
+            <div className="flex min-h-0 flex-1 flex-col p-4">
+              {inspectorView === "versions" ? (
+                <VersionRail
+                  onSelect={selectVersion}
+                  selectedId={selected?.id ?? null}
+                  versions={versions}
+                />
+              ) : null}
+              {inspectorView === "library" ? (
+                <LibraryBrowser onAttach={addLibraryReference} />
+              ) : null}
+              {inspectorView === "comments" ? (
+                <AnnotationPanel
+                  annotations={annotations}
+                  onDelete={(id) => {
+                    setAnnotations((current) =>
+                      current.filter((annotation) => annotation.id !== id),
+                    );
+                    setSelectedAnnotationId((current) => (current === id ? null : current));
+                  }}
+                  /* The comment is only in memory, so undo is honest here — cheaper
                    for the user than a confirm dialog on every delete. */
-                onRestore={(annotation) => {
-                  setAnnotations((current) =>
-                    current.some((row) => row.id === annotation.id)
-                      ? current
-                      : [...current, annotation],
-                  );
-                }}
-                onRefine={(open) => {
-                  if (!selected) {
-                    return;
+                  onRestore={(annotation) => {
+                    setAnnotations((current) =>
+                      current.some((row) => row.id === annotation.id)
+                        ? current
+                        : [...current, annotation],
+                    );
+                  }}
+                  onRefine={(open) => {
+                    if (!selected) {
+                      return;
+                    }
+                    setText(`Refine ${selected.name}: ${open.map((item) => item.text).join("; ")}`);
+                  }}
+                  onSelect={setSelectedAnnotationId}
+                  onTextChange={(id, next) =>
+                    setAnnotations((current) =>
+                      current.map((annotation) =>
+                        annotation.id === id ? { ...annotation, text: next } : annotation,
+                      ),
+                    )
                   }
-                  setText(`Refine ${selected.name}: ${open.map((item) => item.text).join("; ")}`);
-                }}
-                onSelect={setSelectedAnnotationId}
-                onTextChange={(id, next) =>
-                  setAnnotations((current) =>
-                    current.map((annotation) =>
-                      annotation.id === id ? { ...annotation, text: next } : annotation,
-                    ),
-                  )
-                }
-                selectedId={selectedAnnotationId}
-                version={selected}
-              />
-            ) : null}
-          </div>
-        </aside>
+                  selectedId={selectedAnnotationId}
+                  version={selected}
+                />
+              ) : null}
+            </div>
+          </aside>
+        ) : null
       }
     />
   );
