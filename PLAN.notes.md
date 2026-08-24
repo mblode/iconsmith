@@ -278,3 +278,49 @@ points is what makes that survivable, but the document still stores paint
 beside skeleton. Moving the expansion into `toSVG` would make it
 finish-independent outright. Not needed for any of the above, and not a change
 to make in passing.
+
+## 2026-08-24 — the cost fix and the quality fix were the same commit
+
+**The plan said** generation is free through `harnessArm`, measurement is not,
+so build routes freely and test them one at a time.
+
+**The code required** a response to the `dna` overrun — 57 calls, $8.46 against
+a $0.25 reservation — and it got one. `aaec48e` "Build durable cost-aware icon
+campaign" is 120 files, and inside it five quality-deciding values moved at
+once:
+
+| | before | after |
+|---|---|---|
+| proposal sketches | `ideas: 2` | `ideas: 1` |
+| proposal selection | `qualityModel: QUALITY_MODEL` | `qualityModel: null` |
+| generation model | none passed, so `DEFAULT_MODEL` = `claude-opus-5` | `gemini-3.7-flash`, both agent arms |
+| judge model | `gemini-3.5-flash` | `gemini-3.7-flash` |
+| arm reservations | none | `$1.50` gateway, `$1.00` harness |
+
+Each is defensible on its own and the commit message names none of them. The
+last one is the trap: the campaign's per-icon default was `$0.25`, and
+`host-analog` plus `image-agent` reserve exactly that, so the two arms that
+draw could never be admitted. Three `alarm-smoke` attempts recorded
+`stoppedEarly` while having been refused half the tournament.
+
+The ledger reads the same way. `git-pull-request` ran on the before column —
+three sketches, a selection pass, opus generation, the 3.5 judge — and scored
+10/10. Everything after ran on the after column and scored 1.1 to 3.2. The
+one variable that is *not* confounded is the reference: `dna` had opus and
+still failed, on one cheap sketch and no critique.
+
+**Taken:** the before column restored where it was doing the work, priced
+rather than removed. Sketches back to two plus the quality model, reserves
+re-scoped to the models the arms actually run (`$0.35` and `$0.40`, measured at
+~$0.005 a call from the ledger), campaign default `$0.25` → `$2.00`, and the
+tournament now reports `unaffordable` so a starved run can never again be
+recorded as one that stopped because it won.
+
+Not taken, because it needs a measurement first: the judge. `TOURNAMENT_MINIMUM
+= 8` was set against `gemini-3.5-flash` and is now applied by `gemini-3.7-flash`,
+and nothing checked that the scale survived the swap. A faithful compile of the
+house's own `wifi-full` — 0.977 cosine against the original file — was scored
+**5.1/10** for the concept `wifi`. Every other number here is calibrated against
+the corpus: 0.737 for cosine, 29.3% off-axis, 94% for twin extent. This one is
+asserted. Audit N house icons against their own concepts and read the
+distribution before trusting either the threshold or the judge.
