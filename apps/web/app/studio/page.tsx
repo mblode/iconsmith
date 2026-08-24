@@ -2,7 +2,6 @@ import { SPEC } from "iconsmith";
 import type { Metadata } from "next";
 
 import { StudioShell } from "@/components/studio/studio-shell";
-import { loadCampaign } from "@/lib/studio/campaign";
 
 export const metadata: Metadata = {
   description:
@@ -21,10 +20,7 @@ const StudioPage = () => (
     {/* The visible chrome is gone, but a document still needs one heading that
         names it. */}
     <h1 className="sr-only">Iconsmith Studio</h1>
-    <StudioShell
-      campaign={loadCampaign().items}
-      houseSpec={{ dots: SPEC.dots, keylines: Object.keys(SPEC.keylines) }}
-    />
+    <StudioShell houseSpec={{ dots: SPEC.dots, keylines: Object.keys(SPEC.keylines) }} />
   </main>
 );
 

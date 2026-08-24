@@ -1,6 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
+import { asset } from "@/lib/site-url";
 import type { CampaignItem } from "@/lib/studio/campaign";
 
 /**
@@ -23,14 +26,47 @@ const STATUS_ORDER: Record<string, number> = {
 };
 
 export const CampaignPanel = ({
-  items,
   onOpen,
   openSlug,
 }: {
-  items: readonly CampaignItem[];
   onOpen: (item: CampaignItem) => void;
   openSlug: string | null;
 }) => {
+  const [items, setItems] = useState<readonly CampaignItem[] | null>(null);
+  const [fault, setFault] = useState(false);
+
+  useEffect(() => {
+    let live = true;
+    const load = async () => {
+      try {
+        const response = await fetch(asset("/api/studio/campaign"));
+        if (!response.ok) {
+          throw new Error("campaign unavailable");
+        }
+        const rows = (await response.json()) as CampaignItem[];
+        if (live) {
+          setItems(rows);
+        }
+      } catch {
+        if (live) {
+          setFault(true);
+        }
+      }
+    };
+    void load();
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  if (fault) {
+    return <p className="text-muted-foreground text-sm">The backlog could not be loaded.</p>;
+  }
+
+  if (!items) {
+    return <p className="text-muted-foreground text-sm">Loading the backlog…</p>;
+  }
+
   // Drawn work first: those are the rows there is something to look at.
   const ordered = items.toSorted(
     (a, b) =>
@@ -75,7 +111,7 @@ export const CampaignPanel = ({
                       : "not drawn"}
                     {" · "}
                     {item.sources.join("/")}
-                    {item.risk ? " · needs a semantic call" : ""}
+                    {item.risky ? " · needs a semantic call" : ""}
                   </span>
                 </span>
               </Button>

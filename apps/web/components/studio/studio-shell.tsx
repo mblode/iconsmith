@@ -29,13 +29,7 @@ const DEFAULT_BINDING: Binding = {
   thread: "default",
 };
 
-export const StudioShell = ({
-  campaign,
-  houseSpec,
-}: {
-  campaign: readonly CampaignItem[];
-  houseSpec: OverviewSpec;
-}) => {
+export const StudioShell = ({ houseSpec }: { houseSpec: OverviewSpec }) => {
   const [binding, setBinding] = useState<Binding>(DEFAULT_BINDING);
 
   const openCampaignItem = (item: CampaignItem) => {
@@ -58,7 +52,6 @@ export const StudioShell = ({
 
   return (
     <StudioApp
-      campaign={campaign}
       houseSpec={houseSpec}
       key={binding.thread}
       onNewChat={() => setBinding({ ...DEFAULT_BINDING, thread: newThreadId() })}

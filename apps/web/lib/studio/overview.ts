@@ -115,6 +115,12 @@ export const overviewSubjects = (
   // them. A table over two icons is not a population; over every arm it is.
   for (const tournament of tournaments) {
     for (const candidate of tournament.candidates) {
+      // The delivered versions are the winning arm's own paints, so counting
+      // that candidate again would enter each kept drawing twice and pull the
+      // majority — which this table calls the convention — toward the winner.
+      if (candidate.id === tournament.selected) {
+        continue;
+      }
       for (const paint of candidate.paints) {
         const doc = asDoc(paint.document);
         if (doc) {

@@ -278,7 +278,6 @@ const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
 
 // oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
 export const StudioApp = ({
-  campaign,
   houseSpec,
   onNewChat,
   onOpenSlug,
@@ -287,7 +286,6 @@ export const StudioApp = ({
   recordedSessionId = null,
   thread = "default",
 }: {
-  campaign: readonly CampaignItem[];
   houseSpec: OverviewSpec;
   onNewChat: () => void;
   onOpenSlug: (item: CampaignItem) => void;
@@ -530,9 +528,11 @@ export const StudioApp = ({
 
   const answerRequest = async (requestId: string, answer: { optionId?: string; text?: string }) => {
     setFault(null);
+    sendInFlightRef.current = true;
     try {
       await agent.respond([{ requestId, ...answer }]);
     } catch (error) {
+      sendInFlightRef.current = false;
       setFault(error instanceof Error ? error.message : "That answer could not reach the drawer.");
     }
   };
@@ -1142,7 +1142,7 @@ export const StudioApp = ({
                 />
               ) : null}
               {inspectorView === "backlog" ? (
-                <CampaignPanel items={campaign} onOpen={onOpenSlug} openSlug={openSlug} />
+                <CampaignPanel onOpen={onOpenSlug} openSlug={openSlug} />
               ) : null}
               {inspectorView === "comments" ? (
                 <AnnotationPanel

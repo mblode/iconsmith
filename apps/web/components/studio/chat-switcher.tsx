@@ -86,6 +86,13 @@ export const ChatSwitcher = ({
                     aria-label={`Forget ${thread.title || "untitled chat"}`}
                     onClick={() => {
                       forgetThread(thread.id);
+                      if (thread.id === threadId) {
+                        // Still mounted on it, so it would re-record itself on
+                        // the next turn unless we move off it first.
+                        onNew();
+                        close();
+                        return;
+                      }
                       setThreads(readThreads());
                     }}
                     size="icon-xs"

@@ -17,20 +17,18 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = path.join(import.meta.dirname, "..", "..", "..");
-const source = path.join(
-  root,
-  "packages/iconsmith/workbench/central-gaps-v1/campaign.json",
-);
+const source = path.join(root, "packages/iconsmith/workbench/central-gaps-v1/campaign.json");
 
 const campaign = JSON.parse(readFileSync(source, "utf-8"));
 
 const item = (row) => ({
   attemptCount: row.attemptCount ?? 0,
-  confidence: row.confidence ?? "unknown",
   id: row.id,
   lastSessionId: row.lastSessionId ?? null,
   rank: row.rank ?? 0,
-  risk: row.risk ?? null,
+  // The panel says only whether a concept needs a semantic call, so the note
+  // itself never has to cross the wire to the browser.
+  risky: typeof row.risk === "string",
   slug: row.slug,
   sources: row.sources ?? [],
   status: row.status,
@@ -38,14 +36,9 @@ const item = (row) => ({
 
 const projection = {
   generated: campaign.updatedAt ?? null,
-  id: campaign.id,
   items: (campaign.items ?? []).map(item),
-  retired: (campaign.retired ?? []).map(item),
-  target: campaign.target,
 };
 
 const out = path.join(import.meta.dirname, "..", "lib", "campaign.json");
 writeFileSync(out, `${JSON.stringify(projection, null, 2)}\n`);
-process.stdout.write(
-  `wrote ${projection.items.length} items, ${projection.retired.length} retired\n`,
-);
+process.stdout.write(`wrote ${projection.items.length} items\n`);
