@@ -1,7 +1,8 @@
 import { SPEC } from "iconsmith";
 import type { Metadata } from "next";
 
-import { StudioApp } from "@/components/studio/studio-app";
+import { StudioShell } from "@/components/studio/studio-shell";
+import { loadCampaign } from "@/lib/studio/campaign";
 import { StudioBreadcrumb } from "@/components/studio/studio-breadcrumb";
 
 export const metadata: Metadata = {
@@ -25,7 +26,10 @@ const StudioPage = () => (
       </p>
       <StudioBreadcrumb />
     </header>
-    <StudioApp houseSpec={{ dots: SPEC.dots, keylines: Object.keys(SPEC.keylines) }} />
+    <StudioShell
+      campaign={loadCampaign().items}
+      houseSpec={{ dots: SPEC.dots, keylines: Object.keys(SPEC.keylines) }}
+    />
   </main>
 );
 

@@ -13,6 +13,7 @@ import { AnnotationPanel } from "@/components/studio/annotation-panel";
 import { ExplorationBoard } from "@/components/studio/exploration-board";
 import { IconStage } from "@/components/studio/icon-stage";
 import { LibraryBrowser } from "@/components/studio/library-browser";
+import { CampaignPanel } from "@/components/studio/campaign-panel";
 import { OverviewTable } from "@/components/studio/overview-table";
 import { ThinkingCard } from "@/components/studio/thinking-card";
 import { StudioWorkspace } from "@/components/studio/studio-workspace";
@@ -41,6 +42,7 @@ import {
 import { InputMessage } from "@/components/ui/input-message";
 import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
+import type { CampaignItem } from "@/lib/studio/campaign";
 import type { OverviewSpec } from "@/lib/studio/overview";
 import { buildOverview, overviewSubjects } from "@/lib/studio/overview";
 import {
@@ -132,7 +134,7 @@ const readFile = async (file: File): Promise<StudioAttachment> => {
 const attachmentKey = (file: StudioAttachment) => `${file.source ?? "local"}:${file.name}`;
 
 type WorkspaceView = "focus" | "explorations" | "overviews";
-type InspectorView = "versions" | "library" | "comments";
+type InspectorView = "versions" | "library" | "comments" | "backlog";
 
 const SUGGESTIONS = ["wifi", "inbox", "briefcase", "umbrella", "qr-code", "home"];
 
@@ -254,10 +256,19 @@ const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
 
 // oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
 export const StudioApp = ({
+  campaign,
   houseSpec,
+  onOpenSlug,
+  openSlug = null,
+  recordedSessionId = null,
   thread = "default",
 }: {
+  campaign: readonly CampaignItem[];
   houseSpec: OverviewSpec;
+  onOpenSlug: (item: CampaignItem) => void;
+  openSlug?: string | null;
+  /** The session the workbench recorded for this concept, when reopening one. */
+  recordedSessionId?: string | null;
   thread?: string;
 }) => {
   const [text, setText] = useState("");
@@ -385,11 +396,18 @@ export const StudioApp = ({
    * replay rebuilds the transcript, every version and every tournament, because
    * the same `action.result` events run the same `applyStudioResponse` path.
    */
-  const savedSession = useMemo(
-    () =>
-      typeof window === "undefined" ? undefined : readStudioSession<ClientSessionState>(thread),
-    [thread],
-  );
+  const savedSession = useMemo(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    // A cursor this browser already advanced beats the campaign's recorded
+    // starting point, which only knows where the workbench left off.
+    const stored = readStudioSession<ClientSessionState>(thread);
+    if (stored) {
+      return stored;
+    }
+    return recordedSessionId ? { sessionId: recordedSessionId, streamIndex: 0 } : undefined;
+  }, [recordedSessionId, thread]);
 
   const agent = useEveAgent({
     host: BASE_PATH,
@@ -1026,6 +1044,16 @@ export const StudioApp = ({
               >
                 Comments
               </Button>
+              <Button
+                aria-selected={inspectorView === "backlog"}
+                onClick={() => setInspectorView("backlog")}
+                role="tab"
+                size="sm"
+                type="button"
+                variant={inspectorView === "backlog" ? "outline" : "ghost"}
+              >
+                Backlog
+              </Button>
             </div>
             <div className="flex min-h-0 flex-1 flex-col p-4">
               {inspectorView === "versions" ? (
@@ -1041,6 +1069,9 @@ export const StudioApp = ({
                   full={libraryRefs.length + uploads.length >= 4}
                   onAttach={addLibraryReference}
                 />
+              ) : null}
+              {inspectorView === "backlog" ? (
+                <CampaignPanel items={campaign} onOpen={onOpenSlug} openSlug={openSlug} />
               ) : null}
               {inspectorView === "comments" ? (
                 <AnnotationPanel
