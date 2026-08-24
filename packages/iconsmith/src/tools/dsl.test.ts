@@ -78,10 +78,13 @@ test("every op parses", () => {
   expect(r.errors).toStrictEqual([]);
   expect(r.icon).toBe("cloud-rain");
   expect(r.keyline).toBe("wide");
+  // `diamond` keeps its own kind in both finishes. Stored as a polyline it
+  // quantised its vertices while the filled lozenge quantised its radius, so
+  // after a `fit` the two paints of one icon disagreed on their extent.
   expect(r.canvas.elements.map((e) => e.kind)).toStrictEqual([
     "rect",
     "circle",
-    "line",
+    "diamond",
     "arc",
     "line",
     "dot",

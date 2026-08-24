@@ -1,0 +1,308 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 29,
+    "records": [
+      {
+        "calls": 16,
+        "generationIds": [
+          "gen_01M0RWQ3RGJ9JHS3H610MHMVHE",
+          "gen_01M0RWQ5W0X1MZKFW3R4BB659R",
+          "gen_01M0RWQ84JN88H1692PAR4F557",
+          "gen_01M0RWQ9XM37E3CATPY6WCRG1X",
+          "gen_01M0RWQCNYDC75P0ZV8XP6J8TJ",
+          "gen_01M0RWQKKZ6WXG6D8B4EQZ8BV5",
+          "gen_01M0RWQRETY6FWZ6J3AEYWW3V5",
+          "gen_01M0RWQTGDJ7SKRJBJ4TWR5REM",
+          "gen_01M0RWQX6GBRN0EYAYA0NQSBTW",
+          "gen_01M0RWQZ63TQQHSD7D5M9784N2",
+          "gen_01M0RWR2WB22PEG0FS6GXDTQ28",
+          "gen_01M0RWR50K64YXNH42V7QH2XB6",
+          "gen_01M0RWR9VY1PBKTTNPE6R4RAS8",
+          "gen_01M0RWRC9D2MMXKKZE2EV995PE",
+          "gen_01M0RWREAMTCCHQZ61R5TXKKC7",
+          "gen_01M0RWRQC601X0VNP5X5DGFEXM"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 24793,
+          "cacheWriteTokens": 0,
+          "inputTokens": 59809,
+          "outputTokens": 3491,
+          "reasoningTokens": 3136
+        },
+        "usd": 0.059807475
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RWRSE4SXHVBX47AJZFS1MV"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 532,
+          "reasoningTokens": 458
+        },
+        "usd": 0.007242
+      },
+      {
+        "calls": 11,
+        "generationIds": [
+          "gen_01M0RWQ3AT73Q1EY45ESXPJ5NT",
+          "gen_01M0RWQ5H26NJ7ZMFM6S7H1TR4",
+          "gen_01M0RWQ79TQK3S250D60YV4GF5",
+          "gen_01M0RWQ97PSVNSMTK6S6X3YPCH",
+          "gen_01M0RWQB5CR3N8HKCMC0WB67T3",
+          "gen_01M0RWQJKZ6Y816QCEW9XC4SJX",
+          "gen_01M0RWQSGK0521YF9610ZRGYTT",
+          "gen_01M0RWQW33DQDDNZ45J4GSJABF",
+          "gen_01M0RWR7AH50253QSQJ283EAJM",
+          "gen_01M0RWR9XH5WQJY709E94FW56H",
+          "gen_01M0RWRC70AGWXJKB58FY1SH8W"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 14581,
+          "cacheWriteTokens": 0,
+          "inputTokens": 45000,
+          "outputTokens": 4055,
+          "reasoningTokens": 3875
+        },
+        "usd": 0.050049825
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RWRTFMMRZB7MJJF29TKZC9"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 622,
+          "reasoningTokens": 490
+        },
+        "usd": 0.0075795
+      }
+    ],
+    "totalUsd": 0.12467879999999999,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "gateway-agent",
+  "label": "Vercel Gateway tool agent",
+  "paints": [
+    {
+      "accepted": true,
+      "apiCosts": [
+        {
+          "calls": 16,
+          "generationIds": [
+            "gen_01M0RWQ3RGJ9JHS3H610MHMVHE",
+            "gen_01M0RWQ5W0X1MZKFW3R4BB659R",
+            "gen_01M0RWQ84JN88H1692PAR4F557",
+            "gen_01M0RWQ9XM37E3CATPY6WCRG1X",
+            "gen_01M0RWQCNYDC75P0ZV8XP6J8TJ",
+            "gen_01M0RWQKKZ6WXG6D8B4EQZ8BV5",
+            "gen_01M0RWQRETY6FWZ6J3AEYWW3V5",
+            "gen_01M0RWQTGDJ7SKRJBJ4TWR5REM",
+            "gen_01M0RWQX6GBRN0EYAYA0NQSBTW",
+            "gen_01M0RWQZ63TQQHSD7D5M9784N2",
+            "gen_01M0RWR2WB22PEG0FS6GXDTQ28",
+            "gen_01M0RWR50K64YXNH42V7QH2XB6",
+            "gen_01M0RWR9VY1PBKTTNPE6R4RAS8",
+            "gen_01M0RWRC9D2MMXKKZE2EV995PE",
+            "gen_01M0RWREAMTCCHQZ61R5TXKKC7",
+            "gen_01M0RWRQC601X0VNP5X5DGFEXM"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 24793,
+            "cacheWriteTokens": 0,
+            "inputTokens": 59809,
+            "outputTokens": 3491,
+            "reasoningTokens": 3136
+          },
+          "usd": 0.059807475
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 55442,
+        "outcome": "budget",
+        "toolCalls": {
+          "listParts": 3,
+          "construct": 1,
+          "compare": 1,
+          "arc": 2,
+          "line": 4,
+          "render": 2,
+          "remove": 3
+        },
+        "usage": {
+          "cacheReadTokens": 24793,
+          "cacheWriteTokens": 0,
+          "inputTokens": 59809,
+          "outputTokens": 3491,
+          "reasoningTokens": 3136
+        }
+      },
+      "issues": [
+        {
+          "declared": "off-axis",
+          "message": "\"e4\" has an edge at 122.5°, 12.5° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e4\" has an edge at 57.5°, 12.5° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "pq": 9,
+      "programComplete": true,
+      "reason": "The icon clearly depicts an outlined droplet. The stroke weight, proportions, and outlined treatment match the reference set well, and the shape is instantly legible at both 24px and large sizes.",
+      "sc": 10,
+      "scorable": true,
+      "steps": 16,
+      "text": "",
+      "trace": [
+        "listParts",
+        "listParts",
+        "listParts",
+        "construct",
+        "compare",
+        "arc",
+        "line",
+        "line",
+        "render",
+        "remove",
+        "remove",
+        "arc",
+        "line",
+        "render",
+        "remove",
+        "line"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 11,
+          "generationIds": [
+            "gen_01M0RWQ3AT73Q1EY45ESXPJ5NT",
+            "gen_01M0RWQ5H26NJ7ZMFM6S7H1TR4",
+            "gen_01M0RWQ79TQK3S250D60YV4GF5",
+            "gen_01M0RWQ97PSVNSMTK6S6X3YPCH",
+            "gen_01M0RWQB5CR3N8HKCMC0WB67T3",
+            "gen_01M0RWQJKZ6Y816QCEW9XC4SJX",
+            "gen_01M0RWQSGK0521YF9610ZRGYTT",
+            "gen_01M0RWQW33DQDDNZ45J4GSJABF",
+            "gen_01M0RWR7AH50253QSQJ283EAJM",
+            "gen_01M0RWR9XH5WQJY709E94FW56H",
+            "gen_01M0RWRC70AGWXJKB58FY1SH8W"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 14581,
+            "cacheWriteTokens": 0,
+            "inputTokens": 45000,
+            "outputTokens": 4055,
+            "reasoningTokens": 3875
+          },
+          "usd": 0.050049825
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "Smooth the transition between the pointed top and the circular base to remove the sharp jutting corners along the sides."
+        },
+        {
+          "kind": "object",
+          "message": "Round the top apex slightly to match the soft, rounded visual language of the set."
+        }
+      ],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 48003,
+        "outcome": "stalled",
+        "toolCalls": {
+          "listParts": 3,
+          "construct": 1,
+          "circle": 1,
+          "diamond": 2,
+          "render": 2,
+          "remove": 1,
+          "compare": 1
+        },
+        "usage": {
+          "cacheReadTokens": 14581,
+          "cacheWriteTokens": 0,
+          "inputTokens": 45000,
+          "outputTokens": 4055,
+          "reasoningTokens": 3875
+        }
+      },
+      "issues": [
+        {
+          "message": "Visual extent 12.0×15.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is tall 16×20 (4.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "message": "Filled restamped a ring as a disc. Knock a hole immediately after the circle — `fit` to the same keyline does not hide a missing knockout.",
+          "rule": "paint",
+          "severity": "error"
+        }
+      ],
+      "pq": 3,
+      "programComplete": false,
+      "reason": "The silhouette is a crude boolean union of a rotated square and a circle, resulting in awkward sharp shoulders jutting out at the sides rather than a smooth, continuous droplet curve.",
+      "sc": 7,
+      "scorable": true,
+      "steps": 11,
+      "text": "",
+      "trace": [
+        "listParts",
+        "listParts",
+        "construct",
+        "listParts",
+        "circle",
+        "diamond",
+        "render",
+        "remove",
+        "diamond",
+        "render",
+        "compare"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 4.22
+}

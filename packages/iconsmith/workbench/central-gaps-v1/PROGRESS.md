@@ -4,10 +4,10 @@
 
 - Approved: 0/200
 - In review: 0
-- Needs revision: 2
+- Needs revision: 3
 - Exploring: 0
 - Blocked: 0
-- Todo: 198
+- Todo: 197
 - Superseded: 3
 
 ## todo
@@ -72,7 +72,6 @@
 - [ ] database-search · G/L/T · 0 attempt(s)
 - [ ] dna-off · G/L/T · 0 attempt(s)
 - [ ] drone · G/L/T · 0 attempt(s)
-- [ ] droplet · G/L/T · 0 attempt(s)
 - [ ] droplet-off · G/L/T · 0 attempt(s)
 - [ ] droplets · G/L/T · 0 attempt(s)
 - [ ] chart-gantt · G/L · 0 attempt(s)
@@ -215,6 +214,7 @@
 
 - [ ] alarm-smoke · G/L/T · 3 attempt(s)
 - [ ] dna · G/L/T · 1 attempt(s)
+- [ ] droplet · G/L/T · 2 attempt(s)
 
 ## superseded
 

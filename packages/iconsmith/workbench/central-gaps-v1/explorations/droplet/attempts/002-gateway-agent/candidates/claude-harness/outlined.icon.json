@@ -1,0 +1,33 @@
+{
+  "draw": [
+    {
+      "offAxis": true,
+      "op": "line",
+      "points": [
+        [12, 3.25],
+        [5, 12],
+        [5, 13.75]
+      ]
+    },
+    {
+      "offAxis": true,
+      "op": "line",
+      "points": [
+        [12, 3.25],
+        [19, 12],
+        [19, 13.75]
+      ]
+    },
+    {
+      "ccw": true,
+      "cx": 12,
+      "cy": 13.75,
+      "from": "left",
+      "op": "arc",
+      "r": 7,
+      "sweep": "half"
+    }
+  ],
+  "icon": "droplet",
+  "keyline": "tall"
+}

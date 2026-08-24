@@ -378,10 +378,16 @@ describe("runPairTournament", () => {
     expect(tournament.candidates[0]?.failure).toContain(
       "filled generation failed"
     );
+    // Escalation stops, because the pair is incomplete and the next candidate
+    // must not start on the assumption that it was free. The ledger stays
+    // priced: the outlined paint had already been billed, and the run reports
+    // what it actually cost rather than declaring the total unknown.
+    expect(tournament.candidates[0]?.partialCosts).toHaveLength(1);
     expect(tournament.budget).toMatchObject({
-      actualUsd: null,
+      actualCalls: 1,
+      actualUsd: 0.02,
       exhausted: true,
-      overrun: true,
+      overrun: false,
     });
     expect(tournament.winner).toBeNull();
   });
@@ -424,10 +430,15 @@ describe("runPairTournament", () => {
     expect(tournament.candidates[0]?.failure).toContain(
       "parallel filled failed"
     );
+    // A parallel pair recovers nothing: `Promise.all` rejects before either
+    // result is in hand, so there is no billed paint to report. Escalation
+    // still stops. The asymmetry with the serial case is real and is the
+    // honest reading — a serial arm knows what it finished, a parallel one
+    // does not.
+    expect(tournament.candidates[0]?.partialCosts).toStrictEqual([]);
     expect(tournament.budget).toMatchObject({
-      actualUsd: null,
       exhausted: true,
-      overrun: true,
+      overrun: false,
     });
     expect(tournament.winner).toBeNull();
   });

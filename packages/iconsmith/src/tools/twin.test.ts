@@ -404,3 +404,36 @@ test("a filled diagonal survives its own program", () => {
   const replay = run(programFromDoc(doc));
   expect(replay.canvas.toSVG()).toBe(drawn.canvas.toSVG());
 });
+
+test("a filled droplet keeps its point in its own program", () => {
+  // The `droplet` run drew a round base and a diamond for the point, and the
+  // diamond took the `raw` escape. `programFromDoc` drops `raw`, so the saved
+  // program held only the circle — which then paired as a bare disc against a
+  // bare ring and tripped the restamp rule too. Two failures, one missing op,
+  // on a pair the judge had scored 10/10 on all four numbers.
+  const source = program("droplet", "filled", "tall", [
+    "circle 12,15 r6",
+    "diamond 12,11 r5",
+  ]);
+  const drawn = run(source);
+  expect(drawn.errors).toStrictEqual([]);
+  const doc = drawn.canvas.toJSON({ icon: "droplet", keyline: "tall" });
+  expect(doc.draw.some((op) => op.op === "raw")).toBe(false);
+  expect(programFromDoc(doc)).toContain("diamond ");
+  const replay = run(programFromDoc(doc));
+  expect(replay.canvas.toSVG()).toBe(drawn.canvas.toSVG());
+});
+
+test("both paints of a diamond agree on their extent after a fit", () => {
+  // Stored as a polyline the stroked diamond quantised its vertices while the
+  // filled lozenge quantised its radius, so a `fit` left the two paints a
+  // fraction of a grid step apart and `sameExtent`, which allows 0.01, called
+  // it a mismatch.
+  const outlined = program("compass", "outlined", "square", [
+    "circle 12,12 r8",
+    "diamond 12,12 r5",
+  ]);
+  const stroked = run(outlined);
+  const twin = run(adaptProgram(outlined, "filled"));
+  expect(visualSize(twin.canvas)).toStrictEqual(visualSize(stroked.canvas));
+});

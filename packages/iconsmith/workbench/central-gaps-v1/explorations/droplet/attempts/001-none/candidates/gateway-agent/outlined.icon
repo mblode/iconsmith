@@ -1,0 +1,4 @@
+icon droplet
+finish outlined
+arc 12,14 r7 half from right
+line 5,14 12,3 19,14 off-axis

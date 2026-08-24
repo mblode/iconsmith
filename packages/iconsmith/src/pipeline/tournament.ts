@@ -220,6 +220,9 @@ export interface TournamentRun {
   accepted: boolean;
   /** A failed arm is evidence, not a reason to discard every other arm. */
   failure: string | null;
+  /** What a failed pair had already been billed for before it threw. Kept so
+   *  one arm's collapse does not make the whole tournament's ledger unknown. */
+  partialCosts?: ApiCost[];
   id: string;
   label: string;
   paints: TournamentPaint[];
@@ -390,9 +393,9 @@ export const runPairTournament = async ({
   const runCandidate = async (
     candidate: PairCandidate
   ): Promise<TournamentRun> => {
+    const results: { finish: Finish; result: GenerateResult }[] = [];
     try {
       const finishes = ["outlined", "filled"] as const;
-      const results: { finish: Finish; result: GenerateResult }[] = [];
       if (candidate.serial) {
         for (const finish of finishes) {
           results.push({
@@ -454,12 +457,19 @@ export const runPairTournament = async ({
         score: pairScore(paints),
       };
     } catch (error) {
+      // Whatever this pair had already been billed for, before it threw. A
+      // `claude-harness` client-side timeout that drew nothing and cost
+      // nothing used to mark the entire tournament's ledger unknown, which
+      // voided a fully priced $0.43 run and threw away another arm's 10/9
+      // outlined paint. Escalation still stops — the pair is incomplete — but
+      // an unfinished arm no longer makes the finished ones unpayable.
       return {
         accepted: false,
         failure: failureMessage(error),
         id: candidate.id,
         label: candidate.label,
         paints: [],
+        partialCosts: results.flatMap(({ result }) => result.apiCosts ?? []),
         score: 0,
       };
     }
@@ -490,10 +500,13 @@ export const runPairTournament = async ({
     return true;
   };
   const recordActual = (run: TournamentRun): void => {
-    const costs = run.paints.flatMap((paint) => [
-      ...(paint.result.apiCosts ?? []),
-      ...(paint.audit.cost ? [paint.audit.cost] : []),
-    ]);
+    const costs = [
+      ...run.paints.flatMap((paint) => [
+        ...(paint.result.apiCosts ?? []),
+        ...(paint.audit.cost ? [paint.audit.cost] : []),
+      ]),
+      ...(run.partialCosts ?? []),
+    ];
     actualCalls += costs.reduce((sum, cost) => sum + cost.calls, 0);
     const measured = totalUsd(costs);
     if (measured === null) {
@@ -502,12 +515,17 @@ export const runPairTournament = async ({
       actualUsd += measured;
     }
     // A pair-level failure can happen after one paint has already completed
-    // and been billed. `runCandidate` intentionally collapses that incomplete
-    // pair to failure evidence, so its total is unknowable here. Automatic
-    // escalation must stop rather than treating the missing paint ledger as
-    // free and starting another candidate.
+    // and been billed, so escalation stops: the pair is incomplete and the
+    // next candidate must not start on the assumption that it was free.
+    //
+    // What it must not do is mark the ledger unknown. `runCandidate` now hands
+    // back what the failed pair had already been billed for, so the total is
+    // still the total. Treating a failure as unpriced meant one arm's
+    // client-side timeout — no paints drawn, nothing billed — set
+    // `totalUsd: null`, and `exceedsCostBudget` fails closed on an unknown
+    // cost, so a fully priced run was refused and another arm's accepted-grade
+    // outlined paint went in the bin with it.
     if (budget && run.failure !== null) {
-      hasUnpricedCalls = true;
       budgetExhausted = true;
     }
     if (

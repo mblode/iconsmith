@@ -134,7 +134,7 @@ describe("glyphs", () => {
 
   it("keeps the compass needle on 45°/135°", () => {
     const { drawn } = issuesOf("compass", "outlined");
-    const needle = drawn.canvas.elements.find((e) => e.kind === "line");
+    const needle = drawn.canvas.elements.find((e) => e.kind === "diamond");
     expect(needle).toBeDefined();
     const off = offAxisEdges(iconEdgeAngles([needle?.d ?? ""]));
     expect(off).toEqual([]);

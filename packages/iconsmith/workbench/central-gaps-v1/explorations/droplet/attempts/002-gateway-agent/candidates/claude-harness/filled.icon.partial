@@ -1,0 +1,6 @@
+icon droplet
+keyline tall
+finish filled
+circle 12,14 r6.75
+diamond 12,9.25 r4.75
+fit

@@ -503,6 +503,16 @@ export type Element = {
       cy: number;
       d: string;
       id: string;
+      kind: "diamond";
+      /** Centre to vertex as asked for, before the filled paint's half-stroke
+       *  padding. One number describes both paints. */
+      reach: number;
+    }
+  | {
+      cx: number;
+      cy: number;
+      d: string;
+      id: string;
       kind: "dot";
       role: DotRole;
     }
@@ -1334,12 +1344,26 @@ export class Canvas {
     const e: [number, number] = [x + r, y];
     const s: [number, number] = [x, y + r];
     const w: [number, number] = [x - r, y];
-    if (this.finish !== "filled") {
-      return this.line({ points: [n, e, s, w, n] });
-    }
-    return this.raw(
-      `M${n[0]} ${n[1]}L${e[0]} ${e[1]}L${s[0]} ${s[1]}L${w[0]} ${w[1]}Z`
-    );
+    // One op for both paints. The lozenge took the `raw` escape, and
+    // `programFromDoc` drops `raw`: a droplet whose point is a filled diamond
+    // saved a program holding only its round base, which then paired as a bare
+    // disc against a bare ring and tripped the restamp rule — two failures
+    // from one missing word.
+    //
+    // Both finishes carry the op, not just the filled one. A stroked diamond
+    // stored as a polyline quantises its vertices while a filled one quantises
+    // its radius, so after a `fit` the two paints disagree by a fraction of a
+    // grid step and the twin `extent` rule — which allows 0.01 — calls it a
+    // mismatch. One op means one quantisation.
+    const d = `M${n[0]} ${n[1]}L${e[0]} ${e[1]}L${s[0]} ${s[1]}L${w[0]} ${w[1]}Z`;
+    return this.#push((id) => ({
+      cx: x,
+      cy: y,
+      d,
+      id,
+      kind: "diamond" as const,
+      reach,
+    }));
   }
 
   /**
@@ -1580,6 +1604,12 @@ export class Canvas {
           r: e.r * k,
           sweep: e.sweep,
         });
+      } else if (e.kind === "diamond") {
+        this.diamond({
+          cx: e.cx * k + tx,
+          cy: e.cy * k + ty,
+          reach: e.reach * k,
+        });
       } else if (e.kind === "dot") {
         this.dot({ cx: e.cx * k + tx, cy: e.cy * k + ty, role: e.role });
       } else if (e.kind === "line") {
@@ -1688,7 +1718,7 @@ export class Canvas {
     const half = this.spec.stroke / 2;
     const boxes = this.elements.map((e) => {
       const painted = bbox(parsePath(e.d));
-      if (e.kind === "line" || e.kind === "arc") {
+      if (e.kind === "line" || e.kind === "arc" || e.kind === "diamond") {
         return {
           x0: painted.x0 + half,
           x1: painted.x1 - half,
@@ -1810,6 +1840,9 @@ export class Canvas {
                 sweep: e.sweep,
               };
         }
+        if (e.kind === "diamond") {
+          return { cx: e.cx, cy: e.cy, op: "diamond", reach: e.reach };
+        }
         if (e.kind === "dot") {
           return { cx: e.cx, cy: e.cy, op: "dot", role: e.role };
         }
@@ -1874,6 +1907,8 @@ export class Canvas {
         }
       } else if (op.op === "arc") {
         c.arc(op);
+      } else if (op.op === "diamond") {
+        c.diamond(op);
       } else if (op.op === "dot") {
         c.dot(op);
       } else if (op.op === "line") {

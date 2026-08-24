@@ -1458,18 +1458,705 @@
       "status": "todo"
     },
     {
-      "attemptCount": 0,
+      "attemptCount": 2,
       "confidence": "high",
-      "costs": [],
+      "costs": [
+        {
+          "calls": 52,
+          "records": [
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWM7WCQ4SY5KXB5WRT4VMN"],
+              "model": "google/gemini-3.1-flash-lite-image",
+              "operation": "proposal-image",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 4632,
+                "outputTokens": 1120,
+                "reasoningTokens": 0
+              },
+              "usd": 0.035158
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWM7NMKPBD3NJ99N61ASMV"],
+              "model": "google/gemini-3.1-flash-lite-image",
+              "operation": "proposal-image",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 4632,
+                "outputTokens": 1120,
+                "reasoningTokens": 0
+              },
+              "usd": 0.035158
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWM7M4BW5JT7E7SEX9SNP8"],
+              "model": "google/gemini-3-pro-image",
+              "operation": "proposal-image",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 2392,
+                "outputTokens": 1416,
+                "reasoningTokens": 296
+              },
+              "usd": 0.142736
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWMTTEN0K0T1D0X5RR6XD6"],
+              "model": "google/gemini-3.1-flash-lite",
+              "operation": "proposal-selection",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 7793,
+                "outputTokens": 38,
+                "reasoningTokens": 0
+              },
+              "usd": 0.00200525
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWMYF5RDJFPJXRZTV9EFDE"],
+              "model": "google/gemini-3.1-flash-lite",
+              "operation": "proposal-reading",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 1613,
+                "outputTokens": 48,
+                "reasoningTokens": 0
+              },
+              "usd": 0.00047525
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWKYTSKV8FGFAVQ4CXFB47"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 270,
+                "reasoningTokens": 173
+              },
+              "usd": 0.0062595
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWKZD2EHBB28MVM5EPNP7R"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 729,
+                "reasoningTokens": 596
+              },
+              "usd": 0.00798075
+            },
+            {
+              "calls": 7,
+              "generationIds": [
+                "gen_01M0RWN023C180ABEEX72Z6SNK",
+                "gen_01M0RWN1ZA5G3Y44MZKTEVHC93",
+                "gen_01M0RWN4J2JFEYR7CKSWWPE1MC",
+                "gen_01M0RWN71S4BSWRQA8RNDNXVKQ",
+                "gen_01M0RWN9J3T2CATB3TGQX6GCMH",
+                "gen_01M0RWND1Y035V2NR44CWX1296",
+                "gen_01M0RWNQVDBGCENSRHAT4YQEPM"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 33189,
+                "outputTokens": 1729,
+                "reasoningTokens": 1611
+              },
+              "usd": 0.0313755
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWPWMP0PXGG62WA3AH351N"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 185,
+                "reasoningTokens": 108
+              },
+              "usd": 0.00594075
+            },
+            {
+              "calls": 7,
+              "generationIds": [
+                "gen_01M0RWNW6WC1011E3XP1Y3J4D9",
+                "gen_01M0RWNYK3T2XAPD2CCECHE0EC",
+                "gen_01M0RWP1FFYZXJDSHC649HHTYT",
+                "gen_01M0RWP5P62TMS3KTDYFHHWZGF",
+                "gen_01M0RWP8VEVSAB1YN6K4A1WMYD",
+                "gen_01M0RWPB7ESG4B986YFP8WA7MT",
+                "gen_01M0RWPT19DBTK7HGRX1R6NFE3"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 35302,
+                "outputTokens": 2114,
+                "reasoningTokens": 1997
+              },
+              "usd": 0.034404
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWPWSNQRXM7D50FZEYTZJ2"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 542,
+                "reasoningTokens": 415
+              },
+              "usd": 0.0072795
+            },
+            {
+              "calls": 16,
+              "generationIds": [
+                "gen_01M0RWQ3RGJ9JHS3H610MHMVHE",
+                "gen_01M0RWQ5W0X1MZKFW3R4BB659R",
+                "gen_01M0RWQ84JN88H1692PAR4F557",
+                "gen_01M0RWQ9XM37E3CATPY6WCRG1X",
+                "gen_01M0RWQCNYDC75P0ZV8XP6J8TJ",
+                "gen_01M0RWQKKZ6WXG6D8B4EQZ8BV5",
+                "gen_01M0RWQRETY6FWZ6J3AEYWW3V5",
+                "gen_01M0RWQTGDJ7SKRJBJ4TWR5REM",
+                "gen_01M0RWQX6GBRN0EYAYA0NQSBTW",
+                "gen_01M0RWQZ63TQQHSD7D5M9784N2",
+                "gen_01M0RWR2WB22PEG0FS6GXDTQ28",
+                "gen_01M0RWR50K64YXNH42V7QH2XB6",
+                "gen_01M0RWR9VY1PBKTTNPE6R4RAS8",
+                "gen_01M0RWRC9D2MMXKKZE2EV995PE",
+                "gen_01M0RWREAMTCCHQZ61R5TXKKC7",
+                "gen_01M0RWRQC601X0VNP5X5DGFEXM"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 24793,
+                "cacheWriteTokens": 0,
+                "inputTokens": 59809,
+                "outputTokens": 3491,
+                "reasoningTokens": 3136
+              },
+              "usd": 0.059807475
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWRSE4SXHVBX47AJZFS1MV"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 532,
+                "reasoningTokens": 458
+              },
+              "usd": 0.007242
+            },
+            {
+              "calls": 11,
+              "generationIds": [
+                "gen_01M0RWQ3AT73Q1EY45ESXPJ5NT",
+                "gen_01M0RWQ5H26NJ7ZMFM6S7H1TR4",
+                "gen_01M0RWQ79TQK3S250D60YV4GF5",
+                "gen_01M0RWQ97PSVNSMTK6S6X3YPCH",
+                "gen_01M0RWQB5CR3N8HKCMC0WB67T3",
+                "gen_01M0RWQJKZ6Y816QCEW9XC4SJX",
+                "gen_01M0RWQSGK0521YF9610ZRGYTT",
+                "gen_01M0RWQW33DQDDNZ45J4GSJABF",
+                "gen_01M0RWR7AH50253QSQJ283EAJM",
+                "gen_01M0RWR9XH5WQJY709E94FW56H",
+                "gen_01M0RWRC70AGWXJKB58FY1SH8W"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 14581,
+                "cacheWriteTokens": 0,
+                "inputTokens": 45000,
+                "outputTokens": 4055,
+                "reasoningTokens": 3875
+              },
+              "usd": 0.050049825
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RWRTFMMRZB7MJJF29TKZC9"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 622,
+                "reasoningTokens": 490
+              },
+              "usd": 0.0075795
+            }
+          ],
+          "totalUsd": null,
+          "unpricedCalls": 1
+        },
+        {
+          "calls": 60,
+          "records": [
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RXZH8NNHTTRCT096HX4XZZ"],
+              "model": "google/gemini-3.1-flash-lite-image",
+              "operation": "proposal-image",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 3796,
+                "cacheWriteTokens": 0,
+                "inputTokens": 836,
+                "outputTokens": 1120,
+                "reasoningTokens": 0
+              },
+              "usd": 0.03432288
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RXZH6D2SPEHD00MJ0T4446"],
+              "model": "google/gemini-3.1-flash-lite-image",
+              "operation": "proposal-image",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 3796,
+                "cacheWriteTokens": 0,
+                "inputTokens": 836,
+                "outputTokens": 1120,
+                "reasoningTokens": 0
+              },
+              "usd": 0.03432288
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RXZHDN2P2P307JVK0RSHSE"],
+              "model": "google/gemini-3-pro-image",
+              "operation": "proposal-image",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 2392,
+                "outputTokens": 1323,
+                "reasoningTokens": 203
+              },
+              "usd": 0.14162
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY117CMMH156NGMX8PHT85"],
+              "model": "google/gemini-3.1-flash-lite",
+              "operation": "proposal-selection",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 7802,
+                "outputTokens": 54,
+                "reasoningTokens": 0
+              },
+              "usd": 0.0020315
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY14A2HRV65YKTK9YZ82J5"],
+              "model": "google/gemini-3.1-flash-lite",
+              "operation": "proposal-reading",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 1613,
+                "outputTokens": 48,
+                "reasoningTokens": 0
+              },
+              "usd": 0.00047525
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RXZ94PHGD24JMQ05Y18DRM"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 282,
+                "reasoningTokens": 183
+              },
+              "usd": 0.0063045
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RXZ90BCANPHGP0TS25EN5H"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 1023,
+                "reasoningTokens": 921
+              },
+              "usd": 0.00908325
+            },
+            {
+              "calls": 7,
+              "generationIds": [
+                "gen_01M0RY16BJFP5PYHS3NN1Z6WN4",
+                "gen_01M0RY184P5Y69KBBJ36235QX5",
+                "gen_01M0RY1AKN18TPZHQ3VQ884KRK",
+                "gen_01M0RY1D4X7X2NQ6TW9VZDG47C",
+                "gen_01M0RY1F8Y2PH2A8B4KX4P3X94",
+                "gen_01M0RY1J71GBY8X2J1JCGZ14YX",
+                "gen_01M0RY1X1RHBPGMQC7TJ2WQ339"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 33018,
+                "outputTokens": 1546,
+                "reasoningTokens": 1410
+              },
+              "usd": 0.030560999999999998
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY2P0EN18HZW6ECH40JBN3"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 417,
+                "reasoningTokens": 360
+              },
+              "usd": 0.00681075
+            },
+            {
+              "calls": 7,
+              "generationIds": [
+                "gen_01M0RY1ZVEA78B93ARBGRMQZVV",
+                "gen_01M0RY21RAZP6PP0NBXCGVYG5M",
+                "gen_01M0RY25D7GCDSB2J5F8MA58HY",
+                "gen_01M0RY27GVMWQTS0SJ8JY7JK1K",
+                "gen_01M0RY2B4VK31W9QG23XX44BA3",
+                "gen_01M0RY2DFQAZDF16PN8VPZHCKG",
+                "gen_01M0RY2K475YT0NGRYKDTT3Q2K"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 33940,
+                "outputTokens": 868,
+                "reasoningTokens": 755
+              },
+              "usd": 0.02871
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY2PKFVC6PWQE0CJA3E68S"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 596,
+                "reasoningTokens": 475
+              },
+              "usd": 0.007482
+            },
+            {
+              "calls": 16,
+              "generationIds": [
+                "gen_01M0RY2XDQWQ9HD6ZVARP27E8R",
+                "gen_01M0RY2Z7HZG1WY5GEWK5B18M7",
+                "gen_01M0RY310XD16G3438KV57X18J",
+                "gen_01M0RY32Q8B7763BTJP0GMQFWM",
+                "gen_01M0RY34G4E8NV17YR1G778KB5",
+                "gen_01M0RY36V8F6BB30EE004KWXBP",
+                "gen_01M0RY3Q49P1ZBN230DK2YYJ95",
+                "gen_01M0RY3RT5Y2SRK23AYTGB49K1",
+                "gen_01M0RY3W829V017QQVAZSMGSKP",
+                "gen_01M0RY3ZA5GDR1FPRVPB7FMB64",
+                "gen_01M0RY42DFEDQSX8DS4JKRH65Q",
+                "gen_01M0RY44SDW69FXF41S0JNYSKC",
+                "gen_01M0RY47RCX6RFRXZ9F11Z5PYV",
+                "gen_01M0RY4AK7MDCJ478SB8SKNBN0",
+                "gen_01M0RY4GHZ5RMQ83VTA2DZ8TZ2",
+                "gen_01M0RY4M9ZSN9727H6618706Z9"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 32269,
+                "cacheWriteTokens": 0,
+                "inputTokens": 61389,
+                "outputTokens": 3496,
+                "reasoningTokens": 3158
+              },
+              "usd": 0.061571925
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY4NZ85EEQQT4RTY9DN5F6"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 313,
+                "reasoningTokens": 250
+              },
+              "usd": 0.00642075
+            },
+            {
+              "calls": 11,
+              "generationIds": [
+                "gen_01M0RY2XDRN1P0KKRKB8WEY03X",
+                "gen_01M0RY3009BQEHTJ3NA3A5T9XK",
+                "gen_01M0RY31QW0RWAN8YRA75NBQSQ",
+                "gen_01M0RY33MZ2NQ5MQR2F8EK5M0E",
+                "gen_01M0RY35CD1NAVP2DY0416EEVX",
+                "gen_01M0RY3ARAKV19NTH02H8S25KK",
+                "gen_01M0RY3CF5VNYH1ATNY99TPW97",
+                "gen_01M0RY3K0Y5C0RK0WDWSM7F23K",
+                "gen_01M0RY3ND7CYVXKEPPRRVVCFM0",
+                "gen_01M0RY3VQDBJ488D6FY42667DT",
+                "gen_01M0RY3YC65RJZD0R7PH2XWWHQ"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 14199,
+                "cacheWriteTokens": 0,
+                "inputTokens": 43745,
+                "outputTokens": 2085,
+                "reasoningTokens": 1819
+              },
+              "usd": 0.04169242499999999
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY4P7BJAXWR37BGBZ23Y3W"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 353,
+                "reasoningTokens": 296
+              },
+              "usd": 0.00657075
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY4TWVW249CE3VYQRJK93G"],
+              "model": "anthropic/claude-sonnet-5",
+              "operation": "claude-harness",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 9362,
+                "outputTokens": 3754,
+                "reasoningTokens": 3691
+              },
+              "usd": 0.056264
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RY6CFV9ACJGANYRH9H51F0"],
+              "model": "anthropic/claude-sonnet-5",
+              "operation": "claude-harness",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 9977,
+                "outputTokens": 12488,
+                "reasoningTokens": 12421
+              },
+              "usd": 0.144834
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RYB5RGDS7A91DSQ9FFZZHT"],
+              "model": "anthropic/claude-sonnet-5",
+              "operation": "claude-harness",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 10011,
+                "outputTokens": 11184,
+                "reasoningTokens": 11110
+              },
+              "usd": 0.131862
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RYQ0RT3T7PXFAH02BJN032"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 483,
+                "reasoningTokens": 420
+              },
+              "usd": 0.00705825
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RYF75R7PKJD7076QVTN61R"],
+              "model": "anthropic/claude-sonnet-5",
+              "operation": "claude-harness",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 9426,
+                "outputTokens": 10833,
+                "reasoningTokens": 10644
+              },
+              "usd": 0.127182
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RYK9P8Q9FRBK9PMFPKXSYM"],
+              "model": "anthropic/claude-sonnet-5",
+              "operation": "claude-harness",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 10631,
+                "outputTokens": 5122,
+                "reasoningTokens": 5079
+              },
+              "usd": 0.072482
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RYNAPRF694NM8C21RWJ8DE"],
+              "model": "anthropic/claude-sonnet-5",
+              "operation": "claude-harness",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 10023,
+                "outputTokens": 4473,
+                "reasoningTokens": 4425
+              },
+              "usd": 0.064776
+            },
+            {
+              "calls": 1,
+              "generationIds": ["gen_01M0RYQ0X2NPD0PKE2HC6FN3EV"],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 6996,
+                "outputTokens": 574,
+                "reasoningTokens": 503
+              },
+              "usd": 0.0073995
+            }
+          ],
+          "totalUsd": 1.02983761,
+          "unpricedCalls": 0
+        }
+      ],
       "id": "central-063",
-      "lastError": null,
-      "lastSessionId": null,
+      "lastError": "I rejected every candidate for “droplet” instead of returning another weak icon. The best pair was Vercel Gateway tool agent at 9.8/10. Try a more specific object noun or attach a composition reference.",
+      "lastSessionId": "wrun_01M0RXZ70B4FEVW4TTGKKQVHC7",
       "rank": 63,
       "risk": null,
       "selectedAttempt": null,
       "slug": "droplet",
       "sources": ["G", "L", "T"],
-      "status": "todo"
+      "status": "revision",
+      "startedAt": "2026-08-24T03:45:33.188Z",
+      "gates": {
+        "approval": "pending",
+        "integrity": "failed",
+        "lint": "failed",
+        "overview": "pending",
+        "pair": "failed",
+        "publish": "pending",
+        "semantic": "failed",
+        "visual": "failed"
+      },
+      "finishedAt": "2026-08-24T03:58:41.099Z"
     },
     {
       "attemptCount": 0,
@@ -3417,7 +4104,7 @@
     "centralRecords": 2085,
     "comparedAt": "2026-08-23T20:44:16.958Z"
   },
-  "updatedAt": "2026-08-23T23:43:31.198Z",
+  "updatedAt": "2026-08-24T03:58:41.099Z",
   "retired": [
     {
       "attemptCount": 0,

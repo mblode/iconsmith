@@ -1,0 +1,17 @@
+{
+  "draw": [
+    {
+      "d": "M12 3L20 11L12 19L4 11Z",
+      "op": "raw"
+    },
+    {
+      "cx": 12,
+      "cy": 14.5,
+      "op": "circle",
+      "r": 6.5
+    }
+  ],
+  "icon": "droplet",
+  "keyline": null,
+  "finish": "filled"
+}

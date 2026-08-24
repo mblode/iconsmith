@@ -1,0 +1,30 @@
+{
+  "draw": [
+    {
+      "h": 18,
+      "op": "rect",
+      "r": 3,
+      "w": 18,
+      "x": 3,
+      "y": 3
+    },
+    {
+      "h": 14,
+      "op": "rect",
+      "r": 1,
+      "w": 14,
+      "x": 5,
+      "y": 5,
+      "knockout": true
+    },
+    {
+      "cx": 12,
+      "cy": 12,
+      "op": "dot",
+      "role": "node"
+    }
+  ],
+  "icon": "droplet",
+  "keyline": "square",
+  "finish": "filled"
+}

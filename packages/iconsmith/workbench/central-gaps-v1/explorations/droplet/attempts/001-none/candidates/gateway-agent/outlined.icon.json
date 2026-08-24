@@ -1,0 +1,23 @@
+{
+  "draw": [
+    {
+      "cx": 12,
+      "cy": 14,
+      "from": "right",
+      "op": "arc",
+      "r": 7,
+      "sweep": "half"
+    },
+    {
+      "offAxis": true,
+      "op": "line",
+      "points": [
+        [5, 14],
+        [12, 3],
+        [19, 14]
+      ]
+    }
+  ],
+  "icon": "droplet",
+  "keyline": null
+}

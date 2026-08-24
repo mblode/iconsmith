@@ -595,6 +595,9 @@ const opLine = (op: DrawOp): string | null => {
   if (op.op === "dot") {
     return `dot ${fmt(op.cx)},${fmt(op.cy)} ${op.role}`;
   }
+  if (op.op === "diamond") {
+    return `diamond ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.reach)}`;
+  }
   return partOf(op);
 };
 

@@ -1,0 +1,319 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 29,
+    "records": [
+      {
+        "calls": 16,
+        "generationIds": [
+          "gen_01M0RY2XDQWQ9HD6ZVARP27E8R",
+          "gen_01M0RY2Z7HZG1WY5GEWK5B18M7",
+          "gen_01M0RY310XD16G3438KV57X18J",
+          "gen_01M0RY32Q8B7763BTJP0GMQFWM",
+          "gen_01M0RY34G4E8NV17YR1G778KB5",
+          "gen_01M0RY36V8F6BB30EE004KWXBP",
+          "gen_01M0RY3Q49P1ZBN230DK2YYJ95",
+          "gen_01M0RY3RT5Y2SRK23AYTGB49K1",
+          "gen_01M0RY3W829V017QQVAZSMGSKP",
+          "gen_01M0RY3ZA5GDR1FPRVPB7FMB64",
+          "gen_01M0RY42DFEDQSX8DS4JKRH65Q",
+          "gen_01M0RY44SDW69FXF41S0JNYSKC",
+          "gen_01M0RY47RCX6RFRXZ9F11Z5PYV",
+          "gen_01M0RY4AK7MDCJ478SB8SKNBN0",
+          "gen_01M0RY4GHZ5RMQ83VTA2DZ8TZ2",
+          "gen_01M0RY4M9ZSN9727H6618706Z9"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 32269,
+          "cacheWriteTokens": 0,
+          "inputTokens": 61389,
+          "outputTokens": 3496,
+          "reasoningTokens": 3158
+        },
+        "usd": 0.061571925
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RY4NZ85EEQQT4RTY9DN5F6"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 313,
+          "reasoningTokens": 250
+        },
+        "usd": 0.00642075
+      },
+      {
+        "calls": 11,
+        "generationIds": [
+          "gen_01M0RY2XDRN1P0KKRKB8WEY03X",
+          "gen_01M0RY3009BQEHTJ3NA3A5T9XK",
+          "gen_01M0RY31QW0RWAN8YRA75NBQSQ",
+          "gen_01M0RY33MZ2NQ5MQR2F8EK5M0E",
+          "gen_01M0RY35CD1NAVP2DY0416EEVX",
+          "gen_01M0RY3ARAKV19NTH02H8S25KK",
+          "gen_01M0RY3CF5VNYH1ATNY99TPW97",
+          "gen_01M0RY3K0Y5C0RK0WDWSM7F23K",
+          "gen_01M0RY3ND7CYVXKEPPRRVVCFM0",
+          "gen_01M0RY3VQDBJ488D6FY42667DT",
+          "gen_01M0RY3YC65RJZD0R7PH2XWWHQ"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 14199,
+          "cacheWriteTokens": 0,
+          "inputTokens": 43745,
+          "outputTokens": 2085,
+          "reasoningTokens": 1819
+        },
+        "usd": 0.04169242499999999
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RY4P7BJAXWR37BGBZ23Y3W"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 353,
+          "reasoningTokens": 296
+        },
+        "usd": 0.00657075
+      }
+    ],
+    "totalUsd": 0.11625585,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "gateway-agent",
+  "label": "Vercel Gateway tool agent",
+  "paints": [
+    {
+      "accepted": true,
+      "apiCosts": [
+        {
+          "calls": 16,
+          "generationIds": [
+            "gen_01M0RY2XDQWQ9HD6ZVARP27E8R",
+            "gen_01M0RY2Z7HZG1WY5GEWK5B18M7",
+            "gen_01M0RY310XD16G3438KV57X18J",
+            "gen_01M0RY32Q8B7763BTJP0GMQFWM",
+            "gen_01M0RY34G4E8NV17YR1G778KB5",
+            "gen_01M0RY36V8F6BB30EE004KWXBP",
+            "gen_01M0RY3Q49P1ZBN230DK2YYJ95",
+            "gen_01M0RY3RT5Y2SRK23AYTGB49K1",
+            "gen_01M0RY3W829V017QQVAZSMGSKP",
+            "gen_01M0RY3ZA5GDR1FPRVPB7FMB64",
+            "gen_01M0RY42DFEDQSX8DS4JKRH65Q",
+            "gen_01M0RY44SDW69FXF41S0JNYSKC",
+            "gen_01M0RY47RCX6RFRXZ9F11Z5PYV",
+            "gen_01M0RY4AK7MDCJ478SB8SKNBN0",
+            "gen_01M0RY4GHZ5RMQ83VTA2DZ8TZ2",
+            "gen_01M0RY4M9ZSN9727H6618706Z9"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 32269,
+            "cacheWriteTokens": 0,
+            "inputTokens": 61389,
+            "outputTokens": 3496,
+            "reasoningTokens": 3158
+          },
+          "usd": 0.061571925
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 58096,
+        "outcome": "budget",
+        "toolCalls": {
+          "listParts": 3,
+          "construct": 1,
+          "compare": 1,
+          "line": 3,
+          "render": 3,
+          "remove": 3,
+          "arc": 2
+        },
+        "usage": {
+          "cacheReadTokens": 32269,
+          "cacheWriteTokens": 0,
+          "inputTokens": 61389,
+          "outputTokens": 3496,
+          "reasoningTokens": 3158
+        }
+      },
+      "issues": [
+        {
+          "message": "Content centre is (12.00, 11.50); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        },
+        {
+          "message": "Visual extent 14.0×19.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is tall 16×20 (2.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e4\" has an edge at 121.0°, 14.0° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e4\" has an edge at 59.0°, 14.0° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "pq": 10,
+      "programComplete": true,
+      "reason": "The droplet icon clearly communicates its concept with well-balanced proportions, consistent stroke weight, and corner rounding that harmonizes with the rest of the icon set.",
+      "sc": 10,
+      "scorable": true,
+      "steps": 16,
+      "text": "",
+      "trace": [
+        "listParts",
+        "listParts",
+        "construct",
+        "compare",
+        "listParts",
+        "line",
+        "render",
+        "remove",
+        "arc",
+        "remove",
+        "arc",
+        "line",
+        "render",
+        "remove",
+        "line",
+        "render"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 11,
+          "generationIds": [
+            "gen_01M0RY2XDRN1P0KKRKB8WEY03X",
+            "gen_01M0RY3009BQEHTJ3NA3A5T9XK",
+            "gen_01M0RY31QW0RWAN8YRA75NBQSQ",
+            "gen_01M0RY33MZ2NQ5MQR2F8EK5M0E",
+            "gen_01M0RY35CD1NAVP2DY0416EEVX",
+            "gen_01M0RY3ARAKV19NTH02H8S25KK",
+            "gen_01M0RY3CF5VNYH1ATNY99TPW97",
+            "gen_01M0RY3K0Y5C0RK0WDWSM7F23K",
+            "gen_01M0RY3ND7CYVXKEPPRRVVCFM0",
+            "gen_01M0RY3VQDBJ488D6FY42667DT",
+            "gen_01M0RY3YC65RJZD0R7PH2XWWHQ"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 14199,
+            "cacheWriteTokens": 0,
+            "inputTokens": 43745,
+            "outputTokens": 2085,
+            "reasoningTokens": 1819
+          },
+          "usd": 0.04169242499999999
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 36674,
+        "outcome": "stalled",
+        "toolCalls": {
+          "listParts": 3,
+          "construct": 1,
+          "diamond": 3,
+          "circle": 2,
+          "render": 3,
+          "remove": 3,
+          "compare": 1
+        },
+        "usage": {
+          "cacheReadTokens": 14199,
+          "cacheWriteTokens": 0,
+          "inputTokens": 43745,
+          "outputTokens": 2085,
+          "reasoningTokens": 1819
+        }
+      },
+      "issues": [
+        {
+          "message": "Content centre is (12.00, 13.75); the house spec is (12, 12) within 0.25. Shift by (0.00, -1.75) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        },
+        {
+          "message": "Visual extent 12.0×14.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is tall 16×20 (5.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "message": "Filled restamped a ring as a disc. Knock a hole immediately after the circle — `fit` to the same keyline does not hide a missing knockout.",
+          "rule": "paint",
+          "severity": "error"
+        }
+      ],
+      "pq": 10,
+      "programComplete": false,
+      "reason": "The droplet shape is clearly recognizable, well-proportioned, and correctly executed in a solid filled finish with smooth curves.",
+      "sc": 10,
+      "scorable": true,
+      "steps": 11,
+      "text": "",
+      "trace": [
+        "listParts",
+        "listParts",
+        "construct",
+        "listParts",
+        "diamond",
+        "circle",
+        "render",
+        "remove",
+        "remove",
+        "diamond",
+        "circle",
+        "render",
+        "remove",
+        "diamond",
+        "render",
+        "compare"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 9.8
+}

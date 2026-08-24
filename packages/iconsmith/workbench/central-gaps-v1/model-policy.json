@@ -12,6 +12,11 @@
       "input": 2,
       "output": 10
     },
+    "google/gemini-3-pro-image": {
+      "cachedInput": 0.25,
+      "input": 2.5,
+      "output": 15
+    },
     "google/gemini-3.1-flash-lite": {
       "cachedInput": 0.03,
       "input": 0.25,
@@ -41,11 +46,13 @@
     "iconDslGeneration": "google/gemini-3.7-flash",
     "pairCandidateRanking": "google/gemini-3.1-flash-lite",
     "proposalImage": "google/gemini-3.1-flash-lite-image",
+    "proposalQualityImage": "google/gemini-3-pro-image",
     "visualAcceptance": "google/gemini-3.7-flash"
   },
   "rules": [
     "Use deterministic library and analog candidates before paid generation.",
     "Use cheap multimodal models for coarse selection and closed-vocabulary extraction.",
+    "Draw more than one proposal and choose between them: the reference decides more than the draughtsman does.",
     "Use a stronger model for icon DSL generation and independent final visual acceptance.",
     "Do not start Claude harness escalation unless the complete pair reservation fits.",
     "Treat a missing price as unknown, never zero.",

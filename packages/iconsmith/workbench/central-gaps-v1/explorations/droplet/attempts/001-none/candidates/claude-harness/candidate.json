@@ -1,0 +1,14 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 0,
+    "records": [],
+    "totalUsd": 0,
+    "unpricedCalls": 0
+  },
+  "failure": "claude exited 1: Failed after 3 attempts. Last error: GatewayTimeoutError: Gateway request timed out: Cannot connect to API: Headers Timeout Error\n\n    This is a client-side timeout. To resolve this, increase your timeout configuration: https://vercel.com/docs/ai-gateway/capabilities/video-generation#extending-timeouts-for-node.js while drawing `droplet`. Scratch kept at /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-JkgtpN.",
+  "id": "claude-harness",
+  "label": "Claude Gateway code harness + repair",
+  "paints": [],
+  "score": 0
+}

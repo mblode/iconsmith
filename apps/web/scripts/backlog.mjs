@@ -1,7 +1,6 @@
 /* oxlint-disable no-await-in-loop -- cost-gated icon runs and their artifact ledgers are deliberately sequential */
 import { createHash } from "node:crypto";
-import { existsSync } from "node:fs";
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { Client } from "eve/client";
@@ -341,13 +340,16 @@ const persistPaint = async (root, paint) => {
  * the campaign checks itself against the policy it publishes.
  */
 const POLICY_ROLES = {
-  "candidate-ranking": "pairCandidateRanking",
-  "claude-harness": "codingHarnessEscalation",
-  "icon-generation": "iconDslGeneration",
-  "proposal-image": "proposalImage",
-  "proposal-reading": "compositionReader",
-  "proposal-selection": "compositionCritique",
-  "visual-audit": "visualAcceptance",
+  "candidate-ranking": ["pairCandidateRanking"],
+  "claude-harness": ["codingHarnessEscalation"],
+  "icon-generation": ["iconDslGeneration"],
+  // Two roles, one operation: the proposal stage draws cheap sketches and one
+  // stronger one, then chooses between them. Both are billed as
+  // `proposal-image`, and both are the policy.
+  "proposal-image": ["proposalImage", "proposalQualityImage"],
+  "proposal-reading": ["compositionReader"],
+  "proposal-selection": ["compositionCritique"],
+  "visual-audit": ["visualAcceptance"],
 };
 
 /** Every model this attempt actually billed, by operation. */
@@ -371,14 +373,75 @@ const policyDrift = (policy, used) => {
   }
   return Object.entries(used)
     .flatMap(([operation, models]) => {
-      const role = POLICY_ROLES[operation];
-      const expected = role ? roles[role] : undefined;
-      if (!expected || models.every((model) => model === expected)) {
+      const named = POLICY_ROLES[operation] ?? [];
+      const allowed = named.map((role) => roles[role]).filter(Boolean);
+      if (allowed.length === 0) {
         return [];
       }
-      return [{ expected, observed: models, operation, role }];
+      const stray = models.filter((model) => !allowed.includes(model));
+      if (stray.length === 0) {
+        return [];
+      }
+      return [{ expected: allowed, observed: stray, operation, role: named }];
     })
     .toSorted((a, b) => a.operation.localeCompare(b.operation));
+};
+
+/**
+ * What the destination set already draws, as words rather than filenames.
+ *
+ * `AGENTS.md` says it: the gap backlog compares against the house *vocabulary*,
+ * not house slugs. blode draws a bin, a calendar and a camera as `trash-1`,
+ * `calendar-1` and `camera-1`, so a raw `${slug}.svg` test reports all three as
+ * missing. The set is read once and reduced to slugs, their unnumbered stems,
+ * and their singular/plural forms — every transform that is safe to apply
+ * automatically.
+ */
+const destinationVocabulary = async (dir) => {
+  const words = new Set();
+  const add = (word) => {
+    if (word.length === 0) {
+      return;
+    }
+    words.add(word);
+    words.add(word.endsWith("s") ? word.slice(0, -1) : `${word}s`);
+  };
+  const files = await readdir(dir).catch(() => []);
+  for (const file of files) {
+    if (!file.endsWith(".svg")) {
+      continue;
+    }
+    const slug = file.slice(0, -4).replace(/-filled$/u, "");
+    add(slug);
+    add(slug.replace(/-\d+$/u, ""));
+  }
+  return words;
+};
+
+/**
+ * A name the destination already answers to under a different spelling.
+ *
+ * Reported, never acted on. `droplet` against blode's `drop` is a real
+ * duplicate and cost a full tournament to discover; `forklift` against `fork`,
+ * `headset` against `head` and `parking-meter` against `park` are false
+ * friends, and no rule separates them. So the run says what it noticed and
+ * leaves the call to a person — the same discipline `concepts propose` keeps
+ * by writing a proposal rather than applying one.
+ */
+const lexicalNeighbours = (slug, words) => {
+  const hits = [];
+  for (const word of words) {
+    if (word.length < 4 || word === slug) {
+      continue;
+    }
+    const nested =
+      (slug.startsWith(word) && !slug.startsWith(`${word}-`)) ||
+      (word.startsWith(slug) && !word.startsWith(`${slug}-`));
+    if (nested) {
+      hits.push(word);
+    }
+  }
+  return hits.toSorted();
 };
 
 /** Every arm's pair, whether or not it won. A failed arm is evidence. */
@@ -563,6 +626,7 @@ const generate = async (root, campaign, options) => {
       process.env.ICONSMITH_DESTINATION_ICONS ??
       path.join(repoRoot, "../blode-icons/packages/blode-icons-react/icons-svg"),
   );
+  const drawnAlready = await destinationVocabulary(destination);
   const startingSpend = costSummary(campaign).knownTournamentUsd;
   const outcomes = [];
 
@@ -571,11 +635,7 @@ const generate = async (root, campaign, options) => {
     if (maxSpend !== null && batchSpend >= maxSpend) {
       break;
     }
-    const destinationFiles = [
-      path.join(destination, `${item.slug}.svg`),
-      path.join(destination, `${item.slug}-filled.svg`),
-    ];
-    if (destinationFiles.some((file) => existsSync(file))) {
+    if (drawnAlready.has(item.slug)) {
       item.lastError = `Skipped: ${item.slug} already exists in the destination library.`;
       item.status = "wont-do";
       outcomes.push({ reason: item.lastError, slug: item.slug, status: item.status });
@@ -626,6 +686,10 @@ const generate = async (root, campaign, options) => {
         // Both belong in the operator's view, not only on disk: one says the
         // run was not allowed to try everything, the other that it did not
         // run on the models the campaign says it runs on.
+        // Reported, not acted on: `droplet` against blode's `drop` is a real
+        // duplicate that cost a full tournament to find, and `forklift`
+        // against `fork` is not. No rule separates them, so a person does.
+        nearDestination: lexicalNeighbours(item.slug, drawnAlready),
         policyDrift: record.policyDrift,
         sessionId: result.sessionId,
         slug: item.slug,

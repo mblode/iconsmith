@@ -1,0 +1,17 @@
+{
+  "draw": [
+    {
+      "cx": 12,
+      "cy": 14.25,
+      "op": "circle",
+      "r": 7.75
+    },
+    {
+      "d": "M12 2L18.75 8.75L12 15.25L5.25 8.75Z",
+      "op": "raw"
+    }
+  ],
+  "icon": "droplet",
+  "keyline": "tall",
+  "finish": "filled"
+}

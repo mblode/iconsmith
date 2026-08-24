@@ -113,6 +113,15 @@ export type DrawOp =
       op: "circle";
       r: number;
     }
+  | {
+      cx: number;
+      cy: number;
+      /** Centre to vertex, as asked for. The filled paint pads it by half a
+       *  stroke so both paints occupy one visual extent; that padding is ink
+       *  and is re-derived on replay rather than stored. */
+      op: "diamond";
+      reach: number;
+    }
   | { cx: number; cy: number; op: "dot"; role: DotRole }
   | { d: string; fillRule?: "nonzero"; op: "raw" }
   | {

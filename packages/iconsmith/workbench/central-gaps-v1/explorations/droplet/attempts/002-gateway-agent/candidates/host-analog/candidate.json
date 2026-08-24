@@ -1,0 +1,100 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 2,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RXZ94PHGD24JMQ05Y18DRM"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 282,
+          "reasoningTokens": 183
+        },
+        "usd": 0.0063045
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RXZ90BCANPHGP0TS25EN5H"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 1023,
+          "reasoningTokens": 921
+        },
+        "usd": 0.00908325
+      }
+    ],
+    "totalUsd": 0.015387749999999999,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "host-analog",
+  "label": "Host analog baseline",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "analog unknown droplet",
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts a die face with a single dot rather than a teardrop or water droplet."
+        }
+      ],
+      "finish": "outlined",
+      "generation": null,
+      "issues": [],
+      "pq": 9,
+      "programComplete": true,
+      "reason": "The vector execution and stroke consistency are high quality, but the glyph represents a die (dice with one pip) instead of a droplet.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 6,
+      "text": "analog unknown droplet",
+      "trace": ["icon", "keyline", "finish", "rect", "dot", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "analog unknown droplet",
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts a die with a single pip (or a dot in a rounded square frame) rather than a droplet."
+        },
+        {
+          "kind": "finish",
+          "message": "The icon has an outlined stroke finish instead of the requested filled finish."
+        }
+      ],
+      "finish": "filled",
+      "generation": null,
+      "issues": [],
+      "pq": 8.5,
+      "programComplete": true,
+      "reason": "The icon is cleanly constructed and matches the stroke weight and corner radii of the set, but it depicts a die showing one instead of a filled droplet.",
+      "sc": 0,
+      "scorable": true,
+      "steps": 7,
+      "text": "analog unknown droplet",
+      "trace": ["icon", "keyline", "finish", "rect", "hole", "dot", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 1.39
+}
