@@ -93,6 +93,7 @@ export interface PairCandidateRanking {
 }
 
 export type PairRankAsk = (input: {
+  abortSignal?: AbortSignal;
   concept: Concept;
   ids: readonly string[];
   preview: Buffer;
@@ -115,12 +116,14 @@ const rankSchema = z.object({
 export const PAIR_RANK_MODEL = "google/gemini-3.1-flash-lite";
 
 export const gatewayPairRankAsk: PairRankAsk = async ({
+  abortSignal,
   concept,
   ids,
   preview,
 }) => {
   const costTracker = gatewayCostTracker();
   const result = await generateObject({
+    abortSignal,
     messages: [
       {
         content: [
@@ -162,14 +165,17 @@ export const gatewayPairRankAsk: PairRankAsk = async ({
  * is selection, not acceptance: the winner still goes through both independent
  * per-paint audits in `runPairTournament`. */
 export const rankPairCandidates = async ({
+  abortSignal,
   ask = gatewayPairRankAsk,
   candidates,
   concept,
 }: {
+  abortSignal?: AbortSignal;
   ask?: PairRankAsk;
   candidates: readonly PairCandidate[];
   concept: Concept;
 }): Promise<PairCandidateRanking> => {
+  abortSignal?.throwIfAborted();
   if (candidates.length <= 1) {
     return {
       candidates: [...candidates],
@@ -191,6 +197,7 @@ export const rankPairCandidates = async ({
       { cols: 2, size: 96 }
     );
     const ranked = await ask({
+      abortSignal,
       concept,
       ids: candidates.map((candidate) => candidate.id),
       preview,
@@ -215,6 +222,9 @@ export const rankPairCandidates = async ({
       reason: ranked.reason,
     };
   } catch (error) {
+    // A failed ranker falls back to library order. A cancelled turn must not:
+    // it is a request to stop all later paid work.
+    abortSignal?.throwIfAborted();
     return {
       candidates: [...candidates],
       cost: {
@@ -299,6 +309,8 @@ export interface PairTournamentResult {
 }
 
 export interface PairTournamentOptions {
+  /** Cancels generation and independent audits for the owning turn. */
+  abortSignal?: AbortSignal;
   ask?: AuditAsk;
   budget?: { maxCalls: number; maxUsd: number };
   candidates: readonly PairCandidate[];
@@ -425,6 +437,7 @@ const compareRuns = (a: TournamentRun, b: TournamentRun): number =>
  */
 // oxlint-disable-next-line eslint/complexity -- one state machine owns pair generation, quality gates, and pre/post-call budget accounting
 export const runPairTournament = async ({
+  abortSignal,
   ask,
   budget,
   candidates,
@@ -436,6 +449,7 @@ export const runPairTournament = async ({
   references = [],
   stopScore = null,
 }: PairTournamentOptions): Promise<PairTournamentResult> => {
+  abortSignal?.throwIfAborted();
   // Arms are numbered in the order they actually start. The exhaustive branch
   // runs the non-serial pool concurrently, so "start order" there is the order
   // they were handed out, not a claim about who finishes first — which is the
@@ -458,6 +472,7 @@ export const runPairTournament = async ({
   const runCandidate = async (
     candidate: PairCandidate
   ): Promise<TournamentRun> => {
+    abortSignal?.throwIfAborted();
     armsStarted += 1;
     const index = armsStarted;
     const seat = {
@@ -477,13 +492,16 @@ export const runPairTournament = async ({
             // oxlint-disable-next-line eslint/no-await-in-loop -- `serial` explicitly opts this subprocess out of paint fan-out.
             result: await candidate.generate(finish),
           });
+          abortSignal?.throwIfAborted();
           report({ ...seat, finish, phase: "painted" });
         }
       } else {
         results.push(
           ...(await Promise.all(
             finishes.map(async (finish) => {
+              abortSignal?.throwIfAborted();
               const result = await candidate.generate(finish);
+              abortSignal?.throwIfAborted();
               report({ ...seat, finish, phase: "painted" });
               return { finish, result };
             })
@@ -499,6 +517,7 @@ export const runPairTournament = async ({
           // floor it had already cleared. The arm's own audit is kept beside
           // this one as evidence, and still drives that arm's repair loop.
           const reviewed = await audit({
+            abortSignal,
             ask,
             concept,
             finish,
@@ -543,6 +562,9 @@ export const runPairTournament = async ({
         score,
       };
     } catch (error) {
+      // Candidate failures are isolated; cancellation is not a candidate
+      // failure and must stop the tournament before another arm is started.
+      abortSignal?.throwIfAborted();
       const failure = failureMessage(error);
       report({
         ...seat,
@@ -634,6 +656,7 @@ export const runPairTournament = async ({
   if (stopScore === null) {
     if (budget) {
       for (const candidate of candidates) {
+        abortSignal?.throwIfAborted();
         if (!reserve(candidate)) {
           break;
         }
@@ -650,12 +673,14 @@ export const runPairTournament = async ({
       const serial = candidates.filter((candidate) => candidate.serial);
       runs.push(...(await Promise.all(parallel.map(runCandidate))));
       for (const candidate of serial) {
+        abortSignal?.throwIfAborted();
         // oxlint-disable-next-line eslint/no-await-in-loop -- serial candidates must not overlap the parallel pool or one another.
         runs.push(await runCandidate(candidate));
       }
     }
   } else {
     for (const candidate of candidates) {
+      abortSignal?.throwIfAborted();
       if (!reserve(candidate)) {
         break;
       }

@@ -193,6 +193,45 @@ describe("runPairTournament", () => {
     expect(tournament.winner?.id).toBe("agent");
   });
 
+  it("stops before another arm when the owning turn is cancelled", async () => {
+    const controller = new AbortController();
+    const attempted: string[] = [];
+
+    await expect(
+      runPairTournament({
+        abortSignal: controller.signal,
+        ask: ({ abortSignal }) => {
+          expect(abortSignal).toBe(controller.signal);
+          controller.abort();
+          throw new Error("audit interrupted");
+        },
+        candidates: [
+          {
+            generate: (finish) => {
+              attempted.push(`first-${finish}`);
+              return Promise.resolve(result(review(9, 9)));
+            },
+            id: "first",
+            label: "First",
+          },
+          {
+            generate: (finish) => {
+              attempted.push(`second-${finish}`);
+              return Promise.resolve(result(review(9, 9)));
+            },
+            id: "second",
+            label: "Second",
+          },
+        ],
+        concept: { name: "home" },
+        parts: PARTS,
+        stopScore: 9.75,
+      })
+    ).rejects.toMatchObject({ name: "AbortError" });
+
+    expect(attempted).toEqual(["first-outlined", "first-filled"]);
+  });
+
   it("runs a serial harness after the parallel pool and one paint at a time", async () => {
     const events: string[] = [];
     await runPairTournament({
@@ -537,6 +576,28 @@ describe("rankPairCandidates", () => {
     });
     expect(ranking.order).toEqual(["first", "second"]);
     expect(ranking.reason).toContain("structured output failed");
+  });
+
+  it("propagates cancellation instead of falling back to library order", async () => {
+    const controller = new AbortController();
+    const candidates = ["first", "second"].map((id) => ({
+      generate: () => Promise.resolve(result(review(9, 9))),
+      id,
+      label: id,
+    }));
+
+    await expect(
+      rankPairCandidates({
+        abortSignal: controller.signal,
+        ask: ({ abortSignal }) => {
+          expect(abortSignal).toBe(controller.signal);
+          controller.abort();
+          throw new Error("ranking interrupted");
+        },
+        candidates,
+        concept: { name: "home" },
+      })
+    ).rejects.toMatchObject({ name: "AbortError" });
   });
 });
 

@@ -67,6 +67,7 @@ export interface AuditResult {
 }
 
 export type AuditAsk = (input: {
+  abortSignal?: AbortSignal;
   concept: { name: string };
   finish: Finish;
   kind?: DrawKind;
@@ -235,6 +236,7 @@ export const persistLook = async (
 
 /** The live vision ask. Harness leaves this off until the caller passes it. */
 export const gatewayAsk: AuditAsk = async ({
+  abortSignal,
   concept,
   finish,
   kind,
@@ -245,6 +247,7 @@ export const gatewayAsk: AuditAsk = async ({
 }) => {
   const costTracker = gatewayCostTracker();
   const result = await generateObject({
+    abortSignal,
     messages: [
       {
         content: [
@@ -297,6 +300,7 @@ export const gatewayAsk: AuditAsk = async ({
 };
 
 export const audit = async ({
+  abortSignal,
   ask = gatewayAsk,
   concept,
   finish = "outlined",
@@ -305,6 +309,7 @@ export const audit = async ({
   svg,
   twin,
 }: {
+  abortSignal?: AbortSignal;
   ask?: AuditAsk;
   concept: { name: string };
   finish?: Finish;
@@ -314,11 +319,13 @@ export const audit = async ({
   twin?: MarkTwin;
 }): Promise<AuditResult> => {
   try {
+    abortSignal?.throwIfAborted();
     const [preview, previewSmall] = await Promise.all([
       shot(svg, AUDIT_PX),
       shot(svg, ICON_PX),
     ]);
     const raw = await ask({
+      abortSignal,
       concept,
       finish,
       kind,
@@ -333,6 +340,9 @@ export const audit = async ({
       kind ?? "analog"
     );
   } catch (error) {
+    // Cancellation is control flow, not an unscorable audit. Swallowing it
+    // here made the tournament continue spending after the user pressed Stop.
+    abortSignal?.throwIfAborted();
     return judged(
       {
         cost: {

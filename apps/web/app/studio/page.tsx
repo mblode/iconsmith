@@ -1,4 +1,4 @@
-import { SPEC } from "iconsmith";
+import { SPEC } from "iconsmith/spec";
 import type { Metadata } from "next";
 
 import { StudioShell } from "@/components/studio/studio-shell";

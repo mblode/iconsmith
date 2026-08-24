@@ -70,6 +70,8 @@ export class ProposalError extends Error {
 }
 
 export interface ProposalOptions {
+  /** Cancels every paid image, selection, and vision-reader call. */
+  abortSignal?: AbortSignal;
   /** Existing icons the proposal is conditioned on. Licensed, because they
    *  reach a model: `references.ts` picks fourteen of them and this module
    *  sends every one to a third-party image endpoint. */
@@ -129,10 +131,13 @@ const brief = (concept: Concept): string =>
 const sketch = async (
   model: string,
   refs: Buffer[],
-  text: string
+  text: string,
+  abortSignal?: AbortSignal
 ): Promise<{ cost: ApiCost; image: Buffer }> => {
+  abortSignal?.throwIfAborted();
   const costTracker = gatewayCostTracker();
   const result = await generateText({
+    abortSignal,
     messages: [
       {
         content: [
@@ -187,6 +192,7 @@ export const propose = async (
   options: ProposalOptions
 ): Promise<ProposalRun> => {
   const {
+    abortSignal,
     corpus,
     ideas = DEFAULT_IDEAS,
     ideationModel = IDEATION_MODEL,
@@ -195,6 +201,7 @@ export const propose = async (
     qualityModel = null,
     readerModel = READER_MODEL,
   } = options;
+  abortSignal?.throwIfAborted();
   const startedAt = Date.now();
 
   const slots = referenceSet(corpus, {
@@ -216,14 +223,16 @@ export const propose = async (
     ...Array.from({ length: Math.max(1, ideas) }, () => ideationModel),
     ...(qualityModel ? [qualityModel] : []),
   ];
-  const sketches = await Promise.all(models.map((m) => sketch(m, refs, text)));
+  const sketches = await Promise.all(
+    models.map((m) => sketch(m, refs, text, abortSignal))
+  );
   const images = sketches.map((item) => item.image);
   const costs = sketches.map((item) => item.cost);
 
   const picked =
     images.length === 1
       ? { index: 0, reason: null }
-      : await critique(concept, images, refs);
+      : await critique(concept, images, refs, { abortSignal });
   if (picked.cost) {
     costs.push(picked.cost);
   }
@@ -236,6 +245,7 @@ export const propose = async (
     models,
     ms: Date.now() - startedAt,
     proposal: await compose(images[picked.index], {
+      abortSignal,
       model: readerModel,
       onCost: (cost) => costs.push(cost),
       parts,
@@ -291,6 +301,7 @@ export const proposalArm =
     } = options;
     const run = await ask(concept, {
       ...rest,
+      abortSignal: generateOptions.abortSignal,
       corpus: generateOptions.corpus ?? [],
       parts: generateOptions.parts,
     });

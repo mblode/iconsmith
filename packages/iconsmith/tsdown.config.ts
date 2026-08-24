@@ -17,7 +17,7 @@ export default defineConfig([
   },
   {
     dts: true,
-    entry: { index: "src/index.ts" },
+    entry: { index: "src/index.ts", spec: "src/spec.ts" },
     format: ["esm"],
     outExtensions,
     sourcemap: true,

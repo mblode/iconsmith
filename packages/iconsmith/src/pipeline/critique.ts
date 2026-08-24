@@ -46,6 +46,7 @@ const schema = z.object({
 });
 
 export interface CritiqueOptions {
+  abortSignal?: AbortSignal;
   model?: string;
 }
 
@@ -60,14 +61,16 @@ export const critique = async (
   concept: Concept,
   images: readonly Buffer[],
   references: readonly Buffer[],
-  { model = CRITIQUE_MODEL }: CritiqueOptions = {}
+  { abortSignal, model = CRITIQUE_MODEL }: CritiqueOptions = {}
 ): Promise<Verdict> => {
+  abortSignal?.throwIfAborted();
   if (images.length <= 1) {
     return { index: 0, reason: null };
   }
   try {
     const costTracker = gatewayCostTracker();
     const result = await generateObject({
+      abortSignal,
       messages: [
         {
           content: [
@@ -117,6 +120,7 @@ export const critique = async (
       reason: result.object.reason,
     };
   } catch (error) {
+    abortSignal?.throwIfAborted();
     return {
       index: 0,
       reason: `critique failed (${(error as Error).message}); used the first sketch`,

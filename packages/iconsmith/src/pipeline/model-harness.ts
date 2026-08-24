@@ -22,6 +22,7 @@ const PROGRAM_FILE = "icon.icon";
 const SKILL_FILE = "SKILL.md";
 
 export interface GatewayHarnessRequest {
+  abortSignal?: AbortSignal;
   preview: Buffer | null;
   prompt: string;
   system: string;
@@ -91,7 +92,8 @@ export const programFromHarnessText = (text: string): string | null => {
 
 const defaultAsk =
   (options: GatewayHarnessOptions): GatewayHarnessAsk =>
-  async ({ preview, prompt, system }) => {
+  async ({ abortSignal, preview, prompt, system }) => {
+    abortSignal?.throwIfAborted();
     const content: UserContent = [{ text: prompt, type: "text" }];
     if (preview) {
       content.push({ data: preview, mediaType: "image/png", type: "file" });
@@ -99,6 +101,7 @@ const defaultAsk =
     const costTracker = gatewayCostTracker(options.apiKey);
     const model = options.model ?? DEFAULT_MODEL;
     const result = await generateText({
+      abortSignal,
       messages: [{ content, role: "user" }],
       model: resolveModel(model, options.apiKey),
       system,
@@ -147,6 +150,7 @@ export const gatewayHarnessSpawn = (
     ].join("\n");
     try {
       const response = await ask({
+        abortSignal: invocation.abortSignal,
         preview,
         prompt,
         system: [
@@ -174,6 +178,7 @@ export const gatewayHarnessSpawn = (
         stdout: response.text,
       };
     } catch (error) {
+      invocation.abortSignal?.throwIfAborted();
       return {
         code: 1,
         stderr: error instanceof Error ? error.message : String(error),

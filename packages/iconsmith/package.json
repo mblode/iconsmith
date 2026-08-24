@@ -37,6 +37,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./spec": {
+      "types": "./dist/spec.d.ts",
+      "import": "./dist/spec.js",
+      "default": "./dist/spec.js"
     }
   },
   "scripts": {
@@ -53,7 +58,7 @@
     "@ai-sdk/gateway": "^4.0.54",
     "ai": "^7.0.66",
     "commander": "^15.0.0",
-    "sharp": "^0.34.4",
+    "sharp": "^0.35.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {

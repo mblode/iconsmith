@@ -200,6 +200,22 @@ describe("audit", () => {
     expect(result.reason).toMatch(/audit failed/u);
   });
 
+  it("propagates cancellation instead of converting it to an unscorable audit", async () => {
+    const controller = new AbortController();
+    await expect(
+      audit({
+        abortSignal: controller.signal,
+        ask: ({ abortSignal }) => {
+          expect(abortSignal).toBe(controller.signal);
+          controller.abort();
+          throw new Error("provider noticed cancellation");
+        },
+        concept,
+        svg: SVG,
+      })
+    ).rejects.toMatchObject({ name: "AbortError" });
+  });
+
   it("sanitizes findings that come back with path data", async () => {
     const result = await audit({
       ask: fromAsk({

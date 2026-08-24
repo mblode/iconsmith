@@ -58,7 +58,7 @@ const recordedTurn = async (
 const recordTurn = async (
   operationId: string,
   output: Awaited<ReturnType<typeof generateStudioResponse>>,
-): Promise<void> => {
+): Promise<boolean> => {
   try {
     await mkdir(turnRecordDirectory, { recursive: true });
     // Written then renamed, so a reader never sees half a record.
@@ -66,10 +66,12 @@ const recordTurn = async (
     const temporary = `${target}.${process.pid}.tmp`;
     await writeFile(temporary, `${JSON.stringify(output)}\n`);
     await rename(temporary, target);
+    return true;
   } catch {
     // A turn that cannot be recorded is still a turn that was drawn. Losing
     // the record costs a possible re-run; failing the tool here would throw
     // away work that already succeeded and was already paid for.
+    return false;
   }
 };
 
@@ -106,6 +108,7 @@ const deferred = (): { promise: Promise<void>; resolve: () => void } => {
 const generateOnce = (
   request: Parameters<typeof generateStudioResponse>[0],
   operationId: string,
+  abortSignal: AbortSignal,
   onActivity?: (activities: readonly StudioActivity[]) => void,
 ): ReturnType<typeof generateStudioResponse> => {
   const active = activeTurns.get(operationId);
@@ -116,7 +119,7 @@ const generateOnce = (
     return active;
   }
 
-  const run = generateStudioResponse(request, { onActivity, operationId });
+  const run = generateStudioResponse(request, { abortSignal, onActivity, operationId });
   activeTurns.set(operationId, run);
   void clearFailedTurn(operationId, run);
   return run;
@@ -179,7 +182,7 @@ export default defineTool({
       opened.resolve();
     };
 
-    const run = generateOnce(request, operationId, (activities) => {
+    const run = generateOnce(request, operationId, ctx.abortSignal, (activities) => {
       queue.push({ activities, kind: "progress" });
       nudge();
     });
@@ -200,7 +203,14 @@ export default defineTool({
     const finished = (async () => {
       try {
         const output = await run;
-        await recordTurn(operationId, output);
+        const stored = await recordTurn(operationId, output);
+        // Once the atomic record is durable, it is the replay authority and
+        // retaining the settled promise forever only leaks one entry per turn.
+        // If persistence failed, keep the promise as the process-local guard:
+        // dropping both protections could bill the same operation again.
+        if (stored && activeTurns.get(operationId) === run) {
+          activeTurns.delete(operationId);
+        }
         return output;
       } finally {
         settled = true;

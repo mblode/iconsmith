@@ -400,6 +400,8 @@ const thumbnail = async (image: Buffer): Promise<string> => {
 export const READER_MODEL = "google/gemini-3.1-flash-lite";
 
 export interface ComposeOptions {
+  /** Cancels the optional vision reader; pixel-only work remains synchronous. */
+  abortSignal?: AbortSignal;
   /**
    * A vision model to read the composition with, or null for the pixel reader
    * alone.
@@ -495,11 +497,14 @@ weight, style, subject matter or quality.`;
 const readWithModel = async (
   image: Buffer,
   model: string,
-  onCost?: (cost: ApiCost) => void
+  onCost?: (cost: ApiCost) => void,
+  abortSignal?: AbortSignal
 ): Promise<Pick<Proposal, "adjacency" | "blocks"> | null> => {
   try {
+    abortSignal?.throwIfAborted();
     const costTracker = gatewayCostTracker();
     const result = await generateObject({
+      abortSignal,
       messages: [
         {
           content: [
@@ -530,6 +535,7 @@ const readWithModel = async (
       blocks: result.object.blocks,
     };
   } catch {
+    abortSignal?.throwIfAborted();
     return null;
   }
 };
@@ -616,8 +622,9 @@ export const assertNoGeometry = (p: Proposal): void => {
  */
 export const compose = async (
   image: Buffer,
-  { model = null, onCost, parts = [] }: ComposeOptions = {}
+  { abortSignal, model = null, onCost, parts = [] }: ComposeOptions = {}
 ): Promise<Proposal> => {
+  abortSignal?.throwIfAborted();
   // The regions are computed whichever reader is used: the part shortlist is a
   // silhouette question, and a silhouette is a thing the pixels answer better
   // than a description of them does.
@@ -635,7 +642,8 @@ export const compose = async (
     })),
   };
   const read =
-    (model ? await readWithModel(image, model, onCost) : null) ?? pixels;
+    (model ? await readWithModel(image, model, onCost, abortSignal) : null) ??
+    pixels;
   const proposal: Proposal = {
     ...read,
     elements: read.blocks.length,

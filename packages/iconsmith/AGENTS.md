@@ -95,7 +95,7 @@ The angle escape is not a loophole to close. Off-axis edges are 29.3% of the set
 ## Gotchas
 
 - **ESM only**: `"type": "module"`. Use `.js` extensions in imports; extensionless imports fail the NodeNext typecheck.
-- **Dual build**: `tsdown.config.ts` produces `cli.js` (shebang) and `index.js` (+ `.d.ts`). Do not merge them, and do not add a shebang to `src/cli.ts`.
+- **Three build entries**: `tsdown.config.ts` produces `cli.js` (shebang), the full `index.js` API, and the narrow `spec.js` API. `iconsmith/spec` exists so a web page needing only `SPEC` does not make its deployment tracer inspect the CLI, corpus, and harness filesystem graph. Do not fold it back into the root import, merge the CLI build, or add a shebang to `src/cli.ts`.
 - **Linting via ultracite**: run `npm run fix` / `npm run check`, never oxlint or oxfmt directly.
 - **No chalk/ora, and nothing interactive**: use `styleText` from `node:util`. The CLI never prompts, so it has no prompt library and no `--no-input`; every value is a flag.
 - **Visual extent ≠ path bbox.** A stroked icon's visual extent is its path bbox inflated by the stroke width, half per side. Comparing a stroked path bbox against a filled one conflates a rendering fact with a design fact, and it is the single mistake that has produced the most wrong measurements in this problem domain. `lint.ts` gets this right; keep it that way.

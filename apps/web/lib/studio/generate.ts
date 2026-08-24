@@ -221,6 +221,8 @@ const costText = (usd: number | null): string =>
   usd === null ? "with an incomplete cost total" : `for $${usd.toFixed(4)}`;
 
 export interface GenerateStudioOptions {
+  /** Eve turn cancellation, threaded through every paid pipeline call. */
+  readonly abortSignal?: AbortSignal;
   /**
    * Told where the run has got to, as a complete list every time.
    *
@@ -306,6 +308,7 @@ export const generateStudioResponse = async (
   request: StudioRequest,
   options: GenerateStudioOptions = {},
 ): Promise<StudioResponse> => {
+  options.abortSignal?.throwIfAborted();
   const { finish, name, tags } = conceptOf(request);
   if (name === "icon" || (isVague(request.text) && !request.answers?.object)) {
     return {
@@ -357,6 +360,7 @@ export const generateStudioResponse = async (
       });
       try {
         const run = await propose(concept, {
+          abortSignal: options.abortSignal,
           corpus: arsenal.references,
           ideas: PROPOSAL_IDEAS,
           parts: arsenal.parts,
@@ -387,6 +391,7 @@ export const generateStudioResponse = async (
   const paints =
     finish === "filled" ? (["filled", "outlined"] as const) : (["outlined", "filled"] as const);
   const common = {
+    abortSignal: options.abortSignal,
     corpus: arsenal.references,
     forceAgent: true,
     lookReferences: referenceImages,
@@ -416,6 +421,7 @@ export const generateStudioResponse = async (
     state: "active",
   });
   const ranking = await rankPairCandidates({
+    abortSignal: options.abortSignal,
     candidates: libraryArms,
     concept,
   });
@@ -503,6 +509,7 @@ export const generateStudioResponse = async (
       }
     : undefined;
   const tournament = await runPairTournament({
+    abortSignal: options.abortSignal,
     ask: gatewayAsk,
     budget,
     candidates,

@@ -62,6 +62,8 @@ import { assembleAddressable, assembleVocabulary } from "./select.js";
 /** What a harness invocation asks the operating system for. Passed to
  *  {@link Spawn} as one object so a fake can assert on it whole. */
 export interface HarnessInvocation {
+  /** Cancels the child or in-process Gateway adapter with its owning turn. */
+  abortSignal?: AbortSignal;
   args: string[];
   command: string;
   /** The scratch directory. The agent is expected to write its program here,
@@ -374,6 +376,7 @@ const nodeSpawn: Spawn = async (invocation) => {
       cwd: invocation.cwd,
       detached: false,
       env: invocation.env,
+      signal: invocation.abortSignal,
       stdio: ["ignore", stdoutFd, stderrFd],
     });
   } catch (error) {
@@ -547,6 +550,7 @@ const programIssues = (
 export const harnessArm =
   (options: HarnessOptions = {}): GenerateLike =>
   async (concept, generateOptions) => {
+    generateOptions.abortSignal?.throwIfAborted();
     const {
       args = defaultArgs,
       ask,
@@ -597,7 +601,9 @@ export const harnessArm =
     const logs: string[] = [];
     const apiCosts: ApiCost[] = [];
     const runAgent = async (prompt: string): Promise<HarnessRun> => {
+      generateOptions.abortSignal?.throwIfAborted();
       const run = await spawn({
+        abortSignal: generateOptions.abortSignal,
         args: args(prompt, ctx),
         command,
         cwd: dir,
@@ -638,9 +644,11 @@ export const harnessArm =
     let reviewed: AuditResult | undefined;
     if (ask !== undefined) {
       const screen = async (): Promise<AuditResult> => {
+        generateOptions.abortSignal?.throwIfAborted();
         const svg = program.canvas.toSVG();
         await writePreview(dir, svg);
         const next = await audit({
+          abortSignal: generateOptions.abortSignal,
           ask,
           concept,
           finish: program.canvas.finish,
@@ -653,6 +661,7 @@ export const harnessArm =
         return next;
       };
       const repairFrom = async (remaining: number): Promise<void> => {
+        generateOptions.abortSignal?.throwIfAborted();
         reviewed = await screen();
         if (reviewed.ok || !reviewed.scorable || remaining <= 0) {
           return;

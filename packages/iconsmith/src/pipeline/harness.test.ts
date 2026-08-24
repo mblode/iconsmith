@@ -86,6 +86,15 @@ describe("harnessArm", () => {
     expect(result.brief).toContain("Draw the icon `box`");
   });
 
+  it("passes the owning turn's cancellation signal to the harness", async () => {
+    const controller = new AbortController();
+    const { calls, spawn } = fake(SQUARE);
+
+    await harnessArm({ spawn })(concept, { abortSignal: controller.signal });
+
+    expect(calls[0]?.abortSignal).toBe(controller.signal);
+  });
+
   it("reports no cost, because an external harness bills elsewhere", async () => {
     const { spawn } = fake(SQUARE);
     const result = await harnessArm({ spawn })(concept, noOptions);

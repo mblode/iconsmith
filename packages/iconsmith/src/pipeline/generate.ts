@@ -92,10 +92,16 @@ export const DEFAULT_MAX_STEPS = 24;
  * default while leaving enough room for a primitive call and a short reason. */
 export const BUDGETED_MAX_OUTPUT_TOKENS = 4096;
 
+const throwIfAborted = (signal?: AbortSignal): void => {
+  signal?.throwIfAborted();
+};
+
 /** Who draws a name the house has no file for. See `GenerateOptions.unkeyed`. */
 export type Unkeyed = "agent" | "analog" | "glyph" | "harness" | "mixture";
 
 export interface GenerateOptions {
+  /** Cancels an in-flight model call when the owning turn is stopped. */
+  abortSignal?: AbortSignal;
   /**
    * The design language to draw under. A variant is how an experiment is run:
    * build it from `DEFAULT_POLICY`, pass it here, and the only difference
@@ -604,6 +610,7 @@ const fromModel = async (
   keyline: Keyline | null,
   state: ToolState,
   opts: {
+    abortSignal: GenerateOptions["abortSignal"];
     apiKey?: string;
     cohort: GenerateOptions["cohort"];
     forceAgent: boolean;
@@ -633,6 +640,7 @@ const fromModel = async (
     version: canvas.version,
   };
   const result = await generateText({
+    abortSignal: opts.abortSignal,
     maxOutputTokens:
       opts.maxUsd === undefined ? undefined : BUDGETED_MAX_OUTPUT_TOKENS,
     maxRetries: opts.maxUsd === undefined ? undefined : 0,
@@ -705,6 +713,7 @@ export const generate = async (
   options: GenerateOptions = {}
 ): Promise<GenerateResult> => {
   const {
+    abortSignal,
     aliases = new Map(),
     apiKey,
     cohort = null,
@@ -720,6 +729,8 @@ export const generate = async (
     renderSize,
     spec,
   } = options;
+
+  throwIfAborted(abortSignal);
 
   if (!Number.isInteger(maxSteps) || maxSteps < 1) {
     throw new RangeError("maxSteps must be a positive integer");
@@ -772,6 +783,7 @@ export const generate = async (
   }
 
   return await fromModel(canvas, concept, finish, parts, spec, keyline, state, {
+    abortSignal,
     apiKey,
     cohort,
     forceAgent: options.forceAgent === true,

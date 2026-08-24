@@ -1019,13 +1019,15 @@ export const StudioApp = ({
               {busy && !resultDelivered ? (
                 <AgentActivityCard activities={activeActivities} />
               ) : null}
-              {busy ? (
+              {busy && !resultDelivered ? (
                 /* The indicator says what the pipeline is doing, taken from the
                    active step rather than from a decorative word cycle: with
                    real progress arriving, "arm 3 of 8, reviewing the filled
                    paint" is worth more than a rotating list of gerunds. One
                    word means it shimmers without cycling, which is the honest
-                   reading when there is exactly one thing happening.
+                   reading when there is exactly one thing happening. Once the
+                   render result arrives, Eve may still be closing the model's
+                   turn for a moment, but the drawing is no longer in flight.
 
                    It renders its own `<output>`, so it is a live region
                    already — wrapping it in another would nest two. */
@@ -1154,8 +1156,17 @@ export const StudioApp = ({
                       onClick={async () => {
                         try {
                           await agent.cancel();
-                        } catch {
+                          sendInFlightRef.current = false;
                           setBusy(false);
+                        } catch (error) {
+                          // A failed cancel may leave paid work in flight. Keep
+                          // the Stop control available and say what happened;
+                          // presenting an idle composer here would be a lie.
+                          setFault(
+                            error instanceof Error
+                              ? `The Studio could not stop this run: ${error.message}`
+                              : "The Studio could not stop this run.",
+                          );
                         }
                       }}
                       size="icon-sm"
