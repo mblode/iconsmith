@@ -608,5 +608,305 @@
     "scale": 1.213410795093493,
     "strokeWidth": 1.6482464208223075,
     "sure": false
+  },
+  {
+    "d": "M0 3L0 12C0 13.75 1.25 15 3 15L15 15C16.75 15 18 13.75 18 12L18 6C18 4.25 16.75 3 15 3L10 3C9.5 3 8.75 2.75 8.5 2L7.5 1C7.25 0.25 6.5 0 6 0L3 0C1.25 0 0 1.25 0 3Z",
+    "dx": 3.5,
+    "dy": 4.916666666666667,
+    "name": "folder",
+    "note": "a rectangle with a raised tab on the left; the folder body. All 5 of its icons are folder-, and all 5 draw it at one turn and unmirrored. `folder-open` is the same body with a gap where a badge sits, the way `page-open` relates to `page`",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M0 6L0 3C0 1.25 1.25 0 3 0L6 0C6.5 0 7.25 0.25 7.5 1L8.5 2C8.75 2.75 9.5 3 10 3L15 3C16.75 3 18 4.25 18 6L18 12C18 13.75 16.75 15 15 15L9 15",
+    "dx": 3.5,
+    "dy": 4.916666666666667,
+    "name": "folder-open",
+    "note": "the folder body with a gap in one side where a badge sits; all 6 of its icons are badged folder- (folder-add-left, folder-bookmarks, folder-cloud, folder-delete, folder-restricted, folder-sparkle). A separate cluster from `folder` at the same 18x15, and named separately for the same reason `page-open` is",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M0.25 3.75L7.75 7.25C8.5 7.75 9.5 7.75 10.25 7.25L17.5 3.75C17.75 3.5 18 3.25 18 3C18 1.25 16.75 0 15 0L3 0C1.25 0 0 1.25 0 3L0 11C0 12.75 1.25 14 3 14L8 14",
+    "dx": 3.5,
+    "dy": 5.388888888888889,
+    "name": "envelope",
+    "note": "a rectangle with the flap creased into it; all 6 of its icons are email-2-, and all 6 draw it at one turn and unmirrored",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M6.5 2.25C6.5 4.25 3.5 5.75 3.25 5.75C3 5.75 0 4.25 0 2.25C0 0.75 1 0 1.75 0C2.75 0 3.25 0.5 3.25 0.5C3.25 0.5 3.75 0 4.75 0C5.5 0 6.5 0.75 6.5 2.25Z",
+    "dx": 3.5,
+    "dy": 4.480769230769231,
+    "name": "heart",
+    "note": "the heart mark. Two clusters draw it — this one at 6 icons and a second at 4 (broken-heart, heart-2, heart-beat, heart-donation); the word goes to the more used of the two rather than to both",
+    "scale": 2.6153846153846154,
+    "strokeWidth": 0.7647058823529411,
+    "sure": true
+  },
+  {
+    "d": "M17 9C17 10.75 15.75 12 14 12L3 12C1.25 12 0 10.75 0 9L0 3C0 1.25 1.25 0 3 0L14 0C15.75 0 17 1.25 17 3",
+    "dx": 3.5,
+    "dy": 6,
+    "name": "battery",
+    "note": "a landscape rounded rect with the terminal notched out of one end; all 5 of its icons are battery-, at one turn, never mirrored. `open-rect-narrow` is the terminal itself, drawn separately in other icons",
+    "scale": 1,
+    "strokeWidth": 2,
+    "sure": true
+  },
+  {
+    "d": "M14 16L14 4.75C14 3 14 2.25 13.75 1.75C13.5 1 13 0.5 12.25 0.25C11.75 0 11 0 9.25 0L4.75 0C3 0 2.25 0 1.75 0.25C1 0.5 0.5 1 0.25 1.75C0 2.25 0 3 0 4.75L0 16C0 17 0 17.5 0.25 17.75C0.5 18 0.75 18 1 18C1.25 18 1.75 17.75 2.5 17.25L6 14.75C6.5 14.5 6.5 14.25 6.75 14.25C7 14.25 7 14.25 7.25 14.25C7.5 14.25 7.5 14.5 8 14.75L11.5 17.25C12.25 17.75 12.75 18 13 18C13.25 18 13.5 18 13.75 17.75C14 17.5 14 17 14 16Z",
+    "dx": 5.388888888888889,
+    "dy": 3.5,
+    "name": "bookmark",
+    "note": "a tall rect with a notch cut up into its base; the bookmark ribbon. 3 of its 5 icons are bookmark-, and the shape carries the word on its own",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": true
+  },
+  {
+    "d": "M13 15.75C6.5 14.5 1.25 9.5 0 2.75C-0.25 1.25 1 0 2.5 0C3.75 0 4.75 0.75 5.25 2L5.5 3C5.75 3.5 5.5 4.25 5 4.75C4.5 5.25 4.25 6.25 4.75 6.75C5.75 8.5 7.25 10 9 11C9.75 11.5 10.5 11.25 11 10.75C11.5 10.25 12.25 10 12.75 10.25L13.75 10.5C15 11 15.75 12 15.75 13.25C15.75 14.75 14.5 16 13 15.75Z",
+    "dx": 3.5344845966747993,
+    "dy": 3.5,
+    "name": "handset",
+    "note": "the telephone handset; all 4 of its icons are call-, call-incoming, call-outgoing and telephone, all at one turn and unmirrored",
+    "scale": 1.0771755811635049,
+    "strokeWidth": 1.8567075182299544,
+    "sure": true
+  },
+  {
+    "d": "M7 0C3.25 0 0 3.25 0 7C0 9.5 1.25 11.75 3.5 13C3.75 13.25 4 13.5 4 14L4 16C4 17.75 5.25 19 7 19C8.75 19 10 17.75 10 16L10 14C10 13.5 10.25 13.25 10.5 13C12.75 11.75 14 9.5 14 7C14 3.25 10.75 0 7 0Z",
+    "dx": 5.7368421052631575,
+    "dy": 3.5,
+    "name": "lightbulb",
+    "note": "a bulb over a narrower base; 3 of its 4 icons are light-bulb- or lightbulb-, all at one turn. The fourth is `ear`, which draws the same outline",
+    "scale": 0.8947368421052632,
+    "strokeWidth": 2.235294117647059,
+    "sure": true
+  },
+  {
+    "d": "M0 5.75C0 4.75 0.5 3.75 1.5 3.25L6.5 0.5C7.5 -0.25 8.5 -0.25 9.5 0.5L14.5 3.25C15.5 3.75 16 4.75 16 5.75L16 14.5C16 16.25 14.75 17.5 13 17.5L3 17.5C1.25 17.5 0 16.25 0 14.5L0 5.75Z",
+    "dx": 4.2562277580071175,
+    "dy": 3.5604982206405693,
+    "name": "home",
+    "note": "a rectangle with a gable; the house body. form-pentagon, home-circle, home-plus and wind-power, drawn at two turns",
+    "scale": 0.9679715302491103,
+    "strokeWidth": 2.0661764705882355,
+    "sure": true
+  },
+  {
+    "d": "M10 11L10 3C10 1.25 8.5 0 7 0C5.25 0 4 1.25 4 3L4 11L0.5 11C0 11 -0.25 11.5 0 11.75L5.75 18.5C6.5 19.25 7.5 19.25 8 18.5L13.75 11.75C14 11.5 13.75 11 13.25 11L10 11Z",
+    "dx": 5.868852459016393,
+    "dy": 3.5,
+    "name": "arrow",
+    "note": "shaft and head as one closed outline, rather than the `chevron` head over a separate `stroke`. All 4 of its icons are arrow-path-, which is the set drawing an arrow as one mark; the set draws it at all four turns",
+    "scale": 0.8918032786885246,
+    "strokeWidth": 2.2426470588235294,
+    "sure": true
+  },
+  {
+    "d": "M0.25 1.25C0.75 1.25 1.25 0.75 1.25 0.25C1.25 0.25 1.25 0 1.25 0C1.75 0 2 0.5 2 1C2 1.5 1.5 2 1 2C0.5 2 0 1.75 0 1.25C0 1.25 0.25 1.25 0.25 1.25Z",
+    "dx": 8,
+    "dy": 8,
+    "name": "crescent",
+    "note": "a circle with a second circle taken out of one side; the moon, and the cut a golf ball's dimple leaves. 2 of its 4 icons are moon-",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M12 2.75L10 1C9 -0.25 7 -0.25 6 1L0 6.75",
+    "dx": 3.5,
+    "dy": 7.174479166666666,
+    "name": "mountain",
+    "note": "a low peak inside a frame; the mountain in a photograph. 3 of its 5 icons are images-, but subscription-tick-1 draws the same mark as a check, and at 12 units it is over twice `check`'s width — flagged because a model choosing by name will not see that second reading",
+    "scale": 1.4166666666666667,
+    "strokeWidth": 1.4117647058823528,
+    "sure": false
+  },
+  {
+    "d": "M0 6L3 0.25C3.25 0 3.75 0 4 0.25L6.75 6C7 6.25 6.75 6.75 6.25 6.75L3.75 5.75C3.5 5.5 3.5 5.5 3.25 5.75L0.75 6.75C0.25 6.75 -0.25 6.25 0 6Z",
+    "dx": 3.6634868718185007,
+    "dy": 3.6254768386208056,
+    "name": "needle",
+    "note": "a kite with a concave base; the compass needle, and the same mark is the paper plane in paper-plane-top-right. Drawn at two turns",
+    "scale": 2.4585756070104057,
+    "strokeWidth": 0.8134791520330639,
+    "sure": true
+  },
+  {
+    "d": "M16 0C6.25 0 9.75 14 0 14",
+    "dx": 3.5,
+    "dy": 4.5625,
+    "name": "s-curve",
+    "note": "one stroke turning through two opposite bends; the easing curve. animation-auto, animation-ease, bezier-curves and math-notes, all at one turn and unmirrored",
+    "scale": 1.0625,
+    "strokeWidth": 1.8823529411764706,
+    "sure": true
+  },
+  {
+    "d": "M9 18C14 18 18 14 18 9C18 4 14 0 9 0C4 0 0 4 0 9C0 10.25 0.25 11.5 0.75 12.75C1 13 1 13.25 1 13.5L0 16C-0.25 17.25 0.75 18.25 2 18L4.5 17.25C4.75 17 5 17.25 5.25 17.25C6.5 17.75 7.75 18 9 18Z",
+    "dx": 3.5363449135756833,
+    "dy": 3.5,
+    "name": "bubble-round",
+    "note": "a circle with a tail; the round speech bubble. Distinct from `bubble`, which is the rounded-rect body with the same tail — the two are different marks, not two sizes of one",
+    "scale": 0.9424252825791287,
+    "strokeWidth": 2.1221841529193846,
+    "sure": true
+  },
+  {
+    "d": "M3 8.75L3 14.5C3 15.25 2.25 16 1.5 16C0.75 16 0 15.25 0 14.5L0 4.5C0 2 2 0 4.5 0C4.75 0 5.25 0 5.5 0C6.5 0.25 7 1.25 7 2.25L7 6.75C7 7.75 6.5 8.75 5.5 9C5.25 9 4.75 9 4.5 9C4 9 3.5 9 3 8.75Z",
+    "dx": 8.28125,
+    "dy": 3.5,
+    "name": "earbud",
+    "note": "a round head over a straight stem; all 3 of its icons are airpod-, and the set mirrors it to draw the other ear",
+    "scale": 1.0625,
+    "strokeWidth": 1.8823529411764706,
+    "sure": true
+  },
+  {
+    "d": "M2.5 0C1 0 0 0.5 0 2C1.5 2 2.5 1.5 2.5 0Z",
+    "dx": 7,
+    "dy": 8,
+    "name": "leaf",
+    "note": "a pointed oval, drawn at two turns; the leaves of a wreath. `alien` draws the same mark as an eye, which is what the shape is when it is not a leaf",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M5.5 2.5L5.5 0L2.5 0L2.5 2.5L0 2.5L0 5.5L2.5 5.5L2.5 8L5.5 8L5.5 5.5L8 5.5L8 2.5L5.5 2.5Z",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "cross",
+    "note": "the equal-armed cross; all 3 of its icons are medical-cross-. Distinct from a plus drawn as two crossing `stroke`s, because this is one closed outline",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M0 0L0 5.5L4 4.5L8 5.5L8 0",
+    "dx": 3.5,
+    "dy": 6.15625,
+    "name": "ribbon",
+    "note": "a banner with a notch cut up into its base; all 3 of its icons are the medal set, at one turn and unmirrored",
+    "scale": 2.125,
+    "strokeWidth": 0.9411764705882353,
+    "sure": true
+  },
+  {
+    "d": "M1 8.75C0.5 8.75 0 8.25 0 7.75C0 7.5 0 7.25 0.25 7L2.25 1.25C2.5 0.5 3 0 4 0C4.75 0 5.25 0.5 5.75 1.25L7.75 7C7.75 7.25 8 7.5 8 7.75C8 8.25 7.5 8.75 6.75 8.75C6.25 8.75 5.75 8.5 5.75 7.75L5.5 6.75L2.5 6.75L2.25 7.75C2 8.5 1.75 8.75 1 8.75Z",
+    "dx": 4.228571428571429,
+    "dy": 3.5,
+    "name": "letter-a",
+    "note": "the letter A as one outline; alt, letter-a-circle, letter-a-square. The set draws a handful of glyphs as parts, and this is the one that recurs",
+    "scale": 1.9428571428571428,
+    "strokeWidth": 1.0294117647058825,
+    "sure": true
+  },
+  {
+    "d": "M2.25 7.75L2.25 2L2 2L1.5 2.5C1 2.75 1 2.75 0.75 2.75C0.25 2.75 0 2.5 0 2C0 1.75 0.25 1.5 0.5 1.25L1.5 0.5C2 0.25 2.5 0 3 0C3.75 0 4.25 0.5 4.25 1.25L4.25 7.75C4.25 8.5 3.75 8.75 3.25 8.75C2.5 8.75 2.25 8.5 2.25 7.75Z",
+    "dx": 7.871428571428572,
+    "dy": 3.5,
+    "name": "numeral-1",
+    "note": "the digit 1. back-10s, forwards-10s, gold-medal, number-1-circle, number-1-square",
+    "scale": 1.9428571428571428,
+    "strokeWidth": 1.0294117647058825,
+    "sure": true
+  },
+  {
+    "d": "M1 8.75C0.25 8.75 0 8.25 0 7.75C0 7.25 0.25 7 0.5 6.75L3 4.5C4 3.5 4.25 3.25 4.25 2.75C4.25 2 3.75 1.5 3 1.5C2.5 1.5 2.25 2 2 2.5C1.5 2.75 1.25 3 1 3C0.25 3 0 2.75 0 2.25C0 2 0 1.75 0 1.75C0.5 0.75 1.5 0 3.25 0C5 0 6.25 1 6.25 2.5C6.25 3.5 5.75 4.25 4.5 5.5L2.75 7L2.75 7L5.75 7C6.25 7 6.5 7.25 6.5 7.75C6.5 8.25 6.25 8.75 5.75 8.75L1 8.75Z",
+    "dx": 5.685714285714286,
+    "dy": 3.5,
+    "name": "numeral-2",
+    "note": "the digit 2. number-2-circle, number-2-square, silver-medal",
+    "scale": 1.9428571428571428,
+    "strokeWidth": 1.0294117647058825,
+    "sure": true
+  },
+  {
+    "d": "M3.25 9C1.5 9 0.5 8 0 7.25C0 7 0 7 0 6.75C0 6.25 0.25 5.75 1 5.75C1.25 5.75 1.5 6 1.75 6.25C2.25 7 2.5 7.25 3.25 7.25C4 7.25 4.5 6.75 4.5 6.25C4.5 5.5 4 5 3 5L3 5C2.5 5 2.25 4.75 2.25 4.25C2.25 4 2.5 3.5 3 3.5L3 3.5C4 3.5 4.5 3.25 4.5 2.5C4.5 2 4 1.5 3.25 1.5C2.75 1.5 2.25 1.75 2 2.25C1.75 2.75 1.5 3 1 3C0.5 3 0.25 2.5 0.25 2.25C0.25 2 0.25 1.75 0.25 1.5C0.5 0.75 1.5 0 3.25 0C5 0 6.5 0.75 6.5 2.25C6.5 3.25 5.75 4 4.75 4.25L4.75 4.25C6 4.5 6.75 5.25 6.75 6.25C6.75 7.75 5.5 9 3.25 9Z",
+    "dx": 5.625,
+    "dy": 3.5,
+    "name": "numeral-3",
+    "note": "the digit 3. bronce-medal, number-3-circle, number-3-square",
+    "scale": 1.8888888888888888,
+    "strokeWidth": 1.0588235294117647,
+    "sure": true
+  },
+  {
+    "d": "M3.75 9C2.25 9 1.25 8.25 0.5 7C0.25 6.5 0 5.5 0 4.5C0 1.75 1.5 0 3.75 0C5.25 0 6.25 0.75 6.75 1.5C6.75 1.5 6.75 1.75 6.75 2C6.75 2.25 6.5 2.75 5.75 2.75C5.5 2.75 5.25 2.5 5 2.25C4.5 1.75 4.25 1.75 3.75 1.75C2.5 1.75 2 2.75 2 4.25L2 4.5L2 4.5C2.5 3.75 3.25 3 4.25 3C6 3 7 4.25 7 5.75C7 7.5 5.75 9 3.75 9Z",
+    "dx": 5.388888888888889,
+    "dy": 3.5,
+    "name": "numeral-6",
+    "note": "the digit 6, which the set also draws upside down as a 9 — number-6-circle, number-6-square, number-9-circle, number-9-square, and the measured turns say 0 and 180 for exactly that reason",
+    "scale": 1.8888888888888888,
+    "strokeWidth": 1.0588235294117647,
+    "sure": true
+  },
+  {
+    "d": "M0 1.5L2 3.5L3.5 2L1.5 0L0 1.5Z",
+    "dx": 5,
+    "dy": 5,
+    "name": "diamond",
+    "note": "a square on its corner with sharp joins; distinct from `keyframe`, which is the same rotation with the corners rounded. Drawn at all four turns",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": true
+  },
+  {
+    "d": "M11 2C11 3 8.5 4 5.5 4C2.5 4 0 3 0 2C0 1 2.5 0 5.5 0C8.5 0 11 1 11 2Z",
+    "dx": 3.5,
+    "dy": 8.90909090909091,
+    "name": "ellipse-flat",
+    "note": "an ellipse near 3:1; the globe's equator and the rim of a stack seen edge-on. Flagged as a proportion tier of `oval` at 1:1.25 rather than a mark of its own — the aspect bucket is the only thing keeping them apart",
+    "scale": 1.5454545454545454,
+    "strokeWidth": 1.2941176470588236,
+    "sure": false
+  },
+  {
+    "d": "M0 4.5L7.5 0.5C8.5 -0.25 9.5 -0.25 10.5 0.5L18 4.5",
+    "dx": 3.5,
+    "dy": 9.90451388888889,
+    "name": "chevron-large",
+    "note": "a chevron near 4:1, against `chevron`'s 2:1. The set's own word — 4 of its 5 icons are chevron-large- — but flagged as a size tier of `chevron` rather than a separate mark",
+    "scale": 0.9444444444444444,
+    "strokeWidth": 2.1176470588235294,
+    "sure": false
+  },
+  {
+    "d": "M0 0L0 4L2.5 6.5",
+    "dx": 8.73076923076923,
+    "dy": 3.5,
+    "name": "clock-hands",
+    "note": "two arms of unequal length meeting at a sharp corner; the clock hands. 2 of its 4 icons are clock-, and the mark is geometrically `corner` with the arms in a 1:2.6 ratio, so the word describes the use rather than the shape",
+    "scale": 2.6153846153846154,
+    "strokeWidth": 0.7647058823529411,
+    "sure": false
+  },
+  {
+    "d": "M0 2.25C0.75 2.25 1.5 2.25 2 2.25C2.5 2.25 3.25 2 3.5 1.75L2.75 0C2.5 0 2.25 0.25 2 0.25C1.5 0.25 0.75 0.25 0 0.25L0 2.25Z",
+    "dx": 5,
+    "dy": 7.5,
+    "name": "trapezoid",
+    "note": "a quadrilateral with one pair of sides parallel; a key or panel seen in perspective, across keyboard- and layout-. Its transpose is a separate cluster at 2.22x3.62 that the aspect gate in `turnsToTry` refuses to compare against it, so the two are one mark the clusterer split — see the family note above",
+    "scale": 4,
+    "strokeWidth": 0.5,
+    "sure": false
+  },
+  {
+    "d": "M6 0L1.75 1.25C1.5 1.25 1.25 1.5 1.25 1.75L0 6C0 6.25 0.25 6.75 0.75 6.5L4.75 5.5C5 5.25 5.25 5 5.5 4.75L6.5 0.75C6.75 0.25 6.25 0 6 0Z",
+    "dx": 3.5,
+    "dy": 3.5,
+    "name": "parallelogram",
+    "note": "a quadrilateral with both pairs of sides parallel; the compass face and the map plane, seen in perspective. Three icons is the floor this list stops at",
+    "scale": 2.5882534983585113,
+    "strokeWidth": 0.7727218378216871,
+    "sure": false
   }
 ]

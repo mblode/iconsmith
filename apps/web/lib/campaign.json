@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T03:40:56.618Z",
+  "generated": "2026-08-24T04:48:09.726Z",
   "items": [
     {
       "attemptCount": 0,
@@ -8,7 +8,12 @@
       "rank": 1,
       "risky": true,
       "slug": "briefcase",
-      "sources": ["H", "G", "L", "T"],
+      "sources": [
+        "H",
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -18,7 +23,11 @@
       "rank": 2,
       "risky": false,
       "slug": "alarm-smoke",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "revision"
     },
     {
@@ -28,7 +37,11 @@
       "rank": 3,
       "risky": true,
       "slug": "alert-circle",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -38,7 +51,11 @@
       "rank": 4,
       "risky": false,
       "slug": "ampersand",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -48,7 +65,11 @@
       "rank": 5,
       "risky": false,
       "slug": "axe",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -58,7 +79,11 @@
       "rank": 6,
       "risky": false,
       "slug": "bandage",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -68,7 +93,11 @@
       "rank": 7,
       "risky": false,
       "slug": "barrel",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -78,7 +107,11 @@
       "rank": 8,
       "risky": true,
       "slug": "bath",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -88,7 +121,10 @@
       "rank": 9,
       "risky": false,
       "slug": "cloud-lightning",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -98,7 +134,11 @@
       "rank": 10,
       "risky": false,
       "slug": "beer-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -108,7 +148,11 @@
       "rank": 11,
       "risky": false,
       "slug": "bell-minus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -118,7 +162,11 @@
       "rank": 12,
       "risky": false,
       "slug": "bell-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -128,7 +176,11 @@
       "rank": 13,
       "risky": true,
       "slug": "binary",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -138,7 +190,11 @@
       "rank": 14,
       "risky": false,
       "slug": "binoculars",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -148,7 +204,11 @@
       "rank": 15,
       "risky": false,
       "slug": "biohazard",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -158,7 +218,11 @@
       "rank": 16,
       "risky": false,
       "slug": "blender",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -168,7 +232,11 @@
       "rank": 17,
       "risky": false,
       "slug": "bluetooth-connected",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -178,7 +246,11 @@
       "rank": 18,
       "risky": false,
       "slug": "bluetooth-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -188,7 +260,11 @@
       "rank": 19,
       "risky": false,
       "slug": "bone",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -198,7 +274,11 @@
       "rank": 20,
       "risky": false,
       "slug": "book-open",
-      "sources": ["H", "G", "L"],
+      "sources": [
+        "H",
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -208,7 +288,11 @@
       "rank": 21,
       "risky": false,
       "slug": "braces",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -218,7 +302,11 @@
       "rank": 22,
       "risky": false,
       "slug": "calendar-cog",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -228,7 +316,11 @@
       "rank": 23,
       "risky": false,
       "slug": "calendar-heart",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -238,7 +330,11 @@
       "rank": 24,
       "risky": false,
       "slug": "calendar-x",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -248,7 +344,11 @@
       "rank": 25,
       "risky": false,
       "slug": "cannabis",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -258,7 +358,11 @@
       "rank": 26,
       "risky": false,
       "slug": "caravan",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -268,7 +372,11 @@
       "rank": 27,
       "risky": false,
       "slug": "carrot",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -278,7 +386,11 @@
       "rank": 28,
       "risky": false,
       "slug": "chart-area",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -288,7 +400,11 @@
       "rank": 29,
       "risky": false,
       "slug": "chart-column",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -298,7 +414,11 @@
       "rank": 30,
       "risky": false,
       "slug": "chart-scatter",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -308,7 +428,11 @@
       "rank": 31,
       "risky": false,
       "slug": "chef-hat",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -318,7 +442,11 @@
       "rank": 32,
       "risky": false,
       "slug": "chess-bishop",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -328,7 +456,11 @@
       "rank": 33,
       "risky": false,
       "slug": "chess-king",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -338,7 +470,11 @@
       "rank": 34,
       "risky": false,
       "slug": "chess-knight",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -348,7 +484,11 @@
       "rank": 35,
       "risky": false,
       "slug": "chess-queen",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -358,7 +498,11 @@
       "rank": 36,
       "risky": false,
       "slug": "chess-rook",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -368,7 +512,11 @@
       "rank": 37,
       "risky": true,
       "slug": "circle-chevron-down",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -378,7 +526,11 @@
       "rank": 38,
       "risky": true,
       "slug": "circle-chevron-left",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -388,7 +540,11 @@
       "rank": 39,
       "risky": true,
       "slug": "circle-chevron-right",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -398,7 +554,11 @@
       "rank": 40,
       "risky": true,
       "slug": "circle-chevron-up",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -408,7 +568,11 @@
       "rank": 41,
       "risky": false,
       "slug": "clipboard-check",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -418,7 +582,11 @@
       "rank": 42,
       "risky": false,
       "slug": "clipboard-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -428,7 +596,11 @@
       "rank": 43,
       "risky": false,
       "slug": "clipboard-x",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -438,7 +610,11 @@
       "rank": 44,
       "risky": false,
       "slug": "clock-check",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -448,7 +624,11 @@
       "rank": 45,
       "risky": false,
       "slug": "clock-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -458,7 +638,11 @@
       "rank": 46,
       "risky": false,
       "slug": "cloud-cog",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -468,7 +652,11 @@
       "rank": 47,
       "risky": false,
       "slug": "cloud-fog",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -478,7 +666,11 @@
       "rank": 48,
       "risky": false,
       "slug": "cloud-rain",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -488,7 +680,11 @@
       "rank": 49,
       "risky": false,
       "slug": "clover",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -498,7 +694,10 @@
       "rank": 50,
       "risky": false,
       "slug": "book-headphones",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -508,7 +707,11 @@
       "rank": 51,
       "risky": false,
       "slug": "container",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -518,7 +721,11 @@
       "rank": 52,
       "risky": false,
       "slug": "copy-check",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -528,7 +735,11 @@
       "rank": 53,
       "risky": false,
       "slug": "copy-minus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -538,7 +749,11 @@
       "rank": 54,
       "risky": false,
       "slug": "copy-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -548,7 +763,11 @@
       "rank": 55,
       "risky": false,
       "slug": "copy-x",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -558,7 +777,11 @@
       "rank": 56,
       "risky": false,
       "slug": "copyleft",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -568,7 +791,11 @@
       "rank": 57,
       "risky": false,
       "slug": "creative-commons",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -578,7 +805,11 @@
       "rank": 58,
       "risky": true,
       "slug": "cylinder",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -588,7 +819,11 @@
       "rank": 59,
       "risky": false,
       "slug": "database-search",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -598,7 +833,11 @@
       "rank": 60,
       "risky": false,
       "slug": "dna",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "revision"
     },
     {
@@ -608,7 +847,11 @@
       "rank": 61,
       "risky": false,
       "slug": "dna-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -618,17 +861,25 @@
       "rank": 62,
       "risky": false,
       "slug": "drone",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
-      "attemptCount": 1,
+      "attemptCount": 3,
       "id": "central-063",
-      "lastSessionId": "wrun_01M0RWKWSDYDMFB9BZK8577ZWE",
+      "lastSessionId": "wrun_01M0RZ7E7M4BAHTEE826A1HJAC",
       "rank": 63,
       "risky": false,
       "slug": "droplet",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "revision"
     },
     {
@@ -638,7 +889,11 @@
       "rank": 64,
       "risky": false,
       "slug": "droplet-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -648,7 +903,11 @@
       "rank": 65,
       "risky": false,
       "slug": "droplets",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -658,7 +917,10 @@
       "rank": 66,
       "risky": false,
       "slug": "chart-gantt",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -668,7 +930,11 @@
       "rank": 67,
       "risky": false,
       "slug": "ear-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -678,7 +944,11 @@
       "rank": 68,
       "risky": false,
       "slug": "egg",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -688,7 +958,11 @@
       "rank": 69,
       "risky": false,
       "slug": "egg-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -698,7 +972,11 @@
       "rank": 70,
       "risky": false,
       "slug": "fence",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -708,7 +986,11 @@
       "rank": 71,
       "risky": false,
       "slug": "file-check",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -718,7 +1000,11 @@
       "rank": 72,
       "risky": false,
       "slug": "file-diff",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -728,7 +1014,11 @@
       "rank": 73,
       "risky": false,
       "slug": "file-digit",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -738,7 +1028,11 @@
       "rank": 74,
       "risky": false,
       "slug": "file-minus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -748,7 +1042,11 @@
       "rank": 75,
       "risky": false,
       "slug": "file-music",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -758,7 +1056,11 @@
       "rank": 76,
       "risky": false,
       "slug": "file-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -768,7 +1070,11 @@
       "rank": 77,
       "risky": false,
       "slug": "file-signal",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -778,7 +1084,11 @@
       "rank": 78,
       "risky": false,
       "slug": "file-spreadsheet",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -788,7 +1098,11 @@
       "rank": 79,
       "risky": false,
       "slug": "file-stack",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -798,7 +1112,11 @@
       "rank": 80,
       "risky": false,
       "slug": "fish",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -808,7 +1126,11 @@
       "rank": 81,
       "risky": false,
       "slug": "fish-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -818,7 +1140,11 @@
       "rank": 82,
       "risky": false,
       "slug": "flag-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -828,7 +1154,11 @@
       "rank": 83,
       "risky": true,
       "slug": "flip-horizontal",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -838,7 +1168,11 @@
       "rank": 84,
       "risky": true,
       "slug": "flip-vertical",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -848,7 +1182,11 @@
       "rank": 85,
       "risky": false,
       "slug": "folder-check",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -858,7 +1196,11 @@
       "rank": 86,
       "risky": false,
       "slug": "folder-code",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -868,7 +1210,11 @@
       "rank": 87,
       "risky": false,
       "slug": "folder-cog",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -878,7 +1224,11 @@
       "rank": 88,
       "risky": false,
       "slug": "folder-heart",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -888,7 +1238,11 @@
       "rank": 89,
       "risky": false,
       "slug": "folder-root",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -898,7 +1252,11 @@
       "rank": 90,
       "risky": false,
       "slug": "folder-search",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -908,7 +1266,11 @@
       "rank": 91,
       "risky": true,
       "slug": "folder-symlink",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -918,7 +1280,11 @@
       "rank": 92,
       "risky": false,
       "slug": "forklift",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -928,7 +1294,10 @@
       "rank": 93,
       "risky": false,
       "slug": "cctv",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -938,7 +1307,11 @@
       "rank": 94,
       "risky": false,
       "slug": "git-branch",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -948,7 +1321,11 @@
       "rank": 95,
       "risky": false,
       "slug": "git-commit",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -958,7 +1335,11 @@
       "rank": 96,
       "risky": false,
       "slug": "git-compare",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -968,7 +1349,10 @@
       "rank": 97,
       "risky": false,
       "slug": "bow-arrow",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -978,7 +1362,11 @@
       "rank": 98,
       "risky": false,
       "slug": "git-merge",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -988,7 +1376,10 @@
       "rank": 99,
       "risky": false,
       "slug": "broccoli",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -998,7 +1389,11 @@
       "rank": 100,
       "risky": false,
       "slug": "git-pull-request-closed",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1008,7 +1403,11 @@
       "rank": 101,
       "risky": false,
       "slug": "git-pull-request-draft",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1018,7 +1417,11 @@
       "rank": 102,
       "risky": false,
       "slug": "globe-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1028,7 +1431,11 @@
       "rank": 103,
       "risky": false,
       "slug": "grape",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1038,7 +1445,11 @@
       "rank": 104,
       "risky": false,
       "slug": "grip-horizontal",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1048,7 +1459,11 @@
       "rank": 105,
       "risky": false,
       "slug": "grip-vertical",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1058,7 +1473,11 @@
       "rank": 106,
       "risky": false,
       "slug": "hand-grab",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1068,7 +1487,11 @@
       "rank": 107,
       "risky": true,
       "slug": "hash",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1078,7 +1501,11 @@
       "rank": 108,
       "risky": false,
       "slug": "haze",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1088,7 +1515,11 @@
       "rank": 109,
       "risky": false,
       "slug": "headset",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1098,7 +1529,11 @@
       "rank": 110,
       "risky": false,
       "slug": "heart-minus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1108,7 +1543,11 @@
       "rank": 111,
       "risky": false,
       "slug": "heart-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1118,7 +1557,11 @@
       "rank": 112,
       "risky": false,
       "slug": "heart-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1128,7 +1571,11 @@
       "rank": 113,
       "risky": false,
       "slug": "helicopter",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1138,7 +1585,10 @@
       "rank": 114,
       "risky": false,
       "slug": "cloud-hail",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1148,7 +1598,11 @@
       "rank": 115,
       "risky": false,
       "slug": "hospital",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1158,7 +1612,11 @@
       "rank": 116,
       "risky": false,
       "slug": "kayak",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1168,7 +1626,10 @@
       "rank": 117,
       "risky": false,
       "slug": "code-xml",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1178,7 +1639,11 @@
       "rank": 118,
       "risky": false,
       "slug": "list-tree",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1188,7 +1653,11 @@
       "rank": 119,
       "risky": false,
       "slug": "mail-search",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1198,7 +1667,11 @@
       "rank": 120,
       "risky": false,
       "slug": "map-pin-check",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1208,7 +1681,11 @@
       "rank": 121,
       "risky": false,
       "slug": "map-pin-minus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1218,7 +1695,11 @@
       "rank": 122,
       "risky": false,
       "slug": "map-pin-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1228,7 +1709,11 @@
       "rank": 123,
       "risky": false,
       "slug": "map-pin-x",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1238,7 +1723,11 @@
       "rank": 124,
       "risky": false,
       "slug": "message-circle-code",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1248,7 +1737,11 @@
       "rank": 125,
       "risky": false,
       "slug": "microscope",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1258,7 +1751,11 @@
       "rank": 126,
       "risky": false,
       "slug": "microwave",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1268,7 +1765,11 @@
       "rank": 127,
       "risky": false,
       "slug": "motorbike",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1278,7 +1779,11 @@
       "rank": 128,
       "risky": false,
       "slug": "mountain",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1288,7 +1793,11 @@
       "rank": 129,
       "risky": false,
       "slug": "navigation-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1298,7 +1807,11 @@
       "rank": 130,
       "risky": true,
       "slug": "nut",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1308,7 +1821,10 @@
       "rank": 131,
       "risky": false,
       "slug": "brick-wall",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1318,7 +1834,11 @@
       "rank": 132,
       "risky": false,
       "slug": "parking-meter",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1328,7 +1848,10 @@
       "rank": 133,
       "risky": false,
       "slug": "brain-cog",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1338,7 +1861,11 @@
       "rank": 134,
       "risky": false,
       "slug": "phone-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1348,7 +1875,11 @@
       "rank": 135,
       "risky": false,
       "slug": "podium",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1358,7 +1889,10 @@
       "rank": 136,
       "risky": false,
       "slug": "cooking-pot",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1368,7 +1902,11 @@
       "rank": 137,
       "risky": false,
       "slug": "receipt-euro",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1378,7 +1916,11 @@
       "rank": 138,
       "risky": false,
       "slug": "regex",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1388,7 +1930,11 @@
       "rank": 139,
       "risky": true,
       "slug": "replace",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1398,7 +1944,11 @@
       "rank": 140,
       "risky": false,
       "slug": "road",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1408,7 +1958,11 @@
       "rank": 141,
       "risky": false,
       "slug": "router",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1418,7 +1972,11 @@
       "rank": 142,
       "risky": false,
       "slug": "salad",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1428,7 +1986,11 @@
       "rank": 143,
       "risky": false,
       "slug": "scan-eye",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1438,7 +2000,11 @@
       "rank": 144,
       "risky": true,
       "slug": "section",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1448,7 +2014,11 @@
       "rank": 145,
       "risky": false,
       "slug": "separator-horizontal",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1458,7 +2028,11 @@
       "rank": 146,
       "risky": false,
       "slug": "shield-half",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1468,7 +2042,11 @@
       "rank": 147,
       "risky": false,
       "slug": "shield-minus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1478,7 +2056,11 @@
       "rank": 148,
       "risky": false,
       "slug": "shield-plus",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1488,7 +2070,11 @@
       "rank": 149,
       "risky": false,
       "slug": "shirt",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1498,7 +2084,11 @@
       "rank": 150,
       "risky": false,
       "slug": "skull",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1508,7 +2098,11 @@
       "rank": 151,
       "risky": false,
       "slug": "square-asterisk",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1518,7 +2112,10 @@
       "rank": 152,
       "risky": false,
       "slug": "church",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1528,7 +2125,11 @@
       "rank": 153,
       "risky": false,
       "slug": "star-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1538,7 +2139,11 @@
       "rank": 154,
       "risky": false,
       "slug": "strikethrough",
-      "sources": ["H", "L", "T"],
+      "sources": [
+        "H",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1548,7 +2153,11 @@
       "rank": 155,
       "risky": false,
       "slug": "tent",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1558,7 +2167,11 @@
       "rank": 156,
       "risky": false,
       "slug": "text-wrap",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1568,7 +2181,11 @@
       "rank": 157,
       "risky": false,
       "slug": "thermometer",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1578,7 +2195,11 @@
       "rank": 158,
       "risky": false,
       "slug": "tornado",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1588,7 +2209,11 @@
       "rank": 159,
       "risky": false,
       "slug": "tractor",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1598,7 +2223,10 @@
       "rank": 160,
       "risky": false,
       "slug": "cloud-drizzle",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1608,7 +2236,11 @@
       "rank": 161,
       "risky": false,
       "slug": "trending-up-down",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1618,7 +2250,11 @@
       "rank": 162,
       "risky": true,
       "slug": "triangle",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1628,7 +2264,11 @@
       "rank": 163,
       "risky": false,
       "slug": "umbrella-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1638,7 +2278,11 @@
       "rank": 164,
       "risky": true,
       "slug": "user-search",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1648,7 +2292,11 @@
       "rank": 165,
       "risky": false,
       "slug": "webhook-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1658,7 +2306,11 @@
       "rank": 166,
       "risky": false,
       "slug": "wheat-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1668,7 +2320,11 @@
       "rank": 167,
       "risky": false,
       "slug": "wifi-off",
-      "sources": ["G", "L", "T"],
+      "sources": [
+        "G",
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1678,7 +2334,10 @@
       "rank": 168,
       "risky": false,
       "slug": "abacus",
-      "sources": ["G", "T"],
+      "sources": [
+        "G",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1688,7 +2347,10 @@
       "rank": 169,
       "risky": false,
       "slug": "affiliate",
-      "sources": ["G", "T"],
+      "sources": [
+        "G",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1698,7 +2360,10 @@
       "rank": 170,
       "risky": false,
       "slug": "air-vent",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1708,7 +2373,10 @@
       "rank": 171,
       "risky": false,
       "slug": "alarm-clock-check",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1718,7 +2386,10 @@
       "rank": 172,
       "risky": false,
       "slug": "alarm-clock-minus",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1728,7 +2399,10 @@
       "rank": 173,
       "risky": false,
       "slug": "alarm-clock-off",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1738,7 +2412,10 @@
       "rank": 174,
       "risky": false,
       "slug": "alarm-clock-plus",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1748,7 +2425,10 @@
       "rank": 175,
       "risky": true,
       "slug": "alert-octagon",
-      "sources": ["L", "T"],
+      "sources": [
+        "L",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1758,7 +2438,10 @@
       "rank": 176,
       "risky": false,
       "slug": "align-end-horizontal",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1768,7 +2451,10 @@
       "rank": 177,
       "risky": false,
       "slug": "align-end-vertical",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1778,7 +2464,10 @@
       "rank": 178,
       "risky": false,
       "slug": "align-horizontal-distribute-center",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1788,7 +2477,10 @@
       "rank": 179,
       "risky": false,
       "slug": "align-horizontal-distribute-end",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1798,7 +2490,10 @@
       "rank": 180,
       "risky": false,
       "slug": "align-horizontal-distribute-start",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1808,7 +2503,10 @@
       "rank": 181,
       "risky": false,
       "slug": "align-horizontal-space-around",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1818,7 +2516,10 @@
       "rank": 182,
       "risky": false,
       "slug": "align-horizontal-space-between",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1828,7 +2529,10 @@
       "rank": 183,
       "risky": false,
       "slug": "align-start-horizontal",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1838,7 +2542,10 @@
       "rank": 184,
       "risky": false,
       "slug": "align-start-vertical",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1848,7 +2555,10 @@
       "rank": 185,
       "risky": false,
       "slug": "align-vertical-distribute-center",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1858,7 +2568,10 @@
       "rank": 186,
       "risky": false,
       "slug": "align-vertical-distribute-end",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1868,7 +2581,10 @@
       "rank": 187,
       "risky": false,
       "slug": "align-vertical-distribute-start",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1878,7 +2594,10 @@
       "rank": 188,
       "risky": false,
       "slug": "align-vertical-space-around",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1888,7 +2607,10 @@
       "rank": 189,
       "risky": false,
       "slug": "align-vertical-space-between",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1898,7 +2620,10 @@
       "rank": 190,
       "risky": false,
       "slug": "app-window-mac",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1908,7 +2633,10 @@
       "rank": 191,
       "risky": false,
       "slug": "archive-off",
-      "sources": ["G", "T"],
+      "sources": [
+        "G",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1918,7 +2646,10 @@
       "rank": 192,
       "risky": true,
       "slug": "archive-restore",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1928,7 +2659,10 @@
       "rank": 193,
       "risky": false,
       "slug": "archive-x",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1938,7 +2672,10 @@
       "rank": 194,
       "risky": false,
       "slug": "audio-lines",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1948,7 +2685,10 @@
       "rank": 195,
       "risky": false,
       "slug": "audio-waveform",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1958,7 +2698,10 @@
       "rank": 196,
       "risky": false,
       "slug": "baby-bottle",
-      "sources": ["G", "T"],
+      "sources": [
+        "G",
+        "T"
+      ],
       "status": "todo"
     },
     {
@@ -1968,7 +2711,10 @@
       "rank": 197,
       "risky": false,
       "slug": "baggage-claim",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1978,7 +2724,10 @@
       "rank": 198,
       "risky": false,
       "slug": "biceps-flexed",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1988,7 +2737,10 @@
       "rank": 199,
       "risky": false,
       "slug": "brain-circuit",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     },
     {
@@ -1998,7 +2750,10 @@
       "rank": 200,
       "risky": false,
       "slug": "circuit-board",
-      "sources": ["G", "L"],
+      "sources": [
+        "G",
+        "L"
+      ],
       "status": "todo"
     }
   ]

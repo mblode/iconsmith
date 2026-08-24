@@ -214,10 +214,11 @@
 
 - [ ] alarm-smoke · G/L/T · 3 attempt(s)
 - [ ] dna · G/L/T · 1 attempt(s)
-- [ ] droplet · G/L/T · 2 attempt(s)
+- [ ] droplet · G/L/T · 3 attempt(s)
 
 ## superseded
 
 - [ ] git-fork · G/L/T · 0 attempt(s) · Superseded after destination audit: git-fork already exists as an outlined/filled Central pair.
 - [ ] git-pull-request · G/L/T · 1 attempt(s) · Superseded after destination audit: git-pull-request already exists as an outlined/filled Central pair.
 - [ ] star-half · G/L/T · 0 attempt(s) · Superseded after destination audit: star-half already exists as an outlined/filled Central pair.
+

@@ -1,0 +1,8 @@
+icon droplet
+keyline square
+finish filled
+
+rect 3,3 18x18 r3
+hole rect 5,5 14x14 r1
+dot 12,12 node
+fit

@@ -1,0 +1,264 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 16,
+    "records": [
+      {
+        "calls": 7,
+        "generationIds": [
+          "gen_01M0RZ99YDFS8AWJGH4WBE0CFH",
+          "gen_01M0RZ9C10THEZFCH0R28S1NSH",
+          "gen_01M0RZ9EJM5WYMHBP3ZY0V6BPA",
+          "gen_01M0RZ9HCNYSPARP4TTS6XRREM",
+          "gen_01M0RZ9P2F0QJ3NKNSETRZ6Y1S",
+          "gen_01M0RZA04YYJQS32WQTEMEK4KV",
+          "gen_01M0RZACCX063W1DCH6BWK66GC"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 33035,
+          "outputTokens": 1663,
+          "reasoningTokens": 1541
+        },
+        "usd": 0.0310125
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZBMRMCKA4G17G4NZYTRSB"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 229,
+          "reasoningTokens": 154
+        },
+        "usd": 0.00610575
+      },
+      {
+        "calls": 7,
+        "generationIds": [
+          "gen_01M0RZAG2XZHQBV730P5E7HRFK",
+          "gen_01M0RZAJE98MQBAYCY66QGXVNC",
+          "gen_01M0RZASVQWTXFR64Z7QNSJB7D",
+          "gen_01M0RZB2689RX93HKPC54XS4RB",
+          "gen_01M0RZB4B1H2ZD1FFYB38HM2HP",
+          "gen_01M0RZB6QENGMYQ6YN6WJ3TBW6",
+          "gen_01M0RZBH3Z52C070SJTZAQDFMH"
+        ],
+        "model": "google/gemini-3.7-flash",
+        "operation": "icon-generation",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 3547,
+          "cacheWriteTokens": 0,
+          "inputTokens": 30997,
+          "outputTokens": 1358,
+          "reasoningTokens": 1239
+        },
+        "usd": 0.028606274999999997
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZBMPVN2KJR22M6MZQ0TBH"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 390,
+          "reasoningTokens": 293
+        },
+        "usd": 0.0067095
+      }
+    ],
+    "totalUsd": 0.07243402499999999,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "image-agent",
+  "label": "Image-guided Gateway agent",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 7,
+          "generationIds": [
+            "gen_01M0RZ99YDFS8AWJGH4WBE0CFH",
+            "gen_01M0RZ9C10THEZFCH0R28S1NSH",
+            "gen_01M0RZ9EJM5WYMHBP3ZY0V6BPA",
+            "gen_01M0RZ9HCNYSPARP4TTS6XRREM",
+            "gen_01M0RZ9P2F0QJ3NKNSETRZ6Y1S",
+            "gen_01M0RZA04YYJQS32WQTEMEK4KV",
+            "gen_01M0RZACCX063W1DCH6BWK66GC"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "inputTokens": 33035,
+            "outputTokens": 1663,
+            "reasoningTokens": 1541
+          },
+          "usd": 0.0310125
+        }
+      ],
+      "brief": null,
+      "clean": false,
+      "findings": [
+        {
+          "kind": "empty",
+          "message": "The candidate image is completely blank and contains no artwork."
+        }
+      ],
+      "finish": "outlined",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 39241,
+        "outcome": "stalled",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 3,
+          "construct": 1,
+          "arc": 1,
+          "remove": 1
+        },
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 33035,
+          "outputTokens": 1663,
+          "reasoningTokens": 1541
+        }
+      },
+      "issues": [
+        {
+          "message": "Canvas is empty.",
+          "rule": "empty",
+          "severity": "error"
+        },
+        {
+          "message": "A twin pair needs both paints; an empty tile is a failed twin.",
+          "rule": "empty",
+          "severity": "error"
+        }
+      ],
+      "pq": 0,
+      "programComplete": true,
+      "reason": "The image is completely empty with no visible icon drawn.",
+      "sc": 0,
+      "scorable": true,
+      "steps": 7,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "construct",
+        "listParts",
+        "arc",
+        "remove"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 7,
+          "generationIds": [
+            "gen_01M0RZAG2XZHQBV730P5E7HRFK",
+            "gen_01M0RZAJE98MQBAYCY66QGXVNC",
+            "gen_01M0RZASVQWTXFR64Z7QNSJB7D",
+            "gen_01M0RZB2689RX93HKPC54XS4RB",
+            "gen_01M0RZB4B1H2ZD1FFYB38HM2HP",
+            "gen_01M0RZB6QENGMYQ6YN6WJ3TBW6",
+            "gen_01M0RZBH3Z52C070SJTZAQDFMH"
+          ],
+          "model": "google/gemini-3.7-flash",
+          "operation": "icon-generation",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 3547,
+            "cacheWriteTokens": 0,
+            "inputTokens": 30997,
+            "outputTokens": 1358,
+            "reasoningTokens": 1239
+          },
+          "usd": 0.028606274999999997
+        }
+      ],
+      "brief": null,
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts a diamond or rhombus shape rather than a droplet (tear/water drop with a rounded bottom and pointed tip)."
+        }
+      ],
+      "finish": "filled",
+      "generation": {
+        "finishReason": "tool-calls",
+        "ms": 37405,
+        "outcome": "budget",
+        "toolCalls": {
+          "proposal": 1,
+          "listParts": 3,
+          "construct": 1,
+          "diamond": 1,
+          "circle": 1
+        },
+        "usage": {
+          "cacheReadTokens": 3547,
+          "cacheWriteTokens": 0,
+          "inputTokens": 30997,
+          "outputTokens": 1358,
+          "reasoningTokens": 1239
+        }
+      },
+      "issues": [
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        },
+        {
+          "message": "e0 and e1 are 0.72px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ],
+      "pq": 3,
+      "programComplete": true,
+      "reason": "The candidate is a rotated square/diamond shape, failing to depict the requested 'droplet' concept.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 7,
+      "text": "",
+      "trace": [
+        "proposal",
+        "listParts",
+        "listParts",
+        "construct",
+        "listParts",
+        "diamond",
+        "circle"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 0.2
+}

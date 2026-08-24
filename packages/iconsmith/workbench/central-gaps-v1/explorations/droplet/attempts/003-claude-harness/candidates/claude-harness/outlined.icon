@@ -1,0 +1,6 @@
+icon droplet
+keyline tall
+line 6,15 12,3 18,15 off-axis
+arc 12,15 r6 half from left ccw
+center
+fit

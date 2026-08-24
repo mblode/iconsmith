@@ -1,0 +1,245 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 6,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZEFJ9XJJATSJKPN9Z9G3W"],
+        "model": "anthropic/claude-sonnet-5",
+        "operation": "claude-harness",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9357,
+          "outputTokens": 5231,
+          "reasoningTokens": 5177
+        },
+        "usd": 0.071024
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZYC9NXJY2J47HGMD8YFGZ"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 242,
+          "reasoningTokens": 181
+        },
+        "usd": 0.0061545
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZGGBZ759ARKT5VQRT42YT"],
+        "model": "anthropic/claude-sonnet-5",
+        "operation": "claude-harness",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 9426,
+          "outputTokens": 5498,
+          "reasoningTokens": 5211
+        },
+        "usd": 0.073832
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZJTQFS2B627SHVKWM94FT"],
+        "model": "anthropic/claude-sonnet-5",
+        "operation": "claude-harness",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 10866,
+          "outputTokens": 15058,
+          "reasoningTokens": 15009
+        },
+        "usd": 0.172312
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZR5TWFYJ2XM8W0C18J0YD"],
+        "model": "anthropic/claude-sonnet-5",
+        "operation": "claude-harness",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 10020,
+          "outputTokens": 17863,
+          "reasoningTokens": 17815
+        },
+        "usd": 0.19867
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZYC9HT0V8EBCP7GJ008RZ"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 722,
+          "reasoningTokens": 607
+        },
+        "usd": 0.0079545
+      }
+    ],
+    "totalUsd": 0.529947,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "claude-harness",
+  "label": "Claude Gateway code harness + repair",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 1,
+          "generationIds": ["gen_01M0RZEFJ9XJJATSJKPN9Z9G3W"],
+          "model": "anthropic/claude-sonnet-5",
+          "operation": "claude-harness",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "inputTokens": 9357,
+            "outputTokens": 5231,
+            "reasoningTokens": 5177
+          },
+          "usd": 0.071024
+        }
+      ],
+      "brief": "Read the skill at /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-1UarXy/SKILL.md and follow it.\n\nDraw the icon `droplet`.\nPaint: outlined. Compose the named object from listed parts and primitives, not a generic frame-and-dot.\nIt also means: droplet.\n\nThe set's vocabulary is at /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-1UarXy/parts.json — read `id` and `name`, not the path data. `part` accepts either. Prefer a listed mark over redrawing a common shape.\nCheck your work with `iconsmith draw /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-1UarXy/icon.icon --parts /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-1UarXy/parts.json`; without the flag every `part` op fails.\n\nAn image-model sketch was reduced to this composition hypothesis:\n1 element(s):\n- block 1: dominant, tall, sitting center\nUse it as semantic and layout evidence, not as geometry. The DSL remains the only drawing source.\n\nWrite the finished DSL program to /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-1UarXy/icon.icon and nothing else to that path.\nDo not write SVG. The program is the deliverable.",
+      "clean": false,
+      "findings": [],
+      "finish": "outlined",
+      "generation": null,
+      "issues": [
+        {
+          "message": "Visual extent is 14.0×20.0; keyline \"tall\" wants 16×20 (±1). Scale by 1.143.",
+          "rule": "keyline",
+          "severity": "error"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 116.6°, 18.4° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 63.4°, 18.4° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "pq": 10,
+      "programComplete": true,
+      "reason": "The droplet icon clearly communicates the concept with a well-proportioned outlined contour, matching the stroke weight and visual style of the reference set.",
+      "sc": 10,
+      "scorable": true,
+      "steps": 6,
+      "text": "icon droplet\nkeyline tall\nline 6,15 12,3 18,15 off-axis\narc 12,15 r6 half from left ccw\ncenter\nfit",
+      "trace": ["icon", "keyline", "line", "arc", "center", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [
+        {
+          "calls": 1,
+          "generationIds": ["gen_01M0RZGGBZ759ARKT5VQRT42YT"],
+          "model": "anthropic/claude-sonnet-5",
+          "operation": "claude-harness",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "inputTokens": 9426,
+            "outputTokens": 5498,
+            "reasoningTokens": 5211
+          },
+          "usd": 0.073832
+        },
+        {
+          "calls": 1,
+          "generationIds": ["gen_01M0RZJTQFS2B627SHVKWM94FT"],
+          "model": "anthropic/claude-sonnet-5",
+          "operation": "claude-harness",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "inputTokens": 10866,
+            "outputTokens": 15058,
+            "reasoningTokens": 15009
+          },
+          "usd": 0.172312
+        },
+        {
+          "calls": 1,
+          "generationIds": ["gen_01M0RZR5TWFYJ2XM8W0C18J0YD"],
+          "model": "anthropic/claude-sonnet-5",
+          "operation": "claude-harness",
+          "source": "gateway",
+          "usage": {
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "inputTokens": 10020,
+            "outputTokens": 17863,
+            "reasoningTokens": 17815
+          },
+          "usd": 0.19867
+        }
+      ],
+      "brief": "Read the skill at /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-6ruLtM/SKILL.md and follow it.\n\nDraw the icon `droplet`.\nPaint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is illegal.\nOccupy the same visual extent the outline would — expand the stroke, do not flood the bbox.\nCompose the named object from listed parts and primitives. A frame with a centre dot is not the concept.\nIt also means: droplet.\n\nThe set's vocabulary is at /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-6ruLtM/parts.json — read `id` and `name`, not the path data. `part` accepts either. Prefer a listed mark over redrawing a common shape.\nCheck your work with `iconsmith draw /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-6ruLtM/icon.icon --parts /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-6ruLtM/parts.json`; without the flag every `part` op fails.\n\nAn image-model sketch was reduced to this composition hypothesis:\n1 element(s):\n- block 1: dominant, tall, sitting center\nUse it as semantic and layout evidence, not as geometry. The DSL remains the only drawing source.\n\nWrite the finished DSL program to /var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-6ruLtM/icon.icon and nothing else to that path.\nDo not write SVG. The program is the deliverable.",
+      "clean": false,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The pointed top does not blend smoothly into the circular base, creating protruding corners and an awkward stepped silhouette instead of a clean droplet shape."
+        }
+      ],
+      "finish": "filled",
+      "generation": null,
+      "issues": [
+        {
+          "message": "Filled visual extent 16.0×20.0 does not match outlined 15.5×20.0. Expand the stroke — do not flood the bbox or restamp finish.",
+          "rule": "extent",
+          "severity": "error"
+        }
+      ],
+      "pq": 3,
+      "programComplete": true,
+      "reason": "The candidate has severe construction defects: a triangle is overlaid on a circle with overhangs sticking out at the transition points, disrupting the classic teardrop contour.",
+      "sc": 6.5,
+      "scorable": true,
+      "steps": 7,
+      "text": "icon droplet\nkeyline tall\nfinish filled\n\ncircle 12,14 r7\ndiamond 12,8.75 r4.5\n\ncenter\nfit",
+      "trace": [
+        "icon",
+        "keyline",
+        "finish",
+        "circle",
+        "diamond",
+        "center",
+        "fit"
+      ],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 4.31
+}

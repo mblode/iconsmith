@@ -48,6 +48,7 @@ import type { OverviewSpec } from "@/lib/studio/overview";
 import { recordThread } from "@/lib/studio/threads";
 import type { StudioThread } from "@/lib/studio/threads";
 import { buildOverview, overviewSubjects } from "@/lib/studio/overview";
+import { hasDrawnWork, useCampaign } from "@/lib/studio/use-campaign";
 import {
   readStudioAnnotations,
   readStudioSession,
@@ -308,7 +309,12 @@ export const StudioApp = ({
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [pending, setPending] = useState<"questions" | null>(null);
   const [workspaceView, setWorkspaceView] = useState<WorkspaceView>("focus");
-  const [inspectorView, setInspectorView] = useState<InspectorView>("versions");
+  /**
+   * The backlog, until this session has drawn something of its own. A finished
+   * draw switches to `versions` on arrival, so this value is only ever what an
+   * empty session opens on — and an empty session has no versions to rail.
+   */
+  const [inspectorView, setInspectorView] = useState<InspectorView>("backlog");
   /**
    * Comments appear in no eve event, so the durable stream cannot rebuild them.
    * They are text and two normalised numbers, so they keep their own slot
@@ -575,7 +581,15 @@ export const StudioApp = ({
   }, [openSlug, thread, threadTitle, turns.length]);
 
   const hasWork = versions.length > 0;
-  const inspectorVisible = hasWork || inspectorPinned;
+  /**
+   * The inspector is where the backlog lives, and the backlog is the one panel
+   * whose whole purpose is reaching work that already exists. Gating it on this
+   * session having drawn something made a cold start hide every icon the
+   * workbench had ever drawn, reachable only through a button about reference
+   * libraries. A campaign with drawn work is reason enough to show the rail.
+   */
+  const campaign = useCampaign();
+  const inspectorVisible = hasWork || inspectorPinned || hasDrawnWork(campaign.items);
 
   const [firstVersion] = versions;
   const selectedVersion = versions.find((row) => row.id === selectedId);
@@ -1142,7 +1156,12 @@ export const StudioApp = ({
                 />
               ) : null}
               {inspectorView === "backlog" ? (
-                <CampaignPanel onOpen={onOpenSlug} openSlug={openSlug} />
+                <CampaignPanel
+                  fault={campaign.fault}
+                  items={campaign.items}
+                  onOpen={onOpenSlug}
+                  openSlug={openSlug}
+                />
               ) : null}
               {inspectorView === "comments" ? (
                 <AnnotationPanel

@@ -1,0 +1,100 @@
+{
+  "accepted": false,
+  "cost": {
+    "calls": 2,
+    "records": [
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZ7GXV3ANZB9JD1RNMSDP1"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 338,
+          "reasoningTokens": 241
+        },
+        "usd": 0.0065145
+      },
+      {
+        "calls": 1,
+        "generationIds": ["gen_01M0RZ7GNAREM0MAYFAA5MYCGB"],
+        "model": "google/gemini-3.7-flash",
+        "operation": "visual-audit",
+        "source": "gateway",
+        "usage": {
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "inputTokens": 6996,
+          "outputTokens": 653,
+          "reasoningTokens": 518
+        },
+        "usd": 0.00769575
+      }
+    ],
+    "totalUsd": 0.01421025,
+    "unpricedCalls": 0
+  },
+  "failure": null,
+  "id": "host-analog",
+  "label": "Host analog baseline",
+  "paints": [
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "analog unknown droplet",
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts a die face with a single pip rather than a water droplet"
+        }
+      ],
+      "finish": "outlined",
+      "generation": null,
+      "issues": [],
+      "pq": 8.5,
+      "programComplete": true,
+      "reason": "The design is cleanly drawn and matches the stroke weight and corner radius of the set, but it depicts a die / dice-one icon instead of a droplet.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 6,
+      "text": "analog unknown droplet",
+      "trace": ["icon", "keyline", "finish", "rect", "dot", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    },
+    {
+      "accepted": false,
+      "apiCosts": [],
+      "brief": "analog unknown droplet",
+      "clean": true,
+      "findings": [
+        {
+          "kind": "object",
+          "message": "The icon depicts a die face showing one pip instead of a droplet."
+        },
+        {
+          "kind": "finish",
+          "message": "The icon uses an outlined frame rather than a solid filled shape."
+        }
+      ],
+      "finish": "filled",
+      "generation": null,
+      "issues": [],
+      "pq": 8.5,
+      "programComplete": true,
+      "reason": "The icon is cleanly drawn and legible, but it depicts a die face (dice 1) rather than a droplet, and is outlined instead of filled.",
+      "sc": 1,
+      "scorable": true,
+      "steps": 7,
+      "text": "analog unknown droplet",
+      "trace": ["icon", "keyline", "finish", "rect", "hole", "dot", "fit"],
+      "hasDocument": true,
+      "hasProgram": true
+    }
+  ],
+  "score": 2.13
+}

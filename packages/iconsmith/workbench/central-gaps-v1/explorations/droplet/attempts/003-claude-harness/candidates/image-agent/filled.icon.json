@@ -1,0 +1,19 @@
+{
+  "draw": [
+    {
+      "cx": 12,
+      "cy": 12.5,
+      "op": "diamond",
+      "reach": 8.5
+    },
+    {
+      "cx": 12,
+      "cy": 12.5,
+      "op": "circle",
+      "r": 6
+    }
+  ],
+  "icon": "droplet",
+  "keyline": null,
+  "finish": "filled"
+}
