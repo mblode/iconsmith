@@ -82,7 +82,7 @@ export const IconStage = ({
       <div
         className={cn(
           "relative flex min-h-64 flex-1 items-center justify-center overflow-hidden",
-          svg && "rounded-2xl border bg-card",
+          svg && "rounded-xl border bg-card",
         )}
         style={
           svg
@@ -160,7 +160,7 @@ export const IconStage = ({
                 <div
                   className={cn(
                     "text-foreground [&_svg]:h-full [&_svg]:w-full",
-                    size >= 48 && "rounded-lg bg-card p-2 shadow-xs",
+                    size >= 48 && "rounded-lg bg-card p-2",
                   )}
                   // oxlint-disable-next-line react/no-danger -- same house SVG at optical sizes
                   dangerouslySetInnerHTML={{ __html: svg }}

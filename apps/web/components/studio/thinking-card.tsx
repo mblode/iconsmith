@@ -54,7 +54,7 @@ export const ThinkingCard = ({
   return (
     <section
       aria-label="Pipeline record"
-      className="w-full max-w-xl border border-border p-4"
+      className="w-full max-w-xl rounded-xl border border-border p-4"
       data-slot="pipeline"
     >
       <div className="flex items-baseline justify-between gap-3">

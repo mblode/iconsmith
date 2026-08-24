@@ -14,6 +14,7 @@ import { ExplorationBoard } from "@/components/studio/exploration-board";
 import { IconStage } from "@/components/studio/icon-stage";
 import { LibraryBrowser } from "@/components/studio/library-browser";
 import { CampaignPanel } from "@/components/studio/campaign-panel";
+import { ChatSwitcher } from "@/components/studio/chat-switcher";
 import { OverviewTable } from "@/components/studio/overview-table";
 import { ThinkingCard } from "@/components/studio/thinking-card";
 import { StudioWorkspace } from "@/components/studio/studio-workspace";
@@ -44,6 +45,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
 import type { CampaignItem } from "@/lib/studio/campaign";
 import type { OverviewSpec } from "@/lib/studio/overview";
+import { recordThread } from "@/lib/studio/threads";
+import type { StudioThread } from "@/lib/studio/threads";
 import { buildOverview, overviewSubjects } from "@/lib/studio/overview";
 import {
   readStudioAnnotations,
@@ -129,6 +132,25 @@ const readFile = async (file: File): Promise<StudioAttachment> => {
     size: file.size,
     type: file.type,
   };
+};
+
+/**
+ * Recovers what the user typed from the envelope the agent was sent.
+ *
+ * Every turn goes over the wire as `STUDIO_REQUEST` followed by the tool input,
+ * which is right for the model and unreadable as a transcript.
+ */
+const studioBriefOf = (message: string): string | null => {
+  const marker = "STUDIO_REQUEST";
+  if (!message.startsWith(marker)) {
+    return message.trim() || null;
+  }
+  try {
+    const payload = JSON.parse(message.slice(marker.length)) as { text?: unknown };
+    return typeof payload.text === "string" ? payload.text : null;
+  } catch {
+    return null;
+  }
 };
 
 const attachmentKey = (file: StudioAttachment) => `${file.source ?? "local"}:${file.name}`;
@@ -258,14 +280,18 @@ const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
 export const StudioApp = ({
   campaign,
   houseSpec,
+  onNewChat,
   onOpenSlug,
+  onOpenThread,
   openSlug = null,
   recordedSessionId = null,
   thread = "default",
 }: {
   campaign: readonly CampaignItem[];
   houseSpec: OverviewSpec;
+  onNewChat: () => void;
   onOpenSlug: (item: CampaignItem) => void;
+  onOpenThread: (thread: StudioThread) => void;
   openSlug?: string | null;
   /** The session the workbench recorded for this concept, when reopening one. */
   recordedSessionId?: string | null;
@@ -427,6 +453,23 @@ export const StudioApp = ({
         upsertActivity(activity);
       }
 
+      /**
+       * Rebuild the brief that caused each reply. Live sends append their own
+       * user turn, but a replayed session had none, so a resumed conversation
+       * showed the answers without the questions. The wire carries the request
+       * envelope the agent needs; the transcript shows what the person typed.
+       */
+      if (event.type === "message.received" && !sendInFlightRef.current) {
+        const brief = studioBriefOf(event.data.message);
+        if (brief) {
+          setTurns((current) => [
+            ...current,
+            { attachments: [], id: uid(), role: "user", text: brief },
+          ]);
+        }
+        return;
+      }
+
       if (event.type === "action.result" && event.data.result.kind === "tool-result") {
         if (event.data.result.toolName !== "generate_icon_pair") {
           return;
@@ -508,6 +551,28 @@ export const StudioApp = ({
     const subjects = overviewSubjects(versions, tournaments);
     return { rows: buildOverview(subjects, houseSpec), total: subjects.length };
   }, [houseSpec, turns, versions]);
+
+  /**
+   * A conversation is called what its first brief called it. Until there is
+   * one, it is unnamed rather than given a placeholder that would then have to
+   * be corrected.
+   */
+  const threadTitle =
+    turns.find((turn) => turn.role === "user")?.text.trim() || openSlug || "New chat";
+
+  useEffect(() => {
+    // Only a conversation that has said something is worth listing.
+    if (turns.length === 0) {
+      return;
+    }
+    recordThread({
+      id: thread,
+      kind: openSlug ? "campaign" : "chat",
+      title: threadTitle,
+      updatedAt: Date.now(),
+      ...(openSlug ? { slug: openSlug } : {}),
+    });
+  }, [openSlug, thread, threadTitle, turns.length]);
 
   const hasWork = versions.length > 0;
   const inspectorVisible = hasWork || inspectorPinned;
@@ -749,6 +814,12 @@ export const StudioApp = ({
       }
       chat={
         <section className="flex h-full min-w-0 flex-col overflow-hidden bg-background">
+          <ChatSwitcher
+            onNew={onNewChat}
+            onOpen={onOpenThread}
+            threadId={thread}
+            title={threadTitle}
+          />
           <MessageScroller>
             <MessageScrollerContent className="flex-1 px-4 py-4">
               {turns.length === 0 ? (

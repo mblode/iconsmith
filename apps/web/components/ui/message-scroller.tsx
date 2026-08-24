@@ -38,7 +38,7 @@ const MessageScrollerContent = ({ className, ...props }: React.ComponentProps<"d
 
 const MessageScrollerButton = ({ className, ...props }: React.ComponentProps<typeof Button>) => (
   <Button
-    className={cn("absolute right-4 bottom-4 shadow-sm", className)}
+    className={cn("absolute right-4 bottom-4", className)}
     data-slot="message-scroller-button"
     size="sm"
     type="button"

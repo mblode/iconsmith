@@ -18,7 +18,7 @@ export const AgentActivityCard = ({ activities }: { activities: readonly StudioA
   return (
     <div
       aria-label="Icon agent activity"
-      className="w-full max-w-xl rounded-2xl border bg-card p-3 shadow-xs"
+      className="w-full max-w-xl rounded-xl border bg-card p-3"
       data-slot="agent-activity"
     >
       <h3 className="font-medium text-xs">Agent activity</h3>

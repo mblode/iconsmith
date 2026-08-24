@@ -27,7 +27,7 @@ export const ExplorationBoard = ({
     </div>
 
     {versions.length === 0 ? (
-      <div className="grid min-h-72 flex-1 place-items-center rounded-2xl border border-dashed">
+      <div className="grid min-h-72 flex-1 place-items-center rounded-xl border border-dashed">
         <p className="max-w-[28ch] text-balance text-center text-base text-muted-foreground sm:text-sm">
           Your outlined and filled attempts will collect here as you draw and refine.
         </p>
@@ -40,7 +40,7 @@ export const ExplorationBoard = ({
               aria-label={`Inspect version ${index + 1}, ${version.name}, ${version.finish}`}
               aria-pressed={selectedId === version.id}
               className={cn(
-                "flex w-full flex-col gap-3 rounded-2xl border bg-card p-3 text-left outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+                "flex w-full flex-col gap-3 rounded-xl border bg-card p-3 text-left outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
                 selectedId === version.id && "border-foreground/35 bg-accent",
               )}
               onClick={() => onSelect(version.id)}

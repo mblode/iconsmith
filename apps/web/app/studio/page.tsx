@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 import { StudioShell } from "@/components/studio/studio-shell";
 import { loadCampaign } from "@/lib/studio/campaign";
-import { StudioBreadcrumb } from "@/components/studio/studio-breadcrumb";
 
 export const metadata: Metadata = {
   description:
@@ -19,13 +18,9 @@ const StudioPage = () => (
     data-surface="app"
     id="main-content"
   >
-    <header className="flex shrink-0 flex-wrap items-baseline gap-x-4 gap-y-1 border-b px-4 py-3 sm:px-5">
-      <h1 className="font-heading font-medium text-base tracking-tight">Iconsmith Studio</h1>
-      <p className="min-w-0 flex-1 truncate text-muted-foreground text-sm">
-        Generate, compare, comment, and branch without letting a model emit a coordinate.
-      </p>
-      <StudioBreadcrumb />
-    </header>
+    {/* The visible chrome is gone, but a document still needs one heading that
+        names it. */}
+    <h1 className="sr-only">Iconsmith Studio</h1>
     <StudioShell
       campaign={loadCampaign().items}
       houseSpec={{ dots: SPEC.dots, keylines: Object.keys(SPEC.keylines) }}
