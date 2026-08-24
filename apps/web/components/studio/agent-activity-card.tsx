@@ -29,6 +29,9 @@ export const AgentActivityCard = ({ activities }: { activities: readonly StudioA
           <li className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-2 text-xs" key={activity.id}>
             <span aria-hidden="true" className={stateDotClass(activity.state)} />
             <span>
+              {/* The dot is the only signal that a step failed, and colour
+                  alone does not reach a screen reader. */}
+              <span className="sr-only">{`${activity.state}: `}</span>
               <span className="text-foreground">{activity.label}</span>
               {activity.detail ? (
                 <span className="mt-0.5 block text-muted-foreground">{activity.detail}</span>

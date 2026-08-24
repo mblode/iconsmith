@@ -25,6 +25,9 @@ export const VersionRail = ({
         {versions.map((version, index) => (
           <li key={version.id}>
             <Button
+              // Selection was a ring and nothing else, so assistive tech could
+              // not tell which version was open. Matches ExplorationBoard.
+              aria-pressed={selectedId === version.id}
               className={cn(
                 "h-auto w-full justify-start px-3 py-2 text-left",
                 selectedId === version.id && "ring-2 ring-ring",

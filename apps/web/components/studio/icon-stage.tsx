@@ -2,16 +2,23 @@
 
 import ChatBubble from "blode-icons-react/icons/chat-bubble-7";
 import type { CSSProperties, MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { safeStudioSvg } from "@/lib/studio/svg";
+import { sanitizeStudioSvg } from "@/lib/studio/svg";
 import { cn } from "@/lib/utils";
 import type { StudioAnnotation, StudioFinish, StudioVersion } from "@/lib/studio/types";
 
 const SIZES = [16, 24, 48, 128] as const;
 
-const copy = async (value: string) => {
-  await navigator.clipboard.writeText(value);
+const copy = async (value: string): Promise<boolean> => {
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    // Clipboard access is refused in insecure contexts and by permission.
+    return false;
+  }
 };
 
 export const IconStage = ({
@@ -35,7 +42,27 @@ export const IconStage = ({
   selectedAnnotationId: string | null;
   version: StudioVersion | null;
 }) => {
-  const svg = version ? safeStudioSvg(version.svg) : "";
+  const rendered = version ? sanitizeStudioSvg(version.svg) : null;
+  const svg = rendered?.svg ?? "";
+  const [notice, setNotice] = useState("");
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (noticeTimer.current) {
+        clearTimeout(noticeTimer.current);
+      }
+    },
+    [],
+  );
+
+  const report = (message: string) => {
+    setNotice(message);
+    if (noticeTimer.current) {
+      clearTimeout(noticeTimer.current);
+    }
+    noticeTimer.current = setTimeout(() => setNotice(""), 4000);
+  };
   const visibleAnnotations = version
     ? annotations.filter((annotation) => annotation.versionId === version.id)
     : [];
@@ -115,6 +142,17 @@ export const IconStage = ({
             Type an object. The drawer returns a program, never a free path.
           </p>
         )}
+        {rendered?.status === "unsafe" ? (
+          /* A rejected construct is a pipeline fault, not a user error. Say so
+             rather than silently showing the stripped remainder as if clean. */
+          <p
+            className="absolute inset-x-3 bottom-3 z-20 rounded-lg bg-destructive/10 px-3 py-2 text-center text-destructive text-xs"
+            role="alert"
+          >
+            Unsafe markup was removed from this render. The icon below is the stripped remainder —
+            redraw before exporting it.
+          </p>
+        ) : null}
         {visibleAnnotations.map((annotation, index) => (
           <button
             aria-label={`Open comment ${index + 1}: ${annotation.text || "Draft comment"}`}
@@ -161,11 +199,33 @@ export const IconStage = ({
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={() => copy(version.svg)} size="sm" type="button" variant="outline">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              onClick={async () => {
+                report(
+                  (await copy(version.svg))
+                    ? "SVG copied"
+                    : "Could not reach the clipboard. Select the SVG and copy it.",
+                );
+              }}
+              size="sm"
+              type="button"
+              variant="outline"
+            >
               Copy SVG
             </Button>
-            <Button onClick={() => copy(version.program)} size="sm" type="button" variant="outline">
+            <Button
+              onClick={async () => {
+                report(
+                  (await copy(version.program))
+                    ? "Program copied"
+                    : "Could not reach the clipboard. Select the program and copy it.",
+                );
+              }}
+              size="sm"
+              type="button"
+              variant="outline"
+            >
               Copy program
             </Button>
             <Button
@@ -176,7 +236,9 @@ export const IconStage = ({
                 link.download = `${version.name}-${version.finish}.svg`;
                 link.href = url;
                 link.click();
-                URL.revokeObjectURL(url);
+                // Revoking in the same tick can cancel the download in Safari.
+                setTimeout(() => URL.revokeObjectURL(url), 10_000);
+                report(`Downloaded ${link.download}`);
               }}
               size="sm"
               type="button"
@@ -184,6 +246,11 @@ export const IconStage = ({
             >
               Download
             </Button>
+            {/* Three of the four footer actions previously gave no sign they
+                had run at all. */}
+            <output aria-live="polite" className="text-muted-foreground text-xs">
+              {notice}
+            </output>
           </div>
         </div>
       ) : null}

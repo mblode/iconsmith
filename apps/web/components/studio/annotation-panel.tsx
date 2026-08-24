@@ -2,6 +2,8 @@
 
 import X from "blode-icons-react/icons/x";
 
+import { useEffect, useRef, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { StudioAnnotation, StudioVersion } from "@/lib/studio/types";
@@ -11,6 +13,7 @@ export const AnnotationPanel = ({
   annotations,
   onDelete,
   onRefine,
+  onRestore,
   onSelect,
   onTextChange,
   selectedId,
@@ -19,6 +22,7 @@ export const AnnotationPanel = ({
   annotations: readonly StudioAnnotation[];
   onDelete: (id: string) => void;
   onRefine: (annotations: readonly StudioAnnotation[]) => void;
+  onRestore: (annotation: StudioAnnotation) => void;
   onSelect: (id: string) => void;
   onTextChange: (id: string, text: string) => void;
   selectedId: string | null;
@@ -28,6 +32,26 @@ export const AnnotationPanel = ({
     ? annotations.filter((annotation) => annotation.versionId === version.id)
     : [];
   const ready = visible.filter((annotation) => annotation.text.trim().length > 0);
+  const [undoable, setUndoable] = useState<StudioAnnotation | null>(null);
+  const undoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (undoTimer.current) {
+        clearTimeout(undoTimer.current);
+      }
+    },
+    [],
+  );
+
+  const deleteWithUndo = (annotation: StudioAnnotation) => {
+    onDelete(annotation.id);
+    setUndoable(annotation);
+    if (undoTimer.current) {
+      clearTimeout(undoTimer.current);
+    }
+    undoTimer.current = setTimeout(() => setUndoable(null), 8000);
+  };
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4">
@@ -80,7 +104,7 @@ export const AnnotationPanel = ({
                 </button>
                 <Button
                   aria-label={`Delete comment ${index + 1}`}
-                  onClick={() => onDelete(annotation.id)}
+                  onClick={() => deleteWithUndo(annotation)}
                   size="icon-xs"
                   type="button"
                   variant="ghost"
@@ -104,6 +128,23 @@ export const AnnotationPanel = ({
             </li>
           ))}
         </ol>
+      ) : null}
+
+      {undoable ? (
+        <output className="flex items-center justify-between gap-3 rounded-lg border bg-card px-3 py-2">
+          <span className="text-muted-foreground text-xs">Comment deleted.</span>
+          <Button
+            onClick={() => {
+              onRestore(undoable);
+              setUndoable(null);
+            }}
+            size="sm"
+            type="button"
+            variant="outline"
+          >
+            Undo
+          </Button>
+        </output>
       ) : null}
 
       {ready.length > 0 ? (

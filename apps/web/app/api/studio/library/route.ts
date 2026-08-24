@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 
+import { safeStudioSvg } from "@/lib/studio/svg";
 import type { StudioLibraryResponse, StudioLibraryResult } from "@/lib/studio/types";
 
 export const runtime = "nodejs";
@@ -25,16 +26,8 @@ interface IconifySearch {
   readonly icons?: readonly string[];
 }
 
-const safeSvg = (svg: string): string =>
-  svg
-    .replaceAll(/<script\b[^>]*>[\s\S]*?<\/script>/giu, "")
-    .replaceAll(/<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/giu, "")
-    .replaceAll(/<image\b[^>]*\/?\s*>/giu, "")
-    .replaceAll(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*')/giu, "")
-    .replaceAll(/\s(?:href|xlink:href)\s*=\s*(?:"[^"]*"|'[^']*')/giu, "");
-
 const asDataUrl = (svg: string): string =>
-  `data:image/svg+xml;base64,${Buffer.from(safeSvg(svg)).toString("base64")}`;
+  `data:image/svg+xml;base64,${Buffer.from(safeStudioSvg(svg)).toString("base64")}`;
 
 const iconOf = async (
   id: string,

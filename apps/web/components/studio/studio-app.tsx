@@ -4,6 +4,7 @@ import Focus from "blode-icons-react/icons/focus";
 import Grid from "blode-icons-react/icons/layers-three";
 import Library from "blode-icons-react/icons/library";
 import PaperPlane from "blode-icons-react/icons/paper-plane";
+import Stop from "blode-icons-react/icons/stop";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
 import ChatBubbles from "blode-icons-react/icons/chat-bubbles";
 import X from "blode-icons-react/icons/x";
@@ -387,8 +388,28 @@ export const StudioApp = () => {
   const lastAssistant = turns.findLast((turn) => turn.role === "assistant");
   const lastUser = turns.findLast((turn) => turn.role === "user");
   const referenceFiles = lastUser?.attachments ?? files;
+  /**
+   * The brief the user actually typed. Resubmitting `lastName` instead sends
+   * the *drawn icon's* name, and on a first turn there is no drawn icon, so the
+   * text became the literal "icon" — which `conceptOf` reads as vague and
+   * answers with the clarification questionnaire. Approving an attachment threw
+   * the sentence away and asked what to draw.
+   */
+  const lastBrief = lastUser?.text ?? lastName;
 
-  const send = async (payload: StudioRequest) => {
+  /**
+   * Comments belong to the version they were drawn on. Every submit path has to
+   * filter them, not just this one, or a note written on one variant steers the
+   * refinement of an unrelated one.
+   */
+  const annotationsFor = (versionId: string | undefined): StudioAnnotation[] =>
+    versionId
+      ? annotations.filter(
+          (annotation) => annotation.versionId === versionId && annotation.text.trim().length > 0,
+        )
+      : [];
+
+  const send = async (payload: StudioRequest): Promise<boolean> => {
     setBusy(true);
     setFault(null);
     setActiveActivities([]);
@@ -399,10 +420,20 @@ export const StudioApp = () => {
     setResultDelivered(false);
     try {
       await agent.send(`STUDIO_REQUEST\n${JSON.stringify(payload)}`);
+      return true;
     } catch (error) {
       setFault(error instanceof Error ? error.message : "The studio could not reach the drawer.");
+      return false;
     } finally {
       setBusy(false);
+    }
+  };
+
+  /** Replays the last request so a failed draw is one click from recovery. */
+  const retryLast = async () => {
+    const last = pendingRequestRef.current;
+    if (last && !busy) {
+      await send(last);
     }
   };
 
@@ -413,20 +444,19 @@ export const StudioApp = () => {
     }
     const attachments = files;
     setTurns((current) => [...current, { attachments, id: uid(), role: "user", text: next }]);
-    setText("");
-    setFiles([]);
-    await send({
-      annotations: selected
-        ? annotations.filter(
-            (annotation) =>
-              annotation.versionId === selected.id && annotation.text.trim().length > 0,
-          )
-        : [],
+    const accepted = await send({
+      annotations: annotationsFor(selected?.id),
       attachments,
       finish,
       lastName,
       text: next,
     });
+    // Clearing before the send meant a failed draw left the composer empty and
+    // the work only recoverable by retyping it.
+    if (accepted) {
+      setText("");
+      setFiles([]);
+    }
   };
 
   const addFiles = async (list: FileList | null) => {
@@ -562,16 +592,16 @@ export const StudioApp = () => {
                         items={[...turn.questions]}
                         onSubmit={async () => {
                           await send({
-                            annotations,
+                            annotations: annotationsFor(selected?.id),
                             answers,
                             attachments: [...referenceFiles],
                             finish,
                             lastName,
                             pending: "questions",
                             text:
-                              typeof answers.object === "string"
+                              typeof answers.object === "string" && answers.object.trim().length > 0
                                 ? answers.object
-                                : (lastName ?? "icon"),
+                                : (lastBrief ?? "icon"),
                           });
                         }}
                         onValueChange={setAnswers}
@@ -596,13 +626,13 @@ export const StudioApp = () => {
                             disabled={busy}
                             onClick={async () => {
                               await send({
-                                annotations,
+                                annotations: annotationsFor(selected?.id),
                                 approved: false,
                                 attachments: [...referenceFiles],
                                 finish,
                                 lastName,
                                 pending: "approval",
-                                text: lastName ?? "icon",
+                                text: lastBrief ?? "icon",
                               });
                             }}
                             type="button"
@@ -614,13 +644,13 @@ export const StudioApp = () => {
                             disabled={busy}
                             onClick={async () => {
                               await send({
-                                annotations,
+                                annotations: annotationsFor(selected?.id),
                                 approved: true,
                                 attachments: [...referenceFiles],
                                 finish,
                                 lastName,
                                 pending: "approval",
-                                text: lastName ?? "icon",
+                                text: lastBrief ?? "icon",
                               });
                             }}
                             type="button"
@@ -648,7 +678,13 @@ export const StudioApp = () => {
             ) : null}
             {fault ? (
               <Marker role="alert">
-                <MarkerContent>{fault}</MarkerContent>
+                <MarkerContent className="flex flex-wrap items-center gap-3">
+                  <span>{fault}</span>
+                  <span className="text-muted-foreground">Your brief is still here.</span>
+                  <Button disabled={busy} onClick={retryLast} size="sm" variant="outline">
+                    Try again
+                  </Button>
+                </MarkerContent>
               </Marker>
             ) : null}
           </MessageScrollerContent>
@@ -734,17 +770,37 @@ export const StudioApp = () => {
               name="studio-prompt"
               value={text}
             />
-            <Button
-              aria-label="Draw"
-              disabled={busy || text.trim().length === 0}
-              onClick={async () => {
-                await submitPrompt();
-              }}
-              size="icon"
-              type="button"
-            >
-              <PaperPlane />
-            </Button>
+            {busy ? (
+              /* A five-arm tournament is long enough that watching it finish is
+                 not a reasonable ask. `cancel()` stops the durable turn. */
+              <Button
+                aria-label="Stop drawing"
+                onClick={async () => {
+                  try {
+                    await agent.cancel();
+                  } catch {
+                    setBusy(false);
+                  }
+                }}
+                size="icon"
+                type="button"
+                variant="outline"
+              >
+                <Stop />
+              </Button>
+            ) : (
+              <Button
+                aria-label="Draw"
+                disabled={text.trim().length === 0}
+                onClick={async () => {
+                  await submitPrompt();
+                }}
+                size="icon"
+                type="button"
+              >
+                <PaperPlane />
+              </Button>
+            )}
           </div>
           <p className="px-1 pt-2 text-muted-foreground text-xs">
             Enter to draw · Shift+Enter for a new line · Drop images on this bar
@@ -869,6 +925,15 @@ export const StudioApp = () => {
               onDelete={(id) => {
                 setAnnotations((current) => current.filter((annotation) => annotation.id !== id));
                 setSelectedAnnotationId((current) => (current === id ? null : current));
+              }}
+              /* The comment is only in memory, so undo is honest here — cheaper
+                 for the user than a confirm dialog on every delete. */
+              onRestore={(annotation) => {
+                setAnnotations((current) =>
+                  current.some((row) => row.id === annotation.id)
+                    ? current
+                    : [...current, annotation],
+                );
               }}
               onRefine={(open) => {
                 if (!selected) {
