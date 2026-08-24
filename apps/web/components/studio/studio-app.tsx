@@ -946,7 +946,11 @@ export const StudioApp = () => {
                 />
               ) : null}
               {inspectorView === "library" ? (
-                <LibraryBrowser onAttach={addLibraryReference} />
+                <LibraryBrowser
+                  attached={libraryRefs.map((ref) => ref.name)}
+                  full={libraryRefs.length + uploads.length >= 4}
+                  onAttach={addLibraryReference}
+                />
               ) : null}
               {inspectorView === "comments" ? (
                 <AnnotationPanel
