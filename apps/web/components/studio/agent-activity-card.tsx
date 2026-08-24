@@ -21,9 +21,7 @@ export const AgentActivityCard = ({ activities }: { activities: readonly StudioA
       className="w-full max-w-xl rounded-2xl border bg-card p-3 shadow-xs"
       data-slot="agent-activity"
     >
-      <p className="font-mono text-muted-foreground text-[10px] uppercase tracking-widest">
-        Eve agent activity
-      </p>
+      <h3 className="font-medium text-xs">Agent activity</h3>
       <ol className="mt-3 flex flex-col gap-2">
         {activities.map((activity) => (
           <li className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-2 text-xs" key={activity.id}>

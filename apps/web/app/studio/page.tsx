@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { SiteFooter } from "@/components/site-footer";
 import { StudioApp } from "@/components/studio/studio-app";
 import { StudioBreadcrumb } from "@/components/studio/studio-breadcrumb";
 
@@ -11,22 +10,21 @@ export const metadata: Metadata = {
 };
 
 const StudioPage = () => (
-  <main className="isolate flex min-h-svh flex-col" id="main-content">
-    <div className="mx-auto flex w-full max-w-[1800px] flex-1 flex-col gap-4 p-4 sm:p-6">
-      <header className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-        <div className="flex flex-col gap-3">
-          <StudioBreadcrumb />
-          <h1 className="text-balance font-heading font-medium text-2xl tracking-tight">
-            Iconsmith Studio
-          </h1>
-        </div>
-        <p className="max-w-[58ch] text-pretty text-base text-muted-foreground">
-          Generate, compare, comment, and branch without letting a model emit a coordinate.
-        </p>
-      </header>
-      <StudioApp />
-      <SiteFooter />
-    </div>
+  /* The studio fills the viewport and owns its own scrolling. A tool is a
+     surface you work inside, not a document you scroll past. */
+  <main
+    className="flex h-svh min-h-0 flex-col overflow-hidden bg-background"
+    data-surface="app"
+    id="main-content"
+  >
+    <header className="flex shrink-0 flex-wrap items-baseline gap-x-4 gap-y-1 border-b px-4 py-3 sm:px-5">
+      <h1 className="font-heading font-medium text-base tracking-tight">Iconsmith Studio</h1>
+      <p className="min-w-0 flex-1 truncate text-muted-foreground text-sm">
+        Generate, compare, comment, and branch without letting a model emit a coordinate.
+      </p>
+      <StudioBreadcrumb />
+    </header>
+    <StudioApp />
   </main>
 );
 

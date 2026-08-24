@@ -1,13 +1,12 @@
 "use client";
 
-import ChatBubble from "blode-icons-react/icons/chat-bubble-7";
 import type { CSSProperties, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { sanitizeStudioSvg } from "@/lib/studio/svg";
 import { cn } from "@/lib/utils";
-import type { StudioAnnotation, StudioFinish, StudioVersion } from "@/lib/studio/types";
+import type { StudioAnnotation, StudioVersion } from "@/lib/studio/types";
 
 const SIZES = [16, 24, 48, 128] as const;
 
@@ -24,20 +23,14 @@ const copy = async (value: string): Promise<boolean> => {
 export const IconStage = ({
   annotationMode,
   annotations,
-  finish,
   onAnnotate,
-  onAnnotationModeChange,
-  onFinish,
   onSelectAnnotation,
   selectedAnnotationId,
   version,
 }: {
   annotationMode: boolean;
   annotations: readonly StudioAnnotation[];
-  finish: StudioFinish;
   onAnnotate: (point: { x: number; y: number }) => void;
-  onAnnotationModeChange: (active: boolean) => void;
-  onFinish: (finish: StudioFinish) => void;
   onSelectAnnotation: (id: string) => void;
   selectedAnnotationId: string | null;
   version: StudioVersion | null;
@@ -84,44 +77,22 @@ export const IconStage = ({
 
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4">
-      <div className="flex items-center justify-between gap-3">
-        <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
-          {version ? `${version.name} · ${version.finish}` : "Stage"}
-        </p>
-        <div className="flex flex-wrap justify-end gap-1">
-          <Button
-            aria-pressed={annotationMode}
-            disabled={!version}
-            onClick={() => onAnnotationModeChange(!annotationMode)}
-            size="sm"
-            type="button"
-            variant={annotationMode ? "outline" : "ghost"}
-          >
-            <ChatBubble />
-            {annotationMode ? "Click the icon" : "Comment"}
-          </Button>
-          {(["outlined", "filled"] as const).map((paint) => (
-            <Button
-              aria-pressed={finish === paint}
-              key={paint}
-              onClick={() => onFinish(paint)}
-              size="sm"
-              type="button"
-              variant={finish === paint ? "default" : "ghost"}
-            >
-              {paint}
-            </Button>
-          ))}
-        </div>
-      </div>
-
+      {/* The artboard is chrome for an icon. With nothing drawn it was a large
+          bordered void, so it only appears once there is something to hold. */}
       <div
-        className="relative flex min-h-64 flex-1 items-center justify-center overflow-hidden rounded-2xl border bg-card"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
+        className={cn(
+          "relative flex min-h-64 flex-1 items-center justify-center overflow-hidden",
+          svg && "rounded-2xl border bg-card",
+        )}
+        style={
+          svg
+            ? {
+                backgroundImage:
+                  "linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }
+            : undefined
+        }
       >
         {annotationMode && version ? (
           <button
@@ -138,7 +109,7 @@ export const IconStage = ({
             dangerouslySetInnerHTML={{ __html: svg }}
           />
         ) : (
-          <p className="max-w-[24ch] text-balance text-center text-muted-foreground text-sm">
+          <p className="max-w-[26ch] text-balance text-center text-base text-muted-foreground">
             Type an object. The drawer returns a program, never a free path.
           </p>
         )}

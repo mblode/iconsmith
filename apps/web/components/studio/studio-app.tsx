@@ -1,12 +1,8 @@
 "use client";
 
-import Focus from "blode-icons-react/icons/focus";
-import Grid from "blode-icons-react/icons/layers-three";
-import Library from "blode-icons-react/icons/library";
 import PaperPlane from "blode-icons-react/icons/paper-plane";
 import Stop from "blode-icons-react/icons/stop";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
-import ChatBubbles from "blode-icons-react/icons/chat-bubbles";
 import X from "blode-icons-react/icons/x";
 import type { MessageStreamEvent } from "eve/client";
 import type { EveMessageInputRequest } from "eve/react";
@@ -19,6 +15,7 @@ import { ExplorationBoard } from "@/components/studio/exploration-board";
 import { IconStage } from "@/components/studio/icon-stage";
 import { LibraryBrowser } from "@/components/studio/library-browser";
 import { ThinkingCard } from "@/components/studio/thinking-card";
+import { StudioWorkspace } from "@/components/studio/studio-workspace";
 import { VersionRail } from "@/components/studio/version-rail";
 import {
   Attachment,
@@ -545,450 +542,468 @@ export const StudioApp = () => {
   };
 
   return (
-    <div className="grid min-h-0 flex-1 overflow-hidden rounded-2xl border bg-border lg:grid-cols-[22rem_minmax(0,1fr)] xl:h-[calc(100svh-7rem)] xl:min-h-[42rem] xl:flex-none xl:grid-cols-[22rem_minmax(0,1fr)_19rem]">
-      <section className="flex min-h-[38rem] min-w-0 flex-col bg-background lg:border-r">
-        <header className="flex flex-col gap-1 border-b px-4 py-3">
-          <h2 className="font-medium">Chat</h2>
-          <p className="text-base text-muted-foreground sm:text-sm">
-            Brief, references, and branches
-          </p>
-        </header>
-        <MessageScroller>
-          <MessageScrollerContent className="max-w-none">
-            {turns.length === 0 ? (
-              <div className="flex flex-col gap-4">
-                <Marker variant="separator">
-                  <MarkerContent>Start with the object noun</MarkerContent>
-                </Marker>
-                <p className="max-w-[46ch] text-base text-muted-foreground sm:text-sm">
-                  Type <code className="font-mono text-foreground">wifi</code> or{" "}
-                  <code className="font-mono text-foreground">a tray for mail</code>. Attach a
-                  reference if you have one — I will not trace it. Chat after a draw to intervene.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {SUGGESTIONS.map((name) => (
-                    <Button
-                      key={name}
-                      onClick={() => {
-                        setText(name);
-                      }}
-                      size="sm"
-                      type="button"
-                      variant="outline"
-                    >
-                      {name}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
-            {turns.map((turn) =>
-              turn.role === "user" ? (
-                <Message align="end" key={turn.id}>
-                  <MessageContent>
-                    <MessageHeader>You</MessageHeader>
-                    {turn.attachments.length > 0 ? (
-                      <AttachmentGroup>
-                        {turn.attachments.map((file) => (
-                          <Attachment key={attachmentKey(file)} orientation="vertical" size="sm">
-                            <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
-                              {file.dataUrl ? (
-                                // oxlint-disable-next-line nextjs/no-img-element -- user attachment preview
-                                <img alt="" src={file.dataUrl} />
-                              ) : (
-                                <Paperclip />
-                              )}
-                            </AttachmentMedia>
-                            <AttachmentContent>
-                              <AttachmentTitle>{file.name}</AttachmentTitle>
-                            </AttachmentContent>
-                          </Attachment>
-                        ))}
-                      </AttachmentGroup>
-                    ) : null}
-                    <Bubble align="end">
-                      <BubbleContent>{turn.text}</BubbleContent>
-                    </Bubble>
-                  </MessageContent>
-                </Message>
-              ) : (
-                <Message key={turn.id}>
-                  <MessageContent>
-                    <MessageHeader>Iconsmith</MessageHeader>
-                    {turn.activities ? <AgentActivityCard activities={turn.activities} /> : null}
-                    <Bubble variant="muted">
-                      <BubbleContent>{turn.text}</BubbleContent>
-                    </Bubble>
-                    {turn.versions || turn.tournament ? (
-                      <ThinkingCard tournament={turn.tournament} versions={turn.versions ?? []} />
-                    ) : null}
-                    {turn.questions ? (
-                      <Questionnaire
-                        items={[...turn.questions]}
-                        onSubmit={async () => {
-                          await send({
-                            annotations: annotationsFor(selected?.id),
-                            answers,
-                            attachments: [...referenceFiles],
-                            finish,
-                            lastName,
-                            pending: "questions",
-                            text:
-                              typeof answers.object === "string" && answers.object.trim().length > 0
-                                ? answers.object
-                                : (lastBrief ?? "icon"),
-                          });
-                        }}
-                        onValueChange={setAnswers}
-                        value={answers}
-                      >
-                        <QuestionnaireProgress />
-                        <QuestionnaireTitle />
-                        <QuestionnaireDescription />
-                        <QuestionnaireChoices />
-                        <QuestionnaireFreeform />
-                        <QuestionnaireActions />
-                      </Questionnaire>
-                    ) : null}
-                  </MessageContent>
-                </Message>
-              ),
-            )}
-
-            {busy && !resultDelivered ? <AgentActivityCard activities={activeActivities} /> : null}
-            {busy ? (
-              <Marker asChild>
-                <output aria-atomic="true" aria-live="polite">
-                  <MarkerContent className="animate-pulse">
-                    Agent pipeline running — drawing both paints, rendering, and visually reviewing.
-                  </MarkerContent>
-                </output>
-              </Marker>
-            ) : null}
-            {pendingRequests.map((request) => (
-              <div
-                className="flex max-w-lg flex-col gap-3 rounded-xl border bg-card p-4"
-                key={request.requestId}
-              >
-                <h3 className="font-heading font-medium text-lg">{requestTitle(request.kind)}</h3>
-                <p className="text-base text-muted-foreground sm:text-sm">{requestBody(request)}</p>
-                <div className="flex flex-wrap gap-2">
-                  {(request.options ?? []).map((option) => (
-                    <Button
-                      key={option.id}
-                      onClick={() => answerRequest(request.requestId, { optionId: option.id })}
-                      type="button"
-                      variant={option.style === "danger" ? "ghost" : "outline"}
-                    >
-                      {option.label}
-                    </Button>
-                  ))}
-                </div>
-                {request.allowFreeform ? (
-                  <form
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      const value = String(
-                        new FormData(event.currentTarget).get("answer") ?? "",
-                      ).trim();
-                      if (value) {
-                        void answerRequest(request.requestId, { text: value });
-                      }
-                    }}
-                  >
-                    <Textarea
-                      aria-label={request.prompt}
-                      className="min-h-16"
-                      name="answer"
-                      placeholder="Type an answer"
-                    />
-                    <Button className="mt-2" size="sm" type="submit" variant="outline">
-                      Send answer
-                    </Button>
-                  </form>
-                ) : null}
-              </div>
-            ))}
-            {fault ? (
-              <Marker role="alert">
-                <MarkerContent className="flex flex-wrap items-center gap-3">
-                  <span>{fault}</span>
-                  <span className="text-muted-foreground">Your brief is still here.</span>
-                  <Button disabled={busy} onClick={retryLast} size="sm" variant="outline">
-                    Try again
-                  </Button>
-                </MarkerContent>
-              </Marker>
-            ) : null}
-          </MessageScrollerContent>
-        </MessageScroller>
-
-        <div
-          className="border-t p-3"
-          onDragOver={(event) => event.preventDefault()}
-          onDrop={async (event) => {
-            event.preventDefault();
-            await addFiles(event.dataTransfer.files);
-          }}
-        >
-          {files.length > 0 ? (
-            <AttachmentGroup className="pb-3">
-              {files.map((file) => (
-                <Attachment key={attachmentKey(file)} size="sm">
-                  <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
-                    {file.dataUrl ? (
-                      // oxlint-disable-next-line nextjs/no-img-element -- local attachment chip
-                      <img alt="" src={file.dataUrl} />
-                    ) : (
-                      <Paperclip />
-                    )}
-                  </AttachmentMedia>
-                  <AttachmentContent>
-                    <AttachmentTitle>{file.name}</AttachmentTitle>
-                    <AttachmentDescription>
-                      {file.source ? `${file.source} · name only` : file.kind}
-                    </AttachmentDescription>
-                  </AttachmentContent>
-                  <AttachmentActions>
-                    <AttachmentAction
-                      aria-label={`Remove ${file.name}`}
-                      onClick={() =>
-                        setFiles((current) =>
-                          current.filter((row) => attachmentKey(row) !== attachmentKey(file)),
-                        )
-                      }
-                      type="button"
-                    >
-                      <X />
-                    </AttachmentAction>
-                  </AttachmentActions>
-                </Attachment>
-              ))}
-            </AttachmentGroup>
-          ) : null}
-          <div className="flex items-end gap-2">
-            <input
-              accept="image/*,.svg,.json,.txt"
-              className="sr-only"
-              id={fileId}
-              multiple
-              name="attachments"
-              onChange={async (event) => {
-                await addFiles(event.target.files);
-                event.target.value = "";
-              }}
-              ref={fileRef}
-              type="file"
-            />
-            <Button
-              aria-label="Attach a reference"
-              onClick={() => fileRef.current?.click()}
-              size="icon"
-              type="button"
-              variant="ghost"
-            >
-              <Paperclip />
-            </Button>
-            <Textarea
-              aria-label="Describe the icon"
-              disabled={busy}
-              onChange={(event) => setText(event.target.value)}
-              onKeyDown={async (event) => {
-                if (event.key === "Enter" && !event.shiftKey) {
-                  event.preventDefault();
-                  await submitPrompt();
-                }
-              }}
-              placeholder={promptHint(pending, Boolean(lastAssistant), pendingRequests.length > 0)}
-              name="studio-prompt"
-              value={text}
-            />
-            {busy ? (
-              /* A five-arm tournament is long enough that watching it finish is
-                 not a reasonable ask. `cancel()` stops the durable turn. */
+    <StudioWorkspace
+      canvas={
+        <section className="flex h-full min-w-0 flex-col overflow-hidden bg-background">
+          <header className="flex flex-wrap items-center gap-1 border-b px-4 py-2">
+            <div className="flex gap-1" role="tablist" aria-label="Canvas view">
               <Button
-                aria-label="Stop drawing"
-                onClick={async () => {
-                  try {
-                    await agent.cancel();
-                  } catch {
-                    setBusy(false);
+                aria-selected={workspaceView === "focus"}
+                onClick={() => setWorkspaceView("focus")}
+                role="tab"
+                size="sm"
+                type="button"
+                variant={workspaceView === "focus" ? "outline" : "ghost"}
+              >
+                Focus
+              </Button>
+              <Button
+                aria-selected={workspaceView === "explorations"}
+                onClick={() => setWorkspaceView("explorations")}
+                role="tab"
+                size="sm"
+                type="button"
+                variant={workspaceView === "explorations" ? "outline" : "ghost"}
+              >
+                Explorations
+              </Button>
+            </div>
+            {workspaceView === "focus" ? (
+              <div className="ml-auto flex flex-wrap justify-end gap-1">
+                <Button
+                  aria-pressed={annotationMode}
+                  disabled={!selected}
+                  onClick={() => setAnnotationMode(!annotationMode)}
+                  size="sm"
+                  type="button"
+                  variant={annotationMode ? "outline" : "ghost"}
+                >
+                  {annotationMode ? "Click the icon" : "Comment"}
+                </Button>
+                {(["outlined", "filled"] as const).map((paint) => (
+                  <Button
+                    aria-pressed={finish === paint}
+                    key={paint}
+                    onClick={() => setFinish(paint)}
+                    size="sm"
+                    type="button"
+                    variant={finish === paint ? "default" : "ghost"}
+                  >
+                    {paint}
+                  </Button>
+                ))}
+              </div>
+            ) : null}
+          </header>
+          <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-6">
+            {workspaceView === "focus" ? (
+              <IconStage
+                annotationMode={annotationMode}
+                annotations={annotations}
+                onAnnotate={addAnnotation}
+                onSelectAnnotation={(id) => {
+                  setSelectedAnnotationId(id);
+                  setInspectorView("comments");
+                }}
+                selectedAnnotationId={selectedAnnotationId}
+                version={selected}
+              />
+            ) : (
+              <ExplorationBoard
+                onSelect={(id) => {
+                  selectVersion(id);
+                  setWorkspaceView("focus");
+                }}
+                selectedId={selected?.id ?? null}
+                versions={versions}
+              />
+            )}
+          </div>
+        </section>
+      }
+      chat={
+        <section className="flex h-full min-w-0 flex-col overflow-hidden bg-background">
+          <MessageScroller>
+            <MessageScrollerContent className="max-w-none flex-1 px-4 py-4">
+              {turns.length === 0 ? (
+                <div className="flex flex-1 flex-col justify-center gap-4">
+                  <h2 className="font-heading font-medium text-base">Start with the object noun</h2>
+                  <p className="max-w-[46ch] text-base text-muted-foreground sm:text-sm">
+                    Type <code className="font-mono text-foreground">wifi</code> or{" "}
+                    <code className="font-mono text-foreground">a tray for mail</code>. Attach a
+                    reference if you have one; I will not trace it. Chat after a draw to intervene.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {SUGGESTIONS.map((name) => (
+                      <Button
+                        key={name}
+                        onClick={() => {
+                          setText(name);
+                        }}
+                        size="sm"
+                        type="button"
+                        variant="outline"
+                      >
+                        {name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {turns.map((turn) =>
+                turn.role === "user" ? (
+                  <Message align="end" key={turn.id}>
+                    <MessageContent>
+                      <MessageHeader>You</MessageHeader>
+                      {turn.attachments.length > 0 ? (
+                        <AttachmentGroup>
+                          {turn.attachments.map((file) => (
+                            <Attachment key={attachmentKey(file)} orientation="vertical" size="sm">
+                              <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
+                                {file.dataUrl ? (
+                                  // oxlint-disable-next-line nextjs/no-img-element -- user attachment preview
+                                  <img alt="" src={file.dataUrl} />
+                                ) : (
+                                  <Paperclip />
+                                )}
+                              </AttachmentMedia>
+                              <AttachmentContent>
+                                <AttachmentTitle>{file.name}</AttachmentTitle>
+                              </AttachmentContent>
+                            </Attachment>
+                          ))}
+                        </AttachmentGroup>
+                      ) : null}
+                      <Bubble align="end">
+                        <BubbleContent>{turn.text}</BubbleContent>
+                      </Bubble>
+                    </MessageContent>
+                  </Message>
+                ) : (
+                  <Message key={turn.id}>
+                    <MessageContent>
+                      <MessageHeader>Iconsmith</MessageHeader>
+                      {turn.activities ? <AgentActivityCard activities={turn.activities} /> : null}
+                      <Bubble variant="muted">
+                        <BubbleContent>{turn.text}</BubbleContent>
+                      </Bubble>
+                      {turn.versions || turn.tournament ? (
+                        <ThinkingCard tournament={turn.tournament} versions={turn.versions ?? []} />
+                      ) : null}
+                      {turn.questions ? (
+                        <Questionnaire
+                          items={[...turn.questions]}
+                          onSubmit={async () => {
+                            await send({
+                              annotations: annotationsFor(selected?.id),
+                              answers,
+                              attachments: [...referenceFiles],
+                              finish,
+                              lastName,
+                              pending: "questions",
+                              text:
+                                typeof answers.object === "string" &&
+                                answers.object.trim().length > 0
+                                  ? answers.object
+                                  : (lastBrief ?? "icon"),
+                            });
+                          }}
+                          onValueChange={setAnswers}
+                          value={answers}
+                        >
+                          <QuestionnaireProgress />
+                          <QuestionnaireTitle />
+                          <QuestionnaireDescription />
+                          <QuestionnaireChoices />
+                          <QuestionnaireFreeform />
+                          <QuestionnaireActions />
+                        </Questionnaire>
+                      ) : null}
+                    </MessageContent>
+                  </Message>
+                ),
+              )}
+
+              {busy && !resultDelivered ? (
+                <AgentActivityCard activities={activeActivities} />
+              ) : null}
+              {busy ? (
+                <Marker asChild>
+                  <output aria-atomic="true" aria-live="polite">
+                    <MarkerContent className="animate-pulse">
+                      Agent pipeline running — drawing both paints, rendering, and visually
+                      reviewing.
+                    </MarkerContent>
+                  </output>
+                </Marker>
+              ) : null}
+              {pendingRequests.map((request) => (
+                <div
+                  className="flex max-w-lg flex-col gap-3 rounded-xl border bg-card p-4"
+                  key={request.requestId}
+                >
+                  <h3 className="font-heading font-medium text-lg">{requestTitle(request.kind)}</h3>
+                  <p className="text-base text-muted-foreground sm:text-sm">
+                    {requestBody(request)}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {(request.options ?? []).map((option) => (
+                      <Button
+                        key={option.id}
+                        onClick={() => answerRequest(request.requestId, { optionId: option.id })}
+                        type="button"
+                        variant={option.style === "danger" ? "ghost" : "outline"}
+                      >
+                        {option.label}
+                      </Button>
+                    ))}
+                  </div>
+                  {request.allowFreeform ? (
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        const value = String(
+                          new FormData(event.currentTarget).get("answer") ?? "",
+                        ).trim();
+                        if (value) {
+                          void answerRequest(request.requestId, { text: value });
+                        }
+                      }}
+                    >
+                      <Textarea
+                        aria-label={request.prompt}
+                        className="min-h-16"
+                        name="answer"
+                        placeholder="Type an answer"
+                      />
+                      <Button className="mt-2" size="sm" type="submit" variant="outline">
+                        Send answer
+                      </Button>
+                    </form>
+                  ) : null}
+                </div>
+              ))}
+              {fault ? (
+                <Marker role="alert">
+                  <MarkerContent className="flex flex-wrap items-center gap-3">
+                    <span>{fault}</span>
+                    <span className="text-muted-foreground">Your brief is still here.</span>
+                    <Button disabled={busy} onClick={retryLast} size="sm" variant="outline">
+                      Try again
+                    </Button>
+                  </MarkerContent>
+                </Marker>
+              ) : null}
+            </MessageScrollerContent>
+          </MessageScroller>
+
+          <div
+            className="border-t p-3 pb-4"
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={async (event) => {
+              event.preventDefault();
+              await addFiles(event.dataTransfer.files);
+            }}
+          >
+            {files.length > 0 ? (
+              <AttachmentGroup className="pb-3">
+                {files.map((file) => (
+                  <Attachment key={attachmentKey(file)} size="sm">
+                    <AttachmentMedia variant={file.dataUrl ? "image" : "icon"}>
+                      {file.dataUrl ? (
+                        // oxlint-disable-next-line nextjs/no-img-element -- local attachment chip
+                        <img alt="" src={file.dataUrl} />
+                      ) : (
+                        <Paperclip />
+                      )}
+                    </AttachmentMedia>
+                    <AttachmentContent>
+                      <AttachmentTitle>{file.name}</AttachmentTitle>
+                      <AttachmentDescription>
+                        {file.source ? `${file.source} · name only` : file.kind}
+                      </AttachmentDescription>
+                    </AttachmentContent>
+                    <AttachmentActions>
+                      <AttachmentAction
+                        aria-label={`Remove ${file.name}`}
+                        onClick={() =>
+                          setFiles((current) =>
+                            current.filter((row) => attachmentKey(row) !== attachmentKey(file)),
+                          )
+                        }
+                        type="button"
+                      >
+                        <X />
+                      </AttachmentAction>
+                    </AttachmentActions>
+                  </Attachment>
+                ))}
+              </AttachmentGroup>
+            ) : null}
+            <div className="flex items-end gap-2">
+              <input
+                accept="image/*,.svg,.json,.txt"
+                className="sr-only"
+                id={fileId}
+                multiple
+                name="attachments"
+                onChange={async (event) => {
+                  await addFiles(event.target.files);
+                  event.target.value = "";
+                }}
+                ref={fileRef}
+                type="file"
+              />
+              <Button
+                aria-label="Attach a reference"
+                onClick={() => fileRef.current?.click()}
+                size="icon"
+                type="button"
+                variant="ghost"
+              >
+                <Paperclip />
+              </Button>
+              <Textarea
+                aria-label="Describe the icon"
+                disabled={busy}
+                onChange={(event) => setText(event.target.value)}
+                onKeyDown={async (event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    await submitPrompt();
                   }
                 }}
-                size="icon"
-                type="button"
-                variant="outline"
-              >
-                <Stop />
-              </Button>
-            ) : (
-              <Button
-                aria-label="Draw"
-                disabled={text.trim().length === 0}
-                onClick={async () => {
-                  await submitPrompt();
-                }}
-                size="icon"
-                type="button"
-              >
-                <PaperPlane />
-              </Button>
-            )}
-          </div>
-          <p className="px-1 pt-2 text-muted-foreground text-xs">
-            Enter to draw · Shift+Enter for a new line · Drop images on this bar
-          </p>
-        </div>
-      </section>
-
-      <section className="flex min-h-[38rem] min-w-0 flex-col bg-background">
-        <header className="flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3">
-          <div className="flex flex-col gap-1">
-            <h2 className="font-medium">Canvas</h2>
-            <p className="text-base text-muted-foreground sm:text-sm">
-              Focus at real sizes or scan every attempt
+                placeholder={promptHint(
+                  pending,
+                  Boolean(lastAssistant),
+                  pendingRequests.length > 0,
+                )}
+                name="studio-prompt"
+                value={text}
+              />
+              {busy ? (
+                /* A five-arm tournament is long enough that watching it finish is
+                   not a reasonable ask. `cancel()` stops the durable turn. */
+                <Button
+                  aria-label="Stop drawing"
+                  onClick={async () => {
+                    try {
+                      await agent.cancel();
+                    } catch {
+                      setBusy(false);
+                    }
+                  }}
+                  size="icon"
+                  type="button"
+                  variant="outline"
+                >
+                  <Stop />
+                </Button>
+              ) : (
+                <Button
+                  aria-label="Draw"
+                  disabled={text.trim().length === 0}
+                  onClick={async () => {
+                    await submitPrompt();
+                  }}
+                  size="icon"
+                  type="button"
+                >
+                  <PaperPlane />
+                </Button>
+              )}
+            </div>
+            <p className="px-1 pt-2 text-muted-foreground text-xs">
+              Enter to draw. Shift+Enter for a new line.
             </p>
           </div>
-          <div className="flex gap-1" role="tablist" aria-label="Canvas view">
+        </section>
+      }
+      inspector={
+        <aside className="flex h-full min-w-0 flex-col overflow-hidden bg-card">
+          <div
+            aria-label="Studio inspector"
+            className="flex gap-1 overflow-x-auto border-b p-2"
+            role="tablist"
+          >
             <Button
-              aria-selected={workspaceView === "focus"}
-              onClick={() => setWorkspaceView("focus")}
+              aria-selected={inspectorView === "versions"}
+              onClick={() => setInspectorView("versions")}
               role="tab"
               size="sm"
               type="button"
-              variant={workspaceView === "focus" ? "outline" : "ghost"}
+              variant={inspectorView === "versions" ? "outline" : "ghost"}
             >
-              <Focus />
-              Focus
+              Versions
             </Button>
             <Button
-              aria-selected={workspaceView === "explorations"}
-              onClick={() => setWorkspaceView("explorations")}
+              aria-selected={inspectorView === "library"}
+              onClick={() => setInspectorView("library")}
               role="tab"
               size="sm"
               type="button"
-              variant={workspaceView === "explorations" ? "outline" : "ghost"}
+              variant={inspectorView === "library" ? "outline" : "ghost"}
             >
-              <Grid />
-              Explorations
+              Library
+            </Button>
+            <Button
+              aria-selected={inspectorView === "comments"}
+              onClick={() => setInspectorView("comments")}
+              role="tab"
+              size="sm"
+              type="button"
+              variant={inspectorView === "comments" ? "outline" : "ghost"}
+            >
+              Comments
             </Button>
           </div>
-        </header>
-        <div className="flex min-h-0 flex-1 flex-col p-4 sm:p-6">
-          {workspaceView === "focus" ? (
-            <IconStage
-              annotationMode={annotationMode}
-              annotations={annotations}
-              finish={finish}
-              onAnnotate={addAnnotation}
-              onAnnotationModeChange={setAnnotationMode}
-              onFinish={setFinish}
-              onSelectAnnotation={(id) => {
-                setSelectedAnnotationId(id);
-                setInspectorView("comments");
-              }}
-              selectedAnnotationId={selectedAnnotationId}
-              version={selected}
-            />
-          ) : (
-            <ExplorationBoard
-              onSelect={(id) => {
-                selectVersion(id);
-                setWorkspaceView("focus");
-              }}
-              selectedId={selected?.id ?? null}
-              versions={versions}
-            />
-          )}
-        </div>
-      </section>
-
-      <aside className="flex min-h-[24rem] min-w-0 flex-col border-t bg-card lg:col-span-2 xl:col-span-1 xl:border-t-0 xl:border-l">
-        <div
-          aria-label="Studio inspector"
-          className="flex gap-1 overflow-x-auto border-b p-2"
-          role="tablist"
-        >
-          <Button
-            aria-selected={inspectorView === "versions"}
-            onClick={() => setInspectorView("versions")}
-            role="tab"
-            size="sm"
-            type="button"
-            variant={inspectorView === "versions" ? "outline" : "ghost"}
-          >
-            <Grid />
-            Versions
-          </Button>
-          <Button
-            aria-selected={inspectorView === "library"}
-            onClick={() => setInspectorView("library")}
-            role="tab"
-            size="sm"
-            type="button"
-            variant={inspectorView === "library" ? "outline" : "ghost"}
-          >
-            <Library />
-            Library
-          </Button>
-          <Button
-            aria-selected={inspectorView === "comments"}
-            onClick={() => setInspectorView("comments")}
-            role="tab"
-            size="sm"
-            type="button"
-            variant={inspectorView === "comments" ? "outline" : "ghost"}
-          >
-            <ChatBubbles />
-            Comments
-          </Button>
-        </div>
-        <div className="flex min-h-0 flex-1 flex-col p-4">
-          {inspectorView === "versions" ? (
-            <VersionRail
-              onSelect={selectVersion}
-              selectedId={selected?.id ?? null}
-              versions={versions}
-            />
-          ) : null}
-          {inspectorView === "library" ? <LibraryBrowser onAttach={addLibraryReference} /> : null}
-          {inspectorView === "comments" ? (
-            <AnnotationPanel
-              annotations={annotations}
-              onDelete={(id) => {
-                setAnnotations((current) => current.filter((annotation) => annotation.id !== id));
-                setSelectedAnnotationId((current) => (current === id ? null : current));
-              }}
-              /* The comment is only in memory, so undo is honest here — cheaper
-                 for the user than a confirm dialog on every delete. */
-              onRestore={(annotation) => {
-                setAnnotations((current) =>
-                  current.some((row) => row.id === annotation.id)
-                    ? current
-                    : [...current, annotation],
-                );
-              }}
-              onRefine={(open) => {
-                if (!selected) {
-                  return;
+          <div className="flex min-h-0 flex-1 flex-col p-4">
+            {inspectorView === "versions" ? (
+              <VersionRail
+                onSelect={selectVersion}
+                selectedId={selected?.id ?? null}
+                versions={versions}
+              />
+            ) : null}
+            {inspectorView === "library" ? <LibraryBrowser onAttach={addLibraryReference} /> : null}
+            {inspectorView === "comments" ? (
+              <AnnotationPanel
+                annotations={annotations}
+                onDelete={(id) => {
+                  setAnnotations((current) => current.filter((annotation) => annotation.id !== id));
+                  setSelectedAnnotationId((current) => (current === id ? null : current));
+                }}
+                /* The comment is only in memory, so undo is honest here — cheaper
+                   for the user than a confirm dialog on every delete. */
+                onRestore={(annotation) => {
+                  setAnnotations((current) =>
+                    current.some((row) => row.id === annotation.id)
+                      ? current
+                      : [...current, annotation],
+                  );
+                }}
+                onRefine={(open) => {
+                  if (!selected) {
+                    return;
+                  }
+                  setText(`Refine ${selected.name}: ${open.map((item) => item.text).join("; ")}`);
+                }}
+                onSelect={setSelectedAnnotationId}
+                onTextChange={(id, next) =>
+                  setAnnotations((current) =>
+                    current.map((annotation) =>
+                      annotation.id === id ? { ...annotation, text: next } : annotation,
+                    ),
+                  )
                 }
-                setText(`Refine ${selected.name}: ${open.map((item) => item.text).join("; ")}`);
-              }}
-              onSelect={setSelectedAnnotationId}
-              onTextChange={(id, next) =>
-                setAnnotations((current) =>
-                  current.map((annotation) =>
-                    annotation.id === id ? { ...annotation, text: next } : annotation,
-                  ),
-                )
-              }
-              selectedId={selectedAnnotationId}
-              version={selected}
-            />
-          ) : null}
-        </div>
-      </aside>
-    </div>
+                selectedId={selectedAnnotationId}
+                version={selected}
+              />
+            ) : null}
+          </div>
+        </aside>
+      }
+    />
   );
 };

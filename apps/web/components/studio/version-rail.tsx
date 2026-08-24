@@ -15,7 +15,6 @@ export const VersionRail = ({
   versions: readonly StudioVersion[];
 }) => (
   <aside className="flex min-h-0 flex-1 flex-col gap-2">
-    <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">Versions</p>
     {versions.length === 0 ? (
       <p className="text-muted-foreground text-sm">
         Each draw lands here. Chat to branch a new one.

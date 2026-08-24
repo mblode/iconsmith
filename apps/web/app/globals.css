@@ -122,6 +122,42 @@
   --warning-foreground: oklch(0.286 0.066 53.813);
 }
 
+/**
+ * The studio is an application surface, not a page. The warm brand cream
+ * belongs to the marketing side; a tool you stare at for an hour wants a
+ * neutral ground so the icons being judged are the only colour in the frame.
+ * Same token names, so every component follows without a parallel system.
+ */
+html:has([data-surface="app"]),
+html:has([data-surface="app"]) body {
+  background: #ffffff;
+}
+
+[data-surface="app"] {
+  --background: #ffffff;
+  --foreground: #0d0d0d;
+  --card: #ffffff;
+  --card-foreground: #0d0d0d;
+  --popover: #ffffff;
+  --popover-foreground: #0d0d0d;
+  --primary: #0d0d0d;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0d0d0d;
+  --muted: #f7f7f8;
+  --muted-foreground: color-mix(in oklab, #0d0d0d 55%, transparent);
+  --accent: #f4f4f5;
+  --accent-foreground: #0d0d0d;
+  --border: color-mix(in oklab, #0d0d0d 9%, transparent);
+  --input: color-mix(in oklab, #0d0d0d 12%, transparent);
+  --surface: #fafafa;
+  --surface-foreground: #0d0d0d;
+  --code: #f7f7f8;
+  --code-foreground: #0d0d0d;
+  background: var(--background);
+  color: var(--foreground);
+}
+
 [data-deck="ship"] {
   color-scheme: dark;
   --slide-bg: #0a272b;
@@ -157,6 +193,20 @@
 @layer base {
   * {
     box-sizing: border-box;
+  }
+
+  /**
+   * Tailwind v4 leaves the default border colour as `currentColor`, so every
+   * bare `border`, `border-t` and `border-b` in the app was drawing a hairline
+   * in the text colour: near-black on the studio surface, dark teal on the
+   * marketing page. The design system has a token for this; point the default
+   * at it so a hairline is a hairline everywhere. An explicit `border-*` colour
+   * still wins.
+   */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
   }
 
   html {

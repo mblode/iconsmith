@@ -99,7 +99,7 @@ const QuestionnaireProgress = ({ className, ...props }: React.ComponentProps<"p"
   const { index, items } = useQuestionnaire();
   return (
     <p
-      className={cn("font-mono text-muted-foreground text-xs uppercase tracking-widest", className)}
+      className={cn("tabular-figures text-muted-foreground text-xs", className)}
       data-slot="questionnaire-progress"
       {...props}
     >

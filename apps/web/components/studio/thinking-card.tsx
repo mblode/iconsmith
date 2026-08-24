@@ -1,21 +1,36 @@
 "use client";
 
-import { useId, useState } from "react";
 import Image from "next/image";
+import { useId, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { safeStudioSvg } from "@/lib/studio/svg";
 import type { StudioTournament, StudioVersion } from "@/lib/studio/types";
 
-const tournamentStatus = (candidate: StudioTournament["candidates"][number]): string => {
-  if (candidate.failure) {
-    return "Arm failed";
-  }
-  return `${candidate.score.toFixed(1)}/10 · ${candidate.accepted ? "gate passed" : "rejected"}`;
-};
+/** Every candidate is scored out of ten, so the plot lane is a fixed scale. */
+const SCORE_MAX = 10;
 
 const displayCost = (usd: number | null): string =>
   usd === null ? "cost incomplete" : `$${usd.toFixed(4)}`;
+
+const candidateStatus = (candidate: StudioTournament["candidates"][number]): string => {
+  if (candidate.failure) {
+    return "Arm failed";
+  }
+  return candidate.accepted ? "Cleared the gate" : "Rejected";
+};
+
+const IconTile = ({ alt, size, svg }: { alt: string; size: number; svg: string }) => (
+  <span className="flex aspect-square items-center justify-center border border-border text-foreground">
+    <Image
+      alt={alt}
+      height={size}
+      src={`data:image/svg+xml,${encodeURIComponent(svg)}`}
+      unoptimized
+      width={size}
+    />
+  </span>
+);
 
 export const ThinkingCard = ({
   tournament,
@@ -27,44 +42,23 @@ export const ThinkingCard = ({
   const [open, setOpen] = useState(true);
   const panelId = useId();
   const [lead] = versions;
+
   if (!(lead || tournament)) {
     return null;
   }
-  const proposalCard = (() => {
-    if (tournament?.proposal) {
-      return (
-        <div className="rounded-xl border bg-muted/30 p-3 text-xs">
-          <p className="font-medium">
-            Image composition · chose sketch {tournament.proposal.chosen + 1} of{" "}
-            {tournament.proposal.images}
-          </p>
-          {tournament.proposal.reason ? (
-            <p className="mt-1 text-muted-foreground">{tournament.proposal.reason}</p>
-          ) : null}
-          <p className="mt-1 text-muted-foreground">
-            Sampled {tournament.proposal.references.length} licensed house icons across{" "}
-            {tournament.proposal.models.length} image-model calls ·{" "}
-            {displayCost(tournament.proposal.cost.totalUsd)}.
-          </p>
-        </div>
-      );
-    }
-    if (tournament?.proposalFailure) {
-      return (
-        <p className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-xs">
-          Image proposal unavailable: {tournament.proposalFailure}
-        </p>
-      );
-    }
-    return null;
-  })();
+
+  const stopScore = tournament?.strategy.stoppedEarly
+    ? (tournament.strategy.stopScore ?? null)
+    : null;
 
   return (
-    <div className="w-full max-w-xl rounded-2xl border bg-card p-3 shadow-xs" data-slot="pipeline">
-      <div className="flex items-center justify-between gap-2">
-        <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
-          Pipeline details
-        </p>
+    <section
+      aria-label="Pipeline record"
+      className="w-full max-w-xl border border-border p-4"
+      data-slot="pipeline"
+    >
+      <div className="flex items-baseline justify-between gap-3">
+        <h3 className="font-heading font-medium text-sm">How this was drawn</h3>
         <Button
           aria-controls={panelId}
           aria-expanded={open}
@@ -76,185 +70,220 @@ export const ThinkingCard = ({
           {open ? "Hide" : "Show"}
         </Button>
       </div>
+
       {open ? (
-        <div className="mt-3 flex flex-col gap-4" id={panelId}>
+        <div className="mt-5 flex flex-col gap-8" id={panelId}>
           {tournament ? (
-            <section className="flex flex-col gap-3">
-              <div>
-                <h4 className="font-medium text-sm">Candidate tournament</h4>
-                <p className="text-muted-foreground text-xs">
-                  Both paints must clear SC {tournament.minimum.sc}/10, PQ {tournament.minimum.pq}
-                  /10, lint, and zero visual findings.
-                </p>
-                <p className="mt-1 text-muted-foreground text-xs">
-                  Evaluated {tournament.strategy.evaluated} of {tournament.strategy.eligible} pairs
-                  · {tournament.cost.calls} billed calls · {displayCost(tournament.cost.totalUsd)}
-                  {tournament.strategy.stoppedEarly
-                    ? ` · stopped at ${tournament.strategy.stopScore?.toFixed(1)}/10 confidence`
-                    : ""}
-                </p>
-              </div>
-              {tournament.ranking ? (
-                <div className="rounded-xl border bg-muted/30 p-3 text-xs">
-                  <p className="font-medium">
-                    Candidate ranking · {tournament.ranking.order[0] ?? "no library pair"} first
-                  </p>
-                  {tournament.ranking.reason ? (
-                    <p className="mt-1 text-muted-foreground">{tournament.ranking.reason}</p>
-                  ) : null}
-                </div>
-              ) : null}
-              {proposalCard}
-              <div className="grid gap-3 sm:grid-cols-2">
+            <section>
+              <h4 className="font-heading font-medium text-sm">
+                {tournament.candidates.length} arms drew the pair, one was kept
+              </h4>
+              <p className="mt-1 text-muted-foreground text-xs leading-relaxed">
+                Both paints must clear SC {tournament.minimum.sc}/10 and PQ {tournament.minimum.pq}
+                /10, lint, and zero visual findings. Evaluated {
+                  tournament.strategy.evaluated
+                } of{" "}
+                {tournament.strategy.eligible} pairs across {tournament.cost.calls} billed calls,{" "}
+                {displayCost(tournament.cost.totalUsd)}.
+              </p>
+
+              {/* One grid owns every lane, so each track starts and ends on the
+                  same line and only the fill length varies with the score. */}
+              <ol className="mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 gap-y-3">
                 {tournament.candidates.map((candidate) => {
                   const selected = candidate.id === tournament.selected;
+                  const scored = !candidate.failure;
                   return (
-                    <article
-                      className={`rounded-xl border p-3 ${
-                        selected ? "border-foreground bg-muted/40" : "bg-background"
-                      }`}
+                    <li
+                      className="col-span-3 grid grid-cols-subgrid items-center"
                       key={candidate.id}
                     >
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <h5 className="font-medium text-xs">{candidate.label}</h5>
-                          <p className="text-muted-foreground text-[11px]">
-                            {tournamentStatus(candidate)}
-                          </p>
-                          <p className="text-muted-foreground text-[11px]">
-                            {candidate.cost.calls} calls · {displayCost(candidate.cost.totalUsd)}
-                          </p>
-                        </div>
-                        {selected ? (
-                          <span className="rounded-full bg-foreground px-2 py-1 font-mono text-[9px] text-background uppercase">
-                            selected
-                          </span>
+                      <span className="flex min-w-0 flex-col">
+                        <span
+                          className={`truncate text-xs ${selected ? "font-medium" : "text-muted-foreground"}`}
+                        >
+                          {candidate.label}
+                          {selected ? " (kept)" : ""}
+                        </span>
+                        <span className="truncate text-muted-foreground text-xs">
+                          {candidateStatus(candidate)} · {candidate.cost.calls} calls
+                        </span>
+                      </span>
+
+                      <span className="relative block h-1.5 w-full bg-border">
+                        {scored ? (
+                          <span
+                            className={
+                              selected
+                                ? "block h-full bg-foreground"
+                                : "block h-full bg-muted-foreground"
+                            }
+                            style={{
+                              width: `${Math.max(0, Math.min(1, candidate.score / SCORE_MAX)) * 100}%`,
+                            }}
+                          />
                         ) : null}
-                      </div>
-                      {candidate.failure ? (
-                        <p className="mt-2 line-clamp-4 text-destructive text-[11px]">
-                          {candidate.failure}
-                        </p>
-                      ) : (
-                        <div className="mt-3 grid grid-cols-2 gap-2">
-                          {candidate.paints.map((paint) => {
-                            const svg = safeStudioSvg(paint.svg);
-                            return (
-                              <div className="min-w-0" key={paint.finish}>
-                                <div className="flex aspect-square items-center justify-center rounded-lg border bg-card text-foreground">
-                                  <Image
-                                    alt={`${candidate.label} ${paint.finish} candidate`}
-                                    height={56}
-                                    src={`data:image/svg+xml,${encodeURIComponent(svg)}`}
-                                    unoptimized
-                                    width={56}
-                                  />
-                                </div>
-                                <p className="mt-1 truncate text-[10px] capitalize">
-                                  {paint.finish} · SC {paint.sc} · PQ {paint.pq}
-                                </p>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </article>
+                        {stopScore === null ? null : (
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-y-[-3px] w-px bg-foreground/45"
+                            style={{ left: `${(stopScore / SCORE_MAX) * 100}%` }}
+                          />
+                        )}
+                      </span>
+
+                      <span className="tabular-figures text-right text-xs">
+                        {scored ? `${candidate.score.toFixed(1)}` : "—"}
+                      </span>
+                    </li>
                   );
                 })}
-              </div>
+              </ol>
+              <p className="mt-2 text-muted-foreground text-xs leading-relaxed">
+                Score out of {SCORE_MAX}, same scale for every arm.
+                {stopScore === null
+                  ? ""
+                  : ` The rule marks ${stopScore.toFixed(2)}, the confidence score that stopped the search early.`}{" "}
+                A failed arm produced no pair, so it has no score to plot.
+              </p>
+
+              {tournament.candidates.some((candidate) => candidate.paints.length > 0) ? (
+                <ul className="mt-5 flex flex-wrap gap-4">
+                  {tournament.candidates
+                    .filter((candidate) => candidate.paints.length > 0)
+                    .map((candidate) => (
+                      <li className="flex flex-col gap-1.5" key={`paints-${candidate.id}`}>
+                        <span className="flex gap-1.5">
+                          {candidate.paints.map((paint) => (
+                            <IconTile
+                              alt={`${candidate.label}, ${paint.finish}`}
+                              key={paint.finish}
+                              size={40}
+                              svg={safeStudioSvg(paint.svg)}
+                            />
+                          ))}
+                        </span>
+                        <span
+                          className={`text-xs ${candidate.id === tournament.selected ? "font-medium" : "text-muted-foreground"}`}
+                        >
+                          {candidate.label}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+              ) : null}
+
+              {tournament.ranking?.reason ? (
+                <p className="mt-4 text-muted-foreground text-xs leading-relaxed">
+                  Ranked {tournament.ranking.order[0] ?? "no library pair"} first.{" "}
+                  {tournament.ranking.reason}
+                </p>
+              ) : null}
+
+              {tournament.proposal ? (
+                <p className="mt-2 text-muted-foreground text-xs leading-relaxed">
+                  Composition came from sketch {tournament.proposal.chosen + 1} of{" "}
+                  {tournament.proposal.images}, sampled from {tournament.proposal.references.length}{" "}
+                  licensed house icons across {tournament.proposal.models.length} image-model calls,{" "}
+                  {displayCost(tournament.proposal.cost.totalUsd)}.
+                  {tournament.proposal.reason ? ` ${tournament.proposal.reason}` : ""}
+                </p>
+              ) : null}
+              {tournament.proposalFailure ? (
+                <p className="mt-2 text-xs leading-relaxed">
+                  No image composition was available: {tournament.proposalFailure}
+                </p>
+              ) : null}
+
+              {tournament.candidates
+                .filter((candidate) => candidate.failure)
+                .map((candidate) => (
+                  <p
+                    className="mt-2 text-muted-foreground text-xs leading-relaxed"
+                    key={`failure-${candidate.id}`}
+                  >
+                    <span className="text-foreground">{candidate.label} failed.</span>{" "}
+                    {candidate.failure}
+                  </p>
+                ))}
             </section>
           ) : null}
-          {versions.map((version) => {
-            const svg = safeStudioSvg(version.svg);
-            const agentLabel =
-              version.agent.mode === "draw-and-review"
-                ? "AI drawer + visual review"
-                : `AI visual review · ${version.agent.selected} drawing`;
-            return (
-              <article
-                className="flex flex-col gap-3 border-t pt-4 first:border-t-0 first:pt-0"
-                key={version.id}
-              >
-                <div className="flex items-start justify-between gap-3">
+
+          {versions.map((version) => (
+            <section
+              className="border-border border-t pt-6 first:border-t-0 first:pt-0"
+              key={version.id}
+            >
+              <div className="grid gap-4 sm:grid-cols-[6rem_minmax(0,1fr)]">
+                <IconTile
+                  alt={`${version.name}, ${version.finish}`}
+                  size={72}
+                  svg={safeStudioSvg(version.svg)}
+                />
+                <div className="flex min-w-0 flex-col gap-2">
                   <div>
-                    <h4 className="font-medium text-sm capitalize">{version.finish} render</h4>
-                    <p className="text-muted-foreground text-xs">{agentLabel}</p>
-                  </div>
-                  <span className="rounded-full border px-2 py-1 font-mono text-[10px] uppercase">
-                    {version.clean ? "lint clean" : "review"}
-                  </span>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-[8rem_minmax(0,1fr)]">
-                  <div className="flex aspect-square items-center justify-center rounded-xl border bg-background text-foreground">
-                    <Image
-                      alt={`${version.name} ${version.finish} rendered icon`}
-                      height={80}
-                      src={`data:image/svg+xml,${encodeURIComponent(svg)}`}
-                      unoptimized
-                      width={80}
-                    />
-                  </div>
-                  <div className="flex min-w-0 flex-col gap-2 text-xs">
-                    <p className="leading-relaxed">{version.brief}</p>
-                    <p className="text-muted-foreground">
-                      Tried {version.agent.attempted.join(" → ")} · selected{" "}
-                      {version.agent.selected}
+                    <h4 className="font-heading font-medium text-sm capitalize">
+                      {version.finish} render
+                    </h4>
+                    <p className="text-muted-foreground text-xs">
+                      {version.agent.mode === "draw-and-review"
+                        ? "Drawn and reviewed by the agent"
+                        : `Drawn by ${version.agent.selected}, independently reviewed`}
+                      {version.clean ? ", lint clean" : ", flagged for review"}
                     </p>
-                    <p className="text-muted-foreground">
-                      {version.agent.scorable
-                        ? `Visual review: SC ${version.agent.sc}/10 · PQ ${version.agent.pq}/10`
-                        : "Visual review could not be scored; the drawing was preserved."}
-                    </p>
-                    {version.agent.reason ? <p>{version.agent.reason}</p> : null}
                   </div>
+                  <p className="text-xs leading-relaxed">{version.brief}</p>
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    Tried {version.agent.attempted.join(", then ")}, selected{" "}
+                    {version.agent.selected}.{" "}
+                    {version.agent.scorable
+                      ? `Visual review scored SC ${version.agent.sc}/10 and PQ ${version.agent.pq}/10.`
+                      : "The visual review could not be scored, so the drawing was preserved as-is."}
+                  </p>
+                  {version.agent.reason ? (
+                    <p className="text-xs leading-relaxed">{version.agent.reason}</p>
+                  ) : null}
                 </div>
+              </div>
 
-                <div>
-                  <h5 className="mb-2 font-mono text-muted-foreground text-[10px] uppercase tracking-widest">
-                    Recorded steps
-                  </h5>
-                  <ol className="grid gap-1 font-mono text-muted-foreground text-xs sm:grid-cols-2">
-                    {version.trace.map((step, index) => (
-                      <li key={`${step}-${index}`}>
-                        {index + 1}. {step}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+              {version.agent.findings.length > 0 || version.issues.length > 0 ? (
+                <ul className="mt-4 flex flex-col gap-1.5 text-xs leading-relaxed">
+                  {version.agent.findings.map((finding) => (
+                    <li key={`${finding.kind}-${finding.message}`}>
+                      <span className="text-muted-foreground">Review, {finding.kind}:</span>{" "}
+                      {finding.message}
+                    </li>
+                  ))}
+                  {version.issues.map((issue) => (
+                    <li key={`${issue.rule}-${issue.message}`}>
+                      <span className="text-muted-foreground">
+                        Lint {issue.severity}, <span className="font-mono">{issue.rule}</span>:
+                      </span>{" "}
+                      {issue.message}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-4 text-muted-foreground text-xs">No lint or review findings.</p>
+              )}
 
-                {version.agent.findings.length > 0 ? (
-                  <ul className="flex flex-col gap-1 text-xs">
-                    {version.agent.findings.map((finding) => (
-                      <li key={`${finding.kind}-${finding.message}`}>
-                        <span className="font-mono uppercase">Agent {finding.kind}</span>:{" "}
-                        {finding.message}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+              <h5 className="mt-5 font-medium text-xs">Recorded steps</h5>
+              <ol className="mt-1.5 grid gap-1 font-mono text-muted-foreground text-xs sm:grid-cols-2">
+                {version.trace.map((step, index) => (
+                  <li key={`${step}-${index}`}>
+                    {index + 1}. {step}
+                  </li>
+                ))}
+              </ol>
 
-                {version.issues.length > 0 ? (
-                  <ul className="flex flex-col gap-1 text-xs">
-                    {version.issues.map((issue) => (
-                      <li key={`${issue.rule}-${issue.message}`}>
-                        <span className="font-mono uppercase">{issue.severity}</span> {issue.rule}:{" "}
-                        {issue.message}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="text-muted-foreground text-xs">No lint findings.</p>
-                )}
-
-                <pre className="overflow-x-auto rounded-xl bg-code p-3 font-mono text-code-foreground text-xs leading-relaxed">
-                  <code>{version.program}</code>
-                </pre>
-              </article>
-            );
-          })}
+              <h5 className="mt-5 font-medium text-xs">Program</h5>
+              <pre className="mt-1.5 overflow-x-auto bg-code p-3 font-mono text-code-foreground text-xs leading-relaxed">
+                <code>{version.program}</code>
+              </pre>
+            </section>
+          ))}
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };

@@ -43,7 +43,7 @@ const Section = ({
   id?: string;
   title: string;
 }) => (
-  <section className="scroll-mt-8 border-border border-t pt-12" id={id}>
+  <section className="scroll-mt-8" id={id}>
     <h2 className="max-w-[28ch] text-balance font-heading font-medium text-2xl leading-[1.2] sm:text-3xl">
       {title}
     </h2>
@@ -57,11 +57,7 @@ const Home = () => (
       <ZoneBreadcrumb product={SITE_NAME} />
 
       <header>
-        <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
-          Pre-release
-        </p>
-
-        <h1 className="mt-4 max-w-[20ch] text-balance font-heading font-medium text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
+        <h1 className="max-w-[20ch] text-balance font-heading font-medium text-4xl leading-[1.05] sm:text-5xl md:text-6xl">
           Icon generation that cannot drift.
         </h1>
 
@@ -76,10 +72,10 @@ const Home = () => (
           tier. It can&apos;t express free path data, so it can&apos;t write drift.
         </p>
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-start">
           <NewsletterForm />
           <a
-            className="font-medium text-sm underline-offset-4 hover:underline"
+            className="font-medium text-sm underline-offset-4 hover:underline sm:flex sm:h-13 sm:items-center"
             href={asset("/studio")}
           >
             Or open the studio
@@ -92,7 +88,7 @@ const Home = () => (
           <pre className="overflow-x-auto rounded-2xl bg-code p-5 font-mono text-code-foreground text-sm leading-relaxed">
             <code>{PROGRAM}</code>
           </pre>
-          <div className="flex items-center justify-center rounded-2xl bg-surface p-8 shadow-xs">
+          <div className="flex items-center justify-center rounded-2xl bg-surface p-8">
             <SquareCheckIcon className="size-24 text-foreground" />
           </div>
         </div>
@@ -160,7 +156,7 @@ const Home = () => (
         </p>
       </Section>
 
-      <section className="border-border border-t pt-12">
+      <section>
         <h2 className="max-w-[24ch] text-balance font-heading font-medium text-3xl leading-[1.15] sm:text-4xl">
           It&apos;s not on npm yet.
         </h2>
