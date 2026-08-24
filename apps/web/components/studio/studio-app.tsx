@@ -3,10 +3,10 @@
 import Stop from "blode-icons-react/icons/stop";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
 import X from "blode-icons-react/icons/x";
-import type { MessageStreamEvent } from "eve/client";
+import type { ClientSessionState, MessageStreamEvent } from "eve/client";
 import type { EveMessageInputRequest } from "eve/react";
 import { useEveAgent } from "eve/react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { AgentActivityCard } from "@/components/studio/agent-activity-card";
 import { AnnotationPanel } from "@/components/studio/annotation-panel";
@@ -40,6 +40,12 @@ import {
 import { InputMessage } from "@/components/ui/input-message";
 import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
+import {
+  readStudioAnnotations,
+  readStudioSession,
+  writeStudioAnnotations,
+  writeStudioSession,
+} from "@/lib/studio/store";
 import type {
   StudioActivity,
   StudioAnnotation,
@@ -244,7 +250,7 @@ const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
 };
 
 // oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
-export const StudioApp = () => {
+export const StudioApp = ({ thread = "default" }: { thread?: string }) => {
   const [text, setText] = useState("");
   const [uploads, setUploads] = useState<File[]>([]);
   const [libraryRefs, setLibraryRefs] = useState<StudioAttachment[]>([]);
@@ -259,7 +265,21 @@ export const StudioApp = () => {
   const [pending, setPending] = useState<"questions" | null>(null);
   const [workspaceView, setWorkspaceView] = useState<WorkspaceView>("focus");
   const [inspectorView, setInspectorView] = useState<InspectorView>("versions");
-  const [annotations, setAnnotations] = useState<StudioAnnotation[]>([]);
+  /**
+   * Comments appear in no eve event, so the durable stream cannot rebuild them.
+   * They are text and two normalised numbers, so they keep their own slot
+   * rather than quietly disappearing on the next reload.
+   */
+  const [annotations, setAnnotations] = useState<StudioAnnotation[]>(
+    () =>
+      (typeof window === "undefined"
+        ? undefined
+        : readStudioAnnotations<StudioAnnotation[]>(thread)) ?? [],
+  );
+
+  useEffect(() => {
+    writeStudioAnnotations(thread, annotations);
+  }, [annotations, thread]);
   const [selectedAnnotationId, setSelectedAnnotationId] = useState<string | null>(null);
   const [annotationMode, setAnnotationMode] = useState(false);
   const [activeActivities, setActiveActivities] = useState<StudioActivity[]>([]);
@@ -269,6 +289,8 @@ export const StudioApp = () => {
   const pendingRequestRef = useRef<StudioRequest | null>(null);
   const processedEventIdsRef = useRef(new Set<string>());
   const resultDeliveredRef = useRef(false);
+  /** True only between a send and the turn it started settling. */
+  const sendInFlightRef = useRef(false);
 
   const applyStudioResponse = useCallback((body: ReturnType<typeof studioResponseSchema.parse>) => {
     const payload = pendingRequestRef.current;
@@ -348,8 +370,21 @@ export const StudioApp = () => {
     }
   };
 
+  /**
+   * The conversation already lives durably on the server; the studio simply
+   * never reconnected to it. Reading the cursor once at mount and asking eve to
+   * replay rebuilds the transcript, every version and every tournament, because
+   * the same `action.result` events run the same `applyStudioResponse` path.
+   */
+  const savedSession = useMemo(
+    () =>
+      typeof window === "undefined" ? undefined : readStudioSession<ClientSessionState>(thread),
+    [thread],
+  );
+
   const agent = useEveAgent({
     host: BASE_PATH,
+    initialSession: savedSession,
     onError(error) {
       setBusy(false);
       setFault(error.message);
@@ -366,12 +401,30 @@ export const StudioApp = () => {
       }
 
       if (event.type === "action.result" && event.data.result.kind === "tool-result") {
-        if (event.data.result.toolName !== "generate_icon_pair" || resultDeliveredRef.current) {
+        if (event.data.result.toolName !== "generate_icon_pair") {
           return;
         }
         const parsed = studioResponseSchema.safeParse(event.data.result.output);
         if (!parsed.success) {
-          setFault("The icon agent returned an invalid Studio result.");
+          /**
+           * A replayed turn can predate the current response shape: the durable
+           * stream keeps what the pipeline wrote weeks ago, not what it writes
+           * now. That is a record this build cannot read, not an agent fault,
+           * and "Try again" cannot re-run history, so it is marked in place and
+           * the rest of the session keeps replaying.
+           */
+          if (sendInFlightRef.current) {
+            setFault("The icon agent returned an invalid Studio result.");
+          } else {
+            setTurns((current) => [
+              ...current,
+              {
+                id: uid(),
+                role: "assistant",
+                text: "This turn was recorded in an older result format and cannot be shown.",
+              },
+            ]);
+          }
           return;
         }
         applyStudioResponse(parsed.data);
@@ -379,10 +432,15 @@ export const StudioApp = () => {
     },
     onFinish() {
       setBusy(false);
-      if (!resultDeliveredRef.current) {
+      if (sendInFlightRef.current && !resultDeliveredRef.current) {
         setFault("The icon agent finished without returning a render result.");
       }
+      sendInFlightRef.current = false;
     },
+    onSessionChange(session) {
+      writeStudioSession(thread, session);
+    },
+    resume: savedSession !== undefined,
   });
 
   /**
@@ -460,6 +518,7 @@ export const StudioApp = () => {
     assistantTurnIdRef.current = null;
     pendingRequestRef.current = payload;
     resultDeliveredRef.current = false;
+    sendInFlightRef.current = true;
     setResultDelivered(false);
     try {
       await agent.send(`STUDIO_REQUEST\n${JSON.stringify(payload)}`);
