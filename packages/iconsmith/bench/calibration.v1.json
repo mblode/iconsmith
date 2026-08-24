@@ -155,6 +155,18 @@
         "missed": ["boolean-group-substract-2", "threads"],
         "model": "anthropic/claude-sonnet-4.5",
         "seed": 1
+      },
+      {
+        "gate": {
+          "accuracy": 1,
+          "n": 30,
+          "passed": true,
+          "verdict": "Judge sanity gate passed: 30/30 (100%) preferred the shipped icon over a random one."
+        },
+        "measuredAt": "2026-08-24T00:19:21.616Z",
+        "missed": [],
+        "model": "google/gemini-3.5-flash",
+        "seed": 1
       }
     ]
   },
