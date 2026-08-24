@@ -353,3 +353,54 @@ test("programFromDoc writes the paint the canvas already ran", () => {
     "hole circle 12,12 r7"
   );
 });
+
+test("a derived filled twin meets itself at every joint", () => {
+  // `line` snaps each vertex against the previous *snapped* one, so a polyline
+  // is a chain. Splitting the source text gave every bar the raw coordinate
+  // and let it re-snap from its own start: this dart's third vertex is
+  // `13.5,12.5` in the stroked paint, and the filled twin used to put its
+  // third bar's start back at `13,12`. Nothing looked for the gap, because the
+  // bounding box is set by the outer vertices and those agreed.
+  const outlined = program("dart", "outlined", "wide", [
+    "line 4,12 20,6 13,12 20,18 4,12 off-axis",
+  ]);
+  const stroked = run(outlined);
+  const twin = run(adaptProgram(outlined, "filled"));
+
+  const [chain] = stroked.canvas.elements;
+  if (chain.kind !== "line") {
+    throw new Error("expected the stroked paint to be one polyline");
+  }
+  const bars = twin.canvas.elements.map((el) => {
+    if (el.kind !== "line") {
+      throw new Error("expected every filled bar to keep its line op");
+    }
+    return el.points;
+  });
+
+  expect(bars).toHaveLength(chain.points.length - 1);
+  for (const [i, bar] of bars.entries()) {
+    expect(
+      bar[0],
+      `bar ${i} starts where the stroked paint does`
+    ).toStrictEqual(chain.points[i]);
+    expect(bar[1], `bar ${i} ends where the stroked paint does`).toStrictEqual(
+      chain.points[i + 1]
+    );
+  }
+  expect(visualSize(twin.canvas)).toStrictEqual(visualSize(stroked.canvas));
+});
+
+test("a filled diagonal survives its own program", () => {
+  // `raw` has no DSL word, so `programFromDoc` dropped it and the saved
+  // `.icon` stopped being the drawing — the reason one campaign pair shipped
+  // as `filled.icon.partial` with both arrowhead segments missing.
+  const source = program("arrow", "filled", "square", [
+    "line 12,7 15,4 off-axis",
+  ]);
+  const drawn = run(source);
+  const doc = drawn.canvas.toJSON({ icon: "arrow", keyline: "square" });
+  expect(doc.draw.some((op) => op.op === "raw")).toBe(false);
+  const replay = run(programFromDoc(doc));
+  expect(replay.canvas.toSVG()).toBe(drawn.canvas.toSVG());
+});

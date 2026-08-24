@@ -10,15 +10,15 @@ import {
   harnessArm,
   compileArm,
   parseIconSvg,
+  QUALITY_MODEL,
   png,
   propose,
   rankPairCandidates,
   referenceSet,
-  runDsl,
   runPairTournament,
   totalUsd,
 } from "iconsmith";
-import type { ApiCost, AuditResult, ExpertId, IconDoc, PairCandidate, Part } from "iconsmith";
+import type { ApiCost, AuditResult, ExpertId, PairCandidate } from "iconsmith";
 
 import { loadStudioArsenal } from "./arsenal";
 import { conceptOf, isVague } from "./concept";
@@ -67,9 +67,67 @@ const IMAGE_AGENT_MODEL = "google/gemini-3.7-flash";
 const GATEWAY_AGENT_MODEL = "google/gemini-3.7-flash";
 const GATEWAY_AGENT_MAX_STEPS = 16;
 const HARNESS_MODEL = "anthropic/claude-sonnet-5";
+/** Set on a machine whose Eve server can spawn the Claude Code CLI, which
+ *  bills the subscription rather than the Gateway. Off by default so a
+ *  deployed server never tries to exec a binary it does not have. */
+const LOCAL_HARNESS = process.env.ICONSMITH_LOCAL_HARNESS === "1";
+/**
+ * How many cheap sketches the proposal stage draws before one is chosen.
+ *
+ * Two, plus the quality model, is three references and a `proposal-selection`
+ * pass over them — and that is the one structural difference between the
+ * campaign's single accepted pair and every attempt since. `gpr` proposed
+ * three (two `gemini-3.1-flash-lite-image`, one `gemini-3-pro-image`), ran the
+ * critique, and scored 10/10. `dna` proposed one, skipped the critique, and
+ * thrashed to 3.2/10 on the same expensive drawing model. The discriminator is
+ * the reference, not the draughtsman.
+ */
+const PROPOSAL_IDEAS = 2;
+
+/** The shared proposal stage, from the `gpr` ledger: two flash sketches at
+ *  $0.035, one pro sketch at $0.153, the selection pass at $0.045 and the
+ *  reading at $0.012. Reserved by both arms that can trigger it, because the
+ *  run is memoised and either one may be the caller that pays for it. */
+const PROPOSAL_RESERVE_USD = 0.3;
+const PROPOSAL_RESERVE_CALLS = 5;
+
 const PAIR_AUDIT_RESERVE_USD = 0.055;
 const IMAGE_PAIR_RESERVE_CALLS = IMAGE_AGENT_MAX_STEPS * 2 + 4;
 const IMAGE_PAIR_RESERVE_USD = 0.195;
+
+/**
+ * What the generative arms cost at the models they are actually configured
+ * with, not at the ones they used to run.
+ *
+ * `gateway-agent` reserved $1.50 and `claude-harness` $1.00 — figures sized
+ * for `claude-opus-5`, which is what drew the campaign's one accepted pair.
+ * Both now run cheaper models, but the reservations never moved, and a
+ * reservation is checked before an arm may start. Against the $0.25 per-icon
+ * default that made the two strongest arms permanently unreachable: only
+ * `host-analog` ($0.055) and `image-agent` ($0.195) could ever be admitted,
+ * and they sum to exactly the budget. Every attempt after the guardrail was a
+ * two-arm race no matter what was asked for.
+ *
+ * Measured from the campaign ledger: 14 `gemini-3.7-flash` generation calls
+ * billed $0.0659, so ~$0.005 a call. These keep roughly a 2x margin over that
+ * and stay fail-closed — `recordActual` and `exceedsCostBudget` still reject a
+ * run whose real ledger overruns.
+ */
+const GATEWAY_PAIR_RESERVE_CALLS = GATEWAY_AGENT_MAX_STEPS * 2 + 2;
+const GATEWAY_PAIR_RESERVE_USD = 0.35;
+const HARNESS_PAIR_RESERVE_CALLS = 8 + PROPOSAL_RESERVE_CALLS;
+const HARNESS_PAIR_RESERVE_USD = 0.4 + PROPOSAL_RESERVE_USD;
+
+/** What a complete four-arm tournament reserves. `backlog.mjs` sizes its
+ *  per-icon default from this number; a budget below it cannot buy the arms
+ *  that draw, and the tournament now names the ones it had to refuse. */
+export const PAIR_TOURNAMENT_RESERVE_USD =
+  PAIR_AUDIT_RESERVE_USD +
+  IMAGE_PAIR_RESERVE_USD +
+  GATEWAY_PAIR_RESERVE_USD +
+  HARNESS_PAIR_RESERVE_USD;
+export const PAIR_TOURNAMENT_RESERVE_CALLS =
+  2 + IMAGE_PAIR_RESERVE_CALLS + GATEWAY_PAIR_RESERVE_CALLS + HARNESS_PAIR_RESERVE_CALLS;
 
 const asIssues = (
   issues: readonly {
@@ -121,7 +179,10 @@ const agentRun = (
 ): StudioAgentRun => ({
   attempted: [...attempted],
   findings: [...reviewed.findings],
-  mode: selected === "agent" ? "draw-and-review" : "review",
+  // Always "review": the tournament scores every paint with a fresh audit the
+  // drawing arm did not supply, so no delivered pair is self-graded any more.
+  // The enum keeps "draw-and-review" so archived artifacts still parse.
+  mode: "review",
   ok: reviewed.ok,
   pq: reviewed.pq,
   reason: reviewed.reason,
@@ -196,24 +257,6 @@ const libraryCandidates = (
     }));
 };
 
-const completeProgram = (
-  doc: IconDoc,
-  program: string | undefined,
-  parts: readonly Part[],
-): boolean => {
-  if (!program || doc.draw.some((op) => op.op === "raw")) {
-    return false;
-  }
-  const replay = runDsl(program, [...parts]);
-  if (replay.errors.length > 0) {
-    return false;
-  }
-  return (
-    JSON.stringify(replay.canvas.toJSON({ icon: replay.icon, keyline: replay.keyline })) ===
-    JSON.stringify(doc)
-  );
-};
-
 // oxlint-disable-next-line eslint/complexity -- one orchestration owns approval, proposal, tournament, and response assembly
 export const generateStudioResponse = async (
   request: StudioRequest,
@@ -257,9 +300,9 @@ export const generateStudioResponse = async (
       try {
         const run = await propose(concept, {
           corpus: arsenal.references,
-          ideas: 1,
+          ideas: PROPOSAL_IDEAS,
           parts: arsenal.parts,
-          qualityModel: null,
+          qualityModel: QUALITY_MODEL,
         });
         generatedProposal = run;
         ({ proposal } = run);
@@ -279,11 +322,18 @@ export const generateStudioResponse = async (
     lookReferences: referenceImages,
     parts: arsenal.parts,
   } as const;
+  // The local Claude Code CLI when this process has one, the metered Gateway
+  // adapter otherwise. `PLAN.md` sizes the campaign around $0.00 marginal
+  // generation through the subscription, and the campaign runs against a local
+  // Eve dev server where the CLI is on PATH — but the deployed server has
+  // neither a CLI nor a subscription, so the choice is opted into by name
+  // rather than sniffed from the filesystem. A harness that silently changed
+  // what it billed between two machines would be worse than either.
   const claude = harnessArm({
     ask: gatewayAsk,
     command: "claude",
     repairs: 2,
-    spawn: gatewayHarnessSpawn({ model: HARNESS_MODEL }),
+    ...(LOCAL_HARNESS ? {} : { spawn: gatewayHarnessSpawn({ model: HARNESS_MODEL }) }),
   });
   const ranking = await rankPairCandidates({
     candidates: libraryCandidates(concept, arsenal),
@@ -321,8 +371,8 @@ export const generateStudioResponse = async (
       },
       id: "image-agent",
       label: "Image-guided Gateway agent",
-      reserveCalls: IMAGE_PAIR_RESERVE_CALLS,
-      reserveUsd: IMAGE_PAIR_RESERVE_USD,
+      reserveCalls: IMAGE_PAIR_RESERVE_CALLS + PROPOSAL_RESERVE_CALLS,
+      reserveUsd: IMAGE_PAIR_RESERVE_USD + PROPOSAL_RESERVE_USD,
       serial: true,
     },
     {
@@ -337,8 +387,8 @@ export const generateStudioResponse = async (
         }),
       id: "gateway-agent",
       label: "Vercel Gateway tool agent",
-      reserveCalls: GATEWAY_AGENT_MAX_STEPS * 2 + 2,
-      reserveUsd: 1.5,
+      reserveCalls: GATEWAY_PAIR_RESERVE_CALLS,
+      reserveUsd: GATEWAY_PAIR_RESERVE_USD,
     },
     {
       generate: async (paint) =>
@@ -350,8 +400,8 @@ export const generateStudioResponse = async (
         }),
       id: "claude-harness",
       label: "Claude Gateway code harness + repair",
-      reserveCalls: 8,
-      reserveUsd: 1,
+      reserveCalls: HARNESS_PAIR_RESERVE_CALLS,
+      reserveUsd: HARNESS_PAIR_RESERVE_USD,
       serial: true,
     },
   ];
@@ -368,6 +418,7 @@ export const generateStudioResponse = async (
     budget,
     candidates,
     concept,
+    parts: arsenal.parts,
     references: referenceImages,
     stopScore: CONFIDENT_PAIR_SCORE,
   });
@@ -425,10 +476,7 @@ export const generateStudioResponse = async (
         issues: asIssues(paint.result.issues),
         pq: paint.audit.pq,
         program: paint.result.program ?? null,
-        programComplete: completeProgram(paint.result.doc, paint.result.program, [
-          ...arsenal.parts,
-          ...(paint.result.extras ?? []),
-        ]),
+        programComplete: paint.programComplete,
         reason: paint.audit.reason,
         sc: paint.audit.sc,
         scorable: paint.audit.scorable,
@@ -447,6 +495,7 @@ export const generateStudioResponse = async (
           cost: costSummary(proposalCosts),
           images: completedProposal.images.length,
           models: completedProposal.models,
+          previews: completedProposal.images.map((image) => image.toString("base64")),
           reason: completedProposal.reason,
           references: completedProposal.references,
         }
@@ -465,6 +514,7 @@ export const generateStudioResponse = async (
       evaluated: tournament.candidates.length,
       stopScore: CONFIDENT_PAIR_SCORE,
       stoppedEarly: tournament.stoppedEarly,
+      unaffordable: tournament.unaffordable,
     },
   };
   if (measuredBudgetOverrun) {
@@ -483,8 +533,15 @@ export const generateStudioResponse = async (
     const quality = best
       ? ` The best pair was ${best.label} at ${best.score.toFixed(1)}/10.`
       : " Every candidate arm failed before it produced a pair.";
+    // Name the arms the budget refused. "The budget was exhausted" reads like
+    // the run tried everything and ran out; three campaign attempts said that
+    // while never having been allowed to start the two arms that draw.
+    const refused =
+      tournament.unaffordable.length > 0
+        ? ` It never ran ${tournament.unaffordable.join(", ")}: the per-icon budget could not reserve ${tournament.unaffordable.length === 1 ? "that arm" : "those arms"}.`
+        : "";
     const next = completeBudget?.exhausted
-      ? " The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate."
+      ? `${refused} The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate.`
       : " Try a more specific object noun or attach a composition reference.";
     return {
       kind: "error",
@@ -513,10 +570,7 @@ export const generateStudioResponse = async (
       issues: asIssues(result.issues),
       name,
       program: result.program ?? "",
-      programComplete: completeProgram(result.doc, result.program, [
-        ...arsenal.parts,
-        ...(result.extras ?? []),
-      ]),
+      programComplete: winnerPaint.programComplete,
       steps: result.steps,
       svg: result.svg,
       trace: [`tournament/${winner.id}`, ...result.trace],

@@ -1239,7 +1239,7 @@ export class Canvas {
             "own line, or as the thin rect that segment is."
         );
       }
-      return this.#filledBar(out[0], out[1]);
+      return this.#filledBar(out[0], out[1], free);
     }
     const rest = out
       .slice(1)
@@ -1254,30 +1254,58 @@ export class Canvas {
   }
 
   /** The filled twin of a two-point stroke: same visual extent as outlined. */
-  #filledBar(a: [number, number], b: [number, number]): string {
+  #filledBar(
+    a: [number, number],
+    b: [number, number],
+    offAxis = false
+  ): string {
     const bar = this.spec.stroke;
     const half = bar / 2;
     const dx = b[0] - a[0];
     const dy = b[1] - a[1];
+    // Axial bars paint as square-ended rects and diagonal ones as round-capped
+    // stadiums; that difference is the drawing and is kept. What they share is
+    // that every one of them is a stroke already expanded, so all of them keep
+    // the `line` op and the two points it was asked for.
+    //
+    // Emitting them as `rect` elements, or as the `raw` escape, threw the
+    // skeleton away — and a `rect`'s height is a dimension, while `raw` cannot
+    // be re-emitted through a primitive at all. Either way `transform` scaled
+    // the ink: a filled bar fitted to `square` came out 3 units thick against
+    // a spec stroke of 2, and `programFromDoc` dropped the `raw` ones from the
+    // program entirely.
+    const painted = (d: string): string =>
+      this.#push((id) => ({
+        d,
+        fillRule: "nonzero" as const,
+        id,
+        kind: "line" as const,
+        points: [a, b] as [number, number][],
+        ...(offAxis ? { offAxis: true as const } : {}),
+      }));
     if (Math.abs(dy) < this.spec.grid / 2) {
       const x = Math.min(a[0], b[0]);
-      return this.rect({
-        h: bar,
-        w: Math.abs(dx) + bar,
-        x: x - half,
-        y: a[1] - half,
-      });
+      return painted(
+        this.#rectElement("probe", {
+          h: bar,
+          w: Math.abs(dx) + bar,
+          x: x - half,
+          y: a[1] - half,
+        }).d
+      );
     }
     if (Math.abs(dx) < this.spec.grid / 2) {
       const y = Math.min(a[1], b[1]);
-      return this.rect({
-        h: Math.abs(dy) + bar,
-        w: bar,
-        x: a[0] - half,
-        y: y - half,
-      });
+      return painted(
+        this.#rectElement("probe", {
+          h: Math.abs(dy) + bar,
+          w: bar,
+          x: a[0] - half,
+          y: y - half,
+        }).d
+      );
     }
-    return this.raw(this.#barPath(a, b), "nonzero");
+    return painted(this.#barPath(a, b));
   }
 
   /**
@@ -1631,6 +1659,70 @@ export class Canvas {
       return null;
     }
     return bbox(this.elements.flatMap((e) => parsePath(e.d)));
+  }
+
+  /**
+   * The drawing with its ink taken back off — what a uniform scale acts on.
+   *
+   * Under a stroked finish every element is a skeleton already, so this is the
+   * path bbox and the caller adds `inkWidth` back. Under a filled finish the
+   * two kinds of path have to be told apart:
+   *
+   * - A disc, a slab, a lozenge: the size *is* the design, and scaling it is
+   *   right.
+   * - A bar or an annular sector: a stroke expanded into a solid, whose
+   *   thickness is ink at the spec width. Scaling that makes the icon heavier
+   *   than the house draws it.
+   *
+   * A `line` keeps its `points` and an `arc` its centre and radius, so the
+   * stroke-derived ones can give back the skeleton they were grown from. A
+   * `raw` escape cannot, and is measured as it stands.
+   */
+  skeletonBbox(): Box | null {
+    if (!this.elements.length) {
+      return null;
+    }
+    if (this.finish !== "filled") {
+      return this.bbox();
+    }
+    const half = this.spec.stroke / 2;
+    const boxes = this.elements.map((e) => {
+      const painted = bbox(parsePath(e.d));
+      if (e.kind === "line" || e.kind === "arc") {
+        return {
+          x0: painted.x0 + half,
+          x1: painted.x1 - half,
+          y0: painted.y0 + half,
+          y1: painted.y1 - half,
+        };
+      }
+      return painted;
+    });
+    const x0 = Math.min(...boxes.map((b) => b.x0));
+    const y0 = Math.min(...boxes.map((b) => b.y0));
+    const x1 = Math.max(...boxes.map((b) => b.x1));
+    const y1 = Math.max(...boxes.map((b) => b.y1));
+    return { h: y1 - y0, w: x1 - x0, x0, x1, y0, y1 };
+  }
+
+  /**
+   * How much of the painted extent is ink rather than drawing, per axis — the
+   * constant term in `extent(k) = k · skeleton + ink`.
+   *
+   * One stroke on both axes when the drawing is stroked. When it is filled it
+   * is whatever the stroke-derived elements contribute at the boundary: a full
+   * stroke where a bar is the outermost mark, nothing where a disc is.
+   */
+  inkExtent(): { x: number; y: number } {
+    if (this.finish !== "filled") {
+      return { x: this.inkWidth, y: this.inkWidth };
+    }
+    const painted = this.bbox();
+    const skeleton = this.skeletonBbox();
+    if (!(painted && skeleton)) {
+      return { x: 0, y: 0 };
+    }
+    return { x: painted.w - skeleton.w, y: painted.h - skeleton.h };
   }
 
   /**

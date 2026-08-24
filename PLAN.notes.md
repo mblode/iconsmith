@@ -208,3 +208,73 @@ Wolf: filled simplifies, it does not invert.
 **Taken:** the construction is a host-side language (`src/tools/twin.ts`: bar /
 ring / frame / solid), so a twin is derived rather than rewritten. The drawer
 still writes DSL and never a coordinate; the same rules are in `SKILL.md`.
+
+## 2026-08-24 — a filled paint's ink scaled with it, and its twin came apart
+
+**The plan said** Slice 3 gives filled its own knockout, radius rule and
+inverted gap rule, and the twin `extent` rule holds both paints to one visual
+extent — measured at 94% of 2,085 pairs within 0.01u.
+
+**The code required** two more things, and neither was true. Both were found by
+asking why a filled diagonal could not round-trip through its own program.
+
+**One: `fit` scaled the ink.** Six lines reproduce it.
+
+```ts
+const c = new Canvas([], { finish: "filled" });
+c.line({ points: [[4, 12], [14, 12]] });   // bar is 2 thick, the spec stroke
+fitKeyline(c, "square");                    // bar was 3 thick
+```
+
+Under a stroked finish the ink is applied at render by `stroke-width`, so a
+scale never touches it. Under a filled finish `#filledBar` has already expanded
+the stroke into the path, so the caps and the bar's own width scaled with
+everything else and the drawing came out heavier than the house draws it. A
+filled `circle` or `rect` is unaffected — a disc's radius and a slab's height
+are design dimensions — so the rule is not "filled scales wrong" but "a stroke
+that has been expanded carries ink where a dimension is expected".
+
+Nothing downstream saw it. `twinPairIssues` compares the two paints' visual
+extents, and both were scaled by the same wrong factor, so they still agreed:
+the check passed because two errors cancelled. The only report on record that
+noticed is the independent review of the one accepted campaign pair, *"The
+heavy filled nodes and bars feel uneven"*, PQ 6.
+
+**Two: the derived twin was not the same drawing.** `line` snaps each vertex
+against the previous *snapped* one, so a polyline is a chain: the dart
+`line 4,12 20,6 13,12 20,18 4,12 off-axis` lands its third vertex on
+`13.5,12.5`. `adaptProgram` split the *source text*, so each filled bar got the
+raw `13,12` and re-snapped from its own start — bar 2 ended at `13.5,12.5`
+while bar 3 began at `13,12`, and the filled twin came apart at every joint.
+`paperplane` had the same split written out by hand, with the same drift. No
+rule looked for it, because a bounding box is set by the outer vertices and
+those agreed.
+
+**Taken:** three changes, and they only work together.
+
+- `#filledBar` keeps the `line` op and its two points, whatever it paints —
+  the square-ended rect for an axial bar, the round-capped stadium for a
+  diagonal. Emitting a `rect` threw the skeleton away and `raw` could not be
+  re-emitted through a primitive at all, so `transform` scaled ink in both
+  cases and `programFromDoc` dropped the `raw` ones from the program entirely.
+- `fitKeyline` solves `k · skeleton + ink = target` rather than
+  `k · painted = target`, with `Canvas.skeletonBbox` and `Canvas.inkExtent`
+  telling the two apart. Stroked drawings always had that constant term; filled
+  ones were assumed to have none, "where the path already is the boundary",
+  which is true of a disc and false of a bar.
+- `adaptProgram` splits the chain the stroked paint actually drew, by running
+  the one op through a scratch canvas — `line` snaps only within itself, so
+  nothing else in the program can change the answer. `paperplane` now derives
+  its filled paint instead of repeating it.
+
+Measured after: the bar holds the spec stroke through a fit, every bar of a
+derived twin starts where the stroked paint's vertex is, both paints report one
+visual extent, and a filled diagonal is `programComplete` — so it can pass an
+acceptance gate that asks the program to be the drawing.
+
+The deeper shape is still worth naming: fill expansion happens at
+**construction**, in `line()`, rather than at **render**. Keeping the op and its
+points is what makes that survivable, but the document still stores paint
+beside skeleton. Moving the expansion into `toSVG` would make it
+finish-independent outright. Not needed for any of the above, and not a change
+to make in passing.

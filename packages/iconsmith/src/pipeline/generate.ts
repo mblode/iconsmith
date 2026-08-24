@@ -476,6 +476,39 @@ const seedHost = (
   state.constructed = true;
 };
 
+/**
+ * Deliver the best drawing the run looked at, not wherever the step cap landed.
+ *
+ * The loop ends on whichever step exhausted the budget, and the campaign's
+ * traces show what that costs: two paints ended `render, remove, remove,
+ * remove, remove` — the model wiping a composition to start over — and the
+ * blank canvas was delivered, independently audited at SC 0 / PQ 0, and
+ * billed. A wipe the run never finished is not the model's answer.
+ *
+ * Restoring is the same move `adoptHost` makes: clear, then push the elements
+ * back. Only two cases take the snapshot — an empty canvas, and a canvas
+ * carrying more standing errors than the snapshot did — so a run that ended on
+ * work in progress keeps it.
+ */
+const restoreBest = (
+  canvas: Canvas,
+  state: ToolState,
+  keyline: Keyline | null
+): void => {
+  const { best } = state;
+  if (!best) {
+    return;
+  }
+  const errors = lint(canvas, { keyline }).filter(
+    (issue) => issue.severity === "error"
+  ).length;
+  if (canvas.elements.length > 0 && errors <= best.errors) {
+    return;
+  }
+  canvas.clear();
+  canvas.elements.push(...best.elements.map((el) => structuredClone(el)));
+};
+
 const ZERO_USAGE = {
   cacheReadTokens: 0,
   cacheWriteTokens: 0,
@@ -646,6 +679,7 @@ const fromModel = async (
   for (const name of state.calls) {
     toolCalls[name] = (toolCalls[name] ?? 0) + 1;
   }
+  restoreBest(canvas, state, keyline);
   return resultOf(canvas, concept, finish, parts, spec, keyline, {
     apiCosts: [apiCost],
     // `totalUsage` is the sum across every step, which is the number that gets

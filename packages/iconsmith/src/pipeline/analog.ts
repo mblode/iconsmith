@@ -35,6 +35,7 @@ import { declareKeyline } from "../tools/declare.js";
 import { run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import {
+  adaptProgram,
   fan,
   frame,
   hbar,
@@ -952,23 +953,24 @@ export const otter = (slug: string, finish: Finish = "outlined"): string =>
 
 /**
  * Net-new paper plane: a dart, not a jet. `paper-plane` must not fall
- * through to airplane via `plane`. Outlined is the closed silhouette;
- * filled is those edges as two-point bars.
+ * through to airplane via `plane`.
+ *
+ * One silhouette, two paints. The filled edges used to be written out here as
+ * four two-point bars over the same vertices — which is not the same drawing:
+ * `line` snaps each vertex against the previous *snapped* one, so the outlined
+ * dart's tail lands on `13.5,12.5` while four independent bars each re-snap
+ * from the raw `13,12`, and the filled twin came apart at that joint.
+ * `adaptProgram` splits the chain the stroked paint actually drew.
  */
-export const paperplane = (slug: string, finish: Finish = "outlined"): string =>
-  iconProgram(
-    slug,
-    finish,
-    "wide",
-    finish === "filled"
-      ? [
-          "line 4,12 20,6 off-axis",
-          "line 20,6 13,12 off-axis",
-          "line 13,12 20,18 off-axis",
-          "line 20,18 4,12 off-axis",
-        ]
-      : ["line 4,12 20,6 13,12 20,18 4,12 off-axis"]
-  );
+export const paperplane = (
+  slug: string,
+  finish: Finish = "outlined"
+): string => {
+  const outlined = iconProgram(slug, "outlined", "wide", [
+    "line 4,12 20,6 13,12 20,18 4,12 off-axis",
+  ]);
+  return finish === "filled" ? adaptProgram(outlined, "filled") : outlined;
+};
 
 /**
  * A sheet of paper standing in an open tray — inbox, not a crate.
@@ -1752,7 +1754,22 @@ export const composeFromParts = (
     if (!address) {
       return null;
     }
-    return iconProgram(slug, finish, "square", [`part ${address} fill`]);
+    // The keyline is measured, not asserted. `fill` and `fit` both scale
+    // content into the live area preserving its aspect, so neither makes a
+    // silhouette square that was not: `bell-alarm-1` lands at 18.0x12.0 and a
+    // declared `square` is then a contradiction inside one document, which
+    // `keylineIssue` holds to an **error**. Every analog that took this path
+    // carried one — six of the campaign's twenty-one non-`gap` errors, on a
+    // drawing nothing was wrong with. It is the fourth instance of the mistake
+    // `tools/declare.ts` was written to end, and the same cure applies: draw
+    // it, measure it, then claim only what it earns. Declaring none is a
+    // `warn`, because off-keyline is legal — 24% of Central sits more than a
+    // unit off every named shape.
+    const bare = iconProgram(slug, finish, null, [
+      `part ${address} fill`,
+      "fit",
+    ]);
+    return declareKeyline(bare, slug, parts).source;
   }
   if (parts.length === 0) {
     const id = resolveFamilyId(slug, slug);

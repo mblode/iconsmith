@@ -81,7 +81,7 @@
  * flicker `cohort-align` exists to catch (437 findings across 186 families in
  * blode-icons, 371 of them ≥1px). The keyline still governs `part ... fill`.
  */
-import type { DotRole, Finish, Keyline, Part } from "../types.js";
+import type { DotRole, Finish, IconDoc, Keyline, Part } from "../types.js";
 import { ARC_FROM, ARC_SWEEP, Canvas, SPEC } from "./canvas.js";
 import type { ArcFrom, ArcSweep, Spec } from "./canvas.js";
 import type { Cohort, CohortTarget } from "./cohort.js";
@@ -254,17 +254,24 @@ export const recentre = (canvas: Canvas): void => {
  */
 export const fitKeyline = (canvas: Canvas, keyline: Keyline): void => {
   const b = canvas.bbox();
-  if (!b) {
+  const skeleton = canvas.skeletonBbox();
+  if (!(b && skeleton)) {
     return;
   }
   const [kw, kh] = SPEC.keylines[keyline];
-  // The keyline is a visual extent, so the ink's half-width on each side comes
-  // off before the path bbox is asked to match it — a full stroke width in
-  // total when the drawing is stroked, and nothing when it is filled, where
-  // the path already is the boundary.
+  // A keyline is a visual extent, and scaling by `k` does not multiply that
+  // extent by `k`, because ink keeps its width. So solve
+  // `k · skeleton + ink = target` rather than `k · painted = target`.
+  //
+  // Stroked drawings always had the constant term — the stroke, taken off
+  // before the path bbox was asked to match it. Filled ones were assumed to
+  // have none, "where the path already is the boundary", which is true of a
+  // disc and false of a bar: a bar's path is a stroke already expanded, so
+  // scaling it scales the ink too.
+  const ink = canvas.inkExtent();
   const k = Math.min(
-    (kw - canvas.inkWidth) / (b.w || 1),
-    (kh - canvas.inkWidth) / (b.h || 1)
+    (kw - ink.x) / (skeleton.w || 1),
+    (kh - ink.y) / (skeleton.h || 1)
   );
   const cx = b.x0 + b.w / 2;
   const cy = b.y0 + b.h / 2;
@@ -636,4 +643,36 @@ export const run = (
     }
   }
   return { canvas, errors, finish, icon, keyline };
+};
+
+/**
+ * Does this program reproduce this document exactly?
+ *
+ * The `.icon` DSL is a strict subset of `IconDoc`: `twin.ts`'s `programFromDoc`
+ * has no word for a `raw` escape and drops it, so a filled diagonal bar leaves
+ * the program while staying in the drawing. A program that does not replay to
+ * the same document is a lossy record of the icon, not its source — which is
+ * why `.icon.partial` exists as a separate name.
+ *
+ * The comparison surface is the document rather than the SVG: `parseIconSvg`
+ * keeps geometry and drops the declaration, so two documents that differ only
+ * in `keyline` would render identically and compare equal.
+ */
+export const completeProgram = (
+  doc: IconDoc,
+  program: string | undefined,
+  parts: readonly Part[] = []
+): boolean => {
+  if (!program || doc.draw.some((op) => op.op === "raw")) {
+    return false;
+  }
+  const replay = run(program, [...parts]);
+  if (replay.errors.length > 0) {
+    return false;
+  }
+  return (
+    JSON.stringify(
+      replay.canvas.toJSON({ icon: replay.icon, keyline: replay.keyline })
+    ) === JSON.stringify(doc)
+  );
 };

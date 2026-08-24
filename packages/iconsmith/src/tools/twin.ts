@@ -11,7 +11,7 @@
  * matches in 94% of house pairs.
  */
 import type { DrawOp, Finish, IconDoc, Issue, Keyline } from "../types.js";
-import { SPEC } from "./canvas.js";
+import { Canvas, SPEC } from "./canvas.js";
 import type { Spec } from "./canvas.js";
 import { lint } from "./lint.js";
 import type { LintTarget } from "./lint.js";
@@ -257,6 +257,52 @@ const asPair = (token: string | undefined): [number, number] | null => {
   return Number.isFinite(x) && Number.isFinite(y) ? [x, y] : null;
 };
 
+const fmt = (n: number): string => String(Number(n.toFixed(4)));
+
+const pointsOf = (points: readonly [number, number][]): string =>
+  points.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join(" ");
+
+/**
+ * The points the stroked paint actually draws, written back as one `line`.
+ *
+ * `line()` snaps each vertex against the *previous snapped* one, so a polyline
+ * is a chain: `line 4,12 20,6 13,12 20,18 4,12 off-axis` lands its third
+ * vertex on `13.5,12.5`, not on `13,12`. Splitting the source text instead
+ * gave every filled bar the raw coordinate and let it re-snap from its own
+ * start, so bar 2 ended at `13.5,12.5` while bar 3 began at `13,12` and the
+ * filled twin came apart at every joint — a gap in the drawing that no rule
+ * looked for, because the bounding box is set by the outer vertices and those
+ * agreed.
+ *
+ * Running the one op through a scratch canvas reproduces the chain exactly:
+ * `line` snaps only within itself, so nothing else in the program can change
+ * the answer.
+ */
+const snappedLine = (line: string, spec: Spec): string => {
+  const tokens = line.trim().split(/\s+/u).slice(1);
+  const offAxis = tokens.includes(OFF_AXIS);
+  const points = tokens
+    .filter((t) => t !== OFF_AXIS)
+    .map(asPair)
+    .filter((p): p is [number, number] => p !== null);
+  if (points.length < 2) {
+    return line;
+  }
+  try {
+    const canvas = new Canvas([], { finish: "outlined", spec });
+    canvas.line({ offAxis, points });
+    const [el] = canvas.elements;
+    if (el?.kind !== "line") {
+      return line;
+    }
+    return `line ${pointsOf(el.points)}${offAxis ? ` ${OFF_AXIS}` : ""}`;
+  } catch {
+    // A refused segment is the stroked paint's problem to report, not this
+    // one's to hide. Pass the op through and let the filled run say so too.
+    return line;
+  }
+};
+
 const asRadius = (token: string | undefined): number | null => {
   const m = token?.match(/^r(?<r>-?[\d.]+)$/u)?.groups;
   const v = m ? Number(m.r) : Number.NaN;
@@ -469,7 +515,7 @@ export const adaptProgram = (
     }
     if (finish === "filled") {
       if (op.word === "line") {
-        out.push(...splitPolyline(op.raw.trim()));
+        out.push(...splitPolyline(snappedLine(op.raw.trim(), spec)));
         continue;
       }
       const grown = grow(op, bar, half);
@@ -504,11 +550,6 @@ const TURN_WORD: Record<number, string> = {
   2: "half",
   3: "ccw",
 };
-
-const fmt = (n: number): string => String(Number(n.toFixed(4)));
-
-const pointsOf = (points: readonly [number, number][]): string =>
-  points.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join(" ");
 
 const lineOf = (op: Extract<DrawOp, { op: "line" }>): string => {
   const hole = op.knockout ? "hole " : "";

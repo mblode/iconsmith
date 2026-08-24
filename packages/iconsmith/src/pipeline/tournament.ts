@@ -15,14 +15,17 @@
 import { generateObject } from "ai";
 import { z } from "zod";
 
+import { completeProgram } from "../tools/dsl.js";
 import { sheet } from "../tools/render.js";
-import type { Finish } from "../types.js";
+import type { Finish, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
 import { EMPTY_USAGE, tokenUsageOf, totalUsd } from "./cost.js";
 import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { GenerateResult } from "./generate.js";
+import { better } from "./pick.js";
+import type { RankedSample } from "./pick.js";
 import type { Concept } from "./prompt.js";
 
 export const TOURNAMENT_MINIMUM = 8;
@@ -194,9 +197,23 @@ export const rankPairCandidates = async ({
 
 export interface TournamentPaint {
   accepted: boolean;
+  /** The acceptance review. Always a fresh look, never the arm's own. */
   audit: AuditResult;
   finish: Finish;
+  /** The drawing came from the house — a `part` op, or an adopted analog —
+   *  rather than from geometry the model invented. `AGENTS.md` makes this half
+   *  of arrival, and the campaign's ledger agrees: every pair that scored 10/10
+   *  composed, and every pair drawn from raw primitives scored 7 or less. */
+  houseDerived: boolean;
+  /** `part` ops in the delivered document. Ranks a pair once it is accepted. */
+  partOps: number;
+  /** The program replays to exactly this document, so the `.icon` source is
+   *  the drawing rather than a lossy record of it. */
+  programComplete: boolean;
   result: GenerateResult;
+  /** The arm's own review, when it supplied one. Kept as evidence — an arm
+   *  that grades itself is a witness, not a judge. */
+  selfReview: AuditResult | null;
 }
 
 export interface TournamentRun {
@@ -227,7 +244,16 @@ export interface PairTournamentResult {
   /** Candidates available before an accuracy gate stopped escalation. */
   eligible: number;
   minimum: { pq: number; sc: number };
+  /** True when fewer arms ran than were offered — for either reason. Read it
+   *  beside `unaffordable`: a tournament that stopped because it won and one
+   *  that stopped because it ran out of money look identical here, and the
+   *  campaign recorded three runs as `stoppedEarly` that had simply been
+   *  refused their two strongest arms. */
   stoppedEarly: boolean;
+  /** Arms the budget refused before they drew anything. Empty when every
+   *  offered arm was affordable, so a short tournament always says which
+   *  kind of short it was. */
+  unaffordable: string[];
   /** Null means no pair earned delivery. Callers must not silently use best. */
   winner: TournamentRun | null;
 }
@@ -239,23 +265,43 @@ export interface PairTournamentOptions {
   concept: Concept;
   minimumPq?: number;
   minimumSc?: number;
+  /** The vocabulary a delivered program is replayed against when checking
+   *  that it reproduces its own document. A program naming a part this list
+   *  does not hold cannot round-trip, so an incomplete list reads as lossy. */
+  parts?: readonly Part[];
   references?: readonly Buffer[];
   /** Evaluate in declaration order and stop after an accepted pair reaches
    * this score. Null preserves exhaustive parallel evaluation. */
   stopScore?: number | null;
 }
 
+/** `part` ops in the delivered document. */
+const partOpsOf = (result: GenerateResult): number =>
+  result.doc.draw.filter((op) => op.op === "part").length;
+
+/**
+ * Did the house draw this, or did the model?
+ *
+ * A `part` op places an extracted shape. `construct` adopts a whole host
+ * analog, whose coordinates came from the same place — so it counts, and
+ * checking only for `part` ops would reject the arm that produced the
+ * campaign's one clean pair.
+ */
+const houseDerivedBy = (result: GenerateResult): boolean =>
+  partOpsOf(result) > 0 || result.trace.includes("construct");
+
 const paintAccepted = (
-  result: GenerateResult,
-  reviewed: AuditResult,
+  paint: Omit<TournamentPaint, "accepted">,
   minimumSc: number,
   minimumPq: number
 ): boolean =>
-  result.clean &&
-  reviewed.scorable &&
-  reviewed.findings.length === 0 &&
-  reviewed.sc >= minimumSc &&
-  reviewed.pq >= minimumPq;
+  paint.result.clean &&
+  paint.programComplete &&
+  paint.houseDerived &&
+  paint.audit.scorable &&
+  paint.audit.findings.length === 0 &&
+  paint.audit.sc >= minimumSc &&
+  paint.audit.pq >= minimumPq;
 
 const pairScore = (paints: readonly TournamentPaint[]): number => {
   if (paints.length === 0) {
@@ -287,9 +333,41 @@ const pairScore = (paints: readonly TournamentPaint[]): number => {
   );
 };
 
+/**
+ * Accepted first, then the pair score, then the house's own ranking.
+ *
+ * `pick.ts` is the one place that ranking lives, and it exists because cosine
+ * alone once selected a pull-request that was the house graph minus its
+ * incoming chevron. It orders structural failures, then errors, then part
+ * count, then cosine — and cosine sits last there because on its own it was
+ * the misleading signal.
+ *
+ * `score` is not cosine. It is the weakest of the four SC/PQ numbers two
+ * independent audits gave the pair, so it is the quality judgement the whole
+ * tournament exists to make, and nothing may outrank it. Ranking part count
+ * above it put a `wifi` run's best pair at 0.4/10 — a library compile with
+ * plenty of `part` ops and nothing recognisable — ahead of a harness pair at
+ * 5.5. Composition breaks ties between pairs judged equally good; it does not
+ * decide which pair is good.
+ */
+const rankedOf = (run: TournamentRun): RankedSample => ({
+  cosine: null,
+  errors: run.paints.reduce(
+    (sum, paint) =>
+      sum +
+      paint.result.issues.filter((issue) => issue.severity === "error").length,
+    0
+  ),
+  partsFound: run.paints.reduce((sum, paint) => sum + paint.partOps, 0),
+  structural: run.paints.flatMap((paint) =>
+    paint.programComplete ? [] : [`${paint.finish} program is lossy`]
+  ),
+});
+
 const compareRuns = (a: TournamentRun, b: TournamentRun): number =>
   Number(b.accepted) - Number(a.accepted) ||
   b.score - a.score ||
+  better(rankedOf(a), rankedOf(b)) ||
   a.id.localeCompare(b.id);
 
 /**
@@ -305,6 +383,7 @@ export const runPairTournament = async ({
   concept,
   minimumPq = TOURNAMENT_MINIMUM,
   minimumSc = TOURNAMENT_MINIMUM,
+  parts = [],
   references = [],
   stopScore = null,
 }: PairTournamentOptions): Promise<PairTournamentResult> => {
@@ -334,21 +413,35 @@ export const runPairTournament = async ({
       }
       const paints = await Promise.all(
         results.map(async ({ finish, result }): Promise<TournamentPaint> => {
-          const reviewed =
-            result.audit ??
-            (await audit({
-              ask,
-              concept,
-              finish,
-              kind: "analog",
-              references,
-              svg: result.svg,
-            }));
-          return {
-            accepted: paintAccepted(result, reviewed, minimumSc, minimumPq),
+          // Always a fresh look. An arm that reviews its own drawing is a
+          // witness, not a judge: the campaign's one accepted pair carried
+          // `mode: "draw-and-review"` at 10/10 on both paints, and the first
+          // independent reviewer scored the same pair 9/8 and 9/6 — below the
+          // floor it had already cleared. The arm's own audit is kept beside
+          // this one as evidence, and still drives that arm's repair loop.
+          const reviewed = await audit({
+            ask,
+            concept,
+            finish,
+            kind: "analog",
+            references,
+            svg: result.svg,
+          });
+          const judged = {
             audit: reviewed,
             finish,
+            houseDerived: houseDerivedBy(result),
+            partOps: partOpsOf(result),
+            programComplete: completeProgram(result.doc, result.program, [
+              ...parts,
+              ...(result.extras ?? []),
+            ]),
             result,
+            selfReview: result.audit ?? null,
+          };
+          return {
+            ...judged,
+            accepted: paintAccepted(judged, minimumSc, minimumPq),
           };
         })
       );
@@ -466,6 +559,15 @@ export const runPairTournament = async ({
       }
     }
   }
+  // Everything still unrun once the budget has failed closed. The reserve
+  // loop breaks on the first arm it cannot afford, so naming only that one
+  // would under-report: the arms behind it were refused just as surely.
+  const started = new Set(runs.map((run) => run.id));
+  const unaffordable = budgetExhausted
+    ? candidates
+        .filter((candidate) => !started.has(candidate.id))
+        .map((candidate) => candidate.id)
+    : [];
   const ranked = runs.toSorted(compareRuns);
   const best = ranked.find((run) => run.paints.length > 0) ?? null;
   return {
@@ -489,6 +591,7 @@ export const runPairTournament = async ({
     eligible: candidates.length,
     minimum: { pq: minimumPq, sc: minimumSc },
     stoppedEarly: runs.length < candidates.length,
+    unaffordable,
     winner: budgetExhausted
       ? null
       : (ranked.find((run) => run.accepted) ?? null),

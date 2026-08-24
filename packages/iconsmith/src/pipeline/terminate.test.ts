@@ -201,3 +201,49 @@ describe("outcomes", () => {
     expect(result.cost?.outcome).toBe("budget");
   });
 });
+
+describe("what a run delivers when it ends mid-wipe", () => {
+  it("keeps the drawing it rendered instead of shipping the empty canvas", async () => {
+    // Two campaign paints ended `render, remove, remove, remove, remove` — the
+    // model clearing a composition to start again, and the step cap landing
+    // inside the wipe. The blank was delivered, independently audited at
+    // SC 0 / PQ 0, and billed for.
+    const result = await generate(
+      { name: "square" },
+      {
+        keyline: "square",
+        maxSteps: 4,
+        model: scripted([
+          { input: square, tool: "rect" },
+          { input: {}, tool: "fit" },
+          { input: {}, tool: "render" },
+          { input: { id: "e0" }, tool: "remove" },
+        ]),
+      }
+    );
+
+    expect(result.trace).toEqual(["rect", "fit", "render", "remove"]);
+    expect(result.doc.draw).not.toHaveLength(0);
+    expect(result.svg).toContain("path");
+  });
+
+  it("leaves work in progress alone when the run ends on a drawing", async () => {
+    // Only an empty canvas, or one carrying more standing errors than the
+    // snapshot, is replaced. A run that kept adding keeps what it added.
+    const result = await generate(
+      { name: "square" },
+      {
+        keyline: "square",
+        maxSteps: 4,
+        model: scripted([
+          { input: square, tool: "rect" },
+          { input: {}, tool: "fit" },
+          { input: {}, tool: "render" },
+          { input: { cx: 12, cy: 12, r: 2 }, tool: "circle" },
+        ]),
+      }
+    );
+
+    expect(result.doc.draw).toHaveLength(2);
+  });
+});

@@ -288,7 +288,7 @@ export {
   splits,
   verdict,
 } from "./tools/cohort.js";
-export { run as runDsl } from "./tools/dsl.js";
+export { completeProgram, run as runDsl } from "./tools/dsl.js";
 export {
   adaptProgram,
   fan,

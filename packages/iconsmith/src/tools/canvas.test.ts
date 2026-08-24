@@ -9,6 +9,7 @@ import { extractParts } from "../parts/extract.js";
 import { fingerprint, flatten, match } from "../parts/shape.js";
 import type { IconDoc, Part } from "../types.js";
 import { Canvas, SPEC } from "./canvas.js";
+import { programFromDoc } from "./twin.js";
 
 const PARTS: Part[] = [
   {
@@ -377,11 +378,22 @@ test("a filled diagonal unions its cap and body subpaths", () => {
   ).toBe(true);
   expect(c.elements[0]?.fillRule).toBe("nonzero");
   expect(c.toSVG()).toContain('fill-rule="nonzero"');
+  // The stadium keeps its `line` op rather than taking the `raw` escape. The
+  // fill rule is derived on replay, not stored: the document is a recipe, and
+  // `nonzero` is how a filled diagonal is painted, not what was asked for.
   expect(c.toJSON().draw[0]).toMatchObject({
-    fillRule: "nonzero",
-    op: "raw",
+    op: "line",
+    points: [
+      [12, 7],
+      [15, 4],
+    ],
   });
   expect(Canvas.fromJSON(c.toJSON()).toSVG()).toBe(c.toSVG());
+  // Why it matters: `raw` has no DSL word, so a diagonal that took the escape
+  // vanished from its own program and the saved `.icon` stopped being the
+  // drawing. One campaign pair shipped as `filled.icon.partial` with both
+  // arrowhead segments missing.
+  expect(programFromDoc(c.toJSON())).toContain("line 12,7 15,4");
 });
 
 test("toJSON → fromJSON → toSVG round-trips identically", () => {

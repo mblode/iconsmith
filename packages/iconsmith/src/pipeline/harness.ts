@@ -487,12 +487,31 @@ const vocabularyFor = (
  * Findings the host already wrote beside the program. The agent rewrites
  * `icon.icon`; it does not draw from the raster or invent path data.
  */
-const appendRepair = (base: string, reviewed: AuditResult): string =>
+/**
+ * Findings the host already wrote beside the program. The agent rewrites
+ * `icon.icon`; it does not draw from the raster or invent path data.
+ *
+ * Lint errors go in beside the vision findings. They used to be computed after
+ * this loop had finished and then discarded, which meant the one class of
+ * finding that names its own remedy — `keyline` interpolates the exact scale
+ * factor, `extent` the exact mismatch — was never shown to the agent that
+ * could act on it. Errors only: a `warn` is a request to confirm a choice was
+ * deliberate, and asking an agent to repair one is asking it to undraw the
+ * set's own habits.
+ */
+const appendRepair = (
+  base: string,
+  reviewed: AuditResult,
+  issues: readonly Issue[] = []
+): string =>
   [
     base,
     "",
     `The host audited the drawing. Look at ${PREVIEW_FILE} and ${AUDIT_FILE}.`,
     ...reviewed.findings.map((f) => `- ${f.kind}: ${f.message}`),
+    ...issues
+      .filter((issue) => issue.severity === "error")
+      .map((issue) => `- ${issue.rule}: ${issue.message}`),
     `Edit ${PROGRAM_FILE} only. Do not write SVG. Do not emit path data.`,
   ].join("\n");
 
@@ -638,7 +657,11 @@ export const harnessArm =
         if (reviewed.ok || !reviewed.scorable || remaining <= 0) {
           return;
         }
-        const revised = appendRepair(brief, reviewed);
+        const revised = appendRepair(
+          brief,
+          reviewed,
+          programIssues(program, source, generateOptions.finish, parts, spec)
+        );
         writeFileSync(path.join(dir, BRIEF_FILE), `${revised}\n`);
         last = await runAgent(revised);
         source = readFileSync(file, "utf-8");

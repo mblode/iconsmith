@@ -144,6 +144,11 @@ export const studioTournamentSchema = z.object({
       cost: studioCostSummarySchema,
       images: z.number().int().positive(),
       models: z.array(z.string()),
+      /** The sketches themselves, base64 PNG, in `models` order. They cost
+       *  $0.03-$0.15 each and were being discarded, which left no way to tell
+       *  a failure caused by a bad reference from one caused by a bad draw.
+       *  96px thumbnails, so three of them are a few kilobytes. */
+      previews: z.array(z.string()).default([]),
       reason: z.string().nullable(),
       references: z.array(z.string()),
     })
@@ -168,6 +173,10 @@ export const studioTournamentSchema = z.object({
     evaluated: z.number().int().nonnegative(),
     stopScore: z.number().nullable(),
     stoppedEarly: z.boolean(),
+    /** Arms the budget refused before they drew anything. `stoppedEarly` is
+     *  true whether a tournament stopped because it won or because it ran out
+     *  of money; this is what tells the two apart in the record. */
+    unaffordable: z.array(z.string()).default([]),
   }),
 });
 export type StudioTournament = z.infer<typeof studioTournamentSchema>;

@@ -22,6 +22,29 @@ const states = [
 ];
 const validStates = new Set(states);
 
+/** The acceptance floor, mirrored into every campaign's `quality` block.
+ *  `TOURNAMENT_MINIMUM` in the package is the same number; this script cannot
+ *  import it, so the two are kept in step by name rather than by build. */
+const MINIMUM_PQ = 8;
+const MINIMUM_SC = 8;
+
+/**
+ * What one icon may reserve, sized so a complete tournament can start.
+ *
+ * `PAIR_TOURNAMENT_RESERVE_USD` in `lib/studio/generate.ts` is $1.60 — the
+ * four arms' reservations plus the shared proposal stage. The old $0.25
+ * default admitted only the cheapest two, `host-analog` and `image-agent`,
+ * which summed to exactly $0.25, so the two arms that actually draw were
+ * refused before every run and the ledger recorded it as `stoppedEarly`. The
+ * remainder is headroom for the library arms, which are prepended one per
+ * existing house twin.
+ *
+ * This is a ceiling, not a spend: `exceedsCostBudget` still fails a run whose
+ * real ledger overruns, and a per-call soft cutoff still stops the loop.
+ */
+const DEFAULT_ICON_SPEND_USD = 2;
+const DEFAULT_ICON_CALLS = 90;
+
 const parseArgs = (argv) => {
   const command = argv[0] ?? "status";
   const options = { command };
@@ -84,7 +107,7 @@ const createCampaign = async (root) => {
       status: "todo",
     })),
     quality: {
-      minimum: { pq: 8, sc: 8 },
+      minimum: { pq: MINIMUM_PQ, sc: MINIMUM_SC },
       pairRequired: true,
       stopScore: 9.75,
       visualFindingsAllowed: 0,
@@ -300,13 +323,66 @@ const persistPaint = async (root, paint) => {
 };
 
 // oxlint-disable-next-line eslint/complexity -- one persistence transaction owns candidates, selection, evidence, and state
-const persistAttempt = async (root, item, output, result) => {
-  const number = item.attemptCount + 1;
-  const selected = output.tournament?.selected ?? "none";
-  const attemptId = `${String(number).padStart(3, "0")}-${safeName(selected)}`;
-  const attemptRoot = path.join(root, "explorations", item.slug, "attempts", attemptId);
-  await mkdir(attemptRoot, { recursive: true });
+/**
+ * What the attempt actually cleared, rather than two fixed shapes.
+ *
+ * The previous version wrote `lint/pair/visual: "passed"` for any drawn
+ * output, which is how a pair whose filled program did not round-trip was
+ * recorded as clean, cost $1.45, and had to be caught by a person reading the
+ * files. Every gate here is read off the delivered versions.
+ */
+/**
+ * Which role each billed operation belongs to.
+ *
+ * `model-policy.json` names the model every role should run on, and until now
+ * nothing read it — so the campaign silently moved icon generation from
+ * `claude-opus-5` to a Flash model between attempts and the policy still
+ * claimed otherwise. Rather than have library code read a campaign artifact,
+ * the campaign checks itself against the policy it publishes.
+ */
+const POLICY_ROLES = {
+  "candidate-ranking": "pairCandidateRanking",
+  "claude-harness": "codingHarnessEscalation",
+  "icon-generation": "iconDslGeneration",
+  "proposal-image": "proposalImage",
+  "proposal-reading": "compositionReader",
+  "proposal-selection": "compositionCritique",
+  "visual-audit": "visualAcceptance",
+};
 
+/** Every model this attempt actually billed, by operation. */
+const modelsUsed = (output) => {
+  const seen = new Map();
+  for (const record of output.tournament?.cost?.records ?? []) {
+    const models = seen.get(record.operation) ?? new Set();
+    models.add(record.model);
+    seen.set(record.operation, models);
+  }
+  return Object.fromEntries(
+    [...seen].map(([operation, models]) => [operation, [...models].toSorted()]),
+  );
+};
+
+/** Where the run and the published policy disagree. */
+const policyDrift = (policy, used) => {
+  const roles = policy?.roles ?? null;
+  if (!roles) {
+    return [];
+  }
+  return Object.entries(used)
+    .flatMap(([operation, models]) => {
+      const role = POLICY_ROLES[operation];
+      const expected = role ? roles[role] : undefined;
+      if (!expected || models.every((model) => model === expected)) {
+        return [];
+      }
+      return [{ expected, observed: models, operation, role }];
+    })
+    .toSorted((a, b) => a.operation.localeCompare(b.operation));
+};
+
+/** Every arm's pair, whether or not it won. A failed arm is evidence. */
+const persistCandidates = async (attemptRoot, output) => {
   for (const candidate of output.tournament?.candidates ?? []) {
     const candidateRoot = path.join(attemptRoot, "candidates", safeName(candidate.id));
     await mkdir(candidateRoot, { recursive: true });
@@ -315,25 +391,115 @@ const persistAttempt = async (root, item, output, result) => {
     }
     await writeJson(path.join(candidateRoot, "candidate.json"), withoutBodies(candidate));
   }
+};
 
-  if (output.kind === "drawn") {
-    for (const version of output.versions) {
-      await persistPaint(attemptRoot, version);
-      await writeJson(path.join(attemptRoot, `${version.finish}.audit.json`), {
-        agent: version.agent,
-        clean: version.clean,
-        issues: version.issues,
-        steps: version.steps,
-        trace: version.trace,
-      });
-    }
+/** The delivered pair and the review that accepted it. */
+const persistVersions = async (attemptRoot, output) => {
+  if (output.kind !== "drawn") {
+    return;
   }
+  for (const version of output.versions) {
+    await persistPaint(attemptRoot, version);
+    await writeJson(path.join(attemptRoot, `${version.finish}.audit.json`), {
+      agent: version.agent,
+      clean: version.clean,
+      issues: version.issues,
+      steps: version.steps,
+      trace: version.trace,
+    });
+  }
+};
+
+/**
+ * The sketches the proposal stage drew, and which one it chose.
+ *
+ * They cost $0.03-$0.15 each and were being discarded, so a weak pair could
+ * not be attributed to a bad reference rather than a bad draw — the first
+ * question worth asking about one. The chosen sketch is named so the record
+ * shows what the drawing was actually working from.
+ */
+const persistProposal = async (attemptRoot, proposal) => {
+  if (!proposal) {
+    return;
+  }
+  const root = path.join(attemptRoot, "proposal");
+  await mkdir(root, { recursive: true });
+  await Promise.all(
+    (proposal.previews ?? []).map((preview, index) => {
+      const model = safeName(proposal.models[index] ?? "sketch");
+      const chosen = index === proposal.chosen ? ".chosen" : "";
+      const name = `${String(index).padStart(2, "0")}-${model}${chosen}.png`;
+      return writeFile(path.join(root, name), Buffer.from(preview, "base64"));
+    }),
+  );
+  await writeJson(path.join(root, "proposal.json"), {
+    chosen: proposal.chosen,
+    cost: proposal.cost,
+    models: proposal.models,
+    reason: proposal.reason,
+    references: proposal.references,
+  });
+};
+
+const pass = (ok) => (ok ? "passed" : "failed");
+
+const gatesOf = (output) => {
+  if (output.kind !== "drawn") {
+    return {
+      approval: "pending",
+      integrity: "failed",
+      lint: "failed",
+      overview: "pending",
+      pair: "failed",
+      publish: "pending",
+      semantic: "failed",
+      visual: "failed",
+    };
+  }
+  const versions = output.versions ?? [];
+  const every = (predicate) => versions.length > 0 && versions.every(predicate);
+  return {
+    approval: "pending",
+    integrity: pass(every((version) => version.programComplete)),
+    lint: pass(every((version) => version.clean)),
+    overview: "pending",
+    pair: pass(versions.length === 2),
+    publish: "pending",
+    semantic: pass(every((version) => (version.agent?.sc ?? 0) >= MINIMUM_SC)),
+    visual: pass(every((version) => (version.agent?.pq ?? 0) >= MINIMUM_PQ)),
+  };
+};
+
+const persistAttempt = async (root, item, output, result) => {
+  const number = item.attemptCount + 1;
+  const selected = output.tournament?.selected ?? "none";
+  const attemptId = `${String(number).padStart(3, "0")}-${safeName(selected)}`;
+  const attemptRoot = path.join(root, "explorations", item.slug, "attempts", attemptId);
+  await mkdir(attemptRoot, { recursive: true });
+
+  await persistCandidates(attemptRoot, output);
+  await persistVersions(attemptRoot, output);
+
+  const policy = await readJson(path.join(root, "model-policy.json")).catch(() => null);
+  const used = modelsUsed(output);
+  const drift = policyDrift(policy, used);
+  const proposal = output.tournament?.proposal ?? null;
+  await persistProposal(attemptRoot, proposal);
 
   await writeJson(path.join(attemptRoot, "decision.json"), {
     accepted: output.kind === "drawn",
     cost: output.tournament?.cost ?? null,
     kind: output.kind,
     minimum: output.tournament?.minimum ?? null,
+    models: used,
+    policyDrift: drift,
+    proposal: proposal
+      ? {
+          chosen: proposal.chosen,
+          models: proposal.models,
+          reason: proposal.reason,
+        }
+      : null,
     selected,
     strategy: output.tournament?.strategy ?? null,
     text: output.text,
@@ -351,27 +517,9 @@ const persistAttempt = async (root, item, output, result) => {
   item.selectedAttempt = output.kind === "drawn" ? `attempts/${attemptId}` : null;
   item.status = output.kind === "drawn" ? "review" : "revision";
   item.lastError = output.kind === "drawn" ? null : output.text;
-  item.gates =
-    output.kind === "drawn"
-      ? {
-          approval: "pending",
-          lint: "passed",
-          overview: "pending",
-          pair: "passed",
-          publish: "pending",
-          semantic: "passed",
-          visual: "passed",
-        }
-      : {
-          approval: "pending",
-          lint: "failed",
-          overview: "pending",
-          pair: "failed",
-          publish: "pending",
-          semantic: "failed",
-          visual: "failed",
-        };
+  item.gates = gatesOf(output);
   await writeJson(path.join(root, "explorations", item.slug, "task.json"), item);
+  return { models: used, policyDrift: drift };
 };
 
 // oxlint-disable-next-line eslint/complexity -- one command validates budgets, destination drift, durable Eve sessions, and terminal persistence
@@ -384,13 +532,13 @@ const generate = async (root, campaign, options) => {
   if (maxSpend !== null && (!(maxSpend >= 0) || !Number.isFinite(maxSpend))) {
     throw new Error("--max-spend must be a non-negative dollar amount.");
   }
-  const maxIconSpend = Number(options["max-icon-spend"] ?? "0.25");
+  const maxIconSpend = Number(options["max-icon-spend"] ?? String(DEFAULT_ICON_SPEND_USD));
   if (!(maxIconSpend > 0) || !Number.isFinite(maxIconSpend)) {
     throw new Error("--max-icon-spend must be a positive dollar amount.");
   }
-  const maxCalls = Number(options["max-calls"] ?? "20");
-  if (!Number.isInteger(maxCalls) || maxCalls < 1 || maxCalls > 200) {
-    throw new Error("--max-calls must be an integer from 1 to 200.");
+  const maxCalls = Number(options["max-calls"] ?? String(DEFAULT_ICON_CALLS));
+  if (!Number.isInteger(maxCalls) || maxCalls < 1 || maxCalls > 400) {
+    throw new Error("--max-calls must be an integer from 1 to 400.");
   }
   const selected = campaign.items
     .filter(
@@ -464,7 +612,7 @@ const generate = async (root, campaign, options) => {
       });
       const result = await created.response.result();
       const output = toolOutputOf(result);
-      await persistAttempt(root, item, output, result);
+      const record = await persistAttempt(root, item, output, result);
       await writeJson(path.join(checkpointRoot, `${safeName(item.slug)}.json`), {
         campaign: campaign.id,
         finishedAt: new Date().toISOString(),
@@ -475,9 +623,14 @@ const generate = async (root, campaign, options) => {
       outcomes.push({
         cost: output.tournament?.cost ?? null,
         kind: output.kind,
+        // Both belong in the operator's view, not only on disk: one says the
+        // run was not allowed to try everything, the other that it did not
+        // run on the models the campaign says it runs on.
+        policyDrift: record.policyDrift,
         sessionId: result.sessionId,
         slug: item.slug,
         status: item.status,
+        unaffordable: output.tournament?.strategy?.unaffordable ?? [],
       });
     } catch (error) {
       item.lastError = error instanceof Error ? error.message : String(error);

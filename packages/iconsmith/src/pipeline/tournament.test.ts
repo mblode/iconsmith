@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import type { AuditResult } from "./audit.js";
+import { run as runDsl } from "../tools/dsl.js";
+import type { IconDoc, Part } from "../types.js";
+import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
 import type { GenerateResult } from "./generate.js";
 import { rankPairCandidates, runPairTournament } from "./tournament.js";
@@ -19,21 +21,69 @@ const review = (
   stage: findings.length === 0 ? "decide" : "screen",
 });
 
+/**
+ * The acceptance judge sees only rendered images, so a fixture cannot label
+ * its own paints. The script is consumed in the order the tournament asks,
+ * which `serial` makes deterministic; anything past the end scores zero.
+ */
+const judge = (...scripted: readonly AuditResult[]): AuditAsk => {
+  const queue = [...scripted];
+  return () => Promise.resolve(queue.shift() ?? review(0, 0));
+};
+
+/** One judgement for every paint in the tournament. */
+const judgeAll =
+  (verdict: AuditResult): AuditAsk =>
+  () =>
+    Promise.resolve(verdict);
+
+/** A house mark, so a fixture drawing is composed rather than invented. */
+const BODY: Part = {
+  closed: true,
+  d: "M3 3H21V21H3Z",
+  h: 18,
+  icons: ["home"],
+  id: "p0001",
+  instances: 4,
+  name: "home-body",
+  nodes: 4,
+  sizeRange: [18, 18],
+  w: 18,
+};
+
+const PARTS: readonly Part[] = [BODY];
+
+const PROGRAM = ["icon home", "finish outlined", "part home-body at 0,0"].join(
+  "\n"
+);
+
+/** Derived by replaying the program, so the fixture round-trips by
+ *  construction rather than by a hand-copied literal that can drift. */
+const docOf = (program: string): IconDoc => {
+  const replay = runDsl(program, [...PARTS]);
+  if (replay.errors.length > 0) {
+    throw new Error(
+      `fixture program is not valid: ${replay.errors.join("; ")}`
+    );
+  }
+  return replay.canvas.toJSON({ icon: replay.icon, keyline: replay.keyline });
+};
+
 const result = (audit: AuditResult, warnings = 0): GenerateResult =>
   ({
     audit,
     clean: true,
-    doc: { draw: [], finish: "outlined", icon: "home", size: 24 },
+    doc: docOf(PROGRAM),
     issues: Array.from({ length: warnings }, (_, index) => ({
       message: `warning ${index}`,
       rule: "centred",
       severity: "warn" as const,
     })),
-    program: "icon home\nfinish outlined",
+    program: PROGRAM,
     steps: 2,
     svg: '<svg viewBox="0 0 24 24"></svg>',
     text: "done",
-    trace: ["icon", "finish"],
+    trace: ["icon", "finish", "part"],
   }) as GenerateResult;
 
 /** Warnings the program asked for by name. `lint.ts` emits these for a
@@ -72,22 +122,23 @@ const pricedResult = (usd: number): GenerateResult => {
 describe("runPairTournament", () => {
   it("selects the strongest complete pair, not the best single paint", async () => {
     const tournament = await runPairTournament({
+      ask: judge(review(10, 10), review(8, 8), review(9, 9), review(9, 9)),
       candidates: [
         {
-          generate: (finish) =>
-            Promise.resolve(
-              result(finish === "outlined" ? review(10, 10) : review(8, 8))
-            ),
+          generate: () => Promise.resolve(result(review(10, 10))),
           id: "uneven",
           label: "Uneven",
+          serial: true,
         },
         {
           generate: () => Promise.resolve(result(review(9, 9))),
           id: "balanced",
           label: "Balanced",
+          serial: true,
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
     });
 
     expect(tournament.winner?.id).toBe("balanced");
@@ -96,23 +147,20 @@ describe("runPairTournament", () => {
 
   it("rejects a high-scoring pair when the judge found a real defect", async () => {
     const tournament = await runPairTournament({
+      ask: judge(
+        review(10, 10),
+        review(10, 10, [{ kind: "object", message: "looks like an envelope" }])
+      ),
       candidates: [
         {
-          generate: (finish) =>
-            Promise.resolve(
-              result(
-                finish === "filled"
-                  ? review(10, 10, [
-                      { kind: "object", message: "looks like an envelope" },
-                    ])
-                  : review(10, 10)
-              )
-            ),
+          generate: () => Promise.resolve(result(review(10, 10))),
           id: "confused",
           label: "Confused",
+          serial: true,
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
     });
 
     expect(tournament.best?.id).toBe("confused");
@@ -121,6 +169,7 @@ describe("runPairTournament", () => {
 
   it("keeps a failed arm as evidence without losing another winner", async () => {
     const tournament = await runPairTournament({
+      ask: judgeAll(review(9, 9)),
       candidates: [
         {
           generate: () =>
@@ -135,6 +184,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
     });
 
     expect(
@@ -146,6 +196,7 @@ describe("runPairTournament", () => {
   it("runs a serial harness after the parallel pool and one paint at a time", async () => {
     const events: string[] = [];
     await runPairTournament({
+      ask: judgeAll(review(9, 9)),
       candidates: [
         {
           generate(finish) {
@@ -166,6 +217,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
     });
 
     expect(events).toEqual([
@@ -179,6 +231,7 @@ describe("runPairTournament", () => {
   it("stops paid escalation after a high-confidence accepted pair", async () => {
     const attempted: string[] = [];
     const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
       candidates: [
         {
           generate: (finish) => {
@@ -198,6 +251,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -210,6 +264,7 @@ describe("runPairTournament", () => {
   it("reserves a complete pair before starting it and fails closed on budget exhaustion", async () => {
     const attempted: string[] = [];
     const tournament = await runPairTournament({
+      ask: judgeAll(review(9, 9)),
       budget: { maxCalls: 4, maxUsd: 0.1 },
       candidates: [
         {
@@ -234,6 +289,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -254,6 +310,7 @@ describe("runPairTournament", () => {
 
   it("fails closed when a candidate exceeds its conservative reservation", async () => {
     const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
       budget: { maxCalls: 2, maxUsd: 0.1 },
       candidates: [
         {
@@ -265,6 +322,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -284,6 +342,7 @@ describe("runPairTournament", () => {
   it("stops escalation when a serial pair fails after paid work may have completed", async () => {
     const attempted: string[] = [];
     const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
       budget: { maxCalls: 4, maxUsd: 0.2 },
       candidates: [
         {
@@ -311,6 +370,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -329,6 +389,7 @@ describe("runPairTournament", () => {
   it("stops escalation when either parallel paint fails", async () => {
     const attempted: string[] = [];
     const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
       budget: { maxCalls: 4, maxUsd: 0.2 },
       candidates: [
         {
@@ -355,6 +416,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -373,6 +435,7 @@ describe("runPairTournament", () => {
   it("does not start an unpriced candidate inside a dollar budget", async () => {
     let called = false;
     const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
       budget: { maxCalls: 10, maxUsd: 1 },
       candidates: [
         {
@@ -386,6 +449,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -409,6 +473,7 @@ describe("runPairTournament", () => {
         },
       ],
       concept: { name: "home" },
+      parts: PARTS,
       stopScore: 9.75,
     });
 
@@ -467,10 +532,12 @@ describe("rankPairCandidates", () => {
 /** One candidate through a whole tournament, reduced to its pairScore. */
 const scoreOf = async (make: () => GenerateResult): Promise<number> => {
   const tournament = await runPairTournament({
+    ask: judgeAll(review(10, 10)),
     candidates: [
       { generate: () => Promise.resolve(make()), id: "a", label: "A" },
     ],
     concept: { name: "home" },
+    parts: PARTS,
   });
   return tournament.candidates[0].score;
 };
@@ -502,5 +569,252 @@ describe("pairScore and declared findings", () => {
     } as GenerateResult;
     // One chargeable warning across two paints: 2 x 0.05.
     expect(await scoreOf(() => mixed)).toBe(9.9);
+  });
+});
+
+describe("acceptance is independent, complete, and house-derived", () => {
+  it("scores the drawing, not the review the arm brought with it", async () => {
+    // The campaign's one accepted pair carried its own `draw-and-review` audit
+    // at 10/10 on both paints; the first independent look scored it 9/8 and
+    // 9/6. The arm's own verdict is kept as evidence and decides nothing.
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(4, 4)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "self-graded",
+          label: "Self graded",
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+    });
+
+    expect(tournament.winner).toBeNull();
+    expect(tournament.best?.paints[0]?.audit.sc).toBe(4);
+    expect(tournament.best?.paints[0]?.selfReview?.sc).toBe(10);
+  });
+
+  it("refuses a pair whose program does not replay to its own drawing", async () => {
+    // A `raw` escape has no DSL word, so `programFromDoc` drops it and the
+    // saved `.icon` is a lossy record rather than the source. This is the
+    // `filled.icon.partial` the git-pull-request attempt shipped at 10/10.
+    const lossy = {
+      ...result(review(10, 10)),
+      doc: {
+        ...docOf(PROGRAM),
+        draw: [
+          ...docOf(PROGRAM).draw,
+          { d: "M3 3L21 21", fillRule: "nonzero", op: "raw" },
+        ],
+      },
+    } as GenerateResult;
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      candidates: [
+        { generate: () => Promise.resolve(lossy), id: "lossy", label: "Lossy" },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+    });
+
+    expect(tournament.best?.paints[0]?.programComplete).toBe(false);
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("refuses a clean 10/10 drawn from primitives instead of the house", async () => {
+    // Every pair in the campaign that scored 10/10 composed; every pair drawn
+    // from raw primitives scored 7 or less. `AGENTS.md` makes at least one
+    // house mark half of arrival.
+    const invented = ["icon home", "finish outlined", "rect 3,3 18x18"].join(
+      "\n"
+    );
+    const scratch = {
+      ...result(review(10, 10)),
+      doc: docOf(invented),
+      program: invented,
+      trace: ["icon", "finish", "rect"],
+    } as GenerateResult;
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(scratch),
+          id: "invented",
+          label: "Invented",
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+    });
+
+    expect(tournament.best?.paints[0]?.houseDerived).toBe(false);
+    expect(tournament.best?.paints[0]?.partOps).toBe(0);
+    expect(tournament.winner).toBeNull();
+  });
+
+  it("counts an adopted host analog as house-derived", async () => {
+    // `construct` places a whole host construction, whose coordinates came
+    // from the same place a `part` op's do. Checking only for `part` would
+    // reject the arm that produced the campaign's one clean pair.
+    const invented = ["icon home", "finish outlined", "rect 3,3 18x18"].join(
+      "\n"
+    );
+    const adopted = {
+      ...result(review(10, 10)),
+      doc: docOf(invented),
+      program: invented,
+      trace: ["proposal", "listParts", "construct", "render", "lint"],
+    } as GenerateResult;
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(adopted),
+          id: "adopted",
+          label: "Adopted",
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+    });
+
+    expect(tournament.winner?.id).toBe("adopted");
+    expect(tournament.winner?.paints[0]?.houseDerived).toBe(true);
+  });
+
+  it("never lets part count outrank the score the pair was given", async () => {
+    // A `wifi` run named a library compile at 0.4/10 its best pair, over a
+    // harness pair at 5.5, because the compile had more `part` ops. Nothing
+    // outranks the quality judgement; composition breaks ties inside it.
+    const invented = ["icon home", "finish outlined", "rect 3,3 18x18"].join(
+      "\n"
+    );
+    const tournament = await runPairTournament({
+      ask: judge(review(2, 2), review(2, 2), review(7, 7), review(7, 7)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(2, 2))),
+          id: "library-compile",
+          label: "Existing library",
+          serial: true,
+        },
+        {
+          generate: () =>
+            Promise.resolve({
+              ...result(review(7, 7)),
+              doc: docOf(invented),
+              program: invented,
+              trace: ["icon", "finish", "construct"],
+            } as GenerateResult),
+          id: "harness",
+          label: "Claude harness",
+          serial: true,
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+    });
+
+    expect(tournament.best?.id).toBe("harness");
+  });
+
+  it("ranks a composed pair above an invented one at the same score", async () => {
+    const invented = ["icon home", "finish outlined", "rect 3,3 18x18"].join(
+      "\n"
+    );
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      candidates: [
+        {
+          generate: () =>
+            Promise.resolve({
+              ...result(review(10, 10)),
+              doc: docOf(invented),
+              program: invented,
+              trace: ["icon", "finish", "construct"],
+            } as GenerateResult),
+          id: "invented",
+          label: "Invented",
+        },
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "composed",
+          label: "Composed",
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+    });
+
+    // `candidates` stays in generation order because it is the evidence
+    // ledger; the ranking shows up in who wins.
+    expect(tournament.winner?.id).toBe("composed");
+    expect(tournament.best?.id).toBe("composed");
+  });
+});
+
+describe("a short tournament says which kind of short it was", () => {
+  it("names every arm the budget refused, not just the first", async () => {
+    // The campaign's default budget could reserve `host-analog` and
+    // `image-agent` and nothing else, so `gateway-agent` and `claude-harness`
+    // never ran — and the record said `stoppedEarly`, which also means "it
+    // won". The refused arms are now on the result.
+    const arm = (id: string, reserveUsd: number) => ({
+      generate: () => Promise.resolve(result(review(9, 9))),
+      id,
+      label: id,
+      reserveCalls: 2,
+      reserveUsd,
+    });
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(9, 9)),
+      budget: { maxCalls: 10, maxUsd: 0.25 },
+      candidates: [
+        arm("host-analog", 0.055),
+        arm("image-agent", 0.195),
+        arm("gateway-agent", 0.35),
+        arm("claude-harness", 0.4),
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+      stopScore: 9.75,
+    });
+
+    expect(tournament.unaffordable).toEqual([
+      "gateway-agent",
+      "claude-harness",
+    ]);
+    expect(tournament.stoppedEarly).toBe(true);
+  });
+
+  it("reports nothing unaffordable when a tournament stopped because it won", async () => {
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      budget: { maxCalls: 10, maxUsd: 5 },
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "library",
+          label: "Existing library",
+          reserveCalls: 2,
+          reserveUsd: 0.055,
+        },
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "frontier",
+          label: "Frontier",
+          reserveCalls: 2,
+          reserveUsd: 0.4,
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+      stopScore: 9.75,
+    });
+
+    expect(tournament.winner?.id).toBe("library");
+    expect(tournament.stoppedEarly).toBe(true);
+    expect(tournament.unaffordable).toEqual([]);
   });
 });

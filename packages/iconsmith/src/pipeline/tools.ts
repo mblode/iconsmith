@@ -15,7 +15,7 @@ import { tool } from "ai";
 import { z } from "zod";
 
 import { Canvas, SPEC } from "../tools/canvas.js";
-import type { Spec } from "../tools/canvas.js";
+import type { Element, Spec } from "../tools/canvas.js";
 import type { CohortTarget } from "../tools/cohort.js";
 import { TURNS, alignCohort, fitKeyline, recentre } from "../tools/dsl.js";
 import { format, lint } from "../tools/lint.js";
@@ -125,6 +125,17 @@ export interface ToolState {
   /** Set by the first `construct` call. The host analog is adopted once;
    *  calling again would let the model shop constructions. */
   constructed: boolean;
+  /**
+   * The best drawing this run has actually looked at: fewest lint errors,
+   * latest on a tie.
+   *
+   * A run ends wherever the step cap lands, and the campaign's traces end
+   * `render, remove, remove, remove, remove` — the model wiped the canvas to
+   * start again and ran out of steps mid-wipe. The blank was then delivered,
+   * audited at SC 0 / PQ 0, and billed. Keeping what it drew costs nothing:
+   * the drawing was already rendered, so it was already paid for.
+   */
+  best: { elements: Element[]; errors: number } | null;
   calls: string[];
 }
 
@@ -190,12 +201,35 @@ export const createTools = (options: ToolsOptions = {}) => {
   const canvas = new Canvas(parts, { finish, spec });
   const roleNames = Object.keys(spec.dots) as [string, ...string[]];
   const state: ToolState = {
+    best: null,
     calls: [],
     constructed: false,
     issues: null,
     lintedAt: -1,
     proposed: false,
     renderedAt: -1,
+  };
+
+  /**
+   * Remember the drawing the model is about to look at.
+   *
+   * Ranked by standing lint errors rather than by recency, so a run that
+   * degrades a clean composition into a dirty one keeps the clean one. Ties go
+   * to the later snapshot, because the model kept working on it for a reason.
+   */
+  const keep = (): void => {
+    if (canvas.elements.length === 0) {
+      return;
+    }
+    const errors = lint(canvas, { keyline }).filter(
+      (issue) => issue.severity === "error"
+    ).length;
+    if (state.best === null || errors <= state.best.errors) {
+      state.best = {
+        elements: canvas.elements.map((element) => structuredClone(element)),
+        errors,
+      };
+    }
   };
 
   const byName = new Map<string, Part>();
@@ -307,6 +341,7 @@ export const createTools = (options: ToolsOptions = {}) => {
             };
           }
           state.renderedAt = canvas.version;
+          keep();
           const image = await sheet([
             canvas.toSVG(),
             ...near.map((n) => n.svg),
@@ -347,6 +382,7 @@ export const createTools = (options: ToolsOptions = {}) => {
       execute: async () =>
         await track("confirm", async () => {
           state.renderedAt = canvas.version;
+          keep();
           const issues = lint(canvas, { keyline });
           state.issues = issues;
           state.lintedAt = canvas.version;
@@ -714,6 +750,7 @@ export const createTools = (options: ToolsOptions = {}) => {
       execute: async ({ size }) =>
         await track("render", async () => {
           state.renderedAt = canvas.version;
+          keep();
           const image = await png(canvas.toSVG(), size ?? renderSize);
           return {
             elements: canvas.describe(),

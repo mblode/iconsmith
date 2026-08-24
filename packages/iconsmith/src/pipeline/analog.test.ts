@@ -5,6 +5,7 @@
 import { describe, expect, it } from "vitest";
 
 import { run } from "../tools/dsl.js";
+import { lint } from "../tools/lint.js";
 import type { Part } from "../types.js";
 import {
   analogArm,
@@ -241,6 +242,34 @@ describe("analogConstructions", () => {
   it("falls back to trays when the name says cylinder but the extract is empty", () => {
     const [row] = analogConstructions("server", [], "server", false);
     expect(row?.id).toBe("trays");
+  });
+
+  it("declares the keyline a named silhouette measures, never `square` on faith", () => {
+    // `bell-alarm-1` is 18x12. `fill` and `fit` both preserve aspect, so a
+    // declared `square` is a contradiction inside one document and
+    // `keylineIssue` holds it to an error — which is what every analog down
+    // this path used to carry. The drawing is unchanged; only the claim is.
+    const alarmBell = {
+      ...part("bell-alarm-1", "M0 0H18V12H0Z"),
+      h: 12,
+      name: "bell-alarm-1",
+      w: 18,
+    };
+    const [row] = analogConstructions(
+      "alarm-smoke",
+      [alarmBell],
+      "alarm smoke",
+      false
+    );
+    expect(row?.source).toContain("part bell-alarm-1 fill");
+    expect(row?.source).not.toContain("keyline square");
+    const drawn = run(row?.source ?? "", [alarmBell]);
+    expect(drawn.errors).toEqual([]);
+    expect(
+      lint(drawn.canvas, { keyline: drawn.keyline }).filter(
+        (issue) => issue.rule === "keyline" && issue.severity === "error"
+      )
+    ).toEqual([]);
   });
 
   it("draws unknown for an unkeyed name that is not a stack or a family", () => {

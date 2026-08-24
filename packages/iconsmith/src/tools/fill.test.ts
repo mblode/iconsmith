@@ -13,7 +13,7 @@ import { expect, test } from "vitest";
 import { bbox, parsePath } from "../geometry/path.js";
 import type { Finish, Part } from "../types.js";
 import { Canvas, SPEC } from "./canvas.js";
-import { run } from "./dsl.js";
+import { fitKeyline, run } from "./dsl.js";
 import { lint } from "./lint.js";
 
 const filled = (parts: Part[] = []) => new Canvas(parts, { finish: "filled" });
@@ -163,13 +163,37 @@ test("a filled two-point line is the stroke expanded to a bar", () => {
     ],
   });
   expect(c.elements).toHaveLength(1);
-  expect(c.elements[0]).toMatchObject({
-    h: 2,
-    kind: "rect",
-    w: 18,
-    x: 3,
-    y: 11,
+  // Painted as the square-ended 18x2 slab it always was — the bbox is the
+  // stroke expanded — but it keeps the `line` op and the two points it was
+  // asked for. A `rect`'s height is a design dimension and a scale multiplies
+  // it; a bar's is ink at the spec width and must not move, which is what
+  // `fit` used to get wrong.
+  expect(bbox(parsePath(c.elements[0].d))).toMatchObject({
+    x0: 3,
+    x1: 21,
+    y0: 11,
+    y1: 13,
   });
+  expect(c.elements[0]).toMatchObject({
+    kind: "line",
+    points: [
+      [4, 12],
+      [20, 12],
+    ],
+  });
+});
+
+test("a fit leaves a filled bar at the spec stroke, not scaled with it", () => {
+  const c = filled();
+  c.line({
+    points: [
+      [4, 12],
+      [14, 12],
+    ],
+  });
+  fitKeyline(c, "square");
+  const box = bbox(parsePath(c.elements[0].d));
+  expect(box.y1 - box.y0).toBe(SPEC.stroke);
 });
 
 test("hole is unreachable while the finish is outlined", () => {
