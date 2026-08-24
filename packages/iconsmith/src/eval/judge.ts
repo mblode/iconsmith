@@ -1,49 +1,34 @@
 /**
- * The judge — VIEScore-style, with a sanity gate it has to pass before its
- * column is printed at all.
+ * The sanity gate, and the pairing primitives every paired look shares.
  *
- * Two 0–10 sub-scores with written rationale:
+ * This file used to hold a VIEScore-style scorer too — two 0–10 sub-scores
+ * combined as √(SC × PQ). It was deleted rather than kept: `judgeIcon` had no
+ * caller anywhere in `src/`, `scripts/` or `apps/`, `pipeline/eval.ts` has
+ * always passed `judge: null`, and so that column never once printed a number.
+ * The live rubric is `pipeline/audit.ts`, which asks the same two questions of
+ * a drawing inside the pipeline. Two rubrics, one of them dead, is worse than
+ * one.
  *
- * - **SC, semantic consistency** — does this drawing read as the concept?
- * - **PQ, perceptual quality** — is it a competent icon: clean joins, even
- *   weight, balanced, no artefacts?
+ * What is left is the half that runs, plus the two pieces any paired
+ * presentation needs:
  *
- * Combined as **√(SC × PQ)**, not the mean. A 10/0 — a perfectly legible
- * concept drawn as a mess, or an immaculate mark of the wrong thing — is a
- * failure, and the geometric mean says so (0) where the arithmetic mean says 5.
- * That is the whole reason VIEScore uses it and the reason it is used here.
+ * 1. **Pairing.** `slotFor` and `pair` lay two renders out in an order drawn
+ *    from the run seed. A model shown "candidate, then reference" learns the
+ *    position rather than the icons, and a reproducible order means a replicate
+ *    is re-runnable instead of adding variance that looks like a change.
+ * 2. **The gate.** Shown a real shipped icon and an unrelated one for the same
+ *    concept, an instrument must prefer the real one at least 90% of the time.
+ *    Below that it is not a weak signal to be discounted; it is noise, and
+ *    averaging noise into a headline is worse than having no column at all.
+ *    Failing **discards the column**.
  *
- * Two guards, because an LLM judge is the least trustworthy instrument in the
- * panel and the easiest to believe.
- *
- * 1. **Presentation order is randomised.** A judge shown "candidate, then
- *    reference" learns the position, not the icons. The order is drawn from the
- *    run seed so it is reproducible, and the mapping is kept out of the prompt.
- * 2. **The judge must clear a sanity gate before its column is reported.**
- *    Shown a real shipped icon and a random other icon for the same concept, it
- *    must prefer the real one at least 90% of the time. A judge that cannot do
- *    that is not a weak signal to be discounted; it is noise, and averaging
- *    noise into a headline is worse than having no judge column. Failing the
- *    gate **discards the column**.
+ * The gate is the cheaper and more important of the two, and it applies to any
+ * model asked to look at an icon — including `AUDIT_MODEL`, which decides what
+ * ships and had never been put through it.
  */
 
 /** Slot A or slot B, as the judge sees them. Never "candidate"/"reference". */
 export type Slot = "a" | "b";
-
-export interface JudgeScores {
-  /** Perceptual quality, 0–10. */
-  pq: number;
-  /** Why, in the judge's own words. A number with no rationale cannot be
-   *  audited, and an unauditable judge is the one that quietly drifts. */
-  rationale: string;
-  /** Semantic consistency, 0–10. */
-  sc: number;
-}
-
-/** √(SC × PQ), on the 0–10 scale. Clamped at 0 rather than returning NaN for a
- *  negative score the model should never emit but occasionally does. */
-export const viescore = ({ pq, sc }: Pick<JudgeScores, "pq" | "sc">): number =>
-  Math.sqrt(Math.max(0, sc) * Math.max(0, pq));
 
 /**
  * Which slot the candidate occupies, from a seed.
@@ -107,10 +92,6 @@ PQ — perceptual quality. Is it a competent icon, ignoring what it depicts?
 
 Score the two independently. A beautiful drawing of the wrong thing scores high PQ and low SC; a clear concept drawn badly scores the reverse. Do not average them yourself.`;
 
-/** The per-icon prompt. Deliberately never names which slot is which. */
-export const judgePrompt = (concept: string, slot: Slot): string =>
-  `Concept: "${concept}".\n\nGrade the icon in slot ${slot.toUpperCase()}. The other slot is shown only for scale and house context; do not grade it, and do not assume either slot is the "real" one.\n\nAnswer as JSON: {"sc": <0-10>, "pq": <0-10>, "rationale": "<one or two sentences>"}`;
-
 /** The prompt for the sanity gate: a forced choice, not a score. */
 export const GATE_PROMPT = (concept: string): string =>
   `Concept: "${concept}".\n\nOne of these two icons ships in a professional icon set and one does not belong to this concept at all. Which is the professional set's icon for "${concept}"?\n\nAnswer as JSON: {"pick": "A" | "B", "why": "<one sentence>"}`;
@@ -167,40 +148,6 @@ export const scoreGate = (trials: readonly GateTrial[]): GateResult => {
     verdict: passed
       ? `Judge sanity gate passed: ${right}/${trials.length} (${(accuracy * 100).toFixed(0)}%) preferred the shipped icon over a random one.`
       : `Judge sanity gate FAILED: ${right}/${trials.length} (${(accuracy * 100).toFixed(0)}%), below the ${(GATE_THRESHOLD * 100).toFixed(0)}% floor. The judge column is discarded — it cannot separate a shipped icon from an unrelated one, so its scores on the real question are noise.`,
-  };
-};
-
-/**
- * Parse the judge's reply.
- *
- * Tolerant of a fenced block, because models wrap JSON in one about a third of
- * the time and a run thrown away over a code fence is a run paid for twice.
- * Not tolerant of a missing or out-of-range score: a judge that answers `{"sc":
- * "high"}` has not answered, and coercing that to a number invents a
- * measurement.
- */
-const inRange = (v: unknown): v is number =>
-  typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 10;
-
-export const parseScores = (text: string): JudgeScores | null => {
-  const match = /\{[\s\S]*\}/u.exec(text);
-  if (!match) {
-    return null;
-  }
-  let raw: unknown;
-  try {
-    raw = JSON.parse(match[0]);
-  } catch {
-    return null;
-  }
-  const obj = raw as { pq?: unknown; rationale?: unknown; sc?: unknown };
-  if (!(inRange(obj.sc) && inRange(obj.pq))) {
-    return null;
-  }
-  return {
-    pq: obj.pq,
-    rationale: typeof obj.rationale === "string" ? obj.rationale : "",
-    sc: obj.sc,
   };
 };
 

@@ -36,6 +36,20 @@ const result = (audit: AuditResult, warnings = 0): GenerateResult =>
     trace: ["icon", "finish"],
   }) as GenerateResult;
 
+/** Warnings the program asked for by name. `lint.ts` emits these for a
+ *  diagonal the DSL declared `off-axis`, with a message that says "Nothing to
+ *  fix", so they must not move a score. */
+const declaredResult = (audit: AuditResult, warnings: number): GenerateResult =>
+  ({
+    ...result(audit),
+    issues: Array.from({ length: warnings }, (_, index) => ({
+      declared: "off-axis",
+      message: `edge ${index} is 38.2 degrees, and the program declared off-axis for it`,
+      rule: "off-axis",
+      severity: "warn" as const,
+    })),
+  }) as GenerateResult;
+
 const pricedResult = (usd: number): GenerateResult => {
   const cost: ApiCost = {
     calls: 1,
@@ -447,5 +461,46 @@ describe("rankPairCandidates", () => {
     });
     expect(ranking.order).toEqual(["first", "second"]);
     expect(ranking.reason).toContain("structured output failed");
+  });
+});
+
+/** One candidate through a whole tournament, reduced to its pairScore. */
+const scoreOf = async (make: () => GenerateResult): Promise<number> => {
+  const tournament = await runPairTournament({
+    candidates: [
+      { generate: () => Promise.resolve(make()), id: "a", label: "A" },
+    ],
+    concept: { name: "home" },
+  });
+  return tournament.candidates[0].score;
+};
+
+describe("pairScore and declared findings", () => {
+  it("does not dock a pair for a diagonal its program declared", async () => {
+    // Four declared edges on each of the two paints. Ignoring `declared` would
+    // charge 8 x 0.05 and take a clean 10 to 9.6.
+    expect(await scoreOf(() => declaredResult(review(10, 10), 4))).toBe(10);
+  });
+
+  it("still docks a pair for an undeclared warning", async () => {
+    // Same shape as the case above, undeclared: 8 x 0.05.
+    expect(await scoreOf(() => result(review(10, 10), 4))).toBe(9.6);
+  });
+
+  it("charges an undeclared warning even when a declared one sits beside it", async () => {
+    const mixed = {
+      ...result(review(10, 10)),
+      issues: [
+        {
+          declared: "off-axis",
+          message: "declared",
+          rule: "off-axis",
+          severity: "warn" as const,
+        },
+        { message: "off centre", rule: "centred", severity: "warn" as const },
+      ],
+    } as GenerateResult;
+    // One chargeable warning across two paints: 2 x 0.05.
+    expect(await scoreOf(() => mixed)).toBe(9.9);
   });
 });

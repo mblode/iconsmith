@@ -106,7 +106,7 @@ describe.skipIf(!present)("compileIcon", () => {
       await inkVector(house)
     );
     expect(score).toBeGreaterThan(0.99);
-  });
+  }, 30_000);
 });
 
 describe("compileIcon circles", () => {

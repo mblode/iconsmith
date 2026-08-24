@@ -4,30 +4,10 @@ import {
   GATE_THRESHOLD,
   pair,
   parsePick,
-  parseScores,
   scoreGate,
   slotFor,
-  viescore,
 } from "./judge.js";
 import type { GateTrial, Slot } from "./judge.js";
-
-describe("viescore", () => {
-  it("is 0 when either sub-score is 0", () => {
-    // A perfectly drawn icon of the wrong thing is a failure. The arithmetic
-    // mean would call a 10/0 a 5, which is the reason VIEScore uses the
-    // geometric mean and the reason it is used here.
-    expect(viescore({ pq: 10, sc: 0 })).toBe(0);
-    expect(viescore({ pq: 0, sc: 10 })).toBe(0);
-  });
-
-  it("is the sub-score when both agree", () => {
-    expect(viescore({ pq: 7, sc: 7 })).toBe(7);
-  });
-
-  it("sits below the mean when the two disagree", () => {
-    expect(viescore({ pq: 9, sc: 3 })).toBeLessThan(6);
-  });
-});
 
 describe("presentation order", () => {
   it("is stable for one seed and icon", () => {
@@ -81,26 +61,6 @@ describe("scoreGate", () => {
 
   it("fails with no trials rather than passing vacuously", () => {
     expect(scoreGate([]).passed).toBe(false);
-  });
-});
-
-describe("parseScores", () => {
-  it("reads a fenced block", () => {
-    expect(
-      parseScores('```json\n{"sc": 8, "pq": 6, "rationale": "clear"}\n```')
-    ).toEqual({ pq: 6, rationale: "clear", sc: 8 });
-  });
-
-  it("refuses a non-numeric score rather than coercing one", () => {
-    expect(parseScores('{"sc": "high", "pq": 6}')).toBeNull();
-  });
-
-  it("refuses a score outside 0–10", () => {
-    expect(parseScores('{"sc": 11, "pq": 6}')).toBeNull();
-  });
-
-  it("returns null for prose with no JSON", () => {
-    expect(parseScores("I think it is quite good.")).toBeNull();
   });
 });
 

@@ -9,16 +9,8 @@ import { generateText } from "ai";
 import type { LanguageModel } from "ai";
 
 import { png } from "../tools/render.js";
-import {
-  GATE_PROMPT,
-  JUDGE_SYSTEM,
-  judgePrompt,
-  pair,
-  parsePick,
-  parseScores,
-  viescore,
-} from "./judge.js";
-import type { GateTrial, JudgeScores } from "./judge.js";
+import { GATE_PROMPT, JUDGE_SYSTEM, pair, parsePick } from "./judge.js";
+import type { GateTrial } from "./judge.js";
 
 /** The size the judge sees. Larger than the 48px scoring raster on purpose:
  *  this is a legibility question asked of a model with eyes, not a cosine, and
@@ -50,48 +42,6 @@ const ask = async (
     system,
   });
   return text;
-};
-
-export interface JudgeOne {
-  /** The reference drawing shown alongside, for scale and house context. Never
-   *  identified to the judge as the reference. */
-  reference: string;
-  concept: string;
-  icon: string;
-  svg: string;
-}
-
-export interface JudgeResult extends JudgeScores {
-  icon: string;
-  /** √(SC × PQ). */
-  score: number;
-}
-
-/**
- * Score one icon. Null when the judge did not answer in the required shape —
- * a miss, not a zero: a judge that could not answer has said nothing about the
- * icon, and recording 0 would say it drew nothing.
- */
-export const judgeIcon = async (
-  model: LanguageModel,
-  item: JudgeOne,
-  seed: number
-): Promise<JudgeResult | null> => {
-  const [candidate, other] = await Promise.all([
-    png(item.svg, JUDGE_PX),
-    png(item.reference, JUDGE_PX),
-  ]);
-  const laid = pair(candidate, other, seed, item.icon);
-  const text = await ask(
-    model,
-    JUDGE_SYSTEM,
-    judgePrompt(item.concept, laid.candidate),
-    [laid.a, laid.b]
-  );
-  const scores = parseScores(text);
-  return scores
-    ? { ...scores, icon: item.icon, score: viescore(scores) }
-    : null;
 };
 
 export interface GateItem {

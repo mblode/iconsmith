@@ -265,10 +265,20 @@ const pairScore = (paints: readonly TournamentPaint[]): number => {
   const floor = Math.min(...qualities);
   const mean =
     qualities.reduce((sum, value) => sum + value, 0) / qualities.length;
+  // `declared` is excluded, and the exclusion is the whole point. `types.ts`
+  // defines the field as the difference between "an undeclared finding asks for
+  // a fix" and "a declared one asks a reviewer to agree", and `lint.ts` emits a
+  // declared off-axis warn whose own message reads "Nothing to fix". Charging
+  // both the same price taxes the house's own habit: off-axis edges are 29.3%
+  // of the set's stroked icons, the rule is calibrated to fire at that rate on
+  // purpose, and it fires per edge — so a faithful diagonal drawing loses to an
+  // axis-only one on a penalty neither of them can answer.
   const warnings = paints.reduce(
     (sum, paint) =>
       sum +
-      paint.result.issues.filter((issue) => issue.severity === "warn").length,
+      paint.result.issues.filter(
+        (issue) => issue.severity === "warn" && !issue.declared
+      ).length,
     0
   );
   return Math.max(

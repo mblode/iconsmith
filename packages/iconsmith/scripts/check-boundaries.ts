@@ -1,5 +1,5 @@
 /**
- * Four architectural rules that a comment cannot hold.
+ * Five architectural rules that a comment cannot hold.
  *
  * 1. LAYERING. The import graph is a DAG today — geometry ← parts ← tools ←
  *    pipeline ← commands — and stays one only if something checks. An inverted
@@ -20,7 +20,17 @@
  *    that module. Eval baselines reach `pipeline/eval.ts` as data, injected
  *    from `commands/`; there is no import edge to be widened later.
  *
- * 4. NO VECTORISER IN THE PIPELINE. A raster tracer inside the generator is
+ * 4. THE POOL IS NOT A PIPELINE IMPORT. The eval reference pool and the arena
+ *    that scores against it live in `eval/`, which is outside the layering DAG
+ *    — so `depth()` returns -1 for it and the layering check below skips every
+ *    edge into and out of it, in both directions. That makes this rule the only
+ *    thing standing between `pipeline/` and a cycle: `eval/pool.ts` imports
+ *    `pipeline/licence.ts` for `asReference`, so an import back the other way
+ *    makes the two mutually dependent with nothing able to see it. The pool
+ *    reaches the tournament the same way baselines reach `pipeline/eval.ts`:
+ *    injected as data from `commands/`.
+ *
+ * 5. NO VECTORISER IN THE PIPELINE. A raster tracer inside the generator is
  *    rule 2 with extra steps: it turns a picture into path data with no
  *    primitive in between, and the picture can be anything. Whatever a
  *    proposal wants a tracer for, it does not want it there.
@@ -41,11 +51,15 @@ const depth = (layer: string): number => LAYERS.indexOf(layer);
 const RAW_GEOMETRY = /\bd\s*[:=]\s*[`"']\s*M[\s\d.-]/iu;
 
 /** Every import specifier: static `from "x"` and dynamic `import("x")`. The
- *  layering check above reads only the relative ones; rules 3 and 4 need the
+ *  layering check above reads only the relative ones; rules 3 to 5 need the
  *  bare ones too, since a tracer arrives as a package name. */
 const IMPORT = /(?:from\s+|import\s*\(\s*)"(?<spec>[^"]+)"/gu;
 /** The baselines loader, by whatever relative path it is reached. */
 const BASELINES = /(?:^|\/)corpus\/baselines(?:\.js)?$/u;
+/** The eval pool and the arena that scores against it. Same argument as
+ *  BASELINES: they reach `pipeline/` as data from `commands/`, never as an
+ *  import edge, and `eval/` is invisible to the layering check. */
+const POOL = /(?:^|\/)eval\/(?:pool|arena|arena-model|verdict)(?:\.js)?$/u;
 /** The raster tracers. A named list, not a heuristic: there are five worth
  *  naming and a heuristic over package names would fire on innocent ones. */
 const VECTORISER = /potrace|imagetracer|vtracer|svg-trace|opencv/iu;
@@ -53,7 +67,7 @@ const VECTORISER = /potrace|imagetracer|vtracer|svg-trace|opencv/iu;
 const failures: string[] = [];
 
 /**
- * Rules 3 and 4, which are about one layer only. Tests are not exempt: a test
+ * Rules 3, 4 and 5, which are about one layer only. Tests are not exempt: a test
  * that imports the baselines into the pipeline is the leak, not a rehearsal of
  * it.
  */
@@ -73,6 +87,16 @@ const checkPipelineImports = (file: string, rel: string, src: string): void => {
           "  baselines; they may never condition a generation, and a generated icon\n" +
           "  ships under MIT carrying no per-icon notice. Load them in commands/ and\n" +
           "  pass what you need in as data."
+      );
+    }
+    if (POOL.test(resolved)) {
+      failures.push(
+        `${rel}: imports ${resolved}.\n` +
+          "  The reference pool and the arena live in eval/, which the layering check\n" +
+          "  cannot see: eval/ has no depth, so an edge either way is skipped. eval/pool\n" +
+          "  already imports pipeline/licence for asReference, so importing it back makes\n" +
+          "  the two mutually dependent. Load the pool in commands/ and pass the\n" +
+          "  references in as data, the way eval baselines already reach pipeline/eval."
       );
     }
     if (VECTORISER.test(spec)) {
