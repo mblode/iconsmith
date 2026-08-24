@@ -30,6 +30,43 @@ import type { Concept } from "./prompt.js";
 
 export const TOURNAMENT_MINIMUM = 8;
 
+/**
+ * Where a tournament has got to, while it is still running.
+ *
+ * The whole tournament sits inside one tool call, so a ten-minute run used to
+ * emit a handful of coarse events and then nothing: the transcript showed
+ * "running the pipeline" and went quiet while up to eight arms drew, painted
+ * and were audited. Every fact here was already known at the moment it
+ * happened — `runCandidate` has the candidate, the finish, the audit's scores
+ * and the pair score — and simply had nowhere to go.
+ *
+ * `index` and `total` are what let a reader place themselves: "arm 3 of 8" is
+ * a position, where a spinner is only a promise that something is happening.
+ */
+export interface TournamentProgress {
+  /** Present on `settled`. */
+  readonly accepted?: boolean;
+  readonly candidateId: string;
+  /** Present on `settled` when the arm could not produce a complete pair. */
+  readonly failure?: string;
+  /** Present on `painted` and `reviewed`. */
+  readonly finish?: Finish;
+  /** 1-based, among the arms actually started, in start order. */
+  readonly index: number;
+  readonly label: string;
+  readonly phase: "painted" | "reviewed" | "settled" | "started";
+  /** Present on `reviewed` — the independent audit's perceptual score. */
+  readonly pq?: number;
+  /** Present on `reviewed` — the independent audit's semantic score. */
+  readonly sc?: number;
+  /** Present on `settled` — the pair score, weighted to the weaker paint. */
+  readonly score?: number;
+  /** How many arms were offered. */
+  readonly total: number;
+}
+
+export type TournamentProgressListener = (event: TournamentProgress) => void;
+
 export interface PairCandidate {
   /** Stable machine id recorded in the Studio transcript. */
   id: string;
@@ -268,6 +305,14 @@ export interface PairTournamentOptions {
   concept: Concept;
   minimumPq?: number;
   minimumSc?: number;
+  /**
+   * Told where the tournament has got to, as it gets there.
+   *
+   * Telemetry, so a throwing listener is swallowed rather than allowed to fail
+   * a paid tournament: a run that has already spent real money must not be
+   * lost because something downstream wanted to render a row.
+   */
+  onProgress?: TournamentProgressListener;
   /** The vocabulary a delivered program is replayed against when checking
    *  that it reproduces its own document. A program naming a part this list
    *  does not hold cannot round-trip, so an incomplete list reads as lossy. */
@@ -386,13 +431,42 @@ export const runPairTournament = async ({
   concept,
   minimumPq = TOURNAMENT_MINIMUM,
   minimumSc = TOURNAMENT_MINIMUM,
+  onProgress,
   parts = [],
   references = [],
   stopScore = null,
 }: PairTournamentOptions): Promise<PairTournamentResult> => {
+  // Arms are numbered in the order they actually start. The exhaustive branch
+  // runs the non-serial pool concurrently, so "start order" there is the order
+  // they were handed out, not a claim about who finishes first — which is the
+  // honest reading, and the only one available without serialising work that is
+  // deliberately parallel.
+  let armsStarted = 0;
+  const total = candidates.length;
+  const report = (event: TournamentProgress): void => {
+    if (!onProgress) {
+      return;
+    }
+    try {
+      onProgress(event);
+    } catch {
+      // A listener is telemetry. A tournament that has already spent money must
+      // not be lost because a renderer threw.
+    }
+  };
+
   const runCandidate = async (
     candidate: PairCandidate
   ): Promise<TournamentRun> => {
+    armsStarted += 1;
+    const index = armsStarted;
+    const seat = {
+      candidateId: candidate.id,
+      index,
+      label: candidate.label,
+      total,
+    };
+    report({ ...seat, phase: "started" });
     const results: { finish: Finish; result: GenerateResult }[] = [];
     try {
       const finishes = ["outlined", "filled"] as const;
@@ -403,14 +477,16 @@ export const runPairTournament = async ({
             // oxlint-disable-next-line eslint/no-await-in-loop -- `serial` explicitly opts this subprocess out of paint fan-out.
             result: await candidate.generate(finish),
           });
+          report({ ...seat, finish, phase: "painted" });
         }
       } else {
         results.push(
           ...(await Promise.all(
-            finishes.map(async (finish) => ({
-              finish,
-              result: await candidate.generate(finish),
-            }))
+            finishes.map(async (finish) => {
+              const result = await candidate.generate(finish);
+              report({ ...seat, finish, phase: "painted" });
+              return { finish, result };
+            })
           ))
         );
       }
@@ -430,6 +506,13 @@ export const runPairTournament = async ({
             references,
             svg: result.svg,
           });
+          report({
+            ...seat,
+            finish,
+            phase: "reviewed",
+            pq: reviewed.pq,
+            sc: reviewed.sc,
+          });
           const judged = {
             audit: reviewed,
             finish,
@@ -448,15 +531,26 @@ export const runPairTournament = async ({
           };
         })
       );
+      const accepted = paints.every((paint) => paint.accepted);
+      const score = pairScore(paints);
+      report({ ...seat, accepted, phase: "settled", score });
       return {
-        accepted: paints.every((paint) => paint.accepted),
+        accepted,
         failure: null,
         id: candidate.id,
         label: candidate.label,
         paints,
-        score: pairScore(paints),
+        score,
       };
     } catch (error) {
+      const failure = failureMessage(error);
+      report({
+        ...seat,
+        accepted: false,
+        failure,
+        phase: "settled",
+        score: 0,
+      });
       // Whatever this pair had already been billed for, before it threw. A
       // `claude-harness` client-side timeout that drew nothing and cost
       // nothing used to mark the entire tournament's ledger unknown, which
@@ -465,7 +559,7 @@ export const runPairTournament = async ({
       // an unfinished arm no longer makes the finished ones unpayable.
       return {
         accepted: false,
-        failure: failureMessage(error),
+        failure,
         id: candidate.id,
         label: candidate.label,
         paints: [],

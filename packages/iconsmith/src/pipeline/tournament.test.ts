@@ -829,3 +829,161 @@ describe("a short tournament says which kind of short it was", () => {
     expect(tournament.unaffordable).toEqual([]);
   });
 });
+
+describe("progress reporting", () => {
+  it("reports each phase, with a position in the field", async () => {
+    // The tournament sits inside one tool call, so without this a ten-minute
+    // run says "running the pipeline" and then nothing at all. `index`/`total`
+    // are the point: "arm 2 of 2" is a position, a spinner is a promise.
+    const seen: string[] = [];
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(9, 9)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(9, 9))),
+          id: "first",
+          label: "First",
+          serial: true,
+        },
+        {
+          generate: () => Promise.resolve(result(review(9, 9))),
+          id: "second",
+          label: "Second",
+          serial: true,
+        },
+      ],
+      concept: { name: "home" },
+      onProgress: (event) =>
+        seen.push(
+          `${event.index}/${event.total} ${event.candidateId} ${event.phase}${
+            event.finish ? ` ${event.finish}` : ""
+          }`
+        ),
+      parts: PARTS,
+    });
+
+    expect(tournament.candidates).toHaveLength(2);
+
+    // What is guaranteed: an arm opens with `started`, closes with `settled`,
+    // and both arms run in order because both are `serial`. A serial arm also
+    // paints outlined before filled.
+    //
+    // What is not: the two audits run under one `Promise.all`, so `reviewed`
+    // arrives in whichever order they resolve. Pinning that order made this
+    // test fail on the second arm alone, which is the test claiming a promise
+    // the tournament never made — the paints are deliberately concurrent.
+    const phasesOf = (id: string) =>
+      seen.filter((row) => row.includes(id)).map((row) => row.split(" ")[2]);
+
+    expect(phasesOf("first")).toStrictEqual([
+      "started",
+      "painted",
+      "painted",
+      "reviewed",
+      "reviewed",
+      "settled",
+    ]);
+    expect(phasesOf("second")).toStrictEqual(phasesOf("first"));
+    expect(seen.indexOf("1/2 first settled")).toBeLessThan(
+      seen.indexOf("2/2 second started")
+    );
+    expect(
+      seen.filter((row) => row.startsWith("1/2 first painted"))
+    ).toStrictEqual(["1/2 first painted outlined", "1/2 first painted filled"]);
+    expect(
+      seen.filter((row) => row.startsWith("2/2 second reviewed")).toSorted()
+    ).toStrictEqual([
+      "2/2 second reviewed filled",
+      "2/2 second reviewed outlined",
+    ]);
+  });
+
+  it("carries the scores the reader wants to see", async () => {
+    const reviewed: { pq?: number; sc?: number }[] = [];
+    let settled: { accepted?: boolean; score?: number } | null = null;
+    await runPairTournament({
+      ask: judgeAll(review(10, 9)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 9))),
+          id: "arm",
+          label: "Arm",
+          serial: true,
+        },
+      ],
+      concept: { name: "home" },
+      onProgress: (event) => {
+        if (event.phase === "reviewed") {
+          reviewed.push({ pq: event.pq, sc: event.sc });
+        }
+        if (event.phase === "settled") {
+          settled = { accepted: event.accepted, score: event.score };
+        }
+      },
+      parts: PARTS,
+    });
+
+    expect(reviewed).toStrictEqual([
+      { pq: 9, sc: 10 },
+      { pq: 9, sc: 10 },
+    ]);
+    // `pairScore` is weighted to the weaker paint: floor 9 * 0.7 + mean 9.5 *
+    // 0.3, with no chargeable warnings on this fixture.
+    expect(settled).toStrictEqual({ accepted: true, score: 9.15 });
+  });
+
+  it("does not let a throwing listener lose a paid tournament", async () => {
+    // The run has already spent money by the time progress is reported. A
+    // renderer that throws must cost a row, never the result.
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "arm",
+          label: "Arm",
+        },
+      ],
+      concept: { name: "home" },
+      onProgress: () => {
+        throw new Error("the renderer exploded");
+      },
+      parts: PARTS,
+    });
+
+    expect(tournament.winner?.id).toBe("arm");
+  });
+
+  it("settles a progress row when an arm throws", async () => {
+    const seen: {
+      accepted?: boolean;
+      failure?: string;
+      phase: string;
+      score?: number;
+    }[] = [];
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      candidates: [
+        {
+          generate: () => Promise.reject(new Error("generator unavailable")),
+          id: "broken",
+          label: "Broken",
+        },
+      ],
+      concept: { name: "home" },
+      onProgress: (event) => seen.push(event),
+      parts: PARTS,
+    });
+
+    expect(tournament.candidates[0]?.failure).toBe("generator unavailable");
+    expect(seen).toMatchObject([
+      { phase: "started" },
+      {
+        accepted: false,
+        failure: "generator unavailable",
+        phase: "settled",
+        score: 0,
+      },
+    ]);
+  });
+});

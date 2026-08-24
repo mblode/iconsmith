@@ -1,14 +1,21 @@
+import { CircleXIcon, DotFilledIcon } from "blode-icons-react";
+
+import {
+  ThinkingStep,
+  ThinkingSteps,
+  ThinkingStepsContent,
+  ThinkingStepsHeader,
+} from "@/components/ui/thinking-steps";
 import type { StudioActivity } from "@/lib/studio/types";
 
-const stateDotClass = (state: StudioActivity["state"]): string => {
-  if (state === "failed") {
-    return "mt-1 size-2 rounded-full bg-destructive";
-  }
-  if (state === "active") {
-    return "mt-1 size-2 animate-pulse rounded-full bg-primary";
-  }
-  return "mt-1 size-2 rounded-full bg-muted-foreground/50";
-};
+/**
+ * `StudioActivity` has three states and `ThinkingStep` has three statuses, but
+ * they are not the same three: the step vocabulary describes position in a
+ * sequence, so it carries `pending` and has no room for failure. A failed step
+ * is still a step that finished, and what marks it is the icon plus the
+ * assistive text on the row — not a status the timeline cannot express.
+ */
+const stepStatus = (state: StudioActivity["state"]) => (state === "active" ? "active" : "complete");
 
 export const AgentActivityCard = ({ activities }: { activities: readonly StudioActivity[] }) => {
   if (activities.length === 0) {
@@ -16,28 +23,39 @@ export const AgentActivityCard = ({ activities }: { activities: readonly StudioA
   }
 
   return (
-    <div
-      aria-label="Icon agent activity"
-      className="w-full max-w-xl rounded-xl border bg-card p-3"
-      data-slot="agent-activity"
-    >
-      <h3 className="font-medium text-xs">Agent activity</h3>
-      <ol className="mt-3 flex flex-col gap-2">
-        {activities.map((activity) => (
-          <li className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-2 text-xs" key={activity.id}>
-            <span aria-hidden="true" className={stateDotClass(activity.state)} />
-            <span>
-              {/* The dot is the only signal that a step failed, and colour
-                  alone does not reach a screen reader. */}
-              <span className="sr-only">{`${activity.state}: `}</span>
-              <span className="text-foreground">{activity.label}</span>
-              {activity.detail ? (
-                <span className="mt-0.5 block text-muted-foreground">{activity.detail}</span>
-              ) : null}
-            </span>
-          </li>
+    <ThinkingSteps className="w-full max-w-xl" data-slot="agent-activity">
+      <ThinkingStepsHeader>Agent activity</ThinkingStepsHeader>
+      {/* The list is the live region, not the card: rows arrive here while the
+          pipeline runs, and without `role="log"` a screen reader was told
+          nothing at all — the agent could draw for ten minutes in silence.
+          `aria-relevant="additions text"` keeps that to the new row and the
+          active row's changing label, rather than re-reading every step each
+          time one of them updates.
+
+          It sits on `ThinkingStepsContent` because that component spreads its
+          props onto its own inner div. An extra wrapper between the accordion's
+          item and its content would break the structure Radix expects. */}
+      <ThinkingStepsContent
+        aria-label="Icon agent activity"
+        aria-live="polite"
+        aria-relevant="additions text"
+        role="log"
+      >
+        {activities.map((activity, index) => (
+          <ThinkingStep
+            description={activity.detail}
+            icon={activity.state === "failed" ? CircleXIcon : DotFilledIcon}
+            isLast={index === activities.length - 1}
+            key={activity.id}
+            label={activity.label}
+            status={stepStatus(activity.state)}
+          >
+            {/* The icon is the only visual signal that a step failed, and an
+                icon alone does not reach a screen reader. */}
+            <span className="sr-only">{`${activity.state}: ${activity.label}`}</span>
+          </ThinkingStep>
         ))}
-      </ol>
-    </div>
+      </ThinkingStepsContent>
+    </ThinkingSteps>
   );
 };

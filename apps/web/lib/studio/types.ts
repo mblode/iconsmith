@@ -242,9 +242,27 @@ export const studioResponseSchema = z.discriminatedUnion("kind", [
 ]);
 export type StudioResponse = z.infer<typeof studioResponseSchema>;
 
-export interface StudioActivity {
-  readonly detail?: string;
-  readonly id: string;
-  readonly label: string;
-  readonly state: "active" | "complete" | "failed";
-}
+export const studioActivitySchema = z.object({
+  detail: z.string().optional(),
+  id: z.string(),
+  label: z.string(),
+  state: z.enum(["active", "complete", "failed"]),
+});
+export type StudioActivity = z.infer<typeof studioActivitySchema>;
+
+/**
+ * A progress snapshot yielded mid-tool-call, not a delta.
+ *
+ * eve publishes every non-final `yield` from a tool as an `action.partial`
+ * stream event, and its contract is explicit that those are "last-write-wins by
+ * tool call id, not append-only progress", because the durable runtime can
+ * retry a step and replay overlapping snapshots. So this carries the complete
+ * activity list every time and the client replaces rather than appends — which
+ * makes a replayed snapshot idempotent by construction, rather than the second
+ * copy of a row that a replay used to produce.
+ */
+export const studioProgressSchema = z.object({
+  activities: z.array(studioActivitySchema).readonly(),
+  kind: z.literal("progress"),
+});
+export type StudioProgress = z.infer<typeof studioProgressSchema>;

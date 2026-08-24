@@ -23,6 +23,7 @@ import type { ApiCost, AuditResult, ExpertId, PairCandidate } from "iconsmith";
 import { loadStudioArsenal } from "./arsenal";
 import { conceptOf, isVague } from "./concept";
 import type {
+  StudioActivity,
   StudioAgentRun,
   StudioIssue,
   StudioQuestion,
@@ -220,9 +221,52 @@ const costText = (usd: number | null): string =>
   usd === null ? "with an incomplete cost total" : `for $${usd.toFixed(4)}`;
 
 export interface GenerateStudioOptions {
+  /**
+   * Told where the run has got to, as a complete list every time.
+   *
+   * A snapshot, never a delta. The tool publishes these as `action.partial`,
+   * whose contract is "last-write-wins by tool call id, not append-only",
+   * because the durable runtime replays. Sending the whole list makes a
+   * replayed partial idempotent; sending a delta would append a second copy of
+   * every row, which is a bug this transcript has already worn once.
+   */
+  readonly onActivity?: (activities: readonly StudioActivity[]) => void;
   /** Stable Eve session/turn id when invoked as a durable tool; random for direct HTTP calls. */
   readonly operationId?: string;
 }
+
+/**
+ * One ordered list of rows, published whole on every change.
+ *
+ * Rows are keyed, so a phase that reports four times — an arm starting, each
+ * paint drawn, each paint reviewed, the pair settling — moves one row through
+ * its states rather than stacking four.
+ */
+const activityLedger = (onActivity: GenerateStudioOptions["onActivity"]) => {
+  const rows: StudioActivity[] = [];
+  const publish = (): void => {
+    if (!onActivity) {
+      return;
+    }
+    try {
+      onActivity([...rows]);
+    } catch {
+      // Reporting is telemetry. A run that has already spent money must not be
+      // lost because something downstream wanted to draw a row.
+    }
+  };
+  return {
+    note(row: StudioActivity): void {
+      const index = rows.findIndex((candidate) => candidate.id === row.id);
+      if (index === -1) {
+        rows.push(row);
+      } else {
+        rows[index] = row;
+      }
+      publish();
+    },
+  };
+};
 
 const libraryCandidates = (
   concept: { name: string; tags: string[] },
@@ -288,6 +332,14 @@ export const generateStudioResponse = async (
     referenceSlots.all.map((reference) => png(reference.svg, 96)),
   );
 
+  const ledger = activityLedger(options.onActivity);
+  ledger.note({
+    detail: `Reading ${arsenal.references.length} licensed house icons for reference.`,
+    id: "arsenal",
+    label: "Gathering the house reference set",
+    state: "complete",
+  });
+
   let generatedProposal: Awaited<ReturnType<typeof propose>> | null = null;
   let proposalFailure: string | null = null;
   let proposal = attachedProposal;
@@ -297,6 +349,12 @@ export const generateStudioResponse = async (
       return Promise.resolve(proposal);
     }
     proposalPromise ??= (async () => {
+      ledger.note({
+        detail: `Drawing ${PROPOSAL_IDEAS} cheap sketches plus one from the quality model, then choosing between them.`,
+        id: "proposal",
+        label: "Proposing a composition",
+        state: "active",
+      });
       try {
         const run = await propose(concept, {
           corpus: arsenal.references,
@@ -306,8 +364,20 @@ export const generateStudioResponse = async (
         });
         generatedProposal = run;
         ({ proposal } = run);
+        ledger.note({
+          detail: `Chose sketch ${run.chosen + 1} of ${run.images.length}, from ${run.references.length} licensed house icons.`,
+          id: "proposal",
+          label: "Chose a composition",
+          state: "complete",
+        });
       } catch (error) {
         proposalFailure = error instanceof Error ? error.message : "Image proposal failed.";
+        ledger.note({
+          detail: proposalFailure,
+          id: "proposal",
+          label: "Could not propose a composition",
+          state: "failed",
+        });
       }
       return proposal;
     })();
@@ -335,9 +405,28 @@ export const generateStudioResponse = async (
     repairs: 2,
     ...(LOCAL_HARNESS ? {} : { spawn: gatewayHarnessSpawn({ model: HARNESS_MODEL }) }),
   });
+  const libraryArms = libraryCandidates(concept, arsenal);
+  ledger.note({
+    detail:
+      libraryArms.length > 0
+        ? `Ranking ${libraryArms.length} existing library pair${libraryArms.length === 1 ? "" : "s"} before drawing anything new.`
+        : "The set draws nothing under this name, so every arm is a fresh drawing.",
+    id: "ranking",
+    label: "Ranking existing library pairs",
+    state: "active",
+  });
   const ranking = await rankPairCandidates({
-    candidates: libraryCandidates(concept, arsenal),
+    candidates: libraryArms,
     concept,
+  });
+  ledger.note({
+    detail: ranking.reason ?? undefined,
+    id: "ranking",
+    label:
+      libraryArms.length > 0
+        ? "Ranked the existing library pairs"
+        : "No existing library pair to rank",
+    state: "complete",
   });
   const candidates: PairCandidate[] = [
     ...ranking.candidates,
@@ -418,9 +507,69 @@ export const generateStudioResponse = async (
     budget,
     candidates,
     concept,
+    /**
+     * The arms are where the minutes go, so this is where the transcript used
+     * to fall silent. One row per arm, moved through its phases rather than
+     * stacked, and `arm N of M` so a reader can place themselves in the field.
+     */
+    onProgress(event) {
+      const seat = `Arm ${event.index} of ${event.total} · ${event.label}`;
+      if (event.phase === "started") {
+        ledger.note({
+          detail: "Drawing the outlined and filled pair.",
+          id: `arm:${event.candidateId}`,
+          label: seat,
+          state: "active",
+        });
+        return;
+      }
+      if (event.phase === "painted") {
+        ledger.note({
+          detail: `Drew the ${event.finish} paint.`,
+          id: `arm:${event.candidateId}`,
+          label: seat,
+          state: "active",
+        });
+        return;
+      }
+      if (event.phase === "reviewed") {
+        ledger.note({
+          detail: `Reviewed the ${event.finish} paint — SC ${event.sc}/10, PQ ${event.pq}/10.`,
+          id: `arm:${event.candidateId}`,
+          label: seat,
+          state: "active",
+        });
+        return;
+      }
+      if (event.failure) {
+        ledger.note({
+          detail: event.failure,
+          id: `arm:${event.candidateId}`,
+          label: `${seat} could not produce a complete pair`,
+          state: "failed",
+        });
+        return;
+      }
+      ledger.note({
+        // A rejected arm is not a failed one: it drew a pair and the pair was
+        // judged. `failed` is reserved for an arm that could not draw at all.
+        detail: `${event.accepted ? "Accepted" : "Rejected"} at ${event.score}/10.`,
+        id: `arm:${event.candidateId}`,
+        label: seat,
+        state: "complete",
+      });
+    },
     parts: arsenal.parts,
     references: referenceImages,
     stopScore: CONFIDENT_PAIR_SCORE,
+  });
+  ledger.note({
+    detail: tournament.winner
+      ? `${tournament.winner.label} cleared every gate at ${tournament.winner.score}/10.`
+      : `No pair cleared SC ${tournament.minimum.sc}/10 and PQ ${tournament.minimum.pq}/10 on both paints.`,
+    id: "verdict",
+    label: tournament.winner ? "Chose a pair" : "Rejected every candidate",
+    state: tournament.winner ? "complete" : "failed",
   });
   // The lazy closure is the only writer; TypeScript does not carry that
   // mutation across the awaited tournament call.

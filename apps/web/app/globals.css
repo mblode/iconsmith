@@ -261,6 +261,17 @@ html:has([data-surface="app"]) body {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+
+  /**
+   * `scroll-fade` keeps its mask — the fade is what tells you there is more to
+   * read — but stops being driven by scroll position, so both edges sit at a
+   * fixed softness and nothing animates.
+   */
+  .scroll-fade {
+    --scroll-fade-top-size: var(--scroll-fade-size);
+    --scroll-fade-bottom-size: var(--scroll-fade-size);
+    animation: none;
+  }
 }
 
 .dark {
@@ -280,4 +291,71 @@ html:has([data-surface="app"]) body {
 @utility tabular-figures {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+}
+
+/**
+ * Edge fades for a scroll container, with no overlay element and no scroll
+ * listener: the mask is one gradient whose two edge sizes are registered
+ * custom properties, and a scroll-driven animation drives them off the
+ * container's own scroll position. So the top edge is unfaded at scroll-top
+ * and the bottom edge unfaded at scroll-end, with the browser doing the
+ * bookkeeping.
+ *
+ * The static values below are what a browser without scroll-driven animations
+ * gets: bottom edge faded, top edge clean. That is the honest still frame of a
+ * container sitting at scroll-top, rather than a top edge faded forever.
+ */
+@property --scroll-fade-top-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --scroll-fade-bottom-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes scroll-fade-top {
+  from {
+    --scroll-fade-top-size: 0px;
+  }
+  to {
+    --scroll-fade-top-size: var(--scroll-fade-size);
+  }
+}
+
+@keyframes scroll-fade-bottom {
+  from {
+    --scroll-fade-bottom-size: var(--scroll-fade-size);
+  }
+  to {
+    --scroll-fade-bottom-size: 0px;
+  }
+}
+
+@utility scroll-fade {
+  --scroll-fade-size: 2rem;
+  --scroll-fade-top-size: 0px;
+  --scroll-fade-bottom-size: var(--scroll-fade-size);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--scroll-fade-top-size),
+    black calc(100% - var(--scroll-fade-bottom-size)),
+    transparent 100%
+  );
+
+  /* The element itself has to be the scroll container for `scroll(self block)`
+   * to find a timeline, so pair this with `overflow-y-auto`. */
+  @supports (animation-timeline: scroll()) {
+    animation:
+      scroll-fade-top linear both,
+      scroll-fade-bottom linear both;
+    animation-timeline: scroll(self block), scroll(self block);
+    animation-range:
+      0 var(--scroll-fade-size),
+      calc(100% - var(--scroll-fade-size)) 100%;
+  }
 }

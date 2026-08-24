@@ -29,6 +29,7 @@ import {
 import { Bubble, BubbleContent } from "@/components/ui/bubble";
 import { Button } from "@/components/ui/button";
 import { Marker, MarkerContent } from "@/components/ui/marker";
+import { ThinkingIndicator } from "@/components/ui/thinking-indicator";
 import { Message, MessageContent, MessageHeader } from "@/components/ui/message";
 import { MessageScroller, MessageScrollerContent } from "@/components/ui/message-scroller";
 import {
@@ -65,7 +66,7 @@ import type {
   StudioTournament,
   StudioVersion,
 } from "@/lib/studio/types";
-import { studioResponseSchema } from "@/lib/studio/types";
+import { studioProgressSchema, studioResponseSchema } from "@/lib/studio/types";
 
 type Turn =
   | {
@@ -197,6 +198,31 @@ const requestBody = (request: EveMessageInputRequest): string =>
   request.kind === "tool-approval"
     ? "Iconsmith will reduce the image to composition words — element count, coarse region, scale band, and adjacency — then discard its geometry. It will not trace the file or imitate another library's paths."
     : request.prompt;
+
+/**
+ * A progress snapshot from the pipeline tool, if this event carries one.
+ *
+ * `action.partial` is how eve publishes a non-final `yield` from a tool
+ * generator: `data.result.output` holds whatever the tool yielded, and its
+ * docs are explicit that these are snapshots, "last-write-wins by tool call
+ * id, not append-only progress", because the durable runtime can replay them.
+ * So this returns the whole list and the caller replaces rather than appends.
+ *
+ * Everything is checked before it is trusted: the output crosses a JSON wire
+ * as `JsonValue`, so a shape that does not match is ignored rather than
+ * rendered as a row full of `undefined`.
+ */
+const progressSnapshot = (event: MessageStreamEvent): readonly StudioActivity[] | null => {
+  if (event.type !== "action.partial") {
+    return null;
+  }
+  const { result } = event.data;
+  if (result.kind !== "tool-result" || result.toolName !== "generate_icon_pair") {
+    return null;
+  }
+  const parsed = studioProgressSchema.safeParse(result.output);
+  return parsed.success ? parsed.data.activities : null;
+};
 
 const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
   if (event.type === "session.started") {
@@ -335,6 +361,10 @@ export const StudioApp = ({
   const [activeActivities, setActiveActivities] = useState<StudioActivity[]>([]);
   const [resultDelivered, setResultDelivered] = useState(false);
   const activityRef = useRef<StudioActivity[]>([]);
+  /** eve's lifecycle rows, keyed by id and upserted one at a time. */
+  const lifecycleRef = useRef<StudioActivity[]>([]);
+  /** The pipeline's rows, replaced wholesale from each `action.partial`. */
+  const pipelineRef = useRef<StudioActivity[]>([]);
   const assistantTurnIdRef = useRef<string | null>(null);
   const pendingRequestRef = useRef<StudioRequest | null>(null);
   const processedEventIdsRef = useRef(new Set<string>());
@@ -398,14 +428,19 @@ export const StudioApp = ({
     ]);
   }, []);
 
-  const upsertActivity = (activity: StudioActivity) => {
-    const index = activityRef.current.findIndex((candidate) => candidate.id === activity.id);
-    activityRef.current =
-      index === -1
-        ? [...activityRef.current, activity]
-        : activityRef.current.map((candidate, candidateIndex) =>
-            candidateIndex === index ? activity : candidate,
-          );
+  /**
+   * Two sources feed one list, and they have to stay separable.
+   *
+   * eve's own lifecycle rows — session started, request accepted, the pipeline
+   * call running — arrive one at a time and are keyed by id, so they upsert.
+   * The pipeline's own rows arrive as a whole-list snapshot on `action.partial`,
+   * whose contract is last-write-wins because the durable runtime replays; a
+   * snapshot therefore replaces its half outright. Merging them in one array
+   * and upserting both would make a replayed snapshot append instead of
+   * replace, which is the duplicated-row bug in a new costume.
+   */
+  const syncActivities = () => {
+    activityRef.current = [...lifecycleRef.current, ...pipelineRef.current];
     setActiveActivities(activityRef.current);
 
     const assistantId = assistantTurnIdRef.current;
@@ -418,6 +453,36 @@ export const StudioApp = ({
         ),
       );
     }
+  };
+
+  /**
+   * What the pipeline is doing right now, for the running indicator.
+   *
+   * The last row still `active` is the truthful answer: the pipeline's own
+   * snapshots land after eve's lifecycle rows, so the newest active row is the
+   * innermost thing in flight. Falls back to a plain sentence before the first
+   * snapshot arrives, because until the tool yields there is genuinely nothing
+   * more specific to say.
+   */
+  const activePhase =
+    activeActivities.toReversed().find((row) => row.state === "active")?.label ??
+    "Drawing both paints";
+
+  /** The pipeline's rows, wholesale. Idempotent under replay by construction. */
+  const replacePipelineActivities = (activities: readonly StudioActivity[]) => {
+    pipelineRef.current = [...activities];
+    syncActivities();
+  };
+
+  const upsertActivity = (activity: StudioActivity) => {
+    const index = lifecycleRef.current.findIndex((candidate) => candidate.id === activity.id);
+    lifecycleRef.current =
+      index === -1
+        ? [...lifecycleRef.current, activity]
+        : lifecycleRef.current.map((candidate, candidateIndex) =>
+            candidateIndex === index ? activity : candidate,
+          );
+    syncActivities();
   };
 
   /**
@@ -452,9 +517,14 @@ export const StudioApp = ({
       }
       processedEventIdsRef.current.add(event.meta.id);
 
-      const activity = agentActivity(event);
-      if (activity) {
-        upsertActivity(activity);
+      const snapshot = progressSnapshot(event);
+      if (snapshot) {
+        replacePipelineActivities(snapshot);
+      } else {
+        const activity = agentActivity(event);
+        if (activity) {
+          upsertActivity(activity);
+        }
       }
 
       /**
@@ -834,8 +904,18 @@ export const StudioApp = ({
             threadId={thread}
             title={threadTitle}
           />
-          <MessageScroller>
-            <MessageScrollerContent className="flex-1 px-4 py-4">
+          {/* `scroll-fade` belongs on the scroll container, which is
+              `MessageScroller` itself — `MessageScrollerContent` is the column
+              inside it and does not scroll.
+
+              `justify-end` is what makes a short thread sit on the composer
+              instead of floating at the top of a tall pane: the content is the
+              flex child that grows, so without it a two-turn conversation left
+              several hundred pixels of blank between itself and the input. Long
+              threads are unaffected — once the content exceeds the container it
+              scrolls, and the scroller stays anchored at the bottom. */}
+          <MessageScroller className="scroll-fade">
+            <MessageScrollerContent className="flex-1 justify-end px-4 py-4">
               {turns.length === 0 ? (
                 <div className="flex flex-1 flex-col justify-center gap-4">
                   <h2 className="font-heading font-medium text-base">Start with the object noun</h2>
@@ -940,14 +1020,16 @@ export const StudioApp = ({
                 <AgentActivityCard activities={activeActivities} />
               ) : null}
               {busy ? (
-                <Marker asChild>
-                  <output aria-atomic="true" aria-live="polite">
-                    <MarkerContent className="animate-pulse">
-                      Agent pipeline running — drawing both paints, rendering, and visually
-                      reviewing.
-                    </MarkerContent>
-                  </output>
-                </Marker>
+                /* The indicator says what the pipeline is doing, taken from the
+                   active step rather than from a decorative word cycle: with
+                   real progress arriving, "arm 3 of 8, reviewing the filled
+                   paint" is worth more than a rotating list of gerunds. One
+                   word means it shimmers without cycling, which is the honest
+                   reading when there is exactly one thing happening.
+
+                   It renders its own `<output>`, so it is a live region
+                   already — wrapping it in another would nest two. */
+                <ThinkingIndicator words={[activePhase]} />
               ) : null}
               {pendingRequests.map((request) => (
                 <div
