@@ -201,32 +201,19 @@ export const studioQuestionSchema = z.object({
 });
 export type StudioQuestion = z.infer<typeof studioQuestionSchema>;
 
-export const studioApprovalSchema = z.object({
-  body: z.string(),
-  id: z.string(),
-  title: z.string(),
-});
-export type StudioApproval = z.infer<typeof studioApprovalSchema>;
-
 export const studioRequestSchema = z.object({
   annotations: z.array(studioAnnotationSchema).max(100).optional(),
   answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
-  approved: z.boolean().optional(),
   attachments: z.array(studioAttachmentSchema).max(4).optional(),
   budget: studioBudgetSchema.optional(),
   finish: studioFinishSchema.optional(),
   lastName: z.string().max(240).optional(),
-  pending: z.enum(["questions", "approval"]).optional(),
+  pending: z.literal("questions").optional(),
   text: z.string().trim().min(1).max(2000),
 });
 export type StudioRequest = z.infer<typeof studioRequestSchema>;
 
 export const studioResponseSchema = z.discriminatedUnion("kind", [
-  z.object({
-    approval: studioApprovalSchema,
-    kind: z.literal("approval"),
-    text: z.string(),
-  }),
   z.object({
     kind: z.literal("error"),
     text: z.string(),

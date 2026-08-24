@@ -228,26 +228,14 @@ export const generateStudioResponse = async (
     };
   }
 
+  /**
+   * Consent is enforced by the tool's `approval` gate, which parks the durable
+   * session before `execute` runs. Reaching this line means the user approved,
+   * so there is nothing left to ask in-band.
+   */
   const hasVisualRefs = request.attachments?.some(
     (file) => file.kind === "image" || file.kind === "svg",
   );
-  if (hasVisualRefs && request.approved !== true && request.pending !== "approval") {
-    return {
-      approval: {
-        body: "Iconsmith will reduce the first image to composition words — element count, coarse region, scale band, and adjacency — then discard its geometry. It will not trace the file or imitate another library's paths.",
-        id: "reference",
-        title: "Read the attachment as composition?",
-      },
-      kind: "approval",
-      text: "The file can inform composition without becoming a path. I need your approval to read it.",
-    };
-  }
-  if (hasVisualRefs && request.approved === false) {
-    return {
-      kind: "error",
-      text: "Okay, leaving the attachment out. Send the object noun and I will draw from the house grammar.",
-    };
-  }
 
   const concept = { name, tags };
   const attachedProposal = hasVisualRefs ? await visualProposal(request) : null;

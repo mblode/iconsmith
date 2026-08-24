@@ -35,8 +35,21 @@ const generateOnce = (
 };
 
 export default defineTool({
+  /**
+   * Reading a user's image as composition is a consent decision, so it parks
+   * the durable session rather than riding back as a tool return value. The
+   * old in-band `kind: "approval"` completed the turn immediately, which meant
+   * a refresh lost the pending consent and no approval ever reached Agent Runs.
+   *
+   * Only visual references need consent: text and library-name attachments
+   * carry meaning, not geometry.
+   */
+  approval: ({ toolInput }) =>
+    toolInput?.attachments?.some((file) => file.kind === "image" || file.kind === "svg")
+      ? "user-approval"
+      : "not-applicable",
   description:
-    "Run one exact Iconsmith Studio request through clarification or approval handling, paired outlined/filled generation, linting, rendering, and AI visual review. Use exactly once per user turn.",
+    "Run one exact Iconsmith Studio request through clarification handling, paired outlined/filled generation, linting, rendering, and AI visual review. Reading an attached image or SVG as composition requires the user's approval.",
   execute(request, ctx) {
     const operationId = `${ctx.session.id}-${ctx.session.turn.id}`;
     return generateOnce(request, operationId);
@@ -52,9 +65,6 @@ export default defineTool({
     }
     if (output.kind === "questions") {
       return { type: "text", value: "The Studio is showing the required clarification questions." };
-    }
-    if (output.kind === "approval") {
-      return { type: "text", value: "The Studio is showing the reference-reading approval." };
     }
     return { type: "text", value: output.text };
   },

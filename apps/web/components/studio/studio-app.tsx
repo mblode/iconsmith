@@ -9,6 +9,7 @@ import Paperclip from "blode-icons-react/icons/paperclip-1";
 import ChatBubbles from "blode-icons-react/icons/chat-bubbles";
 import X from "blode-icons-react/icons/x";
 import type { MessageStreamEvent } from "eve/client";
+import type { EveMessageInputRequest } from "eve/react";
 import { useEveAgent } from "eve/react";
 import { useCallback, useId, useRef, useState } from "react";
 
@@ -47,7 +48,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
 import type {
   StudioActivity,
-  StudioApproval,
   StudioAnnotation,
   StudioAttachment,
   StudioFinish,
@@ -67,7 +67,6 @@ type Turn =
     }
   | {
       activities?: readonly StudioActivity[];
-      approval?: StudioApproval;
       id: string;
       questions?: readonly StudioQuestion[];
       role: "assistant";
@@ -131,7 +130,14 @@ type InspectorView = "versions" | "library" | "comments";
 
 const SUGGESTIONS = ["wifi", "inbox", "briefcase", "umbrella", "qr-code", "home"];
 
-const promptHint = (pending: "questions" | "approval" | null, intervening: boolean): string => {
+const promptHint = (
+  pending: "questions" | null,
+  intervening: boolean,
+  awaiting: boolean,
+): string => {
+  if (awaiting) {
+    return "Answer the question above to continue";
+  }
   if (pending === "questions") {
     return "Answer the questions, or type the object noun";
   }
@@ -140,6 +146,26 @@ const promptHint = (pending: "questions" | "approval" | null, intervening: boole
   }
   return "wifi, a tray for mail, briefcase…";
 };
+
+/**
+ * eve names the request; the Studio names what it means. The approval body is
+ * the consent copy the old in-band card carried, kept because it states exactly
+ * what is read and what is discarded.
+ */
+const requestTitle = (kind: EveMessageInputRequest["kind"]): string => {
+  if (kind === "tool-approval") {
+    return "Read the attachment as composition?";
+  }
+  if (kind === "session-limit") {
+    return "This session has reached its token budget";
+  }
+  return "One question before I draw";
+};
+
+const requestBody = (request: EveMessageInputRequest): string =>
+  request.kind === "tool-approval"
+    ? "Iconsmith will reduce the image to composition words — element count, coarse region, scale band, and adjacency — then discard its geometry. It will not trace the file or imitate another library's paths."
+    : request.prompt;
 
 const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
   if (event.type === "session.started") {
@@ -233,7 +259,7 @@ export const StudioApp = () => {
   const [busy, setBusy] = useState(false);
   const [fault, setFault] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
-  const [pending, setPending] = useState<"questions" | "approval" | null>(null);
+  const [pending, setPending] = useState<"questions" | null>(null);
   const [workspaceView, setWorkspaceView] = useState<WorkspaceView>("focus");
   const [inspectorView, setInspectorView] = useState<InspectorView>("versions");
   const [annotations, setAnnotations] = useState<StudioAnnotation[]>([]);
@@ -261,20 +287,6 @@ export const StudioApp = () => {
           activities: [...activityRef.current],
           id: assistantId,
           questions: body.items,
-          role: "assistant",
-          text: body.text,
-        },
-      ]);
-      return;
-    }
-    if (body.kind === "approval") {
-      setPending("approval");
-      setTurns((current) => [
-        ...current,
-        {
-          activities: [...activityRef.current],
-          approval: body.approval,
-          id: assistantId,
           role: "assistant",
           text: body.text,
         },
@@ -375,6 +387,30 @@ export const StudioApp = () => {
       }
     },
   });
+
+  /**
+   * Pending human-in-the-loop requests, read from eve's own projection rather
+   * than local state. An unrelated turn can append newer messages while an
+   * approval stays open, so every message is scanned, not just the last.
+   */
+  const pendingRequests = agent.data.messages
+    .flatMap((message) => message.parts)
+    .flatMap((part) => {
+      if (part.type !== "dynamic-tool" || part.state !== "approval-requested") {
+        return [];
+      }
+      const request = part.toolMetadata?.eve?.inputRequest;
+      return request ? [request] : [];
+    });
+
+  const answerRequest = async (requestId: string, answer: { optionId?: string; text?: string }) => {
+    setFault(null);
+    try {
+      await agent.respond([{ requestId, ...answer }]);
+    } catch (error) {
+      setFault(error instanceof Error ? error.message : "That answer could not reach the drawer.");
+    }
+  };
 
   const [firstVersion] = versions;
   const selectedVersion = versions.find((row) => row.id === selectedId);
@@ -615,52 +651,6 @@ export const StudioApp = () => {
                         <QuestionnaireActions />
                       </Questionnaire>
                     ) : null}
-                    {turn.approval ? (
-                      <div className="flex max-w-lg flex-col gap-3 rounded-xl border bg-card p-4">
-                        <h3 className="font-heading font-medium text-lg">{turn.approval.title}</h3>
-                        <p className="text-base text-muted-foreground sm:text-sm">
-                          {turn.approval.body}
-                        </p>
-                        <div className="flex gap-2">
-                          <Button
-                            disabled={busy}
-                            onClick={async () => {
-                              await send({
-                                annotations: annotationsFor(selected?.id),
-                                approved: false,
-                                attachments: [...referenceFiles],
-                                finish,
-                                lastName,
-                                pending: "approval",
-                                text: lastBrief ?? "icon",
-                              });
-                            }}
-                            type="button"
-                            variant="ghost"
-                          >
-                            Leave it out
-                          </Button>
-                          <Button
-                            disabled={busy}
-                            onClick={async () => {
-                              await send({
-                                annotations: annotationsFor(selected?.id),
-                                approved: true,
-                                attachments: [...referenceFiles],
-                                finish,
-                                lastName,
-                                pending: "approval",
-                                text: lastBrief ?? "icon",
-                              });
-                            }}
-                            type="button"
-                            variant="outline"
-                          >
-                            Approve
-                          </Button>
-                        </div>
-                      </div>
-                    ) : null}
                   </MessageContent>
                 </Message>
               ),
@@ -676,6 +666,50 @@ export const StudioApp = () => {
                 </output>
               </Marker>
             ) : null}
+            {pendingRequests.map((request) => (
+              <div
+                className="flex max-w-lg flex-col gap-3 rounded-xl border bg-card p-4"
+                key={request.requestId}
+              >
+                <h3 className="font-heading font-medium text-lg">{requestTitle(request.kind)}</h3>
+                <p className="text-base text-muted-foreground sm:text-sm">{requestBody(request)}</p>
+                <div className="flex flex-wrap gap-2">
+                  {(request.options ?? []).map((option) => (
+                    <Button
+                      key={option.id}
+                      onClick={() => answerRequest(request.requestId, { optionId: option.id })}
+                      type="button"
+                      variant={option.style === "danger" ? "ghost" : "outline"}
+                    >
+                      {option.label}
+                    </Button>
+                  ))}
+                </div>
+                {request.allowFreeform ? (
+                  <form
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      const value = String(
+                        new FormData(event.currentTarget).get("answer") ?? "",
+                      ).trim();
+                      if (value) {
+                        void answerRequest(request.requestId, { text: value });
+                      }
+                    }}
+                  >
+                    <Textarea
+                      aria-label={request.prompt}
+                      className="min-h-16"
+                      name="answer"
+                      placeholder="Type an answer"
+                    />
+                    <Button className="mt-2" size="sm" type="submit" variant="outline">
+                      Send answer
+                    </Button>
+                  </form>
+                ) : null}
+              </div>
+            ))}
             {fault ? (
               <Marker role="alert">
                 <MarkerContent className="flex flex-wrap items-center gap-3">
@@ -766,7 +800,7 @@ export const StudioApp = () => {
                   await submitPrompt();
                 }
               }}
-              placeholder={promptHint(pending, Boolean(lastAssistant))}
+              placeholder={promptHint(pending, Boolean(lastAssistant), pendingRequests.length > 0)}
               name="studio-prompt"
               value={text}
             />
