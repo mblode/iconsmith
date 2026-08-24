@@ -13,6 +13,7 @@ import { AnnotationPanel } from "@/components/studio/annotation-panel";
 import { ExplorationBoard } from "@/components/studio/exploration-board";
 import { IconStage } from "@/components/studio/icon-stage";
 import { LibraryBrowser } from "@/components/studio/library-browser";
+import { OverviewTable } from "@/components/studio/overview-table";
 import { ThinkingCard } from "@/components/studio/thinking-card";
 import { StudioWorkspace } from "@/components/studio/studio-workspace";
 import { VersionRail } from "@/components/studio/version-rail";
@@ -40,6 +41,8 @@ import {
 import { InputMessage } from "@/components/ui/input-message";
 import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
+import type { OverviewSpec } from "@/lib/studio/overview";
+import { buildOverview, overviewSubjects } from "@/lib/studio/overview";
 import {
   readStudioAnnotations,
   readStudioSession,
@@ -128,7 +131,7 @@ const readFile = async (file: File): Promise<StudioAttachment> => {
 
 const attachmentKey = (file: StudioAttachment) => `${file.source ?? "local"}:${file.name}`;
 
-type WorkspaceView = "focus" | "explorations";
+type WorkspaceView = "focus" | "explorations" | "overviews";
 type InspectorView = "versions" | "library" | "comments";
 
 const SUGGESTIONS = ["wifi", "inbox", "briefcase", "umbrella", "qr-code", "home"];
@@ -250,7 +253,13 @@ const agentActivity = (event: MessageStreamEvent): StudioActivity | null => {
 };
 
 // oxlint-disable-next-line eslint/complexity -- one client coordinator owns the transient studio session
-export const StudioApp = ({ thread = "default" }: { thread?: string }) => {
+export const StudioApp = ({
+  houseSpec,
+  thread = "default",
+}: {
+  houseSpec: OverviewSpec;
+  thread?: string;
+}) => {
   const [text, setText] = useState("");
   const [uploads, setUploads] = useState<File[]>([]);
   const [libraryRefs, setLibraryRefs] = useState<StudioAttachment[]>([]);
@@ -474,6 +483,14 @@ export const StudioApp = ({ thread = "default" }: { thread?: string }) => {
    * inspector can also be summoned early, because the reference library is
    * useful before there is anything to inspect.
    */
+  const overview = useMemo(() => {
+    const tournaments = turns.flatMap((turn) =>
+      turn.role === "assistant" && turn.tournament ? [turn.tournament] : [],
+    );
+    const subjects = overviewSubjects(versions, tournaments);
+    return { rows: buildOverview(subjects, houseSpec), total: subjects.length };
+  }, [houseSpec, turns, versions]);
+
   const hasWork = versions.length > 0;
   const inspectorVisible = hasWork || inspectorPinned;
 
@@ -643,6 +660,16 @@ export const StudioApp = ({ thread = "default" }: { thread?: string }) => {
                 >
                   Explorations
                 </Button>
+                <Button
+                  aria-selected={workspaceView === "overviews"}
+                  onClick={() => setWorkspaceView("overviews")}
+                  role="tab"
+                  size="sm"
+                  type="button"
+                  variant={workspaceView === "overviews" ? "outline" : "ghost"}
+                >
+                  Overviews
+                </Button>
               </div>
               {workspaceView === "focus" ? (
                 <div className="ml-auto flex flex-wrap justify-end gap-1">
@@ -684,7 +711,8 @@ export const StudioApp = ({ thread = "default" }: { thread?: string }) => {
                   selectedAnnotationId={selectedAnnotationId}
                   version={selected}
                 />
-              ) : (
+              ) : null}
+              {workspaceView === "explorations" ? (
                 <ExplorationBoard
                   onSelect={(id) => {
                     selectVersion(id);
@@ -693,7 +721,10 @@ export const StudioApp = ({ thread = "default" }: { thread?: string }) => {
                   selectedId={selected?.id ?? null}
                   versions={versions}
                 />
-              )}
+              ) : null}
+              {workspaceView === "overviews" ? (
+                <OverviewTable rows={overview.rows} total={overview.total} />
+              ) : null}
             </div>
           </section>
         ) : null

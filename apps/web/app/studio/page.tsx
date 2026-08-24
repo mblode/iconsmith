@@ -1,3 +1,4 @@
+import { SPEC } from "iconsmith";
 import type { Metadata } from "next";
 
 import { StudioApp } from "@/components/studio/studio-app";
@@ -24,7 +25,7 @@ const StudioPage = () => (
       </p>
       <StudioBreadcrumb />
     </header>
-    <StudioApp />
+    <StudioApp houseSpec={{ dots: SPEC.dots, keylines: Object.keys(SPEC.keylines) }} />
   </main>
 );
 
