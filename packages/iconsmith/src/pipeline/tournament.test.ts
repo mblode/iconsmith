@@ -203,31 +203,50 @@ describe("a pair one paint short is rescued from its own skeleton", () => {
   it("derives the twin rather than discarding a house-quality paint", async () => {
     const looks: string[] = [];
     const tournament = await runPairTournament({
-      // Outlined is excellent, the arm's own filled attempt is not, and the
-      // twin derived from the outlined skeleton is. Measured motivation:
-      // concept `write-2` produced an outlined pencil at 10/10 and a filled
-      // pen at 10/9 in the same run, in different candidates, and shipped
-      // neither because every pair had one weak half.
+      /**
+       * Keyed on the finish, never on the call count.
+       *
+       * The two paints of a pair are audited under one `Promise.all`, so their
+       * order is not fixed — `serial` orders GENERATION, not the look. A first
+       * draft of this scripted the second call as the weak one and passed
+       * locally on `["outlined", "filled"]`, then failed CI on
+       * `["filled", "outlined"]`, having scored down the paint it meant to keep.
+       * Order-dependent fixtures are the same fault this file exists to catch,
+       * one level up.
+       *
+       * So: outlined is excellent, the arm's own filled attempt is not, and the
+       * twin derived from the outlined skeleton is. Measured motivation —
+       * concept `write-2` produced an outlined pencil at 10/10 and a filled pen
+       * at 10/9 in the same run, in different candidates, and shipped neither
+       * because every pair had one weak half.
+       */
       ask: (input) => {
         looks.push(input.finish);
-        const verdict = looks.length === 2 ? review(5, 5) : review(10, 10);
-        return Promise.resolve(verdict);
+        // The derived twin is the SECOND filled look, and it is the one that
+        // must score well — otherwise the rescue has nothing to accept.
+        const isRetriedFilled =
+          input.finish === "filled" &&
+          looks.filter((finish) => finish === "filled").length > 1;
+        return Promise.resolve(
+          input.finish === "outlined" || isRetriedFilled
+            ? review(10, 10)
+            : review(5, 5)
+        );
       },
       candidates: [
         {
           generate: () => Promise.resolve(result(review(10, 10))),
           id: "one-good-paint",
           label: "One good paint",
-          // Serial so the scripted judge is consumed in a known order.
-          serial: true,
         },
       ],
       concept: { name: "home", tags: [] },
       parts: [...PARTS],
     });
 
-    // Three looks: both original paints, then the derived twin.
+    // Both original paints, then the derived twin.
     expect(looks).toHaveLength(3);
+    expect(looks.filter((finish) => finish === "filled")).toHaveLength(2);
     const [candidate] = tournament.candidates;
     expect(candidate?.accepted).toBe(true);
     expect(tournament.winner?.id).toBe("one-good-paint");
@@ -241,21 +260,18 @@ describe("a pair one paint short is rescued from its own skeleton", () => {
 
   it("still refuses a pair whose derived twin is no better", async () => {
     const tournament = await runPairTournament({
-      // Every look after the first is weak, including the derived twin, so the
-      // rescue must not lower the bar — it only offers a second skeleton.
-      ask: (() => {
-        let n = 0;
-        return () => {
-          n += 1;
-          return Promise.resolve(n === 1 ? review(10, 10) : review(4, 4));
-        };
-      })(),
+      // Outlined is strong, everything filled is weak — including the derived
+      // twin — so the rescue must not lower the bar. Keyed on the finish for
+      // the same reason as above: the look order is not fixed.
+      ask: (input) =>
+        Promise.resolve(
+          input.finish === "outlined" ? review(10, 10) : review(4, 4)
+        ),
       candidates: [
         {
           generate: () => Promise.resolve(result(review(10, 10))),
           id: "beyond-rescue",
           label: "Beyond rescue",
-          serial: true,
         },
       ],
       concept: { name: "home", tags: [] },
