@@ -1,6 +1,6 @@
 {
   "name": "iconsmith",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.",
   "keywords": [
     "ai",
