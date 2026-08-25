@@ -2,7 +2,7 @@ import { defineAgent } from "eve";
 
 import "./lib/trust-system-ca";
 
-const model = "google/gemini-3.1-flash-lite";
+const model = "google/gemini-3.7-flash";
 
 export default defineAgent({
   description:

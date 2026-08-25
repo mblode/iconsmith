@@ -66,6 +66,7 @@ import type {
   StudioTournament,
   StudioVersion,
 } from "@/lib/studio/types";
+import { diagnoseStudioFinish } from "@/lib/studio/finish";
 import { studioProgressSchema, studioResponseSchema } from "@/lib/studio/types";
 
 type Turn =
@@ -371,6 +372,33 @@ export const StudioApp = ({
   const resultDeliveredRef = useRef(false);
   /** True only between a send and the turn it started settling. */
   const sendInFlightRef = useRef(false);
+  /**
+   * True once this live turn has a specific outcome: a parsed pipeline result,
+   * a named pipeline failure, or a stream error. `onFinish` must not replace
+   * that with the generic empty-canvas banner.
+   */
+  const turnHandledRef = useRef(false);
+  /** One automatic resend when the model replies without calling the pipeline. */
+  const pipelineNudgeRef = useRef(false);
+  /** One reconnect when the live stream closed while the pipeline was running. */
+  const pipelineResumeRef = useRef(false);
+  const sendRef = useRef<(payload: StudioRequest) => Promise<boolean>>(() =>
+    Promise.resolve(false),
+  );
+  const resumeRef = useRef<() => Promise<void>>(() => Promise.resolve());
+
+  const recoverDroppedStream = async () => {
+    try {
+      await resumeRef.current();
+    } catch (error) {
+      sendInFlightRef.current = false;
+      turnHandledRef.current = true;
+      setBusy(false);
+      setFault(
+        error instanceof Error ? error.message : "The studio could not reconnect to the drawing.",
+      );
+    }
+  };
 
   const applyStudioResponse = useCallback((body: ReturnType<typeof studioResponseSchema.parse>) => {
     const payload = pendingRequestRef.current;
@@ -509,6 +537,7 @@ export const StudioApp = ({
     initialSession: savedSession,
     onError(error) {
       setBusy(false);
+      turnHandledRef.current = true;
       setFault(error.message);
     },
     onEvent(event) {
@@ -548,6 +577,18 @@ export const StudioApp = ({
         if (event.data.result.toolName !== "generate_icon_pair") {
           return;
         }
+        if (event.data.status === "failed" || event.data.status === "rejected") {
+          if (sendInFlightRef.current) {
+            turnHandledRef.current = true;
+            setFault(
+              event.data.error?.message ??
+                (event.data.status === "rejected"
+                  ? "Reading the attachment was declined."
+                  : "The paired icon pipeline failed."),
+            );
+          }
+          return;
+        }
         const parsed = studioResponseSchema.safeParse(event.data.result.output);
         if (!parsed.success) {
           /**
@@ -558,6 +599,7 @@ export const StudioApp = ({
            * the rest of the session keeps replaying.
            */
           if (sendInFlightRef.current) {
+            turnHandledRef.current = true;
             setFault("The icon agent returned an invalid Studio result.");
           } else {
             setTurns((current) => [
@@ -574,12 +616,44 @@ export const StudioApp = ({
         applyStudioResponse(parsed.data);
       }
     },
-    onFinish() {
-      setBusy(false);
-      if (sendInFlightRef.current && !resultDeliveredRef.current) {
-        setFault("The icon agent finished without returning a render result.");
-      }
+    onFinish(snapshot) {
+      const inFlight = sendInFlightRef.current;
       sendInFlightRef.current = false;
+      if (!inFlight || resultDeliveredRef.current || turnHandledRef.current) {
+        setBusy(false);
+        return;
+      }
+      const diagnosis = diagnoseStudioFinish(snapshot.events);
+      if (diagnosis.kind === "idle" || diagnosis.kind === "waiting") {
+        setBusy(false);
+        return;
+      }
+      const payload = pendingRequestRef.current;
+      if (diagnosis.kind === "skipped" && payload && !pipelineNudgeRef.current) {
+        pipelineNudgeRef.current = true;
+        sendInFlightRef.current = true;
+        setBusy(true);
+        void sendRef.current(payload);
+        return;
+      }
+      if (diagnosis.kind === "dropped" && !pipelineResumeRef.current) {
+        pipelineResumeRef.current = true;
+        sendInFlightRef.current = true;
+        setBusy(true);
+        void recoverDroppedStream();
+        return;
+      }
+      turnHandledRef.current = true;
+      setBusy(false);
+      if (diagnosis.kind === "fault") {
+        setFault(diagnosis.message);
+        return;
+      }
+      setFault(
+        diagnosis.kind === "dropped"
+          ? "The drawing stream closed before a render result arrived."
+          : "The icon agent finished without returning a render result.",
+      );
     },
     onSessionChange(session) {
       writeStudioSession(thread, session);
@@ -604,11 +678,17 @@ export const StudioApp = ({
 
   const answerRequest = async (requestId: string, answer: { optionId?: string; text?: string }) => {
     setFault(null);
+    setBusy(true);
     sendInFlightRef.current = true;
+    resultDeliveredRef.current = false;
+    turnHandledRef.current = false;
+    setResultDelivered(false);
     try {
       await agent.respond([{ requestId, ...answer }]);
     } catch (error) {
       sendInFlightRef.current = false;
+      setBusy(false);
+      turnHandledRef.current = true;
       setFault(error instanceof Error ? error.message : "That answer could not reach the drawer.");
     }
   };
@@ -703,22 +783,30 @@ export const StudioApp = ({
     pendingRequestRef.current = payload;
     resultDeliveredRef.current = false;
     sendInFlightRef.current = true;
+    turnHandledRef.current = false;
     setResultDelivered(false);
     try {
       await agent.send(`STUDIO_REQUEST\n${JSON.stringify(payload)}`);
       return true;
     } catch (error) {
+      sendInFlightRef.current = false;
+      turnHandledRef.current = true;
+      setBusy(false);
       setFault(error instanceof Error ? error.message : "The studio could not reach the drawer.");
       return false;
-    } finally {
-      setBusy(false);
     }
   };
+  useEffect(() => {
+    sendRef.current = send;
+    resumeRef.current = () => agent.resume();
+  });
 
   /** Replays the last request so a failed draw is one click from recovery. */
   const retryLast = async () => {
     const last = pendingRequestRef.current;
     if (last && !busy) {
+      pipelineNudgeRef.current = false;
+      pipelineResumeRef.current = false;
       await send(last);
     }
   };
@@ -736,6 +824,8 @@ export const StudioApp = ({
       return;
     }
     setTurns((current) => [...current, { attachments, id: uid(), role: "user", text: next }]);
+    pipelineNudgeRef.current = false;
+    pipelineResumeRef.current = false;
     const accepted = await send({
       annotations: annotationsFor(selected?.id),
       attachments,
@@ -986,6 +1076,8 @@ export const StudioApp = ({
                         <Questionnaire
                           items={[...turn.questions]}
                           onSubmit={async () => {
+                            pipelineNudgeRef.current = false;
+                            pipelineResumeRef.current = false;
                             await send({
                               annotations: annotationsFor(selected?.id),
                               answers,
@@ -1156,6 +1248,7 @@ export const StudioApp = ({
                       onClick={async () => {
                         try {
                           await agent.cancel();
+                          turnHandledRef.current = true;
                           sendInFlightRef.current = false;
                           setBusy(false);
                         } catch (error) {
