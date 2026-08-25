@@ -74,6 +74,10 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
 - **`lib/vocabulary.json` is generated.** Re-run `node scripts/vocabulary-data.mjs`
   after the parts vocabulary changes. It is committed here rather than imported across
   the workspace because Next cannot serve assets from outside the app directory.
+- **`lib/studio/house-icons.json` is generated.** Re-run `node scripts/house-data.mjs`
+  after bumping `blode-icons-react`. Studio used to readdir that package from
+  `process.cwd()`, which is not the Next app root on Eve's Vercel service, so a
+  brief failed with "house library could not be found" before drawing.
 - The two code samples on the page are real CLI output. Regenerate them with the
   commands in `components/square-check-icon.tsx` and `app/page.tsx` rather than
   editing them by hand.
