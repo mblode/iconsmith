@@ -69,19 +69,51 @@ pre-commit:
       # `lib/campaign.json` and `lib/vocabulary.json` are projections their
       # scripts rewrite; `oxfmt.config.ts` ignores them for the same reason the
       # lockfile is ignored, and an all-ignored set exits non-zero.
-      # `lib/studio/house-icons.json` belongs on this list for the same reason
-      # and was missing from it: `scripts/house-data.mjs` writes it, the config
-      # ignores it, and a commit that regenerated only the house snapshot would
-      # have starved this job.
+      # `house-icons.json` moved to `apps/agent/lib/` with `arsenal.ts`, which
+      # reads it, and is excluded by that workspace's job below.
       exclude:
         - "package-lock.json"
         - "**/package-lock.json"
         - "lib/campaign.json"
         - "lib/vocabulary.json"
-        - "lib/studio/house-icons.json"
+        - "lib/studio/campaign.json"
         - "**/lib/campaign.json"
         - "**/lib/vocabulary.json"
-        - "**/lib/studio/house-icons.json"
+        - "**/lib/studio/campaign.json"
+      run: npx oxfmt --write {staged_files}
+      stage_fixed: true
+
+    - name: ultracite (agent)
+      root: "apps/agent/"
+      glob: "*.{js,jsx,ts,tsx}"
+      run: npx ultracite fix {staged_files}
+      stage_fixed: true
+    - name: oxfmt (agent)
+      root: "apps/agent/"
+      glob: "*.{json,jsonc,css}"
+      # `lib/house-icons.json` is a projection `apps/web/scripts/house-data.mjs`
+      # rewrites; the workspace config ignores it, and an all-ignored set exits
+      # non-zero, so a commit that regenerated only the house snapshot would
+      # starve this job rather than pass it.
+      exclude:
+        - "package-lock.json"
+        - "**/package-lock.json"
+        - "lib/house-icons.json"
+        - "**/lib/house-icons.json"
+      run: npx oxfmt --write {staged_files}
+      stage_fixed: true
+
+    - name: ultracite (contract)
+      root: "packages/contract/"
+      glob: "*.{js,jsx,ts,tsx}"
+      run: npx ultracite fix {staged_files}
+      stage_fixed: true
+    - name: oxfmt (contract)
+      root: "packages/contract/"
+      glob: "*.{json,jsonc,css}"
+      exclude:
+        - "package-lock.json"
+        - "**/package-lock.json"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
 
