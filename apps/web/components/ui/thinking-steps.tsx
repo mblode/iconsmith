@@ -149,47 +149,43 @@ const ThinkingStep = ({
   const isActive = status === "active";
 
   return (
-    // Outer animates height so space opens smoothly as steps stream in.
+    // Fade only. Animating `height: 0` → `auto` with `overflow-hidden` baked a
+    // pixel height from the accordion's opening frame, so the first live row
+    // ("Durable Eve session started") stayed clipped to a sliver while later
+    // arms laid out at full height.
     <motion.div
-      animate={{ height: "auto" }}
-      className={cn("relative z-10 overflow-hidden", className)}
-      initial={{ height: 0 }}
-      transition={{ bounce: 0.15, duration: 0.24, type: "spring" }}
+      animate={{ opacity: 1 }}
+      className={cn("relative z-10", className)}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      {/* Inner fades content in once the space starts opening. */}
-      <motion.div
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        transition={{ delay: 0.08, duration: 0.24, ease: "easeOut" }}
-      >
-        <div className="flex gap-2.5 rounded-lg px-2 py-1.5">
-          {/* Marker column with continuous connector line. */}
-          <div className="flex w-[14px] shrink-0 flex-col items-center">
-            <div className="pt-0.5">
-              {showIcon ? (
-                <Icon className="size-[14px] text-muted-foreground" />
-              ) : (
-                <div className="flex size-[14px] items-center justify-center">
-                  <div className="size-1.5 rounded-full bg-muted-foreground/60" />
-                </div>
-              )}
-            </div>
-            {!isLast && <div className="mt-1 w-px flex-1 bg-border/60" />}
-          </div>
-
-          <div className="flex min-w-0 flex-1 flex-col gap-1">
-            {isActive ? (
-              <ShimmerText className="font-medium text-[13px] leading-tight">{label}…</ShimmerText>
+      <div className="flex gap-2.5 rounded-lg px-2 py-1.5">
+        {/* Marker column with continuous connector line. */}
+        <div className="flex w-[14px] shrink-0 flex-col items-center">
+          <div className="pt-0.5">
+            {showIcon ? (
+              <Icon className="size-[14px] text-muted-foreground" />
             ) : (
-              <span className="font-medium text-[13px] text-foreground leading-tight">{label}</span>
+              <div className="flex size-[14px] items-center justify-center">
+                <div className="size-1.5 rounded-full bg-muted-foreground/60" />
+              </div>
             )}
-            {description && (
-              <span className="text-[13px] text-muted-foreground leading-snug">{description}</span>
-            )}
-            {children}
           </div>
+          {!isLast && <div className="mt-1 w-px flex-1 bg-border/60" />}
         </div>
-      </motion.div>
+
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          {isActive ? (
+            <ShimmerText className="font-medium text-[13px] leading-tight">{label}…</ShimmerText>
+          ) : (
+            <span className="font-medium text-[13px] text-foreground leading-tight">{label}</span>
+          )}
+          {description && (
+            <span className="text-[13px] text-muted-foreground leading-snug">{description}</span>
+          )}
+          {children}
+        </div>
+      </div>
     </motion.div>
   );
 };
