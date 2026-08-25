@@ -91,15 +91,15 @@ pre-commit:
     - name: oxfmt (agent)
       root: "apps/agent/"
       glob: "*.{json,jsonc,css}"
-      # `lib/house-icons.json` is a projection `apps/web/scripts/house-data.mjs`
+      # `data/house-icons.json` is a projection `apps/web/scripts/house-data.mjs`
       # rewrites; the workspace config ignores it, and an all-ignored set exits
       # non-zero, so a commit that regenerated only the house snapshot would
       # starve this job rather than pass it.
       exclude:
         - "package-lock.json"
         - "**/package-lock.json"
-        - "lib/house-icons.json"
-        - "**/lib/house-icons.json"
+        - "data/house-icons.json"
+        - "**/data/house-icons.json"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
 

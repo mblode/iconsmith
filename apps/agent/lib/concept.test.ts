@@ -10,7 +10,7 @@ const BENCH = path.join(
   import.meta.dirname,
   "../../../packages/iconsmith/bench/reconstruction.json",
 );
-const HOUSE = path.join(import.meta.dirname, "house-icons.json");
+const HOUSE = path.join(import.meta.dirname, "../data/house-icons.json");
 
 describe("tokensOf", () => {
   /**

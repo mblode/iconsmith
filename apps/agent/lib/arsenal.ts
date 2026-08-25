@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { asReferences, bbox, nameParts, parseIconSvg, parsePath, serialise } from "iconsmith";
 import type { Concept, Part, Provenance, Reference } from "iconsmith";
 
-import houseIconsJson from "./house-icons.json" with { type: "json" };
+import houseIconsJson from "../data/house-icons.json" with { type: "json" };
 
 /**
  * Licensed house drawings, snapshotted from `blode-icons-react` so Studio does

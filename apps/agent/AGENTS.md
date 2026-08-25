@@ -34,6 +34,18 @@ npm run check
   with `Tool filename "replay.test" is not a legal tool name` — which is why the
   test that exercises this tool lives in `packages/studio/src/replay.test.ts`
   and reaches back for it. Never put a test in this directory.
+- **`lib/` takes authored TypeScript modules and nothing else.** A data file
+  there is a hard discovery error, not a warning, and the agent refuses to
+  boot: `Expected ".../lib/house-icons.json" to be a supported authored module
+  within "lib/"`. That is why the house snapshot lives in `data/`. eve ignores
+  an unrecognised directory with a warning, so `data/`, `scripts/` and `.turbo/`
+  are fine; it is only the directories eve owns that are strict.
+- **Nothing but starting the server catches that.** `npm run typecheck`,
+  `npm run test`, `npm run check` and `npm run build` were all green with the
+  JSON file in `lib/`, because eve's discovery runs at dev/build time for the
+  agent service, not during the Next build. After moving a file into or out of
+  this workspace, run `npm run dev -w iconsmith-web` and read the `[eve:dev]`
+  lines before believing the gates.
 - **`oxlint.config.ts` turns off `unicorn/filename-case` for `tools/*_*.ts`**
   for the same reason: renaming the file renames the tool the model calls.
 - **This app is mounted by the web build, not deployed on its own.**
