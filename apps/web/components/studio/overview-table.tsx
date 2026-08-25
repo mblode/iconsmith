@@ -1,7 +1,7 @@
 "use client";
 
 import type { OverviewRow, OverviewSubject } from "@/lib/studio/overview";
-import { safeStudioSvg } from "@/lib/studio/svg";
+import { safeStudioSvg } from "@iconsmith/contract/svg";
 
 /**
  * The consistency lookup table.

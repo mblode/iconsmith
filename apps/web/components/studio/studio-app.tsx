@@ -1,6 +1,5 @@
 "use client";
 
-import Stop from "blode-icons-react/icons/stop";
 import Paperclip from "blode-icons-react/icons/paperclip-1";
 import X from "blode-icons-react/icons/x";
 import type { ClientSessionState, MessageStreamEvent } from "eve/client";
@@ -18,6 +17,7 @@ import { ChatSwitcher } from "@/components/studio/chat-switcher";
 import { OverviewTable } from "@/components/studio/overview-table";
 import { ThinkingCard } from "@/components/studio/thinking-card";
 import { StudioWorkspace } from "@/components/studio/studio-workspace";
+import { studioOwnerHeaders } from "@iconsmith/contract/session-owner";
 import { VersionRail } from "@/components/studio/version-rail";
 import {
   Attachment,
@@ -50,7 +50,7 @@ import type { OverviewSpec } from "@/lib/studio/overview";
 import { recordThread } from "@/lib/studio/threads";
 import type { StudioThread } from "@/lib/studio/threads";
 import { buildOverview, overviewSubjects } from "@/lib/studio/overview";
-import { hasDrawnWork, useCampaign } from "@/lib/studio/use-campaign";
+import { hasDrawnWork, useCampaign } from "@/lib/use-campaign";
 import {
   readStudioAnnotations,
   readStudioSession,
@@ -66,9 +66,9 @@ import type {
   StudioRequest,
   StudioTournament,
   StudioVersion,
-} from "@/lib/studio/types";
+} from "@iconsmith/contract/types";
 import { diagnoseStudioFinish } from "@/lib/studio/finish";
-import { studioProgressSchema, studioResponseSchema } from "@/lib/studio/types";
+import { studioProgressSchema, studioResponseSchema } from "@iconsmith/contract/types";
 
 type Turn =
   | {
@@ -405,6 +405,17 @@ export const StudioApp = ({
     assistantTurnIdRef.current = assistantId;
     resultDeliveredRef.current = true;
     setResultDelivered(true);
+    /**
+     * A delivered result retires whatever the last one faulted with.
+     *
+     * Nothing else clears it on this path: the three `setFault(null)` sites are
+     * all user gestures, and the second draw after a declined attachment is
+     * issued by the MODEL, not by the composer (`agent/instructions.md`: call
+     * it again minus `attachments`). So the recovery the instructions call
+     * correct landed a drawn icon underneath a red "Reading the attachment was
+     * declined." banner and a live Try again.
+     */
+    setFault(null);
     if (body.kind === "questions") {
       setPending("questions");
       setTurns((current) => [
@@ -532,6 +543,7 @@ export const StudioApp = ({
   }, [recordedSessionId, thread]);
 
   const agent = useEveAgent({
+    headers: studioOwnerHeaders,
     host: BASE_PATH,
     initialSession: savedSession,
     onError(error) {
@@ -577,6 +589,19 @@ export const StudioApp = ({
           return;
         }
         if (event.data.status === "failed" || event.data.status === "rejected") {
+          /**
+           * Try again replays `pendingRequestRef` verbatim, so on a decline it
+           * re-submitted the very image the user just refused and tripped the
+           * approval gate in `generate_icon_pair` a second time —
+           * `agent/instructions.md`: "Never retry an approval the user
+           * declined." Dropping the attachments leaves Try again as the draw
+           * the same file calls correct: the same brief, house grammar only. A
+           * `failed` pipeline is not a decline and keeps its references.
+           */
+          const declined = pendingRequestRef.current;
+          if (event.data.status === "rejected" && declined?.attachments) {
+            pendingRequestRef.current = { ...declined, attachments: undefined };
+          }
           if (sendInFlightRef.current) {
             turnHandledRef.current = true;
             setFault(
@@ -1085,7 +1110,6 @@ export const StudioApp = ({
                               attachments: [...referenceFiles],
                               finish,
                               lastName,
-                              pending: "questions",
                               text:
                                 typeof answers.object === "string" &&
                                 answers.object.trim().length > 0
@@ -1233,20 +1257,17 @@ export const StudioApp = ({
                     </Button>
                   )
                 }
-                maxFiles={4}
+                /* The two reference sources share one budget of 4, and the
+                   schema rejects the union above it. `LibraryBrowser` already
+                   counts uploads through `full`; without the mirror of that
+                   here, four library refs plus four files reached eight and
+                   failed zod as a generic banner at submit. */
+                maxFiles={4 - libraryRefs.length}
                 onFilesChange={acceptFiles}
                 onSend={submitPrompt}
-                onValueChange={setText}
-                placeholder={promptHint(
-                  pending,
-                  Boolean(lastAssistant),
-                  pendingRequests.length > 0,
-                )}
-                rightSlot={
-                  busy ? (
-                    <Button
-                      aria-label="Stop drawing"
-                      onClick={async () => {
+                onStop={
+                  busy
+                    ? async () => {
                         try {
                           await agent.cancel();
                           turnHandledRef.current = true;
@@ -1260,16 +1281,17 @@ export const StudioApp = ({
                             studioFaultFromUnknown(error, "The Studio could not stop this run."),
                           );
                         }
-                      }}
-                      size="icon-sm"
-                      type="button"
-                      variant="outline"
-                    >
-                      <Stop />
-                    </Button>
-                  ) : null
+                      }
+                    : undefined
                 }
+                onValueChange={setText}
+                placeholder={promptHint(
+                  pending,
+                  Boolean(lastAssistant),
+                  pendingRequests.length > 0,
+                )}
                 sendLabel="Draw"
+                stopLabel="Stop drawing"
                 value={text}
               />
             </div>

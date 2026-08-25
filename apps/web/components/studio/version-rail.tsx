@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { safeStudioSvg } from "@/lib/studio/svg";
+import { safeStudioSvg } from "@iconsmith/contract/svg";
 import { cn } from "@/lib/utils";
-import type { StudioVersion } from "@/lib/studio/types";
+import type { StudioVersion } from "@iconsmith/contract/types";
 
 export const VersionRail = ({
   onSelect,

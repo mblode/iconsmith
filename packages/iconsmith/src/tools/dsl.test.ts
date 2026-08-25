@@ -114,6 +114,40 @@ test("every dot role is reachable from the language, at its spec size", () => {
   ).toBe("terminal");
 });
 
+/** The `raw` escape is not reachable from a program, and must not become so.
+ *
+ *  `canvas.raw(d)` exists so any existing icon can be imported into a document,
+ *  and it is library API -- TypeScript the house calls, not a word a model can
+ *  write. AGENTS.md draws that line ("`canvas.raw(d)` takes path data verbatim"
+ *  against "`line ... off-axis` in the DSL"); this pins it, because `raw` is a
+ *  real method on the object the parser drives, and adding it to `OPS` would
+ *  look like completing the table rather than opening the one door the project
+ *  exists to keep shut. The generic unknown-op test below cannot catch that:
+ *  `squiggle` will never be a candidate for the list and `raw` always is.
+ */
+test("`raw` is not an op, and refusing it is an error rather than a no-op", () => {
+  const asOp = run("icon x\nkeyline wide\nraw M0 0L4 4\nfit", PARTS);
+  expect(asOp.errors).toHaveLength(1);
+  expect(asOp.errors[0]).toContain('unknown op "raw"');
+  // Refused, not skipped: a dropped op would have drawn the rest and shipped a
+  // program the model believed contained path data. Nothing reaches the canvas,
+  // and in particular no element arrives carrying the `raw` kind.
+  expect(asOp.canvas.elements).toStrictEqual([]);
+
+  // Nor as a modifier, which is how `off-axis` is spelled and so the shape a
+  // model would guess at next.
+  const asModifier = run("icon x\nkeyline wide\nline 0,0 4,4 raw\nfit", PARTS);
+  expect(asModifier.errors).toHaveLength(1);
+
+  // The one escape that IS reachable, so this fails if the door is walled up
+  // rather than only if it is opened.
+  const offAxis = run(
+    "icon x\nkeyline wide\nline 0,0 4,3 off-axis\nfit",
+    PARTS
+  );
+  expect(offAxis.errors).toStrictEqual([]);
+});
+
 test("an unknown op reports the fix instead of throwing", () => {
   const r = run("icon x\nsquiggle 3,3", PARTS);
   expect(r.errors).toHaveLength(1);

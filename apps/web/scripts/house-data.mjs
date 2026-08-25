@@ -74,7 +74,7 @@ for (const file of readdirSync(dist)) {
 }
 
 const slugs = Object.keys(icons).toSorted();
-const out = path.resolve(import.meta.dirname, "../lib/studio/house-icons.json");
+const out = path.resolve(import.meta.dirname, "../../agent/lib/house-icons.json");
 const sorted = Object.fromEntries(slugs.map((slug) => [slug, icons[slug]]));
 writeFileSync(out, `${JSON.stringify(sorted)}\n`);
 process.stdout.write(`wrote ${slugs.length} icons from ${dist} to ${out}\n`);

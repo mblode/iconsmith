@@ -122,8 +122,37 @@ const sized = (w: number, h: number, inkWidth: number) => ({
   inkWidth,
 });
 
-test("sameExtent is false when sizes differ by more than 0.01", () => {
-  expect(sameExtent(sized(18, 18, 0), sized(18.02, 18, 0))).toBe(false);
+/**
+ * 0.01 was equality, not tolerance: it errored on 178 of the 2,085 house
+ * pairs (91.46% pass) where 0.5 errors on 53 (97.46%), and max-axis |delta|
+ * is p90 0.004 — so the whole 0.01–0.5 band is quantiser noise, 125 pairs of
+ * it. Beyond half a unit a paint has missed the extent, and still fails.
+ */
+test("sameExtent allows half a unit per axis, and nothing past it", () => {
+  expect(sameExtent(sized(18, 18, 0), sized(18.02, 18, 0))).toBe(true);
+  expect(sameExtent(sized(18, 18, 0), sized(18.5, 18, 0))).toBe(true);
+  expect(sameExtent(sized(18, 18, 0), sized(18.51, 18, 0))).toBe(false);
+  expect(sameExtent(sized(18, 18, 0), sized(18, 18.6, 0))).toBe(false);
+  // A disc restamping a stroked ring loses a whole stroke, four times the tol.
+  expect(sameExtent(sized(16, 16, 2), sized(16, 16, 0))).toBe(false);
+});
+
+const paint = (w: number, h: number, inkWidth: number, finish: Finish) => ({
+  bbox: () => ({ h, w }),
+  elements: [{ d: `M2 2H${2 + w}V${2 + h}H2Z`, id: "box" }],
+  finish,
+  inkWidth,
+});
+
+/** One tolerance, not two: the pair path must not restate a stricter number. */
+test("twinPairIssues pairs at sameExtent's tolerance", () => {
+  const extents = (filledW: number) =>
+    twinPairIssues(
+      paint(18, 18, 2, "outlined"),
+      paint(filledW, 20, 0, "filled")
+    ).filter((issue) => issue.rule === "extent");
+  expect(extents(19.5)).toEqual([]);
+  expect(extents(19.4)).toHaveLength(1);
 });
 
 test("a lozenge is a 45° diamond in both paints", () => {
@@ -427,8 +456,9 @@ test("a filled droplet keeps its point in its own program", () => {
 test("both paints of a diamond agree on their extent after a fit", () => {
   // Stored as a polyline the stroked diamond quantised its vertices while the
   // filled lozenge quantised its radius, so a `fit` left the two paints a
-  // fraction of a grid step apart and `sameExtent`, which allows 0.01, called
-  // it a mismatch.
+  // fraction of a grid step apart and `sameExtent`, which then allowed only
+  // 0.01, called it a mismatch. The tolerance is 0.5 now and would absorb it;
+  // the assertion stays exact, because the fix was to the quantising.
   const outlined = program("compass", "outlined", "square", [
     "circle 12,12 r8",
     "diamond 12,12 r5",

@@ -4,7 +4,6 @@ import { Agentation } from "agentation";
 
 import "./globals.css";
 import { JsonLd } from "@/components/json-ld";
-import { WebMcp } from "@/components/web-mcp";
 import { siteGraph } from "@/lib/schema";
 import { SITE_NAME, SITE_TAGLINE, siteConfig, SITE_URL } from "@/lib/site-url";
 
@@ -113,7 +112,6 @@ const RootLayout = ({
         Skip to content
       </a>
       {children}
-      <WebMcp />
       {process.env.NODE_ENV === "development" && <Agentation />}
     </body>
   </html>

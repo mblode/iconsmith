@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { run as runDsl } from "../tools/dsl.js";
-import type { IconDoc, Part } from "../types.js";
+import type { Finish, IconDoc, Part } from "../types.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
 import { ArmDeclinedError } from "./decline.js";
@@ -101,24 +101,26 @@ const declaredResult = (audit: AuditResult, warnings: number): GenerateResult =>
     })),
   }) as GenerateResult;
 
-const pricedResult = (usd: number): GenerateResult => {
-  const cost: ApiCost = {
-    calls: 1,
-    generationIds: [],
-    model: "test/cheap",
-    operation: "icon-generation",
-    source: "gateway",
-    usage: {
-      cacheReadTokens: 0,
-      cacheWriteTokens: 0,
-      inputTokens: 1,
-      outputTokens: 1,
-      reasoningTokens: 0,
-    },
-    usd,
-  };
-  return { ...result(review(10, 10)), apiCosts: [cost] };
-};
+const apiCost = (calls: number, usd: number): ApiCost => ({
+  calls,
+  generationIds: [],
+  model: "test/cheap",
+  operation: "icon-generation",
+  source: "gateway",
+  usage: {
+    cacheReadTokens: 0,
+    cacheWriteTokens: 0,
+    inputTokens: 1,
+    outputTokens: 1,
+    reasoningTokens: 0,
+  },
+  usd,
+});
+
+const pricedResult = (usd: number, calls = 1): GenerateResult => ({
+  ...result(review(10, 10)),
+  apiCosts: [apiCost(calls, usd)],
+});
 
 /**
  * A drawing the model composed from primitives: no `part` op, no `construct`
@@ -524,9 +526,15 @@ describe("runPairTournament", () => {
       budget: { maxCalls: 4, maxUsd: 0.1 },
       candidates: [
         {
+          // The baseline BILLS, and it has to. A reserve is now released
+          // against the arm's real cost, so a fixture that spends nothing has
+          // nothing left to refuse the second arm with — which is the point of
+          // the release, not a weakening of this test. What is pinned here is
+          // unchanged: the whole pair is reserved before it starts, and the
+          // arm behind it is refused once the money is genuinely gone.
           generate: (finish) => {
             attempted.push(`baseline-${finish}`);
-            return Promise.resolve(result(review(9, 9)));
+            return Promise.resolve(pricedResult(0.04));
           },
           id: "baseline",
           label: "Baseline",
@@ -552,16 +560,108 @@ describe("runPairTournament", () => {
     expect(attempted).toEqual(["baseline-outlined", "baseline-filled"]);
     expect(tournament.best?.id).toBe("baseline");
     expect(tournament.budget).toEqual({
-      actualCalls: 0,
-      actualUsd: 0,
+      actualCalls: 2,
+      actualUsd: 0.08,
       exhausted: true,
       maxCalls: 4,
       maxUsd: 0.1,
+      // Spent $0.08 of $0.10 and reserved $0.05 of it, so $0.06 more cannot be
+      // seated. Refused against money that is actually gone.
       overrun: false,
       reservedCalls: 2,
       reservedUsd: 0.05,
     });
     expect(tournament.winner).toBeNull();
+  });
+
+  it("releases an arm's reserve against its real bill, so cheap arms cannot price out the strong one", async () => {
+    /**
+     * The Studio field at L=12, the first library count the current arm table
+     * refuses `claude-harness` at.
+     *
+     * The four fixed arms reserve $1.30 and 67 calls, the image proposal
+     * charged once to `image-agent`. Twelve library pairs add $0.66 and 24
+     * calls, and the ceiling here is 89 calls — the 90-call default less the
+     * ranker's one call, which `generateStudioResponse` takes off before the
+     * tournament sees the budget. So the DOLLARS would seat this field
+     * ($1.96 of $2) and the CALL ceiling is what refuses the harness: 83 calls
+     * stand reserved ahead of it and its 8 do not fit. That is the current
+     * cutoff; it was L >= 8 by dollars while both arms that can trigger the
+     * proposal reserved it.
+     *
+     * The two dimensions are ghosted by different arms, and the fixture bills
+     * for both. A `library-*` arm is `compileArm()` — deterministic, zero model
+     * calls — plus its two acceptance audits: $0.0144 against $0.055 reserved,
+     * a 3.8x over-reserve, but exactly the 2 calls it reserved. The call
+     * phantom is the generative arms, which reserve for `maxSteps` and stop on
+     * `drawnAndClean` well short of it.
+     */
+    const started: string[] = [];
+    const AUDIT_USD = 0.0072;
+    /** The campaign ledger: 14 `gemini-3.7-flash` calls billed $0.0659. */
+    const GENERATION_CALL_USD = 0.005;
+    const arm = (
+      id: string,
+      reserveUsd: number,
+      reserveCalls: number,
+      bill: (finish: Finish) => readonly ApiCost[] = () => []
+    ) => ({
+      generate: (finish: Finish) => {
+        started.push(id);
+        return Promise.resolve({
+          ...result(review(9, 9)),
+          apiCosts: [...bill(finish)],
+        });
+      },
+      id,
+      label: id,
+      reserveCalls,
+      reserveUsd,
+    });
+    const tournament = await runPairTournament({
+      // Every acceptance look is billed, which is the whole cost of a library
+      // arm and the reason its reservation is 3.8x what it spends.
+      ask: () =>
+        Promise.resolve({ ...review(9, 9), cost: apiCost(1, AUDIT_USD) }),
+      budget: { maxCalls: 89, maxUsd: 2 },
+      candidates: [
+        ...Array.from({ length: 12 }, (_, index) =>
+          arm(`library-${index}`, 0.055, 2)
+        ),
+        arm("host-analog", 0.055, 2),
+        arm("image-agent", 0.195 + 0.3, 18 + 5, (finish) => [
+          // The proposal stage is memoised, so the pair is billed for it once —
+          // and reserved once, by this arm.
+          ...(finish === "outlined" ? [apiCost(5, 0.28)] : []),
+          // Five of its seven steps: a clean draw stops before `maxSteps`.
+          apiCost(5, 5 * GENERATION_CALL_USD),
+        ]),
+        arm("gateway-agent", 0.35, 34, () => [
+          apiCost(10, 10 * GENERATION_CALL_USD),
+        ]),
+        arm("claude-harness", 0.4, 8, () => [apiCost(4, 0.2)]),
+      ],
+      concept: { name: "folder" },
+      parts: PARTS,
+      // Above what these paints score, so escalation runs the whole field
+      // rather than stopping on a confident library pair.
+      stopScore: 9.75,
+    });
+
+    // The arm the monotone prefix refused, on `folder` and ten other names as
+    // ordinary as it.
+    expect(started).toContain("claude-harness");
+    expect(tournament.unaffordable).toEqual([]);
+    expect(tournament.budget?.exhausted).toBe(false);
+    expect(tournament.budget?.overrun).toBe(false);
+    // The ghost in the dimension that binds: 91 calls set aside to make 75, so
+    // the estimate ledger runs past a ceiling the run itself never approaches.
+    // `reservedCalls` / `reservedUsd` are that ledger and not a live balance,
+    // which is why they may exceed the maximum while the run stays inside it.
+    expect(tournament.budget?.reservedCalls).toBe(91);
+    expect(tournament.budget?.actualCalls).toBe(75);
+    expect(tournament.budget?.reservedUsd).toBeCloseTo(1.96, 5);
+    expect(tournament.budget?.actualUsd).toBeCloseTo(1.0604, 5);
   });
 
   it("fails closed when a candidate exceeds its conservative reservation", async () => {

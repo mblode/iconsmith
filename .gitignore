@@ -3,8 +3,12 @@ dist/
 .next/
 .turbo/
 .vercel/
-/apps/web/.eve/
-/apps/web/.output/
+# Anchored to the repo root but wildcarded across apps, so moving an agent
+# between workspaces cannot silently un-ignore 29MB of build output. A bare
+# `.eve/` would match at any depth, which is the fault the corpus gotcha
+# describes; `/apps/.eve/` would match nothing.
+/apps/*/.eve/
+/apps/*/.output/
 *.tsbuildinfo
 .env
 .env.local

@@ -1,0 +1,18 @@
+{
+  "name": "@iconsmith/contract",
+  "private": true,
+  "description": "What the Studio client and the Eve agent must agree on: the request and response shapes, who owns a session, and what SVG is safe to render. Nothing that only one side needs belongs here.",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "check": "ultracite check",
+    "fix": "ultracite fix",
+    "test": "node --experimental-strip-types --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  }
+}

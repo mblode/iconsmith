@@ -89,7 +89,6 @@ const securityHeaders = [
 const linkHeader = [
   `<${BASE_PATH}/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"`,
   `<${BASE_PATH}/.well-known/agent-skills/index.json>; rel="https://agentskills.io/rel/index"; type="application/json"`,
-  `<${BASE_PATH}/.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/rel/server-card"; type="application/json"`,
   `<${REPO_URL}>; rel="service-doc"`,
   `<${REPO_URL}/releases>; rel="service-desc"`,
 ].join(", ");
@@ -134,9 +133,24 @@ const nextConfig: NextConfig = {
   // The CLI package is Node-only (sharp, gateway). Route handlers import it;
   // the browser bundle must never see it.
   serverExternalPackages: ["ai", "@ai-sdk/gateway", "iconsmith", "sharp"],
+  // `@iconsmith/contract` ships TypeScript source rather than a build, so Next
+  // compiles it here. It holds only what this app and the agent must agree on:
+  // the request and response shapes, session ownership, and the SVG sanitiser.
+  transpilePackages: ["@iconsmith/contract"],
 };
 
-const withEveConfig = withEve(nextConfig, { eveRoot: import.meta.dirname });
+/**
+ * The agent is a sibling workspace, not a folder in this app.
+ *
+ * `withEve` mounts whatever `eveRoot` points at, so the orchestrator does not
+ * have to live inside the Next client that happens to build it. `apps/agent`
+ * owns `agent.ts`, `tools/` and `channels/`; this app owns the routes and the
+ * React. Resolved from `import.meta.dirname` rather than `process.cwd()`,
+ * which is the repo root under turbo and this directory under Vercel.
+ */
+const withEveConfig = withEve(nextConfig, {
+  eveRoot: path.resolve(import.meta.dirname, "../agent"),
+});
 
 /**
  * `withEve()` mounts `/eve/v1/*` on Vercel and does not honour `basePath`.

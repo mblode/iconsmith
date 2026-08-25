@@ -18,6 +18,14 @@
  * assumption: a filled icon and its outlined twin occupy the same visual
  * extent in 94% of the 2,085 pairs in `bench/filled-language.v1.json`.
  *
+ * That 94% is a *signed longest-side* comparison (`scripts/measure-filled.ts`),
+ * and it is the right statistic for the claim above — the rules carry over
+ * because the two paints are the same size. It is NOT the statistic
+ * `tools/twin.ts`'s `sameExtent` enforces, which compares BOTH axes: per-axis
+ * over the same corpus the figure is 91.46%, so a gate built on 94% erroring at
+ * 0.01u was refusing 178 of the designer's own pairs. Conflating the two is how
+ * that happened; see `EXTENT_TOL`.
+ *
  * One rule here is not about the icon at all. `cohort-align` compares it to the
  * icons it swaps with, because an icon that is individually perfect and out of
  * step with its family still makes a list twitch when it is toggled in. See

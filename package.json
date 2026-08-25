@@ -14,13 +14,9 @@
     "check": "turbo check",
     "check:boundaries": "turbo check:boundaries",
     "fix": "turbo fix",
-    "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "release": "turbo build && changeset publish",
     "prepare": "lefthook install || true"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
     "lefthook": "^2.1.10",
     "oxfmt": "^0.63.0",
     "oxlint": "1.78.0",

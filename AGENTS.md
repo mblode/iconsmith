@@ -5,8 +5,10 @@ Icon generation that cannot drift, because the model never emits a coordinate.
 ## Layout
 
 ```
-packages/iconsmith/   the CLI and library, the only published workspace
-apps/web/             the blode.co/iconsmith site
+apps/web/            the blode.co/iconsmith site and the Studio client
+apps/agent/          the eve agent, and the drawing pipeline it runs
+packages/iconsmith/  geometry, parts, the DSL, the pipeline, eval
+packages/contract/   what the client and the agent must agree on
 ```
 
 Each workspace has its own `AGENTS.md`. Read the one for the workspace you are
@@ -35,8 +37,8 @@ npm run fix
   corpus-gated tests stop running without failing. **The canary is the skipped
   count, not the total.** Those twelve are gated with `describe.skipIf` /
   `it.skipIf`, which still *collects* them, so an absent corpus reports them as
-  skipped and leaves the total untouched — `1320 (97 files)` either way, of which
-  1308 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
+  skipped and leaves the total untouched — `1371 (97 files)` either way, of which
+  1359 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
   was found and `12 skipped` means it was not; a drop in the *total* is test-count
   drift, a different fault. Update both numbers when you add tests, or neither is
   a canary. The gated twelve live in `corpus/measure.test.ts` (5),
@@ -71,5 +73,18 @@ npm run fix
 - **`oxlint` is pinned to exactly 1.78.0.** 1.79 dropped `react/react-compiler`,
   which ultracite 7.10.5's react preset still sets, so the pair fails to parse any
   config that extends it. Unpin only after checking `apps/web` still lints.
+- **Nothing here is published.** `packages/iconsmith` is `private: true` with no
+  `version`, no `bin` and no `files`; changesets and the Release workflow are
+  gone, having failed on every push for want of anything to release. The CLI is
+  still built and still works — `pipeline/harness.ts` symlinks `dist/cli.js` onto
+  PATH so the spawned drawing model can run `iconsmith draw` to check its own
+  work — it is simply no longer a `bin` anyone installs. Do not re-add npm
+  metadata to make a tool feel finished.
+- **The lint configs are per workspace and they disagree on purpose.**
+  `apps/web`, `apps/agent` and `packages/studio` ignore `**/*.md`;
+  `packages/iconsmith` formats its markdown. Aligning them would reflow prose in
+  one direction or stop checking it in the other. There is no config at the repo
+  root, which is why `npx ultracite` fails there and `npm run check` (turbo,
+  fanning out) is the command to use.
 - Root-level files are covered by no pre-commit job and by no `turbo check`. If
   you edit `turbo.json` or the root `package.json`, check them yourself.

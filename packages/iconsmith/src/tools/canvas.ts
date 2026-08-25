@@ -1504,7 +1504,24 @@ export class Canvas {
 
   /** Expand an open part into the filled bars of its centre-line, one
    *  segment at a time. A zero-length run is skipped; a part with no
-   *  remaining length is still nothing, and is refused. */
+   *  remaining length is still nothing, and is refused.
+   *
+   *  Each bar declares whether it is off-axis, measured from its own two
+   *  points at the same {@link ANGLE_TOLERANCE} `line` judges by. Leaving the
+   *  flag off — as this did — is what made a filled part unfittable: all 48
+   *  bars of `circle-placeholder-dashed-1` came out unpermitted, element 1 of
+   *  them running (21,13.25) → (20.75,14.5), and `transform` re-emits a bar
+   *  through `line`, which refused it and took the whole drawing down with it.
+   *
+   *  This does not widen the escape the AGENTS.md invariant names. That escape
+   *  is a *model* asking for a free angle by name, and it still is: nothing
+   *  here reaches a coordinate the model wrote. These points come off a curve
+   *  the vocabulary already holds, flattened by `flatten` — a chord of a curve
+   *  is off-axis by construction, so refusing it is the angle guarantee
+   *  misfiring on geometry the library itself produced. And the flag stays a
+   *  statement about geometry rather than permission: it is set per bar from
+   *  the angle that bar actually runs at, so an axial bar carries nothing and
+   *  `lint`'s `off-axis` warning still fires on exactly the diagonals. */
   #fillOpenPart(moved: readonly Subpath[]): string {
     let last = "";
     const min = this.spec.grid / 2;
@@ -1516,9 +1533,18 @@ export class Canvas {
         if (Math.hypot(b[0] - a[0], b[1] - a[1]) < min) {
           continue;
         }
+        const from: [number, number] = [
+          q(a[0], this.spec.grid),
+          q(a[1], this.spec.grid),
+        ];
+        const to: [number, number] = [
+          q(b[0], this.spec.grid),
+          q(b[1], this.spec.grid),
+        ];
         last = this.#filledBar(
-          [q(a[0], this.spec.grid), q(a[1], this.spec.grid)],
-          [q(b[0], this.spec.grid), q(b[1], this.spec.grid)]
+          from,
+          to,
+          snapAngle(from[0], from[1], to[0], to[1]).offBy > 0
         );
       }
     }
@@ -1551,11 +1577,22 @@ export class Canvas {
    * left `toJSON` describing the pre-transform shape.
    */
   transform(k: number, tx: number, ty: number): void {
-    const { elements: src, log } = this;
-    const seq = this.#seq;
-    const version = this.#version;
-    this.elements = [];
-    this.log = [];
+    // The replay runs on a scratch canvas and is swapped in only once every
+    // element has landed, because re-emitting can throw and a transform that
+    // cannot finish is a transform that did not happen.
+    //
+    // Replaying onto `this` — as this did — kept whatever prefix got through.
+    // Measured: `part circle-placeholder-dashed-1` under a filled finish is 48
+    // elements over 20×20, and a `fit` on it came back as 1 element over 2×3.
+    // 47 of the 48 silently destroyed, and `runDsl` reports the throw as a DSL
+    // error and hands the wreckage to lint and pairing anyway — which is where
+    // an impossible "extent 2.0x3.0 does not match 18.0x18.0" reading came
+    // from. The failure a reviewer sees has to be the one that happened.
+    const src = this.elements;
+    const next = new Canvas([...this.parts.values()], {
+      finish: this.finish,
+      spec: this.spec,
+    });
     for (const e of src) {
       // A knockout re-emits through the same builder as the solid it borrows
       // from, and lands back at the end of the run — which, replaying in
@@ -1564,14 +1601,14 @@ export class Canvas {
       // remapped here, and the remap is the kind of bookkeeping that survives
       // review and not the next change.
       if (e.op === "knockout" && e.kind === "circle") {
-        this.hole({
+        next.hole({
           cx: e.cx * k + tx,
           cy: e.cy * k + ty,
           r: e.r * k,
           shape: "circle",
         });
       } else if (e.op === "knockout" && e.kind === "rect") {
-        this.hole({
+        next.hole({
           h: e.h * k,
           r: e.r,
           shape: "rect",
@@ -1580,13 +1617,13 @@ export class Canvas {
           y: e.y * k + ty,
         });
       } else if (e.op === "knockout" && e.kind === "line") {
-        this.hole({
+        next.hole({
           offAxis: e.offAxis,
           points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
           shape: "line",
         });
       } else if (e.kind === "rect") {
-        this.rect({
+        next.rect({
           h: e.h * k,
           r: e.r,
           w: e.w * k,
@@ -1594,9 +1631,9 @@ export class Canvas {
           y: e.y * k + ty,
         });
       } else if (e.kind === "circle") {
-        this.circle({ cx: e.cx * k + tx, cy: e.cy * k + ty, r: e.r * k });
+        next.circle({ cx: e.cx * k + tx, cy: e.cy * k + ty, r: e.r * k });
       } else if (e.kind === "arc") {
-        this.arc({
+        next.arc({
           ccw: e.ccw,
           cx: e.cx * k + tx,
           cy: e.cy * k + ty,
@@ -1605,24 +1642,24 @@ export class Canvas {
           sweep: e.sweep,
         });
       } else if (e.kind === "diamond") {
-        this.diamond({
+        next.diamond({
           cx: e.cx * k + tx,
           cy: e.cy * k + ty,
           reach: e.reach * k,
         });
       } else if (e.kind === "dot") {
-        this.dot({ cx: e.cx * k + tx, cy: e.cy * k + ty, role: e.role });
+        next.dot({ cx: e.cx * k + tx, cy: e.cy * k + ty, role: e.role });
       } else if (e.kind === "line") {
         // A similarity transform preserves every angle, so a line that was
         // permitted off-axis must stay permitted or re-emitting it would throw.
-        this.line({
+        next.line({
           offAxis: e.offAxis,
           points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
         });
       } else if (e.kind === "part") {
         // A similarity transform preserves chirality, so the reflection has to
         // be carried through — dropping it would silently un-mirror the part.
-        this.part({
+        next.part({
           flip: e.flip,
           id: e.partId,
           scale: e.scale * k,
@@ -1634,24 +1671,23 @@ export class Canvas {
         const moved = parsePath(e.d).map((sp) =>
           translate(scale(sp, k), tx, ty)
         );
-        this.raw(serialise(moved, { grid: this.spec.grid }), e.fillRule);
+        next.raw(serialise(moved, { grid: next.spec.grid }), e.fillRule);
       }
     }
     // Re-emitting mints fresh ids, but a fit is not a redraw: the handles the
     // model is holding must still name the same shapes afterwards. The
     // elements come back in order, one per source element, so the original ids
-    // go back on and the counter is rewound to where it was.
-    for (const [i, e] of this.elements.entries()) {
+    // go back on. The counter never has to be rewound: the ids that were spent
+    // were minted on the scratch canvas, which is thrown away with them.
+    for (const [i, e] of next.elements.entries()) {
       e.id = src[i].id;
     }
-    this.#seq = seq;
-    // Re-emitting bumped the version once per element; the whole transform is
-    // one mutation, and an identity transform is none. `fit` returns the
-    // identity when the drawing is already fitted, and calling it a second
-    // time is not progress — leaving the version alone is what lets the loop
-    // see that.
-    this.#version = version + (k === 1 && tx === 0 && ty === 0 ? 0 : 1);
-    this.log = log;
+    this.elements = next.elements;
+    // The whole transform is one mutation, and an identity transform is none.
+    // `fit` returns the identity when the drawing is already fitted, and
+    // calling it a second time is not progress — leaving the version alone is
+    // what lets the loop see that.
+    this.#version += k === 1 && tx === 0 && ty === 0 ? 0 : 1;
     this.log.push(
       `transform ×${k} +${q(tx, this.spec.grid)},${q(ty, this.spec.grid)}`
     );

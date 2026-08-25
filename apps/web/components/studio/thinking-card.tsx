@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useId, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { safeStudioSvg } from "@/lib/studio/svg";
-import type { StudioTournament, StudioVersion } from "@/lib/studio/types";
+import { safeStudioSvg } from "@iconsmith/contract/svg";
+import type { StudioTournament, StudioVersion } from "@iconsmith/contract/types";
 
 /** Every candidate is scored out of ten, so the plot lane is a fixed scale. */
 const SCORE_MAX = 10;
@@ -32,6 +32,54 @@ const IconTile = ({ alt, size, svg }: { alt: string; size: number; svg: string }
   </span>
 );
 
+/**
+ * Why the field was shorter than the field on offer.
+ *
+ * `unaffordable` and `haltedByFailure` were populated by the tournament,
+ * carried all the way into the record, and read nowhere in this app. The card
+ * printed "Evaluated N of M" and left the gap unexplained — and on the run that
+ * matters most, a library recompile winning while both drawing arms were
+ * refused for want of a reserve, `kind` is "drawn", so `generate.ts`'s "It
+ * never ran X" sentence never fires either and nothing anywhere said two arms
+ * had been refused.
+ */
+const StrategyNotes = ({ strategy }: { strategy: StudioTournament["strategy"] }) => {
+  const refused = strategy.unaffordable;
+  const { budget } = strategy;
+  const reserved =
+    budget === null
+      ? ""
+      : ` had $${budget.reservedUsd.toFixed(2)} of $${budget.maxUsd.toFixed(2)} already reserved and`;
+  return (
+    <>
+      {refused.length > 0 ? (
+        <p className="mt-2 text-muted-foreground text-xs leading-relaxed">
+          <span className="text-foreground">
+            {refused.length === 1 ? "One arm never ran" : `${refused.length} arms never ran`}:{" "}
+            {refused.join(", ")}.
+          </span>{" "}
+          The per-icon budget{reserved} could not reserve {refused.length === 1 ? "it" : "them"}, so{" "}
+          {refused.length === 1 ? "it was" : "they were"} refused before drawing anything. A refused
+          arm is not a beaten one — it never entered the field above.
+        </p>
+      ) : null}
+
+      {/* Three shorts, three sentences. A tournament that halted because an arm
+          threw is indistinguishable from one that ran out of money in
+          `stoppedEarly`, and telling a reader to raise their budget is the
+          wrong advice for a crash: a larger budget reproduces it at a larger
+          price. */}
+      {strategy.haltedByFailure ? (
+        <p className="mt-2 text-muted-foreground text-xs leading-relaxed">
+          <span className="text-foreground">An arm failed, so the search stopped</span> rather than
+          spend more after something broke. This is not a budget limit — a larger budget would
+          reproduce it.
+        </p>
+      ) : null}
+    </>
+  );
+};
+
 export const ThinkingCard = ({
   tournament,
   versions,
@@ -50,6 +98,11 @@ export const ThinkingCard = ({
   const stopScore = tournament?.strategy.stoppedEarly
     ? (tournament.strategy.stopScore ?? null)
     : null;
+  /** The ceiling the run was actually held to. Always present on a live run —
+   *  `generate.ts` reports the enforced ceiling rather than echoing back what
+   *  the caller asked for — but nullable in the schema, so an archived record
+   *  written before that still parses. */
+  const budget = tournament?.strategy.budget ?? null;
 
   return (
     <section
@@ -84,7 +137,8 @@ export const ThinkingCard = ({
                   tournament.strategy.evaluated
                 } of{" "}
                 {tournament.strategy.eligible} pairs across {tournament.cost.calls} billed calls,{" "}
-                {displayCost(tournament.cost.totalUsd)}.
+                {displayCost(tournament.cost.totalUsd)}
+                {budget ? ` of a $${budget.maxUsd.toFixed(2)} per-icon ceiling` : ""}.
               </p>
 
               {/* One grid owns every lane, so each track starts and ends on the
@@ -206,6 +260,8 @@ export const ThinkingCard = ({
                     {candidate.failure}
                   </p>
                 ))}
+
+              <StrategyNotes strategy={tournament.strategy} />
             </section>
           ) : null}
 

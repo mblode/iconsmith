@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { adaptProgram } from "../tools/twin.js";
 import {
   mergeIssues,
   paintsDiverge,
@@ -121,5 +122,32 @@ describe("pairAdapted", () => {
     const issues = pairAdapted([], "filled", DISC);
     expect(issues.some((issue) => issue.rule === "paint")).toBe(true);
     expect(issues.every((issue) => issue.severity === "error")).toBe(true);
+  });
+
+  /**
+   * A half-arc is the case extent can never pass on this path: `filledArcPath`
+   * omits the cap discs that `visualSize` adds to all four sides, so the
+   * derived twin reads one unit shorter than the drawing it was derived from.
+   * As an error that failed `paintAccepted` before the judge ran — 11 of 42
+   * paints in a post-fix eval had extent as their only error.
+   */
+  it("warns rather than errors on an extent the derivation itself moved", () => {
+    const arc = [
+      "icon arc",
+      "finish outlined",
+      "",
+      "arc 12,14 r9 half from left",
+      "",
+    ].join("\n");
+    expect(
+      pairPrograms([], "outlined", arc, adaptProgram(arc, "filled")).some(
+        (i) => i.rule === "extent" && i.severity === "error"
+      )
+    ).toBe(true);
+    const issues = pairAdapted([], "outlined", arc);
+    expect(
+      issues.some((i) => i.rule === "extent" && i.severity === "warn")
+    ).toBe(true);
+    expect(issues.filter((i) => i.severity === "error")).toEqual([]);
   });
 });

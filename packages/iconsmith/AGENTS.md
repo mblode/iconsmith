@@ -11,7 +11,7 @@ npm run dev        # tsdown --watch
 npm run test       # vitest run --passWithNoTests
 npm run typecheck  # tsc --noEmit
 npm run fix        # ultracite fix: format + lint autofix
-npm run check      # ultracite check: lint (CI)
+npm run check      # ultracite check: lint + check:boundaries (CI)
 npx tsx scripts/architect-lab.ts # keyed compiler vs agent; no credits
 npx tsx scripts/analog-lab.ts  # unkeyed analog replay; no agent
 npx tsx scripts/select-lab.ts  # cheap SELECT islands; no agent
@@ -38,6 +38,7 @@ src/
   cli.ts              # Commander entry point
   index.ts            # Public API exports
   types.ts            # Shared type definitions
+  spec.ts             # the narrow `iconsmith/spec` entry: SPEC, reaching nothing the CLI needs
   geometry/           # pure path maths — no I/O, no deps
     path.ts           # parse/serialise, bbox via cubic extrema, transforms
   parts/              # the vocabulary
@@ -50,7 +51,7 @@ src/
     twin.ts           # filled/outlined as one skeleton, two paints
     lint.ts           # house-spec checks; review() keeps the passes
     render.ts         # png / contact sheet / cosine similarity
-    pipeline/           # BRIEF → PROPOSE → SELECT → DRAW → CHECK → SCORE
+  pipeline/           # BRIEF → PROPOSE → SELECT → DRAW → CHECK → SCORE
     route.ts          # those stages, swappable; a route is an arm (`analog`, `compile`, `direct`, `mark`, `part-first`)
     kind.ts           # DrawKind, CounterpartClass, MARK_TWINS
     marks.ts          # ten host twins, both finishes
@@ -68,8 +69,9 @@ src/
     experiment.ts     # two-stage A/B of two experts (screen then decide)
     reconstruct.ts    # keyed: compile house subpaths onto parts (not an agent)
     analog.ts         # lab: replay a Central kin, else a name-hinted family / kin / alias, else compose a named part, else unknown
+    decline.ts        # `ArmDeclinedError`: an arm with no answer, distinct from one that failed
     audit.ts          # host screenshot + vision look at a drawn SVG
-    harness.ts        # an external agent CLI as a GenerateFn
+    harness.ts        # an external agent CLI as a GenerateFn; `skillPath()` finds the SKILL.md it ships
     policy.default.json # the design language as data; the loop's only target
   corpus/             # every icon tree on this machine, measured
     sources.ts        # the registry, with a licence and a usage per set
@@ -99,6 +101,8 @@ The angle escape is not a loophole to close. Off-axis edges are 29.3% of the set
 - **Linting via ultracite**: run `npm run fix` / `npm run check`, never oxlint or oxfmt directly.
 - **No chalk/ora, and nothing interactive**: use `styleText` from `node:util`. The CLI never prompts, so it has no prompt library and no `--no-input`; every value is a flag.
 - **Visual extent ≠ path bbox.** A stroked icon's visual extent is its path bbox inflated by the stroke width, half per side. Comparing a stroked path bbox against a filled one conflates a rendering fact with a design fact, and it is the single mistake that has produced the most wrong measurements in this problem domain. `lint.ts` gets this right; keep it that way.
+- **The 94% twin-extent figure is not the pass rate of the gate that reads it.** `lint.ts` and `SKILL.md` quote 94% of 2,085 pairs; that is a _signed longest-side_ statistic (`scripts/measure-filled.ts:607,633`), and it reproduces at 94.3%. `sameExtent` in `tools/twin.ts` compares _both axes_, and the same corpus gives 91.46% at a 0.01 tolerance — 178 pairs called an error, one in twelve of the designer's own drawings. That is why `EXTENT_TOL` is **0.5**, not 0.01: the max-axis delta is bimodal (p50 0.000, p90 0.004, p95 0.198), so everything in the 0.01–0.5 band is quantiser noise and a real mismatch clears 0.5 fourfold. Do not quote the 94% as though it described the tolerance, and do not tighten `EXTENT_TOL` back without re-measuring per-axis.
+- **`extent` is an error in the primitive and a warn in two callers, and only those two.** `twinPairIssues` (`tools/twin.ts`) keeps it an error — for a model-drawn pair of two independently drawn paints, a mismatched extent really is evidence of a flood-fill or a restamp. `pipeline/pair.ts` demotes it in exactly two places: `softenExtent` for a house-divergent family (`arrow`, `check`, `chevron`, where the house files themselves fail the error gate), and `pairAdapted` unconditionally, because a twin `adaptProgram` derived is not evidence about anything the model did. Do not demote it at the primitive. **This also drops extent from the repair loop, and that is free rather than a price:** `harness.ts:516` filters the repair prompt to `severity === "error"`, so a demoted extent never reaches the model. On both demoted paths it has nothing true to tell it — against a derived twin a flood-fill _passes_ (the twin floods too) and a restamped ring is caught by `restampIssues` instead, and on a divergent family the house files fail the gate themselves. So do not promote it back to make repair see it: that re-blocks the drawings the demote unblocked (17 of 27 error-severity findings in a post-fix eval run; 11 of 42 paints carried extent as their sole error, and an error fails `paintAccepted` before the judge is called). It stays in `issues` and on the card, for a human.
 - **The gap backlog compares against the house _vocabulary_, not house slugs.** blode draws a bin, a calendar and a camera — as `trash-1`, `calendar-1`, `camera-1` — so a raw slug comparison reports all three as things the set does not draw. That artefact is the difference between 145 names at 4+ packs and 62. `houseVocabulary` in `corpus/concepts.ts` is the correct denominator: slugs, unnumbered stems, concepts and slugified tags, 5,084 words.
 - **`concepts propose` never writes `_concepts.json`.** It writes a `_concepts.proposed.json` beside the review files, and `concepts apply` is a separate command a person runs. The file's whole value is that one question has one _blessed_ answer, and a model filling it in silently removes exactly that property.
 - **Concept coverage has two numbers and they are always printed together.** _Informative_ coverage counts concepts that are not the icon's own slug; _nominal_ counts everything. The proposer generates 1,522 `add-image → add-image` entries, which take nominal coverage to 99.8% and informative coverage nowhere — so a ">= 95% covered" criterion is satisfiable by writing the filenames back out. Those tautologies exist to _reserve_ a word so a tag cannot point `folder` at `folder-cloud`; they are never written to `_concepts.json`. Quote the informative number, or quote both.

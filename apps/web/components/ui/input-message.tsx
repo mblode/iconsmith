@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpIcon, CrossSmallIcon } from "blode-icons-react";
+import Stop from "blode-icons-react/icons/stop";
 import { AnimatePresence, motion } from "motion/react";
 import * as React from "react";
 import TextareaAutosize from "react-textarea-autosize";
@@ -28,13 +29,15 @@ interface InputMessageProps extends Omit<React.ComponentProps<"div">, "onChange"
   onValueChange: (value: string) => void;
   /** Fired on submit (Enter or send button) with the trimmed value + files. */
   onSend?: (value: string, files: File[]) => void;
+  /** Replaces the send action with an enabled stop action when provided. */
+  onStop?: () => void;
   /** Placeholder shown when empty. Swaps to a drop hint while dragging files. */
   placeholder?: string;
   /** Bottom-left action area. May be a render fn receiving `{ openFilePicker, files }`. */
   leftSlot?: InputMessageSlot;
-  /** Bottom-right action area, before the built-in send button. Same render-fn shape. */
+  /** Bottom-right action area, before the built-in send/stop button. Same render-fn shape. */
   rightSlot?: InputMessageSlot;
-  /** Disables the textarea, send button, and drag-and-drop. */
+  /** Disables composition and sending. An active stop action remains available. */
   disabled?: boolean;
   /** Minimum visible rows before the textarea grows. Defaults to 1. */
   minRows?: number;
@@ -44,6 +47,8 @@ interface InputMessageProps extends Omit<React.ComponentProps<"div">, "onChange"
   clickToFocus?: boolean;
   /** Accessible label for the send button. */
   sendLabel?: string;
+  /** Accessible label for the stop button. */
+  stopLabel?: string;
   /** Controlled attached files. When undefined, attachment behavior is disabled. */
   files?: File[];
   /** Called when files are added (drag-drop or picker) or removed. */
@@ -97,11 +102,46 @@ const renderSlot = (slot: InputMessageSlot, ctx: InputMessageSlotContext) =>
 
 const allowsMultipleFiles = (maxFiles?: number) => maxFiles === undefined || maxFiles > 1;
 
+interface InputMessageActionProps {
+  canSend: boolean;
+  onSend: () => void;
+  onStop?: () => void;
+  sendLabel: string;
+  stopLabel: string;
+}
+
+const InputMessageAction = ({
+  canSend,
+  onSend,
+  onStop,
+  sendLabel,
+  stopLabel,
+}: InputMessageActionProps) => {
+  const isStopAction = onStop !== undefined;
+
+  return (
+    <Button
+      aria-label={isStopAction ? stopLabel : sendLabel}
+      className={isStopAction ? "pointer-events-auto" : undefined}
+      disabled={isStopAction ? false : !canSend}
+      onClick={onStop ?? onSend}
+      size="icon-sm"
+      type="button"
+    >
+      {isStopAction ? <Stop /> : <ArrowUpIcon />}
+    </Button>
+  );
+};
+
+const disabledClassName = (disabled: boolean | undefined, hasStopAction: boolean) =>
+  cn(disabled && "pointer-events-none", disabled && !hasStopAction && "opacity-50");
+
 // ─── InputMessage ───────────────────────────────────────────────────────────
 const InputMessage = ({
   value,
   onValueChange,
   onSend,
+  onStop,
   placeholder = "Ask me anything…",
   leftSlot,
   rightSlot,
@@ -110,6 +150,7 @@ const InputMessage = ({
   maxRows = 8,
   clickToFocus = true,
   sendLabel = "Send",
+  stopLabel = "Stop",
   files,
   onFilesChange,
   accept = DEFAULT_ACCEPT,
@@ -316,7 +357,7 @@ const InputMessage = ({
         "flex flex-col gap-1 rounded-[var(--field-radius)] border bg-surface p-2 shadow-input transition-colors",
         dragOver ? "border-ring ring-2 ring-ring/20" : "border-input focus-within:border-ring",
         clickToFocus && !disabled && "cursor-text",
-        disabled && "pointer-events-none opacity-50",
+        disabledClassName(disabled, onStop !== undefined),
         className,
       )}
       data-slot="input-message"
@@ -385,15 +426,13 @@ const InputMessage = ({
         <div className="flex min-w-0 items-center gap-1.5">{leftContent}</div>
         <div className="flex shrink-0 items-center gap-1.5">
           {rightContent}
-          <Button
-            aria-label={sendLabel}
-            disabled={!canSend}
-            onClick={handleSend}
-            size="icon-sm"
-            type="button"
-          >
-            <ArrowUpIcon />
-          </Button>
+          <InputMessageAction
+            canSend={canSend}
+            onSend={handleSend}
+            onStop={onStop}
+            sendLabel={sendLabel}
+            stopLabel={stopLabel}
+          />
         </div>
       </div>
     </div>

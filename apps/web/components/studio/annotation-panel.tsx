@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import type { StudioAnnotation, StudioVersion } from "@/lib/studio/types";
+import type { StudioAnnotation, StudioVersion } from "@iconsmith/contract/types";
 import { cn } from "@/lib/utils";
 
 export const AnnotationPanel = ({

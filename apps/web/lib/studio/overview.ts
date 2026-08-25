@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { StudioTournament, StudioVersion } from "./types";
+import type { StudioTournament, StudioVersion } from "@iconsmith/contract/types";
 
 /**
  * The set-wide consistency audit, computed from the documents the pipeline

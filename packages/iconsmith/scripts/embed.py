@@ -28,15 +28,24 @@ deliberately is `currentColor → #000` on white: an SVG whose colour never
 resolves renders blank, and a batch of blank images embeds to a tight cluster
 that looks like excellent style agreement.
 
-Setup — a throwaway environment, never a package dependency:
+Setup — a throwaway environment, never a package dependency. Put it OUTSIDE the
+repo:
 
-    uv venv .scratch/venv --python 3.12
-    VIRTUAL_ENV=.scratch/venv uv pip install torch torchvision transformers \
-        pillow numpy sentencepiece protobuf
+    uv venv "${ICONSMITH_VENV:-$HOME/.cache/iconsmith/venv}" --python 3.12
+    VIRTUAL_ENV="${ICONSMITH_VENV:-$HOME/.cache/iconsmith/venv}" uv pip install \
+        torch torchvision transformers pillow numpy sentencepiece protobuf
     brew install librsvg          # or: uv pip install cairosvg
 
 `.scratch/` is gitignored, and nothing in `package.json` references any of this.
 On a machine without it, `src/eval/` finds no sidecars and reports `null`.
+
+**Why not `.scratch/venv`, which is what this said before.** Gitignored is not
+the same as invisible. eve's dev watcher keeps its own hardcoded ignore list and
+reads no `.gitignore`, so 719 MB of torch inside the repo tree was scanned on
+every boot and announced as `change detected ... rebuilding authored artifacts`.
+A rebuild takes the process — and with it any tournament in flight — which is
+the exact event `agent/tools/generate_icon_pair.ts` documents as having billed
+one turn twice. The upstream half is not ours to fix; the venv's location is.
 
 Usage:
 

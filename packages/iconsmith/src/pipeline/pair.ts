@@ -69,14 +69,16 @@ const HOUSE_DIVERGENT = new Set(["arrow", "check", "chevron"]);
 /** True when house outlined and filled are different constructions. */
 export const paintsDiverge = (id: string): boolean => HOUSE_DIVERGENT.has(id);
 
+/** Extent stays a finding, at the tier a human arbitrates rather than one that blocks. */
+const demoteExtent = (issues: readonly Issue[]): Issue[] =>
+  issues.map((issue) =>
+    issue.rule === "extent" && issue.severity === "error"
+      ? { ...issue, severity: "warn" as const }
+      : issue
+  );
+
 const softenExtent = (issues: readonly Issue[], family: string): Issue[] =>
-  paintsDiverge(family)
-    ? issues.map((issue) =>
-        issue.rule === "extent" && issue.severity === "error"
-          ? { ...issue, severity: "warn" as const }
-          : issue
-      )
-    : [...issues];
+  paintsDiverge(family) ? demoteExtent(issues) : [...issues];
 
 /** Pair two analog paints, warning — not erroring — on a house-divergent extent. */
 export const pairFamily = (
@@ -99,6 +101,22 @@ export const pairFamily = (
  * Generate and harness draw one paint. The counterpart is `adaptProgram`,
  * not a second model call — the model never emits a coordinate, and a
  * restamped disc is a failed twin even when this paint lints clean.
+ *
+ * Extent is a warn here. Against a machine-derived twin it is not evidence of
+ * a bad drawing, and it catches neither fault its own message names: a
+ * flood-fill *passes* it, because the derived twin floods too and the two
+ * extents agree; a restamped ring is caught by `restampIssues`; and a partial
+ * arc can never pass it, because `filledArcPath` deliberately omits the cap
+ * discs that `visualSize` adds to all four sides. What it did instead was
+ * stop icons shipping: 17 of 27 error-severity findings in a post-fix eval
+ * run, and an error makes `result.clean` false, which fails `paintAccepted`'s
+ * structural gate before the judge is ever called. Of 42 paints, 11 carried
+ * extent as their sole error.
+ *
+ * The cost is paid on purpose and the next reader has to know it:
+ * `harness.ts` filters the repair prompt to `severity === "error"`, so a
+ * demoted extent no longer reaches the model and extent stops being
+ * self-correcting. It stays in `issues` and on the card, for a human.
  */
 export const pairAdapted = (
   issues: readonly Issue[],
@@ -111,12 +129,14 @@ export const pairAdapted = (
     return [...issues];
   }
   const other = finish === "filled" ? "outlined" : "filled";
-  return pairPrograms(
-    issues,
-    finish,
-    source,
-    adaptProgram(source, other, spec),
-    parts,
-    spec
+  return demoteExtent(
+    pairPrograms(
+      issues,
+      finish,
+      source,
+      adaptProgram(source, other, spec),
+      parts,
+      spec
+    )
   );
 };

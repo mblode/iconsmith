@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "Preserve",
+    "moduleResolution": "bundler",
+    "lib": ["ES2024", "dom"],
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "include": ["src/**/*"],
+  // Run directly by `node --experimental-strip-types`, which needs the explicit
+  // `.ts` extension on its imports that `tsc` rejects without
+  // `allowImportingTsExtensions`. Same reason apps/web excludes its own.
+  "exclude": ["node_modules", "oxlint.config.ts", "oxfmt.config.ts", "**/*.test.ts"]
+}

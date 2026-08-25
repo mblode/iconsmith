@@ -5,19 +5,15 @@
   "scripts": {
     "dev": "WORKFLOW_LOCAL_BODY_TIMEOUT_MS=1800000 WORKFLOW_LOCAL_HEADERS_TIMEOUT_MS=1800000 next dev -p 3210",
     "build": "next build && node --experimental-strip-types scripts/prefix-eve-vercel-routes.ts",
-    "test": "node --experimental-strip-types --test lib/eve-vercel-routes.test.ts lib/studio/fault.test.ts lib/studio/concept.test.ts lib/studio/session-owner.test.ts lib/studio/turn-record.test.ts lib/studio/arsenal.test.ts lib/studio/arsenal.holdout.test.ts lib/studio/generate.budget.test.ts lib/studio/replay.test.ts",
-    "build:eve": "eve build",
-    "backlog": "node scripts/backlog.mjs",
+    "test": "node --experimental-strip-types --test \"lib/**/*.test.ts\"",
     "start": "next start",
-    "start:eve": "eve start",
-    "dev:eve": "WORKFLOW_LOCAL_BODY_TIMEOUT_MS=1800000 WORKFLOW_LOCAL_HEADERS_TIMEOUT_MS=1800000 eve dev",
-    "smoke:eve": "node scripts/smoke-eve.mjs",
     "typecheck": "tsc --noEmit",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@iconsmith/contract": "*",
     "@radix-ui/react-accordion": "^1.2.20",
     "@radix-ui/react-label": "^2.1.11",
     "@radix-ui/react-slot": "^1.3.0",

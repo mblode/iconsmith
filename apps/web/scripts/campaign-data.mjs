@@ -39,6 +39,6 @@ const projection = {
   items: (campaign.items ?? []).map(item),
 };
 
-const out = path.join(import.meta.dirname, "..", "lib", "campaign.json");
+const out = path.join(root, "apps/web/lib/studio/campaign.json");
 writeFileSync(out, `${JSON.stringify(projection, null, 2)}\n`);
 process.stdout.write(`wrote ${projection.items.length} items\n`);

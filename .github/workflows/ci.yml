@@ -24,10 +24,6 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Changeset Status
-        if: github.event_name == 'pull_request'
-        run: npx changeset status --since origin/main
-
       - name: Lint
         run: npm run check
 

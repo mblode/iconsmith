@@ -1,0 +1,22 @@
+{
+  "name": "@iconsmith/agent",
+  "private": true,
+  "description": "The eve agent that fronts Iconsmith Studio. Mounted into the web app's build by withEve; this is its own root so the orchestrator is not a folder inside a Next client.",
+  "type": "module",
+  "scripts": {
+    "build:eve": "eve build",
+    "check": "ultracite check",
+    "dev:eve": "WORKFLOW_LOCAL_BODY_TIMEOUT_MS=1800000 WORKFLOW_LOCAL_HEADERS_TIMEOUT_MS=1800000 eve dev",
+    "fix": "ultracite fix",
+    "smoke:eve": "node scripts/smoke-eve.mjs",
+    "start:eve": "eve start",
+    "test": "node --experimental-strip-types --test \"lib/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@iconsmith/contract": "*",
+    "eve": "^0.44.3",
+    "iconsmith": "*",
+    "zod": "^4.4.3"
+  }
+}

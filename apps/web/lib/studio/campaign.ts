@@ -1,4 +1,4 @@
-import campaign from "../campaign.json";
+import campaign from "./campaign.json";
 
 /**
  * The durable campaign, read as data.

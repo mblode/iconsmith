@@ -329,6 +329,11 @@ export interface PairTournamentResult {
     maxCalls: number;
     maxUsd: number;
     overrun: boolean;
+    /** Everything the run set aside, arm by arm, as it started them. A record
+     *  of the estimates and not a live balance: each arm's share is released
+     *  against its real bill the moment that bill arrives, which is what the
+     *  next arm is admitted against. Read beside `actualUsd` to see how
+     *  conservative the reservations were. */
     reservedCalls: number;
     reservedUsd: number;
   } | null;
@@ -882,6 +887,48 @@ export const runPairTournament = async ({
   let reservedUsd = 0;
   let actualCalls = 0;
   let actualUsd = 0;
+  /**
+   * What the arm in flight has reserved and not yet been billed for.
+   *
+   * The reserve check used to add every arm's estimate to a running total that
+   * nothing ever subtracted, so the prefix was monotone in ESTIMATES and later
+   * arms were refused against money nobody spent.
+   *
+   * Measured on the Studio field: a `library-*` arm is `compileArm()` —
+   * deterministic, zero model calls — plus its two acceptance audits, so it
+   * bills $0.0144 against the $0.055 it reserves. That is a 3.8x over-reserve,
+   * $0.041 of ghost per arm, and it is worst on the arms that cost least
+   * because they draw from the set rather than from a model. In CALLS the same
+   * arm is honest — it reserves 2 and makes 2 — so the phantom there is the
+   * generative arms' unspent steps, which reserve for `maxSteps` and stop on
+   * `drawnAndClean` well before it.
+   *
+   * What motivated the change: with the memoised image proposal reserved by
+   * BOTH arms that can trigger it, the four fixed arms held $1.60 of the $2
+   * ceiling, and a monotone prefix refused `claude-harness` as soon as
+   * 0.055L + 1.60 > 2 — from the eighth library arm. L >= 8 is reached by 42
+   * concept names, and they are the most ordinary in the set: folder(18)
+   * layout(18) people(17) calendar(16) circle(16) cloud(16) file(15) page(15)
+   * car(14) text(14) user(12) home(10) settings(10) code(8) video(8) and 27
+   * more. At L=18 those arms reserve $0.99 to spend $0.26: $0.73 of ghost, 36%
+   * of the ceiling, more than the $0.70 that refused arm needed.
+   *
+   * The cutoff has since moved and the fault has not. Charging the proposal
+   * once, to `image-agent`, took the fixed arms to $1.30 and 67 calls, so the
+   * dollars now seat twelve library arms and the CALL ceiling binds first:
+   * 2L + 59 calls stand reserved before the harness against a ceiling of 89
+   * (the 90-call default less the ranker's one call), which refuses it from
+   * L = 12. Eleven of those 42 names still reach that — folder, layout,
+   * people, calendar, circle, cloud, file, page, car, text, user. Released
+   * against the real bill the pre-harness prefix is about 65 calls and $0.65,
+   * and the arm is admitted; it is refused only when the arms ahead of it
+   * genuinely spent what they held.
+   *
+   * Both budgeted loops are strictly sequential — reserve, await the pair,
+   * record — so at most one reserve is ever outstanding, and this is it.
+   */
+  let pendingCalls = 0;
+  let pendingUsd = 0;
   let hasUnpricedCalls = false;
   let budgetExhausted = false;
   /**
@@ -904,16 +951,22 @@ export const runPairTournament = async ({
     }
     const calls = candidate.reserveCalls ?? 0;
     const usd = candidate.reserveUsd;
+    // Spent plus outstanding, not every estimate ever made. `reservedCalls` /
+    // `reservedUsd` stay cumulative because they are the run's record of what
+    // it set aside; what an arm is admitted against is the money that is
+    // actually gone or actually committed.
     if (
       usd === undefined ||
-      reservedCalls + calls > budget.maxCalls ||
-      reservedUsd + usd > budget.maxUsd
+      actualCalls + pendingCalls + calls > budget.maxCalls ||
+      actualUsd + pendingUsd + usd > budget.maxUsd
     ) {
       budgetExhausted = true;
       return false;
     }
     reservedCalls += calls;
     reservedUsd += usd;
+    pendingCalls = calls;
+    pendingUsd = usd;
     return true;
   };
   const recordActual = (run: TournamentRun): void => {
@@ -930,6 +983,31 @@ export const runPairTournament = async ({
       hasUnpricedCalls = true;
     } else {
       actualUsd += measured;
+    }
+    /**
+     * Release what this arm reserved, now that what it really cost is in.
+     *
+     * A FAILED arm is released too, and deliberately. Its `partialCosts` are
+     * in `costs` above, so whatever it was billed for before it threw is
+     * already on the ledger and the estimate has nothing left to stand for. A
+     * crash halts the escalation anyway, but a DECLINE does not — an arm with
+     * no answer for this concept draws nothing, is billed nothing and lets the
+     * arms behind it run, so holding its reserve would charge them for work
+     * that never happened.
+     *
+     * An UNKNOWN actual is the one case that keeps its dollars reserved.
+     * `totalUsd` returns null when any record is unpriced, and releasing a
+     * reserve against an unknown bill is the only move here that could make
+     * the budget look FREER than it is — the estimate is then the best figure
+     * available for money that was certainly spent. In practice the loop stops
+     * on the same tick, because `hasUnpricedCalls` exhausts the budget at the
+     * end of this same call; the reserve is held anyway so this rule does not
+     * depend on that one staying true. Calls are released either way: every record
+     * carries its own `calls`, so the count is never the unknown.
+     */
+    pendingCalls = 0;
+    if (measured !== null) {
+      pendingUsd = 0;
     }
     // A pair-level failure can happen after one paint has already completed
     // and been billed, so escalation stops: the pair is incomplete and the

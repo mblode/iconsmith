@@ -10,7 +10,7 @@ import type {
   StudioAttachment,
   StudioLibraryResponse,
   StudioLibraryResult,
-} from "@/lib/studio/types";
+} from "@iconsmith/contract/types";
 
 /** The proxy caps a search at this many icons, so the count can say so. */
 const RESULT_CAP = 18;

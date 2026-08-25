@@ -48,8 +48,32 @@ export const visualSize = (canvas: Sized): { h: number; w: number } | null => {
   return { h: box.h + canvas.inkWidth, w: box.w + canvas.inkWidth };
 };
 
-/** True when both visual sizes exist and each axis differs by at most `tol` (default 0.01). */
-export const sameExtent = (a: Sized, b: Sized, tol = 0.01): boolean => {
+/**
+ * How far two visual extents may sit apart and still be one skeleton.
+ *
+ * 0.01u was a coordinate-equality test wearing a tolerance's clothes, and it
+ * errored on 1 in 12 of the designer's own drawings. Measured over `corpus/`
+ * with this same per-axis rule, n=2,085 pairs: 0.01 passes 91.46% (178 fail),
+ * 0.25 passes 95.59% (92 fail), 0.50 passes 97.46% (53 fail). The max-axis
+ * |delta| distribution is bimodal — p50 0.000, p90 0.004, p95 0.198, p99
+ * 1.155 — so a paint either lands on the extent or misses it by a unit, and
+ * everything in the 0.01–0.5 band is quantiser noise. That band holds 125 of
+ * the 2,085 house pairs, every one of them called an error at 0.01. A real
+ * mismatch clears 0.5 fourfold: a filled disc restamping a stroked ring loses
+ * a whole stroke, 2u.
+ *
+ * The 94% quoted in this module's header and in `lint.ts` is a *signed
+ * longest-side* statistic (`scripts/measure-filled.ts:607,633`), a different
+ * measurement from this per-axis one; reproducing it over the same corpus
+ * gives 94.3%, which is what says the numbers above were measured right.
+ */
+export const EXTENT_TOL = 0.5;
+
+/**
+ * True when both visual sizes exist and each axis differs by at most `tol`
+ * (default {@link EXTENT_TOL}).
+ */
+export const sameExtent = (a: Sized, b: Sized, tol = EXTENT_TOL): boolean => {
   const left = visualSize(a);
   const right = visualSize(b);
   if (!(left && right)) {
@@ -688,7 +712,9 @@ export const restampIssues = (
 export const twinPairIssues = (
   outlined: TwinPaint,
   filled: TwinPaint,
-  tol = 0.01
+  // Carried from {@link sameExtent}, not restated. A second literal here is
+  // how the pair path kept erroring at 0.01 while the primitive said 0.5.
+  tol = EXTENT_TOL
 ): Issue[] => {
   const issues: Issue[] = [];
   if (outlined.elements.length === 0 || filled.elements.length === 0) {

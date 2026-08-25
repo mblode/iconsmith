@@ -1,6 +1,6 @@
 {
   "name": "iconsmith",
-  "version": "0.1.0",
+  "private": true,
   "description": "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.",
   "keywords": [
     "ai",
@@ -19,15 +19,6 @@
     "type": "git",
     "url": "git+https://github.com/mblode/iconsmith.git"
   },
-  "bin": {
-    "iconsmith": "./dist/cli.js"
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE.md",
-    "SKILL.md"
-  ],
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",

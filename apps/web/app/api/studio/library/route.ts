@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 
-import { safeStudioSvg } from "@/lib/studio/svg";
-import type { StudioLibraryResponse, StudioLibraryResult } from "@/lib/studio/types";
+import { safeStudioSvg } from "@iconsmith/contract/svg";
+import type { StudioLibraryResponse, StudioLibraryResult } from "@iconsmith/contract/types";
 
 export const runtime = "nodejs";
 

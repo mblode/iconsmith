@@ -4,9 +4,9 @@ import type { CSSProperties, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { sanitizeStudioSvg } from "@/lib/studio/svg";
+import { sanitizeStudioSvg } from "@iconsmith/contract/svg";
 import { cn } from "@/lib/utils";
-import type { StudioAnnotation, StudioVersion } from "@/lib/studio/types";
+import type { StudioAnnotation, StudioVersion } from "@iconsmith/contract/types";
 
 const SIZES = [16, 24, 48, 128] as const;
 

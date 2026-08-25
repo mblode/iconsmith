@@ -11,11 +11,34 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
 const WINDOW_MS = 60 * 60 * 1000;
 
+/**
+ * The caller-controlled end of `x-forwarded-for` is the LEFT.
+ *
+ * The header is append-only: each proxy appends the address it saw, so the
+ * rightmost entry is the one the last trusted hop observed and the leftmost is
+ * whatever the client asserted. This read the leftmost and used `x-real-ip`
+ * only as a fallback, which is backwards on both counts: `-H 'X-Forwarded-For:
+ * 1.2.3.<random>'` minted a fresh `rateLimit` bucket per request and the hourly
+ * newsletter ceiling never fired. Turnstile sits in front of both callers, so
+ * this was defence in depth rather than an open door.
+ *
+ * `agent/channels/eve.ts` decides the same question for the Studio's own
+ * limiter and must stay in step with this. The two are deliberately not one
+ * helper: that file runs on eve's Vercel service rather than in Next, and
+ * importing this module would pull `next/headers` into its bundle for the sake
+ * of eight lines.
+ */
 export const clientIp = async (): Promise<string> => {
   const headersList = await headers();
-  return (
-    headersList.get("x-forwarded-for")?.split(",")[0] || headersList.get("x-real-ip") || "unknown"
-  );
+  const real = headersList.get("x-real-ip")?.trim();
+  if (real) {
+    return real;
+  }
+  const hops = (headersList.get("x-forwarded-for") ?? "")
+    .split(",")
+    .map((hop) => hop.trim())
+    .filter(Boolean);
+  return hops.at(-1) ?? "unknown";
 };
 
 /**

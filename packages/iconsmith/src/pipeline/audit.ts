@@ -394,6 +394,22 @@ export const gatewayAsk: AuditAsk = async ({
     // scale was whatever the model brought to that call, and `eval/judge.ts`
     // says why that matters: an unanchored scale has no variance to read.
     system: LOOK_RUBRIC,
+    /**
+     * Greedy, because this call decides whether an icon ships.
+     *
+     * Acceptance is ONE sample per paint on a continuous scale — `sc` and `pq`
+     * are `z.number().min(0).max(10)` with no `.int()` — plus a
+     * `findings.length === 0` clause that a single hallucinated finding flips.
+     * At the provider default the same geometry could accept on one run and be
+     * refused on the next, and the tournament stops at the first arm to clear
+     * `stopScore`, so one sample also decides which arm ships.
+     *
+     * No temperature was set anywhere on this path, so 1.0 was Gemini's default
+     * rather than a choice — this reverses nothing. `seed` is settable here too
+     * and would be the stronger guarantee, but Gemini treats it as best-effort,
+     * so greedy decoding is the half that actually holds.
+     */
+    temperature: 0,
   });
   costTracker.record(result.providerMetadata);
   return {

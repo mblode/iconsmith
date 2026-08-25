@@ -6,7 +6,7 @@ import {
   ThinkingStepsContent,
   ThinkingStepsHeader,
 } from "@/components/ui/thinking-steps";
-import type { StudioActivity } from "@/lib/studio/types";
+import type { StudioActivity } from "@iconsmith/contract/types";
 
 /**
  * `StudioActivity` has three states and `ThinkingStep` has three statuses, but

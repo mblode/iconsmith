@@ -8,7 +8,7 @@ import { bbox, parsePath } from "../geometry/path.js";
 import { extractParts } from "../parts/extract.js";
 import { fingerprint, flatten, match } from "../parts/shape.js";
 import type { IconDoc, Part } from "../types.js";
-import { Canvas, SPEC } from "./canvas.js";
+import { ANGLE_TOLERANCE, Canvas, SPEC } from "./canvas.js";
 import { programFromDoc } from "./twin.js";
 
 const PARTS: Part[] = [
@@ -396,6 +396,62 @@ test("a filled diagonal unions its cap and body subpaths", () => {
   expect(programFromDoc(c.toJSON())).toContain("line 12,7 15,4");
 });
 
+/** An open part with a curve in it. Flattening a curve produces chords, and a
+ *  chord is off-axis by construction — the case the straight-edged `PARTS`
+ *  fixture above cannot reach. */
+const CURVED: Part[] = [
+  {
+    closed: false,
+    d: "M0 0C2 0 4 2 4 4",
+    h: 4,
+    icons: ["hook"],
+    id: "p0002",
+    instances: 2,
+    name: "hook",
+    nodes: 2,
+    sizeRange: [4, 4],
+    w: 4,
+  },
+];
+
+/**
+ * A curve-flattened bar is off-axis because the curve is, and the bar has to
+ * say so.
+ *
+ * Measured before this: all 48 bars of a filled `circle-placeholder-dashed-1`
+ * carried no permission, element 1 of them running (21,13.25) → (20.75,14.5) —
+ * plainly diagonal. Nothing complained at draw time, because `#filledBar` does
+ * not judge angles; it complained at `fit`, where `transform` re-emits a bar
+ * through `line` and `line` refused it, taking the drawing with it.
+ *
+ * The flag is geometry, not permission: it is measured per bar, so the axial
+ * bars of the same part stay unmarked and `lint` still warns on the diagonals.
+ */
+test("an open part's curve-flattened bars declare the diagonals they are", () => {
+  const c = new Canvas(CURVED, { finish: "filled" });
+  c.part({ id: "p0002", x: 4, y: 4 });
+  const bars = c.elements.filter((e) => e.kind === "line");
+  expect(bars.length).toBeGreaterThan(1);
+  for (const bar of bars) {
+    if (bar.kind !== "line") {
+      continue;
+    }
+    const [[x0, y0], [x1, y1]] = [bar.points[0], bar.points.at(-1) ?? [0, 0]];
+    const deg = (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI;
+    const off = Math.min(
+      ...[0, 45, 90, 135, 180, -45, -90, -135, -180].map((axis) =>
+        Math.abs(axis - deg)
+      )
+    );
+    expect(Boolean(bar.offAxis), `${deg.toFixed(2)}° bar`).toBe(
+      off > ANGLE_TOLERANCE
+    );
+  }
+  expect(bars.some((e) => e.kind === "line" && e.offAxis)).toBe(true);
+  // The consequence, and the reason this matters: the part is fittable.
+  expect(() => c.transform(0.5, 2, 2)).not.toThrow();
+});
+
 test("toJSON → fromJSON → toSVG round-trips identically", () => {
   const c = new Canvas(PARTS);
   c.rect({ h: 6.61, r: 1.7, w: 7.3, x: 2.13, y: 3.87 });
@@ -473,6 +529,46 @@ test("transform keeps the document description in step with the path data", () =
     x: 5,
     y: 5,
   });
+});
+
+/**
+ * A transform that cannot finish is a transform that did not happen.
+ *
+ * Re-emitting can throw — a `line` refused, a hole that no longer fits the
+ * solid it was cut from — and replaying onto the live canvas kept whatever
+ * prefix had already landed. Measured on the real vocabulary: a filled
+ * `circle-placeholder-dashed-1` is 48 elements over 20×20, and a `fit` on it
+ * came back as 1 element over 2×3 with a DSL error beside it. 47 of the 48
+ * silently destroyed, and lint and pairing then read the fragment as though it
+ * were the drawing — which is where an impossible "extent 2.0x3.0 does not
+ * match 18.0x18.0" reading came from.
+ *
+ * The failure here is the same one at two elements instead of forty-eight: a
+ * diagonal cut's round caps are ink, and ink does not scale, so shrunk far
+ * enough the cut no longer fits inside the disc it came out of.
+ */
+test("a transform that cannot finish leaves the canvas as it was", () => {
+  const c = new Canvas([], { finish: "filled" });
+  c.circle({ cx: 12, cy: 12, r: 8 });
+  c.hole({
+    points: [
+      [8, 8],
+      [16, 16],
+    ],
+    shape: "line",
+  });
+  const before = c.elements.map((e) => ({ ...e }));
+  const log = [...c.log];
+  const { version } = c;
+  expect(() => c.transform(0.12, 0, 0)).toThrow(/not inside/u);
+  // Not the prefix, not a wiped log, and not a version that claims a mutation
+  // the drawing never took.
+  expect(c.elements).toStrictEqual(before);
+  expect(c.log).toStrictEqual(log);
+  expect(c.version).toBe(version);
+  // The ids the failed replay minted were spent on the scratch canvas, so the
+  // next real draw does not collide with a handle the model is still holding.
+  expect(c.circle({ cx: 12, cy: 12, r: 1 })).toBe("e2");
 });
 
 test("remove and clear keep ids and the log honest", () => {

@@ -1,7 +1,7 @@
 "use client";
 
-import { safeStudioSvg } from "@/lib/studio/svg";
-import type { StudioVersion } from "@/lib/studio/types";
+import { safeStudioSvg } from "@iconsmith/contract/svg";
+import type { StudioVersion } from "@iconsmith/contract/types";
 import { cn } from "@/lib/utils";
 
 export const ExplorationBoard = ({
