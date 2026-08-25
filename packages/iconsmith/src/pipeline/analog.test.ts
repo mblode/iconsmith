@@ -89,6 +89,7 @@ import {
   wine,
   zap,
 } from "./analog.js";
+import type { GenerateResult } from "./generate.js";
 
 const BOX = "M4 4H12V12H4Z";
 
@@ -103,6 +104,16 @@ const part = (id: string, d: string): Part => ({
   sizeRange: [8, 8],
   w: 8,
 });
+
+/**
+ * `tournament.ts`'s provenance gate, mirrored: `houseDerivedBy(result)` is
+ * `partOpsOf(result) > 0 || result.trace.includes("construct")`, and
+ * `paintAccepted` ANDs it ahead of every audit term. Copied rather than
+ * imported because the coupling is what is under test.
+ */
+const houseDerived = (result: GenerateResult): boolean =>
+  result.doc.draw.some((op) => op.op === "part") ||
+  result.trace.includes("construct");
 
 describe("retitle", () => {
   it("replaces the icon line and leaves the compiled ops", () => {
@@ -444,12 +455,34 @@ describe("analogArm", () => {
     expect(result.clean).toBe(true);
   });
 
-  it("falls to unknown, not a hub, when no token names a family", async () => {
+  it("still falls to unknown, not a hub, when no token names a family", async () => {
+    // The default is unchanged, and `scripts/reach-lab.ts` is why: it asserts
+    // the pipeline draws both paints of an `--arm analog` set, and the
+    // fallback trips its warns honestly. A caller that cannot use a
+    // placeholder asks for the refusal by name.
     const result = await analogArm()({ name: "xyzzy" });
     expect(result.brief).toBe("analog unknown xyzzy");
     expect(result.program).toContain("dot 12,12 node");
     expect(result.program).not.toContain("circle 12,6 r2");
     expect(result.clean).toBe(true);
+  });
+
+  it("refuses a name nothing answers under refuseUnknown, rather than entering a die face", async () => {
+    // `unknown` is still the honest *construction* for `xyzzy` — the
+    // `analogConstructions` case above holds that — but a frame with a centre
+    // pip is not a drawing of the concept, and PQ scores craft rather than
+    // meaning, so it scored 8 and 8.5 on drawings the judge said meant
+    // nothing. Asked to refuse, the arm reports the miss and names the concept
+    // in it; it does not hand over a die.
+    const refusing = analogArm({ refuseUnknown: true });
+    await expect(refusing({ name: "xyzzy" })).rejects.toThrow(
+      /no analog for "xyzzy"/u
+    );
+    // The refusal is scoped to the rung that has no meaning. A name the
+    // catalog does answer still draws under the same arm.
+    const drawn = await refusing({ name: "cactus" });
+    expect(drawn.brief).toBe("analog plant cactus");
+    expect(unknown("xyzzy")).toContain("dot 12,12 node");
   });
 
   it("draws bananas, kiwi, and stapler as themselves, not unknown", async () => {
@@ -472,6 +505,108 @@ describe("analogArm", () => {
         name
       ).toBe(false);
     }
+  });
+
+  it("records every construction it delivers as house-derived", async () => {
+    // `tournament.ts` gates acceptance on `houseDerivedBy(result)` =
+    // `partOpsOf(result) > 0 || result.trace.includes("construct")`, ANDed
+    // ahead of every audit term. Without `ask` the arm is fully deterministic —
+    // which is how the Studio calls it — so the library wrote every one of
+    // these, and a paint the library wrote must never be refused as the
+    // model's.
+    //
+    // `placesPart` is what makes the marker's scope checkable rather than
+    // asserted. Only `replay`, `stack`, and the `compose` branch that found a
+    // named silhouette emit a `part` op and so cleared the gate before. Note
+    // the second `compose` row: when two families in the tags leave `familyOf`
+    // null, `composeFromParts` falls through to a family program with no
+    // extract to place, so `compose` is not uniformly part-placing and cannot
+    // be exempted from the marker on that basis.
+    const rim = {
+      ...part("ellipse-flat", BOX),
+      h: 4,
+      name: "ellipse-flat",
+      w: 11,
+    };
+    const alarmBell = {
+      ...part("bell-alarm-1", "M0 0H18V12H0Z"),
+      h: 12,
+      name: "bell-alarm-1",
+      w: 18,
+    };
+    const cases = [
+      {
+        concept: { name: "waffle" },
+        id: "replay",
+        options: { analogOf: "waffles", analogPaths: [BOX] },
+        placesPart: true,
+      },
+      {
+        concept: { name: "server" },
+        id: "stack",
+        options: { parts: [rim] },
+        placesPart: true,
+      },
+      {
+        concept: { name: "alarm-smoke", tags: ["smoke"] },
+        id: "compose",
+        options: { parts: [alarmBell] },
+        placesPart: true,
+      },
+      {
+        concept: { name: "cactus" },
+        id: "plant",
+        options: {},
+        placesPart: false,
+      },
+      {
+        concept: { name: "lighthouse" },
+        id: "tower",
+        options: {},
+        placesPart: false,
+      },
+      {
+        concept: { name: "server" },
+        id: "trays",
+        options: {},
+        placesPart: false,
+      },
+      {
+        concept: { name: "org-chart" },
+        id: "hub",
+        options: {},
+        placesPart: false,
+      },
+      {
+        concept: { name: "office-mail", tags: ["flag"] },
+        id: "compose",
+        options: {},
+        placesPart: false,
+      },
+    ] as const;
+    const drawn = await Promise.all(
+      cases.map(({ concept, id, options, placesPart }) =>
+        analogArm()(concept, options).then((result) => ({
+          id,
+          placesPart,
+          result,
+        }))
+      )
+    );
+    for (const { id, placesPart, result } of drawn) {
+      // The brief pins which construction ran, so a case cannot pass by
+      // exercising a different row than it names. `analogBrief` renders
+      // `replay` as `analog replay <of> <slug>`, hence `toContain`.
+      expect(result.brief, id).toContain(`analog ${id} `);
+      expect(
+        result.doc.draw.some((op) => op.op === "part"),
+        id
+      ).toBe(placesPart);
+      expect(houseDerived(result), id).toBe(true);
+    }
+    // The five `placesPart: false` rows are the ones the marker carries. If
+    // that count ever drops the marker is doing less than this test claims.
+    expect(drawn.filter((row) => !row.placesPart)).toHaveLength(5);
   });
 
   it("writes the filled paint of a family, not an adapted hub", async () => {

@@ -41,6 +41,11 @@ pre-commit:
       # `backlog.mjs` writes them and the two formats disagree by construction,
       # so a commit of one generation run is a commit of nothing this job can
       # format. Excluded here as well, so the job is skipped rather than starved.
+      # `bench/` is the same case a third time: every file there is a committed
+      # golden artifact written by a script with `JSON.stringify(_, null, 2)`,
+      # so `oxfmt.config.ts` ignores it — and a commit of one measurement run is
+      # a commit of nothing this job can format. Running `judge-gate.ts` and
+      # committing its verdict alone would otherwise starve the job.
       exclude:
         - "package-lock.json"
         - "**/package-lock.json"
@@ -48,6 +53,8 @@ pre-commit:
         - "**/workbench/*/explorations/**"
         - "workbench/*/campaign.json"
         - "**/workbench/*/campaign.json"
+        - "bench/*.json"
+        - "**/bench/*.json"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
 
@@ -62,13 +69,19 @@ pre-commit:
       # `lib/campaign.json` and `lib/vocabulary.json` are projections their
       # scripts rewrite; `oxfmt.config.ts` ignores them for the same reason the
       # lockfile is ignored, and an all-ignored set exits non-zero.
+      # `lib/studio/house-icons.json` belongs on this list for the same reason
+      # and was missing from it: `scripts/house-data.mjs` writes it, the config
+      # ignores it, and a commit that regenerated only the house snapshot would
+      # have starved this job.
       exclude:
         - "package-lock.json"
         - "**/package-lock.json"
         - "lib/campaign.json"
         - "lib/vocabulary.json"
+        - "lib/studio/house-icons.json"
         - "**/lib/campaign.json"
         - "**/lib/vocabulary.json"
+        - "**/lib/studio/house-icons.json"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
 

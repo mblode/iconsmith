@@ -1,4 +1,6 @@
-import { asReferences, bbox, parseIconSvg, parsePath, serialise } from "iconsmith";
+import { readFileSync } from "node:fs";
+
+import { asReferences, bbox, nameParts, parseIconSvg, parsePath, serialise } from "iconsmith";
 import type { Concept, Part, Provenance, Reference } from "iconsmith";
 
 import houseIconsJson from "./house-icons.json" with { type: "json" };
@@ -11,6 +13,43 @@ import houseIconsJson from "./house-icons.json" with { type: "json" };
  * bumping the package.
  */
 const houseIcons: Record<string, string> = houseIconsJson;
+
+/**
+ * An eval-only widening of the one slug `selectedSlugs` already withholds.
+ *
+ * `pipeline/bench.ts` holds out a **concept closure** — the slug, its cohort in
+ * both styles, its Central finishes, its filled twin — because a name-exact
+ * holdout withholds nothing: "Excluding the string `folder-open` while leaving
+ * eleven folders in the corpus withholds the label and hands over the answer."
+ * This file withholds one slug, so a benchmark entry whose closure names
+ * nineteen leaves eighteen eligible to be shown to the drawer. Measured over
+ * the sealed split by `scripts/eve-contamination.ts`: 434 of 1,499 selected
+ * references, 29.0%.
+ *
+ * That is correct for the product — a request for `folder-open` should still
+ * see the other folders, which is how the set stays one set — and wrong for a
+ * measurement, where those eighteen are the answer. So the widening is opt-in
+ * and lives here rather than in the request: `StudioRequest` is copied by the
+ * model under test, and a holdout the model can drop is not a holdout.
+ *
+ * Unset (the default, and every deployment) leaves `selectedSlugs` byte for
+ * byte what it was, because the as-shipped arm of an eval has to be the
+ * shipped thing rather than a reconstruction of it.
+ *
+ *     ICONSMITH_EVAL_HOLDOUT=/abs/path/holdout.json
+ *     { "emoji-wink": ["emoji-wink-tongue", "emoji-wink-tongue-filled"], ... }
+ */
+const holdout = ((): ReadonlyMap<string, ReadonlySet<string>> => {
+  const file = process.env.ICONSMITH_EVAL_HOLDOUT;
+  if (!file) {
+    return new Map();
+  }
+  // Deliberately not caught. A holdout file that was asked for and could not be
+  // read must stop the run: the alternative is a measurement that silently
+  // becomes the contaminated one it was built to be compared against.
+  const raw = JSON.parse(readFileSync(file, "utf-8")) as Record<string, string[]>;
+  return new Map(Object.entries(raw).map(([name, slugs]) => [name, new Set(slugs)]));
+})();
 
 const HOUSE_PROVENANCE: Provenance = {
   date: "2026-08-23",
@@ -44,12 +83,18 @@ const scoreName = (slug: string, concept: Concept): number => {
 };
 
 const selectedSlugs = (concept: Concept): string[] => {
+  const withheld = holdout.get(concept.name);
   const slugs = new Set(Object.keys(houseIcons));
   const ranked = [...slugs]
     .map((slug) => ({ score: scoreName(slug, concept), slug }))
     // The current answer is the thing the tournament is trying to beat. Do not
     // condition a fresh candidate or image proposal on the rejected geometry.
     .filter((row) => row.slug.replace(/-filled$/u, "") !== concept.name)
+    // Empty unless an eval asked for it. `libraryCandidates` in
+    // `lib/studio/generate.ts` filters the references this returns, so a slug
+    // withheld here cannot enter the tournament as a `library-*` arm either —
+    // both leakage channels close at this one line.
+    .filter((row) => !withheld?.has(row.slug))
     .filter((row) => row.score > 0)
     .toSorted((a, b) => b.score - a.score || a.slug.localeCompare(b.slug))
     .slice(0, MAX_LIBRARY_ICONS)
@@ -126,7 +171,31 @@ export const loadStudioArsenal = (concept: Concept): Promise<StudioArsenal> => {
     return existing;
   }
   const references = loadReferences(concept);
-  const loading = Promise.resolve({ parts: partsFrom(references), references });
+  /**
+   * Name the extraction against the curated vocabulary before handing it over.
+   *
+   * Without this the drawer is offered 96 parts called `folder-1-1`, `clock-2`,
+   * `rewrite-2-3` — every one named for the file it was sliced out of. Nothing
+   * can reason about `rewrite-2-3`; `listParts("pencil")` matches none of them,
+   * so the model composes a pencil out of `rect` and `line` instead of placing
+   * one. Measured before this line existed: zero `part` ops on seven of eight
+   * paints in a tournament, which then failed `houseDerived` and was rejected
+   * on provenance before its quality was ever read.
+   *
+   * `nameParts` matches by SHAPE rather than by id — each vocabulary entry is
+   * fingerprinted and paired with its nearest part under `NAME_THRESHOLD`,
+   * best pair first, each name claimed once. That is what makes the vocabulary
+   * survive re-extraction, and it is the step `packages/iconsmith` has always
+   * run and this file never did. `dsl.ts` states the reason plainly: "Nothing
+   * can reason about `p0031`; everything can reason about `cloud`."
+   *
+   * A part the vocabulary does not recognise keeps its provenance name, which
+   * `searchParts` still reaches through the icons it was extracted from.
+   */
+  const loading = Promise.resolve({
+    parts: nameParts(partsFrom(references)),
+    references,
+  });
   cache.set(key, loading);
   return loading;
 };

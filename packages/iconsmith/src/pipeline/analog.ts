@@ -47,6 +47,7 @@ import {
 } from "../tools/twin.js";
 import type { Finish, Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
+import { ArmDeclinedError } from "./decline.js";
 import type { GenerateResult } from "./generate.js";
 import type { GenerateLike } from "./harness.js";
 import { pairFamily } from "./pair.js";
@@ -1942,7 +1943,28 @@ const fromProgram = (
     })),
     ...lint(drawn.canvas, { keyline: drawn.keyline }),
   ];
-  const trace = traceOf(source);
+  /**
+   * Record the adoption, not only the ops it expanded into.
+   *
+   * `tournament.ts` reads provenance off the trace: `houseDerivedBy` is
+   * `partOpsOf > 0 || trace.includes("construct")`, and `construct` means "a
+   * whole host analog was adopted, coordinates and all". That is what every
+   * row the arm delivers *is* — `replay` re-runs a Central kin's paths, and
+   * the families, `stack`, `trays` and `hub` are library-authored programs.
+   * Without `ask` the arm is fully deterministic, which is how the Studio
+   * calls it, so no model wrote a coordinate on either branch.
+   *
+   * Deriving the trace from op names alone lost that. A replayed house drawing
+   * traced `icon, keyline, finish, rect, line, line, fit`, `houseDerived` came
+   * back false, and `paintAccepted` refused the pair at its third term before
+   * quality was read — observed on `email-settings`, whose host-analog paints
+   * scored `sc 0 pq 0 scorable false` against "it places no part and adopts no
+   * analog, so the house did not draw it". Only the rows that place a `part`
+   * op cleared the gate by accident: `stack` and the branch of `compose` that
+   * found a named silhouette. The families, `trays` and `hub` place none, and
+   * `compose` places none when it falls through to a family program.
+   */
+  const trace = ["construct", ...traceOf(source)];
   return {
     clean: issues.every((i) => i.severity !== "error"),
     doc: drawn.canvas.toJSON({
@@ -2001,17 +2023,41 @@ const withPair = (
   };
 };
 
+export interface AnalogArmOptions {
+  /**
+   * Refuse rather than deliver the `unknown` frame-and-dot as a drawing.
+   *
+   * Off by default, because whether a placeholder is honest depends on what
+   * the caller does with it, and only the caller knows. `scripts/reach-lab.ts`
+   * wants one: it is asserting that the *pipeline* runs both paints of an
+   * `--arm analog` set, and the fallback trips its warns honestly. A
+   * tournament does not: PQ scores craft rather than meaning, so a shape that
+   * means nothing carries a high half-score into the pair metric — judged
+   * live, `webhooks` "completely fails to convey the concept" at SC 1 / PQ 8,
+   * and `write-2` "depicts a single-pip die instead of a writing or editing
+   * tool" at SC 0 / PQ 8 outlined and SC 0 / PQ 8.5 filled.
+   *
+   * `AGENTS.md` names the discipline this serves: an arm this machine cannot
+   * run is a recorded skip with a reason, never a drawing from somewhere else.
+   * Both settings honour it — reach-lab already records skips as first-class
+   * results, and the tournament records a thrown arm as `haltedByFailure`
+   * rather than a budget event. Refusing unconditionally would have served it
+   * in one place by breaking it in the other.
+   */
+  refuseUnknown?: boolean;
+}
+
 /**
  * Unkeyed DRAW as a `GenerateFn`.
  *
  * No model. A look, when the caller passed `ask`, collides the catalog and
  * keeps the construction the vision scores as the named object. Without a
  * look, a name hint picks one construction so `database` is trays and
- * `unicorn` is a horn rather than both. A name nobody has a drawing for
- * is `unknown`, not a hub.
+ * `unicorn` is a horn rather than both. A name nobody has a drawing for is
+ * `unknown`, not a hub — or, under `refuseUnknown`, is a throw.
  */
 export const analogArm =
-  (): GenerateLike =>
+  ({ refuseUnknown = false }: AnalogArmOptions = {}): GenerateLike =>
   async (concept, options = {}) => {
     const parts = options.parts ?? [];
     const finish = options.finish ?? "outlined";
@@ -2029,18 +2075,29 @@ export const analogArm =
       neighbor,
       finish
     );
-    const drawn = catalog.map((row) => ({
-      ...row,
-      result: fromProgram(
-        row.source,
-        concept.name,
-        [...parts, ...(row.extras ?? [])],
-        options.spec
-      ),
-    }));
+    /**
+     * `unknown` is only ever the whole catalog, never one row of several: the
+     * collide branch cannot reach it, and without a look it is the last rung
+     * and is returned alone. So under `refuseUnknown` the filter empties the
+     * catalog rather than shortening it, and the guard below — which already
+     * had to exist for the narrowing — is where the refusal lands.
+     */
+    const drawn = catalog
+      .filter((row) => !(refuseUnknown && row.id === "unknown"))
+      .map((row) => ({
+        ...row,
+        result: fromProgram(
+          row.source,
+          concept.name,
+          [...parts, ...(row.extras ?? [])],
+          options.spec
+        ),
+      }));
     const [chosen] = drawn;
     if (chosen === undefined) {
-      throw new Error("analogArm: empty construction catalog");
+      throw new ArmDeclinedError(
+        `analogArm: no analog for "${concept.name}" — no name token, house kin, or named part answers it`
+      );
     }
     const { ask, lookReferences = [] } = options;
     if (ask) {

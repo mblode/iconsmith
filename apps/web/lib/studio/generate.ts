@@ -22,6 +22,7 @@ import type { ApiCost, AuditResult, ExpertId, PairCandidate } from "iconsmith";
 
 import { loadStudioArsenal } from "./arsenal";
 import { conceptOf, isVague } from "./concept";
+import { safeStudioSvg } from "./svg";
 import type {
   StudioActivity,
   StudioAgentRun,
@@ -85,6 +86,48 @@ const LOCAL_HARNESS = process.env.ICONSMITH_LOCAL_HARNESS === "1";
  */
 const PROPOSAL_IDEAS = 2;
 
+/**
+ * The ceiling every turn runs under when the caller names none.
+ *
+ * There was no such ceiling. `request.budget` is optional, the Studio composer
+ * never sets it, and `runPairTournament` reads `if (!budget) { return true; }`
+ * — so every arm was granted unconditionally on the one path anyone can reach
+ * without credentials. A caller-supplied budget can only ever REFUSE an arm, so
+ * this is not defence against a large `maxUsd`; it is the absence of any
+ * ceiling at all.
+ *
+ * Sized to seat the whole field rather than to be tight: the four fixed arms
+ * reserve $1.60 and 72 calls, and a budget under that does not make a run
+ * cheaper — it makes the arms that draw unreachable and reports the result as
+ * though they had competed. Matches `backlog.mjs`'s own campaign defaults.
+ */
+export const DEFAULT_ICON_BUDGET = { maxCalls: 90, maxUsd: 2 } as const;
+
+/**
+ * A caller may ask for less than the default and never for more.
+ *
+ * Exported beside the default so a test pins THESE numbers rather than a copy
+ * of them: a test that restates `{ maxCalls: 90, maxUsd: 2 }` agrees with the
+ * old value the day someone changes the default, which is the opposite of what
+ * a guard should do.
+ *
+ * The request arrives having been copied out of a chat message by the
+ * orchestrator model, so treating it as authorisation would let a hallucinated
+ * field raise the ceiling. Treating it as a request for restraint costs nothing
+ * and keeps the field useful to the batch driver, which legitimately wants a
+ * smaller per-icon cap.
+ */
+export const clampIconBudget = (requested?: {
+  maxCalls: number;
+  maxUsd: number;
+}): { maxCalls: number; maxUsd: number } => ({
+  maxCalls: Math.min(
+    requested?.maxCalls ?? DEFAULT_ICON_BUDGET.maxCalls,
+    DEFAULT_ICON_BUDGET.maxCalls,
+  ),
+  maxUsd: Math.min(requested?.maxUsd ?? DEFAULT_ICON_BUDGET.maxUsd, DEFAULT_ICON_BUDGET.maxUsd),
+});
+
 /** The shared proposal stage, from the `gpr` ledger: two flash sketches at
  *  $0.035, one pro sketch at $0.153, the selection pass at $0.045 and the
  *  reading at $0.012. Reserved by both arms that can trigger it, because the
@@ -122,13 +165,32 @@ const HARNESS_PAIR_RESERVE_USD = 0.4 + PROPOSAL_RESERVE_USD;
 /** What a complete four-arm tournament reserves. `backlog.mjs` sizes its
  *  per-icon default from this number; a budget below it cannot buy the arms
  *  that draw, and the tournament now names the ones it had to refuse. */
+/**
+ * What the field actually reserves, which is not what this used to say.
+ *
+ * `image-agent` adds `PROPOSAL_RESERVE_USD` to its reserve at the candidate
+ * table — the proposal stage is memoised and either arm that can trigger it
+ * reserves it, which is why `HARNESS_PAIR_RESERVE_USD` folds it in too. This
+ * sum omitted it, so it reported $1.30 against a field that reserves $1.60,
+ * and 67 calls against 72. The harness arm survived the omission because its
+ * own constant already carried the proposal; `image-agent`'s was the one
+ * dropped, and the shortfall is exactly one `PROPOSAL_RESERVE_USD`.
+ *
+ * That matters because `backlog.mjs`'s comment says it sizes the per-icon
+ * default from this number: a budget provisioned against $1.30 is 19% short of
+ * the field it has to seat, and a reservation is checked before an arm may
+ * start — so the arms it cannot seat are the expensive ones that draw.
+ */
 export const PAIR_TOURNAMENT_RESERVE_USD =
   PAIR_AUDIT_RESERVE_USD +
-  IMAGE_PAIR_RESERVE_USD +
+  (IMAGE_PAIR_RESERVE_USD + PROPOSAL_RESERVE_USD) +
   GATEWAY_PAIR_RESERVE_USD +
   HARNESS_PAIR_RESERVE_USD;
 export const PAIR_TOURNAMENT_RESERVE_CALLS =
-  2 + IMAGE_PAIR_RESERVE_CALLS + GATEWAY_PAIR_RESERVE_CALLS + HARNESS_PAIR_RESERVE_CALLS;
+  2 +
+  (IMAGE_PAIR_RESERVE_CALLS + PROPOSAL_RESERVE_CALLS) +
+  GATEWAY_PAIR_RESERVE_CALLS +
+  HARNESS_PAIR_RESERVE_CALLS;
 
 const asIssues = (
   issues: readonly {
@@ -165,7 +227,22 @@ const visualProposal = (request: StudioRequest) => {
   ) {
     throw new Error("That visual reference could not be read safely.");
   }
-  return compose(Buffer.from(payload, "base64"), { model: null });
+  const bytes = Buffer.from(payload, "base64");
+  /**
+   * An attached SVG is markup, and it reaches librsvg through sharp.
+   *
+   * The header check above proves the payload *claims* to be an image and is
+   * valid base64; it says nothing about what is inside, and `image/svg+xml`
+   * matches it. So a `<script>`, an `on*=` handler or an `<image href>` pointing
+   * anywhere reached the rasteriser untouched. This repo already owns the
+   * sanitiser for exactly this — `lib/studio/svg.ts`, whose own header records
+   * that it was consolidated because a weaker second copy let `onload=` through
+   * — and it was wired to the library route and not to inbound attachments.
+   * Same threat, same sink, same guard.
+   */
+  const isSvg = /^data:image\/svg\+xml;base64$/iu.test(header);
+  const safe = isSvg ? Buffer.from(safeStudioSvg(bytes.toString("utf-8")), "utf-8") : bytes;
+  return compose(safe, { model: null });
 };
 
 const selectedExpert = (trace: readonly string[], attempted: readonly ExpertId[]): ExpertId => {
@@ -437,8 +514,26 @@ export const generateStudioResponse = async (
   const candidates: PairCandidate[] = [
     ...ranking.candidates,
     {
+      /**
+       * `refuseUnknown` because this is a tournament, not a lab.
+       *
+       * The last rung of the analog ladder draws a rounded square with a dot in
+       * the middle — the honest placeholder when no token, kin or named part
+       * answers the name. In a staging run that is a useful "nothing answered
+       * this"; entered as a candidate it is a shape that means nothing carrying
+       * a high craft score, because PQ grades competence and this thing is
+       * competently drawn. Measured: concept `webhooks` scored it SC 1 / PQ 8
+       * ("completely fails to convey the concept"), and `write-2` SC 0 / PQ 8
+       * ("a single-pip die instead of a writing or editing tool").
+       *
+       * `packages/iconsmith/AGENTS.md` states the rule this restores: an arm
+       * that cannot answer is "a recorded skip with a reason — never a drawing
+       * from somewhere else". The refusal is opt-in so `reach-lab` and the
+       * other staging callers, which legitimately want the placeholder, are
+       * unchanged.
+       */
       generate: (paint) =>
-        analogArm()(concept, {
+        analogArm({ refuseUnknown: true })(concept, {
           corpus: arsenal.references,
           finish: paint,
           parts: arsenal.parts,
@@ -502,12 +597,28 @@ export const generateStudioResponse = async (
   ];
   const rankingCalls = ranking.cost?.calls ?? 0;
   const rankingUsd = ranking.cost ? totalUsd([ranking.cost]) : 0;
-  const budget = request.budget
-    ? {
-        maxCalls: Math.max(0, request.budget.maxCalls - rankingCalls),
-        maxUsd: Math.max(0, request.budget.maxUsd - (rankingUsd ?? request.budget.maxUsd)),
-      }
-    : undefined;
+  /**
+   * A caller may ask for LESS than the default and never for more. The request
+   * is copied out of a chat message by the orchestrator model, so treating it
+   * as authorisation would let a hallucinated field raise the ceiling; treating
+   * it as a request for restraint costs nothing and keeps the flag useful for
+   * the batch driver, which legitimately wants a smaller per-icon cap.
+   */
+  const ceiling = clampIconBudget(request.budget);
+  /**
+   * An unpriced ranking call must not zero the tournament.
+   *
+   * `totalUsd` returns null when any record is unpriced, and the previous
+   * `rankingUsd ?? request.budget.maxUsd` then subtracted the entire budget
+   * from itself, leaving maxUsd 0 — so one flaky ranker call refused every arm
+   * and the run reported that it had rejected every candidate. An unknown cost
+   * is not the whole budget; it is an unknown, and the reserve check downstream
+   * already fails closed on unpriced calls.
+   */
+  const budget = {
+    maxCalls: Math.max(0, ceiling.maxCalls - rankingCalls),
+    maxUsd: Math.max(0, ceiling.maxUsd - (rankingUsd ?? 0)),
+  };
   const tournament = await runPairTournament({
     abortSignal: options.abortSignal,
     ask: gatewayAsk,
@@ -598,21 +709,34 @@ export const generateStudioResponse = async (
           unpricedCalls: Math.max(1, accountedCost.unpricedCalls),
         }
       : accountedCost;
-  const measuredBudgetOverrun = request.budget
-    ? exceedsCostBudget({ calls: measuredCost.calls, usd: measuredCost.totalUsd }, request.budget)
-    : false;
-  const completeBudget = request.budget
-    ? {
-        actualCalls: measuredCost.calls,
-        actualUsd: measuredCost.totalUsd,
-        exhausted: tournament.budget?.exhausted === true || measuredBudgetOverrun,
-        maxCalls: request.budget.maxCalls,
-        maxUsd: request.budget.maxUsd,
-        overrun: tournament.budget?.overrun === true || measuredBudgetOverrun,
-        reservedCalls: rankingCalls + (tournament.budget?.reservedCalls ?? 0),
-        reservedUsd: (rankingUsd ?? request.budget.maxUsd) + (tournament.budget?.reservedUsd ?? 0),
-      }
-    : null;
+  const measuredBudgetOverrun = exceedsCostBudget(
+    { calls: measuredCost.calls, usd: measuredCost.totalUsd },
+    ceiling,
+  );
+  /**
+   * Always reported, and reported as the ceiling that was ENFORCED.
+   *
+   * This used to be `request.budget ? … : null`, echoing back whatever the
+   * caller asked for. On the one path anyone can reach without credentials the
+   * composer sends no budget at all, so every real run reported `budget: null`
+   * — a run that had just executed under a $2 ceiling looked to the client
+   * exactly like the unlimited runs that preceded it. A ceiling nobody can see
+   * is indistinguishable from no ceiling, which is the thing being fixed.
+   */
+  const completeBudget = {
+    actualCalls: measuredCost.calls,
+    actualUsd: measuredCost.totalUsd,
+    exhausted: tournament.budget?.exhausted === true || measuredBudgetOverrun,
+    maxCalls: ceiling.maxCalls,
+    maxUsd: ceiling.maxUsd,
+    overrun: tournament.budget?.overrun === true || measuredBudgetOverrun,
+    reservedCalls: rankingCalls + (tournament.budget?.reservedCalls ?? 0),
+    // `?? 0`, not `?? ceiling.maxUsd`. An unknown ranking cost is an unknown,
+    // not the whole budget — the same idiom that zeroed the tournament's own
+    // ceiling a few lines up, left behind here where it misreports reserved
+    // spend as the entire budget whenever the ranker comes back unpriced.
+    reservedUsd: (rankingUsd ?? 0) + (tournament.budget?.reservedUsd ?? 0),
+  };
   const tournamentSummary = {
     candidates: tournament.candidates.map((candidate) => ({
       accepted: candidate.accepted,
@@ -668,6 +792,8 @@ export const generateStudioResponse = async (
       budget: completeBudget,
       eligible: tournament.eligible,
       evaluated: tournament.candidates.length,
+      /** An arm threw. `stoppedEarly` cannot tell this from winning. */
+      haltedByFailure: tournament.haltedByFailure,
       stopScore: CONFIDENT_PAIR_SCORE,
       stoppedEarly: tournament.stoppedEarly,
       unaffordable: tournament.unaffordable,
@@ -696,9 +822,24 @@ export const generateStudioResponse = async (
       tournament.unaffordable.length > 0
         ? ` It never ran ${tournament.unaffordable.join(", ")}: the per-icon budget could not reserve ${tournament.unaffordable.length === 1 ? "that arm" : "those arms"}.`
         : "";
-    const next = completeBudget?.exhausted
-      ? `${refused} The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate.`
-      : " Try a more specific object noun or attach a composition reference.";
+    /**
+     * Three different shorts, three different sentences.
+     *
+     * They used to share one flag and one sentence, so a run that halted
+     * because an arm threw told the user their budget was exhausted and
+     * advised them to raise it — after spending 22% of it, on a condition a
+     * larger budget cannot fix.
+     */
+    const crashed = tournament.candidates.find((candidate) => candidate.failure !== null);
+    let next = " Try a more specific object noun or attach a composition reference.";
+    if (tournament.haltedByFailure) {
+      next =
+        `${refused} ${crashed ? `${crashed.label} failed` : "An arm failed"}` +
+        ", so I stopped rather than spend more after something broke. This is not a" +
+        " budget limit — running it again with a larger budget would reproduce it.";
+    } else if (completeBudget?.exhausted) {
+      next = `${refused} The automatic cost budget was exhausted, so the pair remains in revision; rerun it with an explicit larger per-icon budget to escalate.`;
+    }
     return {
       kind: "error",
       text: `I rejected every candidate for “${name}” instead of returning another weak icon.${quality}${next}`,

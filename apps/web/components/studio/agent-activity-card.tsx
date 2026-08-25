@@ -1,4 +1,4 @@
-import { CircleXIcon, DotFilledIcon } from "blode-icons-react";
+import { CircleXIcon, CircleFilledIcon } from "blode-icons-react";
 
 import {
   ThinkingStep,
@@ -44,7 +44,7 @@ export const AgentActivityCard = ({ activities }: { activities: readonly StudioA
         {activities.map((activity, index) => (
           <ThinkingStep
             description={activity.detail}
-            icon={activity.state === "failed" ? CircleXIcon : DotFilledIcon}
+            icon={activity.state === "failed" ? CircleXIcon : CircleFilledIcon}
             isLast={index === activities.length - 1}
             key={activity.id}
             label={activity.label}

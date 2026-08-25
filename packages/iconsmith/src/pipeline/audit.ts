@@ -21,10 +21,27 @@ import { EMPTY_USAGE, tokenUsageOf } from "./cost.js";
 import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { CounterpartClass, DrawKind, MarkTwin } from "./kind.js";
 
-/** High-value visual judge from the live Gateway catalog (2026-08-24).
- * Gemini 3.7 Flash is the current discounted workhorse for agents, vision,
- * and tool use. Acceptance remains independent of the generation model. */
-export const AUDIT_MODEL = "google/gemini-3.7-flash";
+/**
+ * The visual judge.
+ *
+ * **The previous line here claimed "Acceptance remains independent of the
+ * generation model." On the Studio path that was false.**
+ * `apps/web/lib/studio/generate.ts` sets both `IMAGE_AGENT_MODEL` and
+ * `GATEWAY_AGENT_MODEL` to this same string, so two of the four arms are
+ * judged by their own model. `tournament.ts` is careful that an arm must not
+ * review its own drawing — "a witness, not a judge" — and says nothing about
+ * the weights behind it, and `paintAccepted` has no model-identity check. A
+ * stylistic preference shared by generator and judge is then scored as quality
+ * and selected for, arm over arm.
+ *
+ * Overridable so a deployment can hold the judge apart from the draughtsman
+ * without a code change. Whatever is set here must first clear the forced-choice
+ * gate in `eval/judge.ts` — `scripts/judge-gate.ts --model <id>` — because that
+ * gate has already failed one model at 83%, and a judge that cannot tell a
+ * shipped icon from an unrelated one is noise wearing a number.
+ */
+export const AUDIT_MODEL =
+  process.env.ICONSMITH_AUDIT_MODEL ?? "google/gemini-3.7-flash";
 export const PREVIEW_FILE = "PREVIEW.png";
 export const AUDIT_FILE = "AUDIT.json";
 /** Same size `eval/judge-model.ts` uses: eyes, not the 48px cosine raster. */
@@ -33,6 +50,43 @@ export const AUDIT_PX = 192;
 export const ICON_PX = 24;
 /** SC/PQ at or above this is a screen pass. */
 export const LOOK_SCREEN = 6;
+
+/**
+ * The rubric, with anchors, used as the system prompt for every look.
+ *
+ * It lived in `eval/judge.ts` with no caller on this path while the shipping
+ * judge ran on a bare "Score SC and PQ 0-10" — and `eval/judge.ts` says why
+ * that matters in its own words: an unanchored scale "drifts toward 7 for
+ * everything, and a column where every entry is 7 has no variance to read".
+ * Measured on 42 audited paints, this one did something worse than drift: SC
+ * never took the value 9 and PQ had no observation between 5 and 8.5, so the
+ * instrument answered 0-1 or 10 and the acceptance threshold sat in a dead
+ * zone where no value from 6 to 9 changed a single decision.
+ *
+ * Canonical here rather than in `eval/`, because `pipeline/` may not import
+ * `eval/` — `scripts/check-boundaries.ts` calls that "the one thing standing
+ * between `pipeline/` and a cycle". `eval/judge.ts` re-exports it, so the
+ * sanity gate and the shipping judge are held to one rubric. The text is
+ * unchanged from the version the recorded gate runs in
+ * `bench/calibration.v1.json` were measured against.
+ */
+export const LOOK_RUBRIC = `You grade icons for an icon set with a strict house spec: 24×24 canvas, 2px round-capped strokes, geometry on a 0.5 grid, edges at 0/45/90 degrees, a small number of elements.
+
+You give two independent scores from 0 to 10.
+
+SC — semantic consistency. Does the drawing read as the named concept, unlabelled, at 16px?
+  10  unmistakable; the first thing anyone would name it is the concept
+   7  reads as the concept once you know it; a stranger might say something adjacent
+   4  the parts of the concept are present but do not assemble into it
+   0  reads as something else, or as nothing
+
+PQ — perceptual quality. Is it a competent icon, ignoring what it depicts?
+  10  even stroke weight, clean joins, balanced mass, nothing accidental
+   7  sound but with a visible awkwardness: a crowded corner, a lopsided element
+   4  legible but crude: uneven weight, collisions, drifting alignment
+   0  broken geometry, stray marks, or an empty canvas
+
+Score the two independently. A beautiful drawing of the wrong thing scores high PQ and low SC; a clear concept drawn badly scores the reverse. Do not average them yourself.`;
 
 export type AuditKind =
   | "belong"
@@ -110,11 +164,63 @@ const schema = z.object({
 });
 
 /** Path data, SVG path commands, or `d=` — the model never smuggles geometry. */
-const GEOMETRY = /\b[Mm]\s*-?\d|[CcLlHhVvSsQqTtAa]\s*-?\d|\bd\s*=|<\s*path\b/u;
+/**
+ * Markup that is unambiguously a path, whatever surrounds it.
+ */
+const PATH_MARKUP = /\bd\s*=|<\s*path\b/u;
+
+/**
+ * Path DATA, recognised by its shape rather than by one letter beside a digit.
+ *
+ * The previous rule was `[CcLlHhVvSsQqTtAa]\s*-?\d`, which fires on any English
+ * word ending in one of those letters before a number — and the rubric this
+ * judge is given asks it to reason about "24px" and "192px" and to answer in
+ * the words rect, circle, hole, part, line, finish. So it ate its own output:
+ * "the stroke does not survive at 24px", "the ring is 2 units thick", "the icon
+ * has 3 parts" and "PQ 6 is generous here" were all replaced by the scold. That
+ * matters beyond tidiness — `harness.ts` hands finding text to the external
+ * coding agent AS the repair instruction, so a scrubbed paint bought a paid
+ * turn on the sentence "finding named geometry", and `look.ts`'s repair picker
+ * matches on words like "corner" and "notch" that it could no longer see.
+ *
+ * Real path data is a command letter, a number, and then MORE of the same:
+ * `M4 4H12`, not "at 24". Requiring the repeat is what separates them, and the
+ * lookbehind keeps a command letter from being the tail of a word.
+ *
+ * Known gap, stated rather than papered over: coordinates spelled out in prose
+ * ("from four, eleven to twenty") still pass, as do non-ASCII digits. The
+ * finding text is written by a vision model looking at a host-rendered PNG,
+ * with no untrusted party in the loop, so the injection premise is weak and the
+ * false-positive damage was the real cost. `reason` is scrubbed by the same
+ * rule below, which it previously was not.
+ */
+const PATH_DATA =
+  /(?<![A-Za-z])[MmZz]\s*-?\d[\d.,\s+-]*(?:[A-Za-z]\s*-?\d[\d.,\s+-]*)+/u;
+
+const namesGeometry = (text: string): boolean =>
+  PATH_MARKUP.test(text) || PATH_DATA.test(text);
+
+/**
+ * The judge's free-text `reason`, held to the same rule as its findings.
+ *
+ * It was held to none. `sanitizeFinding` was applied to `findings` only, while
+ * `reason` travelled unchecked into `AUDIT.json` — the file `harness.ts` tells
+ * the external coding agent to open, two lines above telling it not to emit
+ * path data. That is the leak the scrubber exists to stop, through the door
+ * left open beside it.
+ */
+export const sanitizeReason = (reason: string | null): string | null => {
+  if (reason === null) {
+    return null;
+  }
+  return namesGeometry(reason)
+    ? "reason named geometry; it was withheld so it cannot be copied"
+    : reason;
+};
 
 export const sanitizeFinding = (finding: AuditFinding): AuditFinding => {
   const kind = KINDS.has(finding.kind) ? finding.kind : "belong";
-  const message = GEOMETRY.test(finding.message)
+  const message = namesGeometry(finding.message)
     ? "finding named geometry; rewrite the program, do not copy path data"
     : finding.message;
   return { kind, message };
@@ -284,6 +390,10 @@ export const gatewayAsk: AuditAsk = async ({
     ],
     model: resolveModel(AUDIT_MODEL),
     schema,
+    // Anchored, so "8" means the same thing twice. Without a system prompt the
+    // scale was whatever the model brought to that call, and `eval/judge.ts`
+    // says why that matters: an unanchored scale has no variance to read.
+    system: LOOK_RUBRIC,
   });
   costTracker.record(result.providerMetadata);
   return {
@@ -294,7 +404,7 @@ export const gatewayAsk: AuditAsk = async ({
     }),
     findings: result.object.findings.map(sanitizeFinding),
     pq: result.object.pq,
-    reason: result.object.reason,
+    reason: sanitizeReason(result.object.reason),
     sc: result.object.sc,
   };
 };
@@ -336,7 +446,13 @@ export const audit = async ({
     });
     const findings = raw.findings.map(sanitizeFinding);
     return judged(
-      { cost: raw.cost, findings, pq: raw.pq, reason: raw.reason, sc: raw.sc },
+      {
+        cost: raw.cost,
+        findings,
+        pq: raw.pq,
+        reason: sanitizeReason(raw.reason),
+        sc: raw.sc,
+      },
       kind ?? "analog"
     );
   } catch (error) {

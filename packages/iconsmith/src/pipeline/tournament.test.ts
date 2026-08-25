@@ -4,6 +4,7 @@ import { run as runDsl } from "../tools/dsl.js";
 import type { IconDoc, Part } from "../types.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
+import { ArmDeclinedError } from "./decline.js";
 import type { GenerateResult } from "./generate.js";
 import { rankPairCandidates, runPairTournament } from "./tournament.js";
 
@@ -118,6 +119,206 @@ const pricedResult = (usd: number): GenerateResult => {
   };
   return { ...result(review(10, 10)), apiCosts: [cost] };
 };
+
+/**
+ * A drawing the model composed from primitives: no `part` op, no `construct`
+ * in the trace. `houseDerivedBy` is false for it, so `paintAccepted` refuses it
+ * at its third term regardless of what any judge would say.
+ */
+const PRIMITIVE_PROGRAM = [
+  "icon home",
+  "finish outlined",
+  "rect 3,3 18x18",
+].join("\n");
+
+const primitiveResult = (): GenerateResult =>
+  ({
+    clean: true,
+    doc: docOf(PRIMITIVE_PROGRAM),
+    issues: [],
+    program: PRIMITIVE_PROGRAM,
+    steps: 2,
+    svg: '<svg viewBox="0 0 24 24"></svg>',
+    text: "done",
+    trace: ["icon", "finish", "rect"],
+  }) as GenerateResult;
+
+describe("an arm with no answer does not stop the ones behind it", () => {
+  it("carries on past a decline, and halts on a crash", async () => {
+    const ran: string[] = [];
+    const field = (first: () => Promise<never>) => ({
+      ask: judgeAll(review(10, 10)),
+      budget: { maxCalls: 40, maxUsd: 5 },
+      candidates: [
+        {
+          generate: () => {
+            ran.push("first");
+            return first();
+          },
+          id: "first",
+          label: "First",
+          reserveCalls: 2,
+          reserveUsd: 0.1,
+        },
+        {
+          generate: () => {
+            ran.push("second");
+            return Promise.resolve(result(review(10, 10)));
+          },
+          id: "second",
+          label: "Second",
+          reserveCalls: 2,
+          reserveUsd: 0.1,
+        },
+      ],
+      concept: { name: "home", tags: [] },
+      parts: [...PARTS],
+    });
+
+    ran.length = 0;
+    const declined = await runPairTournament(
+      field(() => Promise.reject(new ArmDeclinedError('no analog for "home"')))
+    );
+    // The regression this pins: routing "I have no answer" through the same
+    // throw as a crash halted `webhooks` at arm 1 of 4 and never ran the three
+    // arms that could have drawn it.
+    expect(ran).toContain("second");
+    expect(declined.haltedByFailure).toBe(false);
+    expect(declined.winner?.id).toBe("second");
+    expect(declined.candidates[0]?.declined).toBe(true);
+    // Still a recorded failure with a reason, not a silent skip.
+    expect(declined.candidates[0]?.failure).toContain("no analog");
+
+    ran.length = 0;
+    const crashed = await runPairTournament(
+      field(() => Promise.reject(new Error("the arm fell over")))
+    );
+    expect(ran).not.toContain("second");
+    expect(crashed.haltedByFailure).toBe(true);
+    expect(crashed.candidates[0]?.declined).toBe(false);
+  });
+});
+
+describe("a pair one paint short is rescued from its own skeleton", () => {
+  it("derives the twin rather than discarding a house-quality paint", async () => {
+    const looks: string[] = [];
+    const tournament = await runPairTournament({
+      // Outlined is excellent, the arm's own filled attempt is not, and the
+      // twin derived from the outlined skeleton is. Measured motivation:
+      // concept `write-2` produced an outlined pencil at 10/10 and a filled
+      // pen at 10/9 in the same run, in different candidates, and shipped
+      // neither because every pair had one weak half.
+      ask: (input) => {
+        looks.push(input.finish);
+        const verdict = looks.length === 2 ? review(5, 5) : review(10, 10);
+        return Promise.resolve(verdict);
+      },
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "one-good-paint",
+          label: "One good paint",
+          // Serial so the scripted judge is consumed in a known order.
+          serial: true,
+        },
+      ],
+      concept: { name: "home", tags: [] },
+      parts: [...PARTS],
+    });
+
+    // Three looks: both original paints, then the derived twin.
+    expect(looks).toHaveLength(3);
+    const [candidate] = tournament.candidates;
+    expect(candidate?.accepted).toBe(true);
+    expect(tournament.winner?.id).toBe("one-good-paint");
+    // The rescued paint is derived, not the arm's, and says so.
+    const rescued = candidate?.paints.find((paint) =>
+      paint.result.trace.includes("twin")
+    );
+    expect(rescued).toBeDefined();
+    expect(rescued?.accepted).toBe(true);
+  });
+
+  it("still refuses a pair whose derived twin is no better", async () => {
+    const tournament = await runPairTournament({
+      // Every look after the first is weak, including the derived twin, so the
+      // rescue must not lower the bar — it only offers a second skeleton.
+      ask: (() => {
+        let n = 0;
+        return () => {
+          n += 1;
+          return Promise.resolve(n === 1 ? review(10, 10) : review(4, 4));
+        };
+      })(),
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "beyond-rescue",
+          label: "Beyond rescue",
+          serial: true,
+        },
+      ],
+      concept: { name: "home", tags: [] },
+      parts: [...PARTS],
+    });
+    expect(tournament.candidates[0]?.accepted).toBe(false);
+    expect(tournament.winner).toBeNull();
+  });
+});
+
+describe("the structural gate runs before the paid look", () => {
+  it("does not buy a judgement it will discard, and says provenance rather than quality", async () => {
+    let looks = 0;
+    const tournament = await runPairTournament({
+      ask: () => {
+        looks += 1;
+        return Promise.resolve(review(10, 10));
+      },
+      candidates: [
+        {
+          generate: () => Promise.resolve(primitiveResult()),
+          id: "primitive",
+          label: "Primitive",
+        },
+      ],
+      concept: { name: "home", tags: [] },
+      parts: [...PARTS],
+    });
+
+    // The whole point: a paint that cannot pass is not sent to the judge.
+    expect(looks).toBe(0);
+
+    const [candidate] = tournament.candidates;
+    expect(candidate?.accepted).toBe(false);
+    for (const paint of candidate?.paints ?? []) {
+      expect(paint.houseDerived).toBe(false);
+      // Not a zero, which would be a judgement. No opinion was formed.
+      expect(paint.audit.scorable).toBe(false);
+      expect(paint.audit.reason).toContain("provenance refusal");
+      expect(paint.audit.reason).toContain("places no part");
+    }
+  });
+
+  it("still looks when the drawing is house-derived", async () => {
+    let looks = 0;
+    await runPairTournament({
+      ask: () => {
+        looks += 1;
+        return Promise.resolve(review(10, 10));
+      },
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "composed",
+          label: "Composed",
+        },
+      ],
+      concept: { name: "home", tags: [] },
+      parts: [...PARTS],
+    });
+    expect(looks).toBeGreaterThan(0);
+  });
+});
 
 describe("runPairTournament", () => {
   it("selects the strongest complete pair, not the best single paint", async () => {
@@ -422,12 +623,17 @@ describe("runPairTournament", () => {
     // priced: the outlined paint had already been billed, and the run reports
     // what it actually cost rather than declaring the total unknown.
     expect(tournament.candidates[0]?.partialCosts).toHaveLength(1);
+    // A crash halts the run; it is not a budget condition. These were one flag,
+    // and the conflation told a user their budget was exhausted after spending
+    // 22% of it, and advised them to raise it — which cannot fix a thrown arm.
+    expect(tournament.haltedByFailure).toBe(true);
     expect(tournament.budget).toMatchObject({
       actualCalls: 1,
       actualUsd: 0.02,
-      exhausted: true,
+      exhausted: false,
       overrun: false,
     });
+    // Nothing was accepted here, so there is no winner either way.
     expect(tournament.winner).toBeNull();
   });
 
@@ -475,11 +681,47 @@ describe("runPairTournament", () => {
     // honest reading — a serial arm knows what it finished, a parallel one
     // does not.
     expect(tournament.candidates[0]?.partialCosts).toStrictEqual([]);
+    expect(tournament.haltedByFailure).toBe(true);
     expect(tournament.budget).toMatchObject({
-      exhausted: true,
+      exhausted: false,
       overrun: false,
     });
     expect(tournament.winner).toBeNull();
+  });
+
+  it("keeps a pair that already cleared every gate when a later arm crashes", async () => {
+    const tournament = await runPairTournament({
+      ask: judgeAll(review(10, 10)),
+      budget: { maxCalls: 40, maxUsd: 5 },
+      candidates: [
+        {
+          generate: () => Promise.resolve(result(review(10, 10))),
+          id: "good",
+          label: "Good",
+          reserveCalls: 2,
+          reserveUsd: 0.1,
+        },
+        {
+          generate: () => Promise.reject(new Error("later arm exploded")),
+          id: "broken",
+          label: "Broken",
+          reserveCalls: 2,
+          reserveUsd: 0.1,
+        },
+      ],
+      concept: { name: "home" },
+      parts: PARTS,
+      // Below the accepted pair's score, so escalation continues past it and
+      // reaches the arm that throws — which is the whole point of the case.
+      stopScore: null,
+    });
+
+    expect(tournament.haltedByFailure).toBe(true);
+    // The regression this pins: the shared flag nulled the winner, so a pair
+    // that had already been accepted was thrown away because something LATER
+    // fell over. Every failure fixture put the failing arm first, so no
+    // accepted run had ever existed to discard, which is why it shipped.
+    expect(tournament.winner?.id).toBe("good");
   });
 
   it("does not start an unpriced candidate inside a dollar budget", async () => {

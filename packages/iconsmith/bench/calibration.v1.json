@@ -33,7 +33,12 @@
     "floor": {
       "gate": 0.9873777575619741,
       "n": 8794,
-      "sets": ["heroicons", "iconoir", "lucide", "tabler"],
+      "sets": [
+        "heroicons",
+        "iconoir",
+        "lucide",
+        "tabler"
+      ],
       "strict": 0.20275187627928132
     },
     "packs": [
@@ -140,7 +145,13 @@
           "verdict": "Judge sanity gate FAILED: 25/30 (83%), below the 90% floor. The judge column is discarded — it cannot separate a shipped icon from an unrelated one, so its scores on the real question are noise."
         },
         "measuredAt": "2026-08-19T02:01:17.545Z",
-        "missed": ["increase", "bubble-5", "telegram", "threads", "manus-ai"],
+        "missed": [
+          "increase",
+          "bubble-5",
+          "telegram",
+          "threads",
+          "manus-ai"
+        ],
         "model": "anthropic/claude-haiku-4.5",
         "seed": 1
       },
@@ -152,7 +163,10 @@
           "verdict": "Judge sanity gate passed: 28/30 (93%) preferred the shipped icon over a random one."
         },
         "measuredAt": "2026-08-19T02:02:56.055Z",
-        "missed": ["boolean-group-substract-2", "threads"],
+        "missed": [
+          "boolean-group-substract-2",
+          "threads"
+        ],
         "model": "anthropic/claude-sonnet-4.5",
         "seed": 1
       },
@@ -166,6 +180,18 @@
         "measuredAt": "2026-08-24T00:19:21.616Z",
         "missed": [],
         "model": "google/gemini-3.5-flash",
+        "seed": 1
+      },
+      {
+        "gate": {
+          "accuracy": 1,
+          "n": 30,
+          "passed": true,
+          "verdict": "Judge sanity gate passed: 30/30 (100%) preferred the shipped icon over a random one."
+        },
+        "measuredAt": "2026-08-25T09:32:17.435Z",
+        "missed": [],
+        "model": "google/gemini-3.7-flash",
         "seed": 1
       }
     ]

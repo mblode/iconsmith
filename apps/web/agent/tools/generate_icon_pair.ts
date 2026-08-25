@@ -6,9 +6,15 @@
    handler without awaiting, because awaiting it would block the very drain it
    protects. Satisfying any of the three would mean polling. */
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
-import path from "node:path";
 
 import { defineTool } from "eve/tools";
+
+import {
+  MAX_TURN_ATTEMPTS,
+  turnFailurePath,
+  turnRecordDirectory,
+  turnRecordPath,
+} from "../../lib/studio/turn-record";
 
 import { generateStudioResponse } from "../../lib/studio/generate";
 import type { StudioActivity, StudioProgress, StudioResponse } from "../../lib/studio/types";
@@ -36,22 +42,68 @@ const activeTurns = new Map<string, ReturnType<typeof generateStudioResponse>>()
  * `.eve/` is on the watcher's own hardcoded ignore list, which is why the
  * workbench already writes its in-flight checkpoints there: a record written
  * during a turn must not trigger the rebuild that ends it.
+ *
+ * The address itself lives in `lib/studio/turn-record.ts`, with the reasoning
+ * for it, because nothing in this file is importable by the node test runner —
+ * its sibling imports are extensionless and only eve's bundler resolves them.
+ * The old address was wrong for six recorded generations exactly because no
+ * test could name it.
  */
-const turnRecordDirectory = path.join(import.meta.dirname, "../../.eve/studio-turns");
-
-const turnRecordPath = (operationId: string): string =>
-  path.join(turnRecordDirectory, `${operationId.replaceAll(/[^\w.-]+/gu, "_")}.json`);
-
 const recordedTurn = async (
   operationId: string,
 ): Promise<Awaited<ReturnType<typeof generateStudioResponse>> | null> => {
   try {
     const raw = await readFile(turnRecordPath(operationId), "utf-8");
     return JSON.parse(raw) as Awaited<ReturnType<typeof generateStudioResponse>>;
+  } catch (error) {
+    /**
+     * Only "no such file" means the turn has not been delivered.
+     *
+     * This used to swallow everything and call it undelivered, which is a false
+     * inference stated as fact: an unreadable record is evidence the turn WAS
+     * delivered, because something wrote a file for it. EACCES, EMFILE, EIO and
+     * a truncated JSON all collapsed into "redraw and bill again" — and EMFILE
+     * is reachable exactly when it hurts, since eight arms hold sockets and
+     * temp files at once. Anything but ENOENT is now a reason to stop.
+     */
+    if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
+      return null;
+    }
+    throw new Error(
+      `A record for ${operationId} exists but could not be read, so this turn ` +
+        `was not redrawn: redrawing it might bill a tournament twice (${String(error)})`,
+      { cause: error },
+    );
+  }
+};
+
+/** How many times this operation has already thrown after spending money. */
+const failureCount = async (operationId: string): Promise<number> => {
+  try {
+    const raw = await readFile(turnFailurePath(operationId), "utf-8");
+    const parsed = JSON.parse(raw) as { attempts?: number };
+    return typeof parsed.attempts === "number" ? parsed.attempts : 0;
   } catch {
-    // No record, or an unreadable one. Either way this turn has not been
-    // delivered yet, and drawing it is the correct answer.
-    return null;
+    // A missing or unreadable counter must not itself stop a turn: the worst
+    // case is one extra attempt, which is what the counter is bounding anyway.
+    return 0;
+  }
+};
+
+const recordFailure = async (
+  operationId: string,
+  attempts: number,
+  message: string,
+): Promise<void> => {
+  try {
+    await mkdir(turnRecordDirectory, { recursive: true });
+    const target = turnFailurePath(operationId);
+    const temporary = `${target}.${process.pid}.tmp`;
+    await writeFile(temporary, `${JSON.stringify({ attempts, message })}\n`);
+    await rename(temporary, target);
+  } catch {
+    // Best effort, like the result record. Losing the counter costs at most an
+    // extra attempt; failing the turn here would throw away a real answer.
   }
 };
 
@@ -67,10 +119,21 @@ const recordTurn = async (
     await writeFile(temporary, `${JSON.stringify(output)}\n`);
     await rename(temporary, target);
     return true;
-  } catch {
-    // A turn that cannot be recorded is still a turn that was drawn. Losing
-    // the record costs a possible re-run; failing the tool here would throw
-    // away work that already succeeded and was already paid for.
+  } catch (error) {
+    // A turn that cannot be recorded is still a turn that was drawn. Failing
+    // the tool here would throw away work that already succeeded and was
+    // already paid for, so the write stays best-effort.
+    //
+    // But it must not stay SILENT. The cost is not "a possible re-run": an
+    // operation with no record is permanently un-deduped, so every later
+    // redelivery redraws in full — and when the cause is environmental, a
+    // read-only filesystem or a bad path, that is true of every turn on the
+    // host, forever. Swallowing it without a word is why the old address
+    // survived six generations of records with nobody noticing.
+    process.emitWarning(
+      `iconsmith: could not record turn ${operationId} at ${turnRecordDirectory}; ` +
+        `it is now un-deduped and any redelivery will redraw and bill again (${String(error)})`,
+    );
     return false;
   }
 };
@@ -160,7 +223,18 @@ export default defineTool({
    * @yields {StudioProgress} One snapshot for each published update.
    */
   async *execute(request, ctx) {
-    const operationId = `${ctx.session.id}-${ctx.session.turn.id}`;
+    /**
+     * The tool call, not just the turn.
+     *
+     * Keyed on the turn alone, two calls in one turn shared one slot and
+     * `generateOnce` joined the second to the first WITHOUT comparing the
+     * request — so "draw me a dog and a cat" returned the dog twice, the second
+     * one labelled as the cat. `instructions.md` asks for a second call by name
+     * on the declined-approval path, and a flash model emitting two in parallel
+     * is ordinary. `callId` is stable for a given call across redeliveries, so
+     * adding it fixes the collision without weakening the replay guard.
+     */
+    const operationId = `${ctx.session.id}-${ctx.session.turn.id}-${ctx.callId}`;
     const recorded = await recordedTurn(operationId);
     if (recorded) {
       // A replay must not redraw. This is the guard that stopped a rebuild
@@ -170,6 +244,30 @@ export default defineTool({
       // own example ends `yield { phase: "complete", report }` with no return —
       // so returning here would hand the model and the client nothing.
       yield recorded;
+      return;
+    }
+
+    /**
+     * A turn that has already thrown twice is not tried a third time.
+     *
+     * The result record is written only on success, but money is spent on every
+     * path: `generateStudioResponse` can throw AFTER the tournament has drawn
+     * and audited every arm. eve then redelivers, the result record was never
+     * written and `clearFailedTurn` has dropped the in-process guard, so the
+     * whole tournament runs again — and again, deterministically, because the
+     * failure is usually deterministic. `request.budget` does not bound it:
+     * it is per-call and resets on every delivery.
+     */
+    const attempts = await failureCount(operationId);
+    if (attempts >= MAX_TURN_ATTEMPTS) {
+      yield {
+        kind: "error",
+        text:
+          `I stopped drawing “${request.text}” after ${attempts} attempts that ` +
+          "each failed part-way through and each cost money. Something in the " +
+          "pipeline is failing the same way every time, so trying again would " +
+          "spend more without producing an icon.",
+      } satisfies StudioResponse;
       return;
     }
 
@@ -212,6 +310,13 @@ export default defineTool({
           activeTurns.delete(operationId);
         }
         return output;
+      } catch (error) {
+        // Counted here rather than in `clearFailedTurn`, which only tidies the
+        // in-process map. A failure that already drew and audited eight arms is
+        // an expenditure, and the record has to mark expenditure rather than
+        // only completion — otherwise nothing bounds the retries.
+        await recordFailure(operationId, attempts + 1, String(error));
+        throw error;
       } finally {
         settled = true;
         nudge();

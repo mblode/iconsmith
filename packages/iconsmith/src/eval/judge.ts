@@ -74,23 +74,12 @@ export const pair = (
  * 0–10": an unanchored scale drifts toward 7 for everything, and a column
  * where every entry is 7 has no variance to read.
  */
-export const JUDGE_SYSTEM = `You grade icons for an icon set with a strict house spec: 24×24 canvas, 2px round-capped strokes, geometry on a 0.5 grid, edges at 0/45/90 degrees, a small number of elements.
-
-You give two independent scores from 0 to 10.
-
-SC — semantic consistency. Does the drawing read as the named concept, unlabelled, at 16px?
-  10  unmistakable; the first thing anyone would name it is the concept
-   7  reads as the concept once you know it; a stranger might say something adjacent
-   4  the parts of the concept are present but do not assemble into it
-   0  reads as something else, or as nothing
-
-PQ — perceptual quality. Is it a competent icon, ignoring what it depicts?
-  10  even stroke weight, clean joins, balanced mass, nothing accidental
-   7  sound but with a visible awkwardness: a crowded corner, a lopsided element
-   4  legible but crude: uneven weight, collisions, drifting alignment
-   0  broken geometry, stray marks, or an empty canvas
-
-Score the two independently. A beautiful drawing of the wrong thing scores high PQ and low SC; a clear concept drawn badly scores the reverse. Do not average them yourself.`;
+/**
+ * Re-exported from `pipeline/audit.ts`, which is where the shipping judge
+ * reads it. Two rubrics, one of them dead, is worse than one — this file
+ * already says so about a scorer it deleted for the same reason.
+ */
+export { LOOK_RUBRIC as JUDGE_SYSTEM } from "../pipeline/audit.js";
 
 /** The prompt for the sanity gate: a forced choice, not a score. */
 export const GATE_PROMPT = (concept: string): string =>

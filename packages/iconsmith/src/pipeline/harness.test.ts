@@ -64,6 +64,14 @@ fit`;
 
 const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47]);
 const throwAsk: AuditAsk = () => Promise.reject(new Error("gateway down"));
+/** A look that never passes, so the repair spawn is always reached. */
+const failAsk: AuditAsk = () =>
+  Promise.resolve({
+    findings: [{ kind: "object", message: "not a box" }],
+    pq: 4,
+    reason: "wrong object",
+    sc: 3,
+  });
 
 const concept = { name: "box", tags: ["container"] };
 const noOptions: GenerateOptions = {};
@@ -732,5 +740,54 @@ describe("harnessArm audit", () => {
     expect(calls).toHaveLength(1);
     expect(result.program).toContain("rect 4,4 16x16 r2");
     expect(result.svg).toContain("<svg");
+  });
+
+  it("keeps the drawing when a repair spawn fails, and says so in the log", async () => {
+    const calls: HarnessInvocation[] = [];
+    const spawn: Spawn = (invocation) => {
+      calls.push(invocation);
+      if (calls.length > 1) {
+        return Promise.resolve({
+          code: 1,
+          stderr: "returned no complete .icon program: the response was empty",
+          stdout: "",
+        });
+      }
+      writeFileSync(path.join(invocation.cwd, "icon.icon"), SQUARE);
+      return Promise.resolve({ code: 0, stderr: "", stdout: "Drew a box." });
+    };
+    const result = await harnessArm({ ask: failAsk, repairs: 2, spawn })(
+      concept,
+      noOptions
+    );
+
+    // One repair attempted, none after it: a harness that could not answer
+    // once will not answer the identical question a second time.
+    expect(calls).toHaveLength(2);
+    expect(result.program).toContain("rect 4,4 16x16 r2");
+    expect(result.svg).toContain("<svg");
+    expect(result.audit?.ok).toBe(false);
+    expect(result.log).toContain("Repair abandoned");
+    expect(result.log).toContain("the response was empty");
+  });
+
+  it("still fails when the repair is cancelled rather than refused", async () => {
+    const controller = new AbortController();
+    const { spawn } = fake(SQUARE, { stdout: "Drew a box." });
+    const ask: AuditAsk = () => {
+      controller.abort();
+      return Promise.resolve({
+        findings: [{ kind: "object", message: "not a box" }],
+        pq: 4,
+        reason: "wrong object",
+        sc: 3,
+      });
+    };
+
+    await expect(
+      harnessArm({ ask, repairs: 1, spawn })(concept, {
+        abortSignal: controller.signal,
+      })
+    ).rejects.toThrow();
   });
 });

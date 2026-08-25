@@ -15,20 +15,52 @@
 import { generateObject } from "ai";
 import { z } from "zod";
 
-import { completeProgram } from "../tools/dsl.js";
+import { completeProgram, run as runDsl } from "../tools/dsl.js";
+import { lint } from "../tools/lint.js";
 import { sheet } from "../tools/render.js";
+import { adaptProgram } from "../tools/twin.js";
 import type { Finish, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
 import { EMPTY_USAGE, tokenUsageOf, totalUsd } from "./cost.js";
+import { isDeclined } from "./decline.js";
 import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { GenerateResult } from "./generate.js";
 import { better } from "./pick.js";
 import type { RankedSample } from "./pick.js";
 import type { Concept } from "./prompt.js";
 
+/**
+ * The acceptance floor for both SC and PQ.
+ *
+ * **Asserted, not measured, and known to be inert.** Every other constant in
+ * this codebase quotes its corpus measurement — `minGap` cites n=1306 median
+ * 2.00, `radiusTiers` cites 78.4% of 6,188 corner arcs, `off-axis` cites 480 of
+ * 1,640 icons. This one arrived as a bare literal alongside the tournament and
+ * has never moved, including when `AUDIT_MODEL` changed underneath it.
+ *
+ * Measured over the 42 audited paints on disk, the count passing
+ * `sc >= m && pq >= m` is 11 at m=6, 11 at m=7, 11 at m=8 and 11 at m=9 — the
+ * judge answers 0-1 or 10 and almost nothing between, so **no value in [6, 9]
+ * changes a single decision.** Do not tune it: the gate is not what is wrong.
+ * Restore the anchored rubric (`eval/judge.ts` carries one with no caller), put
+ * `AUDIT_MODEL` through the 90% sanity gate it has never taken, then re-derive
+ * this from the measured distribution and write it to `bench/` like the rest.
+ */
 export const TOURNAMENT_MINIMUM = 8;
+
+/**
+ * Look at a paint the structural gate has already refused.
+ *
+ * Off by default: the look cannot change the outcome, so buying it is buying
+ * nothing. On, it is the diagnostic that made the provenance veto visible in
+ * the first place — a primitive-drawn paint scoring 10/10 and being discarded
+ * is the evidence, and without it the next person to hit this has no way to see
+ * it. Set `ICONSMITH_AUDIT_VETOED=1` when measuring the gate rather than using
+ * it.
+ */
+const auditVetoed = process.env.ICONSMITH_AUDIT_VETOED === "1";
 
 /**
  * Where a tournament has got to, while it is still running.
@@ -176,13 +208,20 @@ export const rankPairCandidates = async ({
   concept: Concept;
 }): Promise<PairCandidateRanking> => {
   abortSignal?.throwIfAborted();
-  if (candidates.length <= 1) {
-    return {
-      candidates: [...candidates],
-      order: candidates.map((candidate) => candidate.id),
-      reason: null,
-    };
+  if (candidates.length === 0) {
+    return { candidates: [], order: [], reason: null };
   }
+  /**
+   * One candidate is still asked about, and this used to short-circuit here.
+   *
+   * The prompt does two jobs. Ordering needs at least two candidates and is a
+   * pure cost optimisation. The other job is a semantic filter — "Reject
+   * badges, modifiers, and special variants that change the ordinary meaning"
+   * — and it is needed MOST when there is a single candidate, because a lone
+   * near-name match is exactly the case where the tournament will accept it and
+   * stop. Skipping the call to save ordering also silently switched the filter
+   * off, and the ranker call is the cheapest in the run.
+   */
   try {
     const pairs = await Promise.all(
       candidates.map((candidate) =>
@@ -266,6 +305,9 @@ export interface TournamentPaint {
 export interface TournamentRun {
   accepted: boolean;
   /** A failed arm is evidence, not a reason to discard every other arm. */
+  /** The arm had no answer for this concept, rather than breaking. It is still
+   *  a failed arm with a reason; it just does not stop the ones behind it. */
+  declined?: boolean;
   failure: string | null;
   /** What a failed pair had already been billed for before it threw. Kept so
    *  one arm's collapse does not make the whole tournament's ledger unknown. */
@@ -293,6 +335,15 @@ export interface PairTournamentResult {
   candidates: TournamentRun[];
   /** Candidates available before an accuracy gate stopped escalation. */
   eligible: number;
+  /**
+   * An arm threw, which stopped the escalation.
+   *
+   * Read beside `unaffordable` and `budget.exhausted`, these three now say
+   * which kind of short a short tournament was: an arm broke, the budget could
+   * not seat the next arm, or the measured ledger went over. They used to be
+   * one flag, so a crash was reported to the user as an exhausted budget.
+   */
+  haltedByFailure: boolean;
   minimum: { pq: number; sc: number };
   /** True when fewer arms ran than were offered — for either reason. Read it
    *  beside `unaffordable`: a tournament that stopped because it won and one
@@ -350,6 +401,56 @@ const partOpsOf = (result: GenerateResult): number =>
 const houseDerivedBy = (result: GenerateResult): boolean =>
   partOpsOf(result) > 0 || result.trace.includes("construct");
 
+/**
+ * The structural half of acceptance: everything decidable from the drawing
+ * itself, with no model call.
+ *
+ * `paintAccepted` ANDs these three ahead of every audit term, and JavaScript's
+ * `&&` short-circuits, so when one of them is false the audit's scores are read
+ * by nothing. Computing them first is what lets the caller skip a paid look
+ * that cannot change the outcome — and, more importantly, lets the refusal say
+ * *provenance* rather than *quality*, which is what a user was previously told.
+ */
+const structurallyEligible = (
+  result: GenerateResult,
+  programComplete: boolean
+): boolean => result.clean && programComplete && houseDerivedBy(result);
+
+/**
+ * Why a paint was refused before anyone looked at it.
+ *
+ * Recorded as an unscorable audit rather than a zero, because a zero is a
+ * judgement and this is the absence of one. `scorable: false` is already the
+ * shape the rest of the pipeline reads for "no opinion available", and
+ * `eval/panel.ts` makes the same distinction one level up: null is not 0.
+ */
+const vetoedAudit = (
+  result: GenerateResult,
+  programComplete: boolean
+): AuditResult => {
+  const reasons: string[] = [];
+  if (!result.clean) {
+    reasons.push("the drawing has a lint error");
+  }
+  if (!programComplete) {
+    reasons.push("its program does not replay to the delivered document");
+  }
+  if (!houseDerivedBy(result)) {
+    reasons.push(
+      "it places no part and adopts no analog, so the house did not draw it"
+    );
+  }
+  return {
+    findings: [],
+    ok: false,
+    pq: 0,
+    reason: `Not looked at: ${reasons.join("; ")}. This is a provenance refusal, not a quality one.`,
+    sc: 0,
+    scorable: false,
+    stage: "screen",
+  };
+};
+
 const paintAccepted = (
   paint: Omit<TournamentPaint, "accepted">,
   minimumSc: number,
@@ -362,6 +463,112 @@ const paintAccepted = (
   paint.audit.findings.length === 0 &&
   paint.audit.sc >= minimumSc &&
   paint.audit.pq >= minimumPq;
+
+/**
+ * Derive the other paint from the one that worked, rather than discard both.
+ *
+ * The tournament asks each arm for two INDEPENDENT drawings and then requires
+ * them to be a coherent pair. `tools/twin.ts` exists because that is not how a
+ * pair is meant to be made — "one skeleton, two paints" — and the measured cost
+ * of the independent version is large. On concept `write-2`, four arms produced
+ * an outlined pencil at SC 10 / PQ 10, another outlined pencil at 10 / 9.5, and
+ * a filled pen at 10 / 9; every one of them sat in a candidate whose OTHER
+ * paint scored 5 or 6, so the run delivered nothing and told the user to try a
+ * more specific noun.
+ *
+ * `adaptProgram` re-derives the counterpart from the accepted paint's own
+ * program, so the rescued twin shares the skeleton by construction — which is
+ * both the house rule and the reason the two occupy one visual extent in 94% of
+ * the set's pairs. That is a stronger guarantee than the arm's second attempt
+ * ever had.
+ *
+ * Deliberately narrow. It only runs when exactly one paint of a pair was
+ * accepted, it never replaces an accepted paint, and the derived twin faces the
+ * identical gate — structural terms first, then the same judge. A pair that
+ * still fails is still refused; nothing here lowers the bar.
+ */
+const rescueTwin = async ({
+  abortSignal,
+  ask,
+  concept,
+  minimumPq,
+  minimumSc,
+  parts,
+  references,
+  strong,
+  weak,
+}: {
+  abortSignal?: AbortSignal;
+  ask?: AuditAsk;
+  concept: Concept;
+  minimumPq: number;
+  minimumSc: number;
+  parts: readonly Part[];
+  references: readonly Buffer[];
+  strong: TournamentPaint;
+  weak: TournamentPaint;
+}): Promise<TournamentPaint | null> => {
+  const source = strong.result.program;
+  if (!source) {
+    return null;
+  }
+  let derived: ReturnType<typeof runDsl>;
+  let program: string;
+  try {
+    program = adaptProgram(source, weak.finish);
+    derived = runDsl(program, [...parts]);
+  } catch {
+    // A skeleton that will not re-derive is not a failure worth reporting: the
+    // pair is refused either way, and the arm's own paint is already recorded.
+    return null;
+  }
+  if (derived.errors.length > 0) {
+    return null;
+  }
+  const issues = lint(derived.canvas, { keyline: derived.keyline });
+  if (issues.some((issue) => issue.severity === "error")) {
+    return null;
+  }
+  const doc = derived.canvas.toJSON({
+    icon: derived.icon ?? concept.name,
+    keyline: derived.keyline,
+  });
+  const result: GenerateResult = {
+    ...strong.result,
+    clean: true,
+    doc,
+    issues,
+    program,
+    svg: derived.canvas.toSVG(),
+    trace: [...strong.result.trace, "twin"],
+  };
+  const programComplete = completeProgram(doc, program, [
+    ...parts,
+    ...(result.extras ?? []),
+  ]);
+  if (!structurallyEligible(result, programComplete)) {
+    return null;
+  }
+  const reviewed = await audit({
+    abortSignal,
+    ask,
+    concept,
+    finish: weak.finish,
+    kind: "analog",
+    references,
+    svg: result.svg,
+  });
+  const judged = {
+    audit: reviewed,
+    finish: weak.finish,
+    houseDerived: houseDerivedBy(result),
+    partOps: partOpsOf(result),
+    programComplete,
+    result,
+    selfReview: null,
+  };
+  return { ...judged, accepted: paintAccepted(judged, minimumSc, minimumPq) };
+};
 
 const pairScore = (paints: readonly TournamentPaint[]): number => {
   if (paints.length === 0) {
@@ -510,6 +717,44 @@ export const runPairTournament = async ({
       }
       const paints = await Promise.all(
         results.map(async ({ finish, result }): Promise<TournamentPaint> => {
+          const programComplete = completeProgram(result.doc, result.program, [
+            ...parts,
+            ...(result.extras ?? []),
+          ]);
+          /**
+           * Decide the structural half first, and do not buy a look the gate
+           * will discard.
+           *
+           * Measured before this branch existed: a concept whose references
+           * yield no usable part left every generative paint at zero `part`
+           * ops, so `houseDerived` was false and `paintAccepted` returned false
+           * at its third term — after two `visual-audit` calls per pair had
+           * already been billed, and after scores of 10/10 had been recorded
+           * that nothing would read.
+           *
+           * `auditVetoed` keeps the look for telemetry, because that discarded
+           * 10/10 is the only reason the veto was ever visible.
+           */
+          if (!(auditVetoed || structurallyEligible(result, programComplete))) {
+            const refused = vetoedAudit(result, programComplete);
+            report({
+              ...seat,
+              finish,
+              phase: "reviewed",
+              pq: refused.pq,
+              sc: refused.sc,
+            });
+            const judged = {
+              audit: refused,
+              finish,
+              houseDerived: houseDerivedBy(result),
+              partOps: partOpsOf(result),
+              programComplete,
+              result,
+              selfReview: result.audit ?? null,
+            };
+            return { ...judged, accepted: false };
+          }
           // Always a fresh look. An arm that reviews its own drawing is a
           // witness, not a judge: the campaign's one accepted pair carried
           // `mode: "draw-and-review"` at 10/10 on both paints, and the first
@@ -537,10 +782,7 @@ export const runPairTournament = async ({
             finish,
             houseDerived: houseDerivedBy(result),
             partOps: partOpsOf(result),
-            programComplete: completeProgram(result.doc, result.program, [
-              ...parts,
-              ...(result.extras ?? []),
-            ]),
+            programComplete,
             result,
             selfReview: result.audit ?? null,
           };
@@ -550,15 +792,58 @@ export const runPairTournament = async ({
           };
         })
       );
-      const accepted = paints.every((paint) => paint.accepted);
-      const score = pairScore(paints);
+      /**
+       * One paint short is the common way a pair fails, and throwing the good
+       * one away with it is what produced "I rejected every candidate" on runs
+       * that had just drawn a house-quality icon. Derive the twin from the
+       * skeleton that worked and give it the same gate.
+       */
+      const rescued = await (async (): Promise<TournamentPaint[]> => {
+        const strong = paints.filter((paint) => paint.accepted);
+        const weak = paints.filter((paint) => !paint.accepted);
+        if (strong.length !== 1 || weak.length !== 1) {
+          return paints;
+        }
+        const [strongPaint] = strong;
+        const [weakPaint] = weak;
+        if (!(strongPaint && weakPaint)) {
+          return paints;
+        }
+        const twin = await rescueTwin({
+          abortSignal,
+          ask,
+          concept,
+          minimumPq,
+          minimumSc,
+          parts,
+          references,
+          strong: strongPaint,
+          weak: weakPaint,
+        });
+        if (!twin?.accepted) {
+          return paints;
+        }
+        report({
+          ...seat,
+          finish: twin.finish,
+          phase: "reviewed",
+          pq: twin.audit.pq,
+          sc: twin.audit.sc,
+        });
+        // Order is the caller's contract elsewhere, so the rescued paint takes
+        // the failed one's place rather than being appended.
+        return paints.map((paint) => (paint === weakPaint ? twin : paint));
+      })();
+      const accepted = rescued.every((paint) => paint.accepted);
+      const score = pairScore(rescued);
       report({ ...seat, accepted, phase: "settled", score });
       return {
         accepted,
+        declined: false,
         failure: null,
         id: candidate.id,
         label: candidate.label,
-        paints,
+        paints: rescued,
         score,
       };
     } catch (error) {
@@ -566,6 +851,7 @@ export const runPairTournament = async ({
       // failure and must stop the tournament before another arm is started.
       abortSignal?.throwIfAborted();
       const failure = failureMessage(error);
+      const declined = isDeclined(error);
       report({
         ...seat,
         accepted: false,
@@ -581,6 +867,7 @@ export const runPairTournament = async ({
       // an unfinished arm no longer makes the finished ones unpayable.
       return {
         accepted: false,
+        declined,
         failure,
         id: candidate.id,
         label: candidate.label,
@@ -597,6 +884,20 @@ export const runPairTournament = async ({
   let actualUsd = 0;
   let hasUnpricedCalls = false;
   let budgetExhausted = false;
+  /**
+   * An arm threw. Distinct from `budgetExhausted`, and it used to be the same
+   * flag.
+   *
+   * A crash stops further escalation, because spending more after something
+   * broke is rarely what the caller wants. It is NOT a budget condition, and
+   * conflating the two told a user "The automatic cost budget was exhausted...
+   * rerun it with an explicit larger per-icon budget" after a run had spent 22%
+   * of its budget — advice that cannot work, because a bigger budget does not
+   * fix an arm that threw, and rerunning reproduces the crash at double the
+   * cost. Worse, the shared flag also nulled the winner, so a pair that had
+   * ALREADY been accepted was discarded because a later arm fell over.
+   */
+  let haltedByFailure = false;
   const reserve = (candidate: PairCandidate): boolean => {
     if (!budget) {
       return true;
@@ -641,8 +942,12 @@ export const runPairTournament = async ({
     // `totalUsd: null`, and `exceedsCostBudget` fails closed on an unknown
     // cost, so a fully priced run was refused and another arm's accepted-grade
     // outlined paint went in the bin with it.
-    if (budget && run.failure !== null) {
-      budgetExhausted = true;
+    // A decline is not a crash. `run.declined` is set by an arm that had no
+    // answer for this concept, which says nothing about whether the next arm
+    // does — halting on it stopped `webhooks` at arm 1 of 4 and skipped the
+    // three arms that could have drawn it.
+    if (budget && run.failure !== null && !run.declined) {
+      haltedByFailure = true;
     }
     if (
       budget &&
@@ -664,7 +969,7 @@ export const runPairTournament = async ({
         const run = await runCandidate(candidate);
         runs.push(run);
         recordActual(run);
-        if (budgetExhausted) {
+        if (budgetExhausted || haltedByFailure) {
           break;
         }
       }
@@ -688,7 +993,7 @@ export const runPairTournament = async ({
       const run = await runCandidate(candidate);
       runs.push(run);
       recordActual(run);
-      if (budgetExhausted) {
+      if (budgetExhausted || haltedByFailure) {
         break;
       }
       if (run.accepted && run.score >= stopScore) {
@@ -726,9 +1031,17 @@ export const runPairTournament = async ({
       : null,
     candidates: runs,
     eligible: candidates.length,
+    /** An arm threw and stopped the escalation. Not a budget condition. */
+    haltedByFailure,
     minimum: { pq: minimumPq, sc: minimumSc },
     stoppedEarly: runs.length < candidates.length,
     unaffordable,
+    /**
+     * Only a real budget condition discards an accepted pair, and it does so
+     * because the ledger is over or unknown and `exceedsCostBudget` fails
+     * closed. A crash in a LATER arm says nothing about a pair that already
+     * cleared every gate, so it no longer throws that pair away.
+     */
     winner: budgetExhausted
       ? null
       : (ranked.find((run) => run.accepted) ?? null),

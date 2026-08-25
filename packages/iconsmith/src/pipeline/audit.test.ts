@@ -17,6 +17,7 @@ import {
   lookBrief,
   persistLook,
   sanitizeFinding,
+  sanitizeReason,
   shot,
   writeAudit,
   writePreview,
@@ -242,5 +243,55 @@ describe("lookBrief", () => {
     });
     expect(brief).toMatch(/bar, line, or dot may be solid/u);
     expect(brief).toMatch(/Do not fail a minus/u);
+  });
+});
+
+const scrubbed = (message: string): boolean =>
+  sanitizeFinding({ kind: "belong", message }).message.startsWith(
+    "finding named geometry"
+  );
+
+describe("the geometry scrubber", () => {
+  it("still catches path data and path markup", () => {
+    for (const message of [
+      'd ="M4 11"',
+      'd="M4 4H12"',
+      '<path d="M0 0"',
+      "the stem should run M4 4H12 across",
+      "M12 2L20 20Z",
+    ]) {
+      expect(scrubbed(message)).toBe(true);
+    }
+  });
+
+  /**
+   * The rule it replaced was `[CcLlHhVvSsQqTtAa]\s*-?\d`, which fires on any
+   * word ending in one of those letters before a number — so it ate the rubric
+   * its own prompt asks for. `harness.ts` feeds this text to the repair agent
+   * verbatim, so a scrubbed finding buys a paid turn that says nothing.
+   */
+  it("does not eat ordinary rubric language containing a number", () => {
+    for (const message of [
+      "The stroke does not survive at 24px",
+      "It reads at 16px but the corner is crowded",
+      "the ring is 2 units thick",
+      "the icon has 3 parts",
+      "PQ 6 is generous here",
+      "a 24px stroke is too heavy",
+      "the notch at 3 o clock is crowded",
+      "SC 4 because the pole is lopsided",
+    ]) {
+      expect(scrubbed(message), message).toBe(false);
+    }
+  });
+
+  it("holds `reason` to the same rule, since the repair agent is told to read it", () => {
+    expect(sanitizeReason("the stem should run M4 4H12")).toBe(
+      "reason named geometry; it was withheld so it cannot be copied"
+    );
+    expect(sanitizeReason("the bowl is crowded at 16px")).toBe(
+      "the bowl is crowded at 16px"
+    );
+    expect(sanitizeReason(null)).toBeNull();
   });
 });

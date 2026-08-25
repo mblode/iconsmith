@@ -39,6 +39,10 @@
     "oxlint.config.ts",
     "oxfmt.config.ts",
     "**/*.test.ts",
-    "scripts/prefix-eve-vercel-routes.ts"
+    "scripts/prefix-eve-vercel-routes.ts",
+    // Run directly by `node --experimental-strip-types`, which requires the
+    // explicit `.ts` extension on its imports that `tsc` rejects without
+    // `allowImportingTsExtensions`. Same reason the test files above are here.
+    "scripts/eve-contamination.ts"
   ]
 }

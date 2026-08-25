@@ -173,9 +173,20 @@ const shapeWord = (w: number, h: number): ShapeWord => {
   return "square";
 };
 
+/**
+ * A ceiling on decoded pixels, because `image` here came from outside.
+ *
+ * `compose` is the one place in this package that rasterises a buffer the
+ * caller supplied rather than one the canvas produced, and sharp's default
+ * ceiling is 268 megapixels — high enough that a small file declaring enormous
+ * dimensions costs gigabytes to decode. The drawings this reads are 24-unit
+ * icons; anything past a few megapixels is not a reference, it is a bill.
+ */
+const MAX_INPUT_PIXELS = 16_000_000;
+
 /** Ink map of the image at the analysis grid: 1 where there is a mark. */
 const inkMap = async (image: Buffer): Promise<Uint8Array> => {
-  const raw = await sharp(image)
+  const raw = await sharp(image, { limitInputPixels: MAX_INPUT_PIXELS })
     .resize(GRID, GRID, { background: "#fff", fit: "contain" })
     .flatten({ background: "#fff" })
     .greyscale()
@@ -385,7 +396,7 @@ const shortlist = async (found: Region[], parts: Part[]): Promise<string[]> => {
 };
 
 const thumbnail = async (image: Buffer): Promise<string> => {
-  const png = await sharp(image)
+  const png = await sharp(image, { limitInputPixels: MAX_INPUT_PIXELS })
     .resize(THUMB, THUMB, { background: "#fff", fit: "contain" })
     .flatten({ background: "#fff" })
     .greyscale()

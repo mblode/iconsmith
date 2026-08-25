@@ -19,6 +19,9 @@ import type { HarnessRun, Spawn } from "./harness.js";
 const BRIEF_FILE = "BRIEF.md";
 const PARTS_FILE = "parts.json";
 const PROGRAM_FILE = "icon.icon";
+/** What came back when it was not a program. Written only on that failure, so
+ *  its presence in a scratch directory is itself the diagnosis. */
+const REJECTED_FILE = "REJECTED.txt";
 const SKILL_FILE = "SKILL.md";
 
 export interface GatewayHarnessRequest {
@@ -28,9 +31,14 @@ export interface GatewayHarnessRequest {
   system: string;
 }
 
-export type GatewayHarnessAsk = (
-  request: GatewayHarnessRequest
-) => Promise<{ cost?: ApiCost; text: string }>;
+export type GatewayHarnessAsk = (request: GatewayHarnessRequest) => Promise<{
+  cost?: ApiCost;
+  /** Why the model stopped. `"length"` is the one value the caller cannot
+   *  infer from the text: a completion cut at the output-token limit and a
+   *  model that answered in prose are the same string with different fixes. */
+  finishReason?: string;
+  text: string;
+}>;
 
 export interface GatewayHarnessOptions {
   apiKey?: string;
@@ -77,17 +85,71 @@ const vocabularyNames = (source: string | null): string => {
   }
 };
 
+/** Any info string, not only `icon` and `text`. A block opened as ```dsl used
+ *  to miss this and fall through to the bare-text branch, which found the
+ *  header inside the fence and returned the backticks with it — a program whose
+ *  first and last lines are ops the compiler has never heard of. */
+const FENCE = /```[^\n]*\n(?<program>[\s\S]*?)```/u;
+
+/** The header, read as `dsl.ts` reads it: that parser strips a comment before
+ *  it tokenises, so `icon clock # the face` is a legal header there. A check
+ *  stricter than the compiler it feeds rejects programs that would have drawn. */
+const HEADER = /^icon\s+[a-z0-9][a-z0-9-]*\s*(?:#.*)?$/imu;
+
+/** Enough of the grammar to tell a partial edit from prose, and nothing more:
+ *  this list feeds an error message, never a decision about what runs. `dsl.ts`
+ *  stays the only authority on what an op is, so a list that falls behind it
+ *  costs a less specific sentence rather than a wrong one. */
+const PROGRAM_LINE =
+  /^(?:keyline|finish|part|rect|circle|arc|diamond|hole|line|dot|cent(?:er|re)|fit|cohort)\b/imu;
+
 /** Accept a plain answer or one fenced block, but never fish prose for loose
  * geometry. A harness response is a whole `.icon` program or a failed run. */
 export const programFromHarnessText = (text: string): string | null => {
   const trimmed = text.trim();
-  const fenced = /```(?:icon|text)?\s*\n(?<program>[\s\S]*?)```/iu.exec(trimmed)
-    ?.groups?.program;
-  const candidate = (fenced ?? trimmed).trim();
-  if (!/^icon\s+[a-z0-9][a-z0-9-]*\s*$/imu.test(candidate)) {
+  const candidate = (FENCE.exec(trimmed)?.groups?.program ?? trimmed).trim();
+  if (!HEADER.test(candidate)) {
     return null;
   }
   return `${candidate}\n`;
+};
+
+/** The first line, capped: an error message is one line and the rest of the
+ *  response is on disk. */
+const opening = (text: string): string => {
+  const [first = ""] = text.trim().split("\n");
+  return first.length > 96 ? `${first.slice(0, 96)}…` : first;
+};
+
+/**
+ * Why a response was not a program, in the terms whoever reads the failure
+ * needs.
+ *
+ * "Returned no complete .icon program" is the one fact that narrows nothing:
+ * an empty completion, a refusal, a partial edit and a headerless program all
+ * produce it and each has a different fix. The response itself was discarded
+ * into a `stdout` no caller printed, so telling them apart meant paying for the
+ * run again — one campaign left 53 scratch directories holding a brief, a skill
+ * and nothing the model had said.
+ */
+export const describeRejection = (
+  text: string,
+  finishReason?: string
+): string => {
+  const cut =
+    finishReason === "length" ? " and was cut at the output-token limit" : "";
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return `the response was empty${cut}`;
+  }
+  const fenced = FENCE.exec(trimmed)?.groups?.program?.trim();
+  if (fenced) {
+    return `a fenced block with no \`icon <slug>\` header${cut}, opening \`${opening(fenced)}\``;
+  }
+  if (PROGRAM_LINE.test(trimmed)) {
+    return `program lines with no \`icon <slug>\` header${cut}, opening \`${opening(trimmed)}\``;
+  }
+  return `${trimmed.length} characters of prose${cut}, opening \`${opening(trimmed)}\``;
 };
 
 const defaultAsk =
@@ -113,6 +175,7 @@ const defaultAsk =
         operation: "claude-harness",
         usage: tokenUsageOf(result.totalUsage),
       }),
+      finishReason: result.finishReason,
       text: result.text,
     };
   };
@@ -163,10 +226,16 @@ export const gatewayHarnessSpawn = (
       });
       const program = programFromHarnessText(response.text);
       if (!program) {
+        // Beside the brief, because that is where the rest of this run's
+        // evidence already is and a failed run keeps the directory.
+        writeFileSync(
+          path.join(invocation.cwd, REJECTED_FILE),
+          `${response.text}\n`
+        );
         return {
           code: 1,
           costs: response.cost ? [response.cost] : undefined,
-          stderr: "Claude Gateway returned no complete .icon program.",
+          stderr: `Claude Gateway returned no complete .icon program: ${describeRejection(response.text, response.finishReason)}. Full response at ${REJECTED_FILE}.`,
           stdout: response.text,
         };
       }

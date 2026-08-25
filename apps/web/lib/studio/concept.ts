@@ -28,11 +28,48 @@ const INTENT = new Set([
 const TWEAK =
   /^(?:again|bigger|change|filled|less|make|more|outlined|refine|smaller|taller|try|use|wider)\b/iu;
 
+/**
+ * Short words that carry the meaning rather than filler.
+ *
+ * The length filter below used to be `>= 3` with nothing beside it, which is a
+ * proxy for "filler" that this vocabulary breaks. Measured over the 60-concept
+ * sealed benchmark, it renamed 13 concepts and landed 4 of them on a DIFFERENT
+ * icon the set already ships:
+ *
+ *   wifi-no-signal -> wifi-signal   the negation stripped, the meaning inverted
+ *   bell-2-off     -> bell-off      a real, different house icon
+ *   write-2        -> write         likewise
+ *   bag-3          -> bag           likewise
+ *   ai-slop        -> slop
+ *   arrow-up-wall  -> arrow-wall
+ *
+ * A digit is never filler in this set — it is how a variant is named — and
+ * neither is a negation or a direction. `INTENT` below is where filler belongs,
+ * and it is the part that should grow when a filler word is found.
+ */
+const MEANINGFUL_SHORT = new Set([
+  "3d",
+  "ai",
+  "id",
+  "no",
+  "ok",
+  "on",
+  "pc",
+  "qr",
+  "tv",
+  "up",
+  "vr",
+]);
+
 export const tokensOf = (text: string): string[] =>
   text
     .toLowerCase()
     .split(/[^\p{L}\p{N}]+/u)
-    .filter((token) => token.length >= 3 && !INTENT.has(token));
+    .filter(
+      (token) =>
+        !INTENT.has(token) &&
+        (token.length >= 3 || /\d/u.test(token) || MEANINGFUL_SHORT.has(token)),
+    );
 
 export const slugOf = (text: string): string => tokensOf(text).slice(0, 4).join("-");
 

@@ -3,6 +3,13 @@ import { z } from "zod";
 export const studioFinishSchema = z.enum(["outlined", "filled"]);
 export type StudioFinish = z.infer<typeof studioFinishSchema>;
 
+/**
+ * A request for restraint, never an authorisation.
+ *
+ * `generateStudioResponse` clamps this to the server-owned ceiling with
+ * `Math.min`, so a value larger than the default buys nothing. The caps here
+ * stay generous because the field is only ever narrowing.
+ */
 export const studioBudgetSchema = z.object({
   maxCalls: z.number().int().positive().max(200),
   maxUsd: z.number().positive().max(100),
@@ -171,6 +178,9 @@ export const studioTournamentSchema = z.object({
       .nullable(),
     eligible: z.number().int().nonnegative(),
     evaluated: z.number().int().nonnegative(),
+    /** An arm threw and stopped the escalation. Defaulted, so a record written
+     *  before this field existed still parses. */
+    haltedByFailure: z.boolean().default(false),
     stopScore: z.number().nullable(),
     stoppedEarly: z.boolean(),
     /** Arms the budget refused before they drew anything. `stoppedEarly` is

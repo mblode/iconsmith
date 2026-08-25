@@ -672,7 +672,26 @@ export const harnessArm =
           programIssues(program, source, generateOptions.finish, parts, spec)
         );
         writeFileSync(path.join(dir, BRIEF_FILE), `${revised}\n`);
-        last = await runAgent(revised);
+        // A repair spawn that fails is not a failed run. The program already
+        // compiled and the host has already paid for a look at it; discarding
+        // it because the agent's *second* answer was not a program throws away
+        // the only artefact the run produced, and bills the audit for nothing.
+        // Same rule as an audit that throws, one seam along. Measured: of 53
+        // scratch directories one Studio campaign left behind, 17 held a
+        // finished program, a preview and a scored audit — the arm reported
+        // dead on every concept had in fact drawn every one of them.
+        try {
+          last = await runAgent(revised);
+        } catch (error) {
+          // Only a harness failure. A cancellation arrives here too, and
+          // laundering one into a finished icon would report a turn the caller
+          // stopped as a turn that drew.
+          if (!(error instanceof HarnessError)) {
+            throw error;
+          }
+          logs.push(`Repair abandoned: ${error.message}`);
+          return;
+        }
         source = readFileSync(file, "utf-8");
         program = runDsl(source, parts, { cohorts, spec });
         await repairFrom(remaining - 1);
