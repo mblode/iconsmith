@@ -144,6 +144,8 @@ const sessionRoute = (
 const RUN_ID_PREFIX = "wrun_";
 const RUN_ID = /^wrun_[0-9A-HJKMNP-TV-Z]{26}$/u;
 const RUN_ID_TIME_LENGTH = 10;
+/** Vercel marks region-tagged run ids with the high bit of the 48-bit ULID time. */
+const REGION_TAG_BIT = 2 ** 47;
 
 const CROCKFORD = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
 
@@ -167,7 +169,17 @@ export const sessionMintedAt = (sessionId: string): number | undefined => {
   for (const character of sessionId.slice(start, start + RUN_ID_TIME_LENGTH)) {
     minted = minted * 32 + CROCKFORD.indexOf(character);
   }
-  return minted;
+
+  /**
+   * `@workflow/world-vercel` embeds its region tag by setting the most-significant
+   * bit of the ULID's 48-bit timestamp. Its own decoder clears that bit before
+   * reading the creation time; without the same step here, every production id
+   * appears to come from after the year 6400 and is refused as expired.
+   *
+   * The region and codec-version fields live in the random half of the ULID and
+   * do not affect this age check.
+   */
+  return minted >= REGION_TAG_BIT ? minted - REGION_TAG_BIT : minted;
 };
 
 /**

@@ -21,6 +21,9 @@ const sessionId = (mintedAt: number, random = "0123456789ABCDEF"): string => {
   return `wrun_${time}${random}`;
 };
 
+/** Mirrors world-vercel's region tag without coupling the test to its private codec. */
+const regionTaggedSessionId = (mintedAt: number): string => sessionId(mintedAt + 2 ** 47);
+
 const request = (path: string) => new Request(`https://blode.co${path}`);
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -30,6 +33,10 @@ const policy = { maxAgeMs: DAY_MS, now: NOW };
 describe("sessionMintedAt", () => {
   it("reads the timestamp eve encoded into the id, so no store has to remember it", () => {
     assert.equal(sessionMintedAt(sessionId(NOW)), NOW);
+  });
+
+  it("clears Vercel's region tag before reading the timestamp", () => {
+    assert.equal(sessionMintedAt(regionTaggedSessionId(NOW)), NOW);
   });
 
   it("rejects a string that is not an id eve could have minted", () => {
@@ -49,15 +56,16 @@ describe("refuseStudioSession", () => {
   });
 
   it("passes every route the Studio itself calls", () => {
-    const id = sessionId(NOW - 60_000);
-    for (const path of [
-      `/eve/v1/session/${id}`,
-      `/eve/v1/session/${id}/cancel`,
-      `/eve/v1/session/${id}/stream`,
-      // The zone prefix survives on a local run; the Vercel service strips it.
-      `/iconsmith/eve/v1/session/${id}/stream`,
-    ]) {
-      assert.equal(refuseStudioSession(request(path), policy), undefined, path);
+    for (const id of [sessionId(NOW - 60_000), regionTaggedSessionId(NOW - 60_000)]) {
+      for (const path of [
+        `/eve/v1/session/${id}`,
+        `/eve/v1/session/${id}/cancel`,
+        `/eve/v1/session/${id}/stream`,
+        // The zone prefix survives on a local run; the Vercel service strips it.
+        `/iconsmith/eve/v1/session/${id}/stream`,
+      ]) {
+        assert.equal(refuseStudioSession(request(path), policy), undefined, path);
+      }
     }
   });
 
@@ -91,13 +99,12 @@ describe("refuseStudioSession", () => {
   it("refuses an id older than the session it names could still run", () => {
     // eve keeps a timed-out session's stored data, so without this the whole
     // transcript streams to an id-holder indefinitely.
-    assert.equal(
-      refuseStudioSession(
-        request(`/eve/v1/session/${sessionId(NOW - DAY_MS - 1000)}/stream`),
-        policy,
-      )?.code,
-      "session_expired",
-    );
+    for (const id of [sessionId(NOW - DAY_MS - 1000), regionTaggedSessionId(NOW - DAY_MS - 1000)]) {
+      assert.equal(
+        refuseStudioSession(request(`/eve/v1/session/${id}/stream`), policy)?.code,
+        "session_expired",
+      );
+    }
     assert.equal(
       refuseStudioSession(
         request(`/eve/v1/session/${sessionId(NOW - DAY_MS + 1000)}/stream`),

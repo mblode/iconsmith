@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRightIcon, CircleFilledIcon } from "blode-icons-react";
+import { ChevronRightIcon, CircleOutlineIcon } from "blode-icons-react";
 import { motion } from "motion/react";
 import type * as React from "react";
 
@@ -133,7 +133,7 @@ interface ThinkingStepProps {
 }
 
 const ThinkingStep = ({
-  icon: Icon = CircleFilledIcon,
+  icon: Icon = CircleOutlineIcon,
   showIcon = true,
   label,
   description,
