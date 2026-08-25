@@ -44,6 +44,7 @@ import {
 import { InputMessage } from "@/components/ui/input-message";
 import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH } from "@/lib/site-url";
+import { studioFaultFromUnknown } from "@/lib/studio/fault";
 import type { CampaignItem } from "@/lib/studio/campaign";
 import type { OverviewSpec } from "@/lib/studio/overview";
 import { recordThread } from "@/lib/studio/threads";
@@ -394,9 +395,7 @@ export const StudioApp = ({
       sendInFlightRef.current = false;
       turnHandledRef.current = true;
       setBusy(false);
-      setFault(
-        error instanceof Error ? error.message : "The studio could not reconnect to the drawing.",
-      );
+      setFault(studioFaultFromUnknown(error, "The studio could not reconnect to the drawing."));
     }
   };
 
@@ -538,7 +537,7 @@ export const StudioApp = ({
     onError(error) {
       setBusy(false);
       turnHandledRef.current = true;
-      setFault(error.message);
+      setFault(studioFaultFromUnknown(error, "The studio could not reach the drawing."));
     },
     onEvent(event) {
       if (processedEventIdsRef.current.has(event.meta.id)) {
@@ -581,10 +580,12 @@ export const StudioApp = ({
           if (sendInFlightRef.current) {
             turnHandledRef.current = true;
             setFault(
-              event.data.error?.message ??
-                (event.data.status === "rejected"
+              studioFaultFromUnknown(
+                event.data.error,
+                event.data.status === "rejected"
                   ? "Reading the attachment was declined."
-                  : "The paired icon pipeline failed."),
+                  : "The paired icon pipeline failed.",
+              ),
             );
           }
           return;
@@ -689,7 +690,7 @@ export const StudioApp = ({
       sendInFlightRef.current = false;
       setBusy(false);
       turnHandledRef.current = true;
-      setFault(error instanceof Error ? error.message : "That answer could not reach the drawer.");
+      setFault(studioFaultFromUnknown(error, "That answer could not reach the drawer."));
     }
   };
 
@@ -792,7 +793,7 @@ export const StudioApp = ({
       sendInFlightRef.current = false;
       turnHandledRef.current = true;
       setBusy(false);
-      setFault(error instanceof Error ? error.message : "The studio could not reach the drawer.");
+      setFault(studioFaultFromUnknown(error, "The studio could not reach the drawer."));
       return false;
     }
   };
@@ -1256,9 +1257,7 @@ export const StudioApp = ({
                           // the Stop control available and say what happened;
                           // presenting an idle composer here would be a lie.
                           setFault(
-                            error instanceof Error
-                              ? `The Studio could not stop this run: ${error.message}`
-                              : "The Studio could not stop this run.",
+                            studioFaultFromUnknown(error, "The Studio could not stop this run."),
                           );
                         }
                       }}

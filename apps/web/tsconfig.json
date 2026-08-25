@@ -34,5 +34,11 @@
   // the workspace root. A Vercel build scoped to this app installs only this
   // app's dependencies, so type-checking them here fails the build on tooling
   // that never ships. oxlint validates its own config at check time anyway.
-  "exclude": ["node_modules", "oxlint.config.ts", "oxfmt.config.ts"]
+  "exclude": [
+    "node_modules",
+    "oxlint.config.ts",
+    "oxfmt.config.ts",
+    "**/*.test.ts",
+    "scripts/prefix-eve-vercel-routes.ts"
+  ]
 }

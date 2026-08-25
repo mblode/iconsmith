@@ -3,6 +3,7 @@ import path from "node:path";
 import { withEve } from "eve/next";
 import type { NextConfig } from "next";
 
+import { applyEvePublicRoutePrefix } from "./lib/eve-vercel-routes";
 import { BASE_PATH, REPO_URL } from "./lib/site-url";
 
 // Vercel Root Directory is apps/web, but the lockfile and workspace live at
@@ -135,4 +136,20 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["ai", "@ai-sdk/gateway", "iconsmith", "sharp"],
 };
 
-export default withEve(nextConfig, { eveRoot: import.meta.dirname });
+const withEveConfig = withEve(nextConfig, { eveRoot: import.meta.dirname });
+
+/**
+ * `withEve()` mounts `/eve/v1/*` on Vercel and does not honour `basePath`.
+ * The client talks to `/iconsmith/eve/v1/*` (see `useEveAgent({ host })`), so
+ * those unprefixed service routes never match and Studio gets a Next 404.
+ * Prefix immediately after withEve writes the Build Output config; the build
+ * script prefixes again in case `next build` rewrites the file afterwards.
+ */
+export default async function eveNextConfig(phase: string, context: { defaultConfig: NextConfig }) {
+  const resolved = await withEveConfig(phase, context);
+  await applyEvePublicRoutePrefix({
+    nextRoot: process.cwd(),
+    prefix: BASE_PATH,
+  });
+  return resolved;
+}

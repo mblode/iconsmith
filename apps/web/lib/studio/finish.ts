@@ -1,5 +1,7 @@
 import type { MessageStreamEvent } from "eve/client";
 
+import { studioFaultMessage } from "./fault";
+
 const PIPELINE = "generate_icon_pair";
 
 const lastTurn = (events: readonly MessageStreamEvent[]): readonly MessageStreamEvent[] => {
@@ -56,11 +58,12 @@ export const diagnoseStudioFinish = (
     if (pipeline.data.status === "failed" || pipeline.data.status === "rejected") {
       return {
         kind: "fault",
-        message:
+        message: studioFaultMessage(
           pipeline.data.error?.message ??
-          (pipeline.data.status === "rejected"
-            ? "Reading the attachment was declined."
-            : "The paired icon pipeline failed."),
+            (pipeline.data.status === "rejected"
+              ? "Reading the attachment was declined."
+              : "The paired icon pipeline failed."),
+        ),
       };
     }
     return { kind: "fault", message: "The icon agent returned an invalid Studio result." };
@@ -70,7 +73,7 @@ export const diagnoseStudioFinish = (
     (event) => event.type === "turn.failed" || event.type === "step.failed",
   );
   if (failure?.type === "turn.failed" || failure?.type === "step.failed") {
-    return { kind: "fault", message: failure.data.message };
+    return { kind: "fault", message: studioFaultMessage(failure.data.message) };
   }
 
   if (requestedPipeline(turn)) {

@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3210",
-    "build": "next build",
+    "build": "next build && node --experimental-strip-types scripts/prefix-eve-vercel-routes.ts",
+    "test": "node --experimental-strip-types --test lib/eve-vercel-routes.test.ts lib/studio/fault.test.ts",
     "build:eve": "eve build",
     "backlog": "node scripts/backlog.mjs",
     "start": "next start",

@@ -49,6 +49,10 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
   compiles to `/iconsmith/(.*)`, which cannot match the bare `/iconsmith` that the
   zone rewrite actually requests, so the root would serve no security headers while
   every inner route served the full set.
+- **Eve ignores `basePath`.** `withEve()` mounts `/eve/v1/*` on Vercel. Studio
+  calls `/iconsmith/eve/v1/*` (`useEveAgent({ host: BASE_PATH })`).
+  `lib/eve-vercel-routes.ts` prefixes the generated Build Output routes; without
+  that, the zone 404s and the banner dumps the Next HTML document.
 - **The OG image must stay a generated route.** A static `opengraph-image.png` plus a
   zone `metadataBase` produces `/iconsmith/iconsmith/...` and breaks the share card
   silently. Satori also parses neither `oklch` nor CSS variables, so its palette is
