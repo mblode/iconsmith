@@ -242,7 +242,11 @@ const axisLine = (t: [number, number] | null, name: string): string =>
     ? `- ${name} spans ${t[0].toFixed(2)}..${t[1].toFixed(2)}.`
     : `- ${name} has no agreed extent in this family; centre it.`;
 
-const hintLine = (h: PartHint): string => {
+/** One shortlisted mark, as the brief shows it: id, name and where the set
+ *  draws it, and no geometry. Exported because the `program` arm shows the
+ *  same shortlist and a second format would make the two briefs differ in
+ *  something other than the thing under test. */
+export const hintLine = (h: PartHint): string => {
   const seen = h.seenIn.length > 0 ? ` — seen in ${h.seenIn.join(", ")}` : "";
   return h.name
     ? `- \`${h.name}\` (\`${h.id}\`)${seen}`
@@ -463,7 +467,11 @@ const traceOf = (source: string): string[] =>
     .filter(Boolean)
     .map((l) => l.split(/\s+/u)[0].toLowerCase());
 
-const vocabularyFor = (
+/** Which marks this generation may address, and the shortlist that ranked
+ *  them: supplied `hints` win, otherwise SELECT searches. Exported so an arm
+ *  that is being compared against this one resolves its vocabulary the same
+ *  way rather than approximating it. */
+export const vocabularyFor = (
   concept: Concept,
   generateOptions: GenerateOptions
 ): {

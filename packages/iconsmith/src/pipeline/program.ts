@@ -32,13 +32,15 @@ import type { HostFunctions, RunLimits } from "run";
 import { SPEC } from "../tools/canvas.js";
 import type { Spec, Canvas } from "../tools/canvas.js";
 import type { Cohort } from "../tools/cohort.js";
-import { completeProgram, run as runDsl } from "../tools/dsl.js";
+import { TURNS, completeProgram, run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
 import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
 import type { ApiCost } from "./cost.js";
 import { tokenUsageOf } from "./cost.js";
 import { DEFAULT_MODEL, gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { GenerateLike } from "./harness.js";
+import { hintLine, vocabularyFor } from "./harness.js";
+import { conceptPrompt, systemPrompt } from "./prompt.js";
 
 /**
  * Enough calls for a dense icon and its helpers, and not enough for a runaway
@@ -49,12 +51,18 @@ import type { GenerateLike } from "./harness.js";
 const MAX_BRIDGE_REQUESTS = 1024;
 const TIMEOUT_MS = 10_000;
 
-/** The three turns that are not the identity. Names, never degrees — the same
- *  table `tools/dsl.ts` exports, reached through the DSL text rather than
- *  duplicated, so a program and a generation cannot mean different things. */
-const TURN_NAMES = new Set(["ccw", "cw", "half"]);
+/**
+ * A `place.*` helper is one bridge call that loops on this side, so
+ * `maxBridgeRequests` — which bounds calls made *from* the guest — does not
+ * bound it. A model that asked for a million placements would allocate every
+ * one of them before the DSL saw a single line. This is that missing bound.
+ */
+const MAX_PLACEMENTS = 256;
 
 export interface ProgramRunOptions {
+  /** Aborts the sandbox with the turn. Without it a cancelled generation
+   *  leaves a worker running to `timeoutMs`. */
+  abortSignal?: AbortSignal;
   cohorts?: Cohort[];
   limits?: RunLimits;
   spec?: Spec;
@@ -101,14 +109,41 @@ const word = (value: unknown, what: string): string => {
   return text;
 };
 
+/** How many copies a `place.*` helper may emit. Refused by name rather than
+ *  clamped: a ring silently drawn with fewer teeth than asked for is a wrong
+ *  drawing, where a refusal is a message the repair loop can act on. */
+const placements = (value: unknown, what: string): number => {
+  if (typeof value !== "number" || !Number.isInteger(value) || value < 1) {
+    throw new RangeError(
+      `${what} must be a whole number of at least 1, got ${String(value)}`
+    );
+  }
+  if (value > MAX_PLACEMENTS) {
+    throw new RangeError(
+      `${what} of ${value} is over the ${MAX_PLACEMENTS} a single \`place\` call may draw`
+    );
+  }
+  return value;
+};
+
+/** A run of grid points. `Canvas.line` refuses fewer than two, but it refuses
+ *  them a whole line later; naming the fault here keeps it attached to the call
+ *  that made it. */
+const points = (pts: [number, number][], what: string): string => {
+  if (!Array.isArray(pts) || pts.length < 2) {
+    throw new TypeError(`${what} needs at least two points`);
+  }
+  return pts.map((pt) => pair(pt[0], pt[1], what)).join(" ");
+};
+
 const turnSuffix = (turn: unknown): string => {
   if (turn === undefined || turn === null) {
     return "";
   }
   const name = word(turn, "turn");
-  if (!TURN_NAMES.has(name)) {
+  if (!(name in TURNS)) {
     throw new Error(
-      `unknown turn "${name}" — expected one of ${[...TURN_NAMES].toSorted().join(", ")}. ` +
+      `unknown turn "${name}" — expected one of ${Object.keys(TURNS).toSorted().join(", ")}. ` +
         "Turns are named quarters; a number here would be a coordinate by another name."
     );
   }
@@ -156,24 +191,34 @@ const partLine = (place: PartPlacement): string => {
  * A bare `at x,y` in the DSL names the *top-left*; an anchor names the centre.
  * The helpers here take centres, because "put it here" is the intent and the
  * corner is an implementation detail of the grammar — so they do the same
- * conversion `placePart` does, from the same part dimensions.
+ * conversion `placePart` does, from the same part dimensions, including the
+ * transposition a quarter turn applies to them.
  */
 const centred = (
-  parts: readonly Part[],
+  byName: ReadonlyMap<string, Part>,
   name: string,
   cx: number,
   cy: number,
-  size?: number
+  size?: number,
+  turn?: string
 ): { at: string; size?: number } => {
-  const part = parts.find((p) => p.id === name || p.name === name);
+  const part = byName.get(name);
   if (!part) {
     throw new Error(
       `unknown part "${name}" — call check.parts() to see the vocabulary`
     );
   }
-  const span = Math.max(part.w, part.h) || 1;
+  // A quarter turn transposes the part's extent, so the offset that centres it
+  // has to be taken on the *turned* shape: `Canvas.part` rotates the path first
+  // and then puts the turned bbox's top-left at the coordinate this emits. That
+  // is the same transposition `placePart` makes in `tools/dsl.ts`, for the same
+  // reason. `Math.max` is transposition-invariant, so `size` scaling is
+  // unaffected — only the centring offset moves.
+  const quarter = turn === undefined ? 0 : (TURNS[turn] ?? 0);
+  const [pw, ph] = quarter % 2 === 0 ? [part.w, part.h] : [part.h, part.w];
+  const span = Math.max(pw, ph) || 1;
   const k = size === undefined ? 1 : size / span;
-  return { at: pair(cx - (part.w * k) / 2, cy - (part.h * k) / 2, "at"), size };
+  return { at: pair(cx - (pw * k) / 2, cy - (ph * k) / 2, "at"), size };
 };
 
 /**
@@ -195,9 +240,9 @@ const guarded = (
       Object.fromEntries(
         Object.entries(fns).map(([name, fn]) => [
           name,
-          (...args: never[]) => {
+          async (...args: never[]) => {
             try {
-              return fn(...args);
+              return await fn(...args);
             } catch (error) {
               onError(`${group}.${name}: ${(error as Error).message}`);
               throw error;
@@ -223,11 +268,22 @@ export const runProgram = async (
 ): Promise<ProgramRunResult> => {
   const lines: string[] = [];
   const errors: string[] = [];
+  /** Whether `guarded` has already recorded a reason for a host fault. */
+  let hostFaulted = false;
   const emit = (line: string): string => {
     lines.push(line);
     return line;
   };
   const spec = options.spec ?? SPEC;
+  // The same id-or-name lookup `run` builds in `tools/dsl.ts`, built once here
+  // rather than re-derived by a linear scan on every placement.
+  const byName = new Map<string, Part>();
+  for (const part of parts) {
+    byName.set(part.id, part);
+    if (part.name) {
+      byName.set(part.name, part);
+    }
+  }
 
   /** Replay what has been emitted so far. `check.*` needs a real canvas rather
    *  than a promise about one, and the DSL is cheap enough to re-run: the
@@ -245,6 +301,9 @@ export const runProgram = async (
           issues: lint(canvas, { keyline }),
         };
       },
+      /** Id, name and measurements — never `d`. `draw.part` accepts either
+       *  identifier, so a search hit with no curated name is still placeable;
+       *  listing names alone would hide it. */
       parts: () =>
         parts.map((p) => ({
           h: p.h,
@@ -278,43 +337,50 @@ export const runProgram = async (
           `dot ${pair(a.cx, a.cy, "dot")}${a.role ? ` ${word(a.role, "role")}` : ""}`
         ),
       fit: () => emit("fit"),
-      hole: (a: {
-        cx?: number;
-        cy?: number;
-        h?: number;
-        offAxis?: boolean;
-        points?: [number, number][];
-        r?: number;
-        shape: string;
-        w?: number;
-        x?: number;
-        y?: number;
-      }) => {
-        const shape = word(a.shape, "hole shape");
-        if (shape === "circle") {
+      /**
+       * A union rather than a bag of optionals, so a missing coordinate is
+       * refused by name. The bag version emitted `hole circle 0,0 r0` for a
+       * call that forgot them, which draws a nothing at the origin instead of
+       * saying what was left out.
+       */
+      hole: (
+        a:
+          | { cx: number; cy: number; r: number; shape: "circle" }
+          | {
+              offAxis?: boolean;
+              points: [number, number][];
+              shape: "line";
+            }
+          | {
+              h: number;
+              r?: number;
+              shape: "rect";
+              w: number;
+              x: number;
+              y: number;
+            }
+      ) => {
+        if (a.shape === "circle") {
           return emit(
-            `hole circle ${pair(a.cx ?? 0, a.cy ?? 0, "hole")} r${n(a.r ?? 0, "r")}`
+            `hole circle ${pair(a.cx, a.cy, "hole circle")} r${n(a.r, "hole r")}`
           );
         }
-        if (shape === "rect") {
+        if (a.shape === "rect") {
           return emit(
-            `hole rect ${pair(a.x ?? 0, a.y ?? 0, "hole")} ${n(a.w ?? 0, "w")}x${n(a.h ?? 0, "h")}${a.r === undefined ? "" : ` r${n(a.r, "r")}`}`
+            `hole rect ${pair(a.x, a.y, "hole rect")} ${n(a.w, "hole w")}x${n(a.h, "hole h")}${a.r === undefined ? "" : ` r${n(a.r, "hole r")}`}`
           );
         }
-        if (shape === "line") {
-          const pts = a.points ?? [];
+        if (a.shape === "line") {
           return emit(
-            `hole line ${pts.map((p) => pair(p[0], p[1], "hole line")).join(" ")}${a.offAxis ? " off-axis" : ""}`
+            `hole line ${points(a.points, "hole line")}${a.offAxis ? " off-axis" : ""}`
           );
         }
         throw new Error(
-          `unknown hole shape "${shape}" — expected circle, line or rect`
+          `unknown hole shape "${word((a as { shape: unknown }).shape, "hole shape")}" — expected circle, line or rect`
         );
       },
       line: (a: { offAxis?: boolean; points: [number, number][] }) =>
-        emit(
-          `line ${a.points.map((p) => pair(p[0], p[1], "line")).join(" ")}${a.offAxis ? " off-axis" : ""}`
-        ),
+        emit(`line ${points(a.points, "line")}${a.offAxis ? " off-axis" : ""}`),
       part: (a: {
         at?: [number, number] | string;
         fill?: boolean;
@@ -364,10 +430,10 @@ export const runProgram = async (
         turn?: string;
         y: number;
       }) =>
-        Array.from({ length: a.count }, (_, i) =>
+        Array.from({ length: placements(a.count, "column count") }, (_, i) =>
           emit(
             partLine({
-              ...centred(parts, a.name, a.cx, a.y + i * a.gap, a.size),
+              ...centred(byName, a.name, a.cx, a.y + i * a.gap, a.size, a.turn),
               name: a.name,
               turn: a.turn,
             })
@@ -383,22 +449,30 @@ export const runProgram = async (
         x: number;
         y: number;
       }) =>
-        Array.from({ length: a.rows * a.cols }, (_, i) => {
-          const col = i % a.cols;
-          const row = Math.floor(i / a.cols);
-          return emit(
-            partLine({
-              ...centred(
-                parts,
-                a.name,
-                a.x + col * a.gapX,
-                a.y + row * a.gapY,
-                a.size
-              ),
-              name: a.name,
-            })
-          );
-        }),
+        Array.from(
+          {
+            length: placements(
+              placements(a.rows, "grid rows") * placements(a.cols, "grid cols"),
+              "grid cells"
+            ),
+          },
+          (_, i) => {
+            const col = i % a.cols;
+            const row = Math.floor(i / a.cols);
+            return emit(
+              partLine({
+                ...centred(
+                  byName,
+                  a.name,
+                  a.x + col * a.gapX,
+                  a.y + row * a.gapY,
+                  a.size
+                ),
+                name: a.name,
+              })
+            );
+          }
+        ),
       /**
        * The four quarter positions with the turns that match them — the one
        * rotational symmetry the grammar can say, because `turn` names quarters
@@ -414,17 +488,19 @@ export const runProgram = async (
       }) =>
         (["", "cw", "half", "ccw"] as const).map((turn, i) => {
           const angle = (i * Math.PI) / 2;
+          const named = turn === "" ? undefined : turn;
           return emit(
             partLine({
               ...centred(
-                parts,
+                byName,
                 a.name,
                 a.cx + a.radius * Math.sin(angle),
                 a.cy - a.radius * Math.cos(angle),
-                a.size
+                a.size,
+                named
               ),
               name: a.name,
-              turn: turn === "" ? undefined : turn,
+              turn: named,
             })
           );
         }),
@@ -444,13 +520,13 @@ export const runProgram = async (
         size?: number;
         start?: number;
       }) =>
-        Array.from({ length: a.count }, (_, i) => {
+        Array.from({ length: placements(a.count, "ring count") }, (_, i) => {
           const angle =
             ((a.start ?? 0) * Math.PI) / 180 + (i * 2 * Math.PI) / a.count;
           return emit(
             partLine({
               ...centred(
-                parts,
+                byName,
                 a.name,
                 a.cx + a.radius * Math.sin(angle),
                 a.cy - a.radius * Math.cos(angle),
@@ -469,10 +545,10 @@ export const runProgram = async (
         turn?: string;
         x: number;
       }) =>
-        Array.from({ length: a.count }, (_, i) =>
+        Array.from({ length: placements(a.count, "row count") }, (_, i) =>
           emit(
             partLine({
-              ...centred(parts, a.name, a.x + i * a.gap, a.cy, a.size),
+              ...centred(byName, a.name, a.x + i * a.gap, a.cy, a.size, a.turn),
               name: a.name,
               turn: a.turn,
             })
@@ -483,7 +559,11 @@ export const runProgram = async (
 
   try {
     const result = await runSandbox({
-      hostFunctions: guarded(hostFunctions, (message) => errors.push(message)),
+      abortSignal: options.abortSignal,
+      hostFunctions: guarded(hostFunctions, (message) => {
+        hostFaulted = true;
+        errors.push(message);
+      }),
       limits: {
         maxBridgeRequests: MAX_BRIDGE_REQUESTS,
         timeoutMs: TIMEOUT_MS,
@@ -498,7 +578,16 @@ export const runProgram = async (
       errors.push("the program suspended on an interrupt and did not finish");
     }
   } catch (error) {
-    errors.push((error as Error).message);
+    // A host fault arrives here a second time, scrubbed by the runtime to
+    // `Host function failed.` — `guarded` already recorded it with the name of
+    // the function and the reason, so keeping this copy would put a contentless
+    // error beside a useful one and count it twice against `clean`.
+    const scrubbedHostFault =
+      hostFaulted &&
+      (error as { code?: string }).code === "RUN_HOST_FUNCTION_ERROR";
+    if (!scrubbedHostFault) {
+      errors.push((error as Error).message);
+    }
   }
 
   const program = lines.length > 0 ? `${lines.join("\n")}\n` : "";
@@ -543,11 +632,12 @@ export const runProgram = async (
  * that is the point. Two rules carry the weight: every call is awaited, and
  * there is nothing here that takes path data.
  */
-export const PROGRAM_SKILL = [
-  "You are Iconsmith's drawing harness. You write a JavaScript program that",
-  "builds one icon by calling the host API below. You never write SVG, never",
-  "write path data, and never compute a `d` string — there is no function here",
-  "that would accept one.",
+export const CALLING_CONVENTION = [
+  "# How you draw",
+  "",
+  "You write a JavaScript program that builds the icon by calling the host",
+  "functions below. You never write SVG, never write path data, and never",
+  "compute a `d` string — there is no function here that would accept one.",
   "",
   "The program runs in a sandbox with no modules, no network and no clock.",
   "Top-level `await` and `return` are available.",
@@ -555,25 +645,19 @@ export const PROGRAM_SKILL = [
   "EVERY host call must be awaited. A call you do not await is detached and the",
   "run fails — ordering is the whole meaning of a program here.",
   "",
-  "Declarations, in this order and before any geometry:",
-  "  await icon.name(slug)                    e.g. 'compass'",
-  "  await icon.keyline(k)                    circle | square | wide | tall",
-  "  await icon.finish(f)                     outlined | filled",
-  "",
-  "Geometry on the 24x24 grid:",
+  "  await icon.name(slug) / icon.keyline(k) / icon.finish(f)   -- first, in this order",
   "  await draw.rect({ x, y, w, h, r })",
   "  await draw.circle({ cx, cy, r })",
   "  await draw.arc({ cx, cy, r, sweep, from, ccw })",
-  "      sweep: quarter | half | three-quarter; from: top | right | bottom | left",
   "  await draw.diamond({ cx, cy, r })",
   "  await draw.line({ points: [[x, y], ...], offAxis })",
-  "  await draw.dot({ cx, cy, role })         terminal | more | floating | node",
-  "  await draw.hole({ shape, ... })          filled icons only; cuts the last solid",
+  "  await draw.dot({ cx, cy, role })",
+  "  await draw.hole({ shape: 'circle' | 'rect' | 'line', ... })",
   "  await draw.part({ name, at, size, fill, turn, flip })",
   "      `at` is [x, y] (top-left) or an anchor name; `turn` is cw | half | ccw",
   "  await draw.center() / draw.fit() / draw.cohort(name)",
   "",
-  "Repetition, where the host computes the positions:",
+  "Repetition, where the host computes every position:",
   "  await place.ring({ name, count, cx, cy, radius, size, start })",
   "  await place.quarters({ name, cx, cy, radius, size })",
   "  await place.row({ name, count, x, cy, gap, size, turn })",
@@ -583,12 +667,17 @@ export const PROGRAM_SKILL = [
   "Checking your own work, at any point:",
   "  await check.lint()      { issues, errors } for what you have drawn so far",
   "  await check.describe()  what is on the canvas",
-  "  await check.parts()     the vocabulary you may place",
-  "  await check.program()   the .icon program your calls have written",
+  "  await check.parts()     the marks you may place, by id and name",
+  "  await check.program()   the program your calls have written",
   "",
-  "Turns are named quarters. There is no way to rotate by an arbitrary angle,",
-  "because every node stays on the grid. Use the loop for repetition and the",
-  "primitives for placement; the host quantises everything you pass it.",
+  "The guidance above is written for a tool-calling loop, because it is the",
+  "same guidance that loop is given. Where it names a tool, call the function",
+  "here that matches: `listParts` is `check.parts()`, `lint` is `check.lint()`,",
+  "and every drawing op is the `draw.*` of the same name. There is no `render`",
+  "or `compare` on this arm.",
+  "",
+  "A loop is the reason this arm exists: say the repetition once rather than",
+  "transcribing it. The host quantises everything you pass it.",
   "",
   "Return only the JavaScript program. No prose, no Markdown fence.",
 ].join("\n");
@@ -651,47 +740,70 @@ const sourceFrom = (text: string): string => {
   return (fenced?.groups?.body ?? text).trim();
 };
 
-/** The vocabulary, names and measurements only — never path data, for the same
- *  reason the harness arm's `parts.json` carries none. */
-const vocabularyFor = (parts: readonly Part[]): string =>
-  parts.length === 0
-    ? "No parts vocabulary is available; draw with the primitives."
-    : parts
-        .filter((p) => p.name)
-        .map((p) => `- ${p.name} (${p.w}x${p.h})`)
-        .join("\n");
-
 /**
  * The `program` arm: a model writing a builder program rather than a `.icon`
  * file.
  *
- * The experiment it exists to run is against the `agent` arm — same model,
- * same concept, a loop instead of an unrolled list — so it deliberately keeps
- * everything else the same, including emitting a `.icon` as its artefact.
+ * The experiment is against the `agent` arm — same model, same concept, a loop
+ * instead of an unrolled list — and an experiment is only worth its credential
+ * if that is the *only* difference. So the brief is not hand-rolled here: it is
+ * {@link systemPrompt} and {@link conceptPrompt}, the same two builders
+ * `generate.ts` calls, carrying the same house spec, paint rules, policy,
+ * keyline, cohort, tags and reference drawing. {@link CALLING_CONVENTION} is
+ * appended in place of the tool list, and that append is the whole delta.
+ *
+ * An earlier revision wrote its own four-line brief. It would have scored
+ * thin-brief-versus-rich-brief and reported it as loop-versus-unrolled.
  */
 export const programArm =
   (options: ProgramOptions = {}): GenerateLike =>
   async (concept, generateOptions = {}) => {
     const ask = options.ask ?? defaultAsk(options);
-    const { finish = "outlined", spec } = generateOptions;
-    const parts = generateOptions.parts ?? [];
+    const {
+      cohort = null,
+      finish = "outlined",
+      keyline,
+      policy,
+      proposal,
+      spec,
+    } = generateOptions;
+    // The same hints-or-search decision the harness arm makes, so the two arms
+    // address the same marks. `addressable` carries the search hits too, which
+    // are reachable by id and would otherwise be invisible to this arm.
+    const { addressable, hints } = vocabularyFor(concept, generateOptions);
     const brief = [
-      `Draw an icon for: ${concept.name}`,
-      ...(concept.category ? [`Category: ${concept.category}`] : []),
+      conceptPrompt(concept, finish),
       "",
-      `Finish: ${finish}`,
-      "",
-      "Addressable parts (names and measurements only; no path data):",
-      vocabularyFor(parts),
+      addressable.length === 0
+        ? "No parts vocabulary is available in this run, so `draw.part` has nothing to place. Draw with the primitives."
+        : "`check.parts()` lists every mark you may place, by id and name. `draw.part` accepts either. Prefer a listed mark over redrawing a common shape.",
+      ...(hints.length > 0
+        ? [
+            "These matched this concept (the same ranking SELECT uses):",
+            ...hints.map(hintLine),
+          ]
+        : []),
     ].join("\n");
 
     const response = await ask({
       abortSignal: generateOptions.abortSignal,
       prompt: brief,
-      system: PROGRAM_SKILL,
+      system: [
+        systemPrompt({
+          cohort,
+          finish,
+          keyline,
+          policy,
+          proposal: proposal !== null && proposal !== undefined,
+          spec,
+        }),
+        "",
+        CALLING_CONVENTION,
+      ].join("\n"),
     });
 
-    const drawn = await runProgram(sourceFrom(response.text), [...parts], {
+    const drawn = await runProgram(sourceFrom(response.text), addressable, {
+      abortSignal: generateOptions.abortSignal,
       cohorts: options.cohorts,
       limits: options.limits,
       spec,

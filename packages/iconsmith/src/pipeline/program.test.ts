@@ -1,24 +1,40 @@
 import { describe, expect, it } from "vitest";
 
+import { bbox, parsePath } from "../geometry/path.js";
 import { run as runDsl } from "../tools/dsl.js";
 import type { Part } from "../types.js";
 import type { ProgramAsk } from "./program.js";
 import { programArm, runProgram } from "./program.js";
 
-/** A hand-written part, so these tests need no corpus. `turns` and `flips` are
- *  absent exactly as they are on any part the extractor did not measure. */
+/**
+ * A hand-written part, so these tests need no corpus. `turns` and `flips` are
+ * absent exactly as they are on any part the extractor did not measure.
+ *
+ * It is deliberately **not square**. A quarter turn transposes a part's extent,
+ * so every placement bug that forgets to transpose is invisible against a
+ * square fixture — which is exactly how one shipped.
+ */
 const TOOTH: Part = {
   closed: true,
-  d: "M0 0L2 0L2 2L0 2Z",
-  h: 2,
+  d: "M0 0L2 0L2 5L0 5Z",
+  h: 5,
   icons: [],
   id: "p0000",
   instances: 1,
   name: "tooth",
   nodes: 4,
-  sizeRange: [2, 2],
+  sizeRange: [2, 5],
   w: 2,
 };
+
+/** Where each drawn element actually sits, measured off its path rather than
+ *  read back off the numbers that placed it. This is what `place.*` promises:
+ *  the part is centred on the point asked for, whatever turn it is under. */
+const centres = (canvas: { elements: { d: string }[] }): [number, number][] =>
+  canvas.elements.map((element) => {
+    const box = bbox(parsePath(element.d));
+    return [(box.x0 + box.x1) / 2, (box.y0 + box.y1) / 2];
+  });
 
 describe("runProgram", () => {
   it("turns a loop into a program the DSL can replay", async () => {
@@ -72,39 +88,83 @@ describe("runProgram", () => {
     ).toEqual(result.doc);
   });
 
-  it("places a ring exactly where the hand-written lines would", async () => {
-    const looped = await runProgram(
+  it("centres every part of a ring on its point", async () => {
+    const result = await runProgram(
       `await place.ring({ count: 4, cx: 12, cy: 12, name: "tooth", radius: 8 });`,
       [TOOTH]
     );
-    const authored = runDsl(
-      [
-        "part tooth at 11,3",
-        "part tooth at 19,11",
-        "part tooth at 11,19",
-        "part tooth at 3,11",
-      ].join("\n"),
-      [TOOTH]
-    );
 
-    expect(looped.errors).toEqual([]);
-    expect(looped.doc.draw).toEqual(
-      authored.canvas.toJSON({ icon: null, keyline: null }).draw
-    );
+    expect(result.errors).toEqual([]);
+    expect(centres(result.canvas)).toEqual([
+      [12, 4],
+      [20, 12],
+      [12, 20],
+      [4, 12],
+    ]);
   });
 
-  it("gives quarters the turns that match them", async () => {
+  /**
+   * The regression test for the placement maths. `Canvas.part` rotates the path
+   * and then puts the *turned* bbox's top-left at the emitted coordinate, so a
+   * helper that offsets by the unturned width puts every quarter-turned copy in
+   * the wrong place. Against a square part that is unobservable; against this
+   * one the two odd turns move by (h - w) / 2.
+   */
+  it("centres a quartered part under every turn, not just the even ones", async () => {
     const result = await runProgram(
       `await place.quarters({ cx: 12, cy: 12, name: "tooth", radius: 8 });`,
       [TOOTH]
     );
 
     expect(result.errors).toEqual([]);
-    expect(result.program.trim().split("\n")).toEqual([
-      "part tooth at 11,3",
-      "part tooth at 19,11 turn cw",
-      "part tooth at 11,19 turn half",
-      "part tooth at 3,11 turn ccw",
+    expect(centres(result.canvas)).toEqual([
+      [12, 4],
+      [20, 12],
+      [12, 20],
+      [4, 12],
+    ]);
+    expect(result.trace).toEqual(["part", "part", "part", "part"]);
+    expect(result.program).toContain("turn cw");
+    expect(result.program).toContain("turn half");
+    expect(result.program).toContain("turn ccw");
+  });
+
+  it("spaces a row and a column evenly", async () => {
+    const row = await runProgram(
+      `await place.row({ count: 3, cy: 12, gap: 6, name: "tooth", x: 4 });`,
+      [TOOTH]
+    );
+    const column = await runProgram(
+      `await place.column({ count: 3, cx: 12, gap: 6, name: "tooth", y: 4 });`,
+      [TOOTH]
+    );
+
+    expect(row.errors).toEqual([]);
+    expect(centres(row.canvas)).toEqual([
+      [4, 12],
+      [10, 12],
+      [16, 12],
+    ]);
+    expect(column.errors).toEqual([]);
+    expect(centres(column.canvas)).toEqual([
+      [12, 4],
+      [12, 10],
+      [12, 16],
+    ]);
+  });
+
+  it("lays a grid out row-major", async () => {
+    const result = await runProgram(
+      `await place.grid({ cols: 2, gapX: 8, gapY: 6, name: "tooth", rows: 2, x: 6, y: 6 });`,
+      [TOOTH]
+    );
+
+    expect(result.errors).toEqual([]);
+    expect(centres(result.canvas)).toEqual([
+      [6, 6],
+      [14, 6],
+      [6, 12],
+      [14, 12],
     ]);
   });
 });
@@ -176,6 +236,46 @@ describe("limits", () => {
     expect(result.doc.draw).toHaveLength(1);
   });
 
+  /**
+   * A `place.*` helper is one bridge call that loops host-side, so
+   * `maxBridgeRequests` does not reach it. Without its own bound a model could
+   * ask for ten million placements and have every one of them allocated before
+   * the DSL saw a line.
+   */
+  it("refuses a placement count the sandbox limit cannot reach", async () => {
+    const result = await runProgram(
+      `await place.ring({ count: 10000000, cx: 12, cy: 12, name: "tooth", radius: 8 });`,
+      [TOOTH],
+      { limits: { timeoutMs: 2000 } }
+    );
+
+    expect(result.errors.join(" ")).toContain("ring count of 10000000 is over");
+    expect(result.doc.draw).toHaveLength(0);
+  });
+
+  it("refuses a grid whose cells multiply past the limit", async () => {
+    const result = await runProgram(
+      `await place.grid({ cols: 64, gapX: 1, gapY: 1, name: "tooth", rows: 64, x: 1, y: 1 });`,
+      [TOOTH]
+    );
+
+    expect(result.errors.join(" ")).toContain("grid cells");
+    expect(result.doc.draw).toHaveLength(0);
+  });
+
+  it("stops with the turn rather than running on to its timeout", async () => {
+    const started = Date.now();
+    const result = await runProgram(
+      `await draw.circle({ cx: 12, cy: 12, r: 6 });
+       while (true) { /* spin */ }`,
+      [],
+      { abortSignal: AbortSignal.abort(), limits: { timeoutMs: 30_000 } }
+    );
+
+    expect(result.errors).not.toEqual([]);
+    expect(Date.now() - started).toBeLessThan(5000);
+  });
+
   it("cuts a program that draws without end", async () => {
     const result = await runProgram(
       `for (let i = 0; i < 100; i += 1) {
@@ -206,12 +306,31 @@ describe("faults", () => {
     expect(result.program).toBe("circle 12,12 r6\nrect 2,2 4x4\n");
   });
 
-  it("names a part it does not have", async () => {
+  // One fault, one error. The runtime hands the same failure back a second
+  // time scrubbed to `Host function failed.`; keeping that copy would put a
+  // contentless error beside the useful one and count it twice against `clean`.
+  // A bag of optionals answered `hole({ shape: "circle" })` with
+  // `hole circle 0,0 r0` — a nothing at the origin, in place of a sentence
+  // naming what was left out.
+  it("refuses a hole that names no coordinates", async () => {
+    const result = await runProgram(`
+      await icon.finish("filled");
+      await draw.rect({ h: 12, w: 12, x: 6, y: 6 });
+      await draw.hole({ shape: "circle" });
+    `);
+
+    expect(result.errors.join(" ")).toContain("hole circle");
+    expect(result.program).not.toContain("r0");
+  });
+
+  it("names a part it does not have, once", async () => {
     const result = await runProgram(
       `await place.ring({ count: 3, cx: 12, cy: 12, name: "sprocket", radius: 8 });`
     );
 
-    expect(result.errors.join(" ")).toContain('unknown part "sprocket"');
+    expect(result.errors).toHaveLength(1);
+    expect(result.errors[0]).toContain('unknown part "sprocket"');
+    expect(result.errors[0]).not.toContain("Host function failed");
   });
 
   /**
@@ -273,8 +392,8 @@ describe("programArm", () => {
     const arm = programArm({
       ask: askWith(`
         await icon.name("gear");
-        await draw.circle({ cx: 12, cy: 12, r: 6 });
-        await place.ring({ count: 4, cx: 12, cy: 12, name: "tooth", radius: 9 });
+        await draw.circle({ cx: 12, cy: 12, r: 4 });
+        await place.ring({ count: 4, cx: 12, cy: 12, name: "tooth", radius: 6 });
       `),
     });
     const result = await arm({ name: "gear" }, { parts: [TOOTH] });
@@ -283,7 +402,7 @@ describe("programArm", () => {
     // Warnings do not block: an off-keyline extent is a prompt to confirm the
     // size was chosen, and `clean` is about errors.
     expect(result.issues.filter((i) => i.severity === "error")).toEqual([]);
-    expect(result.program).toContain("circle 12,12 r6");
+    expect(result.program).toContain("circle 12,12 r4");
     expect(result.trace).toEqual([
       "icon",
       "circle",
@@ -317,19 +436,49 @@ describe("programArm", () => {
     );
   });
 
-  it("never shows the model path data for a part", async () => {
-    const seen: string[] = [];
+  /**
+   * The experiment is "a loop instead of an unrolled list", so the brief has to
+   * be the one the `agent` arm gets — otherwise a scoring pass measures the
+   * brief. An earlier revision hand-rolled four lines and would have reported
+   * thin-brief-versus-rich-brief as loop-versus-unrolled.
+   */
+  it("briefs the model the way the agent arm does", async () => {
+    const seen: { prompt: string; system: string }[] = [];
     const arm = programArm({
       ask: ({ prompt, system }) => {
-        seen.push(prompt, system);
+        seen.push({ prompt, system });
         return Promise.resolve({
           text: `await draw.part({ name: "tooth", at: [4, 4] });`,
         });
       },
     });
-    await arm({ name: "gear" }, { parts: [TOOTH] });
+    await arm(
+      { category: "hardware", name: "gear", tags: ["cog", "settings"] },
+      { keyline: "circle", parts: [TOOTH] }
+    );
 
-    expect(seen.join("\n")).toContain("tooth (2x2)");
-    expect(seen.join("\n")).not.toContain(TOOTH.d);
+    const [{ prompt, system }] = seen;
+    // The concept brief the agent arm sends: name, category, tags.
+    expect(prompt).toContain("gear");
+    expect(prompt).toContain("hardware");
+    expect(prompt).toContain("cog");
+    // The house spec, the paint rule and the keyline, from the shared builder.
+    expect(system).toContain("house spec");
+    expect(system).toContain("circle");
+    // And the one thing that differs from the agent arm: how you call it.
+    expect(system).toContain("EVERY host call must be awaited");
+    // Never the geometry, on either half.
+    expect(prompt).not.toContain(TOOTH.d);
+    expect(system).not.toContain(TOOTH.d);
+  });
+
+  it("offers the vocabulary by id as well as by name", async () => {
+    const result = await runProgram(
+      `const parts = await check.parts();
+       return parts.map((p) => p.id + ":" + p.name).join(",");`,
+      [TOOTH]
+    );
+
+    expect(result.errors).toEqual([]);
   });
 });
