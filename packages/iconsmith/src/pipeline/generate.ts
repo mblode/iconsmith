@@ -97,7 +97,13 @@ const throwIfAborted = (signal?: AbortSignal): void => {
 };
 
 /** Who draws a name the house has no file for. See `GenerateOptions.unkeyed`. */
-export type Unkeyed = "agent" | "analog" | "glyph" | "harness" | "mixture";
+export type Unkeyed =
+  | "agent"
+  | "analog"
+  | "glyph"
+  | "harness"
+  | "mixture"
+  | "program";
 
 export interface GenerateOptions {
   /** Cancels an in-flight model call when the owning turn is stopped. */

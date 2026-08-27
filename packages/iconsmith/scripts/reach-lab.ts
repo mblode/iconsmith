@@ -35,7 +35,7 @@
  * 4. Where the outline enclosed canvas the fill knocks it out: a `hole` is a
  *    second subpath under `evenodd`, not a shape painted over.
  *
- *   npx tsx scripts/reach-lab.ts [outdir] [--arm <agent|analog|glyph|harness>]
+ *   npx tsx scripts/reach-lab.ts [outdir] [--arm <agent|analog|glyph|harness|program>]
  */
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -80,6 +80,11 @@ export const unavailable = (arm: Unkeyed): string | null => {
   if (arm === "agent") {
     return gatewayToken() === undefined && openrouterToken() === undefined
       ? "the agent arm needs a gateway credential (AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN) or OPENROUTER_API_KEY"
+      : null;
+  }
+  if (arm === "program") {
+    return gatewayToken() === undefined && openrouterToken() === undefined
+      ? "the program arm needs a gateway credential (AI_GATEWAY_API_KEY or VERCEL_OIDC_TOKEN) or OPENROUTER_API_KEY"
       : null;
   }
   if (arm === "harness") {

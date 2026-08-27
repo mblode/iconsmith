@@ -68,6 +68,9 @@ interface NewOptions {
   look?: boolean;
   maxSteps?: string;
   mixture?: boolean;
+  /** Draw with the `program` arm: a model-authored JavaScript builder
+   *  program, executed in a sandbox, emitting the same `.icon`. */
+  program?: boolean;
   model?: string;
   out?: string;
   packsRoot?: string;
@@ -140,10 +143,14 @@ export const houseAt = (root: string): HouseSource => {
   };
 };
 
-/** Product default is the sparse gate. `--analog` and `--harness` opt out. */
+/** Product default is the sparse gate. `--analog`, `--harness` and
+ *  `--program` opt out. */
 export const unkeyedOf = (opts: NewOptions): Unkeyed => {
   if (opts.analog) {
     return "analog";
+  }
+  if (opts.program) {
+    return "program";
   }
   if (opts.harness !== undefined && opts.harness !== false) {
     return "harness";
@@ -316,6 +323,10 @@ export const registerNewCommand = (program: Command): void => {
     .option(
       "--mixture",
       "sparse expert routing (default): cheap host arms first, agent if they fail"
+    )
+    .option(
+      "--program",
+      "the model writes a JavaScript builder program instead of the .icon by hand"
     )
     .option(
       "--inventory <file>",
