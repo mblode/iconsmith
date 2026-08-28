@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import {
+  isDeadStudioSession,
   refuseForeignSessionTurn,
   refuseStudioBody,
   refuseStudioSession,
@@ -446,6 +447,48 @@ describe("studioOwnerHeaders", () => {
       if (previous) {
         Object.defineProperty(globalThis, "crypto", previous);
       }
+    }
+  });
+});
+
+describe("isDeadStudioSession", () => {
+  /**
+   * Every refusal `refuseStudioSession` can mint about an *id* has to be one
+   * the client acts on, or the studio keeps a cursor the server will refuse
+   * forever. This walks the refusals rather than restating the codes, so a
+   * fourth one added above fails here until it is classified.
+   */
+  it("covers every id refusal the policy can mint", () => {
+    const stale = sessionId(NOW - DAY_MS - 1000);
+    for (const path of [`/eve/v1/session/not-a-run-id/stream`, `/eve/v1/session/${stale}/stream`]) {
+      const refusal = refuseStudioSession(request(path), policy);
+      assert.ok(refusal, `expected a refusal for ${path}`);
+      assert.ok(isDeadStudioSession(refusal), `${refusal.code} is unclassified`);
+    }
+  });
+
+  it("covers eve's own 409 for an id with nothing runnable behind it", () => {
+    // Verified against production: POST to a well-formed id inside its window
+    // answers {"code":"session_not_active", ...} with status 409.
+    assert.equal(isDeadStudioSession({ code: "session_not_active" }), true);
+  });
+
+  it("spares a session refused for the route rather than for the id", () => {
+    // The id in the path may be live; discarding it would lose working state.
+    const refusal = refuseStudioSession(request(`/eve/v1/session/${sessionId(NOW)}/reset`), policy);
+    assert.equal(refusal?.code, "session_route_forbidden");
+    assert.equal(isDeadStudioSession(refusal), false);
+  });
+
+  it("ignores errors that carry no code, so a transport blip is still retryable", () => {
+    for (const error of [
+      new Error("This Studio session has expired. Start a new one."),
+      { code: "rate_limited" },
+      { code: 7 },
+      undefined,
+      null,
+    ]) {
+      assert.equal(isDeadStudioSession(error), false);
     }
   });
 });

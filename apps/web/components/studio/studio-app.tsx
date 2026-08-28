@@ -17,7 +17,7 @@ import { ChatSwitcher } from "@/components/studio/chat-switcher";
 import { OverviewTable } from "@/components/studio/overview-table";
 import { ThinkingCard } from "@/components/studio/thinking-card";
 import { StudioWorkspace } from "@/components/studio/studio-workspace";
-import { studioOwnerHeaders } from "@iconsmith/contract/session-owner";
+import { isDeadStudioSession, studioOwnerHeaders } from "@iconsmith/contract/session-owner";
 import { VersionRail } from "@/components/studio/version-rail";
 import {
   Attachment,
@@ -383,10 +383,64 @@ export const StudioApp = ({
   const pipelineNudgeRef = useRef(false);
   /** One reconnect when the live stream closed while the pipeline was running. */
   const pipelineResumeRef = useRef(false);
+  /** One automatic restart when the server refuses the session id we hold. */
+  const sessionRestartRef = useRef(false);
   const sendRef = useRef<(payload: StudioRequest) => Promise<boolean>>(() =>
     Promise.resolve(false),
   );
   const resumeRef = useRef<() => Promise<void>>(() => Promise.resolve());
+  const resetRef = useRef<() => void>(() => {
+    // Replaced on the first commit. Nothing before then holds a session to drop.
+  });
+
+  /**
+   * Handles the one failure a "Try again" button cannot fix, and reports
+   * whether it did.
+   *
+   * The resume cursor lives in `localStorage` and the session it names may only
+   * run for a day, so any tab reopened after that holds an id the server
+   * refuses — and both affordances the studio offers are dead ends against it.
+   * Try again replays `pendingRequestRef` to the same dead id, and a reload
+   * reads the same dead cursor back out of storage. The banner said "Start a
+   * new one" while offering no way to start one.
+   *
+   * `agent.reset()` is the way: it drops the store's session and, through
+   * `onSessionChange(undefined)`, removes the stored cursor too, so the next
+   * send opens a fresh session rather than continuing a corpse. Nothing here
+   * writes to storage itself — that wiring already exists and one writer is
+   * enough.
+   *
+   * One shot, like the two recoveries above it. If a brand new session is
+   * refused as well, the trouble is not a stale cursor and the banner should
+   * say so rather than restarting in a loop.
+   */
+  const restartDeadSession = (error: unknown): boolean => {
+    if (!isDeadStudioSession(error) || sessionRestartRef.current) {
+      return false;
+    }
+    sessionRestartRef.current = true;
+    resetRef.current();
+
+    const last = pendingRequestRef.current;
+    if (!last) {
+      /**
+       * The refusal came from the mount-time replay rather than from a turn:
+       * there is no brief to resend, and nothing worth telling the visitor.
+       * Someone returning to a studio whose last session aged out should find
+       * an empty one that works, not a red banner about a conversation they
+       * had yesterday and a button that does nothing.
+       */
+      sendInFlightRef.current = false;
+      setBusy(false);
+      setFault(null);
+      return true;
+    }
+
+    sendInFlightRef.current = true;
+    setBusy(true);
+    void sendRef.current(last);
+    return true;
+  };
 
   const recoverDroppedStream = async () => {
     try {
@@ -547,8 +601,14 @@ export const StudioApp = ({
     host: BASE_PATH,
     initialSession: savedSession,
     onError(error) {
-      setBusy(false);
       turnHandledRef.current = true;
+      // Before the banner, because a refused session id is not something the
+      // visitor can act on and the restart puts the studio back in a state
+      // where the next thing they do works.
+      if (restartDeadSession(error)) {
+        return;
+      }
+      setBusy(false);
       setFault(studioFaultFromUnknown(error, "The studio could not reach the drawing."));
     },
     onEvent(event) {
@@ -817,6 +877,9 @@ export const StudioApp = ({
     } catch (error) {
       sendInFlightRef.current = false;
       turnHandledRef.current = true;
+      if (restartDeadSession(error)) {
+        return false;
+      }
       setBusy(false);
       setFault(studioFaultFromUnknown(error, "The studio could not reach the drawer."));
       return false;
@@ -825,6 +888,7 @@ export const StudioApp = ({
   useEffect(() => {
     sendRef.current = send;
     resumeRef.current = () => agent.resume();
+    resetRef.current = () => agent.reset();
   });
 
   /** Replays the last request so a failed draw is one click from recovery. */
@@ -852,6 +916,9 @@ export const StudioApp = ({
     setTurns((current) => [...current, { attachments, id: uid(), role: "user", text: next }]);
     pipelineNudgeRef.current = false;
     pipelineResumeRef.current = false;
+    // A new brief earns a new allowance, so a session that expires later in a
+    // long-lived tab is recovered the same way the first one was.
+    sessionRestartRef.current = false;
     const accepted = await send({
       annotations: annotationsFor(selected?.id),
       attachments,

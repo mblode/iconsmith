@@ -315,6 +315,48 @@ export const refuseStudioSession = (
 };
 
 /**
+ * The refusals that mean the session id the caller presented will never work
+ * again, whatever it does next.
+ *
+ * This is the set a client has to act on rather than report. The Studio keeps
+ * its resume cursor in `localStorage`, so an id outlives by weeks the 24 hours
+ * `refuseStudioSession` gives it — and a banner offering "Try again" over a
+ * dead cursor replays the same dead id forever. Every code here has the one
+ * remedy: drop the cursor, open a new session, send the brief again.
+ *
+ * Two of the three are minted above. `session_not_active` is eve's own, from
+ * `POST /eve/v1/session/:id` when nothing runnable stands behind the id (409,
+ * "The session is no longer active."), which is what a caller gets for a
+ * well-formed id inside its window that the store has since dropped. It is
+ * restated here because the remedy is identical and because a client should
+ * read one list, not two.
+ *
+ * `session_route_forbidden` is deliberately absent. It refuses a *route* the
+ * Studio has no business calling, and says nothing about the id in the path,
+ * which may be perfectly live — discarding a working session over a client bug
+ * would turn a harmless no-op into lost work.
+ */
+export const DEAD_STUDIO_SESSION_CODES: ReadonlySet<string> = new Set([
+  "session_expired",
+  "session_not_found",
+  "session_not_active",
+]);
+
+/**
+ * Whether a thrown error is one of those refusals.
+ *
+ * Matched on eve's `ClientError.code`, which it parses off the `code` field of
+ * the refusal body, and never on the message: the message is prose meant for a
+ * human and is the half of the response most likely to be reworded.
+ */
+export const isDeadStudioSession = (error: unknown): boolean =>
+  typeof error === "object" &&
+  error !== null &&
+  "code" in error &&
+  typeof error.code === "string" &&
+  DEAD_STUDIO_SESSION_CODES.has(error.code);
+
+/**
  * The request header carrying the browser's owner token.
  *
  * The Studio mints one `crypto.randomUUID()` per tab and keeps it in
