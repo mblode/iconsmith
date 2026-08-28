@@ -24,6 +24,7 @@ import { markArm } from "./mark.js";
 import { mixtureArm } from "./mixture.js";
 import type { PackIndex } from "./mixture.js";
 import { pairCanvases } from "./pair.js";
+import { programArm } from "./program.js";
 import type { Concept } from "./prompt.js";
 import { compileArm } from "./reconstruct.js";
 import { splicePair, splicePaths } from "./splice.js";
@@ -270,6 +271,9 @@ export const reach = (
   }
   if (options.unkeyed === "agent") {
     return generate(concept, options);
+  }
+  if (options.unkeyed === "program") {
+    return programArm()(concept, options);
   }
   if (options.unkeyed === "mixture") {
     return mixtureArm({ house, inventory })(concept, options);
