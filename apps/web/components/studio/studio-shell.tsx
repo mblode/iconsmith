@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { StudioApp } from "@/components/studio/studio-app";
+import { isResumable } from "@/lib/studio/campaign";
 import type { CampaignItem } from "@/lib/studio/campaign";
 import type { OverviewSpec } from "@/lib/studio/overview";
 import { newThreadId } from "@/lib/studio/threads";
@@ -34,7 +35,11 @@ export const StudioShell = ({ houseSpec }: { houseSpec: OverviewSpec }) => {
 
   const openCampaignItem = (item: CampaignItem) => {
     setBinding({
-      recordedSessionId: item.lastSessionId,
+      // Only when it could still take a turn. A recorded id outlives the
+      // session it names -- `campaign.json` is committed, so every id in it
+      // ages with the git history -- and offering a dead one resumes nothing
+      // while costing a refused request to find out.
+      recordedSessionId: isResumable(item) ? item.lastSessionId : null,
       slug: item.slug,
       thread: `campaign:${item.slug}`,
     });

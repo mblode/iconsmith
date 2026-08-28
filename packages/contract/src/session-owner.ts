@@ -111,6 +111,26 @@ export interface StudioSessionPolicy {
 const DEFAULT_CLOCK_SKEW_MS = 5 * 60 * 1000;
 
 /**
+ * How long a Studio session may run, and the one definition of that number.
+ *
+ * `apps/agent/agent.ts` sets `limits.sessionTimeoutMs` from this, and
+ * `agent/channels/eve.ts` keeps reading it back off `agent.limits` rather than
+ * importing it here — so the refusal above is still bounded by what eve is
+ * actually configured with, and a limit raised in the agent definition cannot
+ * leave a stale copy behind the check.
+ *
+ * It lives in the contract because the *client* needs it too, and for a reason
+ * the server cannot cover: `lib/studio/campaign.json` is a committed, generated
+ * file whose `lastSessionId` values were minted on the author's machine
+ * whenever the campaign was last regenerated. They age with the git history, so
+ * by the time any of them reaches production every one of them is long dead.
+ * Deciding whether to offer one as a resume cursor is a judgement the browser
+ * has to make before it makes a request, which is exactly the kind of thing
+ * this package exists to let both ends agree on.
+ */
+export const STUDIO_SESSION_LIFETIME_MS = 24 * 60 * 60 * 1000;
+
+/**
  * The empty suffix is the follow-up route (`POST /eve/v1/session/:id`), which
  * also carries `respond`.
  *
@@ -312,6 +332,33 @@ export const refuseStudioSession = (
   }
 
   return undefined;
+};
+
+/**
+ * Whether a recorded session id could still take a turn, judged from the id
+ * alone.
+ *
+ * The mirror of the expiry rule in `refuseStudioSession`, for a caller deciding
+ * whether an id is worth presenting at all. It is an *optimisation and an
+ * honesty check*, never an authorisation: the server decides, this only avoids
+ * offering a cursor that is certain to be refused. So it is deliberately
+ * generous — a live id misjudged as dead costs a resumable conversation, while
+ * a dead id misjudged as live costs one request that `isDeadStudioSession`
+ * already recovers from. The skew allowance therefore runs the opposite way to
+ * the server's, which is guarding against forgery and has no such asymmetry.
+ *
+ * A string that is not an id eve could have minted is not live: nothing can be
+ * resumed from it.
+ */
+export const isStudioSessionLive = (
+  sessionId: string | null | undefined,
+  now: number = Date.now(),
+): boolean => {
+  const minted =
+    sessionId === null || sessionId === undefined ? undefined : sessionMintedAt(sessionId);
+  return minted === undefined
+    ? false
+    : now - minted <= STUDIO_SESSION_LIFETIME_MS + DEFAULT_CLOCK_SKEW_MS;
 };
 
 /**

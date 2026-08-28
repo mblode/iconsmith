@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 
 import {
   isDeadStudioSession,
+  isStudioSessionLive,
   refuseForeignSessionTurn,
   refuseStudioBody,
   refuseStudioSession,
@@ -489,6 +490,37 @@ describe("isDeadStudioSession", () => {
       null,
     ]) {
       assert.equal(isDeadStudioSession(error), false);
+    }
+  });
+});
+
+describe("isStudioSessionLive", () => {
+  it("agrees with the refusal it mirrors on a session inside its window", () => {
+    const id = sessionId(NOW - DAY_MS + 1000);
+    assert.equal(isStudioSessionLive(id, NOW), true);
+    assert.equal(refuseStudioSession(request(`/eve/v1/session/${id}/stream`), policy), undefined);
+  });
+
+  it("calls a campaign id dead at the ages one actually reaches", () => {
+    // campaign.json is committed, so its recorded ids age with the git history;
+    // the ones in the file today were minted four days before this was written.
+    assert.equal(isStudioSessionLive(sessionId(NOW - 4 * DAY_MS), NOW), false);
+  });
+
+  it("reads through Vercel's region tag, so a production id is not called dead", () => {
+    assert.equal(isStudioSessionLive(regionTaggedSessionId(NOW - 1000), NOW), true);
+  });
+
+  it("errs towards live at the boundary, because the server is the one that decides", () => {
+    // A live id misjudged as dead loses a resumable conversation; a dead one
+    // misjudged as live costs a request isDeadStudioSession already recovers.
+    assert.equal(isStudioSessionLive(sessionId(NOW - DAY_MS - 60_000), NOW), true);
+    assert.equal(isStudioSessionLive(sessionId(NOW - DAY_MS - 10 * 60_000), NOW), false);
+  });
+
+  it("treats an absent or unmintable id as nothing to resume", () => {
+    for (const id of [null, undefined, "", "not-a-run-id"]) {
+      assert.equal(isStudioSessionLive(id, NOW), false);
     }
   });
 });

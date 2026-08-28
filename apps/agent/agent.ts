@@ -1,6 +1,9 @@
 import { defineAgent, defineDynamic } from "eve";
 
-import { refuseForeignSessionTurn } from "@iconsmith/contract/session-owner";
+import {
+  refuseForeignSessionTurn,
+  STUDIO_SESSION_LIFETIME_MS,
+} from "@iconsmith/contract/session-owner";
 import "./lib/trust-system-ca";
 
 const model = "google/gemini-3.7-flash";
@@ -11,7 +14,10 @@ export default defineAgent({
   limits: {
     maxInputTokensPerSession: 250_000,
     maxOutputTokensPerSession: 25_000,
-    sessionTimeoutMs: 24 * 60 * 60 * 1000,
+    // One definition, in the contract: `channels/eve.ts` bounds a session id's
+    // usable life by this same number, and the studio will not offer a recorded
+    // cursor older than it.
+    sessionTimeoutMs: STUDIO_SESSION_LIFETIME_MS,
   },
   /**
    * Dynamic only to obtain a seam that can refuse a turn.
