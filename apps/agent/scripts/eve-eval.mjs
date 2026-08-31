@@ -16,7 +16,7 @@
  * and this script is the missing measurement one level up.
  *
  * Two arms, and the arm is a property of the SERVER, not of a request:
- * `ICONSMITH_EVAL_HOLDOUT` is read once at boot by `lib/studio/arsenal.ts`.
+ * `ICONSMITH_EVAL_HOLDOUT` is read once at boot by `lib/arsenal.ts`.
  * So a full pass is two passes against two servers:
  *
  *     # as-shipped

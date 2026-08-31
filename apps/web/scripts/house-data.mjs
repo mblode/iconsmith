@@ -1,12 +1,12 @@
 /**
- * Regenerate `lib/studio/house-icons.json`, the licensed house drawings Studio
- * reads as reference.
+ * Regenerate `apps/agent/data/house-icons.json`, the licensed house drawings
+ * Studio reads as reference.
  *
  * arsenal.ts used to readdir `node_modules/blode-icons-react/dist` from
  * `process.cwd()`. That works in `next dev` and dies on the Eve Vercel
  * service, whose cwd is the function root and which never sees that package
- * directory. The same contract as `vocabulary.json`: a committed projection
- * inside `apps/web`, not a path into node_modules.
+ * directory. The same contract as `vocabulary.json`: a committed projection,
+ * not a path into node_modules.
  *
  *   node scripts/house-data.mjs
  *

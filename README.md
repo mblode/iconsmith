@@ -22,7 +22,7 @@ cd iconsmith
 npm install && npm run build
 ```
 
-Node 24.11 or newer. Every `iconsmith` below is `npx iconsmith` from the repo root.
+Node 24.11 or newer. The package ships no `bin`, so every `iconsmith` below is `node packages/iconsmith/dist/cli.js` from the repo root — alias it if you use it often.
 
 ## Quickstart
 
@@ -109,7 +109,7 @@ The house spec is measured the same way. Against its strict reading, the house s
 
 - **Generation needs a Vercel AI Gateway credential:** `AI_GATEWAY_API_KEY` or `VERCEL_OIDC_TOKEN`, or `OPENROUTER_API_KEY` with an OpenRouter model id. A provider key such as `ANTHROPIC_API_KEY` is not a substitute. The analog and glyph arms need neither.
 - **The corpus is not shipped.** 2,085 symbols drawn 30 ways, plus third-party packs the licence gate exists to keep out of a generation. Point `--corpus <dir>` at your own set.
-- **The library is exported too:** `import { Canvas, extractParts, lint, runDsl, similarity } from "iconsmith";`
+- **The library is exported too:** `import { generate, parseIconSvg, png, runPairTournament } from "iconsmith";`
 
 ## License
 

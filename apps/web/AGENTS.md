@@ -76,12 +76,12 @@ ZONE_ORIGIN_ICONSMITH=http://localhost:3210
 - **`lib/vocabulary.json` is generated.** Re-run `node scripts/vocabulary-data.mjs`
   after the parts vocabulary changes. It is committed here rather than imported across
   the workspace because Next cannot serve assets from outside the app directory.
-- **`packages/studio/src/house-icons.json` is generated.** Re-run `node scripts/house-data.mjs`
+- **`apps/agent/data/house-icons.json` is generated.** Re-run `node scripts/house-data.mjs`
   after bumping `blode-icons-react`. Studio used to readdir that package from
   `process.cwd()`, which is not the Next app root on Eve's Vercel service, so a
   brief failed with "house library could not be found" before drawing.
-- **`ICONSMITH_EVAL_HOLDOUT` is read once at server boot**, by `@iconsmith/studio/arsenal` — so the eval arm is a property of the _server_, not of a request. Setting it on `apps/agent/scripts/eve-eval.mjs` instead of on `npm run dev` measures the as-shipped arm while labelling the run clean, and nothing errors. A full pass is two servers: `--arm shipped` against a plain `npm run dev`, then `--arm clean` against one booted with the holdout file that same script emitted.
-- **Studio's arsenal and the benchmark hold out different things.** `pipeline/bench.ts` withholds a whole concept closure (slug, cohort in both styles, Central finishes, filled twin); `@iconsmith/studio/arsenal` withholds the one exact slug. So a closure of nineteen leaves eighteen showable, and a `library-*` arm can win by retrieving one — which is not drawing. `scripts/eve-contamination.ts` measures that gap by calling the real `loadStudioArsenal`; it costs nothing and is the number to quote before believing a Studio eval.
+- **`ICONSMITH_EVAL_HOLDOUT` is read once at server boot**, by `apps/agent/lib/arsenal.ts` — so the eval arm is a property of the _server_, not of a request. Setting it on `apps/agent/scripts/eve-eval.mjs` instead of on `npm run dev` measures the as-shipped arm while labelling the run clean, and nothing errors. A full pass is two servers: `--arm shipped` against a plain `npm run dev`, then `--arm clean` against one booted with the holdout file that same script emitted.
+- **Studio's arsenal and the benchmark hold out different things.** `pipeline/bench.ts` withholds a whole concept closure (slug, cohort in both styles, Central finishes, filled twin); `apps/agent/lib/arsenal.ts` withholds the one exact slug. So a closure of nineteen leaves eighteen showable, and a `library-*` arm can win by retrieving one — which is not drawing. `apps/agent/scripts/eve-contamination.ts` measures that gap by calling the real `loadStudioArsenal`; it costs nothing and is the number to quote before believing a Studio eval.
 - `apps/agent/scripts/eve-eval.mjs` spends real money — up to eight tournament arms per concept. Do not run it to check a refactor.
 - The two code samples on the page are real CLI output. Regenerate them with the
   commands in `components/square-check-icon.tsx` and `app/page.tsx` rather than

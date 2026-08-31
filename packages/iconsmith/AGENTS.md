@@ -123,4 +123,4 @@ The angle escape is not a loophole to close. Off-axis edges are 29.3% of the set
 - Prefer `--output json`; the default `text` is for humans.
 - The CLI never prompts, under any conditions. Provide every value as a flag.
 - Mutating commands support `--dry-run`. Exit 0 on success, non-zero on failure.
-- Core logic lives in `src/index.ts` and can back an MCP server; keep CLI-only concerns in `src/cli.ts`.
+- Core logic lives under `src/` behind the deliberately narrow re-export surface in `src/index.ts` (see its header); keep CLI-only concerns in `src/cli.ts`.
