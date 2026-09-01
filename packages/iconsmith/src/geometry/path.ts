@@ -33,7 +33,11 @@ const ARITY: Record<string, number> = {
   V: 1,
   Z: 0,
 };
-const TOKEN = /[MmLlHhVvCcSsQqTtAaZz]|-?\d*\.?\d+(?:e[-+]?\d+)?/gu;
+// The exponent accepts `e` and `E`. `ILLEGAL` below permits both, so a capital
+// `E` cleared that screen but was then not matched here — it vanished and every
+// argument after it shifted, the exact silent mis-parse the screen exists to
+// stop. `1E1` read as the two tokens `1` and `1`.
+const TOKEN = /[MmLlHhVvCcSsQqTtAaZz]|-?\d*\.?\d+(?:[eE][-+]?\d+)?/gu;
 const ALPHA = /[A-Za-z]/u;
 /** Everything path data is allowed to be made of: command letters, the pieces
  *  of a number, and the separators between them. */
@@ -114,10 +118,14 @@ interface ParseState {
   /** Current point. */
   cx: number;
   cy: number;
-  /** Reflection state for S/T shorthand. */
+  /** Reflection state for S/T shorthand: the last control point, and which
+   *  curve kind put it there. `S` reflects only after `C`/`S`, `T` only after
+   *  `Q`/`T`; a `T` after a cubic, or an `S` after a quadratic, takes the
+   *  current point as its control instead of reflecting the wrong kind. */
   px: number;
   py: number;
   prevCubic: boolean;
+  prevQuad: boolean;
   rel: boolean;
   /** Subpath start, restored by Z. */
   sx: number;
@@ -145,6 +153,7 @@ const moveTo: Handler = (s) => {
   s.cy = y;
   s.sy = y;
   s.prevCubic = false;
+  s.prevQuad = false;
 };
 
 const closePath: Handler = (s) => {
@@ -155,6 +164,7 @@ const closePath: Handler = (s) => {
   s.cx = s.sx;
   s.cy = s.sy;
   s.prevCubic = false;
+  s.prevQuad = false;
 };
 
 const horizontal: Handler = (s) => {
@@ -162,6 +172,7 @@ const horizontal: Handler = (s) => {
   s.cur?.segs.push(lineTo(x, s.cy));
   s.cx = x;
   s.prevCubic = false;
+  s.prevQuad = false;
 };
 
 const vertical: Handler = (s) => {
@@ -169,6 +180,7 @@ const vertical: Handler = (s) => {
   s.cur?.segs.push(lineTo(s.cx, y));
   s.cy = y;
   s.prevCubic = false;
+  s.prevQuad = false;
 };
 
 const straight: Handler = (s) => {
@@ -178,6 +190,7 @@ const straight: Handler = (s) => {
   s.cx = x;
   s.cy = y;
   s.prevCubic = false;
+  s.prevQuad = false;
 };
 
 const cubic: Handler = (s) => {
@@ -189,6 +202,7 @@ const cubic: Handler = (s) => {
   s.cx = ex;
   s.cy = ey;
   s.prevCubic = true;
+  s.prevQuad = false;
 };
 
 const smoothCubic: Handler = (s) => {
@@ -203,6 +217,7 @@ const smoothCubic: Handler = (s) => {
   s.cx = ex;
   s.cy = ey;
   s.prevCubic = true;
+  s.prevQuad = false;
 };
 
 // Quadratics are elevated to cubics so downstream code sees one curve type.
@@ -212,7 +227,7 @@ const quadratic: Handler = (s) => {
   let [qx, qy, ex, ey] = pts;
   if (s.up === "T") {
     // T has no control point of its own: reflect the previous one.
-    [qx, qy] = s.prevCubic ? [2 * cx - s.px, 2 * cy - s.py] : [cx, cy];
+    [qx, qy] = s.prevQuad ? [2 * cx - s.px, 2 * cy - s.py] : [cx, cy];
     [ex, ey] = pts;
   }
   s.cur?.segs.push(
@@ -229,7 +244,8 @@ const quadratic: Handler = (s) => {
   s.py = qy;
   s.cx = ex;
   s.cy = ey;
-  s.prevCubic = true;
+  s.prevCubic = false;
+  s.prevQuad = true;
 };
 
 // Arcs are rare (46 in the whole set). Kept verbatim rather than
@@ -243,6 +259,7 @@ const arc: Handler = (s) => {
   s.cx = ex;
   s.cy = ey;
   s.prevCubic = false;
+  s.prevQuad = false;
 };
 
 const HANDLERS: Record<string, Handler> = {
@@ -279,6 +296,7 @@ export const parsePath = (
     cx: 0,
     cy: 0,
     prevCubic: false,
+    prevQuad: false,
     px: 0,
     py: 0,
     rel: false,
@@ -323,6 +341,15 @@ export const parsePath = (
     s.args = args;
     s.rel = cmd !== up;
     s.up = up;
+    // A drawing command after Z with no intervening M starts a new subpath at
+    // the close point (SVG 8.3.3). Without this the handlers' `s.cur?.segs`
+    // no-op silently drops the geometry while the current point still advances,
+    // the same class of quiet loss the stray-character screen exists to stop.
+    if (s.cur === null && up !== "M" && up !== "Z") {
+      s.cur = { closed: false, segs: [], start: [s.cx, s.cy] };
+      s.sx = s.cx;
+      s.sy = s.cy;
+    }
     HANDLERS[up](s);
     if (up === "M") {
       // A second coordinate pair after M is an implicit L.
