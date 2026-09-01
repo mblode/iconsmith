@@ -81,7 +81,7 @@
  * flicker `cohort-align` exists to catch (437 findings across 186 families in
  * blode-icons, 371 of them ≥1px). The keyline still governs `part ... fill`.
  */
-import type { DotRole, Finish, IconDoc, Keyline, Part } from "../types.js";
+import type { Finish, IconDoc, Keyline, Part } from "../types.js";
 import { ARC_FROM, ARC_SWEEP, Canvas, SPEC } from "./canvas.js";
 import type { ArcFrom, ArcSweep, Spec } from "./canvas.js";
 import type { Cohort, CohortTarget } from "./cohort.js";
@@ -146,11 +146,9 @@ const FINISHES: Finish[] = ["filled", "outlined"];
 const isFinish = (v: string): v is Finish => (FINISHES as string[]).includes(v);
 
 const KEYLINES = Object.keys(SPEC.keylines) as Keyline[];
-const ROLES = Object.keys(SPEC.dots) as DotRole[];
 
 const isKeyline = (v: string): v is Keyline =>
   (KEYLINES as string[]).includes(v);
-const isRole = (v: string): v is DotRole => (ROLES as string[]).includes(v);
 const isArcFrom = (v: string): v is ArcFrom =>
   (ARC_FROM as readonly string[]).includes(v);
 const isArcSweep = (v: string): v is ArcSweep =>
@@ -457,10 +455,16 @@ const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
     });
   } else if (op === "dot") {
     const [cx, cy] = pair(t[1]);
-    const role = t[2] ?? "terminal";
-    if (!isRole(role)) {
+    // Pass the role through only when one was written: a bare `dot` lets
+    // `Canvas.dot` pick the spec-aware default (terminal, or node when the
+    // optical size has dropped terminal). Forcing "terminal" here made a bare
+    // dot fail under a large-size spec that the canvas would have handled.
+    // Validate against the run's own spec, not the module default, for the same
+    // reason — `ROLES` is the house cut and can name a role this run dropped.
+    const role = t.at(2);
+    if (role !== undefined && !(role in canvas.spec.dots)) {
       throw new Error(
-        `unknown dot role "${role}" — expected one of ${ROLES.join(", ")}`
+        `unknown dot role "${role}" — expected one of ${Object.keys(canvas.spec.dots).join(", ")}`
       );
     }
     canvas.dot({ cx, cy, role });
