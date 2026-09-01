@@ -661,12 +661,18 @@ export const run = (
 export const completeProgram = (
   doc: IconDoc,
   program: string | undefined,
-  parts: readonly Part[] = []
+  parts: readonly Part[] = [],
+  // Replay under the same run options that drew `doc`. Without the cohorts, a
+  // program ending in `cohort` throws ("no cohorts were supplied…") on replay
+  // and is falsely called incomplete; without the spec, a non-default cut
+  // draws a different document and compares unequal. Both default to the house
+  // cut, so callers that drew under it can omit this.
+  options: RunOptions = {}
 ): boolean => {
   if (!program || doc.draw.some((op) => op.op === "raw")) {
     return false;
   }
-  const replay = run(program, [...parts]);
+  const replay = run(program, [...parts], options);
   if (replay.errors.length > 0) {
     return false;
   }

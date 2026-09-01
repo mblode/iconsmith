@@ -604,7 +604,10 @@ export const runProgram = async (
   // The guarantee, asserted rather than asserted-in-prose: whatever the
   // JavaScript did, the `.icon` it produced replays to this exact document.
   // Anything the DSL cannot express fails here.
-  if (lines.length > 0 && !completeProgram(doc, program, parts)) {
+  if (
+    lines.length > 0 &&
+    !completeProgram(doc, program, parts, { cohorts: options.cohorts, spec })
+  ) {
     errors.push(
       "the emitted program does not replay to the document it drew — " +
         "the JavaScript produced something the DSL cannot express"
