@@ -10,7 +10,14 @@
  * the boundary) and the house stroke when outlined. That is the quantity that
  * matches in 94% of house pairs.
  */
-import type { DrawOp, Finish, IconDoc, Issue, Keyline } from "../types.js";
+import type {
+  DrawOp,
+  Finish,
+  IconDoc,
+  Issue,
+  Keyline,
+  Part,
+} from "../types.js";
 import { Canvas, SPEC } from "./canvas.js";
 import type { Spec } from "./canvas.js";
 import { lint } from "./lint.js";
@@ -588,10 +595,27 @@ const lineOf = (op: Extract<DrawOp, { op: "line" }>): string => {
   return `${hole}line ${pointsOf(op.points)}${axis}`;
 };
 
-const partOf = (op: Extract<DrawOp, { op: "part" }>): string => {
+const partOf = (
+  op: Extract<DrawOp, { op: "part" }>,
+  parts: readonly Part[]
+): string => {
   const bits = [`part ${op.id}`, "at", `${fmt(op.x)},${fmt(op.y)}`];
   if (op.scale !== 1) {
-    bits.push("size", fmt(op.scale));
+    // The DSL `size` keyword is a *target span*, not a scale factor: placePart
+    // reads it as `k = size / max(pw, ph)`. Emitting the raw `op.scale` made a
+    // part placed at scale 2 replay at 1/span of that, so anything but scale 1
+    // round-tripped to a wildly different size. Convert back through the part's
+    // turned extent — the same transposition placePart measured `k` against.
+    const part = parts.find((candidate) => candidate.id === op.id);
+    if (part) {
+      const [pw, ph] = op.turn % 2 === 0 ? [part.w, part.h] : [part.h, part.w];
+      const span = Math.max(pw, ph) || 1;
+      bits.push("size", fmt(op.scale * span));
+    } else {
+      // No vocabulary to convert against — best effort, and completeProgram
+      // will catch the mismatch rather than a wrong size shipping silently.
+      bits.push("size", fmt(op.scale));
+    }
   }
   const turn = TURN_WORD[op.turn];
   if (turn) {
@@ -603,7 +627,7 @@ const partOf = (op: Extract<DrawOp, { op: "part" }>): string => {
   return bits.join(" ");
 };
 
-const opLine = (op: DrawOp): string | null => {
+const opLine = (op: DrawOp, parts: readonly Part[]): string | null => {
   if (op.op === "raw") {
     return null;
   }
@@ -629,7 +653,7 @@ const opLine = (op: DrawOp): string | null => {
   if (op.op === "diamond") {
     return `diamond ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.reach)}`;
   }
-  return partOf(op);
+  return partOf(op, parts);
 };
 
 /**
@@ -640,14 +664,17 @@ const opLine = (op: DrawOp): string | null => {
  * program, then {@link twinPairIssues}. A `raw` escape has no DSL word
  * and is dropped; pairing then sees whatever else the canvas drew.
  */
-export const programFromDoc = (doc: IconDoc): string => {
+export const programFromDoc = (
+  doc: IconDoc,
+  parts: readonly Part[] = []
+): string => {
   const lines = [`icon ${doc.icon ?? "icon"}`];
   if (doc.keyline) {
     lines.push(`keyline ${doc.keyline}`);
   }
   lines.push(`finish ${doc.finish ?? "outlined"}`);
   for (const op of doc.draw) {
-    const line = opLine(op);
+    const line = opLine(op, parts);
     if (line !== null) {
       lines.push(line);
     }

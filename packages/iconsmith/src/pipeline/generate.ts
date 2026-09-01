@@ -442,10 +442,11 @@ const programOf = (
   name: string,
   finish: Finish,
   doc: IconDoc,
-  useHost: boolean
+  useHost: boolean,
+  parts: readonly Part[]
 ): string =>
   (useHost ? hostConstruction(name, finish)?.source : undefined) ??
-  programFromDoc(doc);
+  programFromDoc(doc, parts);
 
 const pairGenerate = (
   issues: readonly Issue[],
@@ -554,7 +555,7 @@ const resultOf = (
   // diagonal bars (`raw`), so pairing a paper-plane fill looked empty
   // even though the canvas held the analog. Pair the two analog paints,
   // not an adapt of the lossy round-trip.
-  const program = programOf(concept.name, finish, doc, extras.useHost);
+  const program = programOf(concept.name, finish, doc, extras.useHost, parts);
   const issues = pairGenerate(
     lint(canvas, { keyline }),
     concept.name,
