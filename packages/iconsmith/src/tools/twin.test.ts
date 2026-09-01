@@ -3,7 +3,7 @@
  */
 import { expect, test } from "vitest";
 
-import type { Finish } from "../types.js";
+import type { Finish, Part } from "../types.js";
 import { run } from "./dsl.js";
 import {
   adaptProgram,
@@ -211,6 +211,18 @@ test("adaptProgram punches a stroked rect into a frame, not a slab", () => {
   expect(filled).toContain("hole rect 4,8.5 16x9 r1");
 });
 
+test("adaptProgram treats a rect with no radius as r2, matching the DSL default", () => {
+  // `dsl.ts`'s rectArgs defaults an absent radius to 2, so `rect …` and
+  // `rect … r2` are the same drawing. The adapter used to read a missing token
+  // as "no radius" and emit none, so the twin replayed a tier off — outer too
+  // tight, hole too round. The two spellings must adapt identically.
+  const body = "icon card\nfinish outlined\nrect 3,7.5 18x11";
+  expect(adaptProgram(body, "filled")).toBe(
+    adaptProgram(`${body} r2`, "filled")
+  );
+  expect(adaptProgram(body, "filled")).toContain("rect 2,6.5 20x13 r3");
+});
+
 /** A circle no wider than the stroke has no hole to knock out: its own ink
  *  closes it. Emitting one would be refused as a hole outside its solid. */
 test("adaptProgram leaves a stroke-width circle solid", () => {
@@ -381,6 +393,36 @@ test("programFromDoc writes the paint the canvas already ran", () => {
   expect(programFromDoc(filled.toJSON({ icon: "ring" }))).toContain(
     "hole circle 12,12 r7"
   );
+});
+
+test("programFromDoc emits a scaled part's target span, so it round-trips", () => {
+  // The DSL `size` is a target span, not a scale factor. Given the vocabulary,
+  // a placed part must come back out at the size it was placed with — emitting
+  // the raw scale replayed it at 1/span of that. An 8x4 part placed at span 16
+  // is scale 2; the program must say `size 16`, and a quarter turn transposes
+  // the extent it is measured against.
+  const part: Part = {
+    closed: true,
+    d: "M0 0H8V4H0Z",
+    h: 4,
+    icons: ["tab"],
+    id: "tab",
+    instances: 1,
+    name: "tab",
+    nodes: 4,
+    sizeRange: [8, 8],
+    w: 8,
+  };
+  for (const line of [
+    "part tab at 4,4 size 16",
+    "part tab at 4,4 size 16 turn cw",
+  ]) {
+    const doc = run(`icon x\n${line}\n`, [part]).canvas.toJSON({ icon: "x" });
+    const emitted = programFromDoc(doc, [part]);
+    expect(emitted).toContain(line);
+    const replayed = run(emitted, [part]).canvas.toJSON({ icon: "x" });
+    expect(replayed).toStrictEqual(doc);
+  }
 });
 
 test("a derived filled twin meets itself at every joint", () => {

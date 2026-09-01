@@ -44,9 +44,9 @@ import { conceptPrompt, systemPrompt } from "./prompt.js";
 
 /**
  * Enough calls for a dense icon and its helpers, and not enough for a runaway
- * loop. The package default is 256; a `place.grid` of 6×6 spends 36 on its own
- * before the composition around it, so 256 is a limit a legitimate program can
- * reach and this one is not.
+ * loop. A `place.grid` of 6×6 spends 36 on its own before the composition
+ * around it, so a lower cap is one a legitimate program can reach and this one
+ * is not.
  */
 const MAX_BRIDGE_REQUESTS = 1024;
 const TIMEOUT_MS = 10_000;
@@ -604,7 +604,10 @@ export const runProgram = async (
   // The guarantee, asserted rather than asserted-in-prose: whatever the
   // JavaScript did, the `.icon` it produced replays to this exact document.
   // Anything the DSL cannot express fails here.
-  if (lines.length > 0 && !completeProgram(doc, program, parts)) {
+  if (
+    lines.length > 0 &&
+    !completeProgram(doc, program, parts, { cohorts: options.cohorts, spec })
+  ) {
     errors.push(
       "the emitted program does not replay to the document it drew — " +
         "the JavaScript produced something the DSL cannot express"
@@ -808,6 +811,11 @@ export const programArm =
       limits: options.limits,
       spec,
     });
+    // Cancellation is control flow, not a program error. `runProgram`'s catch
+    // records an aborted sandbox run as a DSL error and returns a result;
+    // returning that would report a turn the caller stopped as one that drew,
+    // the same laundering `audit.ts` and `harness.ts` guard against.
+    generateOptions.abortSignal?.throwIfAborted();
 
     const issues: Issue[] = [
       ...drawn.errors.map((message): Issue => ({

@@ -115,13 +115,20 @@ const pathsOf = (
   finish: Finish = "outlined"
 ): readonly string[] | null => {
   if (plan.base !== undefined && plan.badge !== undefined) {
-    const body = house?.paths(plan.base, finish);
-    const badge = house?.paths(plan.badge, finish);
-    if (body === undefined || body === null) {
-      throw miss(plan.base);
-    }
-    if (badge === undefined || badge === null) {
-      throw miss(plan.badge);
+    const body = house?.paths(plan.base, finish) ?? undefined;
+    const badge = house?.paths(plan.badge, finish) ?? undefined;
+    if (body === undefined || badge === undefined) {
+      // A missing *filled* paint is the documented adapt-from-outline case:
+      // return null so `reach`'s `finish === "filled"` fallback re-paints the
+      // compiled outline, exactly as it does for a plain compile. Throwing here
+      // made that fallback unreachable for every spliced concept whose house
+      // files are outlined-only. A missing *outlined* paint is a real gap —
+      // `splicePair` only fires when both slugs exist — so it stays a hard error
+      // naming the side that is missing.
+      if (finish === "outlined") {
+        throw miss(body === undefined ? plan.base : plan.badge);
+      }
+      return null;
     }
     return splicePaths(body, badge);
   }
@@ -148,10 +155,19 @@ const adaptFilledFrom = (
     return drawn;
   }
   const adapted = adaptProgram(source, "filled");
-  const extras: Part[] = drawn.extras ?? options.parts ?? [];
+  // The compiled program places vocabulary parts by id (`part p0001`), so
+  // replaying it needs the vocabulary the compile was given *and* the
+  // house-local subpaths it parked in `drawn.extras`. `drawn.extras` is always
+  // an array — `compilePaint` initialises it to `[]` — so a bare
+  // `drawn.extras ?? options.parts` never fell through, silently dropping the
+  // vocabulary and turning every keyed `part` id into an "unknown part" error.
+  const vocabulary: Part[] = [
+    ...(options.parts ?? []),
+    ...(drawn.extras ?? []),
+  ];
   const opts = options.spec ? { spec: options.spec } : {};
-  const outlined = runDsl(source, extras, opts);
-  const program = runDsl(adapted, extras, opts);
+  const outlined = runDsl(source, vocabulary, opts);
+  const program = runDsl(adapted, vocabulary, opts);
   const issues: Issue[] = pairCanvases(
     [
       ...program.errors.map((message) => ({
@@ -174,7 +190,10 @@ const adaptFilledFrom = (
       icon: program.icon ?? drawn.doc.icon,
       keyline: program.keyline,
     }),
-    extras,
+    // The parked house-local subpaths only. Downstream (`tournament.ts`,
+    // `commands/view.ts`) re-adds the vocabulary itself as `[...parts,
+    // ...result.extras]`, so folding it in here would double-count it.
+    extras: drawn.extras ?? [],
     issues,
     program: adapted,
     svg: program.canvas.toSVG(),

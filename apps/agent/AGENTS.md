@@ -32,8 +32,8 @@ npm run check
   its filename, so `generate_icon_pair.ts` *is* the tool `generate_icon_pair`.
   A file here whose stem is not a legal tool name makes the app refuse to boot
   with `Tool filename "replay.test" is not a legal tool name` — which is why the
-  test that exercises this tool lives in `packages/studio/src/replay.test.ts`
-  and reaches back for it. Never put a test in this directory.
+  test that exercises this tool lives in `lib/replay.test.ts` and reaches
+  back for it. Never put a test in this directory.
 - **`lib/` takes authored TypeScript modules and nothing else.** A data file
   there is a hard discovery error, not a warning, and the agent refuses to
   boot: `Expected ".../lib/house-icons.json" to be a supported authored module

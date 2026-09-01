@@ -2,7 +2,7 @@ import { defineConfig } from "oxfmt";
 import ultracite from "ultracite/oxfmt";
 
 /**
- * `lib/house-icons.json` is a projection, not source.
+ * `data/house-icons.json` is a projection, not source.
  *
  * `apps/web/scripts/house-data.mjs` writes it with `JSON.stringify`; oxfmt
  * would reformat a file no person edits and the next regeneration would undo

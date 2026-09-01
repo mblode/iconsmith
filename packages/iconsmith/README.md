@@ -14,11 +14,15 @@ A CLI and TypeScript library that draws icons through constrained primitives ins
 
 ## Install
 
+Not on npm. The CLI runs from a clone:
+
 ```bash
-npm install -g iconsmith
+git clone https://github.com/mblode/iconsmith.git
+cd iconsmith
+npm install && npm run build
 ```
 
-Node 24.11 or newer. Not on npm until the first release; until then `npm install && npm run build` in a clone of the repo puts it on your path as `npx iconsmith`.
+Node 24.11 or newer. Every `iconsmith` below is `node packages/iconsmith/dist/cli.js` from the repo root.
 
 ## Quickstart
 
@@ -99,7 +103,7 @@ Baseline is the target, not ceiling. Anything above 0.95 is flagged as suspect: 
 
 ## Notes
 
-- **Programmatic API:** `import { Canvas, extractParts, lint, runDsl, similarity } from "iconsmith";`. The house spec alone is `import { SPEC } from "iconsmith/spec";`, which skips the corpus and gateway graph and is safe in a server bundle.
+- **Programmatic API:** `import { generate, parseIconSvg, png, runPairTournament } from "iconsmith";`. The house spec alone is `import { SPEC } from "iconsmith/spec";`, which skips the corpus and gateway graph and is safe in a server bundle.
 - **Generation needs a Vercel AI Gateway credential:** `AI_GATEWAY_API_KEY` or `VERCEL_OIDC_TOKEN`, or `OPENROUTER_API_KEY` with an OpenRouter model id. A provider key such as `ANTHROPIC_API_KEY` is not a substitute. The analog and glyph arms need neither.
 - **The corpus is not shipped.** 2,085 symbols drawn 30 ways, plus third-party packs the licence gate exists to keep out of a generation. Point `--corpus <dir>` at your own set.
 - **For AI agents:** the package ships a `SKILL.md` on drawing an icon, and blode.co/iconsmith lists its agent skills at [`/.well-known/agent-skills/index.json`](https://blode.co/iconsmith/.well-known/agent-skills/index.json).

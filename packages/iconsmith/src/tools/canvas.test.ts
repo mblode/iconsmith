@@ -112,6 +112,22 @@ test("the off-axis refusal names the angle, the axis and both ways out", () => {
   ).toThrow(/offAxis: true/u);
 });
 
+test("a near-horizontal leftward segment names the horizontal axis, not 135°", () => {
+  // The heading is undirected in [0,180), so a leftward near-horizontal edge
+  // sits near 170°. Choosing the axis by linear distance picked 135° while the
+  // printed off-by (computed circularly) pointed at 0° — the message
+  // contradicted itself. The axis must be the circularly-nearest one.
+  const c = new Canvas();
+  expect(() =>
+    c.line({
+      points: [
+        [20, 12],
+        [4, 15],
+      ],
+    })
+  ).toThrow(/off the nearest axis \(0°\)/u);
+});
+
 test("permission is not instruction: an axial line stays unmarked", () => {
   const c = new Canvas();
   // `offAxis` waives the refusal; it does not stop the snap. A caller that

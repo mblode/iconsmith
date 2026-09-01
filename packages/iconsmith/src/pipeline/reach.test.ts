@@ -190,6 +190,48 @@ describe("reach", () => {
     expect(result.issues.some((issue) => issue.rule === "finish")).toBe(false);
   });
 
+  it("adapts a spliced filled twin when the filled house halves are missing", async () => {
+    // The house draws `folder` and `clock` outlined only. The outlined splice
+    // compiles; the filled twin must fall through to the adapt-from-outline
+    // path rather than throwing on the first missing filled paint.
+    const result = await reach(
+      { name: "folder-clock" },
+      { finish: "filled" },
+      house({ clock: [BOX], folder: [BOX] })
+    );
+    expect(result.brief).toBe("adapt filled compile folder-clock");
+    expect(result.program).toContain("finish filled");
+    expect(result.issues.some((issue) => issue.rule === "empty")).toBe(false);
+  });
+
+  it("keeps the vocabulary reachable when adapting a keyed compile to filled", async () => {
+    // The compiled outline places a vocabulary part by id (`part p0001`).
+    // Replaying it to build the filled twin must still see that vocabulary, or
+    // every keyed placement becomes an "unknown part" DSL error on an empty
+    // canvas.
+    const part = {
+      closed: true,
+      d: BOX,
+      h: 8,
+      icons: ["box"],
+      id: "p0001",
+      instances: 3,
+      name: "box",
+      nodes: 4,
+      sizeRange: [8, 8] as [number, number],
+      w: 8,
+    };
+    const result = await reach(
+      { name: "box" },
+      { finish: "filled", parts: [part] },
+      house({ box: [BOX] })
+    );
+    expect(result.brief).toBe("adapt filled compile box");
+    expect(
+      result.issues.some((issue) => issue.message.includes("unknown part"))
+    ).toBe(false);
+  });
+
   it("compiles a letter-twin instead of analog replay", async () => {
     const d = "M12 4C16.4183 4 20 7.5817 20 12C20 16.4183 16.4183 20 12 20";
     const result = await reach(

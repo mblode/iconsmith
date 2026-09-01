@@ -6,7 +6,7 @@
  * holdout withholds nothing: "Excluding the string `folder-open` while leaving
  * eleven folders in the corpus withholds the label and hands over the answer."
  *
- * `lib/studio/arsenal.ts` excludes one slug: the exact target. So a benchmark
+ * `lib/arsenal.ts` excludes one slug: the exact target. So a benchmark
  * entry whose closure names nineteen slugs has eighteen of them still eligible
  * to be shown to the drawer, and any of them whose name starts with the concept
  * can additionally enter the tournament as a `library-*` arm and win — which is
@@ -16,7 +16,7 @@
  * copy of its ranking. A reimplementation would drift from the thing it audits,
  * and the number would stop meaning anything the day it did.
  *
- *     node --experimental-strip-types apps/web/scripts/eve-contamination.ts
+ *     node --experimental-strip-types apps/agent/scripts/eve-contamination.ts
  *     … --split sealed --json
  */
 /* oxlint-disable eslint/no-await-in-loop --

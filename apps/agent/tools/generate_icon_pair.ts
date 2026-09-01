@@ -48,7 +48,7 @@ const activeTurns = new Map<string, ReturnType<typeof generateStudioResponse>>()
  * workbench already writes its in-flight checkpoints there: a record written
  * during a turn must not trigger the rebuild that ends it.
  *
- * The address itself lives in `lib/studio/turn-record.ts`, with the reasoning
+ * The address itself lives in `lib/turn-record.ts`, with the reasoning
  * for it, because nothing in this file is importable by the node test runner —
  * its sibling imports are extensionless and only eve's bundler resolves them.
  * The old address was wrong for six recorded generations exactly because no

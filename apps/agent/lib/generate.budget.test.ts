@@ -13,7 +13,7 @@ import { studioBudgetSchema, studioRequestSchema } from "@iconsmith/contract/typ
  * `generate.ts` imports its siblings extensionlessly (`"./arsenal"`), which
  * eve's bundler resolves and the node test runner does not — importing it
  * plainly fails with `ERR_MODULE_NOT_FOUND: Cannot find module
- * '.../lib/studio/arsenal'`. The hook appends `.ts` to extensionless relative
+ * '.../lib/arsenal'`. The hook appends `.ts` to extensionless relative
  * specifiers whose importer is itself a `.ts` file; without that second
  * condition it also rewrites CommonJS requires inside `node_modules`.
  *

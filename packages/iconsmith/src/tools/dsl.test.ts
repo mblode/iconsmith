@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 
 import { bbox, parsePath } from "../geometry/path.js";
 import type { Part } from "../types.js";
-import { SPEC } from "./canvas.js";
+import { SPEC, specAt } from "./canvas.js";
 import type { CohortMember } from "./cohort.js";
 import { buildCohorts, measure } from "./cohort.js";
 import { run } from "./dsl.js";
@@ -112,6 +112,24 @@ test("every dot role is reachable from the language, at its spec size", () => {
   expect(
     bare.canvas.elements[0].kind === "dot" && bare.canvas.elements[0].role
   ).toBe("terminal");
+});
+
+test("a bare dot takes the run spec's default role, not a hardcoded terminal", () => {
+  // A small optical size drops the terminal tier. A bare `dot` used to force
+  // "terminal" and fail against a spec that no longer has it; it must fall back
+  // to the spec's own default (node) instead.
+  const spec = specAt({ size: 16 });
+  expect("terminal" in spec.dots).toBe(false);
+  const r = run("icon x\ndot 12,12", PARTS, { spec });
+  expect(r.errors).toStrictEqual([]);
+  expect(r.canvas.elements[0].kind === "dot" && r.canvas.elements[0].role).toBe(
+    "node"
+  );
+  // A role the run's spec dropped is still refused, and names the survivors.
+  const dropped = run("icon x\ndot 12,12 terminal", PARTS, { spec });
+  expect(dropped.errors).toHaveLength(1);
+  expect(dropped.errors[0]).toContain("node");
+  expect(dropped.errors[0]).not.toContain("terminal —");
 });
 
 /** The `raw` escape is not reachable from a program, and must not become so.
@@ -495,4 +513,13 @@ test("off-axis is permission, so an axial line is still snapped and unmarked", (
       ],
     },
   ]);
+});
+
+test("an error names the source line, counting comments and blanks", () => {
+  // The line number used to index the filtered, non-blank lines, so a program
+  // with a leading comment and a blank line pointed the repair loop two lines
+  // above the fault. The bogus op is on source line 4.
+  const r = run("# a comment\n\nicon z\nbogus 1,2\n");
+  expect(r.errors).toHaveLength(1);
+  expect(r.errors[0]).toMatch(/^line 4 /u);
 });

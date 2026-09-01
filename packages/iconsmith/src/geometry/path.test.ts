@@ -198,6 +198,48 @@ test("exponents, negatives and implicit repeats still parse unchanged", () => {
   );
 });
 
+test("a capital-E exponent parses, rather than being dropped as a stray", () => {
+  // `E` cleared the illegal-character screen but was not matched by the token
+  // pattern, so `1E1` read as the two tokens `1` and `1` and every argument
+  // after shifted — the exact silent shift the screen exists to prevent.
+  expect_eq(serialise(parsePath("M0 0L1E1 4")), "M0 0L10 4");
+  // The lowercase form was always accepted; both must agree.
+  expect_eq(
+    serialise(parsePath("M0 0L1e1 4")),
+    serialise(parsePath("M0 0L1E1 4"))
+  );
+});
+
+test("a drawing command after Z opens a new subpath at the close point", () => {
+  // `s.cur` is null after Z, so the segment handlers' `s.cur?.segs` used to
+  // no-op and drop the geometry while the current point advanced. Per SVG a
+  // command after Z begins a new subpath at the close point.
+  const sp = parsePath("M0 0L10 0L10 10ZL5 5L2 2");
+  expect_eq(sp.length, 2);
+  expect_eq(sp[0].closed, true);
+  expect_eq(sp[1].closed, false);
+  expect_eq(sp[1].start, [0, 0]);
+  expect_eq(sp[1].segs.length, 2);
+});
+
+test("T reflects only after a quadratic, S only after a cubic", () => {
+  // One `prevCubic` flag was set by C, S, Q and T alike, so a `T` after a
+  // cubic reflected the cubic's control point (a bulge) instead of taking the
+  // current point. After `C … 5 0`, `T10 0` must run straight to (10,0): the
+  // elevated cubic's controls sit on y=0.
+  const afterCubic = parsePath("M0 0C0 5 5 5 5 0T10 0");
+  expect_eq(
+    afterCubic[0].segs[1].p.map((n) => +n.toFixed(4)),
+    [5, 0, 6.6667, 0, 10, 0]
+  );
+  // A `T` after a quadratic still reflects, unchanged.
+  const afterQuad = parsePath("M0 0Q5 5 10 0T20 0");
+  expect_eq(
+    afterQuad[0].segs[1].p.map((n) => +n.toFixed(4)),
+    [13.3333, -3.3333, 16.6667, -3.3333, 20, 0]
+  );
+});
+
 test("polylineDistance is segment-to-segment, not vertex-to-vertex", () => {
   // Staggered parallels: endpoints are ~4px apart, the edges sit 0.50 apart.
   expect(

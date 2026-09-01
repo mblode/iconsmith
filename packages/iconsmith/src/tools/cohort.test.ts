@@ -8,6 +8,7 @@ import {
   splits,
   verdict,
 } from "./cohort.js";
+import { completeProgram, run } from "./dsl.js";
 import { lint } from "./lint.js";
 
 /** Path for a box, so a member can be measured the way a real icon is. */
@@ -169,5 +170,34 @@ describe("lint with a cohort", () => {
       { cohort: { cohort, name: "thing-3" } }
     );
     expect(issues.map((i) => i.rule)).toContain("centred");
+  });
+});
+
+describe("completeProgram replays under the run options that drew the doc", () => {
+  const squareFamily = () =>
+    buildCohorts([
+      member("badge-1", 4, 4, 20, 20),
+      member("badge-2", 4, 4, 20, 20),
+      member("badge-cloud", 4, 4, 20, 20),
+    ]);
+
+  it("confirms a program that ends in `cohort`, given the same cohorts", () => {
+    // The program arm builds its document with the run's cohorts, so the
+    // replay assertion must use them too. Without them the `cohort` op throws
+    // ("no cohorts were supplied…") on replay and a valid program is falsely
+    // called incomplete.
+    const cohorts = squareFamily();
+    const program =
+      "icon badge-new\nkeyline square\nrect 4,4 16x16 r2\ncohort badge\n";
+    const drawn = run(program, [], { cohorts });
+    expect(drawn.errors).toEqual([]);
+    const doc = drawn.canvas.toJSON({
+      icon: drawn.icon,
+      keyline: drawn.keyline,
+    });
+
+    expect(completeProgram(doc, program, [], { cohorts })).toBe(true);
+    // Dropping the cohorts is the bug: the same program no longer replays.
+    expect(completeProgram(doc, program, [])).toBe(false);
   });
 });
