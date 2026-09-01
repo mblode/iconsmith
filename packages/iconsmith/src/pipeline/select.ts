@@ -186,8 +186,9 @@ export const islands = (
   });
 };
 
-/** Jaccard over hint ids. 1 means every island offered the same marks — N
- *  independent draws would have been the same experiment N times. */
+/** One minus the mean pairwise Jaccard over hint ids: 0 means every island
+ *  offered the same marks — N independent draws would have been the same
+ *  experiment N times — and 1 means they shared none. */
 export const hintDiversity = (plans: readonly SelectIsland[]): number => {
   if (plans.length < 2) {
     return 0;

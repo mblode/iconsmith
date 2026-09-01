@@ -598,16 +598,24 @@ export const run = (
   const errors: string[] = [];
 
   // A `#` only opens a comment where a token starts, so `cohort bell#filled`
-  // keeps its key while `rect 2,3 8x6  # body` still loses its tail.
-  const lines = src
+  // keeps its key while `rect 2,3 8x6  # body` still loses its tail. The source
+  // line number is carried through the filter so an error names the line the
+  // author wrote, not its position among the non-blank ones — a program with
+  // comments or blank lines would otherwise point the repair loop at the wrong
+  // line.
+  const numbered = src
     .split("\n")
-    .map((l) => l.replace(/(?<lead>^|\s)#.*$/u, "").trim())
-    .filter(Boolean);
+    .map((l, index): [number, string] => [
+      index + 1,
+      l.replace(/(?<lead>^|\s)#.*$/u, "").trim(),
+    ])
+    .filter(([, text]) => text.length > 0);
+  const lines = numbered.map(([, text]) => text);
   const finish = scanFinish(lines);
   const canvas = new Canvas(parts, { finish, spec });
   const layout: Layout = { cohort: false };
 
-  for (const [n, line] of lines.entries()) {
+  for (const [n, line] of numbered) {
     const t = line.split(/\s+/u);
     const [head] = t;
     const op = head.toLowerCase();
@@ -631,7 +639,7 @@ export const run = (
       } else if (op === "fit" || op === "cohort") {
         const message = layoutOp(canvas, t, { cohorts, icon, keyline, layout });
         if (message) {
-          errors.push(`line ${n + 1} (${line}): ${message}`);
+          errors.push(`line ${n} (${line}): ${message}`);
         }
       } else if (!drawOp(canvas, t, op)) {
         throw new Error(
@@ -639,7 +647,7 @@ export const run = (
         );
       }
     } catch (error) {
-      errors.push(`line ${n + 1} (${line}): ${(error as Error).message}`);
+      errors.push(`line ${n} (${line}): ${(error as Error).message}`);
     }
   }
   return { canvas, errors, finish, icon, keyline };

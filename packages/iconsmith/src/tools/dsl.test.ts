@@ -496,3 +496,12 @@ test("off-axis is permission, so an axial line is still snapped and unmarked", (
     },
   ]);
 });
+
+test("an error names the source line, counting comments and blanks", () => {
+  // The line number used to index the filtered, non-blank lines, so a program
+  // with a leading comment and a blank line pointed the repair loop two lines
+  // above the fault. The bogus op is on source line 4.
+  const r = run("# a comment\n\nicon z\nbogus 1,2\n");
+  expect(r.errors).toHaveLength(1);
+  expect(r.errors[0]).toMatch(/^line 4 /u);
+});

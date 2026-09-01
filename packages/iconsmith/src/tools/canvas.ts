@@ -452,6 +452,12 @@ const heading = (
 /** Why a segment was refused, and both ways out of it. The angle and the axis
  *  are in the text because "off-axis" alone does not say whether the caller was
  *  half a degree out or forty. */
+/** Circular distance between two undirected headings in [0,180). */
+const axisGap = (a: number, b: number): number => {
+  const d = Math.abs(a - b) % 180;
+  return Math.min(d, 180 - d);
+};
+
 const offAxisMessage = (
   i: number,
   from: [number, number],
@@ -459,7 +465,17 @@ const offAxisMessage = (
   offBy: number
 ): string => {
   const ang = heading(from, to);
-  const axis = nearest(AXES, ang);
+  // Circular, not linear: `nearest(AXES, ang)` measures `|axis - ang|`, so a
+  // near-horizontal 170° reads as 35° from 135° instead of 10° from 0°/180° —
+  // naming an axis the printed `offBy` (computed circularly by `snapAngle`)
+  // contradicts. Pick the axis the same way the tolerance check did.
+  const [firstAxis] = AXES;
+  let axis: number = firstAxis;
+  for (const candidate of AXES) {
+    if (axisGap(candidate, ang) < axisGap(axis, ang)) {
+      axis = candidate;
+    }
+  }
   return (
     `line segment ${i} (${from[0]},${from[1]} → ${to[0]},${to[1]}) runs at ${ang.toFixed(2)}°, ` +
     `${offBy.toFixed(2)}° off the nearest axis (${axis}°). ` +

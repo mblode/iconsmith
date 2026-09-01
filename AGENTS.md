@@ -37,8 +37,8 @@ npm run fix
   corpus-gated tests stop running without failing. **The canary is the skipped
   count, not the total.** Those twelve are gated with `describe.skipIf` /
   `it.skipIf`, which still *collects* them, so an absent corpus reports them as
-  skipped and leaves the total untouched — `1404 (98 files)` either way, of which
-  1392 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
+  skipped and leaves the total untouched — `1406 (98 files)` either way, of which
+  1394 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
   was found and `12 skipped` means it was not; a drop in the *total* is test-count
   drift, a different fault. Update both numbers when you add tests, or neither is
   a canary. The gated twelve live in `corpus/measure.test.ts` (5),

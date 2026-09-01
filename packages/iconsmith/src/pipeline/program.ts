@@ -44,9 +44,9 @@ import { conceptPrompt, systemPrompt } from "./prompt.js";
 
 /**
  * Enough calls for a dense icon and its helpers, and not enough for a runaway
- * loop. The package default is 256; a `place.grid` of 6×6 spends 36 on its own
- * before the composition around it, so 256 is a limit a legitimate program can
- * reach and this one is not.
+ * loop. A `place.grid` of 6×6 spends 36 on its own before the composition
+ * around it, so a lower cap is one a legitimate program can reach and this one
+ * is not.
  */
 const MAX_BRIDGE_REQUESTS = 1024;
 const TIMEOUT_MS = 10_000;
