@@ -16,12 +16,22 @@ export interface StudioSvg {
   readonly status: StudioSvgStatus;
 }
 
+/**
+ * An attribute value in any of the three forms the HTML parser accepts:
+ * double-quoted, single-quoted, or unquoted (a run up to the next space or
+ * `>`). Matching only the quoted two let `<svg onload=alert(1)>` and
+ * `<a xlink:href=javascript:...>` through untouched — the value carries no
+ * quotes, so the pattern never fired and the handler reached the DOM. The
+ * unquoted branch is last so a quoted value is consumed whole first.
+ */
+const ATTR_VALUE = String.raw`(?:"[^"]*"|'[^']*'|[^\s"'>]+)`;
+
 const DANGEROUS: readonly RegExp[] = [
   /<script\b[^>]*>[\s\S]*?<\/script>/giu,
   /<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/giu,
   /<image\b[^>]*\/?\s*>/giu,
-  /\son\w+\s*=\s*(?:"[^"]*"|'[^']*')/giu,
-  /\s(?:href|xlink:href)\s*=\s*(?:"[^"]*"|'[^']*')/giu,
+  new RegExp(String.raw`\son\w+\s*=\s*${ATTR_VALUE}`, "giu"),
+  new RegExp(String.raw`\s(?:href|xlink:href)\s*=\s*${ATTR_VALUE}`, "giu"),
 ];
 
 /**

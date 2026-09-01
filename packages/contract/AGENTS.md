@@ -1,6 +1,6 @@
 # @iconsmith/contract
 
-What the Studio client and the Eve agent must agree on. Four files.
+What the Studio client and the Eve agent must agree on. Three files.
 
 ```
 types.ts          the request and response shapes, as zod schemas
