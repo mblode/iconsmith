@@ -409,15 +409,20 @@ const filledRect = (args: string[], bar: number): string[] | null => {
   const half = bar / 2;
   const [x, y] = at;
   const [w, h] = size;
-  const r = asRadius(args[2]);
-  const corner = (v: number): string => (r === null ? "" : ` r${num(v)}`);
-  const outer = `${RECT} ${num(x - half)},${num(y - half)} ${num(w + bar)}x${num(h + bar)}${corner((r ?? 0) + half)}`;
+  // An absent radius token is `r2`, not `r0`: `dsl.ts`'s rectArgs defaults it
+  // to 2. Reading it as "no radius" and emitting none made the twin replay
+  // back to that default rather than to the stroked corner (outer r+half, hole
+  // r-half), so a plain `rect` came out one tier too tight outside and one too
+  // round inside. Default it here and always emit the derived radii.
+  const r = asRadius(args[2]) ?? 2;
+  const corner = (v: number): string => ` r${num(v)}`;
+  const outer = `${RECT} ${num(x - half)},${num(y - half)} ${num(w + bar)}x${num(h + bar)}${corner(r + half)}`;
   if (w <= bar || h <= bar) {
     return [outer];
   }
   return [
     outer,
-    `hole ${RECT} ${num(x + half)},${num(y + half)} ${num(w - bar)}x${num(h - bar)}${corner(Math.max(0, (r ?? 0) - half))}`,
+    `hole ${RECT} ${num(x + half)},${num(y + half)} ${num(w - bar)}x${num(h - bar)}${corner(Math.max(0, r - half))}`,
   ];
 };
 
@@ -454,8 +459,10 @@ const outlinedFrame = (solid: string[], bar: number): string[] | null => {
     return null;
   }
   const half = bar / 2;
-  const r = asRadius(solid[2]);
-  const corner = r === null ? "" : ` r${num(Math.max(0, r - half))}`;
+  // Absent radius is `r2` (see {@link filledRect}); reading it as none made the
+  // outlined twin of a default-radius solid replay a tier too round.
+  const r = asRadius(solid[2]) ?? 2;
+  const corner = ` r${num(Math.max(0, r - half))}`;
   return [
     `${RECT} ${num(at[0] + half)},${num(at[1] + half)} ${num(size[0] - bar)}x${num(size[1] - bar)}${corner}`,
   ];

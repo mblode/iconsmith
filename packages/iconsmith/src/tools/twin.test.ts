@@ -211,6 +211,18 @@ test("adaptProgram punches a stroked rect into a frame, not a slab", () => {
   expect(filled).toContain("hole rect 4,8.5 16x9 r1");
 });
 
+test("adaptProgram treats a rect with no radius as r2, matching the DSL default", () => {
+  // `dsl.ts`'s rectArgs defaults an absent radius to 2, so `rect …` and
+  // `rect … r2` are the same drawing. The adapter used to read a missing token
+  // as "no radius" and emit none, so the twin replayed a tier off — outer too
+  // tight, hole too round. The two spellings must adapt identically.
+  const body = "icon card\nfinish outlined\nrect 3,7.5 18x11";
+  expect(adaptProgram(body, "filled")).toBe(
+    adaptProgram(`${body} r2`, "filled")
+  );
+  expect(adaptProgram(body, "filled")).toContain("rect 2,6.5 20x13 r3");
+});
+
 /** A circle no wider than the stroke has no hole to knock out: its own ink
  *  closes it. Emitting one would be refused as a hole outside its solid. */
 test("adaptProgram leaves a stroke-width circle solid", () => {
