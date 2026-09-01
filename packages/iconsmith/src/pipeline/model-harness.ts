@@ -211,9 +211,18 @@ export const gatewayHarnessSpawn = (
       "",
       "Return only the complete icon.icon program. No prose and no Markdown fence.",
     ].join("\n");
+    // `timeoutMs` is part of the Spawn contract and `nodeSpawn` enforces it
+    // with a SIGKILL timer — a wedged CLI cannot hold a benchmark open
+    // overnight. The gateway adapter honoured only `abortSignal`, so a hung
+    // `generateText` ran unbounded unless a caller happened to pass one. Fold
+    // the timeout in as a second abort source.
+    const deadline = AbortSignal.timeout(invocation.timeoutMs);
+    const signal = invocation.abortSignal
+      ? AbortSignal.any([invocation.abortSignal, deadline])
+      : deadline;
     try {
       const response = await ask({
-        abortSignal: invocation.abortSignal,
+        abortSignal: signal,
         preview,
         prompt,
         system: [
@@ -247,12 +256,17 @@ export const gatewayHarnessSpawn = (
         stdout: response.text,
       };
     } catch (error) {
+      // A real caller cancellation propagates; the timeout is a failed run, not
+      // a cancellation, so it falls through to a code:1 result the way a killed
+      // `nodeSpawn` does.
       invocation.abortSignal?.throwIfAborted();
-      return {
-        code: 1,
-        stderr: error instanceof Error ? error.message : String(error),
-        stdout: "",
-      };
+      let stderr: string;
+      if (deadline.aborted) {
+        stderr = `Claude Gateway did not answer within ${invocation.timeoutMs}ms.`;
+      } else {
+        stderr = error instanceof Error ? error.message : String(error);
+      }
+      return { code: 1, stderr, stdout: "" };
     }
   };
 };

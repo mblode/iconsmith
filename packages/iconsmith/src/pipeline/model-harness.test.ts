@@ -138,4 +138,36 @@ describe("gatewayHarnessSpawn", () => {
       rmSync(dir, { force: true, recursive: true });
     }
   });
+
+  it("bounds a hung gateway call by the invocation timeout", async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "iconsmith-model-harness-"));
+    writeFileSync(path.join(dir, "SKILL.md"), "Use the DSL.");
+    writeFileSync(path.join(dir, "BRIEF.md"), "Draw `home`.");
+    // A model that never answers on its own: it settles only when the signal
+    // aborts, so nothing but the timeout can end this run.
+    const spawn = gatewayHarnessSpawn({
+      ask: ({ abortSignal }) => {
+        const { promise, reject } = Promise.withResolvers<{ text: string }>();
+        abortSignal?.addEventListener("abort", () =>
+          reject(abortSignal.reason ?? new Error("aborted"))
+        );
+        return promise;
+      },
+    });
+
+    try {
+      const run = await spawn({
+        args: [],
+        command: "claude",
+        cwd: dir,
+        env: {},
+        timeoutMs: 20,
+      });
+
+      expect(run.code).toBe(1);
+      expect(run.stderr).toContain("within 20ms");
+    } finally {
+      rmSync(dir, { force: true, recursive: true });
+    }
+  });
 });
