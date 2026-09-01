@@ -436,6 +436,18 @@ describe("programArm", () => {
     );
   });
 
+  // Cancellation is control flow, not a score. An aborted run must throw, not
+  // come back as a laundered `clean: false` result that looks like a drawing
+  // the caller stopped.
+  it("propagates a cancellation rather than reporting it as a failed drawing", async () => {
+    const arm = programArm({
+      ask: askWith(`await draw.circle({ cx: 12, cy: 12, r: 9 });`),
+    });
+    await expect(
+      arm({ name: "ring" }, { abortSignal: AbortSignal.abort() })
+    ).rejects.toThrow();
+  });
+
   /**
    * The experiment is "a loop instead of an unrolled list", so the brief has to
    * be the one the `agent` arm gets — otherwise a scoring pass measures the

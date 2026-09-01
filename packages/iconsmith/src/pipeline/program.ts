@@ -811,6 +811,11 @@ export const programArm =
       limits: options.limits,
       spec,
     });
+    // Cancellation is control flow, not a program error. `runProgram`'s catch
+    // records an aborted sandbox run as a DSL error and returns a result;
+    // returning that would report a turn the caller stopped as one that drew,
+    // the same laundering `audit.ts` and `harness.ts` guard against.
+    generateOptions.abortSignal?.throwIfAborted();
 
     const issues: Issue[] = [
       ...drawn.errors.map((message): Issue => ({
