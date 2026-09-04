@@ -17,7 +17,7 @@ import { AUDIT_FILE, PREVIEW_FILE } from "./audit.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import { CLAUDE_GATEWAY_URL, CODEX_GATEWAY_URL } from "./gateway.js";
 import type { GenerateOptions } from "./generate.js";
-import { harnessArm, HarnessError } from "./harness.js";
+import { harnessArm, HarnessError, packagedSkillText } from "./harness.js";
 import type { HarnessInvocation, HarnessRun, Spawn } from "./harness.js";
 
 /** A fake agent: writes `program` into the scratch directory it was handed,
@@ -565,6 +565,18 @@ fit`);
     await arm({ name: "x" }, { parts: [unnamed] });
     expect(wroteFile).toBe(false);
     expect(seenBrief).toContain("No parts vocabulary is available");
+  });
+
+  it("stages the packaged skill when the caller does not pass a path", async () => {
+    let staged = "";
+    await harnessArm({
+      spawn: (invocation) => {
+        staged = readFileSync(path.join(invocation.cwd, "SKILL.md"), "utf-8");
+        writeFileSync(path.join(invocation.cwd, "icon.icon"), "icon x\nfit\n");
+        return Promise.resolve({ code: 0, stderr: "", stdout: "" });
+      },
+    })({ name: "x" }, {});
+    expect(staged).toBe(packagedSkillText);
   });
 
   it("copies a real skill into the scratch directory, because the sandbox cannot read outside it", async () => {
