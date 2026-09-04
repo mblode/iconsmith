@@ -34,7 +34,7 @@ import { describe, expect, it } from "vitest";
 import { SPEC } from "../tools/canvas.js";
 import { run, TURNS } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import { skillPath } from "./harness.js";
+import { packagedSkillText, skillPath } from "./harness.js";
 
 const SKILL = readFileSync(skillPath(), "utf-8");
 
@@ -186,6 +186,10 @@ describe("SKILL.md steers the paints the generate brief names", () => {
 });
 
 describe("SKILL.md's frontmatter is a skill's frontmatter", () => {
+  it("is the same document the harness inlines for a bundled runtime", () => {
+    expect(packagedSkillText).toBe(SKILL);
+  });
+
   it("opens with name and description", () => {
     const match = /^---\n(?<body>[\s\S]*?)\n---\n/u.exec(SKILL);
     expect(match?.groups?.body).toBeDefined();

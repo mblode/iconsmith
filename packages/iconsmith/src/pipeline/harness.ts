@@ -58,6 +58,7 @@ import { pairAdapted } from "./pair.js";
 import type { CohortBrief, Concept } from "./prompt.js";
 import type { PartHint } from "./search.js";
 import { assembleAddressable, assembleVocabulary } from "./select.js";
+import packagedSkillJson from "./skill.json" with { type: "json" };
 
 /** What a harness invocation asks the operating system for. Passed to
  *  {@link Spawn} as one object so a fake can assert on it whole. */
@@ -147,16 +148,20 @@ const PARTS_FILE = "parts.json";
 const BRIEF_FILE = "BRIEF.md";
 const SKILL_FILE = "SKILL.md";
 
-/** Copy the skill into scratch when it is a real file. A stub path is left
- *  unchanged so tests can name one without touching the disk. */
-const stageSkill = (dir: string, skill: string): string => {
-  if (!existsSync(skill)) {
-    return skill;
-  }
-  const dest = path.join(dir, SKILL_FILE);
-  copyFileSync(skill, dest);
-  return dest;
-};
+/**
+ * The packaged skill as a JavaScript string.
+ *
+ * `SKILL.md` lives at the package root for agents and humans. Eve's Studio
+ * bundle does not: it compiles this module into a snapshot where
+ * `import.meta.url` no longer sits beside that file, and Vercel file tracing
+ * cannot see a path built from a loop variable. `skill.json` is the same
+ * document imported as JSON so tsdown inlines it into `dist/index.js`. A
+ * bundled runtime then writes it into scratch instead of throwing
+ * "SKILL.md was not found beside this build".
+ *
+ * `skill.test.ts` asserts this text equals the package-root file.
+ */
+export const packagedSkillText: string = packagedSkillJson.lines.join("\n");
 
 /** Find a workspace or installed-package asset after this module has been
  * bundled into a web-agent runtime, where `import.meta.url` no longer sits
@@ -210,31 +215,61 @@ const stageCli = (dir: string, env: NodeJS.ProcessEnv): NodeJS.ProcessEnv => {
 };
 
 /**
- * The packaged skill.
+ * The packaged skill on disk, when this module still sits next to it.
  *
  * Two candidates because the module sits at `src/pipeline/harness.ts` in the
  * repo and at `dist/index.js` once bundled, and the skill ships at the package
- * root in both. Resolved by looking, rather than by branching on which build
- * this is, so there is no configuration under which the wrong one is silently
- * used.
+ * root in both. Specifiers are static `new URL("…", import.meta.url)` literals
+ * rather than a loop variable, so file tracers can follow them. Missing is
+ * not fatal for {@link harnessArm}: it writes {@link packagedSkillText}.
  */
-export const skillPath = (): string => {
-  for (const rel of ["../../SKILL.md", "../SKILL.md"]) {
-    const candidate = fileURLToPath(new URL(rel, import.meta.url));
-    if (existsSync(candidate)) {
-      return candidate;
-    }
+const trySkillPath = (): string | null => {
+  const besideSource = fileURLToPath(
+    new URL("../../SKILL.md", import.meta.url)
+  );
+  if (existsSync(besideSource)) {
+    return besideSource;
   }
-  const installed = findFromCwd([
+  const besideDist = fileURLToPath(new URL("../SKILL.md", import.meta.url));
+  if (existsSync(besideDist)) {
+    return besideDist;
+  }
+  return findFromCwd([
     path.join("packages", "iconsmith", "SKILL.md"),
     path.join("node_modules", "iconsmith", "SKILL.md"),
   ]);
-  if (installed) {
-    return installed;
+};
+
+export const skillPath = (): string => {
+  const found = trySkillPath();
+  if (found) {
+    return found;
   }
   throw new HarnessError(
     "SKILL.md was not found beside this build. Pass `skill` with its path."
   );
+};
+
+/** Copy the skill into scratch when it is a real file. A stub path is left
+ *  unchanged so tests can name one without touching the disk. When the caller
+ *  did not pass a path and none sits beside this build, write the inlined
+ *  copy — that is the Studio / Eve path. */
+const stageSkill = (dir: string, skill?: string): string => {
+  const dest = path.join(dir, SKILL_FILE);
+  if (skill !== undefined) {
+    if (!existsSync(skill)) {
+      return skill;
+    }
+    copyFileSync(skill, dest);
+    return dest;
+  }
+  const found = trySkillPath();
+  if (found) {
+    copyFileSync(found, dest);
+    return dest;
+  }
+  writeFileSync(dest, packagedSkillText);
+  return dest;
 };
 
 const axisLine = (t: [number, number] | null, name: string): string =>
@@ -568,7 +603,7 @@ export const harnessArm =
       keep = false,
       repairs = 1,
       root = tmpdir(),
-      skill = skillPath(),
+      skill,
       spawn = nodeSpawn,
       timeoutMs = DEFAULT_TIMEOUT_MS,
     } = options;
