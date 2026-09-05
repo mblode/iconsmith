@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { asset } from "@/lib/site-url";
 import { forgetThread, readThreads } from "@/lib/studio/threads";
 import type { StudioThread } from "@/lib/studio/threads";
 
@@ -33,6 +34,14 @@ export const ChatSwitcher = ({
 
   return (
     <header className="flex shrink-0 items-center border-b px-2 py-1.5">
+      <a
+        aria-label="Back to Iconsmith"
+        className="shrink-0 rounded-md px-2 py-1 font-heading font-medium text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/50"
+        href={asset("")}
+      >
+        Iconsmith
+      </a>
+      <span aria-hidden="true" className="mx-1 h-4 border-l" />
       <Popover
         onOpenChange={(next) => {
           setOpen(next);

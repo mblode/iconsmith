@@ -36,7 +36,6 @@ export const siteConfig = {
     author: "https://blode.co",
     github: REPO_URL,
     license: `${REPO_URL}/blob/main/packages/iconsmith/LICENSE.md`,
-    npm: "https://www.npmjs.com/package/iconsmith",
   },
   name: SITE_NAME,
   url: SITE_URL,
