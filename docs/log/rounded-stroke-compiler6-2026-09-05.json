@@ -1,0 +1,10 @@
+{
+  "out": ".staging/foundry-round-1/rounded-stroke-compiler6-01",
+  "source": ".staging/foundry-round-1/local-rounded-bookmark-01/outlined.icon",
+  "derivation": "AI parent only; original check omitted to isolate rounded stroke. Filled is a ring, not full silhouette.",
+  "exactReplay": true,
+  "craftApproved": false,
+  "compiler": "iconsmith-constrained-6",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0
+}

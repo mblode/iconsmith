@@ -1,0 +1,31 @@
+{
+  "source": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/bookmark.svg",
+  "sha256": "47660eb386ad46f25e1911af14d28bf6ac1f826476adf33d9702f76e60a5c0a2",
+  "part": {
+    "id": "bookmark-contour",
+    "name": "bookmark-contour",
+    "d": "M14.5 17.5015L14.5 1C14.5 0.4477 14.0523 0 13.5 0L1 0C0.4477 0 0 0.4477 0 1L0 17.5015C0 18.3022 0.8941 18.7781 1.5584 18.331L6.6916 14.8759C7.0292 14.6486 7.4708 14.6486 7.8084 14.8759L12.9416 18.331C13.6059 18.7782 14.5 18.3022 14.5 17.5015Z",
+    "w": 14.5,
+    "h": 18.503166704879096,
+    "closed": true,
+    "icons": [
+      "bookmark"
+    ],
+    "instances": 1,
+    "nodes": 10,
+    "sizeRange": [
+      14.5,
+      14.5
+    ]
+  },
+  "sourceBounds": {
+    "h": 18.503166704879096,
+    "w": 14.5,
+    "x0": 4.75,
+    "x1": 19.25,
+    "y0": 2.75,
+    "y1": 21.253166704879096
+  },
+  "revision": "26c757c7859243d386a15f78f94e77a00ed0c20efe7448a79f0dd307600f3ed0",
+  "usage": "admitted source contour; composition is AI-authored, contour is reused reference geometry"
+}

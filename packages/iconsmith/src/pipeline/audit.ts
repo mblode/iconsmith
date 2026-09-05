@@ -121,6 +121,7 @@ export interface AuditResult {
 }
 
 export type AuditAsk = (input: {
+  context?: AuditContext;
   abortSignal?: AbortSignal;
   concept: { name: string };
   finish: Finish;
@@ -132,6 +133,12 @@ export type AuditAsk = (input: {
 }) => Promise<
   Omit<AuditResult, "ok" | "scorable" | "stage"> & Partial<AuditResult>
 >;
+
+/** Only visual rules and native size reach the judge, never generator prose. */
+export interface AuditContext {
+  nativeSize: number;
+  rubric: string;
+}
 
 const KINDS = new Set<AuditKind>([
   "belong",
@@ -343,6 +350,7 @@ export const persistLook = async (
 /** The live vision ask. Harness leaves this off until the caller passes it. */
 export const gatewayAsk: AuditAsk = async ({
   abortSignal,
+  context,
   concept,
   finish,
   kind,
@@ -354,11 +362,15 @@ export const gatewayAsk: AuditAsk = async ({
   const costTracker = gatewayCostTracker();
   const result = await generateObject({
     abortSignal,
+    maxOutputTokens: context ? 2048 : undefined,
+    maxRetries: context ? 0 : undefined,
     messages: [
       {
         content: [
           {
-            text: lookBrief({ concept, finish, kind, twin }),
+            text: context
+              ? `Judge the ${finish} icon for "${concept.name}" under the supplied style rubric. The reference images show its selected family. ${HOLE_RULE}`
+              : lookBrief({ concept, finish, kind, twin }),
             type: "text",
           },
           ...references.map(
@@ -366,7 +378,7 @@ export const gatewayAsk: AuditAsk = async ({
           ),
           {
             text:
-              `Candidate at 24px (does the stroke survive icon size), then ` +
+              `Candidate at ${context?.nativeSize ?? ICON_PX}px (does the stroke survive icon size), then ` +
               `at 192px (does it read). Score SC (is it the named object) and ` +
               `PQ (is it a competent icon) 0-10. List findings only for real ` +
               `problems. Never quote path data, coordinates, or SVG. Say what ` +
@@ -393,7 +405,7 @@ export const gatewayAsk: AuditAsk = async ({
     // Anchored, so "8" means the same thing twice. Without a system prompt the
     // scale was whatever the model brought to that call, and `eval/judge.ts`
     // says why that matters: an unanchored scale has no variance to read.
-    system: LOOK_RUBRIC,
+    system: context?.rubric ?? LOOK_RUBRIC,
     /**
      * Greedy, because this call decides whether an icon ships.
      *
@@ -427,6 +439,7 @@ export const gatewayAsk: AuditAsk = async ({
 
 export const audit = async ({
   abortSignal,
+  context,
   ask = gatewayAsk,
   concept,
   finish = "outlined",
@@ -436,6 +449,7 @@ export const audit = async ({
   twin,
 }: {
   abortSignal?: AbortSignal;
+  context?: AuditContext;
   ask?: AuditAsk;
   concept: { name: string };
   finish?: Finish;
@@ -448,11 +462,12 @@ export const audit = async ({
     abortSignal?.throwIfAborted();
     const [preview, previewSmall] = await Promise.all([
       shot(svg, AUDIT_PX),
-      shot(svg, ICON_PX),
+      shot(svg, context?.nativeSize ?? ICON_PX),
     ]);
     const raw = await ask({
       abortSignal,
       concept,
+      context,
       finish,
       kind,
       preview,

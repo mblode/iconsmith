@@ -1,0 +1,8 @@
+{
+  "validExit": 0,
+  "invalidExit": 1,
+  "retainedSnapshots": 2,
+  "invalidFailureRetained": true,
+  "validSvgUnchanged": true,
+  "invalidProbeAuthorship": "host corruption fixture, not model generation"
+}

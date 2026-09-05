@@ -1,0 +1,76 @@
+{
+  "experiment": "A058",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "3143b42251566ac395262dde4d52196117814f07c7c724d8a09a4a8fe4299da5",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 37.2\u00b0, 7.8\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 142.8\u00b0, 7.8\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-bookmark-filled-01/check-PvULBo",
+    "style": "3143b42251566ac395262dde4d52196117814f07c7c724d8a09a4a8fe4299da5"
+  },
+  "outlineUnchanged": true,
+  "visualVerdict": "rejected",
+  "defects": [
+    "Stray white slit above concave fold",
+    "Uneven lower contour despite correct pair extent"
+  ],
+  "inspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "comparisonOrder": [
+    "AI outline",
+    "AI filled attempt",
+    "isolated PathKit derivation",
+    "source filled reference"
+  ],
+  "craftApproved": false,
+  "sha256": {
+    "outlined.icon": "7dfe9a2824c5d810ec4c29a9a5b72baf2a3ce22527492ac483f827cb76340a07",
+    "filled.icon": "2ec940254b98f5c2ef3d0d364af711749b009e423468bb445979e0182dcec1f6",
+    "filled.svg": "0820596c5d908d234e48675c7713fbb985de4cf09f2a1157e8f27e058f8bd8f9"
+  },
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

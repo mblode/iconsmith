@@ -1,0 +1,65 @@
+{
+  "experiment": "A062",
+  "out": ".staging/foundry-round-1/local-bookmark16-01",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "small",
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "f3f96cd30e627d827d1afe20f3c1e90b817214fb1f140b88ceb85b8af5f426dc",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 30.4\u00b0, 14.6\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      }
+    ],
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "native",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-bookmark16-01/check-79otUl",
+    "style": "f3f96cd30e627d827d1afe20f3c1e90b817214fb1f140b88ceb85b8af5f426dc"
+  },
+  "programHashes": {
+    "outlined.icon": "55d1456e919b53caf90166d7c4ee6ab1e8be5cd308d45746959c9eaeab4b76e7",
+    "filled.icon": "b1785d37682fc7ca6e725a917348542f74cf90e89c6815db4c233e5f8f1cfa9d"
+  },
+  "hostInspected": [
+    "bookmark16-comparison-native.png",
+    "bookmark16-comparison-pixels.png"
+  ],
+  "scope": "Dedicated native16 development attempt; references are24px and stroke1.25px is experimental.",
+  "craftApproved": false,
+  "findings": [
+    "Shared parent retained; modifiers independently adapted by paint",
+    "Filled counter width2.5 construction units =1.6667px native",
+    "Outlined y6 row now has2 zero-alpha columns between marks versus2 columns atalpha32 in weighted baseline",
+    "Outlined peak alpha at y6 drops255 to202; separation gain trades off against peak contrast",
+    "Native-size readability remains, but no independent overall preference established"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured",
+  "identicalParentRecipe": true
+}

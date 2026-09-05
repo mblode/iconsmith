@@ -1,0 +1,105 @@
+{
+  "qualification": "development only",
+  "craftApproved": false,
+  "paint": "outlined",
+  "master": "large",
+  "nativeSize": 24,
+  "preview16": "downsample, not optical master",
+  "rows": [
+    {
+      "name": "bookmark-check",
+      "source": ".staging/foundry-round-1/local-rounded-bookmark-01",
+      "reference": "bookmark",
+      "keyline": "tall",
+      "originalStyle": "2bd997d639c420e6962f5f19ae13a6a8f08557cec0f87e639b948e03cfd81f76",
+      "assembledStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "unchangedRendering": true,
+      "exactReplay": true,
+      "exactSharedModifier": true,
+      "programSha256": "7dfe9a2824c5d810ec4c29a9a5b72baf2a3ce22527492ac483f827cb76340a07",
+      "findings": [
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 37.2°, 7.8° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 142.8°, 7.8° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ]
+    },
+    {
+      "name": "timer-check",
+      "source": ".staging/foundry-round-1/local-confirmation-timer-check-01",
+      "reference": "clock",
+      "keyline": "circle",
+      "originalStyle": "9c47a0f20cb6e9aa55f4155e30fb6f64fdd84e6714ca448d54f24e5644fbc7c2",
+      "assembledStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "unchangedRendering": true,
+      "exactReplay": true,
+      "exactSharedModifier": true,
+      "programSha256": "eca85b107fe88d7dd36b981158e74d8ce3851b729a43c6b0e999589c12eb9cb9",
+      "findings": []
+    },
+    {
+      "name": "window-check",
+      "source": ".staging/foundry-round-1/local-confirmation-window-check-01",
+      "reference": "window-app",
+      "keyline": "wide",
+      "originalStyle": "9c47a0f20cb6e9aa55f4155e30fb6f64fdd84e6714ca448d54f24e5644fbc7c2",
+      "assembledStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "unchangedRendering": true,
+      "exactReplay": true,
+      "exactSharedModifier": true,
+      "programSha256": "e7430fa9d431291578add291bfe165da755b50fb736d535eadaf7cafa907a7e5",
+      "findings": []
+    },
+    {
+      "name": "shield-check",
+      "source": ".staging/foundry-round-1/local-generalization-shield-01",
+      "reference": "shield-2",
+      "keyline": "portrait",
+      "originalStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "assembledStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "unchangedRendering": true,
+      "exactReplay": true,
+      "exactSharedModifier": true,
+      "programSha256": "91a4b4976c8282ee3023aa9794ee14becdba5d7a8bd51ee03b30a957efc43ffd",
+      "findings": [
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 154.1°, 19.1° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 25.9°, 19.1° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ]
+    },
+    {
+      "name": "ticket-check",
+      "source": ".staging/foundry-round-1/local-ticket-two-dimensions-01",
+      "reference": "ticket",
+      "keyline": "wide",
+      "originalStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "assembledStyle": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+      "unchangedRendering": true,
+      "exactReplay": true,
+      "exactSharedModifier": true,
+      "programSha256": "a29e8dddb317010616e0419d18049214aa4964806bee4a2c641bd34fe7ffc02e",
+      "findings": []
+    }
+  ],
+  "out": ".staging/foundry-round-1/confirmation-five-library-02",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured"
+}

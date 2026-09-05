@@ -1,0 +1,12 @@
+[
+  {
+    "nativeSize": 24,
+    "scale": 8,
+    "exactPixelEquality": true
+  },
+  {
+    "nativeSize": 16,
+    "scale": 12,
+    "exactPixelEquality": true
+  }
+]

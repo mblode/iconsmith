@@ -1,0 +1,57 @@
+{
+  "attempt": "A034",
+  "author": "Codex native ChatGPT CLI",
+  "apiSpendUnchangedUsd": 10.6590496,
+  "subscriptionUsage": "unmeasured",
+  "craftAccepted": false,
+  "artifactHashes": {
+    "outlined.icon": "8070059a9d6e7c1fc62e0b29824af153c9cc0aeaf22df414c4b37266c435ee64",
+    "filled.icon": "a7e115d24e44375b0afa650a6a53c4c9dacba78bdedc8d383ba1be71c58cb737",
+    "outlined.svg": "bf5399b46745c6aa7afdb551a42c209c0712b482fc8a9fd58a94c8ce939cf5f8",
+    "filled.svg": "455ba2f17bae06d209a558246d34d7d657ae8b86eaca055f9adb0a0377daf520",
+    "native.png": "15bd194fbf373d4824b8d1c5aef921ce743c62fa72060975876601bc35d1c83e",
+    "preview-16.png": "4ef7c24d67634db2140b3fe5b0671b3d1669f03d6e442f5005732460e42a5c28"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "pairIssues": [],
+    "style": "898432743cea0abe4b61bd0c46a46de606947dd0af81a7dd509d2caa0779b79e"
+  },
+  "review": {
+    "attempt": "A035",
+    "route": "Cursor native Ultra",
+    "verifiedReadFiles": [
+      "references.png",
+      "outlined.png",
+      "filled.png",
+      "native.png",
+      "preview-16.png"
+    ],
+    "verdict": {
+      "inspectedImages": [
+        "references.png",
+        "outlined.png",
+        "filled.png",
+        "native.png",
+        "preview-16.png"
+      ],
+      "outlinedDefects": [
+        "Folder contour is discontinuous: right/top and bottom strokes end with blunt caps and never join the lock (refs integrate badges into one continuous outline)",
+        "Uneven gaps between folder strokes and badge (bottom gap wider than upper-right)",
+        "Badge reads large vs ref badge scale; right side of folder feels open/unfinished",
+        "Shackle interior white space: yes (open loop)"
+      ],
+      "filledDefects": [
+        "Knockout halo is thick and eats the folder\u2019s bottom-right corner/right edge more than ref badged fills",
+        "At 24px/16px the badge separation and shackle hole tighten; preview-16 shackle nearly clogs to a dark blob",
+        "Shackle interior white space: yes at master size; marginal/near-lost when downsampled"
+      ],
+      "publishable": false,
+      "reason": "Outlined fails reference contour continuity (floating badge vs merged stroke). Filled keeps a readable lock at large size but over-knocks the corner and loses shackle clarity at native/16. Neither paint matches reference badge integration or small-size legibility."
+    },
+    "qualified": false,
+    "invalidRule": "Reference family does not require continuous outlines around badges"
+  }
+}

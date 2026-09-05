@@ -1,0 +1,55 @@
+{
+  "order": [
+    "generated outline",
+    "generated fill",
+    "source filled ticket"
+  ],
+  "outlinedUnchanged": true,
+  "exactReplay": true,
+  "programs": [
+    {
+      "paint": "outlined",
+      "sha256": "a29e8dddb317010616e0419d18049214aa4964806bee4a2c641bd34fe7ffc02e"
+    },
+    {
+      "paint": "filled",
+      "sha256": "5968cb21062c350e576318117a75e1e2c48cb35a32d22be0e93cc90fa36de78c"
+    }
+  ],
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "5ac77415b165a43ace70cb0fd23e4a002f6a4b943973e77197e9dc89a9b48ee0",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-ticket-pair-01/check-9NPlZZ",
+    "style": "5ac77415b165a43ace70cb0fd23e4a002f6a4b943973e77197e9dc89a9b48ee0"
+  },
+  "craftApproved": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured"
+}

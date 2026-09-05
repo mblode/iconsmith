@@ -1,0 +1,84 @@
+{
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "98890642a6ab937af3c6dc7457b38cb9ae80a9a38516d87a2c771a188df9275c",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "exactReplay": true,
+  "parents": [
+    {
+      "paint": "outlined",
+      "serializedParentIdentical": false,
+      "sourceHash": "8080bd0b0440200a6b29963e22a0e2339e6f787d500c168cc68a111b24e27596",
+      "targetHash": "427ca9b7af9efc32adf1b509c7e47d639149e13289d01ad763ad02c87f6104d1",
+      "raster": [
+        {
+          "size": 24,
+          "changedPixels": 0,
+          "alphaAbsoluteDifference": 0,
+          "maxAlphaDifference": 0
+        },
+        {
+          "size": 16,
+          "changedPixels": 0,
+          "alphaAbsoluteDifference": 0,
+          "maxAlphaDifference": 0
+        },
+        {
+          "size": 240,
+          "changedPixels": 0,
+          "alphaAbsoluteDifference": 0,
+          "maxAlphaDifference": 0
+        }
+      ]
+    },
+    {
+      "paint": "filled",
+      "serializedParentIdentical": false,
+      "sourceHash": "ba444eab8fcefa05de3e34d70932ef40ebae987dfba233ac6ee41b9db4900a40",
+      "targetHash": "fda5fb6a2b9a29fed10901b1ae9622393cde965af2716a3726414f5e34fa50fc",
+      "raster": [
+        {
+          "size": 24,
+          "changedPixels": 0,
+          "alphaAbsoluteDifference": 0,
+          "maxAlphaDifference": 0
+        },
+        {
+          "size": 16,
+          "changedPixels": 0,
+          "alphaAbsoluteDifference": 0,
+          "maxAlphaDifference": 0
+        },
+        {
+          "size": 240,
+          "changedPixels": 0,
+          "alphaAbsoluteDifference": 0,
+          "maxAlphaDifference": 0
+        }
+      ]
+    }
+  ],
+  "order": [
+    "pause-outline",
+    "play-outline",
+    "pause-fill",
+    "play-fill"
+  ],
+  "craftApproved": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "scope": "Fresh native authorship; parent raster comparison and replay are not craft qualification"
+}

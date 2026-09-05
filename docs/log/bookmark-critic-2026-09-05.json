@@ -1,0 +1,118 @@
+{
+  "experiments": [
+    "A060",
+    "A061"
+  ],
+  "independentPairs": 1,
+  "presentations": 3,
+  "qualified": false,
+  "finding": "Known slit identified in both orders; unconstrained reversed verdict ambiguous. Schema constrained output is unambiguous and prefers repaired version; geometric prose remains inaccurate.",
+  "rows": [
+    {
+      "folder": ".staging/foundry-round-1/bookmark-critic-01/order-0",
+      "code": 0,
+      "killed": false,
+      "tools": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/bookmark-critic-01/order-0/P.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/bookmark-critic-01/order-0/Q.png"
+          }
+        }
+      ],
+      "structured": null,
+      "rawResult": "Read both. Here's the comparison.\n\n```json\n{\n  \"cleaner\": \"P\",\n  \"defects\": {\n    \"P\": [],\n    \"Q\": [\n      {\n        \"type\": \"hairline cutout / unresolved shape join\",\n        \"description\": \"A thin light chevron-shaped sliver crosses the filled body just above the bottom fold, running nearly the full width of the shape with a small upward peak at center. It reads as a duplicated or offset copy of the lower fold edge left unmerged, leaving a hairline gap through the fill. It is separate from, and above, the intentional V notch.\",\n        \"approx_coords_24x24\": { \"x\": \"6.0-18.0\", \"y\": \"16.5-18.5\", \"center\": [12.0, 17.5] },\n        \"visible_at_24\": true,\n        \"visible_at_16\": \"faint\",\n        \"notes_24\": \"Appears as a distinct row/band of mid-gray pixels inside an otherwise solid black region at y~17-18, spanning most of the body width.\",\n        \"notes_16\": \"Reduces to a subtle lightening near the fold; detectable but easily confused with anti-aliasing of the notch.\"\n      }\n    ]\n  },\n  \"intentional_features_not_counted_as_defects\": [\n    \"Check glyph as a white knockout inside the fill, both images; terminals are cleanly cut with no visible nicks at 24 or 16.\",\n    \"Bottom center V notch (bookmark ribbon fold) with apex near (12, 18) rising from the baseline, both images.\",\n    \"Rounded top corners of the body, both images.\"\n  ],\n  \"comparison_summary\": \"The two shapes are otherwise geometrically equivalent: same silhouette, same rounded top corners, same notch depth, same check placement and weight. The only differentiating feature observed is Q's hairline sliver above the fold, which P does not have. P's body fill is continuous from the check knockout down to the notch at all three renderings.\",\n  \"confidence\": {\n    \"Q_defect_present\": \"high\",\n    \"Q_defect_coordinates\": \"medium\",\n    \"Q_defect_visible_at_16\": \"low-medium\",\n    \"P_clean\": \"medium-high\",\n    \"overall_ranking\": \"high\"\n  },\n  \"limitations\": [\n    \"Assessment is from rasterized comparison sheets only; no source vector geometry was inspected, so the underlying cause (duplicate subpath, unmerged boolean, self-intersection, stroke-vs-fill mismatch) cannot be confirmed.\",\n    \"Coordinates are eyeballed from the enlargements and are approximate, roughly +/-1 unit in the 24x24 viewport.\",\n    \"Sub-pixel defects finer than the provided enlargement resolution would not be detectable; absence of listed defects in P is not proof P is defect-free.\",\n    \"Gray pixels in the raster panels can arise from legitimate anti-aliasing, so the 16px visibility judgment for Q is the least certain claim here.\",\n    \"The tiny native 24px and 16px thumbnails are too small to independently confirm or refute the finding; they were used only as a coarse sanity check.\"\n  ]\n}\n```"
+    },
+    {
+      "folder": ".staging/foundry-round-1/bookmark-critic-01/order-1",
+      "code": 0,
+      "killed": false,
+      "tools": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/bookmark-critic-01/order-1/P.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/bookmark-critic-01/order-1/Q.png"
+          }
+        }
+      ],
+      "structured": null,
+      "rawResult": "Read both files; here is the comparison.\n\n```json\n{\n  \"cleaner\": \"P?\",\n  \"verdict\": {\n    \"cleaner\": \"Q\",\n    \"confidence\": 0.72\n  },\n  \"defects\": {\n    \"P\": [\n      {\n        \"id\": \"P1\",\n        \"type\": \"unintended cutout / unresolved shape join (thin light sliver)\",\n        \"description\": \"A hairline crescent-shaped light gap runs across the lower body above the fold notch, peaking in a small kink near the centerline and tapering toward both side edges. Its width is well under one normalized unit, i.e. thinner than any other feature in the mark, and it does not read as a deliberate crease because it is asymmetric and appears to run into the outer contour rather than terminating inside it. Most consistent with a leftover sliver from an unresolved boolean join between the notch cut and the body.\",\n        \"approx_coords_24\": {\n          \"span_x\": [5.5, 18.5],\n          \"y_range\": [16.6, 17.9],\n          \"apex\": [11.8, 16.7]\n        },\n        \"visible_at_24\": true,\n        \"visible_at_16\": \"uncertain\",\n        \"evidence\": {\n          \"vector_panel\": \"clearly visible\",\n          \"raster_24\": \"a band of mid/light gray pixels appears in the row(s) just above the notch that is solid black in Q\",\n          \"raster_16\": \"faint gray in the same region; at this size it is hard to separate from the notch's own antialiasing\"\n        }\n      }\n    ],\n    \"Q\": []\n  },\n  \"intentional_features_excluded\": [\n    \"White check knockout, approx from (7.5, 12.5) to (11, 15.8) to (16.5, 9.5), with rounded terminals - present and equivalent in both.\",\n    \"Lower fold V notch, apex near (12, 17.5), tails at y=24, x=4 and x=20 - present in both, and in Q the body above it is continuous.\",\n    \"Rounded top corners, radius roughly 2.5, and the square-ish lower tail corners - equivalent in both.\"\n  ],\n  \"other_comparisons\": {\n    \"check_geometry\": \"no discernible difference in angle, thickness, or terminal shape\",\n    \"notch_depth_and_apex\": \"no discernible difference\",\n    \"corner_radii\": \"no discernible difference\",\n    \"raster_fitting_24_and_16\": \"comparable stem alignment and antialiasing on the silhouette edges; no bumps, nicks, or contour breaks found on the outer outline of either\"\n  },\n  \"limitations\": [\n    \"Judgment is based only on the two provided composite PNGs at their delivered resolution; no source vector or path data was inspected.\",\n    \"The enlarged raster panels are upsampled views, so pixel-level claims about the 24 and 16 grids are inferred from those enlargements rather than measured on native rasters.\",\n    \"Coordinates are eyeballed from the vector panel and are approximate, roughly +/- 0.5 normalized units.\",\n    \"Alternative benign reading of P1: it could be an intended fold or crease highlight. I judged it a defect because of its sub-hairline width, asymmetry, and apparent contact with the outer contour, but this reading is not certain, which is the main reason confidence is not higher.\",\n    \"16px visibility of P1 is not established; the faint gray there may be ordinary antialiasing of the notch.\",\n    \"No provenance, authorship, or generation-method inference was attempted, and neither image was assumed to contain a defect prior to inspection.\"\n  ]\n}\n```\n\nNote: the top-level `\"cleaner\"` key is in `verdict`; the stray first line above should read `\"cleaner\": \"Q\"` \u2014 Q is cleaner, on the strength of one candidate defect in P and none found in Q."
+    },
+    {
+      "folder": ".staging/foundry-round-1/bookmark-critic-schema-01/order-0",
+      "code": 0,
+      "killed": false,
+      "tools": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/bookmark-critic-schema-01/order-0/P.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/bookmark-critic-schema-01/order-0/Q.png"
+          }
+        },
+        {
+          "tool": "StructuredOutput",
+          "input": {
+            "cleaner": "Q",
+            "reason": "Both images share the same intended design (filled bookmark, rounded top corners, white check, V-shaped lower fold). Q's body reads as a single continuous filled contour with no interior artifacts. P shows a thin light-valued seam arcing across the lower body above the notch, from roughly (4.5,18.3) through a pointed peak at ~(12.0,16.4) to ~(19.5,18.3), consistent with an unresolved shape join between two overlapping subpaths, plus a small spur at that peak. This is distinct from the intentional notch, whose apex sits lower at ~(12,19.5). The seam appears to carry into P's 24px raster as a lighter pixel band. Confidence: moderate-high on the vector panel, moderate on the raster panels.",
+            "defects": [
+              {
+                "image": "P",
+                "description": "Thin light-valued contour seam arcing across the body above the fold notch, from near the left edge ~(4.5,18.3) through a peak at ~(12.0,16.4) to near the right edge ~(19.5,18.3); reads as an unresolved shape join / non-unioned subpath rather than part of the intended lower fold.",
+                "visible24": "yes",
+                "visible16": "uncertain"
+              },
+              {
+                "image": "P",
+                "description": "Small pointed bump/spur at the peak of that seam, directly above the notch apex, at ~(12.0,16.2) +/-0.5 \u2014 a local kink in an otherwise smooth filled region.",
+                "visible24": "uncertain",
+                "visible16": "no"
+              }
+            ],
+            "limitations": "Assessment is based solely on the two supplied raster preview sheets (P.png, Q.png); no SVG or path data was inspected and no other files or tools were used. Coordinates are eyeballed from the enlarged vector panel and are approximate (+/-0.5 in 24x24 units). The 16px panels are heavily anti-aliased, so non-visibility there does not indicate clean geometry, and faint sub-pixel defects in either image could be below the resolution of these previews. No provenance inferred and no defect presumed in either drawing prior to inspection; Q is reported as having no visible defects, not as verified defect-free."
+          }
+        }
+      ],
+      "structured": {
+        "cleaner": "Q",
+        "reason": "Both images share the same intended design (filled bookmark, rounded top corners, white check, V-shaped lower fold). Q's body reads as a single continuous filled contour with no interior artifacts. P shows a thin light-valued seam arcing across the lower body above the notch, from roughly (4.5,18.3) through a pointed peak at ~(12.0,16.4) to ~(19.5,18.3), consistent with an unresolved shape join between two overlapping subpaths, plus a small spur at that peak. This is distinct from the intentional notch, whose apex sits lower at ~(12,19.5). The seam appears to carry into P's 24px raster as a lighter pixel band. Confidence: moderate-high on the vector panel, moderate on the raster panels.",
+        "defects": [
+          {
+            "image": "P",
+            "description": "Thin light-valued contour seam arcing across the body above the fold notch, from near the left edge ~(4.5,18.3) through a peak at ~(12.0,16.4) to near the right edge ~(19.5,18.3); reads as an unresolved shape join / non-unioned subpath rather than part of the intended lower fold.",
+            "visible24": "yes",
+            "visible16": "uncertain"
+          },
+          {
+            "image": "P",
+            "description": "Small pointed bump/spur at the peak of that seam, directly above the notch apex, at ~(12.0,16.2) +/-0.5 \u2014 a local kink in an otherwise smooth filled region.",
+            "visible24": "uncertain",
+            "visible16": "no"
+          }
+        ],
+        "limitations": "Assessment is based solely on the two supplied raster preview sheets (P.png, Q.png); no SVG or path data was inspected and no other files or tools were used. Coordinates are eyeballed from the enlarged vector panel and are approximate (+/-0.5 in 24x24 units). The 16px panels are heavily anti-aliased, so non-visibility there does not indicate clean geometry, and faint sub-pixel defects in either image could be below the resolution of these previews. No provenance inferred and no defect presumed in either drawing prior to inspection; Q is reported as having no visible defects, not as verified defect-free."
+      },
+      "rawResult": "{\"cleaner\":\"Q\",\"reason\":\"Both images share the same intended design (filled bookmark, rounded top corners, white check, V-shaped lower fold). Q's body reads as a single continuous filled contour with no interior artifacts. P shows a thin light-valued seam arcing across the lower body above the notch, from roughly (4.5,18.3) through a pointed peak at ~(12.0,16.4) to ~(19.5,18.3), consistent with an unresolved shape join between two overlapping subpaths, plus a small spur at that peak. This is distinct from the intentional notch, whose apex sits lower at ~(12,19.5). The seam appears to carry into P's 24px raster as a lighter pixel band. Confidence: moderate-high on the vector panel, moderate on the raster panels.\",\"defects\":[{\"image\":\"P\",\"description\":\"Thin light-valued contour seam arcing across the body above the fold notch, from near the left edge ~(4.5,18.3) through a peak at ~(12.0,16.4) to near the right edge ~(19.5,18.3); reads as an unresolved shape join / non-unioned subpath rather than part of the intended lower fold.\",\"visible24\":\"yes\",\"visible16\":\"uncertain\"},{\"image\":\"P\",\"description\":\"Small pointed bump/spur at the peak of that seam, directly above the notch apex, at ~(12.0,16.2) +/-0.5 \u2014 a local kink in an otherwise smooth filled region.\",\"visible24\":\"uncertain\",\"visible16\":\"no\"}],\"limitations\":\"Assessment is based solely on the two supplied raster preview sheets (P.png, Q.png); no SVG or path data was inspected and no other files or tools were used. Coordinates are eyeballed from the enlarged vector panel and are approximate (+/-0.5 in 24x24 units). The 16px panels are heavily anti-aliased, so non-visibility there does not indicate clean geometry, and faint sub-pixel defects in either image could be below the resolution of these previews. No provenance inferred and no defect presumed in either drawing prior to inspection; Q is reported as having no visible defects, not as verified defect-free.\"}"
+    }
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

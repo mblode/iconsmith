@@ -1,0 +1,135 @@
+{
+  "out": ".staging/foundry-round-1/local-sharp-pause-01",
+  "exactReplay": true,
+  "sizes": [
+    {
+      "paint": "outlined",
+      "size": {
+        "h": 20.0424,
+        "w": 15.5
+      }
+    },
+    {
+      "paint": "filled",
+      "size": {
+        "h": 20.0424,
+        "w": 15.5
+      }
+    }
+  ],
+  "contours": [
+    {
+      "area": 276.33578249999994,
+      "bounds": "{ x: 4.25, y: 2.25, width: 15.5, height: 20.0424 }"
+    },
+    {
+      "area": -11.25,
+      "bounds": "{ x: 8.25, y: 7.25, width: 1.5, height: 7.5 }"
+    },
+    {
+      "area": -11.25,
+      "bounds": "{ x: 14.25, y: 7.25, width: 1.5, height: 7.5 }"
+    }
+  ],
+  "probes": [
+    {
+      "point": [
+        9,
+        10
+      ],
+      "expected": false,
+      "actual": false
+    },
+    {
+      "point": [
+        15,
+        10
+      ],
+      "expected": false,
+      "actual": false
+    },
+    {
+      "point": [
+        12,
+        10
+      ],
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "1838333eb15f71110c00b8335cf6b0fbfed79075fe23ddc7e4d409498dbbd7b1",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Content centre is (12.00, 12.27); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.27) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 29.7°, 15.3° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 150.3°, 15.3° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Content centre is (12.00, 12.27); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.27) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-sharp-pause-01/check-NuF98t",
+    "style": "1838333eb15f71110c00b8335cf6b0fbfed79075fe23ddc7e4d409498dbbd7b1"
+  },
+  "hostInspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "craftApproved": false,
+  "findings": [
+    "Fresh native AI-authored sharp pair, no source contour parts or supplied target program",
+    "Filled counters repaired by author with explicit union/subtraction after direct hole rect rendered solid",
+    "Generated parent slightly narrower than source neighbor; development family resemblance is not exact reconstruction or craft qualification",
+    "Outlined bars round ended; filled counters square ended",
+    "16px is a downsample, not an optical master"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

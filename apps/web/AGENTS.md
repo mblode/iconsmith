@@ -1,8 +1,8 @@
 # iconsmith-web
 
-The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith) and the
-studio at [blode.co/iconsmith/studio](https://blode.co/iconsmith/studio). The
-root still collects launch-list addresses. `/studio` is the chat drawer:
+The teaser page at [blode.co/iconsmith](https://blode.co/iconsmith) is public.
+The Studio is local-only: Vercel builds omit Eve and return 404 for `/studio`
+and `/api/studio/*`. The root still collects launch-list addresses. `/studio` is the chat drawer locally:
 shadcn message UI, attachments, human-in-the-loop questions, and every
 version's program.
 

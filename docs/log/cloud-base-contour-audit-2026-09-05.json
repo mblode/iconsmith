@@ -1,0 +1,222 @@
+{
+  "scope": "Every explicit and closing join of largest-bbox closed path; tangent evidence, not curvature or whole-icon qualification",
+  "rows": [
+    {
+      "file": ".staging/foundry-round-1/local-cloud-base-repair-01/filled.svg",
+      "joins": [
+        {
+          "point": [
+            5.23167,
+            8.26481
+          ],
+          "angle": 47.29715740462576
+        },
+        {
+          "point": [
+            12,
+            4.000000000000001
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            19.45277,
+            10.653590000000001
+          ],
+          "angle": 68.96762674808092
+        },
+        {
+          "point": [
+            23,
+            15.25
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            18.25,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            7,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            1,
+            14
+          ],
+          "angle": 0
+        }
+      ],
+      "maxAngle": 68.96762674808092,
+      "outerBounds": {
+        "h": 16,
+        "w": 22,
+        "x0": 1,
+        "x1": 23,
+        "y0": 4.000000000000001,
+        "y1": 20
+      }
+    },
+    {
+      "file": ".staging/foundry-round-1/local-cloud-refine-01/filled.svg",
+      "joins": [
+        {
+          "point": [
+            1,
+            14
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            5.23167,
+            8.26481
+          ],
+          "angle": 47.29715740462576
+        },
+        {
+          "point": [
+            12,
+            4.000000000000001
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            19.45277,
+            10.653590000000001
+          ],
+          "angle": 68.96762674808092
+        },
+        {
+          "point": [
+            23,
+            15.25
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            18.25,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            18.04634,
+            19.99571
+          ],
+          "angle": 13.01326812254674
+        },
+        {
+          "point": [
+            18,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            7.25,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            7.20788,
+            19.99647
+          ],
+          "angle": 11.568972715821555
+        },
+        {
+          "point": [
+            7,
+            20
+          ],
+          "angle": 0
+        }
+      ],
+      "maxAngle": 68.96762674808092,
+      "outerBounds": {
+        "h": 16,
+        "w": 22,
+        "x0": 1,
+        "x1": 23,
+        "y0": 4.000000000000001,
+        "y1": 20
+      }
+    },
+    {
+      "file": "packages/iconsmith/corpus/round-filled-radius-1-stroke-1.5/cloud.svg",
+      "joins": [
+        {
+          "point": [
+            5.77996,
+            8.12427
+          ],
+          "angle": 55.41135030145443
+        },
+        {
+          "point": [
+            1,
+            14
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            7,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            18.125,
+            20
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            23,
+            15.125
+          ],
+          "angle": 0
+        },
+        {
+          "point": [
+            18.7344,
+            10.2877
+          ],
+          "angle": 79.02295997207335
+        },
+        {
+          "point": [
+            12,
+            4
+          ],
+          "angle": 0
+        }
+      ],
+      "maxAngle": 79.02295997207335,
+      "outerBounds": {
+        "h": 16,
+        "w": 22,
+        "x0": 1,
+        "x1": 23,
+        "y0": 4,
+        "y1": 20
+      }
+    }
+  ]
+}

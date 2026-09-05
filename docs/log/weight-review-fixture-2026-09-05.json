@@ -1,0 +1,438 @@
+{
+  "scope": "Reference-relative weight detection only, not aesthetic qualification.20distinct icons include5correlated currency siblings;4additional unchanged controls.",
+  "mutation": "Only1.8/1.9detail stroke attributes become2. All other source bytes retained.",
+  "answers": [
+    {
+      "order": 0,
+      "id": "W01",
+      "source": "cloud-sync-2.svg",
+      "sourceSha256": "3fe8830de27fb5f8ad33668cee8e35e9c81e847c7ca93f93e53654826f4cde11",
+      "changedSha256": "6c44ea697506a24110aea24d7dc01bf86da1da36c4b26920f21cd6e35b8e24e1",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W02",
+      "source": "coin-lira.svg",
+      "sourceSha256": "71ab0852295875d2b8232efa735e615ecccf28d4dfc43f4a813b9275618d4d79",
+      "changedSha256": "4860a546dd89bda979aa959a63a1bbdcd78e16a258898fcaf358011ab97f4c07",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W03",
+      "source": "coin-pesos.svg",
+      "sourceSha256": "925acd8c363b316645e4e7d96e1f92920d678a07e3c9bf1be98749cc238d178b",
+      "changedSha256": "6142a3ada9527211a25b46925a318d67d33de0918151475e0e049a3580ca343a",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W04",
+      "source": "coin-rand.svg",
+      "sourceSha256": "ca5ff93e56d3806aaf5d9754f87da56c3490877f12e7e8cd0b4ce14a3e9b21c1",
+      "changedSha256": "324280db8a905266d4bca21330f9dab71a5ba7a9e1e95280bf059448ee95a72d",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W05",
+      "source": "coin-rupees.svg",
+      "sourceSha256": "6592e2e59c944a68e06bd950a4338bdaf33f00c06142fb2fcf505cb96868d08c",
+      "changedSha256": "f90e415edd057a7bb2f8dfa9951be9f6ecfddfbd8f377ff7f5aab305ace9ee92",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W06",
+      "source": "coin-won.svg",
+      "sourceSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "changedSha256": "d4499cc148f84fe64dcadc5a213f1d471d89679703727809b390d3c8b695a7ed",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W07",
+      "source": "devices-2.svg",
+      "sourceSha256": "8ec885ec1663989da226166289a7f0db776e162a7309901daf6f4aed523c1139",
+      "changedSha256": "ca1e4163caa85584769657bdf8ef2c282c1177a0da6e8f83f911a37062d331e8",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W08",
+      "source": "education.svg",
+      "sourceSha256": "fce01e3d64f3b4966f84d28e825f9027056c7b8dc68437dd3ba8ef9891334879",
+      "changedSha256": "d1425f7a04fc404e8a739b21762aebae91fd9c33974b08f46a3850dda283ba7d",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W09",
+      "source": "email-2-block.svg",
+      "sourceSha256": "1bc429a440fe57b7f397252e95524b26b7068687c1982628b60b4a88f8e28864",
+      "changedSha256": "f94b76c31e4e6c16bff4d75fc85240c2bbdb19adedf4300b737828039c8ca47b",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W10",
+      "source": "emoji-neutral.svg",
+      "sourceSha256": "0cf0064ac9e2e70691496f507903e0ec2a1a19d60db0677008fda49b4ca1cf83",
+      "changedSha256": "7eb1282e91ef746ce9f1043560c39bf023d77b1aae4f3f9427c37db3207a04db",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W11",
+      "source": "full-moon.svg",
+      "sourceSha256": "896786030dfc72b0b97d09f22501df4a5a5c41b6312ca14b724501f69ebed6cc",
+      "changedSha256": "c4c0e7a807464cfc8f516ced7bd31b7f92104a56f01de277b5aac1ca581f99c5",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W12",
+      "source": "gyroscope-sensor.svg",
+      "sourceSha256": "926dacd7fe98cb48f476ba2061d485ab421b6a2d2a1bef29b120d2ff27ed3a5b",
+      "changedSha256": "34cad2ad19b4d66f1731e5b0be3240fad44daec2386754f9024aae4d6ea161bb",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W13",
+      "source": "pan.svg",
+      "sourceSha256": "77ecab18ca43973a8b951cb1bd4ead4aa75b58fce71aac42d9dd8286644f7b0a",
+      "changedSha256": "2e8f5e61570e537d745366aaa165d28a33ad3ff26f2f3a4d9c8ce22b61e46c86",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W14",
+      "source": "password-stars.svg",
+      "sourceSha256": "ef10ecf164eabf111a95876daabb13e940ddbd8ffb7e7c2df4232824bc8370e3",
+      "changedSha256": "b7b905effb63baafd1337f88e491f718f662151cd6ebb5e07cb7ac0980ba0d45",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W15",
+      "source": "quick-ai.svg",
+      "sourceSha256": "61dc5c47a915b38a85ba110ab4322e7f28d25fee26c19d7c9414532061df5412",
+      "changedSha256": "a7814052f223863c657433731aaeb0ce07d5fcb9803443af6659695e14c81cc4",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W16",
+      "source": "scan-voice.svg",
+      "sourceSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "changedSha256": "1c78267921246869c5eac0894a189e48ee57b3d9e9d0aeba2d03c1b11ded7fac",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W17",
+      "source": "steering-wheel.svg",
+      "sourceSha256": "4d26486ea8ea21432f272921b4744c8a42c61396fd54172e311c79b57ec049a6",
+      "changedSha256": "3e3e6909f19b364a241bc8f229c4b14fc832b2b02b90f23d206e4ed8dda87356",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W18",
+      "source": "team.svg",
+      "sourceSha256": "a0c81a9d71f18ecadeb7c59866807343fd2e1c952506ac6ed7344867b4440a1e",
+      "changedSha256": "353c50edbb5fd7ec124b4b662d5e6f9b4361104ad5e2dfda85db0a7b8811e9e1",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W19",
+      "source": "user-block.svg",
+      "sourceSha256": "21967b04f55c9218493e5290abd632e51ef59b33a1063a7f60877449351782cb",
+      "changedSha256": "358f524f2baaf8687cdb23c04c21d8c7d0eb891d7453baccb1f56f5ac29e083d",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "W20",
+      "source": "versus-circle.svg",
+      "sourceSha256": "17991abdd442016cdd9933b6086d8850fc1341a713283868096b662a98bf7deb",
+      "changedSha256": "24859841de2366d511ad034b1c7a82c15ecf94cc08ce4480542cbf4744dbd1d1",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 0,
+      "id": "C1",
+      "source": "cloud-sync-2.svg",
+      "sourceSha256": "3fe8830de27fb5f8ad33668cee8e35e9c81e847c7ca93f93e53654826f4cde11",
+      "changedSha256": "3fe8830de27fb5f8ad33668cee8e35e9c81e847c7ca93f93e53654826f4cde11",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 0,
+      "id": "C2",
+      "source": "coin-won.svg",
+      "sourceSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "changedSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 0,
+      "id": "C3",
+      "source": "full-moon.svg",
+      "sourceSha256": "896786030dfc72b0b97d09f22501df4a5a5c41b6312ca14b724501f69ebed6cc",
+      "changedSha256": "896786030dfc72b0b97d09f22501df4a5a5c41b6312ca14b724501f69ebed6cc",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 0,
+      "id": "C4",
+      "source": "scan-voice.svg",
+      "sourceSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "changedSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 1,
+      "id": "W01",
+      "source": "cloud-sync-2.svg",
+      "sourceSha256": "3fe8830de27fb5f8ad33668cee8e35e9c81e847c7ca93f93e53654826f4cde11",
+      "changedSha256": "6c44ea697506a24110aea24d7dc01bf86da1da36c4b26920f21cd6e35b8e24e1",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W02",
+      "source": "coin-lira.svg",
+      "sourceSha256": "71ab0852295875d2b8232efa735e615ecccf28d4dfc43f4a813b9275618d4d79",
+      "changedSha256": "4860a546dd89bda979aa959a63a1bbdcd78e16a258898fcaf358011ab97f4c07",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W03",
+      "source": "coin-pesos.svg",
+      "sourceSha256": "925acd8c363b316645e4e7d96e1f92920d678a07e3c9bf1be98749cc238d178b",
+      "changedSha256": "6142a3ada9527211a25b46925a318d67d33de0918151475e0e049a3580ca343a",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W04",
+      "source": "coin-rand.svg",
+      "sourceSha256": "ca5ff93e56d3806aaf5d9754f87da56c3490877f12e7e8cd0b4ce14a3e9b21c1",
+      "changedSha256": "324280db8a905266d4bca21330f9dab71a5ba7a9e1e95280bf059448ee95a72d",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W05",
+      "source": "coin-rupees.svg",
+      "sourceSha256": "6592e2e59c944a68e06bd950a4338bdaf33f00c06142fb2fcf505cb96868d08c",
+      "changedSha256": "f90e415edd057a7bb2f8dfa9951be9f6ecfddfbd8f377ff7f5aab305ace9ee92",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W06",
+      "source": "coin-won.svg",
+      "sourceSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "changedSha256": "d4499cc148f84fe64dcadc5a213f1d471d89679703727809b390d3c8b695a7ed",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W07",
+      "source": "devices-2.svg",
+      "sourceSha256": "8ec885ec1663989da226166289a7f0db776e162a7309901daf6f4aed523c1139",
+      "changedSha256": "ca1e4163caa85584769657bdf8ef2c282c1177a0da6e8f83f911a37062d331e8",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W08",
+      "source": "education.svg",
+      "sourceSha256": "fce01e3d64f3b4966f84d28e825f9027056c7b8dc68437dd3ba8ef9891334879",
+      "changedSha256": "d1425f7a04fc404e8a739b21762aebae91fd9c33974b08f46a3850dda283ba7d",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W09",
+      "source": "email-2-block.svg",
+      "sourceSha256": "1bc429a440fe57b7f397252e95524b26b7068687c1982628b60b4a88f8e28864",
+      "changedSha256": "f94b76c31e4e6c16bff4d75fc85240c2bbdb19adedf4300b737828039c8ca47b",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W10",
+      "source": "emoji-neutral.svg",
+      "sourceSha256": "0cf0064ac9e2e70691496f507903e0ec2a1a19d60db0677008fda49b4ca1cf83",
+      "changedSha256": "7eb1282e91ef746ce9f1043560c39bf023d77b1aae4f3f9427c37db3207a04db",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W11",
+      "source": "full-moon.svg",
+      "sourceSha256": "896786030dfc72b0b97d09f22501df4a5a5c41b6312ca14b724501f69ebed6cc",
+      "changedSha256": "c4c0e7a807464cfc8f516ced7bd31b7f92104a56f01de277b5aac1ca581f99c5",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W12",
+      "source": "gyroscope-sensor.svg",
+      "sourceSha256": "926dacd7fe98cb48f476ba2061d485ab421b6a2d2a1bef29b120d2ff27ed3a5b",
+      "changedSha256": "34cad2ad19b4d66f1731e5b0be3240fad44daec2386754f9024aae4d6ea161bb",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W13",
+      "source": "pan.svg",
+      "sourceSha256": "77ecab18ca43973a8b951cb1bd4ead4aa75b58fce71aac42d9dd8286644f7b0a",
+      "changedSha256": "2e8f5e61570e537d745366aaa165d28a33ad3ff26f2f3a4d9c8ce22b61e46c86",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W14",
+      "source": "password-stars.svg",
+      "sourceSha256": "ef10ecf164eabf111a95876daabb13e940ddbd8ffb7e7c2df4232824bc8370e3",
+      "changedSha256": "b7b905effb63baafd1337f88e491f718f662151cd6ebb5e07cb7ac0980ba0d45",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W15",
+      "source": "quick-ai.svg",
+      "sourceSha256": "61dc5c47a915b38a85ba110ab4322e7f28d25fee26c19d7c9414532061df5412",
+      "changedSha256": "a7814052f223863c657433731aaeb0ce07d5fcb9803443af6659695e14c81cc4",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W16",
+      "source": "scan-voice.svg",
+      "sourceSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "changedSha256": "1c78267921246869c5eac0894a189e48ee57b3d9e9d0aeba2d03c1b11ded7fac",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W17",
+      "source": "steering-wheel.svg",
+      "sourceSha256": "4d26486ea8ea21432f272921b4744c8a42c61396fd54172e311c79b57ec049a6",
+      "changedSha256": "3e3e6909f19b364a241bc8f229c4b14fc832b2b02b90f23d206e4ed8dda87356",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W18",
+      "source": "team.svg",
+      "sourceSha256": "a0c81a9d71f18ecadeb7c59866807343fd2e1c952506ac6ed7344867b4440a1e",
+      "changedSha256": "353c50edbb5fd7ec124b4b662d5e6f9b4361104ad5e2dfda85db0a7b8811e9e1",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W19",
+      "source": "user-block.svg",
+      "sourceSha256": "21967b04f55c9218493e5290abd632e51ef59b33a1063a7f60877449351782cb",
+      "changedSha256": "358f524f2baaf8687cdb23c04c21d8c7d0eb891d7453baccb1f56f5ac29e083d",
+      "expected": "Q",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "W20",
+      "source": "versus-circle.svg",
+      "sourceSha256": "17991abdd442016cdd9933b6086d8850fc1341a713283868096b662a98bf7deb",
+      "changedSha256": "24859841de2366d511ad034b1c7a82c15ecf94cc08ce4480542cbf4744dbd1d1",
+      "expected": "P",
+      "control": false
+    },
+    {
+      "order": 1,
+      "id": "C1",
+      "source": "cloud-sync-2.svg",
+      "sourceSha256": "3fe8830de27fb5f8ad33668cee8e35e9c81e847c7ca93f93e53654826f4cde11",
+      "changedSha256": "3fe8830de27fb5f8ad33668cee8e35e9c81e847c7ca93f93e53654826f4cde11",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 1,
+      "id": "C2",
+      "source": "coin-won.svg",
+      "sourceSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "changedSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 1,
+      "id": "C3",
+      "source": "full-moon.svg",
+      "sourceSha256": "896786030dfc72b0b97d09f22501df4a5a5c41b6312ca14b724501f69ebed6cc",
+      "changedSha256": "896786030dfc72b0b97d09f22501df4a5a5c41b6312ca14b724501f69ebed6cc",
+      "expected": "equal",
+      "control": true
+    },
+    {
+      "order": 1,
+      "id": "C4",
+      "source": "scan-voice.svg",
+      "sourceSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "changedSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "expected": "equal",
+      "control": true
+    }
+  ]
+}

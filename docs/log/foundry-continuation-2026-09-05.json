@@ -1,0 +1,902 @@
+{
+  "recordedDate": "2026-09-05",
+  "budget": {
+    "ceilingUsd": 50,
+    "reservedUsd": 0.0,
+    "runs": [
+      {
+        "id": "folder-lock-01",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.30503875
+      },
+      {
+        "id": "folder-lock-02",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.2293775
+      },
+      {
+        "id": "instrument-weight",
+        "reservationUsd": 10,
+        "state": "complete",
+        "actualUsd": 0.5360916
+      },
+      {
+        "id": "folder-lock-03",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.14643875
+      },
+      {
+        "id": "folder-lock-04",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.4009665
+      },
+      {
+        "id": "camera-thin",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.12789124999999998
+      },
+      {
+        "id": "camera-heavy",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.18304225
+      },
+      {
+        "id": "folder-lock-components",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.464283
+      },
+      {
+        "id": "folder-lock-components-02",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.8288172500000001
+      },
+      {
+        "id": "folder-lock-components-replay",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.0305745
+      },
+      {
+        "id": "folder-lock-components-replay-02",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.029787
+      },
+      {
+        "id": "folder-lock-companion-01",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.50104475
+      },
+      {
+        "id": "folder-lock-round-clearance",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.15121575
+      },
+      {
+        "id": "folder-lock-round-body",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 1.792056
+      }
+    ],
+    "actualUsd": 5.72662485
+  },
+  "attempts": [
+    {
+      "id": "A012",
+      "run": "folder-lock-companion-01",
+      "spend": {
+        "id": "folder-lock-companion-01",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.50104475
+      },
+      "plan": {
+        "companion": true,
+        "concept": "folder-lock",
+        "effort": "high",
+        "guidance": "Design folder-lock as a new composition in this family. The folder-shield reference shows how a large, legible badge occupies the lower-right and the folder outline stops around it. Use the admitted curved components where appropriate; avoid redrawing their polished shoulders as overlapping rectangles. The named components identify their intended paint. Do not use outlined parts as filled solids. The shield component itself is not the requested lock. Preserve a generous shackle counter and at least 1 unit of actual white space. Do not squeeze a standalone lock into the folder interior. Do not copy an entire reference icon and rename it. Plan proportions before placing; compare at native size and inspect joins. Reuse of reference components is intentional in this experiment and is not a claim of wholly novel source contours.",
+        "master": "large",
+        "maxCalls": 51,
+        "maxOutputTokens": 16384,
+        "maxUsd": 4,
+        "model": "anthropic/claude-opus-5",
+        "revision": "0fe727aa7e0d2d74b099786ed91915fda7f9d474e76cc4f57acf8444ea12d861",
+        "steps": 24
+      },
+      "result": {
+        "budget": {
+          "actualCalls": 20,
+          "actualUsd": 0.50104475,
+          "exhausted": false,
+          "maxCalls": 51,
+          "maxUsd": 4,
+          "overrun": false,
+          "reservedCalls": 51,
+          "reservedUsd": 4
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [
+              {
+                "message": "Filled visual extent 20.0\u00d718.0 does not match outlined 20.0\u00d717.0. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+                "rule": "extent",
+                "severity": "error"
+              }
+            ],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QPE9MTENASHWE5VZ9XZPXD"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 822,
+                      "reasoningTokens": 671
+                    },
+                    "usd": 0.0150585
+                  },
+                  "findings": [
+                    {
+                      "kind": "finish",
+                      "message": "The top-right horizontal stroke of the folder extends awkwardly past the lock badge without terminating in alignment with it."
+                    },
+                    {
+                      "kind": "gap",
+                      "message": "The interior counter within the lock shackle is slightly cramped at small scales."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 8,
+                  "reason": "The icon is immediately identifiable as a folder with a lock badge. The stroke weight and general geometry match the system well, though the top overhanging stroke above the badge feels unresolved.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                },
+                "generationCosts": [
+                  {
+                    "calls": 12,
+                    "generationIds": [
+                      "gen_01M1QP93CR5N8153RSVYGP7YGE",
+                      "gen_01M1QP97FRV6B3QRA13K8E9DPH",
+                      "gen_01M1QP9H4ZRX1WG14Y4AX6PKB1",
+                      "gen_01M1QP9KARYDMWQAXPA6DAH0MQ",
+                      "gen_01M1QP9R4DET3PA1MEYCVK915J",
+                      "gen_01M1QP9TF4E5V2PG595QXWEZ3E",
+                      "gen_01M1QPAQ2T8SWVR4MG5DC47G2X",
+                      "gen_01M1QPAT2PM2R6JV34PFR8RFH6",
+                      "gen_01M1QPAX7TK7GWYG92DNTS7JZX",
+                      "gen_01M1QPCRM9RF887EDJ3E27NK0Y",
+                      "gen_01M1QPCX1390BMZG8C3FQYPJ9M",
+                      "gen_01M1QPD14BJ56G1B9HH760CFJT"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 91211,
+                      "cacheWriteTokens": 8559,
+                      "inputTokens": 29758,
+                      "outputTokens": 7764,
+                      "reasoningTokens": 6639
+                    },
+                    "usd": 0.3884955
+                  }
+                ]
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QPE9PGVFHEV0M7159487HT"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 763,
+                      "reasoningTokens": 611
+                    },
+                    "usd": 0.01483725
+                  },
+                  "findings": [
+                    {
+                      "kind": "belong",
+                      "message": "The upper-right overhang of the folder tapers into an unnatural, sharp beak rather than maintaining standard corner rounding and geometric structure."
+                    },
+                    {
+                      "kind": "gap",
+                      "message": "The cutout around the lock badge creates an irregular, distorted negative space under the top folder edge."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 5.5,
+                  "reason": "The icon clearly depicts a folder with a lock, but the geometry of the folder is heavily distorted, ending in an awkward sharp hook over the badge.",
+                  "sc": 9.5,
+                  "scorable": true,
+                  "stage": "screen"
+                },
+                "generationCosts": [
+                  {
+                    "calls": 6,
+                    "generationIds": [
+                      "gen_01M1QPD60MNWB8G15DRK7SQQG6",
+                      "gen_01M1QPD9CBF3RFMF8WHAYS1BJZ",
+                      "gen_01M1QPDG8903YQME8SDGQHMW0N",
+                      "gen_01M1QPDJ6N6KMTHB6XFPSMEE7P",
+                      "gen_01M1QPE43XSQCDQGFF47H55W4R",
+                      "gen_01M1QPE6217AVW24QK5P44PM44"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 42137,
+                      "cacheWriteTokens": 8911,
+                      "inputTokens": 2547,
+                      "outputTokens": 1954,
+                      "reasoningTokens": 1461
+                    },
+                    "usd": 0.08265349999999999
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-filled.artifact.json",
+          "sha256": "b2f784b0c95d45c6d2932fd959a9ac1efa52c80a037be01328d9a07e17918e9e",
+          "bytes": 1396
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-filled.icon",
+          "sha256": "ab5ba7a978134292e87b99e0bfd0e303924bebc29b2e63c95aadbef907317ba2",
+          "bytes": 125
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-filled.native.png",
+          "sha256": "24a5d895e4f9c856575c5de6457dbe6b20a5547cabb78ced3ad18b3d8b4daa1f",
+          "bytes": 422
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-filled.svg",
+          "sha256": "411a906a94c2a1b70e5b7f40ac0880bf4d81c0ea706749945524d8ce20bb350c",
+          "bytes": 962
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-outlined.artifact.json",
+          "sha256": "190c6d140349212ab5ab1e859e7787a034b9b7e767431fd7fea027173e3f8a96",
+          "bytes": 1327
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-outlined.icon",
+          "sha256": "d646091e0fc0fb09993f35fabeb31a138ab2436f24789e47b8e1e844f4a2aa2e",
+          "bytes": 136
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-outlined.native.png",
+          "sha256": "9c320c8121ffca1324c9940a088a7785e4db2655f65fa068b83d2ab32027d255",
+          "bytes": 433
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-outlined.svg",
+          "sha256": "e63fcd3fd016e46846bff314e12c2abace45daa3e66d2e7b7c6743619029fd70",
+          "bytes": 864
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/filled.attempt.json",
+          "sha256": "da3977ad8ee2617b01fd83e8e3860ebf1b7adc4fa62f0dc5908ade99ffb5b7e0",
+          "bytes": 3289
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/filled.attempt.svg",
+          "sha256": "411a906a94c2a1b70e5b7f40ac0880bf4d81c0ea706749945524d8ce20bb350c",
+          "bytes": 962
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/filled.preview.png",
+          "sha256": "90500422174956ce13be8bf0529051bcee29526a024a3856a1e05a48176e1738",
+          "bytes": 7466
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/outlined.attempt.json",
+          "sha256": "551cfbd270ca548e9f8426084dde30bc3f4b7d53d8a239d80e220af0b37969f3",
+          "bytes": 28511
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/outlined.attempt.svg",
+          "sha256": "e63fcd3fd016e46846bff314e12c2abace45daa3e66d2e7b7c6743619029fd70",
+          "bytes": 864
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/outlined.preview.png",
+          "sha256": "fff7557e78551d073fcb54958f097109652736fd73b96bee5ceadf2fdfa454f6",
+          "bytes": 7750
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/plan.json",
+          "sha256": "4f5ed6ff71daf9a401f7bbdd41cfc91fec2e6ad421dd03abec4cd0711f386f51",
+          "bytes": 1141
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/result.json",
+          "sha256": "0c31adfed7c74e77453fc530e509051af17b9104c55ae3287fc2b3f740cc3c72",
+          "bytes": 92635
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-companion-01/revision.json",
+          "sha256": "337a6062ee45bbfdf6e82d71adcc737b92cfcbded274e6be46e447d4b0443e3d",
+          "bytes": 48114
+        }
+      ]
+    },
+    {
+      "id": "A013",
+      "run": "folder-lock-round-clearance",
+      "spend": {
+        "id": "folder-lock-round-clearance",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.15121575
+      },
+      "plan": {
+        "companion": true,
+        "concept": "folder-lock",
+        "effort": "high",
+        "guidance": "Design folder-lock as a new composition in this family. The folder-shield reference shows how a large, legible badge occupies the lower-right and the folder outline stops around it. Use the admitted curved components where appropriate; avoid redrawing their polished shoulders as overlapping rectangles. The named components identify their intended paint. Do not use outlined parts as filled solids. The shield component itself is not the requested lock. Preserve a generous shackle counter and at least 1 unit of actual white space. Do not squeeze a standalone lock into the folder interior. Do not copy an entire reference icon and rename it. Plan proportions before placing; compare at native size and inspect joins. Reuse of reference components is intentional in this experiment and is not a claim of wholly novel source contours.",
+        "master": "large",
+        "maxCalls": 51,
+        "maxOutputTokens": 16384,
+        "maxUsd": 4,
+        "model": "anthropic/claude-opus-5",
+        "revision": "deee50764b2cc3d40ae31214c3109add607b113ea6fbc37444c36538c6c4bf01",
+        "steps": 24
+      },
+      "result": {
+        "budget": {
+          "actualCalls": 11,
+          "actualUsd": 0.15121575,
+          "exhausted": false,
+          "maxCalls": 51,
+          "maxUsd": 4,
+          "overrun": false,
+          "reservedCalls": 51,
+          "reservedUsd": 4
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [
+              {
+                "message": "Filled visual extent 20.0\u00d717.0 does not match outlined 20.0\u00d718.0. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+                "rule": "extent",
+                "severity": "error"
+              }
+            ],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QPM0VK051VTKJA1Z2MZXQR"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 18146,
+                      "outputTokens": 445,
+                      "reasoningTokens": 342
+                    },
+                    "usd": 0.01527825
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The badge depicts a plus sign (folder-plus / folder-add) rather than a padlock or lock symbol."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 10,
+                  "reason": "The icon is drawn with excellent construction and style compliance for the family, but it depicts folder-plus rather than folder-lock.",
+                  "sc": 0,
+                  "scorable": true,
+                  "stage": "screen"
+                },
+                "generationCosts": [
+                  {
+                    "calls": 4,
+                    "generationIds": [
+                      "gen_01M1QPJ38Y0SMJE19J5VCHMR35",
+                      "gen_01M1QPJ6GQ86HDBAPRT9H8E8NG",
+                      "gen_01M1QPJJH64SFFZC08WEZE8KE3",
+                      "gen_01M1QPJPKTVSNHQ4PK70GMS7NC"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 22837,
+                      "cacheWriteTokens": 8900,
+                      "inputTokens": 8,
+                      "outputTokens": 1519,
+                      "reasoningTokens": 1029
+                    },
+                    "usd": 0.0494335
+                  }
+                ]
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QPM0VWGH810JFG2DQX2BGY"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 18146,
+                      "outputTokens": 518,
+                      "reasoningTokens": 425
+                    },
+                    "usd": 0.015552
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The lock element is missing entirely from the cutout in the bottom-right corner."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 3,
+                  "reason": "The candidate has a cutout prepared for a badge overlay, but the lock icon itself was omitted entirely, leaving an incomplete, broken silhouette.",
+                  "sc": 1,
+                  "scorable": true,
+                  "stage": "screen"
+                },
+                "generationCosts": [
+                  {
+                    "calls": 5,
+                    "generationIds": [
+                      "gen_01M1QPJWHDZS4ZJBC95MRTVRGF",
+                      "gen_01M1QPK02V0KTC81WXDDB56A2E",
+                      "gen_01M1QPK3QSETDD0KMG6JQV9VBV",
+                      "gen_01M1QPKCJEAP563WA4ER9AV1A1",
+                      "gen_01M1QPKEJZD19ME3E3JRJR8CFK"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 32904,
+                      "cacheWriteTokens": 9086,
+                      "inputTokens": 145,
+                      "outputTokens": 2151,
+                      "reasoningTokens": 1680
+                    },
+                    "usd": 0.070952
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-filled.artifact.json",
+          "sha256": "98087300121539ee1fef7d920ca0660212d3127fdf53067b89520fbf286b5385",
+          "bytes": 759
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-filled.icon",
+          "sha256": "f1a3439d3761b3bbcba124805a9b8e615cb16617118803486a7cc8d8fc46b347",
+          "bytes": 75
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-filled.native.png",
+          "sha256": "301537c90f08cbf533fb03efe6e4758483b42f0eb1d0db80d9fda5943c45176a",
+          "bytes": 282
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-filled.svg",
+          "sha256": "775696e8247d2342dfc0c51119c496a41dfa58d9d99750fc2883be9e90de8c09",
+          "bytes": 385
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-outlined.artifact.json",
+          "sha256": "2f2c09153f1c6ae2af54320180890f9c7c29b935d004a10f744b30e63842dc00",
+          "bytes": 773
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-outlined.icon",
+          "sha256": "6c9b68d588dd94ae9b032d364eaf1c6c7a30f2d686a1a3d0e093b4046a0f572d",
+          "bytes": 79
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-outlined.native.png",
+          "sha256": "62094171f453dd80fea2b2d7fbcdc0f3680ee149c25d109f4c1452cdf14d153a",
+          "bytes": 276
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-outlined.svg",
+          "sha256": "1e137a81367c59192cc90ed6a738c1ee0dc71b7008a947c6ce84f56ffcb2a45c",
+          "bytes": 391
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/filled.attempt.json",
+          "sha256": "d24292fc32329f78ae0b6e0f1b449b78ed8e9fc51a91226493d6d901ea7233dd",
+          "bytes": 2449
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/filled.attempt.svg",
+          "sha256": "775696e8247d2342dfc0c51119c496a41dfa58d9d99750fc2883be9e90de8c09",
+          "bytes": 385
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/outlined.attempt.json",
+          "sha256": "44119fc1355aaa126a4948194b725b48b22fdc9040cd20de0daccddbbee2551a",
+          "bytes": 30720
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/outlined.attempt.svg",
+          "sha256": "1e137a81367c59192cc90ed6a738c1ee0dc71b7008a947c6ce84f56ffcb2a45c",
+          "bytes": 391
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/plan.json",
+          "sha256": "eb335f0c0e043072f2428a040f0b7cb02d6447bcd78d61be8df5aac20ed5c6a0",
+          "bytes": 1141
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/result.json",
+          "sha256": "bb632a1009614d28deb848da50c4ed88b24caf4d843f4bbc264d9d3aa7899f3d",
+          "bytes": 93957
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-clearance/revision.json",
+          "sha256": "4bfe126c26a177d647f9abac24c53b205c7903f3fbc70cff8fc5dd217f113932",
+          "bytes": 47795
+        }
+      ]
+    },
+    {
+      "id": "A014",
+      "run": "folder-lock-round-body",
+      "spend": {
+        "id": "folder-lock-round-body",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 1.792056
+      },
+      "plan": {
+        "companion": true,
+        "concept": "folder-lock",
+        "effort": "high",
+        "guidance": "Design folder-lock as a new composition in this family. The folder-shield reference shows how a large, legible badge occupies the lower-right and the folder outline stops around it. Use the admitted curved components where appropriate; avoid redrawing their polished shoulders as overlapping rectangles. The named components identify their intended paint. Do not use outlined parts as filled solids. The shield component itself is not the requested lock. Preserve a generous shackle counter and at least 1 unit of actual white space. Do not squeeze a standalone lock into the folder interior. Do not copy an entire reference icon and rename it. Plan proportions before placing; compare at native size and inspect joins. Reuse of reference components is intentional in this experiment and is not a claim of wholly novel source contours.",
+        "master": "large",
+        "maxCalls": 51,
+        "maxOutputTokens": 16384,
+        "maxUsd": 4,
+        "model": "anthropic/claude-opus-5",
+        "revision": "557fdc61ef73c26fffcb8c5b551bd375a0c33ab774df40a7be6a0cef1f9a5ae6",
+        "steps": 24
+      },
+      "result": {
+        "budget": {
+          "actualCalls": 37,
+          "actualUsd": 1.792056,
+          "exhausted": false,
+          "maxCalls": 51,
+          "maxUsd": 4,
+          "overrun": false,
+          "reservedCalls": 51,
+          "reservedUsd": 4
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [
+              {
+                "message": "Filled visual extent 19.5\u00d718.0 does not match outlined 21.3\u00d719.3. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+                "rule": "extent",
+                "severity": "error"
+              },
+              {
+                "message": "e0 and e3 are 0.53px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+                "rule": "gap",
+                "severity": "warn"
+              },
+              {
+                "message": "e1 and e3 are 0.75px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+                "rule": "gap",
+                "severity": "warn"
+              }
+            ],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QQ0GDHD9J1BXM3AKYF3CBH"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 18146,
+                      "outputTokens": 776,
+                      "reasoningTokens": 647
+                    },
+                    "usd": 0.0165195
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The top-right edge of the folder droops down in an awkward curve over the lock instead of maintaining the horizontal top line and crisp corner geometry of the folder family."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 7,
+                  "reason": "The icon unambiguously reads as a locked folder, but the folder's upper-right edge droops into an awkward hook above the padlock rather than following standard right-angled folder geometry.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                },
+                "generationCosts": [
+                  {
+                    "calls": 20,
+                    "generationIds": [
+                      "gen_01M1QPN954QHN6AQR9YSVXE162",
+                      "gen_01M1QPNCHC803GQ9D56DVSCEMT",
+                      "gen_01M1QPNHF6FH0PW56RRVQGFSA7",
+                      "gen_01M1QPP43TFG3E3WNQ5HF82RDB",
+                      "gen_01M1QPP6EM5V35YVMJND99NJF2",
+                      "gen_01M1QPPZ89B5S59NX9TPJCC1BF",
+                      "gen_01M1QPQ1EFBWXSWSB8KCSTWSW3",
+                      "gen_01M1QPQ5DQB2X40CYWVJ4FEDFB",
+                      "gen_01M1QPQ81J8K8HZNKGW7KA617J",
+                      "gen_01M1QPQAKZVBNKBXT049WCG0Y5",
+                      "gen_01M1QPRGTESJF6QCPXSSS1HAG6",
+                      "gen_01M1QPRNQZJFBQWDYJKHJYZXHW",
+                      "gen_01M1QPRRQMF5M0J8125HTC915X",
+                      "gen_01M1QPTK5PYQCGP3WCE81T28KG",
+                      "gen_01M1QPTSTYN3VT564T0E02YBJ4",
+                      "gen_01M1QPTWGQMG76VY3M9C2NER8S",
+                      "gen_01M1QPV6VRRK5K86V5CMSQ9VQ8",
+                      "gen_01M1QPVAJRPGPV8CKGJP7AZH6P",
+                      "gen_01M1QPVD22NSZ6Z9VRB6H29DCA",
+                      "gen_01M1QPVGGMZ24RX6NAX1FHQQED"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 177745,
+                      "cacheWriteTokens": 2629,
+                      "inputTokens": 121452,
+                      "outputTokens": 13174,
+                      "reasoningTokens": 10302
+                    },
+                    "usd": 1.0254825
+                  }
+                ]
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QQ0GDQX923P0V1M5YW6GM1"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 18146,
+                      "outputTokens": 496,
+                      "reasoningTokens": 375
+                    },
+                    "usd": 0.0154695
+                  },
+                  "findings": [
+                    {
+                      "kind": "gap",
+                      "message": "The circular knockout on the folder body does not match the silhouette of the lock, leaving an oversized, uneven empty gap above and behind the shackle."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 6.5,
+                  "reason": "The concept is clearly recognizable, but the cutout behind the lock badge is a simple circle rather than a conforming clearance offset, creating an awkward empty bubble behind the shackle.",
+                  "sc": 9.5,
+                  "scorable": true,
+                  "stage": "screen"
+                },
+                "generationCosts": [
+                  {
+                    "calls": 15,
+                    "generationIds": [
+                      "gen_01M1QPVP8D0MG5ETV1501H9BR3",
+                      "gen_01M1QPVSHSKQBTNZ469EDNYH79",
+                      "gen_01M1QPWAZBRRQ4SJ7Q6PN96ZKT",
+                      "gen_01M1QPWGKM17D6QTBC4W77B966",
+                      "gen_01M1QPY5GEW8YEKJBMQXQDD3TE",
+                      "gen_01M1QPY7TJ5RQRX0DFX7Q2E41N",
+                      "gen_01M1QPYYCJJVH0DPG0YY0C5S8D",
+                      "gen_01M1QPZ21VD2940SV4QV0RSVVT",
+                      "gen_01M1QPZ4NCE7KQMBR5S6FEVR15",
+                      "gen_01M1QPZMKM5THK61FBVWBR9CEX",
+                      "gen_01M1QPZR9YWWEP577B38JJ05S0",
+                      "gen_01M1QPZTXYK3JCE8GN5801VFQ0",
+                      "gen_01M1QQ07K87WKWA3JKRB8F1ATV",
+                      "gen_01M1QQ0ABH0X7R9YX78S5WKAJQ",
+                      "gen_01M1QQ0DSXJJSQZ35RC86R6D3P"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 134649,
+                      "cacheWriteTokens": 9964,
+                      "inputTokens": 83592,
+                      "outputTokens": 9972,
+                      "reasoningTokens": 7956
+                    },
+                    "usd": 0.7345845
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-filled.artifact.json",
+          "sha256": "ca987c4a5deb1427ad51f3183192cef2ee0bce7e44c0a7b816f325ab29933a38",
+          "bytes": 1709
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-filled.icon",
+          "sha256": "96c1e326692979c0915c54b408a529ffa6e255fc9cb15c82755e97f45ef0bbc7",
+          "bytes": 229
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-filled.native.png",
+          "sha256": "22335ea734190ad0e9b6693b6b8e85c9841611aa1f7e809cd358cbc53b7afb67",
+          "bytes": 450
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-filled.svg",
+          "sha256": "8905e62db2314155e9735ac7e7187f8cf917871e3fb7ce266de59b8f99941fe1",
+          "bytes": 1160
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-outlined.artifact.json",
+          "sha256": "48914b4fb798d5d50a5ba28805d9d093fe47d76cef996077fd10554a15616787",
+          "bytes": 1345
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-outlined.icon",
+          "sha256": "721242f449b103c5ae5dedccacf167c0b1f2e5a0d515f53e74acac6080a54225",
+          "bytes": 147
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-outlined.native.png",
+          "sha256": "fdb123e8aeb194a3d834208ef4eb4b24029aff10bfeb6bad5ba2ce6b02333f76",
+          "bytes": 493
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-outlined.svg",
+          "sha256": "54f8ccf8588b8c7b29b95edc7269f5e4e5c1ffb5a0b5700484eb5521313e0161",
+          "bytes": 871
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/filled.attempt.json",
+          "sha256": "18c5502380b51e3e070ec52ad918562e4098662e70f09acf0c5796d1135a5922",
+          "bytes": 4940
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/filled.attempt.svg",
+          "sha256": "8905e62db2314155e9735ac7e7187f8cf917871e3fb7ce266de59b8f99941fe1",
+          "bytes": 1160
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/outlined.attempt.json",
+          "sha256": "89a1b0cb9ec2dddd458ce7eb9616ca3ccc06674b5292bb8dc386caf5b783aae1",
+          "bytes": 35439
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/outlined.attempt.svg",
+          "sha256": "54f8ccf8588b8c7b29b95edc7269f5e4e5c1ffb5a0b5700484eb5521313e0161",
+          "bytes": 871
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/outlined.preview.png",
+          "sha256": "dbc1c96101d48a575c473e5c14512f0834169973311ec486364105624620ff33",
+          "bytes": 7909
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/plan.json",
+          "sha256": "c7e85249e2e8dc9cce30e1feac51f37e5d9d7c22c30f8673f1d6e834651f0fda",
+          "bytes": 1141
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/result.json",
+          "sha256": "1938856fb263fd66daf21999c463d685a2e20ab823f5abdd4f70e134387fde14",
+          "bytes": 116507
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-round-body/revision.json",
+          "sha256": "931b91adaf84925b22e79371b0e29dff9110eb705f2c35b38173bd55cd18859b",
+          "bytes": 47752
+        }
+      ]
+    }
+  ]
+}

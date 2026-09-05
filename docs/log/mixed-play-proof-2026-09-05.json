@@ -1,0 +1,19 @@
+{
+  "out": ".staging/foundry-round-1/mixed-play-proof-01",
+  "sourcePrograms": ".staging/foundry-round-1/local-square-play-01",
+  "scope": "Host assembly of unchanged AI outlined parent and unchanged AI filled triangle. No new coordinates; not fresh authoring or mixed-paint DSL support.",
+  "reference": "packages/iconsmith/corpus/square-outlined-radius-0-stroke-1.5/play-circle.svg",
+  "findings": [
+    "Reference embeds a filled triangle in an outlined circle",
+    "Existing whole-icon finish forces a hollow small play mark",
+    "Proposed mixed paint needs per-element recipe and painted-bound support, not SVG-only decoration"
+  ],
+  "order": [
+    "existing hollow modifier",
+    "host mixed-paint proposal",
+    "reference mixed-paint play-circle"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "craftApproved": false
+}

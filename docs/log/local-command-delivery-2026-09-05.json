@@ -1,0 +1,43 @@
+{
+  "attempt": "A044",
+  "entrypoint": "scripts/local-generate.ts --revision --master --finish",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined"
+    ],
+    "style": "3bd56e7752045ccbe2a557db6b34e2ca8995f1347c13770bac602e7a743041a4",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 24,
+    "paints": [
+      "outlined"
+    ],
+    "pairChecked": false,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-command-bookmark-01/check-ehwSGb",
+    "style": "3bd56e7752045ccbe2a557db6b34e2ca8995f1347c13770bac602e7a743041a4"
+  },
+  "hashes": {
+    "outlined.icon": "fc17a73dc49722ec4ae69aa2765b288b9c2f720feeaf1a47857de6c5f91d2c24",
+    "outlined.svg": "e1161247d5bc87160954a5bb8e82cc5fbb2ef0ed1317d18632bcc6e8a2768a1f",
+    "review.md": "344e252fc3335bd9dff4bc9f45ff318d2b0bde84575e39f9c581bb3cbfd5d557",
+    "revision.json": "0d233fb05c3bd78df15740ae1526164425607e4822136ad7ef39b5c9ea76c269"
+  },
+  "hostVisualAssessment": "Recognizable tall bookmark with compact check. Native24 separation clear;16 is softer. Development candidate, not independently craft approved.",
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured"
+}

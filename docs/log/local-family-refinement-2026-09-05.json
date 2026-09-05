@@ -1,0 +1,54 @@
+{
+  "attempt": "A039",
+  "model": "gpt-5.6-sol",
+  "reasoningEffort": "high",
+  "routing": "native ChatGPT",
+  "exitCode": 0,
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured",
+  "evidence": [
+    {
+      "concept": "timer-add",
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [],
+        "pairIssues": [],
+        "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-family-refine-01/timer-add/check-pqIr02",
+        "style": "898432743cea0abe4b61bd0c46a46de606947dd0af81a7dd509d2caa0779b79e"
+      },
+      "programChanged": {
+        "outlined.icon": true,
+        "filled.icon": true
+      },
+      "hashes": {
+        "outlined.icon": "eb58ff784e5732da7a8d2398e29375e3a4885450bf6d11954ad42ed5ba26e068",
+        "filled.icon": "f335f7cefa9029b7c1a3d21cbe6a48385226ebb70ed8930f46a35773366a2dfc",
+        "outlined.svg": "9a478c5cd9cdf40c2a9b094be3e53fac6cbc2388838ef2ccdbe6a060472447b9",
+        "filled.svg": "32b3e4c708238efa5c9dc64b84f39a43772c9208d49ae02b9a953bdfaee5ee47"
+      }
+    },
+    {
+      "concept": "window-lock",
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [],
+        "pairIssues": [],
+        "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-family-refine-01/window-lock/check-Km436H",
+        "style": "898432743cea0abe4b61bd0c46a46de606947dd0af81a7dd509d2caa0779b79e"
+      },
+      "programChanged": {
+        "outlined.icon": false,
+        "filled.icon": false
+      },
+      "hashes": {
+        "outlined.icon": "c0808758c1961554b5f2cc7c1b3e94dedac6dd76c2cc05b5e8ff9ea981036033",
+        "filled.icon": "3bbc12371f847847dea987edd318a33561e4c7e06a362dd19719a210e677b884",
+        "outlined.svg": "a536906d71c66ea53c41ed81b3c3e7e904ed65ecace45a7cfad9a384e1fcc957",
+        "filled.svg": "29897c482ce4939d51093392910d12f7c2fc728723234bb3cf5b15dc92dc957a"
+      }
+    }
+  ],
+  "qualification": "development only; not independently accepted"
+}

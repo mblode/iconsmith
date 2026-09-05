@@ -1,0 +1,15 @@
+{
+  "samples": [
+    {
+      "version": "local-style-pair-03",
+      "keyholeAlpha": 255
+    },
+    {
+      "version": "local-style-pair-03-compiler3",
+      "keyholeAlpha": 0
+    }
+  ],
+  "artworkManuallyEdited": false,
+  "apiSpendUnchangedUsd": 10.6590496,
+  "qualityApproved": false
+}

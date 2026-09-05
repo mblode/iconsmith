@@ -1,0 +1,113 @@
+{
+  "out": ".staging/foundry-round-1/detail-weight-proof-01",
+  "rows": [
+    {
+      "name": "coin-lira",
+      "sourceSha256": "71ab0852295875d2b8232efa735e615ecccf28d4dfc43f4a813b9275618d4d79",
+      "detailPaths": 2,
+      "outlineWidth": 2,
+      "detailWidth": 1.8,
+      "measures": [
+        {
+          "size": 24,
+          "sourceDetailInkPixelArea": 39.64705882352941,
+          "uniformDetailInkPixelArea": 44.29019607843137,
+          "relativeInkIncrease": 0.11711177052423327
+        },
+        {
+          "size": 16,
+          "sourceDetailInkPixelArea": 17.627450980392158,
+          "uniformDetailInkPixelArea": 19.623529411764707,
+          "relativeInkIncrease": 0.11323692992213563
+        }
+      ]
+    },
+    {
+      "name": "coin-pesos",
+      "sourceSha256": "925acd8c363b316645e4e7d96e1f92920d678a07e3c9bf1be98749cc238d178b",
+      "detailPaths": 2,
+      "outlineWidth": 2,
+      "detailWidth": 1.8,
+      "measures": [
+        {
+          "size": 24,
+          "sourceDetailInkPixelArea": 47.819607843137256,
+          "uniformDetailInkPixelArea": 52.501960784313724,
+          "relativeInkIncrease": 0.09791700836476958
+        },
+        {
+          "size": 16,
+          "sourceDetailInkPixelArea": 21.24313725490196,
+          "uniformDetailInkPixelArea": 23.345098039215685,
+          "relativeInkIncrease": 0.09894775706110392
+        }
+      ]
+    },
+    {
+      "name": "coin-rand",
+      "sourceSha256": "ca5ff93e56d3806aaf5d9754f87da56c3490877f12e7e8cd0b4ce14a3e9b21c1",
+      "detailPaths": 3,
+      "outlineWidth": 2,
+      "detailWidth": 1.8,
+      "measures": [
+        {
+          "size": 24,
+          "sourceDetailInkPixelArea": 47.17254901960784,
+          "uniformDetailInkPixelArea": 52.35686274509804,
+          "relativeInkIncrease": 0.10990107240834646
+        },
+        {
+          "size": 16,
+          "sourceDetailInkPixelArea": 20.984313725490196,
+          "uniformDetailInkPixelArea": 23.12549019607843,
+          "relativeInkIncrease": 0.10203700242945235
+        }
+      ]
+    },
+    {
+      "name": "coin-rupees",
+      "sourceSha256": "6592e2e59c944a68e06bd950a4338bdaf33f00c06142fb2fcf505cb96868d08c",
+      "detailPaths": 2,
+      "outlineWidth": 2,
+      "detailWidth": 1.8,
+      "measures": [
+        {
+          "size": 24,
+          "sourceDetailInkPixelArea": 45.08627450980392,
+          "uniformDetailInkPixelArea": 50.870588235294115,
+          "relativeInkIncrease": 0.12829433765330078
+        },
+        {
+          "size": 16,
+          "sourceDetailInkPixelArea": 20.211764705882352,
+          "uniformDetailInkPixelArea": 22.48235294117647,
+          "relativeInkIncrease": 0.11233993015133881
+        }
+      ]
+    },
+    {
+      "name": "coin-won",
+      "sourceSha256": "ccd93370492a31990b562718fdc87c6c6d020cd15e23d618b30536b104bee45a",
+      "detailPaths": 2,
+      "outlineWidth": 2,
+      "detailWidth": 1.8,
+      "measures": [
+        {
+          "size": 24,
+          "sourceDetailInkPixelArea": 55.462745098039214,
+          "uniformDetailInkPixelArea": 61.219607843137254,
+          "relativeInkIncrease": 0.10379693134412782
+        },
+        {
+          "size": 16,
+          "sourceDetailInkPixelArea": 24.67450980392157,
+          "uniformDetailInkPixelArea": 27.16470588235294,
+          "relativeInkIncrease": 0.10092180546726004
+        }
+      ]
+    }
+  ],
+  "order": "Each row source then uniformized; lira, pesos, rand, rupees, won",
+  "scope": "Host diagnostic alteration of references, not AI authorship. Ink area is not an aesthetic score.",
+  "apiSpend": 0
+}

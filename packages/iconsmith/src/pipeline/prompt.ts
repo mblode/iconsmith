@@ -25,6 +25,8 @@ import { steerBrief } from "./recipe.js";
 export interface Concept {
   /** Category from the host set, when the concept comes from one. */
   category?: string;
+  /** Per-concept art direction; does not change the selected family or judge. */
+  guidance?: string;
   /** Icon name, kebab-case: the thing to draw. */
   name: string;
   /**
@@ -170,9 +172,12 @@ export const systemPrompt = (opts: PromptOptions = {}): string => {
  *  `line` on a canvas that had deleted it. */
 export const conceptPrompt = (
   concept: Concept,
-  finish: Finish = "outlined"
+  finish: Finish = "outlined",
+  { allowHouseConstruction = true }: { allowHouseConstruction?: boolean } = {}
 ): string => {
-  const host = hostConstruction(concept.name, finish);
+  const host = allowHouseConstruction
+    ? hostConstruction(concept.name, finish)
+    : null;
   const lines = [`Draw the icon \`${concept.name}\`.`];
   if (host) {
     // The analog is already on the canvas. "Compose from primitives"
@@ -189,7 +194,9 @@ export const conceptPrompt = (
       "Paint: outlined. Compose the named object from `listParts` and primitives, not a generic frame-and-dot."
     );
   }
-  const steer = steerBrief(concept.name, finish);
+  const steer = allowHouseConstruction
+    ? steerBrief(concept.name, finish)
+    : null;
   if (host) {
     // The analog is already the construction. The recipe paragraph is
     // how a confirm-only prompt blows a prompt-token cap; the title
@@ -200,6 +207,9 @@ export const conceptPrompt = (
     );
   } else if (steer) {
     lines.push(steer);
+  }
+  if (concept.guidance) {
+    lines.push(`Art direction: ${concept.guidance}`);
   }
   if (concept.category) {
     lines.push(`Category: ${concept.category}.`);

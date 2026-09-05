@@ -33,6 +33,7 @@ const paint = (spec: Spec): { bar: number; half: number } => ({
 });
 
 interface Sized {
+  visualBbox?: () => { h: number; w: number } | null;
   bbox: () => { h: number; w: number } | null;
   inkWidth: number;
 }
@@ -48,6 +49,10 @@ const rect = (x: number, y: number, w: number, h: number, r?: number): string =>
  * This is the quantity that matches in 94% of house pairs.
  */
 export const visualSize = (canvas: Sized): { h: number; w: number } | null => {
+  if (canvas.visualBbox) {
+    const box = canvas.visualBbox();
+    return box ? { h: box.h, w: box.w } : null;
+  }
   const box = canvas.bbox();
   if (!box) {
     return null;
@@ -531,6 +536,12 @@ const shrink = (
  * preserves the visual extent and every interior — the property that is
  * checkable — and `glyphs.ts` is where a chosen filled composition goes.
  */
+const rejectDetailAdaptation = (ops: ReturnType<typeof parseOp>[]): void => {
+  if (ops.some((op) => op.word === "line" && op.args.includes("detail"))) {
+    throw new Error("Detail weight requires an authored counterpart");
+  }
+};
+
 export const adaptProgram = (
   source: string,
   finish: Finish,
@@ -538,11 +549,21 @@ export const adaptProgram = (
 ): string => {
   const { bar, half } = paint(spec);
   const ops = source.split("\n").map(parseOp);
+  rejectDetailAdaptation(ops);
   const out: string[] = [];
   let sawFinish = false;
   let headerAt = 0;
   for (let i = 0; i < ops.length; i += 1) {
     const op = ops[i];
+    if (
+      finish === "outlined" &&
+      op.word === "line" &&
+      op.args.includes("solid")
+    ) {
+      throw new Error(
+        "Explicit solid contour requires an authored outlined counterpart"
+      );
+    }
     if (isHeader(op.word)) {
       headerAt = out.length + 1;
     }
@@ -553,7 +574,11 @@ export const adaptProgram = (
     }
     if (finish === "filled") {
       if (op.word === "line") {
-        out.push(...splitPolyline(snappedLine(op.raw.trim(), spec)));
+        if (op.args.some((arg) => /^r/iu.test(arg))) {
+          out.push(op.raw);
+        } else {
+          out.push(...splitPolyline(snappedLine(op.raw.trim(), spec)));
+        }
         continue;
       }
       const grown = grow(op, bar, half);
@@ -592,30 +617,16 @@ const TURN_WORD: Record<number, string> = {
 const lineOf = (op: Extract<DrawOp, { op: "line" }>): string => {
   const hole = op.knockout ? "hole " : "";
   const axis = op.offAxis ? " off-axis" : "";
-  return `${hole}line ${pointsOf(op.points)}${axis}`;
+  return `${hole}line ${pointsOf(op.points)}${op.r === undefined ? "" : ` r${fmt(op.r)}`}${axis}${op.solid ? " solid" : ""}${op.weight ? " detail" : ""}`;
 };
 
-const partOf = (
-  op: Extract<DrawOp, { op: "part" }>,
-  parts: readonly Part[]
-): string => {
+const partOf = (op: Extract<DrawOp, { op: "part" }>): string => {
   const bits = [`part ${op.id}`, "at", `${fmt(op.x)},${fmt(op.y)}`];
   if (op.scale !== 1) {
-    // The DSL `size` keyword is a *target span*, not a scale factor: placePart
-    // reads it as `k = size / max(pw, ph)`. Emitting the raw `op.scale` made a
-    // part placed at scale 2 replay at 1/span of that, so anything but scale 1
-    // round-tripped to a wildly different size. Convert back through the part's
-    // turned extent — the same transposition placePart measured `k` against.
-    const part = parts.find((candidate) => candidate.id === op.id);
-    if (part) {
-      const [pw, ph] = op.turn % 2 === 0 ? [part.w, part.h] : [part.h, part.w];
-      const span = Math.max(pw, ph) || 1;
-      bits.push("size", fmt(op.scale * span));
-    } else {
-      // No vocabulary to convert against — best effort, and completeProgram
-      // will catch the mismatch rather than a wrong size shipping silently.
-      bits.push("size", fmt(op.scale));
-    }
+    // The multiplier belongs to the replay contract rather than the display
+    // grid. Preserve its full numeric value so one-third does not become a
+    // different document after serialization.
+    bits.push("scale", String(op.scale));
   }
   const turn = TURN_WORD[op.turn];
   if (turn) {
@@ -627,7 +638,12 @@ const partOf = (
   return bits.join(" ");
 };
 
-const opLine = (op: DrawOp, parts: readonly Part[]): string | null => {
+const opLine = (op: DrawOp): string | null => {
+  if (op.op === "boolean") {
+    return [...op.left.map(opLine), ...op.right.map(opLine), op.operation].join(
+      "\n"
+    );
+  }
   if (op.op === "raw") {
     return null;
   }
@@ -637,7 +653,7 @@ const opLine = (op: DrawOp, parts: readonly Part[]): string | null => {
   }
   if (op.op === "rect") {
     const hole = op.knockout ? "hole " : "";
-    const corner = op.r > 0 ? ` r${fmt(op.r)}` : "";
+    const corner = ` r${fmt(op.r)}`;
     return `${hole}rect ${fmt(op.x)},${fmt(op.y)} ${fmt(op.w)}x${fmt(op.h)}${corner}`;
   }
   if (op.op === "line") {
@@ -653,7 +669,7 @@ const opLine = (op: DrawOp, parts: readonly Part[]): string | null => {
   if (op.op === "diamond") {
     return `diamond ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.reach)}`;
   }
-  return partOf(op, parts);
+  return partOf(op);
 };
 
 /**
@@ -666,7 +682,7 @@ const opLine = (op: DrawOp, parts: readonly Part[]): string | null => {
  */
 export const programFromDoc = (
   doc: IconDoc,
-  parts: readonly Part[] = []
+  _parts: readonly Part[] = []
 ): string => {
   const lines = [`icon ${doc.icon ?? "icon"}`];
   if (doc.keyline) {
@@ -674,7 +690,7 @@ export const programFromDoc = (
   }
   lines.push(`finish ${doc.finish ?? "outlined"}`);
   for (const op of doc.draw) {
-    const line = opLine(op, parts);
+    const line = opLine(op);
     if (line !== null) {
       lines.push(line);
     }

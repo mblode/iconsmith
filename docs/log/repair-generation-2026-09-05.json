@@ -1,0 +1,744 @@
+{
+  "runs": [
+    {
+      "id": "folder-lock-trim",
+      "actualUsd": 0.8539760000000001,
+      "state": "complete",
+      "attempts": null,
+      "classification": "rejected developmental experiment",
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-filled.artifact.json",
+          "sha256": "1274a3dc6283e1cb266ae1ed0f20ad24fe2e36e6eb8f620109c5ab4debdb7645"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-filled.icon",
+          "sha256": "7046fc9ec80ab30776044239e86d0d32c1833ec17401ebba4ac7e1566aca7fdf"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-filled.native.png",
+          "sha256": "cd4de1d91d6b49064386cc35566aeca61b9953ea3e7be1f1fa151a5c519a7a63"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-filled.svg",
+          "sha256": "d43b2eb4b41ed88a69d0af5221216c94158a6d68ff68751cf678db127d6f21ce"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-outlined.artifact.json",
+          "sha256": "90178d562d48bc60e0ba6eae590c1c66ddf6ca7d28b64f7fd7b2e5f003101e47"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-outlined.icon",
+          "sha256": "b6e96db1f63bbc1d2d95c315413a9f4365d9a198b4f99fbcfdc093feddca77db"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-outlined.native.png",
+          "sha256": "9d3e4fcad755971b61e60115c0fc4ef773246826b90ef3c661f11662a120cc0b"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-outlined.svg",
+          "sha256": "0cc41340f4cf6a9239f8143d94ee1a8aecb646759d5a9d15b088180433af6440"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/filled.attempt.json",
+          "sha256": "b5bc9362c63418bd3893e12bf97a33c3c601b7b058629538728faf89e4c94721"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/filled.attempt.svg",
+          "sha256": "d43b2eb4b41ed88a69d0af5221216c94158a6d68ff68751cf678db127d6f21ce"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/outlined.attempt.json",
+          "sha256": "693099bcd88cfb1e21fb430fb71d01d73736e5c279d737a39497ec7093aa08c8"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/outlined.attempt.svg",
+          "sha256": "0cc41340f4cf6a9239f8143d94ee1a8aecb646759d5a9d15b088180433af6440"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/outlined.large.png",
+          "sha256": "bbd0ebe8f7df94de9ad668bbc91050235baa5aec0a645ea4b44b8b11151c0f09"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/plan.json",
+          "sha256": "4769dfeddc6d6f4722e93dd31d2f49479a0e65782cb58c8e8b6a340114e63dbb"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/result.json",
+          "sha256": "fa487293127b2e9737ad8a13023854fda340fc9025413f74be15d27e840e413d"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-trim/revision.json",
+          "sha256": "122fe8a265bc46e65d9159091b5673cac0cef79387fb83ae32e9968180aefd55"
+        }
+      ]
+    },
+    {
+      "id": "folder-lock-retained-fill",
+      "actualUsd": 0.36568174999999997,
+      "state": "complete",
+      "attempts": null,
+      "classification": "rejected developmental experiment",
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-retained-fill/outlined.attempt.json",
+          "sha256": "31d23e4d768d73b5f2fc0cecdc0ad0779675306eae8d4e08668070b285e0c412"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-retained-fill/outlined.attempt.svg",
+          "sha256": "9c203e7e9a556b1b2353097bd11d4ecf6ae61033eb9d4855b3534ac7451b5e26"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-retained-fill/outlined.large.png",
+          "sha256": "2931fefefc08a1d96cc4cb675c4d40b553939365c7b6fed1c3954e3b1a75924f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-retained-fill/plan.json",
+          "sha256": "39756af10ad5bee31066abc2bf2d3f6a4397bb44c84a16149ac472e2cb94ef61"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-retained-fill/result.json",
+          "sha256": "8f2badd5f0154d9758b471eb38fa85a9240c042293c502664cb68e4c6da3a416"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-retained-fill/revision.json",
+          "sha256": "40292dd2cb0cd47ae4b17c5bd4e465bb8e2b6129057cf0071af0f1a1166eee49"
+        }
+      ]
+    },
+    {
+      "id": "folder-lock-program-repair",
+      "actualUsd": 0.23141974999999998,
+      "state": "complete",
+      "attempts": [
+        {
+          "i": 1,
+          "error": "Error: Style program did not compile: line 12 (fit): Transform the operands before Boolean composition"
+        },
+        {
+          "i": 2,
+          "error": "TypeError: src.split is not a function"
+        },
+        {
+          "i": 3,
+          "error": "TypeError: src.split is not a function"
+        }
+      ],
+      "classification": "rejected developmental experiment",
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/AUDIT.json",
+          "sha256": "7deec0483ccc365fe9b63823a945c179df20a4d5f9fee8c65286eef28c5cab10"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/BRIEF.md",
+          "sha256": "330a8f9de56ce40c8389478a5aa72d5543c22ddcc1b4e1531b2140c8d3c47bbd"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/PREVIEW.png",
+          "sha256": "63fe102d0ad3d226a8da7ce642f9172361a7f41722691f07a528e6a45aaa9080"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/SKILL.md",
+          "sha256": "5b92dddf08ca8b42ea4adbdc0cf9e18efcf129ad0005fcb1ede3323fc76191b3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-1.icon",
+          "sha256": "49e331a88a586fc786b5dee54c283f9516ce666ed683c6cadaeb03619537ba0e"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-2.icon",
+          "sha256": "6f8464f9df8174a6591f3e22d1c1d4ea8919ade8ac7a00230c048145e20f6854"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-2.png",
+          "sha256": "4d027d99179153795860f50b4f45e4a1f82100020e3d773d267a4b31d45e1b5e"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-2.svg",
+          "sha256": "d09c3e2c1761edbebbdb29005cbad1fb07eef4a92a9b2467478494866c7d8266"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-3.icon",
+          "sha256": "65f5cc843c320b30efd4538f2eec5f43e86c2e2691a3c96aeb798b50b24f3b49"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-3.png",
+          "sha256": "3c5c472b0f976742a1b4550dbc6af6612d00d2fe3d29f957a5c45ca2d69094dd"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/attempt-3.svg",
+          "sha256": "3cbe5004a63048bce50f93f5351822e0548d45c5840acf7635edd924e5e7d16d"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/icon.icon",
+          "sha256": "65f5cc843c320b30efd4538f2eec5f43e86c2e2691a3c96aeb798b50b24f3b49"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/parts.json",
+          "sha256": "22976c54c0b03cee538b4d1ff1e89e88e4419d49829949a33be79da8e7ffdbdc"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/result.json",
+          "sha256": "db5b9d388695b47571befe596f95d7f7f11017023f6181392d9dc850ce7228f7"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair/revision.json",
+          "sha256": "40292dd2cb0cd47ae4b17c5bd4e465bb8e2b6129057cf0071af0f1a1166eee49"
+        }
+      ]
+    },
+    {
+      "id": "folder-lock-program-repair-02",
+      "actualUsd": 0.37847525,
+      "state": "complete",
+      "attempts": [
+        {
+          "i": 1,
+          "review": {
+            "cost": {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QT7NAMESS55YBRY9W8K0A6"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 18159,
+                "outputTokens": 828,
+                "reasoningTokens": 666
+              },
+              "usd": 0.01672425
+            },
+            "findings": [
+              {
+                "kind": "gap",
+                "message": "The internal gaps inside the lock badge are too tight, causing the body and keyhole cutout to crowd and blur at 24px."
+              },
+              {
+                "kind": "belong",
+                "message": "The lock badge geometry is overly rounded and cramped compared to the cleaner, squarer lock style established in the family."
+              }
+            ],
+            "ok": false,
+            "pq": 7,
+            "reason": "The folder container is cleanly drawn and well-balanced, but the secondary lock badge suffers from severe internal clearance issues and tiny negative spaces that clog at standard display sizes.",
+            "sc": 9.5,
+            "scorable": true,
+            "stage": "screen"
+          },
+          "pairIssues": [
+            {
+              "message": "Filled visual extent 20.0\u00d717.0 does not match outlined 20.0\u00d718.5. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+              "rule": "extent",
+              "severity": "error"
+            },
+            {
+              "message": "e4 and e5 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e4 and e10 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "exactReplay": true
+        },
+        {
+          "i": 2,
+          "review": {
+            "cost": {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QT8W28ZFFJT088VSEJ9S8X"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 18159,
+                "outputTokens": 893,
+                "reasoningTokens": 724
+              },
+              "usd": 0.016968
+            },
+            "findings": [
+              {
+                "kind": "object",
+                "message": "The badge geometry is distorted; it uses two narrow vertical slots instead of the set's standard padlock body with a single centered keyhole slit and distinct shackle."
+              },
+              {
+                "kind": "gap",
+                "message": "The internal gaps inside the lock body are too tight, causing them to clog and lose definition at 24px."
+              }
+            ],
+            "ok": false,
+            "pq": 5.5,
+            "reason": "The folder cut-out integrates well, but the lock badge has irregular geometry with two tight vertical slits that clog at small sizes and deviate from the family's padlock design.",
+            "sc": 7.5,
+            "scorable": true,
+            "stage": "screen"
+          },
+          "pairIssues": [
+            {
+              "message": "Filled visual extent 20.0\u00d717.0 does not match outlined 19.2\u00d717.0. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+              "rule": "extent",
+              "severity": "error"
+            },
+            {
+              "message": "e4 and e5 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e4 and e10 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "exactReplay": true
+        },
+        {
+          "i": 3,
+          "review": {
+            "cost": {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QTARB5ZZ6JV36AQVP5HZX1"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 18159,
+                "outputTokens": 589,
+                "reasoningTokens": 419
+              },
+              "usd": 0.015828
+            },
+            "findings": [
+              {
+                "kind": "object",
+                "message": "The lock glyph does not follow the family's lock construction (shackle plus body with keyhole); its solid arched silhouette with an inner square and dot reads ambiguously as a camera or eye rather than a padlock."
+              },
+              {
+                "kind": "finish",
+                "message": "The lock element is rendered as an inverted solid block instead of following the outlined finish of the set."
+              }
+            ],
+            "ok": false,
+            "pq": 4,
+            "reason": "The folder stroke is clean, but the lock badge has incorrect geometry, inconsistent finish, and non-standard internal detailing that obscures what it depicts.",
+            "sc": 4.5,
+            "scorable": true,
+            "stage": "screen"
+          },
+          "pairIssues": [
+            {
+              "message": "e4 and e5 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e4 and e10 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "exactReplay": true
+        }
+      ],
+      "classification": "rejected developmental experiment",
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/AUDIT.json",
+          "sha256": "9d4b08ba2f080e484955c06968a076b2596e8c14826a357350b7792a5546af2a"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/BRIEF.md",
+          "sha256": "330a8f9de56ce40c8389478a5aa72d5543c22ddcc1b4e1531b2140c8d3c47bbd"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/PREVIEW.png",
+          "sha256": "498c8f6477c5ea2b14b5ca42e1305da01b0a04570566c7e4197b6b0a2d285274"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/SKILL.md",
+          "sha256": "5b92dddf08ca8b42ea4adbdc0cf9e18efcf129ad0005fcb1ede3323fc76191b3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-1.audit.json",
+          "sha256": "168f72399120d3578f97d6d59db52afc476f17da4aa24c9a0f5b74a1660d4b26"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-1.icon",
+          "sha256": "c29f8e7349edfd3cf4dc1a32021151e53ada066e66b93c109bf990b4d004279c"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-1.png",
+          "sha256": "05e59a5298d167b251394b28f03e676331c648b12563aab7d6b1aa57558e6301"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-1.svg",
+          "sha256": "0921d91d5d70c5bae38f045300aa3c42a6a0d4592e5ecbc8df1df5da9f577578"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-2.audit.json",
+          "sha256": "54fb4201d59a2cf86f1b483b8c905080ddb8a52107b6087b99aec29719020b6b"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-2.icon",
+          "sha256": "0a10a9ac4564c653dca36bc16266ab701c8e2ea6719269e7769ded8d43283c65"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-2.png",
+          "sha256": "cb8adf4988826ea6acaa6532a45eca24fcc9b73a191360fa3611f4e622ce7257"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-2.svg",
+          "sha256": "b68542633926d44755160747ff915bfc813b9ad3b84dc1233fdca03650da15ff"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-3.audit.json",
+          "sha256": "ad2eee4a7b80ba6d40fce0fd8b5d1c6ee6c4d8217c20a8831c91b042917d0ebb"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-3.icon",
+          "sha256": "a5e3ebf3473018ed96eceef13b48b49cfe12f882a618b24ed1765a6a06683c25"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-3.png",
+          "sha256": "498c8f6477c5ea2b14b5ca42e1305da01b0a04570566c7e4197b6b0a2d285274"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/attempt-3.svg",
+          "sha256": "30cdbfecf1ccb67c9b17fd3a2726e444852c173ec691016d554a0578ba500925"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/icon.icon",
+          "sha256": "a5e3ebf3473018ed96eceef13b48b49cfe12f882a618b24ed1765a6a06683c25"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/parts.json",
+          "sha256": "22976c54c0b03cee538b4d1ff1e89e88e4419d49829949a33be79da8e7ffdbdc"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/result.json",
+          "sha256": "644d386be8b0146ec98c216c073b7dcc1435146a85acb1be8479b6c30f2c506e"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-program-repair-02/revision.json",
+          "sha256": "40292dd2cb0cd47ae4b17c5bd4e465bb8e2b6129057cf0071af0f1a1166eee49"
+        }
+      ]
+    },
+    {
+      "id": "folder-lock-counter-repair",
+      "actualUsd": 0.25679,
+      "state": "complete",
+      "attempts": [
+        {
+          "i": 1,
+          "error": "Claude Gateway returned no complete .icon program: the response was empty and was cut at the output-token limit. Full response at REJECTED.txt."
+        }
+      ],
+      "classification": "rejected developmental experiment",
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/AUDIT.json",
+          "sha256": "a8b5e558d47eb94b71995fff04056b19288598466b546042160808ad8ac71398"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/BRIEF.md",
+          "sha256": "6970439e36abdc802e542f543b8ec67621a15e29acce5687b9b35c32b9ebac9c"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/PREVIEW.png",
+          "sha256": "63fe102d0ad3d226a8da7ce642f9172361a7f41722691f07a528e6a45aaa9080"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/REJECTED.txt",
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/SKILL.md",
+          "sha256": "5b92dddf08ca8b42ea4adbdc0cf9e18efcf129ad0005fcb1ede3323fc76191b3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/attempt-1.icon",
+          "sha256": "65f5cc843c320b30efd4538f2eec5f43e86c2e2691a3c96aeb798b50b24f3b49"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/icon.icon",
+          "sha256": "65f5cc843c320b30efd4538f2eec5f43e86c2e2691a3c96aeb798b50b24f3b49"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/parts.json",
+          "sha256": "22976c54c0b03cee538b4d1ff1e89e88e4419d49829949a33be79da8e7ffdbdc"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/result.json",
+          "sha256": "745228bd7ae3b83e2e79f45682a9673c46a44fd8c67b21b6c425961bb2abdeeb"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-counter-repair/revision.json",
+          "sha256": "40292dd2cb0cd47ae4b17c5bd4e465bb8e2b6129057cf0071af0f1a1166eee49"
+        }
+      ]
+    },
+    {
+      "id": "folder-lock-astra-repair",
+      "actualUsd": 0.49989549999999994,
+      "state": "complete",
+      "attempts": [
+        {
+          "i": 1,
+          "review": {
+            "cost": {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QTT938PSE86GYFYGR6N4WJ"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 18159,
+                "outputTokens": 862,
+                "reasoningTokens": 710
+              },
+              "usd": 0.01685175
+            },
+            "findings": [
+              {
+                "kind": "weight",
+                "message": "The lock badge is drawn with heavy, uneven strokes and undersized internal counters, causing the shackle arch and keyhole to clog at icon scale."
+              },
+              {
+                "kind": "belong",
+                "message": "The lock body has sharp interior corners that conflict with the fully rounded corner language established across the icon set."
+              }
+            ],
+            "ok": false,
+            "pq": 5.5,
+            "reason": "The folder container matches the family style well, but the lock badge is awkwardly proportioned and lacks the necessary clearance and stroke consistency, muddying into an unreadable shape at 24px.",
+            "sc": 7.5,
+            "scorable": true,
+            "stage": "screen"
+          },
+          "pairIssues": [
+            {
+              "message": "e4 and e5 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e4 and e10 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "exactReplay": true
+        },
+        {
+          "i": 2,
+          "review": {
+            "cost": {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QTW87XRC7CZ3QT8W8BMDG5"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 18159,
+                "outputTokens": 979,
+                "reasoningTokens": 806
+              },
+              "usd": 0.0172905
+            },
+            "findings": [
+              {
+                "kind": "object",
+                "message": "The lock badge is constructed with two stacked loops, making it read as a digit '8' or a kettlebell rather than a padlock with a distinct body and shackle."
+              },
+              {
+                "kind": "belong",
+                "message": "The lock geometry deviates from the family's padlock language, which uses a defined rectangular or circular body with a vertical keyhole slit."
+              }
+            ],
+            "ok": false,
+            "pq": 6,
+            "reason": "The folder container is drawn cleanly and integrates well with the open corner, but the lock element suffers from awkward geometry that looks like a figure-8 rather than a padlock.",
+            "sc": 6.5,
+            "scorable": true,
+            "stage": "screen"
+          },
+          "pairIssues": [
+            {
+              "message": "e4 and e5 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e4 and e10 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "exactReplay": true
+        },
+        {
+          "i": 3,
+          "review": {
+            "cost": {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QTXK2HPH95AHX17CYV6ERW"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 18159,
+                "outputTokens": 796,
+                "reasoningTokens": 652
+              },
+              "usd": 0.01660425
+            },
+            "findings": [
+              {
+                "kind": "finish",
+                "message": "The padlock badge uses an inverted solid block with an inner cutout and dot rather than a uniform 2px outline stroke matching the family style."
+              },
+              {
+                "kind": "weight",
+                "message": "The tiny white box and black dot inside the lock body fill in and lose clarity at 24px."
+              }
+            ],
+            "ok": false,
+            "pq": 6.5,
+            "reason": "The folder container matches the family conventions well, but the lock badge deviates into an awkward inverted/solid treatment with tiny interior details that plug up at icon scale.",
+            "sc": 9.5,
+            "scorable": true,
+            "stage": "screen"
+          },
+          "pairIssues": [
+            {
+              "message": "e4 and e5 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e4 and e10 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "exactReplay": true
+        }
+      ],
+      "classification": "rejected developmental experiment",
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/AUDIT.json",
+          "sha256": "91f63a0e79fcc9d483cf6e40da211efee4d0ff3c0fc7d0760a84fd4beb4aaa02"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/BRIEF.md",
+          "sha256": "6970439e36abdc802e542f543b8ec67621a15e29acce5687b9b35c32b9ebac9c"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/PREVIEW.png",
+          "sha256": "44e5c3786b8bf3a4007f0287e5116aa04774c522a6d67153b889f8fa93dff47f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/SKILL.md",
+          "sha256": "5b92dddf08ca8b42ea4adbdc0cf9e18efcf129ad0005fcb1ede3323fc76191b3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-1.audit.json",
+          "sha256": "bf7aff30e55c7a143286a0b2b922cd0d8f518bd786c9e12b43490d8331169470"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-1.icon",
+          "sha256": "83780077dac5a05180185e82c98d896bde3a1aee2533c5fd94c59646b4d43d81"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-1.png",
+          "sha256": "03d37c02b1271a7a84a2e372aba86fc1c79b14a2e106f2ebd89764a040031da6"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-1.svg",
+          "sha256": "39e5d53791e12ad72e5107e7c9d1f414087d9ab5425d02c9cf6dce67d5c087f9"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-2.audit.json",
+          "sha256": "336bb42777e78f2d0bc424ea959d54f87fc01fec5adc0c0d089699b4cc0d5a19"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-2.icon",
+          "sha256": "a39ed8dee8f62917b0a0af3fa4fa20f3aa22e4e3ba78d76f6c46a0260b83041e"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-2.png",
+          "sha256": "e34178ba6f45b12a0f3ba1b53a6a9abbc7970ae8d1b79291de9205e63802e9ab"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-2.svg",
+          "sha256": "fe49277e48b1c08acaf5577ac81abca2f565f165678e691e9b6cb060c5f68b47"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-3.audit.json",
+          "sha256": "a34f7105663b508f6c10056c2e4bd3146858c686322943b1c90aa6b66cebe737"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-3.icon",
+          "sha256": "ba5e48d675ee4c82cc73c747bba2c65ee3e03ab185b475bc6f2f46afa44dc04f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-3.png",
+          "sha256": "44e5c3786b8bf3a4007f0287e5116aa04774c522a6d67153b889f8fa93dff47f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/attempt-3.svg",
+          "sha256": "35ebfa795078c07131122ea335915685f8a335ede8af5877b839d161081bbd89"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/icon.icon",
+          "sha256": "ba5e48d675ee4c82cc73c747bba2c65ee3e03ab185b475bc6f2f46afa44dc04f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/parts.json",
+          "sha256": "22976c54c0b03cee538b4d1ff1e89e88e4419d49829949a33be79da8e7ffdbdc"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/result.json",
+          "sha256": "e23281b340aa1d715e7b9e6cdbf2c5e3afef53a1d483e55a69723d1cda5790a3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-astra-repair/revision.json",
+          "sha256": "40292dd2cb0cd47ae4b17c5bd4e465bb8e2b6129057cf0071af0f1a1166eee49"
+        }
+      ]
+    }
+  ],
+  "settledTotalUsd": 10.659049600000001,
+  "outstandingUsd": 0
+}

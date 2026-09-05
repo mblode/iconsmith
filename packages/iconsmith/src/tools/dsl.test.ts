@@ -2,11 +2,12 @@ import { expect, test } from "vitest";
 
 import { bbox, parsePath } from "../geometry/path.js";
 import type { Part } from "../types.js";
-import { SPEC, specAt } from "./canvas.js";
+import { Canvas, SPEC, specAt } from "./canvas.js";
 import type { CohortMember } from "./cohort.js";
 import { buildCohorts, measure } from "./cohort.js";
 import { run } from "./dsl.js";
 import { lint } from "./lint.js";
+import { programFromDoc } from "./twin.js";
 
 const PARTS: Part[] = [
   {
@@ -522,4 +523,40 @@ test("an error names the source line, counting comments and blanks", () => {
   const r = run("# a comment\n\nicon z\nbogus 1,2\n");
   expect(r.errors).toHaveLength(1);
   expect(r.errors[0]).toMatch(/^line 4 /u);
+});
+
+test("scaled component programs preserve multiplier, paint, turn and reflection", () => {
+  for (const finish of ["outlined", "filled"] as const) {
+    for (const scale of [1 / 3, 0.45]) {
+      const canvas = new Canvas(PARTS, { finish });
+      canvas.part({
+        flip: true,
+        id: "p0031",
+        scale,
+        turn: 1,
+        x: 14,
+        y: 12,
+      });
+      const doc = canvas.toJSON({ icon: "scaled-component" });
+      const source = programFromDoc(doc);
+      expect(source).toContain(`scale ${scale}`);
+      const replay = run(source, PARTS);
+      expect(replay.errors).toEqual([]);
+      expect(replay.canvas.toSVG()).toBe(canvas.toSVG());
+      expect(replay.canvas.toJSON({ icon: "scaled-component" })).toEqual(doc);
+    }
+  }
+  expect(
+    run("part p0031 at 3,4 size 4", PARTS).canvas.toJSON().draw[0]
+  ).toMatchObject({ scale: 0.5 });
+  for (const sizing of [
+    "scale 0",
+    "scale -1",
+    "scale 1 size 4",
+    "scale 1 fill",
+  ]) {
+    expect(
+      run(`part p0031 at 3,4 ${sizing}`, PARTS).errors.length
+    ).toBeGreaterThan(0);
+  }
 });

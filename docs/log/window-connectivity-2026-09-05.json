@@ -1,0 +1,266 @@
+{
+  "interpretation": "Thresholded raster evidence only. Connectedness is not a universal craft rule.",
+  "rows": [
+    {
+      "id": "P",
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-family-refine-01/window-lock/filled.svg",
+      "measures": [
+        {
+          "size": 16,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            26,
+            14,
+            11
+          ]
+        },
+        {
+          "size": 16,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            71,
+            28
+          ]
+        },
+        {
+          "size": 16,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            75,
+            34
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            112,
+            48
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            138,
+            64
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            161,
+            79
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            8772,
+            3914
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            8802,
+            3956
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            8847,
+            4012
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q",
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-family-development-01/window-lock/filled.svg",
+      "measures": [
+        {
+          "size": 16,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            38,
+            35
+          ]
+        },
+        {
+          "size": 16,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            104
+          ]
+        },
+        {
+          "size": 16,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            124
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            219
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            229
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            233
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            14429
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            14491
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            14574
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R",
+      "source": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/window-square-locked-filled.svg",
+      "measures": [
+        {
+          "size": 16,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            35,
+            34,
+            16
+          ]
+        },
+        {
+          "size": 16,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            74,
+            42
+          ]
+        },
+        {
+          "size": 16,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            78,
+            46
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            92,
+            84,
+            54
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            97,
+            92,
+            58
+          ]
+        },
+        {
+          "size": 24,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            99,
+            92,
+            62
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 64,
+          "connectivity": 8,
+          "componentAreas": [
+            6135,
+            5828,
+            3636
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 128,
+          "connectivity": 8,
+          "componentAreas": [
+            6166,
+            5850,
+            3669
+          ]
+        },
+        {
+          "size": 192,
+          "threshold": 192,
+          "connectivity": 8,
+          "componentAreas": [
+            6190,
+            5930,
+            3704
+          ]
+        }
+      ]
+    }
+  ]
+}

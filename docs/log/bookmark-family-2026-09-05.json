@@ -1,0 +1,93 @@
+{
+  "out": ".staging/foundry-round-1/bookmark-family-compiler7-01",
+  "rows": [
+    {
+      "name": "bookmark-check",
+      "source": ".staging/foundry-round-1/solid-bookmark-compiler7-01",
+      "parentHashes": [
+        "bdf4347d17b283736b6121c8aba0a3a3f950bda750f411d4f7536b2153ebc424",
+        "4ee51754b03d6ec46cd9fcc2a244a14a94437833c9624e7fb3cba42ec430423a"
+      ],
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [
+          {
+            "declared": "off-axis",
+            "message": "\"e0\" has an edge at 30.4\u00b0, 14.6\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+            "rule": "off-axis",
+            "severity": "warn",
+            "finish": "outlined"
+          }
+        ],
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "pairChecked": true,
+        "pairIssues": [],
+        "preview16": "downsample",
+        "snapshot": ".staging/foundry-round-1/bookmark-family-compiler7-01/bookmark-check/check-ME7RnI",
+        "style": "e9451674a8bfd374e6070a6e25120038f9f553fde62a972c7e4211748acf8e5f"
+      },
+      "nonParentProgramUnchanged": true,
+      "nonParentProgramSha256": {
+        "outlined": "e424134b67df3a620e409e86f417a9784e236d45c5c672b30a5bcf976b6f5c29",
+        "filled": "4602f7c8a25dddbfaa692237123cff5b56c739b124a987990db7fc80665346d7"
+      }
+    },
+    {
+      "name": "bookmark-pause",
+      "source": ".staging/foundry-round-1/local-bookmark-pause-compiler7-01",
+      "parentHashes": [
+        "bdf4347d17b283736b6121c8aba0a3a3f950bda750f411d4f7536b2153ebc424",
+        "4ee51754b03d6ec46cd9fcc2a244a14a94437833c9624e7fb3cba42ec430423a"
+      ],
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [
+          {
+            "declared": "off-axis",
+            "message": "\"e0\" has an edge at 30.4\u00b0, 14.6\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+            "rule": "off-axis",
+            "severity": "warn",
+            "finish": "outlined"
+          }
+        ],
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "pairChecked": true,
+        "pairIssues": [],
+        "preview16": "downsample",
+        "snapshot": ".staging/foundry-round-1/bookmark-family-compiler7-01/bookmark-pause/check-upZD6R",
+        "style": "e9451674a8bfd374e6070a6e25120038f9f553fde62a972c7e4211748acf8e5f"
+      },
+      "nonParentProgramUnchanged": true,
+      "nonParentProgramSha256": {
+        "outlined": "f36909aff35cd77cd6d66338b6a123af9ccf3ceba9d4263f0e75796267bf99f5",
+        "filled": "17cc53f14054ff4c6e73412e1983eb8c9324dcb1310a1f5f7fdb344447bee469"
+      }
+    }
+  ],
+  "sharedParentSource": ".staging/foundry-round-1/local-bookmark-pause-compiler7-01/outlined.icon",
+  "parent": "line 4.75,21.5 4.75,2.75 19.25,2.75 19.25,21.5 12,17.25 4.75,21.5 r1 off-axis",
+  "filledParent": "line 4.75,21.5 4.75,2.75 19.25,2.75 19.25,21.5 12,17.25 4.75,21.5 r1 solid off-axis",
+  "assembly": "Host reuses unchanged AI parent from A059 for both concepts; modifier programs unchanged. This is assembly of AI artwork, not two fresh authoring calls.",
+  "parentIdentityVerified": true,
+  "craftApproved": false,
+  "nativeSize": 24,
+  "preview16": "downsample",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "hostInspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "hostVisual": "Shared parent is consistent across check/pause and paints; modifiers readable. Development assembly only, no independent craft approval."
+}

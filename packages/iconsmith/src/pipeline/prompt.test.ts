@@ -7,6 +7,16 @@ import {
   systemPrompt,
 } from "./prompt.js";
 
+test("fresh generation never claims a house analog is already on its canvas", () => {
+  const prompt = conceptPrompt({ name: "home" }, "outlined", {
+    allowHouseConstruction: false,
+  });
+  expect(prompt).not.toContain("already holds");
+  expect(prompt).not.toContain("Call confirm");
+  expect(prompt).toContain("Compose the named object");
+  expect(conceptPrompt({ name: "home" })).toContain("Call confirm");
+});
+
 test("a seeded confirm prompt is the spec and the paint, not the grammar", () => {
   const outlined = confirmSystemPrompt();
   expect(outlined).toContain("24×24");

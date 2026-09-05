@@ -1,0 +1,16 @@
+{
+  "out": ".staging/foundry-round-1/square-cap-host-proof-01",
+  "source": ".staging/foundry-round-1/local-sharp-folder-01/outlined.svg",
+  "scope": "Host cap derivation of unchanged AI centerlines. Not fresh authorship or selected-style support.",
+  "order": [
+    "AI round-cap original",
+    "host square-cap expansion",
+    "source square-cap neighbor"
+  ],
+  "join": "miter",
+  "cap": "square",
+  "width": 1.5,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "craftApproved": false
+}

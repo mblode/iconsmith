@@ -90,7 +90,15 @@ export type DotRole = "floating" | "more" | "node" | "terminal";
  */
 export type Finish = "filled" | "outlined";
 
+export interface BooleanDrawOp {
+  op: "boolean";
+  operation: "subtract" | "trim" | "union";
+  left: DrawOp[];
+  right: DrawOp[];
+}
+
 export type DrawOp =
+  | BooleanDrawOp
   | {
       /** Present when the arc runs counter-clockwise. Absent, not `false`,
        *  when it follows `circle` (top → right → bottom → left). */
@@ -159,6 +167,10 @@ export type DrawOp =
        *  `false`, when the line is axial: the key appears with the geometry. */
       offAxis?: boolean;
       op: "line";
+      solid?: true;
+      weight?: "detail";
+      /** Optional family-tier circular fillets; outlined only. */
+      r?: number;
       points: [number, number][];
     };
 

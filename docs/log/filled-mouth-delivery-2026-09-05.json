@@ -1,0 +1,29 @@
+{
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "3143b42251566ac395262dde4d52196117814f07c7c724d8a09a4a8fe4299da5",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [
+      "review.md"
+    ],
+    "reviewContentValidated": false,
+    "status": "incomplete"
+  },
+  "exactReplay": true,
+  "outlinedUnchanged": true,
+  "promoted": false,
+  "reason": "Missing required review; mouth tangent mismatch remains about70.5 degrees versus source0, with visible scalloped transitions.",
+  "evidence": "docs/log/filled-mouth-comparison-2026-09-05.json",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured"
+}

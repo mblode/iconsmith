@@ -1,0 +1,23 @@
+{
+  "file": ".staging/foundry-round-1/local-cloud-base-repair-01/filled.svg",
+  "contours": [
+    {
+      "area": 267.224195454245,
+      "bounds": "{ x: 1, y: 4, width: 22, height: 16 }"
+    },
+    {
+      "area": -0.0010939085400110786,
+      "bounds": "{ x: 14.69829, y: 18.47491, width: 0.08754, height: 0.02509 }"
+    },
+    {
+      "area": -14.374990263790044,
+      "bounds": "{ x: 8.25, y: 10.75, width: 7.5, height: 5.5 }"
+    }
+  ],
+  "probe": [
+    14.755,
+    18.49
+  ],
+  "filledAtProbe": false,
+  "interpretation": "Probe is inside the tiny interior contour. False means an actual transparent hole, not redundant bookkeeping."
+}

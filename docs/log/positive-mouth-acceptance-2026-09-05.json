@@ -1,0 +1,62 @@
+{
+  "experiment": "A057",
+  "author": "native Codex subscription",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "3143b42251566ac395262dde4d52196117814f07c7c724d8a09a4a8fe4299da5",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "hostCheck": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": ".staging/foundry-round-1/local-ticket-positive-envelope-01/check-5x3CTB",
+    "style": "3143b42251566ac395262dde4d52196117814f07c7c724d8a09a4a8fe4299da5"
+  },
+  "outlineUnchanged": true,
+  "sha256": {
+    "outlined.icon": "a29e8dddb317010616e0419d18049214aa4964806bee4a2c641bd34fe7ffc02e",
+    "filled.icon": "30a2045a3eeb5c5daa7c036bb95f03842261a190576de7baf0ef06fc4ce44f26",
+    "outlined.svg": "5d1162929f30cc78956963309f77b97b363db1e60e20cc7dbded38b4ee59f12d",
+    "filled.svg": "0366aaaba253d8446e0bbbb3b54d2a770f642fd3b0f2cf3252dcf80878419ffa"
+  },
+  "visualInspection": {
+    "sizes": [
+      96,
+      24,
+      16
+    ],
+    "order": [
+      "baseline",
+      "positive-envelope",
+      "pathkit-derivation",
+      "source"
+    ],
+    "finding": "Positive-envelope mouth silhouette is visibly smoother than direct cuts. Source uses a different internal symbol; comparison is limited to the parent contour. 16px is a downsample, not an optical master."
+  },
+  "measurements": "docs/log/positive-mouth-comparison-2026-09-05.json",
+  "craftApproved": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

@@ -1,0 +1,74 @@
+{
+  "baseline": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 30.4\u00b0, 14.6\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "e4 contour 2 has a 1.88-unit short-axis bounding box (1.25px at 16px), below the selected 2.25-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+        "rule": "feature",
+        "severity": "warn",
+        "finish": "filled"
+      },
+      {
+        "message": "e4 contour 3 has a 1.88-unit short-axis bounding box (1.25px at 16px), below the selected 2.25-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+        "rule": "feature",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [
+      {
+        "message": "e4 contour 2 has a 1.88-unit short-axis bounding box (1.25px at 16px), below the selected 2.25-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+        "rule": "feature",
+        "severity": "warn"
+      },
+      {
+        "message": "e4 contour 3 has a 1.88-unit short-axis bounding box (1.25px at 16px), below the selected 2.25-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+        "rule": "feature",
+        "severity": "warn"
+      }
+    ],
+    "preview16": "native",
+    "snapshot": ".staging/foundry-round-1/bookmark16-baseline-compiler8-01/check-zwjII3",
+    "style": "f3f96cd30e627d827d1afe20f3c1e90b817214fb1f140b88ceb85b8af5f426dc"
+  },
+  "revised": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 30.4\u00b0, 14.6\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      }
+    ],
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "native",
+    "snapshot": ".staging/foundry-round-1/local-bookmark16-01/check-yLHmwU",
+    "style": "f3f96cd30e627d827d1afe20f3c1e90b817214fb1f140b88ceb85b8af5f426dc"
+  },
+  "scope": "Final Boolean-contour short-axis bounding boxes only; does not measure arbitrary local necks or prove native readability",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0
+}

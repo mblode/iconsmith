@@ -1,0 +1,44 @@
+{
+  "authoredSource": ".staging/foundry-round-1/local-ticket-pair-01",
+  "derivedOutput": ".staging/foundry-round-1/ticket-pair-compiler5-01",
+  "kind": "unchanged AI programs recompiled after host stroke-width correction",
+  "unchangedPrograms": true,
+  "outlineSvgUnchanged": true,
+  "filledSvgSha256": "354f328589d26ba9eecdfb5383112beb3db12b6cdba173695ffccaf9bcb4928f",
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": ".staging/foundry-round-1/ticket-pair-compiler5-01/check-5Ktnb9",
+    "style": "3143b42251566ac395262dde4d52196117814f07c7c724d8a09a4a8fe4299da5"
+  },
+  "transparentCounterSamples": [
+    {
+      "x": 12,
+      "y": 12,
+      "alpha": 0
+    },
+    {
+      "x": 11,
+      "y": 13,
+      "alpha": 0
+    },
+    {
+      "x": 10,
+      "y": 13,
+      "alpha": 0
+    }
+  ],
+  "craftApproved": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "no new author call; prior consumption unmeasured"
+}

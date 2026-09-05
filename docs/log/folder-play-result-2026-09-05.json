@@ -1,0 +1,85 @@
+{
+  "out": ".staging/foundry-round-1/local-square-play-01",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "e4f533622f4e7c233102c2c92f0a98c242cffd7f8215d748a6353960e694ab32",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Content centre is (12.00, 11.67); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.33) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "\"e2\" has an edge at 56.3\u00b0, 11.3\u00b0 off the nearest permitted axis (45\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "declared": "off-axis",
+        "message": "\"e3\" has an edge at 31.6\u00b0, 13.4\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "declared": "off-axis",
+        "message": "\"e3\" has an edge at 148.4\u00b0, 13.4\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Content centre is (12.00, 11.67); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.33) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-square-play-01/check-4GHr3s",
+    "style": "e4f533622f4e7c233102c2c92f0a98c242cffd7f8215d748a6353960e694ab32"
+  },
+  "parentIdentityReceipt": "folder-family-identity-2026-09-05.json",
+  "counterReceipt": "play-counter-raster-2026-09-05.json",
+  "hostInspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "craftApproved": false,
+  "findings": [
+    "Both parent paths exactly match pause sibling",
+    "Fresh author delivered three retained revisions",
+    "Outlined triangle counter is cramped and raster survival claim is unverified: no enclosed transparent region at thresholds128 or254 at24or16",
+    "Needs optical modifier revision, not a shared-parent rewrite"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

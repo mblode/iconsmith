@@ -1,0 +1,117 @@
+{
+  "attempt": "A037",
+  "author": "Codex CLI native ChatGPT",
+  "exitCode": 0,
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured",
+  "qualification": "development only; not craft accepted",
+  "rows": [
+    {
+      "concept": "folder-pause",
+      "exactReplay": true,
+      "findings": [],
+      "pairIssues": [],
+      "sha256": {
+        "outlined.icon": "6a82c101de8062b73cbdc50b6b100a339da24ee838b606b0a4bab06f33882a5e",
+        "filled.icon": "4440a540718ea7cc2c1c3746b65fcd691275dcebedd64a1426731a6db0a2af93",
+        "outlined.svg": "ecaf4337a219aaf93a6772e47720c0dec526a1c86d5e687569530545c98b2c2a",
+        "filled.svg": "ac2c50fda79274fe601cb744ff58a303d84df6cca6d4edf5e64a2075fc6b9bc2"
+      },
+      "checkSnapshots": 3
+    },
+    {
+      "concept": "timer-add",
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "Content centre is (11.50, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.50, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "Content centre is (11.50, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.50, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "filled"
+        }
+      ],
+      "pairIssues": [],
+      "sha256": {
+        "outlined.icon": "ddf6945b62d0d08a39e01ccc71941a6761bb69f2d9f5b6ef022b4692717afd4d",
+        "filled.icon": "609dea60ce39558bdc52e56dfc7691cb5e4a97ad294ae36b8d913e548c90e875",
+        "outlined.svg": "a7d25941f10e70b52ffd988c7b03da0348f76fd2011824dedfcb95808bf3e450",
+        "filled.svg": "eae47d33184038b1074e00732d24fd430954d68ab5d366619710ce8d4369d9c1"
+      },
+      "checkSnapshots": 3
+    },
+    {
+      "concept": "bookmark-check",
+      "exactReplay": true,
+      "findings": [
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 29.7\u00b0, 15.3\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 150.3\u00b0, 15.3\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "pairIssues": [],
+      "sha256": {
+        "outlined.icon": "6bb455549a8d3432e135889291babf81f23e07d71d87eeb1792aa05348a159de",
+        "filled.icon": "85aba4e8b48e6ba5203e820d5f4f10965c110c4e0ce49e201ddfd086f943ccc3",
+        "outlined.svg": "40a728a98b314c28de5f197a0e4314fdc10a94a084df66c3f3774fb054bce4cc",
+        "filled.svg": "c22ef1c0c6be5402aa8f7ef4cada134c7f598095df6a156f5ba33ef5ba55b2c2"
+      },
+      "checkSnapshots": 2
+    },
+    {
+      "concept": "window-lock",
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "filled"
+        }
+      ],
+      "pairIssues": [
+        {
+          "message": "e0 and e9 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ],
+      "sha256": {
+        "outlined.icon": "781b6f8e33477d5af6eee5e5bb39799127166bf400b26e8e6ddde34e49dc508a",
+        "filled.icon": "d3f82855033acfe69de9966dedb2f1519d3d0e69a51c401323eaec247e24760d",
+        "outlined.svg": "c8cb80e51de131c7bd492202f3f7655fcec5c84c583125d3ce3c22f7034354f6",
+        "filled.svg": "8f860c00ec3aeb969b7792f0afc0f2594418ee79ae19d4b464bb2d4f4e54c335"
+      },
+      "checkSnapshots": 4
+    }
+  ],
+  "hostVisualFindings": {
+    "folder-pause": "Pause fits within folder; needs comparison against actual pause/status neighbors before acceptance.",
+    "timer-add": "Plus merges with outer timer mass, producing a dark junction and ambiguous partial plus in filled paint.",
+    "bookmark-check": "Recognizable; sharp top corners and different apparent V treatment need family matching.",
+    "window-lock": "Lock crowds and merges into frame/header; inconsistent interior room across paints."
+  },
+  "evidenceDirectory": ".staging/foundry-round-1/local-family-development-01",
+  "manualArtworkEdits": 0
+}

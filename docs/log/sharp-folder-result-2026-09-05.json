@@ -1,0 +1,129 @@
+{
+  "out": ".staging/foundry-round-1/local-sharp-folder-01",
+  "exactReplay": true,
+  "sizes": [
+    {
+      "paint": "outlined",
+      "size": {
+        "h": 17.25,
+        "w": 20
+      }
+    },
+    {
+      "paint": "filled",
+      "size": {
+        "h": 17.25,
+        "w": 20
+      }
+    }
+  ],
+  "probes": [
+    {
+      "point": [
+        3.25,
+        16
+      ],
+      "expected": true,
+      "actual": true
+    },
+    {
+      "point": [
+        6.75,
+        16
+      ],
+      "expected": true,
+      "actual": true
+    },
+    {
+      "point": [
+        5,
+        16
+      ],
+      "expected": false,
+      "actual": false
+    },
+    {
+      "point": [
+        9,
+        16
+      ],
+      "expected": false,
+      "actual": false
+    },
+    {
+      "point": [
+        14,
+        10
+      ],
+      "expected": true,
+      "actual": true
+    }
+  ],
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "1e29968130cfc81ca385882800de5ec0ba57da8c053cf7b85dd93da21257042e",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Content centre is (12.00, 11.63); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.38) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "\"e2\" has an edge at 56.3°, 11.3° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Content centre is (12.00, 11.63); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.38) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-sharp-folder-01/check-Fl7cIB",
+    "style": "1e29968130cfc81ca385882800de5ec0ba57da8c053cf7b85dd93da21257042e"
+  },
+  "hostInspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "craftApproved": false,
+  "findings": [
+    "Fresh native AI-authored external-pause folder, no source contour parts or supplied target program",
+    "Explicit outlined trim and filled subtraction establish badge clearance",
+    "Round exposed endpoints and badge bars soften source square-cap treatment: selected cap control still unavailable",
+    "Development morphology evidence, not frozen holdout or independently qualified craft",
+    "16px downsample, not optical master"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

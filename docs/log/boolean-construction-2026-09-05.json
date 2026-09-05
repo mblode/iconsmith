@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-05",
+  "classification": "host-constructed capability fixture, not AI-generated success",
+  "paidGenerationCalls": 0,
+  "roundSpendUsd": 5.72662485,
+  "files": [
+    {
+      "path": ".staging/boolean-proof-2026-09-05/grid.artifact.json",
+      "sha256": "2d891dec096e7e9e62641679995158f499a7e37387db883b87b0d34f10725526"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/grid.png",
+      "sha256": "57075b0455c0f7ed80113b0b732d52e8b17f195b42561bbdb715cf0585c4aa57"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/grid.revision.json",
+      "sha256": "ece4335e7ad9f484971650c201d7b84d8d71b577e154c05d7a871fb9dd0d5cdd"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/grid.svg",
+      "sha256": "4ef31214645a95fb8e45ffb0cac5f55cae70df9f1c87148d8b8e5ba0c58d0c3c"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/report.json",
+      "sha256": "16bb683db7b507da82e1d6277dce4a8a66373420202696209a9bc7b8a49243e6"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/source.artifact.json",
+      "sha256": "96af013556b8f4fc3b890fe2f4e4d04047e5e7ae1c81d924088cd3693dcbd5e1"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/source.png",
+      "sha256": "662190dde0a1a85cd5de255acffa70803bc8d15bc8c90ddbb6769e73ea64a3ca"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/source.revision.json",
+      "sha256": "48a4d1c5c8036793c6bf486e30ff8cccc70c5f6224fee27efa434972f3d6cae3"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/source.svg",
+      "sha256": "b47e60b96837b0d906bde6e14b70ae6d4053e8cd17ba4774f4763e0d035890a5"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { markdownByPath } from "@/lib/markdown";
+import { isStudioPath, studioAvailable } from "@/lib/studio-availability";
 
 /**
  * Content negotiation: the canonical URL returns Markdown to anything that asks
@@ -18,13 +19,18 @@ import { markdownByPath } from "@/lib/markdown";
  * basePath-*prefixed*, and the `Link` header value, which is neither.
  */
 export const proxy = (request: NextRequest) => {
+  const pathname = request.nextUrl.pathname.replace(/\/+$/u, "") || "/";
+
+  if (!studioAvailable() && isStudioPath(pathname)) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   const accept = request.headers.get("accept") ?? "";
 
   if (!/\btext\/markdown\b/iu.test(accept)) {
     return NextResponse.next();
   }
 
-  const pathname = request.nextUrl.pathname.replace(/\/+$/u, "") || "/";
   const body = markdownByPath[pathname];
 
   if (!body) {
@@ -45,4 +51,4 @@ export const proxy = (request: NextRequest) => {
   });
 };
 
-export const config = { matcher: ["/"] };
+export const config = { matcher: ["/", "/api/studio/:path*", "/studio/:path*"] };

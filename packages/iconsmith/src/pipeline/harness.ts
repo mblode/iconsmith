@@ -449,6 +449,30 @@ const nodeSpawn: Spawn = async (invocation) => {
   }
 };
 
+/** Keep native sign-in homes, but never inherit provider billing overrides.
+ * CLI settings can also select a provider; subscription callers must use the
+ * CLI's native configuration isolation flags, not arbitrary user profiles.
+ */
+export const subscriptionEnv = (env: NodeJS.ProcessEnv): NodeJS.ProcessEnv =>
+  Object.fromEntries(
+    Object.entries(env).filter(
+      ([key]) =>
+        !/^(?:ANTHROPIC_|OPENAI_|AZURE_OPENAI_|AI_GATEWAY_|OPENROUTER_|GEMINI_|GOOGLE_API_KEY$|CURSOR_API_|CLAUDE_CODE_USE_|CLAUDE_CODE_OAUTH_TOKEN$|CLAUDE_CODE_SIMPLE$|VERCEL_OIDC_TOKEN$)/u.test(
+          key
+        )
+    )
+  );
+
+const harnessEnv = (
+  billing: "subscription" | "gateway" | undefined,
+  command: string,
+  dir: string,
+  env: NodeJS.ProcessEnv
+): NodeJS.ProcessEnv =>
+  billing === "gateway"
+    ? applyGatewayEnv(command, dir, stageCli(dir, env))
+    : subscriptionEnv(stageCli(dir, env));
+
 export interface HarnessOptions {
   /** Build the command line from the brief. Default: `["-p", brief]`. */
   args?: (brief: string, ctx: BriefContext) => string[];
@@ -463,6 +487,8 @@ export interface HarnessOptions {
    *  over the set, the same value `iconsmith lint --cohorts` builds. Without
    *  them the `cohort` op has no measured extent to inherit and says so. */
   cohorts?: Cohort[];
+  /** Subscription sign-in by default. Gateway billing must be explicit. */
+  billing?: "subscription" | "gateway";
   /** The agent CLI. Default `claude`. */
   command?: string;
   env?: NodeJS.ProcessEnv;
@@ -596,6 +622,7 @@ export const harnessArm =
     generateOptions.abortSignal?.throwIfAborted();
     const {
       args = defaultArgs,
+      billing,
       ask,
       cohorts = [],
       command = "claude",
@@ -614,7 +641,7 @@ export const harnessArm =
     // only if the agent can actually open it. `codex exec --sandbox
     // workspace-write` cannot read a path outside the scratch directory.
     const skillForBrief = stageSkill(dir, skill);
-    const runEnv = applyGatewayEnv(command, dir, stageCli(dir, env));
+    const runEnv = harnessEnv(billing, command, dir, env);
     const { parts = [], spec } = generateOptions;
     const { addressable, hints } = vocabularyFor(concept, generateOptions);
     let partsFile: string | null = null;

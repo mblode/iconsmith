@@ -1,0 +1,63 @@
+{
+  "scope": "24px selected pixel probes only, not general readability qualification",
+  "rows": [
+    {
+      "paint": "outlined",
+      "samples": [
+        {
+          "name": "upper-bar",
+          "x": 9,
+          "y": 12,
+          "alpha": 255
+        },
+        {
+          "name": "between-bars",
+          "x": 9,
+          "y": 14,
+          "alpha": 102
+        },
+        {
+          "name": "lower-bar",
+          "x": 9,
+          "y": 15,
+          "alpha": 255
+        },
+        {
+          "name": "stem",
+          "x": 12,
+          "y": 14,
+          "alpha": 239
+        }
+      ]
+    },
+    {
+      "paint": "filled",
+      "samples": [
+        {
+          "name": "upper-bar",
+          "x": 9,
+          "y": 12,
+          "alpha": 0
+        },
+        {
+          "name": "between-bars",
+          "x": 9,
+          "y": 14,
+          "alpha": 153
+        },
+        {
+          "name": "lower-bar",
+          "x": 9,
+          "y": 15,
+          "alpha": 0
+        },
+        {
+          "name": "stem",
+          "x": 12,
+          "y": 14,
+          "alpha": 16
+        }
+      ]
+    }
+  ]
+}

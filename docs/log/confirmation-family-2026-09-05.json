@@ -1,0 +1,57 @@
+{
+  "rowOrder": [
+    "bookmark-check",
+    "timer-check",
+    "window-check"
+  ],
+  "rows": [
+    {
+      "name": "timer-check",
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "large",
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "style": "9c47a0f20cb6e9aa55f4155e30fb6f64fdd84e6714ca448d54f24e5644fbc7c2",
+        "authorExitCode": 0,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered"
+      },
+      "exactSharedModifier": true,
+      "normalizedShapes": [
+        "M0 2L2 4L6 0"
+      ]
+    },
+    {
+      "name": "window-check",
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "large",
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "style": "9c47a0f20cb6e9aa55f4155e30fb6f64fdd84e6714ca448d54f24e5644fbc7c2",
+        "authorExitCode": 0,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered"
+      },
+      "exactSharedModifier": true,
+      "normalizedShapes": [
+        "M0 2L2 4L6 0"
+      ]
+    }
+  ],
+  "craftApproved": false,
+  "qualification": "development only"
+}

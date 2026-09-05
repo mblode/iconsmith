@@ -49,6 +49,8 @@
     "@ai-sdk/gateway": "^4.0.54",
     "ai": "^7.0.66",
     "commander": "^15.0.0",
+    "paper": "0.12.18",
+    "pathkit-wasm": "1.0.0",
     "run": "^2.0.3",
     "sharp": "^0.35.3",
     "zod": "^3.25.76"
@@ -56,6 +58,7 @@
   "devDependencies": {
     "@types/node": "^24.13.3",
     "tsdown": "^0.22.4",
+    "tsx": "4.23.13",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },

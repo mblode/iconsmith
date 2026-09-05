@@ -34,13 +34,16 @@
  */
 import { bbox, parsePath, polylineDistance } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
-import type { Box, Finish, Issue, Keyline } from "../types.js";
+import type { BooleanDrawOp, Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
+import { pathsOverlap } from "./boolean.js";
 import { SPEC } from "./canvas.js";
 import type { Spec } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
 import { verdict } from "./cohort.js";
 import { cuts } from "./cut.js";
+import { needsStrokeBounds } from "./spec.js";
+import { expandStroke } from "./stroke.js";
 
 /** The shape lint needs from a canvas: drawn path data with a name to blame. */
 export interface LintElement {
@@ -92,6 +95,7 @@ export interface LintElement {
    * that happens to contain a later knockout is not called a solid disc.
    */
   kind?: string;
+  composition?: BooleanDrawOp;
   /** Canvas knockout flag. Same meaning as {@link hole}. */
   op?: "add" | "knockout";
 }
@@ -362,7 +366,18 @@ const gapIssues = (els: LintElement[], spec: Spec): Issue[] => {
   const issues: Issue[] = [];
   for (let i = 0; i < els.length; i += 1) {
     for (let j = i + 1; j < els.length; j += 1) {
-      const gap = minDistance(els[i], els[j]);
+      const measured = minDistance(els[i], els[j]);
+      const mixed =
+        els[i].strokeWidth !== undefined || els[j].strokeWidth !== undefined;
+      const gap =
+        measured === null
+          ? null
+          : measured -
+            (mixed
+              ? ((els[i].strokeWidth ?? spec.stroke) +
+                  (els[j].strokeWidth ?? spec.stroke)) /
+                2
+              : 0);
       if (gap !== null && gap > TOUCHING && gap < spec.minGap) {
         issues.push({
           message: `${els[i].id} and ${els[j].id} are ${gap.toFixed(2)}px apart; minimum is ${spec.minGap}px. Move them apart or knock one out of the other.`,
@@ -468,6 +483,17 @@ const holeIssues = (els: LintElement[], finish: Finish): Issue[] => {
   for (let i = 0; i < groups.length; i += 1) {
     const { holes, solid } = groups[i];
     const host = boxOf(solid);
+    for (let a = 0; a < holes.length; a += 1) {
+      for (let b = a + 1; b < holes.length; b += 1) {
+        if (pathsOverlap(holes[a].d, holes[b].d)) {
+          issues.push({
+            message: `${holes[a].id} and ${holes[b].id} overlap in ${solid.id}; even-odd cutouts cancel in their shared area and restore ink. If one continuous opening is intended, union the cutters before subtracting. Inspect intentional nested counters rather than treating this warning as a prohibition.`,
+            rule: "hole",
+            severity: "warn",
+          });
+        }
+      }
+    }
     for (const hole of holes) {
       const cut = boxOf(hole);
       for (let j = 0; j < i; j += 1) {
@@ -497,17 +523,24 @@ const holeIssues = (els: LintElement[], finish: Finish): Issue[] => {
 
 const featureIssues = (els: LintElement[], spec: Spec): Issue[] =>
   els.flatMap((e) => {
-    const b = bbox(parsePath(e.d));
-    const minor = Math.min(b.w, b.h);
-    return minor >= spec.minFeature
-      ? []
-      : [
-          {
-            message: `${e.id} is ${minor.toFixed(2)}px across its short axis; below ${spec.minFeature}px a filled feature closes up at ${spec.size}px. Widen it, or drop it — a hole nobody can see is ink nobody asked for.`,
-            rule: "feature",
-            severity: "warn" as const,
-          },
-        ];
+    const paths = parsePath(e.d);
+    // Boolean output has resolved overlaps. Inspect surviving contours, not
+    // transient cutters or overlapping cap/body paths in primitive strokes.
+    const groups = e.composition ? paths.map((path) => [path]) : [paths];
+    return groups.flatMap((group, index) => {
+      const b = bbox(group);
+      const minor = Math.min(b.w, b.h);
+      const label = e.composition ? `${e.id} contour ${index + 1}` : e.id;
+      return minor >= spec.minFeature
+        ? []
+        : [
+            {
+              message: `${label} has a ${minor.toFixed(2)}-unit short-axis bounding box (${((minor * spec.size) / spec.canvas).toFixed(2)}px at ${spec.size}px), below the selected ${spec.minFeature}-unit minimum. Inspect its native-size visibility; widen or simplify if needed.`,
+              rule: "feature",
+              severity: "warn" as const,
+            },
+          ];
+    });
   });
 
 /** Nothing in blode-icons or Central cuts below this. The floor is literal
@@ -670,6 +703,26 @@ const dedupe = (issues: Issue[]): Issue[] => {
   });
 };
 
+const paintedMeasurement = (els: LintElement[], spec: Spec): boolean =>
+  needsStrokeBounds(spec) || els.some((e) => e.strokeWidth !== undefined);
+
+/** Miter bounds come from the actual stroke, not a half-width padding guess. */
+const extentBox = (elements: LintElement[], finish: Finish, spec: Spec): Box =>
+  bbox(
+    elements.flatMap((e) =>
+      parsePath(
+        finish === "outlined" &&
+          paintedMeasurement(elements, spec) &&
+          e.strokeWidth !== 0
+          ? expandStroke(e.d, e.strokeWidth ?? spec.stroke, {
+              cap: spec.strokeCap ?? "round",
+              join: spec.strokeJoin ?? "round",
+            })
+          : e.d
+      )
+    )
+  );
+
 /** Everything the house spec has to say about a drawing. */
 export const lint = (
   canvas: LintTarget,
@@ -682,14 +735,18 @@ export const lint = (
 
   const finish = canvas.finish ?? "outlined";
   const spec = canvas.spec ?? SPEC;
-  const b = bbox(els.flatMap((e) => parsePath(e.d)));
+  const b = extentBox(els, finish, spec);
+  const sharp = finish === "outlined" && paintedMeasurement(els, spec);
   // Visual extent includes half the ink on each side — the distinction that
   // invalidated the previous revision's keyline measurements, and the one
   // adjustment fill mode needs to inherit every extent rule unchanged: a
   // filled path *is* its own boundary, so there is nothing to add. That the
   // rules then carry over is measured, not assumed — filled and outlined twins
   // occupy the same visual extent in 94% of 2,085 pairs.
-  const ink = finish === "filled" ? 0 : spec.stroke;
+  const ink =
+    finish === "filled" || paintedMeasurement(canvas.elements, spec)
+      ? 0
+      : spec.stroke;
   const vx = b.w + ink;
   const vy = b.h + ink;
 
@@ -708,7 +765,7 @@ export const lint = (
     substanceIssue(vx, vy),
     centring(b, cohortVerdict?.agrees ?? false, spec),
     keylineIssue(vx, vy, keyline),
-    bleedIssue(b, finish, spec),
+    bleedIssue(b, sharp ? "filled" : finish, spec),
   ]) {
     if (issue) {
       issues.push(issue);
@@ -719,6 +776,10 @@ export const lint = (
   // answer worth having and "is this feature big enough to see" does.
   issues.push(
     ...(finish === "filled" ? featureIssues(els, spec) : gapIssues(els, spec)),
+    ...featureIssues(
+      els.filter((e) => finish === "outlined" && e.strokeWidth === 0),
+      spec
+    ),
     ...holeIssues(els, finish),
     ...cutIssues(els),
     ...offAxisIssues(els, spec, finish)
@@ -819,7 +880,7 @@ const passMessage = (
       return `${ctx.n} element(s), under the ceiling of ${ctx.spec.maxElements} at ${ctx.spec.size}px.`;
     }
     case "feature": {
-      return `Every filled feature is at least ${ctx.spec.minFeature}px across its short axis.`;
+      return `Element and resolved Boolean-contour bounding boxes meet the ${ctx.spec.minFeature}-unit short-axis minimum. Local thickness and native readability still need inspection.`;
     }
     case "gap": {
       return `Every separated pair is at least ${ctx.spec.minGap}px apart, or coincident.`;
@@ -871,11 +932,16 @@ export const review = (
   }
   const finish = canvas.finish ?? "outlined";
   const spec = canvas.spec ?? SPEC;
-  const b = bbox(canvas.elements.flatMap((e) => parsePath(e.d)));
-  const ink = finish === "filled" ? 0 : spec.stroke;
+  const b = extentBox(canvas.elements, finish, spec);
+  const ink =
+    finish === "filled" || paintedMeasurement(canvas.elements, spec)
+      ? 0
+      : spec.stroke;
   const ctx = {
     box: b,
-    finish,
+    finish: paintedMeasurement(canvas.elements, spec)
+      ? ("filled" as const)
+      : finish,
     keyline: options.keyline ?? null,
     n: canvas.elements.length,
     spec,
@@ -889,6 +955,10 @@ export const review = (
     "keyline",
     "bleed",
     finish === "filled" ? "feature" : "gap",
+    ...(finish === "outlined" &&
+    canvas.elements.some((e) => e.strokeWidth === 0)
+      ? ["feature"]
+      : []),
     ...(finish === "filled" ? ["hole"] : []),
     "cut",
     "off-axis",

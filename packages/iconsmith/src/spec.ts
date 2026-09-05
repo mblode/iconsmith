@@ -5,4 +5,4 @@
  * harness export graph. A page that only needs keyline names should not make a
  * deployment tracer inspect filesystem code it can never call.
  */
-export { SPEC } from "./tools/canvas.js";
+export { SPEC } from "./tools/spec.js";

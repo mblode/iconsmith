@@ -1,0 +1,83 @@
+{
+  "scope": "Path bounds plus declared family stroke; no optical judgment",
+  "rows": [
+    {
+      "name": "cloud-outlined",
+      "pathBounds": {
+        "h": 14.5,
+        "w": 20.5,
+        "x0": 1.75,
+        "x1": 22.25,
+        "y0": 4.75,
+        "y1": 19.25
+      },
+      "inkWidth": 22,
+      "inkHeight": 16
+    },
+    {
+      "name": "cloud-simple-outlined",
+      "pathBounds": {
+        "h": 14.5,
+        "w": 20.5,
+        "x0": 1.75,
+        "x1": 22.25,
+        "y0": 4.75,
+        "y1": 19.25
+      },
+      "inkWidth": 22,
+      "inkHeight": 16
+    },
+    {
+      "name": "cloud-download-outlined",
+      "pathBounds": {
+        "h": 14.5,
+        "w": 20.5,
+        "x0": 1.75,
+        "x1": 22.25,
+        "y0": 4.75,
+        "y1": 19.25
+      },
+      "inkWidth": 22,
+      "inkHeight": 16
+    },
+    {
+      "name": "cloud-filled",
+      "pathBounds": {
+        "h": 16,
+        "w": 22,
+        "x0": 1,
+        "x1": 23,
+        "y0": 4,
+        "y1": 20
+      },
+      "inkWidth": 22,
+      "inkHeight": 16
+    },
+    {
+      "name": "cloud-simple-filled",
+      "pathBounds": {
+        "h": 16,
+        "w": 22,
+        "x0": 1,
+        "x1": 23,
+        "y0": 4,
+        "y1": 20
+      },
+      "inkWidth": 22,
+      "inkHeight": 16
+    },
+    {
+      "name": "cloud-download-filled",
+      "pathBounds": {
+        "h": 16,
+        "w": 22,
+        "x0": 1,
+        "x1": 23,
+        "y0": 4,
+        "y1": 20
+      },
+      "inkWidth": 22,
+      "inkHeight": 16
+    }
+  ]
+}

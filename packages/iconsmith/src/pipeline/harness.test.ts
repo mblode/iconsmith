@@ -621,19 +621,46 @@ fit`);
     }
   });
 
+  it("uses native sign-in by default without inherited provider credentials", async () => {
+    const { calls, spawn } = fake(SQUARE);
+    await harnessArm({
+      env: {
+        AI_GATEWAY_API_KEY: "paid",
+        ANTHROPIC_API_KEY: "paid",
+        ANTHROPIC_AUTH_TOKEN: "paid",
+        ANTHROPIC_BASE_URL: "https://example.com",
+        CLAUDE_CODE_USE_BEDROCK: "1",
+        CODEX_HOME: "/native-codex",
+        CURSOR_API_KEY: "paid",
+        HOME: "/native-home",
+        OPENAI_API_KEY: "paid",
+        VERCEL_OIDC_TOKEN: "paid",
+      },
+      spawn,
+    })(concept, noOptions);
+    expect(calls[0].env).toEqual({
+      CODEX_HOME: "/native-codex",
+      HOME: "/native-home",
+      ...(calls[0].env.PATH ? { PATH: calls[0].env.PATH } : {}),
+    });
+    expect(existsSync(path.join(calls[0].cwd, ".codex"))).toBe(false);
+  });
+
   it("points Claude Code at the AI Gateway without touching ~/.claude", async () => {
     const { calls, spawn } = fake(SQUARE);
-    await harnessArm({ spawn })(concept, noOptions);
+    await harnessArm({ billing: "gateway", spawn })(concept, noOptions);
     expect(calls[0].env.ANTHROPIC_BASE_URL).toBe(CLAUDE_GATEWAY_URL);
     expect(calls[0].env.ANTHROPIC_API_KEY).toBe("");
   });
 
   it("gives Codex a scratch CODEX_HOME aimed at the gateway", async () => {
     const { calls, spawn } = fake(SQUARE);
-    await harnessArm({ command: "codex", keep: true, spawn })(
-      concept,
-      noOptions
-    );
+    await harnessArm({
+      billing: "gateway",
+      command: "codex",
+      keep: true,
+      spawn,
+    })(concept, noOptions);
     const home = calls[0].env.CODEX_HOME;
     expect(home).toBe(path.join(calls[0].cwd, ".codex"));
     const toml = readFileSync(path.join(home ?? "", "config.toml"), "utf-8");

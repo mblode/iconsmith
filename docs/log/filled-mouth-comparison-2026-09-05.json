@@ -1,0 +1,116 @@
+{
+  "order": [
+    "baseline",
+    "attempt",
+    "source"
+  ],
+  "rows": [
+    {
+      "file": ".staging/foundry-round-1/ticket-pair-compiler5-01/filled.svg",
+      "depth": 2.5,
+      "openingHeight": 5.47758,
+      "joins": [
+        {
+          "point": [
+            22,
+            9.26121
+          ],
+          "angleDegrees": 84.85112887489373
+        },
+        {
+          "point": [
+            22,
+            14.73879
+          ],
+          "angleDegrees": 84.85112887489382
+        },
+        {
+          "point": [
+            2,
+            14.73879
+          ],
+          "angleDegrees": 84.85112887489373
+        },
+        {
+          "point": [
+            2,
+            9.26121
+          ],
+          "angleDegrees": 84.85112887489382
+        }
+      ]
+    },
+    {
+      "file": ".staging/foundry-round-1/local-ticket-filled-corners-01/filled.svg",
+      "depth": 2,
+      "openingHeight": 5.414660000000001,
+      "joins": [
+        {
+          "point": [
+            22,
+            9.292670000000001
+          ],
+          "angleDegrees": 70.53579104099934
+        },
+        {
+          "point": [
+            22,
+            14.707330000000002
+          ],
+          "angleDegrees": 70.53404255356725
+        },
+        {
+          "point": [
+            2,
+            14.707330000000002
+          ],
+          "angleDegrees": 70.53640897175593
+        },
+        {
+          "point": [
+            2,
+            9.292670000000001
+          ],
+          "angleDegrees": 70.53466053101592
+        }
+      ]
+    },
+    {
+      "file": "packages/iconsmith/corpus/round-filled-radius-1-stroke-1.5/ticket.svg",
+      "depth": 2.062500000000001,
+      "openingHeight": 5.5,
+      "joins": [
+        {
+          "point": [
+            22,
+            9.25
+          ],
+          "angleDegrees": 0
+        },
+        {
+          "point": [
+            22,
+            14.75
+          ],
+          "angleDegrees": 0
+        },
+        {
+          "point": [
+            2,
+            14.75
+          ],
+          "angleDegrees": 0
+        },
+        {
+          "point": [
+            2,
+            9.25
+          ],
+          "angleDegrees": 0
+        }
+      ]
+    }
+  ],
+  "craftApproved": false,
+  "scope": "These four filled ticket mouth joins, not a universal corner rule"
+}

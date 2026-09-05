@@ -18,7 +18,7 @@
  *   icon     <slug>
  *   keyline  circle | square | wide | tall
  *   finish   outlined | filled
- *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | fill] [turn cw|half|ccw] [flip]
+ *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | scale <factor> | fill] [turn cw|half|ccw] [flip]
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
  *   arc      <cx>,<cy> r<n> quarter|half|three-quarter from top|right|bottom|left [ccw]
@@ -134,6 +134,9 @@ const OPS = [
   "arc",
   "diamond",
   "hole",
+  "subtract",
+  "trim",
+  "union",
   "line",
   "dot",
   "center",
@@ -185,6 +188,7 @@ const placePart = (
   }
   const atIdx = t.indexOf("at");
   const sizeIdx = t.indexOf("size");
+  const scaleIdx = t.indexOf("scale");
   const turnIdx = t.indexOf("turn");
   let turn = 0;
   if (turnIdx !== -1) {
@@ -204,8 +208,16 @@ const placePart = (
   const [pw, ph] = turn % 2 === 0 ? [p.w, p.h] : [p.h, p.w];
   const span = Math.max(pw, ph) || 1;
   let k = 1;
-  if (t.includes("fill")) {
-    const [kw, kh] = SPEC.keylines[keyline ?? "square"];
+  if (scaleIdx !== -1) {
+    if (sizeIdx !== -1 || t.includes("fill")) {
+      throw new Error("part scale cannot be combined with size or fill");
+    }
+    k = num(t[scaleIdx + 1], "scale");
+    if (k <= 0) {
+      throw new Error("part scale must be positive");
+    }
+  } else if (t.includes("fill")) {
+    const [kw, kh] = canvas.spec.keylines[keyline ?? "square"];
     // The keyline is a visual extent, so what the path may occupy is the
     // keyline less the ink either side of it — a full stroke width when the
     // shape will be stroked, nothing when it will be filled.
@@ -228,8 +240,8 @@ const placePart = (
     } else {
       // A bare coordinate names the top-left; an anchor names the centre.
       const [px, py] = pair(a);
-      cx = px + w / 2;
-      cy = py + h / 2;
+      canvas.part({ flip, id: p.id, scale: k, turn, x: px, y: py });
+      return;
     }
   }
   canvas.part({ flip, id: p.id, scale: k, turn, x: cx - w / 2, y: cy - h / 2 });
@@ -413,7 +425,39 @@ const holeOp = (canvas: Canvas, t: string[]): void => {
 
 /** The ops that put geometry on the canvas. Returns false if `op` is not
  *  one of them, so `run` can carry on to the ops that change state instead. */
+const lineArgs = (t: string[]) => {
+  const radii = t.slice(1).filter((v) => v.startsWith("r"));
+  if (radii.length > 1) {
+    throw new Error("line takes at most one radius");
+  }
+  return {
+    offAxis: t.includes(OFF_AXIS),
+    points: t
+      .slice(1)
+      .filter(
+        (v) =>
+          v !== OFF_AXIS &&
+          v !== "solid" &&
+          v !== "detail" &&
+          !v.startsWith("r")
+      )
+      .map(pair),
+    r: radii.length ? num(radii[0], "radius") : undefined,
+    solid: t.includes("solid"),
+    weight: t.includes("detail") ? ("detail" as const) : undefined,
+  };
+};
+
 const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
+  if (op === "subtract" || op === "union" || op === "trim") {
+    if (t.length !== 1) {
+      throw new Error(
+        "Boolean operations combine the last two solid groups and take no arguments"
+      );
+    }
+    canvas.combine(op);
+    return true;
+  }
   if (op === "rect") {
     canvas.rect(rectArgs(t.slice(1)));
   } else if (op === "circle") {
@@ -446,13 +490,7 @@ const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
   } else if (op === "hole") {
     holeOp(canvas, t);
   } else if (op === "line") {
-    canvas.line({
-      offAxis: t.includes(OFF_AXIS),
-      points: t
-        .slice(1)
-        .filter((v) => v !== OFF_AXIS)
-        .map(pair),
-    });
+    canvas.line(lineArgs(t));
   } else if (op === "dot") {
     const [cx, cy] = pair(t[1]);
     // Pass the role through only when one was written: a bare `dot` lets

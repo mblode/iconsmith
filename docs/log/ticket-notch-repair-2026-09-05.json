@@ -1,0 +1,45 @@
+{
+  "order": [
+    "A052 original",
+    "A053 repair",
+    "source"
+  ],
+  "exactReplay": true,
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined"
+    ],
+    "style": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "notch": {
+    "source": {
+      "depth": 2.0625,
+      "height": 5.5
+    },
+    "original": {
+      "depth": 2.75,
+      "height": 5.5
+    },
+    "repaired": {
+      "depth": 2,
+      "height": 4
+    },
+    "depthRelativeError": -0.030303030303030304,
+    "heightRelativeError": -0.2727272727272727
+  },
+  "craftApproved": false,
+  "assessment": "Depth improved but opening height regressed. Do not promote based on depth alone; retain five-icon development assembly unchanged pending contour refinement.",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured"
+}

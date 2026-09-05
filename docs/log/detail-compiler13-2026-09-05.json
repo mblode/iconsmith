@@ -1,0 +1,12 @@
+{
+  "out": ".staging/foundry-round-1/detail-compiler13-01",
+  "compiler": "iconsmith-constrained-13",
+  "exactReplay": true,
+  "order": [
+    "source",
+    "constrained-host-detail",
+    "constrained-host-uniform"
+  ],
+  "scope": "Known source-coordinate reconstruction of coin-won for representational validation. Not AI authorship or craft qualification.",
+  "apiSpend": 0
+}

@@ -1,0 +1,15 @@
+{
+  "scope": "Deterministic capability probe using source coordinates, not AI generation or quality qualification",
+  "out": ".staging/foundry-round-1/sharp-style-capability-01",
+  "source": "packages/iconsmith/corpus/square-outlined-radius-0-stroke-1.5/bookmark.svg",
+  "sourceJoin": "SVG default miter (no stroke-linejoin attribute)",
+  "compiledJoin": "round (explicit)",
+  "zeroRadiusAdmission": "[\n  {\n    \"code\": \"too_small\",\n    \"minimum\": 0,\n    \"type\": \"number\",\n    \"inclusive\": false,\n    \"exact\": false,\n    \"message\": \"Number must be greater than 0\",\n    \"path\": [\n      \"masters\",\n      \"large\",\n      \"radius\"\n    ]\n  }\n]",
+  "sharpFilled": "Error: Style program did not compile: line 3 (line 19.25,21.25 19.25,2.75 4.75,2.75 4.75,21.25 12,17.25 19.25,21.25 r0 solid off-axis): Rounded line radius must be finite and positive",
+  "findings": [
+    "Same vertices and stroke width do not preserve source sharp corners",
+    "Style schema cannot admit radius0",
+    "Closed sharp solid stroke construction unavailable through existing line operation"
+  ],
+  "apiSpend": 0
+}

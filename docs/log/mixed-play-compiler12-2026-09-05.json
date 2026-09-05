@@ -1,0 +1,10 @@
+{
+  "out": ".staging/foundry-round-1/mixed-play-compiler12-01",
+  "scope": "Compiler-assisted paint change to existing AI contour; not fresh authoring",
+  "exactReplay": true,
+  "parentUnchanged": true,
+  "modifierMatchesFilled": true,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "craftApproved": false
+}

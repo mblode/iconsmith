@@ -1,0 +1,47 @@
+{
+  "threshold": 128,
+  "connectivity": 4,
+  "scope": "Raster connected components, not optical qualification",
+  "rows": [
+    {
+      "size": 24,
+      "components": [
+        {
+          "pixels": 244,
+          "w": 20,
+          "h": 17
+        },
+        {
+          "pixels": 6,
+          "w": 1,
+          "h": 6
+        },
+        {
+          "pixels": 6,
+          "w": 1,
+          "h": 6
+        }
+      ]
+    },
+    {
+      "size": 16,
+      "components": [
+        {
+          "pixels": 109,
+          "w": 14,
+          "h": 11
+        },
+        {
+          "pixels": 4,
+          "w": 1,
+          "h": 4
+        },
+        {
+          "pixels": 4,
+          "w": 1,
+          "h": 4
+        }
+      ]
+    }
+  ]
+}

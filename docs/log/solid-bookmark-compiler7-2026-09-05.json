@@ -1,0 +1,11 @@
+{
+  "out": ".staging/foundry-round-1/solid-bookmark-compiler7-01",
+  "sourceContour": ".staging/foundry-round-1/local-rounded-bookmark-01/outlined.icon",
+  "sourceCounter": ".staging/foundry-round-1/local-bookmark-filled-01/filled.icon",
+  "derivation": "Unchanged AI contour parameters and AI counter; host selects explicit solid construction. No new model run.",
+  "exactReplay": true,
+  "craftApproved": false,
+  "compiler": "iconsmith-constrained-7",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0
+}

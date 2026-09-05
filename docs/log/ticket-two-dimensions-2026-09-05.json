@@ -1,0 +1,122 @@
+{
+  "order": [
+    "original",
+    "small semicircles",
+    "clipped arcs",
+    "source"
+  ],
+  "programSha256": "a29e8dddb317010616e0419d18049214aa4964806bee4a2c641bd34fe7ffc02e",
+  "exactReplay": true,
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined"
+    ],
+    "style": "93e60ae31654da26a0abb66b54ece0a8ed9db22055ddfef428e764880fb7aeae",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "notches": [
+    {
+      "id": "e7",
+      "depth": 2,
+      "openingHeight": 5.658619999999999,
+      "depthRelativeError": -0.030303030303030304,
+      "heightRelativeError": 0.028839999999999835
+    },
+    {
+      "id": "e15",
+      "depth": 2,
+      "openingHeight": 5.658619999999999,
+      "depthRelativeError": -0.030303030303030304,
+      "heightRelativeError": 0.028839999999999835
+    }
+  ],
+  "joins": [
+    {
+      "id": "e4",
+      "point": [
+        2.75,
+        9.17069
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e4",
+      "point": [
+        21.25,
+        9.17069
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e7",
+      "point": [
+        21.25,
+        9.17069
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e7",
+      "point": [
+        21.25,
+        14.82931
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e12",
+      "point": [
+        21.25,
+        14.82931
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e12",
+      "point": [
+        2.75,
+        14.82931
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e15",
+      "point": [
+        2.75,
+        9.17069
+      ],
+      "nearestEndpointDistance": 0
+    },
+    {
+      "id": "e15",
+      "point": [
+        2.75,
+        14.82931
+      ],
+      "nearestEndpointDistance": 0
+    }
+  ],
+  "craftApproved": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured",
+  "hostAssessment": {
+    "viewedSizes": [
+      96,
+      24,
+      16
+    ],
+    "selectedForDevelopment": true,
+    "improvement": "Depth and opening height both approach source, with zero endpoint separation at all four joins.",
+    "remaining": "Circular curvature differs from source cubic; mild native16 softness; no independent craft qualification."
+  }
+}

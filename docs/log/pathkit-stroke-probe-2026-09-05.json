@@ -1,0 +1,9 @@
+{
+  "package": "pathkit-wasm@1.0.0",
+  "source": ".staging/foundry-round-1/ticket-pair-compiler5-01",
+  "operation": "Weld existing AI parent centerline; union its interior with round stroke; subtract stroked AI check",
+  "manualArtworkCoordinates": false,
+  "integrated": false,
+  "craftApproved": false,
+  "out": ".staging/foundry-round-1/pathkit-probe-01"
+}

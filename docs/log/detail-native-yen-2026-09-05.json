@@ -1,0 +1,120 @@
+{
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "eaaf465dfba75fbfd95deffb9dbb6e2d2e8d212010833e3287837aaee925289b",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "exactReplay": true,
+  "results": [
+    {
+      "paint": "outlined",
+      "detailOperations": 4,
+      "contours": [
+        [
+          {
+            "area": 254.542404906,
+            "closed": true,
+            "bounds": {
+              "x": 3,
+              "y": 3,
+              "w": 18,
+              "h": 18
+            }
+          }
+        ],
+        [
+          {
+            "area": -16,
+            "closed": false,
+            "bounds": {
+              "x": 8,
+              "y": 7.75,
+              "w": 8,
+              "h": 4
+            }
+          }
+        ],
+        [
+          {
+            "area": 0,
+            "closed": false,
+            "bounds": {
+              "x": 12,
+              "y": 11.75,
+              "w": 0,
+              "h": 5.25
+            }
+          }
+        ],
+        [
+          {
+            "area": -1.4210854715202004e-14,
+            "closed": false,
+            "bounds": {
+              "x": 8.5,
+              "y": 12.5,
+              "w": 7,
+              "h": 0
+            }
+          }
+        ],
+        [
+          {
+            "area": -1.4210854715202004e-14,
+            "closed": false,
+            "bounds": {
+              "x": 8.5,
+              "y": 15.5,
+              "w": 7,
+              "h": 0
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "paint": "filled",
+      "detailOperations": 5,
+      "contours": [
+        [
+          {
+            "area": 314.2498825999999,
+            "closed": true,
+            "bounds": {
+              "x": 2,
+              "y": 2,
+              "w": 20,
+              "h": 20
+            }
+          },
+          {
+            "area": -55.689294703740075,
+            "closed": true,
+            "bounds": {
+              "x": 7.1,
+              "y": 6.85,
+              "w": 9.799999999999999,
+              "h": 11.050000000000002
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  "order": "lira, generated yen, won; outlined then filled",
+  "craftApproved": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0
+}

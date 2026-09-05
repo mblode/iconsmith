@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-05",
+  "apiSpendUnchangedUsd": 10.6590496,
+  "subscriptionUsage": "unmeasured",
+  "A026": {
+    "status": "runner timeout before generation",
+    "evidence": "stderr: Reading prompt from stdin; no programs written",
+    "originalReceiptDefect": "error.code null was serialized as code 0, falsely implying success",
+    "repair": "explicit positional separator; close stdin; preserve killed and signal fields",
+    "path": ".staging/foundry-round-1/local-style-pair"
+  },
+  "A027": {
+    "status": "Claude Max generation delivered",
+    "craftApproved": false,
+    "findings": [
+      "top protrusion overlaps body contour",
+      "not reference-guided"
+    ],
+    "path": ".staging/foundry-round-1/local-claude-camera-03"
+  },
+  "authentication": {
+    "claude": "refreshed; live generation verified",
+    "cursor": "signed in; CLI about confirms Ultra",
+    "codex": "ChatGPT generation verified previously"
+  }
+}

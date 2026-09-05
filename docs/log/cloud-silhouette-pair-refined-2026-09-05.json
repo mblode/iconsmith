@@ -1,0 +1,38 @@
+{
+  "size": 384,
+  "threshold": 128,
+  "method": "Fill raster-enclosed regions by flood filling transparent exterior, then compare silhouettes. No artwork generated from this diagnostic.",
+  "scope": "Pair silhouette agreement, not reference style or craft score. Raster closure errors could invalidate a result.",
+  "rows": [
+    {
+      "name": "reference",
+      "files": [
+        "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/cloud.svg",
+        "packages/iconsmith/corpus/round-filled-radius-1-stroke-1.5/cloud.svg"
+      ],
+      "iou": 0.9999407740827386,
+      "disagreementPixels": 4,
+      "disagreementSquareUnits": 0.015625
+    },
+    {
+      "name": "baseline",
+      "files": [
+        ".staging/foundry-round-1/local-cloud-check-01/outlined.svg",
+        ".staging/foundry-round-1/local-cloud-check-01/filled.svg"
+      ],
+      "iou": 0.9998647978728199,
+      "disagreementPixels": 9,
+      "disagreementSquareUnits": 0.03515625
+    },
+    {
+      "name": "revision",
+      "files": [
+        ".staging/foundry-round-1/local-cloud-refine-01/outlined.svg",
+        ".staging/foundry-round-1/local-cloud-refine-01/filled.svg"
+      ],
+      "iou": 0.9998830580324514,
+      "disagreementPixels": 8,
+      "disagreementSquareUnits": 0.03125
+    }
+  ]
+}

@@ -481,3 +481,42 @@ describe("review", () => {
     expect(rules(lint(drawn))).not.toContain("hole");
   });
 });
+
+describe("cutout parity diagnostics", () => {
+  it("warns about overlapping timer-hand cutouts without changing the drawing", () => {
+    const drawing = run(`icon timer
+finish filled
+circle 12,12 r9
+hole rect 11,6 2x7 r1
+hole rect 12,11 5x2 r1`);
+    const before = JSON.stringify(drawing.canvas.elements);
+    const issues = lint(drawing.canvas).filter((i) => i.rule === "hole");
+    expect(issues).toHaveLength(1);
+    expect(issues[0].severity).toBe("warn");
+    expect(issues[0].message).toContain("restore ink");
+    expect(JSON.stringify(drawing.canvas.elements)).toBe(before);
+  });
+
+  it("keeps unioned hand cutters quiet", () => {
+    const drawing = run(`icon timer
+finish filled
+circle 12,12 r9
+rect 11,6 2x7 r1
+rect 12,11 5x2 r1
+union
+subtract`);
+    expect(lint(drawing.canvas).filter((i) => i.rule === "hole")).toEqual([]);
+  });
+
+  it("does not confuse overlapping bounds or tangent contact with filled overlap", () => {
+    for (const centres of [
+      "10,10 r2\nhole circle 13,13 r2",
+      "10,12 r2\nhole circle 14,12 r2",
+    ]) {
+      const drawing = run(
+        `icon counters\nfinish filled\nrect 2,2 20x20 r2\nhole circle ${centres}`
+      );
+      expect(lint(drawing.canvas).filter((i) => i.rule === "hole")).toEqual([]);
+    }
+  });
+});

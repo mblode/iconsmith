@@ -17,9 +17,9 @@ import { z } from "zod";
 
 import { completeProgram, run as runDsl } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import { sheet } from "../tools/render.js";
+import { png, sheet } from "../tools/render.js";
 import { adaptProgram } from "../tools/twin.js";
-import type { Finish, Part } from "../types.js";
+import type { Finish, Issue, Part } from "../types.js";
 import { audit } from "./audit.js";
 import type { AuditAsk, AuditResult } from "./audit.js";
 import type { ApiCost } from "./cost.js";
@@ -27,9 +27,12 @@ import { EMPTY_USAGE, tokenUsageOf, totalUsd } from "./cost.js";
 import { isDeclined } from "./decline.js";
 import { gatewayCostTracker, resolveModel } from "./gateway.js";
 import type { GenerateResult } from "./generate.js";
+import { pairPrograms } from "./pair.js";
 import { better } from "./pick.js";
 import type { RankedSample } from "./pick.js";
 import type { Concept } from "./prompt.js";
+import { assertStyle, compileStyle, styleParts } from "./style.js";
+import type { StyleSelection } from "./style.js";
 
 /**
  * The acceptance floor for both SC and PQ.
@@ -104,7 +107,7 @@ export interface PairCandidate {
   id: string;
   /** Human-readable arm name. */
   label: string;
-  generate: (finish: Finish) => Promise<GenerateResult>;
+  generate: (finish: Finish, style?: StyleSelection) => Promise<GenerateResult>;
   /** Conservative paid-call reservation used before an automatic run starts
    * this complete pair. A failed arm does not refund it. */
   reserveCalls?: number;
@@ -282,6 +285,8 @@ export const rankPairCandidates = async ({
 };
 
 export interface TournamentPaint {
+  /** Explicit revision acceptance does not use part count as provenance. */
+  styleEligible?: boolean;
   accepted: boolean;
   /** The acceptance review. Always a fresh look, never the arm's own. */
   audit: AuditResult;
@@ -303,6 +308,10 @@ export interface TournamentPaint {
 }
 
 export interface TournamentRun {
+  /** Checks on the two delivered paints together, under the selected spec. */
+  pairIssues?: Issue[];
+  /** All original generation and review bills, including replaced twins. */
+  costs?: ApiCost[];
   accepted: boolean;
   /** A failed arm is evidence, not a reason to discard every other arm. */
   /** The arm had no answer for this concept, rather than breaking. It is still
@@ -365,6 +374,7 @@ export interface PairTournamentResult {
 }
 
 export interface PairTournamentOptions {
+  style?: StyleSelection;
   /** Cancels generation and independent audits for the owning turn. */
   abortSignal?: AbortSignal;
   ask?: AuditAsk;
@@ -418,8 +428,36 @@ const houseDerivedBy = (result: GenerateResult): boolean =>
  */
 const structurallyEligible = (
   result: GenerateResult,
-  programComplete: boolean
-): boolean => result.clean && programComplete && houseDerivedBy(result);
+  programComplete: boolean,
+  styleEligible?: boolean
+): boolean =>
+  result.clean && programComplete && (styleEligible ?? houseDerivedBy(result));
+
+const belongsToStyle = (
+  result: GenerateResult,
+  style: StyleSelection,
+  finish: Finish
+): boolean => {
+  try {
+    styleParts(style, result.extras);
+    if (result.styleKey !== style.key || !result.program) {
+      return false;
+    }
+    const compiled = compileStyle(style, result.program);
+    const replay = runDsl(result.program, [...style.parts], {
+      spec: style.spec,
+    });
+    return (
+      compiled.svg === result.svg &&
+      compiled.finish === finish &&
+      !lint(replay.canvas, { keyline: replay.keyline }).some(
+        (issue) => issue.severity === "error"
+      )
+    );
+  } catch {
+    return false;
+  }
+};
 
 /**
  * Why a paint was refused before anyone looked at it.
@@ -431,7 +469,8 @@ const structurallyEligible = (
  */
 const vetoedAudit = (
   result: GenerateResult,
-  programComplete: boolean
+  programComplete: boolean,
+  styleEligible?: boolean
 ): AuditResult => {
   const reasons: string[] = [];
   if (!result.clean) {
@@ -440,7 +479,11 @@ const vetoedAudit = (
   if (!programComplete) {
     reasons.push("its program does not replay to the delivered document");
   }
-  if (!houseDerivedBy(result)) {
+  if (styleEligible === false) {
+    reasons.push(
+      "its style identity, dependencies, compiled SVG or structural review did not match the pinned revision"
+    );
+  } else if (styleEligible === undefined && !houseDerivedBy(result)) {
     reasons.push(
       "it places no part and adopts no analog, so the house did not draw it"
     );
@@ -463,7 +506,7 @@ const paintAccepted = (
 ): boolean =>
   paint.result.clean &&
   paint.programComplete &&
-  paint.houseDerived &&
+  (paint.styleEligible ?? paint.houseDerived) &&
   paint.audit.scorable &&
   paint.audit.findings.length === 0 &&
   paint.audit.sc >= minimumSc &&
@@ -498,8 +541,10 @@ const rescueTwin = async ({
   concept,
   minimumPq,
   minimumSc,
+  onAudit,
   parts,
   references,
+  style,
   strong,
   weak,
 }: {
@@ -508,8 +553,10 @@ const rescueTwin = async ({
   concept: Concept;
   minimumPq: number;
   minimumSc: number;
+  onAudit: (result: AuditResult) => void;
   parts: readonly Part[];
   references: readonly Buffer[];
+  style?: StyleSelection;
   strong: TournamentPaint;
   weak: TournamentPaint;
 }): Promise<TournamentPaint | null> => {
@@ -520,8 +567,8 @@ const rescueTwin = async ({
   let derived: ReturnType<typeof runDsl>;
   let program: string;
   try {
-    program = adaptProgram(source, weak.finish);
-    derived = runDsl(program, [...parts]);
+    program = adaptProgram(source, weak.finish, style?.spec);
+    derived = runDsl(program, [...parts], { spec: style?.spec });
   } catch {
     // A skeleton that will not re-derive is not a failure worth reporting: the
     // pair is refused either way, and the arm's own paint is already recorded.
@@ -547,22 +594,34 @@ const rescueTwin = async ({
     svg: derived.canvas.toSVG(),
     trace: [...strong.result.trace, "twin"],
   };
-  const programComplete = completeProgram(doc, program, [
-    ...parts,
-    ...(result.extras ?? []),
-  ]);
-  if (!structurallyEligible(result, programComplete)) {
+  const programComplete = completeProgram(
+    doc,
+    program,
+    [...parts, ...(result.extras ?? [])],
+    { spec: style?.spec }
+  );
+  const styleEligible = style
+    ? belongsToStyle(result, style, weak.finish)
+    : undefined;
+  if (!structurallyEligible(result, programComplete, styleEligible)) {
     return null;
   }
   const reviewed = await audit({
     abortSignal,
     ask,
     concept,
+    context: style
+      ? {
+          nativeSize: style.spec.size,
+          rubric: style.revision.definition.rubric,
+        }
+      : undefined,
     finish: weak.finish,
     kind: "analog",
     references,
     svg: result.svg,
   });
+  onAudit(reviewed);
   const judged = {
     audit: reviewed,
     finish: weak.finish,
@@ -571,6 +630,7 @@ const rescueTwin = async ({
     programComplete,
     result,
     selfReview: null,
+    styleEligible,
   };
   return { ...judged, accepted: paintAccepted(judged, minimumSc, minimumPq) };
 };
@@ -657,11 +717,24 @@ export const runPairTournament = async ({
   minimumPq = TOURNAMENT_MINIMUM,
   minimumSc = TOURNAMENT_MINIMUM,
   onProgress,
-  parts = [],
-  references = [],
+  parts: legacyParts = [],
+  references: legacyReferences = [],
+  style,
   stopScore = null,
 }: PairTournamentOptions): Promise<PairTournamentResult> => {
   abortSignal?.throwIfAborted();
+  if (style) {
+    assertStyle(style);
+    if (legacyParts.length || legacyReferences.length) {
+      throw new Error("A pinned style owns tournament parts and references");
+    }
+  }
+  const parts = style?.parts ?? legacyParts;
+  const references = style
+    ? await Promise.all(
+        style.references.map((ref) => png(ref.svg, style.spec.size))
+      )
+    : legacyReferences;
   // Arms are numbered in the order they actually start. The exhaustive branch
   // runs the non-serial pool concurrently, so "start order" there is the order
   // they were handed out, not a claim about who finishes first — which is the
@@ -695,6 +768,12 @@ export const runPairTournament = async ({
     };
     report({ ...seat, phase: "started" });
     const results: { finish: Finish; result: GenerateResult }[] = [];
+    const reviewCosts: ApiCost[] = [];
+    const onAudit = (reviewed: AuditResult): void => {
+      if (reviewed.cost) {
+        reviewCosts.push(reviewed.cost);
+      }
+    };
     try {
       const finishes = ["outlined", "filled"] as const;
       if (candidate.serial) {
@@ -702,7 +781,7 @@ export const runPairTournament = async ({
           results.push({
             finish,
             // oxlint-disable-next-line eslint/no-await-in-loop -- `serial` explicitly opts this subprocess out of paint fan-out.
-            result: await candidate.generate(finish),
+            result: await candidate.generate(finish, style),
           });
           abortSignal?.throwIfAborted();
           report({ ...seat, finish, phase: "painted" });
@@ -712,7 +791,7 @@ export const runPairTournament = async ({
           ...(await Promise.all(
             finishes.map(async (finish) => {
               abortSignal?.throwIfAborted();
-              const result = await candidate.generate(finish);
+              const result = await candidate.generate(finish, style);
               abortSignal?.throwIfAborted();
               report({ ...seat, finish, phase: "painted" });
               return { finish, result };
@@ -722,10 +801,15 @@ export const runPairTournament = async ({
       }
       const paints = await Promise.all(
         results.map(async ({ finish, result }): Promise<TournamentPaint> => {
-          const programComplete = completeProgram(result.doc, result.program, [
-            ...parts,
-            ...(result.extras ?? []),
-          ]);
+          const styleEligible = style
+            ? belongsToStyle(result, style, finish)
+            : undefined;
+          const programComplete = completeProgram(
+            result.doc,
+            result.program,
+            [...parts, ...(result.extras ?? [])],
+            { spec: style?.spec }
+          );
           /**
            * Decide the structural half first, and do not buy a look the gate
            * will discard.
@@ -740,8 +824,13 @@ export const runPairTournament = async ({
            * `auditVetoed` keeps the look for telemetry, because that discarded
            * 10/10 is the only reason the veto was ever visible.
            */
-          if (!(auditVetoed || structurallyEligible(result, programComplete))) {
-            const refused = vetoedAudit(result, programComplete);
+          if (
+            !(
+              auditVetoed ||
+              structurallyEligible(result, programComplete, styleEligible)
+            )
+          ) {
+            const refused = vetoedAudit(result, programComplete, styleEligible);
             report({
               ...seat,
               finish,
@@ -757,6 +846,7 @@ export const runPairTournament = async ({
               programComplete,
               result,
               selfReview: result.audit ?? null,
+              styleEligible,
             };
             return { ...judged, accepted: false };
           }
@@ -770,11 +860,18 @@ export const runPairTournament = async ({
             abortSignal,
             ask,
             concept,
+            context: style
+              ? {
+                  nativeSize: style.spec.size,
+                  rubric: style.revision.definition.rubric,
+                }
+              : undefined,
             finish,
             kind: "analog",
             references,
             svg: result.svg,
           });
+          onAudit(reviewed);
           report({
             ...seat,
             finish,
@@ -790,6 +887,7 @@ export const runPairTournament = async ({
             programComplete,
             result,
             selfReview: result.audit ?? null,
+            styleEligible,
           };
           return {
             ...judged,
@@ -820,9 +918,11 @@ export const runPairTournament = async ({
           concept,
           minimumPq,
           minimumSc,
+          onAudit,
           parts,
           references,
           strong: strongPaint,
+          style,
           weak: weakPaint,
         });
         if (!twin?.accepted) {
@@ -839,16 +939,36 @@ export const runPairTournament = async ({
         // the failed one's place rather than being appended.
         return paints.map((paint) => (paint === weakPaint ? twin : paint));
       })();
-      const accepted = rescued.every((paint) => paint.accepted);
+      const outline = rescued.find((paint) => paint.finish === "outlined");
+      const fill = rescued.find((paint) => paint.finish === "filled");
+      const pairIssues =
+        style && outline?.styleEligible && fill?.styleEligible
+          ? pairPrograms(
+              [],
+              "outlined",
+              outline.result.program ?? "",
+              fill.result.program ?? "",
+              style.parts,
+              style.spec
+            )
+          : [];
+      const accepted =
+        rescued.every((paint) => paint.accepted) &&
+        !pairIssues.some((issue) => issue.severity === "error");
       const score = pairScore(rescued);
       report({ ...seat, accepted, phase: "settled", score });
       return {
         accepted,
+        costs: [
+          ...results.flatMap(({ result }) => result.apiCosts ?? []),
+          ...reviewCosts,
+        ],
         declined: false,
         failure: null,
         id: candidate.id,
         label: candidate.label,
         paints: rescued,
+        ...(style ? { pairIssues } : {}),
         score,
       };
     } catch (error) {
@@ -857,6 +977,19 @@ export const runPairTournament = async ({
       abortSignal?.throwIfAborted();
       const failure = failureMessage(error);
       const declined = isDeclined(error);
+      if (style && !declined && results.length < 2) {
+        // A failed provider call may have been billed before it produced a
+        // GenerateResult. Unknown spend must not look like a free attempt.
+        reviewCosts.push({
+          calls: 1,
+          generationIds: [],
+          model: "unknown",
+          operation: "failed-style-attempt",
+          source: "unpriced",
+          usage: { ...EMPTY_USAGE },
+          usd: null,
+        });
+      }
       report({
         ...seat,
         accepted: false,
@@ -877,7 +1010,10 @@ export const runPairTournament = async ({
         id: candidate.id,
         label: candidate.label,
         paints: [],
-        partialCosts: results.flatMap(({ result }) => result.apiCosts ?? []),
+        partialCosts: [
+          ...results.flatMap(({ result }) => result.apiCosts ?? []),
+          ...reviewCosts,
+        ],
         score: 0,
       };
     }
@@ -970,7 +1106,7 @@ export const runPairTournament = async ({
     return true;
   };
   const recordActual = (run: TournamentRun): void => {
-    const costs = [
+    const costs = run.costs ?? [
       ...run.paints.flatMap((paint) => [
         ...(paint.result.apiCosts ?? []),
         ...(paint.audit.cost ? [paint.audit.cost] : []),
@@ -1088,7 +1224,14 @@ export const runPairTournament = async ({
         .filter((candidate) => !started.has(candidate.id))
         .map((candidate) => candidate.id)
     : [];
-  const ranked = runs.toSorted(compareRuns);
+  const ranked = runs.toSorted(
+    style
+      ? (a, b) =>
+          Number(b.accepted) - Number(a.accepted) ||
+          b.score - a.score ||
+          a.id.localeCompare(b.id)
+      : compareRuns
+  );
   const best = ranked.find((run) => run.paints.length > 0) ?? null;
   return {
     best,

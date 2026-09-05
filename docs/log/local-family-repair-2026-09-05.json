@@ -1,0 +1,48 @@
+{
+  "attempt": "A038",
+  "exitCode": 0,
+  "author": "native Codex ChatGPT",
+  "manualArtworkEdits": 0,
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured",
+  "rows": [
+    {
+      "concept": "timer-add",
+      "exactReplay": true,
+      "findings": [],
+      "pairIssues": [],
+      "hashes": {
+        "outlined.icon": "55a4f68406ad1fe1751e0b16d08e508ac9c2666c2a067159f3b06c051d6436aa",
+        "filled.icon": "f8c61223540c169c74cd321dc4c08a7fa18af17817a0fae6bd37ab9380513bad",
+        "outlined.svg": "0699e441f1d153369d050e8607d4f745ad5ffe064be0a03af0ad7e71da02c620",
+        "filled.svg": "9959e33e69eded6f28f1adc186f3d4619ff2b25c2032f057b5dc09c575e23dab"
+      }
+    },
+    {
+      "concept": "window-lock",
+      "exactReplay": true,
+      "findings": [],
+      "pairIssues": [],
+      "hashes": {
+        "outlined.icon": "c0808758c1961554b5f2cc7c1b3e94dedac6dd76c2cc05b5e8ff9ea981036033",
+        "filled.icon": "3bbc12371f847847dea987edd318a33561e4c7e06a362dd19719a210e677b884",
+        "outlined.svg": "a536906d71c66ea53c41ed81b3c3e7e904ed65ecace45a7cfad9a384e1fcc957",
+        "filled.svg": "29897c482ce4939d51093392910d12f7c2fc728723234bb3cf5b15dc92dc957a"
+      }
+    }
+  ],
+  "hostReview": {
+    "improved": [
+      "timer plus has separate readable arms",
+      "joined hand cutters eliminate parity cusp",
+      "window parent interrupted behind lock; shackle counter open"
+    ],
+    "remaining": [
+      "timer hands oversized relative to smaller face and shipped clock neighbors",
+      "16px clearance remains compact",
+      "no independent craft qualification or library acceptance"
+    ]
+  },
+  "comparison": ".staging/foundry-round-1/local-family-repair-01/neighbors.json",
+  "qualification": "development only"
+}

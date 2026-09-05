@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-05",
+  "routing": "native subscription CLI",
+  "apiSpendUnchangedUsd": 10.6590496,
+  "subscriptionUsage": "unmeasured",
+  "attempts": [
+    {
+      "id": "A023",
+      "agent": "codex",
+      "outcome": "compiled draft rejected on visual inspection",
+      "artifact": ".staging/foundry-round-1/local-codex-camera/icon.svg",
+      "sha256": "1fa460cbc24d6a6608b67ca7ba6271d0dd6d65ec5ebbf2e81cf8bf2ab4fb10aa",
+      "findings": [
+        "top contour intersects body",
+        "cramped flash and lens spacing"
+      ],
+      "qualityApproved": false
+    },
+    {
+      "id": "A024",
+      "agent": "claude",
+      "outcome": "argument parsing failed before generation"
+    },
+    {
+      "id": "A025",
+      "agent": "claude",
+      "outcome": "OAuth expired and refresh failed; no generation"
+    }
+  ],
+  "cursor": "installed, not logged in, no generation attempted"
+}

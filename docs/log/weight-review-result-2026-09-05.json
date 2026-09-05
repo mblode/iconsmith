@@ -1,0 +1,726 @@
+{
+  "scope": "Reference-relative weight detection with exact reference renders; not aesthetic qualification. Five currency siblings are correlated.",
+  "changedCorrectBoth": 0,
+  "changedCount": 20,
+  "controlsAcceptedBoth": 0,
+  "controlCount": 4,
+  "presentations": [
+    {
+      "order": 0,
+      "code": 143,
+      "killed": true,
+      "valid": false,
+      "toolReads": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-1.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-2.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-3.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-4.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-5.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-6.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-1.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-2.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-3.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-4.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-0/sheet-5.png"
+          }
+        }
+      ],
+      "limitations": null,
+      "rows": [
+        {
+          "id": "W01",
+          "source": "cloud-sync-2.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W02",
+          "source": "coin-lira.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W03",
+          "source": "coin-pesos.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W04",
+          "source": "coin-rand.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W05",
+          "source": "coin-rupees.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W06",
+          "source": "coin-won.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W07",
+          "source": "devices-2.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W08",
+          "source": "education.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W09",
+          "source": "email-2-block.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W10",
+          "source": "emoji-neutral.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W11",
+          "source": "full-moon.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W12",
+          "source": "gyroscope-sensor.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W13",
+          "source": "pan.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W14",
+          "source": "password-stars.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W15",
+          "source": "quick-ai.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W16",
+          "source": "scan-voice.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W17",
+          "source": "steering-wheel.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W18",
+          "source": "team.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W19",
+          "source": "user-block.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "W20",
+          "source": "versus-circle.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "C1",
+          "source": "cloud-sync-2.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "C2",
+          "source": "coin-won.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "C3",
+          "source": "full-moon.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        },
+        {
+          "id": "C4",
+          "source": "scan-voice.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "missing",
+          "correct": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "order": 1,
+      "code": 0,
+      "killed": false,
+      "valid": true,
+      "toolReads": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-1.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-2.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-3.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-4.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-5.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-6.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-1.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-2.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-3.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-4.png"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/weight-review-01/order-1/sheet-5.png"
+          }
+        },
+        {
+          "tool": "StructuredOutput",
+          "input": {
+            "decisions": [
+              {
+                "id": "W01",
+                "match": "equal",
+                "reason": "Cloud outline arc vs. the interior refresh-arrow strokes: both candidates hold the same arc-to-arrow weight relationship as R, and the arrowheads stay proportionate to the arrow shafts in each. No ratio difference visible at either size."
+              },
+              {
+                "id": "W02",
+                "match": "P",
+                "reason": "Outer ring vs. the Litecoin glyph: in Q the ring reads thinner than R's while the glyph's diagonal and crossbar keep or exceed R's weight, so the glyph dominates the ring. P holds R's near-equal ring-to-glyph weight; at 24px Q's glyph blocks up against a thin rim."
+              },
+              {
+                "id": "W03",
+                "match": "P",
+                "reason": "Outer ring vs. the ruble glyph: Q's ring is lighter than R's while the glyph's stem and bowl are unchanged, raising the glyph-to-ring ratio. P matches R on both the rim and the bowl/crossbar."
+              },
+              {
+                "id": "W04",
+                "match": "abstain",
+                "reason": "Ring vs. the N glyph. Q's diagonal and stems may be marginally heavier and the ring marginally thicker, but I cannot separate a uniform scale from a differential change at this fidelity; the 24px cells do not resolve the counters either side of the diagonal."
+              },
+              {
+                "id": "W05",
+                "match": "P",
+                "reason": "Outer ring vs. the rupee glyph: Q's rim is thinner than R's while the two horizontal bars and the descending tail keep their weight. P preserves R's rim-to-bar relationship."
+              },
+              {
+                "id": "W06",
+                "match": "P",
+                "reason": "Outer ring vs. the won glyph: Q pairs a thinner rim with a heavier W, whose diagonal junctions clot at 24px; R and P both keep the rim about as heavy as the W's strokes."
+              },
+              {
+                "id": "W07",
+                "match": "equal",
+                "reason": "Laptop body outline vs. the base bar and the phone rectangle: both candidates keep the base bar and the phone's outline in the same proportion to the laptop body as R. Any difference read as overall boldness, not a changed ratio."
+              },
+              {
+                "id": "W08",
+                "match": "abstain",
+                "reason": "Apple body outline vs. the book's horizontal bars. Q's apple contour looked heavier to me while the book bars looked unchanged, but the impression did not hold up on a second pass and the stem/leaf are too small here to confirm."
+              },
+              {
+                "id": "W09",
+                "match": "abstain",
+                "reason": "Envelope outline vs. the ban badge's ring and slash. The badge in Q may carry a slightly heavier ring and slash relative to the envelope, but the badge is small enough that I cannot distinguish this from it simply being drawn a touch larger."
+              },
+              {
+                "id": "W10",
+                "match": "P",
+                "reason": "Face circle vs. the eye dots and mouth bar: Q's circle is visibly lighter than R's while the eyes and mouth keep their size and weight, so the features overpower the rim. P matches R's rim weight against the same features."
+              },
+              {
+                "id": "W11",
+                "match": "P",
+                "reason": "Cookie rim vs. the interior chips: Q's outer circle reads heavier than R's while the filled dots and the small ring chip are unchanged, changing the rim-to-chip balance. P keeps R's relationship between the rim and the chips."
+              },
+              {
+                "id": "W12",
+                "match": "abstain",
+                "reason": "Outer circle, the interior crossing ellipses, and the slash. Q reads denser overall with tighter counters in the ellipse crossings, but the outer circle appears to thicken along with them, so I cannot tell a uniform scale from a differential one."
+              },
+              {
+                "id": "W13",
+                "match": "equal",
+                "reason": "Pan bowl and handle vs. the scattered sprinkle dots above: both candidates keep the handle's weight relative to the bowl outline, and the dots stay in the same proportion to the pan strokes as in R."
+              },
+              {
+                "id": "W14",
+                "match": "Q",
+                "reason": "Horizontal bar vs. the three flower shapes: P's bar reads distinctly thinner than R's while the flowers are unchanged, dropping the bar-to-flower ratio. Q keeps R's heavy bar against the same flowers, and the 24px cells show the same contrast."
+              },
+              {
+                "id": "W15",
+                "match": "abstain",
+                "reason": "Star outline vs. the three trail dashes. P's star looked bolder with a tighter interior and Q's more open, but the trail dashes read alike across all three, so I could not decide which star weight is R's."
+              },
+              {
+                "id": "W16",
+                "match": "P",
+                "reason": "Corner brackets vs. the three interior vertical bars: Q's bars read heavier against brackets that stay close to R's, closing the gaps between bars at 24px. P keeps R's bracket-to-bar balance."
+              },
+              {
+                "id": "W17",
+                "match": "abstain",
+                "reason": "Wheel rim vs. the spokes and hub. P looked bolder than R overall, but rim, spokes and hub appeared to move together, so this may be a uniform scale that preserves the ratios; the spoke handles are too fine here to settle it."
+              },
+              {
+                "id": "W18",
+                "match": "equal",
+                "reason": "Head rings vs. the shoulder/body curves: both candidates keep the small side heads in the same weight relation to the central head and to the body arcs as R."
+              },
+              {
+                "id": "W19",
+                "match": "abstain",
+                "reason": "Head ring and body curve vs. the ban badge. P's head ring looked heavier and Q's badge ring lighter, but I could not establish which pairing matches R's head-to-badge relationship."
+              },
+              {
+                "id": "W20",
+                "match": "abstain",
+                "reason": "Outer ring vs. the VS letterforms. Q reads heavier in both the ring and the letters and P slightly lighter than R in both, which is the uniform-versus-differential case I cannot resolve at this fidelity."
+              },
+              {
+                "id": "C1",
+                "match": "equal",
+                "reason": "Repeat of the cloud row. Same reading: cloud arc and interior refresh arrows hold the same relationship to each other in both candidates, consistent with my W01 call."
+              },
+              {
+                "id": "C2",
+                "match": "P",
+                "reason": "Repeat of the won row. Q again pairs a thinner outer rim with a heavier W whose junctions clot at 24px; P holds R's rim-to-glyph weight. Consistent with W06."
+              },
+              {
+                "id": "C3",
+                "match": "P",
+                "reason": "Repeat of the cookie row. Q's outer rim again reads heavier than R's against unchanged interior chips; P preserves the rim-to-chip balance. Consistent with W11."
+              },
+              {
+                "id": "C4",
+                "match": "P",
+                "reason": "Repeat of the scan row. Q's interior vertical bars again read heavier relative to the corner brackets; P matches R's bracket-to-bar weight. Consistent with W16."
+              }
+            ],
+            "limitations": "Judged only from the six sheets as rendered; I had no zoom or pixel-measurement, so each 96px icon was viewed at roughly two-thirds size and the 24px cells served mainly as a corroborating cue (counters filling in, gaps closing) rather than independent evidence. Stroke-width differences below roughly 10-15 percent were not reliably resolvable, which is the direct cause of the 9 abstains: in those rows the candidates differed mainly in overall boldness, and I could not distinguish a uniform scale (which preserves relative weights and should pass) from a differential thickening of one region (which should fail). The 4 \"equal\" calls mean no weight-ratio difference was visible to me at this fidelity, not that the candidates are proven identical; a small real difference could sit under my discrimination threshold. My most confident calls are the circle-plus-glyph rows (W02, W03, W05, W06, W10, W11 and the C2/C3 repeats), where a long smooth ring makes width comparison easiest; W14 rests on P's visibly thinner bar and W16 on Q's heavier interior bars, both a step less certain. Sheet 6 duplicates W01, W06, W11 and W16, and my answers there agree with the originals, which is a consistency check on repeatability but not on correctness -- a systematic bias would repeat too. All judgments are of visible weight only, independent of style preference, and I did not assume the candidates must differ."
+          }
+        }
+      ],
+      "limitations": "Judged only from the six sheets as rendered; I had no zoom or pixel-measurement, so each 96px icon was viewed at roughly two-thirds size and the 24px cells served mainly as a corroborating cue (counters filling in, gaps closing) rather than independent evidence. Stroke-width differences below roughly 10-15 percent were not reliably resolvable, which is the direct cause of the 9 abstains: in those rows the candidates differed mainly in overall boldness, and I could not distinguish a uniform scale (which preserves relative weights and should pass) from a differential thickening of one region (which should fail). The 4 \"equal\" calls mean no weight-ratio difference was visible to me at this fidelity, not that the candidates are proven identical; a small real difference could sit under my discrimination threshold. My most confident calls are the circle-plus-glyph rows (W02, W03, W05, W06, W10, W11 and the C2/C3 repeats), where a long smooth ring makes width comparison easiest; W14 rests on P's visibly thinner bar and W16 on Q's heavier interior bars, both a step less certain. Sheet 6 duplicates W01, W06, W11 and W16, and my answers there agree with the originals, which is a consistency check on repeatability but not on correctness -- a systematic bias would repeat too. All judgments are of visible weight only, independent of style preference, and I did not assume the candidates must differ.",
+      "rows": [
+        {
+          "id": "W01",
+          "source": "cloud-sync-2.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "equal",
+          "correct": false,
+          "reason": "Cloud outline arc vs. the interior refresh-arrow strokes: both candidates hold the same arc-to-arrow weight relationship as R, and the arrowheads stay proportionate to the arrow shafts in each. No ratio difference visible at either size."
+        },
+        {
+          "id": "W02",
+          "source": "coin-lira.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "P",
+          "correct": true,
+          "reason": "Outer ring vs. the Litecoin glyph: in Q the ring reads thinner than R's while the glyph's diagonal and crossbar keep or exceed R's weight, so the glyph dominates the ring. P holds R's near-equal ring-to-glyph weight; at 24px Q's glyph blocks up against a thin rim."
+        },
+        {
+          "id": "W03",
+          "source": "coin-pesos.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "P",
+          "correct": false,
+          "reason": "Outer ring vs. the ruble glyph: Q's ring is lighter than R's while the glyph's stem and bowl are unchanged, raising the glyph-to-ring ratio. P matches R on both the rim and the bowl/crossbar."
+        },
+        {
+          "id": "W04",
+          "source": "coin-rand.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Ring vs. the N glyph. Q's diagonal and stems may be marginally heavier and the ring marginally thicker, but I cannot separate a uniform scale from a differential change at this fidelity; the 24px cells do not resolve the counters either side of the diagonal."
+        },
+        {
+          "id": "W05",
+          "source": "coin-rupees.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "P",
+          "correct": false,
+          "reason": "Outer ring vs. the rupee glyph: Q's rim is thinner than R's while the two horizontal bars and the descending tail keep their weight. P preserves R's rim-to-bar relationship."
+        },
+        {
+          "id": "W06",
+          "source": "coin-won.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "P",
+          "correct": true,
+          "reason": "Outer ring vs. the won glyph: Q pairs a thinner rim with a heavier W, whose diagonal junctions clot at 24px; R and P both keep the rim about as heavy as the W's strokes."
+        },
+        {
+          "id": "W07",
+          "source": "devices-2.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "equal",
+          "correct": false,
+          "reason": "Laptop body outline vs. the base bar and the phone rectangle: both candidates keep the base bar and the phone's outline in the same proportion to the laptop body as R. Any difference read as overall boldness, not a changed ratio."
+        },
+        {
+          "id": "W08",
+          "source": "education.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Apple body outline vs. the book's horizontal bars. Q's apple contour looked heavier to me while the book bars looked unchanged, but the impression did not hold up on a second pass and the stem/leaf are too small here to confirm."
+        },
+        {
+          "id": "W09",
+          "source": "email-2-block.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Envelope outline vs. the ban badge's ring and slash. The badge in Q may carry a slightly heavier ring and slash relative to the envelope, but the badge is small enough that I cannot distinguish this from it simply being drawn a touch larger."
+        },
+        {
+          "id": "W10",
+          "source": "emoji-neutral.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "P",
+          "correct": true,
+          "reason": "Face circle vs. the eye dots and mouth bar: Q's circle is visibly lighter than R's while the eyes and mouth keep their size and weight, so the features overpower the rim. P matches R's rim weight against the same features."
+        },
+        {
+          "id": "W11",
+          "source": "full-moon.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "P",
+          "correct": false,
+          "reason": "Cookie rim vs. the interior chips: Q's outer circle reads heavier than R's while the filled dots and the small ring chip are unchanged, changing the rim-to-chip balance. P keeps R's relationship between the rim and the chips."
+        },
+        {
+          "id": "W12",
+          "source": "gyroscope-sensor.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Outer circle, the interior crossing ellipses, and the slash. Q reads denser overall with tighter counters in the ellipse crossings, but the outer circle appears to thicken along with them, so I cannot tell a uniform scale from a differential one."
+        },
+        {
+          "id": "W13",
+          "source": "pan.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "equal",
+          "correct": false,
+          "reason": "Pan bowl and handle vs. the scattered sprinkle dots above: both candidates keep the handle's weight relative to the bowl outline, and the dots stay in the same proportion to the pan strokes as in R."
+        },
+        {
+          "id": "W14",
+          "source": "password-stars.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "Q",
+          "correct": false,
+          "reason": "Horizontal bar vs. the three flower shapes: P's bar reads distinctly thinner than R's while the flowers are unchanged, dropping the bar-to-flower ratio. Q keeps R's heavy bar against the same flowers, and the 24px cells show the same contrast."
+        },
+        {
+          "id": "W15",
+          "source": "quick-ai.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Star outline vs. the three trail dashes. P's star looked bolder with a tighter interior and Q's more open, but the trail dashes read alike across all three, so I could not decide which star weight is R's."
+        },
+        {
+          "id": "W16",
+          "source": "scan-voice.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "P",
+          "correct": true,
+          "reason": "Corner brackets vs. the three interior vertical bars: Q's bars read heavier against brackets that stay close to R's, closing the gaps between bars at 24px. P keeps R's bracket-to-bar balance."
+        },
+        {
+          "id": "W17",
+          "source": "steering-wheel.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Wheel rim vs. the spokes and hub. P looked bolder than R overall, but rim, spokes and hub appeared to move together, so this may be a uniform scale that preserves the ratios; the spoke handles are too fine here to settle it."
+        },
+        {
+          "id": "W18",
+          "source": "team.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "equal",
+          "correct": false,
+          "reason": "Head rings vs. the shoulder/body curves: both candidates keep the small side heads in the same weight relation to the central head and to the body arcs as R."
+        },
+        {
+          "id": "W19",
+          "source": "user-block.svg",
+          "control": false,
+          "expected": "Q",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Head ring and body curve vs. the ban badge. P's head ring looked heavier and Q's badge ring lighter, but I could not establish which pairing matches R's head-to-badge relationship."
+        },
+        {
+          "id": "W20",
+          "source": "versus-circle.svg",
+          "control": false,
+          "expected": "P",
+          "decision": "abstain",
+          "correct": false,
+          "reason": "Outer ring vs. the VS letterforms. Q reads heavier in both the ring and the letters and P slightly lighter than R in both, which is the uniform-versus-differential case I cannot resolve at this fidelity."
+        },
+        {
+          "id": "C1",
+          "source": "cloud-sync-2.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "equal",
+          "correct": true,
+          "reason": "Repeat of the cloud row. Same reading: cloud arc and interior refresh arrows hold the same relationship to each other in both candidates, consistent with my W01 call."
+        },
+        {
+          "id": "C2",
+          "source": "coin-won.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "P",
+          "correct": false,
+          "reason": "Repeat of the won row. Q again pairs a thinner outer rim with a heavier W whose junctions clot at 24px; P holds R's rim-to-glyph weight. Consistent with W06."
+        },
+        {
+          "id": "C3",
+          "source": "full-moon.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "P",
+          "correct": false,
+          "reason": "Repeat of the cookie row. Q's outer rim again reads heavier than R's against unchanged interior chips; P preserves the rim-to-chip balance. Consistent with W11."
+        },
+        {
+          "id": "C4",
+          "source": "scan-voice.svg",
+          "control": true,
+          "expected": "equal",
+          "decision": "P",
+          "correct": false,
+          "reason": "Repeat of the scan row. Q's interior vertical bars again read heavier relative to the corner brackets; P matches R's bracket-to-bar weight. Consistent with W16."
+        }
+      ]
+    }
+  ],
+  "qualifiedForCraft": false,
+  "apiTotal": 10.6590496,
+  "apiHolds": 0
+}

@@ -1,0 +1,91 @@
+{
+  "out": ".staging/foundry-round-1/local-bookmark-pause-compiler7-01",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "e9451674a8bfd374e6070a6e25120038f9f553fde62a972c7e4211748acf8e5f",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 30.4°, 14.6° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-bookmark-pause-compiler7-01/check-LqXuJZ",
+    "style": "e9451674a8bfd374e6070a6e25120038f9f553fde62a972c7e4211748acf8e5f"
+  },
+  "exactReplay": true,
+  "counters": [
+    {
+      "size": 24,
+      "alphaThreshold": 128,
+      "enclosedTransparentRegions": [
+        {
+          "pixels": 8,
+          "x0": 9,
+          "x1": 9,
+          "y0": 6,
+          "y1": 13
+        },
+        {
+          "pixels": 8,
+          "x0": 14,
+          "x1": 14,
+          "y0": 6,
+          "y1": 13
+        }
+      ]
+    },
+    {
+      "size": 16,
+      "alphaThreshold": 128,
+      "enclosedTransparentRegions": [
+        {
+          "pixels": 5,
+          "x0": 6,
+          "x1": 6,
+          "y0": 4,
+          "y1": 8
+        },
+        {
+          "pixels": 5,
+          "x0": 9,
+          "x1": 9,
+          "y0": 4,
+          "y1": 8
+        }
+      ]
+    }
+  ],
+  "craftApproved": false,
+  "hostVisual": "No stray slit; distinct pause marks/counters at24 and16. Contour follows bookmark family but is shorter with a different fold profile. Development pair, not independently qualified.",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

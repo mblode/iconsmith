@@ -1,0 +1,51 @@
+{
+  "scope": "Compiler9 selected-style reconstruction, not AI generation",
+  "out": ".staging/foundry-round-1/sharp-selected-compiler9-01",
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Content centre is (12.00, 12.26); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.26) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "declared": "off-axis",
+        "message": "\"e0\" has an edge at 151.1\u00b0, 16.1\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Content centre is (12.00, 12.26); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.26) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": ".staging/foundry-round-1/sharp-selected-compiler9-01/check-VG1fA9",
+    "style": "bf0bb0c826c18b3f99b2bbe8137442546d33e85de57fbc044953f7ef8d73d8f6"
+  },
+  "inspectedSizes": [
+    96,
+    24
+  ],
+  "fullTests": {
+    "passed": 1455,
+    "files": 109,
+    "skipped": 0
+  },
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "craftApproved": false
+}

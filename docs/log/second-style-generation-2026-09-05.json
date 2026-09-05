@@ -1,0 +1,52 @@
+{
+  "attempt": "A042",
+  "exitCode": 0,
+  "model": "gpt-5.6-sol",
+  "effort": "high",
+  "source": "Central round-outlined-radius-1-stroke-1.5",
+  "qualification": "development only; not arbitrary style qualification",
+  "comparisonColumns": [
+    "prior Central radius3 stroke2",
+    "new Central radius1 stroke1.5"
+  ],
+  "rows": [
+    {
+      "name": "timer-add",
+      "programSha256": "78c43f764ba0c78c9dbe26c677e5391995a5aebb786771b72c5055eaddf47d18",
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [],
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "pairChecked": false,
+        "pairIssues": [],
+        "preview16": "downsample",
+        "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-thin-style-01/timer-add/check-Twvggk",
+        "style": "3bd56e7752045ccbe2a557db6b34e2ca8995f1347c13770bac602e7a743041a4"
+      }
+    },
+    {
+      "name": "window-lock",
+      "programSha256": "155d8a2e21c2e8b590fa878840bafc8925a1f08925ed0e48864b029daa44cc1d",
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [],
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "pairChecked": false,
+        "pairIssues": [],
+        "preview16": "downsample",
+        "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-thin-style-01/window-lock/check-IZsSxT",
+        "style": "3bd56e7752045ccbe2a557db6b34e2ca8995f1347c13770bac602e7a743041a4"
+      }
+    }
+  ],
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured"
+}

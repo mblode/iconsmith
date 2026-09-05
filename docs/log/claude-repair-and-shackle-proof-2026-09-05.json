@@ -1,0 +1,43 @@
+{
+  "attempt": "A030",
+  "route": "Claude CLI native Max",
+  "accepted": false,
+  "apiSpendUnchangedUsd": 10.6590496,
+  "subscriptionUsage": "unmeasured",
+  "artifacts": {
+    "outlined.icon": "cd875035c6acb7277a792eb352d2566e3d2f94e5018aadbd34f48b355177286c",
+    "filled.icon": "a2786a6e4a62bed21f89d7b293e79f11bf6fbce187c9e422acab130b24da1f0a",
+    "outlined.svg": "d327bb80891ca7ac443c49b5e591ad9a6e96b1fa6b0fac7f6f0ffd021c2c7d4f",
+    "filled.svg": "aa6c17ec628bc35bc360a337bc0aa5528be036db54e67837bf9f6c5f2fa33523",
+    "review.md": "228d8d27a040fd38808321dd3ab7a40b15ced9d7d53f30b4d3ecc6349c248f35"
+  },
+  "currentCheck": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Visual extent is 20.0\u00d719.5; keyline \"wide\" wants 20\u00d716 (\u00b11). Scale by 1.000.",
+        "rule": "keyline",
+        "severity": "error",
+        "finish": "outlined"
+      },
+      {
+        "message": "Visual extent is 20.0\u00d719.5; keyline \"wide\" wants 20\u00d716 (\u00b11). Scale by 1.000.",
+        "rule": "keyline",
+        "severity": "error",
+        "finish": "filled"
+      }
+    ],
+    "pairIssues": [],
+    "style": "898432743cea0abe4b61bd0c46a46de606947dd0af81a7dd509d2caa0779b79e"
+  },
+  "diagnostic": {
+    "path": ".staging/foundry-round-1/shackle-proof",
+    "authorship": "host capability fixture, not accepted generated artwork",
+    "openingAlpha": {
+      "outlined": 0,
+      "filled": 0
+    }
+  },
+  "nextAction": "Use tangent arch legs and actual keyline checks in subsequent model generation; reject closed shackle nubs."
+}

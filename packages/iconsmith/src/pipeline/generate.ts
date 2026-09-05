@@ -17,6 +17,7 @@ import type { LanguageModel, ModelMessage, StopCondition, ToolSet } from "ai";
 
 import type { Canvas, Spec } from "../tools/canvas.js";
 import { lint } from "../tools/lint.js";
+import { png } from "../tools/render.js";
 import { programFromDoc } from "../tools/twin.js";
 import type { Finish, IconDoc, Issue, Keyline, Part } from "../types.js";
 import { adoptHost, hostConstruction } from "./analog.js";
@@ -31,8 +32,11 @@ import { pairAdapted, pairFamily } from "./pair.js";
 import type { Policy } from "./policy.js";
 import { conceptPrompt, systemPrompt } from "./prompt.js";
 import type { CohortBrief, Concept } from "./prompt.js";
+import { referenceSet } from "./references.js";
 import type { Aliases, PartHint } from "./search.js";
 import type { SelectKind } from "./select.js";
+import { assertStyle, replayStyle } from "./style.js";
+import type { StyleArtifact, StyleSelection } from "./style.js";
 import { createTools } from "./tools.js";
 import type { ToolState } from "./tools.js";
 
@@ -106,6 +110,13 @@ export type Unkeyed =
   | "program";
 
 export interface GenerateOptions {
+  /** Replay-verified opposite paint; composition context, never an approved reference. */
+  companion?: StyleArtifact;
+  /** Per-call output ceiling, including reasoning; callers also bound dollars. */
+  maxOutputTokens?: number;
+  /** Provider controls for bounded generation experiments; recorded by callers. */
+  providerOptions?: Parameters<typeof generateText>[0]["providerOptions"];
+  style?: StyleSelection;
   /** Cancels an in-flight model call when the owning turn is stopped. */
   abortSignal?: AbortSignal;
   /**
@@ -265,6 +276,8 @@ export interface GenerateCost {
 }
 
 export interface GenerateResult {
+  /** Revision and master actually used, absent on legacy house runs. */
+  styleKey?: string;
   /** Individually billed model operations used to produce this drawing. */
   apiCosts?: ApiCost[];
   /** No lint errors. Warnings do not block. */
@@ -608,6 +621,49 @@ const fromHost = (
     useHost: true,
   });
 
+const stylePrompt = async (
+  concept: Concept,
+  finish: Finish,
+  style: StyleSelection,
+  companion?: StyleArtifact
+): Promise<ModelMessage[]> => {
+  const references = referenceSet(style.references, {
+    concept: concept.name,
+  }).all;
+  const images = await Promise.all(references.map((ref) => png(ref.svg, 96)));
+  return [
+    {
+      content: [
+        {
+          text: `${conceptPrompt(concept, finish, { allowHouseConstruction: false })}\nReference specimens below show the selected family. Study them before drawing. ${style.parts.length ? "Use the named vocabulary when useful." : "There are no named parts in this revision. Draw with the available primitives; do not search for parts."}`,
+          type: "text",
+        },
+        ...(companion
+          ? [
+              {
+                text: `Unapproved companion draft (${companion.finish}). Match its metaphor, placement and visual extent while drawing ${finish}; redesign counters and optical weight for the new paint. This draft may contain defects and is not a quality target. Its replay-verified program:\n${companion.program}`,
+                type: "text" as const,
+              },
+              {
+                data: await png(companion.svg, 96),
+                mediaType: "image/png",
+                type: "file" as const,
+              },
+            ]
+          : []),
+        ...images.flatMap((data, index) => [
+          {
+            text: `Reference: ${references[index].name}`,
+            type: "text" as const,
+          },
+          { data, mediaType: "image/png", type: "file" as const },
+        ]),
+      ],
+      role: "user",
+    },
+  ];
+};
+
 const fromModel = async (
   canvas: Canvas,
   concept: Concept,
@@ -620,13 +676,17 @@ const fromModel = async (
     abortSignal: GenerateOptions["abortSignal"];
     apiKey?: string;
     cohort: GenerateOptions["cohort"];
+    companion?: StyleArtifact;
     forceAgent: boolean;
     maxSteps: number;
     maxUsd: number | undefined;
     model: GenerateOptions["model"];
     policy: GenerateOptions["policy"];
     proposal: GenerateOptions["proposal"];
+    providerOptions?: GenerateOptions["providerOptions"];
+    maxOutputTokens?: number;
     startedAt: number;
+    style?: StyleSelection;
     tools: ReturnType<typeof createTools>["tools"];
   }
 ): Promise<GenerateResult> => {
@@ -649,14 +709,20 @@ const fromModel = async (
   const result = await generateText({
     abortSignal: opts.abortSignal,
     maxOutputTokens:
-      opts.maxUsd === undefined ? undefined : BUDGETED_MAX_OUTPUT_TOKENS,
+      opts.maxOutputTokens ??
+      (opts.maxUsd === undefined ? undefined : BUDGETED_MAX_OUTPUT_TOKENS),
     maxRetries: opts.maxUsd === undefined ? undefined : 0,
     model: resolved,
     onLanguageModelCallEnd: costTracker.capture,
     prepareStep: ({ messages: stepMessages }) => ({
       messages: withCacheBreakpoints(stepMessages),
     }),
-    prompt: conceptPrompt(concept, finish),
+    prompt: opts.style
+      ? await stylePrompt(concept, finish, opts.style, opts.companion)
+      : conceptPrompt(concept, finish, {
+          allowHouseConstruction: !opts.forceAgent,
+        }),
+    providerOptions: opts.providerOptions,
     stopWhen: [
       stepCountIs(opts.maxSteps),
       () => {
@@ -669,7 +735,9 @@ const fromModel = async (
           (observed.usd === null || observed.usd >= opts.maxUsd)
         );
       },
-      drawnAndClean(canvas, state, end),
+      // A selected-style draw must see its render and decide whether to refine.
+      // Rendering plus clean lint is structural readiness, not visual approval.
+      ...(opts.style ? [] : [drawnAndClean(canvas, state, end)]),
       noProgress(canvas, state, end),
     ],
     system: systemPrompt({
@@ -715,10 +783,61 @@ const fromModel = async (
   });
 };
 
-export const generate = async (
+const withStyle = (options: GenerateOptions): GenerateOptions => {
+  const selected = options.style;
+  if (options.companion) {
+    if (!selected) {
+      throw new Error("A companion draft requires a pinned style");
+    }
+    replayStyle(selected, options.companion);
+    if (options.companion.finish === (options.finish ?? "outlined")) {
+      throw new Error("A companion draft must use the opposite finish");
+    }
+  }
+  if (selected) {
+    assertStyle(selected);
+    if (
+      [
+        options.spec,
+        options.policy,
+        options.parts,
+        options.corpus,
+        options.aliases,
+        options.cohort,
+      ].some((value) => value !== undefined)
+    ) {
+      throw new Error(
+        "A pinned style owns spec, policy, vocabulary and reference lookup"
+      );
+    }
+    return {
+      ...options,
+      corpus: [...selected.references],
+      forceAgent: true,
+      parts: [...selected.parts],
+      policy: selected.policy,
+      spec: selected.spec,
+    };
+  }
+  return options;
+};
+
+const validateOutputLimit = (maxOutputTokens?: number): void => {
+  if (
+    maxOutputTokens !== undefined &&
+    (!Number.isInteger(maxOutputTokens) ||
+      maxOutputTokens < 1 ||
+      maxOutputTokens > 16_384)
+  ) {
+    throw new RangeError("maxOutputTokens must be an integer from 1 to 16384");
+  }
+};
+
+const generateWithOptions = async (
   concept: Concept,
-  options: GenerateOptions = {}
+  options: GenerateOptions
 ): Promise<GenerateResult> => {
+  const selected = options.style;
   const {
     abortSignal,
     aliases = new Map(),
@@ -728,17 +847,20 @@ export const generate = async (
     finish = "outlined",
     keyline = null,
     maxSteps = DEFAULT_MAX_STEPS,
+    maxOutputTokens,
     maxUsd,
     model,
     parts = [],
     policy,
     proposal = null,
+    providerOptions,
     renderSize,
     spec,
   } = options;
 
   throwIfAborted(abortSignal);
 
+  validateOutputLimit(maxOutputTokens);
   if (!Number.isInteger(maxSteps) || maxSteps < 1) {
     throw new RangeError("maxSteps must be a positive integer");
   }
@@ -756,6 +878,7 @@ export const generate = async (
   const hostLocked = host !== null;
   const { canvas, state, tools } = createTools({
     aliases,
+    allowHouseConstruction: !selected,
     cohort: cohort?.extent ?? null,
     corpus,
     finish,
@@ -789,17 +912,40 @@ export const generate = async (
     );
   }
 
-  return await fromModel(canvas, concept, finish, parts, spec, keyline, state, {
-    abortSignal,
-    apiKey,
-    cohort,
-    forceAgent: options.forceAgent === true,
-    maxSteps,
-    maxUsd,
-    model,
-    policy,
-    proposal,
-    startedAt,
-    tools,
-  });
+  const result = await fromModel(
+    canvas,
+    concept,
+    finish,
+    parts,
+    spec,
+    keyline,
+    state,
+    {
+      abortSignal,
+      apiKey,
+      cohort,
+      companion: options.companion,
+      forceAgent: options.forceAgent === true,
+      maxOutputTokens,
+      maxSteps,
+      maxUsd,
+      model,
+      policy,
+      proposal,
+      providerOptions,
+      startedAt,
+      style: selected,
+      tools,
+    }
+  );
+  return result;
+};
+
+export const generate = async (
+  concept: Concept,
+  suppliedOptions: GenerateOptions = {}
+): Promise<GenerateResult> => {
+  const options = withStyle(suppliedOptions);
+  const result = await generateWithOptions(concept, options);
+  return options.style ? { ...result, styleKey: options.style.key } : result;
 };

@@ -1,0 +1,54 @@
+{
+  "order": [
+    "A047 separate joins",
+    "A050 AI rounded contour",
+    "shipped reference"
+  ],
+  "programSha256": "7dfe9a2824c5d810ec4c29a9a5b72baf2a3ce22527492ac483f827cb76340a07",
+  "exactReplay": true,
+  "sourceContourParts": 0,
+  "closed": true,
+  "tangents": {
+    "joins": 12,
+    "maxCross": 1.1711422978753875e-06,
+    "minDot": 0.9999999999993143,
+    "scope": "Tangent continuity only, not curvature continuity or craft approval"
+  },
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined"
+    ],
+    "style": "2bd997d639c420e6962f5f19ae13a6a8f08557cec0f87e639b948e03cfd81f76",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "craftApproved": false,
+  "tests": {
+    "engine": 1426,
+    "files": 103,
+    "skipped": 0,
+    "targeted": 65,
+    "typecheck": true,
+    "lintAndLayering": true
+  },
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured",
+  "hostVisualAssessment": {
+    "sizes": [
+      96,
+      24,
+      16
+    ],
+    "improvement": "One generated continuous contour removes separate capped joins and rounds the notch apex.",
+    "remaining": "Lower fillets remain visually fuller at16; notch proportions differ from source. No calibrated independent craft approval."
+  }
+}

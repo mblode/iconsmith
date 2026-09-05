@@ -8,9 +8,9 @@ Describe an icon in chat or at a terminal, and a constrained drawing API puts ev
 
 </div>
 
-## Demo
+## Local foundry
 
-[Iconsmith Studio](https://blode.co/iconsmith/studio) draws an icon from a description, asks when it is unsure, and shows the program behind every version. Nothing to install.
+The Studio and agent pipeline run locally. See [the local foundry guide](docs/local-foundry.md).
 
 ## Install
 

@@ -1,0 +1,4105 @@
+{
+  "captured": "2026-09-05",
+  "method": "claude-code-search 1.3.0 CLI plus read-only loadMessages API; git all-ref documentation history; tracked source citation scan",
+  "coverage": {
+    "projectRecords": 4456,
+    "legacyForgeRecords": 3418,
+    "combinedRecords": 7874,
+    "invalidTimestamps": 94,
+    "crossProjectSearchHits": 262,
+    "ignoredLocalDocs": 57,
+    "experimentArtifacts": 183,
+    "workingDocs": 47,
+    "historicalOnlyDocs": 21,
+    "uniqueRecoveredURLs": 150
+  },
+  "limitations": [
+    "Recovered URLs are historical citations, not verified research conclusions.",
+    "ccs Codex/Cursor loaders return prompts; assistant claims require original transcript or repository evidence.",
+    "Compressed Codex sessions are skipped by ccs; deleted local sessions and remote-only history cannot be recovered.",
+    "Historical-only documents use their last adding/modifying revision, not every historical version.",
+    "No private transcript contents or credentials copied into this durable manifest."
+  ],
+  "crossProjectSessions": [
+    {
+      "source": "claude",
+      "sessionId": "18a77868-99d3-40e4-85cd-d0f7b1b86ca5",
+      "project": "/Users/mblode/Code/mblode/icon/forge",
+      "hits": 2
+    },
+    {
+      "source": "claude",
+      "sessionId": "1cd0877c-82cc-4d6b-ad00-d92f5ef0e5bb",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/2vDMMz",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "1da1ad25-2023-4c91-b397-ecf179f9a125",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/7XWSaE",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "1fa4b274-2305-406d-b9b4-d3aec4896b81",
+      "project": "/Users/mblode/Code/mblode/icon/forge",
+      "hits": 8
+    },
+    {
+      "source": "claude",
+      "sessionId": "27118c84-9fa1-46ee-b0eb-cb53aedbd6e1",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/UYLnX5",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "2ad0e3d5-bce1-4e55-9ab8-26ad24f1caf7",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 12
+    },
+    {
+      "source": "claude",
+      "sessionId": "2cca94a9-c340-4019-abcf-bdfe5bbf49dc",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/wS4dY2",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "2ce7fcf4-7229-4c86-8d52-62dec1242cb7",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/JT1Dh7",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "337abb49-1745-4ecf-96bb-6173652fcff4",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 21
+    },
+    {
+      "source": "claude",
+      "sessionId": "381df774-450b-4ae6-9236-35508ef7b381",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/X5Ndm4",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "3b718022-8319-4cf6-bbf7-6a48bcea8089",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/FZUuhK",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "4446e766-a490-4823-9a8b-dac6ce0e771b",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/P0RHVw",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "595d58ce-ad25-4d77-a0a7-9818e4964abf",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 3
+    },
+    {
+      "source": "claude",
+      "sessionId": "67ed096a-2dea-41e0-9e5d-e7bbb62189c8",
+      "project": "/Users/mblode/Code/mblode/icon/forge",
+      "hits": 2
+    },
+    {
+      "source": "claude",
+      "sessionId": "68281954-a87e-4917-aa83-26b770e76a12",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/UeeXVJ",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "6bf6a85a-b688-4c95-b405-08c9b11a2e1a",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 2
+    },
+    {
+      "source": "claude",
+      "sessionId": "939ca392-152c-4caf-89cb-ba9262a4cc60",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/hMBUS2",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "a8688180-3168-4c05-a76a-250db1344ed7",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/BV2RqQ",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "ae3aa7a7-fe73-4dd0-85f3-8dc3b2541741",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 2
+    },
+    {
+      "source": "claude",
+      "sessionId": "b42dbb6b-5cba-4606-9bcf-22019e868654",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/RWe0iI",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "be92dac1-849f-4991-b820-4affa73fb603",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "c13076ae-a758-43db-8b17-1e222ee44481",
+      "project": "/Users/mblode/Code/mblode/static/to/variable/glide",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "c8bcc73b-1f40-4c3b-a492-e8473ba38635",
+      "project": "/Users/mblode/Code/mblode/blode/co",
+      "hits": 3
+    },
+    {
+      "source": "claude",
+      "sessionId": "c8e0818a-b81b-411e-b358-50eea3b9db6e",
+      "project": "/Users/mblode/Code/mblode/icon/forge",
+      "hits": 16
+    },
+    {
+      "source": "claude",
+      "sessionId": "cdd4ca53-f3d0-4a03-8c51-e50ade8ab2a4",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/TNjABQ",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "cdf9b8a6-ef24-4779-b1c1-4affd67b9387",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/s27QxK",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "d27e5258-2b4b-42ae-b454-da0c7228f676",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/ih6D5n",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "d378f04a-2eec-4748-9a44-b5b4be37ad3f",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/hp2WLn",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "daf282c8-95d9-45c7-84f2-c2090025f3ed",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/Y5eXOk",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "dbdb55db-74c4-4f7f-94d9-62fd492141b0",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/WIKqxU",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "ea5fb209-9e56-43b7-819b-e1a4af8060b6",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith/harness/sNH1eA",
+      "hits": 1
+    },
+    {
+      "source": "claude",
+      "sessionId": "eebc8c06-c123-455b-98e6-cd87141068f5",
+      "project": "/Users/mblode/Code/mblode/icon/forge",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a019b2-be9b-7762-8140-aada0472dd5a",
+      "project": "/private/tmp/codex-skill",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a019b3-5386-7c72-b478-751cc9f3e45c",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/brief-HPEUpU",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c79-ca60-7420-969d-4a2b6d030f69",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-q5ozEa",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c7b-240e-7ed3-b921-fee9a95b30bc",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-g7KqBh",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c7d-598e-7b83-96f8-33bd0fd76c1b",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-FWnP0K",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c7e-35fb-7d50-9eaf-bcaa73f45786",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-PVD31f",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c7f-1f5a-7c80-8dc9-044ec33fbc8c",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-EZePoy",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c7f-d853-7a71-a405-cf2a0cd38a2c",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-no8bbp",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c80-9ad6-71c1-bdf4-da45e2d28726",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-0AmM5s",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c82-c6f4-7aa1-a61b-9c88ccb39c5f",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-la5GXT",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c83-dc6d-72b1-b0f8-0526d724f455",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-B5LNeE",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c85-1676-7372-a92f-9d3bc84017f2",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-IVHIOG",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c86-71fe-7363-8e48-ce5663b512f2",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-U1Nguf",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01c87-79e3-73f3-9a7f-ae65cd2674bb",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-qBnM2E",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cd5-3663-7723-8664-509b2b63187d",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-Mp5VlQ",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cd6-48f6-7423-bc0d-e38caac4f903",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-7ty1Er",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cd9-90cb-72c3-bdb5-c7771e2c7177",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-Vpd2rq",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cda-d72d-7851-97be-6039cff43cc3",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-RsoQjH",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cdc-5086-7961-b0d6-1ee59dfb5354",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-yLmgsU",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cdd-bb19-72f3-bd59-a509caef17dd",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-f4cSsw",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cdf-2744-7d31-bb44-c24c70374cfc",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-8s8oxl",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce0-a601-7ad2-b937-74da7ae6e62c",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-S6f8PQ",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce0-c7ae-7b40-814e-956c84698f16",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-woZtTi",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce1-d048-7ed3-ad11-75dd7b181802",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-uz1BiC",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce2-1981-7ef3-a02d-285bb940bdc8",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-l0hkmh",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce3-3094-7272-9934-2cb009b54de9",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-DGlmpD",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce4-5efb-7b71-bcb4-e748640c2977",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-tKBJGy",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce4-a34e-7553-90be-fa7f50cfa510",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-S59THv",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce6-183d-7e02-822d-9aede9041023",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-3X4cgZ",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce6-a877-7a03-986e-e8ff09a672fa",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-5RgXFw",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce7-3dfc-7ae2-bdd2-b3dd6a5eba76",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-uDcJmT",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce7-ee45-72b0-9a07-7bc2879720dc",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-ojtrmY",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce8-ccd3-7580-a13b-dedbc55c624d",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-eVwlUU",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01ce9-6f59-7f82-9290-90bdc0ccdb7e",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-aW0oTK",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cec-2b81-7523-a9fe-5ce4747da5cd",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-yWIrs1",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cee-8d6d-7d82-a00d-7925d58ff8ae",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-6tP6nm",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01cfd-ee3a-7350-8109-2d87d9f80b14",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-36SoYs",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d00-cb39-7993-86f5-33ed9fe56594",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-ve2ixk",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d05-9805-7c10-bd18-5e3d46f52b4f",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-xXlaM8",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d05-98f4-7d82-b4eb-876d84460eb0",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-xXlaM8",
+      "hits": 7
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d0b-4191-7e30-ae35-37652f01ed90",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-YBfVCC",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d0e-7a4a-7110-bc14-dfda27cd58ce",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-bDWPQC",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d0f-e5c3-7613-951c-0aee4a623c18",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-3vCAMj",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d12-2d0f-7642-bcc1-e3be95664f96",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-twm0Yp",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d14-0a51-79c1-afa6-f563f18fc745",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-a3247d",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d15-e25d-7851-b8c8-388fe596bb95",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-58t4qI",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d2c-d536-7100-86a2-a77646a37789",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-NIOvpg",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d2e-eb24-72a3-8ab9-5e453e422dcc",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-XlkD9V",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d31-e13a-74d2-8a2a-486c22bee125",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-ZtejyF",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d39-29ec-7200-a98b-f247dfa51b0b",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-DcxMJS",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d42-51e6-7fd0-bff6-64e65c04da0e",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-SVjCsb",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d45-36f1-7042-b5ae-79b366aa72a6",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-fiKoQV",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d46-f715-7460-b64c-13eac0e0702e",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-0a2yJj",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d4a-e641-7e52-bcc1-c3f727d6a064",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-lc8gQz",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d4c-87fb-7ef3-a8ac-8d922fbc01d3",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-4nFBJH",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d4f-b83c-7c33-b15d-2ecb27d87107",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-cTbQ0G",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d61-9c6e-7a83-abd7-70fb501a91e5",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-IWyA0Y",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d64-7c1e-78f1-b496-6cb32003504e",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-whmpVX",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d67-7e6e-7131-896b-d370e9ddb94e",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-5oek7t",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-249b-7413-88cb-9b2787c1c031",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-4fwJ27",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-5a14-7102-b6cd-b86aa5fd324a",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-IXyHEr",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-6aad-7be2-ad6c-02c019a4c0fb",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-J2cy1J",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-7c10-7843-bae7-3ed416a14708",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-G5KW1I",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-aa29-7be0-b155-3c5af777df66",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-T5AkXA",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-ba96-7512-b6e0-6b147282fa6e",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-ZpPp65",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a01d69-cb2a-7450-bb34-77971af84512",
+      "project": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-harness-SEUUNB",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a02731-8d36-7192-ae70-6c716288abfc",
+      "project": "/Users/mblode/Documents/Codex/2026-08-22/new-chat",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a02b6d-62b6-7191-a7ca-2bd27a671d20",
+      "project": "/Users/mblode/Documents/Codex/2026-08-23/f",
+      "hits": 15
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a02b85-25ba-78c2-a69c-6c96ee4732b5",
+      "project": "/Users/mblode/Documents/Codex/2026-08-23/f",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a02b85-5661-7181-ba91-508a31ebf976",
+      "project": "/Users/mblode/Documents/Codex/2026-08-23/f",
+      "hits": 2
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a030ab-1b69-7952-805c-8ed51c687abf",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a0329f-bd97-71e0-8eb5-fd396b8f387f",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a03a82-54ea-73b3-ab42-c606e1b54478",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 3
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a03a87-5c1b-79d2-83f5-2dfd8976b80e",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a06e66-c3c7-7f60-8f16-3975581adccd",
+      "project": "/Users/mblode/Documents/Codex/2026-09-05/mobbin-plugin-app-69fdb9081018819193707354f21b366e-openai-curated-2",
+      "hits": 1
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a06ea5-fb23-7622-8e00-f0379e7952c1",
+      "project": "/Users/mblode/Code/mblode/iconsmith",
+      "hits": 7
+    }
+  ],
+  "experimentArtifacts": [
+    {
+      "path": "packages/iconsmith/bench/calibration.v1.json",
+      "bytes": 9926,
+      "sha256": "5e405c2ef2e86c521e411d605657b34da4ef4850c8acdabba0f3eb5af111b54f"
+    },
+    {
+      "path": "packages/iconsmith/bench/filled-language.v1.json",
+      "bytes": 22817,
+      "sha256": "82c2a081a3c20a41199675c87b68995dd8d4014bed6d60879c55425457018244"
+    },
+    {
+      "path": "packages/iconsmith/bench/gate-cosine.v1.json",
+      "bytes": 3568,
+      "sha256": "d8f51469658fe10c7c0853a0f58fe1e19762ca431ee42005f1d5ff08a7c79d6f"
+    },
+    {
+      "path": "packages/iconsmith/bench/gate-structure.v1.json",
+      "bytes": 6090,
+      "sha256": "79cd0584d24811904a871c14b1b4211c675a4c3fcf68101dff16e1956822d912"
+    },
+    {
+      "path": "packages/iconsmith/bench/ledger.jsonl",
+      "bytes": 809,
+      "sha256": "e6e7dba3b4515fcc1d3ffefb1b2992c051408a260057eec80f55edbb43f05b75"
+    },
+    {
+      "path": "packages/iconsmith/bench/mixture-pack-inventory.v1.json",
+      "bytes": 725,
+      "sha256": "1aaebc2c2a10ca7155be9845c4c0e389dbcfcb083e300efbe3a75afbf410f89e"
+    },
+    {
+      "path": "packages/iconsmith/bench/noise-floor.json",
+      "bytes": 281,
+      "sha256": "32ebe6b14432f4d25debc3d854f4747f2eea7ff407f4565fd43ac9af7cfba795"
+    },
+    {
+      "path": "packages/iconsmith/bench/part-coverage.v1.json",
+      "bytes": 24750,
+      "sha256": "f3d05cd58a5b78fdb7dc7323e96b7836c189185766f211cb51c657b5f459a634"
+    },
+    {
+      "path": "packages/iconsmith/bench/part-coverage.v2.json",
+      "bytes": 3594,
+      "sha256": "7443c676221ac73b94b343a848ba4e649a724da1e8043e2804b7290c5b05623a"
+    },
+    {
+      "path": "packages/iconsmith/bench/pipeline-compare.v1.json",
+      "bytes": 1389,
+      "sha256": "db7b7da90dc04aef2aaf55a8b5301048c655e69cb3550532526513dbd4e925f2"
+    },
+    {
+      "path": "packages/iconsmith/bench/reconstruction.json",
+      "bytes": 920816,
+      "sha256": "606619e9740ae2b41b26e6a18583ed7ee5bf41bed7873b1fb3ed6bc385333706"
+    },
+    {
+      "path": "packages/iconsmith/bench/stress-cosine.v1.json",
+      "bytes": 305668,
+      "sha256": "ad11063b184e29316dffee1b6045025e37325a2596839bbebe7a1d5193530525"
+    },
+    {
+      "path": "packages/iconsmith/bench/stress-registration.v1.json",
+      "bytes": 587910,
+      "sha256": "97c74cc382495f1c11f6379acac9b8dc1f10719b619cabb3b9fd374609cb9264"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/campaign.json",
+      "bytes": 146182,
+      "sha256": "c1db805817636e49ee8519cf1672317b43e27b849acd06821e80514c057e81d2"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/001-none/candidates/host-analog/candidate.json",
+      "bytes": 3748,
+      "sha256": "00719c7091551181a0622715d6abf68c3f07965194214e91d1405a2f68826ecd"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/001-none/candidates/host-analog/filled.icon.json",
+      "bytes": 260,
+      "sha256": "9af0de7ea7b5decac1e5c7fa2c10cf5dbd6da51b742ece9946c2fcbd8f0e731c"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/001-none/candidates/host-analog/outlined.icon.json",
+      "bytes": 238,
+      "sha256": "4b6017c9289ba0f833f5810903003a5acf855b8dd6408791293e1c52d4eba4ae"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/001-none/candidates/image-agent/candidate.json",
+      "bytes": 408,
+      "sha256": "8ed536a3662c3bb66fcbd6218a2fc303c556794d93883ffccc244415bc8b9857"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/001-none/decision.json",
+      "bytes": 2534,
+      "sha256": "0e655c2a2389521c2aa7788ca0b0ce2cddb6217e9bdae8fd1d8d952be2c75e01"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/001-none/events.jsonl",
+      "bytes": 1094,
+      "sha256": "00b7b084ad341ea7db5adc7edfcee416ec1d3c00eb68c5a92b4363320e435a78"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/candidates/host-analog/candidate.json",
+      "bytes": 3517,
+      "sha256": "c84b859cf69f6b812663615662e038293cf5094da773f2da02fde2010b6ad9de"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/candidates/host-analog/filled.icon.json",
+      "bytes": 260,
+      "sha256": "9af0de7ea7b5decac1e5c7fa2c10cf5dbd6da51b742ece9946c2fcbd8f0e731c"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/candidates/host-analog/outlined.icon.json",
+      "bytes": 238,
+      "sha256": "4b6017c9289ba0f833f5810903003a5acf855b8dd6408791293e1c52d4eba4ae"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/candidates/image-agent/candidate.json",
+      "bytes": 7505,
+      "sha256": "156d1e6fac4e92bebf78f68f074334f04a9c523858ab66f889d540e2fbe20283"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/candidates/image-agent/filled.icon.json",
+      "bytes": 401,
+      "sha256": "f5e331f04f6f2163673c09e9d1aeb2d9f3ea80b3a34c5f404a573d91ba07fa38"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/candidates/image-agent/outlined.icon.json",
+      "bytes": 61,
+      "sha256": "05c0534bd62198a2b5ac28c610f4c588f3e63028fa7f1d927af60ef94e01d83e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/decision.json",
+      "bytes": 4757,
+      "sha256": "a10dbb8e60b9d1bff4f1ee18abcdf594c00b9c7951b43a8af7c02990df53b20b"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/002-host-analog/events.jsonl",
+      "bytes": 1884,
+      "sha256": "0c639e6cf13674109f604e1e1afecb9b120c33d0e00466bbe176c1dcc9beea58"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/candidates/host-analog/candidate.json",
+      "bytes": 3655,
+      "sha256": "06844506c251ada402e7bb1a18c2bb9178b0d4e6e2b1f9f2adfde70f315265ea"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/candidates/host-analog/filled.icon.json",
+      "bytes": 260,
+      "sha256": "9af0de7ea7b5decac1e5c7fa2c10cf5dbd6da51b742ece9946c2fcbd8f0e731c"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/candidates/host-analog/outlined.icon.json",
+      "bytes": 238,
+      "sha256": "4b6017c9289ba0f833f5810903003a5acf855b8dd6408791293e1c52d4eba4ae"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/candidates/image-agent/candidate.json",
+      "bytes": 8087,
+      "sha256": "e0598926e74a2db175ecc16d6afdf98da39aa710caa497d52156a91b5837462e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/candidates/image-agent/filled.icon.json",
+      "bytes": 418,
+      "sha256": "ff1d3d4ee9d2b1bc3c8277eb66c1bb895ecb326144b2320d942f1a6a5afd1a4c"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/candidates/image-agent/outlined.icon.json",
+      "bytes": 61,
+      "sha256": "05c0534bd62198a2b5ac28c610f4c588f3e63028fa7f1d927af60ef94e01d83e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/decision.json",
+      "bytes": 4855,
+      "sha256": "b33a99f2573fcb6fcac79a8f88440c7c1698064ee20413d2d78aa97a360136e0"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/attempts/003-host-analog/events.jsonl",
+      "bytes": 1884,
+      "sha256": "80e39062ded4a44aca412924b480ed6654ca3c5fc10330ebce14a4a78396f3e5"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/alarm-smoke/task.json",
+      "bytes": 11480,
+      "sha256": "37d3afd32d5fc6e4b9bce67c391391c93be2b667bcee30a83fd9faf90e93f343"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/budget-incident.json",
+      "bytes": 1048,
+      "sha256": "3c7105a644f9c04115bbb43398e73807cb7a149929ffc6992a545b6e23b3b04e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/candidates/host-mixture/candidate.json",
+      "bytes": 14230,
+      "sha256": "47a6fb3ec6579fda208d6ab2c162e0a58ea3e090053abddd17dec336076e7750"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/candidates/host-mixture/filled.icon.json",
+      "bytes": 1387,
+      "sha256": "d78433f7042c307e87e7fbf9c802867dfd57ec5be22d54beb0ad0241ef4e1a37"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/candidates/host-mixture/outlined.icon.json",
+      "bytes": 964,
+      "sha256": "9033d4406fac46a57f2f59ce18a4c45f743e1c3887adc68cecdb3b7797983636"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/candidates/image-agent/candidate.json",
+      "bytes": 7342,
+      "sha256": "f90e80da979d9544e327cd57ee362ce4262c9a6e1895a4b97ad2a5f7e1bee059"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/candidates/image-agent/filled.icon.json",
+      "bytes": 75,
+      "sha256": "f9e33006a84ead75e181e4890568533d2114c014aa5f72d139f991e733b37d0e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/candidates/image-agent/outlined.icon.json",
+      "bytes": 53,
+      "sha256": "171d4fd0af5364ef49ef0e6820278a2deed6db89b7a09dd66bc28a4a2a1e5069"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/decision.json",
+      "bytes": 7243,
+      "sha256": "762cafc5cff9d034298cb787710e4d46e65c9cda9401e11fe54fa3093e126f33"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/attempts/001-host-mixture/events.jsonl",
+      "bytes": 1094,
+      "sha256": "2d0792cf733459c603dbc462ba6585ed013c1b9a0372290391be6fa8c739367f"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/dna/task.json",
+      "bytes": 7796,
+      "sha256": "3e1a33d27b21e126403c842ff6441377dab9849d06e95e6ec1fcc7d566e7a1b9"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/claude-harness/candidate.json",
+      "bytes": 692,
+      "sha256": "bfdcd3042c16593d27348070d3c1bfab49124bce6faf9f096bce247570651b13"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/gateway-agent/candidate.json",
+      "bytes": 9813,
+      "sha256": "03ba2761ccdb3ff01e581d0af72c2248141006c97db9cbd3fd3f26c559991d86"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/gateway-agent/filled.icon.json",
+      "bytes": 242,
+      "sha256": "4bc9b01ee8bbd9c5c9a5b20903e866eb5332f6604fcb90c819751a9cd09dd740"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/gateway-agent/outlined.icon.json",
+      "bytes": 315,
+      "sha256": "de82d1654342e20bd909264802d19bb837034b13e049f366009d141403dc825b"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/host-analog/candidate.json",
+      "bytes": 2887,
+      "sha256": "412d7b2f16a3596182c4545a2d530b600b4ab813f2eecb75e8bebea514c58582"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/host-analog/filled.icon.json",
+      "bytes": 402,
+      "sha256": "0ba77c7bfc2a1979251be91d7e898d7a1d574c6a6cc91c54e199b432f2714834"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/host-analog/outlined.icon.json",
+      "bytes": 252,
+      "sha256": "4c02c1f5c11dd7890e42d4fd863cec1705c309ffc8cc92cd233411d3d9513ce0"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/image-agent/candidate.json",
+      "bytes": 7680,
+      "sha256": "7941d7b20e98add306d267614870ec47d4c3a1bfa3da9c0ea03ec85c524532de"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/image-agent/filled.icon.json",
+      "bytes": 234,
+      "sha256": "7596ff53a45635e6f0673b0f0c02b52827e361f8c5f51cac8d1642f3bb9675de"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/candidates/image-agent/outlined.icon.json",
+      "bytes": 57,
+      "sha256": "8c4e120c606dd64e74d7804267705f75163794c913ed859f40b352148d7b8171"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/decision.json",
+      "bytes": 9901,
+      "sha256": "d522aee4147c320b7d5d472b104046a9b5820ead37e2d5298ad568aa8816df09"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/events.jsonl",
+      "bytes": 1884,
+      "sha256": "980c5666d7d4af8f5bda7c097d822023281022c91c069e214edf95069adecead"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/001-none/proposal/proposal.json",
+      "bytes": 2630,
+      "sha256": "014fea23a8d44c78bbc54261fb8e121c80c275deba844b46dda8166282a6f261"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/claude-harness/candidate.json",
+      "bytes": 12074,
+      "sha256": "d8db6a7c290044621e54e15d5735854a8136b44949b2913fc6fcfb24613d0384"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/claude-harness/filled.icon.json",
+      "bytes": 251,
+      "sha256": "c7614cbf62f43dbf254aa0391af5e42930944346a19a09690c7bbd314ae1d5c7"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/claude-harness/outlined.icon.json",
+      "bytes": 483,
+      "sha256": "cbfa3f8e14100b23b416c23a577ecb3e4dc0331dd9c4669032ce47cdb45dfac9"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/gateway-agent/candidate.json",
+      "bytes": 10410,
+      "sha256": "09420186008f7369b4a39abd811b27aa3c1d5cebe21ef6a5b1f6cacc57df449e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/gateway-agent/filled.icon.json",
+      "bytes": 244,
+      "sha256": "c91a000b51ec17b2832765c7574d00305ed992b59a77d2ffec20387740aca67a"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/gateway-agent/outlined.icon.json",
+      "bytes": 350,
+      "sha256": "3e3a55e6836908584f5ff2c0854acad9a51378dc21a4a5f00b9b44cea0ab73e3"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/host-analog/candidate.json",
+      "bytes": 2892,
+      "sha256": "fc0fb92433da6814be9c0faae131600390df704ff3afd293c44c28d4bc9fa3ab"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/host-analog/filled.icon.json",
+      "bytes": 402,
+      "sha256": "0ba77c7bfc2a1979251be91d7e898d7a1d574c6a6cc91c54e199b432f2714834"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/host-analog/outlined.icon.json",
+      "bytes": 252,
+      "sha256": "4c02c1f5c11dd7890e42d4fd863cec1705c309ffc8cc92cd233411d3d9513ce0"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/image-agent/candidate.json",
+      "bytes": 8787,
+      "sha256": "56bc122258177dab4c100cc0cc326c169291584d57272d5b97f44c2d85d2d29a"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/image-agent/filled.icon.json",
+      "bytes": 230,
+      "sha256": "a59f0575178489f74423383e01c1e3e13be7a99f7ce93e010075debc940da7bb"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/candidates/image-agent/outlined.icon.json",
+      "bytes": 315,
+      "sha256": "6dbf13188e7c347cc54b59d2ed79f2793ab54353112a9bac1cd99374ead78a29"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/decision.json",
+      "bytes": 13229,
+      "sha256": "74930b34e2b06a8d25c22dda232f9c546089762d106e3245c76e6f34e2e1c664"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/events.jsonl",
+      "bytes": 1884,
+      "sha256": "de65a9767c3b45ed97f77a49b4d3b9d061b221813d7f44f3be99a0c33ecdc9e4"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/002-gateway-agent/proposal/proposal.json",
+      "bytes": 2735,
+      "sha256": "51e0d94a7e2ecb032279a417683b91107b68e391eea09172a4afe7ed128b5b5f"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/claude-harness/candidate.json",
+      "bytes": 10284,
+      "sha256": "a454ecd6ece5b48ff0edb71a0f68dbc93557180f279056d8c59b615ace31c913"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/claude-harness/filled.icon.json",
+      "bytes": 269,
+      "sha256": "a9287ac67200859612444883ac1fe34f4a4a4d92468df088ac6724f4fdecfeb2"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/claude-harness/outlined.icon.json",
+      "bytes": 335,
+      "sha256": "2fd31419946a8ec3198cd644aa580f55cac8fa9070dc0f72fd64e432029073ce"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/gateway-agent/candidate.json",
+      "bytes": 10842,
+      "sha256": "def1ea006c2387c8f2f7fee85cef283d5c7ef3556a77b0d9ff37f3c141dad8a5"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/gateway-agent/filled.icon.json",
+      "bytes": 245,
+      "sha256": "250238466dce80c24ad4d5b21cbce63149fb4db2e63baf8d138179e1bc2abbfd"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/gateway-agent/outlined.icon.json",
+      "bytes": 354,
+      "sha256": "298d06f969388feb411196e651e03be94d022792802ac5bb4980e2b0162ff031"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/host-analog/candidate.json",
+      "bytes": 2813,
+      "sha256": "9c73647b0dae706d5bda464bd5605f2e17b8b621bef7c09d10f75cbf7e26e646"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/host-analog/filled.icon.json",
+      "bytes": 402,
+      "sha256": "0ba77c7bfc2a1979251be91d7e898d7a1d574c6a6cc91c54e199b432f2714834"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/host-analog/outlined.icon.json",
+      "bytes": 252,
+      "sha256": "4c02c1f5c11dd7890e42d4fd863cec1705c309ffc8cc92cd233411d3d9513ce0"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/image-agent/candidate.json",
+      "bytes": 7401,
+      "sha256": "78e5cec077b31fddf08e628359590504b23595223722c99cc5a4032b75d80685"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/image-agent/filled.icon.json",
+      "bytes": 252,
+      "sha256": "10e0c7072a01bd164153ab913776b4202648dde7668b2c6f4d91e7b985b55522"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/candidates/image-agent/outlined.icon.json",
+      "bytes": 57,
+      "sha256": "8c4e120c606dd64e74d7804267705f75163794c913ed859f40b352148d7b8171"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/decision.json",
+      "bytes": 12509,
+      "sha256": "38b2f2f45f0fc8d39a14ba98606ca975b5b49e2fec007aaf2899bd89bfac8362"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/events.jsonl",
+      "bytes": 1884,
+      "sha256": "db20993ea7edf669868ab009189e681128dfbf589b25ad55e4f2ead4a7c6e6b9"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/attempts/003-claude-harness/proposal/proposal.json",
+      "bytes": 2646,
+      "sha256": "dc8927bc2f4b1816f21e92632bc1fb2450bcc8ff3233e58c509c0a032276cfae"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/droplet/task.json",
+      "bytes": 33864,
+      "sha256": "81230f811384bbb97aa8cc7a46d58e436eeea3406a241a4cd77aeb3270bac84b"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/candidates/gateway-agent/candidate.json",
+      "bytes": 160164,
+      "sha256": "28c28ff6eb750036d2c3319fb7d0ca021e254c12e32527f6e89f7d5cabb7dc57"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/candidates/host-mixture/candidate.json",
+      "bytes": 29463,
+      "sha256": "bcbadccc105eb21f299776e5798e4fd48d9410de916bee13c88e6c0a188b0c3d"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/candidates/image-agent/candidate.json",
+      "bytes": 6118,
+      "sha256": "2fb51049e084633e3fce8c5a433b79d97355c88bcb4cf5bf1685972e97f3ea53"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/decision.json",
+      "bytes": 8967,
+      "sha256": "dc06c18e3cbf2f228c15d04fba129b03eec8d4e276d792986ed8f4fb6fc8e817"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/events.jsonl",
+      "bytes": 1094,
+      "sha256": "17f0fd1c7602f1ffaa8ccdc5441dee467b4aa5b8552b7882fe907a7a5528eb75"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/filled.audit.json",
+      "bytes": 642,
+      "sha256": "401c2b426b1c8958bfac75de19827df087863bd0aebfb19903195e767dafbb3b"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/integrity.json",
+      "bytes": 302,
+      "sha256": "19f38d141cb5ecb8dcc15cb46adb5b9e890a931881156bc00e4e77534e7f842e"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/outlined.audit.json",
+      "bytes": 710,
+      "sha256": "12e674ce462ce4f3d2460453e1b189af972f4d53f6230e925e76dea452597327"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/attempts/001-image-agent/visual-review.json",
+      "bytes": 702,
+      "sha256": "75230a8ddc6e4abd288ee96fede5a4389d15affdd9814436fdbccaa80f432da4"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/explorations/git-pull-request/task.json",
+      "bytes": 9390,
+      "sha256": "aa1627fafdf721b54c2be376e4e545f3b24e5f1557141342e533924a319a9099"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/inventory.json",
+      "bytes": 41637,
+      "sha256": "6228ab7e6b2704b03d42a172288813ba0a7c78c80797a90edf5ad66c14a01ade"
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/model-policy.json",
+      "bytes": 2065,
+      "sha256": "f372ee8c1a548b377b2bbed9609015c66ac7dc047d9432a1bce15bb2103d57be"
+    },
+    {
+      "path": ".staging/eve-audit/findings.jsonl",
+      "bytes": 103136,
+      "sha256": "e056567369daf6b55354778b1919f723a344a48ba82349a6b4f7c12e048f2347"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/circle-placeholder-off/events.jsonl",
+      "bytes": 1583107,
+      "sha256": "7a72e8c9a2ad63da190e0a4a393367bbe61e77ba23554428c60b87bf6773b88d"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/circle-placeholder-off/result.json",
+      "bytes": 802309,
+      "sha256": "ccfb91fecf0cfc3bb442b22171084d27957d26a187218726932c2fa219e4d006"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/email-settings/events.jsonl",
+      "bytes": 1331384,
+      "sha256": "b9cbc1b52875f6c87306956ce2ccd26fede5cac615af7419c252b9c60dac6fdd"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/email-settings/result.json",
+      "bytes": 673584,
+      "sha256": "f0cbeefef03bbfabac8c5a2289723a49f21e255b1859bac61497b67c26beb111"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/pinterest/events.jsonl",
+      "bytes": 4930822,
+      "sha256": "f90252510add0bb21885bf702c266b48b24e4b66e694c47284b210f605a39d90"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/pinterest/result.json",
+      "bytes": 3159208,
+      "sha256": "06ad715eb4ae37a8a23473891df3d50e1cae3a7799ecf9a1582ab407c9e389d6"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/rotate-360-right/events.jsonl",
+      "bytes": 1521581,
+      "sha256": "9635e589ed0a5a39e72bd32b60867fdb141be331dc9b2215fe838ad618fb1686"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/rotate-360-right/result.json",
+      "bytes": 805133,
+      "sha256": "1e9e75c62a0ca3a173a28b2ff923fecbf4d883e1a5ce4cad38c65eb69aee5501"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/run.json",
+      "bytes": 474,
+      "sha256": "61d79bedcfc371c4e738cd82e602823cd9799ddca40cb3308454623dbb0e1d6c"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/webhooks/events.jsonl",
+      "bytes": 1173661,
+      "sha256": "fb42e3ab013bc887c049ac6fbd24f150a4af6927d9b47ecc6f29424b166ef2d5"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/webhooks/result.json",
+      "bytes": 594405,
+      "sha256": "fba1c18501c9bbc545433317da05a0549f0704b657712f5342a0003b79fa68cd"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/write-2/events.jsonl",
+      "bytes": 1055300,
+      "sha256": "e36ddb43aa1e8e562d5c68c58e19da3fd04432deea6c7b2f0334d3785045a7b1"
+    },
+    {
+      "path": ".staging/eve-eval/before-fixes/write-2/result.json",
+      "bytes": 540153,
+      "sha256": "82a0771118d0f305f7773edc0a92692c39feb23524c0455455d7618173e2931f"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/circle-placeholder-off/events.jsonl",
+      "bytes": 1575228,
+      "sha256": "e710711b485405dd2d300a3b566c177269780c51e6c29a671f09e03647e2e6c0"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/circle-placeholder-off/result.json",
+      "bytes": 797817,
+      "sha256": "581652f0879452431fbc14d31c7b3b95650853deb38f38a51e726758e34e4e2c"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/email-settings/events.jsonl",
+      "bytes": 1534388,
+      "sha256": "4821147d54c6b8f80eebe32d656128519fced69ad3b2b567b4235322eea73397"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/email-settings/result.json",
+      "bytes": 782127,
+      "sha256": "1394fc9be61466edbfb794df5cf061955da308fc11007eadd42d9b7a0a8d6f75"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/pinterest/events.jsonl",
+      "bytes": 1550950,
+      "sha256": "03e7ad15c4041503fcea6963d6c4cf13bf6ca5c74ba426da6328509d01a6be1e"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/pinterest/result.json",
+      "bytes": 778717,
+      "sha256": "a9522f92344b660af3204edd65c394a8929fc96fb3b9304bba0273b18eb3ca05"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/rotate-360-right/events.jsonl",
+      "bytes": 1420564,
+      "sha256": "8916b9b91177162f1c2b4f08719fd309ed6fcb7ec1c22a8b1861b551bebd3b0b"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/rotate-360-right/result.json",
+      "bytes": 15053,
+      "sha256": "3124e6e274c2e67f66f954ca26b8fa93eaf9064e257d169d05356ca341489840"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/rotate-360-right/tournament.json",
+      "bytes": 702444,
+      "sha256": "2c5edbe4603a9e0c91365761f84c1fdd79e299e32a2c90b41cd023d96eb1831c"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/run.json",
+      "bytes": 670,
+      "sha256": "77566109662608c76b6d79a13279a037df91ec5f1f8e3085ef8a99e7930c86e6"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/webhooks/events.jsonl",
+      "bytes": 1158661,
+      "sha256": "7f5dbed745048a8d39f2b7f00eb6e50efbceee33c9ca3ef9edd95f247274ef98"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/webhooks/result.json",
+      "bytes": 583326,
+      "sha256": "918c254d77d72c34d8bd1522a52787005a1597f645ffd5ccdf3945bb5152455e"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/write-2/events.jsonl",
+      "bytes": 1437484,
+      "sha256": "4a90697b4d5d8d3ea218c1c5a0db14e8a18ee11bdbddcf48f5b8dbd936e44c67"
+    },
+    {
+      "path": ".staging/eve-eval/shipped/write-2/result.json",
+      "bytes": 729562,
+      "sha256": "38feb1bba63e6b1ac16a8bcd9f609c846dce09adfc54b7a30b1309081080bccf"
+    },
+    {
+      "path": ".staging/foundry-round-1/budget.json",
+      "bytes": 1961,
+      "sha256": "f8daa539f7777336460f47a3a7011c72dec34a77dc337fa0a93d5c2efe143eb8"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-heavy/filled.attempt.json",
+      "bytes": 3643,
+      "sha256": "a7dba31c6d6787826a78f2666ed0f9100a371ffe1d32283ff8d369c67af6a5ef"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-heavy/outlined.attempt.json",
+      "bytes": 4040,
+      "sha256": "3996f70ac76889349d12c66ed1ddb5bb07101fd9ed9714c823675d3b8661f7ff"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-heavy/plan.json",
+      "bytes": 256,
+      "sha256": "08d445fe839b731a99597f95af50641149f3acfa0cf2981e91fe63c7d3010c88"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-heavy/result.json",
+      "bytes": 33883,
+      "sha256": "24314da97d4dcf4403555d1a49515d69d214b81a5da76bf0e2e70ce560ba9614"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-thin/filled.attempt.json",
+      "bytes": 3433,
+      "sha256": "af4834796c60b9ed347368e243ce0686ba95e63f164559eb896226135c56fb46"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-thin/outlined.attempt.json",
+      "bytes": 3107,
+      "sha256": "8ee9c456c6a04e269782d87309d36a24fe6108764b6a64b4c7a2e7776140b455"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-thin/plan.json",
+      "bytes": 256,
+      "sha256": "6ee5ddb1b9186ebc4529ee0e96c4b7afcb02397abf43642f388d911b9f1dae27"
+    },
+    {
+      "path": ".staging/foundry-round-1/camera-thin/result.json",
+      "bytes": 42422,
+      "sha256": "0b4413a1b3560393b16c4860e43e855d710010cd204f2e2253b8359a2b036ae1"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-01/plan.json",
+      "bytes": 218,
+      "sha256": "aeec0dd31dd2e506edc4d42c1b95f6e2a774f005062ccf53629e99b763fb8355"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-01/result.json",
+      "bytes": 25597,
+      "sha256": "642e861ca1f42c3e59dfbc20185b6f46dc06b3bb5a8c053b233fdd266c8c32a6"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-02/filled.attempt.json",
+      "bytes": 1394,
+      "sha256": "d7accc9522a878445a4654f98c1e2458b5e1aff628c9a38cc5e4a2711d3de39e"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-02/outlined.attempt.json",
+      "bytes": 3806,
+      "sha256": "2ba2cba596500d5be5e709435962349b7eda4844038e83114742125ba84eb760"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-02/plan.json",
+      "bytes": 219,
+      "sha256": "c655e44e1acfc0d872cb455756e688e196ebac93017f0f53337d7bee0d1830e6"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-02/result.json",
+      "bytes": 23676,
+      "sha256": "24e61d854e4a6edf4b9e97da92d73ebcdb1e3aae397d6b0ecd3f46f9ae0c9c21"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-03/filled.attempt.json",
+      "bytes": 3308,
+      "sha256": "d1dc3ea338949730b16bf617465465d2f581bc49672ec7b8555ebffa5f82654f"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-03/outlined.attempt.json",
+      "bytes": 4108,
+      "sha256": "d2804d383be9d707224a0fa0138e600042db836d33c90162f14e8fcbf45c58ec"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-03/plan.json",
+      "bytes": 241,
+      "sha256": "2ba023553cf5fcdc688265d7974c9eedbda23dc7985fff0942a667c37458a88d"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-03/result.json",
+      "bytes": 31791,
+      "sha256": "e6620dd04b7aac168313740798f6b56185eb5800bc626eb575ca3ed59c782326"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-04/filled.attempt.json",
+      "bytes": 4029,
+      "sha256": "4bd67bd0cd80055fe575a567875cc3c4c196f944cabc9111411e00fb35a4a7ea"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-04/outlined.attempt.json",
+      "bytes": 4250,
+      "sha256": "6f8f7c33b8950d8e79b9fe5d9a795270d8fd10e3ee9e0735dcafa4c5773d6ebe"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-04/plan.json",
+      "bytes": 916,
+      "sha256": "e308b355c4a28f59c30a8e83db8b6ee178d3e68f347d202cb74949d530e99f21"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-04/result.json",
+      "bytes": 35674,
+      "sha256": "1bfa05cd5caf21e2d55d85caa343cf6d49403e7ab4e7bef7929b47e98c4e5c37"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-companion-01/filled.attempt.json",
+      "bytes": 3289,
+      "sha256": "da3977ad8ee2617b01fd83e8e3860ebf1b7adc4fa62f0dc5908ade99ffb5b7e0"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-companion-01/outlined.attempt.json",
+      "bytes": 28511,
+      "sha256": "551cfbd270ca548e9f8426084dde30bc3f4b7d53d8a239d80e220af0b37969f3"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-companion-01/plan.json",
+      "bytes": 1141,
+      "sha256": "4f5ed6ff71daf9a401f7bbdd41cfc91fec2e6ad421dd03abec4cd0711f386f51"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-companion-01/result.json",
+      "bytes": 92635,
+      "sha256": "0c31adfed7c74e77453fc530e509051af17b9104c55ae3287fc2b3f740cc3c72"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components/execution-correction.json",
+      "bytes": 236,
+      "sha256": "4e48303928adc5790638b9ecb060359ecc28a124c3b84dabb089cf9c5b38ebaf"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components/filled.attempt.json",
+      "bytes": 2555,
+      "sha256": "a4c80638c8d76ea5832b978cf2875fb67317f679f43f55366b0c45db7ccfd860"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components/outlined.attempt.json",
+      "bytes": 28449,
+      "sha256": "41df4e38182942274646f856a018e09ba05606013faea9ea754620ddb1a56ae6"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components/plan.json",
+      "bytes": 1120,
+      "sha256": "0ccdd463a662eb3bc719e9839ac01eab2516d6d80f13023827df9147e337d053"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components/result.json",
+      "bytes": 88709,
+      "sha256": "42899c0515a9dc8b3b774960cd219a325c155f2d56d83439bff7b4eacb38e988"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-02/filled.attempt.json",
+      "bytes": 3889,
+      "sha256": "36cbe0bfe98d5eb1cdce780c362907ab329260111e882679dffcb0b6c7a7985d"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-02/outlined.attempt.json",
+      "bytes": 29302,
+      "sha256": "e7a0b51f43c04d163de7a34f1d80dc3316ad9e329f94a04b5a082502a46493f2"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-02/plan.json",
+      "bytes": 1120,
+      "sha256": "0ccdd463a662eb3bc719e9839ac01eab2516d6d80f13023827df9147e337d053"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-02/result.json",
+      "bytes": 94171,
+      "sha256": "06270531b9cd4c89ccb9969cbea48d2db5ba037809ef6f46dd88e48506ef4585"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-replay/lineage.json",
+      "bytes": 275,
+      "sha256": "8238dd1aaa75ccade33e5d87666a82c2de5aa810e56945ea115791eeadc93722"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-replay/result.json",
+      "bytes": 85400,
+      "sha256": "1b3c5e82520288a0410443567a5f849aeabbb0c802be9e13e2f9dcd235be01fd"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-replay-02/lineage.json",
+      "bytes": 275,
+      "sha256": "8238dd1aaa75ccade33e5d87666a82c2de5aa810e56945ea115791eeadc93722"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-components-replay-02/result.json",
+      "bytes": 88328,
+      "sha256": "c3c34f784e77e477bece95b53bdd2b64e3dbf9b02f9497c99767e4ebd4656834"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-body/filled.attempt.json",
+      "bytes": 4940,
+      "sha256": "18c5502380b51e3e070ec52ad918562e4098662e70f09acf0c5796d1135a5922"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-body/outlined.attempt.json",
+      "bytes": 35439,
+      "sha256": "89a1b0cb9ec2dddd458ce7eb9616ca3ccc06674b5292bb8dc386caf5b783aae1"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-body/plan.json",
+      "bytes": 1141,
+      "sha256": "c7e85249e2e8dc9cce30e1feac51f37e5d9d7c22c30f8673f1d6e834651f0fda"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-body/result.json",
+      "bytes": 116507,
+      "sha256": "1938856fb263fd66daf21999c463d685a2e20ab823f5abdd4f70e134387fde14"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-clearance/filled.attempt.json",
+      "bytes": 2449,
+      "sha256": "d24292fc32329f78ae0b6e0f1b449b78ed8e9fc51a91226493d6d901ea7233dd"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-clearance/outlined.attempt.json",
+      "bytes": 30720,
+      "sha256": "44119fc1355aaa126a4948194b725b48b22fdc9040cd20de0daccddbbee2551a"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-clearance/plan.json",
+      "bytes": 1141,
+      "sha256": "eb335f0c0e043072f2428a040f0b7cb02d6447bcd78d61be8df5aac20ed5c6a0"
+    },
+    {
+      "path": ".staging/foundry-round-1/folder-lock-round-clearance/result.json",
+      "bytes": 93957,
+      "sha256": "bb632a1009614d28deb848da50c4ed88b24caf4d843f4bbc264d9d3aa7899f3d"
+    },
+    {
+      "path": ".staging/foundry-round-1/instrument-weight/protocol.json",
+      "bytes": 34848,
+      "sha256": "8348a3617886585124f44ba040d31b152338f632d4712682a568d253dd53d92c"
+    },
+    {
+      "path": ".staging/foundry-round-1/instrument-weight/result.json",
+      "bytes": 97444,
+      "sha256": "fda965376b2d8e0177f19c5924826de8604b2269af382103e4cfefd4b3bbd904"
+    },
+    {
+      "path": ".staging/foundry-round-1/report.json",
+      "bytes": 2984,
+      "sha256": "4da66557c4b91ab187f8f50e0b2b03994c894381b42096f30a17b1517aa19897"
+    },
+    {
+      "path": ".staging/boolean-proof-2026-09-05/report.json",
+      "bytes": 642,
+      "sha256": "16bb683db7b507da82e1d6277dce4a8a66373420202696209a9bc7b8a49243e6"
+    }
+  ],
+  "sessions": [
+    {
+      "source": "claude",
+      "sessionId": "18a77868-99d3-40e4-85cd-d0f7b1b86ca5",
+      "records": 170,
+      "firstKnown": "2026-08-19T06:30:16.251Z",
+      "lastKnown": "2026-08-19T07:54:39.400Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/18a77868-99d3-40e4-85cd-d0f7b1b86ca5.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "1fa4b274-2305-406d-b9b4-d3aec4896b81",
+      "records": 179,
+      "firstKnown": "2026-08-19T06:29:19.748Z",
+      "lastKnown": "2026-08-19T09:35:55.495Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/1fa4b274-2305-406d-b9b4-d3aec4896b81.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "2ad0e3d5-bce1-4e55-9ab8-26ad24f1caf7",
+      "records": 1096,
+      "firstKnown": "2026-08-24T01:01:10.878Z",
+      "lastKnown": "2026-08-24T07:16:23.862Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-iconsmith/2ad0e3d5-bce1-4e55-9ab8-26ad24f1caf7.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "337abb49-1745-4ecf-96bb-6173652fcff4",
+      "records": 1391,
+      "firstKnown": "2026-08-25T07:42:17.427Z",
+      "lastKnown": "2026-08-25T23:23:40.433Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-iconsmith/337abb49-1745-4ecf-96bb-6173652fcff4.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "595d58ce-ad25-4d77-a0a7-9818e4964abf",
+      "records": 428,
+      "firstKnown": "2026-08-23T22:52:31.130Z",
+      "lastKnown": "2026-08-24T00:33:34.410Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-iconsmith/595d58ce-ad25-4d77-a0a7-9818e4964abf.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "5d51a7f5-9c4b-47f0-8eff-9b89dd6d86ef",
+      "records": 113,
+      "firstKnown": "2026-08-18T04:20:48.582Z",
+      "lastKnown": "2026-08-18T05:41:37.359Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/5d51a7f5-9c4b-47f0-8eff-9b89dd6d86ef.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "67ed096a-2dea-41e0-9e5d-e7bbb62189c8",
+      "records": 211,
+      "firstKnown": "2026-08-19T06:30:42.102Z",
+      "lastKnown": "2026-08-19T09:36:51.614Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/67ed096a-2dea-41e0-9e5d-e7bbb62189c8.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "6bf6a85a-b688-4c95-b405-08c9b11a2e1a",
+      "records": 973,
+      "firstKnown": "2026-08-24T00:34:46.468Z",
+      "lastKnown": "2026-08-24T03:13:00.263Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-iconsmith/6bf6a85a-b688-4c95-b405-08c9b11a2e1a.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "ae3aa7a7-fe73-4dd0-85f3-8dc3b2541741",
+      "records": 157,
+      "firstKnown": "2026-08-28T09:08:02.462Z",
+      "lastKnown": "2026-08-28T23:08:52.507Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-iconsmith/ae3aa7a7-fe73-4dd0-85f3-8dc3b2541741.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "be92dac1-849f-4991-b820-4affa73fb603",
+      "records": 104,
+      "firstKnown": "2026-08-24T03:56:16.286Z",
+      "lastKnown": "2026-08-24T04:17:13.517Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-iconsmith/be92dac1-849f-4991-b820-4affa73fb603.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "c8e0818a-b81b-411e-b358-50eea3b9db6e",
+      "records": 1959,
+      "firstKnown": "2026-08-18T04:20:48.582Z",
+      "lastKnown": "2026-08-19T09:46:14.160Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/c8e0818a-b81b-411e-b358-50eea3b9db6e.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "e230f888-8b0e-4222-bbd9-821fdd34837e",
+      "records": 615,
+      "firstKnown": "2026-08-18T22:54:21.902Z",
+      "lastKnown": "2026-08-19T01:28:32.963Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/e230f888-8b0e-4222-bbd9-821fdd34837e.jsonl"
+    },
+    {
+      "source": "claude",
+      "sessionId": "eebc8c06-c123-455b-98e6-cd87141068f5",
+      "records": 171,
+      "firstKnown": "2026-08-19T09:43:09.682Z",
+      "lastKnown": "2026-08-19T21:31:23.191Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.claude/projects/-Users-mblode-Code-mblode-icon-forge/eebc8c06-c123-455b-98e6-cd87141068f5.jsonl"
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a030ab-1b69-7952-805c-8ed51c687abf",
+      "records": 2,
+      "firstKnown": "2026-08-23T22:08:46.560Z",
+      "lastKnown": "2026-08-23T22:08:46.867Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.codex/archived_sessions/rollout-2026-08-24T08-08-35-01a030ab-1b69-7952-805c-8ed51c687abf.jsonl"
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a0329f-bd97-71e0-8eb5-fd396b8f387f",
+      "records": 8,
+      "firstKnown": "2026-08-24T07:15:37.871Z",
+      "lastKnown": "2026-08-24T11:19:51.630Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.codex/sessions/2026/08/24/rollout-2026-08-24T17-15-24-01a0329f-bd97-71e0-8eb5-fd396b8f387f.jsonl"
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a03a82-54ea-73b3-ab42-c606e1b54478",
+      "records": 4,
+      "firstKnown": "2026-08-25T20:00:18.302Z",
+      "lastKnown": "2026-08-25T20:04:29.311Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.codex/sessions/2026/08/26/rollout-2026-08-26T06-00-15-01a03a82-54ea-73b3-ab42-c606e1b54478.jsonl"
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a03a87-5c1b-79d2-83f5-2dfd8976b80e",
+      "records": 2,
+      "firstKnown": "2026-08-25T20:06:14.597Z",
+      "lastKnown": "2026-08-25T20:06:14.814Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.codex/sessions/2026/08/26/rollout-2026-08-26T06-05-44-01a03a87-5c1b-79d2-83f5-2dfd8976b80e.jsonl"
+    },
+    {
+      "source": "codex",
+      "sessionId": "01a06ea5-fb23-7622-8e00-f0379e7952c1",
+      "records": 27,
+      "firstKnown": "2026-09-04T22:59:31.579Z",
+      "lastKnown": "2026-09-05T02:46:25.538Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/.codex/sessions/2026/09/05/rollout-2026-09-05T08-59-26-01a06ea5-fb23-7622-8e00-f0379e7952c1.jsonl"
+    },
+    {
+      "source": "cursor",
+      "sessionId": "4cf51d22-8676-4227-a6b5-ea6a7395e78d",
+      "records": 129,
+      "firstKnown": "2026-08-19T23:43:10.834Z",
+      "lastKnown": "2026-08-21T06:23:38.428Z",
+      "unknownDates": 94,
+      "path": "/Users/mblode/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
+    },
+    {
+      "source": "cursor",
+      "sessionId": "5a2b869a-9a69-4280-be9c-7403d21bebb5",
+      "records": 79,
+      "firstKnown": "2026-08-21T01:47:35.315Z",
+      "lastKnown": "2026-08-21T01:51:11.972Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
+    },
+    {
+      "source": "cursor",
+      "sessionId": "7c159a47-223e-4f5e-b2a6-5e1294d314d8",
+      "records": 1,
+      "firstKnown": "2026-08-25T03:18:39.018Z",
+      "lastKnown": "2026-08-25T03:18:39.018Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
+    },
+    {
+      "source": "cursor",
+      "sessionId": "955c2f2d-97f5-4cd6-b6e4-5e8446666448",
+      "records": 10,
+      "firstKnown": "2026-08-25T02:03:31.294Z",
+      "lastKnown": "2026-08-25T03:57:30.675Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
+    },
+    {
+      "source": "cursor",
+      "sessionId": "f8078617-cdda-468e-af33-7b449d459cde",
+      "records": 45,
+      "firstKnown": "2026-08-21T06:24:32.553Z",
+      "lastKnown": "2026-08-21T22:05:36.343Z",
+      "unknownDates": 0,
+      "path": "/Users/mblode/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
+    }
+  ],
+  "documents": [
+    {
+      "path": ".captain/browser/report.md",
+      "kind": "ignored-local",
+      "sha256": "da983ebca4b46cc4afb60f1c5fc9ee8eb9c628a504862aebed33607eeb492b28",
+      "headings": []
+    },
+    {
+      "path": ".captain/rubric.md",
+      "kind": "ignored-local",
+      "sha256": "330c0c25c7168cecdc2a7c3b47b75bb7787e7be83cba42649b371e08fd52cae2",
+      "headings": [
+        "Definition of done \u2014 name-the-families",
+        "Issue context",
+        "Acceptance criteria",
+        "How to verify",
+        "Verdict"
+      ]
+    },
+    {
+      "path": ".staging/eve-audit/NOTES.md",
+      "kind": "ignored-local",
+      "sha256": "82735f384695ba5f23195026827149988b1095de0b2d9e6ee59512eae4802dfb",
+      "headings": [
+        "Eve audit \u2014 deviation log",
+        "2026-08-25 \u2014 Phase 0 baseline",
+        "2026-08-25 \u2014 Phase 3/4 pilot, three deviations",
+        "2026-08-25 \u2014 pilot gate, and the one fix taken before measuring"
+      ]
+    },
+    {
+      "path": ".staging/eve-audit/PLAN.md",
+      "kind": "ignored-local",
+      "sha256": "bb000018539967fb488bf79864ba52aff6f6e8ee692e75ffc2e49375fb1f3062",
+      "headings": [
+        "What needs fixing \u2014 plan",
+        "Phase 0 \u2014 Make the measurements trustworthy \u00b7 3 one-line changes",
+        "Phase 1 \u2014 Unblock delivery \u00b7 the product problem",
+        "Phase 2 \u2014 Studio correctness \u00b7 no product decision needed",
+        "Phase 3 \u2014 Cost and accounting \u00b7 **blocked on R3**",
+        "Phase 4 \u2014 Re-measure, then re-derive \u00b7 **needs your decision on scale**",
+        "Phase 5 \u2014 Needs a decision from you",
+        "Closed this round"
+      ]
+    },
+    {
+      "path": ".staging/eve-audit/REPORT.md",
+      "kind": "ignored-local",
+      "sha256": "5a850b472e9eb9b9dfc4d41bb84dcd5ccd8df2e46ae06c25aa61e30d4ab4b664",
+      "headings": [
+        "Can the Eve agent design icons?",
+        "The answer",
+        "What that does and does not license",
+        "Why nothing shipped \u2014 four causes, all now fixed",
+        "1. Studio never loaded the parts vocabulary",
+        "2. A provenance veto ran after the money was spent",
+        "3. The analog arm could never be accepted",
+        "4. The strongest arm discarded 577 finished icons",
+        "The judge: one accusation withdrawn, one upheld",
+        "Corrections to my own findings",
+        "Also fixed, on the public endpoint",
+        "State",
+        "What I would do next, in this order"
+      ]
+    },
+    {
+      "path": ".staging/eve-audit/TASKS.md",
+      "kind": "ignored-local",
+      "sha256": "82a82813e168c0dfc911c204811794ab68fc0e88d40f89436134d90537faf641",
+      "headings": [
+        "Round 2 execution board",
+        "Fixes",
+        "Landed by me this round",
+        "Gates",
+        "Open",
+        "Also landed by me, from discharging the STOP condition"
+      ]
+    },
+    {
+      "path": ".staging/references/2026-09-05/README.md",
+      "kind": "ignored-local",
+      "sha256": "f060466f75d0c58a12ad7be4440894dddc7b562848d30d282f3258bdc9372d65",
+      "headings": [
+        "Iconsmith reference capture"
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "working-tree",
+      "sha256": "33754ce27340cd73fb7fdb21c49c193849cdb0ae5641d245eef6b05e887fc06c",
+      "headings": [
+        "iconsmith (monorepo)",
+        "Layout",
+        "Commands",
+        "Gotchas",
+        "Foundry history"
+      ]
+    },
+    {
+      "path": "CLAUDE.md",
+      "kind": "working-tree",
+      "sha256": "33754ce27340cd73fb7fdb21c49c193849cdb0ae5641d245eef6b05e887fc06c",
+      "headings": [
+        "iconsmith (monorepo)",
+        "Layout",
+        "Commands",
+        "Gotchas",
+        "Foundry history"
+      ]
+    },
+    {
+      "path": "LICENSE.md",
+      "kind": "working-tree",
+      "sha256": "80c316cc50e46c7eff01c3d3ed39ba9638c8b6a270382bbcd2f2dac71038bc46",
+      "headings": []
+    },
+    {
+      "path": "PLAN.md",
+      "kind": "working-tree",
+      "sha256": "9a88aa6f1649236411ed342d690ddd448346bc5fdac88b660858ccb8d5ab0713",
+      "headings": [
+        "iconsmith",
+        "Where it stands, measured 2026-08-20",
+        "The three numbers, in Goldratt's terms",
+        "The constraint, and why it moved",
+        "Slices",
+        "Slice 1 \u2014 find the new constraint",
+        "the same 10 selection icons, the same 3 seeds, through the local CLI",
+        "Slice 2a \u2014 best-of-N instead of iterate-in-place",
+        "Slice 2b \u2014 name the object families",
+        "Slice 2c \u2014 widen the benchmark and re-power",
+        "Slice 3 \u2014 filled as a facet, not a second icon",
+        "Slice 4 \u2014 routes as arms",
+        "Key decisions",
+        "Out of scope",
+        "Verification",
+        "STOP conditions"
+      ]
+    },
+    {
+      "path": "PLAN.notes.md",
+      "kind": "working-tree",
+      "sha256": "cf4e29e0f16bb98e349f052f2e01e5038c02542a6a21b97abfd29943df56151c",
+      "headings": [
+        "PLAN.notes.md",
+        "2026-08-19 \u2014 `npx tsx` is not what runs the scripts",
+        "2026-08-19 \u2014 the Central alias result is two numbers, not one",
+        "2026-08-19 \u2014 no `aliases` field on `IconRecord`; `tags` already was one",
+        "2026-08-19 \u2014 the extract is keyed off the component name, not the first alias",
+        "2026-08-20 \u2014 the harness ships named parts, not the whole extraction",
+        "2026-08-19 \u2014 the derived table is not committed",
+        "2026-08-20 \u2014 the skill is copied into scratch, like the parts file",
+        "2026-08-20 \u2014 house extraction test needs more than 5s under load",
+        "2026-08-20 \u2014 the demo asked the wrong two questions",
+        "2026-08-20 \u2014 the harness shortlist was the built-in loop's `listParts`",
+        "2026-08-21 \u2014 twins are one skeleton, two paints",
+        "2026-08-24 \u2014 a filled paint's ink scaled with it, and its twin came apart",
+        "2026-08-24 \u2014 the cost fix and the quality fix were the same commit"
+      ]
+    },
+    {
+      "path": "README.md",
+      "kind": "working-tree",
+      "sha256": "026f2a6c622878817e66285a7f8a048315d06a634e8e404f64d5e5a3f3120954",
+      "headings": [
+        "[Iconsmith](https://blode.co/iconsmith)",
+        "Demo",
+        "Install",
+        "Quickstart",
+        "The language",
+        "Commands",
+        "Reading an eval",
+        "Notes",
+        "License"
+      ]
+    },
+    {
+      "path": "apps/agent/AGENTS.md",
+      "kind": "working-tree",
+      "sha256": "7bd75710d081768326e445fda0993e033dd1128de39f6d2a70c6e4f03ed0edb7",
+      "headings": [
+        "iconsmith-agent",
+        "What is here, and what is not",
+        "Commands",
+        "Gotchas"
+      ]
+    },
+    {
+      "path": "apps/agent/CLAUDE.md",
+      "kind": "working-tree",
+      "sha256": "7bd75710d081768326e445fda0993e033dd1128de39f6d2a70c6e4f03ed0edb7",
+      "headings": [
+        "iconsmith-agent",
+        "What is here, and what is not",
+        "Commands",
+        "Gotchas"
+      ]
+    },
+    {
+      "path": "apps/agent/instructions.md",
+      "kind": "working-tree",
+      "sha256": "e86d8651c95806945d1c19e4438d161212734a6d116cefa4bf8995c874dcaf00",
+      "headings": [
+        "Iconsmith Studio orchestrator"
+      ]
+    },
+    {
+      "path": "apps/web/AGENTS.md",
+      "kind": "working-tree",
+      "sha256": "af52e98f008f4596fe3e9904560d6a02c580c6160419eb482cdc51c517b9c6ba",
+      "headings": [
+        "iconsmith-web",
+        "Commands",
+        "This is a multi-zone child, not a standalone site",
+        "then in blode-co/apps/web/.env.local:",
+        "and load http://localhost:3000/iconsmith",
+        "Gotchas",
+        "Env"
+      ]
+    },
+    {
+      "path": "apps/web/CLAUDE.md",
+      "kind": "working-tree",
+      "sha256": "af52e98f008f4596fe3e9904560d6a02c580c6160419eb482cdc51c517b9c6ba",
+      "headings": [
+        "iconsmith-web",
+        "Commands",
+        "This is a multi-zone child, not a standalone site",
+        "then in blode-co/apps/web/.env.local:",
+        "and load http://localhost:3000/iconsmith",
+        "Gotchas",
+        "Env"
+      ]
+    },
+    {
+      "path": "apps/web/STUDIO_PLAN.md",
+      "kind": "working-tree",
+      "sha256": "1e9ff029f41d8b175982b3233efeeb2ea0ae51e88db82accd0836a60bfc5e70a",
+      "headings": [
+        "Iconsmith Studio plan",
+        "Product brief",
+        "Product rules",
+        "Research decisions",
+        "Interaction model",
+        "Reference libraries",
+        "Eve framework",
+        "Delivery phases",
+        "Phase 0 \u2014 research and direction",
+        "Phase 1 \u2014 useful vertical slice",
+        "Phase 2 \u2014 durable projects and jobs",
+        "Phase 3 \u2014 comparison and consistency",
+        "Phase 4 \u2014 approval and publishing",
+        "Phase 5 \u2014 collaboration and advanced workflows",
+        "Reachable-state checklist",
+        "Open decisions before Phase 2"
+      ]
+    },
+    {
+      "path": "docs/foundry-log.md",
+      "kind": "working-tree",
+      "sha256": "c0998f8b4dbce33d3f9be8fb5e749a1c3a4ab8846efb2052396dc9f7c83ac9b2",
+      "headings": [
+        "Foundry decision and attempt log",
+        "How to maintain this log",
+        "Decisions",
+        "Paid attempts",
+        "Research, offline attempts and acquisition failures",
+        "Open questions and next evidence",
+        "Coverage boundary",
+        "Continuation: companion-aware generation (2026-09-05)",
+        "Project-wide recovery and curve construction (2026-09-05)"
+      ]
+    },
+    {
+      "path": "docs/foundry-pipeline-map.md",
+      "kind": "working-tree",
+      "sha256": "5a491ae859f65e88402784cd582c1913552db1bbd7485abdafe70fa15580092e",
+      "headings": [
+        "Iconsmith: from house generator to icon foundry",
+        "Current pipeline",
+        "Future pipeline",
+        "The central abstraction: a style package",
+        "Reference findings and extraction plan",
+        "Cursor",
+        "OpenAI",
+        "Twitter / X",
+        "Central and Linear",
+        "Acquisition contract",
+        "Library production and the quality bar",
+        "Implementation sequence",
+        "What this research completed"
+      ]
+    },
+    {
+      "path": "docs/plans/foundry-training-decision.md",
+      "kind": "working-tree",
+      "sha256": "61db7b9feacd3d8e8b8e08b21fc31ef59cd9b9af23f8eeb994b7dc83c7cb1c60",
+      "headings": [
+        "When to train an icon model",
+        "Decision",
+        "What would be trained",
+        "Current provider research",
+        "Component experiment",
+        "Completed component experiment and replay repair"
+      ]
+    },
+    {
+      "path": "docs/plans/reference-guided-foundry.audit.md",
+      "kind": "working-tree",
+      "sha256": "e007f55185e190303402fd40e0a28e63e05e1a19f28670a4f1286e017ffe35aa",
+      "headings": [
+        "Audit: can Iconsmith become an automated icon foundry?",
+        "Verdict",
+        "What the reference work actually establishes",
+        "Load-bearing problems found in this checkout",
+        "First principles: what the generator must represent",
+        "Proposed production loop",
+        "Research: generation and evaluation are different problems",
+        "Qualify the instrument before trusting its verdict",
+        "The smallest useful experiment",
+        "Tool decision",
+        "Review outcome"
+      ]
+    },
+    {
+      "path": "docs/plans/reference-guided-foundry.md",
+      "kind": "working-tree",
+      "sha256": "0fb985b6ff2bdc76387caeeec3325927f87d7d0ac9b6f167ad01572ea4a8fae9",
+      "headings": [
+        "Reference-guided icon foundry",
+        "Goal and scope decisions",
+        "Architecture: Deepen, then enforce",
+        "Domain terms",
+        "Ranked opportunities, based on current code and churn",
+        "Repo shape and interfaces",
+        "Approach and local ticket slices",
+        "First tracer bullet, not a horizontal rewrite",
+        "Reference acquisition and profile qualification",
+        "Library execution and release",
+        "Optional editor boundary",
+        "Quality bar and acceptance evidence",
+        "Verification",
+        "Rollout, rollback and failure scope",
+        "Scope challenge and dependency budget",
+        "Assumptions and STOP conditions",
+        "Review notes",
+        "Plan validation"
+      ]
+    },
+    {
+      "path": "docs/plans/reference-guided-foundry.notes.md",
+      "kind": "working-tree",
+      "sha256": "554d4766dde3ec05804e34bcb2a9ee2af0604ec6008d788038d7d9544c129dc9",
+      "headings": [
+        "Foundry implementation notes",
+        "Implemented",
+        "Evidence",
+        "Run recipes",
+        "Deviations",
+        "How the run ended",
+        "Paid development round: $50 ceiling",
+        "Evaluator measurement",
+        "Current boundary",
+        "Settled results and pair-gate repair",
+        "User-rejected craft and direct source study",
+        "Completed component experiment and replay repair",
+        "Eve and the drawing harness (2026-09-05)"
+      ]
+    },
+    {
+      "path": "docs/plans/reference-guided-foundry.research.md",
+      "kind": "working-tree",
+      "sha256": "5853086500206e9e1813b9e1fcdd0cd9a82fe9bfb5e933fc51515a1a0d2cf384",
+      "headings": [
+        "Reference-guided foundry: research and tool decision",
+        "Updated decision: fully AI-generated; retain SVG delivery",
+        "Tool ownership",
+        "What Glyphs 4 actually adds",
+        "Automation is promising, with a specific unproven edge",
+        "Comparison for Iconsmith",
+        "What excellent systems teach us",
+        "Extraction and inference limits",
+        "Deferred editor experiment",
+        "Generation research: useful ideas, not a replacement compiler",
+        "Research verdict"
+      ]
+    },
+    {
+      "path": "docs/plans/slices/01-select-and-replay-a-style.md",
+      "kind": "working-tree",
+      "sha256": "26a898512bb87d904c6a51b983efab27d9ba5aacc75aa10a90f5c7ba00afa1e1",
+      "headings": [
+        "01 Prove a contrasting-style generation and evaluation loop",
+        "Acceptance criteria",
+        "Verification and finish"
+      ]
+    },
+    {
+      "path": "docs/plans/slices/02-inspect-reference-collections.md",
+      "kind": "working-tree",
+      "sha256": "f176b05bc2a315a83598c617ab1036e428b94c3e6c2389fa2b7567a1fd158885",
+      "headings": [
+        "02 Import and inspect versioned reference collections",
+        "Acceptance criteria",
+        "Verification and finish"
+      ]
+    },
+    {
+      "path": "docs/plans/slices/03-qualify-optical-families.md",
+      "kind": "working-tree",
+      "sha256": "143fae07fdb100a8b9170b649bd93f8195f83308532768388962b12a0e38f509",
+      "headings": [
+        "03 Integrate tested styles and qualify declared capabilities",
+        "Acceptance criteria",
+        "Verification and finish"
+      ]
+    },
+    {
+      "path": "docs/plans/slices/04-resume-library-builds.md",
+      "kind": "working-tree",
+      "sha256": "f6465024c4a8e7b50fb4ae817676e9a7bd829b5a7f949b46c3017fb78543af9c",
+      "headings": [
+        "04 Generate and resume a bounded library locally",
+        "Acceptance criteria",
+        "Verification and finish"
+      ]
+    },
+    {
+      "path": "docs/plans/slices/05-release-reviewed-libraries.md",
+      "kind": "working-tree",
+      "sha256": "da7788fb92cdf7fef1d54ea057193654cd35b276f7598447b049da0b52457975",
+      "headings": [
+        "05 Curate and release reproducible icon libraries",
+        "Acceptance criteria",
+        "Verification and finish"
+      ]
+    },
+    {
+      "path": "docs/plans/slices/06-glyphs-authoring-bridge.md",
+      "kind": "working-tree",
+      "sha256": "11d42fe091d85cb73fbac9a2c49a2bb935305c23ed7c5833af92fc745bf3fe06",
+      "headings": [
+        "06 Prove an optional Glyphs authoring bridge",
+        "Acceptance criteria",
+        "Verification and finish"
+      ]
+    },
+    {
+      "path": "docs/project-research-history.md",
+      "kind": "working-tree",
+      "sha256": "6610a4265ae0fd786f1881caa23a1838ea3df6c3d7aa1707653ad9b6080639f9",
+      "headings": [
+        "Project research history",
+        "Coverage and reproducibility",
+        "Recovered decisions and corrections",
+        "Historical costs: preserve the disagreement",
+        "Research to revisit before spending"
+      ]
+    },
+    {
+      "path": "docs/references/blode-central-craft.md",
+      "kind": "working-tree",
+      "sha256": "77a2dd97c8c0d2f3afdb1594120bf68a19e125dfd7a21356c67f596a238ab99f",
+      "headings": [
+        "Blode / Central: what the actual drawings do",
+        "The diagnosis",
+        "Current source inventory",
+        "Nine drawings, broken down",
+        "Folder: continuous contour and blended tab",
+        "Camera: the filled interior is optically redrawn",
+        "Lock: white space has a job",
+        "Folder + shield: composition changes the container",
+        "Cloud: asymmetric lobes with a resolved join",
+        "Coin lira: local thinning is intentional",
+        "Eye, heart and magnifying glass: different contour problems",
+        "An existing compiler operation changes the source curves",
+        "Consequences for the next generation experiment"
+      ]
+    },
+    {
+      "path": "docs/references/product-icon-collections.md",
+      "kind": "working-tree",
+      "sha256": "2f948f1d6fe04274b8becfe0188f662604d995f26c8b4899775675b590e4440d",
+      "headings": [
+        "Product icon references",
+        "Extracted collection",
+        "Linear",
+        "Raycast",
+        "Granola",
+        "Minor Adventures: usable optical evidence",
+        "Verification and next use"
+      ]
+    },
+    {
+      "path": "packages/contract/AGENTS.md",
+      "kind": "working-tree",
+      "sha256": "d9cd3d5f473685cacbb0e19af92e14ae258d365365cceba103620f38d2848902",
+      "headings": [
+        "@iconsmith/contract",
+        "The rule for putting something here",
+        "Gotchas"
+      ]
+    },
+    {
+      "path": "packages/contract/CLAUDE.md",
+      "kind": "working-tree",
+      "sha256": "d9cd3d5f473685cacbb0e19af92e14ae258d365365cceba103620f38d2848902",
+      "headings": [
+        "@iconsmith/contract",
+        "The rule for putting something here",
+        "Gotchas"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.corpus/concepts/conflicts.md",
+      "kind": "ignored-local",
+      "sha256": "21aea59c0db5fe6881fd5ae2bb53d7d7a08479dabcdf55ca9993cac76a88f066",
+      "headings": [
+        "Conflict queue"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.corpus/concepts/gaps.md",
+      "kind": "ignored-local",
+      "sha256": "ba953cd7c44abc3809dbc40ed256e1e40a4bb09d24b421c01921a225225e543e",
+      "headings": [
+        "Generation backlog"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.corpus/concepts/proposals.md",
+      "kind": "ignored-local",
+      "sha256": "f1e2a30a61c30b787a21bd81f49d82c35267abe22de417f3888f28453b234b1f",
+      "headings": [
+        "Concept proposals",
+        "Batch 1 \u2014 43 concepts, inferred + tag-derived + lucide-derived",
+        "Rejected \u2014 19 derived concepts the filter threw away"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "fdcb59154c74cbaba16a11242f7740bea9f23d6feb5547917d8c5f94a80392a5",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/datasetcard_template.md",
+      "kind": "ignored-local",
+      "sha256": "5be10ca91eb09dd6eb9d9a2b915bf9e944563c6e3d97b3004c6788d35e644efb",
+      "headings": [
+        "For reference on dataset card metadata, see the spec: https://github.com/huggingface/hub-docs/blob/main/datasetcard.md?plain=1",
+        "Doc / guide: https://huggingface.co/docs/hub/datasets-cards",
+        "Dataset Card for {{ pretty_name | default(\"Dataset Name\", true) }}",
+        "Dataset Details",
+        "Dataset Description",
+        "Dataset Sources [optional]",
+        "Uses",
+        "Direct Use",
+        "Out-of-Scope Use",
+        "Dataset Structure",
+        "Dataset Creation",
+        "Curation Rationale",
+        "Source Data",
+        "Annotations [optional]",
+        "Bias, Risks, and Limitations",
+        "Recommendations",
+        "Citation [optional]",
+        "Glossary [optional]",
+        "More Information [optional]",
+        "Dataset Card Authors [optional]",
+        "Dataset Card Contact"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/modelcard_template.md",
+      "kind": "ignored-local",
+      "sha256": "e00a80ad2ddca9db5b8ade41a3e0e18dc9c3151fa9cdae6112b2cb4cf33862e7",
+      "headings": [
+        "For reference on model card metadata, see the spec: https://github.com/huggingface/hub-docs/blob/main/modelcard.md?plain=1",
+        "Doc / guide: https://huggingface.co/docs/hub/model-cards",
+        "Model Card for {{ model_id | default(\"Model ID\", true) }}",
+        "Model Details",
+        "Model Description",
+        "Model Sources [optional]",
+        "Uses",
+        "Direct Use",
+        "Downstream Use [optional]",
+        "Out-of-Scope Use",
+        "Bias, Risks, and Limitations",
+        "Recommendations",
+        "How to Get Started with the Model",
+        "Training Details",
+        "Training Data",
+        "Training Procedure",
+        "Evaluation",
+        "Testing Data, Factors & Metrics",
+        "Results",
+        "Model Examination [optional]",
+        "Environmental Impact",
+        "Technical Specifications [optional]",
+        "Model Architecture and Objective",
+        "Compute Infrastructure",
+        "Citation [optional]",
+        "Glossary [optional]",
+        "More Information [optional]",
+        "Model Card Authors [optional]",
+        "Model Card Contact"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/idna-3.19.dist-info/licenses/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "211e7d737d6179a08f791ebb0a99897ce7cd2457410c542876d125576edfe910",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "a85ca13fdf90160b64a0698215868c13b74d835ad0a4e2ba44713b8c5058a056",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f",
+      "headings": [
+        "NCSA Open Source License",
+        "3-Clause BSD License",
+        "Components"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "469778be8f33d54e1bcaab28c281cc472916d2d273f835e55bc487d30503face",
+      "headings": [
+        "NumPy",
+        "Julia"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "0e111337b25494a773106695f0e799f642b8567aaacca4f116a74a8177179156",
+      "headings": [
+        "MT19937"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "e7d4f4fb20358f314210a892ae17351e04993813646f697ec387385ca2a36918",
+      "headings": [
+        "PCG64",
+        "The MIT License"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "6f5828a57223d4cc7f8ea505a2623e7b978b242752c1515e355f46ba2cec1800",
+      "headings": [
+        "PHILOX"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "9d4098846018319cd68e228ee6220361787f73bccbf00237a85e4fc9621b998f",
+      "headings": [
+        "SFC64",
+        "The MIT License"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "268b0ca06759d31ea3ca68dd35f20e877916e927b1c2a835e4592a3c4354b1f9",
+      "headings": [
+        "SPLITMIX64"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy/random/LICENSE.md",
+      "kind": "ignored-local",
+      "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f",
+      "headings": [
+        "NCSA Open Source License",
+        "3-Clause BSD License",
+        "Components"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/torchgen/packaged/autograd/README.md",
+      "kind": "ignored-local",
+      "sha256": "846894cc1682b34c33061117077be45945d4e0b8a66bacb9ff03ca8c0a0a43e4",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/typer/.agents/skills/typer/SKILL.md",
+      "kind": "ignored-local",
+      "sha256": "dfef816d8d67c9915e277b671c2d1230cef9d6944f503c6aa070f1cb3bef1dd5",
+      "headings": [
+        "Typer",
+        "Installing typer",
+        "Use an explicit `Typer` app",
+        "DO NOT DO THIS: Not extensible. Use Typer() instead.",
+        "Execute the app",
+        "Use `Annotated`",
+        "DO NOT DO THIS: old style. Use Annotated instead.",
+        "DO NOT DO THIS: old style. Use Annotated without a default value instead.",
+        "CLI Options",
+        "CLI options with multiple values",
+        "Rich",
+        "Rich markdown",
+        "Click"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/ban/ban-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "8be554ee1ccbab4da8bccbcbaacdc32b90650de8eaa8bf54b3b807e28cc9ce4c",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/ban/ban.brief.md",
+      "kind": "ignored-local",
+      "sha256": "b12ffdc8c9c6bfca107e38fed22e0093a348984768b756c1af2c8fedb245c1a1",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/battery/battery-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "cf92f06aaac1586c86fe4861f24e02bf07ad6e57e5bbdc044553aa251f0dc515",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/battery/battery.brief.md",
+      "kind": "ignored-local",
+      "sha256": "e605e559be1307e6c3b0f3829bd1efffc6bfe6606e409187ee766ae09801e588",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/equal/equal-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "b4b4e5eb5964d5cfaf01e1b1beedc6a396864dd455d39ae736c39b60d1511a26",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/equal/equal.brief.md",
+      "kind": "ignored-local",
+      "sha256": "ff49ad073940515cc08b99f0ea5f85d7786e5202668b77e484388f13213d8ece",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/flag/flag-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "50d0f091ff7613cd33a060b84c9d63c448bc6b6f391c40ea1988a681e9d1d3c4",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/flag/flag.brief.md",
+      "kind": "ignored-local",
+      "sha256": "c6ff40cf3627236386bbdf51ce73810ea0c62cdeef27a5cce2948b43504d0cf0",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/hamburger-menu/hamburger-menu-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "e266ec3de9d10ea20dae8e6cbee7bc41753d6484509cc1578c987b2acb15d4e7",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/hamburger-menu/hamburger-menu.brief.md",
+      "kind": "ignored-local",
+      "sha256": "fe6bd03cd751a657949a74da73f2a389f1899e8057eb0ea9265309e3e9133708",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/minus/minus-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "d75d1c7077aa0c1f92ad6c6f5f5b18cd46502c77faa7e11c42e93eaefe866041",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/minus/minus.brief.md",
+      "kind": "ignored-local",
+      "sha256": "a8f93da3525a38681ca888ac0da4ae1f8cdfe4214ed86277d47327dc4a88fe04",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/more-vertical/more-vertical-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "a68cc783edf7f17210c50e1d5bb8d0aebe93f73d9d985d1f2791b6249346b7d3",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/more-vertical/more-vertical.brief.md",
+      "kind": "ignored-local",
+      "sha256": "a1b2a0cf405a32985b3b68e1de54c6f581178f512f2b6513e5c31495c2d54ba0",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/plus/plus-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "d53077885c5cb8f1a3f47e7be05d8be6e24c3e2cce6ebe72a3bdad393182669f",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/plus/plus.brief.md",
+      "kind": "ignored-local",
+      "sha256": "1ff90096b3aca151fdf90b5f0f08a5dd43ecf8e98445081372a7ff0d8c36bd68",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/timeline/timeline-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "b03ac0837c3b8e7d9a2366b30766900569c3f841438ec6efc7a028164957c6f5",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/timeline/timeline.brief.md",
+      "kind": "ignored-local",
+      "sha256": "8760add2be70e5bac9072d47c2f70307a7e14f836125584b09d42bc9acef9661",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/view-grid/view-grid-filled.brief.md",
+      "kind": "ignored-local",
+      "sha256": "34603c1c3aef20b88ca164d22652626ad9414f22ad935c8b0efeb507a052eb01",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/demo/view-grid/view-grid.brief.md",
+      "kind": "ignored-local",
+      "sha256": "e61280aa3a3f38953a771882256097fc51b165ec0a26d0a915215f042e54af53",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/briefcase.brief.md",
+      "kind": "ignored-local",
+      "sha256": "e03c2cbfecbede06917bd82a4e5c1533278c191ac41f58e184e6d4571d2bca2e",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/cake.brief.md",
+      "kind": "ignored-local",
+      "sha256": "1b8be060d6d755a7a57f9b2447cc8809a4aa62c755bdaae5569f2d627c628c2e",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/compass.brief.md",
+      "kind": "ignored-local",
+      "sha256": "4e00975620834ee880df30cdfa4d9a5b3eef3b503db3e979d3ace8f27bf59323",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/cookie.brief.md",
+      "kind": "ignored-local",
+      "sha256": "f0f20ed2d158b22af23bd9e15fc765377e4e47d02e6a8662c04ae5381a4bf5ef",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/database.brief.md",
+      "kind": "ignored-local",
+      "sha256": "7512a6d515cba18fe732fedbc78de1711a5691a152be82e7034b075ec74ef8a7",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/fingerprint.brief.md",
+      "kind": "ignored-local",
+      "sha256": "4d449a4c17519b01d33ad6b161232f0f330657d0afdca4ff7e10a90d95fbf334",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/microscope.brief.md",
+      "kind": "ignored-local",
+      "sha256": "9ada3725b4c828f181c271788b01cf80f7d17e596447adbf8f9b4d9b5ac29fbb",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/strikethrough.brief.md",
+      "kind": "ignored-local",
+      "sha256": "58acefd59a2826057449690048f2c7b7d250383d3de53fc2a4ca605914317798",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/umbrella.brief.md",
+      "kind": "ignored-local",
+      "sha256": "ef4eff8793069206717a0857bf9d42b60c0587f2163b76cfbdeeb3fbaaed2f76",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/.staging/reach-10/wifi.brief.md",
+      "kind": "ignored-local",
+      "sha256": "0004970f9d279b3955e440e3377644aa05d929ac8a283c3cecbce58fe347a621",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/AGENTS.md",
+      "kind": "working-tree",
+      "sha256": "0cdaf627ee6e203b76b8b9ae81821fee9c54cb21b21944bb0786bfe0c4d4d687",
+      "headings": [
+        "iconsmith",
+        "Commands",
+        "Architecture",
+        "The one invariant",
+        "Gotchas",
+        "Agent invariants",
+        "Boolean geometry and preserved reference curves"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/CHANGELOG.md",
+      "kind": "working-tree",
+      "sha256": "02d6eaf1aed2cc8bd6c891ecb4e87cb17271da6a50691b33b70ec2b8d61215f9",
+      "headings": [
+        "iconsmith",
+        "0.1.0",
+        "Minor Changes",
+        "Patch Changes"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/CLAUDE.md",
+      "kind": "working-tree",
+      "sha256": "0cdaf627ee6e203b76b8b9ae81821fee9c54cb21b21944bb0786bfe0c4d4d687",
+      "headings": [
+        "iconsmith",
+        "Commands",
+        "Architecture",
+        "The one invariant",
+        "Gotchas",
+        "Agent invariants",
+        "Boolean geometry and preserved reference curves"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/LICENSE.md",
+      "kind": "working-tree",
+      "sha256": "80c316cc50e46c7eff01c3d3ed39ba9638c8b6a270382bbcd2f2dac71038bc46",
+      "headings": []
+    },
+    {
+      "path": "packages/iconsmith/REACH.md",
+      "kind": "working-tree",
+      "sha256": "dcffd8a327087d38696a27d2609cac27dc8f5cddd93ad37f3935b79fce914d30",
+      "headings": [
+        "Reach: new icons that belong in Central",
+        "What changed",
+        "Product path",
+        "Look",
+        "Out of scope",
+        "Verification",
+        "from packages/iconsmith"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/REACH.notes.md",
+      "kind": "working-tree",
+      "sha256": "a9da4e5fa690b14dfefffc62c0e6c6ec73a8d7b618a066d6a18ae399052d1c89",
+      "headings": [
+        "REACH implementation notes",
+        "Deviations"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/README.md",
+      "kind": "working-tree",
+      "sha256": "dc08a17738abddd14a28d33c181a655e4cfbe78e565031d6c2ba36b4df9f7915",
+      "headings": [
+        "[Iconsmith](https://blode.co/iconsmith)",
+        "Demo",
+        "Install",
+        "Quickstart",
+        "The language",
+        "Commands",
+        "Reading an eval",
+        "Notes",
+        "License"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/SKILL.md",
+      "kind": "working-tree",
+      "sha256": "a737a9230b0ad813f591f54a0dabb45af37472adc2c8fb7ecff8f25fa3f7047f",
+      "headings": [
+        "Drawing an icon with iconsmith",
+        "The loop",
+        "The house spec",
+        "House voice",
+        "Keylines",
+        "Dots",
+        "The grammar",
+        "Twins (outlined \u2194 filled)",
+        "Examples",
+        "What the linter checks"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/TASKS.md",
+      "kind": "working-tree",
+      "sha256": "a6af40b3f334fb7fcdabf30a57fad52a3abe1afcfe7aff566beb97058d398ef1",
+      "headings": [
+        "iconsmith \u2014 build board",
+        "Ground rules",
+        "0 \u2014 Scaffold \u2705 done",
+        "1 \u2014 Geometry core (owner: main)",
+        "2 \u2014 Parts vocabulary (owner: agent `parts`)",
+        "3 \u2014 Canvas + DSL (owner: agent `canvas`)",
+        "4 \u2014 Lint + render (owner: agent `checks`)",
+        "5 \u2014 AI-in-the-loop pipeline (owner: agent `pipeline`)",
+        "6 \u2014 Reconstruction eval (owner: agent `eval`)",
+        "7 \u2014 CLI wiring (owner: main, last)",
+        "8 \u2014 Corpus loader + spec calibration (owner: agent `spec`)",
+        "9 \u2014 Conform scoring against the corpus (owner: agent `pipeline`)",
+        "10 \u2014 Cohort alignment (owner: agent `cohort`)",
+        "11 \u2014 Mixture of experts (owner: agent `mixture`)"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/autoresearch.md",
+      "kind": "working-tree",
+      "sha256": "4bbe05d44496d3c7b167d01fcdea9ab90f4503c74235f874c1db9ee5931fa927",
+      "headings": [
+        "autoresearch.md",
+        "What the loop may change",
+        "Generation pipeline. One change per round. Not an unbounded dump of kins,",
+        "glyphs, prompts, or generated SVG.",
+        "What it may never change",
+        "How an iteration is decided",
+        "NEVER STOP",
+        "What to try",
+        "What not to try"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/docs/VOCABULARY.md",
+      "kind": "working-tree",
+      "sha256": "c5669b871ddff8d89ffed1643e9c2b79eaa559ca961fbde5e8dadd6a48c03aa4",
+      "headings": [
+        "The parts vocabulary",
+        "Names to check (29)"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/lab.md",
+      "kind": "working-tree",
+      "sha256": "9d3cf1a9968254efdd2f01a7b8731f1b46947cc5936c96a4ad1dd87832fa60e8",
+      "headings": [
+        "lab.md",
+        "What \u201cperfect\u201d means",
+        "One change per iteration",
+        "Frozen",
+        "Architecture",
+        "What to try next",
+        "Stop"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/program.md",
+      "kind": "working-tree",
+      "sha256": "303f52248fb0092925f9b13b81211ffa5fa3d298a25981c595e9d8c00d440c8e",
+      "headings": [
+        "program.md",
+        "What the loop may change",
+        "What it may never change",
+        "How an iteration is decided",
+        "Standing constraints",
+        "Known defects \u2014 do not optimise against these",
+        "What to try",
+        "What not to try"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/PROGRESS.md",
+      "kind": "working-tree",
+      "sha256": "f1681ff66726a4e2ff1b11517c9cb7e2c4d25b1d84f9e672c75ff30b8f606bcf",
+      "headings": [
+        "Central gaps progress",
+        "todo",
+        "revision",
+        "superseded"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/README.md",
+      "kind": "working-tree",
+      "sha256": "3d091f7c796f84a81160884995d92fd8ad38bc3341e45851bef457bdf06705f3",
+      "headings": [
+        "Central gaps campaign",
+        "State model",
+        "Commands",
+        "Approval"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/icons/README.md",
+      "kind": "working-tree",
+      "sha256": "117fa6e9e93c70064779501de3723de600c1311d6c7c62371516e1c5b0121c77",
+      "headings": [
+        "Approved icons"
+      ]
+    },
+    {
+      "path": "packages/iconsmith/workbench/central-gaps-v1/overviews/README.md",
+      "kind": "working-tree",
+      "sha256": "00e55ea2a25c19fda97b029e26943c182ed8c90c86368835c20ff82921f6e3fa",
+      "headings": [
+        "Overviews"
+      ]
+    },
+    {
+      "path": ".changeset/README.md",
+      "kind": "historical-git",
+      "commit": "e8b58c9bfd231e28d50add64c354b3779686a5c9",
+      "saved": ".staging/project-history/historical-docs/e8b58c9bfd23-.changeset__README.md",
+      "sha256": "561b21bfd2b3e8871968043cfa56e50d8cdc08fa7f8a3474cf72652049ce035d",
+      "headings": [
+        "Changesets"
+      ]
+    },
+    {
+      "path": ".changeset/autoresearch-offline-loop.md",
+      "kind": "historical-git",
+      "commit": "e471c1a2d6adcd4bfcf060573809de411a84e217",
+      "saved": ".staging/project-history/historical-docs/e471c1a2d6ad-.changeset__autoresearch-offline-loop.md",
+      "sha256": "e2b088cf19777c6410c3857795f7952131e156e25ff1f9d26b8247e51af60f0b",
+      "headings": []
+    },
+    {
+      "path": ".changeset/compile-each-paint.md",
+      "kind": "historical-git",
+      "commit": "7dcd4126f9c201ef582eb6e0598e20fef56fa0a8",
+      "saved": ".staging/project-history/historical-docs/7dcd4126f9c2-.changeset__compile-each-paint.md",
+      "sha256": "4d05d428636db644754fab0d30246ee3691ab094c31d65bd5adca5ef864c08f4",
+      "headings": []
+    },
+    {
+      "path": ".changeset/home-paint-recipe.md",
+      "kind": "historical-git",
+      "commit": "112e75c29961756ac247f457c0b712a7185119db",
+      "saved": ".staging/project-history/historical-docs/112e75c29961-.changeset__home-paint-recipe.md",
+      "sha256": "bdc806d4a45cb2f89405bd720d0588a06e182f4403147f03d0502d425758a682",
+      "headings": []
+    },
+    {
+      "path": ".changeset/house-analog-families.md",
+      "kind": "historical-git",
+      "commit": "5335678e8fe25329981b3e50f2f151dd0003554f",
+      "saved": ".staging/project-history/historical-docs/5335678e8fe2-.changeset__house-analog-families.md",
+      "sha256": "2d09e75737ecd61106624d37e14011a3ef65fc4eaf974d092b4fd16dfd87b91b",
+      "headings": []
+    },
+    {
+      "path": ".changeset/house-true-twins.md",
+      "kind": "historical-git",
+      "commit": "48640f6e7f961a3a1425e234b5a0afad777960da",
+      "saved": ".staging/project-history/historical-docs/48640f6e7f96-.changeset__house-true-twins.md",
+      "sha256": "41060b288728458510d7a1bf9750764771fea68b1c7ef5b35e07b430cf70c628",
+      "headings": []
+    },
+    {
+      "path": ".changeset/house-voice-analog.md",
+      "kind": "historical-git",
+      "commit": "3955f49178afe8440a54ca4fda9fd8e2f7726eb6",
+      "saved": ".staging/project-history/historical-docs/3955f49178af-.changeset__house-voice-analog.md",
+      "sha256": "3b3f2e0a7fe51cf4af04c710d512d4fc29f491250b6182319ef68f0f43955d4e",
+      "headings": []
+    },
+    {
+      "path": ".changeset/icon-studio.md",
+      "kind": "historical-git",
+      "commit": "b98731f1712cf0354e7309f8905c99c567d40825",
+      "saved": ".staging/project-history/historical-docs/b98731f1712c-.changeset__icon-studio.md",
+      "sha256": "e3f8c0dd64d66ef9ee68d272139c95b7bea7062c8bfff901ffbd1a74921d3c86",
+      "headings": []
+    },
+    {
+      "path": ".changeset/mixture-of-experts.md",
+      "kind": "historical-git",
+      "commit": "6ebe98092abee059c5ff5c3b582db1090ff8d18e",
+      "saved": ".staging/project-history/historical-docs/6ebe98092abe-.changeset__mixture-of-experts.md",
+      "sha256": "7618c3a2412c7abe243d8e302f514348d3d695724ae3d012c0f1c97212b77323",
+      "headings": []
+    },
+    {
+      "path": ".changeset/one-status-per-icon.md",
+      "kind": "historical-git",
+      "commit": "c8ed9827467f4054070a3a3bbc966d4fce26abc2",
+      "saved": ".staging/project-history/historical-docs/c8ed9827467f-.changeset__one-status-per-icon.md",
+      "sha256": "be2a7f540a0620e59ff04dba9da7bd6c59c5c6256670d8aae9c3b2b57d6697dd",
+      "headings": []
+    },
+    {
+      "path": ".changeset/openrouter-generate-arm.md",
+      "kind": "historical-git",
+      "commit": "9462ee6df1c71648ee3955db1605bf89833b606e",
+      "saved": ".staging/project-history/historical-docs/9462ee6df1c7-.changeset__openrouter-generate-arm.md",
+      "sha256": "da87b18d481c5ad74997aeb7e9c2283e5351cde667f3513ddc78dfc4932efdf0",
+      "headings": []
+    },
+    {
+      "path": ".changeset/product-loop-pair-and-hole.md",
+      "kind": "historical-git",
+      "commit": "56031c674995251dd0108ec5f993740d763f5b68",
+      "saved": ".staging/project-history/historical-docs/56031c674995-.changeset__product-loop-pair-and-hole.md",
+      "sha256": "59a54e5b4533300d51cf6c2bcf1a907f8f886ef02ae4d0ed7a15e4e60e1267f0",
+      "headings": []
+    },
+    {
+      "path": ".changeset/product-path-compile-paint.md",
+      "kind": "historical-git",
+      "commit": "dfe83ccbd98430e317dc73fef05ae5e822904eef",
+      "saved": ".staging/project-history/historical-docs/dfe83ccbd984-.changeset__product-path-compile-paint.md",
+      "sha256": "da8481033055fa2890e74cad3ed62332e6c8fbc207d8ceed6cedf9525bef2c2c",
+      "headings": []
+    },
+    {
+      "path": ".changeset/rename-to-iconsmith.md",
+      "kind": "historical-git",
+      "commit": "c976e1822a2d5b9345b5d0dd0317cbbf28669496",
+      "saved": ".staging/project-history/historical-docs/c976e1822a2d-.changeset__rename-to-iconsmith.md",
+      "sha256": "dbc1c592c1831491190f87f560dcf76d78566a0b99b48aace948eac2c59cbcf0",
+      "headings": []
+    },
+    {
+      "path": ".changeset/true-gap-and-twin-pair.md",
+      "kind": "historical-git",
+      "commit": "1e23b9aaba378bed3c0e2f2d610f4cf5470264f0",
+      "saved": ".staging/project-history/historical-docs/1e23b9aaba37-.changeset__true-gap-and-twin-pair.md",
+      "sha256": "73260753cd208793aa68ad065ca3cfaf0d62dc3b0ac87c4962b7ea880ccbcdab",
+      "headings": []
+    },
+    {
+      "path": ".changeset/twenty-set-families.md",
+      "kind": "historical-git",
+      "commit": "352b404d893518208b6dc9327bd04de787319bee",
+      "saved": ".staging/project-history/historical-docs/352b404d8935-.changeset__twenty-set-families.md",
+      "sha256": "21b4dc2cf0199c27e644cf1b3e201676a3fb163459c3d727833845cfc1b6f2f0",
+      "headings": []
+    },
+    {
+      "path": "TASKS.md",
+      "kind": "historical-git",
+      "commit": "e8b58c9bfd231e28d50add64c354b3779686a5c9",
+      "saved": ".staging/project-history/historical-docs/e8b58c9bfd23-TASKS.md",
+      "sha256": "6e619a1c9188b7cd47a71642c5aeaa74d0d72723a1c9f757bdf420c675e337e4",
+      "headings": [
+        "iconsmith \u2014 build board",
+        "Ground rules",
+        "0 \u2014 Scaffold \u2705 done",
+        "1 \u2014 Geometry core (owner: main)",
+        "2 \u2014 Parts vocabulary (owner: agent `parts`)",
+        "3 \u2014 Canvas + DSL (owner: agent `canvas`)",
+        "4 \u2014 Lint + render (owner: agent `checks`)",
+        "5 \u2014 AI-in-the-loop pipeline (owner: agent `pipeline`)",
+        "6 \u2014 Reconstruction eval (owner: agent `eval`)",
+        "7 \u2014 CLI wiring (owner: main, last)",
+        "8 \u2014 Corpus loader + spec calibration (owner: agent `spec`)",
+        "9 \u2014 Conform scoring against the corpus (owner: agent `pipeline`)",
+        "10 \u2014 Cohort alignment (owner: agent `cohort`)"
+      ]
+    },
+    {
+      "path": "apps/web/agent/instructions.md",
+      "kind": "historical-git",
+      "commit": "96582ddfa73b70134f1810506413b9b95b4298a7",
+      "saved": ".staging/project-history/historical-docs/96582ddfa73b-apps__web__agent__instructions.md",
+      "sha256": "e86d8651c95806945d1c19e4438d161212734a6d116cefa4bf8995c874dcaf00",
+      "headings": [
+        "Iconsmith Studio orchestrator"
+      ]
+    },
+    {
+      "path": "docs/VOCABULARY.md",
+      "kind": "historical-git",
+      "commit": "e8b58c9bfd231e28d50add64c354b3779686a5c9",
+      "saved": ".staging/project-history/historical-docs/e8b58c9bfd23-docs__VOCABULARY.md",
+      "sha256": "13a8a58a57cca542d611a5eececc3ffbf74530923f5df5b7d0050a33a5291ef4",
+      "headings": [
+        "The parts vocabulary",
+        "Names to check (23)"
+      ]
+    },
+    {
+      "path": "skills/forge/SKILL.md",
+      "kind": "historical-git",
+      "commit": "675a4b2d1384996673d1c2606d78112222ace13d",
+      "saved": ".staging/project-history/historical-docs/675a4b2d1384-skills__forge__SKILL.md",
+      "sha256": "10ce8bade0b2f77527998eec71efca05c56b742c84bf9ea89efd233132a3a97b",
+      "headings": [
+        "forge",
+        "Commands",
+        "The DSL",
+        "Invariant"
+      ]
+    },
+    {
+      "path": "skills/iconsmith/SKILL.md",
+      "kind": "historical-git",
+      "commit": "e8b58c9bfd231e28d50add64c354b3779686a5c9",
+      "saved": ".staging/project-history/historical-docs/e8b58c9bfd23-skills__iconsmith__SKILL.md",
+      "sha256": "2bde497e06b3ab19e3419860297e87d8af7d8ef850e9a90ddda3a1ae061dbb35",
+      "headings": [
+        "iconsmith",
+        "Commands",
+        "The DSL",
+        "Invariant"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "url": "http://creativecommons.org/publicdomain/zero/1.0/",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md"
+      ]
+    },
+    {
+      "url": "http://www.kevinsheppard.com",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/LICENSE.md",
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy/random/LICENSE.md"
+      ]
+    },
+    {
+      "url": "http://www.w3.org/2000/svg",
+      "sources": [
+        "packages/iconsmith/scripts/demo.ts",
+        "packages/iconsmith/scripts/loop.test.ts",
+        "packages/iconsmith/scripts/measure-filled.test.ts",
+        "packages/iconsmith/scripts/stress-cosine.ts",
+        "packages/iconsmith/scripts/vocabulary-sheet.ts",
+        "packages/iconsmith/src/corpus/audit.test.ts",
+        "packages/iconsmith/src/corpus/load.test.ts",
+        "packages/iconsmith/src/corpus/normalise.ts",
+        "packages/iconsmith/src/corpus/record.test.ts",
+        "packages/iconsmith/src/eval/blindspot.test.ts",
+        "packages/iconsmith/src/pipeline/audit.test.ts",
+        "packages/iconsmith/src/pipeline/bench.test.ts",
+        "packages/iconsmith/src/pipeline/compose.test.ts",
+        "packages/iconsmith/src/pipeline/compose.ts",
+        "packages/iconsmith/src/pipeline/conform.ts",
+        "packages/iconsmith/src/pipeline/eval-errors.test.ts",
+        "packages/iconsmith/src/pipeline/pipeline.test.ts",
+        "packages/iconsmith/src/pipeline/propose.test.ts",
+        "packages/iconsmith/src/pipeline/reconstruct.test.ts",
+        "packages/iconsmith/src/pipeline/repair.test.ts",
+        "packages/iconsmith/src/pipeline/repair.ts",
+        "packages/iconsmith/src/pipeline/route.test.ts",
+        "packages/iconsmith/src/tools/canvas.ts",
+        "packages/iconsmith/src/tools/keyline.test.ts",
+        "packages/iconsmith/src/tools/legibility.test.ts",
+        "packages/iconsmith/src/tools/registration.test.ts",
+        "packages/iconsmith/src/tools/render.test.ts"
+      ]
+    },
+    {
+      "url": "https://agentskills.io",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://ai-gateway.vercel.sh/claude-code",
+      "sources": [
+        "packages/iconsmith/src/pipeline/gateway.ts"
+      ]
+    },
+    {
+      "url": "https://ai-gateway.vercel.sh/codex/v1",
+      "sources": [
+        "packages/iconsmith/src/pipeline/gateway.ts"
+      ]
+    },
+    {
+      "url": "https://ai-gateway.vercel.sh/v1",
+      "sources": [
+        "packages/iconsmith/src/pipeline/gateway.ts"
+      ]
+    },
+    {
+      "url": "https://ai-sdk.dev/elements/overview",
+      "sources": [
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20"
+      ]
+    },
+    {
+      "url": "https://ai-sdk.dev/providers/ai-sdk-providers/anthropic",
+      "sources": [
+        "docs/plans/reference-guided-foundry.notes.md"
+      ]
+    },
+    {
+      "url": "https://alphasignalai.substack.com/p/most-developers-do-not-need-agent",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/1910.09700",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/modelcard_template.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.11556",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2312.16476",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2506.03139",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.07127",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2512.10894",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2602.00738",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/html/2609.03806v1",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/pdf/2605.10990",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://blode.co",
+      "sources": [
+        "README.md",
+        "packages/iconsmith/README.md"
+      ]
+    },
+    {
+      "url": "https://blode.co/avatar-circle.png",
+      "sources": [
+        "README.md",
+        "packages/iconsmith/README.md"
+      ]
+    },
+    {
+      "url": "https://blode.co/icons",
+      "sources": [
+        "packages/iconsmith/SKILL.md"
+      ]
+    },
+    {
+      "url": "https://blode.co/iconsmith",
+      "sources": [
+        "README.md",
+        "apps/web/AGENTS.md",
+        "apps/web/CLAUDE.md",
+        "packages/iconsmith/README.md"
+      ]
+    },
+    {
+      "url": "https://blode.co/iconsmith/.well-known/agent-skills/index.json",
+      "sources": [
+        "packages/iconsmith/README.md"
+      ]
+    },
+    {
+      "url": "https://blode.co/iconsmith/eve/v1/...`:",
+      "sources": [
+        "cross-project:claude:337abb49-1745-4ecf-96bb-6173652fcff4"
+      ]
+    },
+    {
+      "url": "https://blode.co/iconsmith/eve/v1/session",
+      "sources": [
+        "claude:be92dac1-849f-4991-b820-4affa73fb603:32fe4186-e48e-4d65-9e22-00af007c5968"
+      ]
+    },
+    {
+      "url": "https://blode.co/iconsmith/studio",
+      "sources": [
+        "README.md",
+        "apps/web/AGENTS.md",
+        "apps/web/CLAUDE.md",
+        "cross-project:claude:ae3aa7a7-fe73-4dd0-85f3-8dc3b2541741",
+        "cross-project:claude:be92dac1-849f-4991-b820-4affa73fb603",
+        "cross-project:codex:01a03a82-54ea-73b3-ab42-c606e1b54478",
+        "packages/iconsmith/README.md"
+      ]
+    },
+    {
+      "url": "https://blode.md",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://cdn.prod.website-files.com/67e6c26f2d676c1963e098b9/67eaca6358a2d534ab478a77_67cf5b13783c1fabe344bc18_67cdb24d2c226ba92195970a_672dfab03f20ac7d813f1706_6616a0faa98aac697699938d_main_branch.png--------------------------------------------------------------------------------\\nGit",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://centralicons.com",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://centralicons.com/",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://cursor.com/agents/bc-075cb4a9-263b-4be8-b5d8-874d949cae5c",
+      "sources": [
+        "cross-project:codex:01a02731-8d36-7192-ae70-6c716288abfc"
+      ]
+    },
+    {
+      "url": "https://deepseek.com/harness/en/",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e",
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://dev.to/silviaodwyer/10-stunning-icon-libraries-to-check-out-that-are-free-and-open-source-52ln",
+      "sources": [
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20",
+        "cross-project:codex:01a02b85-25ba-78c2-a69c-6c96ee4732b5",
+        "cross-project:codex:01a02b85-5661-7181-ba91-508a31ebf976"
+      ]
+    },
+    {
+      "url": "https://developer.apple.com/sf-symbols/",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://developers.google.com/fonts/docs/material_symbols",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "sources": [
+        "docs/plans/foundry-training-decision.md"
+      ]
+    },
+    {
+      "url": "https://developers.openai.com/blog/eval-skills",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://developers.raycast.com/api-reference/user-interface/icons-and-images",
+      "sources": [
+        "docs/references/product-icon-collections.md"
+      ]
+    },
+    {
+      "url": "https://docu.glyphsapp.com/",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://donebear.com",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Gigafactory",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e",
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Terafab",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e",
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://eve.dev/",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e",
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5",
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20",
+        "cross-project:codex:01a02b85-25ba-78c2-a69c-6c96ee4732b5",
+        "cross-project:codex:01a02b85-5661-7181-ba91-508a31ebf976"
+      ]
+    },
+    {
+      "url": "https://example.invalid/model",
+      "sources": [
+        "packages/iconsmith/src/pipeline/pipeline.test.ts"
+      ]
+    },
+    {
+      "url": "https://flueframework.com/",
+      "sources": [
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20"
+      ]
+    },
+    {
+      "url": "https://flueframework.com/blog/flue-2/",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e",
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://fonttools.readthedocs.io/en/latest/ttLib/index.html",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://forum.glyphsapp.com/t/command-line-tool-for-glyphs/36022",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://futureagi.com/blog/evaluating-ai-agent-skills-2026",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://gertingold.github.io/tools4scicomp/_images/gitlab.png--------------------------------------------------------------------------------\\nGit",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://gertingold.github.io/tools4scicomp/git.html",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://gist.github.com/imneme/f1f7821f07cf76504a97f6537c818083",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/JuliaLang/julia/contributors",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/numpy-2.5.2.dist-info/licenses/numpy/random/src/distributions/LICENSE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/adewale/skill-eval-harness",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://github.com/agentskills/agentskills",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://github.com/ayghri/i-have-adhd/blob/main/skills/i-have-adhd/SKILL.md",
+      "sources": [
+        "cross-project:claude:337abb49-1745-4ecf-96bb-6173652fcff4"
+      ]
+    },
+    {
+      "url": "https://github.com/googlefonts/glyphsLib",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://github.com/gvzdv/claudish-to-english",
+      "sources": [
+        "cross-project:claude:337abb49-1745-4ecf-96bb-6173652fcff4"
+      ]
+    },
+    {
+      "url": "https://github.com/huggingface/hub-docs/blob/main/datasetcard.md?plain=1",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/datasetcard_template.md"
+      ]
+    },
+    {
+      "url": "https://github.com/huggingface/hub-docs/blob/main/modelcard.md?plain=1",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/modelcard_template.md"
+      ]
+    },
+    {
+      "url": "https://github.com/karpathy/autoresearch",
+      "sources": [
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://github.com/lucide-icons/lucide/blob/main/LICENSE",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/mattpocock/skills/tree/main/skills/productivity/wait-what",
+      "sources": [
+        "cross-project:claude:337abb49-1745-4ecf-96bb-6173652fcff4"
+      ]
+    },
+    {
+      "url": "https://github.com/mblode/blode-icons",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://github.com/mblode/iconsmith",
+      "sources": [
+        "packages/iconsmith/src/pipeline/openrouter.ts"
+      ]
+    },
+    {
+      "url": "https://github.com/mblode/iconsmith.git",
+      "sources": [
+        "README.md"
+      ]
+    },
+    {
+      "url": "https://github.com/mblode/static-to-variable-glide/pull/16",
+      "sources": [
+        "cross-project:codex:01a02731-8d36-7192-ae70-6c716288abfc"
+      ]
+    },
+    {
+      "url": "https://github.com/phosphor-icons/core",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/tabler/tabler-icons/blob/main/packages/icons/README.md",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/vercel-labs/fx",
+      "sources": [
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20"
+      ]
+    },
+    {
+      "url": "https://github.com/vercel/eve",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/vercel/eve/blob/main/docs/concepts/sessions-runs-and-streaming.md",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/vercel/eve/blob/main/docs/guides/frontend/nextjs.mdx",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/vercel/eve/blob/main/docs/tools/overview.mdx",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://github.com/vercel/turborepo/releases/tag/v2.10.12",
+      "sources": [
+        "cross-project:codex:01a03a82-54ea-73b3-ab42-c606e1b54478"
+      ]
+    },
+    {
+      "url": "https://glyphsapp.com/learn/multiple-masters-part-2-keeping-your-outlines-compatible",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://glyphsapp.com/news/glyphs-4-create-love-the-process",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md",
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://griffdesigns.com/twitter",
+      "sources": [
+        "docs/foundry-pipeline-map.md",
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://handbook.glyphsapp.com/components/corner/",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://handbook.glyphsapp.com/interpolation/",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://help.figma.com/hc/en-us/articles/40779260614935-Use-Weave-tools-in-Figma",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://help.openai.com/en/articles/11084440-im",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://heroicons.com",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/docs/hub/datasets-cards",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/datasetcard_template.md"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/docs/hub/model-cards",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/modelcard_template.md"
+      ]
+    },
+    {
+      "url": "https://iconify.design/docs/api/search.html",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://iconists.co",
+      "sources": [
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1"
+      ]
+    },
+    {
+      "url": "https://iconists.co/",
+      "sources": [
+        "docs/foundry-pipeline-map.md",
+        "docs/plans/reference-guided-foundry.audit.md",
+        "docs/plans/reference-guided-foundry.research.md",
+        "docs/references/product-icon-collections.md"
+      ]
+    },
+    {
+      "url": "https://iconists.co/central",
+      "sources": [
+        "docs/foundry-pipeline-map.md",
+        "docs/plans/reference-guided-foundry.audit.md",
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://iconists.co/central#hero",
+      "sources": [
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5",
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1"
+      ]
+    },
+    {
+      "url": "https://iconoir.com",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://iconsmith-sigma.vercel.app",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://imagemagick.org",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://linear.app/now/behind-the-latest-design-refresh",
+      "sources": [
+        "docs/references/product-icon-collections.md"
+      ]
+    },
+    {
+      "url": "https://linear.app/now/how-we-redesigned-the-linear-ui",
+      "sources": [
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1",
+        "docs/foundry-pipeline-map.md",
+        "docs/plans/reference-guided-foundry.research.md",
+        "docs/references/product-icon-collections.md"
+      ]
+    },
+    {
+      "url": "https://linktr.ee",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://lucide.dev",
+      "sources": [
+        "packages/iconsmith/src/corpus/record.test.ts",
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://lucide.dev/contribute/icon-design-guide",
+      "sources": [
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5",
+        "packages/iconsmith/SKILL.md"
+      ]
+    },
+    {
+      "url": "https://medium.com/%40jerrylin720/git-workflow-comparison-f84d270708ab",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://minoradventures.co/blog/the-making-of-cursors-icons",
+      "sources": [
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5",
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20",
+        "cross-project:codex:01a02b85-25ba-78c2-a69c-6c96ee4732b5",
+        "cross-project:codex:01a02b85-5661-7181-ba91-508a31ebf976",
+        "packages/iconsmith/SKILL.md"
+      ]
+    },
+    {
+      "url": "https://miro.medium.com/max/960/1%2AICJTzI9XflQNxFHUeJ217g.png",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://mlco2.github.io/impact#compute",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/huggingface_hub/templates/modelcard_template.md"
+      ]
+    },
+    {
+      "url": "https://openrouter.ai/api/v1",
+      "sources": [
+        "packages/iconsmith/src/pipeline/openrouter.ts"
+      ]
+    },
+    {
+      "url": "https://openrouter.ai/api/v1/chat/completions",
+      "sources": [
+        "packages/iconsmith/scripts/autoresearch.ts",
+        "packages/iconsmith/src/pipeline/openrouter.ts"
+      ]
+    },
+    {
+      "url": "https://people.csail.mit.edu/tzumao/diffvg/",
+      "sources": [
+        "docs/plans/reference-guided-foundry.audit.md",
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://phosphoricons.com",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agent-sdk/skills",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://pypi.org/project/glyphs-cli/",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://remixicon.com",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://status.claude.com",
+      "sources": [
+        "claude:2ad0e3d5-bce1-4e55-9ab8-26ad24f1caf7:ced2ba1e-b833-406e-ae2b-b8e0fab6ea3e",
+        "cross-project:claude:2ad0e3d5-bce1-4e55-9ab8-26ad24f1caf7"
+      ]
+    },
+    {
+      "url": "https://stenbrinke.nl/blog/ship-an-agent-skill-that-installs-itself/",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://surya.website/rling-qwen-to-paint-with-code",
+      "sources": [
+        "cross-project:claude:595d58ce-ad25-4d77-a0a7-9818e4964abf"
+      ]
+    },
+    {
+      "url": "https://tabler.io/icons",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://theairuntime.com/p/when-ai-loops-fail-the-production",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://touchwood.com.au",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://vcmc.ai",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://www.agentation.com/",
+      "sources": [
+        "cross-project:codex:01a02b6d-62b6-7191-a7ca-2bd27a671d20",
+        "cross-project:codex:01a02b85-25ba-78c2-a69c-6c96ee4732b5",
+        "cross-project:codex:01a02b85-5661-7181-ba91-508a31ebf976"
+      ]
+    },
+    {
+      "url": "https://www.agentation.com/features",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://www.agentation.com/schema",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.braintrust.dev/blog/agent-while-loop",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.digitalapplied.com/blog/codex-cli-cross-harness-skill-portability-lock-in",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.encode.io/",
+      "sources": [
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md",
+        "packages/iconsmith/.scratch/venv/lib/python3.12/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md"
+      ]
+    },
+    {
+      "url": "https://www.evalite.dev/",
+      "sources": [
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://www.figma.com/solutions/figma-ai-design-tool/",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md"
+      ]
+    },
+    {
+      "url": "https://www.flowbase.co/__og-image__/image/icons/central/git-pull-request/og.png",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://www.flowbase.co/icons/central/git-pull-request",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://www.meandu.com",
+      "sources": [
+        "cross-project:claude:c8bcc73b-1f40-4c3b-a492-e8473ba38635"
+      ]
+    },
+    {
+      "url": "https://www.mindstudio.ai/blog/agent-harnesses-beat-model-upgrades-5-benchmarks",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.minoradventures.co/blog/the-making-of-cursors-icons",
+      "sources": [
+        "apps/web/STUDIO_PLAN.md",
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1",
+        "docs/foundry-pipeline-map.md",
+        "docs/plans/reference-guided-foundry.audit.md",
+        "docs/plans/reference-guided-foundry.research.md",
+        "docs/references/blode-central-craft.md",
+        "docs/references/product-icon-collections.md"
+      ]
+    },
+    {
+      "url": "https://www.philschmid.de/testing-skills",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.radix-ui.com/icons",
+      "sources": [
+        "packages/iconsmith/src/corpus/sources.ts"
+      ]
+    },
+    {
+      "url": "https://www.raycast.com/blog/a-fresh-look-and-feel",
+      "sources": [
+        "docs/references/product-icon-collections.md"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/Projectivy_Launcher/comments/1ug1hox/i_made_my_icon_pack_freely_available_on_github/",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/buildinpublic/comments/1unazg2/134000_icons_28_libraries_zero_backend_my_attempt/",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/designfreebie/comments/1tr8a8t/svg_repo_free_svg_icons_and_vectors_huge/",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://www.stackhawk.com/blog/eval-harness-agent-skills/",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.svgrepo.com/vectors/git-pull-request/icon/",
+      "sources": [
+        "cross-project:codex:01a01d05-98f4-7d82-b4eb-876d84460eb0"
+      ]
+    },
+    {
+      "url": "https://www.tocinstitute.org/the-goal-summary.html",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e",
+        "cross-project:claude:eebc8c06-c123-455b-98e6-cd87141068f5"
+      ]
+    },
+    {
+      "url": "https://www.truefoundry.com/blog/context-engineering-gateway-session-management",
+      "sources": [
+        "cross-project:claude:c8e0818a-b81b-411e-b358-50eea3b9db6e"
+      ]
+    },
+    {
+      "url": "https://www.w3.org/TR/SVG2/coords.html",
+      "sources": [
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://x.com/avstorm",
+      "sources": [
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1"
+      ]
+    },
+    {
+      "url": "https://x.com/iconists",
+      "sources": [
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1"
+      ]
+    },
+    {
+      "url": "https://x.com/karrisaarinen/status/2032160761255284814",
+      "sources": [
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1",
+        "docs/foundry-pipeline-map.md",
+        "docs/plans/reference-guided-foundry.research.md"
+      ]
+    },
+    {
+      "url": "https://x.com/srioz",
+      "sources": [
+        "cross-project:codex:01a06ea5-fb23-7622-8e00-f0379e7952c1"
+      ]
+    },
+    {
+      "url": "https://x.com/turborepo",
+      "sources": [
+        "cross-project:codex:01a03a82-54ea-73b3-ab42-c606e1b54478"
+      ]
+    }
+  ]
+}

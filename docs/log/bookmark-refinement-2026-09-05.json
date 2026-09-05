@@ -1,0 +1,47 @@
+{
+  "order": [
+    "original AI",
+    "refined AI",
+    "shipped reference"
+  ],
+  "files": [
+    {
+      "path": ".staging/foundry-round-1/local-command-bookmark-01/outlined.svg",
+      "sha256": "e1161247d5bc87160954a5bb8e82cc5fbb2ef0ed1317d18632bcc6e8a2768a1f"
+    },
+    {
+      "path": ".staging/foundry-round-1/local-bookmark-refinement-01/outlined.svg",
+      "sha256": "72bc10e7bdb035e703da4a019815093ff8b94b0d18456fdbdd13baf17b88acc0"
+    },
+    {
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/bookmark-check.svg",
+      "sha256": "e49c6289d58583eb0fa1236bd792d7595f8ec5a12dc3c45b4475f9cbd3c9b4ea"
+    }
+  ],
+  "exactReplay": true,
+  "exactSharedModifier": true,
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined"
+    ],
+    "style": "55a205c10b3226d7ee830b8bcd9eed887b7f273602782be20866739467fcbccd",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "assessment": {
+    "improved": "Broad shallow notch replaces flat shoulders and steep V",
+    "remaining": "Lower contour joins combine rounded rect ends with diagonal round caps; no tangent-continuity proof. Native16 antialiasing remains heavier at joins.",
+    "craftApproved": false
+  },
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionCost": "unmeasured"
+}

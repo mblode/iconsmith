@@ -1,0 +1,26 @@
+{
+  "file": ".staging/foundry-round-1/local-square-play-01/outlined.svg",
+  "scope": "Enclosed raster transparency at two thresholds; not semantic or craft qualification",
+  "rows": [
+    {
+      "size": 24,
+      "threshold": 128,
+      "holes": []
+    },
+    {
+      "size": 24,
+      "threshold": 254,
+      "holes": []
+    },
+    {
+      "size": 16,
+      "threshold": 128,
+      "holes": []
+    },
+    {
+      "size": 16,
+      "threshold": 254,
+      "holes": []
+    }
+  ]
+}

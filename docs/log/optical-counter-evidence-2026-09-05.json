@@ -1,0 +1,278 @@
+{
+  "method": "16px render, 4-connected bright pixels, exclude border-connected background. Threshold255 is pure white. Does not label semantic holes or establish craft.",
+  "rows": [
+    {
+      "source": ".staging/foundry-round-1/local-family-refine-01/window-lock/outlined.svg",
+      "finish": "outlined",
+      "measures": [
+        {
+          "threshold": 230,
+          "holes": [
+            {
+              "pixels": 10,
+              "bbox": [
+                3,
+                4,
+                10,
+                1
+              ]
+            },
+            {
+              "pixels": 20,
+              "bbox": [
+                3,
+                7,
+                5,
+                4
+              ]
+            },
+            {
+              "pixels": 2,
+              "bbox": [
+                10,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "pixels": 2,
+              "bbox": [
+                10,
+                11,
+                2,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 250,
+          "holes": [
+            {
+              "pixels": 10,
+              "bbox": [
+                3,
+                4,
+                10,
+                1
+              ]
+            },
+            {
+              "pixels": 20,
+              "bbox": [
+                3,
+                7,
+                5,
+                4
+              ]
+            },
+            {
+              "pixels": 2,
+              "bbox": [
+                10,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "pixels": 2,
+              "bbox": [
+                10,
+                11,
+                2,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 255,
+          "holes": [
+            {
+              "pixels": 10,
+              "bbox": [
+                3,
+                4,
+                10,
+                1
+              ]
+            },
+            {
+              "pixels": 20,
+              "bbox": [
+                3,
+                7,
+                5,
+                4
+              ]
+            },
+            {
+              "pixels": 2,
+              "bbox": [
+                10,
+                11,
+                2,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": ".staging/foundry-round-1/local-family-refine-01/window-lock/filled.svg",
+      "finish": "filled",
+      "measures": [
+        {
+          "threshold": 230,
+          "holes": [
+            {
+              "pixels": 29,
+              "bbox": [
+                3,
+                6,
+                7,
+                6
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 250,
+          "holes": [
+            {
+              "pixels": 28,
+              "bbox": [
+                3,
+                6,
+                7,
+                6
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 255,
+          "holes": [
+            {
+              "pixels": 25,
+              "bbox": [
+                3,
+                6,
+                6,
+                5
+              ]
+            },
+            {
+              "pixels": 1,
+              "bbox": [
+                13,
+                6,
+                1,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": ".staging/foundry-round-1/local-small-master-01/outlined.svg",
+      "finish": "outlined",
+      "measures": [
+        {
+          "threshold": 230,
+          "holes": [
+            {
+              "pixels": 4,
+              "bbox": [
+                10,
+                8,
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 250,
+          "holes": [
+            {
+              "pixels": 4,
+              "bbox": [
+                10,
+                8,
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 255,
+          "holes": [
+            {
+              "pixels": 4,
+              "bbox": [
+                10,
+                8,
+                2,
+                2
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source": ".staging/foundry-round-1/local-small-master-01/filled.svg",
+      "finish": "filled",
+      "measures": [
+        {
+          "threshold": 230,
+          "holes": [
+            {
+              "pixels": 4,
+              "bbox": [
+                10,
+                8,
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 250,
+          "holes": [
+            {
+              "pixels": 4,
+              "bbox": [
+                10,
+                8,
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        {
+          "threshold": 255,
+          "holes": [
+            {
+              "pixels": 4,
+              "bbox": [
+                10,
+                8,
+                2,
+                2
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

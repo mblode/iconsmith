@@ -37,8 +37,8 @@ npm run fix
   corpus-gated tests stop running without failing. **The canary is the skipped
   count, not the total.** Those twelve are gated with `describe.skipIf` /
   `it.skipIf`, which still *collects* them, so an absent corpus reports them as
-  skipped and leaves the total untouched — `1412 (98 files)` either way, of which
-  1400 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
+  skipped and leaves the total untouched — `1518 (115 files)` either way, of which
+  1506 pass and 12 skip with no corpus on disk. So `0 skipped` means the corpus
   was found and `12 skipped` means it was not; a drop in the *total* is test-count
   drift, a different fault. Update both numbers when you add tests, or neither is
   a canary. The gated twelve live in `corpus/measure.test.ts` (5),
@@ -88,3 +88,20 @@ npm run fix
   fanning out) is the command to use.
 - Root-level files are covered by no pre-commit job and by no `turbo check`. If
   you edit `turbo.json` or the root `package.json`, check them yourself.
+
+## Foundry history
+
+Read [docs/foundry-log.md](docs/foundry-log.md) before continuing foundry work.
+Keep it updated with every material decision and experiment, including failures,
+misconfigured runs, offline probes, costs, evidence paths and unresolved findings.
+Append corrections and superseding decisions; do not erase failed attempts or
+rewrite their original artifacts. Record paid intent/reservation before calling
+providers and reconcile actual/unknown costs before ending the session. Retain
+small durable receipts in `docs/log/`; leave large/private reference assets and
+the corpus in their existing locations. This log is required by the user.
+
+When backfilling research or deciding whether to repeat an experiment, use
+`claude-code-search` (`ccs`) across the current project and its former
+`icon-forge` path, then consult [the research history](docs/project-research-history.md)
+and its source index. Attribute historical claims to their records; do not treat
+old assistant prose as verified research or merge historical costs into a new round.

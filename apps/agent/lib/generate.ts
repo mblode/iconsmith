@@ -324,13 +324,14 @@ const costSummary = (costs: readonly ApiCost[]) => ({
  */
 export const candidateCosts = (
   candidate: Awaited<ReturnType<typeof runPairTournament>>["candidates"][number],
-): ApiCost[] => [
-  ...(candidate.partialCosts ?? []),
-  ...candidate.paints.flatMap((paint) => [
-    ...(paint.result.apiCosts ?? []),
-    ...(paint.audit.cost ? [paint.audit.cost] : []),
-  ]),
-];
+): ApiCost[] =>
+  candidate.costs ?? [
+    ...(candidate.partialCosts ?? []),
+    ...candidate.paints.flatMap((paint) => [
+      ...(paint.result.apiCosts ?? []),
+      ...(paint.audit.cost ? [paint.audit.cost] : []),
+    ]),
+  ];
 
 const costText = (usd: number | null): string =>
   usd === null ? "with an incomplete cost total" : `for $${usd.toFixed(4)}`;

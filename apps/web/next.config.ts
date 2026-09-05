@@ -5,6 +5,7 @@ import type { NextConfig } from "next";
 
 import { applyEvePublicRoutePrefix } from "./lib/eve-vercel-routes";
 import { BASE_PATH, REPO_URL } from "./lib/site-url";
+import { studioAvailable } from "./lib/studio-availability";
 
 // Vercel Root Directory is apps/web, but the lockfile and workspace live at
 // the repo root. Tracing from this file keeps Next from treating the zone as
@@ -160,6 +161,9 @@ const withEveConfig = withEve(nextConfig, {
  * script prefixes again in case `next build` rewrites the file afterwards.
  */
 export default async function eveNextConfig(phase: string, context: { defaultConfig: NextConfig }) {
+  if (!studioAvailable()) {
+    return nextConfig;
+  }
   const resolved = await withEveConfig(phase, context);
   await applyEvePublicRoutePrefix({
     nextRoot: process.cwd(),

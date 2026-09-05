@@ -1,0 +1,119 @@
+{
+  "order": [
+    "A047 separated joins",
+    "reconstruction control",
+    "AI pause composition",
+    "shipped check reference"
+  ],
+  "rows": [
+    {
+      "concept": "bookmark-check",
+      "qualification": "reconstruction control",
+      "exactReplay": true,
+      "exactContour": true,
+      "contourBounds": {
+        "h": 18.503166704879096,
+        "w": 14.5,
+        "x0": 4.75,
+        "x1": 19.25,
+        "y0": 2.75,
+        "y1": 21.253166704879096
+      },
+      "programSha256": "2f9c74d251c208900f0fa600c718c32ee44c20266402b3fab2b48883f425e6df",
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "large",
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "style": "7350d5fbca92118c0813e7fc6c5ba3dc563a23b609cef5d3424c980eafe439b4",
+        "authorExitCode": 0,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered"
+      },
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 146.1\u00b0, 11.1\u00b0 off the nearest permitted axis (135\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e0\" has an edge at 33.9\u00b0, 11.1\u00b0 off the nearest permitted axis (45\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ]
+    },
+    {
+      "concept": "bookmark-pause",
+      "qualification": "AI composition with reused source contour",
+      "exactReplay": true,
+      "exactContour": true,
+      "contourBounds": {
+        "h": 18.503166704879096,
+        "w": 14.5,
+        "x0": 4.75,
+        "x1": 19.25,
+        "y0": 2.75,
+        "y1": 21.253166704879096
+      },
+      "programSha256": "f0106af6a543ed5dcf01fa4d09cccde45c6a59db6b910bd0e5bf18cfd4fab188",
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "large",
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "style": "7350d5fbca92118c0813e7fc6c5ba3dc563a23b609cef5d3424c980eafe439b4",
+        "authorExitCode": 0,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered"
+      },
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 146.1\u00b0, 11.1\u00b0 off the nearest permitted axis (135\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e0\" has an edge at 33.9\u00b0, 11.1\u00b0 off the nearest permitted axis (45\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ]
+    }
+  ],
+  "craftApproved": false,
+  "subscriptionCost": "unmeasured",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "hostAssessment": {
+    "viewedSizes": [
+      96,
+      24,
+      16
+    ],
+    "contourResult": "Continuous admitted contour removes the separated-join defect from A047.",
+    "pauseResult": "Readable pause and open gap at24/16; denser than shared check.",
+    "limits": [
+      "Source contour reuse is not novel contour generation.",
+      "Check is a reconstruction control.",
+      "Pause program omits keyline; source contour bounds were independently verified exactly, but no declared-keyline pass is claimed.",
+      "Reviewer remains unqualified; no library craft approval."
+    ]
+  }
+}

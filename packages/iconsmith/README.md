@@ -8,9 +8,9 @@ A CLI and TypeScript library that draws icons through constrained primitives ins
 
 </div>
 
-## Demo
+## Local foundry
 
-[Iconsmith Studio](https://blode.co/iconsmith/studio) runs the same pipeline in a browser, and shows the program behind every version it draws.
+The Studio and agent pipeline run locally from the repository. See `docs/local-foundry.md` at the repository root.
 
 ## Install
 

@@ -1,0 +1,23 @@
+{
+  "parents": [
+    {
+      "paint": "outlined",
+      "identicalParentPath": true,
+      "pauseHash": "b9c753a519cc7c7bcb7a1403095383fc6710167ea243fea20b05ae5d4d0c843c",
+      "playHash": "b9c753a519cc7c7bcb7a1403095383fc6710167ea243fea20b05ae5d4d0c843c"
+    },
+    {
+      "paint": "filled",
+      "identicalParentPath": true,
+      "pauseHash": "4b89ec118943974894fbf0ff8bbce234a4ac642e02399cbbbad2fe4b442eec20",
+      "playHash": "4b89ec118943974894fbf0ff8bbce234a4ac642e02399cbbbad2fe4b442eec20"
+    }
+  ],
+  "order": [
+    "pause-outline",
+    "play-outline",
+    "pause-fill",
+    "play-fill"
+  ],
+  "scope": "Exact parent path identity and replay; not independent craft qualification"
+}

@@ -1,0 +1,2496 @@
+{
+  "recordedDate": "2026-09-05",
+  "scope": "Backfill of all 11 runs in the local round ledger; original artifacts remain ignored local files. This snapshot contains metadata and review evidence, not source artwork. Entry order follows the budget ledger, not inferred timestamps.",
+  "budget": {
+    "ceilingUsd": 50,
+    "reservedUsd": 0.0,
+    "runs": [
+      {
+        "id": "folder-lock-01",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.30503875
+      },
+      {
+        "id": "folder-lock-02",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.2293775
+      },
+      {
+        "id": "instrument-weight",
+        "reservationUsd": 10,
+        "state": "complete",
+        "actualUsd": 0.5360916
+      },
+      {
+        "id": "folder-lock-03",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.14643875
+      },
+      {
+        "id": "folder-lock-04",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.4009665
+      },
+      {
+        "id": "camera-thin",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.12789124999999998
+      },
+      {
+        "id": "camera-heavy",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.18304225
+      },
+      {
+        "id": "folder-lock-components",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.464283
+      },
+      {
+        "id": "folder-lock-components-02",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.8288172500000001
+      },
+      {
+        "id": "folder-lock-components-replay",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.0305745
+      },
+      {
+        "id": "folder-lock-components-replay-02",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.029787
+      }
+    ],
+    "actualUsd": 3.28230835
+  },
+  "attempts": [
+    {
+      "id": "A001",
+      "run": "folder-lock-01",
+      "recordedDate": "2026-09-05",
+      "condition": "Initial selected-style generation, default effort, 8 steps.",
+      "outcome": "Filled paint empty; rejected.",
+      "lesson": "Investigate tool availability, reference conditioning and reasoning allowance.",
+      "spend": {
+        "id": "folder-lock-01",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.30503875
+      },
+      "plan": {
+        "concept": "folder-lock",
+        "master": "large",
+        "maxCalls": 19,
+        "maxUsd": 2,
+        "model": "anthropic/claude-opus-5",
+        "revision": "f35760e7afe9ae17d34cb28be0aa23fbfc3f320b7807796c6ecf1c7ef60de7a3",
+        "steps": 8
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 12,
+          "actualUsd": 0.30503875,
+          "exhausted": false,
+          "maxCalls": 19,
+          "maxUsd": 2,
+          "overrun": false,
+          "reservedCalls": 19,
+          "reservedUsd": 2
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QHRG6BN84P8ADGP9HW441V"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7248,
+                      "outputTokens": 803,
+                      "reasoningTokens": 639
+                    },
+                    "usd": 0.00844725
+                  },
+                  "findings": [
+                    {
+                      "kind": "finish",
+                      "message": "The folder tab is drawn as a solid filled shape sitting on top of the folder instead of forming an open outlined silhouette consistent with the stroke style."
+                    },
+                    {
+                      "kind": "gap",
+                      "message": "The counter space inside the lock shackle is overly constricted, causing it to fill in at 24px."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 6.5,
+                  "reason": "The concept is immediately recognizable as a folder lock, but the solid-filled tab violates the outlined style of the family and the lock shackle suffers from tight internal clearance.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": false,
+                "audit": {
+                  "findings": [],
+                  "ok": false,
+                  "pq": 0,
+                  "reason": "Not looked at: the drawing has a lint error; its style identity, dependencies, compiled SVG or structural review did not match the pinned revision. This is a provenance refusal, not a quality one.",
+                  "sc": 0,
+                  "scorable": false,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-filled.icon",
+          "sha256": "09104948da2134c1f8ef43b06e40b6482768dcf32cb3164433bcef796fc4faed",
+          "bytes": 31
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-filled.native.png",
+          "sha256": "ae57157fa14c7e7ea21b9cf8e792991063c2f92f6bea032394c51072369f270c",
+          "bytes": 115
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-filled.svg",
+          "sha256": "c7571afc5ecbeaad53be9bda7e8081bbeb9f166ae1947ffd247f1bb6938e5739",
+          "bytes": 103
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-outlined.artifact.json",
+          "sha256": "80db7d5009acc3ec17bd77e029a5c4889c5f5b682372ebef37ad71d0cb6c7471",
+          "bytes": 1492
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-outlined.icon",
+          "sha256": "d18965719123d78760d4138d2331ad0d870732d0d7b9d0abc57d381711ecfe70",
+          "bytes": 154
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-outlined.native.png",
+          "sha256": "b6fd91654ac7f4e43ea1b1d974250e8e7bce49f1b6c49b5e19f2e6b6e5cafd4d",
+          "bytes": 372
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/direct-constrained-outlined.svg",
+          "sha256": "c7cafb3ca1c4054d87150ab651a387a09859b339ebb5796ea01c7ffc265052df",
+          "bytes": 999
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/plan.json",
+          "sha256": "aeec0dd31dd2e506edc4d42c1b95f6e2a774f005062ccf53629e99b763fb8355",
+          "bytes": 218
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/result.json",
+          "sha256": "642e861ca1f42c3e59dfbc20185b6f46dc06b3bb5a8c053b233fdd266c8c32a6",
+          "bytes": 25597
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-01/revision.json",
+          "sha256": "43de84ccf38c427860276970dde7e465def58f3ff5f7cb9163ff337bb013aead",
+          "bytes": 31710
+        }
+      ]
+    },
+    {
+      "id": "A002",
+      "run": "folder-lock-02",
+      "recordedDate": "2026-09-05",
+      "condition": "Default effort, 12 steps, revised generation wiring.",
+      "outcome": "Filled paint still empty; rejected.",
+      "lesson": "More steps alone did not solve output exhaustion; test bounded medium effort.",
+      "spend": {
+        "id": "folder-lock-02",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.2293775
+      },
+      "plan": {
+        "concept": "folder-lock",
+        "master": "large",
+        "maxCalls": 27,
+        "maxUsd": 2,
+        "model": "anthropic/claude-opus-5",
+        "revision": "f35760e7afe9ae17d34cb28be0aa23fbfc3f320b7807796c6ecf1c7ef60de7a3",
+        "steps": 12
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 11,
+          "actualUsd": 0.2293775,
+          "exhausted": false,
+          "maxCalls": 27,
+          "maxUsd": 2,
+          "overrun": false,
+          "reservedCalls": 27,
+          "reservedUsd": 2
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJ04PAKDEGTZYS3825P89Z"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7248,
+                      "outputTokens": 628,
+                      "reasoningTokens": 526
+                    },
+                    "usd": 0.007791
+                  },
+                  "findings": [
+                    {
+                      "kind": "gap",
+                      "message": "The inner counter of the padlock shackle is very tight, risking closure at smaller sizes."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 8,
+                  "reason": "The icon clearly depicts a folder containing a lock with consistent stroke weight and clean geometry, though the shackle interior is slightly crowded.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": false,
+                "audit": {
+                  "findings": [],
+                  "ok": false,
+                  "pq": 0,
+                  "reason": "Not looked at: the drawing has a lint error; its style identity, dependencies, compiled SVG or structural review did not match the pinned revision. This is a provenance refusal, not a quality one.",
+                  "sc": 0,
+                  "scorable": false,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-filled.icon",
+          "sha256": "09104948da2134c1f8ef43b06e40b6482768dcf32cb3164433bcef796fc4faed",
+          "bytes": 31
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-filled.native.png",
+          "sha256": "ae57157fa14c7e7ea21b9cf8e792991063c2f92f6bea032394c51072369f270c",
+          "bytes": 115
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-filled.svg",
+          "sha256": "c7571afc5ecbeaad53be9bda7e8081bbeb9f166ae1947ffd247f1bb6938e5739",
+          "bytes": 103
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-outlined.artifact.json",
+          "sha256": "4ee52c4c1952494cde378524454de1c1ba676f16d65c63413e819614d1c6c8e5",
+          "bytes": 1182
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-outlined.icon",
+          "sha256": "e07758245dee927a0b4b8a3f8aae8b0c105c9539f7abe55af260f0ada000b66b",
+          "bytes": 144
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-outlined.native.png",
+          "sha256": "65a806907755c2c9b720741400bc91c1991ce44728879c9e633b76fc0033e2f1",
+          "bytes": 314
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/direct-constrained-outlined.svg",
+          "sha256": "373a6d5db0f236c30423a6844afc87bc8746721f960d67de34b728857940bb34",
+          "bytes": 711
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/filled.attempt.json",
+          "sha256": "d7accc9522a878445a4654f98c1e2458b5e1aff628c9a38cc5e4a2711d3de39e",
+          "bytes": 1394
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/filled.attempt.svg",
+          "sha256": "c7571afc5ecbeaad53be9bda7e8081bbeb9f166ae1947ffd247f1bb6938e5739",
+          "bytes": 103
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/outlined.attempt.json",
+          "sha256": "2ba2cba596500d5be5e709435962349b7eda4844038e83114742125ba84eb760",
+          "bytes": 3806
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/outlined.attempt.svg",
+          "sha256": "373a6d5db0f236c30423a6844afc87bc8746721f960d67de34b728857940bb34",
+          "bytes": 711
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/outlined.preview-white.png",
+          "sha256": "f3f882439e6d9a29c524cb1efd66cd3a2f6103dfc93b589b202ead407cd59507",
+          "bytes": 1964
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/outlined.preview.png",
+          "sha256": "aef50dc600c90d80c0fb795b99a0bdb556f1f87e37162eda63f679d06854931d",
+          "bytes": 1816
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/plan.json",
+          "sha256": "c655e44e1acfc0d872cb455756e688e196ebac93017f0f53337d7bee0d1830e6",
+          "bytes": 219
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/result.json",
+          "sha256": "24e61d854e4a6edf4b9e97da92d73ebcdb1e3aae397d6b0ecd3f46f9ae0c9c21",
+          "bytes": 23676
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-02/revision.json",
+          "sha256": "43de84ccf38c427860276970dde7e465def58f3ff5f7cb9163ff337bb013aead",
+          "bytes": 31710
+        }
+      ]
+    },
+    {
+      "id": "A003",
+      "run": "instrument-weight",
+      "recordedDate": "2026-09-05",
+      "condition": "20 Central originals versus 1.5\u21924.5 stroke defects; 80 single-candidate reviews in two scheduling orders.",
+      "outcome": "20/20 pairs ordered correctly in both repetitions, but 3/20 controls rejected (15%); qualification failed.",
+      "lesson": "Gross-weight sensitivity does not establish craft judgment; do not use this judge as an RL reward.",
+      "spend": {
+        "id": "instrument-weight",
+        "reservationUsd": 10,
+        "state": "complete",
+        "actualUsd": 0.5360916
+      },
+      "plan": null,
+      "resultSummary": null,
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/archive.defect.svg",
+          "sha256": "598e3ecb7586682579e440ac9f6476641a893773f577aac4e2cd487d6a22a583",
+          "bytes": 1160
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/archive.original.svg",
+          "sha256": "38b78de9cf0c0a854d3bb473837251b00d1c520ee2bfae3499e94ceb0c2b2657",
+          "bytes": 1160
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/bell.defect.svg",
+          "sha256": "6e5885d641f2dcdb3f981e3021bdd8017af656b540574abaea8b8b8f3d6ee5a7",
+          "bytes": 580
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/bell.original.svg",
+          "sha256": "4399bd04749f91bb7d31defb284d01a55dec5be768128e50accb595ae1bb597e",
+          "bytes": 580
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/bookmark.defect.svg",
+          "sha256": "aaf09453e3ceb03c9f136de772bfb8d34f44b95913e7202b6494e62eeaa095cb",
+          "bytes": 455
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/bookmark.original.svg",
+          "sha256": "47660eb386ad46f25e1911af14d28bf6ac1f826476adf33d9702f76e60a5c0a2",
+          "bytes": 455
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/books.defect.svg",
+          "sha256": "43082c781674a100332f51ee6cd82c691327c2088e5f8c550c20a76c29cffa3c",
+          "bytes": 1252
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/books.original.svg",
+          "sha256": "31ef0c34a6d6c79cfaa911e034f086adf49f8bc675a9f0f4f04f1dc7c5d2e4a6",
+          "bytes": 1252
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/camera-1.defect.svg",
+          "sha256": "928a3ae409232fb972b6ef704a4206a5b523fb3d59d6021cd5e498396cd27660",
+          "bytes": 832
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/camera-1.original.svg",
+          "sha256": "1627ded4067fe13f4dc8589241133394885c433299cf3c5ca38827f0e6c87490",
+          "bytes": 832
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/checkmark-1-small.defect.svg",
+          "sha256": "71757c8eeea2f86fa8c3c1dac835ea4ad8df5d1caa4e76e9e0e1d0943d20d332",
+          "bytes": 219
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/checkmark-1-small.original.svg",
+          "sha256": "9bcc8fab01366713f3aa6da0f3d1e580502ab1d473051f8240bac3df55093e52",
+          "bytes": 219
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/clock.defect.svg",
+          "sha256": "0489d380e88cdd95acbadade91523fb713d12bc9ff722f6acfd1aa60879cd4f2",
+          "bytes": 356
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/clock.original.svg",
+          "sha256": "39274a1338f5b3c4ffc46837f2cc4062a13bcede3848c8bd0f3c2b21c6333a77",
+          "bytes": 356
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/cloud.defect.svg",
+          "sha256": "8bef1601247c7d72f39c6a4d0cc85f07785b3061d8d32fc038a5dc3cbe244415",
+          "bytes": 504
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/cloud.original.svg",
+          "sha256": "28b770cbf3580e6f1359bf5839fe1f2b2d1d757caf2edd9d00f425ff178f10ef",
+          "bytes": 504
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/compass-round.defect.svg",
+          "sha256": "4f1d89378a872acd6d4e085f16bb79c5fa47c00bb8f58ef99699978340dc6bc6",
+          "bytes": 660
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/compass-round.original.svg",
+          "sha256": "1c03b8861f8b6c9d597a87be7b523529aea9cfb25324a5b93c62c62a2842f6ee",
+          "bytes": 660
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/email-2-incoming.defect.svg",
+          "sha256": "4e808405e75e72b1e93f8af89cad6d89eb38f7147af14f65fa77702a2a0db441",
+          "bytes": 698
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/email-2-incoming.original.svg",
+          "sha256": "bb3722f11e5efa4377c1afb509883b6620114eda5114e8b5f58c67e6e85d4b5b",
+          "bytes": 698
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/eye-open.defect.svg",
+          "sha256": "b569edf224bc682c9862f712c1bce1fab75bad12477eb18e6864f175331c8fcc",
+          "bytes": 638
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/eye-open.original.svg",
+          "sha256": "2df86085719c8bf5a7d3b262f3344e23e1f9a64861e6c8bde32ec3dd4f417c46",
+          "bytes": 638
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/file-bend.defect.svg",
+          "sha256": "ebaf8233dec61faa0e6ab93076c6fd6cd52f791c59ef35e92c9194c1d3da26a9",
+          "bytes": 595
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/file-bend.original.svg",
+          "sha256": "6dad025ecfa313d8fb1ed5a4cc31f4cac09028c8dc5d141d5cfcfaed13b6b4cd",
+          "bytes": 595
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/folder-1.defect.svg",
+          "sha256": "8d2ec200a4401d1987091603a8c872fafab10aa5d515b56466f47f1b71d35ac2",
+          "bytes": 473
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/folder-1.original.svg",
+          "sha256": "43e9968b9dbbb173da6d7975d62f779c4188797a8a8a9854574c5cb2e0b0fdc7",
+          "bytes": 473
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/heart.defect.svg",
+          "sha256": "19727757a2899b9c6ff61dd5fb22145e8d55dd867daa2a8bcd32585eeef6651e",
+          "bytes": 397
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/heart.original.svg",
+          "sha256": "7e8a874ec9faca0837a8c78aad9d459691511705e326b9a657f3e450d2a7a2b8",
+          "bytes": 397
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/home.defect.svg",
+          "sha256": "e33860202b6ccdb9d962d8c5db63a471515d8eb8112267ffa8c790df7d22f577",
+          "bytes": 889
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/home.original.svg",
+          "sha256": "666b027cb2a637998342606076b28895ec289ebda26fbc4adf2ee812714f2bc9",
+          "bytes": 889
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/keyboard-cable.defect.svg",
+          "sha256": "d235b8683fc90873d28ea4d65e3081410015c52a40017396ec1536b74a8e2625",
+          "bytes": 1428
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/keyboard-cable.original.svg",
+          "sha256": "330fcfa87ae34f2dd347794464e0a560518c0916fa7c301c40e3ec4c97b68632",
+          "bytes": 1428
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/keyhole.defect.svg",
+          "sha256": "997eb1e9458b72d85ff4d12c8c6332f934a3e25d70169da81cd24bd5c8c95def",
+          "bytes": 639
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/keyhole.original.svg",
+          "sha256": "15d6a1ecf63cb5b899dace64a7230464146f75df7e33375b8f6ad33eee28b506",
+          "bytes": 639
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/lock.defect.svg",
+          "sha256": "b2f2991878d406c181b6e75b711a2e2df3ca3ff731b5cf4fbfc76e309c7ebb32",
+          "bytes": 661
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/lock.original.svg",
+          "sha256": "04e9bf2c31789652e64e04b07d571c1d7adf479e1e49b9d8eed087b41fbca7e1",
+          "bytes": 661
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/magnifying-glass.defect.svg",
+          "sha256": "8963b688f74e529bfc47577fc179b858355885ea8e4ea39d70d1cb9f6f49a5d7",
+          "bytes": 414
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/magnifying-glass.original.svg",
+          "sha256": "524d8b6992f9ee5a0f0e669b9273fd3b87f8976724b5964bc13fadd49522832c",
+          "bytes": 414
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/protocol.json",
+          "sha256": "8348a3617886585124f44ba040d31b152338f632d4712682a568d253dd53d92c",
+          "bytes": 34848
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/result.json",
+          "sha256": "fda965376b2d8e0177f19c5924826de8604b2269af382103e4cfefd4b3bbd904",
+          "bytes": 97444
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/star.defect.svg",
+          "sha256": "eae1590591148515a9d63441584a222ee7c39a5ef873c04024116f486f260502",
+          "bytes": 829
+        },
+        {
+          "path": ".staging/foundry-round-1/instrument-weight/star.original.svg",
+          "sha256": "232f48b4ee9233c160fd357ead76c03f0daf98bbc541263792c6e963f98ef083",
+          "bytes": 829
+        }
+      ]
+    },
+    {
+      "id": "A004",
+      "run": "folder-lock-03",
+      "recordedDate": "2026-09-05",
+      "condition": "Medium effort, 12 steps.",
+      "outcome": "Both paints nonempty; cramped shackle and incorrect filled cutout; rejected.",
+      "lesson": "Drawing completion and structural validity do not establish optical quality.",
+      "spend": {
+        "id": "folder-lock-03",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.14643875
+      },
+      "plan": {
+        "concept": "folder-lock",
+        "effort": "medium",
+        "master": "large",
+        "maxCalls": 27,
+        "maxUsd": 2,
+        "model": "anthropic/claude-opus-5",
+        "revision": "f35760e7afe9ae17d34cb28be0aa23fbfc3f320b7807796c6ecf1c7ef60de7a3",
+        "steps": 12
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 14,
+          "actualUsd": 0.14643875,
+          "exhausted": false,
+          "maxCalls": 27,
+          "maxUsd": 2,
+          "overrun": false,
+          "reservedCalls": 27,
+          "reservedUsd": 2
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJ7GQAP13QCQ83FWS46QYS"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7248,
+                      "outputTokens": 711,
+                      "reasoningTokens": 593
+                    },
+                    "usd": 0.00810225
+                  },
+                  "findings": [
+                    {
+                      "kind": "gap",
+                      "message": "The counter space inside the padlock shackle is too small, causing it to clog into a solid mass at 24px."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 7.5,
+                  "reason": "The folder and lock combination clearly conveys 'folder-lock'. However, the inner opening beneath the padlock's shackle is too tight and fills in at small display sizes.",
+                  "sc": 9.5,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJ7GJ2E32RGAP9SF010TV4"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7248,
+                      "outputTokens": 726,
+                      "reasoningTokens": 617
+                    },
+                    "usd": 0.0081585
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The circular shackle cuts into the top edge of the lock body, leaving an unintended black semicircle intrusion."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 5,
+                  "reason": "The folder and lock concept is instantly recognizable, but the cutout geometry for the lock shackle is flawed, erroneously carving a circular notch into the lock body.",
+                  "sc": 8.5,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-filled.artifact.json",
+          "sha256": "ae86dc937639146c7a3d7bd4f1053300ade75b96a8faf572f696e21b7ae868e3",
+          "bytes": 1533
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-filled.icon",
+          "sha256": "6c85b6699a870d5414406180ac26ab8c50965c613d05c6eee8a8eb2bfc876d64",
+          "bytes": 142
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-filled.native.png",
+          "sha256": "100e238170ccd407a3fdb1aab642c289aeea3ad6e016cff07dc5300a74a69d5d",
+          "bytes": 246
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-filled.svg",
+          "sha256": "295c404d6ddbb7b87770437f29b59d4d1bc29520ff3197bc6a35556c16122283",
+          "bytes": 1070
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-outlined.artifact.json",
+          "sha256": "c751ab796738870faaef4da192461527f3aa8c01aae938d4236bfbf4cf7cabc3",
+          "bytes": 1502
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-outlined.icon",
+          "sha256": "8b81cea30b8c3ff98765b70c04f742eef3684e7bc350b3a19d4ccaf82784d008",
+          "bytes": 158
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-outlined.native.png",
+          "sha256": "b693d93f2cf2cff7157f6ed571ebb5b9e58c3667d1d740a08396caea1e4a4e79",
+          "bytes": 323
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/direct-constrained-outlined.svg",
+          "sha256": "4e4be04da138f5ed77070968e2ce2e80fcab414a5bf02fd74fdabfedc1117a7f",
+          "bytes": 1005
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/filled.attempt.json",
+          "sha256": "d1dc3ea338949730b16bf617465465d2f581bc49672ec7b8555ebffa5f82654f",
+          "bytes": 3308
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/filled.attempt.svg",
+          "sha256": "295c404d6ddbb7b87770437f29b59d4d1bc29520ff3197bc6a35556c16122283",
+          "bytes": 1070
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/outlined.attempt.json",
+          "sha256": "d2804d383be9d707224a0fa0138e600042db836d33c90162f14e8fcbf45c58ec",
+          "bytes": 4108
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/outlined.attempt.svg",
+          "sha256": "4e4be04da138f5ed77070968e2ce2e80fcab414a5bf02fd74fdabfedc1117a7f",
+          "bytes": 1005
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/plan.json",
+          "sha256": "2ba023553cf5fcdc688265d7974c9eedbda23dc7985fff0942a667c37458a88d",
+          "bytes": 241
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/result.json",
+          "sha256": "e6620dd04b7aac168313740798f6b56185eb5800bc626eb575ca3ed59c782326",
+          "bytes": 31791
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-03/revision.json",
+          "sha256": "43de84ccf38c427860276970dde7e465def58f3ff5f7cb9163ff337bb013aead",
+          "bytes": 31710
+        }
+      ]
+    },
+    {
+      "id": "A005",
+      "run": "folder-lock-04",
+      "recordedDate": "2026-09-05",
+      "condition": "Medium effort with AI-written feedback on the earlier failures.",
+      "outcome": "Counter/cutout problems persisted; rejected.",
+      "lesson": "Feedback alone did not repair the construction language.",
+      "spend": {
+        "id": "folder-lock-04",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.4009665
+      },
+      "plan": {
+        "concept": "folder-lock",
+        "effort": "medium",
+        "guidance": "A protected folder. Prior generated drafts made the lock shackle counter too small and cut an unintended circular notch into the filled lock body. Redesign the composition to leave a generous, readable opening in the shackle at native size. The shackle should meet the lock body cleanly. In filled paint use a coherent lock silhouette cut out of the folder; avoid an isolated black dot or full circle intruding into the body. Keep the folder tab a natural part of its silhouette and preserve the reference family proportions. Use render and lint to inspect the actual result before finishing. This is development feedback, not an accepted reference drawing.",
+        "master": "large",
+        "maxCalls": 27,
+        "maxUsd": 2,
+        "model": "anthropic/claude-opus-5",
+        "revision": "f35760e7afe9ae17d34cb28be0aa23fbfc3f320b7807796c6ecf1c7ef60de7a3",
+        "steps": 12
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 22,
+          "actualUsd": 0.4009665,
+          "exhausted": false,
+          "maxCalls": 27,
+          "maxUsd": 2,
+          "overrun": false,
+          "reservedCalls": 27,
+          "reservedUsd": 2
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJRNHG71GF6PV96NFQYR7K"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7248,
+                      "outputTokens": 673,
+                      "reasoningTokens": 551
+                    },
+                    "usd": 0.00795975
+                  },
+                  "findings": [
+                    {
+                      "kind": "weight",
+                      "message": "The lock icon has an excessively thick stroke weight relative to the folder outline, severely constricting the negative space under the shackle at 24px."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 6.5,
+                  "reason": "The folder and lock concept is instantly recognizable, but the padlock stroke is noticeably heavier than the rest of the set, causing the shackle loop and body to feel cramped and choked at 24px.",
+                  "sc": 9,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJRNQB26F3DJ4B8D1GCD2K"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7248,
+                      "outputTokens": 653,
+                      "reasoningTokens": 497
+                    },
+                    "usd": 0.00788475
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The square cutout frame around the lock is unnecessary and makes the badge look like a framed user avatar rather than a lock."
+                    },
+                    {
+                      "kind": "weight",
+                      "message": "Mass is severely unbalanced between the solid left side of the folder and the hollowed cutout on the right."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 5,
+                  "reason": "The composition is visually heavy on the left and awkward on the right due to nesting the lock inside an extra cutout frame, which clutters the shape and hurts small-scale legibility.",
+                  "sc": 7,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-filled.artifact.json",
+          "sha256": "05f3cb3b0a03e214439c4e5ccb20a96f338a3520667594f671f894a539c9374a",
+          "bytes": 1799
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-filled.icon",
+          "sha256": "4d62d33cd519d11d8813cb6c8279aa94c07f3b9a05c775c8b7a8132d8274f1f9",
+          "bytes": 156
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-filled.native.png",
+          "sha256": "a52cde8faef37172683f84c9d1daef1ee884b0ddab4bfa1053a63b9d58e1d37b",
+          "bytes": 263
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-filled.svg",
+          "sha256": "456dbd2bb0233ad4fbe3e82bab36a351af23c4f8e535a62102db1b6dbeacaad1",
+          "bytes": 1312
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-outlined.artifact.json",
+          "sha256": "0ad371d2aab5d012d5e05ff0205fc2b0515e5dcbad402ab62b6a6157bd0a0a44",
+          "bytes": 1246
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-outlined.icon",
+          "sha256": "1a9a721282eb8542a8f04a90a209d17fa55fd5b7dd5925c14e9f31fe52a71e26",
+          "bytes": 164
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-outlined.native.png",
+          "sha256": "c2be084851f57339304ad0f3047157f1d3b7e7dbc19de7e03bb0349b6e939132",
+          "bytes": 290
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/direct-constrained-outlined.svg",
+          "sha256": "bad91330c31e301f21fb2af1600caaa5a1e9be8762476b64524a74a716a8c415",
+          "bytes": 755
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/filled.attempt.json",
+          "sha256": "4bd67bd0cd80055fe575a567875cc3c4c196f944cabc9111411e00fb35a4a7ea",
+          "bytes": 4029
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/filled.attempt.svg",
+          "sha256": "456dbd2bb0233ad4fbe3e82bab36a351af23c4f8e535a62102db1b6dbeacaad1",
+          "bytes": 1312
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/outlined.attempt.json",
+          "sha256": "6f8f7c33b8950d8e79b9fe5d9a795270d8fd10e3ee9e0735dcafa4c5773d6ebe",
+          "bytes": 4250
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/outlined.attempt.svg",
+          "sha256": "bad91330c31e301f21fb2af1600caaa5a1e9be8762476b64524a74a716a8c415",
+          "bytes": 755
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/plan.json",
+          "sha256": "e308b355c4a28f59c30a8e83db8b6ee178d3e68f347d202cb74949d530e99f21",
+          "bytes": 916
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/result.json",
+          "sha256": "1bfa05cd5caf21e2d55d85caa343cf6d49403e7ab4e7bef7929b47e98c4e5c37",
+          "bytes": 35674
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-04/revision.json",
+          "sha256": "43de84ccf38c427860276970dde7e465def58f3ff5f7cb9163ff337bb013aead",
+          "bytes": 31710
+        }
+      ]
+    },
+    {
+      "id": "A006",
+      "run": "camera-thin",
+      "recordedDate": "2026-09-05",
+      "condition": "Medium effort, thin/tight selected profile.",
+      "outcome": "Individual reviews gave 10/10; actual pair differed by one unit in height.",
+      "lesson": "Check the delivered pair after rescue; individual scores cannot admit a mismatched family.",
+      "spend": {
+        "id": "camera-thin",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.12789124999999998
+      },
+      "plan": {
+        "concept": "camera",
+        "effort": "medium",
+        "guidance": null,
+        "master": "large",
+        "maxCalls": 27,
+        "maxUsd": 2,
+        "model": "anthropic/claude-opus-5",
+        "revision": "f35760e7afe9ae17d34cb28be0aa23fbfc3f320b7807796c6ecf1c7ef60de7a3",
+        "steps": 12
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 15,
+          "actualUsd": 0.12789124999999998,
+          "exhausted": false,
+          "maxCalls": 27,
+          "maxUsd": 2,
+          "overrun": false,
+          "reservedCalls": 27,
+          "reservedUsd": 2
+        },
+        "winner": {
+          "accepted": true,
+          "costs": [
+            {
+              "calls": 5,
+              "generationIds": [
+                "gen_01M1QJPK8J8YMYVN2QHZVQAHCJ",
+                "gen_01M1QJQ0DF9KA39ZEA0TB2B0GV",
+                "gen_01M1QJQ2YTGBSCE5517GE4J9QK",
+                "gen_01M1QJQ63ERHEAJKXESTV62MK5",
+                "gen_01M1QJQ8CQS0QS8KTZSJ9PN3JB"
+              ],
+              "model": "anthropic/claude-opus-5",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 25464,
+                "cacheWriteTokens": 6828,
+                "inputTokens": 424,
+                "outputTokens": 1078,
+                "reasoningTokens": 589
+              },
+              "usd": 0.04180199999999999
+            },
+            {
+              "calls": 8,
+              "generationIds": [
+                "gen_01M1QJQC6AR37MX5QHXD8X9JZF",
+                "gen_01M1QJQPXR29B92055CPM5X3PG",
+                "gen_01M1QJQSTP75NNDCX5ZADNEWN2",
+                "gen_01M1QJQVWHWX29MXWN8VHRJN4W",
+                "gen_01M1QJQXGNEMRFGD0G3N4KEJ3N",
+                "gen_01M1QJR0WM7QYJ0TG6FYYD6WF2",
+                "gen_01M1QJR2P47HBD4SDKD6G7W25R",
+                "gen_01M1QJR55Z833JZ9QPGNBSKFDQ"
+              ],
+              "model": "anthropic/claude-opus-5",
+              "operation": "icon-generation",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 48133,
+                "cacheWriteTokens": 7127,
+                "inputTokens": 2477,
+                "outputTokens": 1379,
+                "reasoningTokens": 567
+              },
+              "usd": 0.0709265
+            },
+            {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QJR7XARM5HEWY7YHBNCNQ7"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 7246,
+                "outputTokens": 234,
+                "reasoningTokens": 180
+              },
+              "usd": 0.006312
+            },
+            {
+              "calls": 1,
+              "generationIds": [
+                "gen_01M1QJR82PSED36M932M2CDB9W"
+              ],
+              "model": "google/gemini-3.7-flash",
+              "operation": "visual-audit",
+              "source": "gateway",
+              "usage": {
+                "cacheReadTokens": 0,
+                "cacheWriteTokens": 0,
+                "inputTokens": 7246,
+                "outputTokens": 911,
+                "reasoningTokens": 853
+              },
+              "usd": 0.00885075
+            }
+          ],
+          "declined": false,
+          "failure": null,
+          "id": "direct-constrained",
+          "label": "Direct constrained generation",
+          "paints": [
+            {
+              "audit": {
+                "cost": {
+                  "calls": 1,
+                  "generationIds": [
+                    "gen_01M1QJR7XARM5HEWY7YHBNCNQ7"
+                  ],
+                  "model": "google/gemini-3.7-flash",
+                  "operation": "visual-audit",
+                  "source": "gateway",
+                  "usage": {
+                    "cacheReadTokens": 0,
+                    "cacheWriteTokens": 0,
+                    "inputTokens": 7246,
+                    "outputTokens": 234,
+                    "reasoningTokens": 180
+                  },
+                  "usd": 0.006312
+                },
+                "findings": [],
+                "ok": true,
+                "pq": 10,
+                "reason": "The camera icon is cleanly constructed with consistent stroke weight, balanced proportions, and clear geometry matching the reference set.",
+                "sc": 10,
+                "scorable": true,
+                "stage": "decide"
+              },
+              "finish": "outlined",
+              "houseDerived": false,
+              "partOps": 0,
+              "programComplete": true,
+              "result": {
+                "apiCosts": [
+                  {
+                    "calls": 5,
+                    "generationIds": [
+                      "gen_01M1QJPK8J8YMYVN2QHZVQAHCJ",
+                      "gen_01M1QJQ0DF9KA39ZEA0TB2B0GV",
+                      "gen_01M1QJQ2YTGBSCE5517GE4J9QK",
+                      "gen_01M1QJQ63ERHEAJKXESTV62MK5",
+                      "gen_01M1QJQ8CQS0QS8KTZSJ9PN3JB"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 25464,
+                      "cacheWriteTokens": 6828,
+                      "inputTokens": 424,
+                      "outputTokens": 1078,
+                      "reasoningTokens": 589
+                    },
+                    "usd": 0.04180199999999999
+                  }
+                ],
+                "clean": true,
+                "cost": {
+                  "finishReason": "tool-calls",
+                  "ms": 25478,
+                  "outcome": "clean",
+                  "toolCalls": {
+                    "rect": 1,
+                    "line": 1,
+                    "circle": 1,
+                    "render": 2,
+                    "fit": 1,
+                    "lint": 2
+                  },
+                  "usage": {
+                    "cacheReadTokens": 25464,
+                    "cacheWriteTokens": 6828,
+                    "inputTokens": 424,
+                    "outputTokens": 1078,
+                    "reasoningTokens": 589
+                  }
+                },
+                "doc": {
+                  "draw": [
+                    {
+                      "h": 12.25,
+                      "op": "rect",
+                      "r": 1,
+                      "w": 18.5,
+                      "x": 2.75,
+                      "y": 7
+                    },
+                    {
+                      "op": "line",
+                      "points": [
+                        [
+                          6.75,
+                          7
+                        ],
+                        [
+                          9.5,
+                          4.25
+                        ],
+                        [
+                          14.5,
+                          4.25
+                        ],
+                        [
+                          17.25,
+                          7
+                        ]
+                      ]
+                    },
+                    {
+                      "cx": 12,
+                      "cy": 13.75,
+                      "op": "circle",
+                      "r": 3.5
+                    }
+                  ],
+                  "icon": "camera",
+                  "keyline": null
+                },
+                "issues": [
+                  {
+                    "message": "e1 and e5 are 0.50px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+                    "rule": "gap",
+                    "severity": "warn"
+                  }
+                ],
+                "program": "icon camera\nfinish outlined\nrect 2.75,7 18.5x12.25 r1\nline 6.75,7 9.5,4.25 14.5,4.25 17.25,7\ncircle 12,13.75 r3.5\n",
+                "steps": 5,
+                "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M3.75 7L20.25 7C20.8023 7 21.25 7.4477 21.25 8L21.25 18.25C21.25 18.8023 20.8023 19.25 20.25 19.25L3.75 19.25C3.1977 19.25 2.75 18.8023 2.75 18.25L2.75 8C2.75 7.4477 3.1977 7 3.75 7Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M6.75 7L9.5 4.25L14.5 4.25L17.25 7\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M12 10.25C13.93305 10.25 15.5 11.81695 15.5 13.75C15.5 15.68305 13.93305 17.25 12 17.25C10.06695 17.25 8.5 15.68305 8.5 13.75C8.5 11.81695 10.06695 10.25 12 10.25Z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+                "text": "",
+                "trace": [
+                  "rect",
+                  "line",
+                  "circle",
+                  "render",
+                  "fit",
+                  "lint",
+                  "render",
+                  "lint"
+                ],
+                "styleKey": "4da0dbbc972ab0940ea7e47c7cce06eefad37ee50ae5d4b98e409282819b718f"
+              },
+              "selfReview": null,
+              "styleEligible": true,
+              "accepted": true
+            },
+            {
+              "audit": {
+                "cost": {
+                  "calls": 1,
+                  "generationIds": [
+                    "gen_01M1QJR82PSED36M932M2CDB9W"
+                  ],
+                  "model": "google/gemini-3.7-flash",
+                  "operation": "visual-audit",
+                  "source": "gateway",
+                  "usage": {
+                    "cacheReadTokens": 0,
+                    "cacheWriteTokens": 0,
+                    "inputTokens": 7246,
+                    "outputTokens": 911,
+                    "reasoningTokens": 853
+                  },
+                  "usd": 0.00885075
+                },
+                "findings": [],
+                "ok": true,
+                "pq": 10,
+                "reason": "The icon reads immediately as a camera with balanced proportions, clean circular cutouts for the lens and flash, and consistent corner radii.",
+                "sc": 10,
+                "scorable": true,
+                "stage": "decide"
+              },
+              "finish": "filled",
+              "houseDerived": false,
+              "partOps": 0,
+              "programComplete": true,
+              "result": {
+                "apiCosts": [
+                  {
+                    "calls": 8,
+                    "generationIds": [
+                      "gen_01M1QJQC6AR37MX5QHXD8X9JZF",
+                      "gen_01M1QJQPXR29B92055CPM5X3PG",
+                      "gen_01M1QJQSTP75NNDCX5ZADNEWN2",
+                      "gen_01M1QJQVWHWX29MXWN8VHRJN4W",
+                      "gen_01M1QJQXGNEMRFGD0G3N4KEJ3N",
+                      "gen_01M1QJR0WM7QYJ0TG6FYYD6WF2",
+                      "gen_01M1QJR2P47HBD4SDKD6G7W25R",
+                      "gen_01M1QJR55Z833JZ9QPGNBSKFDQ"
+                    ],
+                    "model": "anthropic/claude-opus-5",
+                    "operation": "icon-generation",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 48133,
+                      "cacheWriteTokens": 7127,
+                      "inputTokens": 2477,
+                      "outputTokens": 1379,
+                      "reasoningTokens": 567
+                    },
+                    "usd": 0.0709265
+                  }
+                ],
+                "clean": true,
+                "cost": {
+                  "finishReason": "tool-calls",
+                  "ms": 28474,
+                  "outcome": "clean",
+                  "toolCalls": {
+                    "rect": 2,
+                    "hole": 2,
+                    "circle": 1,
+                    "render": 2,
+                    "fit": 1,
+                    "lint": 2
+                  },
+                  "usage": {
+                    "cacheReadTokens": 48133,
+                    "cacheWriteTokens": 7127,
+                    "inputTokens": 2477,
+                    "outputTokens": 1379,
+                    "reasoningTokens": 567
+                  }
+                },
+                "doc": {
+                  "draw": [
+                    {
+                      "h": 3.5,
+                      "op": "rect",
+                      "r": 1,
+                      "w": 5.5,
+                      "x": 7,
+                      "y": 4.25
+                    },
+                    {
+                      "h": 13,
+                      "op": "rect",
+                      "r": 1,
+                      "w": 20,
+                      "x": 2,
+                      "y": 6.75
+                    },
+                    {
+                      "cx": 12,
+                      "cy": 13.25,
+                      "op": "circle",
+                      "r": 4,
+                      "knockout": true
+                    },
+                    {
+                      "cx": 18.25,
+                      "cy": 9.75,
+                      "op": "circle",
+                      "r": 0.75,
+                      "knockout": true
+                    },
+                    {
+                      "cx": 12,
+                      "cy": 13.25,
+                      "op": "circle",
+                      "r": 2.25
+                    }
+                  ],
+                  "icon": "camera",
+                  "keyline": null,
+                  "finish": "filled"
+                },
+                "issues": [],
+                "program": "icon camera\nfinish filled\nrect 7,4.25 5.5x3.5 r1\nrect 2,6.75 20x13 r1\nhole circle 12,13.25 r4\nhole circle 18.25,9.75 r0.75\ncircle 12,13.25 r2.25\n",
+                "steps": 8,
+                "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M8 4.25L11.5 4.25C12.0523 4.25 12.5 4.6977 12.5 5.25L12.5 6.75C12.5 7.3023 12.0523 7.75 11.5 7.75L8 7.75C7.4477 7.75 7 7.3023 7 6.75L7 5.25C7 4.6977 7.4477 4.25 8 4.25Z\" fill=\"currentColor\" fill-rule=\"evenodd\" clip-rule=\"evenodd\"/>\n<path d=\"M3 6.75L21 6.75C21.5523 6.75 22 7.1977 22 7.75L22 18.75C22 19.3023 21.5523 19.75 21 19.75L3 19.75C2.4477 19.75 2 19.3023 2 18.75L2 7.75C2 7.1977 2.4477 6.75 3 6.75ZM12 9.25C14.2092 9.25 16 11.0408 16 13.25C16 15.4592 14.2092 17.25 12 17.25C9.7908 17.25 8 15.4592 8 13.25C8 11.0408 9.7908 9.25 12 9.25ZM18.25 9C18.664225 9 19 9.335775 19 9.75C19 10.164225 18.664225 10.5 18.25 10.5C17.835775 10.5 17.5 10.164225 17.5 9.75C17.5 9.335775 17.835775 9 18.25 9Z\" fill=\"currentColor\" fill-rule=\"evenodd\" clip-rule=\"evenodd\"/>\n<path d=\"M12 11C13.242675 11 14.25 12.007325 14.25 13.25C14.25 14.492675 13.242675 15.5 12 15.5C10.757325 15.5 9.75 14.492675 9.75 13.25C9.75 12.007325 10.757325 11 12 11Z\" fill=\"currentColor\" fill-rule=\"evenodd\" clip-rule=\"evenodd\"/>\n</svg>",
+                "text": "",
+                "trace": [
+                  "rect",
+                  "rect",
+                  "hole",
+                  "circle",
+                  "render",
+                  "hole",
+                  "fit",
+                  "render",
+                  "lint",
+                  "lint"
+                ],
+                "styleKey": "4da0dbbc972ab0940ea7e47c7cce06eefad37ee50ae5d4b98e409282819b718f"
+              },
+              "selfReview": null,
+              "styleEligible": true,
+              "accepted": true
+            }
+          ],
+          "score": 9.95
+        },
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": true,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJR7XARM5HEWY7YHBNCNQ7"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7246,
+                      "outputTokens": 234,
+                      "reasoningTokens": 180
+                    },
+                    "usd": 0.006312
+                  },
+                  "findings": [],
+                  "ok": true,
+                  "pq": 10,
+                  "reason": "The camera icon is cleanly constructed with consistent stroke weight, balanced proportions, and clear geometry matching the reference set.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "decide"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": true,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJR82PSED36M932M2CDB9W"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7246,
+                      "outputTokens": 911,
+                      "reasoningTokens": 853
+                    },
+                    "usd": 0.00885075
+                  },
+                  "findings": [],
+                  "ok": true,
+                  "pq": 10,
+                  "reason": "The icon reads immediately as a camera with balanced proportions, clean circular cutouts for the lens and flash, and consistent corner radii.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "decide"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-filled.artifact.json",
+          "sha256": "1a6c3cd6d74ae8c1d112e411f05e79a0f498389df9b6afb8f34e87b7a0eace33",
+          "bytes": 1572
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-filled.icon",
+          "sha256": "a15ca8b11991b78b4e13c8ecdc1ddb80f52fb85e3a5913062bdd039125711a37",
+          "bytes": 145
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-filled.native.png",
+          "sha256": "67b415077c2ec8e30f0f7117b52a90a7cc21da3e95214b0b33fa3d55a22212a4",
+          "bytes": 371
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-filled.svg",
+          "sha256": "89db2c50cd18458958f2716beff6efe528c8e7d9457c039d6e4e6cc72b661569",
+          "bytes": 1106
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-outlined.artifact.json",
+          "sha256": "0d26df8ffbd31227ae8becde9ffd9778ac4857dd73e52a27f9b0416c8bd33d82",
+          "bytes": 1225
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-outlined.icon",
+          "sha256": "4485489a750cfcd22045a9bb2951ce67b627bd6ffcac9cdb074b646e61306bfa",
+          "bytes": 114
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-outlined.native.png",
+          "sha256": "115de33b40871e45e1987c27aa6f9bf4b2427203a4afea613f6b611d5e194584",
+          "bytes": 461
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/direct-constrained-outlined.svg",
+          "sha256": "5522c68ecf097157337aeb17dadc456b890929e812be88265078616a35586a7c",
+          "bytes": 784
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/filled.attempt.json",
+          "sha256": "af4834796c60b9ed347368e243ce0686ba95e63f164559eb896226135c56fb46",
+          "bytes": 3433
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/filled.attempt.svg",
+          "sha256": "89db2c50cd18458958f2716beff6efe528c8e7d9457c039d6e4e6cc72b661569",
+          "bytes": 1106
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/outlined.attempt.json",
+          "sha256": "8ee9c456c6a04e269782d87309d36a24fe6108764b6a64b4c7a2e7776140b455",
+          "bytes": 3107
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/outlined.attempt.svg",
+          "sha256": "5522c68ecf097157337aeb17dadc456b890929e812be88265078616a35586a7c",
+          "bytes": 784
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/plan.json",
+          "sha256": "6ee5ddb1b9186ebc4529ee0e96c4b7afcb02397abf43642f388d911b9f1dae27",
+          "bytes": 256
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/result.json",
+          "sha256": "0b4413a1b3560393b16c4860e43e855d710010cd204f2e2253b8359a2b036ae1",
+          "bytes": 42422
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-thin/revision.json",
+          "sha256": "43de84ccf38c427860276970dde7e465def58f3ff5f7cb9163ff337bb013aead",
+          "bytes": 31710
+        }
+      ]
+    },
+    {
+      "id": "A007",
+      "run": "camera-heavy",
+      "recordedDate": "2026-09-05",
+      "condition": "Medium effort, heavier alternate profile.",
+      "outcome": "Shape quality and paired extent failed.",
+      "lesson": "Changing stroke/radius is not evidence of another professional aesthetic.",
+      "spend": {
+        "id": "camera-heavy",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.18304225
+      },
+      "plan": {
+        "concept": "camera",
+        "effort": "medium",
+        "guidance": null,
+        "master": "large",
+        "maxCalls": 27,
+        "maxUsd": 2,
+        "model": "anthropic/claude-opus-5",
+        "revision": "e2471c31296966f1c486c29b725a6737c62c21145553d586de81090230b1276d",
+        "steps": 12
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 17,
+          "actualUsd": 0.18304225,
+          "exhausted": false,
+          "maxCalls": 27,
+          "maxUsd": 2,
+          "overrun": false,
+          "reservedCalls": 27,
+          "reservedUsd": 2
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJSWT2V7WRH6EQ6KTB5F8W"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7244,
+                      "outputTokens": 580,
+                      "reasoningTokens": 434
+                    },
+                    "usd": 0.007608
+                  },
+                  "findings": [
+                    {
+                      "kind": "weight",
+                      "message": "The stroke weight is inconsistent; the lens ring and bottom edge of the camera body are noticeably thicker than the standard stroke weight."
+                    },
+                    {
+                      "kind": "gap",
+                      "message": "The gap between the central lens and the surrounding body frame is uneven and crowded at the bottom."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 5.5,
+                  "reason": "The camera is instantly recognizable, but perceptual quality suffers from heavy, uneven stroke weights on the lens and lower body frame.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QJT051Q1Q4M627WA8YMQB2"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 7244,
+                      "outputTokens": 827,
+                      "reasoningTokens": 683
+                    },
+                    "usd": 0.00853425
+                  },
+                  "findings": [
+                    {
+                      "kind": "weight",
+                      "message": "The central lens ring has excessive thickness relative to the standard 2-unit stroke weight, making the middle feel overly heavy at small sizes."
+                    },
+                    {
+                      "kind": "finish",
+                      "message": "The top viewfinder/flash bump is rendered as a solid mass rather than an open outline matching the rest of the body."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 7.5,
+                  "reason": "The camera is immediately recognizable and clearly constructed, though the central lens is slightly heavy in stroke weight and the solid top bump creates uneven mass distribution.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-filled.artifact.json",
+          "sha256": "9b07477344f097e710e26f269e33a50a47baf72ccbea94ecdeb34f6cf9f2f73d",
+          "bytes": 1550
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-filled.icon",
+          "sha256": "668d7e8fdedf9c3aeacec69e326b9bcdec2d34146481e1ad84613439cb89f919",
+          "bytes": 134
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-filled.native.png",
+          "sha256": "a88d8b875662d5d2928bad7a281e961183bb6ab43162892e08613e14fd8b5efa",
+          "bytes": 334
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-filled.svg",
+          "sha256": "df3d8d07a81b653d9958576caedf040a702197bd2e5517f8b6e4fee0f1617535",
+          "bytes": 1095
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-outlined.artifact.json",
+          "sha256": "79c7f4a85b050e53dd021aefbf9a0ad6fae530bfce2fa4f150fc740137d575b3",
+          "bytes": 1482
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-outlined.icon",
+          "sha256": "22727a6d8e4fce86db4e1d2066e2a72e2114be4933048c11441a91e0be602852",
+          "bytes": 132
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-outlined.native.png",
+          "sha256": "131ad3479f6ce6122f075907611ca350a7e40b7fbc3c0d8b2256aa7eea0db436",
+          "bytes": 532
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/direct-constrained-outlined.svg",
+          "sha256": "a6dddf6597ea3cbdb07b57ac9d12f845fd15938f2cf42afa9e216f84ff7f1988",
+          "bytes": 1011
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/filled.attempt.json",
+          "sha256": "a7dba31c6d6787826a78f2666ed0f9100a371ffe1d32283ff8d369c67af6a5ef",
+          "bytes": 3643
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/filled.attempt.svg",
+          "sha256": "df3d8d07a81b653d9958576caedf040a702197bd2e5517f8b6e4fee0f1617535",
+          "bytes": 1095
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/outlined.attempt.json",
+          "sha256": "3996f70ac76889349d12c66ed1ddb5bb07101fd9ed9714c823675d3b8661f7ff",
+          "bytes": 4040
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/outlined.attempt.svg",
+          "sha256": "a6dddf6597ea3cbdb07b57ac9d12f845fd15938f2cf42afa9e216f84ff7f1988",
+          "bytes": 1011
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/plan.json",
+          "sha256": "08d445fe839b731a99597f95af50641149f3acfa0cf2981e91fe63c7d3010c88",
+          "bytes": 256
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/result.json",
+          "sha256": "24314da97d4dcf4403555d1a49515d69d214b81a5da76bf0e2e70ce560ba9614",
+          "bytes": 33883
+        },
+        {
+          "path": ".staging/foundry-round-1/camera-heavy/revision.json",
+          "sha256": "f9291192b71cfa89af06671df5e5f9bce14d04b0679f64bf67cf636a098c02be",
+          "bytes": 31517
+        }
+      ]
+    },
+    {
+      "id": "A008",
+      "run": "folder-lock-components",
+      "recordedDate": "2026-09-05",
+      "condition": "12 admitted Blode components and labelled references; high effort, 24 steps. Plan said 16,384 tokens but CLI actually used 4,096.",
+      "outcome": "Both paints ended at length limit; partial shield and incomplete body; rejected.",
+      "lesson": "Fix option forwarding. Preserve execution-correction.json; this run cannot test the intended allowance.",
+      "spend": {
+        "id": "folder-lock-components",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.464283
+      },
+      "plan": {
+        "concept": "folder-lock",
+        "effort": "high",
+        "guidance": "Design folder-lock as a new composition in this family. The folder-shield reference shows how a large, legible badge occupies the lower-right and the folder outline stops around it. Use the admitted curved components where appropriate; avoid redrawing their polished shoulders as overlapping rectangles. The named components identify their intended paint. Do not use outlined parts as filled solids. The shield component itself is not the requested lock. Preserve a generous shackle counter and at least 1 unit of actual white space. Do not squeeze a standalone lock into the folder interior. Do not copy an entire reference icon and rename it. Plan proportions before placing; compare at native size and inspect joins. Reuse of reference components is intentional in this experiment and is not a claim of wholly novel source contours.",
+        "master": "large",
+        "maxCalls": 51,
+        "maxOutputTokens": 16384,
+        "maxUsd": 4,
+        "model": "anthropic/claude-opus-5",
+        "revision": "0fe727aa7e0d2d74b099786ed91915fda7f9d474e76cc4f57acf8444ea12d861",
+        "steps": 24
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 14,
+          "actualUsd": 0.464283,
+          "exhausted": false,
+          "maxCalls": 51,
+          "maxUsd": 4,
+          "overrun": false,
+          "reservedCalls": 51,
+          "reservedUsd": 4
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QMNNCQ4RMBYSVCW5E4CTYD"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 422,
+                      "reasoningTokens": 312
+                    },
+                    "usd": 0.0135585
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The badge is a shield rather than a padlock, reading as folder-shield or folder-security instead of folder-lock"
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 9.5,
+                  "reason": "The icon is cleanly constructed with consistent stroke weight and well-proportioned cutouts, but depicts a shield badge rather than a padlock.",
+                  "sc": 4.5,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QMNNA8PG0VNGSASZ1K6JM3"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 446,
+                      "reasoningTokens": 320
+                    },
+                    "usd": 0.0136485
+                  },
+                  "findings": [
+                    {
+                      "kind": "object",
+                      "message": "The shape reads as a bird head or beak silhouette rather than a folder with a lock badge."
+                    },
+                    {
+                      "kind": "empty",
+                      "message": "The lock element and overall folder geometry are completely missing."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 3,
+                  "reason": "The artwork is broken and does not contain the folder or lock geometry, instead forming an unrelated bird-like silhouette.",
+                  "sc": 0,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-filled.artifact.json",
+          "sha256": "fb70bbc8bea10672afb7ce4a1d4d233a126123fc4f4d35848341eb75142ad4ea",
+          "bytes": 817
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-filled.icon",
+          "sha256": "1784491ab103b07bf66101b5bcfd19068ec3cc8b74716508eef352945bd49e1c",
+          "bytes": 76
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-filled.native.png",
+          "sha256": "4a363b56aa07d54b3ef6d0e0243352f94bfbfe9751322ceaa6df2369156bc7a5",
+          "bytes": 282
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-filled.svg",
+          "sha256": "3330a42ef2a5984cf0082a6e595eab41835de96859498f103d02ac5b117d6513",
+          "bytes": 442
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-outlined.artifact.json",
+          "sha256": "248109aa1a7f481b8b765ad4c41ec6fab2961187f2df91da18c853f9a92d3232",
+          "bytes": 1086
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-outlined.icon",
+          "sha256": "58fe59276261763533418bfbfbc96ef29d1d0960f962f33575f601e6e36bc513",
+          "bytes": 131
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-outlined.native.png",
+          "sha256": "f59636b2487b2380a5bb43eb91dfc5b07d3ef94ce52cac82b6351c971ef26707",
+          "bytes": 396
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/direct-constrained-outlined.svg",
+          "sha256": "eb42e1770ad9585ab49ec69da81b8278af621394643019b3659665811a01dd8d",
+          "bytes": 640
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/execution-correction.json",
+          "sha256": "4e48303928adc5790638b9ecb060359ecc28a124c3b84dabb089cf9c5b38ebaf",
+          "bytes": 236
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/filled.attempt.json",
+          "sha256": "a4c80638c8d76ea5832b978cf2875fb67317f679f43f55366b0c45db7ccfd860",
+          "bytes": 2555
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/filled.attempt.svg",
+          "sha256": "3330a42ef2a5984cf0082a6e595eab41835de96859498f103d02ac5b117d6513",
+          "bytes": 442
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/outlined.attempt.json",
+          "sha256": "41df4e38182942274646f856a018e09ba05606013faea9ea754620ddb1a56ae6",
+          "bytes": 28449
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/outlined.attempt.svg",
+          "sha256": "eb42e1770ad9585ab49ec69da81b8278af621394643019b3659665811a01dd8d",
+          "bytes": 640
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/outlined.preview.png",
+          "sha256": "25f3fcdbd50421d9279dd858198f958b35de59498d87fd5824c6e13fd0b11431",
+          "bytes": 7998
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/pair.png",
+          "sha256": "edd16b69a87a56dfd9a1fbc76e410a9cbb2d95237ebc86d2ae3d91c65ea34dd6",
+          "bytes": 6301
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/plan.json",
+          "sha256": "0ccdd463a662eb3bc719e9839ac01eab2516d6d80f13023827df9147e337d053",
+          "bytes": 1120
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/result.json",
+          "sha256": "42899c0515a9dc8b3b774960cd219a325c155f2d56d83439bff7b4eacb38e988",
+          "bytes": 88709
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components/revision.json",
+          "sha256": "337a6062ee45bbfdf6e82d71adcc737b92cfcbded274e6be46e447d4b0443e3d",
+          "bytes": 48114
+        }
+      ]
+    },
+    {
+      "id": "A009",
+      "run": "folder-lock-components-02",
+      "recordedDate": "2026-09-05",
+      "condition": "Same component experiment with 16,384 tokens actually forwarded.",
+      "outcome": "Legible outlined composition; filled saved program failed replay because scale 0.45 was serialized as size 0.45.",
+      "lesson": "Fix host serialization before judging the saved program. Filled zero scores were unscorable sentinels, not a visual verdict.",
+      "spend": {
+        "id": "folder-lock-components-02",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.8288172500000001
+      },
+      "plan": {
+        "concept": "folder-lock",
+        "effort": "high",
+        "guidance": "Design folder-lock as a new composition in this family. The folder-shield reference shows how a large, legible badge occupies the lower-right and the folder outline stops around it. Use the admitted curved components where appropriate; avoid redrawing their polished shoulders as overlapping rectangles. The named components identify their intended paint. Do not use outlined parts as filled solids. The shield component itself is not the requested lock. Preserve a generous shackle counter and at least 1 unit of actual white space. Do not squeeze a standalone lock into the folder interior. Do not copy an entire reference icon and rename it. Plan proportions before placing; compare at native size and inspect joins. Reuse of reference components is intentional in this experiment and is not a claim of wholly novel source contours.",
+        "master": "large",
+        "maxCalls": 51,
+        "maxOutputTokens": 16384,
+        "maxUsd": 4,
+        "model": "anthropic/claude-opus-5",
+        "revision": "0fe727aa7e0d2d74b099786ed91915fda7f9d474e76cc4f57acf8444ea12d861",
+        "steps": 24
+      },
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 29,
+          "actualUsd": 0.8288172500000001,
+          "exhausted": false,
+          "maxCalls": 51,
+          "maxUsd": 4,
+          "overrun": false,
+          "reservedCalls": 51,
+          "reservedUsd": 4
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "direct-constrained",
+            "pairIssues": [],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": true,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QMZBFT2ZXNCBBWK1DX5TV5"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 461,
+                      "reasoningTokens": 396
+                    },
+                    "usd": 0.01370475
+                  },
+                  "findings": [],
+                  "ok": true,
+                  "pq": 10,
+                  "reason": "The design perfectly combines the folder and padlock motifs in the established family style, maintaining uniform 2-unit stroke weight, appropriate corner rounding, and clean cutout clearances.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "decide"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": false,
+                "styleEligible": false,
+                "audit": {
+                  "findings": [],
+                  "ok": false,
+                  "pq": 0,
+                  "reason": "Not looked at: its program does not replay to the delivered document; its style identity, dependencies, compiled SVG or structural review did not match the pinned revision. This is a provenance refusal, not a quality one.",
+                  "sc": 0,
+                  "scorable": false,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-filled.icon",
+          "sha256": "e3961d54f27dc0a5752d0bdb3eaa56fa7c550bd409799b9b24f61526eed3baa1",
+          "bytes": 124
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-filled.native.png",
+          "sha256": "65e93141246a8ab526214c6307da00cd516c1d87b0b51940b54134b62b4c2a38",
+          "bytes": 404
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-filled.svg",
+          "sha256": "a113732c4b08f65ccf1a1f50d9c535cdbce89ff81e41311876c828700d1f8e31",
+          "bytes": 977
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-outlined.artifact.json",
+          "sha256": "fa84675697bda72ad63d9b72887cc16b70eb8be5f94ae8b92028aad9e43de946",
+          "bytes": 1533
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-outlined.icon",
+          "sha256": "6b69523475407b54269d4e1537dbcd1fc0be4a7cef65d1ef3c97856d40c0f58f",
+          "bytes": 174
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-outlined.native.png",
+          "sha256": "5f80a3ae43770ec44f06e1dd182c8cb64c5735c8cf91d6e67798a2c037f267bf",
+          "bytes": 364
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-outlined.svg",
+          "sha256": "1595ae4b21ada3ba4aa57b716b09bb6268108b824f441828d9c7f1ed2896b342",
+          "bytes": 1008
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/filled.attempt.json",
+          "sha256": "36cbe0bfe98d5eb1cdce780c362907ab329260111e882679dffcb0b6c7a7985d",
+          "bytes": 3889
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/filled.attempt.svg",
+          "sha256": "a113732c4b08f65ccf1a1f50d9c535cdbce89ff81e41311876c828700d1f8e31",
+          "bytes": 977
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/outlined.attempt.json",
+          "sha256": "e7a0b51f43c04d163de7a34f1d80dc3316ad9e329f94a04b5a082502a46493f2",
+          "bytes": 29302
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/outlined.attempt.svg",
+          "sha256": "1595ae4b21ada3ba4aa57b716b09bb6268108b824f441828d9c7f1ed2896b342",
+          "bytes": 1008
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/outlined.preview.png",
+          "sha256": "36f98d253d9dacc320b5bd67a8fb37bd0e13e5f24701cf8c5d400aa74eca0190",
+          "bytes": 7854
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/plan.json",
+          "sha256": "0ccdd463a662eb3bc719e9839ac01eab2516d6d80f13023827df9147e337d053",
+          "bytes": 1120
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/result.json",
+          "sha256": "06270531b9cd4c89ccb9969cbea48d2db5ba037809ef6f46dd88e48506ef4585",
+          "bytes": 94171
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-02/revision.json",
+          "sha256": "337a6062ee45bbfdf6e82d71adcc737b92cfcbded274e6be46e447d4b0443e3d",
+          "bytes": 48114
+        }
+      ]
+    },
+    {
+      "id": "A010",
+      "run": "folder-lock-components-replay",
+      "recordedDate": "2026-09-05",
+      "condition": "Re-serialize existing model document with explicit scale; no new generation or artwork edits.",
+      "outcome": "SVG byte replay passed; document replay exposed x=14.000000000000002 instead of 14.",
+      "lesson": "Avoid redundant center conversion for explicit part positions; original generation billed only once.",
+      "spend": {
+        "id": "folder-lock-components-replay",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.0305745
+      },
+      "plan": null,
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 2,
+          "actualUsd": 0.030574499999999998,
+          "exhausted": false,
+          "maxCalls": 6,
+          "maxUsd": 0.25,
+          "overrun": false,
+          "reservedCalls": 6,
+          "reservedUsd": 0.25
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "stored-ai-composition",
+            "pairIssues": [
+              {
+                "message": "Filled visual extent 20.0\u00d717.0 does not match outlined 20.0\u00d718.0. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+                "rule": "extent",
+                "severity": "error"
+              },
+              {
+                "message": "e0 and e1 are 0.88px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+                "rule": "gap",
+                "severity": "warn"
+              }
+            ],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": true,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QNAT88VPM1RSDFAD7DGFV9"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 772,
+                      "reasoningTokens": 711
+                    },
+                    "usd": 0.014871
+                  },
+                  "findings": [],
+                  "ok": true,
+                  "pq": 9,
+                  "reason": "The icon cleanly communicates a folder with a lock badge. Stroke weights, rounded joins, and cutout spacing match the family style well.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "decide"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": false,
+                "styleEligible": true,
+                "audit": {
+                  "findings": [],
+                  "ok": false,
+                  "pq": 0,
+                  "reason": "Not looked at: its program does not replay to the delivered document. This is a provenance refusal, not a quality one.",
+                  "sc": 0,
+                  "scorable": false,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/filled.artifact.json",
+          "sha256": "a002be6e9271246b5b53f72ffaaacc1d6d587fb591092ca6cfe6db29252eff0a",
+          "bytes": 1411
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/filled.png",
+          "sha256": "8a768a601a62df785eae4cd0e63487f18aada7825c37ed8cf1599f3560fb9753",
+          "bytes": 7079
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/filled.svg",
+          "sha256": "a113732c4b08f65ccf1a1f50d9c535cdbce89ff81e41311876c828700d1f8e31",
+          "bytes": 977
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/lineage.json",
+          "sha256": "8238dd1aaa75ccade33e5d87666a82c2de5aa810e56945ea115791eeadc93722",
+          "bytes": 275
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/outlined.artifact.json",
+          "sha256": "fa84675697bda72ad63d9b72887cc16b70eb8be5f94ae8b92028aad9e43de946",
+          "bytes": 1533
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/outlined.png",
+          "sha256": "36f98d253d9dacc320b5bd67a8fb37bd0e13e5f24701cf8c5d400aa74eca0190",
+          "bytes": 7854
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/outlined.svg",
+          "sha256": "1595ae4b21ada3ba4aa57b716b09bb6268108b824f441828d9c7f1ed2896b342",
+          "bytes": 1008
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay/result.json",
+          "sha256": "1b3c5e82520288a0410443567a5f849aeabbb0c802be9e13e2f9dcd235be01fd",
+          "bytes": 85400
+        }
+      ]
+    },
+    {
+      "id": "A011",
+      "run": "folder-lock-components-replay-02",
+      "recordedDate": "2026-09-05",
+      "condition": "Recheck original artwork after scale and position serialization repairs.",
+      "outcome": "Both exact replays pass; pair rejected: 20\u00d718 outlined versus 20\u00d717 filled, 0.88-unit gap warning. Reviews SC/PQ 10/8 and 8.5/5.5.",
+      "lesson": "Shield-derived opening does not fit the lock; uneven counters remain. Do not promote rejected drawings to training targets.",
+      "spend": {
+        "id": "folder-lock-components-replay-02",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.029787
+      },
+      "plan": null,
+      "resultSummary": {
+        "budget": {
+          "actualCalls": 2,
+          "actualUsd": 0.029787,
+          "exhausted": false,
+          "maxCalls": 6,
+          "maxUsd": 0.25,
+          "overrun": false,
+          "reservedCalls": 6,
+          "reservedUsd": 0.25
+        },
+        "winner": null,
+        "candidates": [
+          {
+            "id": "stored-ai-composition",
+            "pairIssues": [
+              {
+                "message": "Filled visual extent 20.0\u00d717.0 does not match outlined 20.0\u00d718.0. Expand the stroke \u2014 do not flood the bbox or restamp finish.",
+                "rule": "extent",
+                "severity": "error"
+              },
+              {
+                "message": "e0 and e1 are 0.88px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+                "rule": "gap",
+                "severity": "warn"
+              }
+            ],
+            "paints": [
+              {
+                "finish": "outlined",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QNDNV4EWFSMRVPS4CTX2Q1"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 809,
+                      "reasoningTokens": 698
+                    },
+                    "usd": 0.01500975
+                  },
+                  "findings": [
+                    {
+                      "kind": "finish",
+                      "message": "The top-right stroke of the folder ends abruptly in a horizontal cap instead of rounding downward to suggest the folder's right contour."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 8,
+                  "reason": "The icon clearly reads as a folder-lock with consistent stroke weights and proper cutout spacing, though the top-right edge terminates abruptly without turning down.",
+                  "sc": 10,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              },
+              {
+                "finish": "filled",
+                "accepted": false,
+                "programComplete": true,
+                "styleEligible": true,
+                "audit": {
+                  "cost": {
+                    "calls": 1,
+                    "generationIds": [
+                      "gen_01M1QNDNN2J06MVZR846VKF667"
+                    ],
+                    "model": "google/gemini-3.7-flash",
+                    "operation": "visual-audit",
+                    "source": "gateway",
+                    "usage": {
+                      "cacheReadTokens": 0,
+                      "cacheWriteTokens": 0,
+                      "inputTokens": 15968,
+                      "outputTokens": 747,
+                      "reasoningTokens": 585
+                    },
+                    "usd": 0.01477725
+                  },
+                  "findings": [
+                    {
+                      "kind": "gap",
+                      "message": "The cutout around the lock badge is uneven, creating a large empty void above the lock and leaving a thin, drooping overhang on the upper-right folder edge."
+                    },
+                    {
+                      "kind": "object",
+                      "message": "The top-right corner of the folder droops into an awkward beak-like tip instead of maintaining the horizontal top edge seen in the family folder badges."
+                    }
+                  ],
+                  "ok": false,
+                  "pq": 5.5,
+                  "reason": "The folder and lock badge are clearly identifiable, but the cutout geometry severely distorts the upper-right corner of the folder into an awkward drooping shape with unbalanced negative space above the lock.",
+                  "sc": 8.5,
+                  "scorable": true,
+                  "stage": "screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/filled.artifact.json",
+          "sha256": "a002be6e9271246b5b53f72ffaaacc1d6d587fb591092ca6cfe6db29252eff0a",
+          "bytes": 1411
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/filled.png",
+          "sha256": "8a768a601a62df785eae4cd0e63487f18aada7825c37ed8cf1599f3560fb9753",
+          "bytes": 7079
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/filled.svg",
+          "sha256": "a113732c4b08f65ccf1a1f50d9c535cdbce89ff81e41311876c828700d1f8e31",
+          "bytes": 977
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/lineage.json",
+          "sha256": "8238dd1aaa75ccade33e5d87666a82c2de5aa810e56945ea115791eeadc93722",
+          "bytes": 275
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/outlined.artifact.json",
+          "sha256": "fa84675697bda72ad63d9b72887cc16b70eb8be5f94ae8b92028aad9e43de946",
+          "bytes": 1533
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/outlined.png",
+          "sha256": "36f98d253d9dacc320b5bd67a8fb37bd0e13e5f24701cf8c5d400aa74eca0190",
+          "bytes": 7854
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/outlined.svg",
+          "sha256": "1595ae4b21ada3ba4aa57b716b09bb6268108b824f441828d9c7f1ed2896b342",
+          "bytes": 1008
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-components-replay-02/result.json",
+          "sha256": "c3c34f784e77e477bece95b53bdd2b64e3dbf9b02f9497c99767e4ebd4656834",
+          "bytes": 88328
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "out": ".staging/foundry-round-1/sharp-hole-compiler10-01",
+  "sourceProgram": ".staging/foundry-round-1/local-sharp-pause-01/attempt-2-filled.icon",
+  "manualArtworkEdits": 0,
+  "exactReplay": true,
+  "contours": [
+    {
+      "area": 276.33578249999994,
+      "bounds": "{ x: 4.25, y: 2.25, width: 15.5, height: 20.0424 }"
+    },
+    {
+      "area": -11.25,
+      "bounds": "{ x: 8.25, y: 7.25, width: 1.5, height: 7.5 }"
+    },
+    {
+      "area": -11.25,
+      "bounds": "{ x: 14.25, y: 7.25, width: 1.5, height: 7.5 }"
+    }
+  ],
+  "scope": "Unchanged failed AI program under new compiler, not a fresh author run",
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "craftApproved": false
+}

@@ -1,0 +1,196 @@
+{
+  "runs": [
+    {
+      "id": "folder-lock-boolean-source",
+      "actualUsd": 1.4383655000000002,
+      "accepted": false,
+      "paints": [
+        {
+          "finish": "outlined",
+          "sc": 10,
+          "pq": 10,
+          "scorable": true,
+          "programComplete": true,
+          "styleEligible": true
+        },
+        {
+          "finish": "filled",
+          "sc": 0,
+          "pq": 0,
+          "scorable": false,
+          "programComplete": false,
+          "styleEligible": false
+        }
+      ],
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-filled.icon",
+          "sha256": "7b73b79f4a6755f8bdee9bce64a9195b03018e542e76e15352639fde6426fb7f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-filled.native.png",
+          "sha256": "3a5528faadb02eac8d84939fcc2fa49e3938a00d575ec7978658b8570e9633ca"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-filled.svg",
+          "sha256": "d2c2b2fdbc3febd59f8c76d580ed1781d70d58415da7dbe119ad4c36a0ca3265"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-outlined.artifact.json",
+          "sha256": "be53bd8461f992f8b4267c3f62ea365a380eb0b636c8813402533081ed225da3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-outlined.icon",
+          "sha256": "13cbde3415a18ec2b93612c1488e5fd7fbfc6f0e78638afb43b0d01654e63972"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-outlined.native.png",
+          "sha256": "3f494225a399b4553f95c93971187f126cfe417610ee7704e4fa6473691a8b10"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-outlined.svg",
+          "sha256": "03102213bce52e84d07f1987403b4e16dfeab4212cf7794addd4292eec888d64"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/filled.attempt.json",
+          "sha256": "aceddae3ad7477ec787e09b5c7f380f1eb8281498ef4f057dc9043e2cd5a7c1f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/filled.attempt.svg",
+          "sha256": "d2c2b2fdbc3febd59f8c76d580ed1781d70d58415da7dbe119ad4c36a0ca3265"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/inspection.png",
+          "sha256": "91cdac513a919cb56b1daa0125222e323282b2c8ab83506463db141bf36b905f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/outlined.attempt.json",
+          "sha256": "d11fdbce6589315d0d240b914b5d3ba9e33b53a8f2adc96ee92de9f497b2febb"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/outlined.attempt.svg",
+          "sha256": "03102213bce52e84d07f1987403b4e16dfeab4212cf7794addd4292eec888d64"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/outlined.large.png",
+          "sha256": "aa37bd457c0bcc5aa5afb91f7bbc0b849ebde7426708f6125a5393d452e4d33b"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/plan.json",
+          "sha256": "02ca4adeb6e5fb4dd1fa2d0f805c4d6eabf2dc010a0628664c17284e14078f6b"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/replayed.svg",
+          "sha256": "f2fd1d082e61ecc16d9713144ecb7da8d6afffc05a33d399da49b9b7beac15e9"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/result.json",
+          "sha256": "81d1eb2cb0f5ae297e4a852f69fc8dc906c37c29212c10ebc4f97ae350a5b45f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/revision.json",
+          "sha256": "fdfa7f302ebe342f269167808bc5d3ab28c13b579757cd54dfac2b0002e5b9ce"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-boolean-source/zero-radius-recovery.json",
+          "sha256": "fea7c16e497eaa6a3f6d11ad1a08a0c907f78367f184729a972de38284299634"
+        }
+      ]
+    },
+    {
+      "id": "folder-lock-visual-review",
+      "actualUsd": 0.907821,
+      "accepted": false,
+      "paints": [
+        {
+          "finish": "outlined",
+          "sc": 10,
+          "pq": 7.5,
+          "scorable": true,
+          "programComplete": true,
+          "styleEligible": true
+        },
+        {
+          "finish": "filled",
+          "sc": 7,
+          "pq": 5.5,
+          "scorable": true,
+          "programComplete": true,
+          "styleEligible": true
+        }
+      ],
+      "files": [
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-filled.artifact.json",
+          "sha256": "954ace9772d20d64a8bc1d8db8922fe7fa04f33757c54ec1c4ad68f6dd27cb33"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-filled.icon",
+          "sha256": "a25c2d19fc4ea15e4088c670d28a2b60f042a14b0abdfd3ab6f7b931930269d6"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-filled.native.png",
+          "sha256": "f457a14f23d766d82958bef670131e6d3a2836187fde9a34ea9d43ff1d475430"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-filled.svg",
+          "sha256": "6721cdbf454499e32abfb9893befb82bd7765342ca6b4c23170cd1e81bb94141"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-outlined.artifact.json",
+          "sha256": "865df5eae3fb4224bfa69bfa11575fa9331ed0ddb956709ec4a10da218063c64"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-outlined.icon",
+          "sha256": "e1ad2b2eb26f270d204550dc3f2a6ac6094f820d0648416af125b615e37d6698"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-outlined.native.png",
+          "sha256": "adc61da8a39bd6fb23d70ca29dcca410b698df45fef845a4296ccdcb0e47c177"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-outlined.svg",
+          "sha256": "727e590a67d243066be31817ed18ff1f114633268f6bc597987fadb3bfbdd75f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/filled.attempt.json",
+          "sha256": "0b4689b6edf58027437f89267fa402e36462f208d677327dfd40d115a30d88c3"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/filled.attempt.svg",
+          "sha256": "6721cdbf454499e32abfb9893befb82bd7765342ca6b4c23170cd1e81bb94141"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/inspection.png",
+          "sha256": "ec17403273a2cb2261bc00b290f6f97c8d84501be14a6e228720a8a6775dd1f7"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/outlined.attempt.json",
+          "sha256": "0f18ce8ea1033536cc9b6908afc6ae3b2aff73638defcba1dab1e59e65253ebf"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/outlined.attempt.svg",
+          "sha256": "727e590a67d243066be31817ed18ff1f114633268f6bc597987fadb3bfbdd75f"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/outlined.large.png",
+          "sha256": "9633a72d3984bd1290fb038fafaef44a3c497dc5e83c0a548f9e5280299b9411"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/plan.json",
+          "sha256": "02ca4adeb6e5fb4dd1fa2d0f805c4d6eabf2dc010a0628664c17284e14078f6b"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/result.json",
+          "sha256": "7519c05ec02483326dac15b21578b3b797519735eb0d24cc93ff2bd7dd31c0ae"
+        },
+        {
+          "path": ".staging/foundry-round-1/folder-lock-visual-review/revision.json",
+          "sha256": "fdfa7f302ebe342f269167808bc5d3ab28c13b579757cd54dfac2b0002e5b9ce"
+        }
+      ]
+    }
+  ],
+  "settledTotalUsd": 8.07281135,
+  "classification": "rejected developmental generations"
+}

@@ -1,0 +1,154 @@
+{
+  "order": [
+    "bookmark-family-compiler7-01/bookmark-pause",
+    "bookmark16-baseline-compiler8-01",
+    "local-bookmark16-01"
+  ],
+  "stats": [
+    {
+      "source": "bookmark-family-compiler7-01/bookmark-pause",
+      "paint": "outlined",
+      "nativeRowY6Alpha": [
+        0,
+        0,
+        85,
+        170,
+        0,
+        0,
+        255,
+        0,
+        0,
+        255,
+        0,
+        0,
+        170,
+        85,
+        0,
+        0
+      ],
+      "width": 16,
+      "height": 16
+    },
+    {
+      "source": "bookmark-family-compiler7-01/bookmark-pause",
+      "paint": "filled",
+      "nativeRowY6Alpha": [
+        0,
+        0,
+        85,
+        255,
+        255,
+        255,
+        0,
+        255,
+        255,
+        0,
+        255,
+        255,
+        255,
+        85,
+        0,
+        0
+      ],
+      "width": 16,
+      "height": 16
+    },
+    {
+      "source": "bookmark16-baseline-compiler8-01",
+      "paint": "outlined",
+      "nativeRowY6Alpha": [
+        0,
+        0,
+        117,
+        202,
+        0,
+        32,
+        255,
+        32,
+        32,
+        255,
+        32,
+        0,
+        202,
+        117,
+        0,
+        0
+      ],
+      "width": 16,
+      "height": 16
+    },
+    {
+      "source": "bookmark16-baseline-compiler8-01",
+      "paint": "filled",
+      "nativeRowY6Alpha": [
+        0,
+        0,
+        117,
+        255,
+        255,
+        223,
+        0,
+        223,
+        223,
+        0,
+        223,
+        255,
+        255,
+        117,
+        0,
+        0
+      ],
+      "width": 16,
+      "height": 16
+    },
+    {
+      "source": "local-bookmark16-01",
+      "paint": "outlined",
+      "nativeRowY6Alpha": [
+        0,
+        0,
+        117,
+        202,
+        0,
+        117,
+        202,
+        0,
+        0,
+        202,
+        117,
+        0,
+        202,
+        117,
+        0,
+        0
+      ],
+      "width": 16,
+      "height": 16
+    },
+    {
+      "source": "local-bookmark16-01",
+      "paint": "filled",
+      "nativeRowY6Alpha": [
+        0,
+        0,
+        117,
+        255,
+        255,
+        85,
+        0,
+        255,
+        255,
+        0,
+        85,
+        255,
+        255,
+        117,
+        0,
+        0
+      ],
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "scope": "Native16 raster row through pause symbols; supporting evidence only, not craft score"
+}

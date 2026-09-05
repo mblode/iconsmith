@@ -1,0 +1,34 @@
+{
+  "attempt": "A043",
+  "cliExitCode": 0,
+  "requestedReviewDelivered": false,
+  "completion": "incomplete author delivery; host checked retained programs",
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "native",
+    "snapshot": ".staging/foundry-round-1/local-small-master-01/check-A0oy15",
+    "style": "7146715f85628a16cadef3209de0a2c6248ace65d9befed5de2a678af3762b02"
+  },
+  "programHashes": {
+    "outlined.icon": "15e9aaf890d16a68f75a3173ebb8ab6039afed7de6ad7593f37199b65843a8f7",
+    "filled.icon": "659eed21d4f455e9b57c1c03ee0a857c592811655fa497535ede22f59bddc2a0"
+  },
+  "hostFindings": [
+    "Actual16px shackle has2x2 pure-white pixels in both paints.",
+    "Larger shackle/body requires more parent clearance; outlined window header becomes a short stub and lock body counter becomes very thin.",
+    "Filled keyhole omitted; simplified filled lock is clearer.",
+    "No independent craft approval; improved aperture alone does not approve family balance."
+  ],
+  "counterEvidence": "docs/log/optical-counter-evidence-2026-09-05.json",
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured"
+}

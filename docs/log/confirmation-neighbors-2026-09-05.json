@@ -1,0 +1,56 @@
+{
+  "entries": [
+    {
+      "label": "generated bookmark",
+      "path": ".staging/foundry-round-1/local-command-bookmark-01/outlined.svg",
+      "sha256": "e1161247d5bc87160954a5bb8e82cc5fbb2ef0ed1317d18632bcc6e8a2768a1f"
+    },
+    {
+      "label": "source bookmark-check",
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/bookmark-check.svg",
+      "sha256": "e49c6289d58583eb0fa1236bd792d7595f8ec5a12dc3c45b4475f9cbd3c9b4ea"
+    },
+    {
+      "label": "source bookmark",
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/bookmark.svg",
+      "sha256": "47660eb386ad46f25e1911af14d28bf6ac1f826476adf33d9702f76e60a5c0a2"
+    },
+    {
+      "label": "generated timer",
+      "path": ".staging/foundry-round-1/local-confirmation-timer-check-01/outlined.svg",
+      "sha256": "4a30ae5690a4d87fb295d4b04560b78d0113a4f5349a91aebecd1e7b2d5cb76a"
+    },
+    {
+      "label": "source clock-alert",
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/clock-alert.svg",
+      "sha256": "bbe446937c0e7f99f4fa230349e1b1564e2104f50f6e61581ed4e482b67aa56d"
+    },
+    {
+      "label": "source clock",
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/clock.svg",
+      "sha256": "39274a1338f5b3c4ffc46837f2cc4062a13bcede3848c8bd0f3c2b21c6333a77"
+    },
+    {
+      "label": "generated window",
+      "path": ".staging/foundry-round-1/local-confirmation-window-check-01/outlined.svg",
+      "sha256": "442c829ebbdf7f346912c4bc9e1b4aad532e045666ff2959421aad1d10a357fe"
+    },
+    {
+      "label": "source window-square-locked",
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/window-square-locked.svg",
+      "sha256": "d8fb4bd9b126f169deea02529acd7a4c865bad9969eeab7362be61fcec7f68fc"
+    },
+    {
+      "label": "source window-app",
+      "path": "packages/iconsmith/corpus/round-outlined-radius-1-stroke-1.5/window-app.svg",
+      "sha256": "abb1e8871decc86717ae8e1af4246bd248d6d616a53a023713c6ffd201cc7b11"
+    }
+  ],
+  "sizes": [
+    96,
+    24,
+    16
+  ],
+  "order": "row-major; candidate, modified reference, base reference",
+  "craftApproved": false
+}

@@ -67,6 +67,11 @@ const failedArm = (partialCosts: ApiCost[]): TournamentRun => ({
 });
 
 describe("the cost of an arm that failed", () => {
+  it("uses the complete attempt ledger, including reviews replaced by a rescued twin", () => {
+    const complete = [billed(0.1, 1), billed(0.2, 2)];
+    const candidate = { ...failedArm([billed(0.1, 1)]), costs: complete };
+    assert.deepEqual(candidateCosts(candidate), complete);
+  });
   /**
    * `candidateCosts` mapped only `candidate.paints`, and a failed arm has
    * `paints: []` — so an arm that made billed provider calls and then threw was

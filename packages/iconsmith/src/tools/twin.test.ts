@@ -395,12 +395,10 @@ test("programFromDoc writes the paint the canvas already ran", () => {
   );
 });
 
-test("programFromDoc emits a scaled part's target span, so it round-trips", () => {
-  // The DSL `size` is a target span, not a scale factor. Given the vocabulary,
-  // a placed part must come back out at the size it was placed with — emitting
-  // the raw scale replayed it at 1/span of that. An 8x4 part placed at span 16
-  // is scale 2; the program must say `size 16`, and a quarter turn transposes
-  // the extent it is measured against.
+test("programFromDoc emits a scaled part's multiplier, so it round-trips", () => {
+  // `scale` is the document's exact multiplier and therefore replays without
+  // consulting the vocabulary for a target span. A quarter turn still changes
+  // the part's painted extent, but it does not change that multiplier.
   const part: Part = {
     closed: true,
     d: "M0 0H8V4H0Z",
@@ -419,7 +417,9 @@ test("programFromDoc emits a scaled part's target span, so it round-trips", () =
   ]) {
     const doc = run(`icon x\n${line}\n`, [part]).canvas.toJSON({ icon: "x" });
     const emitted = programFromDoc(doc, [part]);
-    expect(emitted).toContain(line);
+    expect(emitted).toContain(
+      `part tab at 4,4 scale 2${line.endsWith("turn cw") ? " turn cw" : ""}`
+    );
     const replayed = run(emitted, [part]).canvas.toJSON({ icon: "x" });
     expect(replayed).toStrictEqual(doc);
   }

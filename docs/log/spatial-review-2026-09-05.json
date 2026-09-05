@@ -1,0 +1,119 @@
+{
+  "attempt": "A041",
+  "exitCode": 0,
+  "toolReads": [
+    {
+      "tool": "Read",
+      "input": {
+        "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/spatial-review-01/P.png"
+      }
+    },
+    {
+      "tool": "Read",
+      "input": {
+        "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/spatial-review-01/Q.png"
+      }
+    },
+    {
+      "tool": "Read",
+      "input": {
+        "file_path": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/spatial-review-01/R.png"
+      }
+    }
+  ],
+  "verdict": {
+    "method_note": "Judgments come from the supplied vector enlargements and nearest-neighbor magnifications only. I cannot sample numeric pixel values through image reading, so 'white' vs 'gray antialias' below is a visual-tone judgment from the magnified blocks, and is stated with confidence levels rather than as measurement. All coordinates are approximate, normalized to the 0..24 viewport, left/right relative to the whole icon.",
+    "P": {
+      "clearance_location": {
+        "where": "Right / lower-right of the whole icon. The parent frame's right edge and bottom-right corner are cut away by an arc that follows the badge; clearance band runs vertically along approx x 12.5-15.5, y 9.5-22.5, and continues under the badge along the bottom.",
+        "badge_bbox_approx": [
+          13.5,
+          9.5,
+          9.0,
+          13.0
+        ]
+      },
+      "ink_connection": {
+        "verdict": "Continuous whitespace separation in the vector render; no ink connection found.",
+        "raster_caveat": "At 24px the band between frame and badge reads as one column of light-to-mid gray rather than clean white around y 12-16 \u2014 separation survives as a value contrast, not as paper. At 16px that column darkens further and I would not certify it as open.",
+        "claimed_connection_bbox": null
+      },
+      "shackle_opening": {
+        "at_24": "Partially visible: a small light aperture inside the lock body reads at roughly [16.5,14,2,2], but its tone looks gray rather than paper-white, so it is coverage, not a clean hole.",
+        "at_16": "Not resolved. The badge collapses to an 'A'-like glyph; I cannot distinguish shackle void from body notch. Abstain."
+      }
+    },
+    "Q": {
+      "clearance_location": {
+        "where": "The only clearance is interior, on the upper-left flank of the badge, formed by the parent's white window field: approx x 14-18.5, y 11-15.5. There is no clearance on the icon's outer right or bottom - the badge runs into the card's filled corner.",
+        "badge_bbox_approx": [
+          15.0,
+          12.0,
+          7.5,
+          10.5
+        ]
+      },
+      "ink_connection": {
+        "verdict": "Yes - ink connects. The badge body is contiguous with the parent card's bottom-right fill; no continuous whitespace encircles the badge.",
+        "connection_bbox_approx": [
+          15.0,
+          17.0,
+          7.5,
+          5.5
+        ],
+        "confidence": "high at vector scale; the merge is equally evident at 24px and 16px, where badge and corner form one mass."
+      },
+      "shackle_opening": {
+        "at_24": "Marginal. A thin light arc traces the shackle at about [15.5,13,4,3], but it is narrow and partly gray.",
+        "at_16": "Not visible as an opening. Abstain on any claim of a resolved gap."
+      }
+    },
+    "R": {
+      "clearance_location": {
+        "where": "Right / lower-right of the whole icon, as a wide arc cut into the body panel: approx x 12.5-16.5, y 11.5-22.5. A second, unrelated horizontal gap separates the header band from the panel at about y 9-10.5, full width.",
+        "badge_bbox_approx": [
+          14.0,
+          12.0,
+          8.5,
+          10.5
+        ]
+      },
+      "ink_connection": {
+        "verdict": "Continuous whitespace separation; no ink connection found at any of the three scales.",
+        "raster_caveat": "At 24px the arc holds as near-white with gray shoulders. At 16px it thins to roughly one pixel of light gray along the diagonal near [13,15] - still legible as a break, but no longer clean paper.",
+        "claimed_connection_bbox": null
+      },
+      "shackle_opening": {
+        "at_24": "A light slot reads inside the badge near [16,15,2.5,1.5], but this may be a keyhole/slot rather than the shackle void; tone appears gray-to-white. Partial.",
+        "at_16": "Not resolved. Abstain."
+      }
+    },
+    "ranking_by_visible_separation_only": [
+      {
+        "rank": 1,
+        "id": "R",
+        "reason": "Widest, most continuous clearance arc; the only one whose break survives legibly into 16px."
+      },
+      {
+        "rank": 2,
+        "id": "P",
+        "reason": "Geometrically separated, but the band is narrower and reads as gray at 24px; the frame's right edge is also heavily truncated, weakening the read."
+      },
+      {
+        "rank": 3,
+        "id": "Q",
+        "reason": "No outer clearance at all - badge and parent share ink."
+      }
+    ],
+    "uncertainty": "R over P is a moderate-confidence call and rests on arc width, which I estimated visually. Q's last place is high confidence, since ink continuity is structural and scale-independent. All shackle-opening findings at 16px are abstentions: the magnified blocks do not let me separate white from partial coverage at that size. No publication score is offered."
+  },
+  "assessment": {
+    "spatialOrientationCorrect": true,
+    "collisionOrderingCorrect": true,
+    "qualifiedForCraft": false,
+    "scope": "three filled window examples; a diagnostic only",
+    "pixelCorrection": "P native24 has gray 244 at (16,12) and white 255 at (16,13); the shackle is not exclusively gray coverage. Reviewer cannot certify pixel values."
+  },
+  "apiCost": 0,
+  "subscriptionCost": "unmeasured"
+}

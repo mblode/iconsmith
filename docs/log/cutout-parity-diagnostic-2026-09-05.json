@@ -1,0 +1,16 @@
+[
+  {
+    "source": ".staging/foundry-round-1/local-family-development-01/timer-add/filled.icon",
+    "holeFindings": [
+      {
+        "message": "e1 and e2 overlap in e0; even-odd cutouts cancel in their shared area and restore ink. If one continuous opening is intended, union the cutters before subtracting. Inspect intentional nested counters rather than treating this warning as a prohibition.",
+        "rule": "hole",
+        "severity": "warn"
+      }
+    ]
+  },
+  {
+    "source": ".staging/foundry-round-1/local-family-repair-01/timer-add/filled.icon",
+    "holeFindings": []
+  }
+]

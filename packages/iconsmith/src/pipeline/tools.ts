@@ -32,6 +32,8 @@ import type { Aliases } from "./search.js";
 export type { Reference } from "./licence.js";
 
 export interface ToolsOptions {
+  /** A non-house revision must not retrieve implicit house constructions. */
+  allowHouseConstruction?: boolean;
   /**
    * The words each source icon also answers to, from `corpus/aliases.ts`.
    *
@@ -186,6 +188,7 @@ const placed = (canvas: Canvas, id: string) => {
 // oxlint-disable-next-line eslint/complexity -- one factory keeps every model tool on the same canvas and shared call budget
 export const createTools = (options: ToolsOptions = {}) => {
   const {
+    allowHouseConstruction = true,
     aliases = new Map(),
     cohort = null,
     corpus = [],
@@ -322,6 +325,24 @@ export const createTools = (options: ToolsOptions = {}) => {
           return { bbox: canvas.bbox(), fitted: note === null, note };
         }),
       inputSchema: z.object({}),
+    }),
+
+    combine: tool({
+      description:
+        "For filled paint, union solids or subtract a closed cutter. For outlined paint, trim removes the left path sections inside the right closed cutter, preserving the remaining curves with round stroke caps. Allow for cap radius when choosing clearance. Uses whole solid groups including counters. Both operands are replaced by the result. Place and size operands first; fit/center after composition is unsupported. No raw paths. The result remains an editable Boolean recipe.",
+      execute: ({ operation, leftId, rightId }) =>
+        track("combine", () => {
+          refuseHostEdit("combine");
+          return placed(canvas, canvas.combine(operation, leftId, rightId));
+        }),
+      inputSchema: z.object({
+        leftId: z.string(),
+        operation:
+          finish === "filled"
+            ? z.enum(["subtract", "union"])
+            : z.enum(["trim"]),
+        rightId: z.string(),
+      }),
     }),
 
     compare: tool({
@@ -541,12 +562,18 @@ export const createTools = (options: ToolsOptions = {}) => {
     line: tool({
       description:
         "Draw a polyline through two or more points. Segments within a few degrees of 0/45/90 are snapped onto the axis, so a nearly-horizontal line becomes horizontal. A segment further off than that is refused unless offAxis is set, so a diagonal is something you choose rather than something arithmetic drift hands you.",
-      execute: ({ offAxis, points }) =>
+      execute: ({ offAxis, points, r, solid, weight }) =>
         track("line", () => {
           refuseHostEdit("line");
           return placed(
             canvas,
-            canvas.line({ offAxis, points: points as [number, number][] })
+            canvas.line({
+              offAxis,
+              points: points as [number, number][],
+              r,
+              solid,
+              weight,
+            })
           );
         }),
       inputSchema: z.object({
@@ -561,6 +588,25 @@ export const createTools = (options: ToolsOptions = {}) => {
         // length array preserves the exact [x, y] contract while remaining
         // portable across Gateway providers.
         points: z.array(z.array(coord).length(2)).min(2),
+        r: z
+          .number()
+          .nonnegative()
+          .optional()
+          .describe(
+            "Family-tier centerline radius, or zero for sharp corners; repeat first vertex to close."
+          ),
+        solid: z
+          .boolean()
+          .optional()
+          .describe(
+            "Fill the stroke and interior of an explicitly closed contour. In outlined paint this is a solid modifier."
+          ),
+        weight: z
+          .literal("detail")
+          .optional()
+          .describe(
+            "Use the pinned family detailStroke for this line; requires a style that declares it."
+          ),
       }),
     }),
 
@@ -600,8 +646,12 @@ export const createTools = (options: ToolsOptions = {}) => {
               `listParts is limited to ${maxPartSearches} searches in this run; draw from the searches already returned`
             );
           }
-          const construction = steerBrief(query, finish);
-          const host = hostConstruction(query, finish);
+          const construction = allowHouseConstruction
+            ? steerBrief(query, finish)
+            : null;
+          const host = allowHouseConstruction
+            ? hostConstruction(query, finish)
+            : null;
           return {
             ...(host ? { constructable: true as const } : {}),
             ...(construction ? { construction } : {}),
@@ -782,6 +832,13 @@ export const createTools = (options: ToolsOptions = {}) => {
   // `COHORT` block in `prompt.ts` had the same bug from the other side — it
   // described an op that was never in the tool set — so the two are now
   // supplied or withheld together, from the same two options.
+  if (!allowHouseConstruction) {
+    Reflect.deleteProperty(tools, "construct");
+    if (parts.length === 0) {
+      Reflect.deleteProperty(tools, "listParts");
+      Reflect.deleteProperty(tools, "part");
+    }
+  }
   if (!cohort) {
     Reflect.deleteProperty(tools, "cohort");
   }
@@ -810,6 +867,7 @@ export const createTools = (options: ToolsOptions = {}) => {
       "dot",
       "fit",
       "hole",
+      "combine",
       "line",
       "lint",
       "listParts",

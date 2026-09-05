@@ -1,0 +1,75 @@
+{
+  "out": ".staging/foundry-round-1/local-cloud-refine-01",
+  "paints": [
+    {
+      "paint": "outlined",
+      "programHash": "072bfaf272d56649fb3add8a71ee0ac3237c79851b0c094f6d480c544cb1713b"
+    },
+    {
+      "paint": "filled",
+      "programHash": "e57871a9032fcacd6ee1470e756e093a0ebc9427501bc0709639007aa4154cd1"
+    }
+  ],
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "c1eae90f1ddac268aab03b7b1a19a5810f82d804d6a0d6a5811c5afd423ab978",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Visual extent 22.0×16.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is landscape 20×18 (2.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+        "rule": "keyline",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Visual extent 22.0×16.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is landscape 20×18 (2.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+        "rule": "keyline",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-cloud-refine-01/check-uUJ54E",
+    "style": "c1eae90f1ddac268aab03b7b1a19a5810f82d804d6a0d6a5811c5afd423ab978"
+  },
+  "exactReplay": true,
+  "exactOriginalModifier": true,
+  "hostInspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "craftApproved": false,
+  "hostFindings": [
+    "Recognizable cloud/check; flat base and readable counter",
+    "22x16 extent matches supplied references; keyline warnings justified",
+    "Unequal lobes improve reference relationship; tiny bridge notches remain at base, independently measured at 11.57 and 13.01 degrees",
+    "Successful development pair, not independent professional qualification"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured"
+}

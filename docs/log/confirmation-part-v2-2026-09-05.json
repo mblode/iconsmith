@@ -1,0 +1,24 @@
+{
+  "source": ".staging/foundry-round-1/local-command-bookmark-01/outlined.icon",
+  "sourceSha256": "fc17a73dc49722ec4ae69aa2765b288b9c2f720feeaf1a47857de6c5f91d2c24",
+  "elementId": "e4",
+  "part": {
+    "id": "confirmation-check",
+    "name": "confirmation-check",
+    "d": "M0 2L2 4L6 0",
+    "w": 6,
+    "h": 4,
+    "closed": false,
+    "icons": [
+      "bookmark-check"
+    ],
+    "instances": 1,
+    "nodes": 3,
+    "sizeRange": [
+      6,
+      6
+    ]
+  },
+  "revisionHash": "ef4c310d943b53dd046b64a15286b4c1bf71b5cb5243837e969b51611eaf0919",
+  "usage": "AI-authored development geometry reused for family consistency; no craft approval implied"
+}

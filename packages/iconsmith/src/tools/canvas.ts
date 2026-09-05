@@ -19,8 +19,10 @@ import {
   serialise,
   translate,
 } from "../geometry/path.js";
+import { roundedLinePath } from "../geometry/rounded-line.js";
 import { flatten } from "../parts/shape.js";
 import type {
+  BooleanDrawOp,
   Box,
   DotRole,
   DrawOp,
@@ -30,286 +32,14 @@ import type {
   Part,
   Subpath,
 } from "../types.js";
+import { combinePaths } from "./boolean.js";
+import type { BooleanOperation } from "./boolean.js";
+import { SPEC, needsStrokeBounds } from "./spec.js";
+import type { Spec } from "./spec.js";
+import { expandStroke } from "./stroke.js";
 
-/**
- * The house spec, calibrated against the corpus.
- *
- * Every number here is measured from Central's `round-outlined-radius-3-stroke-2`
- * variant — 2,085 icons, verified byte-identical to blode-icons' own SVGs, so it
- * is the set this project draws for, not a proxy for it. `src/corpus/measure.ts`
- * reproduces every figure quoted below.
- *
- * The previous revision took its numbers from an article about Cursor's icon
- * set. Cursor packs looser than Central, and applying its constants marked most
- * of the base set as broken: its ~3.75px minimum gap flags 89% of Central's own
- * icons, its 2.5px clearance flags 76%. Cursor is the inspiration; the corpus is
- * the specification. Where they disagree, the corpus wins and the article's
- * value is recorded in the comment.
- */
-const HOUSE = {
-  // Unchanged: the whole corpus draws on a 24×24 viewBox.
-  canvas: 24,
-  // Measured: margin from the visual extent to the nearest canvas edge, n=2085,
-  // mode 2.0 (46% of icons), median 2.00. A 2.0 rule flags 37%; the article's
-  // 2.5 flags 76%, which is a rule against the set rather than for it.
-  //
-  // UNRESOLVED, and left that way on purpose: 165 icons have a visual extent of
-  // 22 units in x (52 more in y), which leaves 1 unit of clearance, not 2. They
-  // are not scattered — they are a coherent family of things that are wide by
-  // nature: banknote-1, battery-full, battery-empty, aspect-ratio-16-9,
-  // arrow-expand-hor, arc. So either there is a fifth optical shape at 22 that
-  // runs at 1-unit clearance, or that family bleeds and should be pulled in.
-  // Both readings are defensible and the choice is a design call, not a
-  // measurement, so neither is encoded here. Whoever decides it should also
-  // decide whether `clearance` becomes per-keyline.
-  clearance: 2,
-  // Measured: dot diameters across all 2,085 icons of the house variant, taken
-  // as **visual** extent — path bounds plus the stroke, half per side.
-  //
-  // A dot is a solid disc, which in this set means one of two constructions:
-  // a zero-length round-capped segment, Central's idiom, where the stroke width
-  // *is* the diameter; or a circle whose own stroke closes its hole (2r ≤
-  // stroke), i.e. visual diameter ≤ 2×stroke = 4. A circle wider than that is a
-  // ring, and counting rings is what fills a dot census with clock faces and
-  // buttons. n=446 dots over 163 icons. Icon-weighted, four modes:
-  //
-  //   3.0  45 icons (27.6%), 105 dots — dice pips, calendar day marks, eyes
-  //   2.0  35 icons (21.5%), 117 dots — every cap-form dot, by construction
-  //   4.0  27 icons (16.6%),  61 dots — dot grids, bezier handles, chart points
-  //   2.5  20 icons (12.3%),  34 dots — list bullets, task dots, info marks
-  //
-  // Together they are 77.9% of dot-bearing icons and 71.1% of dots exactly
-  // (73.8% within 0.125). There is no fifth mode to find: the next candidates
-  // are 3.5 (7 icons), 2.2 (5 — `adjust-photo`'s fixed-width marks, which
-  // `conform.ts` already treats as a deliberate exception), 2.4 (4), 2.67 (4).
-  //
-  // `node` is new, and it is the corpus correcting the article twice over. The
-  // article's largest tier is a 4.0 "status/attention badge". 4.0 is real and is
-  // the second-commonest dot — but Central never draws a badge at it:
-  // `email-2-unread`'s badge is a 7.0 disc, off the dot scale entirely. 4.0 is
-  // the node size: the cells of `dot-grid-3x3`, the handles of `bezier-curve`,
-  // the points of `insights` and `point-chart`, the centres of `target` and
-  // `radar`.
-  //
-  // Rejected, each with the count that rejects it. 1.5, the article's "fine
-  // detail": 25 dots but only 4 icons, and all four are one family (blur,
-  // unblur, persona, threed), so it is a texture rather than a role. 1.75, the
-  // article's "dots in a row": zero occurrences, and the 51 groups of three or
-  // more same-size dots in the set are drawn at 2.0 / 3.0 / 4.0 like every other
-  // dot, so a row has no size of its own. Both are also undrawable in the house
-  // idiom — no solid disc can be narrower than the 2.0 stroke that draws it.
-  dots: { floating: 3, more: 2.5, node: 4, terminal: 2 },
-  // Fill mode's corner radii, and the one number in this object that is *not*
-  // read off the outlined variant. Source: `bench/filled-language.v1.json`,
-  // 7,018 corners over the 2,085 icons that exist in both
-  // `round-filled-radius-3-stroke-2` and the house outlined variant.
-  //
-  // `radiusTiers` matches 78.4% of outlined corners and only 43.4% of filled
-  // ones, so fill mode cannot reuse it: the commonest filled corner is 4.0
-  // (2,640 corners, 37.6%) and 4 is not a house tier at all. The reason is
-  // geometric rather than stylistic. An outlined corner is a *centre-line*
-  // radius; the filled twin is the same skeleton's boundary, which on the
-  // outside of a turn sits half a stroke further out and on the inside half a
-  // stroke further in. So the fill tiers are the house tiers offset by ±1 and
-  // unioned with themselves, everything at or below 0 dropping out into the
-  // hard corner `tierRadius` already passes through:
-  //
-  //   outer   [0.5,1,2,3] + 1  ->  [1.5, 2, 3, 4]
-  //   inner   [0.5,1,2,3] - 1  ->  [  0, 0, 1, 2]
-  //   union                        [0.5, 1, 1.5, 2, 3, 4]
-  //
-  // That derived set matches 83.2% of filled corners exactly — fill mode
-  // conforms about as well as stroke mode does to its own tiers (78.4%), and
-  // nearly twice as well as it does to the house tiers.
-  //
-  // Rejected: [0.5, 1, 2, 2.5, 3, 4], which measures better still at 86.1%.
-  // Its extra tier is 2.5 (356 corners), and 2.5 is not any house tier plus or
-  // minus half a stroke — it is a fitted constant, and fitting one here would
-  // be the same move `radiusTiers` rejected when it dropped the size-
-  // conditioned split that scored worse than the flat set. The 2.9 points are
-  // the price of a rule that can be derived rather than looked up.
-  fillRadiusTiers: [0.5, 1, 1.5, 2, 3, 4],
-  // Unchanged. Measured: 65.9% of design anchors (subpath starts and straight
-  // segment ends) land on 0.25, 63.3% on 0.5 — quarter steps are rare but real,
-  // so the finer grid stays.
-  grid: 0.25,
-  // Unchanged, and confirmed as the four commonest visual extents in the set.
-  // Joint (w,h) modes, n=2085: 20×20 (349), 18×18 (314), 20×16 (106),
-  // 16×20 (63). Only 44% of icons land within 0.5 of one of the four, so this
-  // is the vocabulary of intended sizes, not a law every icon obeys.
-  //
-  // `landscape` and `portrait` are new, and they are the set correcting the
-  // spec rather than the other way round. Counting within the same ±0.5 window
-  // as the 44% above, they are the two commonest extents the original four did
-  // not describe: 20×18 (77 icons) and 18×20 (76). Both sit exactly between
-  // square and circle — one step off square on a single axis — and their
-  // subjects are consistent: 20×18 holds cameras, bags, folders, coin stacks;
-  // 18×20 holds pages, files, bells, cups, hourglasses. Naming the two lifts
-  // conformance from 44.1% to 54.2% at the same tolerance without moving a
-  // single icon.
-  //
-  // Deliberately not added: a fifth wide shape at 22 units. See `clearance`.
-  keylines: {
-    circle: [20, 20],
-    landscape: [20, 18],
-    portrait: [18, 20],
-    square: [18, 18],
-    tall: [16, 20],
-    wide: [20, 16],
-  },
-  // Fill mode's replacement for `minGap`, and it measures the opposite thing.
-  // `minGap` asks whether two shapes are too close; in a filled icon the
-  // shapes are *meant* to touch — a hole shares its edge with the solid it is
-  // cut from, and only 1.4% of the 6,693 filled solid pairs in the set are
-  // apart at all. What can go wrong instead is a feature too small to survive
-  // being rendered: at the 16px the set is drawn for, one design unit is
-  // 0.667px, so a feature needs 1.5 units to clear a pixel.
-  //
-  // 1.5 is the legibility floor and it also sits in the tail of the set's own
-  // practice rather than at its mode: the smallest dimension of the 1,807
-  // holes has median 3.0, p25 2.0, p10 1.95, and 1.5 fires on 6.6% of them
-  // (0.5% of solids). The same doctrine as `minGap`, which sits at p10 of the
-  // gap distribution rather than at its 2.0 mode — a floor catches outliers.
-  // The set's own tail is real: `safari` alone ships 11 holes under 0.44.
-  minFeature: 1.5,
-  // Measured as an **ink gap** — centre-line distance minus one stroke width —
-  // between separate `<path>` elements, taking each icon's tightest positive
-  // gap: n=1306, median 2.00, p25 1.16, p10 0.83. Pairs that overlap or touch
-  // are excluded; they are compound construction, not spacing, and counting
-  // them drags every low percentile below zero.
-  //
-  // 1.0 flags 14% of icons that have separated shapes. 2.0 — the modal designed
-  // gap — flags 47%, and the article's ~3.75 flags 89%. A floor is for catching
-  // outliers, so it sits at the tail, not at the mode.
-  minGap: 1,
-  // Measured: symmetric-handle corner arcs, n=6188. A flat tier set matches
-  // 78.4% of them exactly; the article's [0.25, 1, 2] matches 23.9% with a
-  // median error of a full pixel, because it has no 3 and 3 is 38% of all
-  // corners in this set. Conditioning tiers on shape size scored worse than the
-  // flat set (71–76%), so the size split is gone.
-  radiusTiers: [0.5, 1, 2, 3],
-  // Unchanged. Measured: 97.5% of stroked shapes are exactly 2.
-  stroke: 2,
-} as const;
-
-/** Optical size the drawing is meant to be shown at, in CSS pixels. The design
- *  grid stays 24; this is the cut. 16px drops hairline corners and terminal
- *  dots because they do not survive a two-thirds scale. */
-export type OpticalSize = 16 | 20 | 24;
-
-export interface Spec {
-  canvas: number;
-  clearance: number;
-  dots: Record<string, number>;
-  fillRadiusTiers: readonly number[];
-  grid: number;
-  keylines: Record<Keyline, readonly [number, number]>;
-  /** Density ceiling. Smaller optical sizes allow fewer marks. */
-  maxElements: number;
-  minFeature: number;
-  minGap: number;
-  /** Family corner, Central's `radius-N`. Caps the outlined tier set. */
-  radius: number;
-  radiusTiers: readonly number[];
-  size: OpticalSize;
-  stroke: number;
-}
-
-const HOUSE_RADIUS_TIERS = [0.5, 1, 2, 3] as const;
-const HOUSE_DOTS: Record<DotRole, number> = { ...HOUSE.dots };
-
-/** Fill tiers are outlined tiers unioned with themselves offset by ±half a
- *  stroke — the derivation behind `HOUSE.fillRadiusTiers`. */
-const fillTiersFrom = (
-  radiusTiers: readonly number[],
-  stroke: number
-): number[] => {
-  const half = stroke / 2;
-  const seen = new Set<number>();
-  for (const t of radiusTiers) {
-    for (const v of [t, t + half, t - half]) {
-      if (v > 0) {
-        seen.add(v);
-      }
-    }
-  }
-  return [...seen].toSorted((a, b) => a - b);
-};
-
-const densityFor = (size: OpticalSize): number => {
-  if (size <= 16) {
-    return 5;
-  }
-  if (size <= 20) {
-    return 6;
-  }
-  return 8;
-};
-
-/**
- * A cut of the house spec. The design viewBox stays 24; `size` is what it is
- * shown at. Stroke and family radius are the other two knobs Central already
- * names (`stroke-2`, `radius-3`).
- *
- * At 16px, one design unit is 0.667px: the 0.5 radius tier and the 2.0
- * terminal dot fall under a pixel and drop out, `minFeature` grows so a hole
- * still clears a device pixel, and density tightens. The model never picks
- * those numbers — `specAt` does, and the canvas snaps to what remains.
- */
-export const specAt = ({
-  radius = 3,
-  size = 24,
-  stroke = 2,
-}: {
-  radius?: number;
-  size?: OpticalSize;
-  stroke?: number;
-} = {}): Spec => {
-  if (size === 24 && stroke === 2 && radius === 3) {
-    return {
-      canvas: HOUSE.canvas,
-      clearance: HOUSE.clearance,
-      dots: { ...HOUSE.dots },
-      fillRadiusTiers: HOUSE.fillRadiusTiers,
-      grid: HOUSE.grid,
-      keylines: HOUSE.keylines,
-      maxElements: 8,
-      minFeature: HOUSE.minFeature,
-      minGap: HOUSE.minGap,
-      radius: 3,
-      radiusTiers: HOUSE.radiusTiers,
-      size: 24,
-      stroke: 2,
-    };
-  }
-  const radiusTiers = HOUSE_RADIUS_TIERS.filter(
-    (t) => t <= radius && (size >= 24 || t >= 1)
-  );
-  const unitPx = size / HOUSE.canvas;
-  const dots = Object.fromEntries(
-    Object.entries(HOUSE_DOTS).filter(
-      ([, d]) => size >= 24 || d * unitPx >= 1.5
-    )
-  );
-  return {
-    canvas: HOUSE.canvas,
-    clearance: HOUSE.clearance,
-    dots: Object.keys(dots).length > 0 ? dots : { node: HOUSE_DOTS.node },
-    fillRadiusTiers: fillTiersFrom(radiusTiers, stroke),
-    grid: HOUSE.grid,
-    keylines: HOUSE.keylines,
-    maxElements: densityFor(size),
-    minFeature: Math.max(HOUSE.minFeature, 1.5 / unitPx),
-    minGap: HOUSE.minGap * (HOUSE.canvas / size),
-    radius,
-    radiusTiers,
-    size,
-    stroke,
-  };
-};
-
-/** House cut: 24px, stroke 2, radius 3. Every existing call site. */
-export const SPEC: Spec = specAt();
+export { SPEC, specAt } from "./spec.js";
+export type { OpticalSize, Spec } from "./spec.js";
 
 /** Circular arc → cubic control handle ratio. */
 const K = 0.5523;
@@ -364,6 +94,9 @@ const clamp = (v: number, lo: number, hi: number) =>
 const onCanvas = (v: number, spec: Spec) =>
   q(clamp(v, 0, spec.canvas), spec.grid);
 const nearest = (targets: readonly number[], v: number): number => {
+  if (!targets.length) {
+    throw new Error("This style has no positive radius tiers; use r0");
+  }
   let [best] = targets;
   for (const t of targets) {
     if (Math.abs(t - v) < Math.abs(best - v)) {
@@ -497,6 +230,8 @@ const offAxisMessage = (
 export type Op = "add" | "knockout";
 
 export type Element = {
+  /** Derived from a solid modifier recipe; zero means this element is already ink. */
+  strokeWidth?: number;
   fillRule?: "nonzero";
   op?: Op;
 } & (
@@ -536,6 +271,9 @@ export type Element = {
       d: string;
       id: string;
       kind: "line";
+      solid?: true;
+      weight?: "detail";
+      r?: number;
       /** Set only when a segment actually ended up off every axis, so the
        *  document records the geometry rather than the permission. */
       offAxis?: boolean;
@@ -554,7 +292,7 @@ export type Element = {
       x: number;
       y: number;
     }
-  | { d: string; id: string; kind: "raw" }
+  | { d: string; id: string; kind: "raw"; composition?: BooleanDrawOp }
   | {
       d: string;
       h: number;
@@ -777,6 +515,64 @@ export type HoleShape =
     }
   | { h: number; r?: number; shape: "rect"; w: number; x: number; y: number };
 
+const strokeStyle = (spec: Spec) => ({
+  cap: spec.strokeCap ?? "round",
+  join: spec.strokeJoin ?? "round",
+});
+
+const sharpLinePath = (points: [number, number][]): string => {
+  const closed =
+    points.length > 2 &&
+    points[0][0] === points.at(-1)?.[0] &&
+    points[0][1] === points.at(-1)?.[1];
+  for (let i = 1; i < points.length; i += 1) {
+    if (
+      points[i][0] === points[i - 1][0] &&
+      points[i][1] === points[i - 1][1]
+    ) {
+      throw new Error("Sharp line contains a zero-length segment");
+    }
+  }
+  const vertices = closed ? points.slice(0, -1) : points;
+  return (
+    vertices.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x} ${y}`).join("") +
+    (closed ? "Z" : "")
+  );
+};
+
+const validateSolidLine = (
+  solid: boolean,
+  r: number | undefined,
+  out: [number, number][]
+): void => {
+  if (
+    solid &&
+    (r === undefined ||
+      out[0][0] !== out.at(-1)?.[0] ||
+      out[0][1] !== out.at(-1)?.[1])
+  ) {
+    throw new Error(
+      "Solid line requires an explicitly closed contour and radius"
+    );
+  }
+};
+
+const validateLineKnockout = (op: Extract<DrawOp, { op: "line" }>): void => {
+  if (op.knockout && (op.r !== undefined || op.solid || op.weight)) {
+    throw new Error(
+      "Rounded, solid or detail line knockouts require explicit subtraction"
+    );
+  }
+};
+
+interface LineArgs {
+  weight?: "detail";
+  solid?: boolean;
+  offAxis?: boolean;
+  r?: number;
+  points: [number, number][];
+}
+
 export class Canvas {
   elements: Element[] = [];
   log: string[] = [];
@@ -921,18 +717,22 @@ export class Canvas {
     const cy = onCanvas(args.cy, this.spec);
     const r = q(args.r, this.spec.grid);
     const ccw = Boolean(args.ccw);
-    const d =
-      this.finish === "filled"
-        ? filledArcPath(
-            cx,
-            cy,
-            r,
-            args.from,
-            args.sweep,
-            ccw,
-            this.spec.stroke / 2
-          )
-        : arcPath(cx, cy, r, args.from, args.sweep, ccw);
+    const centerline = arcPath(cx, cy, r, args.from, args.sweep, ccw);
+    let d = centerline;
+    if (this.finish === "filled") {
+      d =
+        this.spec.strokeCap === "square"
+          ? expandStroke(centerline, this.spec.stroke, strokeStyle(this.spec))
+          : filledArcPath(
+              cx,
+              cy,
+              r,
+              args.from,
+              args.sweep,
+              ccw,
+              this.spec.stroke / 2
+            );
+    }
     return this.#push((id) => ({
       ...(ccw ? { ccw: true as const } : {}),
       cx,
@@ -941,9 +741,118 @@ export class Canvas {
       from: args.from,
       id,
       kind: "arc" as const,
+      ...(this.finish === "filled" && this.spec.strokeCap === "square"
+        ? { fillRule: "nonzero" as const }
+        : {}),
       r,
       sweep: args.sweep,
     }));
+  }
+
+  /** Combine two complete solid groups. Operands stay editable in the recipe;
+   * only host-computed path data is cached on the rendered element. */
+  combine(
+    operation: BooleanOperation,
+    leftId?: string,
+    rightId?: string
+  ): string {
+    this.#checkCompositionFinish(operation);
+    const groups = this.#groups();
+    const left = leftId
+      ? groups.find((g) => g[0].id === leftId)
+      : groups.at(-2);
+    const right = rightId
+      ? groups.find((g) => g[0].id === rightId)
+      : groups.at(-1);
+    if (!left || !right || left === right) {
+      throw new Error("Boolean operation needs two different solid groups");
+    }
+    if (operation === "trim" && left.some((e) => e.strokeWidth === 0)) {
+      throw new Error(
+        "Trim requires an outlined centerline, not a solid modifier"
+      );
+    }
+    const recipe = (elements: Element[]): DrawOp[] => {
+      const c = new Canvas([...this.parts.values()], {
+        finish: "filled",
+        spec: this.spec,
+      });
+      c.elements.push(...elements);
+      return c.toJSON().draw;
+    };
+    const op: BooleanDrawOp = {
+      left: recipe(left),
+      op: "boolean",
+      operation,
+      right: recipe(right),
+    };
+    // Compute before changing this canvas; errors leave both operands intact.
+    const data = this.#compositionData(op);
+    const used = new Set([...left, ...right]);
+    this.elements.splice(
+      0,
+      this.elements.length,
+      ...this.elements.filter((e) => !used.has(e))
+    );
+    return this.#push((id) => ({
+      composition: op,
+      ...data,
+      fillRule: "nonzero",
+      id,
+      kind: "raw",
+    }));
+  }
+
+  #checkCompositionFinish(operation: BooleanOperation): void {
+    if (
+      operation === "trim"
+        ? this.finish !== "outlined"
+        : this.finish !== "filled"
+    ) {
+      throw new Error(
+        operation === "trim"
+          ? "Trim requires outlined paths"
+          : "Boolean recipes require filled shapes"
+      );
+    }
+  }
+
+  #compositionData(op: BooleanDrawOp): { d: string; strokeWidth?: number } {
+    this.#checkCompositionFinish(op.operation);
+    const operand = (draw: DrawOp[], finish: Finish) => {
+      if (draw.some((item) => item.op === "raw")) {
+        throw new Error("Raw paths cannot enter a Boolean recipe");
+      }
+      const c = Canvas.fromJSON(
+        { draw, finish, icon: null, keyline: null },
+        [...this.parts.values()],
+        this.spec
+      );
+      const groups = c.#groups();
+      if (groups.length !== 1) {
+        throw new Error("A Boolean operand must be one solid group");
+      }
+      return {
+        d: groups[0].map((e) => e.d).join(""),
+        fillRule:
+          groups[0].length > 1 && "composition" in groups[0][0]
+            ? undefined
+            : groups[0][0].fillRule,
+        strokeWidth: groups[0][0].strokeWidth,
+      };
+    };
+    const left = operand(op.left, this.finish);
+    if (op.operation === "trim" && left.strokeWidth === 0) {
+      throw new Error(
+        "Trim requires an outlined centerline, not a solid modifier"
+      );
+    }
+    return {
+      d: combinePaths(op.operation, left, operand(op.right, "filled")),
+      ...(op.operation === "trim" && left.strokeWidth !== undefined
+        ? { strokeWidth: left.strokeWidth }
+        : {}),
+    };
   }
 
   /**
@@ -1069,21 +978,36 @@ export class Canvas {
    * letting `evenodd` cancel their joins into white dots.
    */
   #barPath(a: [number, number], b: [number, number]): string {
+    if (this.spec.strokeCap === "square") {
+      return expandStroke(sharpLinePath([a, b]), this.spec.stroke, {
+        cap: "square",
+        join: this.spec.strokeJoin ?? "round",
+      });
+    }
     const half = this.spec.stroke / 2;
     const dx = b[0] - a[0];
     const dy = b[1] - a[1];
+    if (
+      Math.abs(dx) < this.spec.grid / 2 ||
+      Math.abs(dy) < this.spec.grid / 2
+    ) {
+      return rectPath(
+        Math.min(a[0], b[0]) - half,
+        Math.min(a[1], b[1]) - half,
+        Math.abs(dx) + this.spec.stroke,
+        Math.abs(dy) + this.spec.stroke,
+        half
+      );
+    }
     const len = Math.hypot(dx, dy) || 1;
     const px = (-dy / len) * half;
     const py = (dx / len) * half;
-    const qn = (v: number): number => q(v, this.spec.grid);
+    // Endpoints already obey the placement grid. Normal offsets describe the
+    // stroke envelope, not new model vertices: snapping them changes weight.
     const body =
-      `M${qn(a[0] + px)} ${qn(a[1] + py)}L${qn(a[0] - px)} ${qn(a[1] - py)}` +
-      `L${qn(b[0] - px)} ${qn(b[1] - py)}L${qn(b[0] + px)} ${qn(b[1] + py)}Z`;
-    return (
-      circlePath(qn(a[0]), qn(a[1]), qn(half)) +
-      circlePath(qn(b[0]), qn(b[1]), qn(half)) +
-      body
-    );
+      `M${a[0] + px} ${a[1] + py}L${a[0] - px} ${a[1] - py}` +
+      `L${b[0] - px} ${b[1] - py}L${b[0] + px} ${b[1] + py}Z`;
+    return circlePath(a[0], a[1], half) + circlePath(b[0], b[1], half) + body;
   }
 
   #holeBar(
@@ -1092,30 +1016,6 @@ export class Canvas {
     b: [number, number],
     offAxis: boolean
   ): string {
-    const bar = this.spec.stroke;
-    const half = bar / 2;
-    const dx = b[0] - a[0];
-    const dy = b[1] - a[1];
-    if (Math.abs(dy) < this.spec.grid / 2) {
-      const x = Math.min(a[0], b[0]);
-      return this.hole({
-        h: bar,
-        shape: "rect",
-        w: Math.abs(dx) + bar,
-        x: x - half,
-        y: a[1] - half,
-      });
-    }
-    if (Math.abs(dx) < this.spec.grid / 2) {
-      const y = Math.min(a[1], b[1]);
-      return this.hole({
-        h: Math.abs(dy) + bar,
-        shape: "rect",
-        w: bar,
-        x: a[0] - half,
-        y: y - half,
-      });
-    }
     const make = (id: string): Element => ({
       d: this.#barPath(a, b),
       id,
@@ -1220,15 +1120,57 @@ export class Canvas {
    * `lint.ts` still raises its `off-axis` warning on a declared diagonal, which
    * is the reviewer seeing it that this paragraph is about.
    */
-  line({
+  line(args: LineArgs): string {
+    if (args.weight === undefined) {
+      return this.#line(args);
+    }
+    const width = this.spec.detailStroke;
+    if (
+      args.weight !== "detail" ||
+      width === undefined ||
+      !Number.isFinite(width) ||
+      width <= 0 ||
+      width > this.spec.stroke
+    ) {
+      throw new Error(
+        "Detail lines require a positive detailStroke no greater than the family stroke"
+      );
+    }
+    const c = new Canvas([], {
+      finish: this.finish,
+      spec: { ...this.spec, stroke: width },
+    });
+    c.#line(args);
+    const [e] = c.elements;
+    if (e.kind !== "line") {
+      throw new Error("Detail line must retain its recipe");
+    }
+    return this.#push((id) => ({
+      ...e,
+      id,
+      weight: "detail",
+      ...(this.finish === "outlined" && !args.solid
+        ? { strokeWidth: width }
+        : {}),
+    }));
+  }
+
+  #line({
+    solid = false,
     offAxis = false,
+    r = needsStrokeBounds(this.spec) ? 0 : undefined,
     points: pts,
   }: {
+    solid?: boolean;
     offAxis?: boolean;
+    r?: number;
     points: [number, number][];
   }): string {
     if (!Array.isArray(pts) || pts.length < 2) {
       throw new Error("line needs >= 2 points");
+    }
+    if (r !== undefined && (!Number.isFinite(r) || r < 0)) {
+      throw new Error("Line radius must be finite and nonnegative");
     }
     const out: [number, number][] = [
       [onCanvas(pts[0][0], this.spec), onCanvas(pts[0][1], this.spec)],
@@ -1252,6 +1194,37 @@ export class Canvas {
         free = true;
       }
       out.push([q(sx, this.spec.grid), q(sy, this.spec.grid)]);
+    }
+    validateSolidLine(solid, r, out);
+    if (r !== undefined) {
+      // Radius describes the centerline in both paints, not the outer ink.
+      const radius = tierRadius(r, "outlined", this.spec);
+      const centerline =
+        radius === 0 ? sharpLinePath(out) : roundedLinePath(out, radius);
+      const painted = this.finish === "filled" || solid;
+      let d = painted
+        ? expandStroke(centerline, this.spec.stroke, strokeStyle(this.spec))
+        : centerline;
+      if (solid) {
+        d = combinePaths(
+          "union",
+          { d, fillRule: "nonzero" },
+          { d: centerline, fillRule: "nonzero" }
+        );
+      }
+      return this.#push((id) => ({
+        d,
+        id,
+        kind: "line",
+        ...(painted ? { fillRule: "nonzero" as const } : {}),
+        ...(solid && this.finish === "outlined"
+          ? { strokeWidth: 0 as const }
+          : {}),
+        points: out,
+        r: radius,
+        ...(solid ? { solid: true as const } : {}),
+        ...(free ? { offAxis: true } : {}),
+      }));
     }
     if (this.finish === "filled") {
       // An open polyline encloses no area. The filled twin is that stroke
@@ -1285,21 +1258,8 @@ export class Canvas {
     b: [number, number],
     offAxis = false
   ): string {
-    const bar = this.spec.stroke;
-    const half = bar / 2;
-    const dx = b[0] - a[0];
-    const dy = b[1] - a[1];
-    // Axial bars paint as square-ended rects and diagonal ones as round-capped
-    // stadiums; that difference is the drawing and is kept. What they share is
-    // that every one of them is a stroke already expanded, so all of them keep
-    // the `line` op and the two points it was asked for.
-    //
-    // Emitting them as `rect` elements, or as the `raw` escape, threw the
-    // skeleton away — and a `rect`'s height is a dimension, while `raw` cannot
-    // be re-emitted through a primitive at all. Either way `transform` scaled
-    // the ink: a filled bar fitted to `square` came out 3 units thick against
-    // a spec stroke of 2, and `programFromDoc` dropped the `raw` ones from the
-    // program entirely.
+    // Re-derive ink from grid-constrained endpoints. Keep the line recipe so
+    // transforms preserve stroke weight rather than scaling stored dimensions.
     const painted = (d: string): string =>
       this.#push((id) => ({
         d,
@@ -1309,28 +1269,6 @@ export class Canvas {
         points: [a, b] as [number, number][],
         ...(offAxis ? { offAxis: true as const } : {}),
       }));
-    if (Math.abs(dy) < this.spec.grid / 2) {
-      const x = Math.min(a[0], b[0]);
-      return painted(
-        this.#rectElement("probe", {
-          h: bar,
-          w: Math.abs(dx) + bar,
-          x: x - half,
-          y: a[1] - half,
-        }).d
-      );
-    }
-    if (Math.abs(dx) < this.spec.grid / 2) {
-      const y = Math.min(a[1], b[1]);
-      return painted(
-        this.#rectElement("probe", {
-          h: Math.abs(dy) + bar,
-          w: bar,
-          x: a[0] - half,
-          y: y - half,
-        }).d
-      );
-    }
     return painted(this.#barPath(a, b));
   }
 
@@ -1475,6 +1413,9 @@ export class Canvas {
         `unknown part ${id} — call listParts to see the vocabulary`
       );
     }
+    const preserve = this.spec.partGeometry === "source";
+    const px = preserve ? q(x, this.spec.grid) : x;
+    const py = preserve ? q(y, this.spec.grid) : y;
     const t = quarterTurn(turn);
     // Reflect then turn, the order `parts/shape.ts` compares under, so a
     // `{turn, flip}` the clusterer measured places back as the same shape.
@@ -1483,7 +1424,7 @@ export class Canvas {
     );
     const b = bbox(placed);
     const moved = placed.map((sp) =>
-      translate(scale(sp, k), x - b.x0 * k, y - b.y0 * k)
+      translate(scale(sp, k), px - b.x0 * k, py - b.y0 * k)
     );
     if (this.finish === "filled" && !p.closed) {
       // The vocabulary is extracted from a stroked set, so most of its marks
@@ -1495,25 +1436,31 @@ export class Canvas {
     return this.#push((elId) =>
       flip
         ? {
-            d: serialise(moved, { grid: this.spec.grid }),
+            d: serialise(
+              moved,
+              preserve ? undefined : { grid: this.spec.grid }
+            ),
             flip: true,
             id: elId,
             kind: "part",
             partId: id,
             scale: k,
             turn: t,
-            x,
-            y,
+            x: px,
+            y: py,
           }
         : {
-            d: serialise(moved, { grid: this.spec.grid }),
+            d: serialise(
+              moved,
+              preserve ? undefined : { grid: this.spec.grid }
+            ),
             id: elId,
             kind: "part",
             partId: id,
             scale: k,
             turn: t,
-            x,
-            y,
+            x: px,
+            y: py,
           }
     );
   }
@@ -1604,6 +1551,9 @@ export class Canvas {
     // error and hands the wreckage to lint and pairing anyway — which is where
     // an impossible "extent 2.0x3.0 does not match 18.0x18.0" reading came
     // from. The failure a reviewer sees has to be the one that happened.
+    if (this.elements.some((e) => e.kind === "raw" && e.composition)) {
+      throw new Error("Transform the operands before Boolean composition");
+    }
     const src = this.elements;
     const next = new Canvas([...this.parts.values()], {
       finish: this.finish,
@@ -1671,6 +1621,9 @@ export class Canvas {
         next.line({
           offAxis: e.offAxis,
           points: e.points.map(([x, y]) => [x * k + tx, y * k + ty]),
+          r: e.r,
+          solid: e.solid,
+          weight: e.weight,
         });
       } else if (e.kind === "part") {
         // A similarity transform preserves chirality, so the reflection has to
@@ -1760,6 +1713,44 @@ export class Canvas {
    * stroke-derived ones can give back the skeleton they were grown from. A
    * `raw` escape cannot, and is measured as it stands.
    */
+  visualBbox(): Box | null {
+    if (
+      this.finish === "outlined" &&
+      (needsStrokeBounds(this.spec) ||
+        this.elements.some((e) => e.strokeWidth !== undefined)) &&
+      this.elements.length
+    ) {
+      return bbox(
+        this.elements.flatMap((e) =>
+          parsePath(
+            e.strokeWidth === 0
+              ? e.d
+              : expandStroke(e.d, e.strokeWidth ?? this.spec.stroke, {
+                  cap:
+                    e.kind === "dot"
+                      ? "round"
+                      : (this.spec.strokeCap ?? "round"),
+                  join: this.spec.strokeJoin ?? "round",
+                })
+          )
+        )
+      );
+    }
+    const box = this.bbox();
+    if (!box) {
+      return null;
+    }
+    const half = this.inkWidth / 2;
+    return {
+      h: box.h + 2 * half,
+      w: box.w + 2 * half,
+      x0: box.x0 - half,
+      x1: box.x1 + half,
+      y0: box.y0 - half,
+      y1: box.y1 + half,
+    };
+  }
+
   skeletonBbox(): Box | null {
     if (!this.elements.length) {
       return null;
@@ -1767,9 +1758,20 @@ export class Canvas {
     if (this.finish !== "filled") {
       return this.bbox();
     }
-    const half = this.spec.stroke / 2;
     const boxes = this.elements.map((e) => {
+      const half =
+        (e.kind === "line" && e.weight
+          ? (this.spec.detailStroke ?? this.spec.stroke)
+          : this.spec.stroke) / 2;
       const painted = bbox(parsePath(e.d));
+      if (
+        (this.spec.strokeJoin === "miter" ||
+          this.spec.strokeCap === "square") &&
+        e.kind === "line" &&
+        e.points
+      ) {
+        return bbox(parsePath(sharpLinePath(e.points)));
+      }
       if (e.kind === "line" || e.kind === "arc" || e.kind === "diamond") {
         return {
           x0: painted.x0 + half,
@@ -1797,6 +1799,17 @@ export class Canvas {
    */
   inkExtent(): { x: number; y: number } {
     if (this.finish !== "filled") {
+      if (
+        this.spec.strokeJoin === "miter" ||
+        this.spec.strokeCap === "square" ||
+        this.elements.some((e) => e.strokeWidth !== undefined)
+      ) {
+        const ink = this.visualBbox(),
+          skeleton = this.bbox();
+        if (ink && skeleton) {
+          return { x: ink.w - skeleton.w, y: ink.h - skeleton.h };
+        }
+      }
       return { x: this.inkWidth, y: this.inkWidth };
     }
     const painted = this.bbox();
@@ -1831,13 +1844,28 @@ export class Canvas {
         ? this.#groups()
             .map((g) => {
               const fillRule = g[0]?.fillRule ?? "evenodd";
-              return `<path d="${g.map((e) => e.d).join("")}" fill="currentColor" fill-rule="${fillRule}" clip-rule="${fillRule}"/>`;
+              const d =
+                g.length > 1 && fillRule === "nonzero"
+                  ? combinePaths(
+                      "subtract",
+                      { d: g[0].d, fillRule },
+                      {
+                        d: g
+                          .slice(1)
+                          .map((e) => e.d)
+                          .join(""),
+                        fillRule: "evenodd",
+                      }
+                    )
+                  : g.map((e) => e.d).join("");
+              return `<path d="${d}" fill="currentColor" fill-rule="${fillRule}" clip-rule="${fillRule}"/>`;
             })
             .join("\n")
         : this.elements
-            .map(
-              (e) =>
-                `<path d="${e.d}" stroke="currentColor" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"/>`
+            .map((e) =>
+              e.strokeWidth === 0
+                ? `<path d="${e.d}" fill="currentColor" fill-rule="nonzero"/>`
+                : `<path d="${e.d}" stroke="currentColor" stroke-width="${e.strokeWidth ?? width}" stroke-linecap="${e.kind === "dot" ? "round" : (this.spec.strokeCap ?? "round")}" stroke-linejoin="${this.spec.strokeJoin ?? "round"}"${this.spec.strokeJoin === "miter" ? ' stroke-miterlimit="4"' : ""}/>`
             )
             .join("\n");
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">\n${paths}\n</svg>`;
@@ -1858,6 +1886,9 @@ export class Canvas {
         // `flip`: the key appears with the geometry it describes, so a diff
         // showing it shows a shape that changed from ink to absence.
         const cut = e.op === "knockout" ? { knockout: true as const } : null;
+        if (e.kind === "raw" && e.composition) {
+          return structuredClone(e.composition);
+        }
         if (e.kind === "rect") {
           return {
             h: e.h,
@@ -1902,9 +1933,15 @@ export class Canvas {
           // Written only when it is true, so a document gains the key when it
           // gains the geometry — a diff that shows `offAxis` shows a real
           // change of shape, not a change of how the line was requested.
-          return e.offAxis
-            ? { offAxis: true, op: "line", points: e.points, ...cut }
-            : { op: "line", points: e.points, ...cut };
+          return {
+            op: "line",
+            points: e.points,
+            ...(e.offAxis ? { offAxis: true } : {}),
+            ...(e.r === undefined ? {} : { r: e.r }),
+            ...(e.solid ? { solid: true as const } : {}),
+            ...(e.weight ? { weight: e.weight } : {}),
+            ...cut,
+          };
         }
         if (e.kind === "part") {
           const op = {
@@ -1964,6 +2001,7 @@ export class Canvas {
       } else if (op.op === "dot") {
         c.dot(op);
       } else if (op.op === "line") {
+        validateLineKnockout(op);
         if (op.knockout) {
           c.hole({
             offAxis: op.offAxis,
@@ -1971,10 +2009,25 @@ export class Canvas {
             shape: "line",
           });
         } else {
-          c.line({ offAxis: op.offAxis, points: op.points });
+          c.line({
+            offAxis: op.offAxis,
+            points: op.points,
+            r: op.r,
+            solid: op.solid,
+            weight: op.weight,
+          });
         }
       } else if (op.op === "part") {
         c.part(op);
+      } else if (op.op === "boolean") {
+        const data = c.#compositionData(op);
+        c.#push((id) => ({
+          composition: structuredClone(op),
+          ...data,
+          fillRule: "nonzero",
+          id,
+          kind: "raw",
+        }));
       } else if (op.op === "raw") {
         c.raw(op.d, op.fillRule);
       } else {

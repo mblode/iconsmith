@@ -1,0 +1,407 @@
+{
+  "count": 57,
+  "method": "Explicit stroke-width attributes only; distinct strings, not semantic weight roles or inherited/computed styles",
+  "files": [
+    {
+      "file": "steering-wheel.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-dots.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "vibe-coding-bird.svg",
+      "widths": [
+        "1.5",
+        "2"
+      ]
+    },
+    {
+      "file": "robot-3.svg",
+      "widths": [
+        "1.6",
+        "2"
+      ]
+    },
+    {
+      "file": "wallet-3.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "gamecontroller.svg",
+      "widths": [
+        "1.7",
+        "2"
+      ]
+    },
+    {
+      "file": "circle-dots-center-2.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "cloud-sync-2.svg",
+      "widths": [
+        "1.9",
+        "2"
+      ]
+    },
+    {
+      "file": "math-basic.svg",
+      "widths": [
+        "2",
+        "2.2"
+      ]
+    },
+    {
+      "file": "emoji-neutral.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "write-3.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "steve-jobs.svg",
+      "widths": [
+        "1.5",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-wide-annotation.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "coin-pesos.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "window-2.svg",
+      "widths": [
+        ".5",
+        "2"
+      ]
+    },
+    {
+      "file": "server.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "scan-voice.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "radio.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "user-block.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-question.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "coin-rupees.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "devices-2.svg",
+      "widths": [
+        "1.9",
+        "2"
+      ]
+    },
+    {
+      "file": "team.svg",
+      "widths": [
+        "1.9",
+        "2"
+      ]
+    },
+    {
+      "file": "versus-circle.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "coin-won.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "coin-lira.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "coin-rand.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "percent.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "sidebar.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "airpod-case.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "wifi-weak.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "circle-info.svg",
+      "widths": [
+        ".5",
+        "2"
+      ]
+    },
+    {
+      "file": "window-cursor.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "gyroscope-sensor.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "full-moon.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "education.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "window-app.svg",
+      "widths": [
+        ".5",
+        "2"
+      ]
+    },
+    {
+      "file": "hermes-helmet.svg",
+      "widths": [
+        "1.7",
+        "2"
+      ]
+    },
+    {
+      "file": "line-thickness.svg",
+      "widths": [
+        "1.5",
+        "2.5",
+        "3.5"
+      ]
+    },
+    {
+      "file": "password-stars.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "adjust-photo.svg",
+      "widths": [
+        "2",
+        "2.2"
+      ]
+    },
+    {
+      "file": "wifi-full.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-annotation-3.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "pan.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-annotation-2.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-annotation-6.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "email-2-block.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "conductor.svg",
+      "widths": [
+        "1.5",
+        "2"
+      ]
+    },
+    {
+      "file": "heart-donation.svg",
+      "widths": [
+        "1.7",
+        "2"
+      ]
+    },
+    {
+      "file": "calculator.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "quick-ai.svg",
+      "widths": [
+        "1.8",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-annotation-5.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "phone-top-dynamic-island.svg",
+      "widths": [
+        "1.5",
+        "2"
+      ]
+    },
+    {
+      "file": "gamepad.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "bubble-annotation-4.svg",
+      "widths": [
+        ".75",
+        "2"
+      ]
+    },
+    {
+      "file": "desk-lamp.svg",
+      "widths": [
+        "1.5",
+        "2"
+      ]
+    },
+    {
+      "file": "robot-head-slop.svg",
+      "widths": [
+        "1.6",
+        "1.9",
+        "2"
+      ]
+    }
+  ]
+}

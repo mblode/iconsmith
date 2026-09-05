@@ -1,0 +1,90 @@
+{
+  "out": ".staging/foundry-round-1/local-cloud-base-repair-01",
+  "paints": [
+    {
+      "paint": "outlined",
+      "programHash": "072bfaf272d56649fb3add8a71ee0ac3237c79851b0c094f6d480c544cb1713b"
+    },
+    {
+      "paint": "filled",
+      "programHash": "a724c9813a2c4ab92d63d73dc40092348476d9c8010364cc8ffdca17ee69e508"
+    }
+  ],
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "large",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "style": "c1eae90f1ddac268aab03b7b1a19a5810f82d804d6a0d6a5811c5afd423ab978",
+    "authorExitCode": 0,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [
+      {
+        "message": "Visual extent 22.0\u00d716.0 matches no keyline within \u00b11 (circle 20\u00d720, landscape 20\u00d718, portrait 18\u00d720, square 18\u00d718, tall 16\u00d720, wide 20\u00d716). Nearest is landscape 20\u00d718 (2.0 away). Off-keyline is legal \u2014 Central's key shapes are guidelines \u2014 so treat this as a prompt to check the size was chosen, not drifted.",
+        "rule": "keyline",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Visual extent 22.0\u00d716.0 matches no keyline within \u00b11 (circle 20\u00d720, landscape 20\u00d718, portrait 18\u00d720, square 18\u00d718, tall 16\u00d720, wide 20\u00d716). Nearest is landscape 20\u00d718 (2.0 away). Off-keyline is legal \u2014 Central's key shapes are guidelines \u2014 so treat this as a prompt to check the size was chosen, not drifted.",
+        "rule": "keyline",
+        "severity": "warn",
+        "finish": "filled"
+      },
+      {
+        "message": "e10 contour 2 has a 0.03-unit short-axis bounding box (0.03px at 24px), below the selected 1.5-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+        "rule": "feature",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [
+      {
+        "message": "e10 contour 2 has a 0.03-unit short-axis bounding box (0.03px at 24px), below the selected 1.5-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+        "rule": "feature",
+        "severity": "warn"
+      }
+    ],
+    "preview16": "downsample",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-round-1/local-cloud-base-repair-01/check-VaV8Dy",
+    "style": "c1eae90f1ddac268aab03b7b1a19a5810f82d804d6a0d6a5811c5afd423ab978"
+  },
+  "exactReplay": true,
+  "exactOriginalModifier": true,
+  "hostInspectedSizes": [
+    96,
+    24,
+    16
+  ],
+  "craftApproved": false,
+  "hostFindings": [
+    "Recognizable cloud/check; flat base and readable counter",
+    "22x16 extent matches supplied references; keyline warnings justified",
+    "Base notches removed: two base joins tangent at0degrees; intentional shoulder corners retained",
+    "Successful development pair, not independent professional qualification",
+    "Rejected as final repair: new unintended transparent interior hole 0.08754x0.02509 units, verified by signed contour area and nonzero point containment; author bookkeeping claim false"
+  ],
+  "apiTotal": 10.6590496,
+  "apiHolds": 0,
+  "subscriptionUsage": "unmeasured",
+  "outlinedProgramUnchanged": true,
+  "filledCheckCounterUnchanged": true
+}
