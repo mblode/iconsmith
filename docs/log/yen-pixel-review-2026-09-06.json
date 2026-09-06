@@ -1,0 +1,19 @@
+{
+  "answers": {
+    "crossbar-gap": {
+      "choice": "separated",
+      "evidence": "Native row 9 reads 255 at x=5,6 and 255 at x=9,10 — pure background on both sides of the stem — while the two crossbar rows 8 and 10 are dark at those same columns (x=5..10 = 60,17,7,7,17,60). The only ink in row 9 is the central stem at x=7,8 (102,102), which is the intended join, and the 8x enlargement shows the same unbroken white band left and right of it.",
+      "treatment": "No defect observed; no change needed."
+    }
+  },
+  "model": "claude-opus-5[1m]",
+  "status": "complete",
+  "apiChargeUsd": null,
+  "billing": "subscription",
+  "craftApproved": false,
+  "evidenceHashes": {
+    "proof.png": "214746b3ca964448e776562c78804a125b88ab8e96803e3c637fbfd8d5fbc810",
+    "native.png": "e34a73284f06e1c18caa8306fc3c7ade19c9788b662778bd15329d4463c44709"
+  },
+  "instrumentQualified": false
+}

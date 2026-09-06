@@ -1,0 +1,19 @@
+icon cloud-upload
+keyline square
+finish filled
+circle 12,9 r6
+circle 6.5,12.5 r3.5
+union
+circle 17.5,12.5 r3.5
+union
+rect 6.5,9.5 11x6.5 r0
+union
+line 12,9.5 17,14.5 12,19.5 7,14.5 12,9.5 r1 solid
+rect 10,12 4x10 r1
+union
+subtract
+line 12,11.5 12,20
+line 12,11.5 9,14.5
+union
+line 12,11.5 15,14.5
+union

@@ -1,0 +1,195 @@
+{
+  "experiment": "A081",
+  "weights": [
+    1.8,
+    1.65,
+    1.5
+  ],
+  "nativeSize": 16,
+  "compiler": "iconsmith-constrained-14",
+  "sourceProgramHashes": {
+    "outlined": "4edbbeffdeeec2615023c301b988c146ccc7ff8a7c00f60ecbe9a3e6a68592f8",
+    "filled": "b876058164f33f68f34b29c110095211841afd491512a9457020532cb47279c2"
+  },
+  "variables": [
+    "detailStroke"
+  ],
+  "excludedClaims": [
+    "fresh generation",
+    "style qualification",
+    "heldout acceptance",
+    "training necessity"
+  ],
+  "apiCalls": 0,
+  "manifestHash": "03235bd41584a8314048ec476642d1e0b2c9920f0bb882ca8609bb244d6c52b1",
+  "results": [
+    {
+      "weight": 1.8,
+      "styleKey": "2558118601eaf93a2426675cfac4bf36fce5c01f618f873ca7795e39ea5ac609",
+      "paints": {
+        "outlined": {
+          "svgHash": "e6cbc823c8988a2d305267663d7b82e1c5c9480e1cadf1472e434511f5586f09",
+          "programHash": "4edbbeffdeeec2615023c301b988c146ccc7ff8a7c00f60ecbe9a3e6a68592f8",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 74.73725490196084,
+              "samples": {
+                "terminalTop": 191,
+                "terminalBottom": 191,
+                "centralTop": 221,
+                "centralBottom": 221,
+                "barTop": 0,
+                "barBottom": 0,
+                "rightOpening": 255
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 297.9999999999999
+            }
+          }
+        },
+        "filled": {
+          "svgHash": "9432a2e9537b616451f61b344180bd58f25fa9fd7eaf5cbd4e6770c0b4ce332b",
+          "programHash": "b876058164f33f68f34b29c110095211841afd491512a9457020532cb47279c2",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 114.0823529411765,
+              "samples": {
+                "terminalTop": 60,
+                "terminalBottom": 60,
+                "centralTop": 34,
+                "centralBottom": 34,
+                "barTop": 255,
+                "barBottom": 255,
+                "rightOpening": 0
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 457.4980392156866
+            }
+          }
+        }
+      }
+    },
+    {
+      "weight": 1.65,
+      "styleKey": "eb93f029203f68c53906e75f5dadddf581bb9799cabaf100ff5adb3074d9b04c",
+      "paints": {
+        "outlined": {
+          "svgHash": "12e7d7a04f5b8c727d5635128587176e7e50b2b296c63b2a032a9104c8e04022",
+          "programHash": "4edbbeffdeeec2615023c301b988c146ccc7ff8a7c00f60ecbe9a3e6a68592f8",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 72.52156862745103,
+              "samples": {
+                "terminalTop": 224,
+                "terminalBottom": 224,
+                "centralTop": 238,
+                "centralBottom": 238,
+                "barTop": 0,
+                "barBottom": 0,
+                "rightOpening": 255
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 290.36078431372545
+            }
+          }
+        },
+        "filled": {
+          "svgHash": "ea00258f7d382b22f273e7b4a8cbb89ec8fd8c36c64a95ac01d2ae1b7073d008",
+          "programHash": "b876058164f33f68f34b29c110095211841afd491512a9457020532cb47279c2",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 116.30196078431375,
+              "samples": {
+                "terminalTop": 31,
+                "terminalBottom": 30,
+                "centralTop": 17,
+                "centralBottom": 17,
+                "barTop": 255,
+                "barBottom": 255,
+                "rightOpening": 0
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 464.8823529411767
+            }
+          }
+        }
+      }
+    },
+    {
+      "weight": 1.5,
+      "styleKey": "748add4f5dfc232a9c78fd8aa62712beaa44288f75fbdf3fe2859f4760deaee9",
+      "paints": {
+        "outlined": {
+          "svgHash": "e0472de2ed6c066411e993ba2f6f3ac0a5c0fb4421b7af51f9f8861397e6cf17",
+          "programHash": "4edbbeffdeeec2615023c301b988c146ccc7ff8a7c00f60ecbe9a3e6a68592f8",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 70.28235294117653,
+              "samples": {
+                "terminalTop": 252,
+                "terminalBottom": 252,
+                "centralTop": 255,
+                "centralBottom": 255,
+                "barTop": 0,
+                "barBottom": 0,
+                "rightOpening": 255
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 281.16862745098035
+            }
+          }
+        },
+        "filled": {
+          "svgHash": "1bca3c273f3897a8e7996ae20dcfc4536e8a84951be73f81c29ea19e0fe86219",
+          "programHash": "b876058164f33f68f34b29c110095211841afd491512a9457020532cb47279c2",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 118.56862745098043,
+              "samples": {
+                "terminalTop": 3,
+                "terminalBottom": 3,
+                "centralTop": 0,
+                "centralBottom": 0,
+                "barTop": 255,
+                "barBottom": 255,
+                "rightOpening": 0
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 474.0431372549018
+            }
+          }
+        }
+      }
+    }
+  ],
+  "actualApiChargeUsd": 0,
+  "craftApproved": false,
+  "fullPixelEvidence": {
+    "path": ".staging/foundry-quality-2026-09-06/native-weight-01/full-pixel-receipt.json",
+    "sha256": "74972315b89739ce6413d6be85eb0de1c27cb4b523fb5315ff0474dc0eb26879"
+  }
+}

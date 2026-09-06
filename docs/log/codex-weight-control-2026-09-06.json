@@ -1,0 +1,61 @@
+{
+  "experiment": "A078",
+  "scope": "Eight known development controls. One order only; not instrument qualification.",
+  "requestedModel": "gpt-6-astra",
+  "requestedEffort": "high",
+  "answers": {
+    "W01": {
+      "choice": "equal",
+      "evidence": "Both candidates match the reference’s cloud outline and curved arrow stroke weights."
+    },
+    "W02": {
+      "choice": "equal",
+      "evidence": "Both candidates preserve the reference’s ring thickness and the relative weight of the crossed inner stem."
+    },
+    "W03": {
+      "choice": "P",
+      "evidence": "P matches the reference’s inner symbol weight; Q’s vertical stem and horizontal crossbar appear thicker."
+    },
+    "W04": {
+      "choice": "Q",
+      "evidence": "Q matches the reference’s inner N strokes; P’s diagonal and its joins appear heavier relative to the ring."
+    },
+    "C1": {
+      "choice": "equal",
+      "evidence": "Both candidates match the reference’s cloud outline and arrow strokes."
+    },
+    "C2": {
+      "choice": "equal",
+      "evidence": "Both candidates preserve the reference’s W and crossbar weights relative to the outer ring."
+    },
+    "C3": {
+      "choice": "equal",
+      "evidence": "Both candidates match the reference’s outer ring, lower-left crater rim, and right-hand crescent weights."
+    },
+    "C4": {
+      "choice": "equal",
+      "evidence": "Both candidates match the reference’s rounded corner strokes and vertical interior bars."
+    }
+  },
+  "changedCorrect": 2,
+  "changedTotal": 4,
+  "identicalControlsAccepted": 4,
+  "identicalControlsTotal": 4,
+  "instrumentQualified": false,
+  "process": {
+    "code": 0,
+    "killed": false,
+    "sha256": "d6481a07ede22b835c8558aa2fba1ab02372499162a20acf036815ceb8f6d166"
+  },
+  "usage": {
+    "input_tokens": 22895,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 807,
+    "reasoning_output_tokens": 565
+  },
+  "billing": "native subscription",
+  "actualApiChargeUsd": 0,
+  "evidencePath": ".staging/foundry-quality-2026-09-06/codex-control-02",
+  "subcommand": "exec"
+}

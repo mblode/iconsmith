@@ -1,0 +1,563 @@
+{
+  "protocol": {
+    "version": 1,
+    "sourceFixtureSha256": "ea7047450cf56e5b19887c7e4b5ad278fe5c739d7560c2eae51c1ed4bd04d102",
+    "batches": 12,
+    "rowsPerBatch": 4,
+    "requiredChangedBothOrders": 18,
+    "changedPairs": 20,
+    "controls": 4,
+    "maxFalseRejections": 0,
+    "retryFailedBatches": false,
+    "scope": "Known fixture, reference-relative detail-weight detection; not general taste qualification."
+  },
+  "complete": true,
+  "changedCorrect": 4,
+  "changedCount": 20,
+  "controlsAccepted": 1,
+  "controlsCount": 4,
+  "protocolPassed": false,
+  "craftApproved": false,
+  "generalInstrumentQualified": false,
+  "apiLedgerUsd": 10.6590496,
+  "apiHoldsUsd": 0,
+  "billing": "subscription",
+  "cases": [
+    {
+      "id": "W01",
+      "source": "cloud-sync-2.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W02",
+      "source": "coin-lira.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W03",
+      "source": "coin-pesos.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W04",
+      "source": "coin-rand.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "equal",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "equal",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W05",
+      "source": "coin-rupees.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W06",
+      "source": "coin-won.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W07",
+      "source": "devices-2.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W08",
+      "source": "education.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "equal",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W09",
+      "source": "email-2-block.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W10",
+      "source": "emoji-neutral.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "W11",
+      "source": "full-moon.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W12",
+      "source": "gyroscope-sensor.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "W13",
+      "source": "pan.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W14",
+      "source": "password-stars.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "W15",
+      "source": "quick-ai.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "W16",
+      "source": "scan-voice.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W17",
+      "source": "steering-wheel.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "Q",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W18",
+      "source": "team.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "equal",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W19",
+      "source": "user-block.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "P",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "Q",
+          "answer": "equal",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "W20",
+      "source": "versus-circle.svg",
+      "control": false,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "Q",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "P",
+          "answer": "P",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "C1",
+      "source": "cloud-sync-2.svg",
+      "control": true,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "equal",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "equal",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "C2",
+      "source": "coin-won.svg",
+      "control": true,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "equal",
+          "answer": "P",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "equal",
+          "answer": "uncertain",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "C3",
+      "source": "full-moon.svg",
+      "control": true,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "equal",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        },
+        {
+          "order": 1,
+          "expected": "equal",
+          "answer": "Q",
+          "complete": true,
+          "correct": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "id": "C4",
+      "source": "scan-voice.svg",
+      "control": true,
+      "trials": [
+        {
+          "order": 0,
+          "expected": "equal",
+          "answer": "equal",
+          "complete": true,
+          "correct": true
+        },
+        {
+          "order": 1,
+          "expected": "equal",
+          "answer": "equal",
+          "complete": true,
+          "correct": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "changedCorrectInterval95": [
+    0.0806563532712,
+    0.41602172202575993
+  ],
+  "controlAcceptanceInterval95": [
+    0.045586062644636216,
+    0.6993639475573634
+  ]
+}

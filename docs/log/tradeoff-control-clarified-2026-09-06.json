@@ -1,0 +1,57 @@
+{
+  "experiment": "A090",
+  "manifestHash": "e606d8928d7e827a48488cc0096e8efa4d873681fc7b4724200970470f24e5d2",
+  "scope": "Targeted continuity/antialiasing author-contract control, not general craft qualification",
+  "calls": [
+    {
+      "order": {
+        "a": "positive",
+        "b": "negative"
+      },
+      "index": 0,
+      "unchanged": true,
+      "valid": true,
+      "result": {
+        "a": {
+          "unresolved": []
+        },
+        "b": {
+          "unresolved": [
+            {
+              "id": "yen-central-stem-continuity",
+              "kind": "visual",
+              "description": "The yen glyph must have a continuous central stem connecting both horizontal bars at 1x and 2x, but the stem is absent between the bars in both renders: at 1x, row y=9 is white (255) at the centered columns x=7 and x=8 between the dark bar rows y=8 and y=10; at 2x, rows y=18 and y=19 are white (255) at the centered columns x=15 and x=16 between the dark bar rows y=16-17 and y=20-21. Existing line/stroke primitives can restore this omitted element, so this is a visual defect, not a representation limitation."
+            }
+          ]
+        }
+      },
+      "notes": "# Scoped yen-stem review\n\nThis review is limited to whether the yen glyph has a continuous central stem connecting both horizontal bars at 1× and 2×. It does not assess unprovided reference-family calibration and is not a general craft approval. An empty `unresolved` array means only that no known or uncertain defect remains within this narrow requirement.\n\n## Candidate A\n\n- **1× evidence:** The upper horizontal bar occupies row `y=8` and the lower horizontal bar occupies row `y=10`. Between them, row `y=9` has symmetric centered coverage of `127` at `x=7` and `x=8`. That half-tone bridge directly touches both bar rows, so the central stem remains continuous and centered.\n- **2× evidence:** The bars occupy rows `y=16–17` and `y=20–21`. The centered columns `x=15–16` are solid black (`0`) throughout intervening rows `y=18–19`, visibly connecting the bars.\n- **Intentional rendering tradeoff:** At 1×, the one-stroke center falls symmetrically across two pixel columns, producing lower peak contrast in the single intervening row. This preserves continuity and centering, so it is accepted as the allowed symmetric half-tone tradeoff rather than recorded as unresolved.\n\n## Candidate B\n\n- **1× evidence:** The upper and lower bars are present at rows `y=8` and `y=10`, but the intervening row `y=9` is fully white (`255`) at centered columns `x=7–8`. The bars are visibly disconnected.\n- **2× evidence:** The upper bar occupies rows `y=16–17` and the lower bar occupies rows `y=20–21`, while intervening rows `y=18–19` are fully white (`255`) at centered columns `x=15–16`. The same discontinuity therefore persists at 2×.\n- **Classification:** The omitted connector can be added with existing line/stroke primitives. It is recorded as the visual limitation `yen-central-stem-continuity`; no missing DSL capability is indicated.\n"
+    },
+    {
+      "order": {
+        "a": "negative",
+        "b": "positive"
+      },
+      "index": 1,
+      "unchanged": true,
+      "valid": true,
+      "result": {
+        "a": {
+          "unresolved": [
+            {
+              "id": "yen-central-stem-continuity",
+              "kind": "visual",
+              "description": "The required continuous central stem connecting both horizontal bars fails at both 1x and 2x. In a-pixels.json, the 1x upper and lower bars occupy rows y=8 and y=10, but the centered pixels at x=7-8 are fully white (255) on intervening row y=9; at 2x, the bars occupy y=16-17 and y=20-21, while centered pixels x=15-16 are fully white (255) throughout intervening rows y=18-19. The rendered a.png visibly shows the same absent bridge. This is a missing drawable element repairable with existing line primitives, not a representation limitation."
+            }
+          ]
+        },
+        "b": {
+          "unresolved": []
+        }
+      },
+      "notes": "# Scoped yen-stem review\n\nThis review is limited to whether the yen glyph has a continuous central stem connecting both horizontal bars at 1x and 2x. It does not assess unprovided reference-family calibration or provide general craft approval. Pixel coordinates below are zero-based, matching the supplied JSON.\n\n## Candidate A\n\nThe actual 1x and 2x renderings in `a.png` show the stem stopping at the upper bar and resuming nowhere between the bars. The pixel data confirms the visible break:\n\n- At 1x, the upper bar is on y=8 and the lower bar is on y=10. On the intervening y=9 row, both centered pixels x=7 and x=8 are 255 (fully white), so there is no connecting coverage.\n- At 2x, the upper bar spans y=16-17 and the lower bar spans y=20-21. On both intervening rows y=18-19, centered pixels x=15 and x=16 are 255, leaving a two-row gap.\n\nThis is recorded as the visual limitation `yen-central-stem-continuity`. An omitted connecting line is repairable using existing drawing primitives and therefore is not a representation limitation. No intentional rendering tradeoff accounts for the absent bridge under the supplied requirement.\n\n## Candidate B\n\nThe actual 1x and 2x renderings in `b.png` show a centered stem continuously joining the two bars. The pixel data confirms continuity:\n\n- At 1x, the bars are on y=8 and y=10, and the intervening centered pixels at y=9, x=7-8 both have grayscale value 127. This symmetric half-tone pair touches the solid centered coverage in both bars.\n- At 2x, centered pixels x=15-16 are solid black (0) on both intervening rows y=18-19, continuously joining the upper bar at y=16-17 to the lower bar at y=20-21.\n\nThe 1x stem uses symmetric half-tone coverage across two central columns rather than a darker single-column peak. This is an intentional rendering tradeoff that preserves the required continuity and centering, so it is not unresolved. No known or uncertain defect remains for the scoped requirement; the empty unresolved array is not a general approval.\n"
+    }
+  ],
+  "instrumentQualified": false,
+  "apiLedgerUnchanged": true
+}

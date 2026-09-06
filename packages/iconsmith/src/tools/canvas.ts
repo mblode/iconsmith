@@ -33,7 +33,7 @@ import type {
   Subpath,
 } from "../types.js";
 import { combinePaths } from "./boolean.js";
-import type { BooleanOperation } from "./boolean.js";
+import type { BooleanOperand, BooleanOperation } from "./boolean.js";
 import { SPEC, needsStrokeBounds } from "./spec.js";
 import type { Spec } from "./spec.js";
 import { expandStroke } from "./stroke.js";
@@ -245,6 +245,7 @@ export type Element = {
       from: ArcFrom;
       id: string;
       kind: "arc";
+      weight?: "detail";
       r: number;
       sweep: ArcSweep;
     }
@@ -375,84 +376,6 @@ export const arcPath = (
     d += `C${sx + t0x} ${sy + t0y} ${x1 - t1x} ${y1 - t1y} ${x1} ${y1}`;
   }
   return d;
-};
-
-const POLES_CW: readonly ArcFrom[] = ["right", "bottom", "left", "top"];
-
-/** The pole an arc lands on after its named sweep. */
-const poleAfter = (from: ArcFrom, sweep: ArcSweep, ccw: boolean): ArcFrom => {
-  const i = POLES_CW.indexOf(from);
-  const dir = ccw ? -1 : 1;
-  return POLES_CW[(i + dir * SWEEP_STEPS[sweep] + POLES_CW.length * 4) % 4];
-};
-
-/** Cubic body of an open arc, plus the endpoints, so a filled twin can offset
- *  the same sweep rather than re-derive it. */
-const arcCommands = (
-  cx: number,
-  cy: number,
-  r: number,
-  from: ArcFrom,
-  sweep: ArcSweep,
-  ccw: boolean
-): { cubics: string; end: [number, number]; start: [number, number] } => {
-  const steps = SWEEP_STEPS[sweep];
-  const dir = ccw ? -1 : 1;
-  const h = r * K;
-  let a = FROM_ANGLE[from];
-  const start = atCircle(cx, cy, r, a);
-  let cubics = "";
-  let end = start;
-  for (let i = 0; i < steps; i += 1) {
-    const a0 = a;
-    a += dir * (Math.PI / 2);
-    const [sx, sy] = atCircle(cx, cy, r, a0);
-    const [x1, y1] = atCircle(cx, cy, r, a);
-    const t0x = dir * -Math.sin(a0) * h;
-    const t0y = dir * Math.cos(a0) * h;
-    const t1x = dir * -Math.sin(a) * h;
-    const t1y = dir * Math.cos(a) * h;
-    cubics += `C${sx + t0x} ${sy + t0y} ${x1 - t1x} ${y1 - t1y} ${x1} ${y1}`;
-    end = [x1, y1];
-  }
-  return { cubics, end, start };
-};
-
-/**
- * The filled twin of an open arc: that stroke expanded into an annular
- * sector whose outer edge is the ink the outline already occupied. Round
- * caps at both poles match `#filledBar`. A radius at or below half a stroke
- * collapses to a pie, the same way a `terminal` dot is the cap alone.
- */
-export const filledArcPath = (
-  cx: number,
-  cy: number,
-  r: number,
-  from: ArcFrom,
-  sweep: ArcSweep,
-  ccw: boolean,
-  half: number
-): string => {
-  const outer = arcCommands(cx, cy, r + half, from, sweep, ccw);
-  if (r <= half) {
-    return `M${outer.start[0]} ${outer.start[1]}${outer.cubics}L${cx} ${cy}Z`;
-  }
-  const inner = arcCommands(
-    cx,
-    cy,
-    r - half,
-    poleAfter(from, sweep, ccw),
-    sweep,
-    !ccw
-  );
-  // Radial closes at the poles, no extra cap discs: three wifi bands
-  // would otherwise be 9 cap-subpaths and blow the 9-mark panel cap,
-  // and caps centred on the outer radius would sit a stroke past the
-  // outlined visual edge.
-  return (
-    `M${outer.start[0]} ${outer.start[1]}${outer.cubics}` +
-    `L${inner.start[0]} ${inner.start[1]}${inner.cubics}Z`
-  );
 };
 
 /** The quantised circle, before it is decided whether it adds ink or removes
@@ -701,7 +624,7 @@ export class Canvas {
    * of grid points is a different primitive, and approximating a curve with
    * one is how an umbrella canopy becomes a zigzag.
    *
-   * Filled, this is that stroke expanded into an annular sector — the same
+   * Filled, this is that stroke expanded with the selected caps — the same
    * twin `#filledBar` is for a two-point `line`. An open arc still encloses
    * no area; the fill is the ink, not a pie of the sweep.
    */
@@ -712,7 +635,9 @@ export class Canvas {
     from: ArcFrom;
     r: number;
     sweep: ArcSweep;
+    weight?: "detail";
   }): string {
+    const width = this.#strokeWidth(args.weight);
     const cx = onCanvas(args.cx, this.spec);
     const cy = onCanvas(args.cy, this.spec);
     const r = q(args.r, this.spec.grid);
@@ -720,18 +645,7 @@ export class Canvas {
     const centerline = arcPath(cx, cy, r, args.from, args.sweep, ccw);
     let d = centerline;
     if (this.finish === "filled") {
-      d =
-        this.spec.strokeCap === "square"
-          ? expandStroke(centerline, this.spec.stroke, strokeStyle(this.spec))
-          : filledArcPath(
-              cx,
-              cy,
-              r,
-              args.from,
-              args.sweep,
-              ccw,
-              this.spec.stroke / 2
-            );
+      d = expandStroke(centerline, width, strokeStyle(this.spec));
     }
     return this.#push((id) => ({
       ...(ccw ? { ccw: true as const } : {}),
@@ -741,11 +655,13 @@ export class Canvas {
       from: args.from,
       id,
       kind: "arc" as const,
-      ...(this.finish === "filled" && this.spec.strokeCap === "square"
-        ? { fillRule: "nonzero" as const }
-        : {}),
+      ...(this.finish === "filled" ? { fillRule: "nonzero" as const } : {}),
       r,
       sweep: args.sweep,
+      ...(args.weight ? { weight: args.weight } : {}),
+      ...(args.weight && this.finish === "outlined"
+        ? { strokeWidth: width }
+        : {}),
     }));
   }
 
@@ -754,7 +670,8 @@ export class Canvas {
   combine(
     operation: BooleanOperation,
     leftId?: string,
-    rightId?: string
+    rightId?: string,
+    radius?: number
   ): string {
     this.#checkCompositionFinish(operation);
     const groups = this.#groups();
@@ -784,6 +701,7 @@ export class Canvas {
       left: recipe(left),
       op: "boolean",
       operation,
+      ...(radius === undefined ? {} : { radius }),
       right: recipe(right),
     };
     // Compute before changing this canvas; errors leave both operands intact.
@@ -819,6 +737,15 @@ export class Canvas {
 
   #compositionData(op: BooleanDrawOp): { d: string; strokeWidth?: number } {
     this.#checkCompositionFinish(op.operation);
+    if (
+      op.radius !== undefined &&
+      (op.operation === "trim" ||
+        !this.spec.fillRadiusTiers.includes(op.radius))
+    ) {
+      throw new Error(
+        "Intersection radius must be an explicit filled family tier"
+      );
+    }
     const operand = (draw: DrawOp[], finish: Finish) => {
       if (draw.some((item) => item.op === "raw")) {
         throw new Error("Raw paths cannot enter a Boolean recipe");
@@ -833,11 +760,7 @@ export class Canvas {
         throw new Error("A Boolean operand must be one solid group");
       }
       return {
-        d: groups[0].map((e) => e.d).join(""),
-        fillRule:
-          groups[0].length > 1 && "composition" in groups[0][0]
-            ? undefined
-            : groups[0][0].fillRule,
+        ...Canvas.#filledGroup(groups[0]),
         strokeWidth: groups[0][0].strokeWidth,
       };
     };
@@ -848,7 +771,9 @@ export class Canvas {
       );
     }
     return {
-      d: combinePaths(op.operation, left, operand(op.right, "filled")),
+      d: combinePaths(op.operation, left, operand(op.right, "filled"), {
+        radius: op.radius,
+      }),
       ...(op.operation === "trim" && left.strokeWidth !== undefined
         ? { strokeWidth: left.strokeWidth }
         : {}),
@@ -874,11 +799,8 @@ export class Canvas {
    * The hole is stored immediately after the solid it cuts, and that ordering
    * is the whole data structure — there is no back-reference to keep in step
    * through a `transform`, a `remove` or a round trip through `toJSON`.
-   * Serialisation reads it back the way the corpus writes it: one `<path>` per
-   * solid, holding the solid's subpath and then its holes' subpaths, under
-   * `fill-rule="evenodd"`. Grouping per solid rather than emitting one path
-   * for the whole icon is deliberate — under `evenodd` two solids that
-   * overlapped would cancel where they met and paint a hole nobody asked for.
+   * Serialization subtracts the union of its cutters from each solid. Cutter
+   * overlap never restores ink; portions outside the solid never add ink.
    *
    * @param shape which primitive to cut with, and where.
    * @param cutFrom id of the solid to cut. Defaults to the most recent one,
@@ -906,23 +828,6 @@ export class Canvas {
     // Built once to measure it, then handed to `#push` as-is: `#push` mints the
     // id, and a probe that minted its own would burn one on every call.
     const probe = make("probe");
-    const inside = bbox(parsePath(this.elements[target].d));
-    const cut = bbox(parsePath(probe.d));
-    if (
-      cut.x0 < inside.x0 ||
-      cut.y0 < inside.y0 ||
-      cut.x1 > inside.x1 ||
-      cut.y1 > inside.y1
-    ) {
-      throw new Error(
-        `that hole is not inside ${this.elements[target].id}: it spans ` +
-          `${cut.x0}..${cut.x1} x ${cut.y0}..${cut.y1}, the solid spans ` +
-          `${inside.x0}..${inside.x1} x ${inside.y0}..${inside.y1}. Under ` +
-          "`evenodd` the part that hangs outside would paint ink rather than " +
-          "remove it, so the shape would come out inverted. Shrink the hole, " +
-          "or draw the piece you want as a solid."
-      );
-    }
     return this.#push((id) => ({ ...probe, id }), this.#groupEnd(target));
   }
 
@@ -1018,6 +923,7 @@ export class Canvas {
   ): string {
     const make = (id: string): Element => ({
       d: this.#barPath(a, b),
+      fillRule: "nonzero",
       id,
       kind: "line",
       op: "knockout",
@@ -1025,23 +931,6 @@ export class Canvas {
       ...(offAxis ? { offAxis: true as const } : {}),
     });
     const probe = make("probe");
-    const inside = bbox(parsePath(this.elements[target].d));
-    const cut = bbox(parsePath(probe.d));
-    if (
-      cut.x0 < inside.x0 ||
-      cut.y0 < inside.y0 ||
-      cut.x1 > inside.x1 ||
-      cut.y1 > inside.y1
-    ) {
-      throw new Error(
-        `that hole is not inside ${this.elements[target].id}: it spans ` +
-          `${cut.x0}..${cut.x1} x ${cut.y0}..${cut.y1}, the solid spans ` +
-          `${inside.x0}..${inside.x1} x ${inside.y0}..${inside.y1}. Under ` +
-          "`evenodd` the part that hangs outside would paint ink rather than " +
-          "remove it, so the shape would come out inverted. Shrink the hole, " +
-          "or draw the piece you want as a solid."
-      );
-    }
     return this.#push((id) => ({ ...probe, id }), this.#groupEnd(target));
   }
 
@@ -1078,6 +967,31 @@ export class Canvas {
       end += 1;
     }
     return end;
+  }
+
+  /** A cut only removes ink. Union cutters with their own fill rules before
+   * subtracting; parity would restore ink wherever two cutters overlap.
+   * Shared by final SVG and nested Boolean operands. Recipes stay editable. */
+  static #filledGroup(group: Element[]): BooleanOperand {
+    const [solid, ...holes] = group;
+    const base = {
+      d: solid.d,
+      fillRule: solid.fillRule ?? ("evenodd" as const),
+    };
+    if (holes.length === 0) {
+      return base;
+    }
+    let cutter: BooleanOperand = holes[0];
+    for (const hole of holes.slice(1)) {
+      cutter = {
+        d: combinePaths("union", cutter, hole),
+        fillRule: "nonzero",
+      };
+    }
+    return {
+      d: combinePaths("subtract", base, cutter, { allowEmpty: true }),
+      fillRule: "nonzero",
+    };
   }
 
   /** The elements as they serialise: each solid followed by its holes. */
@@ -1120,22 +1034,30 @@ export class Canvas {
    * `lint.ts` still raises its `off-axis` warning on a declared diagonal, which
    * is the reviewer seeing it that this paragraph is about.
    */
-  line(args: LineArgs): string {
-    if (args.weight === undefined) {
-      return this.#line(args);
+  #strokeWidth(weight?: "detail"): number {
+    if (weight === undefined) {
+      return this.spec.stroke;
     }
     const width = this.spec.detailStroke;
     if (
-      args.weight !== "detail" ||
+      weight !== "detail" ||
       width === undefined ||
       !Number.isFinite(width) ||
       width <= 0 ||
       width > this.spec.stroke
     ) {
       throw new Error(
-        "Detail lines require a positive detailStroke no greater than the family stroke"
+        "Detail strokes require a positive detailStroke no greater than the family stroke"
       );
     }
+    return width;
+  }
+
+  line(args: LineArgs): string {
+    if (args.weight === undefined) {
+      return this.#line(args);
+    }
+    const width = this.#strokeWidth(args.weight);
     const c = new Canvas([], {
       finish: this.finish,
       spec: { ...this.spec, stroke: width },
@@ -1413,7 +1335,7 @@ export class Canvas {
         `unknown part ${id} — call listParts to see the vocabulary`
       );
     }
-    const preserve = this.spec.partGeometry === "source";
+    const preserve = this.spec.partGeometry !== "grid";
     const px = preserve ? q(x, this.spec.grid) : x;
     const py = preserve ? q(y, this.spec.grid) : y;
     const t = quarterTurn(turn);
@@ -1606,6 +1528,7 @@ export class Canvas {
           from: e.from,
           r: e.r * k,
           sweep: e.sweep,
+          weight: e.weight,
         });
       } else if (e.kind === "diamond") {
         next.diamond({
@@ -1693,7 +1616,13 @@ export class Canvas {
     if (!this.elements.length) {
       return null;
     }
-    return bbox(this.elements.flatMap((e) => parsePath(e.d)));
+    const paths =
+      this.finish === "filled"
+        ? this.#groups().flatMap((group) =>
+            parsePath(Canvas.#filledGroup(group).d)
+          )
+        : this.elements.flatMap((e) => parsePath(e.d));
+    return paths.length ? bbox(paths) : null;
   }
 
   /**
@@ -1705,7 +1634,7 @@ export class Canvas {
    *
    * - A disc, a slab, a lozenge: the size *is* the design, and scaling it is
    *   right.
-   * - A bar or an annular sector: a stroke expanded into a solid, whose
+   * - An expanded line or arc: a stroke expanded into a solid, whose
    *   thickness is ink at the spec width. Scaling that makes the icon heavier
    *   than the house draws it.
    *
@@ -1758,9 +1687,16 @@ export class Canvas {
     if (this.finish !== "filled") {
       return this.bbox();
     }
-    const boxes = this.elements.map((e) => {
+    const solids = this.#groups().flatMap((group) => {
+      const { d } = Canvas.#filledGroup(group);
+      return d ? [{ ...group[0], d }] : [];
+    });
+    if (!solids.length) {
+      return null;
+    }
+    const boxes = solids.map((e) => {
       const half =
-        (e.kind === "line" && e.weight
+        ((e.kind === "line" || e.kind === "arc") && e.weight
           ? (this.spec.detailStroke ?? this.spec.stroke)
           : this.spec.stroke) / 2;
       const painted = bbox(parsePath(e.d));
@@ -1825,12 +1761,8 @@ export class Canvas {
    *
    * Outlined: the skeleton, stroked, one `<path>` per element, unchanged.
    *
-   * Filled: one `<path>` per solid, holding the solid's subpath followed by
-   * the subpaths of the holes cut from it, carrying `fill="currentColor"`,
-   * `fill-rule="evenodd" clip-rule="evenodd"` and no stroke at all. That is
-   * how the set writes them — 57.3% of its filled icons declare `evenodd`,
-   * every one of the 1,807 holes is a subpath inside the element it cuts
-   * rather than a separate element, and 2,078 of 2,085 carry no stroke.
+   * Filled: one path per solid, with its cutters unioned and subtracted.
+   * SVG output and subsequent Boolean composition resolve the same geometry.
    *
    * `stroke` is ignored under a filled finish rather than refused: `render`
    * and the eval harness pass the house width to everything they draw, and a
@@ -1843,21 +1775,7 @@ export class Canvas {
       this.finish === "filled"
         ? this.#groups()
             .map((g) => {
-              const fillRule = g[0]?.fillRule ?? "evenodd";
-              const d =
-                g.length > 1 && fillRule === "nonzero"
-                  ? combinePaths(
-                      "subtract",
-                      { d: g[0].d, fillRule },
-                      {
-                        d: g
-                          .slice(1)
-                          .map((e) => e.d)
-                          .join(""),
-                        fillRule: "evenodd",
-                      }
-                    )
-                  : g.map((e) => e.d).join("");
+              const { d, fillRule } = Canvas.#filledGroup(g);
               return `<path d="${d}" fill="currentColor" fill-rule="${fillRule}" clip-rule="${fillRule}"/>`;
             })
             .join("\n")
@@ -1904,24 +1822,16 @@ export class Canvas {
           return { cx: e.cx, cy: e.cy, op: "circle", r: e.r, ...cut };
         }
         if (e.kind === "arc") {
-          return e.ccw
-            ? {
-                ccw: true as const,
-                cx: e.cx,
-                cy: e.cy,
-                from: e.from,
-                op: "arc" as const,
-                r: e.r,
-                sweep: e.sweep,
-              }
-            : {
-                cx: e.cx,
-                cy: e.cy,
-                from: e.from,
-                op: "arc" as const,
-                r: e.r,
-                sweep: e.sweep,
-              };
+          return {
+            cx: e.cx,
+            cy: e.cy,
+            from: e.from,
+            op: "arc" as const,
+            r: e.r,
+            sweep: e.sweep,
+            ...(e.ccw ? { ccw: true as const } : {}),
+            ...(e.weight ? { weight: e.weight } : {}),
+          };
         }
         if (e.kind === "diamond") {
           return { cx: e.cx, cy: e.cy, op: "diamond", reach: e.reach };

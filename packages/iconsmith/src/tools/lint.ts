@@ -36,7 +36,6 @@ import { bbox, parsePath, polylineDistance } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
 import type { BooleanDrawOp, Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
-import { pathsOverlap } from "./boolean.js";
 import { SPEC } from "./canvas.js";
 import type { Spec } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
@@ -483,17 +482,6 @@ const holeIssues = (els: LintElement[], finish: Finish): Issue[] => {
   for (let i = 0; i < groups.length; i += 1) {
     const { holes, solid } = groups[i];
     const host = boxOf(solid);
-    for (let a = 0; a < holes.length; a += 1) {
-      for (let b = a + 1; b < holes.length; b += 1) {
-        if (pathsOverlap(holes[a].d, holes[b].d)) {
-          issues.push({
-            message: `${holes[a].id} and ${holes[b].id} overlap in ${solid.id}; even-odd cutouts cancel in their shared area and restore ink. If one continuous opening is intended, union the cutters before subtracting. Inspect intentional nested counters rather than treating this warning as a prohibition.`,
-            rule: "hole",
-            severity: "warn",
-          });
-        }
-      }
-    }
     for (const hole of holes) {
       const cut = boxOf(hole);
       for (let j = 0; j < i; j += 1) {

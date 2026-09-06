@@ -105,9 +105,8 @@ export const pairFamily = (
  * Extent is a warn here. Against a machine-derived twin it is not evidence of
  * a bad drawing, and it catches neither fault its own message names: a
  * flood-fill *passes* it, because the derived twin floods too and the two
- * extents agree; a restamped ring is caught by `restampIssues`; and a partial
- * arc can never pass it, because `filledArcPath` deliberately omits the cap
- * discs that `visualSize` adds to all four sides. What it did instead was
+ * extents agree; a restamped ring is caught by `restampIssues`; and older compilers omitted filled arc caps (fixed in compiler14).
+ * Historically what it did instead was
  * stop icons shipping: 17 of 27 error-severity findings in a post-fix eval
  * run, and an error makes `result.clean` false, which fails `paintAccepted`'s
  * structural gate before the judge is ever called. Of 42 paints, 11 carried

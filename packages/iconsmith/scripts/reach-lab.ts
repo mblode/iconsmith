@@ -33,12 +33,14 @@
  * 3. The two paints occupy the same visual extent, the checkable half of "one
  *    skeleton, two paints".
  * 4. Where the outline enclosed canvas the fill knocks it out: a `hole` is a
- *    second subpath under `evenodd`, not a shape painted over.
+ *    removal of ink, not a shape painted over.
  *
  *   npx tsx scripts/reach-lab.ts [outdir] [--arm <agent|analog|glyph|harness|program>]
  */
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
+
+import sharp from "sharp";
 
 import { gatewayToken, openrouterToken } from "../src/pipeline/gateway.js";
 import type { Unkeyed } from "../src/pipeline/generate.js";
@@ -118,19 +120,45 @@ export interface Staged {
 const slugFor = (name: string, finish: Finish): string =>
   finish === "filled" ? `${name}-filled` : name;
 
-/** A knockout has to be a hole, not a shape painted over the solid: one `<path>`
- *  carrying both subpaths under `evenodd` is what does it. */
-const punches = (program: string, svg: string): boolean =>
-  !opsOf(program).some((line) => line.startsWith("hole ")) ||
-  svg.includes('fill-rule="evenodd"');
+const alpha = (source: string) =>
+  sharp(Buffer.from(source))
+    .resize(240, 240)
+    .ensureAlpha()
+    .extractChannel(3)
+    .raw()
+    .toBuffer();
 
-const judge = (
+/** Verify actual ink removal, independently of the SVG fill-rule spelling. */
+export const punches = async (
+  program: string,
+  svg: string
+): Promise<boolean> => {
+  if (!opsOf(program).some((line) => line.startsWith("hole "))) {
+    return true;
+  }
+  const uncut = runDsl(program, []).canvas;
+  uncut.elements = uncut.elements.filter(
+    (element) => element.op !== "knockout"
+  );
+
+  const [before, after] = await Promise.all([alpha(uncut.toSVG()), alpha(svg)]);
+  let removed = 0;
+  for (let i = 0; i < before.length; i += 1) {
+    if (after[i] > before[i] + 8) {
+      return false;
+    }
+    removed += Math.max(0, before[i] - after[i]);
+  }
+  return removed > 255;
+};
+
+const judge = async (
   name: string,
   program: string,
   finish: Finish,
   policy: string,
   brief: string
-): { record: Thinking; svg: string } => {
+): Promise<{ record: Thinking; svg: string }> => {
   const ran = runDsl(program, []);
   if (ran.errors.length > 0) {
     throw new Error(`${name} ${finish}: ${ran.errors.join("; ")}`);
@@ -148,7 +176,7 @@ const judge = (
     );
   }
   const svg = ran.canvas.toSVG();
-  if (finish === "filled" && !punches(program, svg)) {
+  if (finish === "filled" && !(await punches(program, svg))) {
     throw new Error(`${name}: a filled hole is painted over rather than cut.`);
   }
   return {
@@ -208,14 +236,14 @@ const drawOne = async (
     entry.arm
   ).kind;
   const paints = {
-    filled: judge(
+    filled: await judge(
       entry.name,
       adaptProgram(outlined, "filled"),
       "filled",
       policy,
       `filled ${drawn.brief ?? entry.name}`
     ),
-    outlined: judge(
+    outlined: await judge(
       entry.name,
       outlined,
       "outlined",

@@ -1,0 +1,56 @@
+{
+  "experiment": "A092",
+  "code": 0,
+  "usage": {
+    "input_tokens": 33975,
+    "cached_input_tokens": 24704,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 379,
+    "reasoning_output_tokens": 245
+  },
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "01a07588-954f-7131-a296-96db8ae90214"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "error",
+        "message": "Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest."
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "agent_message",
+        "text": "I\u2019ll inspect `candidate.png` directly with the native image viewer and make no changes."
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "agent_message",
+        "text": "The symbol is a circled downward-pointing arrow/chevron above two horizontal bars. Its central stem joins the upper bar, but does not extend to or join the lower bar."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 33975,
+        "cached_input_tokens": 24704,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 379,
+        "reasoning_output_tokens": 245
+      }
+    }
+  ],
+  "conclusion": "exec JSON has no image-view receipt; image consumption remains unverified",
+  "apiCalls": 0
+}

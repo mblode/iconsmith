@@ -1,0 +1,12 @@
+icon bell-pause
+keyline circle
+finish outlined
+arc 11,10 r7 half from left
+line 4,10 3,18 19,18 18,10 r3 off-axis
+rect 15,13 10x12 r3
+trim
+arc 11,17 r4 half from right
+rect 0,0 24x19 r0
+trim
+line 18,16 18,21
+line 21,16 21,21

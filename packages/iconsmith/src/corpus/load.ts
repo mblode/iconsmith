@@ -192,15 +192,70 @@ const geometry = (
   return `M${num(a.x1)} ${num(a.y1)}L${num(a.x2)} ${num(a.y2)}`;
 };
 
-/**
- * Pull the drawable shapes out of an icon file. Central emits flat SVGs — no
- * transforms, and the handful of `<g>` wrappers carry only `opacity` or
- * `clip-path` — so a scan for shape elements is the whole parser rather than a
- * shortcut past a real tree.
- */
+/** Definitions describe resources, never foreground ink. This flat geometry
+ * reader does not resolve masks, clipping, use instances or transforms; callers
+ * requiring visual fidelity must compare the actual rendered source. */
+const RESOURCE_CONTAINERS = new Set([
+  "defs",
+  "clipPath",
+  "mask",
+  "symbol",
+  "pattern",
+  "marker",
+  "linearGradient",
+  "radialGradient",
+]);
+const PAINT_ATTRIBUTES = new Set([
+  "fill",
+  "stroke",
+  "stroke-width",
+  "stroke-linecap",
+  "stroke-linejoin",
+  "fill-rule",
+]);
+
+const foregroundMarkup = (svg: string): string => {
+  const stack: { excluded: boolean; paint: Record<string, string> }[] = [];
+  const visible: string[] = [];
+  const withoutComments = svg.replaceAll(/<!--[\s\S]*?-->/gu, "");
+  for (const token of withoutComments.matchAll(
+    /<(?<closing>\/)?(?<tag>[a-zA-Z][\w:-]*)\b[^>]*>/gu
+  )) {
+    const tag = token.groups?.tag ?? "";
+    if (token.groups?.closing) {
+      stack.pop();
+      continue;
+    }
+    const parent = stack.at(-1);
+    const paint = { ...parent?.paint };
+    const local = new Set<string>();
+    for (const attr of token[0].matchAll(ATTR)) {
+      const name = attr.groups?.name ?? "";
+      local.add(name);
+      if (PAINT_ATTRIBUTES.has(name)) {
+        paint[name] = attr.groups?.value ?? "";
+      }
+    }
+    const excluded = Boolean(parent?.excluded) || RESOURCE_CONTAINERS.has(tag);
+    if (!excluded) {
+      const inherited = Object.entries(paint)
+        .filter(([name]) => !local.has(name))
+        .map(([name, value]) => ` ${name}="${value}"`)
+        .join("");
+      visible.push(
+        token[0].replace(/(?<close>\/?>)$/u, `${inherited}$<close>`)
+      );
+    }
+    if (!/\/\s*>$/u.test(token[0])) {
+      stack.push({ excluded, paint });
+    }
+  }
+  return visible.join("\n");
+};
+
 export const parseIconSvg = (svg: string): CorpusShape[] => {
   const shapes: CorpusShape[] = [];
-  for (const el of svg.matchAll(ELEMENT)) {
+  for (const el of foregroundMarkup(svg).matchAll(ELEMENT)) {
     const attrs: Record<string, string> = {};
     for (const a of el[0].matchAll(ATTR)) {
       attrs[a.groups?.name ?? ""] = a.groups?.value ?? "";
@@ -210,10 +265,14 @@ export const parseIconSvg = (svg: string): CorpusShape[] => {
       continue;
     }
     const stroked = attrs.stroke !== undefined && attrs.stroke !== "none";
+    const filled = attrs.fill !== "none";
+    if (!stroked && !filled) {
+      continue;
+    }
     shapes.push({
       cap: (attrs["stroke-linecap"] ?? "butt") as CorpusShape["cap"],
       d,
-      filled: attrs.fill !== undefined && attrs.fill !== "none",
+      filled,
       strokeWidth: stroked ? num(attrs["stroke-width"], 1) : 0,
     });
   }

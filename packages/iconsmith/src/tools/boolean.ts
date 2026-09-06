@@ -2,6 +2,7 @@
 import paper from "paper";
 
 import { parsePath } from "../geometry/path.js";
+import { roundIntersections } from "./boolean-round.js";
 
 export type BooleanOperation = "subtract" | "trim" | "union";
 export interface BooleanOperand {
@@ -40,10 +41,14 @@ export const pathsOverlap = (left: string, right: string): boolean => {
 export const combinePaths = (
   operation: BooleanOperation,
   left: BooleanOperand,
-  right: BooleanOperand
+  right: BooleanOperand,
+  { allowEmpty = false, radius }: { allowEmpty?: boolean; radius?: number } = {}
 ): string => {
   if (!["subtract", "trim", "union"].includes(operation)) {
     throw new Error("Unsupported Boolean operation");
+  }
+  if (radius !== undefined && operation === "trim") {
+    throw new Error("Intersection rounding requires filled Boolean operands");
   }
   for (const [index, input] of [left, right].entries()) {
     const paths = parsePath(input.d);
@@ -71,8 +76,17 @@ export const combinePaths = (
       operation === "union"
         ? a.unite(b, { insert: false })
         : a.subtract(b, { insert: false, trace: operation !== "trim" });
-    const data = result.pathData;
-    if (!data) {
+    const data = (
+      radius === undefined
+        ? result
+        : roundIntersections(
+            scope,
+            result,
+            a.getIntersections(b).map((location) => location.point),
+            radius
+          )
+    ).pathData;
+    if (!data && !allowEmpty) {
       throw new Error("Boolean operation removes the entire shape");
     }
     parsePath(data);

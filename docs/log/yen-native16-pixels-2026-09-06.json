@@ -1,0 +1,614 @@
+{
+  "scope": "Post-generation diagnostic of native16 crossbar rows. Pixel positions are measured after authorship, not a frozen quality gate.",
+  "order": "baseline outlined, native16 outlined, baseline filled, native16 filled",
+  "results": [
+    {
+      "paint": "outlined",
+      "kind": "baseline",
+      "svgHash": "8bdcb9c42fd2bacb8b199ab68e1c8ba77c181a1040fee41f07128cb9d4bf913a",
+      "rows": [
+        {
+          "y": 7,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 210
+            },
+            {
+              "x": 6,
+              "luminance": 143
+            },
+            {
+              "x": 7,
+              "luminance": 6
+            },
+            {
+              "x": 8,
+              "luminance": 6
+            },
+            {
+              "x": 9,
+              "luminance": 143
+            },
+            {
+              "x": 10,
+              "luminance": 210
+            }
+          ]
+        },
+        {
+          "y": 8,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 60
+            },
+            {
+              "x": 6,
+              "luminance": 17
+            },
+            {
+              "x": 7,
+              "luminance": 6
+            },
+            {
+              "x": 8,
+              "luminance": 6
+            },
+            {
+              "x": 9,
+              "luminance": 17
+            },
+            {
+              "x": 10,
+              "luminance": 60
+            }
+          ]
+        },
+        {
+          "y": 9,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 210
+            },
+            {
+              "x": 6,
+              "luminance": 187
+            },
+            {
+              "x": 7,
+              "luminance": 75
+            },
+            {
+              "x": 8,
+              "luminance": 75
+            },
+            {
+              "x": 9,
+              "luminance": 187
+            },
+            {
+              "x": 10,
+              "luminance": 210
+            }
+          ]
+        },
+        {
+          "y": 10,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 60
+            },
+            {
+              "x": 6,
+              "luminance": 17
+            },
+            {
+              "x": 7,
+              "luminance": 7
+            },
+            {
+              "x": 8,
+              "luminance": 7
+            },
+            {
+              "x": 9,
+              "luminance": 17
+            },
+            {
+              "x": 10,
+              "luminance": 60
+            }
+          ]
+        },
+        {
+          "y": 11,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 255
+            },
+            {
+              "x": 6,
+              "luminance": 255
+            },
+            {
+              "x": 7,
+              "luminance": 135
+            },
+            {
+              "x": 8,
+              "luminance": 135
+            },
+            {
+              "x": 9,
+              "luminance": 255
+            },
+            {
+              "x": 10,
+              "luminance": 255
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paint": "outlined",
+      "kind": "native16",
+      "svgHash": "c08968141f508a487f8e3085783fa5dd20dd7a214c23b4eaa5a9e9d83bc8c0fb",
+      "rows": [
+        {
+          "y": 7,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 210
+            },
+            {
+              "x": 6,
+              "luminance": 184
+            },
+            {
+              "x": 7,
+              "luminance": 28
+            },
+            {
+              "x": 8,
+              "luminance": 28
+            },
+            {
+              "x": 9,
+              "luminance": 184
+            },
+            {
+              "x": 10,
+              "luminance": 210
+            }
+          ]
+        },
+        {
+          "y": 8,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 60
+            },
+            {
+              "x": 6,
+              "luminance": 17
+            },
+            {
+              "x": 7,
+              "luminance": 7
+            },
+            {
+              "x": 8,
+              "luminance": 7
+            },
+            {
+              "x": 9,
+              "luminance": 17
+            },
+            {
+              "x": 10,
+              "luminance": 60
+            }
+          ]
+        },
+        {
+          "y": 9,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 255
+            },
+            {
+              "x": 6,
+              "luminance": 255
+            },
+            {
+              "x": 7,
+              "luminance": 102
+            },
+            {
+              "x": 8,
+              "luminance": 102
+            },
+            {
+              "x": 9,
+              "luminance": 255
+            },
+            {
+              "x": 10,
+              "luminance": 255
+            }
+          ]
+        },
+        {
+          "y": 10,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 60
+            },
+            {
+              "x": 6,
+              "luminance": 17
+            },
+            {
+              "x": 7,
+              "luminance": 7
+            },
+            {
+              "x": 8,
+              "luminance": 7
+            },
+            {
+              "x": 9,
+              "luminance": 17
+            },
+            {
+              "x": 10,
+              "luminance": 60
+            }
+          ]
+        },
+        {
+          "y": 11,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 210
+            },
+            {
+              "x": 6,
+              "luminance": 187
+            },
+            {
+              "x": 7,
+              "luminance": 84
+            },
+            {
+              "x": 8,
+              "luminance": 84
+            },
+            {
+              "x": 9,
+              "luminance": 187
+            },
+            {
+              "x": 10,
+              "luminance": 210
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paint": "filled",
+      "kind": "baseline",
+      "svgHash": "2d8626f2c7e45d48762eb5425e0497ee57360203877976a97871017e2a167fe6",
+      "rows": [
+        {
+          "y": 7,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 43
+            },
+            {
+              "x": 6,
+              "luminance": 127
+            },
+            {
+              "x": 7,
+              "luminance": 255
+            },
+            {
+              "x": 8,
+              "luminance": 255
+            },
+            {
+              "x": 9,
+              "luminance": 127
+            },
+            {
+              "x": 10,
+              "luminance": 43
+            }
+          ]
+        },
+        {
+          "y": 8,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 190
+            },
+            {
+              "x": 6,
+              "luminance": 238
+            },
+            {
+              "x": 7,
+              "luminance": 248
+            },
+            {
+              "x": 8,
+              "luminance": 248
+            },
+            {
+              "x": 9,
+              "luminance": 238
+            },
+            {
+              "x": 10,
+              "luminance": 189
+            }
+          ]
+        },
+        {
+          "y": 9,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 43
+            },
+            {
+              "x": 6,
+              "luminance": 68
+            },
+            {
+              "x": 7,
+              "luminance": 180
+            },
+            {
+              "x": 8,
+              "luminance": 180
+            },
+            {
+              "x": 9,
+              "luminance": 68
+            },
+            {
+              "x": 10,
+              "luminance": 43
+            }
+          ]
+        },
+        {
+          "y": 10,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 190
+            },
+            {
+              "x": 6,
+              "luminance": 238
+            },
+            {
+              "x": 7,
+              "luminance": 248
+            },
+            {
+              "x": 8,
+              "luminance": 248
+            },
+            {
+              "x": 9,
+              "luminance": 238
+            },
+            {
+              "x": 10,
+              "luminance": 189
+            }
+          ]
+        },
+        {
+          "y": 11,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 0
+            },
+            {
+              "x": 6,
+              "luminance": 0
+            },
+            {
+              "x": 7,
+              "luminance": 116
+            },
+            {
+              "x": 8,
+              "luminance": 116
+            },
+            {
+              "x": 9,
+              "luminance": 0
+            },
+            {
+              "x": 10,
+              "luminance": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paint": "filled",
+      "kind": "native16",
+      "svgHash": "6120bfe617dc3fa4c3bfbeff0909dfc06beea8ef396e86489228525eb428cf04",
+      "rows": [
+        {
+          "y": 7,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 43
+            },
+            {
+              "x": 6,
+              "luminance": 72
+            },
+            {
+              "x": 7,
+              "luminance": 219
+            },
+            {
+              "x": 8,
+              "luminance": 219
+            },
+            {
+              "x": 9,
+              "luminance": 72
+            },
+            {
+              "x": 10,
+              "luminance": 43
+            }
+          ]
+        },
+        {
+          "y": 8,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 190
+            },
+            {
+              "x": 6,
+              "luminance": 238
+            },
+            {
+              "x": 7,
+              "luminance": 248
+            },
+            {
+              "x": 8,
+              "luminance": 248
+            },
+            {
+              "x": 9,
+              "luminance": 238
+            },
+            {
+              "x": 10,
+              "luminance": 189
+            }
+          ]
+        },
+        {
+          "y": 9,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 0
+            },
+            {
+              "x": 6,
+              "luminance": 0
+            },
+            {
+              "x": 7,
+              "luminance": 153
+            },
+            {
+              "x": 8,
+              "luminance": 153
+            },
+            {
+              "x": 9,
+              "luminance": 0
+            },
+            {
+              "x": 10,
+              "luminance": 0
+            }
+          ]
+        },
+        {
+          "y": 10,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 190
+            },
+            {
+              "x": 6,
+              "luminance": 238
+            },
+            {
+              "x": 7,
+              "luminance": 248
+            },
+            {
+              "x": 8,
+              "luminance": 248
+            },
+            {
+              "x": 9,
+              "luminance": 238
+            },
+            {
+              "x": 10,
+              "luminance": 189
+            }
+          ]
+        },
+        {
+          "y": 11,
+          "values": [
+            {
+              "x": 5,
+              "luminance": 42
+            },
+            {
+              "x": 6,
+              "luminance": 68
+            },
+            {
+              "x": 7,
+              "luminance": 166
+            },
+            {
+              "x": 8,
+              "luminance": 165
+            },
+            {
+              "x": 9,
+              "luminance": 68
+            },
+            {
+              "x": 10,
+              "luminance": 42
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

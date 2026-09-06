@@ -1,0 +1,44 @@
+{
+  "experiment": "A097",
+  "insideReturnedImage": true,
+  "outsideDenied": true,
+  "outsideImageReturned": false,
+  "outputs": [
+    {
+      "callId": "call_rbi5JmfslSy8RUvXjuamzJPW",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Script completed\nWall time 0.1 seconds\nOutput:\n"
+        },
+        {
+          "type": "image",
+          "sha256": "237179caa5ef6d870b32f01df5cab24161e0cb8592bcebaa644f4ca732205d57"
+        }
+      ]
+    },
+    {
+      "callId": "call_uifweEA92TNFP0NnqvppZxBY",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Script failed\nWall time 0.1 seconds\nOutput:\n"
+        },
+        {
+          "type": "text",
+          "text": "Script error:\nunable to locate image at `/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/image-boundary-01/outside-control.png`: Operation not permitted (os error 1)"
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "input_tokens": 53291,
+    "cached_input_tokens": 34688,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 230,
+    "reasoning_output_tokens": 0
+  },
+  "traceSha256": "8653d56a7ad5a36cf9e70abc2c26532f9f26640bccc589589d83e99100cef795",
+  "apiCalls": 0,
+  "scope": "One image tool path under the canonical filesystem profile; not all context isolation"
+}

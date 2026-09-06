@@ -1,0 +1,57 @@
+{
+  "experiment": "A089",
+  "manifestHash": "d32aa43fb47c61b89feabb07158284fb463cc878e22eb9b3de3b8c6f8d5079a5",
+  "scope": "Targeted continuity/antialiasing author-contract control, not general craft qualification",
+  "calls": [
+    {
+      "order": {
+        "a": "positive",
+        "b": "negative"
+      },
+      "index": 0,
+      "unchanged": true,
+      "valid": true,
+      "result": {
+        "a": {
+          "unresolved": []
+        },
+        "b": {
+          "unresolved": [
+            {
+              "id": "yen-central-stem-continuity",
+              "kind": "visual",
+              "description": "Failed requirement: the yen glyph must have a continuous central stem connecting both horizontal bars at 1x and 2x. Observed evidence: at 1x, the center pixels between the upper bar at y=8 and lower bar at y=10 are fully absent (y=9, x=7-8 are both 255); at 2x, the two intervening center rows are likewise fully absent (y=18-19, x=15-16 are all 255), leaving a visible white gap at both scales."
+            }
+          ]
+        }
+      },
+      "notes": "# Scoped yen-stem review\n\nThis review is limited to whether the central stem continuously connects both horizontal bars at 1x and 2x. It does not assess unprovided reference-family calibration or provide general craft approval. An empty `unresolved` array below the result contract means only that no known or uncertain defect was found against this scoped requirement.\n\n## Candidate A\n\nObserved evidence:\n\n- In `a.png`, the central stem visibly reaches through the space between the two horizontal bars at both displayed raster sizes.\n- At 1x, the upper bar occupies y=8 across the center and the lower bar occupies y=10; the intervening pixels at y=9, x=7-8 are a symmetric pair with grayscale value 127, forming continuous half-tone coverage between the bars.\n- At 2x, the upper bar occupies y=16-17 and the lower bar occupies y=20-21; center pixels x=15-16 are solid through both intervening rows y=18-19, so the connection is continuous.\n\nIntentional rendering tradeoff:\n\n- The 1x stem is centered between two pixel columns and uses symmetric half-tone coverage rather than choosing one darker off-center column. This lowers peak contrast in the intervening row but preserves continuity and centering, so it is not unresolved under the stated requirement.\n\nScoped result: no known or uncertain continuity defect.\n\n## Candidate B\n\nObserved evidence:\n\n- In `b.png`, a visible background-colored gap separates the two horizontal bars at the center at both displayed raster sizes.\n- At 1x, the upper bar is at y=8 and the lower bar is at y=10, while the intervening center pixels y=9, x=7-8 are both 255 (fully white), so no stem coverage connects the bars.\n- At 2x, the upper bar occupies y=16-17 and the lower bar occupies y=20-21, while every center pixel at y=18-19, x=15-16 is 255 (fully white), producing the same discontinuity.\n\nIntentional rendering tradeoffs:\n\n- None identified for the missing inter-bar stem. The absence is a direct failure of the scoped continuity requirement rather than normal antialiasing, a symmetric stroke split, or a lower-contrast rendering choice.\n\nScoped result: unresolved visual defect `yen-central-stem-continuity`.\n"
+    },
+    {
+      "order": {
+        "a": "negative",
+        "b": "positive"
+      },
+      "index": 1,
+      "unchanged": true,
+      "valid": true,
+      "result": {
+        "a": {
+          "unresolved": [
+            {
+              "id": "central-stem-continuity",
+              "kind": "representation",
+              "description": "Failed requirement: the yen glyph must have a continuous central stem connecting both horizontal bars at 1x and 2x. In a-pixels.json, the 1x rendering has horizontal bars on rows y=8 and y=10 but the intervening central pixels at y=9, x=7-8 are both white (255); the 2x rendering likewise has bars on y=16-17 and y=20-21 while the intervening central pixels at y=18-19, x=15-16 are all white (255). The visible gaps in a.png confirm that the bars are disconnected at both target scales."
+            }
+          ]
+        },
+        "b": {
+          "unresolved": []
+        }
+      },
+      "notes": "# Yen central-stem review\n\nScope: only whether the central stem continuously connects both horizontal bars at 1x and 2x. This is not a general craft approval or a judgment of unprovided reference-family calibration. An empty `unresolved` array means only that no known or uncertain defect remains within this scope.\n\n## Candidate a\n\nObserved evidence:\n\n- In the 1x panel of `a.png`, the two horizontal bars are visibly separated through the center. The matching native matrix places the upper bar on y=8 and the lower bar on y=10; the intervening stem positions y=9, x=7-8 are both 255 (white).\n- In the 2x panel, the same disconnection remains. The matching retina matrix places the upper bar on y=16-17 and the lower bar on y=20-21; all four intervening stem samples at y=18-19, x=15-16 are 255 (white).\n- This is an absent connector at both required sizes, so `central-stem-continuity` remains unresolved as a representation defect.\n\nIntentional tradeoffs:\n\n- None identified within the scoped requirement. The fully absent connector cannot be treated as an antialiasing or contrast tradeoff because it loses continuity.\n\n## Candidate b\n\nObserved evidence:\n\n- In the 1x panel of `b.png`, the connector is visible as a centered, symmetric half-tone split between the bars. The matching native matrix has y=9, x=7-8 at 127, directly adjoining the upper bar on y=8 and the lower bar on y=10.\n- In the 2x panel, the connector is solid and centered: the matching retina matrix has x=15-16 at 0 on both intervening rows y=18-19, directly adjoining the bar rows y=16-17 and y=20-21.\n- Continuity and centering are preserved at both target sizes, so no known or uncertain defect remains for the scoped requirement.\n\nIntentional tradeoffs:\n\n- At 1x, the centered stem is split symmetrically across two pixel columns at half-tone coverage (127/127) rather than concentrated into a darker asymmetric column. This lowers peak contrast but preserves continuity and centering, and is therefore recorded as an acceptable rendering tradeoff rather than an unresolved defect.\n"
+    }
+  ],
+  "instrumentQualified": false,
+  "apiLedgerUnchanged": true
+}

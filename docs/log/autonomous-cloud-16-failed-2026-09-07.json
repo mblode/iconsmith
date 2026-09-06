@@ -1,0 +1,72 @@
+{
+  "billing": "subscription",
+  "craftApproved": false,
+  "master": "16",
+  "nativeSize": 16,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "sourceRevisionHash": "649a4784d9338f561e1fbe48736373b1fbc33ca3bb2b944b632e42418a2b806b",
+  "style": "e814278fe626c96e853465cc85336f4f721263a776f55e9748559e0bf179fd4f",
+  "authorExitCode": 0,
+  "authorReview": {
+    "unresolved": [
+      {
+        "description": "The filled paint does not fully meet the smooth-opening-terminal requirement. Its final enlarged PNG and SVG show a pointed left end near canonical (5.53,17.08), with an abrupt inner shoulder near (6.46,15.30); the right end also has an abrupt inner transition near (17.99,15.83). These differ from the rounded reference and outlined caps. Explicit subtract r1 rounded the right outer intersection but did not remove these remaining corners. The 16px proof retains separation, but raster softness does not resolve the contour defects.",
+        "id": "filled-opening-terminals",
+        "kind": "visual"
+      },
+      {
+        "description": "The filled cloud does not fully preserve the reference's smooth, consistently weighted lobe junction. The final enlarged PNG and resolved SVG show a flat inner shelf at y=9.5 from approximately x=13.77 to x=15, abrupt transitions into neighboring curves, and an unfilleted outer junction near (15.44,8.25). At native16, the junction differs visibly from the outlined twin: row 6 columns 9 and 10 are 178/132 in filled versus 19/18 in outlined, reflecting changed local contour and weight. A counter construction repair is still needed; the failed radius-1 union is not evidence of a missing DSL capability.",
+        "id": "filled-cloud-join",
+        "kind": "visual"
+      }
+    ]
+  },
+  "authorReviewError": null,
+  "changedInputs": [],
+  "checkExitCode": 0,
+  "imageInspection": {
+    "complete": true,
+    "images": {
+      "outlined.proof.png": {
+        "exposed": true,
+        "sha256": "52ec971ec737d86ae672fdaf23a433dd133f63a1ad3c8a0a6f3e517941452944"
+      },
+      "filled.proof.png": {
+        "exposed": true,
+        "sha256": "2370a640d3e1321806f5f406f293a3d12c8a838667b1969ee3cc22900de005db"
+      }
+    },
+    "traceSha256": "2279f1e5f3035a8f76d6f0b3276addf7938587c55f5d023e9837ad2a670119e5",
+    "visualJudgmentValidated": false
+  },
+  "imageInspectionError": null,
+  "missing": [],
+  "reviewContentValidated": false,
+  "status": "delivered",
+  "attempts": [
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1",
+      "hash": "c97b96d9db8fbc7cc70ce2cdc1b8bc881c993284e954a527472abf8d9e7dda28",
+      "status": "needs-repair"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2",
+      "status": "incomplete"
+    }
+  ],
+  "deadlineExceeded": true,
+  "elapsedMs": 600341,
+  "instrumentQualified": false,
+  "maxWallMs": 600000,
+  "qualityStatus": "needs-repair",
+  "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1",
+  "stoppedReason": "author-incomplete",
+  "experiment": "A105",
+  "qualified": false,
+  "actualApiUsd": null,
+  "outcome": "failed-craft-and-time-budget",
+  "manualArtworkEdits": 0
+}

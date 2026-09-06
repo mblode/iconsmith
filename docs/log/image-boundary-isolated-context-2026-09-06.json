@@ -1,0 +1,88 @@
+{
+  "experiment": "A098",
+  "outputs": [
+    {
+      "callId": "call_cBEgVQ3iKOnVFO0Hxj6V298j",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Script completed\nWall time 0.1 seconds\nOutput:\n"
+        },
+        {
+          "type": "image",
+          "sha256": "237179caa5ef6d870b32f01df5cab24161e0cb8592bcebaa644f4ca732205d57"
+        },
+        {
+          "type": "text",
+          "text": "{\"status\":\"image content returned\",\"detail\":\"original\"}"
+        }
+      ]
+    },
+    {
+      "callId": "call_4VQHjFeJjABFTLtexlXVZkNs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Script completed\nWall time 0.1 seconds\nOutput:\n"
+        },
+        {
+          "type": "text",
+          "text": "{\"status\":\"access error\",\"error\":\"unable to locate image at `/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/image-boundary-02/outside-control.png`: Operation not permitted (os error 1)\"}"
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "input_tokens": 32139,
+    "cached_input_tokens": 10240,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 276,
+    "reasoning_output_tokens": 0
+  },
+  "initialContextAudit": [
+    {
+      "role": "developer",
+      "characters": 1498,
+      "skills": false,
+      "recommendations": false,
+      "memory": false,
+      "corpus": false
+    },
+    {
+      "role": "developer",
+      "characters": 2264,
+      "skills": false,
+      "recommendations": false,
+      "memory": false,
+      "corpus": false
+    },
+    {
+      "role": "developer",
+      "characters": 271,
+      "skills": false,
+      "recommendations": false,
+      "memory": false,
+      "corpus": false
+    },
+    {
+      "role": "user",
+      "characters": 2225,
+      "skills": false,
+      "recommendations": false,
+      "memory": false,
+      "corpus": false
+    },
+    {
+      "role": "user",
+      "characters": 742,
+      "skills": false,
+      "recommendations": false,
+      "memory": false,
+      "corpus": false
+    }
+  ],
+  "insideReturnedImage": true,
+  "outsideDenied": true,
+  "apiCalls": 0,
+  "allProcessesTerminal": true
+}

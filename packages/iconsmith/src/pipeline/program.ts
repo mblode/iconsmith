@@ -321,9 +321,10 @@ export const runProgram = async (
         from: string;
         r: number;
         sweep: string;
+        weight?: string;
       }) =>
         emit(
-          `arc ${pair(a.cx, a.cy, "arc")} r${n(a.r, "r")} ${word(a.sweep, "sweep")} from ${word(a.from, "from")}${a.ccw ? " ccw" : ""}`
+          `arc ${pair(a.cx, a.cy, "arc")} r${n(a.r, "r")} ${word(a.sweep, "sweep")} from ${word(a.from, "from")}${a.ccw ? " ccw" : ""}${a.weight === undefined ? "" : ` ${word(a.weight, "weight")}`}`
         ),
       center: () => emit("center"),
       circle: (a: { cx: number; cy: number; r: number }) =>
@@ -379,8 +380,16 @@ export const runProgram = async (
           `unknown hole shape "${word((a as { shape: unknown }).shape, "hole shape")}" — expected circle, line or rect`
         );
       },
-      line: (a: { offAxis?: boolean; points: [number, number][] }) =>
-        emit(`line ${points(a.points, "line")}${a.offAxis ? " off-axis" : ""}`),
+      line: (a: {
+        offAxis?: boolean;
+        points: [number, number][];
+        r?: number;
+        solid?: boolean;
+        weight?: string;
+      }) =>
+        emit(
+          `line ${points(a.points, "line")}${a.offAxis ? " off-axis" : ""}${a.r === undefined ? "" : ` r${n(a.r, "r")}`}${a.solid ? " solid" : ""}${a.weight === undefined ? "" : ` ${word(a.weight, "weight")}`}`
+        ),
       part: (a: {
         at?: [number, number] | string;
         fill?: boolean;
@@ -651,9 +660,10 @@ export const CALLING_CONVENTION = [
   "  await icon.name(slug) / icon.keyline(k) / icon.finish(f)   -- first, in this order",
   "  await draw.rect({ x, y, w, h, r })",
   "  await draw.circle({ cx, cy, r })",
-  "  await draw.arc({ cx, cy, r, sweep, from, ccw })",
+  "  await draw.arc({ cx, cy, r, sweep, from, ccw, weight })",
   "  await draw.diamond({ cx, cy, r })",
-  "  await draw.line({ points: [[x, y], ...], offAxis })",
+  "  await draw.line({ points: [[x, y], ...], offAxis, r, solid, weight })",
+  "  weight is optional and accepts only the named role detail; its width comes from the selected spec.",
   "  await draw.dot({ cx, cy, role })",
   "  await draw.hole({ shape: 'circle' | 'rect' | 'line', ... })",
   "  await draw.part({ name, at, size, fill, turn, flip })",

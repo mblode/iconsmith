@@ -52,7 +52,6 @@ const ASPECT_BUCKETS = 3;
 /** Quarter-turns in a full turn. */
 const TURN_COUNT = 4;
 const COVERAGE_POINTS = [50, 200, 500];
-const GRID = 0.25;
 const PERCENT = 100;
 const DECIMALS = 2;
 const ID_WIDTH = 4;
@@ -280,16 +279,18 @@ const toPart = (members: Member[], id: string): Part => {
   }
   return {
     closed: best.c.sp.closed,
-    d: serialise([canonical], { grid: GRID }),
+    // Preserve the admitted designer contour. Placement owns grid policy;
+    // snapping handles here irreversibly changes curvature before placement.
+    d: serialise([canonical]),
     flips,
-    h: round(b.h),
+    h: b.h,
     icons: [...new Set(members.map((m) => m.c.slug))].toSorted(),
     id,
     instances: members.length,
     nodes: best.c.sp.segs.length,
     sizeRange: [Math.min(...sizes), Math.max(...sizes)],
     turns,
-    w: round(b.w),
+    w: b.w,
   };
 };
 

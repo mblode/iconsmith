@@ -1,0 +1,189 @@
+{
+  "experiment": "A082",
+  "weights": [
+    1.8,
+    1.65,
+    1.5
+  ],
+  "nativeSize": 16,
+  "compiler": "iconsmith-constrained-14",
+  "sourceProgramHashes": {
+    "outlined": "d83bdf694c6a9fb8adf1c772179995f2783a1ca381f81af97df8fd5cb8290463",
+    "filled": "2e4715e85ed72f293b3af91763062021c9f447a615ea21fcf24e8b2c4b432dc3"
+  },
+  "variables": [
+    "detailStroke"
+  ],
+  "excludedClaims": [
+    "fresh generation",
+    "style qualification",
+    "heldout acceptance",
+    "training necessity"
+  ],
+  "apiCalls": 0,
+  "manifestHash": "fffd71bc3630641379bbba59ac1dc27576e422e10163990f52085e974fc7f0f1",
+  "results": [
+    {
+      "weight": 1.8,
+      "styleKey": "2558118601eaf93a2426675cfac4bf36fce5c01f618f873ca7795e39ea5ac609",
+      "paints": {
+        "outlined": {
+          "svgHash": "c08968141f508a487f8e3085783fa5dd20dd7a214c23b4eaa5a9e9d83bc8c0fb",
+          "programHash": "d83bdf694c6a9fb8adf1c772179995f2783a1ca381f81af97df8fd5cb8290463",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 74.43529411764709,
+              "samples": {
+                "gapLeft": 255,
+                "gapRight": 255,
+                "barTop": 17,
+                "barBottom": 17,
+                "stem": 102,
+                "fork": 85
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 297.6000000000001
+            }
+          }
+        },
+        "filled": {
+          "svgHash": "6120bfe617dc3fa4c3bfbeff0909dfc06beea8ef396e86489228525eb428cf04",
+          "programHash": "2e4715e85ed72f293b3af91763062021c9f447a615ea21fcf24e8b2c4b432dc3",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 114.72549019607847,
+              "samples": {
+                "gapLeft": 0,
+                "gapRight": 0,
+                "barTop": 238,
+                "barBottom": 238,
+                "stem": 153,
+                "fork": 170
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 457.3607843137255
+            }
+          }
+        }
+      }
+    },
+    {
+      "weight": 1.65,
+      "styleKey": "eb93f029203f68c53906e75f5dadddf581bb9799cabaf100ff5adb3074d9b04c",
+      "paints": {
+        "outlined": {
+          "svgHash": "6cae86ba3276a83543cd29c6895e4eda90e75bab41d230f11455b12525bce720",
+          "programHash": "d83bdf694c6a9fb8adf1c772179995f2783a1ca381f81af97df8fd5cb8290463",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 72.20000000000003,
+              "samples": {
+                "gapLeft": 255,
+                "gapRight": 255,
+                "barTop": 34,
+                "barBottom": 34,
+                "stem": 115,
+                "fork": 100
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 290.2588235294119
+            }
+          }
+        },
+        "filled": {
+          "svgHash": "5ecc1da8d5479c47fc5dc3e6ba4abdd60a0091b3275dc035d831bff5d02a7177",
+          "programHash": "2e4715e85ed72f293b3af91763062021c9f447a615ea21fcf24e8b2c4b432dc3",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 116.97647058823539,
+              "samples": {
+                "gapLeft": 0,
+                "gapRight": 0,
+                "barTop": 221,
+                "barBottom": 221,
+                "stem": 140,
+                "fork": 154
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 465.5921568627451
+            }
+          }
+        }
+      }
+    },
+    {
+      "weight": 1.5,
+      "styleKey": "748add4f5dfc232a9c78fd8aa62712beaa44288f75fbdf3fe2859f4760deaee9",
+      "paints": {
+        "outlined": {
+          "svgHash": "c2d912f2bf623232aafc9368e958367a8e2885111413ad4ac1bd159f0d3a66a9",
+          "programHash": "d83bdf694c6a9fb8adf1c772179995f2783a1ca381f81af97df8fd5cb8290463",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 70.35686274509804,
+              "samples": {
+                "gapLeft": 255,
+                "gapRight": 255,
+                "barTop": 51,
+                "barBottom": 51,
+                "stem": 127,
+                "fork": 117
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 281.12941176470576
+            }
+          }
+        },
+        "filled": {
+          "svgHash": "3107cd36eef3cf49cf32371684d48835742e2bc7e7ceb6f85f642aafc04a5334",
+          "programHash": "2e4715e85ed72f293b3af91763062021c9f447a615ea21fcf24e8b2c4b432dc3",
+          "exactReplay": true,
+          "rasters": {
+            "1": {
+              "width": 16,
+              "inkArea": 118.80000000000005,
+              "samples": {
+                "gapLeft": 0,
+                "gapRight": 0,
+                "barTop": 204,
+                "barBottom": 204,
+                "stem": 127,
+                "fork": 137
+              }
+            },
+            "2": {
+              "width": 32,
+              "inkArea": 473.7450980392157
+            }
+          }
+        }
+      }
+    }
+  ],
+  "actualApiChargeUsd": 0,
+  "craftApproved": false,
+  "fullPixelEvidence": {
+    "path": ".staging/foundry-quality-2026-09-06/native-weight-yen-01/full-pixel-receipt.json",
+    "sha256": "905f07952475b0c199710e5f215d20215e35fde05e7366148979c5dd25a93cf8"
+  }
+}

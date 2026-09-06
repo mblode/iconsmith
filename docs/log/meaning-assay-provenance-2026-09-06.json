@@ -1,0 +1,14 @@
+{
+  "experiment": "A085",
+  "sha256": {
+    ".staging/foundry-quality-2026-09-06/meaning-assay-01/prepare.mjs": "e6977bfb8ec3251dc701a9d68e6fe665b17d6453b835147f72821df0ee3e43ed",
+    ".staging/foundry-quality-2026-09-06/meaning-assay-01/run.mjs": "869bedf8b8e5ee795f0b00d5e28ecd7220e990ce666a22a9318b48b45031e0a8",
+    ".staging/foundry-quality-2026-09-06/meaning-assay-01/manifest.json": "a83901bafbabf229cc12ba79c6badc5cc861313d6ef45d9463493fba43d0d6b0",
+    "packages/iconsmith/scripts/local-review.ts": "c9193035d53dcfa8f826ffc2250c91beceb24f47be1ba2127464d3903f0fe433",
+    "packages/iconsmith/scripts/local-style-run.ts": "e78f57cdd2fe40e112a7fc7e471a1f3376b0f4a80a746634d85657d83d257b26",
+    "packages/iconsmith/src/tools/proof.ts": "bc2e6cf6720566673c65a46d17c0b8ba442c1c755f2c8234cff9713d57ed51a6",
+    ".staging/foundry-round-1/instrument-weight/protocol.json": "8348a3617886585124f44ba040d31b152338f632d4712682a568d253dd53d92c"
+  },
+  "historicalHashConvention": "All20 historical originalHash fields verified as SHA256(JSON.stringify(svg)); new sourceSha256 fields hash raw UTF8 SVG bytes",
+  "sourceUse": "Evaluation only; no source artwork included in durable receipts"
+}

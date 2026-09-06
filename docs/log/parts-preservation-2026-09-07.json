@@ -1,0 +1,25 @@
+{
+  "kind": "offline-vocabulary-audit",
+  "source": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+  "summary": {
+    "candidates": 10544,
+    "coverage": {
+      "50": 79.78388113462404,
+      "200": 87.57316524088249,
+      "500": 92.4808644754615
+    },
+    "icons": 2221,
+    "parts": 1620,
+    "scanned": 2221,
+    "shared": 622,
+    "styles": {
+      "expanded": 342,
+      "stroked": 1879,
+      "used": "all"
+    }
+  },
+  "partsWhoseContoursWouldBeGridRounded": 1528,
+  "affectedSourceIcons": 2089,
+  "generationQualified": false,
+  "evidence": ".staging/parts-generation-2026-09-07/vocabulary.json"
+}

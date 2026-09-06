@@ -1,0 +1,29 @@
+[
+  {
+    "name": "restricted",
+    "paint": "outlined",
+    "exactReplay": true,
+    "manualArtworkEdits": 0,
+    "opticalMaster": false
+  },
+  {
+    "name": "restricted",
+    "paint": "filled",
+    "error": "Error: Style program did not compile: line 6 (union r0.5): Intersection radius must be an explicit filled family tier",
+    "opticalMaster": false
+  },
+  {
+    "name": "contour-tiers",
+    "paint": "outlined",
+    "exactReplay": true,
+    "manualArtworkEdits": 0,
+    "opticalMaster": false
+  },
+  {
+    "name": "contour-tiers",
+    "paint": "filled",
+    "exactReplay": true,
+    "manualArtworkEdits": 0,
+    "opticalMaster": false
+  }
+]

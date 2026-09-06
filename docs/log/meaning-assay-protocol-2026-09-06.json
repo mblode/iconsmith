@@ -1,0 +1,359 @@
+{
+  "experiment": "A085",
+  "scope": "Known development references; multi-scale recognition, not native-only or unseen generation",
+  "source": "Retained A003 Central original controls, unchanged source bytes, evaluation only",
+  "rule": {
+    "positiveCorrectBothOrders": 18,
+    "positiveDistinctImages": 20,
+    "absentAnswerCorrectBothOrders": 4,
+    "absentAnswerControls": 4,
+    "retries": 0,
+    "missingCountsAsFailure": true,
+    "qualificationClaim": false
+  },
+  "render": "Shared opticalProof: vector enlargement plus actual16px1x/2x on light/dark",
+  "billing": "Native subscription only; no API fallback",
+  "question": "Identify the candidate icon from the alternatives. The intended answer is withheld. Choose uncertain if none fits or multiple alternatives are equally plausible. Base the choice on visible features, including modifiers; explain what you actually see.",
+  "cases": [
+    {
+      "id": "case-01",
+      "source": "archive",
+      "expected": "filing box containing a folder",
+      "choices": [
+        "filing box containing a folder",
+        "open folder",
+        "briefcase",
+        "drawer with downward arrow"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "38b78de9cf0c0a854d3bb473837251b00d1c520ee2bfae3499e94ceb0c2b2657",
+      "historicalDeclaredHash": "ea45856801e76025c75738b2eb4f23aa6a92a619c93a1017c2b6fff2d76cc902",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "5bec194ac84f35c87f048473cd8ba88df0f30f005e290069e82ce2d9a27c64f6"
+    },
+    {
+      "id": "case-02",
+      "source": "bell",
+      "expected": "bell",
+      "choices": [
+        "dome-shaped lamp",
+        "padlock",
+        "umbrella",
+        "bell"
+      ],
+      "absentChoices": [
+        "dome-shaped lamp",
+        "padlock",
+        "umbrella",
+        "desk lamp"
+      ],
+      "sourceSha256": "4399bd04749f91bb7d31defb284d01a55dec5be768128e50accb595ae1bb597e",
+      "historicalDeclaredHash": "b14a5196dc77f0e0f0ad61c070ae1617575e1b6d755069ee55f5862088029d9c",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "ae341f1e6bbaf3f263b035ddf5aa237032d47d38874e1146697746dc6b51ca6b"
+    },
+    {
+      "id": "case-03",
+      "source": "camera-1",
+      "expected": "still camera",
+      "choices": [
+        "webcam",
+        "projector",
+        "still camera",
+        "video camera"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "1627ded4067fe13f4dc8589241133394885c433299cf3c5ca38827f0e6c87490",
+      "historicalDeclaredHash": "7965335df9c65c11781afb0391325306a2bc702ef3130b41e28414fe726d109c",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "8ccb40c3db9e4f80485471466b499403215b302ff6939b12fe5dedcd1bce06b1"
+    },
+    {
+      "id": "case-04",
+      "source": "clock",
+      "expected": "clock",
+      "choices": [
+        "circular arrow",
+        "clock",
+        "stopwatch",
+        "round compass"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "39274a1338f5b3c4ffc46837f2cc4062a13bcede3848c8bd0f3c2b21c6333a77",
+      "historicalDeclaredHash": "6587c5b11ca5de69d3f2163a137543bc264cae2726766eb3dd07fa808021dfdd",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "c46d3b05e2fd15f017feea7385bb27ee58f327adb3458a2da35c8103069a8e14"
+    },
+    {
+      "id": "case-05",
+      "source": "cloud",
+      "expected": "plain cloud",
+      "choices": [
+        "plain cloud",
+        "rain cloud",
+        "thought bubble",
+        "snow cloud"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "28b770cbf3580e6f1359bf5839fe1f2b2d1d757caf2edd9d00f425ff178f10ef",
+      "historicalDeclaredHash": "dcd02baf3a62740279cc5c7dfef140560947b4af35bef1153835b917c416eff0",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "1544715abb411ba5afca98257740968c8cf044bf6157d637957ed5d434b81c54"
+    },
+    {
+      "id": "case-06",
+      "source": "folder-1",
+      "expected": "folder",
+      "choices": [
+        "document with folded corner",
+        "filing box",
+        "briefcase",
+        "folder"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "43e9968b9dbbb173da6d7975d62f779c4188797a8a8a9854574c5cb2e0b0fdc7",
+      "historicalDeclaredHash": "2664786cb10c31c725ba73ef414f007989643e8b2e3964a5b64089d2c2d164c3",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "7d53cee05a24759f8aad8d3e9cd830c30f4a4d1286e5463979f5af3a608272b9"
+    },
+    {
+      "id": "case-07",
+      "source": "heart",
+      "expected": "unbroken heart",
+      "choices": [
+        "shield",
+        "leaf",
+        "unbroken heart",
+        "broken heart"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "7e8a874ec9faca0837a8c78aad9d459691511705e326b9a657f3e450d2a7a2b8",
+      "historicalDeclaredHash": "75ca8719df86f76f8eaf76f06ce64e52e31a17c8868f3f5365cf208f21554d4d",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "be16f8120b465307598ba9ac2927ca98d1079c637f5f397eec5a00b2f73b3911"
+    },
+    {
+      "id": "case-08",
+      "source": "home",
+      "expected": "house",
+      "choices": [
+        "office building",
+        "house",
+        "factory",
+        "tent"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "666b027cb2a637998342606076b28895ec289ebda26fbc4adf2ee812714f2bc9",
+      "historicalDeclaredHash": "bff88bb69da1481991a56ff63d7fe85eea0a072cd2cf857a1c9d52e0e8e35a5f",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "d41bb373a1b9fbe7fccf0726f2e83198743e0c718621781dce9bf41a3b3d0827"
+    },
+    {
+      "id": "case-09",
+      "source": "lock",
+      "expected": "closed padlock",
+      "choices": [
+        "closed padlock",
+        "open padlock",
+        "keyhole",
+        "shopping bag"
+      ],
+      "absentChoices": [
+        "open padlock",
+        "keyhole",
+        "shopping bag",
+        "door handle"
+      ],
+      "sourceSha256": "04e9bf2c31789652e64e04b07d571c1d7adf479e1e49b9d8eed087b41fbca7e1",
+      "historicalDeclaredHash": "cf5373f3e38272db3bbd6a83ce7181ea6a5c8525336d059d3268c151413ac20d",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "b6e8c16fe60c1be9d88b5d881ac4cb7a99ea8b1b8980ec8edbaa2eecc43717a9"
+    },
+    {
+      "id": "case-10",
+      "source": "star",
+      "expected": "five-point star",
+      "choices": [
+        "six-point star",
+        "four-point sparkle",
+        "asterisk",
+        "five-point star"
+      ],
+      "absentChoices": [
+        "six-point star",
+        "four-point sparkle",
+        "asterisk",
+        "triangle"
+      ],
+      "sourceSha256": "232f48b4ee9233c160fd357ead76c03f0daf98bbc541263792c6e963f98ef083",
+      "historicalDeclaredHash": "3d38894caf0ec485723ec077e80a157dbd5a3670c466c817c4baf6cf06f563ae",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "b4b8c3666d0a7a98a4a14354fca7e7bbd97f402ec7f878e324ba5c123c02ca43"
+    },
+    {
+      "id": "case-11",
+      "source": "books",
+      "expected": "standing books",
+      "choices": [
+        "open book",
+        "bar chart",
+        "standing books",
+        "horizontal stack of books"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "31ef0c34a6d6c79cfaa911e034f086adf49f8bc675a9f0f4f04f1dc7c5d2e4a6",
+      "historicalDeclaredHash": "0dcbc87906f714b5276c9b20db58f204efd6321182df73e82bfe59f53e0c6348",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "deba8d0543d1103f130a24904e2ae461383a1c2a42d30438fa79ce71bc7be080"
+    },
+    {
+      "id": "case-12",
+      "source": "bookmark",
+      "expected": "plain bookmark ribbon",
+      "choices": [
+        "flag",
+        "plain bookmark ribbon",
+        "bookmark with check mark",
+        "price tag"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "47660eb386ad46f25e1911af14d28bf6ac1f826476adf33d9702f76e60a5c0a2",
+      "historicalDeclaredHash": "1be4341d5dbf0a051775dd140779a96e4da10fdd5aa673133bacd804000b8efe",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "4f3ca0bbe2638415acb2f47a46194c48510a10877bc270c501750bafd22e30fe"
+    },
+    {
+      "id": "case-13",
+      "source": "checkmark-1-small",
+      "expected": "check mark",
+      "choices": [
+        "check mark",
+        "right chevron",
+        "down arrow",
+        "cross"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "9bcc8fab01366713f3aa6da0f3d1e580502ab1d473051f8240bac3df55093e52",
+      "historicalDeclaredHash": "10ba0fef898996b79f98cc63452ecf2859431f223a7dc3766dc74ae0559d3dd1",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "29cdd93eda45f638f5bbd6d9f420b5a608d9b20c1919416b24dba639cc46b23d"
+    },
+    {
+      "id": "case-14",
+      "source": "compass-round",
+      "expected": "round compass",
+      "choices": [
+        "clock",
+        "target",
+        "circular arrow",
+        "round compass"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "1c03b8861f8b6c9d597a87be7b523529aea9cfb25324a5b93c62c62a2842f6ee",
+      "historicalDeclaredHash": "452d3c4abe65504440684a7b4dda5f0d7bf4bf50d0555a1943d53d6ac222fb26",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "53f108ab1711f040e3ec40f562b09aba29e0b3819e80de0b01b7e25403f91b98"
+    },
+    {
+      "id": "case-15",
+      "source": "eye-open",
+      "expected": "open eye",
+      "choices": [
+        "closed eye",
+        "camera lens",
+        "open eye",
+        "crossed-out eye"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "2df86085719c8bf5a7d3b262f3344e23e1f9a64861e6c8bde32ec3dd4f417c46",
+      "historicalDeclaredHash": "07f1554192aab7e6dc57dd4f9f588f2d66b2405d2973e97c21b444896afbdd05",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "1675be878e9afd869286a1dcda4666b8179bed2935ec5dc8d40c576b7d81a1b8"
+    },
+    {
+      "id": "case-16",
+      "source": "file-bend",
+      "expected": "plain document with folded corner",
+      "choices": [
+        "folder",
+        "plain document with folded corner",
+        "document with text lines",
+        "clipboard"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "6dad025ecfa313d8fb1ed5a4cc31f4cac09028c8dc5d141d5cfcfaed13b6b4cd",
+      "historicalDeclaredHash": "699a761093c7d91383d4500547b82cb8fa1d4140ba471c476369e86a631e3265",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "0375dfa751f9f71085fd6a2b00144b72e45f3168658ab71d236292ca929d5511"
+    },
+    {
+      "id": "case-17",
+      "source": "keyhole",
+      "expected": "keyhole",
+      "choices": [
+        "keyhole",
+        "key",
+        "padlock",
+        "person silhouette"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "15d6a1ecf63cb5b899dace64a7230464146f75df7e33375b8f6ad33eee28b506",
+      "historicalDeclaredHash": "d5c70d1e840e2a407c41f02b95bb915c0199cc24052a6040bf4a658e5ed6daf8",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "93287fdf81e5e2e460f3707e7aa2519e73fbe4512afb7f61420351d525924ba4"
+    },
+    {
+      "id": "case-18",
+      "source": "magnifying-glass",
+      "expected": "plain magnifying glass",
+      "choices": [
+        "magnifying glass with plus",
+        "magnifying glass with minus",
+        "hand mirror",
+        "plain magnifying glass"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "524d8b6992f9ee5a0f0e669b9273fd3b87f8976724b5964bc13fadd49522832c",
+      "historicalDeclaredHash": "e6b5507ddba38ed20b3120b06203b94d78652c72969389a6bdfb9e01952081d3",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "30dc8b28f288d0d40532e34fd7d056400d988169d17c95156d1d5a1536306f61"
+    },
+    {
+      "id": "case-19",
+      "source": "keyboard-cable",
+      "expected": "keyboard with cable",
+      "choices": [
+        "calculator",
+        "piano keyboard",
+        "keyboard with cable",
+        "wireless keyboard"
+      ],
+      "absentChoices": null,
+      "sourceSha256": "330fcfa87ae34f2dd347794464e0a560518c0916fa7c301c40e3ec4c97b68632",
+      "historicalDeclaredHash": "55f93ab58c84dcfa34ab29d278b7576cc56974e7bd76710806d65ce263c29e15",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "333513a6a1df0e0c3b405d7a0d6b4eff906854192e408ba5a07ed5f1946df308"
+    },
+    {
+      "id": "case-20",
+      "source": "email-2-incoming",
+      "expected": "envelope with left-pointing arrow",
+      "choices": [
+        "plain envelope",
+        "envelope with left-pointing arrow",
+        "envelope with right-pointing arrow",
+        "envelope with downward arrow"
+      ],
+      "absentChoices": [
+        "plain envelope",
+        "envelope with right-pointing arrow",
+        "envelope with downward arrow",
+        "envelope with upward arrow"
+      ],
+      "sourceSha256": "bb3722f11e5efa4377c1afb509883b6620114eda5114e8b5f58c67e6e85d4b5b",
+      "historicalDeclaredHash": "36d13ab1289f844a5fc829295b59a15c5496d7bf3c9d7d53afac6e80ba5f0360",
+      "historicalHashMatchesBytes": false,
+      "imageSha256": "33591c705de3bc83e698b0b89516919f015dfa79203373153b95e2888df4adb9"
+    }
+  ]
+}

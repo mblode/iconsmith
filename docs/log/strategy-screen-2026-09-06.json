@@ -1,0 +1,1134 @@
+{
+  "scope": "Development strategy screen; not heldout qualification or proof of universally best model",
+  "sources": ".staging/strategy-screen-2026-09-06",
+  "receipts": {
+    "protocol.json": {
+      "sha256": "ce3c0e5268153851340880ffddae407cfd9f0ab85d114f3f2aa623f510904412",
+      "record": {
+        "id": "A099",
+        "scope": "development strategy screen; text-only original briefs; not heldout house-match qualification",
+        "concepts": [
+          "cloud-upload",
+          "jellyfish",
+          "satellite-dish"
+        ],
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "llms": [
+          "gpt-6-astra native CLI high DSL and rawSVG control",
+          "claude-fable-5.1 native CLI high DSL",
+          "google/gemini-3.8-flash gateway high DSL",
+          "spacexai/grok-4.6 gateway DSL"
+        ],
+        "images": [
+          "ChatGPT builtin imagegen requested GPT Image2 (backend identity to verify)",
+          "nano_banana_pro",
+          "seedream_v5_lite",
+          "recraft_v4_1 utility_vector"
+        ],
+        "replicates": 1,
+        "selectionCriteria": [
+          "delivery of six requested artifacts",
+          "DSL compile and geometry checks",
+          "recognition at16 and24",
+          "paired identity and extent",
+          "curves spacing weight",
+          "editable production geometry",
+          "cost latency"
+        ],
+        "limitations": [
+          "No reference matching or independent qualified taste labels",
+          "CLI and API context/effort implementations differ",
+          "Image sheet extraction and reconstruction count as additional pipeline stages",
+          "No synthetic success or silent model substitution"
+        ],
+        "apiReservationUsd": 4,
+        "higgsfieldReservationCredits": 5.5,
+        "higgsfieldInitialCredits": 8
+      }
+    },
+    "accounting.json": {
+      "sha256": "372076443d62f037e37ef03f107b3ccf7836febe34a8e6c29d404435d9cf7dd5",
+      "record": {
+        "actualUsd": 13.06220785,
+        "reservedUsd": 11.37126575,
+        "newKnownCharges": 2.4031582499999997,
+        "groups": [
+          {
+            "id": "strategy-screen-gemini-grok",
+            "reservationUsd": 4,
+            "state": "cost-unresolved",
+            "actualUsd": 0.03801525,
+            "outstandingReservationUsd": 3.96198475,
+            "members": [
+              {
+                "arm": "gemini",
+                "state": "complete",
+                "actualUsd": 0.03801525,
+                "generationId": "gen_01M1TW4XVH29XXRTFKQ1PF3NMG",
+                "finishReason": "length",
+                "elapsedMs": 64764
+              },
+              {
+                "arm": "grok",
+                "state": "failed-cost-unknown",
+                "actualUsd": null
+              }
+            ]
+          },
+          {
+            "id": "strategy-screen-provider-fallback",
+            "reservationUsd": 6,
+            "state": "complete",
+            "actualUsd": 0.774424,
+            "outstandingReservationUsd": 0,
+            "members": [
+              {
+                "arm": "fableapi",
+                "state": "complete",
+                "actualUsd": 0.51112,
+                "generationId": "gen_01M1TW7M3W37XBZH640BR2VHSY",
+                "finishReason": "length",
+                "elapsedMs": 137369
+              },
+              {
+                "arm": "nanoapi",
+                "state": "complete",
+                "actualUsd": 0.148304,
+                "generationId": "gen_01M1TW7N0GXJN5RPG3YJEH2HHG",
+                "finishReason": "stop",
+                "elapsedMs": 42135
+              },
+              {
+                "arm": "seedreamapi",
+                "state": "complete",
+                "actualUsd": 0.035,
+                "generationId": "gen_01M1TW7P7BMS13YW5MB1JCJSE3",
+                "elapsedMs": 64690
+              },
+              {
+                "arm": "recraftapi",
+                "state": "complete",
+                "actualUsd": 0.08,
+                "generationId": "gen_01M1TW7Q78MKRJ58WWQPDBJ3P6",
+                "elapsedMs": 14769
+              }
+            ]
+          },
+          {
+            "id": "strategy-screen-output-budget-correction",
+            "reservationUsd": 5,
+            "state": "cost-unresolved",
+            "actualUsd": 0.121599,
+            "outstandingReservationUsd": 4.878401,
+            "members": [
+              {
+                "arm": "gemini2",
+                "state": "complete",
+                "actualUsd": 0.121599,
+                "generationId": "gen_01M1TWEAJ6903STWKG3NV6MHN4",
+                "finishReason": "stop",
+                "elapsedMs": 190476
+              },
+              {
+                "arm": "grok2",
+                "state": "failed-cost-unknown",
+                "actualUsd": null
+              },
+              {
+                "arm": "fableapi2",
+                "state": "failed-cost-unknown",
+                "actualUsd": null
+              }
+            ]
+          },
+          {
+            "id": "strategy-screen-streaming",
+            "reservationUsd": 4,
+            "state": "cost-unresolved",
+            "actualUsd": 1.46912,
+            "outstandingReservationUsd": 2.53088,
+            "members": [
+              {
+                "arm": "fablestream",
+                "state": "complete",
+                "actualUsd": 1.46912,
+                "generationId": "gen_01M1TWWQ7BBXESF1BT2TZ4T0NX",
+                "finishReason": "stop",
+                "elapsedMs": 378086
+              },
+              {
+                "arm": "grokstream",
+                "state": "failed-cost-unknown",
+                "actualUsd": null
+              }
+            ]
+          }
+        ],
+        "nativeAndBuiltin": "Subscription/tool charges not represented as zero API cost",
+        "higgsfield": {
+          "initial": 8,
+          "lastObserved": 8,
+          "generationsDelivered": 0
+        }
+      }
+    },
+    "compiler15-replay.json": {
+      "sha256": "98b6967b5a9ec3cfa84515c33a94c780f20858e71000bbc0b1e5b3717e78e12d",
+      "record": [
+        {
+          "arm": "astra-dsl",
+          "concept": "cloud-upload",
+          "paint": "outlined",
+          "priorParseErrors": [],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 19.0\u00d718.0; keyline \"wide\" wants 20\u00d716 (\u00b11). Scale by 1.053.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "5134a5ef078d95dbf122b3da6f02409ac28dd3dae6ed465d848528bf02ad96e4"
+        },
+        {
+          "arm": "astra-dsl",
+          "concept": "cloud-upload",
+          "paint": "filled",
+          "priorParseErrors": [],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 19.0\u00d718.0; keyline \"wide\" wants 20\u00d716 (\u00b11). Scale by 1.053.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "da3795141e4088d47e7657fb56e552c1264fdbb3bcc6a3aab4016d5d719bc34c"
+        },
+        {
+          "arm": "astra-dsl",
+          "concept": "jellyfish",
+          "paint": "outlined",
+          "priorParseErrors": [],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 16.0\u00d718.0; keyline \"tall\" wants 16\u00d720 (\u00b11). Scale by 1.111.",
+              "rule": "keyline",
+              "severity": "error"
+            },
+            {
+              "message": "e0 and e2 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e0 and e6 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "9 elements. At 24px the ceiling is 8; fewer, larger marks survive.",
+              "rule": "density",
+              "severity": "warn"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "f3023150fda41535ff0fb2f95aea525572737f48762e7859589569a77980820a"
+        },
+        {
+          "arm": "astra-dsl",
+          "concept": "jellyfish",
+          "paint": "filled",
+          "priorParseErrors": [],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 16.0\u00d718.0; keyline \"tall\" wants 16\u00d720 (\u00b11). Scale by 1.111.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "4b66c93ec153b4c6c12a73301f15cafad1fa3708919fd1c0054d7b498905cc2b"
+        },
+        {
+          "arm": "astra-dsl",
+          "concept": "satellite-dish",
+          "paint": "outlined",
+          "priorParseErrors": [],
+          "parseErrors": [],
+          "findings": [],
+          "svgIdentical": true,
+          "sha256": "0c98561590775eb7e1048c51cf3a8087fb1cc91785402d623198a579f413d797"
+        },
+        {
+          "arm": "astra-dsl",
+          "concept": "satellite-dish",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 19 (center): Transform the operands before Boolean composition"
+          ],
+          "parseErrors": [
+            "line 19 (center): Transform the operands before Boolean composition"
+          ],
+          "findings": [
+            {
+              "message": "Content centre is (14.11, 8.51); the house spec is (12, 12) within 0.25. Shift by (-2.11, 3.49) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 18.7\u00d725.0; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 0.960.",
+              "rule": "keyline",
+              "severity": "error"
+            },
+            {
+              "message": "Geometry reaches the canvas edge; the live area is 0..24, measured on the path bounds rather than the visual extent.",
+              "rule": "bleed",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "6238b24f0ac584a8835dd7705d0aed5c52f900554cc0c9457557283c13cf70ad"
+        },
+        {
+          "arm": "gemini2",
+          "concept": "cloud-upload",
+          "paint": "outlined",
+          "priorParseErrors": [
+            "line 10 (finish outlined): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Content centre is (12.00, 13.75); the house spec is (12, 12) within 0.25. Shift by (0.00, -1.75) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 18.0\u00d716.5; keyline \"wide\" wants 20\u00d716 (\u00b11). Scale by 1.111.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "287fb7e92235dd6ed35f6f935bec7d994af6053b7fea14e4007dbb55a382440c"
+        },
+        {
+          "arm": "gemini2",
+          "concept": "cloud-upload",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 10 (finish filled): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 18.0\u00d713.5; keyline \"wide\" wants 20\u00d716 (\u00b11). Scale by 1.185.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "6cdb05f127d24155d0e41d13801ecdc34c82914192dd52c9102050e757e8642e"
+        },
+        {
+          "arm": "gemini2",
+          "concept": "jellyfish",
+          "paint": "outlined",
+          "priorParseErrors": [
+            "line 4 (line 5,10 6,11 12,8 18,11 19,10): line segment 2 (6,11 \u2192 12,8) runs at 153.43\u00b0, 18.43\u00b0 off the nearest axis (135\u00b0). Off-axis edges are legitimate \u2014 29.3% of stroked icons in the set have one, on rational slopes between two grid points \u2014 but they are asked for, not arrived at: pass `offAxis: true` (`off-axis` in the DSL) if that is the shape, or move an endpoint onto the axis.",
+            "line 8 (finish outlined): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [
+            "line 4 (line 5,10 6,11 12,8 18,11 19,10): line segment 2 (6,11 \u2192 12,8) runs at 153.43\u00b0, 18.43\u00b0 off the nearest axis (135\u00b0). Off-axis edges are legitimate \u2014 29.3% of stroked icons in the set have one, on rational slopes between two grid points \u2014 but they are asked for, not arrived at: pass `offAxis: true` (`off-axis` in the DSL) if that is the shape, or move an endpoint onto the axis."
+          ],
+          "findings": [
+            {
+              "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 14.0\u00d719.0; keyline \"tall\" wants 16\u00d720 (\u00b11). Scale by 1.143.",
+              "rule": "keyline",
+              "severity": "error"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e1\" has an edge at 101.3\u00b0, 11.3\u00b0 off the nearest permitted axis (90\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e1\" has an edge at 78.7\u00b0, 11.3\u00b0 off the nearest permitted axis (90\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e2\" has an edge at 83.4\u00b0, 6.6\u00b0 off the nearest permitted axis (90\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e2\" has an edge at 96.6\u00b0, 6.6\u00b0 off the nearest permitted axis (90\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e3\" has an edge at 78.7\u00b0, 11.3\u00b0 off the nearest permitted axis (90\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e3\" has an edge at 101.3\u00b0, 11.3\u00b0 off the nearest permitted axis (90\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "31a1a40a229fc487db15a7e2b16d8ecd06e28008cee2146b7108cb04ff8411a2"
+        },
+        {
+          "arm": "gemini2",
+          "concept": "jellyfish",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 14 (finish filled): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 14.0\u00d719.0; keyline \"tall\" wants 16\u00d720 (\u00b11). Scale by 1.143.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "41e3b8f366a6d91fb9852a473726a3e95383f025605d2088c4271d24ff3ef4bf"
+        },
+        {
+          "arm": "gemini2",
+          "concept": "satellite-dish",
+          "paint": "outlined",
+          "priorParseErrors": [
+            "line 8 (finish outlined): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Content centre is (9.75, 13.25); the house spec is (12, 12) within 0.25. Shift by (2.25, -1.25) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 15.5\u00d717.5; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 1.161.",
+              "rule": "keyline",
+              "severity": "error"
+            },
+            {
+              "message": "e0 and e3 are 0.15px apart; minimum is 1px. Move them apart or knock one out of the other.",
+              "rule": "gap",
+              "severity": "warn"
+            },
+            {
+              "message": "e0 cuts e1 and e3 by 2.52px at (8.3, 14.0); minimum is 3px. Widen the notch or move e0 clear of it.",
+              "rule": "cut",
+              "severity": "warn"
+            },
+            {
+              "declared": "off-axis",
+              "message": "\"e3\" has an edge at 112.6\u00b0, 22.4\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+              "rule": "off-axis",
+              "severity": "warn"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "2a04c37116e35604a34d22d757c311b217ab8a6d5567efdd1bb0a425d79be91d"
+        },
+        {
+          "arm": "gemini2",
+          "concept": "satellite-dish",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 8 (finish filled): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Content centre is (9.75, 13.25); the house spec is (12, 12) within 0.25. Shift by (2.25, -1.25) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 15.5\u00d717.5; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 1.161.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "d3428ccd4297cc551055a3b09f62054bcd194e57f921ed89ae39dee93e074575"
+        },
+        {
+          "arm": "fablestream",
+          "concept": "cloud-upload",
+          "paint": "outlined",
+          "priorParseErrors": [
+            "line 8 (finish outlined): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 20.0\u00d719.0; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 0.947.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "f13b5ee0071a96959ae6c22f45a5ac0ab0e803b2be12e1d9ac6b16c46af770b4"
+        },
+        {
+          "arm": "fablestream",
+          "concept": "cloud-upload",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 17 (finish filled): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 20.0\u00d719.0; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 0.947.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "6cb03b02148dbc7335ae7e0ceb7d13d320e8c6c9be173be38a9b8d940999225f"
+        },
+        {
+          "arm": "fablestream",
+          "concept": "jellyfish",
+          "paint": "outlined",
+          "priorParseErrors": [
+            "line 10 (finish outlined): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [],
+          "svgIdentical": true,
+          "sha256": "ed734f511c32d05f31ada2305d29b4d4911eb35b41f38d5f2a924b40d394f633"
+        },
+        {
+          "arm": "fablestream",
+          "concept": "jellyfish",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 11 (finish filled): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [],
+          "svgIdentical": true,
+          "sha256": "69541e434f7bd044ceb7b6181767b9d2d2de9f9c84bf6769c32a84214174ede7"
+        },
+        {
+          "arm": "fablestream",
+          "concept": "satellite-dish",
+          "paint": "outlined",
+          "priorParseErrors": [
+            "line 8 (finish outlined): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Visual extent is 16.0\u00d717.5; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 1.125.",
+              "rule": "keyline",
+              "severity": "error"
+            },
+            {
+              "message": "e0 and e1 are 0.02px apart; minimum is 1px. Move them apart or knock one out of the other.",
+              "rule": "gap",
+              "severity": "warn"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "a5a1cc7c449a41b17b1cc8be3029cb6879b30b672935892dabac7e5d76f3871b"
+        },
+        {
+          "arm": "fablestream",
+          "concept": "satellite-dish",
+          "paint": "filled",
+          "priorParseErrors": [
+            "line 10 (finish filled): finish is a property of the whole icon and has to be declared before anything is drawn: a rect takes its corner radii and a dot its diameter from the finish, so shapes drawn either side of this line would not mean the same thing. Move it to the top."
+          ],
+          "parseErrors": [],
+          "findings": [
+            {
+              "message": "Content centre is (10.75, 13.25); the house spec is (12, 12) within 0.25. Shift by (1.25, -1.25) unless the icons this one swaps with sit here too.",
+              "rule": "centred",
+              "severity": "warn"
+            },
+            {
+              "message": "Visual extent is 13.5\u00d715.0; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 1.333.",
+              "rule": "keyline",
+              "severity": "error"
+            }
+          ],
+          "svgIdentical": true,
+          "sha256": "868a1dda1338804cf91fed181fb3890b995cc5a8bd49fbb7dd914108266e019d"
+        }
+      ]
+    },
+    "comparison-extraction.json": {
+      "sha256": "d2c53ecc47728758dca66a68c1ab6229fe7a49fc1bb16e281334554005994373",
+      "record": [
+        {
+          "arm": "chatgpt",
+          "concept": "cloud-upload",
+          "paint": 0,
+          "sourceCell": [
+            4,
+            4,
+            414,
+            623
+          ],
+          "inkBounds": [
+            43,
+            199,
+            351,
+            317
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "chatgpt",
+          "concept": "jellyfish",
+          "paint": 0,
+          "sourceCell": [
+            422,
+            4,
+            832,
+            623
+          ],
+          "inkBounds": [
+            61,
+            148,
+            288,
+            398
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "chatgpt",
+          "concept": "satellite-dish",
+          "paint": 0,
+          "sourceCell": [
+            840,
+            4,
+            1250,
+            623
+          ],
+          "inkBounds": [
+            53,
+            174,
+            296,
+            363
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "chatgpt",
+          "concept": "cloud-upload",
+          "paint": 1,
+          "sourceCell": [
+            4,
+            631,
+            414,
+            1250
+          ],
+          "inkBounds": [
+            44,
+            133,
+            350,
+            309
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "chatgpt",
+          "concept": "jellyfish",
+          "paint": 1,
+          "sourceCell": [
+            422,
+            631,
+            832,
+            1250
+          ],
+          "inkBounds": [
+            61,
+            80,
+            288,
+            390
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "chatgpt",
+          "concept": "satellite-dish",
+          "paint": 1,
+          "sourceCell": [
+            840,
+            631,
+            1250,
+            1250
+          ],
+          "inkBounds": [
+            52,
+            107,
+            293,
+            356
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "nano",
+          "concept": "cloud-upload",
+          "paint": 0,
+          "sourceCell": [
+            4,
+            4,
+            337,
+            337
+          ],
+          "inkBounds": [
+            39,
+            66,
+            256,
+            203
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "nano",
+          "concept": "jellyfish",
+          "paint": 0,
+          "sourceCell": [
+            345,
+            4,
+            679,
+            337
+          ],
+          "inkBounds": [
+            72,
+            41,
+            190,
+            253
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "nano",
+          "concept": "satellite-dish",
+          "paint": 0,
+          "sourceCell": [
+            687,
+            4,
+            1020,
+            337
+          ],
+          "inkBounds": [
+            66,
+            41,
+            200,
+            253
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "nano",
+          "concept": "cloud-upload",
+          "paint": 1,
+          "sourceCell": [
+            4,
+            345,
+            337,
+            679
+          ],
+          "inkBounds": [
+            39,
+            66,
+            256,
+            163
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "nano",
+          "concept": "jellyfish",
+          "paint": 1,
+          "sourceCell": [
+            345,
+            345,
+            679,
+            679
+          ],
+          "inkBounds": [
+            73,
+            40,
+            187,
+            254
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "nano",
+          "concept": "satellite-dish",
+          "paint": 1,
+          "sourceCell": [
+            687,
+            345,
+            1020,
+            679
+          ],
+          "inkBounds": [
+            65,
+            41,
+            202,
+            253
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "seedream",
+          "concept": "cloud-upload",
+          "paint": 0,
+          "sourceCell": [
+            4,
+            4,
+            337,
+            508
+          ],
+          "inkBounds": [
+            55,
+            181,
+            251,
+            227
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "seedream",
+          "concept": "jellyfish",
+          "paint": 0,
+          "sourceCell": [
+            345,
+            4,
+            679,
+            508
+          ],
+          "inkBounds": [
+            70,
+            173,
+            195,
+            282
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "seedream",
+          "concept": "satellite-dish",
+          "paint": 0,
+          "sourceCell": [
+            687,
+            4,
+            1020,
+            508
+          ],
+          "inkBounds": [
+            42,
+            177,
+            216,
+            280
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "seedream",
+          "concept": "cloud-upload",
+          "paint": 1,
+          "sourceCell": [
+            4,
+            516,
+            337,
+            1020
+          ],
+          "inkBounds": [
+            56,
+            56,
+            250,
+            222
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "seedream",
+          "concept": "jellyfish",
+          "paint": 1,
+          "sourceCell": [
+            345,
+            516,
+            679,
+            1020
+          ],
+          "inkBounds": [
+            72,
+            51,
+            191,
+            279
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "seedream",
+          "concept": "satellite-dish",
+          "paint": 1,
+          "sourceCell": [
+            687,
+            516,
+            1020,
+            1020
+          ],
+          "inkBounds": [
+            40,
+            50,
+            213,
+            280
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "recraft",
+          "concept": "cloud-upload",
+          "paint": 0,
+          "sourceCell": [
+            4,
+            133,
+            337,
+            379
+          ],
+          "inkBounds": [
+            153,
+            38,
+            180,
+            160
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "recraft",
+          "concept": "jellyfish",
+          "paint": 0,
+          "sourceCell": [
+            345,
+            133,
+            679,
+            379
+          ],
+          "inkBounds": [
+            83,
+            33,
+            160,
+            183
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "recraft",
+          "concept": "satellite-dish",
+          "paint": 0,
+          "sourceCell": [
+            687,
+            133,
+            1020,
+            379
+          ],
+          "inkBounds": [
+            27,
+            38,
+            143,
+            163
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "recraft",
+          "concept": "cloud-upload",
+          "paint": 1,
+          "sourceCell": [
+            4,
+            399,
+            337,
+            645
+          ],
+          "inkBounds": [
+            153,
+            30,
+            180,
+            159
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "recraft",
+          "concept": "jellyfish",
+          "paint": 1,
+          "sourceCell": [
+            345,
+            399,
+            679,
+            645
+          ],
+          "inkBounds": [
+            82,
+            26,
+            160,
+            183
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        },
+        {
+          "arm": "recraft",
+          "concept": "satellite-dish",
+          "paint": 1,
+          "sourceCell": [
+            687,
+            399,
+            1020,
+            645
+          ],
+          "inkBounds": [
+            27,
+            33,
+            142,
+            160
+          ],
+          "normalization": "Aspect-preserving fit of threshold64 ink bounding box into20/24 canvas; image layout changes explicitly not raw output"
+        }
+      ]
+    },
+    "config-repair.json": {
+      "sha256": "d5314c5805e280ff82d7a8b274796be92f74c7a616b3e99162104dd548fb234b",
+      "record": {
+        "scope": "Move two numeric Codex settings out of shell_environment_policy.set into root; values unchanged",
+        "keys": [
+          "model_auto_compact_token_limit",
+          "tool_output_token_limit"
+        ],
+        "beforeSha256": "bb5a91a986838b94e5d431177c82a4c3628d6b08524102b6ef3d935fddd1921d",
+        "afterSha256": "b63557ea9be5b8c425c28e845f9ee5f260e69f9d66eddc3a4857940aaf14be1b",
+        "backup": "/Users/mblode/.codex/config.toml.iconsmith-backup-20260906T082802Z"
+      }
+    },
+    "hybrid-compiler15/replay-receipt.json": {
+      "sha256": "7e5619d66109fbcc6ac88dc68ab31492b6ed535b17f2c247594b98a923f06fa0",
+      "record": {
+        "sourceCompiler": "iconsmith-constrained-14",
+        "currentCompiler": "iconsmith-constrained-15",
+        "svgIdentical": true,
+        "sourcePreserved": true,
+        "modelCalls": 0
+      }
+    },
+    "hybrid-native-02/delivery.json": {
+      "sha256": "78d998dd5c72b146932cb7004b48fe93683aa9c16438be9da7b94a626545aece",
+      "record": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "large",
+        "nativeSize": 24,
+        "paints": [
+          "outlined"
+        ],
+        "sourceRevisionHash": "c70c79780f2522dd806697afc6870779b4ee5309d42115f796eb2cf195c02ada",
+        "style": "06648c47447275e647f4afb618fcb15b45ab99d915bbb39ef0503e1b27631aa5",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "be874b55a02965b18d2fb7812fd3000dfe01c3cdf8c755468bcd63a8956cce8e"
+            }
+          },
+          "traceSha256": "4e5354e00fe651865c2d905ae3cef9a226764bb09124e2fbabffcd198acf0d28",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/strategy-screen-2026-09-06/hybrid-native-02/attempt-1",
+            "hash": "dba343ff2702f6d58c847ede48b5abe542b026e67394766065078bff47ecdcc8",
+            "status": "review-uncertain"
+          }
+        ],
+        "instrumentQualified": false,
+        "qualityStatus": "review-uncertain",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/strategy-screen-2026-09-06/hybrid-native-02/attempt-1",
+        "stoppedReason": "review-uncertain"
+      }
+    }
+  },
+  "modelOutputs": {
+    "astra-dsl": {
+      "sha256": "42a3df35c9475355df0cf0e8b091c184dc896c26f7f371e813d093a368e3c442",
+      "response": "{\"icons\":[{\"concept\":\"cloud-upload\",\"outlined\":\"icon cloud-upload\\nkeyline wide\\nfinish outlined\\narc 12,9 r5 half from left\\narc 7,12.5 r3.5 half from top ccw\\narc 17,12.5 r3.5 half from top\\nline 7,16 8,16\\nline 16,16 17,16\\nline 9,13 12,10 15,13\\nline 12,10 12,20\",\"filled\":\"icon cloud-upload\\nkeyline wide\\nfinish filled\\ncircle 12,9 r6\\ncircle 7,12.5 r4.5\\nunion\\ncircle 17,12.5 r4.5\\nunion\\nrect 7,9 10x8\\nunion\\nrect 7,8 10x14 r3\\nsubtract\\nline 9,13 12,10\\nunion\\nline 12,10 15,13\\nunion\\nline 12,10 12,20\\nunion\"},{\"concept\":\"jellyfish\",\"outlined\":\"icon jellyfish\\nkeyline tall\\nfinish outlined\\narc 12,11 r7 half from left\\nline 5,11 19,11\\nline 6,11 6,16\\narc 7,16 r1 quarter from left ccw\\narc 7,18 r1 quarter from top\\nline 12,11 12,20\\nline 18,11 18,16\\narc 17,16 r1 quarter from right\\narc 17,18 r1 quarter from top ccw\",\"filled\":\"icon jellyfish\\nkeyline tall\\nfinish filled\\ncircle 12,11 r8\\nrect 3,12 18x9\\nsubtract\\nline 6,11 6,16\\nunion\\narc 7,16 r1 quarter from left ccw\\nunion\\narc 7,18 r1 quarter from top\\nunion\\nline 12,11 12,20\\nunion\\nline 18,11 18,16\\nunion\\narc 17,16 r1 quarter from right\\nunion\\narc 17,18 r1 quarter from top ccw\\nunion\"},{\"concept\":\"satellite-dish\",\"outlined\":\"icon satellite-dish\\nkeyline square\\nfinish outlined\\narc 15,7 r10 quarter from left ccw\\nline 5,7 15,17\\nline 10,12 18,4\\nline 17,3 20,6\\nline 12,16.5 12,20\\nline 8,20 16,20\\ncenter\",\"filled\":\"icon satellite-dish\\nkeyline square\\nfinish filled\\ncircle 15,7 r11\\nrect 3,-5 24x11\\nrect 16,5 11x14\\nunion\\ndiamond 16,6 r10.5\\nunion\\nsubtract\\nline 10,12 18,4\\nunion\\nline 17,3 20,6\\nunion\\nline 12,16.5 12,20\\nunion\\nline 8,20 16,20\\nunion\\ncenter\"}]}"
+    },
+    "astra-svg": {
+      "sha256": "e7368f4fd9a4fede45404ffd0970d0a8f0f98eafeaca1b7c0c7719e3ca95ac1e",
+      "response": "{\"icons\":[{\"concept\":\"cloud-upload\",\"outlined\":\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 24 24\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"2\\\" stroke-linecap=\\\"round\\\" stroke-linejoin=\\\"round\\\"><path d=\\\"M7.5 18H7a4 4 0 0 1-.45-7.975C7 6.65 9.15 4 12 4c3.05 0 5.5 2.2 5.9 5.1C19.75 9.6 21 11.25 21 13.5c0 2.5-2 4.5-4.5 4.5\\\"/><path d=\\\"M12 21v-9m-3 3 3-3 3 3\\\"/></svg>\",\"filled\":\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 24 24\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"2\\\" stroke-linecap=\\\"round\\\" stroke-linejoin=\\\"round\\\"><path fill=\\\"currentColor\\\" stroke=\\\"none\\\" d=\\\"M7 19a5 5 0 0 1-1.35-9.83C6.15 5.66 8.76 3 12 3c3.2 0 5.88 2.18 6.7 5.4C20.73 9.29 22 11.17 22 13.5c0 3.04-2.46 5.5-5.5 5.5H14v-2.268a2 2 0 0 0 2.414-3.146l-3-3a2 2 0 0 0-2.828 0l-3 3A2 2 0 0 0 10 16.732V19Z\\\"/><path d=\\\"M12 21v-9m-3 3 3-3 3 3\\\"/></svg>\"},{\"concept\":\"jellyfish\",\"outlined\":\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 24 24\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"2\\\" stroke-linecap=\\\"round\\\" stroke-linejoin=\\\"round\\\"><path d=\\\"M4 12c0-5.2 3.4-9 8-9s8 3.8 8 9Z\\\"/><path d=\\\"M7 12c-3 3 2 5 0 9m5-9c-3 3 2 5 0 9m5-9c-3 3 2 5 0 9\\\"/></svg>\",\"filled\":\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 24 24\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"2\\\" stroke-linecap=\\\"round\\\" stroke-linejoin=\\\"round\\\"><path fill=\\\"currentColor\\\" d=\\\"M4 12c0-5.2 3.4-9 8-9s8 3.8 8 9Z\\\"/><path d=\\\"M7 12c-3 3 2 5 0 9m5-9c-3 3 2 5 0 9m5-9c-3 3 2 5 0 9\\\"/></svg>\"},{\"concept\":\"satellite-dish\",\"outlined\":\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 24 24\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"2\\\" stroke-linecap=\\\"round\\\" stroke-linejoin=\\\"round\\\"><path d=\\\"M12 18v3m-4 0h8M11 10.5l6.4-4.9\\\"/><path d=\\\"m4 5 14 11c-3.5 3-8.5 2-12-1.5S2 7.5 4 5Z\\\"/><circle cx=\\\"18.5\\\" cy=\\\"4.5\\\" r=\\\"1.5\\\"/></svg>\",\"filled\":\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 24 24\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"2\\\" stroke-linecap=\\\"round\\\" stroke-linejoin=\\\"round\\\"><path d=\\\"M12 18v3m-4 0h8M11 10.5l6.4-4.9\\\"/><path fill=\\\"currentColor\\\" d=\\\"m4 5 14 11c-3.5 3-8.5 2-12-1.5S2 7.5 4 5Z\\\"/><circle fill=\\\"currentColor\\\" cx=\\\"18.5\\\" cy=\\\"4.5\\\" r=\\\"1.5\\\"/></svg>\"}]}"
+    },
+    "gemini2": {
+      "sha256": "80e36e9fbc056bb99a11eeabff0e48612bd62eee5dc95655842d274ea29eb3cb",
+      "response": "```json\n{\"icons\":[{\"concept\":\"cloud-upload\",\"outlined\":\"icon cloud-upload\\nkeyline wide\\narc 7.5,14.5 r3.5 half from bottom\\narc 12,11 r4.5 half from left\\narc 16.5,14.5 r3.5 half from top\\nline 7.5,18 8.5,18\\nline 15.5,18 16.5,18\\nline 12,21 12,11.5\\nline 9.25,14.25 12,11.5 14.75,14.25\\nfinish outlined\",\"filled\":\"icon cloud-upload\\nkeyline wide\\nrect 3,11 18x7.5 r3.75\\ncircle 12,10.5 r5.5\\nunion\\ndiamond 12,11 r4\\nrect 10.5,12 3x8\\nunion\\nsubtract\\nfinish filled\"},{\"concept\":\"jellyfish\",\"outlined\":\"icon jellyfish\\nkeyline tall\\narc 12,10 r6 half from left\\nline 5,10 6,11 12,8 18,11 19,10\\nline 7.5,10.5 6.5,15.5 7.5,20.5 off-axis\\nline 12,8 12.75,14.5 12,21 off-axis\\nline 16.5,10.5 17.5,15.5 16.5,20.5 off-axis\\nfinish outlined\",\"filled\":\"icon jellyfish\\nkeyline tall\\ncircle 12,10 r7\\nrect 4,11 16x7\\nsubtract\\ncircle 12,12.5 r4.5\\nsubtract\\nline 7.5,10.5 6.5,15.5 off-axis\\nline 6.5,15.5 7.5,20.5 off-axis\\nline 16.5,10.5 17.5,15.5 off-axis\\nline 17.5,15.5 16.5,20.5 off-axis\\nline 12,8 12.75,14.5 off-axis\\nline 12.75,14.5 12,21 off-axis\\nfinish filled\"},{\"concept\":\"satellite-dish\",\"outlined\":\"icon satellite-dish\\nkeyline square\\narc 13,9 r8 quarter from bottom\\nline 9,13 15,7 off-axis\\nline 13.5,5.5 16.5,8.5 off-axis\\nline 7.5,15 5,21 off-axis\\nline 3,21 9,21\\nfinish outlined\",\"filled\":\"icon satellite-dish\\nkeyline square\\narc 13,9 r8 quarter from bottom\\nline 9,13 15,7 off-axis\\nline 13.5,5.5 16.5,8.5 off-axis\\nline 7.5,15 5,21 off-axis\\nline 3,21 9,21\\nfinish filled\"}]}\n```"
+    },
+    "fablestream": {
+      "sha256": "4e2c8a28a8386847e695a91f9eb28cf414a16610f361749b42ac3701077f05e6",
+      "response": "{\"icons\":[{\"concept\":\"cloud-upload\",\"outlined\":\"icon cloud-upload\\nkeyline square\\narc 12,9.5 r6 half from left\\narc 6,12.5 r3 half from bottom\\narc 18,12.5 r3 half from top\\nline 12,11.5 12,20.5\\nline 9,14.5 12,11.5 15,14.5\\nfinish outlined\",\"filled\":\"icon cloud-upload\\nkeyline square\\ncircle 12,9.5 r7\\ncircle 6,12.5 r4\\nunion\\ncircle 18,12.5 r4\\nunion\\nrect 6,9.5 12x7\\nunion\\ndiamond 12,14.5 r6\\nrect 10,12 4x9.5\\nunion\\nsubtract\\nline 12,11.5 12,20.5\\nline 12,11.5 9,14.5\\nline 12,11.5 15,14.5\\nfinish filled\"},{\"concept\":\"jellyfish\",\"outlined\":\"icon jellyfish\\nkeyline square\\narc 12,11.5 r8 half from left\\nline 4,11.5 20,11.5\\narc 7,13.5 r2 half from top\\narc 7,17.5 r2 half from top ccw\\narc 17,13.5 r2 half from top ccw\\narc 17,17.5 r2 half from top\\nline 12,11.5 12,20.5\\nfinish outlined\",\"filled\":\"icon jellyfish\\nkeyline square\\ncircle 12,11.5 r9\\nrect 2,12.5 20x9.5\\nsubtract\\narc 7,14.5 r2 half from top\\narc 7,18.5 r2 half from top ccw\\narc 17,14.5 r2 half from top ccw\\narc 17,18.5 r2 half from top\\nline 12,12.5 12,20.5\\nfinish filled\"},{\"concept\":\"satellite-dish\",\"outlined\":\"icon satellite-dish\\nkeyline square\\narc 19,4.25 r12 quarter from bottom\\nline 10.5,12.75 10.5,19.75\\nline 5,19.75 16,19.75\\nline 11.5,11.75 15.5,7.75\\ndot 15.5,7.75 node\\nfinish outlined\",\"filled\":\"icon satellite-dish\\nkeyline square\\ncircle 19,4.25 r13\\ndiamond 26,0.25 r23\\nsubtract\\nline 10.5,12.75 10.5,19.75\\nline 5,19.75 16,19.75\\nline 13,10.25 15.5,7.75\\ndot 15.5,7.75 node\\nfinish filled\"}]}"
+    }
+  },
+  "verification": {
+    "tests": 1586,
+    "files": 122,
+    "skipped": 0,
+    "status": "passed: full tests, typecheck, build, root lint and boundaries"
+  },
+  "claims": {
+    "hybridSuperior": false,
+    "criticQualified": false,
+    "craftApproved": false,
+    "rawSvgConformanceEvaluated": false
+  }
+}

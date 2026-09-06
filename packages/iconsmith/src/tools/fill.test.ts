@@ -47,7 +47,7 @@ test("the finish is fixed at construction and defaults to outlined", () => {
   expect(filled().inkWidth).toBe(0);
 });
 
-test("a filled document serialises as one evenodd path per solid", () => {
+test("a filled document serialises as one resolved path per solid", () => {
   const c = filled();
   c.rect({ h: 12, r: 2, w: 12, x: 6, y: 6 });
   c.hole({ cx: 12, cy: 12, r: 3, shape: "circle" });
@@ -59,8 +59,8 @@ test("a filled document serialises as one evenodd path per solid", () => {
   // how the corpus writes every one of its 1,807 knockouts.
   expect(paths).toHaveLength(2);
   expect(paths[0]).toContain('fill="currentColor"');
-  expect(paths[0]).toContain('fill-rule="evenodd"');
-  expect(paths[0]).toContain('clip-rule="evenodd"');
+  expect(paths[0]).toContain('fill-rule="nonzero"');
+  expect(paths[0]).toContain('clip-rule="nonzero"');
   expect(svg).not.toContain("stroke");
   // The hole's subpath sits inside the solid's element, not beside it: the
   // fill rule does not reach across elements.
@@ -100,12 +100,12 @@ test("a knockout is quantised and tiered by the code that draws a solid", () => 
   expect(el?.op).toBe("knockout");
 });
 
-test("a hole outside the solid it cuts is refused, not inverted", () => {
+test("a hole crossing the solid boundary subtracts instead of inverting", () => {
   const c = filled();
   c.rect({ h: 8, r: 0, w: 8, x: 8, y: 8 });
-  expect(() => c.hole({ cx: 16, cy: 12, r: 3, shape: "circle" })).toThrow(
-    /not inside e0/u
-  );
+  c.hole({ cx: 16, cy: 12, r: 3, shape: "circle" });
+  expect(c.bbox()?.x1).toBeLessThanOrEqual(16);
+  expect(c.toSVG()).toContain('fill-rule="nonzero"');
 });
 
 test("a hole needs a solid, and cannot be cut out of another hole", () => {
@@ -302,19 +302,31 @@ test("the DSL declares a finish and cuts holes with it", () => {
     "add",
     "knockout",
   ]);
-  expect(r.canvas.toSVG()).toContain('fill-rule="evenodd"');
+  expect(r.canvas.toSVG()).toContain('fill-rule="nonzero"');
 });
 
-test("the DSL refuses a finish declared after geometry, or an unknown one", () => {
-  const late = run("rect 4,4 8x8\nfinish filled");
-  expect(late.errors).toHaveLength(1);
-  expect(late.errors[0]).toMatch(/before anything is drawn/u);
+test("the DSL applies a global finish independently of declaration position", () => {
+  const geometry = "rect 4,4 12x12 r3\nhole circle 10,10 r2\nline 4,18 16,18";
+  const early = run(`finish filled\n${geometry}`);
+  const late = run(`${geometry}\nfinish filled`);
+  expect(early.errors).toEqual([]);
+  expect(late.errors).toEqual([]);
+  expect(late.canvas.toSVG()).toBe(early.canvas.toSVG());
+  expect(late.canvas.toJSON()).toEqual(early.canvas.toJSON());
+});
 
+test("the DSL refuses unknown and conflicting global finishes", () => {
   const unknown = run("finish glossy");
   expect(unknown.errors[0]).toMatch(/unknown finish "glossy"/u);
   // The scan takes the first *valid* declaration, so a bad one leaves the
   // canvas at the default rather than at half a state.
   expect(unknown.finish).toBe("outlined");
+  expect(run("finish outlined\nrect 4,4 8x8\nfinish filled").errors[0]).toMatch(
+    /Conflicting finish/u
+  );
+  expect(run("finish filled\nfinish outlined\nrect 4,4 8x8").errors[0]).toMatch(
+    /Conflicting finish/u
+  );
 });
 
 test("the DSL's hole needs a shape it knows", () => {
@@ -333,7 +345,7 @@ test("a filled badge can cut a tick with hole line", () => {
   `);
   expect(r.errors).toEqual([]);
   expect(r.canvas.elements.some((e) => e.op === "knockout")).toBe(true);
-  expect(r.canvas.toSVG()).toContain('fill-rule="evenodd"');
+  expect(r.canvas.toSVG()).toContain('fill-rule="nonzero"');
   const back = r.canvas.toJSON();
   expect(
     back.draw.some(

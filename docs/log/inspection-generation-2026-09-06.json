@@ -1,0 +1,154 @@
+{
+  "experiment": "A094",
+  "scope": "Fresh known-concept canonical image-inspection integration, not held-out craft qualification",
+  "delivery": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "small",
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "sourceRevisionHash": "d75c2f021203788c9e0fa5e064b02e9ef12d27a34d40f640eed937f5afc277f7",
+    "style": "748add4f5dfc232a9c78fd8aa62712beaa44288f75fbdf3fe2859f4760deaee9",
+    "authorExitCode": 0,
+    "authorReview": {
+      "unresolved": []
+    },
+    "authorReviewError": null,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "imageInspection": {
+      "complete": true,
+      "images": {
+        "outlined.proof.png": {
+          "exposed": true,
+          "sha256": "c7e09af0747b8c712a2fc01515ebdc1daae396e0aa19cdc15399ae11183c61da"
+        },
+        "filled.proof.png": {
+          "exposed": true,
+          "sha256": "a39a1d5594e3a369bc9fdf701f8ed8207b5d7468fe19e9359eb1ba4c7d06fc3c"
+        }
+      },
+      "traceSha256": "ea0a4f31c973e982674f86baddb50c137763ac61910b1e8efb2519a2470d4172",
+      "visualJudgmentValidated": false
+    },
+    "imageInspectionError": null,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered",
+    "attempts": [
+      {
+        "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/inspection-generation-01/attempt-1",
+        "hash": "2b5d74311c9a9db0ad2e618a5ee585354a1d2d2a67c06df972b0a076a7af75bd",
+        "status": "review-clear"
+      }
+    ],
+    "instrumentQualified": false,
+    "qualityStatus": "review-clear",
+    "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/inspection-generation-01/attempt-1",
+    "stoppedReason": "review-clear"
+  },
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "native",
+    "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/inspection-generation-01/attempt-1/check-wqY2F3",
+    "style": "748add4f5dfc232a9c78fd8aa62712beaa44288f75fbdf3fe2859f4760deaee9"
+  },
+  "review": {
+    "answers": {
+      "meaning": {
+        "choice": "coin-yen",
+        "evidence": "The enlarged vectors in both proofs show a coin ring enclosing two diagonals converging into a vertical stem crossed by two full-width horizontal bars \u2014 a \u00a5. The references' won mark is a three-stroke W with bars, clearly unlike this two-arm V, ruling out coin-won, and there is no C/E crossbar or S-stem.",
+        "treatment": "None; the mark is unambiguous."
+      },
+      "style": {
+        "choice": "pass",
+        "evidence": "Ring stroke and inner glyph strokes are the same weight, as in the reference lira/peso/won coins where the currency mark is drawn at ring weight; disc diameter, glyph height inside the ring, and glyph-to-ring clearance match the references' proportions.",
+        "treatment": "None; no style deviation observed."
+      },
+      "optics": {
+        "choice": "pass",
+        "evidence": "At 16px 1x the quadrant openings beside the stem read 163/206 against 20\u201325 strokes (outlined row 9) and 51/102 against 229\u2013235 bars (filled row 9), and the gap between the V arms is clean white (row 5, x7\u2013x8 = 255) with 2\u20133px ring-to-glyph clearance on both surfaces. Only the short stem stub below the lower bar softens (row 11 center: 208 outlined, 45 filled), recovering at 2x.",
+        "treatment": "Optional only: lengthen the sub-bar stem by roughly half a unit so it lands on a full pixel row at 1x; no collapsed counter or modifier requires a fix."
+      },
+      "family": {
+        "choice": "pass",
+        "evidence": "In the 16px strip the outlined and filled icons occupy identical footprints (x1\u2013x14 and x17\u2013x30) with row-for-row matching ring profiles, identical bar count, bar spacing and arm geometry. The differences are the expected paint inversion and the knockout-on-disc construction.",
+        "treatment": "None; concept, scale and layout are preserved across paints."
+      }
+    },
+    "model": "claude-opus-5",
+    "status": "complete",
+    "apiChargeUsd": null,
+    "billing": "subscription",
+    "craftApproved": false,
+    "evidenceHashes": {
+      "outlined-proof.png": "c7e09af0747b8c712a2fc01515ebdc1daae396e0aa19cdc15399ae11183c61da",
+      "filled-proof.png": "a39a1d5594e3a369bc9fdf701f8ed8207b5d7468fe19e9359eb1ba4c7d06fc3c",
+      "native.png": "1b0f8aee1e7dcf6749397c423fa074e6a272ffdcf6f30862938dac7bf2126d50",
+      "references.png": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a"
+    },
+    "instrumentQualified": false
+  },
+  "authorUsage": {
+    "input_tokens": 1469147,
+    "cached_input_tokens": 1404544,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 10238,
+    "reasoning_output_tokens": 4019
+  },
+  "reviewerListPriceEstimateUsd": 0.2411435,
+  "reviewerUsage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 6731,
+    "cache_read_input_tokens": 9169,
+    "output_tokens": 6669,
+    "output_tokens_details": {
+      "thinking_tokens": 4942
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6731,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6215,
+        "cache_read_input_tokens": 7310,
+        "cache_creation_input_tokens": 1280,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1280
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "apiChargeUsd": null,
+  "newApiCalls": 0,
+  "knownReviewContradiction": {
+    "claim": "Ring stroke and inner glyph strokes are the same weight",
+    "pinnedStroke": 2,
+    "pinnedDetailStroke": 1.5,
+    "consequence": "Positive review does not qualify style judgment"
+  },
+  "allProcessesTerminal": true
+}

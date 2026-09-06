@@ -1,0 +1,11 @@
+icon folder-lock
+finish filled
+part folder-1-closed-body-0 at 2,3 size 20
+arc 12,12 r2 half from left
+line 10,12 10,14
+union
+line 14,12 14,14
+union
+line 9,14 15,14 15,16 9,16 9,14 r0.5 solid
+union
+subtract

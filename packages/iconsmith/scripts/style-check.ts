@@ -1,5 +1,5 @@
 /** Exact local replay and preview for a pair in one pinned reference style. */
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { pairPrograms } from "../src/pipeline/pair.js";
@@ -11,6 +11,7 @@ import {
 } from "../src/pipeline/style.js";
 import { run } from "../src/tools/dsl.js";
 import { lint } from "../src/tools/lint.js";
+import { opticalProof } from "../src/tools/proof.js";
 import { png, sheet } from "../src/tools/render.js";
 
 const [revisionPath, master, directory, selectedFinish] = process.argv.slice(2);
@@ -32,6 +33,26 @@ const save = (name: string, data: string | Uint8Array) => {
   writeFileSync(path.join(directory, name), data);
 };
 try {
+  // Historical snapshots survive. Latest files may only describe this check,
+  // including when a paired run becomes single-paint or compilation fails.
+  for (const name of [
+    ...["outlined", "filled"].flatMap((paint) =>
+      [
+        "svg",
+        "png",
+        "artifact.json",
+        "proof.png",
+        "proof.json",
+        "native.png",
+        "retina.png",
+        "pixels.json",
+      ].map((extension) => `${paint}.${extension}`)
+    ),
+    "native.png",
+    "preview-16.png",
+  ]) {
+    rmSync(path.join(directory, name), { force: true });
+  }
   const style = selectStyle(
     createStyleRevision(JSON.parse(readFileSync(revisionPath, "utf-8"))),
     master
@@ -74,6 +95,12 @@ try {
       save(`${stem}.artifact.json`, JSON.stringify(artifact, null, 2));
       save(`${stem}.svg`, artifact.svg);
       save(`${stem}.png`, await png(artifact.svg, 192));
+      const evidence = await opticalProof(artifact.svg, style.spec.size);
+      save(`${stem}.proof.png`, evidence.proof);
+      save(`${stem}.native.png`, evidence.native);
+      save(`${stem}.retina.png`, evidence.retina);
+      save(`${stem}.pixels.json`, JSON.stringify(evidence.pixels, null, 2));
+      save(`${stem}.proof.json`, JSON.stringify(evidence.metadata, null, 2));
     })
   );
   save(

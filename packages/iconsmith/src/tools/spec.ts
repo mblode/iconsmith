@@ -172,7 +172,7 @@ export interface Spec {
   /** Explicit sharp joins use SVG miter limit 4; default remains round. */
   strokeJoin?: "round" | "miter";
   strokeCap?: "round" | "square";
-  /** Preserve admitted source contours; placement still uses the grid. Legacy default is grid. */
+  /** Preserve admitted source contours; placement still uses the grid. Default is source; grid is an explicit diagnostic mode. */
   partGeometry?: "grid" | "source";
   canvas: number;
   clearance: number;

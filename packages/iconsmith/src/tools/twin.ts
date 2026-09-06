@@ -525,7 +525,7 @@ const shrink = (
  * So the closed primitives are re-derived here — `circle` → {@link ring},
  * `rect` → {@link frame}, and back — and the open ones are left alone because
  * `canvas.ts` already paints them as the ink they occupied: a two-point `line`
- * expands to a bar, an `arc` to an annular sector, a `diamond` to a lozenge
+ * expands to a bar, an `arc` to a capped stroke outline, a `diamond` to a lozenge
  * grown by half a stroke, a `dot` to its tier. A polyline is split into its
  * segments, because an open run encloses nothing and fill has no inside to
  * cover.
@@ -537,7 +537,12 @@ const shrink = (
  * checkable — and `glyphs.ts` is where a chosen filled composition goes.
  */
 const rejectDetailAdaptation = (ops: ReturnType<typeof parseOp>[]): void => {
-  if (ops.some((op) => op.word === "line" && op.args.includes("detail"))) {
+  if (
+    ops.some(
+      (op) =>
+        (op.word === "line" || op.word === "arc") && op.args.includes("detail")
+    )
+  ) {
     throw new Error("Detail weight requires an authored counterpart");
   }
 };
@@ -640,9 +645,11 @@ const partOf = (op: Extract<DrawOp, { op: "part" }>): string => {
 
 const opLine = (op: DrawOp): string | null => {
   if (op.op === "boolean") {
-    return [...op.left.map(opLine), ...op.right.map(opLine), op.operation].join(
-      "\n"
-    );
+    return [
+      ...op.left.map(opLine),
+      ...op.right.map(opLine),
+      `${op.operation}${op.radius === undefined ? "" : ` r${op.radius}`}`,
+    ].join("\n");
   }
   if (op.op === "raw") {
     return null;
@@ -661,7 +668,7 @@ const opLine = (op: DrawOp): string | null => {
   }
   if (op.op === "arc") {
     const ccw = op.ccw ? " ccw" : "";
-    return `arc ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.r)} ${op.sweep} from ${op.from}${ccw}`;
+    return `arc ${fmt(op.cx)},${fmt(op.cy)} r${fmt(op.r)} ${op.sweep} from ${op.from}${ccw}${op.weight ? " detail" : ""}`;
   }
   if (op.op === "dot") {
     return `dot ${fmt(op.cx)},${fmt(op.cy)} ${op.role}`;

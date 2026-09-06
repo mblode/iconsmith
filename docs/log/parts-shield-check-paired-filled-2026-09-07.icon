@@ -1,0 +1,8 @@
+icon shield-check
+keyline portrait
+finish filled
+part shield-filled-body at 3,2.25
+line 9,11.5 11,13.5
+line 11,13.5 15,9.5
+union
+subtract

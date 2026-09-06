@@ -286,6 +286,12 @@ export const createTools = (options: ToolsOptions = {}) => {
         from: z.enum(["bottom", "left", "right", "top"]),
         r: z.number().positive(),
         sweep: z.enum(["half", "quarter", "three-quarter"]),
+        weight: z
+          .literal("detail")
+          .optional()
+          .describe(
+            "Use the selected family detailStroke; never an arbitrary numeric width"
+          ),
       }),
     }),
 
@@ -330,10 +336,13 @@ export const createTools = (options: ToolsOptions = {}) => {
     combine: tool({
       description:
         "For filled paint, union solids or subtract a closed cutter. For outlined paint, trim removes the left path sections inside the right closed cutter, preserving the remaining curves with round stroke caps. Allow for cap radius when choosing clearance. Uses whole solid groups including counters. Both operands are replaced by the result. Place and size operands first; fit/center after composition is unsupported. No raw paths. The result remains an editable Boolean recipe.",
-      execute: ({ operation, leftId, rightId }) =>
+      execute: ({ operation, leftId, rightId, radius }) =>
         track("combine", () => {
           refuseHostEdit("combine");
-          return placed(canvas, canvas.combine(operation, leftId, rightId));
+          return placed(
+            canvas,
+            canvas.combine(operation, leftId, rightId, radius)
+          );
         }),
       inputSchema: z.object({
         leftId: z.string(),
@@ -341,6 +350,13 @@ export const createTools = (options: ToolsOptions = {}) => {
           finish === "filled"
             ? z.enum(["subtract", "union"])
             : z.enum(["trim"]),
+        radius: z
+          .number()
+          .positive()
+          .optional()
+          .describe(
+            "Filled family-tier radius for sharp operand intersections only; rejects infeasible rounding. Omit to preserve exact Boolean edges."
+          ),
         rightId: z.string(),
       }),
     }),
@@ -500,7 +516,7 @@ export const createTools = (options: ToolsOptions = {}) => {
 
     hole: tool({
       description:
-        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. The shape is a rect or a circle written exactly as you would write a solid; it must sit inside the solid it cuts, because a piece hanging outside would paint ink rather than remove it.",
+        "Cut a shape out of a solid you have already drawn — the hole in a ring, the slot in a card, the counter in a glyph. It cuts the solid you drew most recently unless you name another with cutFrom. Draw the hole immediately after that solid: a mark between `circle` and `hole` takes the knockout and the circle ships as a solid disc. The shape is built exactly as a solid. Overlapping cutters are unioned before subtraction, so overlap never restores ink. Cutters may cross the boundary without painting outside the solid.",
       execute: ({ cutFrom, cx, cy, h, r, shape, w, x, y }) =>
         track("hole", () => {
           refuseHostEdit("hole");

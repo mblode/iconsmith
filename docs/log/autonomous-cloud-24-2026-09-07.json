@@ -1,0 +1,66 @@
+{
+  "billing": "subscription",
+  "craftApproved": false,
+  "master": "24",
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "sourceRevisionHash": "0296c9d21d0be9a2565db4792f52a8a90d73a3714e10e24fb606a00ccd6e41dd",
+  "style": "c7403db3cacc9f8dd74cc9d544495840fb60da2ca47ff7aedab8f3a0847669f4",
+  "authorExitCode": 0,
+  "authorReview": {
+    "unresolved": []
+  },
+  "authorReviewError": null,
+  "changedInputs": [],
+  "checkExitCode": 0,
+  "imageInspection": {
+    "complete": true,
+    "images": {
+      "outlined.proof.png": {
+        "exposed": true,
+        "sha256": "c9786ac004e8f21fc516b6089e87e0cc271570949f380b64556e6d1358bed34f"
+      },
+      "filled.proof.png": {
+        "exposed": true,
+        "sha256": "b79120896ab236e07a8a36faba6a2850ca9803d8ff92fc0700b240bcf7b65852"
+      }
+    },
+    "traceSha256": "e1c1500ad371dc2526a01ef05de770acb1fcb01b5df649322c985dc99218bf28",
+    "visualJudgmentValidated": false
+  },
+  "imageInspectionError": null,
+  "missing": [],
+  "reviewContentValidated": false,
+  "status": "delivered",
+  "attempts": [
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-cloud/attempt-1",
+      "hash": "72e21beed49c1de63ca6f570c1e5fd8e4810fe60bcfc794eea8cf4a4344674e6",
+      "status": "review-clear"
+    }
+  ],
+  "instrumentQualified": false,
+  "elapsedMs": 351096,
+  "maxWallMs": 600000,
+  "deadlineExceeded": false,
+  "qualityStatus": "review-clear",
+  "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-cloud/attempt-1",
+  "stoppedReason": "review-clear",
+  "experiment": "A104",
+  "manualArtworkEdits": 0,
+  "referenceConditioned": true,
+  "blindQualification": false,
+  "actualApiUsd": null,
+  "artifacts": {
+    "autonomous-cloud-outlined-24-2026-09-07.icon": "e34378f3bdbb452ac18f6921a73afc8b093a46e33303f2e8aca4c013eccea784",
+    "autonomous-cloud-outlined-24-2026-09-07.svg": "ebd55ddea6ce175a5be27cb7ff2d8d271dd5e9864b93a577bd41cace1e20cc50",
+    "autonomous-cloud-outlined-24-2026-09-07.proof.png": "c9786ac004e8f21fc516b6089e87e0cc271570949f380b64556e6d1358bed34f",
+    "autonomous-cloud-filled-24-2026-09-07.icon": "9ccb5eb6968c2c46fe09a2e399136f8a309c098f28b843cbde5d9f9836757f06",
+    "autonomous-cloud-filled-24-2026-09-07.svg": "9206e9ecb01d86d9306aea06b049415f1cb37f9b02600005e2b3103cc8e1dbc8",
+    "autonomous-cloud-filled-24-2026-09-07.proof.png": "b79120896ab236e07a8a36faba6a2850ca9803d8ff92fc0700b240bcf7b65852"
+  },
+  "evidence": ".staging/qualification-2026-09-07/autonomous-cloud"
+}

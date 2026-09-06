@@ -1,0 +1,80 @@
+{
+  "billing": "subscription",
+  "craftApproved": false,
+  "master": "24",
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "sourceRevisionHash": "cf7681b330076e544f32d3c915fa1e990fee902afc82134801283f41dce5881a",
+  "style": "964a5ea2efc8691012f36b4acd8633e539ac181304b25694d00a4605230466f5",
+  "authorExitCode": 0,
+  "authorReview": {
+    "unresolved": [
+      {
+        "description": "Reference-consistent smooth dome-to-skirt flow is not fully met: both paints join the circular dome to a 7.1-degree taper near (3,10) and (19,10), leaving a small tangent kink visible in enlarged contours. The earlier axis-snapped step is repaired, but this subpixel transition remains.",
+        "id": "shoulder-tangent",
+        "kind": "visual"
+      },
+      {
+        "description": "The rounded interrupted rim is not fully smooth or matched across paints at its clapper attachment: filled.svg joins the recess fillet to the clapper near (15.587,18.992) without a common tangent, producing a small ledge in the enlarged proof; the outlined rim tip projects slightly beyond the clapper near y19. Native readability survives, but contour consistency remains imperfect.",
+        "id": "rim-clapper-junction",
+        "kind": "visual"
+      }
+    ]
+  },
+  "authorReviewError": null,
+  "changedInputs": [],
+  "checkExitCode": 0,
+  "imageInspection": {
+    "complete": true,
+    "images": {
+      "outlined.proof.png": {
+        "exposed": true,
+        "sha256": "ab1cf5c53aa6c9921d52185a2fd0c7b470db1994622f7a19b8af5f22beb87d55"
+      },
+      "filled.proof.png": {
+        "exposed": true,
+        "sha256": "71e932d858ac350badf8386edb32e1fed26814d00cc266bd47d6ac0b17bf6b9a"
+      }
+    },
+    "traceSha256": "20c525c1ae014d2aa231fe4d6e48d351a1c9c44579397646a45701d97f9cf150",
+    "visualJudgmentValidated": false
+  },
+  "imageInspectionError": null,
+  "missing": [],
+  "reviewContentValidated": false,
+  "status": "delivered",
+  "attempts": [
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-bell/attempt-1",
+      "hash": "cd0c376fe870fc365a0d88cd3d145da3cdfd5e8510108c3c1c9e9a70765c06c9",
+      "status": "needs-repair"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-bell/attempt-2",
+      "status": "incomplete"
+    }
+  ],
+  "deadlineExceeded": true,
+  "elapsedMs": 600319,
+  "instrumentQualified": false,
+  "maxWallMs": 600000,
+  "qualityStatus": "needs-repair",
+  "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-2026-09-07/autonomous-bell/attempt-1",
+  "stoppedReason": "author-incomplete",
+  "experiment": "A106",
+  "qualified": false,
+  "actualApiUsd": null,
+  "manualArtworkEdits": 0,
+  "artifacts": {
+    "autonomous-bell-outlined-24-2026-09-07.icon": "1270aaea6366f871789183831bb2697c6ea8549357e1948fa64c5dfc79eb1782",
+    "autonomous-bell-outlined-24-2026-09-07.svg": "ba4d220e868a4ce6e191abd2d747c34c52cf5595643ddbff59e70a61ff0fe7ab",
+    "autonomous-bell-outlined-24-2026-09-07.proof.png": "ab1cf5c53aa6c9921d52185a2fd0c7b470db1994622f7a19b8af5f22beb87d55",
+    "autonomous-bell-filled-24-2026-09-07.icon": "1055ffd879f1b38e5e176b47b5631b59908ef4b552e59f1fc38571c1d00f6650",
+    "autonomous-bell-filled-24-2026-09-07.svg": "4f457a623673dc0b561b3d407c0dc42a4383ee34d64f3b9063b633e63fa1a288",
+    "autonomous-bell-filled-24-2026-09-07.proof.png": "71e932d858ac350badf8386edb32e1fed26814d00cc266bd47d6ac0b17bf6b9a"
+  },
+  "outcome": "failed-craft-and-time-budget"
+}

@@ -1,0 +1,14 @@
+{
+  "scope": "Offline repeated --image flag payload verification",
+  "count": 2,
+  "order": [
+    "positive",
+    "negative"
+  ],
+  "sha256": [
+    "0508da9350301fe3d103d53d52c9d009e266a6b5e7e0b2176014b4219bda80f3",
+    "237179caa5ef6d870b32f01df5cab24161e0cb8592bcebaa644f4ca732205d57"
+  ],
+  "decodedPayloadsEqualSourcesInOrder": true,
+  "apiCalls": 0
+}

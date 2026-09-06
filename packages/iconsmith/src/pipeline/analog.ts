@@ -370,16 +370,12 @@ export const hourglass = (slug: string, finish: Finish = "outlined"): string =>
     hbar(finish, 4, 20, 16),
   ]);
 
-/** Two stacked crescents — a banana thick enough to occupy wide 20×16.
- *  A filled half-arc does not hang a stroke below its diameter, so the
- *  lower crescent sits one unit lower under fill and both paints occupy
- *  20×16 before `fit`. */
+/** Two stacked crescents occupying wide 20×16 in both paints. Compiler14
+ *  preserves round arc caps, so both finishes share the same skeleton. */
 export const banana = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     "arc 12,11 r9 half from left",
-    finish === "filled"
-      ? "arc 12,17 r9 half from left"
-      : "arc 12,16 r9 half from left",
+    "arc 12,16 r9 half from left",
   ]);
 
 /** Fruit, calyx, seeds — kiwi, not a cookie glyph.

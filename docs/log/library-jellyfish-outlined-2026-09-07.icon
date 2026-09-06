@@ -1,0 +1,11 @@
+icon jellyfish
+keyline square
+finish outlined
+arc 12,12 r8 half from left
+line 4,12 20,12
+arc 5.75,13.75 r1.75 half from top
+arc 5.75,17.25 r1.75 half from top ccw
+arc 11.75,14 r2 half from top
+arc 11.75,18 r2 half from top ccw
+arc 17.75,13.75 r1.75 half from top
+arc 17.75,17.25 r1.75 half from top ccw

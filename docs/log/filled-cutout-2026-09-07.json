@@ -1,0 +1,150 @@
+{
+  "date": "2026-09-07",
+  "compiler": "iconsmith-constrained-16",
+  "operation": "solid minus union(cutters)",
+  "providerCalls": 0,
+  "newSpendUsd": 0,
+  "priorUnknownReservations": "unchanged",
+  "evidenceDirectory": ".staging/cutout-fix-2026-09-07",
+  "cases": [
+    [
+      "Clock hands",
+      "circle 12,12 r9\nhole rect 11,6 2x7 r1\nhole rect 12,11 5x2 r1"
+    ],
+    [
+      "Diagonal tick",
+      "circle 12,12 r10\nhole line 6,12 10,16 18,8"
+    ],
+    [
+      "Overlapping circles",
+      "rect 2,2 20x20 r3\nhole circle 10,12 r4\nhole circle 14,12 r4"
+    ],
+    [
+      "Curved boundary",
+      "circle 12,12 r8\nhole rect 15,5 5x14 r0"
+    ],
+    [
+      "Nested Boolean",
+      "rect 3,3 12x18 r2\nrect 9,3 12x18 r2\nunion\nhole circle 10,12 r4\nhole circle 14,12 r4\nrect 19,5 3x14 r1\nunion"
+    ]
+  ],
+  "artifacts": [
+    {
+      "path": ".staging/cutout-fix-2026-09-07/0.icon",
+      "sha256": "76b8d383864bf811aecaedd02576dd7bb3d6dbceffbb31673f080c72ae5bba58"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/1.icon",
+      "sha256": "25279aaad77bea80bec4d66c8e70518ec788ac4011d015396009e70101dffd6c"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/2.icon",
+      "sha256": "5683e401481feed1e86d1a9c3ccbd15efd878a14ef6a5cfdddd5949dec8200be"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/3.icon",
+      "sha256": "3817e46cfe0132e90da2af69c499c49e144b0670ea134fc5090daa1f79d448d2"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/4.icon",
+      "sha256": "75a8a4c33cd93f473a83efad3090d80a107ab981cf04f9a7629bbb07cdeb08d7"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-0.png",
+      "sha256": "306dc3cbb43a058a3b585a0ebb97829ec6e5a43a5a586a9f41ab20eb4aa615b8"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-0.svg",
+      "sha256": "baba58eb761eb09460a6224faf3a5a345ed12753d37865b5dbbe5debcd3db50a"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-1.png",
+      "sha256": "398b053887ee13efbb70a5cd28e835130bcf20a2756aef578170928f0477a671"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-1.svg",
+      "sha256": "e73f5230c6ae2646f0bd4fff3b6bd2bdf4d0215f445957c8ae7a6780f762b85a"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-2.png",
+      "sha256": "29b3a745948312dbacbbe5e0005482b9b813492b3b89b93685a115436216e029"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-2.svg",
+      "sha256": "9c2a57c1a4be8da74bd214637e61494043cc06674a62c50244dd90bbbbd95b38"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-3.png",
+      "sha256": "35301ceff7212c53f5de604ff3f7aab9788ed4fc1c200531532112dc1d5da583"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-3.svg",
+      "sha256": "26b2629f4572e6f631122be6b31d1a58394d3a5c881ee9eb4bdf4438fb74c99b"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-4.png",
+      "sha256": "5af069de80942e49c51ec013f4e17ec3450fda5ff7818c1f4831760e96beb378"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/after-4.svg",
+      "sha256": "f5e5e0f247be9e4fbef7a19dc0c774805ecdae7953c74b82e85f88a6809913f5"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-0.png",
+      "sha256": "da99afe08c23b0f2b6a6d01af2ed76d1e99a79ed31f5997363070d29f56c7136"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-0.svg",
+      "sha256": "33d62a7a3ddec216e2fee322d2c4a74793df2d0557f13e5fa71716d7792002ea"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-1.png",
+      "sha256": "6620322207c6f6833abf3c50951c66787ceaa7f2173fa61abc640fac7ef2cb21"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-1.svg",
+      "sha256": "b1cff502c8ec27068f58f5ce8734d7c26095973f33e50da9b29776fce07c441b"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-2.png",
+      "sha256": "0cb93dd8ccddb120b1ad637cb24e2f0718288a0e37f2a22de284364462b7eb0d"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-2.svg",
+      "sha256": "76984d04cc79de4b7ccaa019e3f8be2ed9d8c9ad9512ea70b5963605534948ee"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-3.png",
+      "sha256": "2417804eff03feb5a16b67349adcce3feb2e34e8b93edbaed6c38f6cfd81df52"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-3.svg",
+      "sha256": "932859103a80c81f59fbf628325c429125cac8189f1a5c2fcc99357be9aedcf9"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-4.png",
+      "sha256": "f27f8eca862eb460c8739bd97eebca65247106706971e4b1c1cb42088b97eefa"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/before-4.svg",
+      "sha256": "d8732e8a172151d51517ae586bfab5bc034b54e7804996004906bcde88bf157f"
+    },
+    {
+      "path": ".staging/cutout-fix-2026-09-07/comparison.png",
+      "sha256": "6d1e3984527d248c931b28c824cd5a675361fb3d4553a832e1402b4a87a0264f"
+    }
+  ],
+  "verification": {
+    "engineTestsPassed": 1594,
+    "engineTestFiles": 122,
+    "skipped": 0,
+    "rootBuild": "passed",
+    "rootTypecheck": "passed",
+    "rootCheck": "passed",
+    "reachLabAfterTestFormatting": "11 passed"
+  },
+  "limitations": [
+    "Corrects Boolean semantics; does not certify icon taste or infer desired clearance.",
+    "Explicit Boolean operations still reject empty results; covering direct holes render empty ink."
+  ]
+}

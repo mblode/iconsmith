@@ -1,0 +1,304 @@
+{
+  "experiment": "A080",
+  "compiler": "iconsmith-constrained-14",
+  "scope": "Seeded euro development repair, not a held-out trial.",
+  "status": "needs-repair",
+  "stoppedReason": "no-demonstrated-improvement",
+  "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/euro-small-02/attempt-1",
+  "craftApproved": false,
+  "instrumentQualified": false,
+  "attempts": [
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/euro-small-02/attempt-1",
+      "hash": "f2c5784a8cf45d291b9cfff4d87b01587c8ebde24f3f3985a4a2e43b411491e4",
+      "status": "needs-repair",
+      "authorExitCode": 0,
+      "authorReportedTokens": 58825,
+      "authorReview": {
+        "unresolved": [
+          {
+            "id": "native-optics-review",
+            "kind": "visual",
+            "description": "At native16 1x, the upper and lower terminal-to-crossbar channels remain narrow and antialiased: their straight-section clearance is 1.2 canonical units (0.8 native pixels), tapering toward the curved body. They remain visibly open on both surfaces but are softer than the central interbar gap; for example zero-based pixel (9,5) is 191/255 outlined and 60/255 filled, with analogous coverage at (9,10). No fully background pixel row spans these terminal channels. The final pixel-centered spacing improves central bar separation, but does not eliminate this remaining small-size optical compromise."
+          }
+        ]
+      },
+      "independent": {
+        "answers": {
+          "meaning": {
+            "choice": "pass",
+            "evidence": "In both enlarged vectors and the 8x pixel views I see a closed circle enclosing a C-arc crossed by two horizontal bars that overhang the arc left and right — an unambiguous euro sign in a coin. The only plausible confusion, a bare C/cent mark, is ruled out because both bars stay separate at 1x (outlined rows 6 and 9 dark at x5–x9, row 7–8 counter at 221–228).",
+            "treatment": "None needed."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "Against the ₺/₱/₩ coins in references.png, the euro matches the family's closed ring of the same apparent stroke weight, flat-cut terminals on the arc ends and bar ends, and a comparable interior margin between glyph and ring. Detail weight of the two bars equals the C stroke, as the ₱ bars equal its stem.",
+            "treatment": "None needed."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "At 16px 1x the bar-to-bar counter holds (outlined x7–x9, rows 7–8 = 221/221/228 between 0-value bars) and the bar terminal clears the ring via a pure white column at x11, row 6; the filled paint keeps 3 dark pixels between white bar end and disc edge (row 6, x26–x28). Both hold inverted on the dark surface and are cleaner at 2x; the softer ring crown (row 1, ~96–214) is antialiasing of the curve, not a break.",
+            "treatment": "None needed."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Outlined and filled share one glyph geometry, scale and position — filled row 4 reads 164/247/255/124 where an exact inversion of outlined's 101/14/0/126 would read 154/241/255/129, and glyph extents are rows 4–11, x5–x10 in both. The paint difference is only ring-plus-black-glyph versus disc-plus-white-knockout, matching the reference pairs.",
+            "treatment": "None needed."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "4b11d3e4a0f8df92f028517a5dbddd4f47ca75b4b4a1c721ecfee23f2f36be73",
+          "filled-proof.png": "e7466a38705c136e1e810d5eb6928fd1a55a2d6b16221f36e6fb482076e291a7",
+          "native.png": "c3cddb6dda7cffc133726c0f1d84bcf1cf3174520befd9432dc0969a472c3e05",
+          "references.png": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a"
+        },
+        "instrumentQualified": false
+      },
+      "reviewerUsage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 6609,
+        "cache_read_input_tokens": 9015,
+        "output_tokens": 7503,
+        "output_tokens_details": {
+          "thinking_tokens": 5878
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 6609,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 7057,
+            "cache_read_input_tokens": 7176,
+            "cache_creation_input_tokens": 1272,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1272
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "reviewerReportedListPriceUsd": 0.2606605,
+      "reviewerPriceIsActualApiBill": false,
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [],
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "pairChecked": true,
+        "pairIssues": [],
+        "preview16": "native",
+        "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/euro-small-02/attempt-1/check-wTzqvx",
+        "style": "4dadf8ac50077a9e905ed8d4d801fc791e82b1e61dfaf7e5057261195465d240"
+      },
+      "svgHashes": {
+        "outlined": "e6cbc823c8988a2d305267663d7b82e1c5c9480e1cadf1472e434511f5586f09",
+        "filled": "9432a2e9537b616451f61b344180bd58f25fa9fd7eaf5cbd4e6770c0b4ce332b"
+      },
+      "programs": {
+        "outlined": "icon coin-euro\nkeyline circle\nfinish outlined\n# Normal coin ring; lighter native16 euro, optically centered.\ncircle 12,12 r9\narc 14,12 r5.25 half from bottom detail\nline 14,6.75 15,6.75 detail\nline 14,17.25 15,17.25 detail\nline 8.5,9.75 14.5,9.75 detail\nline 8.5,14.25 14.5,14.25 detail\n",
+        "filled": "icon coin-euro\nkeyline circle\nfinish filled\n# One solid coin face with one connected euro counter; no islands.\ncircle 12,12 r10\narc 14,12 r5.25 half from bottom detail\nline 14,6.75 15,6.75 detail\nunion\nline 14,17.25 15,17.25 detail\nunion\nline 8.5,9.75 14.5,9.75 detail\nunion\nline 8.5,14.25 14.5,14.25 detail\nunion\nsubtract\n"
+      },
+      "filledGeometry": [
+        {
+          "closed": true,
+          "area": 314.2498825999999,
+          "selfIntersections": 0,
+          "bounds": {
+            "x": 2,
+            "y": 2,
+            "width": 20,
+            "height": 20
+          }
+        },
+        {
+          "closed": true,
+          "area": -55.28980007933999,
+          "selfIntersections": 0,
+          "bounds": {
+            "x": 7.6,
+            "y": 5.8500000000000005,
+            "width": 8.3,
+            "height": 12.299999999999997
+          }
+        }
+      ],
+      "nativeSamples": {
+        "terminalTop": {
+          "outlined": 191,
+          "filled": 60
+        },
+        "central": {
+          "outlined": 221,
+          "filled": 34
+        }
+      }
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/euro-small-02/attempt-2",
+      "hash": "af629e0ccecd73a2097d909def5c7befd1419cb0bec6013a20d0f4114803456a",
+      "status": "needs-repair",
+      "authorExitCode": 0,
+      "authorReportedTokens": 50130,
+      "authorReview": {
+        "unresolved": [
+          {
+            "id": "native-optics-review",
+            "kind": "visual",
+            "description": "At native16 1x the terminal-to-crossbar channels still taper toward the curved body and are antialiased, with no fully background pixel row spanning them. Inward crossbar shifts increase straight terminal clearance from1.2 to1.45 canonical units (0.967 native pixels); zero-based local pixel(9,5) improves from191 to214/255 outlined and60 to34/255 filled, with the same values at(9,10). The tradeoff is central clearance reduced from2.7 to2.2 canonical units (1.467 native pixels): central rows7/8 at x7/8 are187 outlined and68 filled versus221/34 before, while adjacent bar rows6/9 are17 outlined and238 filled at x8. All three spaces remain visibly distinct on light and dark surfaces, clearer at2x, but none is a fully background pixel row across its straight span at1x. This native-size optical compromise remains unresolved."
+          }
+        ]
+      },
+      "independent": {
+        "answers": {
+          "meaning": {
+            "choice": "pass",
+            "evidence": "In the enlarged vector panels I see a circular ring enclosing a C-shaped arc crossed by two horizontal bars — the euro sign in a coin. The only plausible confusion is at 1x if the two bars merged into one (which would read as a plain C/cent), but native rows 7-8 keep them separated (187 gray in outlined, 62-68 dark in filled).",
+            "treatment": "No defect observed; no change needed."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "Against the lira, peso and won coin references, the candidate matches ring diameter, ring-to-glyph stroke weight parity, glyph inset inside the ring, and the same outlined-ring / filled-disc pairing with a knocked-out symbol. Terminal cap shape is the one attribute at the limit of the reference render's resolution, but nothing visibly conflicts.",
+            "treatment": "No defect observed; no change needed."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "At 16px the outlined bar gap (rows 7-8, x7-9 = 187,187,191 against bars at 16-21) and the ring-to-glyph counters (row 6 x3-4 = 254,255; x11-12 = 255,253) stay open, and the filled paint separates bars (238,232) from the gap (68,68,62) and from the disc edge (x26-29 = 36,0,0,0). The thinnest feature, the outlined C-bowl counter at row 5 x8-9 (184,214), is softened but not collapsed, and both proof sheets show it holding on light and dark surfaces at 1x and 2x.",
+            "treatment": "No defect observed; no change needed."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Outlined and filled occupy the identical native footprint (local x4-11, y1-14) with bars on the same rows 6/9 and columns 5-9, so concept, apparent scale and layout are preserved. The differences are only the expected paint inversion: dark glyph on open ring versus white knockout on a solid disc.",
+            "treatment": "No defect observed; no change needed."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "7cd820e3f33f2c077861c05f7a848711fc43f1fa0018cf9ace451e0b3a4a6c87",
+          "filled-proof.png": "a52c2f5d0a9eb4fa917e7560f11dc8d1c80fbd83a07a22a093e42648b8916560",
+          "native.png": "7f6724c4fe9a9140ae81cc186925d09b4736b025fb6f8c26296886e3089cff64",
+          "references.png": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a"
+        },
+        "instrumentQualified": false
+      },
+      "reviewerUsage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 6609,
+        "cache_read_input_tokens": 9015,
+        "output_tokens": 7396,
+        "output_tokens_details": {
+          "thinking_tokens": 5703
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 6609,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "not_available",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 6950,
+            "cache_read_input_tokens": 7176,
+            "cache_creation_input_tokens": 1272,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1272
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard"
+      },
+      "reviewerReportedListPriceUsd": 0.2579505,
+      "reviewerPriceIsActualApiBill": false,
+      "checks": {
+        "craftApproved": false,
+        "exactReplay": true,
+        "findings": [],
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "pairChecked": true,
+        "pairIssues": [],
+        "preview16": "native",
+        "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/euro-small-02/attempt-2/check-fIjRQa",
+        "style": "4dadf8ac50077a9e905ed8d4d801fc791e82b1e61dfaf7e5057261195465d240"
+      },
+      "svgHashes": {
+        "outlined": "c057baf2f846a8c02a3ae1dd00abfe2041e926baa38168f5ed7c0380cb0f3af3",
+        "filled": "5cf9a823df2bec81472b50c990617d5475275fcd8aeb3c3edb324af5af910900"
+      },
+      "programs": {
+        "outlined": "icon coin-euro\nkeyline circle\nfinish outlined\n# Normal coin ring; lighter native16 euro, optically centered.\ncircle 12,12 r9\narc 14,12 r5.25 half from bottom detail\nline 14,6.75 15,6.75 detail\nline 14,17.25 15,17.25 detail\nline 8.5,10 14.5,10 detail\nline 8.5,14 14.5,14 detail\n",
+        "filled": "icon coin-euro\nkeyline circle\nfinish filled\n# One solid coin face with one connected euro counter; no islands.\ncircle 12,12 r10\narc 14,12 r5.25 half from bottom detail\nline 14,6.75 15,6.75 detail\nunion\nline 14,17.25 15,17.25 detail\nunion\nline 8.5,10 14.5,10 detail\nunion\nline 8.5,14 14.5,14 detail\nunion\nsubtract\n"
+      },
+      "filledGeometry": [
+        {
+          "closed": true,
+          "area": 314.2498825999999,
+          "selfIntersections": 0,
+          "bounds": {
+            "x": 2,
+            "y": 2,
+            "width": 20,
+            "height": 20
+          }
+        },
+        {
+          "closed": true,
+          "area": -55.494941605254986,
+          "selfIntersections": 0,
+          "bounds": {
+            "x": 7.600000000000001,
+            "y": 5.849999999999998,
+            "width": 8.3,
+            "height": 12.3
+          }
+        }
+      ],
+      "nativeSamples": {
+        "terminalTop": {
+          "outlined": 214,
+          "filled": 34
+        },
+        "central": {
+          "outlined": 187,
+          "filled": 68
+        }
+      }
+    }
+  ],
+  "billing": "native subscriptions",
+  "actualApiChargeUsd": 0,
+  "historicalApiTotalUsd": 10.6590496,
+  "outstandingApiHolds": 0
+}

@@ -4,6 +4,9 @@
 export interface InstrumentTrial {
   defect: string;
   pairId: string;
+  /** SHA-256 of the canonical stimulus content, excluding presentation order
+   * and pair labels. The collector must bind this to retained actual evidence. */
+  evidenceHash: string;
   order: "forward" | "reverse";
   decision: "correct" | "incorrect" | "abstain";
   controlRejected: boolean | null;
@@ -42,6 +45,22 @@ const interval = (successes: number, count: number): [number, number] => {
   return [centre - half, centre + half];
 };
 
+const validHash = (value: string): boolean => /^[a-f0-9]{64}$/u.test(value);
+
+const completePair = (group: readonly InstrumentTrial[]): boolean =>
+  group.length === 2 &&
+  group.some((trial) => trial.order === "forward") &&
+  group.some((trial) => trial.order === "reverse") &&
+  group.every(
+    (trial) =>
+      typeof trial.pairId === "string" &&
+      trial.pairId.trim().length > 0 &&
+      validHash(trial.evidenceHash) &&
+      ["correct", "incorrect", "abstain"].includes(trial.decision) &&
+      [true, false, null].includes(trial.controlRejected)
+  ) &&
+  group[0].evidenceHash === group[1].evidenceHash;
+
 export const qualifyInstrument = (
   required: readonly string[],
   trials: readonly InstrumentTrial[]
@@ -52,11 +71,10 @@ export const qualifyInstrument = (
       pairs.set(trial.pairId, [...(pairs.get(trial.pairId) ?? []), trial]);
     }
     const groups = [...pairs.values()];
-    const complete = groups.every(
-      (group) =>
-        group.length === 2 &&
-        new Set(group.map((trial) => trial.order)).size === 2
-    );
+    const complete =
+      groups.every(completePair) &&
+      new Set(groups.map((group) => group[0].evidenceHash)).size ===
+        groups.length;
     const correct = groups.filter((group) =>
       group.every((trial) => trial.decision === "correct")
     ).length;
@@ -149,6 +167,23 @@ const withinBudget = (evidence: PilotEvidence): boolean =>
   evidence.actualUsd >= 0 &&
   evidence.actualUsd <= evidence.ceilingUsd;
 
+const artifactIdentityProblems = (
+  observations: readonly PilotObservation[]
+): string[] => {
+  const reasons: string[] = [];
+  const artifactOwners = new Map<string, string>();
+  for (const observation of observations) {
+    const owner = artifactOwners.get(observation.artifactHash);
+    if (owner !== undefined && owner !== observation.item) {
+      reasons.push(
+        `Artifact reused across concepts: ${owner} and ${observation.item}`
+      );
+    }
+    artifactOwners.set(observation.artifactHash, observation.item);
+  }
+  return reasons;
+};
+
 export const decidePilot = (evidence: PilotEvidence) => {
   const reasons = rosterProblems(evidence.items);
   if (!withinBudget(evidence)) {
@@ -167,6 +202,7 @@ export const decidePilot = (evidence: PilotEvidence) => {
     )
   );
   const observed = new Set<string>();
+  reasons.push(...artifactIdentityProblems(evidence.observations));
   for (const observation of evidence.observations) {
     const key = JSON.stringify([observation.item, observation.variant]);
     if (!expected.has(key) || observed.has(key)) {
@@ -201,6 +237,101 @@ export const decidePilot = (evidence: PilotEvidence) => {
   return {
     instrument,
     outcome: reasons.length ? ("blocked" as const) : ("pilot-proven" as const),
+    reasons,
+  };
+};
+
+/** Human-anchored classification evidence for the production craft judge.
+ * One canonical stimulus is one observation; presentation repeats belong in
+ * qualifyInstrument and cannot inflate this sample. Missing labels block. */
+export interface CraftJudgeObservation {
+  evidenceHash: string;
+  human: "approve" | "reject" | null;
+  criticalDefect: boolean | null;
+  predicted: "approve" | "reject" | "uncertain";
+}
+
+export const qualifyCraftJudge = (
+  observations: readonly CraftJudgeObservation[],
+  controls: ReturnType<typeof qualifyInstrument>
+) => {
+  const reasons: string[] = [];
+  const count = observations.length;
+  if (count < 100) {
+    reasons.push("At least 100 independent labeled stimuli are required");
+  }
+  if (
+    observations.some((row) => !validHash(row.evidenceHash)) ||
+    new Set(observations.map((row) => row.evidenceHash)).size !== count
+  ) {
+    reasons.push("Invalid or repeated stimulus identity");
+  }
+  if (
+    observations.some(
+      (row) =>
+        !["approve", "reject"].includes(row.human ?? "") ||
+        typeof row.criticalDefect !== "boolean" ||
+        !["approve", "reject", "uncertain"].includes(row.predicted) ||
+        (row.criticalDefect && row.human !== "reject")
+    )
+  ) {
+    reasons.push("Missing or inconsistent human labels");
+  }
+  const approved = observations.filter((row) => row.predicted === "approve");
+  const correctApprovals = approved.filter(
+    (row) => row.human === "approve"
+  ).length;
+  const critical = observations.filter((row) => row.criticalDefect === true);
+  const criticalDetected = critical.filter(
+    (row) => row.predicted === "reject"
+  ).length;
+  const decided = observations.filter(
+    (row) => row.predicted !== "uncertain"
+  ).length;
+  const precision = approved.length ? correctApprovals / approved.length : null;
+  const criticalRecall = critical.length
+    ? criticalDetected / critical.length
+    : null;
+  const coverage = count ? decided / count : 0;
+  if (approved.length < 20 || precision === null || precision < 0.95) {
+    reasons.push(
+      "Approval precision below 95 percent or fewer than 20 approvals"
+    );
+  }
+  if (critical.length < 20 || criticalRecall === null || criticalRecall < 0.9) {
+    reasons.push(
+      "Critical defect recall below 90 percent or fewer than 20 critical examples"
+    );
+  }
+  if (coverage < 0.8) {
+    reasons.push("Automatic decision coverage below 80 percent");
+  }
+  if (
+    !["identical-images", "reversed-order"].every((defect) =>
+      controls.some(
+        (control) =>
+          control.defect === defect &&
+          control.passed &&
+          control.correct === control.count &&
+          control.falseRejections === 0
+      )
+    ) ||
+    controls.some((control) => !control.passed)
+  ) {
+    reasons.push("Order and identical-image controls are unqualified");
+  }
+  return {
+    approved: approved.length,
+    correctApprovals,
+    count,
+    coverage,
+    critical: critical.length,
+    criticalDetected,
+    criticalRecall,
+    criticalRecallInterval95: interval(criticalDetected, critical.length),
+    precision,
+    precisionInterval95: interval(correctApprovals, approved.length),
+    qualified: reasons.length === 0,
     reasons,
   };
 };

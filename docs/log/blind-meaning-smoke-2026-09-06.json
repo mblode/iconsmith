@@ -1,0 +1,26 @@
+{
+  "experiment": "A084",
+  "review": {
+    "answers": {
+      "meaning": {
+        "choice": "coin-yen",
+        "evidence": "In the enlarged-vector panel the disc encloses two diagonals converging to a central vertical stem crossed by two full-width horizontal bars (a Y with double crossbar), not an S, C/E-form, or W. The 16px samples confirm both bars survive: row 8 and row 10 each read 74,0,0,0,0,74 across x=5-10 with row 9 white except the stem at x=7,8 (127,127).",
+        "treatment": "None; no defect observed. The ring stays closed and the glyph keeps a white gap from it at 1x (row 8: x=2-4 and x=11-13 read 73/255/255 and 255/255/71)."
+      }
+    },
+    "model": "claude-opus-5",
+    "status": "complete",
+    "apiChargeUsd": null,
+    "billing": "subscription",
+    "craftApproved": false,
+    "evidenceHashes": {
+      "candidate.png": "9fcca9c7961ccdb283fa6bc7d8f671f64a94e3e22ccc6a9c7e1fcd90ecb08f38",
+      "native.png": "56e0918be286feab32b1a42f44d565bb4e8e590b055a389beac56c118e8313eb"
+    },
+    "instrumentQualified": false
+  },
+  "expected": "coin-yen",
+  "correct": true,
+  "instrumentQualified": false,
+  "actualApiChargeUsd": 0
+}

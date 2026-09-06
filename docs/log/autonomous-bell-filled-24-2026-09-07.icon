@@ -1,0 +1,16 @@
+icon bell-pause
+keyline circle
+finish filled
+circle 11,10 r8
+rect 0,10 24x14 r0
+subtract
+line 4,10 3,18 19,18 18,10 r3 off-axis
+union
+rect 4,9 14x9 r0
+union
+rect 16,14 10x12 r2
+subtract r0.5
+arc 11,17 r4 half from right
+union
+line 18,16 18,21
+line 21,16 21,21

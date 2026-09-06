@@ -1,0 +1,612 @@
+{
+  "experiment": "A085",
+  "manifestHash": "a83901bafbabf229cc12ba79c6badc5cc861313d6ef45d9463493fba43d0d6b0",
+  "scope": "Known development references; multi-scale recognition, not native-only or unseen generation",
+  "rule": {
+    "positiveCorrectBothOrders": 18,
+    "positiveDistinctImages": 20,
+    "absentAnswerCorrectBothOrders": 4,
+    "absentAnswerControls": 4,
+    "retries": 0,
+    "missingCountsAsFailure": true,
+    "qualificationClaim": false
+  },
+  "completeCalls": 10,
+  "totalCalls": 10,
+  "positiveCorrectBothOrders": 20,
+  "positiveTotal": 20,
+  "positiveInterval95": [
+    0.8388698745050668,
+    0.9999999999999999
+  ],
+  "absentCorrectBothOrders": 3,
+  "absentTotal": 4,
+  "absentInterval95": [
+    0.3006360524426366,
+    0.9544139373553637
+  ],
+  "protocolPassed": false,
+  "instrumentQualified": false,
+  "positive": [
+    {
+      "case": "case-01",
+      "observations": [
+        {
+          "id": "item-1",
+          "case": "case-01",
+          "expected": "filing box containing a folder",
+          "kind": "positive",
+          "observed": "filing box containing a folder",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-4",
+          "case": "case-01",
+          "expected": "filing box containing a folder",
+          "kind": "positive",
+          "observed": "filing box containing a folder",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-02",
+      "observations": [
+        {
+          "id": "item-2",
+          "case": "case-02",
+          "expected": "bell",
+          "kind": "positive",
+          "observed": "bell",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-3",
+          "case": "case-02",
+          "expected": "bell",
+          "kind": "positive",
+          "observed": "bell",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-03",
+      "observations": [
+        {
+          "id": "item-3",
+          "case": "case-03",
+          "expected": "still camera",
+          "kind": "positive",
+          "observed": "still camera",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-2",
+          "case": "case-03",
+          "expected": "still camera",
+          "kind": "positive",
+          "observed": "still camera",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-04",
+      "observations": [
+        {
+          "id": "item-4",
+          "case": "case-04",
+          "expected": "clock",
+          "kind": "positive",
+          "observed": "clock",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-1",
+          "case": "case-04",
+          "expected": "clock",
+          "kind": "positive",
+          "observed": "clock",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-05",
+      "observations": [
+        {
+          "id": "item-1",
+          "case": "case-05",
+          "expected": "plain cloud",
+          "kind": "positive",
+          "observed": "plain cloud",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-4",
+          "case": "case-05",
+          "expected": "plain cloud",
+          "kind": "positive",
+          "observed": "plain cloud",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-06",
+      "observations": [
+        {
+          "id": "item-2",
+          "case": "case-06",
+          "expected": "folder",
+          "kind": "positive",
+          "observed": "folder",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-3",
+          "case": "case-06",
+          "expected": "folder",
+          "kind": "positive",
+          "observed": "folder",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-07",
+      "observations": [
+        {
+          "id": "item-3",
+          "case": "case-07",
+          "expected": "unbroken heart",
+          "kind": "positive",
+          "observed": "unbroken heart",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-2",
+          "case": "case-07",
+          "expected": "unbroken heart",
+          "kind": "positive",
+          "observed": "unbroken heart",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-08",
+      "observations": [
+        {
+          "id": "item-4",
+          "case": "case-08",
+          "expected": "house",
+          "kind": "positive",
+          "observed": "house",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-1",
+          "case": "case-08",
+          "expected": "house",
+          "kind": "positive",
+          "observed": "house",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-09",
+      "observations": [
+        {
+          "id": "item-1",
+          "case": "case-09",
+          "expected": "closed padlock",
+          "kind": "positive",
+          "observed": "closed padlock",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-4",
+          "case": "case-09",
+          "expected": "closed padlock",
+          "kind": "positive",
+          "observed": "closed padlock",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-10",
+      "observations": [
+        {
+          "id": "item-2",
+          "case": "case-10",
+          "expected": "five-point star",
+          "kind": "positive",
+          "observed": "five-point star",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-3",
+          "case": "case-10",
+          "expected": "five-point star",
+          "kind": "positive",
+          "observed": "five-point star",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-11",
+      "observations": [
+        {
+          "id": "item-3",
+          "case": "case-11",
+          "expected": "standing books",
+          "kind": "positive",
+          "observed": "standing books",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-2",
+          "case": "case-11",
+          "expected": "standing books",
+          "kind": "positive",
+          "observed": "standing books",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-12",
+      "observations": [
+        {
+          "id": "item-4",
+          "case": "case-12",
+          "expected": "plain bookmark ribbon",
+          "kind": "positive",
+          "observed": "plain bookmark ribbon",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-1",
+          "case": "case-12",
+          "expected": "plain bookmark ribbon",
+          "kind": "positive",
+          "observed": "plain bookmark ribbon",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-13",
+      "observations": [
+        {
+          "id": "item-1",
+          "case": "case-13",
+          "expected": "check mark",
+          "kind": "positive",
+          "observed": "check mark",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-4",
+          "case": "case-13",
+          "expected": "check mark",
+          "kind": "positive",
+          "observed": "check mark",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-14",
+      "observations": [
+        {
+          "id": "item-2",
+          "case": "case-14",
+          "expected": "round compass",
+          "kind": "positive",
+          "observed": "round compass",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-3",
+          "case": "case-14",
+          "expected": "round compass",
+          "kind": "positive",
+          "observed": "round compass",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-15",
+      "observations": [
+        {
+          "id": "item-3",
+          "case": "case-15",
+          "expected": "open eye",
+          "kind": "positive",
+          "observed": "open eye",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-2",
+          "case": "case-15",
+          "expected": "open eye",
+          "kind": "positive",
+          "observed": "open eye",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-16",
+      "observations": [
+        {
+          "id": "item-4",
+          "case": "case-16",
+          "expected": "plain document with folded corner",
+          "kind": "positive",
+          "observed": "plain document with folded corner",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-1",
+          "case": "case-16",
+          "expected": "plain document with folded corner",
+          "kind": "positive",
+          "observed": "plain document with folded corner",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-17",
+      "observations": [
+        {
+          "id": "item-1",
+          "case": "case-17",
+          "expected": "keyhole",
+          "kind": "positive",
+          "observed": "keyhole",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-4",
+          "case": "case-17",
+          "expected": "keyhole",
+          "kind": "positive",
+          "observed": "keyhole",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-18",
+      "observations": [
+        {
+          "id": "item-2",
+          "case": "case-18",
+          "expected": "plain magnifying glass",
+          "kind": "positive",
+          "observed": "plain magnifying glass",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-3",
+          "case": "case-18",
+          "expected": "plain magnifying glass",
+          "kind": "positive",
+          "observed": "plain magnifying glass",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-19",
+      "observations": [
+        {
+          "id": "item-3",
+          "case": "case-19",
+          "expected": "keyboard with cable",
+          "kind": "positive",
+          "observed": "keyboard with cable",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-2",
+          "case": "case-19",
+          "expected": "keyboard with cable",
+          "kind": "positive",
+          "observed": "keyboard with cable",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-20",
+      "observations": [
+        {
+          "id": "item-4",
+          "case": "case-20",
+          "expected": "envelope with left-pointing arrow",
+          "kind": "positive",
+          "observed": "envelope with left-pointing arrow",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "item-1",
+          "case": "case-20",
+          "expected": "envelope with left-pointing arrow",
+          "kind": "positive",
+          "observed": "envelope with left-pointing arrow",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    }
+  ],
+  "negative": [
+    {
+      "case": "case-02",
+      "observations": [
+        {
+          "id": "control-2",
+          "case": "case-02",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "dome-shaped lamp",
+          "correct": false,
+          "order": "forward"
+        },
+        {
+          "id": "control-3",
+          "case": "case-02",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "dome-shaped lamp",
+          "correct": false,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": false
+    },
+    {
+      "case": "case-09",
+      "observations": [
+        {
+          "id": "control-1",
+          "case": "case-09",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "uncertain",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "control-4",
+          "case": "case-09",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "uncertain",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-10",
+      "observations": [
+        {
+          "id": "control-2",
+          "case": "case-10",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "uncertain",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "control-3",
+          "case": "case-10",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "uncertain",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    },
+    {
+      "case": "case-20",
+      "observations": [
+        {
+          "id": "control-4",
+          "case": "case-20",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "uncertain",
+          "correct": true,
+          "order": "forward"
+        },
+        {
+          "id": "control-1",
+          "case": "case-20",
+          "expected": "uncertain",
+          "kind": "absent-answer",
+          "observed": "uncertain",
+          "correct": true,
+          "order": "reverse"
+        }
+      ],
+      "correctBoth": true
+    }
+  ],
+  "apiLedgerUnchanged": true,
+  "billing": "native subscription"
+}

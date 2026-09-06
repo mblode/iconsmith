@@ -1,0 +1,118 @@
+{
+  "experiment": "A095",
+  "facts": {
+    "candidates": {
+      "outlined": {
+        "declaredStrokeWidthsOn24Grid": [
+          1.5,
+          2
+        ],
+        "status": "measured",
+        "svgSha256": "97e312ec0b3a64d81132dd2ca1d2d44b9118daceb1b774f1bc62572310874dce",
+        "widthInference": "Declared SVG strokes only; filled contour thickness is not measured",
+        "proofSha256": "c7e09af0747b8c712a2fc01515ebdc1daae396e0aa19cdc15399ae11183c61da"
+      },
+      "filled": {
+        "declaredStrokeWidthsOn24Grid": [],
+        "status": "measured",
+        "svgSha256": "65768e93af6f6d5d40395a79a0d125a499c5126cc3b48e4a0ee843137e20d893",
+        "widthInference": "Filled geometry: stroke thickness cannot be inferred from absent stroke attributes",
+        "proofSha256": "a39a1d5594e3a369bc9fdf701f8ed8207b5d7468fe19e9359eb1ba4c7d06fc3c"
+      }
+    },
+    "nativeSize": 16,
+    "referenceSheetSha256": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a",
+    "referencesInSheetOrder": [
+      {
+        "index": 0,
+        "declaredStrokeWidthsOn24Grid": [
+          1.8,
+          2
+        ],
+        "status": "measured",
+        "svgSha256": "b8813c75bff9666a9cde6281a06d64fd9f662db11ce52b4652ff34182004d19c",
+        "widthInference": "Declared SVG strokes only; filled contour thickness is not measured"
+      },
+      {
+        "index": 1,
+        "declaredStrokeWidthsOn24Grid": [],
+        "status": "measured",
+        "svgSha256": "2d47ae956873267cf27eef36d8c2ffcbdae9eaa8ff4a3b01db546cf679917626",
+        "widthInference": "Filled geometry: stroke thickness cannot be inferred from absent stroke attributes"
+      },
+      {
+        "index": 2,
+        "declaredStrokeWidthsOn24Grid": [
+          1.8,
+          2
+        ],
+        "status": "measured",
+        "svgSha256": "9adec35f036d5decf14e78ea7ddac8708c2722531f3361d412baef18d59aa60f",
+        "widthInference": "Declared SVG strokes only; filled contour thickness is not measured"
+      },
+      {
+        "index": 3,
+        "declaredStrokeWidthsOn24Grid": [],
+        "status": "measured",
+        "svgSha256": "deed6cdac4e0b75e605aee6d3935b815f8c3c4fa35f7d64cb5e75489271f7262",
+        "widthInference": "Filled geometry: stroke thickness cannot be inferred from absent stroke attributes"
+      },
+      {
+        "index": 4,
+        "declaredStrokeWidthsOn24Grid": [
+          1.8,
+          2
+        ],
+        "status": "measured",
+        "svgSha256": "9b93f2c70ccd67d7f525f6bb2f2413b05458995d2b69e09d1dafb71e2811f350",
+        "widthInference": "Declared SVG strokes only; filled contour thickness is not measured"
+      },
+      {
+        "index": 5,
+        "declaredStrokeWidthsOn24Grid": [],
+        "status": "measured",
+        "svgSha256": "3eedb938bb4781b3d87941fc326ea84598c345713ca374ccf55baa4985e5279c",
+        "widthInference": "Filled geometry: stroke thickness cannot be inferred from absent stroke attributes"
+      }
+    ],
+    "scope": "Host-measured source stroke attributes normalized to a 24-unit grid. Native pixel width is width * nativeSize / 24. Different widths can be optically appropriate; equality or inequality is not a quality verdict. These facts do not establish style calibration or measure expanded filled contours."
+  },
+  "result": {
+    "answers": {
+      "meaning": {
+        "choice": "coin-yen",
+        "evidence": "The enlarged vectors of both proofs show a Y-shaped stroke with two full-width horizontal crossbars centred inside a coin ring, the standard ¥ form; native.png confirms both bars at rows 8 and 10. No alternative modifier (₺ diagonal, ₱ bowl, ₩ double-V) is present.",
+        "treatment": "No defect observed; the mark is unambiguous."
+      },
+      "style": {
+        "choice": "fail",
+        "evidence": "Host facts give the candidate a 1.5 detail stroke against 1.8 for all three references, with the ring at 2 in both, and this shows: in the enlarged outlined vector the Y arms and crossbars read visibly lighter against their ring than the ₺ and ₩ glyph strokes do against theirs. Terminals, corner treatment and ring proportions otherwise match the family, so the mismatch is specifically detail weight reading wiry rather than harmonised.",
+        "treatment": "Bring the Y arms and crossbars to the family's 1.8 detail weight so they sit at the same apparent density as the ₺/₩ strokes inside their rings, and recover the lost counter space by shortening the arms rather than by thinning the strokes."
+      },
+      "optics": {
+        "choice": "fail",
+        "evidence": "At 16px 1x the counter between the two crossbars only lifts to 82 against bars at 20 (outlined, x7–x8, row 9) and falls to 178 against 235 (filled, x22–x25), so the defining double-bar modifier reads as one smeared slab on both surfaces. The stem below the lower bar collapses too: row 11 is 208 outlined and 45 filled, near-invisible; the 2x panels resolve both features.",
+        "treatment": "Snap the two crossbars onto whole pixel rows at 16px with a full clear row between them — shorten the Y arms slightly to buy that vertical room — and lengthen the descender below the lower bar so it occupies a complete pixel row rather than a partial-coverage sliver."
+      },
+      "family": {
+        "choice": "pass",
+        "evidence": "Outlined and filled proofs share the same ring diameter, the same centred ¥ at identical cap height, and identical crossbar positions and spacing within the ring. The filled paint knocks the glyph out of a solid disc in the same way the reference pairs do, so only the expected paint difference separates them.",
+        "treatment": "No defect observed across the two paints."
+      }
+    },
+    "model": "claude-opus-5",
+    "status": "complete",
+    "apiChargeUsd": null,
+    "billing": "subscription",
+    "craftApproved": false,
+    "evidenceHashes": {
+      "outlined-proof.png": "c7e09af0747b8c712a2fc01515ebdc1daae396e0aa19cdc15399ae11183c61da",
+      "filled-proof.png": "a39a1d5594e3a369bc9fdf701f8ed8207b5d7468fe19e9359eb1ba4c7d06fc3c",
+      "native.png": "1b0f8aee1e7dcf6749397c423fa074e6a272ffdcf6f30862938dac7bf2126d50",
+      "references.png": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a"
+    },
+    "instrumentQualified": false
+  },
+  "apiCalls": 0,
+  "instrumentQualified": false
+}

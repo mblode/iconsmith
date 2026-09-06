@@ -1,0 +1,9 @@
+{
+  "compiler": "iconsmith-constrained-18",
+  "total": 4357,
+  "admitted": 3431,
+  "refused": 926,
+  "parts": 6850,
+  "generationQualified": false,
+  "evidence": ".staging/parts-generation-2026-09-07/admitted-library.json"
+}

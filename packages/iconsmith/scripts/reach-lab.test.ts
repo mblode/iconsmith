@@ -17,7 +17,7 @@ import { describe, expect, it } from "vitest";
 import type { Thinking } from "../src/pipeline/thinking.js";
 import { run } from "../src/tools/dsl.js";
 import { lint } from "../src/tools/lint.js";
-import { REACH_SET, runReachLab, unavailable } from "./reach-lab.js";
+import { punches, REACH_SET, runReachLab, unavailable } from "./reach-lab.js";
 
 const temp = (): string => mkdtempSync(path.join(tmpdir(), "iconsmith-reach-"));
 
@@ -151,19 +151,24 @@ describe("runReachLab", () => {
     }
   });
 
-  it("cuts a hole rather than painting over the solid", () => {
-    for (const { name } of REACH_SET) {
-      const program = readFileSync(
-        path.join(out, name, `${name}-filled.icon`),
-        "utf-8"
-      );
-      if (ops(program).some((line) => line.startsWith("hole "))) {
-        expect(
-          readFileSync(path.join(out, name, `${name}-filled.svg`), "utf-8"),
-          name
-        ).toContain('fill-rule="evenodd"');
-      }
-    }
+  it("cuts a hole rather than painting over the solid", async () => {
+    await Promise.all(
+      REACH_SET.map(async ({ name }) => {
+        const program = readFileSync(
+          path.join(out, name, `${name}-filled.icon`),
+          "utf-8"
+        );
+        if (ops(program).some((line) => line.startsWith("hole "))) {
+          expect(
+            await punches(
+              program,
+              readFileSync(path.join(out, name, `${name}-filled.svg`), "utf-8")
+            ),
+            name
+          ).toBe(true);
+        }
+      })
+    );
   });
 
   it("writes a sidecar the viewer can read back as a verdict", () => {
@@ -183,4 +188,12 @@ describe("runReachLab", () => {
     expect(sidecar.finish).toBe("outlined");
     expect(sidecar.policy).toBe("analog");
   });
+});
+
+it("checks cutout pixels rather than accepting a fill-rule attribute", async () => {
+  const program = "finish filled\ncircle 12,12 r8\nhole circle 12,12 r4";
+  expect(await punches(program, run(program).canvas.toSVG())).toBe(true);
+  const painted = run("finish filled\ncircle 12,12 r8").canvas.toSVG();
+  expect(painted).toContain('fill-rule="evenodd"');
+  expect(await punches(program, painted)).toBe(false);
 });

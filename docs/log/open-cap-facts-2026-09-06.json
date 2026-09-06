@@ -1,0 +1,17 @@
+{
+  "decision": "D087",
+  "scope": "Exact A094 source declarations, not perceptual approval",
+  "facts": {
+    "capScope": "Declared caps on open stroked subpaths only; closed contours have no cap endpoints. Filled or expanded contour terminal geometry is not inferred. Intersections may occlude caps.",
+    "declaredCapsOnOpenStrokedSubpaths": [
+      "round"
+    ],
+    "declaredStrokeWidthsOn24Grid": [
+      1.5,
+      2
+    ],
+    "status": "measured",
+    "svgSha256": "97e312ec0b3a64d81132dd2ca1d2d44b9118daceb1b774f1bc62572310874dce",
+    "widthInference": "Declared SVG strokes only; filled contour thickness is not measured"
+  }
+}

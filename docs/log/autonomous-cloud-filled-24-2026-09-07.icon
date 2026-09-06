@@ -1,0 +1,17 @@
+icon cloud-upload
+keyline wide
+finish filled
+circle 9.5,11.5 r7.5
+circle 16.5,13.5 r5.5
+union r0.5
+circle 9.5,11.5 r5.5
+circle 16.5,13.5 r3.5
+union r1
+circle 12,23.25 r8
+union r1
+subtract r1
+line 9.5,16 12,13.5
+line 12,13.5 14.5,16
+union
+line 12,13.5 12,20
+union

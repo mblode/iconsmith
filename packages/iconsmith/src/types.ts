@@ -93,6 +93,8 @@ export type Finish = "filled" | "outlined";
 export interface BooleanDrawOp {
   op: "boolean";
   operation: "subtract" | "trim" | "union";
+  /** Explicit filled boundary fillets at sharp operand intersections only. */
+  radius?: number;
   left: DrawOp[];
   right: DrawOp[];
 }
@@ -107,6 +109,7 @@ export type DrawOp =
       cy: number;
       from: "bottom" | "left" | "right" | "top";
       op: "arc";
+      weight?: "detail";
       r: number;
       sweep: "half" | "quarter" | "three-quarter";
     }

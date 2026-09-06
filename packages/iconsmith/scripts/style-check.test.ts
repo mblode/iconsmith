@@ -1,5 +1,7 @@
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -65,6 +67,34 @@ it.each([16, 20, 24] as const)(
       expect(report.paints).toEqual(["outlined", "filled"]);
       expect(report.preview16).toBe(size === 16 ? "native" : "downsample");
       expect(report.exactReplay).toBe(true);
+      await Promise.all(
+        ["outlined", "filled"].flatMap((paint) => {
+          const pixels = JSON.parse(
+            readFileSync(path.join(out, `${paint}.pixels.json`), "utf-8")
+          );
+          return (
+            [
+              ["native", 1],
+              ["retina", 2],
+            ] as const
+          ).map(async ([name, scale]) => {
+            const image = readFileSync(path.join(out, `${paint}.${name}.png`));
+            expect(pixels[name].imageSha256).toBe(
+              createHash("sha256").update(image).digest("hex")
+            );
+            expect([pixels[name].width, pixels[name].height]).toEqual([
+              size * scale,
+              size * scale,
+            ]);
+            const raw = await sharp(image)
+              .flatten({ background: "white" })
+              .greyscale()
+              .raw()
+              .toBuffer();
+            expect(Buffer.from(pixels[name].rows.flat())).toEqual(raw);
+          });
+        })
+      );
       const native = await sharp(path.join(out, "native.png")).metadata();
       expect([native.width, native.height]).toEqual([size * 2, size]);
       const saved = await sharp(
@@ -106,6 +136,38 @@ it.each([16, 20, 24] as const)(
         path.join(single, "native.png")
       ).metadata();
       expect([singleImage.width, singleImage.height]).toEqual([size, size]);
+      writeFileSync(path.join(out, "outlined.icon"), "invalid program");
+      const failed = spawnSync(
+        process.execPath,
+        [
+          "--import",
+          "tsx",
+          fileURLToPath(new URL("style-check.ts", import.meta.url)),
+          revision,
+          "selected",
+          out,
+        ],
+        { encoding: "utf-8" }
+      );
+      expect(failed.status).not.toBe(0);
+      expect(
+        JSON.parse(readFileSync(path.join(out, "checks.json"), "utf-8"))
+          .exactReplay
+      ).toBe(false);
+      expect(existsSync(path.join(out, "native.png"))).toBe(false);
+      expect(existsSync(path.join(out, "outlined.svg"))).toBe(false);
+      expect(existsSync(path.join(out, "filled.proof.png"))).toBe(false);
+      for (const paint of ["outlined", "filled"]) {
+        for (const extension of ["pixels.json", "native.png", "retina.png"]) {
+          expect(existsSync(path.join(out, `${paint}.${extension}`))).toBe(
+            false
+          );
+          expect(
+            existsSync(path.join(report.snapshot, `${paint}.${extension}`))
+          ).toBe(true);
+        }
+      }
+      expect(existsSync(path.join(report.snapshot, "outlined.svg"))).toBe(true);
     } finally {
       rmSync(out, { force: true, recursive: true });
     }

@@ -1,0 +1,67 @@
+{
+  "status": "development-not-qualified",
+  "compiler": 17,
+  "tests": {
+    "passed": 1608,
+    "files": 124,
+    "skipped": 0
+  },
+  "rootChecks": [
+    "build",
+    "typecheck",
+    "lint",
+    "boundaries"
+  ],
+  "development": {
+    "families": 20,
+    "cloudBaselinePrograms": 3,
+    "freshNative24Pairs": 1,
+    "missingFresh24PaintRows": 38,
+    "native16Attempt": {
+      "outcome": "needs-repair",
+      "elapsedMs": 600341,
+      "deadlineExceeded": true
+    },
+    "contourTierProbe": "Unchanged24program replays at16 with admitted0.5filled tier; optical calibration pending",
+    "bell24Attempt": {
+      "outcome": "needs-repair",
+      "elapsedMs": 600319,
+      "deadlineExceeded": true
+    },
+    "nativeRunSummary": {
+      "total": 3,
+      "reviewClear": 1,
+      "needsRepair": 2,
+      "withinDeadline": 1,
+      "humanApproved": 0
+    }
+  },
+  "holdout": {
+    "candidateFamilies": 40,
+    "closureVerified": false
+  },
+  "judge": {
+    "qualified": false,
+    "humanLabels": "pending",
+    "approvalPrecisionThreshold": 0.95,
+    "criticalRecallThreshold": 0.9,
+    "coverageThreshold": 0.8
+  },
+  "cost": {
+    "newApiCalls": 0,
+    "subscriptionExperiments": [
+      "A104",
+      "A105",
+      "A106"
+    ],
+    "actualSubscriptionUsd": null,
+    "priorUnknownReservationsUnchanged": true
+  },
+  "evidence": ".staging/qualification-2026-09-07",
+  "limitations": [
+    "No complete development benchmark",
+    "No matched model-route winner",
+    "No calibrated optical-master claim",
+    "No blind release score"
+  ]
+}

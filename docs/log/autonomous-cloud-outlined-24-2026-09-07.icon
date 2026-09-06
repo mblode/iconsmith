@@ -1,0 +1,15 @@
+icon cloud-upload
+keyline wide
+finish outlined
+circle 9.5,11.5 r6.5
+circle 16.5,13.5 r4.5
+trim
+circle 12,23 r8
+trim
+circle 16.5,13.5 r4.5
+circle 9.5,11.5 r6.5
+trim
+circle 12,23 r8
+trim
+line 9.5,16 12,13.5 14.5,16
+line 12,13.5 12,20

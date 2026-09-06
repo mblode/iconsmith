@@ -236,8 +236,8 @@ test("a radius can never exceed half the shorter side", () => {
   expect(c.elements[0].kind === "rect" && c.elements[0].r).toBe(0.5);
 });
 
-test("every emitted node lands on the 0.25 grid, whatever goes in", () => {
-  const c = new Canvas(PARTS);
+test("explicit grid mode snaps every emitted part node", () => {
+  const c = new Canvas(PARTS, { spec: { ...SPEC, partGeometry: "grid" } });
   c.rect({ h: 6.61, r: 1.7, w: 7.3, x: 2.13, y: 3.87 });
   c.circle({ cx: 11.94, cy: 12.06, r: 3.4 });
   c.line({
@@ -363,7 +363,7 @@ test("ccw is the other semicircle from the same pole", () => {
   expect(Canvas.fromJSON(doc).toSVG()).toBe(cw.toSVG());
 });
 
-test("a filled arc is an annular sector, not refused", () => {
+test("a filled arc is expanded ink, not refused", () => {
   const c = new Canvas([], { finish: "filled" });
   c.arc({ cx: 12, cy: 12, from: "top", r: 8, sweep: "half" });
   expect(c.elements).toHaveLength(1);
@@ -547,23 +547,7 @@ test("transform keeps the document description in step with the path data", () =
   });
 });
 
-/**
- * A transform that cannot finish is a transform that did not happen.
- *
- * Re-emitting can throw — a `line` refused, a hole that no longer fits the
- * solid it was cut from — and replaying onto the live canvas kept whatever
- * prefix had already landed. Measured on the real vocabulary: a filled
- * `circle-placeholder-dashed-1` is 48 elements over 20×20, and a `fit` on it
- * came back as 1 element over 2×3 with a DSL error beside it. 47 of the 48
- * silently destroyed, and lint and pairing then read the fragment as though it
- * were the drawing — which is where an impossible "extent 2.0x3.0 does not
- * match 18.0x18.0" reading came from.
- *
- * The failure here is the same one at two elements instead of forty-eight: a
- * diagonal cut's round caps are ink, and ink does not scale, so shrunk far
- * enough the cut no longer fits inside the disc it came out of.
- */
-test("a transform that cannot finish leaves the canvas as it was", () => {
+test("a transform clips a fixed-width cutter that outgrows its shrinking body", () => {
   const c = new Canvas([], { finish: "filled" });
   c.circle({ cx: 12, cy: 12, r: 8 });
   c.hole({
@@ -573,17 +557,10 @@ test("a transform that cannot finish leaves the canvas as it was", () => {
     ],
     shape: "line",
   });
-  const before = c.elements.map((e) => ({ ...e }));
-  const log = [...c.log];
-  const { version } = c;
-  expect(() => c.transform(0.12, 0, 0)).toThrow(/not inside/u);
-  // Not the prefix, not a wiped log, and not a version that claims a mutation
-  // the drawing never took.
-  expect(c.elements).toStrictEqual(before);
-  expect(c.log).toStrictEqual(log);
-  expect(c.version).toBe(version);
-  // The ids the failed replay minted were spent on the scratch canvas, so the
-  // next real draw does not collide with a handle the model is still holding.
+  c.transform(0.12, 0, 0);
+  expect(c.elements).toHaveLength(2);
+  expect(c.elements[1].op).toBe("knockout");
+  expect(Canvas.fromJSON(c.toJSON()).toSVG()).toBe(c.toSVG());
   expect(c.circle({ cx: 12, cy: 12, r: 1 })).toBe("e2");
 });
 
@@ -789,4 +766,18 @@ test("placing at the recorded flip reproduces the instance that was folded in", 
   // `distance` is reflection-invariant, so the check is that the placed drawing
   // is genuinely mirrored rather than the canonical one again.
   expect(match(canonical, placed).flip).toBe(true);
+});
+
+test("default part placement snaps the anchor without deforming admitted curves", () => {
+  const part = {
+    ...PARTS[0],
+    d: "M0 0C0.5523 0 4.1234 1.8765 4.1234 6",
+    h: 6,
+    w: 4.1234,
+  };
+  const c = new Canvas([part]);
+  c.part({ id: part.id, scale: 1, x: 3.13, y: 4.88 });
+  expect(c.elements[0].d).toBe("M3.25 5C3.8023 5 7.3734 6.8765 7.3734 11");
+  const doc = c.toJSON({ icon: "curve" });
+  expect(Canvas.fromJSON(doc, [part]).toSVG()).toBe(c.toSVG());
 });

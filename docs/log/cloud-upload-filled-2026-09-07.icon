@@ -1,0 +1,12 @@
+icon cloud-upload
+keyline wide
+finish filled
+circle 12,11 r7
+circle 6,16 r4
+union
+circle 18,16 r4
+union
+rect 6,14 12x6 r0
+union
+hole line 9.5,13.5 12,11 14.5,13.5
+hole line 12,11 12,17.25

@@ -1,0 +1,50 @@
+{
+  "decision": "D081",
+  "before": {
+    "out": "/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-1Aeg37",
+    "status": 1,
+    "stderr": "node:internal/modules/package_json_reader:301\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\n        ^\n\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'paper' imported from /private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-1Aeg37/checker.mjs\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)\n    at packageResolve (node:internal/modules/esm/resolve:768:81)\n    at moduleResolve (node:internal/modules/esm/resolve:859:18)\n    at defaultResolve (node:internal/modules/esm/resolve:992:11)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:691:20)\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:708:38)\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:740:52)\n    at #resolve (node:internal/modules/esm/loader:673:17)\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:593:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v24.17.0\n"
+  },
+  "after": {
+    "out": "/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv",
+    "status": 0,
+    "stderr": "",
+    "stdout": "{\n  \"craftApproved\": false,\n  \"exactReplay\": true,\n  \"findings\": [\n    {\n      \"message\": \"e1 and e3 are 0.25px apart; minimum is 1px. Move them apart or knock one out of the other.\",\n      \"rule\": \"gap\",\n      \"severity\": \"warn\",\n      \"finish\": \"outlined\"\n    }\n  ],\n  \"nativeSize\": 16,\n  \"paints\": [\n    \"outlined\",\n    \"filled\"\n  ],\n  \"pairChecked\": true,\n  \"pairIssues\": [],\n  \"preview16\": \"native\",\n  \"snapshot\": \"/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/check-v1ZGxO\",\n  \"style\": \"748add4f5dfc232a9c78fd8aa62712beaa44288f75fbdf3fe2859f4760deaee9\"\n}\n",
+    "parity": {
+      "outlined.svg": true,
+      "filled.svg": true,
+      "native.png": true,
+      "outlined.proof.png": true,
+      "filled.proof.png": true
+    },
+    "runtime": {
+      "checker": "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/checker.mjs",
+      "node": "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+      "permissionArgs": [
+        "-c",
+        "default_permissions=\"iconsmith-author\"",
+        "-c",
+        "permissions.iconsmith-author.filesystem={\":minimal\"=\"read\",\":root\"=\"deny\",\":slash_tmp\"=\"deny\",\":tmpdir\"=\"deny\",\"/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv\"=\"write\",\"/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/paper\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/zod\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/sharp\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/@img/colour\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/detect-libc\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/semver\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-darwin-arm64\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-libvips-darwin-arm64\"=\"read\",\"/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm\"=\"read\",\"/System/Library/OpenSSL/openssl.cnf\"=\"read\",\"/System/Library/Fonts\"=\"read\"}",
+        "-c",
+        "permissions.iconsmith-author.network.enabled=false"
+      ],
+      "protectedFiles": [
+        "checker.mjs",
+        "runtime.json",
+        "runtime-preflight.json"
+      ],
+      "protectedLinks": {
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/paper": "/Users/mblode/Code/mblode/iconsmith/node_modules/paper",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/zod": "/Users/mblode/Code/mblode/iconsmith/node_modules/zod",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/sharp": "/Users/mblode/Code/mblode/iconsmith/node_modules/sharp",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/@img/colour": "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/colour",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/detect-libc": "/Users/mblode/Code/mblode/iconsmith/node_modules/detect-libc",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/semver": "/Users/mblode/Code/mblode/iconsmith/node_modules/semver",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/@img/sharp-darwin-arm64": "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-darwin-arm64",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/@img/sharp-libvips-darwin-arm64": "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-libvips-darwin-arm64",
+        "/private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-portability-fixed-5LonUv/node_modules/pathkit-wasm": "/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm"
+      }
+    }
+  },
+  "scope": "Actual production runtime preparer and checker, OS sandbox, output outside repository; no generation claim"
+}

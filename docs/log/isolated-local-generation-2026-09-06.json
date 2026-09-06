@@ -1,0 +1,144 @@
+{
+  "experiment": "A088",
+  "scope": "Fresh generation of an already-developed concept through the canonical restricted runtime, no target seed; not held-out quality",
+  "status": "needs-repair",
+  "selectedAttempt": "attempt-1",
+  "reason": "no-demonstrated-improvement",
+  "attempts": [
+    {
+      "attempt": "attempt-1",
+      "authorTokens": 61394,
+      "reviewListPriceEstimateUsd": 0.208583,
+      "review": {
+        "answers": {
+          "meaning": {
+            "choice": "coin-yen",
+            "evidence": "Inside the coin ring a Y-shaped glyph descends from ~y=4 to a junction at centre (native row 7, x6-x9 = 20) with a short stem below, crossed by two full-width horizontal bars at rows 8 and 10. Two crossbars over a Y is yen; the reference won glyph is a doubled W and the lira/ruble references show a single stem with ascender or bowl.",
+            "treatment": "No defect observed; no treatment needed."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "Ring weight ~2px at 16px (row 8, x1-x2 = 97/73) matches the reference coin rings, crossbars use flat butt terminals, and the glyph is inset from the ring with a clear ~2px margin (row 8, x3-x4 = 255) as in the reference lira/ruble/won glyphs. Outlined and filled paints are delivered in the same pairing as the reference family.",
+            "treatment": "No defect observed; no treatment needed."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "At 16px 1x both crossbars are solid (rows 8 and 10: outlined x5-x10 = 32,0,0,0,0,32; filled x21-x26 = 218,255,255,255,255,218) and the gap between them stays fully open (row 9 outlined x5-x6 and x9-x10 = 255; filled row 9 x19-x22 = 0), with the Y arms distinct across rows 4-7 on white and black. The vertical stem is the lightest element (127 between the bars, 166/87 below the lower bar) but is rendered, not collapsed, and is crisp at 2x.",
+            "treatment": "No collapsed feature observed; if extra safety were wanted the stem below the lower bar could be nudged toward the pixel grid, but nothing here requires it."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Coin diameter is identical across paints (outlined x1-x14, filled x17-x30, both 14px), and the crossbars sit on rows 8 and 10 with the arm junction on row 7 in both halves of native.png. Differences are limited to paint inversion and knockout weighting of the glyph.",
+            "treatment": "No defect observed; no treatment needed."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "0508da9350301fe3d103d53d52c9d009e266a6b5e7e0b2176014b4219bda80f3",
+          "filled-proof.png": "198ffa84f3315128253b204838077536daf0f7108980df2a4619f79b517cf3fd",
+          "native.png": "1113ee6e4f72bfc942d69fd3691cfa321535fedbbac9f4ecc818d2ab0ec2e788",
+          "references.png": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a"
+        },
+        "instrumentQualified": false
+      },
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "At 16px the 1.5-unit detail stem centered at x=12 maps to a native pixel boundary, so its isolated segment is split across two antialiased columns and has lower peak contrast than the half-pixel-aligned horizontal bars. The stem remains readable in both paints; shifting it to a full-contrast column would visibly decenter the yen glyph.",
+            "id": "native16-centered-stem-contrast",
+            "kind": "visual"
+          }
+        ]
+      },
+      "runtimePreflight": {
+        "status": 0,
+        "stderr": "",
+        "stdout": "{\"insideRead\":\"allowed\",\"insideWrite\":\"allowed\",\"outsideRead\":\"EPERM\",\"outsideWrite\":\"EPERM\",\"symlinkRead\":\"EPERM\",\"sourceRead\":\"EPERM\",\"network\":\"EPERM\"}\n"
+      },
+      "hashes": {
+        "checker.mjs": "42ea53960b4abbe3c939938bd8dfa3337683d0fc6098d77791b341aad41965fa",
+        "runtime.json": "80e40e41e737aa7f4947c1e410d6923217a2957f1d67e076ff993e80ff7178e4",
+        "outlined.icon": "9f47373541d8e2697c61b382f188f47881c1d4da87693f6f3f40737797035f84",
+        "filled.icon": "817b053890dabf3eb970af537fd69db9a253dcd9e1cf17ba00ab11ff5c4d143a",
+        "outlined.svg": "e7cd1cf9ce62f4750e44dce22adf2b8a3fdef56736cdad1fd16bca2510111246",
+        "filled.svg": "2d7864c54672d8c645e8e486fd361772ca7ea04513d8d9751e9586c1049fccaa",
+        "author.json": "ace7f488981885d19a3232655bd575ab12832eb0a6817b68dc0bca0a9b02a286",
+        "delivery.json": "2d48cf1fb373cdc1b0a33a0058066f50d8a74f2138b7c96935ec6227fbadd17e"
+      }
+    },
+    {
+      "attempt": "attempt-2",
+      "authorTokens": 64908,
+      "reviewListPriceEstimateUsd": 0.20458150000000003,
+      "review": {
+        "answers": {
+          "meaning": {
+            "choice": "coin-yen",
+            "evidence": "The enlarged vectors show two diagonals converging into a short vertical stem, crossed by two full-width horizontal bars, inside a coin ring. That Y-plus-two-bars form is \u00a5, not the doubled W arms of the won reference nor an S or C-with-bars.",
+            "treatment": "None needed; the glyph reads as yen."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "Against references.png (lira, peso, won coins), the candidate matches outer ring diameter, ring stroke weight, and the disc-with-knockout filled treatment; its glyph strokes carry the same apparent weight and share of the counter, and its flat-ended crossbars match the peso's flat-ended bars.",
+            "treatment": "None needed; no reference mismatch observed."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "At 16px the bars stay separated: outlined row y=9 is 255 across x=3-12 except the 127 stem, filled row y=9 is 0 except 127/127 at x=23-24, and the V arms hold (20-122 outlined, 137-207 filled) on both surfaces. The only weakness is the stem descender below the lower bar, a single half-coverage row (132 outlined y=11, 122 filled) that is gone by y=12 (246 / 8).",
+            "treatment": "Extend the vertical stem by about 0.5 unit, or raise the lower crossbar slightly, so the descender lands on a full pixel row at 16px 1x."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Both paints place the crossbars on the same rows (y=8 and y=10) at the same 6px width (x=5-10 outlined, x=21-26 filled) with identical coin extents (rows 1-14). Differences are limited to the deliberate ring-vs-solid-disc and polarity change.",
+            "treatment": "None needed; concept, scale and layout are consistent across paints."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "f9ff50c9c830f4782bf8eaddf2343c4553d9230e0d963fd5c03eb0bd26ad8d8c",
+          "filled-proof.png": "ae72ca7018ea06affa36231fdfb2b296120be943cc5876e896e9b3bab6ff4ea2",
+          "native.png": "4a40dea2349788c79e1816fd430a33d1742bc51009fa45d8b0315e8477434315",
+          "references.png": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a"
+        },
+        "instrumentQualified": false
+      },
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "At 16px the 1.5-unit detail stem centered at x=12 maps to a native pixel boundary, so its isolated between-bar segment is split evenly across two antialiased columns (127/127) and has lower peak contrast than the half-pixel-aligned horizontal bars. Extending the lower endpoint to y=17.5 improves terminal survival in both paints, but shifting the stem to a full-contrast native column would visibly decenter the yen glyph.",
+            "id": "native16-centered-stem-contrast",
+            "kind": "visual"
+          }
+        ]
+      },
+      "runtimePreflight": {
+        "status": 0,
+        "stderr": "",
+        "stdout": "{\"insideRead\":\"allowed\",\"insideWrite\":\"allowed\",\"outsideRead\":\"EPERM\",\"outsideWrite\":\"EPERM\",\"symlinkRead\":\"EPERM\",\"sourceRead\":\"EPERM\",\"network\":\"EPERM\"}\n"
+      },
+      "hashes": {
+        "checker.mjs": "42ea53960b4abbe3c939938bd8dfa3337683d0fc6098d77791b341aad41965fa",
+        "runtime.json": "e3ce50e2c4c34a7ee6b3cc4f9d435d42f4ff47b2a294c5e306fc3751d8f5dd7e",
+        "outlined.icon": "97acf08fb0e4dc70d91228f002183197c5fc56aa37ab97e8b2618ce1159bd3e9",
+        "filled.icon": "a70f7f0b5cbe50a39541f51feb3e8bbc226f202db9aca05bcae8fdb0c3b9a53e",
+        "outlined.svg": "78276fd4efc3f5f8461ce325e539cef3fc2471eb6993ad05538abdd86eba4d71",
+        "filled.svg": "6144e2eead909f3960455407d8c503b07c81b32a4f966f8b39c2de511cdf762b",
+        "author.json": "0e5afd74434bc0d72e007f716ff0624542d385c68cbaeba44b0ce5266e56af88",
+        "delivery.json": "aec7fdc6b7602bb2267fd4600b6c3b6599ae1752d69c5abe8695ccc100e6fd73"
+      }
+    }
+  ],
+  "actualApiLedgerUsd": 10.6590496,
+  "apiReservationsUsd": 0,
+  "billing": "Native subscriptions; list-price review estimates are not API bills",
+  "instrumentQualified": false,
+  "observation": "Both reviewers pass meaning/style/optics/family. Both authors retain the centered-stem antialiasing limitation. Attempt2 extends the stem endpoint by0.5 canonical units but retains the same limitation and does not improve a failing reviewer dimension, so the loop preserves attempt1. The first reviewer incorrectly calls visibly round terminals flat butt terminals. Deliberate optical tradeoff versus actionable author defect remains unresolved; do not relabel this run approved."
+}

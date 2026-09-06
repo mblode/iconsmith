@@ -249,21 +249,7 @@ test("both paints of an adapted program occupy the same visual extent", () => {
   }
 });
 
-/**
- * The one primitive where `sameExtent` disagrees with the ink, and the
- * disagreement is the measurement's rather than the derivation's.
- *
- * `visualSize` is `bbox + inkWidth`, which inflates both axes by a full stroke.
- * That is right for a closed shape, whose ink hangs half a width outside the
- * path all the way round, and wrong at the butt cap of an open one: the stroke
- * of a half-arc ending at (3,14) spreads perpendicular to the tangent, so it
- * runs 2..4 in x and stops dead at y=14. The annular sector the filled twin
- * draws is exactly that ink, one unit shorter than the formula predicts. The
- * formula is left alone — every threshold in `lint.ts` is calibrated against it
- * over 62,550 icons — but it is the reason an open-arc icon's reported extent
- * can miss a keyline it visually sits on.
- */
-test("a filled arc is the annular sector its stroke occupied", () => {
+test("a filled arc includes the round caps of its outlined stroke", () => {
   const outlined = [
     "icon x",
     "finish outlined",
@@ -273,9 +259,8 @@ test("a filled arc is the annular sector its stroke occupied", () => {
   expect(filled).toContain("arc 12,14 r9 half from left");
   const drawn = run(filled);
   expect(drawn.errors).toEqual([]);
-  expect(visualSize(drawn.canvas).h).toBeCloseTo(10, 6);
+  expect(visualSize(drawn.canvas).h).toBeCloseTo(11, 6);
   expect(visualSize(drawn.canvas).w).toBeCloseTo(20, 6);
-  // The formula's reading of the outlined twin, one unit taller than its ink.
   expect(visualSize(run(outlined).canvas).h).toBeCloseTo(11, 6);
 });
 

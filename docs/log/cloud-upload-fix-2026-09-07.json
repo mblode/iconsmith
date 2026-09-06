@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-07",
+  "compiler": "iconsmith-constrained-16",
+  "authorship": "assistant-authored constrained DSL repair, no new provider experiment",
+  "findings": [
+    "Astra and Fable oversized clearance windows remove the cloud body then reinsert a positive arrow",
+    "Gemini diamond cutter is not an arrowhead",
+    "These explicit subtraction programs are not repaired by the direct-hole parity correction alone"
+  ],
+  "solution": "union cloud body then cut connected arrow strokes with remaining solid rim",
+  "validation": {
+    "errors": [],
+    "findings": [],
+    "replay": true,
+    "complete": true
+  },
+  "nativeRasterSizes": [
+    16,
+    24
+  ],
+  "program": "icon cloud-upload\nkeyline wide\nfinish filled\ncircle 12,11 r7\ncircle 6,16 r4\nunion\ncircle 18,16 r4\nunion\nrect 6,14 12x6 r0\nunion\nhole line 9.5,13.5 12,11 14.5,13.5\nhole line 12,11 12,17.25\n",
+  "providerCalls": 0,
+  "newSpendUsd": 0,
+  "priorUnknownReservations": "unchanged",
+  "imageSha256": "a8feb67de6f7927e052899884522aec9d1d6798ac01ba1b628bcc682ac1c6896",
+  "aestheticStatus": "rendered and inspected; awaiting user audit, not certified 10/10",
+  "checks": {
+    "focusedSkillHarnessTests": 58,
+    "engineBuild": "passed",
+    "rootCheck": "passed",
+    "whitespace": "passed"
+  }
+}

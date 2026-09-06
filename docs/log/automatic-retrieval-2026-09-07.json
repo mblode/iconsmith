@@ -1,0 +1,332 @@
+{
+  "rows": [
+    {
+      "concept": "shield-check",
+      "selection": {
+        "concept": "shield-check",
+        "qualification": "development; exclusions do not prove semantic holdout isolation",
+        "revisionHash": "c6dcc0bc5aa8df03458ac0b8cdbcf9d5a045aeec21375c9453eaaa4967a90f09",
+        "rows": [
+          {
+            "choice": "reference-and-parts",
+            "evidence": "A single bold check polyline runs corner to corner: rounded terminal at upper right, vertex low in the bottom third left of center, short arm reaching the left edge. Terminals are rounded and weight is uniform, matching the rounded terminals on the X strokes in style.png.",
+            "treatment": "Use the check contour as the interior glyph for the filled shield-check, where the filled path becomes the white knockout inside the solid shield, mirroring the filled shield-with-X in style.png. It must be scaled down and inset into the shield's upper-middle body, since here it spans the full canvas rather than sitting in a container. No defect observed; stroke-weight parity with style.png at native size is uncertain from this raster and depends on the chosen inset scale.",
+            "admission": "admitted",
+            "finish": "filled",
+            "name": "checkmark-1",
+            "sha256": "ccbff22b3c498dd19d867e0c36060d356b7b10c68614e54ee22a39c6d474df9c"
+          },
+          {
+            "choice": "reference-and-parts",
+            "evidence": "Same check geometry as candidate-0 rendered as a stroke: upper-right arm descending to a vertex in the bottom third, short lower-left arm, both terminals rounded and the two arms of even width. Nothing else occupies the canvas.",
+            "treatment": "Use the check polyline as the interior stroke for the outlined shield-check, the role the X stroke plays in the outlined shield of style.png. Rescale and recenter it into the shield interior, as drawn it reaches the canvas edges. No defect observed.",
+            "admission": "admitted",
+            "finish": "outlined",
+            "name": "checkmark-1",
+            "sha256": "aade966afe6e4c10ca467c437dd8e331c26f99293237193eea88a3557e133915"
+          },
+          {
+            "choice": "reference-and-parts",
+            "evidence": "A solid black disc with a white check knocked out across its middle band, the check's vertex left of center and its long arm rising to the upper right, terminals rounded. This is the same fill-plus-knockout construction as the filled shield-with-X in style.png.",
+            "treatment": "Take the knockout check, already proportioned and positioned relative to a surrounding container, as the interior glyph for the filled shield-check; the disc contour itself is not needed since candidate-4 supplies the shield. Its container-relative scale makes it a better donor than the full-canvas checks in candidates 0 and 1. No defect observed.",
+            "admission": "admitted",
+            "finish": "filled",
+            "name": "circle-check",
+            "sha256": "1650fe066ecc08237c683c375313d862bc93c61a8d10978ab3bc3c5b31e47e32"
+          },
+          {
+            "choice": "reference-and-parts",
+            "evidence": "A uniform-weight ring encloses a check stroke whose vertex sits left of center in the lower-middle of the ring and whose long arm rises to the upper right, with rounded terminals and clear separation from the ring's inner edge. This matches the outlined shield-with-X grammar in style.png.",
+            "treatment": "Reuse the interior check stroke, including its container-relative scale and the clearance it holds from the enclosing contour, as the interior glyph for the outlined shield-check; discard the circular ring in favor of the shield contour from candidate-5. No defect observed.",
+            "admission": "admitted",
+            "finish": "outlined",
+            "name": "circle-check",
+            "sha256": "4f6b4e41a773852933f49c59c10a16c443b6e97252c643eceb621f26f5edad39"
+          },
+          {
+            "choice": "reference-and-parts",
+            "evidence": "A solid shield silhouette with a slightly peaked top edge, flared upper shoulders, and sides tapering to a rounded apex at bottom center. This contour reads as the same shield as the second glyph of the style.png strip.",
+            "treatment": "Use the shield silhouette as the outer container for the filled shield-check, with the check from candidate-2 or candidate-0 knocked out in white within its upper-middle body, exactly as style.png treats the filled shield-with-X. No defect observed.",
+            "admission": "admitted",
+            "finish": "filled",
+            "name": "shield",
+            "sha256": "73752e2371eca3529a736d7f53339292ec9ab9b3c66fc5b7e917dc62c1c903ed"
+          },
+          {
+            "choice": "reference-and-parts",
+            "evidence": "A shield drawn as a uniform-weight outline: peaked top edge, flared shoulders, sides converging to a rounded bottom-center apex, with an open interior. It matches the first glyph of the style.png strip.",
+            "treatment": "Use the shield outer contour as the container for the outlined shield-check, seating the check stroke from candidate-3 or candidate-1 inside it with the same clearance style.png gives the X inside the outlined shield. No defect observed.",
+            "admission": "admitted",
+            "finish": "outlined",
+            "name": "shield",
+            "sha256": "c5c57b3745cd9bd45869419c68139f4621fdf359479866cd741ae44123d7aebb"
+          }
+        ],
+        "status": "selected"
+      }
+    },
+    {
+      "concept": "folder-lock",
+      "selection": {
+        "concept": "folder-lock",
+        "rows": [
+          {
+            "name": "file-lock",
+            "finish": "filled",
+            "sha256": "fe5fb15bc8934e2d3f2e2291f97a111d7f0c6255daf353eea867673477ac70e3",
+            "choice": "reference-and-parts",
+            "evidence": "The lower-left padlock badge (rounded body with a shackle arc above it) sits in a cut-back notch of the filled document body, with a white clearance ring separating badge from host. That badge-plus-notch pair is the same construction style.png uses for the arrow badge on its two right-hand folder glyphs.",
+            "treatment": "No defect observed; intended role is to donate the filled lock badge and the host clearance notch, transplanted onto a folder body instead of the document. The small light keyhole bar inside the lock body is uncertain at native size, not failed.",
+            "admission": "admitted"
+          },
+          {
+            "name": "file-lock",
+            "finish": "outlined",
+            "sha256": "01edcbf7d1e31604f8a941b5e5d64c2f4ce78d9867b27720e8cf873ba7e93d02",
+            "choice": "reference-and-parts",
+            "evidence": "The outlined lock badge at lower-left shows a closed rounded-rect body, a separate shackle arc, and a dot keyhole, drawn at a stroke weight matching the outlined folders in style.png. The document outline breaks cleanly around the badge at the lower-left corner.",
+            "treatment": "No defect observed; intended role is the outlined lock badge contour and its stroke-weight-consistent break in the host outline for the outlined folder-lock variant.",
+            "admission": "Error: file-lock: mixed or incompatible source paint"
+          },
+          {
+            "name": "folder-2",
+            "finish": "filled",
+            "sha256": "dd198bfddc9aff2b31e5564aa1166058d5e69301a3ac08852d0c0365de7e6129",
+            "choice": "reference-and-parts",
+            "evidence": "The filled folder body is a rounded rectangle with a stepped left tab and a thin white seam separating the front lip from the back panel, matching the filled folder at the right of style.png. This is the host contour folder-lock needs.",
+            "treatment": "No defect observed; intended role is the filled folder host silhouette, to be notched at one corner to seat a lock badge.",
+            "admission": "admitted"
+          },
+          {
+            "name": "folder-2",
+            "finish": "outlined",
+            "sha256": "b8e6725980c81796ed20803e57594f57e327012d9ad0be00634402b79e69aa48",
+            "choice": "reference-and-parts",
+            "evidence": "The outlined folder shows the same stepped tab and rounded-rect body with an interior horizontal lip line, at the stroke weight of the two outlined folders in style.png. Corner radii and the tab step match the reference grammar directly.",
+            "treatment": "No defect observed; intended role is the outlined folder host contour and its lip line for the outlined folder-lock variant.",
+            "admission": "admitted"
+          },
+          {
+            "name": "lock",
+            "finish": "filled",
+            "sha256": "5fad76d8ada04c3116d21b1818df4c0c60b85c44ff5ffe0cd2249635074f76cf",
+            "choice": "reference-and-parts",
+            "evidence": "A full-size padlock: filled rounded-rect body in the lower two thirds with an unfilled shackle arc rising above it and a white vertical keyhole slot centered in the body. The shackle arc and body proportion are the reusable contour.",
+            "treatment": "No defect observed; intended role is the lock silhouette, which would need scaling to badge size for a corner of the folder. The thin white keyhole slot is uncertain at native 24px, not failed.",
+            "admission": "admitted"
+          },
+          {
+            "name": "lock",
+            "finish": "outlined",
+            "sha256": "f37cf1d22278b7e39cb13fa9620e5449d6b2c305bf7899cc5335621c9759c901",
+            "choice": "reference-and-parts",
+            "evidence": "Outlined padlock with a rounded-rect body, an open shackle arc meeting the body top edge, and a short vertical keyhole stroke centered in the body. Stroke weight and corner radii are consistent with the outlined glyphs in style.png.",
+            "treatment": "No defect observed; intended role is the outlined lock body and shackle arc, scaled down to badge size for the outlined folder-lock.",
+            "admission": "admitted"
+          }
+        ],
+        "revisionHash": "9e8717c1f95925c461f7409281abcd4a1f13d0ea9caf83289a6f018baab987c4",
+        "status": "selected",
+        "qualification": "development; exclusions do not prove semantic holdout isolation"
+      }
+    },
+    {
+      "concept": "bicycle",
+      "selection": {
+        "concept": "bicycle",
+        "rows": [
+          {
+            "name": "car-1",
+            "finish": "filled",
+            "sha256": "7352395c6dbfebcbdc6d9863504ebae2c9867bfb183428b07ed873b6eff083d8",
+            "choice": "reference-only",
+            "evidence": "The wheels at the lower left and right of the body are small solid tires carrying one white hub counter each, so at bicycle scale they would read as black discs rather than rims. The body mass with knockout counters (window slot at upper centre) does match the filled car in style.png.",
+            "treatment": "Use for visual grammar only: filled-variant mass, corner radius and counter-based detail. No component extraction; the disc wheels cannot serve as bicycle rims. No defect observed.",
+            "admission": "not-requested"
+          },
+          {
+            "name": "car-1",
+            "finish": "outlined",
+            "sha256": "c88cbfaf950201b8c4365ffba1e7761fe780600c72a30ab70a44e9943092a70c",
+            "choice": "reference-and-parts",
+            "evidence": "Stroked wheel rings sit at the bottom left and bottom right, and the underbody line breaks cleanly where each ring meets it. Stroke weight and round terminals match the outlined car in style.png.",
+            "treatment": "Offer the wheel ring as the bicycle rim primitive and the underbody break as the frame-to-wheel junction convention. No defect observed.",
+            "admission": "admitted"
+          },
+          {
+            "name": "mountain-bike",
+            "finish": "filled",
+            "sha256": "e55d1cdb8c829a832ca212c307a05b887070275c3fb2528b5daa9067aff0c827",
+            "choice": "reference-and-parts",
+            "evidence": "Two large open rim rings occupy the lower left and lower right, joined by a diagonal down-tube through the field centre, with seat post and saddle at upper centre, forked handlebar at upper right and a crank hub at lower centre. At the supplied raster size this looks identical to candidate-3, so which variant carries the fill is uncertain, not defective.",
+            "treatment": "Offer the rim rings, down-tube diagonal, seat post and handlebar fork as direct donor geometry for the bicycle frame and wheels. No defect observed; confirm the fill difference against candidate-3 at native size.",
+            "admission": "admitted"
+          },
+          {
+            "name": "mountain-bike",
+            "finish": "outlined",
+            "sha256": "2ef2cbe11d6ac2ef1e8ebbdba792b60261d9d6bd074171129098f54b289d97c7",
+            "choice": "reference-and-parts",
+            "evidence": "Same construction as candidate-2: open rim rings lower left and lower right, centre diagonal down-tube, seat post at upper centre, forked handlebar at upper right, crank hub at lower centre. Stroke weight matches the outlined exemplars in style.png.",
+            "treatment": "Offer the rim rings and the frame triangle (down-tube plus seat post) as the primary construction for the bicycle. No defect observed.",
+            "admission": "admitted"
+          },
+          {
+            "name": "wheelchair",
+            "finish": "filled",
+            "sha256": "062998eb2de93b1d947088e6facc5b6cdfc52a6ac9579ceb56ba141e902b471b",
+            "choice": "reference-only",
+            "evidence": "The lower-left wheel is a solid disc with no rim counter, and the remaining strokes at the right are backrest, seat and footrest, which are seating rather than cycle structure. The filled head dot and disc scale do match the filled wheelchair in style.png.",
+            "treatment": "Use for visual grammar only: filled-variant disc mass and the detached head-dot spacing. No component extraction. No defect observed.",
+            "admission": "not-requested"
+          },
+          {
+            "name": "wheelchair",
+            "finish": "outlined",
+            "sha256": "fb27b8a363421cff66aa6089074d70ae38f12aa60c93b99a265a83c72588c3b4",
+            "choice": "reference-and-parts",
+            "evidence": "The lower-left wheel is an open C-arc ring whose gap falls exactly where the seat frame crosses it, at the ring's upper right. Terminals are round and the weight matches the outlined wheelchair in style.png.",
+            "treatment": "Offer the open-arc rim as the bicycle wheel and its crossing gap as the rule for yielding rim to an intersecting frame member at fork and chainstay. No defect observed.",
+            "admission": "Error: wheelchair: mixed or incompatible source paint"
+          }
+        ],
+        "revisionHash": "a6fd9cea8da9c4c0bc65c0c00fb0cfa7439f783b7603381458f12abeb2baaa6b",
+        "status": "selected",
+        "qualification": "development; exclusions do not prove semantic holdout isolation"
+      }
+    }
+  ],
+  "generatedDirectory": ".staging/automatic-retrieval-2026-09-07/generated-shield",
+  "qualification": "development, no human craft approval",
+  "originalAttempts": [
+    {
+      "concept": "shield-check",
+      "error": "TypeError: Cannot read properties of null (reading 'body')",
+      "status": "failed"
+    },
+    {
+      "concept": "folder-lock",
+      "hash": "9e8717c1f95925c461f7409281abcd4a1f13d0ea9caf83289a6f018baab987c4",
+      "status": "selected"
+    },
+    {
+      "concept": "bicycle",
+      "hash": "a6fd9cea8da9c4c0bc65c0c00fb0cfa7439f783b7603381458f12abeb2baaa6b",
+      "status": "selected"
+    }
+  ],
+  "generation": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "24",
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "sourceRevisionHash": "c6dcc0bc5aa8df03458ac0b8cdbcf9d5a045aeec21375c9453eaaa4967a90f09",
+    "style": "ca213967d6a2c3cb44031a51aac043628a5a69d93f8ff33ce04c2096646d85b8",
+    "authorExitCode": 0,
+    "authorReview": {
+      "unresolved": []
+    },
+    "authorReviewError": null,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "imageInspection": {
+      "complete": true,
+      "images": {
+        "outlined.proof.png": {
+          "exposed": true,
+          "sha256": "fa359b1b613b94c68ac5997bf0d22d2215d482f207844e913b26ab198ff84ab6"
+        },
+        "filled.proof.png": {
+          "exposed": true,
+          "sha256": "f4e77259b4ed92600c67b7db7d9fe3686c71a0a7b18983cee5df43d3710c7b50"
+        }
+      },
+      "traceSha256": "33ecaaf953c7684a21d329f2a0088a40d8083468ba41cbbdf4f3816b270b5165",
+      "visualJudgmentValidated": false
+    },
+    "imageInspectionError": null,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered",
+    "attempts": [
+      {
+        "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1",
+        "hash": "4c461a248d4c2f68ab64796f4fb424e0d6953b641ba843fba788f70132b0a73b",
+        "status": "review-clear"
+      }
+    ],
+    "deadlineExceeded": false,
+    "elapsedMs": 262170,
+    "instrumentQualified": false,
+    "maxWallMs": 600000,
+    "qualityStatus": "review-clear",
+    "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1",
+    "stoppedReason": "review-clear"
+  },
+  "independentReview": {
+    "answers": {
+      "meaning": {
+        "choice": "shield-check",
+        "evidence": "Both paints show a shield silhouette (flat top, rounded shoulders, curved bottom point) spanning native.png rows 2-21, enclosing a single V-shaped tick with a short left arm and long arm rising to the upper right (outlined rows 7-14, x~7-15). No slash, padlock body or exclamation bar appears, so the sole modifier is a check.",
+        "treatment": "None; the check modifier inside the shield is unambiguous at both scales."
+      },
+      "style": {
+        "choice": "pass",
+        "evidence": "The candidate's closed shield contour repeats reference 5's shoulder radius, near-straight flanks and rounded bottom point at the same native footprint, while the interior tick matches the round-terminated ticks of references 1 and 3 in angle and arm-length ratio (host facts: candidate outlined and refs 1/3/5 all declare 2 units on the 24 grid). In the native 1x/2x columns the ring and tick read as a single perceptual weight, as ref-3's circle and tick do, and the filled paint follows refs 2/4 with a solid body and knocked-out tick.",
+        "treatment": "None; no terminal, corner or detail-weight mismatch observed against the reference proofs."
+      },
+      "optics": {
+        "choice": "pass",
+        "evidence": "Outlined at 1x keeps clear counters: row 7 has white at x=5-12 and x=16-18 around tick pixels x=14-15, and row 11 separates the two tick arms with x=9,10 at 150/248. Filled stays open too: row 8 x=37-39 reads 119/255/228 and row 11 shows two white lobes (x=32 at 241; x=35-37 at 200/255/183) split at x=33,34; the tick tip at row 7 x=38,39 is only partial grey (137/133) but is fully open one row down, so no feature collapses.",
+        "treatment": "None; the faint row-7 tip is antialiasing at the apex, not a collapsed feature."
+      },
+      "family": {
+        "choice": "pass",
+        "evidence": "Outer silhouettes match across paints: native.png row 15 ink spans x=3-20 (outlined) and x=27-44 (filled), both 18px, and row 2's apex spans x=8-15 and x=32-39. The tick occupies rows 7-14 at the same relative columns in both paints, so concept, apparent scale and layout are preserved with only the expected stroke-versus-knockout difference.",
+        "treatment": "None; the paint difference is the deliberate outlined/filled treatment, not a layout drift."
+      }
+    },
+    "model": "claude-opus-5",
+    "status": "complete",
+    "apiChargeUsd": null,
+    "billing": "subscription",
+    "craftApproved": false,
+    "evidenceHashes": {
+      "outlined-proof.png": "fa359b1b613b94c68ac5997bf0d22d2215d482f207844e913b26ab198ff84ab6",
+      "filled-proof.png": "f4e77259b4ed92600c67b7db7d9fe3686c71a0a7b18983cee5df43d3710c7b50",
+      "native.png": "891ccaaad71ab5086e665deef8ae7889d52b9c58acb248714966ec4cd4d8ff13",
+      "reference-0-proof.png": "89084af1a9e0d6cb033eff609ca64530bb9b0cc7ef32e5828a9e88ead66b613b",
+      "reference-1-proof.png": "7e8cf60fb3b54dff1b23923b7bc85762834eca7a75c3975af731507cabc2081c",
+      "reference-2-proof.png": "2040c2bf427b80c3bc128353bc2ded7dd74a5ebc78545cfb9606a557d195a4d1",
+      "reference-3-proof.png": "127e6c7ae1cf8c2829ff7c4dbd38cf9ec6a60747aed4e60a274dcc8983065741",
+      "reference-4-proof.png": "5fe705f643b5bad07f89ad3febdab182d2655c22d8fc19032551d3ecf696589e",
+      "reference-5-proof.png": "10df4a638a01a4735216aee7d720386a7a7a4f754fd97044447fc96d26a28eef",
+      "references.png": "36f464fea9e3a829b60f00baa2e2b943c6e9461283afcdd617b219f33af42680"
+    },
+    "instrumentQualified": false
+  },
+  "verification": {
+    "engineTests": 1620,
+    "testFiles": 128,
+    "skipped": 0,
+    "build": "pass",
+    "typecheck": "pass",
+    "lintAndLayering": "pass"
+  },
+  "billing": {
+    "route": "native-subscription",
+    "newApiCalls": 0,
+    "subscriptionUsd": null,
+    "existingConfirmedApiUsd": 13.06220785,
+    "existingUnknownApiReservationsUsd": 11.37126575
+  },
+  "discoveryInputTokens": {
+    "initial": 93939,
+    "compact": 19527
+  },
+  "rawEvidenceDirectory": "/Users/mblode/Code/mblode/iconsmith/.staging/automatic-retrieval-2026-09-07"
+}

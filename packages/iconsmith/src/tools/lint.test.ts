@@ -482,8 +482,8 @@ describe("review", () => {
   });
 });
 
-describe("cutout parity diagnostics", () => {
-  it("warns about overlapping timer-hand cutouts without changing the drawing", () => {
+describe("cutout diagnostics", () => {
+  it("accepts overlapping timer-hand cutouts without changing the recipe", () => {
     const drawing = run(`icon timer
 finish filled
 circle 12,12 r9
@@ -491,9 +491,7 @@ hole rect 11,6 2x7 r1
 hole rect 12,11 5x2 r1`);
     const before = JSON.stringify(drawing.canvas.elements);
     const issues = lint(drawing.canvas).filter((i) => i.rule === "hole");
-    expect(issues).toHaveLength(1);
-    expect(issues[0].severity).toBe("warn");
-    expect(issues[0].message).toContain("restore ink");
+    expect(issues).toEqual([]);
     expect(JSON.stringify(drawing.canvas.elements)).toBe(before);
   });
 

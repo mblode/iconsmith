@@ -1,0 +1,30 @@
+{
+  "experiment": "A091",
+  "bothOrdersMeetNarrowCriterion": true,
+  "usage": [
+    {
+      "input_tokens": 198540,
+      "cached_input_tokens": 156416,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 5062,
+      "reasoning_output_tokens": 2360
+    },
+    {
+      "input_tokens": 115502,
+      "cached_input_tokens": 86400,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 2431,
+      "reasoning_output_tokens": 1052
+    }
+  ],
+  "inputMode": "Two explicit PNG attachments; no supplied pixel matrices or source geometry",
+  "call1AdditionalEvidence": "Model extracted pixel coverage from supplied PNG using sharp",
+  "call2AdditionalEvidence": "Captured commands only list filenames and validate/read its output; no raster extraction",
+  "limitations": [
+    "One previously used diagnostic pair",
+    "Attachments and correct answers do not qualify general craft judgment",
+    "Does not verify final-output image viewing in canonical author loop"
+  ],
+  "instrumentQualified": false,
+  "apiCalls": 0
+}

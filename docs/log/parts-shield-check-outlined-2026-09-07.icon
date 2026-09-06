@@ -1,0 +1,5 @@
+icon shield-check
+keyline portrait
+finish outlined
+part shield-closed-body-0 at center
+line 9,11.5 11,13.5 15,9.5

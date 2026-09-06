@@ -1,0 +1,27 @@
+{
+  "experiment": "A089",
+  "protocolPassed": false,
+  "positiveToleratedBothOrders": true,
+  "missingConnectionDetectedBothOrders": true,
+  "visualClassificationBothOrders": false,
+  "usage": [
+    {
+      "input_tokens": 109538,
+      "cached_input_tokens": 90752,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 2827,
+      "reasoning_output_tokens": 1077
+    },
+    {
+      "input_tokens": 265742,
+      "cached_input_tokens": 236160,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 4336,
+      "reasoning_output_tokens": 1532
+    }
+  ],
+  "actualApiLedgerUsd": 10.6590496,
+  "apiReservationsUsd": 0,
+  "scope": "One pair, two orders; not general author/reviewer qualification",
+  "reason": "Reversed negative classified representation despite a repairable omitted line. Contract did not define the category precisely enough; new clarification is a subsequent revision."
+}

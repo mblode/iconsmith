@@ -4,8 +4,9 @@ import { expect, test } from "vitest";
 import { Canvas, specAt } from "../tools/canvas.js";
 import { run } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import { programFromDoc } from "../tools/twin.js";
+import { adaptProgram, programFromDoc } from "../tools/twin.js";
 import { DEFAULT_POLICY } from "./policy.js";
+import { runProgram } from "./program.js";
 import {
   STYLE_COMPILER,
   compileStyle,
@@ -32,6 +33,8 @@ test.each([
   "line 5,8 19,8 detail",
   "line 5,5 19,19 detail",
   "line 5,18 5,6 18,6 r1 detail",
+  "arc 12,12 r6 half from bottom detail",
+  "arc 12,12 r6 quarter from right ccw detail",
 ])("detail expansion independently matches stroked SVG: %s", async (op) => {
   const style = selectStyle(revision(), "large");
   const artifacts = ["outlined", "filled"].map((p) =>
@@ -116,4 +119,61 @@ test("detail admission refuses missing or invalid widths, preserving defaults", 
       spec
     )
   ).toThrow(/subtraction/u);
+});
+
+test.each(["round", "square"] as const)(
+  "detail arc preserves weight across replay, transforms and trim with %s caps",
+  (strokeCap) => {
+    const selected = { ...spec, strokeCap };
+    const result = run("arc 12,12 r6 half from bottom detail", [], {
+      spec: selected,
+    });
+    expect(result.errors).toEqual([]);
+    const before = result.canvas.toSVG();
+    expect(before).toContain('stroke-width="1.8"');
+    const original = result.canvas.toJSON({ icon: "detail-arc" });
+    expect(Canvas.fromJSON(original, [], selected).toSVG()).toBe(before);
+    expect(programFromDoc(original)).toContain("detail");
+    result.canvas.transform(0.75, 3, 3);
+    result.canvas.rect({ h: 10, r: 0, w: 10, x: 2, y: 2 });
+    result.canvas.combine("trim");
+    const document = result.canvas.toJSON({ icon: "trim-detail-arc" });
+    expect(
+      run(programFromDoc(document), [], { spec: selected }).canvas.toSVG()
+    ).toBe(result.canvas.toSVG());
+    expect(result.canvas.toSVG()).toContain('stroke-width="1.8"');
+    const filled = run(
+      "finish filled\narc 12,12 r6 half from bottom detail",
+      [],
+      { spec: selected }
+    ).canvas;
+    expect(filled.skeletonBbox()?.w).toBeCloseTo(6, 2);
+  }
+);
+
+test("detail arcs reach the actual model tools and sandbox builder, and refuse dropped roles", async () => {
+  const tools = createTools({ spec });
+  await tools.tools.arc.execute?.(
+    { cx: 12, cy: 12, from: "bottom", r: 6, sweep: "half", weight: "detail" },
+    { messages: [], toolCallId: "arc-detail" }
+  );
+  expect(tools.canvas.toSVG()).toContain('stroke-width="1.8"');
+  const built = await runProgram(
+    'await draw.arc({cx:12,cy:12,r:6,from:"bottom",sweep:"half",weight:"detail"}); await draw.line({points:[[4,4],[8,4]],weight:"detail"});',
+    [],
+    { spec }
+  );
+  expect(built.errors).toEqual([]);
+  expect(built.program.match(/detail/gu)).toHaveLength(2);
+  expect(built.canvas.toSVG().match(/stroke-width="1.8"/gu)).toHaveLength(2);
+  expect(run("arc 12,12 r6 half from bottom detail").errors).toHaveLength(1);
+  expect(
+    run("arc 12,12 r6 half from bottom unknown", [], { spec }).errors
+  ).toHaveLength(1);
+  expect(
+    run("arc 12,12 r6 half from bottom ccw ccw", [], { spec }).errors
+  ).toHaveLength(1);
+  expect(() =>
+    adaptProgram("arc 12,12 r6 half from bottom detail", "filled", [], spec)
+  ).toThrow(/authored counterpart/u);
 });

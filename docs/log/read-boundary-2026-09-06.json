@@ -1,0 +1,174 @@
+{
+  "experiments": [
+    "D080",
+    "A086",
+    "A087"
+  ],
+  "scope": "OS-enforced native command read boundary and checker parity; not a sealed generation pilot",
+  "officialDocumentation": "https://learn.chatgpt.com/docs/permissions",
+  "codexBinary": "/Applications/ChatGPT.app/Contents/Resources/codex",
+  "codexVersion": "0.153.4",
+  "requestedModel": "gpt-5.6-sol",
+  "requestedEffort": "high",
+  "nativeProcessCode": 0,
+  "commandExitCodes": [
+    0,
+    0
+  ],
+  "probe": {
+    "reads": {
+      "inside": "allowed",
+      "outside": "EPERM",
+      "symlink": "EPERM",
+      "corpus": "EPERM",
+      "history": "EPERM",
+      "source": "EPERM",
+      "installedIcons": "EPERM"
+    },
+    "writes": {
+      "inside": "allowed",
+      "outside": "EPERM"
+    },
+    "network": "EPERM"
+  },
+  "unchangedPinnedFiles": {
+    "checker.mjs": "42ea53960b4abbe3c939938bd8dfa3337683d0fc6098d77791b341aad41965fa",
+    "probe.mjs": "d937e401f4ee3c93f04768e1e966b09a90940b38e45a05a9fba7961e13321901",
+    "revision.json": "d8b5713c545a43aeb61c8c9372182465a0b2d4a55ca938c335007f14dded8ad9",
+    "outlined.icon": "fc43ce91b0b4d4e1a7e3f9a39c9a1496a1bfa78ce495beb2d37eee94e2952346",
+    "filled.icon": "2483624aab536faccd71517fc1f972c8becbc1037b7f2409d585894b6240b074",
+    "profile.json": "4b5d5bc5ca3541700aeb0f188468c3412c12215f84d73ac38f4c24d946ff90b3"
+  },
+  "artifactParity": {
+    "outlined.svg": true,
+    "filled.svg": true,
+    "native.png": true,
+    "outlined.proof.png": true,
+    "filled.proof.png": true
+  },
+  "profile": {
+    "node": "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+    "profile": {
+      ":root": "deny",
+      ":minimal": "read",
+      "/Users/mblode/Code/mblode/iconsmith/.staging/foundry-quality-2026-09-06/read-boundary-02/packet": "write",
+      "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node": "read",
+      "/System/Library/OpenSSL/openssl.cnf": "read",
+      "/System/Library/Fonts": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/paper": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/sharp": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/colour": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/detect-libc": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/semver": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-darwin-arm64": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-libvips-darwin-arm64": "read",
+      "/Users/mblode/Code/mblode/iconsmith/node_modules/zod": "read"
+    }
+  },
+  "runtimePackages": [
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/paper",
+      "name": "paper",
+      "version": "0.12.18"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm",
+      "name": "pathkit-wasm",
+      "version": "1.0.0"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/sharp",
+      "name": "sharp",
+      "version": "0.35.3"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/colour",
+      "name": "@img/colour",
+      "version": "1.1.0"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/detect-libc",
+      "name": "detect-libc",
+      "version": "2.1.2"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/semver",
+      "name": "semver",
+      "version": "7.8.5"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-darwin-arm64",
+      "name": "@img/sharp-darwin-arm64",
+      "version": "0.35.3"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/@img/sharp-libvips-darwin-arm64",
+      "name": "@img/sharp-libvips-darwin-arm64",
+      "version": "1.3.2"
+    },
+    {
+      "directory": "/Users/mblode/Code/mblode/iconsmith/node_modules/zod",
+      "name": "zod",
+      "version": "3.25.76"
+    }
+  ],
+  "bundleInputs": [
+    "packages/iconsmith/src/geometry/path.ts",
+    "packages/iconsmith/src/geometry/rounded-line.ts",
+    "packages/iconsmith/src/parts/shape.ts",
+    "packages/iconsmith/src/tools/boolean.ts",
+    "packages/iconsmith/src/tools/spec.ts",
+    "packages/iconsmith/src/tools/stroke.ts",
+    "packages/iconsmith/src/tools/canvas.ts",
+    "packages/iconsmith/src/tools/cohort.ts",
+    "packages/iconsmith/src/tools/dsl.ts",
+    "packages/iconsmith/src/geometry/segments.ts",
+    "packages/iconsmith/src/tools/angle.ts",
+    "packages/iconsmith/src/tools/cut.ts",
+    "packages/iconsmith/src/tools/lint.ts",
+    "packages/iconsmith/src/tools/twin.ts",
+    "packages/iconsmith/src/pipeline/pair.ts",
+    "packages/iconsmith/src/pipeline/licence.ts",
+    "packages/iconsmith/src/pipeline/policy.default.json",
+    "packages/iconsmith/src/pipeline/policy.ts",
+    "packages/iconsmith/src/pipeline/style.ts",
+    "packages/iconsmith/src/tools/render.ts",
+    "packages/iconsmith/src/tools/proof.ts",
+    "packages/iconsmith/scripts/style-check.ts"
+  ],
+  "sourceHashes": {
+    ".staging/foundry-quality-2026-09-06/read-boundary-02/author-request.json": "202a9c9d0162a34825e572d748ca9f32252cdc92b4b177f23f9c159733f645c1",
+    ".staging/foundry-quality-2026-09-06/read-boundary-02/author-process.json": "d772caaa20db6ff65f9bb765f58b173666cf04dec19089250ad4a5f43488f323",
+    ".staging/foundry-quality-2026-09-06/read-boundary-02/packet/probe-result.json": "29d14dba8dda72e2b2ae0a45aa0b33410a4bc34dbd95dd2d88efecf7f1f267d8",
+    ".staging/foundry-quality-2026-09-06/read-boundary-02/checker-process.json": "1f68bbc9c0802e50de9673ae82a5c0b26e5d807af5e67d7d5a608dad41fcb110",
+    ".staging/foundry-quality-2026-09-06/read-boundary-02/node-probe-process.json": "7016fc2cb25ffdfba203b1555101691b8dd1680f4260e3aec781a184e390a954",
+    ".staging/foundry-quality-2026-09-06/read-boundary-01/author-process.json": "1a310cf72fb4518a1b67e15b8144f499e239b49922d9113d407e4be6dbec6dd3"
+  },
+  "usage": {
+    "A086": {
+      "input_tokens": 33910,
+      "cached_input_tokens": 19968,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 538,
+      "reasoning_output_tokens": 214
+    },
+    "A087": {
+      "input_tokens": 51557,
+      "cached_input_tokens": 41728,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 534,
+      "reasoning_output_tokens": 153
+    }
+  },
+  "billing": "Native subscription, no actual API call/hold; token counts are not dollar charges",
+  "actualApiLedgerUsd": 10.6590496,
+  "apiReservationsUsd": 0,
+  "limitations": [
+    "The canonical local CLI does not yet build/use this isolated runtime.",
+    "This tests model-generated command enforcement, not every preloaded instruction or possible non-command tool.",
+    "No source/alias/family holdout closure or unseen pilot was frozen.",
+    "A086 allowed all node_modules and therefore exposed blode-icons-react; superseded only by the new A087 run.",
+    "Artist/evaluator quality is not measured by this canary."
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "experiment": "A096",
+  "sourceReferenceCount": 6,
+  "allReferenceProofsRead": true,
+  "referenceProofManifest": [
+    {
+      "coordinateSpace": "24x24 SVG viewport",
+      "deviceScales": [
+        1,
+        2
+      ],
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "surfaces": [
+        "black-on-white",
+        "white-on-black monochrome inversion"
+      ],
+      "index": 0,
+      "name": "reference-0-proof.png",
+      "proofSha256": "fb9c6e4dcb50b67129c8e3e44cda41d0bd07b2b031acadc42f6114537ee6b99e",
+      "svgSha256": "b8813c75bff9666a9cde6281a06d64fd9f662db11ce52b4652ff34182004d19c"
+    },
+    {
+      "coordinateSpace": "24x24 SVG viewport",
+      "deviceScales": [
+        1,
+        2
+      ],
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "surfaces": [
+        "black-on-white",
+        "white-on-black monochrome inversion"
+      ],
+      "index": 1,
+      "name": "reference-1-proof.png",
+      "proofSha256": "a68abad4c5a4c19a7a931b456063d0e3a721fde8b33c0dea03b132d843b9e441",
+      "svgSha256": "2d47ae956873267cf27eef36d8c2ffcbdae9eaa8ff4a3b01db546cf679917626"
+    },
+    {
+      "coordinateSpace": "24x24 SVG viewport",
+      "deviceScales": [
+        1,
+        2
+      ],
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "surfaces": [
+        "black-on-white",
+        "white-on-black monochrome inversion"
+      ],
+      "index": 2,
+      "name": "reference-2-proof.png",
+      "proofSha256": "8c5c7cdc4501be0ccaabf18cc69db596aac9e6cf898769bfdba85be5b0cd1ec6",
+      "svgSha256": "9adec35f036d5decf14e78ea7ddac8708c2722531f3361d412baef18d59aa60f"
+    },
+    {
+      "coordinateSpace": "24x24 SVG viewport",
+      "deviceScales": [
+        1,
+        2
+      ],
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "surfaces": [
+        "black-on-white",
+        "white-on-black monochrome inversion"
+      ],
+      "index": 3,
+      "name": "reference-3-proof.png",
+      "proofSha256": "35f76b25ecea406fc99d77f8ca09084f272342f933495cd9bf852bc5464689fc",
+      "svgSha256": "deed6cdac4e0b75e605aee6d3935b815f8c3c4fa35f7d64cb5e75489271f7262"
+    },
+    {
+      "coordinateSpace": "24x24 SVG viewport",
+      "deviceScales": [
+        1,
+        2
+      ],
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "surfaces": [
+        "black-on-white",
+        "white-on-black monochrome inversion"
+      ],
+      "index": 4,
+      "name": "reference-4-proof.png",
+      "proofSha256": "1ab79eeef424cb7f7ccd56ca52db6cb4f17709e1c7a7936de22ffe8a46a758ee",
+      "svgSha256": "9b93f2c70ccd67d7f525f6bb2f2413b05458995d2b69e09d1dafb71e2811f350"
+    },
+    {
+      "coordinateSpace": "24x24 SVG viewport",
+      "deviceScales": [
+        1,
+        2
+      ],
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "surfaces": [
+        "black-on-white",
+        "white-on-black monochrome inversion"
+      ],
+      "index": 5,
+      "name": "reference-5-proof.png",
+      "proofSha256": "2e2bddbc5f825e830414588072df4a58976a29010b7e1a0f2b4e3530a8f14d42",
+      "svgSha256": "3eedb938bb4781b3d87941fc326ea84598c345713ca374ccf55baa4985e5279c"
+    }
+  ],
+  "narrowCriterionPassed": true,
+  "knownContradiction": "Reviewer says terminals flat-cut; candidate open stroked paths have round caps",
+  "generalInstrumentQualified": false,
+  "reviewerListPriceEstimateUsd": 0.318597,
+  "reviewerUsage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 10826,
+    "cache_read_input_tokens": 20842,
+    "output_tokens": 7848,
+    "output_tokens_details": {
+      "thinking_tokens": 5298
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10826,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6796,
+        "cache_read_input_tokens": 10114,
+        "cache_creation_input_tokens": 2571,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2571
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "newApiCalls": 0,
+  "allProcessesTerminal": true
+}

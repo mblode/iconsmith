@@ -1,128 +1,98 @@
-/** Local subscription CLI entry point. No API judge and no billing fallback. */
-import { execFileSync, spawnSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+/** Canonical local foundry: pinned style, native author, independent review. */
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 
-import { harnessArm, subscriptionEnv } from "../src/pipeline/harness.js";
-import { png } from "../src/tools/render.js";
+import { subscriptionEnv } from "../src/pipeline/harness.js";
+import { createStyleRevision } from "../src/pipeline/style.js";
+import { prepareAuthorContext } from "./local-author-context.js";
+import { retrieveLocalStyle } from "./local-retrieval.js";
+import { prepareLocalRuntime } from "./local-runtime.js";
 import { runLocalStyle } from "./local-style-run.js";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
   options: {
     brief: { type: "string" },
+    codex: {
+      default: existsSync("/Applications/ChatGPT.app/Contents/Resources/codex")
+        ? "/Applications/ChatGPT.app/Contents/Resources/codex"
+        : "codex",
+      type: "string",
+    },
+    exclude: { multiple: true, type: "string" },
     finish: { type: "string" },
+    library: { type: "string" },
+    "library-set": { type: "string" },
     master: { type: "string" },
+    meanings: { type: "string" },
+    model: { default: "gpt-6-astra", type: "string" },
     revision: { type: "string" },
+    sketch: { type: "string" },
+    "sketch-source": { type: "string" },
   },
 });
-const [agent, concept, destination] = positionals;
+const [concept, destination] = positionals;
 if (
+  positionals.length !== 2 ||
   !concept ||
   !destination ||
-  !["codex", "claude", "cursor"].includes(agent ?? "")
+  !values.revision ||
+  !values.master ||
+  !values.meanings
 ) {
   throw new Error(
-    "Usage: local-generate.ts <codex|claude|cursor> <concept> <new-output-directory>"
+    "Usage: local-generate.ts <concept> <new-output-directory> --revision <file> --master <name> --meanings <json-file> [--finish outlined|filled] [--brief <file>]"
   );
-}
-if (values.revision && (agent !== "codex" || !values.master)) {
-  throw new Error(
-    "Selected-style generation currently requires codex and --master."
-  );
-}
-if ((values.master || values.finish || values.brief) && !values.revision) {
-  throw new Error("Style options require --revision.");
 }
 if (values.finish && !["outlined", "filled"].includes(values.finish)) {
   throw new Error("--finish must be outlined or filled; omit for both.");
 }
+if (Boolean(values.sketch) !== Boolean(values["sketch-source"]?.trim())) {
+  throw new Error(
+    "--sketch and a nonempty --sketch-source must be supplied together."
+  );
+}
+if (Boolean(values.library) !== Boolean(values["library-set"])) {
+  throw new Error("--library and --library-set must be supplied together");
+}
+const env = subscriptionEnv(process.env);
+const codex = spawnSync(values.codex, ["login", "status"], {
+  encoding: "utf-8",
+  env,
+});
+if (
+  codex.status !== 0 ||
+  !`${codex.stdout}${codex.stderr}`.includes("Logged in using ChatGPT")
+) {
+  throw new Error(
+    `The native author login check failed. ChatGPT login is required. ${codex.error?.message ?? codex.stderr?.trim() ?? "No status diagnostic returned."}`
+  );
+}
+const claude = spawnSync("claude", ["auth", "status"], {
+  encoding: "utf-8",
+  env,
+});
+const auth = claude.status === 0 ? JSON.parse(claude.stdout) : null;
+if (auth?.loggedIn !== true || auth.authMethod !== "claude.ai") {
+  throw new Error(
+    "The independent reviewer must be signed in using Claude's native subscription."
+  );
+}
 const out = path.resolve(destination);
 mkdirSync(out, { recursive: false });
-const command =
-  agent === "cursor"
-    ? path.join(process.env.HOME ?? "", ".local/bin/cursor-agent")
-    : agent;
-const authEnv = subscriptionEnv(process.env);
-if (agent === "codex") {
-  const status = spawnSync(command, ["login", "status"], {
-    encoding: "utf-8",
-    env: authEnv,
-  });
-  if (
-    status.status !== 0 ||
-    !`${status.stdout}${status.stderr}`.includes("Logged in using ChatGPT")
-  ) {
-    throw new Error("Codex must be signed in using ChatGPT.");
-  }
-}
-if (agent === "claude") {
-  const status = JSON.parse(
-    execFileSync(command, ["auth", "status"], {
-      encoding: "utf-8",
-      env: authEnv,
-    })
-  );
-  if (!status.loggedIn || status.authMethod !== "claude.ai") {
-    throw new Error("Claude Code must be signed in using claude.ai.");
-  }
-}
-if (agent === "cursor") {
-  const status = execFileSync(command, ["status"], {
-    encoding: "utf-8",
-    env: authEnv,
-  });
-  if (!status.includes("Logged in as")) {
-    throw new Error("Cursor must be signed in with its native account.");
-  }
-}
-const args = (brief: string): string[] => {
-  if (agent === "codex") {
-    return [
-      "exec",
-      "--ignore-user-config",
-      "-c",
-      'model_reasoning_effort="high"',
-      "--skip-git-repo-check",
-      "--sandbox",
-      "workspace-write",
-      brief,
-    ];
-  }
-  if (agent === "claude") {
-    return [
-      "-p",
-      "--setting-sources",
-      "",
-      "--strict-mcp-config",
-      "--tools",
-      "Read,Write,Edit,Bash",
-      "--allowedTools",
-      "Read,Write,Edit,Bash(iconsmith *)",
-      "--",
-      brief,
-    ];
-  }
-  return [
-    "--print",
-    "--trust",
-    "--sandbox",
-    "enabled",
-    "--workspace",
-    out,
-    brief,
-  ];
-};
 writeFileSync(
   path.join(out, "run.json"),
   JSON.stringify(
     {
-      agent,
-      apiAudit: false,
+      author: "codex",
+      authorCommand: values.codex,
       billing: "subscription",
       concept,
-      requestedReasoningEffort: agent === "codex" ? "high" : null,
+      requestedModel: values.model,
+      requestedReasoningEffort: "high",
+      reviewer: "claude",
       startedAt: new Date().toISOString(),
     },
     null,
@@ -130,39 +100,80 @@ writeFileSync(
   )
 );
 try {
-  if (values.revision) {
-    const result = await runLocalStyle({
-      args,
-      command,
+  let revisionPath = path.resolve(values.revision);
+  if (values.library) {
+    await retrieveLocalStyle({
       concept,
-      env: authEnv,
-      finish: values.finish as "outlined" | "filled" | undefined,
-      guidance: values.brief ? readFileSync(values.brief, "utf-8") : undefined,
-      master: values.master ?? "",
-      out,
-      revisionPath: path.resolve(values.revision),
+      exclusions: values.exclude,
+      library: path.resolve(values.library),
+      master: values.master,
+      out: path.join(out, "retrieval"),
+      revision: createStyleRevision(
+        JSON.parse(readFileSync(revisionPath, "utf-8"))
+      ),
+      set: values["library-set"] ?? "",
     });
-    console.log(JSON.stringify(result));
-    if (result.status !== "delivered") {
-      process.exitCode = 1;
-    }
-  } else {
-    const result = await harnessArm({
-      args,
-      billing: "subscription",
-      command,
-      keep: true,
-      root: out,
-      timeoutMs: 300_000,
-    })({ name: concept }, { finish: "outlined" });
-    writeFileSync(
-      path.join(out, "result.json"),
-      JSON.stringify(result, null, 2)
-    );
-    writeFileSync(path.join(out, "icon.svg"), result.svg);
-    writeFileSync(path.join(out, "icon.icon"), result.program ?? "");
-    writeFileSync(path.join(out, "preview.png"), await png(result.svg, 192));
-    console.log(`Saved ${out}; compile success is not a craft approval.`);
+    revisionPath = path.join(out, "retrieval", "revision.json");
+  }
+  const result = await runLocalStyle({
+    args: (brief, permissionArgs, images) => [
+      "exec",
+      "--ignore-user-config",
+      "--json",
+      "--model",
+      values.model,
+      "-c",
+      'model_reasoning_effort="high"',
+      "--skip-git-repo-check",
+      "-c",
+      'approval_policy="never"',
+      "-c",
+      "project_doc_max_bytes=0",
+      "-c",
+      'web_search="disabled"',
+      ...permissionArgs,
+      ...images.flatMap((image) => ["--image", image]),
+      "--",
+      brief,
+    ],
+    command: values.codex,
+    composition: values.sketch
+      ? {
+          path: path.resolve(values.sketch),
+          source: values["sketch-source"] ?? "",
+        }
+      : undefined,
+    concept,
+    env,
+    finish: values.finish as "outlined" | "filled" | undefined,
+    guidance: [
+      values.brief ? readFileSync(values.brief, "utf-8") : "",
+      values.library
+        ? `Automatic retrieval observations (reference evidence, not mandatory construction instructions): ${readFileSync(path.join(out, "retrieval", "selection.json"), "utf-8")}`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    master: values.master,
+    meanings: JSON.parse(readFileSync(values.meanings, "utf-8")),
+    out,
+    prepareRuntime: async (directory) => {
+      const runtime = await prepareLocalRuntime(directory, values.codex, env);
+      const context = prepareAuthorContext(values.codex, directory, env);
+      return {
+        ...runtime,
+        permissionArgs: [...runtime.permissionArgs, ...context.args],
+        protectedFiles: [...runtime.protectedFiles, context.receiptName],
+      };
+    },
+    revisionPath,
+  });
+  console.log(JSON.stringify(result));
+  if (
+    result.status !== "delivered" ||
+    result.qualityStatus !== "review-clear"
+  ) {
+    process.exitCode = 1;
   }
 } catch (error) {
   writeFileSync(path.join(out, "failure.txt"), String(error));

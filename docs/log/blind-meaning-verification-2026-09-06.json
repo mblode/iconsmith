@@ -1,0 +1,83 @@
+{
+  "experiment": "A084",
+  "kind": "post-run-verification",
+  "sourceReceipt": "blind-meaning-smoke-2026-09-06.json",
+  "processSha256": "eac3a4924d0f5f5f44b780c375e43e86108e8060269de0f3287f74d60710206d",
+  "requestSha256": "27b9d6b626f64ce91a31efd6296c82c8aaa137c398f1e933881e3bafc68f74ed",
+  "imageHashes": {
+    "candidate.png": "9fcca9c7961ccdb283fa6bc7d8f671f64a94e3e22ccc6a9c7e1fcd90ecb08f38",
+    "native.png": "56e0918be286feab32b1a42f44d565bb4e8e590b055a389beac56c118e8313eb"
+  },
+  "allImageReadsVerified": true,
+  "nativeLayout": "Outlined and filled 16px pair strip; candidate.png is the outlined proof sheet",
+  "decision": "coin-yen",
+  "correct": true,
+  "instrumentQualified": false,
+  "scope": "One previously developed currency icon; no counterbalancing or held-out accuracy estimate",
+  "billing": "native subscription",
+  "cliListPriceEstimateUsd": 0.11617200000000001,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7325,
+    "cache_read_input_tokens": 6734,
+    "output_tokens": 1487,
+    "output_tokens_details": {
+      "thinking_tokens": 490
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7325,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1276,
+        "cache_read_input_tokens": 6734,
+        "cache_creation_input_tokens": 591,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 591
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-haiku-4-5-20251001": {
+      "inputTokens": 2290,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00236,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-4-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5": {
+      "inputTokens": 4,
+      "outputTokens": 1487,
+      "cacheReadInputTokens": 6734,
+      "cacheCreationInputTokens": 7325,
+      "webSearchRequests": 0,
+      "costUSD": 0.11381200000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 490,
+      "canonicalModel": "claude-opus-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "apiLedgerUnchanged": true
+}

@@ -54,13 +54,13 @@
  * `finish` says whether the icon is a stroked skeleton or a solid shape, and
  * it is a line rather than a flag on the run because a program is the whole
  * description of an icon: reading one should not require knowing what was
- * passed alongside it. It is a property of the document, so it must be
- * declared before any geometry — a `rect` means a different set of corner
- * radii and a `dot` a different diameter under each finish, and a program that
- * could switch halfway would silently restate what it had already drawn.
+ * passed alongside it. It is a global property, resolved before drawing even
+ * when the declaration appears later. Conflicting declarations are refused;
+ * a program cannot change paint halfway through drawing.
  *
  * `hole` is the subtract op, and it is only legal under `finish filled`. It
- * cuts the solid drawn most recently, which is the order a drawing is made in;
+ * cuts the solid drawn most recently. Cutters are unioned before subtraction;
+ * overlapping holes never restore ink and boundary crossings never add ink.
  * the shape it cuts with is a `rect` or a `circle`, written exactly as it
  * would be as a solid and quantised by exactly the same code, so a hole cannot
  * carry a coordinate a solid could not. Holes are what the outlined-only
@@ -368,8 +368,8 @@ export interface RunResult {
  * — `dot` and every corner radius already mean different things under the two
  * — so the one declaration in the program has to be found before the first
  * primitive runs. That is why this is a scan rather than an op handled in
- * order; the op still exists in the loop, and there it enforces that the
- * declaration came before any geometry rather than being obeyed a second time.
+ * order. Its position does not change what any primitive means; the loop
+ * validates declarations without applying them again.
  *
  * The first declaration wins, and a bad one is ignored here rather than
  * thrown: `run` reports a program's mistakes line by line and returns what it
@@ -448,14 +448,55 @@ const lineArgs = (t: string[]) => {
   };
 };
 
+const arcArgs = (t: string[]) => {
+  const [centre, radiusTok, sweep, fromKw, from] = t.slice(1);
+  const [cx, cy] = pair(centre);
+  if (sweep === undefined || !isArcSweep(sweep)) {
+    throw new Error(
+      `arc sweep "${sweep ?? ""}" — expected one of ${ARC_SWEEP.join(", ")}`
+    );
+  }
+  if (fromKw !== "from" || from === undefined || !isArcFrom(from)) {
+    throw new Error(
+      `arc needs \`from top|right|bottom|left\` — got "${[fromKw, from].filter(Boolean).join(" ")}"`
+    );
+  }
+  const flags = t.slice(6);
+  if (
+    new Set(flags).size !== flags.length ||
+    flags.some((flag) => flag !== CCW && flag !== "detail")
+  ) {
+    throw new Error(
+      "arc accepts only ccw and detail modifiers, each at most once"
+    );
+  }
+  return {
+    ccw: t.includes(CCW),
+    cx,
+    cy,
+    from,
+    r: num(radiusTok, "radius"),
+    sweep,
+    weight: flags.includes("detail") ? ("detail" as const) : undefined,
+  };
+};
+
 const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
   if (op === "subtract" || op === "union" || op === "trim") {
-    if (t.length !== 1) {
+    if (
+      t.length !== 1 &&
+      !(t.length === 2 && /^r\d+(?:\.\d+)?$/u.test(t[1]) && op !== "trim")
+    ) {
       throw new Error(
-        "Boolean operations combine the last two solid groups and take no arguments"
+        "Boolean operations take only an optional filled intersection radius, e.g. subtract r1"
       );
     }
-    canvas.combine(op);
+    canvas.combine(
+      op,
+      undefined,
+      undefined,
+      t[1] === undefined ? undefined : Number(t[1].slice(1))
+    );
     return true;
   }
   if (op === "rect") {
@@ -467,26 +508,7 @@ const drawOp = (canvas: Canvas, t: string[], op: string): boolean => {
     const [cx, cy] = pair(t[1]);
     canvas.diamond({ cx, cy, reach: num(t[2], "reach") });
   } else if (op === "arc") {
-    const [centre, radiusTok, sweep, fromKw, from] = t.slice(1);
-    const [cx, cy] = pair(centre);
-    if (sweep === undefined || !isArcSweep(sweep)) {
-      throw new Error(
-        `arc sweep "${sweep ?? ""}" — expected one of ${ARC_SWEEP.join(", ")}`
-      );
-    }
-    if (fromKw !== "from" || from === undefined || !isArcFrom(from)) {
-      throw new Error(
-        `arc needs \`from top|right|bottom|left\` — got "${[fromKw, from].filter(Boolean).join(" ")}"`
-      );
-    }
-    canvas.arc({
-      ccw: t.includes(CCW),
-      cx,
-      cy,
-      from,
-      r: num(radiusTok, "radius"),
-      sweep,
-    });
+    canvas.arc(arcArgs(t));
   } else if (op === "hole") {
     holeOp(canvas, t);
   } else if (op === "line") {
@@ -575,24 +597,20 @@ const layoutOp = (
  * The `finish` line, checked rather than obeyed.
  *
  * `scanFinish` has already applied it — the canvas cannot exist without it —
- * so all that is left here is to refuse the two ways of writing it that would
- * mean something other than what was drawn: a finish this scan did not take
- * (an unknown word, or a second, contradicting declaration), and one that
- * arrives after geometry it therefore did not govern.
+ * so all that is left here is to refuse an unknown word or a declaration
+ * contradicting the globally selected finish. A late declaration already
+ * governed every primitive; refusing its position would discard valid geometry.
  */
-const finishOp = (canvas: Canvas, t: string[], applied: Finish): void => {
+const finishOp = (t: string[], applied: Finish): void => {
   const [, name] = t;
   if (!isFinish(name)) {
     throw new Error(
       `unknown finish "${name ?? ""}" — expected one of ${FINISHES.join(", ")}`
     );
   }
-  if (name !== applied || canvas.elements.length > 0) {
+  if (name !== applied) {
     throw new Error(
-      "finish is a property of the whole icon and has to be declared before " +
-        "anything is drawn: a rect takes its corner radii and a dot its " +
-        "diameter from the finish, so shapes drawn either side of this line " +
-        "would not mean the same thing. Move it to the top."
+      `Conflicting finish declarations: the whole icon uses ${applied}, not ${name}.`
     );
   }
 };
@@ -673,7 +691,7 @@ export const run = (
         }
         keyline = name;
       } else if (op === "finish") {
-        finishOp(canvas, t, finish);
+        finishOp(t, finish);
       } else if (op === "part") {
         placePart(canvas, byName, t, keyline);
       } else if (op === "center" || op === "centre") {

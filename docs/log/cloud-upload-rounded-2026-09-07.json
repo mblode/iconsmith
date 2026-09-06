@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-07",
+  "authorship": "assistant refinement of frozen Fable DSL, no new Fable call",
+  "references": [
+    {
+      "path": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/cloud-upload-filled.svg",
+      "sha256": "6bf20fbb200e0e690608a6eb3c0bed03562d3d802070a1841804fd707e1fd29d"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/cloud-simple-upload-filled.svg",
+      "sha256": "1983beeaa268ad949a604a5c59dbf63c9a25e230f61f82095ff563d6736dae1f"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/cloud-upload.svg",
+      "sha256": "16661138193bf22e6f5ca098a3b27fdd266e4143a9647cdba16a867ab398639c"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/cloud-simple-upload.svg",
+      "sha256": "35eb145997887168775535e615c7de81ca0e5e5d899f6d87ed650b504fa1a382"
+    }
+  ],
+  "correction": "external positive arrows are valid in Blode; previous categorical guidance superseded",
+  "construction": "rounded closed primitive cutter replaces sharp diamond, external arrow retained, body dimensions adjusted to square keyline",
+  "program": "icon cloud-upload\nkeyline square\nfinish filled\ncircle 12,9 r6\ncircle 6.5,12.5 r3.5\nunion\ncircle 17.5,12.5 r3.5\nunion\nrect 6.5,9.5 11x6.5 r0\nunion\nline 12,9.5 17,14.5 12,19.5 7,14.5 12,9.5 r1 solid\nrect 10,12 4x10 r1\nunion\nsubtract\nline 12,11.5 12,20\nline 12,11.5 9,14.5\nunion\nline 12,11.5 15,14.5\nunion\n",
+  "validation": {
+    "errors": [],
+    "findings": [],
+    "replay": true,
+    "complete": true
+  },
+  "attempt1": {
+    "errors": [],
+    "findings": [
+      {
+        "message": "Visual extent is 20.0\u00d719.0; keyline \"square\" wants 18\u00d718 (\u00b11). Scale by 0.947.",
+        "rule": "keyline",
+        "severity": "error"
+      }
+    ],
+    "replay": true,
+    "complete": true
+  },
+  "providerCalls": 0,
+  "newSpendUsd": 0,
+  "limitations": [
+    "Not a new autonomous Fable evaluation",
+    "Cutter apex and shoulders rounded; lower Boolean intersections are not automatically filleted",
+    "Reference-conditioned repair, not held-out evaluation"
+  ]
+}

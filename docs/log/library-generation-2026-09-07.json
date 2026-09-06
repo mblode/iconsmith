@@ -1,0 +1,421 @@
+{
+  "kind": "development-generation-cohort",
+  "compiler": 17,
+  "master": 24,
+  "render16": "downsample, not optical master",
+  "humanApproved": 0,
+  "newApiSpendUsd": 0,
+  "subscriptionCostUsd": null,
+  "runs": [
+    {
+      "name": "jellyfish",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "24c3c54c346789466fa5a5636fcda6a21d1cc015e4bb3352ff9e1a7f890651a2",
+      "style": "1a07841f860edff011a59cc732bf627132658e8e01548d9b24403c28bdc3af01",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "f43a96d0dfb44da53bf201348d9032189e33da5aa0494ae8c771b1dd3136ddeb"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "4776456870af8fd4c43af1377952460cc0519d9ab235caad9033b9212f3a391a"
+          }
+        },
+        "traceSha256": "25a51eebbd4398e85ab47c863875d788f7d153cd5e261a528963e4147e28a818",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/jellyfish/run/attempt-1",
+          "hash": "894087a936a26040daf5461ff4ab2731e51e13e916243c1e9b8a6c2010d9ed88",
+          "status": "review-clear"
+        }
+      ],
+      "deadlineExceeded": false,
+      "elapsedMs": 404152,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "review-clear",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/jellyfish/run/attempt-1",
+      "stoppedReason": "review-clear",
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "jellyfish",
+            "evidence": "The form is a smooth domed bell closed by a straight horizontal rim bar (native rows 11-12 span x3-x20), with three symmetric hook-curled tentacles hanging beneath it and no stem, handle, gills or eyes. A mushroom or umbrella would need a single central stalk/handle and an octopus would show a head with eyes and paired arms; the rim-line bell plus wavy tentacles is the jellyfish reading.",
+            "treatment": "No treatment needed; the bell rim line and three curling tentacles read unambiguously as a jellyfish."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "The candidate outlined paint declares the same single 2px stroke width and round open-subpath caps as references 0 and 2, and at the labelled 1x/2x native columns its tentacle terminals read as the same rounded, blunt-ended weight as the tree trunk tip and brain lobe curves; the interior rim bar reads at the same weight as the brain's central divider rather than as a thinner detail. Proportionally the candidate occupies rows 3-20 and x3-x21, matching the roughly 18-unit optical body of the tree circle and brain outline on the same grid.",
+            "treatment": "No defect observed; the lower half is denser than the tree references but matches the brain reference's detail cadence, so no change is warranted."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "At 24px the bell counter is fully open (outlined row 6, x8-x15 = 242,255,255,255,255,255,255,241) and the two inter-tentacle channels stay white (row 13, x9-x11 and x15-x17 = 255,255,254); the hook counters clear to 250-255 at outlined rows 16-18 (x6-x8) and rows 17-19 (x12-x14). The filled paint keeps the same separations (row 13, x33-x35 and x39-x41 = 255; row 17 hook counters x30-x31 and x36-x38 = 255), and both 1x and 2x columns on light and dark surfaces in the proofs show these gaps intact.",
+            "treatment": "No collapsed feature observed; only antialiasing softens the tentacle stems at 1x, which is not a defect."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Both paints place the same bell over three hook-curled tentacles at the same span (native rows 3-20 in each), with tentacle stems and curl positions aligned within a pixel between the outlined and filled halves of the strip (e.g. row 15 outlined x3-x20 mirrors filled x27-x44). The only difference is the expected one: the filled bell absorbs the rim line into solid mass while the tentacle layout, scale and hook direction are preserved, and the three repeated tentacles are consistent with one another in each paint.",
+            "treatment": "No defect observed; the loss of the interior rim line in the filled paint is the standard solid-paint reduction, not a concept or layout drift."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "f43a96d0dfb44da53bf201348d9032189e33da5aa0494ae8c771b1dd3136ddeb",
+          "filled-proof.png": "4776456870af8fd4c43af1377952460cc0519d9ab235caad9033b9212f3a391a",
+          "native.png": "02c11ae4158a41446c9ec55e50c94c5181a81e33bc7d1709d12d325f5d5f2690",
+          "reference-0-proof.png": "c950dda1979f7a5d8751524d21c212a8049c2d7ad4d6da528cea7f1c428ab43e",
+          "reference-1-proof.png": "1d7ba818045453bf81d8de071c666e25e1b3102bc881fa431747207f101d3301",
+          "reference-2-proof.png": "cacf85ede11960982bce31a1fbc9df1e684de8e605e010f2ee592b73a3a6ef77",
+          "reference-3-proof.png": "6104ca72fdaf1792333a58dd53db1b57dff7c012bf773a040f3334a327984676",
+          "references.png": "4b8274bd3067baeb76338a98a68e8b7d5b0cd13e8dc55e6d7895ccf45bc0b444"
+        },
+        "instrumentQualified": false
+      }
+    },
+    {
+      "name": "bicycle",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "582fb57d31c9697da0b6220c0a9feeeb895c13069caf9104be2cdbb6908f0135",
+      "style": "67055f95dd8ee7e04bee2093250931d0100d2d4a46db9a8e77daaa0f56bdfca5",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "a00cc0b6362bc623d34db8fb299fde60a56ff3a0b26a0eca36cb6862eababfb5"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "fe249adbd0024734e4dcf842e0846ca66c51e8cd02b54f558045a2824f0636ae"
+          }
+        },
+        "traceSha256": "adc7424c5545eb4453d6d4562b56f599d8c213dc2ffa99ef380fcb4bcd562c52",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/bicycle/run/attempt-1",
+          "hash": "edca6dc2390f0e102f8dc291e530b51b3e2ba269cb694c6911df789bd5bfed5e",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/bicycle/run/attempt-2",
+          "status": "incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 600413,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "needs-repair",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/bicycle/run/attempt-1",
+      "stoppedReason": "deadline-exhausted",
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "bicycle",
+            "evidence": "Two equal-diameter thin wheel rings sit at native rows 12-19 centered near x6 and x17, joined by a diamond frame whose triangular counter is open at row 11 x12, with a seat at x6-x10 rows 5-8 and a handlebar stem at x13-x17 rows 4-10. A crank/chainring mass sits at the bottom center (rows 14-16, x9-x12) with no engine block, exhaust or step-through platform, which rules out motorcycle and scooter.",
+            "treatment": "None; the read is unambiguous."
+          },
+          "style": {
+            "choice": "fail",
+            "evidence": "The outlined candidate matches references 0 and 2 well (round terminals on the seat and handlebar tips, 2px ring band at rows 12-19, similar 24-grid fill), but the filled candidate is visually identical to it in every panel of filled-proof.png, differing from the outlined strip by only a few gray levels (row 16: x10=44 vs x34=123). Reference-1's car and reference-3's wheelchair both show the family's filled convention as a genuine mass conversion against reference-0 and reference-2, so the filled paint's apparent detail weight does not fit its counterpart references.",
+            "treatment": "Redraw the filled paint with the family's filled logic rather than reusing the outlined geometry: follow reference-3 by solidifying the dominant forms, e.g. fill the frame triangle counter at x11-x13 rows 11-13 and the seat and hub masses, and thicken the wheel rings above 2px so the filled proof reads heavier than the outlined proof at 1x."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "The tightest counters stay open at 1x on both surfaces: the left wheel interior keeps a light channel through its narrowest neck (row 15 x4=242) with open lobes above and below (row 13 x6=244, row 17 x6=243), and the right wheel counter remains open below the seat-tube stub (row 15 x15=242, x19=242; row 17 x17=243). The frame triangle is the most marginal feature at one full-contrast pixel (row 11 x12=255) but is clearly open in both 2x columns.",
+            "treatment": "None required; the frame triangle is marginal at 1x but not collapsed."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Concept, scale and layout are preserved across paints to the pixel: wheel centers, frame, seat and handlebar occupy the same rows and offsets in both halves of the strip (e.g. row 13 x2-x9 = 136,0,31,187,244,186,30,0 vs x26-x33 = 125,0,31,188,245,193,32,0). The only divergences are a few gray levels in the crank and seat regions.",
+            "treatment": "None for this criterion; the paints are consistent (their near-identity is the basis of the style finding, not a layout defect)."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "a00cc0b6362bc623d34db8fb299fde60a56ff3a0b26a0eca36cb6862eababfb5",
+          "filled-proof.png": "fe249adbd0024734e4dcf842e0846ca66c51e8cd02b54f558045a2824f0636ae",
+          "native.png": "388815aa0aac4426fbb110fdab5f9885908e7d229e5767314ead015f05c00e8a",
+          "reference-0-proof.png": "322f81b83668926958b68f1c6c68585824de0ca8d80684fed8258afeb0820408",
+          "reference-1-proof.png": "979c09b5864f22424fd42363d42e0f164dde3a92511cec14ed5c8fc3265c0d5e",
+          "reference-2-proof.png": "8a50a5fcd614f7e9c2a73552f6c3f63beae13e8f36a550c498af322711917954",
+          "reference-3-proof.png": "55dc7153bdc9befb8391cbb7b5a9e9d1ebcc6194c6b08a7e72e9484c7f9bb0a9",
+          "references.png": "1c15af21f1cdad71415ec5c3d816d831a7590b87f8915e05e5e63f5a92260a37"
+        },
+        "instrumentQualified": false
+      }
+    },
+    {
+      "name": "shield-check",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "d470a54c47194f404cf25a89a8f050c1aea8c200c887cbff990c5f115856fd71",
+      "style": "af7b9dd7069a074aa3770e3c43dda0566b6a65012d7dae69fc32ebd467116802",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "The reference-led curved body requirement is not fully met: both final enlarged proofs and 2x columns show faceted lower flanks, with straight runs between small fillets around y14\u201319, where the reference shields have a continuously flowing belly. Resolved SVG L segments confirm the contour difference.",
+            "id": "shield-lower-curvature",
+            "kind": "visual"
+          },
+          {
+            "description": "The family tip proportion is not preserved: both final paints end in a broad rounded cap, visibly flatter and slightly shorter than the reference's small rounded point in enlarged and matching raster proofs. The final outer tip reaches about y21.84 compared with reference y22.16.",
+            "id": "shield-tip-shape",
+            "kind": "visual"
+          },
+          {
+            "description": "Shoulder curvature differs from the pinned family despite remaining continuous: the final r3 shoulder reaches its vertical tangent at y7.891, while the outlined reference reaches it at y7.177. The enlarged proofs show broader shoulder rounding, also affecting subpixel contour placement in both paints.",
+            "id": "shield-shoulder-radius",
+            "kind": "visual"
+          }
+        ]
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "db18f0cfad21aba42f6e0c3241212ed203c78008d54fca4e4106f6ac16973e30"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "cee986eaf203272aa016c19d59ba84b12ae5baa14a7d256cbe2fc558e3c6e26b"
+          }
+        },
+        "traceSha256": "b3bd20652f4e30a663dc573aa5cc7fc976c95d4ea4dd5231db4e59f5371da6f2",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/shield-check/run/attempt-1",
+          "hash": "6099f9af00e1158c2352984894a7bc39d0d5cec08966ab0f96be29396857fe8f",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/shield-check/run/attempt-2",
+          "hash": "6bee24900c392ce9d09c95b7dc7f5495a75e02be2001ebd15564bc845d831623",
+          "status": "review-incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 600453,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "needs-repair",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/shield-check/run/attempt-1",
+      "stoppedReason": "no-demonstrated-improvement",
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "shield-check",
+            "evidence": "Both paints show the family shield silhouette with a checkmark: a short arm descending from native x=8-9,y=10-11 to a vertex at x=10-12,y=12-13, then a long arm rising to x=14-15,y=8-9 (mirrored as a knockout at local x=8-15 in the filled paint). No crossbar, shackle/keyhole or exclamation stem is visible.",
+            "treatment": "None; no defect observed."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "Candidate outlined shares reference 2's declared 2-unit stroke and round caps, and at the 1x/2x columns its shoulders, corner radii and bottom tip align with references 0 and 2 with no visible weight break; the check arms appear at the same perceptual weight as reference 2's X arms (native row 12, x=9-12 solid), and the filled knockout check matches reference 3's knockout X in apparent weight.",
+            "treatment": "None; no defect observed."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "Outlined 1x keeps a 3px counter between check and shield wall (row 11, x=5-7 = 255) with both arms solid (row 11 x=9=1, row 9 x=14=1); filled 1x holds the knockout fully open at its core (row 11 x=32-33=241/254 and x=36-37=254; row 12 x=33-36=254), with only arm tips softened to 76-106. Both 2x columns and the dark-surface halves of both proofs show the same features intact.",
+            "treatment": "None; no defect observed."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "In native.png both paints occupy an identical 18x20px footprint (outlined x=3-20, filled x=27-44, both y=2-21) and place the check at the same local position and scale (x=8-15, y=8-14). Differences are limited to the deliberate paint inversion and knockout modifier.",
+            "treatment": "None; no defect observed."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "db18f0cfad21aba42f6e0c3241212ed203c78008d54fca4e4106f6ac16973e30",
+          "filled-proof.png": "cee986eaf203272aa016c19d59ba84b12ae5baa14a7d256cbe2fc558e3c6e26b",
+          "native.png": "bf0faeaec097416d0cec34835700270e422c4d93c40957f97612fe722e886f99",
+          "reference-0-proof.png": "10df4a638a01a4735216aee7d720386a7a7a4f754fd97044447fc96d26a28eef",
+          "reference-1-proof.png": "5fe705f643b5bad07f89ad3febdab182d2655c22d8fc19032551d3ecf696589e",
+          "reference-2-proof.png": "064898fce08ba9f7521ac70545b94ae6efeec622bf99e80f8ad50fc0ea8bd062",
+          "reference-3-proof.png": "af87ed5955264cb1678e5234222fb56833368263bf7f50c7fc29bf2ef32c260a",
+          "references.png": "40788ced2530370f3d2cd1ade501e5fb60fa373f3ee4b288946a2d89cbf427d2"
+        },
+        "instrumentQualified": false
+      }
+    },
+    {
+      "name": "folder-lock",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "51e609f3c6d11b17955ba1e225f59349842db49660e1d8536bcf095930d8533e",
+      "style": "998147bf4100518c6953ee18f00ee8600049919a2d869ec3fc49d9615185789d",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "e92b8d373bc0fee946d41c5796a13420df19543aa76a8254c6b8cd611d5fe74f"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "e065d5bdaa890fc6d4ac889c1fb1d0b4a49074518098a045cf7d62bf1b28a384"
+          }
+        },
+        "traceSha256": "a19321ab1809fa4fb42ce4e69bcffd6cb33b5ab990cbf20de44044ec57b0fa11",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/folder-lock/run/attempt-1",
+          "hash": "ddf63ff1c122b587bd758a31350706010432fc526df1e5e26768f2e28040469c",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/folder-lock/run/attempt-2",
+          "hash": "210f72745588ee2fd1876bd0a3ddaa7c1a46133f65901f90774771de7be9e5ed",
+          "status": "review-incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 602322,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "needs-repair",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/library-generation-2026-09-07/folder-lock/run/attempt-1",
+      "stoppedReason": "no-demonstrated-improvement",
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "folder-lock",
+            "evidence": "The outlined paint shows a folder container with a padlock inside: an inverted-U shackle with legs at x=9\u201310 and x=13\u201314 (y=11\u201314) over a closed body at x=8\u201315, y=15\u201320 carrying a 4\u00d72px keyhole slot at x=10\u201313, y=17\u201318. No arrow, check or briefcase handle is present; the tab at y=3\u20138 rules out briefcase.",
+            "treatment": "None \u2014 no defect observed for this question."
+          },
+          "style": {
+            "choice": "fail",
+            "evidence": "The outlined container tracks reference 2 closely at the same 1x/2x native columns \u2014 same 2px walls, same tab slope, same corner radii and round-capped base gaps. The filled paint departs from the family's filled convention: at y=20 its base is white from x=8\u201315 (dark only at x=6 and x=17), splitting the silhouette into two feet, whereas reference 1 and reference 3 both render an unbroken rounded base with the knockout modifier fully contained.",
+            "treatment": "In the filled source, raise the lock body so its bottom edge clears the folder's base by roughly 1.5\u20132 units on the 24 grid, restoring a continuous dark base row beneath the knockout as in reference 3."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "At 24px 1x the outlined counters stay open \u2014 the body slot is solid white at x=10\u201313, y=17\u201318 and the shackle counter is 2px wide over y=12\u201314 \u2014 and the filled shackle counter holds 2px of dark at x=11\u201312, y=12\u201314; both survive at 2x and on the inverted surface in the proofs. The lock body's missing bottom in the filled paint is present in the enlarged vector too, so it is a drawing choice rather than a native-size collapse.",
+            "treatment": "None for rasterization; the filled base issue is treated under style/family. Minor note only: the outlined lock's side walls land half-pixel off-grid at 1x (127/0/127 at x=7\u20139 and x=14\u201316), reading softer than the crisp folder wall at x=2\u20133."
+          },
+          "family": {
+            "choice": "fail",
+            "evidence": "Concept, footprint and layout agree between paints \u2014 shackle legs at x=9\u201310 and x=13\u201314 and a body spanning x\u22488\u201315, y=15\u201320 in both \u2014 but the filled lock loses the closed body: no bottom edge and no keyhole slot, so it reads as an arch cut through the folder base while the outlined lock reads as a padlock.",
+            "treatment": "Align the two paints by lifting the lock body off the folder base in both, then knock out a matching keyhole slot (about 4\u00d72 units at the outlined slot position) in the filled lock so the padlock silhouette survives in the solid paint."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "e92b8d373bc0fee946d41c5796a13420df19543aa76a8254c6b8cd611d5fe74f",
+          "filled-proof.png": "e065d5bdaa890fc6d4ac889c1fb1d0b4a49074518098a045cf7d62bf1b28a384",
+          "native.png": "d9fe47828ab3ba1cf8d9085a6562732802e3f8d9216ce589b283fcbb695fcca2",
+          "reference-0-proof.png": "5740913b7a04855cc888035f62937644e826f39cafcd89a5e88e8c819aae950b",
+          "reference-1-proof.png": "ac1b1b3fa72ec9012a4f35858a979a1f1e4f37ad82048730cfb18f0522034228",
+          "reference-2-proof.png": "b55dcd05a7ad97d8ececcf6c3b9ec009a24084dda4b2be9fa0a6e34667ecfde0",
+          "reference-3-proof.png": "ee9a401fcfb09f4864475d05d0523757985a3649bf9d8d57063abdc018bc6491",
+          "references.png": "8ffe32ccb2bd0a319af717e65f19a5e851f4dad949418b5049a075da3b4a8d1c"
+        },
+        "instrumentQualified": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+icon bicycle
+keyline wide
+finish outlined
+part family-9 at 3,13 size 6
+part family-9 at 15,13 size 6
+line 6,16 8,9 15.75,9 12,16 6,16 off-axis
+line 6.5,6.5 12,16 off-axis
+line 14.5,5 18,16 off-axis
+part family-0 at 5,6.5 size 3
+part family-0 at 14.5,5 size 2.5
+# Round the dense rear hub attachment, closing its accidental subpixel pocket.
+dot 7.5,15.5 terminal

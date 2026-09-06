@@ -1,0 +1,8 @@
+icon shield-check
+keyline portrait
+finish filled
+part shield-filled-0
+line 8.5,12 10.5,14
+line 10.5,14 15,8.25 off-axis
+union
+subtract

@@ -106,7 +106,10 @@ test("source contour mode preserves cubic handles and snaps placement, with exac
   expect(run(programFromDoc(doc), [part], { spec }).canvas.toSVG()).toBe(
     c.toSVG()
   );
-  const legacy = new Canvas([part], { finish: "filled" });
+  const legacy = new Canvas([part], {
+    finish: "filled",
+    spec: { ...SPEC, partGeometry: "grid" },
+  });
   legacy.part({ id: "curve", x: 3, y: 4 });
   expect(legacy.toSVG()).not.toBe(c.toSVG());
 });
@@ -175,4 +178,81 @@ test("holes appended after union stay transparent through further composition an
       expect(run(programFromDoc(doc)).canvas.toSVG()).toBe(svg);
     })
   );
+});
+
+test.each([16, 24, 48])(
+  "hole line matches a continuous negative stroke at %ipx",
+  async (size) => {
+    const r = filled("circle 12,12 r10\nhole line 6,12 10,16 18,8");
+    expect(r.errors).toEqual([]);
+    // Independent mask oracle removes one continuous stroke, without Booleans.
+    const oracle = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><mask id="cut"><rect width="24" height="24" fill="white"/><path d="M6 12L10 16L18 8" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></mask></defs><circle cx="12" cy="12" r="10" mask="url(#cut)"/></svg>`;
+    const pixels = (svg: string) =>
+      sharp(Buffer.from(svg)).resize(size, size).ensureAlpha().raw().toBuffer();
+    const actual = await pixels(r.canvas.toSVG());
+    const expected = await pixels(oracle);
+    const alphaErrors = [...actual]
+      .filter((_, i) => i % 4 === 3)
+      .map((a, i) => Math.abs(a - expected[i * 4 + 3]));
+    expect(Math.max(...alphaErrors)).toBeLessThan(12);
+    const doc = r.canvas.toJSON();
+    expect(Canvas.fromJSON(doc).toSVG()).toBe(r.canvas.toSVG());
+    expect(run(programFromDoc(doc)).canvas.toSVG()).toBe(r.canvas.toSVG());
+  }
+);
+
+test.each([
+  "rect 2,2 20x20 r3",
+  "rect 2,2 12x20 r3\nrect 10,2 12x20 r3\nunion",
+])(
+  "overlapping and duplicate holes subtract monotonically from %s",
+  async (base) => {
+    const source = `${base}\nhole circle 10,12 r4\nhole circle 14,12 r4`;
+    const pixel = (program: string) =>
+      sharp(Buffer.from(filled(program).canvas.toSVG()))
+        .resize(240, 240)
+        .ensureAlpha()
+        .raw()
+        .toBuffer();
+    const actual = await pixel(source);
+    expect(actual[(120 * 240 + 120) * 4 + 3]).toBe(0);
+    expect(await pixel(`${source}\nhole circle 10,12 r4`)).toEqual(actual);
+    const nested = filled(`${source}\nrect 19,5 3x14 r1\nunion`);
+    expect(nested.errors).toEqual([]);
+    const doc = nested.canvas.toJSON();
+    expect(run(programFromDoc(doc)).canvas.toSVG()).toBe(nested.canvas.toSVG());
+    const nestedPixels = await pixel(`${source}\nrect 19,5 3x14 r1\nunion`);
+    expect(nestedPixels[(120 * 240 + 120) * 4 + 3]).toBe(0);
+  }
+);
+
+test("cutters outside a curved silhouette cannot add ink or inflate fitted bounds", async () => {
+  const r = filled("circle 12,12 r8\nhole rect 15,5 5x14 r0");
+  const { data, info } = await sharp(Buffer.from(r.canvas.toSVG()))
+    .resize(240, 240)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  expect(data[(55 * info.width + 195) * info.channels + 3]).toBe(0);
+  const clipped = filled("rect 4,4 16x16 r0\nhole rect 12,0 12x24 r0");
+  expect(clipped.errors).toEqual([]);
+  expect(clipped.canvas.visualBbox()).toMatchObject({
+    x0: 4,
+    x1: 12,
+    y0: 4,
+    y1: 20,
+  });
+  expect(clipped.canvas.skeletonBbox()).toMatchObject({
+    x0: 4,
+    x1: 12,
+    y0: 4,
+    y1: 20,
+  });
+});
+
+test("a covering hole produces empty ink with no inverted silhouette", () => {
+  const r = filled("circle 12,12 r4\nhole rect 0,0 24x24 r0");
+  expect(r.errors).toEqual([]);
+  expect(r.canvas.toSVG()).toContain('d=""');
+  expect(r.canvas.visualBbox()).toBeNull();
 });

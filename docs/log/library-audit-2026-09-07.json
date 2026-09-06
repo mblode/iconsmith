@@ -1,0 +1,61 @@
+{
+  "kind": "source-and-reconstruction-regression",
+  "generationQualified": false,
+  "manifest": {
+    "concepts": 2221,
+    "files": 4357,
+    "generatedRows": 0,
+    "generationQualified": false,
+    "groups": {
+      "axis-aligned": 2577,
+      "base-name": 4232,
+      "closed-contours": 2800,
+      "curved": 4173,
+      "dense": 375,
+      "freeform": 562,
+      "geometric": 3795,
+      "modifier-name": 125,
+      "off-axis": 1780,
+      "open-contours": 1557,
+      "sparse": 3982,
+      "straight": 184
+    },
+    "kind": "source-library-audit",
+    "parseFailures": 0,
+    "requiredGenerationRows": 8884,
+    "source": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520"
+  },
+  "baseline": {
+    "exactReplay": 4357,
+    "failures": 0,
+    "generationQualified": false,
+    "kind": "admitted-source-reconstruction",
+    "rasterDifferenceThreshold": 0.01,
+    "rasterDifferences": 1152,
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "total": 4357
+  },
+  "after": {
+    "exactReplay": 4357,
+    "failures": 0,
+    "generationQualified": false,
+    "kind": "admitted-source-reconstruction",
+    "rasterDifferenceThreshold": 0.01,
+    "rasterDifferences": 1147,
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "total": 4357
+  },
+  "evidence": {
+    "inventory": ".staging/library-audit-v2-2026-09-07/inventory.json",
+    "pages": ".staging/library-audit-v2-2026-09-07/pages.json",
+    "generationCoverage": ".staging/library-audit-v2-2026-09-07/generation-coverage.json",
+    "replay": ".staging/library-replay-v2-2026-09-07/results.json"
+  },
+  "limitations": [
+    "Filename concepts are not semantic family leakage closure",
+    "Source rendering and admitted reconstruction are not generation",
+    "The parser excludes definitions but does not resolve masks, clipping, use instances or transforms",
+    "The 1% mean pixel error threshold is diagnostic, not a craft score"
+  ]
+}

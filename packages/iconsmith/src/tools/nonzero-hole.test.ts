@@ -31,7 +31,7 @@ test("legacy holes cut a nonzero solid and replay without changing the recipe", 
   expect(Canvas.fromJSON(doc, [], spec).toSVG()).toBe(svg);
   expect(run(programFromDoc(doc), [], { spec }).canvas.toSVG()).toBe(svg);
 });
-test("overlapping legacy holes keep parity while the nonzero parent stays solid", async () => {
+test("overlapping holes remove their shared region from a nonzero parent", async () => {
   const result = run(
     `${base}\nhole rect 7,7 6x6 r0\nhole rect 11,7 6x6 r0`,
     [],
@@ -40,7 +40,7 @@ test("overlapping legacy holes keep parity while the nonzero parent stays solid"
   expect(result.errors).toEqual([]);
   const svg = result.canvas.toSVG();
   expect(await alpha(svg, 8, 9)).toBe(0);
-  expect(await alpha(svg, 12, 9)).toBe(255);
+  expect(await alpha(svg, 12, 9)).toBe(0);
   expect(await alpha(svg, 15, 9)).toBe(0);
 });
 test("hole cuts an expanded ring without refilling its existing counter", async () => {

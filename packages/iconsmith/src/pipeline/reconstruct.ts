@@ -27,8 +27,6 @@ import type { Finish, Issue, Part, Subpath } from "../types.js";
 import type { GenerateLike } from "./harness.js";
 
 const GRID = 4;
-/** Same grid the extractor seats a part on, so a local house path is a part. */
-const PART_GRID = 0.25;
 const MATCH_OK = 0.12;
 /** Canonical vs target. Past this the medoid is a different drawing, not
  *  the same mark at another size — `star` is 3.6×, and that is the cook. */
@@ -98,10 +96,7 @@ const asLocal = (slug: string, n: number, sps: readonly Subpath[]): Part => {
   const box = bbox(sps);
   return {
     closed: sps.every((sp) => sp.closed),
-    d: serialise(
-      sps.map((sp) => translate(sp, -box.x0, -box.y0)),
-      { grid: PART_GRID }
-    ),
+    d: serialise(sps.map((sp) => translate(sp, -box.x0, -box.y0))),
     h: box.h,
     icons: [slug],
     id: `${slug}-${n}`,

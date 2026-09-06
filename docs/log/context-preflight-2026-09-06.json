@@ -1,0 +1,24 @@
+{
+  "decision": "D088",
+  "receipt": {
+    "argsSha256": "4c6b7b81f8eceb21436e03cab1957767fd98ca60e2a084db30776f2272e7a430",
+    "disabledSkills": 90,
+    "globalConfigurationEdited": false,
+    "probes": [
+      {
+        "discoveredSkills": 90,
+        "promptSha256": "ee7655762d982b2fe186d4b5ab5206601d3b4430e2ba2c771fb34451835d928b",
+        "textCharacters": 45292
+      },
+      {
+        "discoveredSkills": 0,
+        "promptSha256": "16c8d4117c36e23547c6c2c09706a23e429d8bf5288e53f5ca8b47cf9bd5c476",
+        "textCharacters": 4964
+      }
+    ],
+    "scope": "Offline context serialization; actual native trace remains authoritative"
+  },
+  "globalConfigHashUnchanged": true,
+  "nativeA098CatalogAuditPassed": true,
+  "apiCalls": 0
+}

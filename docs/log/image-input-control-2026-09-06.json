@@ -1,0 +1,57 @@
+{
+  "experiment": "A091",
+  "manifestHash": "0111bbe892eef736c31bf811319463920c811b5d8b752c1cd5b822de4886e142",
+  "scope": "PNG-only input-path control on a previously used diagnostic pair; not held-out or general craft qualification",
+  "calls": [
+    {
+      "order": {
+        "a": "positive",
+        "b": "negative"
+      },
+      "index": 0,
+      "unchanged": true,
+      "valid": true,
+      "result": {
+        "a": {
+          "unresolved": []
+        },
+        "b": {
+          "unresolved": [
+            {
+              "id": "yen-central-stem-continuity-01",
+              "kind": "visual",
+              "description": "The Yen glyph must have a continuous central stem connecting both horizontal bars at 1x and 2x, but the stem is absent between the bars: the 1x inter-bar row has background-only center cells, and both 2x inter-bar rows have background-only center cells, in the light and dark renderings."
+            }
+          ]
+        }
+      },
+      "notes": "# Yen central-stem diagnostic\n\nScope is limited to whether the central stem continuously connects both horizontal bars at 1x and 2x. An empty unresolved list records no known or uncertain defect within that scope; it is not a general craft approval.\n\n## Candidate a\n\nAt 1x, the center of the single inter-bar pixel row is covered by a symmetric two-column half-tone: the sampled values are 127/127 on white and 128/128 on black. Those cells touch the centered coverage in both horizontal bars, so the stem remains continuous and centered in both color treatments.\n\nAt 2x, the two center columns are fully covered through both inter-bar rows: black on white and white on black. They connect directly to both horizontal bars.\n\nThe split half-tone stem at 1x is the intentional rasterization tradeoff visible in this candidate. It lowers peak contrast for that one-row bridge while preserving continuity, centering, and readability, so it is not unresolved under the stated requirement.\n\n## Candidate b\n\nAt 1x, the center cells in the row between the two horizontal bars are pure background (255 on white and 0 on black). The upper branch terminates at the upper bar, leaving the lower bar disconnected.\n\nAt 2x, both rows between the bars are pure background across the center in both color treatments. There is no half-tone or subpixel contour coverage that could form a connecting stem.\n\nThis is a visual omission, not a representation limitation: an existing line/stroke primitive can express the required connecting segment.\n"
+    },
+    {
+      "order": {
+        "a": "negative",
+        "b": "positive"
+      },
+      "index": 1,
+      "unchanged": true,
+      "valid": true,
+      "result": {
+        "a": {
+          "unresolved": [
+            {
+              "id": "yen-central-stem-continuity",
+              "kind": "visual",
+              "description": "The requirement for a continuous central stem connecting both horizontal bars fails at both 1x and 2x: in each light- and dark-background raster preview, the diagonal arms end at the upper bar and the centered area between the upper and lower bars is background, leaving the bars vertically disconnected. This is an omitted connecting line that existing drawing primitives can repair, not a missing representation capability."
+            }
+          ]
+        },
+        "b": {
+          "unresolved": []
+        }
+      },
+      "notes": "# Yen central-stem diagnostic\n\nThis review is limited to the requirement that the yen glyph have a continuous central stem connecting both horizontal bars at 1x and 2x. An empty `unresolved` array records only that no known or uncertain defect remains within this narrow scope; it is not a general craft approval or a judgment of unprovided reference-family calibration.\n\n## Candidate a\n\nThe requirement fails. In the 1x raster preview, the centered pixels between the two horizontal bars show background rather than glyph coverage; the diagonal arms meet the upper bar, but no vertical stroke continues to the lower bar. The 2x raster preview shows the same disconnected construction. This evidence is present in both the light and dark rows, so it is not an artifact of background polarity. The enlarged vector depiction also visibly omits the connector and corroborates the raster evidence.\n\nThe missing connector is recorded as a `visual` issue because a line/path primitive can express the required stem. No missing DSL capability or unavailable admitted part is evident.\n\nThe grayscale edge pixels around the circle and strokes are normal antialiasing. Their symmetric coverage is an intentional rendering tradeoff and is not separately unresolved; it does not explain or repair the clear background gap between the bars.\n\n## Candidate b\n\nNo known or uncertain defect is visible for the scoped requirement. At 1x, a centered vertical run remains visibly connected through the upper bar, across the inter-bar span, and into the lower bar. At 2x, the same centered connection is continuous. Both the light and dark rows preserve this topology.\n\nThe 1x stem is necessarily represented with coarse pixel coverage, while the 2x stem has finer symmetric coverage and antialiasing. Those are intentional scale-dependent rendering tradeoffs: continuity, readability, and centering are preserved, so they are not unresolved issues under the stated contract.\n"
+    }
+  ],
+  "instrumentQualified": false,
+  "apiLedgerUnchanged": true
+}

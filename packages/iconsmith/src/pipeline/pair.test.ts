@@ -124,14 +124,7 @@ describe("pairAdapted", () => {
     expect(issues.every((issue) => issue.severity === "error")).toBe(true);
   });
 
-  /**
-   * A half-arc is the case extent can never pass on this path: `filledArcPath`
-   * omits the cap discs that `visualSize` adds to all four sides, so the
-   * derived twin reads one unit shorter than the drawing it was derived from.
-   * As an error that failed `paintAccepted` before the judge ran — 11 of 42
-   * paints in a post-fix eval had extent as their only error.
-   */
-  it("warns rather than errors on an extent the derivation itself moved", () => {
+  it("preserves round arc extent and keeps derived extent findings advisory", () => {
     const arc = [
       "icon arc",
       "finish outlined",
@@ -143,8 +136,18 @@ describe("pairAdapted", () => {
       pairPrograms([], "outlined", arc, adaptProgram(arc, "filled")).some(
         (i) => i.rule === "extent" && i.severity === "error"
       )
-    ).toBe(true);
-    const issues = pairAdapted([], "outlined", arc);
+    ).toBe(false);
+    const issues = pairAdapted(
+      [
+        {
+          message: "derived extent discrepancy",
+          rule: "extent",
+          severity: "error",
+        },
+      ],
+      "outlined",
+      arc
+    );
     expect(
       issues.some((i) => i.rule === "extent" && i.severity === "warn")
     ).toBe(true);

@@ -1,0 +1,11 @@
+{
+  "experiment": "D083 offline CLI prompt inspection",
+  "command": "codex debug prompt-input --image <references.png> -- <prompt>",
+  "cli": "/Applications/ChatGPT.app/Contents/Resources/codex",
+  "inputImageCount": 1,
+  "detail": "high",
+  "imageSha256": "54cbf2c6b7407b2312eaeb17d979e3422044d78b4de37a54d813279b3178502a",
+  "decodedPayloadEqualsSource": true,
+  "scope": "Offline prompt serialization, not model attention or final-output inspection",
+  "apiCalls": 0
+}

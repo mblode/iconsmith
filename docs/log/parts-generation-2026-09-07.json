@@ -1,0 +1,388 @@
+{
+  "kind": "development-parts-route",
+  "generatedCompiler": "iconsmith-constrained-17",
+  "replayCompiler": "iconsmith-constrained-18",
+  "newApiSpendUsd": 0,
+  "subscriptionCostUsd": null,
+  "manualArtworkEdits": 0,
+  "humanApproved": 0,
+  "runs": [
+    {
+      "name": "shield-check",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "7d1b89361215462b599da3312ef01c8247c8e0a56bb5b644a972772e9300a72d",
+      "style": "f556f628d55a3f860b45b94c33ecaef8719c24754d7bf8d9aa4da057080bfce2",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "The filled twin does not preserve the reference shield's expanded outer contour: the final enlarged filled proof and resolved SVG show a sharp lower tip and tighter shoulders, whereas the filled references have a rounded tip and broader shoulder transitions. The only admitted shield is a closed centerline part. The DSL lacks closed-part stroke expansion with interior union, or an outward offset operation, and no admitted filled boundary is available; fitting the source interior cannot reproduce that required contour.",
+            "id": "family-body-expansion",
+            "kind": "representation"
+          },
+          {
+            "description": "Exact family centering remains uncertain: the fitted filled body occupies x=3..20.792, centered at 11.896 against the check and outlined body at x=12. The final native matrix has rows[7][3]=0 versus rows[7][20]=53, and retina rows[14][6]=0 versus rows[14][41]=106. This small asymmetric placement is visible in edge coverage and does not fully preserve the reference's symmetric body alignment.",
+            "id": "filled-centering",
+            "kind": "visual"
+          }
+        ]
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "e08dd19630d75ad81c9e245af99d26459ae3737ef4c18716770c3512f0e7dc29"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "803425f1d83edd96a4b3e525abc8241d5e238a9b1bc7890b064ea6650891be36"
+          }
+        },
+        "traceSha256": "a5a2b6b69cb9a35138c1452ea5d39c117e6808093a53555125ebb0918c6b23e1",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/shield-check/run/attempt-1",
+          "status": "representation-blocked"
+        }
+      ],
+      "deadlineExceeded": false,
+      "elapsedMs": 217985,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "representation-blocked",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/shield-check/run/attempt-1",
+      "stoppedReason": "representation-blocked",
+      "independentReview": null,
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "compiler18Replay": {
+        "outlined": true,
+        "filled": true
+      }
+    },
+    {
+      "name": "shield-check-paired",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "774ab212fdcde9407f800e1b0b2f588c37b8eda1b8d7ba6b849921b250a4c5b8",
+      "style": "a01ce1fc90d896db5b5243965f8a584c8d1f4ef2100de430c80603d8260b94fa",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "89ffb6bfd44e3a52420fcb9c2b78233478a8bd91c2b51d975b350869c58c739c"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "98bdf8108b211b97f896f72f66f7b2f35063482764bf8564488381ec48be48f4"
+          }
+        },
+        "traceSha256": "7eea167ec62b491c3d14fad5bfde673348ba82f144fef1df49addefba7579cb9",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1",
+          "hash": "345c4e5bdd9fc0f8fa5bc00d40069b537c7eb0878198a7ede54986fad9dbaa0b",
+          "status": "review-clear"
+        }
+      ],
+      "deadlineExceeded": false,
+      "elapsedMs": 202768,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "review-clear",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1",
+      "stoppedReason": "review-clear",
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "shield-check",
+            "evidence": "Both paints show a shield (flat top, curved shoulders, rounded bottom point) containing a single V-stroke: in native.png the outlined check spans x8-x15, rows 8-14, elbow at x9-x11/rows 12-13, long arm rising right to x14-x15/row 9. No cross, keyhole/shackle or exclamation stroke is present, and the filled knockout sits in the identical local cells.",
+            "treatment": "None; no defect observed."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "At the native1x/2x columns the candidate's shield corner radii, shoulder curve and bottom taper match reference-0 and reference-2 outlined, and the filled silhouette matches reference-1/reference-3; the outlined modifier's declared width 2 with round caps equals reference-2's declared facts and reads at the same apparent weight as that reference's X on both surfaces. The filled check is knockout geometry with no measurable stroke, judged perceptually as level with reference-3's knockout X.",
+            "treatment": "None; no defect observed."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "In native.png the outlined check clears the shield wall by three white pixels each side (row 11 x5-x7 = 255; row 9 x16-x18 = 255) and the shield counter stays open to row 18 (x10-x12 = 255). The filled knockout stays continuous white along its length (row 12 x33-x36 = 254) with only a partial 106 dip at the inner elbow (row 11 x34-x35), a softened corner rather than a break.",
+            "treatment": "None; no defect observed."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Outlined and filled share concept, bounds and modifier placement: the shield's left wall begins at the same column in both (row 5 local x3/x27 = 157/158) and the check occupies local x8-x15, rows 8-14 in each paint. Differences are limited to paint inversion and the filled elbow's softened inner corner.",
+            "treatment": "None; no defect observed."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "89ffb6bfd44e3a52420fcb9c2b78233478a8bd91c2b51d975b350869c58c739c",
+          "filled-proof.png": "98bdf8108b211b97f896f72f66f7b2f35063482764bf8564488381ec48be48f4",
+          "native.png": "40d165682624def3d7af9fce41c289bbaad2e9e815c7eca94c9044fbf20b15c5",
+          "reference-0-proof.png": "10df4a638a01a4735216aee7d720386a7a7a4f754fd97044447fc96d26a28eef",
+          "reference-1-proof.png": "5fe705f643b5bad07f89ad3febdab182d2655c22d8fc19032551d3ecf696589e",
+          "reference-2-proof.png": "064898fce08ba9f7521ac70545b94ae6efeec622bf99e80f8ad50fc0ea8bd062",
+          "reference-3-proof.png": "af87ed5955264cb1678e5234222fb56833368263bf7f50c7fc29bf2ef32c260a",
+          "references.png": "40788ced2530370f3d2cd1ade501e5fb60fa373f3ee4b288946a2d89cbf427d2"
+        },
+        "instrumentQualified": false
+      },
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "compiler18Replay": {
+        "outlined": true,
+        "filled": true
+      }
+    },
+    {
+      "name": "folder-lock",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "c1a435cf726d2c233a8b2d5db2a7d6e5e5fadb9c25dc8a6189b0572236927ac3",
+      "style": "1c9b7bb76bc6dd2c5b5c384a035df870b12f5a29aae70f85dafb4902e77479e5",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "9df19c3e9fd6c32cb6657ec68c35987e6d06483f411f26dff6c1029461809e21"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "fff379889252f4e21bf7e67cb9a72d2f1e6f49ee96fdc84b0a9339a71d6aca1f"
+          }
+        },
+        "traceSha256": "fe9e4498ad7fc7d9e87ee88eb65dfd1d181d70121a9309653f7a53a6cb48f8cb",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/folder-lock/run/attempt-1",
+          "hash": "8a5bbe47c1007bff1a835c6dc3544d5137ae6b55301c4bc85937db4a6481e53a",
+          "status": "review-clear"
+        }
+      ],
+      "deadlineExceeded": false,
+      "elapsedMs": 321252,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "review-clear",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/folder-lock/run/attempt-1",
+      "stoppedReason": "review-clear",
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "folder-lock",
+            "evidence": "Inside the folder body (native.png rows 9-16, x9-14) an arched shackle with an open counter (row 11 x11-12 = 197/196, row 12 = 255) sits on a solid rectangular block at rows 13-16 - a padlock, not an arrow, check or briefcase handle. The container has the top-left tab and rounded outline of the folder silhouette shared with references 2/3.",
+            "treatment": "None; the modifier is unambiguous at native size."
+          },
+          "style": {
+            "choice": "pass",
+            "evidence": "At the labelled native1x/2x columns the candidate's folder tab, corner radii and outline weight read at the same optical weight as reference-2's, and its mixed paint (2-unit stroked shackle plus solid lock body inside a stroked folder) matches reference-2's solid arrowhead on a 2-unit stem. Host facts confirm the outlined candidate declares 2-unit strokes with round caps like references 0/2, and the filled candidate declares none like references 1/3.",
+            "treatment": "None required for an observed defect."
+          },
+          "optics": {
+            "choice": "pass",
+            "evidence": "Outlined 1x: the shackle counter is open (row 12 x11-12 = 255) and the lock clears the folder walls with 4 white px each side (row 14 x4-7 and x16-19 = 255), with a full white pixel of clearance below the top edge at row 8. Filled 1x: the knockout keeps 2px white shackle legs (row 12 x33-34, x37-38 = 255) around a dark counter (row 11 x35-36 = 59, row 12 = 0); the 8x/4x columns show the same on the dark surface.",
+            "treatment": "None; no feature is collapsed, only edge antialiasing on the filled folder's top and bottom rows."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Both paints span the same box (left x2, right x21 in each 24px half) with the shackle at rows 9-12 and lock body at rows 13-16 in both, the filled one as a clean white knockout. The only difference is a sub-pixel edge softness on the filled bottom row (row 19 = 85 gray vs the outlined's solid 0), which is rasterization, not a layout change.",
+            "treatment": "None required for an observed defect."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "9df19c3e9fd6c32cb6657ec68c35987e6d06483f411f26dff6c1029461809e21",
+          "filled-proof.png": "fff379889252f4e21bf7e67cb9a72d2f1e6f49ee96fdc84b0a9339a71d6aca1f",
+          "native.png": "94ac6ca4b1dc09001465e07c080855f6c5e1375e2ec74e09839e51cd1d08741d",
+          "reference-0-proof.png": "5740913b7a04855cc888035f62937644e826f39cafcd89a5e88e8c819aae950b",
+          "reference-1-proof.png": "ac1b1b3fa72ec9012a4f35858a979a1f1e4f37ad82048730cfb18f0522034228",
+          "reference-2-proof.png": "b55dcd05a7ad97d8ececcf6c3b9ec009a24084dda4b2be9fa0a6e34667ecfde0",
+          "reference-3-proof.png": "ee9a401fcfb09f4864475d05d0523757985a3649bf9d8d57063abdc018bc6491",
+          "references.png": "8ffe32ccb2bd0a319af717e65f19a5e851f4dad949418b5049a075da3b4a8d1c"
+        },
+        "instrumentQualified": false
+      },
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "compiler18Replay": {
+        "outlined": true,
+        "filled": true
+      }
+    },
+    {
+      "name": "bicycle",
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "da9a38fa540d8e4299e2d5660271b08c00a3073bafaffb3416aa2308a3a972d3",
+      "style": "6cf59ed58b2fc09b573ca82f6e18ada41a0c1f8e6065fd4782ef06f31dae209e",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "The requirement to preserve meaningful frame geometry at native size remains uncertain: the narrow rear frame opening above the rear wheel is clear in enlarged contours but resolves mainly as a faint diagonal at 24px/1x in both paints, and is weaker than the main frame triangle in the matching 2x columns. The wheel counters and connected frame survive, but the rear triangle is not equally legible.",
+            "id": "rear-frame-counter-readability",
+            "kind": "visual"
+          }
+        ]
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "a6070d5fa66686bc998504cc3e85f483f04430f30a16cddfcc17f48ef69cdbe4"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "54afe92e82885eb41d9f16b66b55f19999bf68ffe64a85ad33e20b80655ba664"
+          }
+        },
+        "traceSha256": "7ca4944567bb35e4e5765b7d584b43a18491781aaf4f5d360c8cc8a2b72af2bd",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/bicycle/run/attempt-1",
+          "hash": "d0a6f64d43a18221ad5f8ebe2cc121c46463cbd93519ce5c26529d049106f942",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/bicycle/run/attempt-2",
+          "status": "incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 600457,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "needs-repair",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/parts-generation-2026-09-07/bicycle/run/attempt-1",
+      "stoppedReason": "deadline-exhausted",
+      "independentReview": {
+        "answers": {
+          "meaning": {
+            "choice": "bicycle",
+            "evidence": "Two equal-diameter spoked-looking wheels sit at the same baseline (native.png rows 12-19, x=2-9 and x=14-21) joined by a diamond frame with an open triangular counter, plus raised handlebars at upper left (rows 4-7, x=4-8) and a saddle at upper right (rows 4-7, x=13-16). No engine mass, no seat-back or push-ring, no footboard, so motorcycle, wheelchair and scooter are excluded.",
+            "treatment": "None needed; the subject reads unambiguously."
+          },
+          "style": {
+            "choice": "fail",
+            "evidence": "At the same 24px surface the outlined candidate is far denser than references 0 and 2, whose 2px strokes keep 3px+ open interiors (car body, wheelchair wheel C-opening), whereas the candidate's hubs close to a single light column (native.png row 15, x=4 = 226 between ring at x=2-3 and solid black x=5-12). The filled candidate also fails to become a solid mass with cut slots the way references 1 and 3 do; it is a stroke expansion that renders identically to the outlined paint at both 1x and 2x.",
+            "treatment": "Raise the wheel diameter and move the fork/down-tube junction outside the hub so each interior holds a 2-3px open counter matching references 0 and 2 at 24px; redraw the filled paint as a solid silhouette with cut slots in the manner of references 1 and 3 rather than expanding the outlined strokes."
+          },
+          "optics": {
+            "choice": "fail",
+            "evidence": "At 1x the left wheel hub retains only a 1px light crescent (native.png rows 15-16, x=4 = 226/227; row 17, x=5-6 = 226) with the rest of the interior at 0, and the right hub is cut into two 1px slivers by a dark bar at x=17-18 in rows 14-15, so both wheels read as blobs rather than wheels; the same collapse appears in both halves of the strip and inverts to hairline dark notches on the dark surface. The counters only recover at 2x.",
+            "treatment": "Enlarge the wheels and shift the fork and seat-tube crossings off the hub centres, snapping each ring's inner edge to whole pixels so a >=2px counter survives at 24px on both surfaces."
+          },
+          "family": {
+            "choice": "pass",
+            "evidence": "Both paints place the same bicycle at the same scale and layout: wheel rings, frame triangle, handlebar and saddle land on identical rows and columns, with only antialias-level differences (native.png row 12, x=3-20 vs x=27-44). Within each paint the two repeated wheels share diameter, ring weight and baseline.",
+            "treatment": "None needed for concept, scale or layout; the lack of any visible difference between the outlined and filled paints is reported under style."
+          }
+        },
+        "model": "claude-opus-5",
+        "status": "complete",
+        "apiChargeUsd": null,
+        "billing": "subscription",
+        "craftApproved": false,
+        "evidenceHashes": {
+          "outlined-proof.png": "a6070d5fa66686bc998504cc3e85f483f04430f30a16cddfcc17f48ef69cdbe4",
+          "filled-proof.png": "54afe92e82885eb41d9f16b66b55f19999bf68ffe64a85ad33e20b80655ba664",
+          "native.png": "5e46a8e35b952531aeecb889e8b554903779d07f661d42864a1459a19895d3e9",
+          "reference-0-proof.png": "322f81b83668926958b68f1c6c68585824de0ca8d80684fed8258afeb0820408",
+          "reference-1-proof.png": "979c09b5864f22424fd42363d42e0f164dde3a92511cec14ed5c8fc3265c0d5e",
+          "reference-2-proof.png": "8a50a5fcd614f7e9c2a73552f6c3f63beae13e8f36a550c498af322711917954",
+          "reference-3-proof.png": "55dc7153bdc9befb8391cbb7b5a9e9d1ebcc6194c6b08a7e72e9484c7f9bb0a9",
+          "references.png": "1c15af21f1cdad71415ec5c3d816d831a7590b87f8915e05e5e63f5a92260a37"
+        },
+        "instrumentQualified": false
+      },
+      "manualArtworkEdits": 0,
+      "humanApproved": false,
+      "compiler18Replay": {
+        "outlined": true,
+        "filled": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+icon folder-lock
+keyline landscape
+finish outlined
+line 3,4 9,4 12,7 21,7 21,20 3,20 3,4 r3
+rect 5.5,13 13x11 r1
+trim
+arc 12,13 r2 half from left
+line 10,13 10,16
+line 14,13 14,16
+rect 8.5,16 7x4 r1

@@ -1,0 +1,30 @@
+{
+  "answers": {
+    "meaning": {
+      "choice": "window with lock",
+      "evidence": "Both vector panels show a rounded rectangle with a horizontal top bar and hollow interior (a window/frame), with a padlock at lower right whose arched shackle sits over a body containing a keyhole slot. No folder tab, pause bars, or lens is present.",
+      "treatment": "None; concept reads correctly in both renditions."
+    },
+    "separation": {
+      "choice": "P",
+      "evidence": "At native 1x, P's padlock (lower right, ~x=13-19, y=11-20) is ringed by white pixels and the frame's bottom stroke stops short of it, a real coverage gap. In Q the padlock's ink runs continuously into the frame's bottom-right corner ink with no white pixel between them.",
+      "treatment": "For Q: move the padlock ~1px up and left and knock a full-pixel white keyline between the lock outline and the frame's bottom-right corner so the boundary survives at 24px."
+    },
+    "shackle": {
+      "choice": "open",
+      "evidence": "In P at native 1x the lock column shows two separate white pixels: an upper opening inside the shackle arch (~y=13-14) and the lower keyhole (~y=16-17). Both persist in the 2x panel and in the inverted row, so the upper loop is not filled.",
+      "treatment": "None; no defect observed."
+    }
+  },
+  "model": "claude-opus-5[1m]",
+  "status": "complete",
+  "apiChargeUsd": null,
+  "billing": "subscription",
+  "craftApproved": false,
+  "evidenceHashes": {
+    "p.png": "7dd5144d74f6de804794a6b31e4a7750859f90653dc3b982631f442a8cd9f7d0",
+    "q.png": "d025bee2ef2128c7f7d078fae655a3f0611c8fba74df9aa35c71154c0e0232a0",
+    "native.png": "59a1cf356b8cca2751ca6bdbd54c55caaec323245b26868f4f85265bf6c9035e"
+  },
+  "instrumentQualified": false
+}

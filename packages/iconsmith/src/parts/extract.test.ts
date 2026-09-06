@@ -11,6 +11,7 @@ import path from "node:path";
 
 import { afterAll, describe, expect, it } from "vitest";
 
+import { bbox, parsePath } from "../geometry/path.js";
 import { extractParts } from "./extract.js";
 
 /** A chevron 4 wide and 10 tall, and the same mark turned a quarter-turn to
@@ -206,4 +207,22 @@ describe("drawing styles", () => {
     expect(summary.icons).toBe(2);
     expect(parts.every(isResidue)).toBe(true);
   });
+});
+
+it("retains admitted curve handles and native dimensions before placement", () => {
+  const source = mkdtempSync(path.join(tmpdir(), "iconsmith-curve-"));
+  try {
+    const d = "M4 4C4.5523 4 8.1234 5.8765 8.1234 10L4 10Z";
+    writeFileSync(
+      path.join(source, "curve.svg"),
+      `<svg><path stroke="black" d="${d}"/></svg>`
+    );
+    const { parts } = extractParts(source);
+    expect(parts).toHaveLength(1);
+    expect(parts[0].d).toContain("C0.5523 0 4.1234 1.8765 4.1234 6");
+    expect(parts[0].w).toBeCloseTo(4.1234, 8);
+    expect(bbox(parsePath(parts[0].d)).w).toBeCloseTo(parts[0].w, 8);
+  } finally {
+    rmSync(source, { force: true, recursive: true });
+  }
 });

@@ -1,0 +1,16 @@
+{
+  "experiment": "A093",
+  "scope": "Actual native trace verified by production evidence parser",
+  "result": {
+    "complete": true,
+    "images": {
+      "candidate.png": {
+        "exposed": true,
+        "sha256": "237179caa5ef6d870b32f01df5cab24161e0cb8592bcebaa644f4ca732205d57"
+      }
+    },
+    "traceSha256": "0262e187412a257c58a74b8b6d9f60f8913515749b1be465ac9b479b4d3e4022",
+    "visualJudgmentValidated": false
+  },
+  "apiCalls": 0
+}

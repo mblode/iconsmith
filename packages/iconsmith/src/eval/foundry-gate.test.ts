@@ -1,11 +1,20 @@
+import { createHash } from "node:crypto";
+
 import { describe, expect, it } from "vitest";
 
-import { decidePilot, qualifyInstrument } from "./foundry-gate.js";
+import {
+  decidePilot,
+  qualifyCraftJudge,
+  qualifyInstrument,
+} from "./foundry-gate.js";
 import type {
   InstrumentTrial,
   PilotEvidence,
   PilotItem,
 } from "./foundry-gate.js";
+
+const hash = (value: string) =>
+  createHash("sha256").update(value).digest("hex");
 
 const trials = (): InstrumentTrial[] =>
   Array.from({ length: 20 }, (_, index) =>
@@ -13,6 +22,7 @@ const trials = (): InstrumentTrial[] =>
       controlRejected: false,
       decision: "correct" as const,
       defect: "blocked-counter",
+      evidenceHash: hash(`stimulus-${index}`),
       order,
       pairId: `pair-${index}`,
     }))
@@ -37,7 +47,7 @@ const evidence = (): PilotEvidence => {
     observations: items.flatMap((item) =>
       item.variants.map((variant) => ({
         accepted: true,
-        artifactHash: "b".repeat(64),
+        artifactHash: hash(`${item.id}/${variant}`),
         exactReplay: true,
         familyPassed: true,
         item: item.id,
@@ -107,5 +117,125 @@ describe("foundry advancement", () => {
       newlyGenerated: false,
     }));
     expect(decidePilot(copied).outcome).toBe("blocked");
+  });
+});
+
+describe("evidence identity", () => {
+  it("rejects the same artifact credited to different concepts", () => {
+    const copied = evidence();
+    copied.observations = copied.observations.map((entry) => ({
+      ...entry,
+      artifactHash: hash("one-icon"),
+    }));
+    expect(decidePilot(copied).outcome).toBe("blocked");
+  });
+  it("permits identical geometry across variants of one concept", () => {
+    const same = evidence();
+    same.observations = same.observations.map((entry) => ({
+      ...entry,
+      artifactHash: hash(entry.item),
+    }));
+    expect(decidePilot(same).outcome).toBe("pilot-proven");
+  });
+  it("requires actual forward and reverse orders at the JSON boundary", () => {
+    const invalid = trials().map((trial) => ({
+      ...trial,
+      order: trial.order === "forward" ? "front" : "back",
+    }));
+    expect(
+      qualifyInstrument(["blocked-counter"], invalid as InstrumentTrial[])[0]
+        .passed
+    ).toBe(false);
+  });
+  it("rejects repeated stimuli renamed as different pairs", () => {
+    const copied = trials().map((trial) => ({
+      ...trial,
+      evidenceHash: hash("one-pair"),
+    }));
+    expect(qualifyInstrument(["blocked-counter"], copied)[0].passed).toBe(
+      false
+    );
+  });
+  it("requires both orders to bind to the same valid stimulus hash", () => {
+    for (const evidenceHash of ["", "not-a-hash", hash("different-stimulus")]) {
+      const changed = trials().map((trial, index) =>
+        index === 0 ? { ...trial, evidenceHash } : trial
+      );
+      expect(qualifyInstrument(["blocked-counter"], changed)[0].passed).toBe(
+        false
+      );
+    }
+  });
+});
+
+describe("human-anchored craft judge", () => {
+  const rows = Array.from({ length: 100 }, (_, i) => ({
+    criticalDefect: i >= 60,
+    evidenceHash: i.toString(16).padStart(64, "0"),
+    human: i < 60 ? ("approve" as const) : ("reject" as const),
+    predicted: i < 60 ? ("approve" as const) : ("reject" as const),
+  }));
+  const controls = ["identical-images", "reversed-order"].map((defect) => ({
+    correct: 20,
+    correctInterval95: [0, 1] as [number, number],
+    count: 20,
+    defect,
+    falseRejectionInterval95: [0, 1] as [number, number],
+    falseRejections: 0,
+    passed: true,
+  }));
+  it("reports denominators and qualifies only a labeled controlled sample", () => {
+    expect(qualifyCraftJudge(rows, controls)).toMatchObject({
+      count: 100,
+      coverage: 1,
+      criticalRecall: 1,
+      precision: 1,
+      qualified: true,
+    });
+    expect(qualifyCraftJudge(rows, []).qualified).toBe(false);
+    expect(qualifyCraftJudge(rows, controls.slice(0, 1)).qualified).toBe(false);
+    expect(
+      qualifyCraftJudge(
+        rows,
+        controls.map((control) => ({ ...control, correct: 19 }))
+      ).qualified
+    ).toBe(false);
+    expect(
+      qualifyCraftJudge(
+        rows.map((row) => ({
+          ...row,
+          predicted: "invalid",
+        })) as unknown as Parameters<typeof qualifyCraftJudge>[0],
+        controls
+      ).qualified
+    ).toBe(false);
+    expect(
+      qualifyCraftJudge(
+        rows.map((row) => ({ ...row, human: null })),
+        controls
+      ).qualified
+    ).toBe(false);
+  });
+  it("abstention, duplicate stimuli and false approvals cannot hide in an average", () => {
+    expect(
+      qualifyCraftJudge(
+        rows.map((row) => ({ ...row, predicted: "uncertain" })),
+        controls
+      ).qualified
+    ).toBe(false);
+    expect(
+      qualifyCraftJudge(
+        rows.map((row) => ({ ...row, evidenceHash: "0".repeat(64) })),
+        controls
+      ).qualified
+    ).toBe(false);
+    const bad = rows.map((row, i) =>
+      i >= 60 && i < 65 ? { ...row, predicted: "approve" as const } : row
+    );
+    expect(qualifyCraftJudge(bad, controls)).toMatchObject({
+      approved: 65,
+      criticalDetected: 35,
+      qualified: false,
+    });
   });
 });
