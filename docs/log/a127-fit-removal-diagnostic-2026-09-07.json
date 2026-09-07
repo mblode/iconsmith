@@ -1,0 +1,24 @@
+{
+  "purpose": "minimal host diagnostic removes forbidden post-Boolean fit, no source or author artifact mutation",
+  "changes": [
+    {
+      "finish": "outlined",
+      "removedFinalOperation": "fit",
+      "before": "a0d6de6b5b67116c077defacb8a8f8cd1a983e536d1b9d1f37d3d2393829f2a9",
+      "after": "f6ff8df5b0a930fa83f5248d23155748873b62b322587f13bbebdf77e9dbbeb8"
+    },
+    {
+      "finish": "filled",
+      "removedFinalOperation": "fit",
+      "before": "65ae27fa114c76fde1a0bf92b990e956795b9cb6ef967de014116953c6da4e2f",
+      "after": "caf9da021a4004bca69575947fcbe1d261c27c66986087775e67d63f6f5e9787"
+    }
+  ],
+  "processCode": 0,
+  "stdout": "{\n  \"craftApproved\": false,\n  \"exactReplay\": true,\n  \"findings\": [],\n  \"nativeSize\": 16,\n  \"paints\": [\n    \"outlined\",\n    \"filled\"\n  ],\n  \"pairChecked\": true,\n  \"pairIssues\": [\n    {\n      \"message\": \"e4 and e5 are 1.09px apart; minimum is 1.5px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.\",\n      \"rule\": \"gap\",\n      \"severity\": \"warn\"\n    }\n  ],\n  \"preview16\": \"native\",\n  \"snapshot\": \"/Users/mblode/Code/mblode/iconsmith/.staging/a127-fit-removal-diagnostic-2026-09-07/check-BTWKzz\",\n  \"style\": \"a3a69ad8d8c2bb9ec7448c79a920da8e0078dc678f9c0e48b76dd64de583ec76\"\n}\n",
+  "stderr": "",
+  "qualified": false,
+  "originalDeliveryStatus": "incomplete",
+  "authorInspected": false,
+  "providerCalls": 0
+}

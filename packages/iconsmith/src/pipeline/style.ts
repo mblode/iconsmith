@@ -15,7 +15,7 @@ import type { Policy } from "./policy.js";
 
 /** Bump when the compiler's interpretation changes. Stored SVGs remain the
  * authoritative artifact; replay additionally checks their exact bytes. */
-export const STYLE_COMPILER = "iconsmith-constrained-20";
+export const STYLE_COMPILER = "iconsmith-constrained-21";
 
 const positive = z.number().finite().positive();
 const pair = z.tuple([positive, positive]);

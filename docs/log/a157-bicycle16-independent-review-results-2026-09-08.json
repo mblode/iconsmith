@@ -1,0 +1,106 @@
+{
+  "id": "a157-bicycle16-independent-review-results",
+  "scope": "exposed-development-exact-reconstruction-review",
+  "qualified": false,
+  "instrumentQualified": false,
+  "authorSummary": {
+    "file": "docs/log/a157-bicycle16-attempt-results-2026-09-08.json",
+    "sha256": "63eb15b384588a5cfdd88968d31b7510becdbec84698116731f6ed1d8795b789"
+  },
+  "reconstructionClassification": {
+    "file": "docs/log/a157-bicycle16-exact-reconstruction-classification-2026-09-08.json",
+    "sha256": "6296aa5f65897b49ed6769ab4a633d03a2c77750988403e6ef1928b2704304d3"
+  },
+  "bindings": {
+    "dispatchHash": "24917d107f49dc55472a74e83a0ad2eda74b26d1c2b8be36cd4f3a2d1a771d9b",
+    "authorTerminalHash": "733d2aab00b62b1dd867ff0798fb0764ce1659ce90f728e42d8a0e6ce0390cfd",
+    "reviewInputHash": "71dcc6adf01e26065445e4149fe6bf5b702fd4397366f505e9d627749030cb97",
+    "reviewPreparationReceiptHash": "d99a73a5353f1f409c0a6a377406bf29010f7fe7ca86dee2d4e3e431908244ac",
+    "reviewIntentHash": "2b1aa400b075875fd970cc3e86ec38a2eaf889f859aec8ee8b0a8b9937f2b8f4",
+    "campaignIntentHash": "89f75850903bc9de34a7cf7b19ecdb380106f36ef53d680b8493f2e88deaa629"
+  },
+  "denominators": {
+    "authorArms": 1,
+    "paintSlots": 2,
+    "reviewers": 2,
+    "reviewStages": 4
+  },
+  "accounting": {
+    "authorNativeCalls": 6,
+    "reviewNativeCalls": 4,
+    "totalNativeCalls": 10,
+    "reviewElapsedMsObserved": 0,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionUsd": null
+  },
+  "reviewers": [
+    {
+      "reviewer": "codex",
+      "provider": "openai-codex",
+      "model": "gpt-6-astra",
+      "status": "complete",
+      "recognition": {
+        "correct": true,
+        "id": "arm-a"
+      },
+      "craft": 9,
+      "critical": "no",
+      "family": "yes",
+      "native": "yes",
+      "ship": "yes",
+      "namedEvidence": {
+        "arm-a-critical": "Both wheel counters remain open, frame and fork connections hold, and required contours are unclipped in both paints and polarities.",
+        "arm-a-craft": "Continuous rounded contours, balanced wheels, consistent stroke weight and deliberate terminal shapes match the bicycle anchors. Junctions become dense at 1x, but no concrete construction defect is visible.",
+        "arm-a-family": "The candidate closely matches both bicycle anchors. Its rounded terminals, substantial strokes and open counters also agree with the filled and outlined hexagonal anchors.",
+        "arm-a-native": "The 1x and 2x raster proofs retain distinct wheels, visible wheel interiors, saddle and handlebar in light and dark. Small junctions soften without losing required separation.",
+        "arm-a-ship": "The candidate meets the anchors' construction standard across enlarged and raster proofs. Dense 1x junctions remain functional; no unresolved contour, counter, connection or clipping defect is visible."
+      },
+      "resultHash": "68bd4925e43a63ff7eda20d520d3cf03df8703a89fecc7d12b837bfe6f01aa66",
+      "terminalHash": "309f2d7801d7e0b2bf4dafd4f70eb0c17e01ca86d696f0f246cb624ccb8dacd1"
+    },
+    {
+      "reviewer": "claude",
+      "provider": "anthropic-claude",
+      "model": "claude-opus-5",
+      "status": "complete",
+      "recognition": {
+        "correct": true,
+        "id": "arm-a"
+      },
+      "craft": 8,
+      "critical": "no",
+      "family": "yes",
+      "native": "yes",
+      "ship": "yes",
+      "namedEvidence": {
+        "arm-a-critical": "In every cell the frame stays connected: saddle stub to seat tube (upper left), top tube to handlebar hook (upper right), and both fork/stay junctions into the wheel rings; no contour is clipped at the y=0/y=24/x=0/x=24 edges. Both wheel counters remain open at 2x and in the enlarged vector, so no required counter is lost.",
+        "arm-a-craft": "Contours are continuous and stroke weight, ring thickness and counter size match the bicycle anchors; junctions at the rear-stay/hub and the seat-tube/top-tube meeting are clean in the enlarged vector. Minor nit: the wedge between the top tube and the upper-left of the front wheel is tight and fills to gray at 16px 1x, and the crank mass at bottom center merges with the down tube at that size \u2014 both behaviors also present in the anchor bicycles.",
+        "arm-a-family": "Stroke weight, ring/counter proportion and the 24-unit margin usage match the two bicycle anchors, and the counter-openness convention matches the hex-nut anchors' hole treatment. Outlined and filled proofs sit within legitimate paint variation for this house.",
+        "arm-a-native": "In the native 16px 1x and 2x light and dark cells the two wheels, triangulated frame, saddle and handlebar hook all read as a bicycle; at 2x both wheel counters are clearly open, and at 1x they persist as lighter cores. The 1x counter softening matches the bicycle anchors' own 1x panels rather than exceeding them.",
+        "arm-a-ship": "No unresolved defect observed: connections, counters and contours hold in all six candidate cells and construction sits at the anchor bicycles' craft standard. The only carried observation is the tight top-tube/front-wheel wedge and soft wheel counters at 16px 1x, both matched by the anchors."
+      },
+      "resultHash": "49c448e9c3722f42148e8499222c635868c7e9ba714d742723c8414725253af6",
+      "terminalHash": "090ec28bf6c48f9ecea2f7cd89edfd01ee7ace0b7c94e73ca39db49f1b47702a"
+    }
+  ],
+  "aggregate": {
+    "recognitionCorrect": 2,
+    "recognitionDenominator": 2,
+    "craftScores": [
+      9,
+      8
+    ],
+    "craftMedian": 8.5,
+    "criticalNo": 2,
+    "familyYes": 2,
+    "nativeYes": 2,
+    "shipYes": 2,
+    "status": "rejected-development-threshold",
+    "reason": "Median craft 8.5 is below the required 9 despite agreement on critical/family/native/ship."
+  },
+  "limitations": [
+    "Exact reconstruction of exposed same-paint anchors; no novel-generation evidence.",
+    "Reviewers saw exact family anchors and this cannot qualify a sealed population.",
+    "Model completion and ship votes do not override the craft threshold."
+  ]
+}

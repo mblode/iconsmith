@@ -1,0 +1,2227 @@
+{
+  "schema": "iconsmith-development-stimulus-inventory-v1",
+  "method": "Native PNG with same-directory paint artifact JSON and revision JSON; restricted to frozen development concepts; deduplicated by SHA-256 bytes. Paths establish prior exposure, so no row is sealed qualification evidence.",
+  "distinctStimuli": 81,
+  "qualificationEligible": 0,
+  "criticDevelopmentEligible": 81,
+  "stimuli": [
+    {
+      "nativeImageSha256": "07c8138de9b0d522979a30c72350b005b7c2399fd7ad11817ae42abca7cf0e1e",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-bell/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-bell/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-bell/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-bell/attempt-2/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-bell/attempt-2/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-bell/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-bell/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-bell/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-bell/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "08ca7b1db75384a57b1c62df87cd46621106391e97cb4e13a891c0862e2d3444",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/bell-pause-16/attempt-1/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bell-pause-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bell-pause-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/bell-pause-16/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bell-pause-16/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bell-pause-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q005.16.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q008.16.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q006.16.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "3fe8c9e2afed66e9811ae9d77c53daa2563dbd9fa2e08295ea08fbd755345abc",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-16/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-16/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q011.16.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "532dee8422825d6c7dc53fa911fbbba7e6d67c3374e64205e5044af3a5ab717d",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-bell/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-bell/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-bell/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-bell/attempt-2/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-bell/attempt-2/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-bell/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-bell/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-bell/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-bell/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "6c4e30c95c928e7439184d542035678e5b30dce3b736531581764c2f567e7d6e",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "863ed5f38ba8b66fb39c7de263c4773df2849d37fd41301941a70602ff05ed36",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "b2610b72d4cf80a2b6e187cf05f400ed983bbda40360849b4232010834c55f86",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/bell-pause-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bell-pause-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bell-pause-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/bell-pause-16/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bell-pause-16/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bell-pause-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q007.16.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q007.16.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q007.16.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "b3337225cd932a387bb2fb51530641695602def68290c0dc64a1c5707235ad0a",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-24/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-24/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q012.24.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "c187fb29433c44d6a3a1fe1e888aa4e5ea131180359ab8914936cc08fc9ce6e3",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-24/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-24/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q004.24.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "d95effc10c658155d149cbe2d9fd319ffd41a6af1bb28665754701a05e676702",
+      "concept": "bell-pause",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bell-pause-16/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bell-pause-16/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bell-pause-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q001.16.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "2580359418e5273ce9ca720561f0fb0c1914965a52598b18c43ec4a5b37b6ebf",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-2/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-2/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-16/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-16/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q010.16.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "2586d66a0d960206fa217d10890bd385339da4fc70cdaba80b514583a7fe74f4",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-2/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-2/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "5845fa3529bd756eaaf5f56628e2ac9e9bb9d72e88a82dbca6a04d1b145e0e22",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-24/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-24/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-24/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-24/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q009.24.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "65b0a61fb3f28eb284a5eeecaa14e91c95fe2b651028ada43679b66a13d7b7c0",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/bicycle/run/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/bicycle/run/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/bicycle/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "7ecdd1005003b6b2a56d46cc8d0da20f288d1b52486d2fd39f863ea3e916ade8",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/bicycle-16/attempt-1/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bicycle-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bicycle-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/bicycle-16/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bicycle-16/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bicycle-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q001.16.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q002.16.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q004.16.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "7f7a22770a3b885620524dbe70db1682c77c33626c9cc1c592ccb38f1da4c984",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/bicycle-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bicycle-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bicycle-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/bicycle-16/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/bicycle-16/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/bicycle-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q003.16.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q001.16.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q001.16.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "9ab72d54e2f6b43afc0ada8bd5f32d3caedba8bfbcbbc961c2068cf1fcdf93eb",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/bicycle/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/bicycle/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/bicycle/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/bicycle/run/attempt-2/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/bicycle/run/attempt-2/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/bicycle/run/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/bicycle/run/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/bicycle/run/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/bicycle/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "a04ccab56393583558f8dbafd974efa39deaeebe02b8c0f1eb496db2ae50cd89",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-2/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-2/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-16/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-16/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-16/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q006.16.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "b194f86b4414d04e4c6d0877e1b38d6191dbde519b9ce1fb3ee0c464cb1e44bc",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-2/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-2/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "b256d1de08b59dd56c1b3385a4e5959a2d998fcfb1406eb72114305125b84813",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/bicycle/run/attempt-1/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/bicycle/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/bicycle/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/bicycle/run/attempt-2/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/bicycle/run/attempt-2/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/bicycle/run/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/bicycle/run/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/bicycle/run/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/bicycle/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "e845a8ad223482a91527b199be63d4200353aa4850bc46f0b3f53de5adcea9be",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-24/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-24/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/bicycle-24/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/bicycle-24/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/bicycle-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q003.24.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "fcb474dddc0ee1e310f683b73a5ddb5a0daf8651adf9ba7d32f6c1b00ca2d9a6",
+      "concept": "bicycle",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-1/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/bicycle/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/bicycle/run/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/bicycle/run/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/bicycle/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "05f6b01a20c44687d80a70a81688d4c6f2344b5e00f7572cf92187de71879afb",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "3c1eca95b48f53c2d7b040ec9d7ab64d449c4a73334ace04c828593293c37703",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1/outlined.native.png",
+          "artifact": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1/outlined.artifact.json",
+          "revision": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/family-packet-screen-audit-2026-09-07/Q004.24.png",
+          "provenance": "docs/log/family-packet-screen-audit-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "3d580b7d054e112e5f0bbddf2d0ff754eb1ebe00184057c10542f2ec6ac4053d",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud-16/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud-16/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "49e17da0bb38d1e6f04120fa39151d023fa53ba5790bfc4cb439de0421a3552d",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1/filled.native.png",
+          "artifact": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1/filled.artifact.json",
+          "revision": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/family-packet-screen-audit-2026-09-07/Q001.24.png",
+          "provenance": "docs/log/family-packet-screen-audit-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "70d36b0aaa25368373e68efaa87c62f322fa8262c3a7ff54fb57d41637c48fe0",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud-16/outlined.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud-16/outlined.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "afbd6b3ddf71cec01bc843e5a1ef93d1c0ea6c8d7e3ab4fd343cce9024d5e7b1",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "d7e2dab8ea361e53aabded4a2ab9717f7071b9dc0768ceeab992d5851403df1d",
+      "concept": "cloud-upload",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2/filled.native.png",
+          "artifact": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2/filled.artifact.json",
+          "revision": ".staging/qualification-2026-09-07/autonomous-cloud-16/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "100e238170ccd407a3fdb1aab642c289aeea3ad6e016cff07dc5300a74a69d5d",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-03/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-03/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-03/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "171c398f8575f3156183cf7f00449162e8bc3e37e06df697fb8324903a4a658b",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2/filled.native.png",
+          "artifact": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2/filled.artifact.json",
+          "revision": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-1/filled.native.png",
+          "artifact": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-1/filled.artifact.json",
+          "revision": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-2/filled.native.png",
+          "artifact": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-2/filled.artifact.json",
+          "revision": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-3/filled.native.png",
+          "artifact": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-3/filled.artifact.json",
+          "revision": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-3/revision.json"
+        },
+        {
+          "image": ".staging/folder16-union-r1-offline-8kBra4/filled.native.png",
+          "artifact": ".staging/folder16-union-r1-offline-8kBra4/filled.artifact.json",
+          "revision": ".staging/folder16-union-r1-offline-8kBra4/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "22335ea734190ad0e9b6693b6b8e85c9841611aa1f7e809cd358cbc53b7afb67",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-round-body/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "22e58a8657f43c084dcb52521e59c4f9e0179397eb5e1d05165a0613ef61e852",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-24/attempt-1/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-24/attempt-1/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-24/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-24/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q008.24.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q005.24.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q005.24.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "24a5d895e4f9c856575c5de6457dbe6b20a5547cabb78ced3ad18b3d8b4daa1f",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-companion-01/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "2dffd4030a7e1c530a59775f8ce72d3c50d478e33d7e78a5be27be0b55b356b6",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-24/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-24/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q002.24.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "301537c90f08cbf533fb03efe6e4758483b42f0eb1d0db80d9fda5943c45176a",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-round-clearance/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "3d81e4e0635fc1abb5bd15ffc097f76ded2e0d4fe56b384fdf77d8c605a209ca",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/folder-lock/run/attempt-1/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/folder-lock/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/folder-lock/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/folder-lock/run/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/folder-lock/run/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/folder-lock/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "3f494225a399b4553f95c93971187f126cfe417610ee7704e4fa6473691a8b10",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-boolean-source/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-boolean-source/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "4a363b56aa07d54b3ef6d0e0243352f94bfbfe9751322ceaa6df2369156bc7a5",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-components/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-components/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-components/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "5547fea65e9dac2d521be96eabe2586fd1665b27b5ae08cd4525771730c00ed2",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-2/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-2/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "5855e13ee55e665f1a5b21a681a3780358135bd2a623447be7d3887b5afb4cbe",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/folder-lock/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/folder-lock/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/folder-lock/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/folder-lock/run/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/folder-lock/run/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/folder-lock/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "58c9fad0fb02111216f44464f6bc9dcd8f9acaa0d6dc1b41d34eba43525ad964",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1/outlined.native.png",
+          "artifact": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1/outlined.artifact.json",
+          "revision": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2/outlined.native.png",
+          "artifact": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2/outlined.artifact.json",
+          "revision": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/outlined.native.png",
+          "artifact": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/outlined.artifact.json",
+          "revision": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/revision.json"
+        },
+        {
+          "image": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-1/outlined.native.png",
+          "artifact": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-1/outlined.artifact.json",
+          "revision": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-2/outlined.native.png",
+          "artifact": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-2/outlined.artifact.json",
+          "revision": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-3/outlined.native.png",
+          "artifact": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-3/outlined.artifact.json",
+          "revision": ".staging/folder-lock-16-r1-final-2026-09-07/attempt-3/revision.json"
+        },
+        {
+          "image": ".staging/folder16-union-r1-offline-8kBra4/outlined.native.png",
+          "artifact": ".staging/folder16-union-r1-offline-8kBra4/outlined.artifact.json",
+          "revision": ".staging/folder16-union-r1-offline-8kBra4/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q006.16.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q004.16.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "5ea2e727e42479247629d51322a6eb4765cbf037205fe3de3e3f96aaf2e6d7a4",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-16/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-16/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q008.16.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "5f80a3ae43770ec44f06e1dd182c8cb64c5735c8cf91d6e67798a2c037f267bf",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-components-02/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-components-02/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "62094171f453dd80fea2b2d7fbcdc0f3680ee149c25d109f4c1452cdf14d153a",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-round-clearance/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-round-clearance/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "65a806907755c2c9b720741400bc91c1991ce44728879c9e633b76fc0033e2f1",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-02/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-02/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-02/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "6717fe03803b6196565f3d1cdee7290ea78edec496c8e472e339bfaea29d2357",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-16/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-16/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q007.16.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "7981e92ab2c3cdb1721c5ee11d84635fb36539ce8b52ccdb75f51674f9c0ed3c",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-24/outlined.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-24/outlined.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q008.24.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "7fef866d6e1d64a0f027b8d3f555446295e93506627808861006d252acd4c8cf",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-1/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/folder-lock/run/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/folder-lock/run/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/folder-lock/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "8503dccb265317efc56687a00aeb477648ce7269f80b57b5987595612a3681c4",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2/revision.json"
+        },
+        {
+          "image": ".staging/qualification-execution-2026-09-07/folder-lock-16/filled.native.png",
+          "artifact": ".staging/qualification-execution-2026-09-07/folder-lock-16/filled.artifact.json",
+          "revision": ".staging/qualification-execution-2026-09-07/folder-lock-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair-pilot-2026-09-07/Q005.16.png",
+          "provenance": "docs/log/native-repair-pilot-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "88304bbb2f58f594671b70cb7a0699a42f1b3af419174f5b55b8bc118c532da2",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/folder-lock/run/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/folder-lock/run/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/folder-lock/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "8c20e2efd5d85c5c1321d22e3378dd60ee3cbe083e04d37b63dbb5eaf23d7fde",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-16/attempt-1/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-16/attempt-1/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-16/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-16/filled.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-16/filled.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-16/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q002.16.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "9c320c8121ffca1324c9940a088a7785e4db2655f65fa068b83d2ab32027d255",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-companion-01/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-companion-01/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "9d3e4fcad755971b61e60115c0fc4ef773246826b90ef3c661f11662a120cc0b",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-trim/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-2"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "a52cde8faef37172683f84c9d1daef1ee884b0ddab4bfa1053a63b9d58e1d37b",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-04/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-04/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-04/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "abab9a7efe6ec1679a1e9a0e74b80e77f38af2c4105cfd5c782861d49899f6c7",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-24/attempt-1/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-24/attempt-1/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-24/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/repair20-2026-09-07/folder-lock-24/outlined.native.png",
+          "artifact": ".staging/repair20-2026-09-07/folder-lock-24/outlined.artifact.json",
+          "revision": ".staging/repair20-2026-09-07/folder-lock-24/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q004.24.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q003.24.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-repair20-2026-09-07/Q003.24.png",
+          "provenance": "docs/log/native-repair20-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "adc61da8a39bd6fb23d70ca29dcca410b698df45fef845a4296ccdcb0e47c177",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-visual-review/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "b693d93f2cf2cff7157f6ed571ebb5b9e58c3667d1d740a08396caea1e4a4e79",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-03/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-03/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-03/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "b6fd91654ac7f4e43ea1b1d974250e8e7bce49f1b6c49b5e19f2e6b6e5cafd4d",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-01/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-01/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-01/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "c2be084851f57339304ad0f3047157f1d3b7e7dbc19de7e03bb0349b6e939132",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-04/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-04/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-04/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "caae44c8cae5dadb7b117e5ddce74220b9eec853df72591d6e2a80a3b230872a",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1/filled.native.png",
+          "artifact": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1/filled.artifact.json",
+          "revision": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/filled.native.png",
+          "artifact": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/filled.artifact.json",
+          "revision": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/human-label-development-current-2026-09-07/Q002.16.png",
+          "provenance": "docs/log/human-label-development-current-2026-09-07/provenance.json"
+        },
+        {
+          "image": "docs/log/native-family-repair-2026-09-07/Q006.16.png",
+          "provenance": "docs/log/native-family-repair-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "cd4de1d91d6b49064386cc35566aeca61b9953ea3e7be1f1fa151a5c519a7a63",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-trim/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-trim/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-2"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "f457a14f23d766d82958bef670131e6d3a2836187fde9a34ea9d43ff1d475430",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-filled.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-visual-review/direct-constrained-filled.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-visual-review/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "f59636b2487b2380a5bb43eb91dfc5b07d3ef94ce52cac82b6351c971ef26707",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-components/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-components/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-components/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "f9493319531810d5858e71100fe366d22e6793332bacca3108012ad663be89d4",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-2/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-2/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/folder-lock/run/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "fdb123e8aeb194a3d834208ef4eb4b24029aff10bfeb6bad5ba2ce6b02333f76",
+      "concept": "folder-lock",
+      "nativeSize": null,
+      "finishes": [
+        "direct-constrained-outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-outlined.native.png",
+          "artifact": ".staging/foundry-round-1/folder-lock-round-body/direct-constrained-outlined.artifact.json",
+          "revision": ".staging/foundry-round-1/folder-lock-round-body/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-1"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "60f3920aa96978738358a658eab5a16c510d574c65df01fa3b72c0f9b4ec45af",
+      "concept": "jellyfish",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/jellyfish/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/jellyfish/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/jellyfish/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/jellyfish/run/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/jellyfish/run/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/jellyfish/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "caed5320b1bb26808543a45f3017da5f5a58327c5117bf91a64c425a760fc700",
+      "concept": "jellyfish",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/strategy-screen-2026-09-06/hybrid-compiler15/outlined.native.png",
+          "artifact": ".staging/strategy-screen-2026-09-06/hybrid-compiler15/outlined.artifact.json",
+          "revision": ".staging/strategy-screen-2026-09-06/hybrid-compiler15/revision.json"
+        },
+        {
+          "image": ".staging/strategy-screen-2026-09-06/hybrid-native-02/attempt-1/outlined.native.png",
+          "artifact": ".staging/strategy-screen-2026-09-06/hybrid-native-02/attempt-1/outlined.artifact.json",
+          "revision": ".staging/strategy-screen-2026-09-06/hybrid-native-02/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/strategy-screen-2026-09-06/hybrid-native-02/outlined.native.png",
+          "artifact": ".staging/strategy-screen-2026-09-06/hybrid-native-02/outlined.artifact.json",
+          "revision": ".staging/strategy-screen-2026-09-06/hybrid-native-02/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-14",
+        "iconsmith-constrained-15"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "d81be75384e525e5a0d158ce147dc4a79f2cb27799321bda305ebd41c4e5db07",
+      "concept": "jellyfish",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/jellyfish/run/attempt-1/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/jellyfish/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/jellyfish/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/jellyfish/run/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/jellyfish/run/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/jellyfish/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "2a7cbc0b1e4e1acab0afd514b223e1b07706bfc63ae4bb2a6307e3267e199aa7",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/shield-check/run/attempt-2/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/shield-check/run/attempt-2/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/shield-check/run/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "2c2cdac23f58ff4f3cf715cb1141ff89fe88a2fd3d6e7331ad4253c15e663d80",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1/filled.native.png",
+          "artifact": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1/filled.artifact.json",
+          "revision": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/family-packet-screen-audit-2026-09-07/Q003.24.png",
+          "provenance": "docs/log/family-packet-screen-audit-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "4482a9d0dc5e4c9a756b9bbbe7960a41c86843fe73ced0df11bc961137f92a5a",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1/outlined.native.png",
+          "artifact": ".staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1/outlined.artifact.json",
+          "revision": ".staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/automatic-retrieval-2026-09-07/generated-shield/outlined.native.png",
+          "artifact": ".staging/automatic-retrieval-2026-09-07/generated-shield/outlined.artifact.json",
+          "revision": ".staging/automatic-retrieval-2026-09-07/generated-shield/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "57248052b7567570a9a42d858f86abea51c6b4175e36eb79ee90a410df3ff7fe",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check/run/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check/run/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "68274b140be782f8683e7aab415d69c9bd6cb18aa8ad15a67a8c685f0fedddae",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1/filled.native.png",
+          "artifact": ".staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1/filled.artifact.json",
+          "revision": ".staging/automatic-retrieval-2026-09-07/generated-shield/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/automatic-retrieval-2026-09-07/generated-shield/filled.native.png",
+          "artifact": ".staging/automatic-retrieval-2026-09-07/generated-shield/filled.artifact.json",
+          "revision": ".staging/automatic-retrieval-2026-09-07/generated-shield/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-18"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "9e34ff0abc14c2f6b23530048f5e0395a1ab1f17d66c148f69a2f187de379593",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/shield-check/run/attempt-1/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/shield-check/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/shield-check/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/shield-check/run/filled.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/shield-check/run/filled.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/shield-check/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "bc606598a1a48e2e82fc726f94e30415e8cb6aaf32f032b09f4b79333a3dae5b",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/shield-check/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/shield-check/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/shield-check/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/library-generation-2026-09-07/shield-check/run/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/shield-check/run/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/shield-check/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "c5d9112ad11273fb7de3824020d0e7461ed34d70ff77c330499df0193902bf40",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check/run/attempt-1/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check/run/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check/run/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "c89501e6e2615285c307f41ba588562a170882ded91b2af1f18675e0432ef9b9",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/library-generation-2026-09-07/shield-check/run/attempt-2/outlined.native.png",
+          "artifact": ".staging/library-generation-2026-09-07/shield-check/run/attempt-2/outlined.artifact.json",
+          "revision": ".staging/library-generation-2026-09-07/shield-check/run/attempt-2/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "d4c22a1931391cc612ad9ae9adf97519a5bb4cf8c32c7b3787f4b4822d9e1553",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1/outlined.native.png",
+          "artifact": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1/outlined.artifact.json",
+          "revision": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-20"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": [
+        {
+          "image": "docs/log/family-packet-screen-audit-2026-09-07/Q002.24.png",
+          "provenance": "docs/log/family-packet-screen-audit-2026-09-07/provenance.json"
+        }
+      ]
+    },
+    {
+      "nativeImageSha256": "dac619d1ddecf815318d2f12ce4e00f0bd119d6fcdb29c291c2a53585eab9016",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "outlined"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check-paired/run/outlined.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check-paired/run/outlined.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check-paired/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    },
+    {
+      "nativeImageSha256": "e85a50220ff644e68b455635e2d0007546bf397ca83f74c9136087b78820fa49",
+      "concept": "shield-check",
+      "nativeSize": null,
+      "finishes": [
+        "filled"
+      ],
+      "paths": [
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check-paired/run/attempt-1/revision.json"
+        },
+        {
+          "image": ".staging/parts-generation-2026-09-07/shield-check-paired/run/filled.native.png",
+          "artifact": ".staging/parts-generation-2026-09-07/shield-check-paired/run/filled.artifact.json",
+          "revision": ".staging/parts-generation-2026-09-07/shield-check-paired/run/revision.json"
+        }
+      ],
+      "compilerVersions": [
+        "iconsmith-constrained-17"
+      ],
+      "previouslyExposed": true,
+      "qualificationEligible": false,
+      "durableAuditReceipts": []
+    }
+  ]
+}

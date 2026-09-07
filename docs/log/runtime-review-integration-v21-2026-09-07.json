@@ -1,0 +1,45 @@
+{
+  "id": "runtime-review-integration-v21",
+  "createdAt": "2026-09-07T13:45:27.753613+00:00",
+  "qualified": false,
+  "tests": {
+    "passed": 1820,
+    "files": 157,
+    "skipped": 0
+  },
+  "checks": {
+    "test": true,
+    "typecheck": true,
+    "lint": true,
+    "build": true
+  },
+  "compiler": "iconsmith-constrained-21",
+  "sourceAudit": "docs/log/house-source-regression-compiler21-2026-09-07.json",
+  "boundFiles": {
+    "packages/iconsmith/scripts/local-structured-author.ts": "4f93fd24b0a8785ca46eae0e96f967a55b69cf62b4b149f133a5cadf92ff68ce",
+    "packages/iconsmith/scripts/local-structured-author.test.ts": "1c61c4217562c3e55dcd790b0e3ad3cc4cc3e7686bedfd517567360931c2c9e2",
+    "packages/iconsmith/scripts/local-astra-author.ts": "b636a620fd67ad2af507a1a6961c47be600d811ef42f7b120c5697a310a87701",
+    "packages/iconsmith/scripts/local-claude-author.ts": "015ac1e54a312a5a15aa6daa19c46b51754e8c6ceb87ad6b85c9ee644925758f",
+    "packages/iconsmith/scripts/author-review-packet.ts": "5b6a0cd119b6be7a66de62f4c61c5a5fb2a0a782bb1d7e740998ab5609c408cd",
+    "packages/iconsmith/scripts/author-review-packet.test.ts": "ea5ab26497006ea171cbe218428f3ac5592a7f44149685d7fa3ee4f312c56d1d",
+    "packages/iconsmith/src/tools/expanded-stroke-boolean.test.ts": "f6a63d0cb1852522e84985de1a51e05db39750c6a999fbf796b07bd9ca4ad284",
+    ".staging/root-test-v21.log": "1e75c2471cfa31f5f971d604c5c039375c1539e2d0bfd406c00d94fa82592351",
+    ".staging/root-typecheck-v21.log": "a23896a7f723b3febcb39b610de3768cee5c36a62c0210e146a0d63a16f0980b",
+    ".staging/root-check-v21.log": "da91eb3980495ffa2c4e52e8b5804e98fd96c8b99f67390d27a8d6a93eb0dab9",
+    ".staging/root-build-v21.log": "7220a265d5f1405f3e9398de94917fccefe231474357d6cfe317d211ea5b64f5"
+  },
+  "changes": [
+    "Bounded construction/inspection/finalization deadline allocations",
+    "Restore prior inspected programs/proofs after failed repair invocation or inspection",
+    "Delivered-only deterministic proof-board preparation with immutable native references",
+    "Expanded concave cutter nonzero Boolean regression"
+  ],
+  "limitations": [
+    "Live A143 validation in progress; no delivery uplift established yet",
+    "Native full detached-descendant ownership still unproven",
+    "Initial formatting failure log overwritten; final lint run is complete",
+    "Prototype fill-rule error was not found in existing production paths"
+  ],
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null
+}

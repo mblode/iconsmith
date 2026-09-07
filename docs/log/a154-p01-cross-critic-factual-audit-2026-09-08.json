@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "kind": "offline-cross-critic-factual-claim-audit",
+  "createdAt": "2026-09-08T00:00:00.000Z",
+  "scope": {
+    "packet": "V2-P01",
+    "selection": "Items for which A154 Astra and A149 Sol returned approve while A150 Claude returned reject or a craft-below-9/ship-yes conflict.",
+    "itemCount": 8,
+    "inspectionOrder": "Each exact evidence PNG was inspected at original detail under its opaque ID before the withheld metadata was read.",
+    "metadataReveal": "After visual observations, the frozen withheld key was read only to identify source-baseline versus objective-corruption status and the unvalidated catalog label.",
+    "claimBoundary": "This receipt audits visible factual statements in Claude's saved evidence. Craft preferences remain subjective. It is not another critic vote and does not change any campaign decision."
+  },
+  "bindings": {
+    "astraTerminal": {
+      "path": ".staging/a154-p01-astra-alpha-campaign-2026-09-08/runs/V2-P01/astra/terminal.json",
+      "sha256": "200e45e6070c14e071bbbbf627188d2d4854371f6b604b122006354243d74574"
+    },
+    "claudeTerminal": {
+      "path": ".staging/a150-p01-claude-medium-diagnostic-2026-09-08/runs/V2-P01/claude/terminal.json",
+      "sha256": "d6895403b1fd951e065c8d7841e574e2542c9717edf67b51a6ded2ecfde37e90"
+    },
+    "solTerminal": {
+      "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/sol/terminal.json",
+      "sha256": "2603bb24374111f5de07dc1340faf08ad1d051a7b5b61bbfd4e30a3676247e82"
+    },
+    "withheldKey": {
+      "path": ".staging/a154-p01-astra-alpha-campaign-2026-09-08/withheld-stage2-and-control-key.json",
+      "sha256": "b7fdb253a4c4db88487d9baa361f06bc54073aa0f628116338ce88b7310708da"
+    }
+  },
+  "items": [
+    {
+      "opaqueId": "R-8eb8edb10016",
+      "imageSha256": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+      "controlAfterReveal": "source-baseline",
+      "catalogLabelAfterReveal": "squized (unvalidated)",
+      "claudeDecision": { "craft": 8, "ship": "yes" },
+      "claims": [
+        { "claim": "Both arrowheads and the center bar remain separate.", "finding": "supported", "evidence": "The native cells visibly retain two arrowheads, a central bar, and intervening light gaps." },
+        { "claim": "The left tip-to-bar gap is roughly one pixel and nearly lost.", "finding": "uncertain", "evidence": "The gap is visibly narrow but still resolved; the supplied composite does not establish an exact one-pixel measurement." }
+      ],
+      "craftDisagreement": "How much refinement the narrow gap needs is subjective."
+    },
+    {
+      "opaqueId": "R-01ccc4437501",
+      "imageSha256": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+      "controlAfterReveal": "objective-corruption: severed-connections",
+      "catalogLabelAfterReveal": "cosmos (unvalidated)",
+      "claudeDecision": { "craft": 7, "ship": "no" },
+      "claims": [
+        { "claim": "The small rendering merges into an undifferentiated cluster.", "finding": "contradicted", "evidence": "The peripheral elements remain individually visible around the ring in the native cells." },
+        { "claim": "The center dot is indistinguishable from the surrounding circle group.", "finding": "contradicted", "evidence": "The center is visibly a split vertical pair and remains spatially distinct from the outer ring; calling it a center dot also misdescribes the displayed structure." }
+      ],
+      "craftDisagreement": "The frozen key independently proves a deterministic severed-connection corruption, but Claude's stated merge mechanism is not visible in this evidence. This audit does not decide whether the injected corruption is critical."
+    },
+    {
+      "opaqueId": "R-5784039f0165",
+      "imageSha256": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+      "controlAfterReveal": "source-baseline",
+      "catalogLabelAfterReveal": "aura (unvalidated)",
+      "claudeDecision": { "craft": 7, "ship": "no" },
+      "claims": [
+        { "claim": "The ray ticks touch the head silhouette at the small size.", "finding": "contradicted", "evidence": "Visible background pixels separate the radial marks from the head outline in the native cells." },
+        { "claim": "The head counter nearly fills in.", "finding": "contradicted", "evidence": "The head retains an open interior that is visibly distinct at native size." }
+      ],
+      "craftDisagreement": "Perceived crowding is subjective, but contact and counter closure are factual claims and are not shown."
+    },
+    {
+      "opaqueId": "R-4d6bc1b595e0",
+      "imageSha256": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+      "controlAfterReveal": "source-baseline",
+      "catalogLabelAfterReveal": "collaboration-pointer-left (unvalidated)",
+      "claudeDecision": { "craft": 8, "ship": "yes" },
+      "claims": [
+        { "claim": "The pointer and trailing arc remain separate.", "finding": "supported", "evidence": "A visible gap remains between the two contours in the native cells." },
+        { "claim": "The two nearly touch.", "finding": "uncertain", "evidence": "The spacing is tight, but 'nearly' is a craft judgment without a declared numeric limit." }
+      ],
+      "craftDisagreement": "Whether the tight separation warrants refinement is subjective."
+    },
+    {
+      "opaqueId": "R-081de278ac7b",
+      "imageSha256": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+      "controlAfterReveal": "source-baseline",
+      "catalogLabelAfterReveal": "icebowl (unvalidated)",
+      "claudeDecision": { "craft": 7, "ship": "no" },
+      "claims": [
+        { "claim": "Interior marks and rim merge into a solid dark band.", "finding": "contradicted", "evidence": "The native cells retain distinguishable interior marks and a separate rim structure." },
+        { "claim": "The mark reduces to a filled half-disc.", "finding": "contradicted", "evidence": "The bowl's open interior remains visible at native size." }
+      ],
+      "craftDisagreement": "The evidence may support a density preference, but not the claimed merger or filled-disc topology."
+    },
+    {
+      "opaqueId": "R-cfacb7b0ce64",
+      "imageSha256": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+      "controlAfterReveal": "source-baseline",
+      "catalogLabelAfterReveal": "chevron-triangle-up-small (unvalidated)",
+      "claudeDecision": { "craft": 4, "ship": "no" },
+      "claims": [
+        { "claim": "The mark occupies only a small fraction of the frame.", "finding": "supported", "evidence": "The filled shape is deliberately very small relative to the available icon canvas." },
+        { "claim": "It carries no legible form at the small size.", "finding": "contradicted", "evidence": "The native silhouette still has a discernible upward point and stable base." },
+        { "claim": "The silhouette is lumpy and asymmetric.", "finding": "uncertain", "evidence": "Minor raster asymmetry may be perceived, but the directional silhouette is coherent and the claim has no declared tolerance." }
+      ],
+      "craftDisagreement": "Whether the house source should intentionally underfill is a style decision; the underfill itself is factual."
+    },
+    {
+      "opaqueId": "R-9e153df1309d",
+      "imageSha256": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+      "controlAfterReveal": "objective-corruption: severely-clipped-contour",
+      "catalogLabelAfterReveal": "open-quote-1 (unvalidated)",
+      "claudeDecision": { "craft": 7, "ship": "no" },
+      "claims": [
+        { "claim": "The form occupies the upper-left area and underfills the frame.", "finding": "supported", "evidence": "The native mark is visibly small and displaced toward the upper-left region." },
+        { "claim": "The tail disappears and leaves an indistinct dot.", "finding": "contradicted", "evidence": "A hook/notch remains visible in the native silhouette; it is not a featureless dot." }
+      ],
+      "craftDisagreement": "The frozen key independently proves severe clipping, consistent with underfill/displacement. It does not support the more specific claim that the surviving native silhouette loses its tail entirely."
+    },
+    {
+      "opaqueId": "R-4e416c33775d",
+      "imageSha256": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+      "controlAfterReveal": "source-baseline",
+      "catalogLabelAfterReveal": "electrocardiogram (unvalidated)",
+      "claudeDecision": { "craft": 8, "ship": "yes" },
+      "claims": [
+        { "claim": "The waveform remains continuous and readable.", "finding": "supported", "evidence": "The native cells show an unbroken waveform with distinct peak and trough." },
+        { "claim": "The central rise and fall thin the white channel between them.", "finding": "uncertain", "evidence": "The adjacent strokes are tightly spaced, but there is no enclosed counter and no declared minimum spacing threshold for this observation." }
+      ],
+      "craftDisagreement": "The tight central spacing is a plausible refinement preference, not a demonstrated structural failure."
+    }
+  ],
+  "summary": {
+    "itemsAudited": 8,
+    "claimFindings": { "supported": 6, "contradicted": 9, "uncertain": 4 },
+    "notablePattern": "Claude's strongest factual overstatements are raster mergers or disappearances that are not present in the supplied native cells. Its underfill observations on the tiny triangle and clipped quote are supported. Three craft-below-9/ship-yes rows remain coherent uncertainty rather than rejection.",
+    "qualification": false,
+    "instrumentQualified": false,
+    "providerCalls": 0,
+    "promotion": "none"
+  }
+}

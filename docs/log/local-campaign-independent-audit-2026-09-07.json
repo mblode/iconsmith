@@ -1,0 +1,31 @@
+{
+  "kind": "offline-local-campaign-independent-audit",
+  "date": "2026-09-07",
+  "scope": "Read-only audit; production driver unchanged.",
+  "concreteFindings": [
+    {
+      "severity": "high",
+      "area": "denominator",
+      "finding": "The driver checks kind=development and pair completeness, but never requires exactly 20 unique concepts, 40 pairs, 80 unique slots, or unique slot IDs. A self-consistent newly hashed development manifest with omitted or duplicated concepts/slots is accepted and its smaller or duplicated ledger becomes the reported denominator.",
+      "smallestRegression": "Construct a freshly hashed development manifest with 19 concepts or duplicate slotId values and assert planLocalCampaign refuses it."
+    },
+    {
+      "severity": "high",
+      "area": "crash recovery identity",
+      "finding": "A destination without a campaign receipt is recovered from run.json/request.json semantics and SVG bytes, but those files contain no campaign requestId or toolingHash. Old or copied output produced by different generator bytes at the same concept/master destination can pass recovery under a current lock.",
+      "smallestRegression": "Place semantically matching terminal output lacking the current requestId/toolingHash in a locked destination and assert recovery refuses it; bind those identities into a pre-dispatch marker or generator receipt."
+    },
+    {
+      "severity": "medium",
+      "area": "dry-run resume",
+      "finding": "Dry-run scheduled is always requests.slice(0,maxRequests). It does not exclude identity-validated terminal receipts, so a resume dry-run reports already completed pairs instead of the requests execute mode would charge next.",
+      "smallestRegression": "Persist a validated first receipt, dry-run with maxRequests=1, and require scheduled[0] to be the next pending request."
+    },
+    {
+      "severity": "medium",
+      "area": "external tooling fingerprint",
+      "finding": "The lock fingerprints repository production files and command/model strings, but not the Codex and Claude executable bytes or reported versions. Replacing either executable at the same path/name preserves the campaign identity.",
+      "smallestRegression": "Change a fixture author binary at the same path and assert the planned tooling identity changes, or explicitly record this as an environment limitation."
+    }
+  ]
+}

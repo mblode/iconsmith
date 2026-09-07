@@ -1,0 +1,64 @@
+{
+  "kind": "house-source-regression-compiler21",
+  "createdAt": "2026-09-07",
+  "providerCalls": 0,
+  "source": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+  "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+  "compiler": "iconsmith-constrained-21",
+  "baseline": {
+    "receipt": "docs/log/house-source-regression-2026-09-07.json",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "files": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "exactReplay": 4357,
+    "rasterDifferences": 1007
+  },
+  "actual": {
+    "files": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "exactReplay": 4357,
+    "rasterDifferences": 1007
+  },
+  "differences": [],
+  "admissionComparison": {
+    "statusChanges": 0,
+    "partCountChanges": 0,
+    "refusalReasonChanges": 0
+  },
+  "parseFailures": 0,
+  "renderingFailures": 0,
+  "replayFailures": 0,
+  "rasterDifferenceThreshold": 0.01,
+  "generationQualified": false,
+  "visualStatus": "AI visual assessment pending; this receipt establishes source admission and reconstruction only.",
+  "failedAttempts": [
+    {
+      "command": "npx tsx packages/iconsmith/scripts/library-audit-cli.ts <source> .staging/house-source-regression-compiler21-2026-09-07/audit",
+      "status": "failed-before-audit",
+      "reason": "parent destination did not exist; rerun after creating only the parent directory"
+    },
+    {
+      "command": "npx tsx .staging/house-source-regression-compiler21-2026-09-07/admit.mts",
+      "status": "failed-before-admission",
+      "reason": "compiler20 revision refused by compiler21 schema; rerun migrated only compiler identity to STYLE_COMPILER"
+    }
+  ],
+  "commands": [
+    "npx tsx packages/iconsmith/scripts/library-audit-cli.ts /Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg .staging/house-source-regression-compiler21-2026-09-07/audit",
+    "npx tsx packages/iconsmith/scripts/library-replay-cli.ts .staging/house-source-regression-compiler21-2026-09-07/audit/inventory.json .staging/house-source-regression-compiler21-2026-09-07/replay",
+    "npx tsx .staging/house-source-regression-compiler21-2026-09-07/admit.mts"
+  ],
+  "artifacts": {
+    "directory": ".staging/house-source-regression-compiler21-2026-09-07",
+    "auditInventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "admissionResultsSha256": "22b664539d10753f09d02721bc1ea7ed123da751fb3ec23051822b8da1f82041",
+    "replayResultsSha256": "74ca9e57a73d01ac0c8afb045adb3db3a26da80d7e5c0d58b9b8e363423e0f25",
+    "auditCliSha256": "9ad56de1368e6ca2fbf7d8aaa51b9002cb4975f615ec125befa17120027dfe13",
+    "replayCliSha256": "fbe2f80fd6a1538024b5eb7ecbbcdd330b527d28b75be2ba1727818f036a5124",
+    "dslSha256": "657fbc778709dfc3ef5510e6644110163dd187e831bd959039f4d40dd554e158",
+    "programSha256": "ef61da59c0bcf9e845bed7dace412ade79a2b3f32cd2360a85ae6342e3346b28",
+    "styleSha256": "be09b38edb797819a2661729fa2911b342a789e6b6a7d9ef2919501f28083e1c"
+  }
+}

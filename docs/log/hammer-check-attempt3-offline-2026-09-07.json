@@ -1,0 +1,67 @@
+{
+  "authority": "offline host evidence only",
+  "candidate": {
+    "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-3/check-0bfCf9",
+    "check": {
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 11.75); the house spec is (12, 12) within 0.25. Shift by (0.00, 0.25) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e2\" has an edge at 126.9°, 8.1° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "pairChecked": true,
+      "pairIssues": []
+    },
+    "files": {
+      "outlined.icon": "b3852da7d6bf389c0ad42f11731b3772e2e0ad11a2ca490d73855663dbec499c",
+      "outlined.native.png": "546380438122bcb9e13f20ee84f14dab7aee1b47fa95eeb4ef74fce6aae143c4",
+      "outlined.proof.png": "174e84f0413a16737ddacd88139faf9ee9665d41499f9a2cba6d6dc343e22910",
+      "filled.icon": "f47bce3a5125536b6a3f9691c2beb2c32ae2957d2ea1cf605784834fe280e1d1",
+      "filled.native.png": "7935d7bca80fdc628d60937fb50f9e292f59d84f9a13ec6bf0d083110141fa5b",
+      "filled.proof.png": "dd03d6014b74cb01f50878d87264db705ef9c946c1e19cc31b7ec89c2235d792"
+    },
+    "gap": {
+      "status": "not-reported-by-host-checker",
+      "priorMeasuredGap": 1.25,
+      "requiredMinimum": 1.5
+    }
+  },
+  "comparisonBoardSha256": "ca6333db9860fe606d49c9d9f259527523e1c345f63dd08847028896a0c04e89",
+  "nativeSize": 16,
+  "original": {
+    "qualityStatus": "needs-repair",
+    "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+    "unresolved": [
+      {
+        "description": "The filled head-to-handle separation fails the selected 1.5-unit minimum gap: the final checker measures 1.25 units. In the final 16px proof the diagonal separator is soft and does not sustain a fully clear native pixel at its narrow section; filled native rows[9][5]=184 and rows[9][6]=124, while the corresponding retina separator is much clearer (rows[19][11]=252).",
+        "id": "hammer-head-handle-clearance",
+        "kind": "visual"
+      },
+      {
+        "description": "The handle attachment does not preserve the reference hammer's central seating and consistent proportions across paints. The outlined enlarged proof shows a thickened rounded shoulder near the head's lower-left end; its resolved handle starts at (6.5,13.6969), beside the head's end at (6.9159,13.9152). The filled proof instead has a separated, shorter handle seated farther down. Both read as hammers, but this shoulder and attachment mismatch remains visible in enlarged and 2x proofs.",
+        "id": "hammer-handle-attachment",
+        "kind": "visual"
+      }
+    ],
+    "files": {
+      "outlined.icon": "7183b645bb94ace35c7eebe766ec0714552bda9b8249222f12f8509ff9b9549a",
+      "outlined.native.png": "0a8f135c2405bb8939bd27628d090021a00f15e6e383cdda2950bf1ecd7832f3",
+      "outlined.proof.png": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9",
+      "filled.icon": "eaf7ed38f2ac95eee4abfa4a49bc5ea0c091a1c4193bfdbf6ff34869f9155e9e",
+      "filled.native.png": "65b472789f5190b5b06076e777bd17632690dee9681b6ed271ddd9627bde2d4d",
+      "filled.proof.png": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214"
+    }
+  },
+  "promoted": false,
+  "qualification": "pending-independent-ai-craft-review"
+}

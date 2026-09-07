@@ -1,0 +1,476 @@
+{
+  "experiment": "A130",
+  "scope": "Four actual generated development outputs; review delivery diagnostic, not independent panel qualification",
+  "intent": {
+    "id": "A130",
+    "authority": "AI-only development pilot; no qualification",
+    "purpose": "Exercise reusable frozen/resumable AI review campaign after diagnosed wrapper and stage-budget corrections using compact references.",
+    "candidateOutputs": 4,
+    "familyAnchorSheets": 2,
+    "sourceAnchors": 12,
+    "maxPackets": 1,
+    "models": [
+      "gpt-6-astra",
+      "claude-opus-5"
+    ],
+    "effort": "high",
+    "maximumNativeCalls": 4,
+    "maximumNativeConcurrency": 1,
+    "maxMsPerReviewer": 480000,
+    "noAutomaticRetry": true,
+    "priorFailuresPreserved": [
+      "A128",
+      "A129"
+    ],
+    "runtimeHash": "03c363b51c63692a3a2e8ead2aabab9c2d2edcc4eaf28d5c8272252e7131ad23",
+    "toolingHash": "08713dfb5e60b32d46ec75605cb9e836313dbf5bde1c813837c46b5dff35e8bf",
+    "inputs": {
+      "anchors-1.png": "d39d339ef16e339cfd14800d75f15f729d76dc706a0f008861ab667c3bb3a097",
+      "anchors-2.png": "90f790b3c0e066ebad8e9bf927405d837ad69cc59e12a20c697b1e272e267d82",
+      "packet.json": "8d76b2ec7e085c0713816707abe49158f92b72b7415eaea84058a83503988d55",
+      "presentation.json": "73d1075f60f2f308ebe95cb51761c2059413bb0281fa2f90ebb110d254e4f8ed",
+      "q-m7.png": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+      "q-r2.png": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+      "q-v9.png": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+      "q-x4.png": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+    },
+    "newApiSpendUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeSubscriptionChargeUsd": null,
+    "qualified": false
+  },
+  "intentSha256": "17a5bd06dcab35e471886f5b2607d1148dc05590706fe9c68a4f6af8902608f2",
+  "reviewers": [
+    {
+      "route": "codex",
+      "terminal": {
+        "artifactTreeHash": "38397b15c84bdeb10731b5754c0e271f84747bfdbeeb543fcbdf2691bc0978cb",
+        "deadlineAt": 1788771262405,
+        "elapsedMs": 27113,
+        "intentHash": "08d1ec718541d8c56652f405b2bc3705f0da6b3e597aaf03760e8c723c8ec968",
+        "model": "gpt-6-astra",
+        "qualified": false,
+        "resultHash": "337a7f47ff34d5aded2264c2a27dfbd0147eed7897fbad38fdd5c4cf367e1778",
+        "startedAt": 1788770782405,
+        "status": "recognition-incomplete"
+      },
+      "terminalFile": ".staging/house-quality-execution-2026-09-07/A130/campaign/codex/terminal.json",
+      "terminalSha256": "7f897d8f25d66397688907110fffed40c631c4ea67f621caaaa84f16753ae937",
+      "stages": [
+        {
+          "stage": "recognition",
+          "processSha256": "a778af0ea0b6c6343cb128b1927e412ad1ba101d602be95ade2413d080e42c81",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "nativeCliUsageAndListPriceEstimates": []
+        }
+      ]
+    },
+    {
+      "route": "claude",
+      "terminal": {
+        "artifactTreeHash": "c0d5135ee554345854f801ea32ef22b55b544b7ad5ded325965040018bfdc662",
+        "deadlineAt": 1788771289519,
+        "elapsedMs": 255224,
+        "intentHash": "e84b32712aa3e9941c5d647ed27d9b3cc15da9ee300623cb3d46e4a222272fa5",
+        "model": "claude-opus-5",
+        "qualified": false,
+        "resultHash": "e5bc017768187c3ef5a02c7b45f7d8391e5e7387c03069d7200e3cb5ef64ff32",
+        "startedAt": 1788770809519,
+        "status": "complete"
+      },
+      "terminalFile": ".staging/house-quality-execution-2026-09-07/A130/campaign/claude/terminal.json",
+      "terminalSha256": "565fb68e1f78ba4f7bf9eddc84d6ae2da8236e97f5b6c22fc7385f74e0e96d26",
+      "stages": [
+        {
+          "stage": "recognition",
+          "processSha256": "65d2cc44816e00270d4fb4851959bcfd9193889f16c218e044f3f19bcf6e9fe2",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "nativeCliUsageAndListPriceEstimates": [
+            {
+              "type": "result",
+              "subtype": "success",
+              "duration_ms": 58815,
+              "total_cost_usd": 0.178823,
+              "usage": {
+                "input_tokens": 4,
+                "cache_creation_input_tokens": 7064,
+                "cache_read_input_tokens": 8320,
+                "output_tokens": 4097,
+                "output_tokens_details": {
+                  "thinking_tokens": 2260
+                },
+                "server_tool_use": {
+                  "web_search_requests": 0,
+                  "web_fetch_requests": 0
+                },
+                "service_tier": "standard",
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 7064,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "inference_geo": "not_available",
+                "iterations": [
+                  {
+                    "input_tokens": 2,
+                    "output_tokens": 3661,
+                    "cache_read_input_tokens": 6353,
+                    "cache_creation_input_tokens": 2678,
+                    "cache_creation": {
+                      "ephemeral_5m_input_tokens": 0,
+                      "ephemeral_1h_input_tokens": 2678
+                    },
+                    "type": "message"
+                  }
+                ],
+                "speed": "standard"
+              }
+            }
+          ]
+        },
+        {
+          "stage": "craft",
+          "processSha256": "5106b632168c74fae1e4059214d34fcd950259ade206968a9a2dc3962382727c",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "nativeCliUsageAndListPriceEstimates": [
+            {
+              "type": "result",
+              "subtype": "success",
+              "duration_ms": 188535,
+              "total_cost_usd": 0.452734,
+              "usage": {
+                "input_tokens": 4,
+                "cache_creation_input_tokens": 11172,
+                "cache_read_input_tokens": 15048,
+                "output_tokens": 13186,
+                "output_tokens_details": {
+                  "thinking_tokens": 8584
+                },
+                "server_tool_use": {
+                  "web_search_requests": 0,
+                  "web_fetch_requests": 0
+                },
+                "service_tier": "standard",
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 11172,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "inference_geo": "not_available",
+                "iterations": [
+                  {
+                    "input_tokens": 2,
+                    "output_tokens": 12466,
+                    "cache_read_input_tokens": 11167,
+                    "cache_creation_input_tokens": 3886,
+                    "cache_creation": {
+                      "ephemeral_5m_input_tokens": 0,
+                      "ephemeral_1h_input_tokens": 3886
+                    },
+                    "type": "message"
+                  }
+                ],
+                "speed": "standard"
+              }
+            }
+          ]
+        }
+      ],
+      "diagnosticRatings": [
+        {
+          "id": "q-m7",
+          "craft": "7",
+          "critical": "no",
+          "family": "yes",
+          "native": "yes",
+          "shipUnchanged": "yes"
+        },
+        {
+          "id": "q-r2",
+          "craft": "6",
+          "critical": "no",
+          "family": "yes",
+          "native": "yes",
+          "shipUnchanged": "uncertain"
+        },
+        {
+          "id": "q-v9",
+          "craft": "3",
+          "critical": "yes",
+          "family": "no",
+          "native": "no",
+          "shipUnchanged": "no"
+        },
+        {
+          "id": "q-x4",
+          "craft": "5",
+          "critical": "no",
+          "family": "uncertain",
+          "native": "no",
+          "shipUnchanged": "no"
+        }
+      ],
+      "craftReceiptSha256": "98091b79e1dc7896fd010e248561b14b9d1531f1a32984823c3b02387fe926e9"
+    }
+  ],
+  "nativeDispatches": 3,
+  "completeCraftReviewers": 1,
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionChargeUsd": null,
+  "costNote": "Native CLI estimates are list prices, not billed subscription charges.",
+  "priorApiLedger": {
+    "ceilingUsd": 50,
+    "reservedUsd": 11.37126575,
+    "runs": [
+      {
+        "id": "folder-lock-01",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.30503875
+      },
+      {
+        "id": "folder-lock-02",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.2293775
+      },
+      {
+        "id": "instrument-weight",
+        "reservationUsd": 10,
+        "state": "complete",
+        "actualUsd": 0.5360916
+      },
+      {
+        "id": "folder-lock-03",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.14643875
+      },
+      {
+        "id": "folder-lock-04",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.4009665
+      },
+      {
+        "id": "camera-thin",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.12789124999999998
+      },
+      {
+        "id": "camera-heavy",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.18304225
+      },
+      {
+        "id": "folder-lock-components",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.464283
+      },
+      {
+        "id": "folder-lock-components-02",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.8288172500000001
+      },
+      {
+        "id": "folder-lock-components-replay",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.0305745
+      },
+      {
+        "id": "folder-lock-components-replay-02",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.029787
+      },
+      {
+        "id": "folder-lock-companion-01",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.50104475
+      },
+      {
+        "id": "folder-lock-round-clearance",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.15121575
+      },
+      {
+        "id": "folder-lock-round-body",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 1.792056
+      },
+      {
+        "id": "folder-lock-boolean-source",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 1.4383655000000002
+      },
+      {
+        "id": "folder-lock-visual-review",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.907821
+      },
+      {
+        "id": "folder-lock-trim",
+        "reservationUsd": 6,
+        "state": "complete",
+        "actualUsd": 0.8539760000000001
+      },
+      {
+        "id": "folder-lock-retained-fill",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.36568174999999997
+      },
+      {
+        "id": "folder-lock-program-repair",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.23141974999999998
+      },
+      {
+        "id": "folder-lock-program-repair-02",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.37847525
+      },
+      {
+        "id": "folder-lock-counter-repair",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.25679
+      },
+      {
+        "id": "folder-lock-astra-repair",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.49989549999999994
+      },
+      {
+        "id": "strategy-screen-gemini-grok",
+        "reservationUsd": 4,
+        "state": "cost-unresolved",
+        "actualUsd": 0.03801525,
+        "outstandingReservationUsd": 3.96198475,
+        "members": [
+          {
+            "arm": "gemini",
+            "state": "complete",
+            "actualUsd": 0.03801525,
+            "generationId": "gen_01M1TW4XVH29XXRTFKQ1PF3NMG",
+            "finishReason": "length",
+            "elapsedMs": 64764
+          },
+          {
+            "arm": "grok",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          }
+        ]
+      },
+      {
+        "id": "strategy-screen-provider-fallback",
+        "reservationUsd": 6,
+        "state": "complete",
+        "actualUsd": 0.774424,
+        "outstandingReservationUsd": 0,
+        "members": [
+          {
+            "arm": "fableapi",
+            "state": "complete",
+            "actualUsd": 0.51112,
+            "generationId": "gen_01M1TW7M3W37XBZH640BR2VHSY",
+            "finishReason": "length",
+            "elapsedMs": 137369
+          },
+          {
+            "arm": "nanoapi",
+            "state": "complete",
+            "actualUsd": 0.148304,
+            "generationId": "gen_01M1TW7N0GXJN5RPG3YJEH2HHG",
+            "finishReason": "stop",
+            "elapsedMs": 42135
+          },
+          {
+            "arm": "seedreamapi",
+            "state": "complete",
+            "actualUsd": 0.035,
+            "generationId": "gen_01M1TW7P7BMS13YW5MB1JCJSE3",
+            "elapsedMs": 64690
+          },
+          {
+            "arm": "recraftapi",
+            "state": "complete",
+            "actualUsd": 0.08,
+            "generationId": "gen_01M1TW7Q78MKRJ58WWQPDBJ3P6",
+            "elapsedMs": 14769
+          }
+        ]
+      },
+      {
+        "id": "strategy-screen-output-budget-correction",
+        "reservationUsd": 5,
+        "state": "cost-unresolved",
+        "actualUsd": 0.121599,
+        "outstandingReservationUsd": 4.878401,
+        "members": [
+          {
+            "arm": "gemini2",
+            "state": "complete",
+            "actualUsd": 0.121599,
+            "generationId": "gen_01M1TWEAJ6903STWKG3NV6MHN4",
+            "finishReason": "stop",
+            "elapsedMs": 190476
+          },
+          {
+            "arm": "grok2",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          },
+          {
+            "arm": "fableapi2",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          }
+        ]
+      },
+      {
+        "id": "strategy-screen-streaming",
+        "reservationUsd": 4,
+        "state": "cost-unresolved",
+        "actualUsd": 1.46912,
+        "outstandingReservationUsd": 2.53088,
+        "members": [
+          {
+            "arm": "fablestream",
+            "state": "complete",
+            "actualUsd": 1.46912,
+            "generationId": "gen_01M1TWWQ7BBXESF1BT2TZ4T0NX",
+            "finishReason": "stop",
+            "elapsedMs": 378086
+          },
+          {
+            "arm": "grokstream",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          }
+        ]
+      }
+    ],
+    "actualUsd": 13.06220785
+  }
+}

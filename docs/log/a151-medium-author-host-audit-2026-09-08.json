@@ -1,0 +1,39 @@
+{
+  "authority": "offline-host-evidence-audit",
+  "campaign": "A151",
+  "scope": "terminal-bound jellyfish-16 author proofs and DSL only",
+  "routeStatusPreserved": "rejected-visible-defects",
+  "qualified": false,
+  "artifacts": {
+    "routeTerminal": {"file": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium-terminal.json", "sha256": "ccb6da64c33c58cbca2efcb12ef606f8dd42c058b6bbaabef0811c6a99d9ae70"},
+    "outlinedProgram": {"file": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium/outlined.icon", "sha256": "31885ad3ab1db707c7885d07b181c7641fa401f2306d1ba620af370df825c760"},
+    "filledProgram": {"file": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium/filled.icon", "sha256": "f3986f18aa573431e47caaa053dcd903173cf9fa4e571046de0229b81bd090b0"},
+    "outlinedProof": {"sha256": "31b746cfb9cc659eedfa16951c7e5506189fe08552ffae8dac4f93bedd4f3f03"},
+    "filledProof": {"sha256": "6c34adc627e38d00fe731da88c394385ce3e7a1ac2841cba09c40e745b142e27"},
+    "outlinedNative": {"sha256": "7e22595c026944b225ff3fc82197d9dc9c996a043302fafe42e5a9ae7b20c40b"},
+    "filledNative": {"sha256": "d3429be1d1a423978f78d72f9f68e328b0852de69166e2d127e8796bf050d"}
+  },
+  "findings": [
+    {
+      "claim": "The filled rendering has no horizontal rim knockout corresponding to the outlined rim.",
+      "status": "host-confirmed-observation",
+      "evidence": "The outlined DSL explicitly draws `line 5,10 19,10`; the filled DSL contains a dome cutter and three vertical tentacle lines but no horizontal knockout. The exact filled proof visibly has no white horizontal rim line. Whether this deliberate cross-paint simplification is unacceptable remains a craft judgment."
+    },
+    {
+      "claim": "There are four tentacles with three mid-gray gaps at native 1x.",
+      "status": "contradicted",
+      "evidence": "Both DSL programs contain exactly three tentacle lines at x=8,12,16. The enlarged vector and native panels show three dark tentacles and two intervening gaps. The author inspection miscounted both tentacles and gaps."
+    },
+    {
+      "claim": "Outlined tentacle separation cannot be confirmed at native 1x.",
+      "status": "not-supported-as-stated",
+      "evidence": "The exact 1x proof visibly resolves three dark vertical tentacles separated by two lighter antialiased gaps. Pixel softness exists, but the claimed four-part topology does not exist, so that uncertainty is based on an incorrect count."
+    },
+    {
+      "claim": "The filled form reads as an unbroken solid skirt.",
+      "status": "partially-supported-subjective",
+      "evidence": "The dome joins the three tentacle roots without a horizontal knockout, which is objectively visible. Two light gaps remain between the tentacles, so the lower silhouette is not a single unbroken block. The severity and house-family requirement are unresolved by host geometry alone."
+    }
+  ],
+  "conclusion": "The missing filled rim is a real cross-paint difference, but the inspection's four-tentacle visibility rationale is factually wrong. This audit does not reverse the author rejection or promote the output."
+}

@@ -1,0 +1,25 @@
+{
+  "authority": "development-author-terminal-record",
+  "campaign": "A151",
+  "pair": "jellyfish-16",
+  "authorRoute": "claude-native-structured-medium",
+  "authorStatus": "rejected-visible-defects",
+  "deliveredArms": 0,
+  "authorDenominator": 1,
+  "independentReviewDispatched": false,
+  "reason": "Author self-review named a filled-paint rim knockout loss; outlined native tentacle separation remained uncertain.",
+  "aggregateTerminalHash": "9bfc0dca2b7e5e01e8a8f0f83e9c25775a61c399ed6afd4f7d8753781397c25a",
+  "routeTerminalHash": "ccb6da64c33c58cbca2efcb12ef606f8dd42c058b6bbaabef0811c6a99d9ae70",
+  "proofHashes": {
+    "outlined": "31b746cfb9cc659eedfa16951c7e5506189fe08552ffae8dac4f93bedd4f3f03",
+    "filled": "6c34adc627e38d00fe731da88c394385ce3e7a1ac2841cba09c40e745b142e27"
+  },
+  "board": {
+    "file": "docs/log/a151-medium-author-rejected-board-2026-09-08.png",
+    "sha256": "29bca4c3b67d88aeaf6a4ed37c3ae1db63163506af25fdd23303c89d86c08f1b",
+    "composition": "exact proof PNG pixels side-by-side with added status labels; no geometry rerender"
+  },
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null
+}

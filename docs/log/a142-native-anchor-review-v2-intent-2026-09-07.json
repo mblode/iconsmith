@@ -1,0 +1,28 @@
+{
+  "id": "A142-v2",
+  "status": "frozen",
+  "createdAt": "2026-09-07T13:21:39.219224+00:00",
+  "priorAttempt": "A142-v1 rejected by host packet schema before any provider dispatch; uppercase identifier",
+  "boundFiles": {
+    ".staging/native-author-screen-prep-v6-2026-09-07/manifest.json": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+    ".staging/native-author-screen-prep-v6-2026-09-07/runtime.json": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+    ".staging/native-author-screen-prep-v6-2026-09-07/run-review-a142-v2.mts": "58970c29d0c31ef47bda9289d4b4d8dff057ff9f091c1150e8d10d700ed31e7a",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-intent.json": "287a21aee693ef4e85dfdbb270b913a8dd8cbb7231061392603903bc6a060866",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/receipt.json": "1b9a1820e82c54f082b74bbc6069c852f5085d353c4bd44f780c6a002f249289",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/campaign-input.host.json": "bd8af48c841ef96927c791eaf3ef8c894e94d3b4930f7506c929b2d1050d746f",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/arm-a.png": "9595ad22d079dfbe7414c5fa4edec4b47d20fac3af4849303e2c6635c174ab1d",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-01.png": "17daece3a36a4aa09e27fbb68a6b688670720bf7bd724763ab47db06b26f4a46",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-02.png": "4b0ad562eb198286d905e7d62ad3e87b048b38516ed011135781be5eb91be023",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-03.png": "cf714ac6bbb3252b12a783eaedf37c4980480caa1e719ebe5addd477f9dbf921",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-04.png": "8b4e441f3552a6fd6e9c58cbffa7d9637ee5fad4b2e9e2efcf3e0853d4373972",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-05.png": "4a3d15da9700617200dba0e0e2f9f66008e5580e076f521b51dd785b7749634f",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-06.png": "10f8ef08274f5dab3dc32ffa8e6401790ee7a619d50d11feceee7f90b8ad7073"
+  },
+  "maximumNativeCalls": 4,
+  "perReviewerMaxMs": 240000,
+  "totalDiagnosticBudgetMs": 600000,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

@@ -1,0 +1,5 @@
+icon shield-check
+keyline portrait
+finish outlined
+part shield-outlined-0 at center scale 1
+line 8.75,12.25 10.75,14.25 15.25,8 off-axis

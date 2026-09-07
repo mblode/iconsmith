@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "a145-recovered-astra-review-budget-amendment-2026-09-07",
+  "createdAt": "2026-09-07T13:58:39.769Z",
+  "authority": "root-authorized-development-diagnostic-budget-amendment",
+  "sourcePair": "A143 scissors-16",
+  "sourceRecovery": "A144",
+  "originalPairDeadline": 1788789845893,
+  "observedRemainingMs": 326124,
+  "reviewPlan": {
+    "deliveredArms": 1,
+    "missingAuthorDenominator": 1,
+    "reviewers": [
+      "gpt-6-astra",
+      "claude-opus-5"
+    ],
+    "sequential": true,
+    "perReviewerMaxMs": 150000,
+    "settlementReserveMs": 5000,
+    "maximumNativeCalls": 4
+  },
+  "comparisonValidity": "Not an identical-budget matched-author comparison; tests bounded review completion on the sole recovered delivered arm.",
+  "qualified": false,
+  "providerCallsBeforeDispatch": 0,
+  "boundFiles": {
+    "recoveryTerminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/terminal.json",
+      "sha256": "7dc52d8f40cc1dbe8b5ff06ee1dc2734efe8ed04708220e9542d62d541d7b72d"
+    },
+    "preparer": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/prepare-review.mts",
+      "sha256": "4ef6d7545ea305e611fa5960c33a197dc35023dd1e646d28d6cd41a66e5b8211"
+    },
+    "runner": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/run-review.mts",
+      "sha256": "e62a145cdc12001e62b6031141b735f2c9676fd362497af2a7e4f0de1f4b08f4"
+    }
+  }
+}

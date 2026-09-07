@@ -1,0 +1,18 @@
+{
+  "authorized": true,
+  "experimentId": "A155",
+  "maxNativeCalls": 1,
+  "requestedEffort": "high",
+  "requestedModel": "claude-opus-5",
+  "stageCapMs": 120000,
+  "transport": "inline-claude-review-v2",
+  "inputs": {
+    ".staging/A155-inline-claude-stage3-2026-09-08/manifest.json": "2bf4e370a5ac268ee70ce10b301bf3f2fae67e2c47ef27904dccac20a674bc0f",
+    ".staging/A155-inline-claude-stage3-2026-09-08/run.mts": "38ec6aff84e08187e3f6c51c716fed3a87346d6c81e9f3fbae8fa1437494d525"
+  },
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "scope": "One-stage exposed transport diagnostic only. Historical A149 stage3 high-effort Read route; no three-stage critic qualification."
+}

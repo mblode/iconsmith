@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "A143-scissors-native16-author-screen",
+  "createdAt": "2026-09-07T13:43:58.886952+00:00",
+  "status": "frozen",
+  "manifestHash": "63500349211e89fa4e1a944e396d2112cd8b81bcdfbb32e189c52ee1d7ba73ba",
+  "pair": "scissors-16",
+  "authority": "matched-author-development-screen-not-qualified",
+  "qualified": false,
+  "budget": {
+    "pairDeadlineMs": 1200000,
+    "authorMsPerRoute": 600000,
+    "authorConcurrency": 2,
+    "independentReviewReserveMs": 480000,
+    "maxAuthorNativeCalls": 10,
+    "maxReviewNativeCalls": 4,
+    "initialConstructionCapMs": 240000,
+    "inspectionReserveMs": 90000,
+    "finalizationReserveMs": 90000
+  },
+  "requestedSlots": 4,
+  "routes": [
+    {
+      "id": "astra-native",
+      "model": "gpt-6-astra",
+      "command": "/Applications/ChatGPT.app/Contents/Resources/codex",
+      "executable": "/Applications/ChatGPT.app/Contents/Resources/codex",
+      "executableSha256": "a30ec314bbd0e3721632234d07db7c99855db3b9f1e32dbe8c791947f07e7629",
+      "billing": "native subscription",
+      "usd": null
+    },
+    {
+      "id": "claude-native-structured",
+      "model": "claude-opus-5",
+      "command": "claude",
+      "executable": "/Users/mblode/.local/share/claude/versions/2.1.263",
+      "executableSha256": "ef5d2909c8af49f31ab6d5487e90316777bc2fac170adfe8160716caa8aaf4f9",
+      "billing": "native subscription",
+      "usd": null
+    }
+  ],
+  "intentBindings": {
+    ".staging/native-author-screen-prep-v7-2026-09-07/manifest.json": "63500349211e89fa4e1a944e396d2112cd8b81bcdfbb32e189c52ee1d7ba73ba",
+    ".staging/native-author-screen-prep-v7-2026-09-07/runtime.json": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+    ".staging/native-author-screen-prep-v7-2026-09-07/run.mts": "8065f4f6c8ca7ce079c859a212a4fa574fa7dc37041dbf7c2f22cd993414419e",
+    ".staging/native-author-screen-prep-v7-2026-09-07/route.mts": "dd95f0c5d3341edd78c03b0bed156666d693016575dc99eb339fdceec5788a01",
+    ".staging/native-author-screen-prep-v7-2026-09-07/preflight-scissors-16.json": "56c738ead88cfff4c7b93686164665a8429a7913c13148e5d3fdf0f9f74460a8"
+  },
+  "cost": {
+    "apiCapUsd": 50,
+    "priorActualUsd": 13.06220785,
+    "priorReservedOrUnknownUsd": 11.37126575,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "limitations": [
+    "Scissors house variants share fixed ink intentionally; not a paint mismatch.",
+    "Native process ownership remains process-group-and-observed-descendants.",
+    "Original dispatch deadline includes independent review; no automatic retry or extension.",
+    "Development-family sources exposed; no novel or catalog qualification."
+  ]
+}

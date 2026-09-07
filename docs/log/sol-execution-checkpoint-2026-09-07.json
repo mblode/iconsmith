@@ -1,0 +1,69 @@
+{
+  "kind": "sol-plan-execution-checkpoint",
+  "date": "2026-09-07",
+  "qualified": false,
+  "implementation": {
+    "engineTests": 1656,
+    "testFiles": 132,
+    "skipped": 0,
+    "checks": [
+      {
+        "path": ".staging/sol-execution-2026-09-07/root-test-v6.log",
+        "sha256": "cb8d0f78b06acfb50bf843495740a793be3bf76332c631072777e95cbade41f7"
+      },
+      {
+        "path": ".staging/sol-execution-2026-09-07/root-types-v4.log",
+        "sha256": "2289bc2d0b9618715f8c88dd4ea4c178445f20b5c15f974d29564529a05bce9e"
+      },
+      {
+        "path": ".staging/sol-execution-2026-09-07/root-build-v3.log",
+        "sha256": "d3e4de2a2ee45e5d61e06f8e99fa1fa4504c759c470c1f5db2573020d6c4f689"
+      },
+      {
+        "path": ".staging/sol-execution-2026-09-07/root-check-v3.log",
+        "sha256": "6dd6f3f3ebb536d9cfff79d7a84089644582516714afeea49b9c1c0085fba5d2"
+      }
+    ]
+  },
+  "sourceAudit": {
+    "population": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "admissionRegressions": 0,
+    "exactReplay": 4357,
+    "sourceRasterDifferences": 1007
+  },
+  "sharedArm": {
+    "requests": 12,
+    "reviewClear": 7,
+    "incomplete": 5,
+    "renderableOutputs": 22,
+    "missingOutputs": 2,
+    "controlSlotsPending": 24,
+    "humanApproved": 0
+  },
+  "dryRun": {
+    "path": "docs/log/quality-development-campaign-dry-run-final-v3-2026-09-07.json",
+    "sha256": "ede7d0420e687e024db08459f9082837ce797b2ba0bcaa4189bb32377bb5828c",
+    "toolingHash": "258e8ef5d5c4f4ed6f9d7cb9ad54f3851c92eff6db51f8a3cc5a786e688c4c6e",
+    "requests": 40,
+    "slots": 80,
+    "providersCalled": false
+  },
+  "cost": {
+    "newApiUsd": 0,
+    "priorApiActualUsd": 13.06220785,
+    "priorApiReservedUnknownUsd": 11.37126575,
+    "nativeSubscriptionUsd": null,
+    "activeProviderRequests": 0
+  },
+  "open": [
+    "human labels and qualified critic",
+    "native16 shoulder acceptance",
+    "matched family and model comparison",
+    "measured prompt efficiency improvement",
+    "80-output frozen development cohort",
+    "8884-slot catalog and two novel batches",
+    "external CLI runtime identity freeze"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "algorithm": "tools/lint minDistance: parsePath, flatten 12, polylineDistance, then subtract half combined stroke widths",
+  "after": {
+    "dslParts": [
+      "hammer-filled-0",
+      "hammer-filled-1"
+    ],
+    "elementIds": [
+      "e0",
+      "e1"
+    ],
+    "elementKinds": [
+      "part",
+      "part"
+    ],
+    "gapDesignUnits": 1.6052538491461976,
+    "gapNativePixels": 1.0701692327641317,
+    "programSha256": "f47bce3a5125536b6a3f9691c2beb2c32ae2957d2ea1cf605784834fe280e1d1"
+  },
+  "before": {
+    "dslParts": [
+      "hammer-filled-0",
+      "hammer-filled-1"
+    ],
+    "elementIds": [
+      "e0",
+      "e1"
+    ],
+    "elementKinds": [
+      "part",
+      "part"
+    ],
+    "gapDesignUnits": 1.2517048839238127,
+    "gapNativePixels": 0.8344699226158752,
+    "programSha256": "eaf7ed38f2ac95eee4abfa4a49bc5ea0c091a1c4193bfdbf6ff34869f9155e9e"
+  },
+  "candidateCheckSha256": "710f95f8c16b308a08b6acf8d96e8df8beefd0dc3f03a9060e37903daf061271",
+  "nativeSize": 16,
+  "promoted": false,
+  "requiredMinGapDesignUnits": 1.5,
+  "scaleNativePixelsPerDesignUnit": 0.6666666666666666
+}

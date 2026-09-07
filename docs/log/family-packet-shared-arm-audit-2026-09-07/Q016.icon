@@ -1,0 +1,6 @@
+icon hammer-check
+keyline circle
+finish filled
+part hammer-filled-0 at 4,2 size 11.745 flip
+part hammer-filled-1 at 2,9 scale 0.7 flip
+part circle-check-filled-0 at 12,12 size 10

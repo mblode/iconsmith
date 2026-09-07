@@ -4,14 +4,23 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { loadAliases } from "../src/corpus/aliases.js";
+import type { RoleAssignment } from "../src/corpus/concepts.js";
 import { asReference } from "../src/pipeline/licence.js";
 import { createStyleRevision, selectStyle } from "../src/pipeline/style.js";
 import type { StyleRevision } from "../src/pipeline/style.js";
 import { opticalProof } from "../src/tools/proof.js";
 import { sheet } from "../src/tools/render.js";
-import { admitFamilyParts } from "./family-parts.js";
+import { loadCatalogFamilies } from "./catalog-families.js";
 import type { FamilySource } from "./family-parts.js";
+import {
+  applyFamilyReferencePacket,
+  createFamilyReferencePacket,
+  parseFamilyReferencePacket,
+  verifyFamilyPacketInventory,
+} from "./family-reference-packet.js";
+import type { FamilyReferencePacket } from "./family-reference-packet.js";
 import { reviewImages } from "./local-review.js";
+import { referenceProofs } from "./reference-proofs.js";
 
 const hash = (value: string) =>
   createHash("sha256").update(value).digest("hex");
@@ -25,10 +34,27 @@ export const libraryCandidates = (
   sources: readonly FamilySource[],
   concept: string,
   aliases: ReadonlyMap<string, readonly string[]>,
-  exclusions: readonly string[] = []
+  exclusions: readonly string[] = [],
+  catalogRoles: readonly RoleAssignment[] = []
 ) => {
   const blocked = new Set([concept, ...exclusions].map(normalize));
+  const explicit = new Set(exclusions.map(normalize));
+  const excludedFamilies = new Set(
+    catalogRoles
+      .filter(({ slug, head, family }) =>
+        [slug, head, family, ...(aliases.get(slug) ?? [])].some((term) =>
+          explicit.has(normalize(term))
+        )
+      )
+      .map(({ family }) => family)
+  );
+  const excludedMembers = new Set(
+    catalogRoles
+      .filter(({ family }) => excludedFamilies.has(family))
+      .map(({ slug }) => slug)
+  );
   const matches = (source: FamilySource) =>
+    excludedMembers.has(source.name) ||
     [source.name, ...(aliases.get(source.name) ?? [])].some((term) =>
       blocked.has(normalize(term))
     );
@@ -49,6 +75,7 @@ export const retrieveLocalStyle = async (options: {
   out: string;
   deadlineAt?: number;
   exclusions?: readonly string[];
+  familyPacket?: FamilyReferencePacket;
   review?: typeof reviewImages;
 }) => {
   const assertTime = () => {
@@ -69,6 +96,28 @@ export const retrieveLocalStyle = async (options: {
   mkdirSync(out, { recursive: false });
   const save = (name: string, value: unknown) =>
     writeFileSync(path.join(out, name), JSON.stringify(value, null, 2));
+  const savePacketProofs = async (
+    packet: FamilyReferencePacket,
+    nativeSize: number
+  ) => {
+    const proofs = await referenceProofs(
+      packet.sources.map((source) => source.svg),
+      nativeSize,
+      assertTime
+    );
+    for (const proof of proofs) {
+      writeFileSync(path.join(out, proof.manifest.name), proof.proof);
+    }
+    save(
+      "family-packet-proofs.json",
+      proofs.map((proof, index) => ({
+        ...proof.manifest,
+        finish: packet.sources[index].finish,
+        intent: packet.sources[index].intent,
+        sourceName: packet.sources[index].name,
+      }))
+    );
+  };
   const sources: FamilySource[] = readdirSync(options.library)
     .filter((file) => /^[a-z][a-z0-9-]*\.svg$/u.test(file))
     .toSorted()
@@ -82,11 +131,22 @@ export const retrieveLocalStyle = async (options: {
     throw new Error("Retrieval library contains no supported SVG filenames");
   }
   const { aliases, from } = await loadAliases();
+  const catalog = loadCatalogFamilies(
+    options.library,
+    options.set,
+    sources.map(({ name }) => name)
+  );
+  const librarySourceHash = hash(
+    JSON.stringify(
+      sources.map(({ name, finish, svg }) => ({ finish, name, svg }))
+    )
+  );
   const candidates = libraryCandidates(
     sources,
     concept,
     aliases,
-    options.exclusions
+    options.exclusions,
+    catalog.roles
   );
   const excludedHashes = new Set(
     sources
@@ -107,25 +167,74 @@ export const retrieveLocalStyle = async (options: {
     throw new Error("No library candidates remain after exclusions");
   }
   save("inventory.json", {
+    aliasHash: hash(JSON.stringify([...aliases])),
     aliasSources: from,
     candidateCount: candidates.length,
+    catalogFamilyIdentity: catalog.identity,
+    catalogFamilyStatus: catalog.status,
     concept,
     exclusions: options.exclusions ?? [],
     names,
     sourceCount: sources.length,
-    sourceHash: hash(
-      JSON.stringify(
-        sources.map(({ name, finish, svg }) => ({ finish, name, svg }))
-      )
+    sourceHash: librarySourceHash,
+  });
+  const review = options.review ?? reviewImages;
+  const base = createStyleRevision({
+    ...revision.definition,
+    parts: revision.definition.parts.filter((p) => p.master !== master),
+    references: revision.definition.references.filter(
+      (r) => r.master !== master
     ),
   });
+  if (options.familyPacket) {
+    const packet = parseFamilyReferencePacket(options.familyPacket);
+    if (packet.concept !== concept) {
+      throw new Error("Family reference packet concept mismatch");
+    }
+    verifyFamilyPacketInventory(
+      packet,
+      sources,
+      librarySourceHash,
+      options.set,
+      options.exclusions ?? [],
+      excludedHashes,
+      catalog.roles,
+      aliases.get(concept) ?? []
+    );
+    const applied = await applyFamilyReferencePacket(base, master, packet);
+    save("family-packet.json", packet);
+    await savePacketProofs(packet, style.spec.size);
+    save("selection.json", {
+      applicationHash: applied.applicationHash,
+      concept,
+      master,
+      masterSpecHash: applied.masterSpecHash,
+      packetHash: packet.packetHash,
+      qualification: packet.qualification,
+      reused: true,
+      rows: applied.admissions,
+      status: "selected",
+    });
+    writeFileSync(
+      path.join(out, "selected.png"),
+      await sheet(
+        selectStyle(applied.revision, master).references.map((r) => r.svg),
+        {
+          cols: 4,
+          size: 96,
+        }
+      )
+    );
+    assertTime();
+    save("revision.json", applied.revision.definition);
+    return applied.revision;
+  }
   if (!anchors.length) {
     throw new Error(
       "Automatic retrieval needs pinned style references as its visual style anchor"
     );
   }
-  const review = options.review ?? reviewImages;
-  const roles = ["body", "modifier", "construction"];
+  const roles = ["body", "modifier", "construction"] as const;
   assertTime();
   const discovery = await review({
     deadlineAt: options.deadlineAt,
@@ -190,61 +299,55 @@ export const retrieveLocalStyle = async (options: {
     throw new Error("Visual retrieval failed; inspect selection receipt");
   }
   // Retrieved dependencies replace this master's manually selected packet.
-  let result = createStyleRevision({
-    ...revision.definition,
-    parts: revision.definition.parts.filter((p) => p.master !== master),
-    references: revision.definition.references.filter(
-      (r) => r.master !== master
-    ),
-  });
-  const rows = [];
+  const packetSources = [];
   for (const [index, source] of shortlisted.entries()) {
     const decision = visualAnswers[`candidate-${index}`];
-    let admission = "not-requested";
     if (decision.choice !== "reject") {
-      result = createStyleRevision({
-        ...result.definition,
-        references: [
-          ...result.definition.references,
-          {
-            master,
-            name: `${source.name}-${source.finish}`,
-            provenance: source.provenance,
-            svg: source.svg,
-          },
-        ],
+      const polarity = roles.find(
+        (role) => discoveryAnswers[role].choice === source.name
+      );
+      packetSources.push({
+        admissionRequested: decision.choice === "reference-and-parts",
+        intent: {
+          evidence: decision.evidence,
+          polarity: polarity ?? "construction",
+          treatment: decision.treatment,
+        },
+        source,
       });
-      if (decision.choice === "reference-and-parts") {
-        try {
-          // eslint-disable-next-line no-await-in-loop
-          result = await admitFamilyParts(result, master, [source]);
-          admission = "admitted";
-        } catch (error) {
-          admission = String(error);
-        }
-      }
     }
-    rows.push({
-      ...decision,
-      admission,
-      finish: source.finish,
-      name: source.name,
-      sha256: hash(source.svg),
-    });
   }
-  save("selection.json", {
+  if (!packetSources.length) {
+    throw new Error("Visual retrieval rejected every candidate");
+  }
+  const packet = createFamilyReferencePacket({
+    aliases: aliases.get(concept) ?? [],
+    catalogRoles: catalog.roles,
     concept,
-    qualification:
-      "development; exclusions do not prove semantic holdout isolation",
+    excludedFamilies: options.exclusions ?? [],
+    excludedSourceHashes: [...excludedHashes],
+    librarySet: options.set,
+    librarySourceHash,
+    sources: packetSources,
+  });
+  const applied = await applyFamilyReferencePacket(base, master, packet);
+  const result = applied.revision;
+  save("family-packet.json", packet);
+  await savePacketProofs(packet, style.spec.size);
+  save("selection.json", {
+    applicationHash: applied.applicationHash,
+    concept,
+    master,
+    masterSpecHash: applied.masterSpecHash,
+    packetHash: packet.packetHash,
+    qualification: packet.qualification,
+    reused: false,
     revisionHash: result.hash,
-    rows,
+    rows: applied.admissions,
     status: result.definition.references.some((r) => r.master === master)
       ? "selected"
       : "empty",
   });
-  if (!result.definition.references.some((r) => r.master === master)) {
-    throw new Error("Visual retrieval rejected every candidate");
-  }
   writeFileSync(
     path.join(out, "selected.png"),
     await sheet(

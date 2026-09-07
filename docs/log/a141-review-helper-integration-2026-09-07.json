@@ -1,0 +1,49 @@
+{
+  "authority": "delivered-author-development-review-preparation-only",
+  "candidateSha256": "cacb6f6e54a6e6abf9e73183354862795f9d2440f0bd8aed838bd70e654954d5",
+  "checksSha256": "edb9750f3cea6e523ad0b1fd87a8dca13cb6070701fd86a0c8b3a3dfaa953503",
+  "familyProofs": [
+    {
+      "metadataSha256": "bf726492797ae3617c3b88a27065b13418a4966c2f731e79b921b6a9e791ad07",
+      "path": "/tmp/a141-author-review-helper-integration/review-packet/anchor-01.png",
+      "sha256": "17daece3a36a4aa09e27fbb68a6b688670720bf7bd724763ab47db06b26f4a46"
+    },
+    {
+      "metadataSha256": "5e568b82223b4cc25fc4bc9bd9ffd1eb3fd52315d5d942698890c6333f565d61",
+      "path": "/tmp/a141-author-review-helper-integration/review-packet/anchor-02.png",
+      "sha256": "4b0ad562eb198286d905e7d62ad3e87b048b38516ed011135781be5eb91be023"
+    },
+    {
+      "metadataSha256": "e058ef19b9819c875fd268f77564511679492c0b8206d84c6fa6cea8121278cd",
+      "path": "/tmp/a141-author-review-helper-integration/review-packet/anchor-03.png",
+      "sha256": "cf714ac6bbb3252b12a783eaedf37c4980480caa1e719ebe5addd477f9dbf921"
+    },
+    {
+      "metadataSha256": "5f4a8ac449e795b8798646516368d764131dbbd15dde4981cb00dc4994c447a8",
+      "path": "/tmp/a141-author-review-helper-integration/review-packet/anchor-04.png",
+      "sha256": "8b4e441f3552a6fd6e9c58cbffa7d9637ee5fad4b2e9e2efcf3e0853d4373972"
+    },
+    {
+      "metadataSha256": "b26e20ca684376c207fecc44dd1f7fd71236f99e210acda653ac3d19bbac4f08",
+      "path": "/tmp/a141-author-review-helper-integration/review-packet/anchor-05.png",
+      "sha256": "4a3d15da9700617200dba0e0e2f9f66008e5580e076f521b51dd785b7749634f"
+    },
+    {
+      "metadataSha256": "16210e61433d95b339e1d1a3452ae3209ccef1a84392571c309aa196071cccb6",
+      "path": "/tmp/a141-author-review-helper-integration/review-packet/anchor-06.png",
+      "sha256": "10f8ef08274f5dab3dc32ffa8e6401790ee7a619d50d11feceee7f90b8ad7073"
+    }
+  ],
+  "finalAuthorReviewSha256": "1354668707c443991216af33420bc814e94ba12aa348eb0cef16e1a85be955ed",
+  "finalReviewMarkdownSha256": "375fc1a295fec17839213d05fff599364107ed461d5a0297188c33211f302194",
+  "inputHash": "08ac2f62c85fcc346332192de563795fa8ad3910758c5b88398630bba5ce5b21",
+  "inspectionReceiptSha256": "539579704a2fe9beaec3d1f41d97f8c6b26e552d8abcc6bffd1cdb195c4c976a",
+  "packetId": "a141-helper-integration",
+  "qualified": false,
+  "sourceIdentity": {
+    "familyPacketHash": "c1003b66ab0e4a22fa06563dd5b144b88948376de35571db7e317a4e72a6ae91",
+    "meaningsHash": "4025be45135ed4314ab5a448ef93df52a2b771db3e9e05e88142511ded824bb4",
+    "pairHash": "4800d4e70ffaa4def44d3cd4513e4de433241416807309c088521b235537802f"
+  },
+  "terminalSha256": "c5cd3dc26b9ce341815234dd267677bf5aaae9e1149d6337591c840b2f089147"
+}

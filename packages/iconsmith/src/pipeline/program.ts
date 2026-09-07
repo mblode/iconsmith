@@ -152,6 +152,7 @@ const turnSuffix = (turn: unknown): string => {
 
 interface PartPlacement {
   at?: string;
+  centered?: string;
   fill?: boolean;
   flip?: boolean;
   name: string;
@@ -163,6 +164,9 @@ interface PartPlacement {
  *  `size` and `fill` are alternatives in the grammar, so asking for both is a
  *  refusal rather than a silent precedence rule. */
 const partLine = (place: PartPlacement): string => {
+  if (place.at !== undefined && place.centered !== undefined) {
+    throw new Error("a part takes either `at` or `center`, not both");
+  }
   if (place.fill && place.size !== undefined) {
     throw new Error(
       "a part takes `size` or `fill`, not both: `fill` scales to the keyline, " +
@@ -172,6 +176,8 @@ const partLine = (place: PartPlacement): string => {
   const bits = [`part ${word(place.name, "part name")}`];
   if (place.at !== undefined) {
     bits.push(`at ${place.at}`);
+  } else if (place.centered !== undefined) {
+    bits.push(`centered at ${place.centered}`);
   }
   if (place.fill) {
     bits.push("fill");
@@ -392,12 +398,16 @@ export const runProgram = async (
         ),
       part: (a: {
         at?: [number, number] | string;
+        center?: [number, number];
         fill?: boolean;
         flip?: boolean;
         name: string;
         size?: number;
         turn?: string;
       }) => {
+        if (a.at !== undefined && a.center !== undefined) {
+          throw new Error("draw.part takes either `at` or `center`, not both");
+        }
         let at: string | undefined;
         if (Array.isArray(a.at)) {
           at = pair(a.at[0], a.at[1], "at");
@@ -407,6 +417,9 @@ export const runProgram = async (
         return emit(
           partLine({
             at,
+            centered: a.center
+              ? pair(a.center[0], a.center[1], "center")
+              : undefined,
             fill: a.fill,
             flip: a.flip,
             name: a.name,
@@ -666,8 +679,8 @@ export const CALLING_CONVENTION = [
   "  weight is optional and accepts only the named role detail; its width comes from the selected spec.",
   "  await draw.dot({ cx, cy, role })",
   "  await draw.hole({ shape: 'circle' | 'rect' | 'line', ... })",
-  "  await draw.part({ name, at, size, fill, turn, flip })",
-  "      `at` is [x, y] (top-left) or an anchor name; `turn` is cw | half | ccw",
+  "  await draw.part({ name, at, center, size, fill, turn, flip })",
+  "      `at` is [x, y] (top-left) or an anchor name; `center` is an explicit [cx, cy] and cannot be combined with `at`; `turn` is cw | half | ccw",
   "  await draw.center() / draw.fit() / draw.cohort(name)",
   "",
   "Repetition, where the host computes every position:",

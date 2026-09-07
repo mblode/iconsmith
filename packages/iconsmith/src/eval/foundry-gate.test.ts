@@ -6,6 +6,7 @@ import {
   decidePilot,
   qualifyCraftJudge,
   qualifyInstrument,
+  qualifySealedCraftJudge,
 } from "./foundry-gate.js";
 import type {
   InstrumentTrial,
@@ -237,5 +238,35 @@ describe("human-anchored craft judge", () => {
       criticalDetected: 35,
       qualified: false,
     });
+  });
+  it("binds qualification to the frozen critic and unseen roster", () => {
+    const sealed = {
+      controls,
+      frozenInstrumentHash: hash("critic-v1"),
+      frozenRosterHash: hash("roster-v1"),
+      labelsExposedBeforePrediction: false,
+      observations: rows,
+      observedInstrumentHash: hash("critic-v1"),
+      observedRosterHash: hash("roster-v1"),
+    };
+    expect(qualifySealedCraftJudge(sealed).qualified).toBe(true);
+    expect(
+      qualifySealedCraftJudge({
+        ...sealed,
+        observedInstrumentHash: hash("critic-v2"),
+      }).qualified
+    ).toBe(false);
+    expect(
+      qualifySealedCraftJudge({
+        ...sealed,
+        labelsExposedBeforePrediction: true,
+      }).qualified
+    ).toBe(false);
+    expect(
+      qualifySealedCraftJudge({
+        ...sealed,
+        labelsExposedBeforePrediction: undefined,
+      } as unknown as Parameters<typeof qualifySealedCraftJudge>[0]).qualified
+    ).toBe(false);
   });
 });

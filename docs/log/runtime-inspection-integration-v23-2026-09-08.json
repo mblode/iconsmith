@@ -1,0 +1,40 @@
+{
+  "kind": "runtime-inspection-integration-v23",
+  "createdAt": "2026-09-07T14:02:43.000112+00:00",
+  "tests": 1822,
+  "files": 157,
+  "skipped": 0,
+  "build": 0,
+  "typecheck": 0,
+  "check": 0,
+  "qualified": false,
+  "logs": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-test-v23.log",
+      "sha256": "9916fa2e2733a8793ba3266ddd1155dae120ed9457c19e4a61c89379e1534104"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-build-v23.log",
+      "sha256": "53e6d787f3f30cab1cfc0f3e54e9c79001ecc0469abdd8eac872dc73ce8de1df"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-typecheck-v23.log",
+      "sha256": "811e6879f151b53830338164d99901c0490bbe344e928edbac51080ada2b4d44"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-check-v23.log",
+      "sha256": "a5a46747e12e14fe68eb393c4aa5362fb41da1f0a96d7a15bc2c6b9f3915ddc9"
+    }
+  ],
+  "sources": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/local-structured-author.ts",
+      "sha256": "22c6a9d102e0959ce4c4c8429999354d85a815197b4d1790594c91b501dab5e7"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/local-structured-author.test.ts",
+      "sha256": "d9cc81f924bfa05e369da460fbabea26fdf5df6ce60e431afa019b251a563dd3"
+    }
+  ],
+  "liveImprovementMeasured": false
+}

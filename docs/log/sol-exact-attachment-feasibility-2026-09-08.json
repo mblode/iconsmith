@@ -1,0 +1,23 @@
+{
+  "kind": "native-sol-exact-attachment-feasibility",
+  "status": "complete",
+  "completedAt": "2026-09-07T14:06:46.637Z",
+  "qualified": false,
+  "apiCostUsd": 0,
+  "nativeCost": "unknown",
+  "requestedModel": "gpt-5.6-sol",
+  "actualModel": "gpt-5.6-sol",
+  "evidenceSha256": "27e3424d198301063784ff33da221bf593fee8ac5a77bf48f8ac0686ca55d2e2",
+  "evidenceHashes": {
+    "exposed-development.png": "27e3424d198301063784ff33da221bf593fee8ac5a77bf48f8ac0686ca55d2e2"
+  },
+  "answer": {
+    "choice": "inspected",
+    "evidence": "A rounded document outline visibly connects to circular nodes at the upper-left and lower-right.",
+    "treatment": "Inspected the attached image’s enlarged and native 1×/2× proofs in both light and dark treatments."
+  },
+  "reason": null,
+  "reviewSha256": "6e7cba3582bf7d2672a18860e05fe1c150dd5bf6dfd27fd7ed18ca57bff68a7a",
+  "processSha256": "9b2f738e2b5019f9e217930e6796e90c4fcc9f7df17e493ae4f6dc831f4fe14b",
+  "requestSha256": "103ac5b4ac13a2f91252914994a144570060ddab88a807c9fb869820f681e9e9"
+}

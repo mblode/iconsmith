@@ -1,0 +1,1133 @@
+{
+  "artifacts": [
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "4ed53348527e69cb573e5a37e28bff4ddc33046ad59771b18b407e705774cf54",
+        "style": "1d2261ec034382171c7fe42e3ebb2df827d4c6c1c2802f960eef1f5762deef58",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "f4b6dc21a4c886bf70c8233084673de27bfb9fe8e5038b7933e221b0c365f08d"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "ee15c67538c875fe32bb82e3229ae80ca1fbdf87c229a9ab66a8f7d2fd7ecfdd"
+            }
+          },
+          "traceSha256": "945cfa67dfaec9735db8030f8ba0e6afffeaa13d11cf33027ca8f227242044ea",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1",
+            "hash": "4c8b9e4ccec8e91f5c8876cfde3a17aa38009f558f55290b74a29d441a5bbc9e",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 447833,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788761176849,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 218,
+          "retrieval": 104324,
+          "generation": 343291
+        }
+      },
+      "source": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 447833,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q001",
+      "master": "24",
+      "nativeImageSha256": "49e17da0bb38d1e6f04120fa39151d023fa53ba5790bfc4cb439de0421a3552d",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "02284460f02130faeea3a22fe9efd9baf622cd32cf8d3e928963963c9156a7cd",
+      "replay": true,
+      "revisionHash": "f07560bfdd11f37783b46c5e935a6c390d86dbca3709446752d2aade4a4e5270",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "6649ada899d09ca33bf6266ebde62e9b38f4f2c0e9e2116ddacbd6b098479e67"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "8cd3a8a728825ff3afc82472685f812202db3b0ad9b60848a60103224e4f50e8",
+        "style": "8fada6ada2a00506f19deb3cfe0c96ccc28bc94a66e48a3e7133c034e8d1285c",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "37c137a2fcbabd661fae97f2de1f7e4a488c7aab9caa50393b88899bc6f10594"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "5880fdfc9f3fda132fb2e812986cde8773b8adf43795195d4f1cca31ebe719c7"
+            }
+          },
+          "traceSha256": "7cb09fe0c5c629b71fbfa6487237f75dc56cae1de6c58a54543f0f8e7e25ab91",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1",
+            "hash": "990514b196cd3357ed9813236a62c5dcaba2ef3c521f578c685ec00507ce9775",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 374743,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788761176853,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 214,
+          "retrieval": 104324,
+          "generation": 270205
+        }
+      },
+      "source": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 374743,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 19.0°, 19.0° off the nearest permitted axis (0°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 161.0°, 19.0° off the nearest permitted axis (0°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e1\" has an edge at 125.8°, 9.2° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q002",
+      "master": "24",
+      "nativeImageSha256": "d4c22a1931391cc612ad9ae9adf97519a5bb4cf8c32c7b3787f4b4822d9e1553",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "0b0eef1ff65d1a4f967eeb065bca1e645b78ae56c2b0f5b74cd7b9429d25cd1b",
+      "replay": true,
+      "revisionHash": "8303234adfa7e0969b4ca3321e8b4c87aab5c7e24f51b3f785939d9a4067530e",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "f7ed7c51d39dc7b6df4d7663a71a25fbea29e4664954c3ef935f6e9f2cc838fd"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "8cd3a8a728825ff3afc82472685f812202db3b0ad9b60848a60103224e4f50e8",
+        "style": "8fada6ada2a00506f19deb3cfe0c96ccc28bc94a66e48a3e7133c034e8d1285c",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "37c137a2fcbabd661fae97f2de1f7e4a488c7aab9caa50393b88899bc6f10594"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "5880fdfc9f3fda132fb2e812986cde8773b8adf43795195d4f1cca31ebe719c7"
+            }
+          },
+          "traceSha256": "7cb09fe0c5c629b71fbfa6487237f75dc56cae1de6c58a54543f0f8e7e25ab91",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1",
+            "hash": "990514b196cd3357ed9813236a62c5dcaba2ef3c521f578c685ec00507ce9775",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 374743,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788761176853,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 214,
+          "retrieval": 104324,
+          "generation": 270205
+        }
+      },
+      "source": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 374743,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q003",
+      "master": "24",
+      "nativeImageSha256": "2c2cdac23f58ff4f3cf715cb1141ff89fe88a2fd3d6e7331ad4253c15e663d80",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "52b5f3978079e4f33ee84c46ea5b096cfb603f3e089af52bb4c00ac17bbcf3bf",
+      "replay": true,
+      "revisionHash": "8303234adfa7e0969b4ca3321e8b4c87aab5c7e24f51b3f785939d9a4067530e",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "80ab37a1b96b96d2ccba7bc952e6cbca75c76e8787f4c8ec7ef0c09ed76ace96"
+    },
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "4ed53348527e69cb573e5a37e28bff4ddc33046ad59771b18b407e705774cf54",
+        "style": "1d2261ec034382171c7fe42e3ebb2df827d4c6c1c2802f960eef1f5762deef58",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "f4b6dc21a4c886bf70c8233084673de27bfb9fe8e5038b7933e221b0c365f08d"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "ee15c67538c875fe32bb82e3229ae80ca1fbdf87c229a9ab66a8f7d2fd7ecfdd"
+            }
+          },
+          "traceSha256": "945cfa67dfaec9735db8030f8ba0e6afffeaa13d11cf33027ca8f227242044ea",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1",
+            "hash": "4c8b9e4ccec8e91f5c8876cfde3a17aa38009f558f55290b74a29d441a5bbc9e",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 447833,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788761176849,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 218,
+          "retrieval": 104324,
+          "generation": 343291
+        }
+      },
+      "source": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 447833,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.6 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.4 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q004",
+      "master": "24",
+      "nativeImageSha256": "3c1eca95b48f53c2d7b040ec9d7ab64d449c4a73334ace04c828593293c37703",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "ba8a7a701e40d1e88dc64eec5919b800b50913b2677be266e66434dec47aa1a9",
+      "replay": true,
+      "revisionHash": "f07560bfdd11f37783b46c5e935a6c390d86dbca3709446752d2aade4a4e5270",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "657fa3a3059780d2e4fcff00ef99fb66fb23ddd49535dcc3b459c4037e551255"
+    }
+  ],
+  "manifestHash": "3d75f40f4ed3dd34dc079181cb18eee16753017338521d1dc3a0ac6abd257a28",
+  "missing": [
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    }
+  ],
+  "qualified": false
+}

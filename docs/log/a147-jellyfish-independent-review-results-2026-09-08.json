@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "id": "a147-jellyfish-independent-review-results",
+  "createdAt": "2026-09-07T14:24:37.617Z",
+  "scope": "development-ai-review",
+  "qualified": false,
+  "instrumentQualified": false,
+  "source": {
+    "authorIntent": "docs/log/a147-jellyfish-author-intent-2026-09-08.json",
+    "authorIntentHash": "556611b36831d0d7e93746193acaddb4a2078b6e65194cfebce28302042326e1",
+    "manifestHash": "2a2ec6a049c52b5c3db899af914ea32467da72cfbd5f50fda0a7d4d60253463e",
+    "pairHash": "cd3b4aedaa149959823a3025537fab4778705f711e9fcfa7f02aba33ecf2d73c",
+    "authorAggregateTerminalHash": "4ebfdb914f8379d58eb140d50cf30c47b9ae05e93624311105dd607315499fe8",
+    "astraAuthorTerminalHash": "c42e0b86e14badfb7392eb590aca76ed7815dc1749b07072aeef89a70cb919bc",
+    "claudeAuthorTerminalHash": "b34d4b19cfb5ceb2020447451cfc881f061db9cf6b7ffeb7349108a0108e29af",
+    "reviewPreparationHash": "409394a3c73833042294c6b4a1285dff212878c24680b6dfd2c88aee2adf6792",
+    "reviewInputHash": "063d40cbc51e0f55943c5451c00d7d5986ac076dd2affc14ded9cba21ba6d4b1",
+    "reviewIntentHash": "7c8913f0336dc65f4986b51f190ae77c218b32627a3eb5709b99e7106a72d9a8",
+    "campaignIntentHash": "3f73d9166206b2018dd3742522bbf2bd2d1cf5c3631048731156f4c66c05c17a"
+  },
+  "accounting": {
+    "authorArms": 2,
+    "deliveredAuthorArms": 1,
+    "incompleteAuthorArms": 1,
+    "reviewers": 2,
+    "completeReviewers": 2,
+    "nativeReviewCalls": 4,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null,
+    "astraAuthorNativeCalls": 3,
+    "claudeAuthorNativeCalls": 1,
+    "authorNativeCalls": 4,
+    "reviewNativeCalls": 4,
+    "totalNativeCalls": 8
+  },
+  "routes": [
+    {
+      "id": "codex",
+      "status": "complete",
+      "model": "gpt-6-astra",
+      "elapsedMs": 46976,
+      "terminalHash": "287cbd5d7a7684d9de6b17372732ab326c08c787292e374140ce1efd30c10e19",
+      "resultFileHash": "13e85a154595f347d3c3c85c1b36846581841d42549ab38663d44bf68f57779f",
+      "resultHash": "c67dc8c00e903723bb60fda84b8e81b4029d977de0f0d32de219e473f87b6850",
+      "artifactTreeHash": "297c5a01616b75f6cd7332e7916532af8be993bc6910c65f62a57c051b03ea91"
+    },
+    {
+      "id": "claude",
+      "status": "complete",
+      "model": "claude-opus-5",
+      "elapsedMs": 119626,
+      "terminalHash": "14580a9510cc051e86677b49810e6e3a4b12bf6fbac096a2aa439bb1dc0067d2",
+      "resultFileHash": "f0567700d4ce29c4c939e60364c2df180c892ac66aad39b8e3df69a41fbe42c7",
+      "resultHash": "bb02ab3c7dd91769d23dae4836db3df51dacc6764711e0d89896b09b586ed66d",
+      "artifactTreeHash": "e9dffe6e2bc466c45d5395b837d72b2220ba668e24cb145ef0a5509b5974b19d"
+    }
+  ],
+  "assessment": {
+    "campaignIntentHash": "3f73d9166206b2018dd3742522bbf2bd2d1cf5c3631048731156f4c66c05c17a",
+    "instrumentQualified": false,
+    "outcomes": [
+      {
+        "completeReviewers": 2,
+        "conflicts": [
+          "ship"
+        ],
+        "id": "arm-a",
+        "imageSha256": "5f83c0493c3df4d56400ef1f3182b1f4a8e4c551967ed28ec2521b86cfa128fd",
+        "incompleteReviewers": 0,
+        "reviews": [
+          {
+            "complete": true,
+            "identity": {
+              "model": "gpt-6-astra",
+              "provider": "openai-codex"
+            },
+            "judgment": {
+              "craft": 9,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "jellyfish",
+              "ship": "yes"
+            },
+            "route": "codex"
+          },
+          {
+            "complete": true,
+            "identity": {
+              "model": "claude-opus-5",
+              "provider": "anthropic-claude"
+            },
+            "judgment": {
+              "craft": 6,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "jellyfish",
+              "ship": "no"
+            },
+            "route": "claude"
+          }
+        ],
+        "status": "uncertain"
+      }
+    ],
+    "qualified": false,
+    "scope": "development-ai-review"
+  },
+  "board": {
+    "file": "docs/log/a147-jellyfish-review-board-2026-09-08.png",
+    "sha256": "c6289dd730239570fdaefbb090320611b880cbb8c9dc5730188a057b3aec1bb5",
+    "embeddedProofs": [
+      {
+        "file": "astra-native/outlined.proof.png",
+        "sha256": "0763a4613b4478264cdf95c902e88353f823f02b8e61e0ff4601c23f789aa9fb",
+        "width": 480,
+        "height": 432
+      },
+      {
+        "file": "astra-native/filled.proof.png",
+        "sha256": "9c6971294978dc8ef879e86025b2ae9b69c9ec8ec2b2dfcc4801b6b75fafa556",
+        "width": 480,
+        "height": 432
+      }
+    ],
+    "claudeAuthorArtifactStatus": "none available; author terminal incomplete"
+  },
+  "limitations": [
+    "One delivered author arm cannot establish matched-route superiority.",
+    "The Astra author and Codex Astra reviewer share a model identity.",
+    "The reviewers disagree on ship readiness; the assessment remains uncertain.",
+    "The incomplete Claude author arm remains in the denominator and contributed no candidate artifact."
+  ],
+  "objectiveReviewerContradiction": {
+    "status": "localized-reviewer-factual-contradiction-unresolved",
+    "reviewer": "anthropic-claude/claude-opus-5",
+    "reviewerClaim": "The craft-6/ship-no rationale says the outlined icon has four tentacles, two inner tentacles lack a landing contour, and the bell has no underside rim.",
+    "hostBoundEvidence": {
+      "candidateBoardSha256": "5f83c0493c3df4d56400ef1f3182b1f4a8e4c551967ed28ec2521b86cfa128fd",
+      "outlinedProofSha256": "0763a4613b4478264cdf95c902e88353f823f02b8e61e0ff4601c23f789aa9fb",
+      "outlinedProgramSha256": "65d44004934a2b71c29fc5edfcc7ca0a3d9574ce69f417f24e558e98dfd36b13",
+      "outlinedProgramFacts": [
+        "The DSL contains exactly three tentacle line commands.",
+        "The DSL explicitly contains `line 3,12 21,12`, forming a continuous horizontal underside rim."
+      ],
+      "outlinedSvgFacts": [
+        "The compiled SVG contains a distinct path `M3 12L21 12`.",
+        "It contains three downward tentacle paths starting at x=7, x=12, and x=17."
+      ]
+    },
+    "interpretation": "The stated missing-rim/four-tentacle diagnosis conflicts with immutable program and compiled geometry. Raw craft 6 and ship no remain preserved, so the ensemble still fails and stays uncertain; this receipt does not accept the output or authorize a redraw."
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "controls": [
+    {
+      "first": "S001",
+      "id": "C-identical",
+      "second": "S001",
+      "type": "identical"
+    },
+    {
+      "first": "S001",
+      "id": "C-reversed",
+      "second": "S002",
+      "type": "reversed-presentation"
+    }
+  ],
+  "images": [
+    {
+      "evidenceHashes": {
+        "images/S001/1x-light.png": "4d7012fc42ff45213a2061d4ff91db779b8d72bf20f4d7c032e59edefaa353f8",
+        "images/S001/2x-light.png": "78b676ac745dbfcff0db220b7bc8006246baee924922d11a52dfec13a9ee4a28",
+        "images/S001/enlarged-light.png": "b5d0e59757e52385ae07ffc87a8f22a23f489eeac822e2c5428f57bf7aec0644",
+        "images/S001/1x-dark.png": "8438d3667d999eafcfa97a4cdb653822502ef4d0b735e8b498178d8b97908b1d",
+        "images/S001/2x-dark.png": "b40940c343804fc582a887fffbabe71fc8b59f9aea8aaf1dafc73d7833aa4511",
+        "images/S001/enlarged-dark.png": "ed204e8bef117db66e63eb6871873b470242aeba1cdfaf0462a4bc78e297fb6e"
+      },
+      "id": "S001",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S002/1x-light.png": "8911e4f88154e55548d471783c3997c24426be995eb52b061826cff3d3a8a883",
+        "images/S002/2x-light.png": "9b9548b41b7f6f37ffdf4cddcd61f30010ed98410e1b58eb540d1525eb52cc38",
+        "images/S002/enlarged-light.png": "5c501f21dfa8ed6a8eb8c92773160dff0268f02a71c2e149808225e8ed7576b5",
+        "images/S002/1x-dark.png": "181531315ae4a13ca7be8226f8096043c07881fe97daeabba1411317deaee286",
+        "images/S002/2x-dark.png": "659c2ca9a35050d412449a9ff6b7dfa16a1063a9ff811c08692aa1ad134a356b",
+        "images/S002/enlarged-dark.png": "7132efb28ea8d9b72520374af5af5589438de01ac3236fb606a7aa177e30f31a"
+      },
+      "id": "S002",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S003/1x-light.png": "5f58f7aa0991bfb74384facb7e085d5f052be74c5b57e9fff1e8edf9b104a481",
+        "images/S003/2x-light.png": "7595755e7158b0d2dedd8ad1926609db0ffe4d2f72e1f15b3b709242f9cc5d6f",
+        "images/S003/enlarged-light.png": "1be67b2bb87e94fe237f10215bdc06882411211051327b32e0e2d5cf1ea57c03",
+        "images/S003/1x-dark.png": "84f252b8c6cadf11ad958cb80bbe51ff38310872d50f0509ca7469f65767fdd9",
+        "images/S003/2x-dark.png": "ebf65952c18fff75bf36e8ca10bfcd2c01f3565c74eb2f71cda1e2e78c2a4500",
+        "images/S003/enlarged-dark.png": "0bc3e5f9df87c543eddb62fccb546e64586b345667408a751cb9da7e271ac318"
+      },
+      "id": "S003",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S004/1x-light.png": "fcafe7f487b4d7b08e07b15e942bfd16a60df093b773291df70794c833965586",
+        "images/S004/2x-light.png": "a6fb5be6015a2554616c90e35a1832dd2081cc093fe922ff632533bc4d2a2ea1",
+        "images/S004/enlarged-light.png": "a04927d017ef6c0857947151209f6767d654464ffc36f7db66c1b5268da25fb5",
+        "images/S004/1x-dark.png": "f3202783e7e6721f9dbe56ad7bd241390bb53e47a6d196de48c262d4397a0ab1",
+        "images/S004/2x-dark.png": "1163f591aba42c9c580e017cd59f10599695d865761706d3d53ab70841e01823",
+        "images/S004/enlarged-dark.png": "e209b96e0ec8a53a1693b3ba3ba97270e5f1ea79b9a7c1a67262b9a026faa007"
+      },
+      "id": "S004",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S005/1x-light.png": "94153f550b43f844bc4a4a54d706b3f539567221e5ff96e2b8168ebeb16a2938",
+        "images/S005/2x-light.png": "35b43d9c4fa4a70efbeed4647acd1e885c62e4c106e21b00430b54b5d6a26536",
+        "images/S005/enlarged-light.png": "8eabf77b85dec5ccc6360ff0a6243d7e3866a9421a8e2166e0a055a1997ba8cc",
+        "images/S005/1x-dark.png": "725528637e16528e304ba590dd1e67002b8a5e1bc2a648971af0b8d67fe6680b",
+        "images/S005/2x-dark.png": "59c2febe09495bdf6fea6350b6502735ffc6d1b517b3433aad25abb47a847aa5",
+        "images/S005/enlarged-dark.png": "aa6b073a18efbddbf2be58592720e94e0f710f1c393df18ebfc2cdbcf46be8fd"
+      },
+      "id": "S005",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S006/1x-light.png": "491fd3e68f240c2712f907ab6b398c19e86b87f7af7fe0d2e2b92b5611ba8601",
+        "images/S006/2x-light.png": "eb9dac8eaf62329f04ebb4532f036fe7e894973e0693206b389bb28601bebacf",
+        "images/S006/enlarged-light.png": "a2f005bd7a4cd54af37f06f6dd40b427073813090bf32e01ccdf4343e1520f4d",
+        "images/S006/1x-dark.png": "ffe1bb93f280ee6f7142dbd623fb66d231ed62742af51a27705eb5380355b583",
+        "images/S006/2x-dark.png": "576a998f9664670bc8aea3a358467f9762eb19f91c64e143377ccc28602843b4",
+        "images/S006/enlarged-dark.png": "5a174f6d90aec8220e8b01840616aee897c9b98da224f9394a19acff8be3cdbf"
+      },
+      "id": "S006",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S007/1x-light.png": "5bdf02a3474c3ad2ad935f2669a84513b05019cfe0a20ec90ce6c65673d4c914",
+        "images/S007/2x-light.png": "cc3947003b08a1a39ca1f3048d1c5f211effddebbde0a2175a9cca0593479ab4",
+        "images/S007/enlarged-light.png": "ad74eeb588e09339fa5794398bd39a6d7459887cae06694920b26a9ffbfc24f6",
+        "images/S007/1x-dark.png": "3fbbeb9397536fe9d065c6f7bf2f49ce105ac59746d84919b35202c632b5ad2e",
+        "images/S007/2x-dark.png": "5893d26e5dc54475a0fab9eaf17a364b6bef078abbc88e3a82590cebc1e90044",
+        "images/S007/enlarged-dark.png": "e163ed6df1c82bb19b28a187f07143698e8e70c5ab7bc29b764961fed5b3992d"
+      },
+      "id": "S007",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S008/1x-light.png": "292de7f2c88da37389dbf1ebabf4cb54d65ad1a092028d990feacea074d90f3a",
+        "images/S008/2x-light.png": "c952d5a5069fdf2a7d3fb8a8877003d94d6e89915907a7ca3f159cf029fba5bf",
+        "images/S008/enlarged-light.png": "5a881e084266e3dd478d65c08f91c8f4ad1cd2f7b86ce101f1b7c2bfbeb46584",
+        "images/S008/1x-dark.png": "397f3d8b2806be26f56a81469bca48a00be286b359fb35cc07f3bc5fc18dba06",
+        "images/S008/2x-dark.png": "9f93494ecd577934ab69688bafc32c802027ab72ecd84aedd81d9c99579fa28b",
+        "images/S008/enlarged-dark.png": "23bf6df062d4ea40bb35d2402d1bdb5859431c2509dc0b9f68eae758b50fb39f"
+      },
+      "id": "S008",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S009/1x-light.png": "f189c65b9afa82da5028d4fd292214f5f52002328c8f720d138a1b556d8abf64",
+        "images/S009/2x-light.png": "95de1634410a6d46363044db3613533fb0368f4835eff2dedae608e0a6b9d1bc",
+        "images/S009/enlarged-light.png": "9edc3ee1649ea2bb9f993aabb3c9608c974cb81ead96ab947c2117351850f639",
+        "images/S009/1x-dark.png": "e94a84821ccd5eaff1dd7eec6082db67c26d7c3279ca1e219fd33f862ebe87b8",
+        "images/S009/2x-dark.png": "92956624e34fbd69fcd9da9202939e5a4a40ed56bc7d395e038502655df3cf97",
+        "images/S009/enlarged-dark.png": "cb465e82b3f2dc6307132ec97f7ce7fe04fbd05db2ebae2be9839a6b59f26126"
+      },
+      "id": "S009",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false
+    },
+    {
+      "evidenceHashes": {
+        "images/S010/1x-light.png": "0eb3582d67d1e352a3ce07c2cc08836d37781d553542c1a53ee030cab7327470",
+        "images/S010/2x-light.png": "9331885a82e1f62028c933921cf77d46b6e8e164dd358e30c314bf55ec56bb08",
+        "images/S010/enlarged-light.png": "3c8db51931f4528f9cf285290e4dbf2d8ba55553c401d7a9ee6e4ef8f0678c1b",
+        "images/S010/1x-dark.png": "5d2b19c4a03384a416027563985a4a8e1a259f193ebda779b6b7807b08333ab8",
+        "images/S010/2x-dark.png": "bf92602d2c457c4339fb1fbd54092eaa46ac08044b602e095a4a96246b958946",
+        "images/S010/enlarged-dark.png": "1fe67fd24b538957253818a2d0ff73752235268092fe6c9ed91b34e1005a1809"
+      },
+      "id": "S010",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false
+    }
+  ],
+  "independentSourceFamilies": 50,
+  "instrumentQualified": false,
+  "packetId": "P01"
+}

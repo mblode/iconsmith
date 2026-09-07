@@ -1,0 +1,24 @@
+{
+  "id": "A136",
+  "status": "frozen",
+  "pair": "shield-check-16",
+  "manifestHash": "53214fd6e5049dbbf9abaa7b35ba3c0600a9e4bd6e963ed7236b98d5c8399d20",
+  "createdAt": "2026-09-07T12:24:02.603518+00:00",
+  "purpose": "Fresh matched author feasibility after A135 adapter/budget failures; identical packets, concurrent author arms, independent review reserved.",
+  "models": [
+    "gpt-6-astra",
+    "claude-opus-5"
+  ],
+  "authorBudgetMsPerRoute": 600000,
+  "reservedReviewMsTotal": 480000,
+  "pairBudgetMs": 1200000,
+  "maximumNativeAuthorCalls": 10,
+  "maximumNativeReviewCalls": 4,
+  "maximumNativeConcurrency": 2,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "noAutomaticRetry": true,
+  "priorFailedExperiment": "A135"
+}

@@ -1,0 +1,7 @@
+icon cloud-upload
+finish outlined
+part cloud-outlined-0 at 3,5.75 size 18
+rect 8.5,16 7x6 r1
+trim
+line 9.5,14.25 12,11.75 14.5,14.25
+line 12,11.75 12,18.25

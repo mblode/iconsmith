@@ -1,0 +1,218 @@
+{
+  "controls": [],
+  "images": [
+    {
+      "canonicalArtifactHash": "fb350f452fd021f40e6dcd3bad5304af2ffdc10658e65bc27d6beb004c11a894",
+      "evidenceHashes": {
+        "images/S001/1x-light.png": "8c70347e6e2771abff5909756d43839f8435cbbf04a6c7b01664d81ecd94ec41",
+        "images/S001/2x-light.png": "ab7dae59fc7ccaea40cafde14edc2977e080a2cb579b22ec2a91749968eb72ed",
+        "images/S001/enlarged-light.png": "ed9687c2d400d613ba75713af2c0c68b9338e5da78c0b6f09077aaefc682c779",
+        "images/S001/1x-dark.png": "9c99daf065b5b4c15f8c2b08f5ab261458804d14aa45e2766cc6a0b9959c2496",
+        "images/S001/2x-dark.png": "681a4d50afcde4ec1bbb97c999cfa5955375d9e7df34a390ca0f5f1b10db403b",
+        "images/S001/enlarged-dark.png": "e5e56c3ed9ac3bdf301ade55fe679a0a93180ef6854672b48fddbfa40fa65285"
+      },
+      "id": "S001",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "firefox",
+        "drink",
+        "bezier-curve",
+        "quora"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "8e7222118bf03ac9debcdcc6b983ec289f8ceb9730fb30e0ed157fd148a65ece",
+      "evidenceHashes": {
+        "images/S002/1x-light.png": "049ab80757db3454dcea6f7e6ac0c4638427fc3fad93e9137a631ef3606d81e0",
+        "images/S002/2x-light.png": "34cdb593542029b31c3d92456c679769c057e7176d1c4fc6cf9e89604bbc529b",
+        "images/S002/enlarged-light.png": "bcfdf0df4b0a91c65cf03a5fd93df49368149d0117ddd96ba83477e70aa1091c",
+        "images/S002/1x-dark.png": "6d8a00d82f1036cba873b86cb495ee3fe466cee7c99277b8c10c3a613099ed98",
+        "images/S002/2x-dark.png": "2f346a926a574a63ffec5a8f9ef5afde9f073cd000e17442af50240849b1277f",
+        "images/S002/enlarged-dark.png": "baca8664b97d006b9e9211a5f884e0b7b1ae552f30c0a0003b19630347588a4c"
+      },
+      "id": "S002",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "diamond-shine",
+        "map-edit-flat",
+        "square-arrow-center",
+        "square-info"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "1eb0f53b4e2cfdf9f025eab02b54efb9178718e20f1c1d2e697339d351f27fd3",
+      "evidenceHashes": {
+        "images/S003/1x-light.png": "3134f275c4c5f29c7c5cafdb8c397919da3e3e4bd5538efa0b264f288ad85fd9",
+        "images/S003/2x-light.png": "ed8b63a97ec03c8eefb9f7fa17c9b10ac820c3ccdbfd0b59f0090caeb49977f5",
+        "images/S003/enlarged-light.png": "0e103be77099aa09f884b77a5eaf27f8b238518e67443d45a416896f7a917e32",
+        "images/S003/1x-dark.png": "dd1eac47d2b051bd94d92ade2c23a5cf74d007da42d9590fee7a43695aad487a",
+        "images/S003/2x-dark.png": "c10a65273f154ebd6be90655267b71175a536697ef2cb6a7e891ce60d4aa2fcc",
+        "images/S003/enlarged-dark.png": "a0af72a68ade28fce95ca6e212e9577861feea46daeeff6378fde770e8670fa0"
+      },
+      "id": "S003",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "stable-voice",
+        "email-2-block",
+        "battery-medium",
+        "search-intelligence"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "180cfbcff5b2123a9b2f52041d2e5653a529c20b2093e90b447aacd151c528ea",
+      "evidenceHashes": {
+        "images/S004/1x-light.png": "c521d531a948a61273baa076475adcabda7adbd9ac7e21d2708bcf25a9763e37",
+        "images/S004/2x-light.png": "c22070fe1fd4a531aa94fce51a37474a8c56b3fd09623f1b659a8af6b1780ebf",
+        "images/S004/enlarged-light.png": "7df95fe5f17488ca89647143585affc1afd11fea5d4f0d7d2a1189ec34d97a36",
+        "images/S004/1x-dark.png": "cf1780abc6f7f5a02777988e0549a2f7838c1f86329dc487c3ce392ab5d1c5b5",
+        "images/S004/2x-dark.png": "f2a1ce40b48ab5e73c02acf1317b481489107337af210ff54697c0f2037ee970",
+        "images/S004/enlarged-dark.png": "8c445acac2b4ea592ace43779c08f60d4da4001f18e8cc963ceb790d4b90f3c5"
+      },
+      "id": "S004",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "television-old",
+        "finder-face",
+        "brackets-1",
+        "webcam"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "7fa4e15cada52285a8e013abc4169e3d2ecb713d836136bdfd2c21c9976e5c08",
+      "evidenceHashes": {
+        "images/S005/1x-light.png": "b08fa02b28ae3d4578819fc55d32e67f3c82e6a16ce3863166a06035a45272bd",
+        "images/S005/2x-light.png": "5d3be400928220d37571244b8f680bde39b2ce24c91220a9d4344b2f34b2c2ed",
+        "images/S005/enlarged-light.png": "b7e9bcadee8dab764ec13de5c7607f18678a58bd14afee2a54c4b4c58134af83",
+        "images/S005/1x-dark.png": "f74d77d67a11af7e8a371b19d3992593703838f95b8a2745ee33ed6d588946e6",
+        "images/S005/2x-dark.png": "64ede4dfc38b01bf5022084a3b28c7cf4faab3ef792eaea22620ce2408730a86",
+        "images/S005/enlarged-dark.png": "3056011e24aed1e532f09c58bb7989e75c649dc1964184903a7926632ed72755"
+      },
+      "id": "S005",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "esc",
+        "script",
+        "signature",
+        "door"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "0fc14ddf8dfca76d3017c7da3b8aed17f0af2950531c88d4f3fec8f9f120708f",
+      "evidenceHashes": {
+        "images/S006/1x-light.png": "d347b34512ca1316b72f7da1f337d2bdc81898dc67717dbdedfc0825c7d86273",
+        "images/S006/2x-light.png": "3970ed0ea88118d0f29a0ea5d2f00870c014cbc81c8bd1863e91230bfe22aa5f",
+        "images/S006/enlarged-light.png": "8bc20e9e9c13fba5a0c2892bae922226f48997d20389796c2058460942c8fd7d",
+        "images/S006/1x-dark.png": "72bc873003e0177f1d25336fed126f8ebcb67f49e7c69e5d502b692961684fee",
+        "images/S006/2x-dark.png": "564ea3846c811e666d04c0669ede544570420afa034661f9001f18487e36e017",
+        "images/S006/enlarged-dark.png": "51ba96ccf16560c5f7bae119f8bcf0ee90ace9c8545957a9f4ebd391e97f4a0f"
+      },
+      "id": "S006",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "boolean-group-substract",
+        "frisbee-golf",
+        "mouse-down",
+        "people-voice"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "bf90aa11d9a5438f0df2445b4a46736a07140dbd97e2a2c9b95cee68da6273fe",
+      "evidenceHashes": {
+        "images/S007/1x-light.png": "1db322fbdc1e7a1a89ebeaf40949d3b026b2053356ea1a9b8f5768a31484e883",
+        "images/S007/2x-light.png": "46599b079718d96a9d516917d9089e08fffcdaac3e344eddbc68d6f5848111bd",
+        "images/S007/enlarged-light.png": "a2a2bd52a4c867589adffa4283e3f5fd02ecb01742f4cf7b8c2023f72e19274a",
+        "images/S007/1x-dark.png": "620b3165d86dc953672017010a4fa47880b502551422502c1bf55f80c13a8ca0",
+        "images/S007/2x-dark.png": "f103f1a73d89a61c6f1160ef8f2d1e6b79986ed6cf1209588b550ea3e52f9b8a",
+        "images/S007/enlarged-dark.png": "63a58d5d66de72c34034ced4e1e23ef47f1f5b6dfdba73fc66bb971fb93af178"
+      },
+      "id": "S007",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "dot-grid-1x3-vertical-tight",
+        "garage",
+        "arrow-top-bottom",
+        "math-equals"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "394450986f20c77b07893c438b064cb18e7d7c170934888732d99a5116bfcc10",
+      "evidenceHashes": {
+        "images/S008/1x-light.png": "ea394d05a6d14baacd2cb0e9eb74c7e57bf24f8312fbc430c718d7dcf3f69c21",
+        "images/S008/2x-light.png": "ab76c79c2d9ee7f8f7eb06948afb4772cca356567f4a8f15080cbb77d19cbcec",
+        "images/S008/enlarged-light.png": "4c75c829baa7f6a4f1d3aafb31085a7fa70c9978578afb0cdeac5321f63bdb49",
+        "images/S008/1x-dark.png": "89c6fa64e042491ac790e35ea175a6c0588c11d0653023cb094e952005322884",
+        "images/S008/2x-dark.png": "a2936c7149cab2e3c24a6432dc97652d4694dc54e6981b2254e3c7c5a56cac99",
+        "images/S008/enlarged-dark.png": "4b7e97b5c0a6432c04c94d694b7e5f3a9af933a0318ac791e04b55d8dd21f8e0"
+      },
+      "id": "S008",
+      "nativeSize": 24,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "numbered-list",
+        "sort-arrow-up-down",
+        "framer",
+        "atom"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "7f215d2ee1f1b4d3a8a31af794a2c9ca132bb018530a39226d897765d48ea4f7",
+      "evidenceHashes": {
+        "images/S009/1x-light.png": "9516884bba78fd61bf363130305dfd1c33075431b642d882994ddcbeb0e00b35",
+        "images/S009/2x-light.png": "02a9d49728a6fcf1f6bec5edc7e4d74e5b8a8c212a3fc5e70445fe66d854ba7f",
+        "images/S009/enlarged-light.png": "966159a048c95f656cb54ce97a58b936f92b27e071c75f7138f6043e211d9780",
+        "images/S009/1x-dark.png": "800014a54b8bfa1e5558c5717f50317fe51d30a8043e5ca62e1e9e1f03e7de5c",
+        "images/S009/2x-dark.png": "858f870968271a0abf00e4bb1050ec918712e2e472306d13b464ec4f730c75c3",
+        "images/S009/enlarged-dark.png": "8bda437d6e8dece94d98e1b1c1e94b84b6585709d378614a27f6244a0a4ddb20"
+      },
+      "id": "S009",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "text-select",
+        "ufo",
+        "calendar-search",
+        "projects"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "b9f0ea826d266c5157698e6502c4bd9c5f232aaff011278f2955555225e2fbe5",
+      "evidenceHashes": {
+        "images/S010/1x-light.png": "a9b81806cb943ceaad059e3cf30cb8cf74881ffe5f84c3bdec75992bac2fadff",
+        "images/S010/2x-light.png": "96f580ff852311e63419392989a8de2e952d6b587fb2386af673ea41f685492a",
+        "images/S010/enlarged-light.png": "b3a760a67f547cb88d0546c023440227dc2f334fb63f63f1c97b30e9c380c7da",
+        "images/S010/1x-dark.png": "5b653c53e09d1cfd0282218f50d2eb7a118af00f21935b722f1c9644e8661304",
+        "images/S010/2x-dark.png": "e5f32759a770742cdb6cc09ae6ff98f37808e8731087b6d9148add16651271c3",
+        "images/S010/enlarged-dark.png": "fca74474ec7e63095e86894800eda4063d81659321de54c5b387e4cf441ddb77"
+      },
+      "id": "S010",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "qualified": false,
+      "recognitionChoices": [
+        "check",
+        "send-later",
+        "truck",
+        "target-arrow"
+      ]
+    }
+  ],
+  "independentSourceFamilies": 100,
+  "instrumentQualified": false,
+  "packetId": "P01"
+}

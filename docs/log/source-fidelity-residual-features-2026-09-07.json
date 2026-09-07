@@ -1,0 +1,848 @@
+{
+  "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+  "population": 91,
+  "taggedFiles": 89,
+  "unclassifiedFiles": 2,
+  "overlappingFeatureCounts": {
+    "opacity": 21,
+    "non-24-viewbox": 44,
+    "butt-cap": 14,
+    "paint-color": 4,
+    "dashed-stroke": 8,
+    "non-family-stroke-width": 14
+  },
+  "interpretation": "Observed source features only; not isolated causal attribution. Production semantics, grid and admission unchanged. These are the 91 remaining finer-grid diagnostic failures, not an independent defect population.",
+  "rows": [
+    {
+      "file": "angularjs-filled.svg",
+      "sourceSha256": "666089635d73cdb8864c326825ec7d60fea0393994676db7c747d0aa2623f953",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "angularjs.svg",
+      "sourceSha256": "666089635d73cdb8864c326825ec7d60fea0393994676db7c747d0aa2623f953",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "apple-intelligence-icon-filled.svg",
+      "sourceSha256": "3c34b11b7a2c2d73f1230b68adceb3d6e36212974609407a861ebc53cb14f4c2",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "apple-intelligence-icon.svg",
+      "sourceSha256": "f8ce7fd454210af3a45fa165238caca47f8d804c10db827338a8062a1ed87ed6",
+      "observedFeatures": [
+        "non-24-viewbox",
+        "butt-cap"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "beehiiv.svg",
+      "sourceSha256": "3997112001bc060c1c2553358af2c70ffdbfa6bd60793fba73ade6dba3496d17",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "blur.svg",
+      "sourceSha256": "3e1854d7fa87891fa2f70e43dda06dbd2bfca30d0a541a92005c02a3b073838d",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "box-sparkle-filled.svg",
+      "sourceSha256": "143f89407b3fe90e59cb54b1168b13d118b82dd732077d5bad87522466c02cbf",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "brain-1-filled.svg",
+      "sourceSha256": "580570318ad822a80d611998d024b17d5465a76a354ddec6768c700ecf96f26b",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "brain-2-filled.svg",
+      "sourceSha256": "eaa1f829773ca5a7486900832e60d16861b2ccd4a5d3c749e3790a0c807935aa",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "brand-jcb.svg",
+      "sourceSha256": "782a0c0f730de67c024945d5ae202cd7780dad624c8127d81804fa5ed6366877",
+      "observedFeatures": [
+        "paint-color",
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "brand-visa.svg",
+      "sourceSha256": "311ea5432b26b8f391a15805cb9d22c57bb38c22e05745350a3a5e54273153ff",
+      "observedFeatures": [
+        "paint-color",
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "broom-sparkle-filled.svg",
+      "sourceSha256": "c265700268ee48126ca17243eaa0dcdfa4454817706013af3c6f4b5082e256f2",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "chain-link-2.svg",
+      "sourceSha256": "2e29947d09c70603e6d16274397b58c4ca5064fc88fa7d30c6867e2a7ffe680a",
+      "observedFeatures": [],
+      "diagnosticDisposition": "unclassified-residual",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "check-circle-2-dashed.svg",
+      "sourceSha256": "f97a7e04b5cf3f45e86c952aa288a96145822dff4891eba46fa55ec54f58e381",
+      "observedFeatures": [
+        "dashed-stroke"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "check-circle-dashed.svg",
+      "sourceSha256": "7d9699530a348923916fdfc9bb8925229377b068125f8d5623d00895cfb00b77",
+      "observedFeatures": [
+        "dashed-stroke"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "circle-dashed.svg",
+      "sourceSha256": "70affaa052d441525b5996aa634a4ff14241ced7311d17ab4a105850cdeaa107",
+      "observedFeatures": [
+        "dashed-stroke"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "circle-exclamation.svg",
+      "sourceSha256": "c1fd74a128d587b32ad9bc9323557ee9b6d37c4a5f33a6d6aeec605c371edf76",
+      "observedFeatures": [],
+      "diagnosticDisposition": "unclassified-residual",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "circle-placeholder-dashed.svg",
+      "sourceSha256": "70affaa052d441525b5996aa634a4ff14241ced7311d17ab4a105850cdeaa107",
+      "observedFeatures": [
+        "dashed-stroke"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "close-circle-dashed.svg",
+      "sourceSha256": "bff76b79b70e9e596344bcd8456a716febda4aa3e6383e688a54926ddf373266",
+      "observedFeatures": [
+        "dashed-stroke"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "coin-rupees.svg",
+      "sourceSha256": "6592e2e59c944a68e06bd950a4338bdaf33f00c06142fb2fcf505cb96868d08c",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "cursor-filled.svg",
+      "sourceSha256": "c8fd0901e31c5c109445bca171b5d49f256768bc02d098aefc7211cebf5f9c34",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "cursor.svg",
+      "sourceSha256": "c8fd0901e31c5c109445bca171b5d49f256768bc02d098aefc7211cebf5f9c34",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "cute-robot-filled.svg",
+      "sourceSha256": "ac2cf01cfd4fca23426e2096fda1249ebf219e77cac5123f3a1e503966c51e3c",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "databricks-genie-code-filled.svg",
+      "sourceSha256": "c4b1f9026bbecdc179f7502679bbd562edd1406935b1a2d7e361f54f644f4fba",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "databricks-genie-code.svg",
+      "sourceSha256": "c4b1f9026bbecdc179f7502679bbd562edd1406935b1a2d7e361f54f644f4fba",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "eye-sparkle-filled.svg",
+      "sourceSha256": "7aa6eac3ad285ee282cad709ad4b92c16d16aec10fa8eb01bfbdb86aaa0eaa02",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "fortune-teller-ball-filled.svg",
+      "sourceSha256": "938a1ead45ec5adf887c376c288e82e52f6de9958ff6f0ecfee8d6b04adbf859",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "goat-head.svg",
+      "sourceSha256": "503aa3fb941480d685faab06eb228bbf56e30192872614c0267ac189903ca702",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "google-colored.svg",
+      "sourceSha256": "30eabb9d930912bcbe7eed9f6598c263e2d6275d3ff4505aefb6af555f7f4a57",
+      "observedFeatures": [
+        "paint-color"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "gyroscope-sensor.svg",
+      "sourceSha256": "926dacd7fe98cb48f476ba2061d485ab421b6a2d2a1bef29b120d2ff27ed3a5b",
+      "observedFeatures": [
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "hat-bunny-filled.svg",
+      "sourceSha256": "b4b7dad1460ae2424a5419463ba711d172b3a7b37b00a82d77e2159510b29b4c",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "hat-sparkle-filled.svg",
+      "sourceSha256": "b59d0f73f688fe6a15f4185da3270523e95153a61f4311c3cdca3ed9b95f5111",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "iconists-filled.svg",
+      "sourceSha256": "4ae875abed4d4fc6067ba35e09aed18aef0dd93166a96ada384097f75981ae54",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "iconists.svg",
+      "sourceSha256": "4ae875abed4d4fc6067ba35e09aed18aef0dd93166a96ada384097f75981ae54",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "image-avatar-sparkle-filled.svg",
+      "sourceSha256": "4da2481e3fdcf2fa86c041ed8bc62dfe9abd86d2b819fdd0013ca1257a2a6532",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "image-sparkle-filled.svg",
+      "sourceSha256": "2490780425b7ba805ae262bcea48011f1b655728d3a67577914e63e700b80553",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "line-thickness.svg",
+      "sourceSha256": "3ae8896ce2efa143b10bbe35e19228a7cd5f143c567cafd0442e5fd0c61eecd2",
+      "observedFeatures": [
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "list-sparkle-filled.svg",
+      "sourceSha256": "9a73a173a6595d2f03341e2ba6ddc1850cd0cfa5cb56ea9a35b59ae3089118da",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "loading-circle.svg",
+      "sourceSha256": "600fccd2d7dcab7f72fbcceddb353dcc671f26ee9cad277d81c507661cf98778",
+      "observedFeatures": [
+        "opacity",
+        "butt-cap"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "magic-book-filled.svg",
+      "sourceSha256": "aa257644aa450076c0ca1d9e7c3f7eedb26014674d15622fcbf22e39c5e44d7f",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "magic-edit-filled.svg",
+      "sourceSha256": "84f9a9b8e0cd5128a2232af948df653e4deb6e57096b5987220b772639468407",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "magic-wand-2-filled.svg",
+      "sourceSha256": "f0f4b08987918b149284c07e44e19ef15e7ff2f995b87d69c39a05b4412f5553",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "magic-wand-3-filled.svg",
+      "sourceSha256": "538e5adbe6f2ff8f39ab013f2e37ea8c80a9dd585a8d6746bc86d90f7b210e51",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "magic-wand-filled.svg",
+      "sourceSha256": "8315551ab03c053857149ef19d8cda923424e8dab0f47149f3e2bf7c43da7c3c",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "opencode-filled.svg",
+      "sourceSha256": "4f1fac367c3333dfcc886570ce0fdbecbc17fe9316b22098ece0c19668ed63c6",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "opencode.svg",
+      "sourceSha256": "4f1fac367c3333dfcc886570ce0fdbecbc17fe9316b22098ece0c19668ed63c6",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "password-stars.svg",
+      "sourceSha256": "ef10ecf164eabf111a95876daabb13e940ddbd8ffb7e7c2df4232824bc8370e3",
+      "observedFeatures": [
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "pencil-sparkle-filled.svg",
+      "sourceSha256": "4639afc4425cc50e0138a2b44dd9c12c5e4422a30db84b71993c9326c4e18310",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "prompt-filled.svg",
+      "sourceSha256": "37ce572d0783706a8c1f22fc1be2df939748d04abc9070abfce4cdab648fcbc9",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "quick-ai.svg",
+      "sourceSha256": "61dc5c47a915b38a85ba110ab4322e7f28d25fee26c19d7c9414532061df5412",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "red-dot-award-filled.svg",
+      "sourceSha256": "0f53f66f93a2491868ff4bf7cd118eff1f14c6fe66067da77e95dc0babda6ab8",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "red-dot-award.svg",
+      "sourceSha256": "0f53f66f93a2491868ff4bf7cd118eff1f14c6fe66067da77e95dc0babda6ab8",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "reduce-motion.svg",
+      "sourceSha256": "94a262d205f0b5ba8ed8ec4f1b614da8d76043328e5bb0cd5eb7c9153b742452",
+      "observedFeatures": [
+        "dashed-stroke",
+        "butt-cap"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "robot-filled.svg",
+      "sourceSha256": "319fdb9890d4b9e3a0ebf51d25e63588c85e87212a5725a369f8f547a2e715a4",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "robot-head-slop.svg",
+      "sourceSha256": "dfde471a5180e154e35c99239f1551889724c5d5adca5356968ce40b64175cf4",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "roundness.svg",
+      "sourceSha256": "6aa65d71cc45f2cec87563ac83a806d3e4d5eaa5ca7b31caa0e495d6a8d35532",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "scan-voice.svg",
+      "sourceSha256": "26fda734c00b595c44fc0dd55e0e9d780fbbd0ef2cdb5d1b71e86080fbb40e5f",
+      "observedFeatures": [
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "select-lasso-dashed.svg",
+      "sourceSha256": "7a40b9a6595a1986d00836caf3f7f7931053a2b36f2d32c014bfdefe09a202cf",
+      "observedFeatures": [
+        "dashed-stroke"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "send-later.svg",
+      "sourceSha256": "684921e164f5daacbe71165ad49da3331d61ca29d801bb80269256e189cf09c3",
+      "observedFeatures": [
+        "dashed-stroke",
+        "butt-cap"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "solidjs-filled.svg",
+      "sourceSha256": "ce16118b33bc0ba8820cb71da6294bb3f5f4a15f261beb5db1ac487dcb97c135",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "solidjs.svg",
+      "sourceSha256": "ce16118b33bc0ba8820cb71da6294bb3f5f4a15f261beb5db1ac487dcb97c135",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkle-2-filled.svg",
+      "sourceSha256": "15f35ddfbf44f0eaeb01e722d3b2b06436e5b985362d301af7182b6ce0513491",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkle-2.svg",
+      "sourceSha256": "17ec2652d5070216ac6785d94da31a82874c9a8ee0e932c419dcd355e8636ac0",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkle-filled.svg",
+      "sourceSha256": "1ed74c8fbddbecd75840cb772b7343bf90e4dfc024a1108211ef3558f148ee9d",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkles-soft-filled.svg",
+      "sourceSha256": "5a04caf6f0220d406283034ad98b57c1ff6cf1ad97ddb70db315db217df52625",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkles-three-filled.svg",
+      "sourceSha256": "ef2bb00757ac81a09c56720682ba7db41c46bdca4d05099eb3f374c23e7fb2c7",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkles-two-2-filled.svg",
+      "sourceSha256": "247f3d3d3b0324ca26f43fd33994f2f42d1a797c97f59e078b55ac20e715318f",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "sparkles-two-filled.svg",
+      "sourceSha256": "07bf43bdb3a89e85025949549b0827f0b5c2642637b687704b272f42ea260df5",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "speed-low.svg",
+      "sourceSha256": "e727b2c2682e3b0b00f533fb346931e724b63f34a43c874c70348b91b4550aaf",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "speed-middle.svg",
+      "sourceSha256": "abdc028b655d51c4fd30da1ee0f1512dc176d10ce97f2c7b40953b2bd15bbc5c",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "star-half-filled.svg",
+      "sourceSha256": "f4613e1271c35d3834ececed922197e355dfa38d60237d61fb2248c0c2ec220b",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "star-wand-filled.svg",
+      "sourceSha256": "b983761d4188f395ae9a4d878d75f7e841586def74049f4b9deced4b18b7c97d",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "star-wand.svg",
+      "sourceSha256": "9f5c36e829a3ee2b7cbc1b849c49ee69880f0b1c54602728493a19753a3effc2",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "steering-wheel.svg",
+      "sourceSha256": "4d26486ea8ea21432f272921b4744c8a42c61396fd54172e311c79b57ec049a6",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "steve-jobs.svg",
+      "sourceSha256": "ac0f61429125e2735b4bcb76412c33b429af26da4d9f33a022f3d789ede79bfc",
+      "observedFeatures": [
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "surfing.svg",
+      "sourceSha256": "5757f6a3d793eccd539ff6802b6889aba41faa21b3fe75fd5e4a552a634a943a",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "text-to-image-filled.svg",
+      "sourceSha256": "8071c2fd1690aed6bf905d7a1c73fe1accb09567cf2f15023a551216d457b3a6",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "things-filled.svg",
+      "sourceSha256": "b8b4bec561ec05832cdce3313ca77d0d03ac81bad4648425c8ac4fd12c051dc5",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "things.svg",
+      "sourceSha256": "b8b4bec561ec05832cdce3313ca77d0d03ac81bad4648425c8ac4fd12c051dc5",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "verified-check.svg",
+      "sourceSha256": "caa41ea96b1e53e3ce924a51e955f6a81081df697e5ad378a624f4cf94e31cd4",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "versus-circle.svg",
+      "sourceSha256": "17991abdd442016cdd9933b6086d8850fc1341a713283868096b662a98bf7deb",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "visual-intelligence-filled.svg",
+      "sourceSha256": "8fd9acf12a9144381fa5782d6ff1b2a2d23fcabe89fbe3730b1c34740bb1edfc",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "visual-intelligence.svg",
+      "sourceSha256": "58a5a90783bf90a08a4635415ea5d700c5b2c74dab1631110fb3234a427f9f96",
+      "observedFeatures": [
+        "non-24-viewbox",
+        "butt-cap"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "voice-2.svg",
+      "sourceSha256": "c6a53255f43ec97a7746dcf7cbdba46c7b0acc61068d94c63fb8a506e3db9952",
+      "observedFeatures": [
+        "butt-cap",
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "vue-filled.svg",
+      "sourceSha256": "85e2ad4b96fc83b1a30b1bea69bf2e4cbc9aff1e2518297a7db7663f2a6032ea",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "vue.svg",
+      "sourceSha256": "85e2ad4b96fc83b1a30b1bea69bf2e4cbc9aff1e2518297a7db7663f2a6032ea",
+      "observedFeatures": [
+        "opacity"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "window-sparkle-filled.svg",
+      "sourceSha256": "09a3677ea8f87d7a17afbfb47e2d2a91fa14b269f5cfb8ec8a0e45c28c2a878c",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "windows-colored.svg",
+      "sourceSha256": "8fc9797214386afcd907c721e3f0430139eab11b0b1bd41882c147444e89e6a8",
+      "observedFeatures": [
+        "paint-color"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "wizard-hat-filled.svg",
+      "sourceSha256": "8ef4a8286f555f661f377d8d3238754695d698e1562b27b05da401f9b9492687",
+      "observedFeatures": [
+        "non-24-viewbox"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "wizard-hat.svg",
+      "sourceSha256": "3367f977233539ce0712d701b26fe50f58544d9c2422cdb914c1079fbb0e24dd",
+      "observedFeatures": [
+        "non-24-viewbox",
+        "butt-cap"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    },
+    {
+      "file": "wreath-simple.svg",
+      "sourceSha256": "2d88ff985466ef08d72d2da2619208c2cdf8e7f7b56883e4c2add55b52daf34c",
+      "observedFeatures": [
+        "non-family-stroke-width"
+      ],
+      "diagnosticDisposition": "requires-isolated-cause-probe",
+      "productionDisposition": "reference-only; native source admission refused"
+    }
+  ]
+}

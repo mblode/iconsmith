@@ -1,0 +1,36 @@
+{
+  "scope": "A133/A134 terminal native subscription diagnostics",
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "priorApiActualUsd": 13.06220785,
+  "priorReservedUnknownUsd": 11.37126575,
+  "apiCapUsd": 50,
+  "nativeCompletedCalls": 8,
+  "nativeSubscriptionChargeUsd": null,
+  "experiments": {
+    "A133": {
+      "reviewers": 2,
+      "controls": 10,
+      "qualified": false
+    },
+    "A134": {
+      "reviewers": 2,
+      "repairCases": 1,
+      "promoted": false
+    }
+  },
+  "evidence": {
+    "a133-ai-control-development-diagnostic-2026-09-07.json": "782656527ca21f70c1aa3991177193c860a6e09426bd0e3c5a6f98d293f728bc",
+    "a134-hammer-ai-repair-diagnostic-2026-09-07.json": "c9716d4ea80ccb8c321c2a180d1e0cc1d198600c749d8f3d9e20f9e45ae049b0",
+    "hammer-check-attempt3-comparison-2026-09-07.png": "ca6333db9860fe606d49c9d9f259527523e1c345f63dd08847028896a0c04e89",
+    "catalog-ai-audit-preselection-2026-09-07.json": "47586bde928c48c9e85eae584ddde1af9180168819929ff03a7cadd31cb325c5"
+  },
+  "limitations": [
+    "No qualified critic",
+    "No matched author selection",
+    "No sealed repair success claim",
+    "No catalog or novel dispatch",
+    "Full kernel process containment unproven"
+  ]
+}

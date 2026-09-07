@@ -1,0 +1,9 @@
+icon cloud-upload
+finish filled
+part cloud-filled-0 at 2,4.75 size 20
+line 9.5,14.5 12,12
+line 12,12 14.5,14.5
+union
+line 12,12 12,21
+union
+subtract

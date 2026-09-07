@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "id": "A142-native-anchor-review-v2-results",
+  "createdAt": "2026-09-07T13:25:22.372Z",
+  "authority": "single-exposed-pair-development-presentation-diagnostic-only",
+  "qualified": false,
+  "instrumentQualified": false,
+  "status": "rejected",
+  "scope": {
+    "concept": "bell-pause",
+    "nativeSize": 16,
+    "candidate": "unchanged Astra delivered A141 arm",
+    "candidateSha256": "9595ad22d079dfbe7414c5fa4edec4b47d20fac3af4849303e2c6635c174ab1d",
+    "presentationChange": "A141 overview sheet replaced by six exact byte-matched native family proof anchors",
+    "geometryChanged": false,
+    "recognitionProtocolChanged": false
+  },
+  "frozenIntent": {
+    "path": "docs/log/a142-native-anchor-review-v2-intent-2026-09-07.json",
+    "sha256": "70d05597aec3c6a17a9b8d23ec029cbc8e6b22736811bf19c1a830088603a3b4",
+    "boundValidation": [
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/manifest.json",
+        "expectedSha256": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+        "actualSha256": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/runtime.json",
+        "expectedSha256": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+        "actualSha256": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/run-review-a142-v2.mts",
+        "expectedSha256": "58970c29d0c31ef47bda9289d4b4d8dff057ff9f091c1150e8d10d700ed31e7a",
+        "actualSha256": "58970c29d0c31ef47bda9289d4b4d8dff057ff9f091c1150e8d10d700ed31e7a",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-intent.json",
+        "expectedSha256": "287a21aee693ef4e85dfdbb270b913a8dd8cbb7231061392603903bc6a060866",
+        "actualSha256": "287a21aee693ef4e85dfdbb270b913a8dd8cbb7231061392603903bc6a060866",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/receipt.json",
+        "expectedSha256": "1b9a1820e82c54f082b74bbc6069c852f5085d353c4bd44f780c6a002f249289",
+        "actualSha256": "1b9a1820e82c54f082b74bbc6069c852f5085d353c4bd44f780c6a002f249289",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/campaign-input.host.json",
+        "expectedSha256": "bd8af48c841ef96927c791eaf3ef8c894e94d3b4930f7506c929b2d1050d746f",
+        "actualSha256": "bd8af48c841ef96927c791eaf3ef8c894e94d3b4930f7506c929b2d1050d746f",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/arm-a.png",
+        "expectedSha256": "9595ad22d079dfbe7414c5fa4edec4b47d20fac3af4849303e2c6635c174ab1d",
+        "actualSha256": "9595ad22d079dfbe7414c5fa4edec4b47d20fac3af4849303e2c6635c174ab1d",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-01.png",
+        "expectedSha256": "17daece3a36a4aa09e27fbb68a6b688670720bf7bd724763ab47db06b26f4a46",
+        "actualSha256": "17daece3a36a4aa09e27fbb68a6b688670720bf7bd724763ab47db06b26f4a46",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-02.png",
+        "expectedSha256": "4b0ad562eb198286d905e7d62ad3e87b048b38516ed011135781be5eb91be023",
+        "actualSha256": "4b0ad562eb198286d905e7d62ad3e87b048b38516ed011135781be5eb91be023",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-03.png",
+        "expectedSha256": "cf714ac6bbb3252b12a783eaedf37c4980480caa1e719ebe5addd477f9dbf921",
+        "actualSha256": "cf714ac6bbb3252b12a783eaedf37c4980480caa1e719ebe5addd477f9dbf921",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-04.png",
+        "expectedSha256": "8b4e441f3552a6fd6e9c58cbffa7d9637ee5fad4b2e9e2efcf3e0853d4373972",
+        "actualSha256": "8b4e441f3552a6fd6e9c58cbffa7d9637ee5fad4b2e9e2efcf3e0853d4373972",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-05.png",
+        "expectedSha256": "4a3d15da9700617200dba0e0e2f9f66008e5580e076f521b51dd785b7749634f",
+        "actualSha256": "4a3d15da9700617200dba0e0e2f9f66008e5580e076f521b51dd785b7749634f",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/review-packet/anchor-06.png",
+        "expectedSha256": "10f8ef08274f5dab3dc32ffa8e6401790ee7a619d50d11feceee7f90b8ad7073",
+        "actualSha256": "10f8ef08274f5dab3dc32ffa8e6401790ee7a619d50d11feceee7f90b8ad7073",
+        "matches": true
+      }
+    ]
+  },
+  "campaign": {
+    "intentHash": "096f534a01b0bc1cf262298575dd368a73f54335b6e0ffc330fb62c24c5d9449",
+    "outcomes": [
+      {
+        "completeReviewers": 2,
+        "conflicts": [],
+        "id": "arm-a",
+        "imageSha256": "9595ad22d079dfbe7414c5fa4edec4b47d20fac3af4849303e2c6635c174ab1d",
+        "incompleteReviewers": 0,
+        "reviews": [
+          {
+            "complete": true,
+            "identity": {
+              "model": "gpt-6-astra",
+              "provider": "openai-codex"
+            },
+            "judgment": {
+              "craft": 9,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "bell-pause",
+              "ship": "yes"
+            },
+            "route": "codex"
+          },
+          {
+            "complete": true,
+            "identity": {
+              "model": "claude-opus-5",
+              "provider": "anthropic-claude"
+            },
+            "judgment": {
+              "craft": 7,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "bell-pause",
+              "ship": "yes"
+            },
+            "route": "claude"
+          }
+        ],
+        "status": "rejected"
+      }
+    ]
+  },
+  "reviewTerminals": {
+    "codex": {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/campaign/codex/terminal.json",
+      "sha256": "7ac3dc7d98a6a7f4aae86ffbc23e9ec7b5ffc9f7257af4f39c02ea368dbc0985",
+      "status": "complete",
+      "elapsedMs": 61792,
+      "intentHash": "f74bec8379ac48890515b051d49feedf855e4d34795144f6b20e2a3323a9c1e2",
+      "resultHash": "f5b39059c322a80b92fd0c388250c71fe8bf6125df79db63bc093e497fa898aa",
+      "artifactTreeHash": "7da8c96588a0bdecb040fccdbb1877fecef7b8af0dbb0e66254c604d5269cefa"
+    },
+    "claude": {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/review-A142-native-anchor-parity-v2/campaign/claude/terminal.json",
+      "sha256": "77b627675170ebcfb0dca469cca5211c9d57685cd4faff1d040ef012bedeb12b",
+      "status": "complete",
+      "elapsedMs": 103731,
+      "intentHash": "ad80d7e2541d54744d0cd4ec03b7b116384ee10b54673a82dfe492b5b1924fdc",
+      "resultHash": "d7176cadbbf71319adcc8b0c386ca6a34d0e13064c580ddbfe35333a3ed7db52",
+      "artifactTreeHash": "c938480575bde10927b26f9f784e0d2cd6278abb08f5e3f4b6e9ebc76d9f8aeb"
+    }
+  },
+  "comparisonToA141": {
+    "candidateSha256Matches": true,
+    "a141Status": "uncertain",
+    "a142Status": "rejected",
+    "codex": {
+      "a141": {
+        "craft": 9,
+        "critical": "no",
+        "family": "yes",
+        "native": "yes",
+        "recognition": "bell-pause",
+        "ship": "yes"
+      },
+      "a142": {
+        "craft": 9,
+        "critical": "no",
+        "family": "yes",
+        "native": "yes",
+        "recognition": "bell-pause",
+        "ship": "yes"
+      }
+    },
+    "claude": {
+      "a141": {
+        "craft": 6,
+        "critical": "no",
+        "family": "uncertain",
+        "native": "uncertain",
+        "recognition": "bell-pause",
+        "ship": "no"
+      },
+      "a142": {
+        "craft": 7,
+        "critical": "no",
+        "family": "yes",
+        "native": "yes",
+        "recognition": "bell-pause",
+        "ship": "yes"
+      }
+    },
+    "interpretation": "The richer anchor presentation removed categorical reviewer conflicts, but craft scores 9 and 7 have median 8, below the configured median-9 development threshold; status remains rejected."
+  },
+  "accounting": {
+    "nativeCalls": 4,
+    "elapsedMs": 165523,
+    "apiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "limitations": [
+    "Only the reference presentation changed; this is not a new geometry result.",
+    "The target-family anchors make this a reconstruction diagnostic and cannot establish novel craft judgment.",
+    "Recognition answers are retained exactly and are not relabeled.",
+    "A single exposed example and same-model author/reviewer overlap cannot qualify a generator, critic, or catalog."
+  ]
+}

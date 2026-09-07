@@ -17,29 +17,9 @@ import { completeProgram, run } from "../src/tools/dsl.js";
 import { lint } from "../src/tools/lint.js";
 import { opticalProof } from "../src/tools/proof.js";
 import { sheet } from "../src/tools/render.js";
+import { DEVELOPMENT_FAMILIES } from "./quality-population.js";
 
-export const DEVELOPMENT_FAMILIES = [
-  ["cloud", "cloud-upload", "open body and external modifier"],
-  ["bell", "bell-pause", "curved body and interrupted rim"],
-  ["shield", "shield-check", "curved counter and acute intersections"],
-  ["folder", "folder-lock", "asymmetric body and badge clearance"],
-  ["clock", "clock-check", "intersecting cutters"],
-  ["jellyfish", "jellyfish", "organic continuous contours"],
-  ["satellite", "satellite-dish", "curved diagonal construction"],
-  ["camera", "camera-sparkle", "nested counters and detail"],
-  ["bookmark", "bookmark-play", "concave contour and solid modifier"],
-  ["key", "key", "thin connecting features"],
-  ["headphones", "headphones", "symmetric curved terminals"],
-  ["leaf", "leaf", "asymmetric organic silhouette"],
-  ["bicycle", "bicycle", "dense linked circular forms"],
-  ["scissors", "scissors", "crossing diagonal bars"],
-  ["hand", "hand-heart", "dense organic detail"],
-  ["battery", "battery-charging", "wide body and negative modifier"],
-  ["umbrella", "umbrella", "curved canopy and narrow stem"],
-  ["rocket", "rocket", "diagonal pointed body"],
-  ["credit-card", "credit-card-check", "wide body and short gaps"],
-  ["hourglass", "hourglass", "narrow waist and enclosed counters"],
-].map(([family, concept, challenge]) => ({ challenge, concept, family }));
+export { DEVELOPMENT_FAMILIES } from "./quality-population.js";
 
 export interface AuditInput {
   concept: string;
@@ -56,6 +36,82 @@ export interface AuditInput {
   actualUsd: number | null;
 }
 
+interface ExportedAudit {
+  artifacts: (Omit<AuditInput, "artifact" | "revision"> & {
+    compiler: StyleArtifact["compiler"];
+    id: string;
+    master: string;
+    revisionHash: string;
+    svgSha256: string;
+  })[];
+}
+
+/** Rehydrate an exporter-owned packet without trusting ad hoc input JSON. The
+ * next export still replays every artifact and checks its hashes and manifest. */
+export const readExportedAuditInputs = (directory: string): AuditInput[] => {
+  const audit = JSON.parse(
+    readFileSync(path.join(directory, "provenance.json"), "utf-8")
+  ) as ExportedAudit;
+  const currentFamily = new Map(
+    DEVELOPMENT_FAMILIES.map((entry) => [entry.concept, entry.family])
+  );
+  return audit.artifacts.map((row) => {
+    const program = readFileSync(
+      path.join(directory, `${row.id}.icon`),
+      "utf-8"
+    );
+    const svg = readFileSync(path.join(directory, `${row.id}.svg`), "utf-8");
+    const revision = JSON.parse(
+      readFileSync(path.join(directory, `${row.id}.revision.json`), "utf-8")
+    );
+    if (
+      createHash("sha256").update(svg).digest("hex") !== row.svgSha256 ||
+      createStyleRevision(revision).hash !== row.revisionHash
+    ) {
+      throw new Error(`Exported audit artifact changed: ${row.id}`);
+    }
+    return {
+      actualUsd: row.actualUsd,
+      artifact: {
+        compiler: row.compiler,
+        finish: row.finish,
+        master: row.master,
+        program,
+        style: row.revisionHash,
+        svg,
+        svgHash: styleHash(svg),
+      },
+      authorship: row.authorship,
+      concept: row.concept,
+      elapsedMs: row.elapsedMs,
+      family: currentFamily.get(row.concept) ?? row.family,
+      finish: row.finish,
+      model: row.model,
+      revision,
+      source: row.source,
+      terminal: row.terminal,
+    };
+  });
+};
+
+/** Later directories supersede the same output slot while retaining missing
+ * slots from earlier packets. */
+export const mergeExportedAuditInputs = (
+  directories: readonly string[]
+): AuditInput[] => {
+  const bySlot = new Map<string, AuditInput>();
+  for (const directory of directories) {
+    for (const input of readExportedAuditInputs(directory)) {
+      const { size } = selectStyle(
+        createStyleRevision(input.revision),
+        input.artifact.master
+      ).spec;
+      bySlot.set(`${input.family}:${input.finish}:${size}`, input);
+    }
+  }
+  return [...bySlot.values()];
+};
+
 export const freezeDevelopment = (directory: string) => {
   mkdirSync(directory, { recursive: false });
   const manifest = {
@@ -63,8 +119,9 @@ export const freezeDevelopment = (directory: string) => {
     finishes: ["outlined", "filled"],
     frozenAt: new Date().toISOString(),
     holdoutClosure: "pending-source-alias-geometry-and-history-audit",
-    humanLabels: "pending",
     id: "blode-quality-development-v1",
+    independentAiPanelLabels: "pending",
+    reviewAuthority: "independent-ai-panel",
     rubric: "docs/plans/generation-quality-10.md",
     sizes: [16, 24],
   };
@@ -153,7 +210,7 @@ const auditStatus = (
   if (terminal.status !== "delivered") {
     return "delivery-incomplete";
   }
-  return "needs-human-review";
+  return "pending-independent-ai-review";
 };
 
 export const exportAudit = async (
@@ -208,12 +265,16 @@ export const exportAudit = async (
       JSON.stringify(selection.revision.definition, null, 2)
     );
     save("svg", svg);
+    let nativeImageSha256 = "";
     for (const size of [selection.spec.size]) {
       // Keep raster memory bounded when exporting a full benchmark.
       // eslint-disable-next-line no-await-in-loop
       const evidence = await opticalProof(svg, size);
       save(`${size}.png`, evidence.native);
       save(`${size}.proof.png`, evidence.proof);
+      nativeImageSha256 = createHash("sha256")
+        .update(evidence.native)
+        .digest("hex");
     }
     const receipt = {
       ...input,
@@ -223,8 +284,9 @@ export const exportAudit = async (
       findings,
       id,
       master: selection.master,
+      nativeImageSha256,
       nativeSize: selection.spec.size,
-      opticalMasterClaim: "pending-human-calibration",
+      opticalMasterClaim: "pending-independent-ai-review",
       paintMatches: result.canvas.finish === input.finish,
       programSha256: createHash("sha256").update(program).digest("hex"),
       replay,
@@ -261,19 +323,16 @@ export const exportAudit = async (
     )
   );
   writeFileSync(
-    path.join(directory, "human-review.json"),
+    path.join(directory, "ai-review.json"),
     JSON.stringify(
-      key.map(({ id, svgSha256, nativeSize }) => ({
-        approved: null,
-        craftRating: null,
-        defects: [],
-        familyFit: null,
-        humanIdentity: null,
+      key.map(({ id, nativeImageSha256, svgSha256, nativeSize }) => ({
         id,
-        native16: null,
-        native24: null,
+        nativeImageSha256,
         nativeSize,
-        recognition: null,
+        requiredReviewerCount: 2,
+        reviewAuthority: "independent-ai-panel",
+        reviews: [],
+        status: "pending",
         svgSha256,
       })),
       null,
@@ -298,19 +357,18 @@ export const exportAudit = async (
       .png()
       .toBuffer();
     writeFileSync(path.join(directory, `${batch}.png`), labelled);
-    const labels = rows.map(({ id, svgSha256, nativeSize }) => ({
-      craftRating: null,
-      criticalDefect: null,
-      defects: [],
-      familyFit: null,
-      humanIdentity: null,
-      id,
-      nativeLegibility: null,
-      nativeSize,
-      recognition: null,
-      shipUnchanged: null,
-      svgSha256,
-    }));
+    const labels = rows.map(
+      ({ id, nativeImageSha256, svgSha256, nativeSize }) => ({
+        id,
+        nativeImageSha256,
+        nativeSize,
+        requiredReviewerCount: 2,
+        reviewAuthority: "independent-ai-panel",
+        reviews: [],
+        status: "pending",
+        svgSha256,
+      })
+    );
     writeFileSync(
       path.join(directory, `${batch}.labels.json`),
       JSON.stringify(labels, null, 2)
@@ -327,7 +385,7 @@ export const exportAudit = async (
   );
   writeFileSync(
     path.join(directory, "README.md"),
-    "Review Q-numbered PNGs without provenance.json or .icon source. Each batch has at most 20 rows in Q-number order; use batches.json to map positions. Inspect the requested native proof size. Record independent recognition before revealing the concept. Missing labels are pending, never passes. Each row represents only its pinned native master; human optical calibration is pending.\n"
+    "Submit Q-numbered PNGs to separately pinned independent AI panel reviewers without provenance.json or .icon source. Each batch has at most 20 rows in Q-number order; use batches.json to map positions. Review the requested native proof size and record blind recognition before concept reveal. Persist actual reviewer identities and model evidence from the review run; this packet supplies neither. Missing or uncertain labels remain pending and never pass. Each row represents only its pinned native master.\n"
   );
   return { count: key.length, missing: missing.length, qualified: false };
 };

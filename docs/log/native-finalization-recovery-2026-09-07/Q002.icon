@@ -1,0 +1,8 @@
+icon folder-lock
+finish filled
+part folder-1-filled-0 at 2,3
+circle 6,16 r4.5
+rect 0,14.5 12x11 r3
+union r1
+subtract
+part file-lock-filled-2 at 2,13

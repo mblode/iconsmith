@@ -1,0 +1,45 @@
+{
+  "kind": "offline-isolated-source-line-parser-fix",
+  "date": "2026-09-07",
+  "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+  "population": 4357,
+  "preparedPatch": ".staging/parser-line-fix-2026-09-07/parser-fix.patch",
+  "preparedPatchSha256": "b8e44212c7505ca68bc6f0c550928650bca989b789b2c7935e39ef9755ae99a8",
+  "regression": {
+    "file": ".staging/parser-line-fix-2026-09-07/parser-regression.test.ts",
+    "tests": 2,
+    "passed": 2,
+    "coverage": ["inherited stroked horizontal line", "0.01-unit round-cap dot line"]
+  },
+  "admission": {
+    "grid": 0.25,
+    "beforeAdmitted": 3919,
+    "afterAdmitted": 3921,
+    "afterRefused": 436,
+    "improved": ["chain-link-2.svg", "circle-exclamation.svg"],
+    "regressed": [],
+    "unchangedAdmitted": 3919,
+    "unchangedRefused": 436,
+    "evidence": ".staging/parser-line-fix-2026-09-07/admission-results.json",
+    "evidenceSha256": "449ca1b51cbb35fe8db75fb6e5cbf730a72d160312eba204e894d4dec77d2593"
+  },
+  "replay": {
+    "total": 4357,
+    "exactReplay": 4357,
+    "failures": 0,
+    "beforeRasterDifferences": 1009,
+    "afterRasterDifferences": 1007,
+    "threshold": 0.01,
+    "evidence": ".staging/parser-line-fix-2026-09-07/replay-summary.json",
+    "evidenceSha256": "1f90ee58410643832ba75b49733f517dd4b17fe609ef44df2037595dd37544ea"
+  },
+  "driver": ".staging/parser-line-fix-2026-09-07/admit-and-compare.mts",
+  "driverSha256": "9100b5280aba6d42646f5a277c14b9e6284f14841c754b4f507820fc5a1ebadc",
+  "compilerIdentityAssessment": {
+    "compileStyleSourceSha256": "515107a90d6bb10f501b0e3db4fa4d3575ce296ede876cac08ffa628a5d20446",
+    "dslSourceSha256": "b3f952fb229cf2a2398eb7bedef1351e3d5263619e178a77016c252c2186e442",
+    "semanticChange": false,
+    "explanation": "The isolated patch changes only corpus SVG attribute ingestion. compileStyle and DSL sources are byte-identical; existing DSL artifacts and programs retain their compiler semantics. Any broader tooling fingerprint that intentionally includes corpus/load.ts must change because admitted reference geometry changes."
+  },
+  "qualification": "Offline source admission and reconstruction only; no generated craft or provider qualification. Active production source remained unchanged."
+}

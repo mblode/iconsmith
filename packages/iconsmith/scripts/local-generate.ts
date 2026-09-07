@@ -10,6 +10,10 @@ import { prepareAuthorContext } from "./local-author-context.js";
 import { retrieveLocalStyle } from "./local-retrieval.js";
 import { prepareLocalRuntime } from "./local-runtime.js";
 import { runLocalStyle } from "./local-style-run.js";
+import {
+  captureRuntimeIdentity,
+  verifyRuntimeIdentity,
+} from "./runtime-identity.js";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -22,17 +26,21 @@ const { positionals, values } = parseArgs({
       type: "string",
     },
     exclude: { multiple: true, type: "string" },
+    "family-packet": { type: "string" },
     finish: { type: "string" },
     library: { type: "string" },
     "library-set": { type: "string" },
     master: { type: "string" },
-    "max-wall-ms": { default: "600000", type: "string" },
+    "max-wall-ms": { default: "1200000", type: "string" },
     meanings: { type: "string" },
     model: { default: "gpt-6-astra", type: "string" },
     qualification: { default: false, type: "boolean" },
+    "request-id": { type: "string" },
     revision: { type: "string" },
+    "runtime-manifest": { type: "string" },
     sketch: { type: "string" },
     "sketch-source": { type: "string" },
+    "tooling-hash": { type: "string" },
   },
 });
 const [concept, destination] = positionals;
@@ -48,6 +56,9 @@ if (
     "Usage: local-generate.ts <concept> <new-output-directory> --revision <file> --master <name> --meanings <json-file> [--finish outlined|filled] [--brief <file>]"
   );
 }
+if (Boolean(values["request-id"]) !== Boolean(values["tooling-hash"])) {
+  throw new Error("--request-id and --tooling-hash must be supplied together");
+}
 if (values.finish && !["outlined", "filled"].includes(values.finish)) {
   throw new Error("--finish must be outlined or filled; omit for both.");
 }
@@ -62,6 +73,9 @@ if (Boolean(values.library) !== Boolean(values["library-set"])) {
 if (values.qualification && !values.library) {
   throw new Error("Qualification requires automatic library retrieval");
 }
+if (values["family-packet"] && !values.library) {
+  throw new Error("--family-packet requires --library and --library-set");
+}
 const startedAt = Date.now();
 const maxWallMs = Number(values["max-wall-ms"]);
 if (!Number.isFinite(maxWallMs) || maxWallMs <= 0) {
@@ -71,7 +85,30 @@ const deadlineAt = startedAt + maxWallMs;
 const stageTimings: Record<string, number> = {};
 const env = subscriptionEnv(process.env);
 const out = path.resolve(destination);
+let route = "pinned-control";
+if (values.library) {
+  route = "automatic-retrieval";
+}
+if (values["family-packet"]) {
+  route = "shared-family-packet";
+}
+const runtimeIdentity = values["runtime-manifest"]
+  ? verifyRuntimeIdentity(
+      JSON.parse(readFileSync(values["runtime-manifest"], "utf-8")),
+      env
+    )
+  : captureRuntimeIdentity(values.codex, "claude", env);
+if (
+  runtimeIdentity.manifest.author.command !== values.codex ||
+  runtimeIdentity.manifest.reviewer.command !== "claude"
+) {
+  throw new Error("Runtime manifest commands do not match generation route");
+}
 mkdirSync(out, { recursive: false });
+writeFileSync(
+  path.join(out, "runtime-identity.json"),
+  JSON.stringify(runtimeIdentity, null, 2)
+);
 writeFileSync(
   path.join(out, "run.json"),
   JSON.stringify(
@@ -82,11 +119,14 @@ writeFileSync(
       concept,
       deadlineAt,
       maxWallMs,
+      requestId: values["request-id"],
       requestedModel: values.model,
       requestedReasoningEffort: "high",
       reviewer: "claude",
-      route: values.library ? "automatic-retrieval" : "pinned-control",
+      route,
+      runtimeHash: runtimeIdentity.hash,
       startedAt: new Date(startedAt).toISOString(),
+      toolingHash: values["tooling-hash"],
     },
     null,
     2
@@ -95,11 +135,15 @@ writeFileSync(
 let activeStage = "preflight";
 let stageStartedAt = startedAt;
 try {
-  const codex = spawnSync(values.codex, ["login", "status"], {
-    encoding: "utf-8",
-    env,
-    timeout: Math.max(1, deadlineAt - Date.now()),
-  });
+  const codex = spawnSync(
+    runtimeIdentity.manifest.author.executable,
+    ["login", "status"],
+    {
+      encoding: "utf-8",
+      env,
+      timeout: Math.max(1, deadlineAt - Date.now()),
+    }
+  );
   if (
     codex.status !== 0 ||
     !`${codex.stdout}${codex.stderr}`.includes("Logged in using ChatGPT")
@@ -111,11 +155,15 @@ try {
   if (Date.now() >= deadlineAt) {
     throw new Error("Run deadline exhausted during authentication");
   }
-  const claude = spawnSync("claude", ["auth", "status"], {
-    encoding: "utf-8",
-    env,
-    timeout: Math.max(1, deadlineAt - Date.now()),
-  });
+  const claude = spawnSync(
+    runtimeIdentity.manifest.reviewer.executable,
+    ["auth", "status"],
+    {
+      encoding: "utf-8",
+      env,
+      timeout: Math.max(1, deadlineAt - Date.now()),
+    }
+  );
   const auth = claude.status === 0 ? JSON.parse(claude.stdout) : null;
   if (auth?.loggedIn !== true || auth.authMethod !== "claude.ai") {
     throw new Error(
@@ -131,6 +179,11 @@ try {
       concept,
       deadlineAt,
       exclusions: values.exclude,
+      familyPacket: values["family-packet"]
+        ? JSON.parse(
+            readFileSync(path.resolve(values["family-packet"]), "utf-8")
+          )
+        : undefined,
       library: path.resolve(values.library),
       master: values.master,
       out: path.join(out, "retrieval"),
@@ -168,7 +221,7 @@ try {
       "--",
       brief,
     ],
-    command: values.codex,
+    command: runtimeIdentity.manifest.author.executable,
     composition: values.sketch
       ? {
           path: path.resolve(values.sketch),
@@ -192,24 +245,37 @@ try {
     meanings: JSON.parse(readFileSync(values.meanings, "utf-8")),
     out,
     prepareRuntime: async (directory) => {
-      const runtime = await prepareLocalRuntime(directory, values.codex, env);
-      const context = prepareAuthorContext(values.codex, directory, env);
+      const runtime = await prepareLocalRuntime(
+        directory,
+        runtimeIdentity.manifest.author.executable,
+        env
+      );
+      const context = prepareAuthorContext(
+        runtimeIdentity.manifest.author.executable,
+        directory,
+        env
+      );
       return {
         ...runtime,
         permissionArgs: [...runtime.permissionArgs, ...context.args],
         protectedFiles: [...runtime.protectedFiles, context.receiptName],
       };
     },
+    reviewerCommand: runtimeIdentity.manifest.reviewer.executable,
     revisionPath,
   });
   stageTimings.generation = Date.now() - stageStartedAt;
+  verifyRuntimeIdentity(runtimeIdentity, env);
   const terminal = {
     ...result,
     deadlineAt,
     deadlineExceeded: Date.now() >= deadlineAt,
     elapsedMs: Date.now() - startedAt,
-    route: values.library ? "automatic-retrieval" : "pinned-control",
+    requestId: values["request-id"],
+    route,
+    runtimeHash: runtimeIdentity.hash,
     stageTimings,
+    toolingHash: values["tooling-hash"],
   };
   if (terminal.deadlineExceeded) {
     terminal.qualityStatus = "deadline-exhausted";
@@ -236,9 +302,14 @@ try {
         deadlineExceeded: Date.now() >= deadlineAt,
         elapsedMs: Date.now() - startedAt,
         error: String(error),
-        route: values.library ? "automatic-retrieval" : "pinned-control",
+        master: values.master,
+        nativeSize: Number(values.master),
+        requestId: values["request-id"],
+        route,
+        runtimeHash: runtimeIdentity.hash,
         stageTimings,
         status: "incomplete",
+        toolingHash: values["tooling-hash"],
       },
       null,
       2

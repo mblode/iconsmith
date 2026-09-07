@@ -1,0 +1,750 @@
+{
+  "kind": "a149-critic-p01-offline-assessment-v2",
+  "createdAt": "2026-09-08",
+  "campaignHash": "6436db7b0672558d371ce9946da742f92f5d6be559c606847792a53cfcf7c2af",
+  "sourceAssessment": {
+    "path": "docs/log/a149-critic-p01-offline-assessment-2026-09-08.json",
+    "sha256": "234fca4446f6e967529162a1142be6cf66c92fa9978c636785eb5e00836e6cf1"
+  },
+  "qualified": false,
+  "instrumentQualified": false,
+  "denominator": 10,
+  "routeCensus": {
+    "astra": "unstarted",
+    "claude": "incomplete",
+    "sol": "complete"
+  },
+  "assessment": {
+    "kind": "a149-v6-offline-assessment",
+    "campaignHash": "6436db7b0672558d371ce9946da742f92f5d6be559c606847792a53cfcf7c2af",
+    "packet": "V2-P01",
+    "qualified": false,
+    "instrumentQualified": false,
+    "denominator": 10,
+    "routeCensus": {
+      "astra": "unstarted",
+      "claude": "incomplete",
+      "sol": "complete"
+    },
+    "unmeasuredDimensions": [
+      "familyParity",
+      "nativeFamilyOpticalParity"
+    ],
+    "rows": [
+      {
+        "opaqueId": "R-8eb8edb10016",
+        "artifactEvidenceSha256": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "integrations",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-01ccc4437501",
+        "artifactEvidenceSha256": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "difference-modified",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-5784039f0165",
+        "artifactEvidenceSha256": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "aura",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-7d4e62603013",
+        "artifactEvidenceSha256": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "mute",
+            "critical": "no",
+            "craft": 8,
+            "ship": "no",
+            "decision": "reject",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-257222ceba39",
+        "artifactEvidenceSha256": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "adobe-acrobat",
+            "critical": "no",
+            "craft": 7,
+            "ship": "no",
+            "decision": "reject",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-4d6bc1b595e0",
+        "artifactEvidenceSha256": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "collaboration-pointer-left",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-081de278ac7b",
+        "artifactEvidenceSha256": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "emoji-tongue",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-cfacb7b0ce64",
+        "artifactEvidenceSha256": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "chevron-triangle-up-small",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-9e153df1309d",
+        "artifactEvidenceSha256": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "open-quote-1",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      },
+      {
+        "opaqueId": "R-4e416c33775d",
+        "artifactEvidenceSha256": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+        "models": {
+          "astra": {
+            "eligible": false,
+            "status": "unstarted",
+            "reason": "route directory missing",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "claude": {
+            "eligible": false,
+            "status": "incomplete",
+            "reason": "Error: Stage three incomplete",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          },
+          "sol": {
+            "eligible": true,
+            "actualModel": "gpt-5.6-sol",
+            "recognition": "electrocardiogram",
+            "critical": "no",
+            "craft": 9,
+            "ship": "yes",
+            "decision": "approve",
+            "familyParity": null,
+            "nativeFamilyOpticalParity": null
+          }
+        },
+        "panels": {
+          "astra": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "claude",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "claude": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "sol"
+            ],
+            "criticInfluencedPanel": false
+          },
+          "sol": {
+            "decision": "uncertain",
+            "namedEvidenceCorroboration": null,
+            "derivedOnlyFrom": [
+              "astra",
+              "claude"
+            ],
+            "criticInfluencedPanel": false
+          }
+        }
+      }
+    ]
+  },
+  "executionAccounting": {
+    "nativeCallsAttempted": 6,
+    "apiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null,
+    "calls": [
+      {
+        "route": "sol",
+        "stage": "stage1",
+        "process": {
+          "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/sol/stage1/process.json",
+          "sha256": "c7c0a0f00d82b652247b8dc190cbccf17373da431becd8e7d75ce8e21d60b6df",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "quiescenceScope": "process-group-and-observed-descendants"
+        },
+        "requestSha256": "18ed19c5d93d951f304a19cc45dfbbaf8b62328514afc3e569d3efe88264d248",
+        "reviewSha256": "0f24a95efa5685828d34d70a31d6f04906c2b340f83b4b2839c529f3bdce9fa1",
+        "reviewStatus": "complete"
+      },
+      {
+        "route": "sol",
+        "stage": "stage2",
+        "process": {
+          "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/sol/stage2/process.json",
+          "sha256": "112fd94c5071f5979c9aae70afc30d9aa455dd465d759af2cad806c23c19032a",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "quiescenceScope": "process-group-and-observed-descendants"
+        },
+        "requestSha256": "a2341715760e11425c0498c61292ca8544d89553c4c791bd831c5a3d5bde7c57",
+        "reviewSha256": "300c4d536ce8d8fcc1962463795ea324829fe5c04b938b298c1f2992e8d54e89",
+        "reviewStatus": "complete"
+      },
+      {
+        "route": "sol",
+        "stage": "stage3",
+        "process": {
+          "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/sol/stage3/process.json",
+          "sha256": "880e169ff64114930cfd5a2e5fb05888cf33bec55761462f269c1f5660d86762",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "quiescenceScope": "process-group-and-observed-descendants"
+        },
+        "requestSha256": "23016b6a51e3334adebc7bf8915f74553a8b1161a73a855004ca6066a45b6156",
+        "reviewSha256": "b94a4dbe84eb5c88f46de3c14f69bf9260bbc5ab1502bfdac37b16d2b75cc531",
+        "reviewStatus": "complete"
+      },
+      {
+        "route": "claude",
+        "stage": "stage1",
+        "process": {
+          "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/claude/stage1/process.json",
+          "sha256": "29240976d56b23ca578cbe1f7d07d184417ddc1af8c5569a05c401ddc7859421",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "quiescenceScope": "process-group-and-observed-descendants"
+        },
+        "requestSha256": "90075f962d4fdd413cf0e1f8aa855ca3b3515395f153d75cbe2eb7ee433ec1fd",
+        "reviewSha256": "5aa00951a200aaa4345e1f055d46ff100b1b5cf9a2a3ac911e8d31c562e32936",
+        "reviewStatus": "complete"
+      },
+      {
+        "route": "claude",
+        "stage": "stage2",
+        "process": {
+          "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/claude/stage2/process.json",
+          "sha256": "f61b9d59a911fc4c291ccbe91a115657ca0135c6fc9063fd6af92a31a8da7cc8",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "quiescenceScope": "process-group-and-observed-descendants"
+        },
+        "requestSha256": "c0bf81b57c025634307d1214a7e2e94284d6d3ad6c9ef6584fd4f2e316b67eec",
+        "reviewSha256": "dec46e32c50ecfc307df2cbafe7272839d30f426f5ecf421fa7e3c5165aaee96",
+        "reviewStatus": "complete"
+      },
+      {
+        "route": "claude",
+        "stage": "stage3",
+        "process": {
+          "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/claude/stage3/process.json",
+          "sha256": "044682526f40228077274c41c0b86660cad8c51c461215bb6424c2a215d1ebf8",
+          "code": null,
+          "killed": true,
+          "quiescent": true,
+          "quiescenceScope": "process-group-and-observed-descendants"
+        },
+        "requestSha256": "b6e2afb93b3a7b09cee58e8e5356aa3624e49228b954b0eaca03ac19f938e538",
+        "reviewSha256": "529b53502d2f063c7ee908749b72c482260b3c782602a8c621f052774d6734d7",
+        "reviewStatus": "incomplete"
+      }
+    ],
+    "allProcessReceiptsQuiescent": true,
+    "automaticRetryAuthorized": false
+  },
+  "claudeStage3Failure": {
+    "reason": "Interrupted reviewer lacks one terminal structured output.",
+    "processKilled": true,
+    "processCode": null,
+    "quiescent": true,
+    "requestArtifactMtimeUtc": "2026-09-07T14:28:48.232316+00:00",
+    "processArtifactMtimeUtc": "2026-09-07T14:30:46.599793+00:00",
+    "approximateArtifactIntervalMs": 118367,
+    "interpretation": "The third Claude native attempt was interrupted near its 120 second stage cap before terminal structured output. Cleanup was proven quiescent. Timing uses filesystem artifact mtimes as diagnostic evidence, not provider billing time."
+  },
+  "limitations": [
+    "Only Sol completed all three stages. Claude is incomplete and Astra was not started by the stop gate, so no two-other-identity panel truth can be derived for any of the ten stimuli.",
+    "Named critical-defect corroboration is unresolved; matching reject choices alone never establish corroboration.",
+    "Family parity and native-family optical parity remain null."
+  ]
+}

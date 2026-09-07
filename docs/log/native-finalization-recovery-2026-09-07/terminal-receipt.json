@@ -1,0 +1,225 @@
+{
+  "id": "A120",
+  "cost": {
+    "apiUsd": 0,
+    "subscriptionUsd": null
+  },
+  "request": {
+    "billing": "subscription",
+    "craftApproved": false,
+    "master": "16",
+    "nativeSize": 16,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "sourceRevisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+    "style": "d858a7b570fa3cb018bd443419da68df1550f962ba7e51ec0796a60be8d30f74",
+    "authorExitCode": 0,
+    "authorReview": {
+      "unresolved": [
+        {
+          "description": "The required rectangular badge body counter is not consistently visible across final renderings: current outlined.png and filled.png, inspected at original detail with returned bytes verified equal to disk, appear to show solid badge bodies. Current proof images visibly retain the counter, each paint's hash-bound native rows[12][3..4] are [255,255] and retina rows[24][6..9] are [255,255,255,255], and both resolved SVGs retain the evenodd rectangular opening. The enlarged rendering discrepancy remains unexplained.",
+          "id": "enlarged-counter-discrepancy",
+          "kind": "visual"
+        }
+      ]
+    },
+    "authorReviewError": null,
+    "changedInputs": [],
+    "checkExitCode": 0,
+    "imageInspection": {
+      "complete": true,
+      "images": {
+        "outlined.proof.png": {
+          "exposed": true,
+          "sha256": "91abdb539d8ba50e026c689cc03b8700900323bcb9acd4a33ba7fb7ce79fc8b5"
+        },
+        "filled.proof.png": {
+          "exposed": true,
+          "sha256": "3a5217714f805e0936a9cf8aa87878fc2444770b679b7768289af2bcb6fb9d0a"
+        }
+      },
+      "traceSha256": "07890742cab8260415c0a666fa66c8b9276236cb6e9f657d2d225b68450ae1f2",
+      "visualJudgmentValidated": false
+    },
+    "imageInspectionError": null,
+    "missing": [],
+    "reviewContentValidated": false,
+    "status": "delivered",
+    "attempts": [
+      {
+        "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-1",
+        "status": "incomplete"
+      },
+      {
+        "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-2",
+        "hash": "c5009589d74d859b41c029b0d7878586973f684bdcae9c4e1667200c3436e847",
+        "status": "needs-repair"
+      },
+      {
+        "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-3",
+        "status": "incomplete"
+      }
+    ],
+    "deadlineExceeded": false,
+    "elapsedMs": 526496,
+    "instrumentQualified": false,
+    "maxWallMs": 600000,
+    "qualityStatus": "needs-repair",
+    "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-2",
+    "stoppedReason": "author-incomplete",
+    "deadlineAt": 1788761015184,
+    "route": "pinned-control",
+    "stageTimings": {
+      "preflight": 309,
+      "retrieval": 0,
+      "generation": 526187
+    }
+  },
+  "controlledInterruption": {
+    "childPid": 91016,
+    "cwd": "/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-1",
+    "interruptedAt": "2026-09-07T05:54:30.180Z",
+    "reason": "checked exact replay and both current proofs exposed while author review pending"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+        "style": "d858a7b570fa3cb018bd443419da68df1550f962ba7e51ec0796a60be8d30f74",
+        "authorExitCode": null,
+        "authorReview": null,
+        "authorReviewError": "Error: ENOENT: no such file or directory, open '/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-1/author-review.json'",
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "91abdb539d8ba50e026c689cc03b8700900323bcb9acd4a33ba7fb7ce79fc8b5"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "3a5217714f805e0936a9cf8aa87878fc2444770b679b7768289af2bcb6fb9d0a"
+            }
+          },
+          "traceSha256": "5c15c29082e59a71cc0b61145a759286dedb26ecd3aebcf2605ef055fde768cb",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [
+          "author-review.json"
+        ],
+        "reviewContentValidated": false,
+        "status": "incomplete"
+      },
+      "deliverySha256": "a67e947c0e385da75b959a4a6e14b7168f629e98623e8d07e85bfe8b0f2eb1dd"
+    },
+    {
+      "attempt": 2,
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+        "style": "d858a7b570fa3cb018bd443419da68df1550f962ba7e51ec0796a60be8d30f74",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "The required rectangular badge body counter is not consistently visible across final renderings: current outlined.png and filled.png, inspected at original detail with returned bytes verified equal to disk, appear to show solid badge bodies. Current proof images visibly retain the counter, each paint's hash-bound native rows[12][3..4] are [255,255] and retina rows[24][6..9] are [255,255,255,255], and both resolved SVGs retain the evenodd rectangular opening. The enlarged rendering discrepancy remains unexplained.",
+              "id": "enlarged-counter-discrepancy",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "91abdb539d8ba50e026c689cc03b8700900323bcb9acd4a33ba7fb7ce79fc8b5"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "3a5217714f805e0936a9cf8aa87878fc2444770b679b7768289af2bcb6fb9d0a"
+            }
+          },
+          "traceSha256": "07890742cab8260415c0a666fa66c8b9276236cb6e9f657d2d225b68450ae1f2",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered"
+      },
+      "deliverySha256": "6b7d3d61f027caad09e62923210c72d21980180df3dd85a4c90475df2ac4adb3"
+    },
+    {
+      "attempt": 3,
+      "delivery": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+        "style": "d858a7b570fa3cb018bd443419da68df1550f962ba7e51ec0796a60be8d30f74",
+        "authorExitCode": null,
+        "authorReview": null,
+        "authorReviewError": "Error: ENOENT: no such file or directory, open '/Users/mblode/Code/mblode/iconsmith/.staging/folder-lock-16-r1-final-2026-09-07/attempt-3/author-review.json'",
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "91abdb539d8ba50e026c689cc03b8700900323bcb9acd4a33ba7fb7ce79fc8b5"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "3a5217714f805e0936a9cf8aa87878fc2444770b679b7768289af2bcb6fb9d0a"
+            }
+          },
+          "traceSha256": "42eeffc1a4d7039565c77b57e66adf933c1ea2c0a80f3447db596fc0ce6a5f7c",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [
+          "author-review.json"
+        ],
+        "reviewContentValidated": false,
+        "status": "incomplete"
+      },
+      "deliverySha256": "41eaec3e3937ea4f29ca293264b8d5c83ae857440e314bea3095bbd03fef1c8f"
+    }
+  ],
+  "orphanCleanup": {
+    "beforeSha256": "5c524920521ffd1ce74ec2d039ba9337cc10bd9aaee367695d783beedcf01c8f",
+    "receipt": "2026-09-07T06:02:43Z\nExact A120 attempt-3 native child PID 14189 terminated after owner wrapper PID 14188 and local-generate PID 90616 exited on deadline; command/cwd identity captured in orphan-before-cleanup.txt.",
+    "receiptSha256": "b48d81cf0bbfa0222697b9f6bd84f68ba3dc6210e2cc512dfd1de51b12cd74ac"
+  }
+}

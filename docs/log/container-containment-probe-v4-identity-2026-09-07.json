@@ -1,0 +1,10 @@
+{
+  "probeReceiptSha256": "68c06fa671f469993ec8b848d38e0981aea5a844712b908d6c3de8d5a18ff3ed",
+  "adapterSha256": "bfba51317ba8122186a2d5be7ccaa2d27ed9399d0f9f530cb5d71686c1a54162",
+  "dockerServerVersion": "29.4.0",
+  "qualified": false,
+  "providerRuntimeTested": false,
+  "mounts": "Dedicated probe output only; no credentials",
+  "imageDownloaded": false,
+  "newApiSpendUsd": 0
+}

@@ -1,0 +1,32 @@
+{
+  "authority": "offline-counterfactual-geometry-probe",
+  "campaign": "A152",
+  "purpose": "Test the A151 author's suggested filled rim knockout without changing the original candidate.",
+  "status": "refused-infeasible-under-fixed-outer-contour",
+  "qualified": false,
+  "providerCalls": 0,
+  "original": {
+    "programHash": "f3986f18aa573431e47caaa053dcd903173cf9fa4e571046de0229b81bd090b0",
+    "proofHash": "6c34adc627e38d00fe731da88c394385ce3e7a1ac2841cba09c40e745b142e27",
+    "exactReplay": true
+  },
+  "proposal": {
+    "programHash": "ce123424b6da23fd8137422c5c16c423695de637dc865e53dca37e347a78e5ec",
+    "proofHash": "5e39b9778be2acf5169cf9f11dca41cba3f0624c07b9d41bc0291c147dca6a76",
+    "checkHash": "afdf225219b9d9365b730ef6abbe6379c9fdf32229e3b282ef276232d064e8c1",
+    "exactReplay": true,
+    "construction": "The fixed dome and three fixed tentacles were unioned. Four non-overlapping 2x2 rounded cutters between and outside the tentacle roots were unioned, then subtracted once."
+  },
+  "objectiveTopology": {
+    "fixedGeometry": "The original filled dome is flattened at y=10 and the three 2-unit tentacle strokes attach at x=8,12,16 from y=10.",
+    "requestedDelta": "A knockout on the outlined rim skeleton at y=10.",
+    "observedResult": "Every y=10 cutter intersects the dome's existing bottom boundary. The subtraction therefore opens the silhouette into four upward notches/scallops; it cannot form an enclosed horizontal interior line. The three tentacle attachment bridges remain nonzero, but the bell outer contour is changed.",
+    "infeasibility": "With the bell boundary fixed at y=10, an enclosed horizontal knockout at that same y requires adding filled mass below the rim or moving the knockout upward. Either changes more than the requested single semantic knockout delta."
+  },
+  "board": {
+    "file": "docs/log/a152-jellyfish-rim-counterfactual-2026-09-08.png",
+    "sha256": "3f029754c0c5c0ed279b1337c46a210d1193df1f98c3aec3c1db1a52bff64d46",
+    "contents": "Exact original and refused proposal proof panels, including native 16px 1x/2x and enlarged light/dark views; labels added without resampling proof pixels."
+  },
+  "conclusion": "Refuse this counterfactual. It tests the recommendation and shows that the suggested rim cutout is not a one-delta operation under the fixed A151 silhouette. The result does not promote or alter A151 and does not establish a universal filled-paint rule."
+}

@@ -1,0 +1,81 @@
+{
+  "kind": "claude-structured-self-review-timeout-profile",
+  "createdAt": "2026-09-07T14:02:31.183Z",
+  "providerCalls": 0,
+  "imageInspectionPerformedByThisAudit": false,
+  "observations": [
+    {
+      "id": "A143",
+      "process": {
+        "path": ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/claude-native-structured/01-author-self-review/process.json",
+        "sha256": "aef18e7305b4052988c373512eeebe09a02e69eb7c8287fe5acd55225533ad73",
+        "code": null,
+        "killed": true,
+        "quiescent": true
+      },
+      "request": {
+        "path": ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/claude-native-structured/01-author-self-review/request.json",
+        "sha256": "4676919f1fda67d22d0e3a729b632b3d6d31f6e1c36c5a301e121fb7ae95264d"
+      },
+      "review": {
+        "path": ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/claude-native-structured/01-author-self-review/review.json",
+        "sha256": "34d5c50563dac85b8b3512cab34022cf3dd0e0a6e836fef1029965bc23c18131",
+        "reason": "Error: Interrupted reviewer lacks one terminal structured output."
+      },
+      "observed": {
+        "firstTimestamp": "2026-09-07T13:46:59.461Z",
+        "lastTimestamp": "2026-09-07T13:47:33.868Z",
+        "visibleSpanMs": 34407,
+        "firstReadTimestamp": "2026-09-07T13:47:00.892Z",
+        "lastReadTimestamp": "2026-09-07T13:47:33.865Z",
+        "readCalls": 13,
+        "terminalStructuredOutput": false
+      }
+    },
+    {
+      "id": "A144",
+      "process": {
+        "path": ".staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-fresh-inspection-finalization/00-author-self-review/process.json",
+        "sha256": "ffc5db1755f5329daedd0b67a360508399a18825bddf7065576175d3c8730971",
+        "code": null,
+        "killed": true,
+        "quiescent": true
+      },
+      "request": {
+        "path": ".staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-fresh-inspection-finalization/00-author-self-review/request.json",
+        "sha256": "8f95fec1559718e74605b4daceca89f3cb090f25fa3ea01a590e26b4f5fb17ca"
+      },
+      "review": {
+        "path": ".staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-fresh-inspection-finalization/00-author-self-review/review.json",
+        "sha256": "34d5c50563dac85b8b3512cab34022cf3dd0e0a6e836fef1029965bc23c18131",
+        "reason": "Error: Interrupted reviewer lacks one terminal structured output."
+      },
+      "observed": {
+        "firstTimestamp": "2026-09-07T13:55:46.091Z",
+        "lastTimestamp": "2026-09-07T13:57:08.535Z",
+        "visibleSpanMs": 82444,
+        "firstReadTimestamp": "2026-09-07T13:55:47.557Z",
+        "lastReadTimestamp": "2026-09-07T13:55:55.186Z",
+        "readCalls": 9,
+        "terminalStructuredOutput": false
+      }
+    }
+  ],
+  "diagnosis": "Both processes were cleanly terminated at the configured 90000ms inspection ceiling without terminal structured output. A144 read all nine images within about ten seconds and emitted a substantive visual assessment about 82 seconds after its first timestamp, leaving too little time for StructuredOutput. This supports stage-budget starvation rather than attachment startup overhead or provider rejection.",
+  "change": {
+    "inspectionReserveMsBefore": 90000,
+    "inspectionReserveMsPrepared": 150000,
+    "finalizationReserveMs": 90000,
+    "authorRouteBudgetMs": 600000,
+    "matchedPairBudgetMs": 1200000,
+    "independentReviewReserveMs": 480000
+  },
+  "hypothesis": "A 150000ms inspection ceiling should permit the observed Opus analysis plus structured settlement while retaining a distinct 90000ms finalizer reserve.",
+  "limits": [
+    "No native or provider call tested the 150000ms ceiling.",
+    "Trace timestamps cover emitted events, not silent reasoning or cleanup intervals.",
+    "A143 did not emit a late substantive assessment, so only A144 bounds observed synthesis timing.",
+    "The change does not establish improved craft or delivery rate."
+  ],
+  "qualified": false
+}

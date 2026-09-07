@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "id": "a144-independent-review-admission-2026-09-07",
+  "createdAt": "2026-09-07T13:58:10.814Z",
+  "authority": "development-review-admission-refusal",
+  "pair": "scissors-16",
+  "originalPairDeadline": 1788789845893,
+  "observedAt": 1788789490814,
+  "remainingMs": 355079,
+  "requiredReserveMs": 485000,
+  "authorDenominator": 2,
+  "deliveredAuthors": 1,
+  "incompleteAuthors": 1,
+  "deliveredRoutes": [
+    "astra-native"
+  ],
+  "incompleteRoutes": [
+    {
+      "route": "claude-native-structured",
+      "reason": "fresh recovery failed exact-proof inspection"
+    }
+  ],
+  "reviewDispatch": {
+    "status": "refused-insufficient-original-deadline-reserve",
+    "providerCalls": 0,
+    "maximumNativeCalls": 4,
+    "reviewersRequired": 2,
+    "perReviewerMaxMs": 240000,
+    "sequential": true
+  },
+  "boundFiles": {
+    "recoveryManifest": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/manifest.json",
+      "sha256": "cba00a6a759957a602c314d208f147782ffa0f17411f86c9837b9c20bce74b14"
+    },
+    "recoveryTerminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/terminal.json",
+      "sha256": "7dc52d8f40cc1dbe8b5ff06ee1dc2734efe8ed04708220e9542d62d541d7b72d"
+    },
+    "astraTerminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native-terminal.json",
+      "sha256": "227e4d8d30e36f894355cae8ad884ed861e292ada194755681ef19da75839a7e"
+    },
+    "claudeInitialTerminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-native-structured-terminal.json",
+      "sha256": "2c7f76c5a7144c3721a548036a454dfd0f2b84562bb96f3a1c41fee75e68026d"
+    },
+    "claudeRecoveryTerminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-native-structured-recovery-terminal.json",
+      "sha256": "a8960b2609bd513d1aae8c65f7cd639fe12df6eda554ea0ae6aab74f370a4881"
+    },
+    "v7Manifest": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/manifest.json",
+      "sha256": "63500349211e89fa4e1a944e396d2112cd8b81bcdfbb32e189c52ee1d7ba73ba"
+    },
+    "v7Pair": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/pair.json",
+      "sha256": "112f1dc9cedee0e325bc619381899fecc0bb806fa895792e7749028a859705f7"
+    },
+    "v7Dispatch": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/dispatch.json",
+      "sha256": "3496097d05154418b14b16ca0f08cce7c083eb6ac82b73c03c0ce366bdc82deb"
+    },
+    "preparer": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/prepare-review.mts",
+      "sha256": "1b0720d0a2161282930a31d4a4ff7b143df04a1a35835fe9cf924b9eb46d98cc"
+    },
+    "runner": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/run-review.mts",
+      "sha256": "e6ba0449b92845bc0fa37b31612f438522ab5343829fdc86684cf091f63f413b"
+    }
+  },
+  "qualified": false
+}

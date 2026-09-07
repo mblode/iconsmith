@@ -1,0 +1,142 @@
+{
+  "campaign": "A134",
+  "scope": "One exposed native16 repair case, composite both-paint judgments",
+  "qualified": false,
+  "promoted": false,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionChargeUsd": null,
+  "assessment": {
+    "campaignIntentHash": "6ab0618d792858b73d5bdf48e8acf4b257938502ab69093d661eb9789b16ca01",
+    "instrumentQualified": false,
+    "outcomes": [
+      {
+        "completeReviewers": 2,
+        "conflicts": [
+          "ship"
+        ],
+        "id": "q-k7",
+        "imageSha256": "4b1126050909bca234f053ffad0498303a5814cf31a1471dccc2943fa15ac5ab",
+        "incompleteReviewers": 0,
+        "reviews": [
+          {
+            "complete": true,
+            "identity": {
+              "model": "gpt-6-astra",
+              "provider": "openai-codex"
+            },
+            "judgment": {
+              "craft": 7,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "hammer-check",
+              "ship": "no"
+            },
+            "route": "codex"
+          },
+          {
+            "complete": true,
+            "identity": {
+              "model": "claude-opus-5",
+              "provider": "anthropic-claude"
+            },
+            "judgment": {
+              "craft": 7,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "hammer-check",
+              "ship": "yes"
+            },
+            "route": "claude"
+          }
+        ],
+        "status": "uncertain"
+      },
+      {
+        "completeReviewers": 2,
+        "conflicts": [
+          "ship"
+        ],
+        "id": "q-p4",
+        "imageSha256": "d7905a2c09b93ed5b40709b9489299548bd77940fb6726b2c61e744e563983dc",
+        "incompleteReviewers": 0,
+        "reviews": [
+          {
+            "complete": true,
+            "identity": {
+              "model": "gpt-6-astra",
+              "provider": "openai-codex"
+            },
+            "judgment": {
+              "craft": 9,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "hammer-check",
+              "ship": "yes"
+            },
+            "route": "codex"
+          },
+          {
+            "complete": true,
+            "identity": {
+              "model": "claude-opus-5",
+              "provider": "anthropic-claude"
+            },
+            "judgment": {
+              "craft": 6,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "hammer-check",
+              "ship": "uncertain"
+            },
+            "route": "claude"
+          }
+        ],
+        "status": "uncertain"
+      }
+    ],
+    "qualified": false,
+    "scope": "development-ai-review"
+  },
+  "terminals": {
+    "codex": {
+      "artifactTreeHash": "be86fabb7effe88e1ce8dcefc4b404499c6815565cab8fa2cf62071e79e8811a",
+      "deadlineAt": 1788782146918,
+      "elapsedMs": 79878,
+      "intentHash": "03b7c1f1af613bbbd3c8bfa5a1f07830c1716a236bd37426a20e5969f6fc0d35",
+      "model": "gpt-6-astra",
+      "qualified": false,
+      "resultHash": "e61198af00dd90354c7fa028c2ec63335a05a0f3dcded120785b1222f1297055",
+      "startedAt": 1788781666918,
+      "status": "complete"
+    },
+    "claude": {
+      "artifactTreeHash": "014d276ac2f08dfc068a5e55e023185fa6783b4caeda8bc66a457828e1d50e7a",
+      "deadlineAt": 1788782226797,
+      "elapsedMs": 124468,
+      "intentHash": "42012d67e00750a1b3ce41e2387bae53f87afb8564e8b2776bf091dce9323bd8",
+      "model": "claude-opus-5",
+      "qualified": false,
+      "resultHash": "3e530d8620b44a02e55b42225dab57e3f05b2f99a86e078dcb322ff55a5ac6c8",
+      "startedAt": 1788781746797,
+      "status": "complete"
+    }
+  },
+  "checkIdentity": {
+    "outlined": {
+      "before": "1c18925902c90e64af89620b77587d4c29b930a0cc782a36370cfd20754c16bc",
+      "after": "1c18925902c90e64af89620b77587d4c29b930a0cc782a36370cfd20754c16bc",
+      "identical": true
+    },
+    "filled": {
+      "before": "6664a456bcbe28e39e0c0b8242f109bb8114c61c7ff39fb38e913942dc52c5c8",
+      "after": "6664a456bcbe28e39e0c0b8242f109bb8114c61c7ff39fb38e913942dc52c5c8",
+      "identical": true
+    }
+  },
+  "interpretation": "Named head-handle clearance improves geometrically. Astra craft before7/after9, Claude before7/after6 and uncertain candidate ship. Candidate not promoted. Check geometry is identical; differing raster softness claims need evidence clarification, while changed handle-to-check spacing is a separate possible issue. No automatic modifier redraw."
+}

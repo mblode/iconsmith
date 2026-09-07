@@ -1,0 +1,28 @@
+{
+  "id": "A149",
+  "createdAt": "2026-09-07T14:26:04.862051+00:00",
+  "scope": "P01 only; three-model critic development screen",
+  "campaignIdentity": "6436db7b0672558d371ce9946da742f92f5d6be559c606847792a53cfcf7c2af",
+  "inputs": {
+    ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/campaign.json": "c21096b43520e005648866845bf01374764f49d415b0c04696ae14e444f82f51",
+    ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/run.mts": "367693fcdfe7d16bac1aa6b6e4acb3d631b328915b5d8ae99fbac99cc04287d4",
+    ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/decision-rules.json": "6c0c95b9bfcf15661427d1a6b283697876b0a05661a220354a0f050a56f9d1c3",
+    ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/recognition-amendment.json": "2f2cc3140ba95795f7957d9c3b45e88785762a52291542e4b4704b14737f12c0",
+    ".staging/a149-p01-run.mts": "0c9735a06b4fdc557544acf56a6b6ba38c5fc20ae067215e1f8ac45cb8259cde"
+  },
+  "maximumNativeCalls": 9,
+  "maximumConcurrency": 2,
+  "routeEnvelopeMs": 385000,
+  "packetEnvelopeMs": 770000,
+  "dispatchOrder": [
+    "sol+claude",
+    "astra if first wave complete"
+  ],
+  "stopOnIncomplete": true,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "priorApiActualUsd": 13.06220785,
+  "priorApiReservedOrUnknownUsd": 11.37126575,
+  "apiCapUsd": 50,
+  "qualified": false
+}

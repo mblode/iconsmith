@@ -1,0 +1,61 @@
+{
+  "kind": "offline-source-fidelity-feature-counterfactual",
+  "date": "2026-09-07",
+  "inputReceipt": "docs/log/source-fidelity-residual-features-2026-09-07.json",
+  "priorCauseReceipt": "docs/log/source-fidelity-cause-probe-2026-09-07.json",
+  "source": {
+    "root": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+    "gitRevision": "175b0dd9fe9e832a30a69ec458d54c61e6889ea5"
+  },
+  "compiler": {
+    "revision": ".staging/repair20-2026-09-07/revision.json",
+    "revisionSha256": "605867859ecae84b45e6393d1497b5e8fdee37a299f45f486744d2d8f8e7fe86",
+    "id": "iconsmith-constrained-20",
+    "diagnosticGrid": 0.000001,
+    "productionGridChanged": false,
+    "sourceFidelityThreshold": 0.01
+  },
+  "method": "For each exact pinned source, rerun native source admission at the already-established fine diagnostic grid. The baseline is unchanged. Each counterfactual changes one observed SVG feature in both the admitted input and expected render, so a baseline refusal followed by counterfactual admission isolates the mismatch mechanism for that example. A counterfactual is diagnostic and is not a semantics-preserving repair of the original source.",
+  "populationAccounting": {
+    "residualFiles": 91,
+    "taggedFiles": 89,
+    "unclassifiedFiles": 2,
+    "tags": {
+      "opacity": {"tagged": 21, "pure": 20, "overlap": 1},
+      "non-24-viewbox": {"tagged": 44, "pure": 39, "overlap": 5},
+      "butt-cap": {"tagged": 14, "pure": 0, "overlap": 14},
+      "paint-color": {"tagged": 4, "pure": 2, "overlap": 2},
+      "dashed-stroke": {"tagged": 8, "pure": 6, "overlap": 2},
+      "non-family-stroke-width": {"tagged": 14, "pure": 6, "overlap": 8}
+    },
+    "warning": "Tag counts overlap and must not be summed as files. These probes classify selected mechanisms, not all members of each tag."
+  },
+  "causalExamples": [
+    {"feature": "opacity", "file": "angularjs.svg", "baseline": "refused at 16px", "counterfactual": "remove group opacity .8", "result": "admitted", "classification": "causal in this pure-tag example; flat parser does not carry group opacity"},
+    {"feature": "dashed-stroke", "file": "check-circle-dashed.svg", "baseline": "refused at 16px", "counterfactual": "remove stroke-dasharray", "result": "admitted", "classification": "causal in this pure-tag example; parser does not carry dash pattern"},
+    {"feature": "paint-color", "file": "google-colored.svg", "baseline": "refused at 16px", "counterfactual": "replace four hex fills with currentColor", "result": "admitted", "classification": "causal in this pure-tag example; grayscale comparison still distinguishes the original color luminances"},
+    {"feature": "non-family-stroke-width", "file": "gyroscope-sensor.svg", "baseline": "refused at 16px", "counterfactual": "replace the two 1.8 strokes with 2", "result": "admitted", "classification": "causal in this pure-tag example; admitted parts render with the family stroke"},
+    {"feature": "non-24-viewbox", "file": "beehiiv.svg", "baseline": "refused at 16px", "counterfactual": "change root 24x25 viewport/viewBox to 24x24 without changing geometry", "result": "admitted", "classification": "ignored root viewBox is causal to the mismatch; this counterfactual intentionally changes source rendering and is not a valid normalization"}
+  ],
+  "overlapFactorials": [
+    {"file": "apple-intelligence-icon.svg", "tags": ["butt-cap", "non-24-viewbox"], "arms": {"baseline": "refused at 16px", "capOnly": "refused at 16px", "viewboxOnly": "admitted", "capAndViewbox": "admitted"}, "finding": "viewBox is sufficient in this file; the butt-cap tag is not causal at the 0.01 gate"},
+    {"file": "reduce-motion.svg", "tags": ["butt-cap", "dashed-stroke"], "arms": {"baseline": "refused at 16px", "capOnly": "refused at 16px", "dashOnly": "admitted", "capAndDash": "admitted"}, "finding": "dash is sufficient in this file; the butt-cap tag is not causal at the 0.01 gate"},
+    {"file": "coin-rupees.svg", "tags": ["butt-cap", "non-family-stroke-width"], "arms": {"baseline": "refused at 24px", "capOnly": "refused at 24px", "widthOnly": "admitted", "capAndWidth": "admitted"}, "finding": "width is sufficient in this file; the butt-cap tag is not causal at the 0.01 gate"}
+  ],
+  "dispositions": {
+    "opacity": "reference-only/refuse; supporting inherited opacity would require compositing semantics absent from CorpusShape",
+    "dashed-stroke": "reference-only/refuse; dash arrays and offsets are absent from the constrained part contract",
+    "paint-color": "reference-only/refuse; reusable parts intentionally use family paint and cannot preserve multicolor identity",
+    "non-family-stroke-width": "reference-only/refuse; source parts intentionally render at the selected family's stroke",
+    "butt-cap": "retain reference-only/refuse for tagged files; no pure-tag residual exists and three factorials found cap normalization neither necessary nor sufficient at this gate, so no cap implementation is justified by D126",
+    "non-24-viewbox": "reference-only/refuse pending narrow, separately specified viewport normalization"
+  },
+  "viewBoxAssessment": "A real normalization must parse min-x, min-y, width and height, then reproduce SVG viewport and preserveAspectRatio semantics on every geometry coordinate. For beehiiv's 0 0 24 25 into a square render, default xMidYMid meet implies a uniform 24/25 scale and horizontal centering, including stroke scaling. Merely rewriting viewBox, independently scaling x/y, or scaling paths while leaving stroke width unchanged would alter the source. Existing flat parsing also refuses transforms; broad SVG support is outside this probe.",
+  "artifacts": {
+    "script": ".staging/source-feature-causal-2026-09-07/probe.mts",
+    "scriptSha256": "90dbe44784a3e86ad96997ee9734fa1e28e41a048d67857e6c02bcc349b73cb0",
+    "results": ".staging/source-feature-causal-2026-09-07/results.json",
+    "resultsSha256": "549dd99701455b1d82d54d990c24861a02f7def7dfebdf63faceda26e519ad13"
+  },
+  "scope": "Offline diagnostic only. No provider, production source, threshold, grid, stored source SVG, plan or foundry log was changed."
+}

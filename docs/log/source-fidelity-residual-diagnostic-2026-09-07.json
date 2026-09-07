@@ -1,0 +1,22 @@
+{
+  "kind": "offline-source-fidelity-residual-diagnostic",
+  "date": "2026-09-07",
+  "inputReceipt": "docs/log/source-fidelity-residual-features-2026-09-07.json",
+  "sourceRoot": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+  "sourceFiles": {
+    "chain-link-2.svg": "2e29947d09c70603e6d16274397b58c4ca5064fc88fa7d30c6867e2a7ffe680a",
+    "circle-exclamation.svg": "c1fd74a128d587b32ad9bc9323557ee9b6d37c4a5f33a6d6aeec605c371edf76"
+  },
+  "diagnosticScript": ".staging/source-fidelity-residual-2026-09-07/diagnostic.ts",
+  "diagnosticScriptSha256": "dbadae45a6b076a54e0e489e1dcc55af3a39bb0fedc4c3d4fedb7d8a8e97a18d",
+  "result": ".staging/source-fidelity-residual-2026-09-07/result.json",
+  "resultSha256": "7c044d849fd05a3b66f700bd14c5bc08efb24058dea5b870ee727fcfb1645879",
+  "finding": "The corpus SVG attribute parser excludes digits from attribute names. Every line x1, x2, y1 and y2 is omitted, so geometry() receives no coordinates and emits M0 0L0 0. This collapses the chain horizontal connector and both exclamation strokes into zero-width, zero-height parts.",
+  "nativeEvidence": {
+    "chain-link-2.svg": {"16pxMeanNormalizedError": 0.03432904411764706, "16pxChangedPixels": 17, "24pxMeanNormalizedError": 0.03441584967320262, "24pxChangedPixels": 21},
+    "circle-exclamation.svg": {"16pxMeanNormalizedError": 0.02654718137254902, "16pxChangedPixels": 15, "24pxMeanNormalizedError": 0.026191448801742918, "24pxChangedPixels": 17}
+  },
+  "threshold": 0.01,
+  "proposedSmallestRegression": "Add parseIconSvg coverage for a line with x1=8 x2=16 y1=12 y2=12 and a nearly point-like line with x1=12 x2=12.01 y1=16 y2=16, asserting the emitted paths preserve those coordinates; then permit ASCII digits after the first attribute-name character in ATTR.",
+  "scope": "Diagnostic only. No production compiler, parser, style specification or provider was changed."
+}

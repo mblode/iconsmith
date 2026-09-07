@@ -1,0 +1,43 @@
+{
+  "kind": "ai-control-qualification-v3-receipt",
+  "createdAt": "2026-09-07",
+  "providerCalls": 0,
+  "artifactDirectory": ".staging/ai-control-qualification-v3-2026-09-07",
+  "instrumentQualified": false,
+  "qualificationEligible": true,
+  "qualificationScope": "objective host-corruption control distribution only",
+  "scoredStimuli": 100,
+  "independentSemanticFamilies": 100,
+  "presentationControlsOutsideScoredCount": 2,
+  "labels": {
+    "negative": 50,
+    "positive": 50
+  },
+  "strata": {
+    "filled-16": 25,
+    "filled-24": 25,
+    "outlined-16": 25,
+    "outlined-24": 25
+  },
+  "objectiveControls": {
+    "counter-collapse": 6,
+    "severed-connections": 23,
+    "severely-clipped-contour": 21
+  },
+  "recognitionInvalid": [],
+  "presentationInvalid": [],
+  "excludedExposureOverlap": [],
+  "excludedDevelopmentOverlap": [],
+  "evidenceFiles": 612,
+  "evidenceHashFailures": [],
+  "manifestSha256": "b8d5470b28bd0bee676d0b81abd3b133b931f7f81560973ec57b9ae04ef73bbf",
+  "sealedKeySha256": "61fcd6c8bf4cded81b527bff16b715b1ed7066e862410054f53eac69c3e037d7",
+  "auditSha256": "83dec77f8565f018c80481c2bedaf655775af650449a34db99bcba48ccabdb42",
+  "firstPacketSha256": "796045aeef65dba21df90dd98026278cf4749cfb9bc4d46d935d9fbdf354d190",
+  "presentationPacketSha256": "d2e1a8e3091af1a8eb4cb63d2ed3a5c666f3e52de7804a8ec17e01ffd873ce96",
+  "limitations": [
+    "Qualification is limited to the objectively measured host-corruption distribution.",
+    "It does not establish detection of subtle novel-generation defects.",
+    "Recognition alternatives and answers are host-assigned from canonical catalog identities; ambiguous catalog semantics are not treated as extra ground truth."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "A141-review-preparation-amendment",
+  "createdAt": "2026-09-07T13:03:39.646083+00:00",
+  "originalIntent": "docs/log/a141-bell-author-intent-2026-09-07.json",
+  "originalBuilderPreserved": true,
+  "reviewBuilder": ".staging/native-author-screen-prep-v6-2026-09-07/prepare-review-qualified-arms-v2.mts",
+  "sha256": "7ec3c230b8d229b5c2bcb6fb129aa91c5bf7fe1cfc1df60c2ede5c1bb4c64b94",
+  "change": "Explicit expired review-window receipt and omit dispatch input outside original reserved window; no prompt, geometry, reviewer or deadline changes",
+  "providerCalls": 0,
+  "qualified": false
+}

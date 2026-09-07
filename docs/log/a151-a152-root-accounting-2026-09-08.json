@@ -1,0 +1,59 @@
+{
+  "kind": "root-native-accounting",
+  "campaigns": {
+    "A151": [
+      {
+        "path": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium/00-construct/process.json",
+        "sha256": "560480a70e30fd6b883a854a60418b82d082849ebd88e4df2b2b23da07397ae7",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "scope": "process-group-and-observed-descendants"
+      },
+      {
+        "path": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium/01-repair/process.json",
+        "sha256": "a1586c394dece0a64324f79b5141fefce2472f3a6582b1c1d187c2446b16da20",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "scope": "process-group-and-observed-descendants"
+      },
+      {
+        "path": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium/02-author-self-review/process.json",
+        "sha256": "cb3e34f7fd4ad00b94c0ee37e2044d2f43b056fcc8bba25045286aa343a1ad9f",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "scope": "process-group-and-observed-descendants"
+      },
+      {
+        "path": ".staging/native-author-medium-effort-v11-2026-09-08/runs/jellyfish-16/claude-native-structured-medium/03-finalize/process.json",
+        "sha256": "db575a56846f1cfab3695f027aa037156dba9798b669315e25d48a6eb035748a",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "scope": "process-group-and-observed-descendants"
+      }
+    ],
+    "A152": [
+      {
+        "path": ".staging/a152-p01-astra-diagnostic-prep-v3-2026-09-08/runs/V2-P01/astra/stage1/process.json",
+        "sha256": "58864060c3d4e69c0b606c89974c56d5ba6219039589ef959832030d484ab613",
+        "code": 1,
+        "killed": false,
+        "quiescent": true,
+        "scope": "process-group-and-observed-descendants"
+      }
+    ]
+  },
+  "nativeProcessCalls": 5,
+  "A151DeliveredArms": 0,
+  "A152": "incomplete: native provider400 requires newer Codex. stage1 only; stage2 withheld.",
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "priorApiActualUsd": 13.06220785,
+  "priorApiReservedOrUnknownUsd": 11.37126575,
+  "capUsd": 50,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

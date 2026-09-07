@@ -1,0 +1,28 @@
+{
+  "campaign": "A154",
+  "scope": "development-runtime-corrected-critic",
+  "status": "complete",
+  "nativeCalls": 3,
+  "craftHistogram": {
+    "9": 9,
+    "8": 1
+  },
+  "shipHistogram": {
+    "yes": 9,
+    "no": 1
+  },
+  "criticalHistogram": {
+    "no": 10
+  },
+  "artifacts": {
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/runs/V2-P01/astra/terminal.json": "200e45e6070c14e071bbbbf627188d2d4854371f6b604b122006354243d74574",
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/runs/V2-P01/astra/stage1/process.json": "8bab45027562a298406e46e309a9f4edc74cff82f879f934c0961a58e1fe8847",
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/runs/V2-P01/astra/stage2/process.json": "c117959e0c4b45c3a8d9dbc88b569bb50b466cf440a46e933935b84a6f194fe3",
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/runs/V2-P01/astra/stage3/process.json": "2bc246c96e1c4bb11f1a035cde1a2bb6b6a439a453eb25fa5d40e70ae35e7369"
+  },
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "note": "Corruption metadata is not confirmed critical ground truth. Raw model answers do not qualify critic or population."
+}

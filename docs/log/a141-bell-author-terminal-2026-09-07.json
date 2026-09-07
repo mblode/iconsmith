@@ -1,0 +1,64 @@
+{
+  "id": "A141-author-terminal",
+  "createdAt": "2026-09-07T13:09:07.826530+00:00",
+  "terminal": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/terminal.json",
+  "terminalHash": "c1ddd6cb7383c87646bc0f02fb54b976a3b0adc90ddad091c217dd8da7cdf75c",
+  "dispatchHash": "4657b2f55370a90afe06213f9864b654025b72884994c2fce9428dae422c8178",
+  "requestedSlots": 4,
+  "deliveredSlots": 2,
+  "incompleteSlots": 2,
+  "routes": {
+    "astra-native": "delivered",
+    "claude-native-structured": "incomplete"
+  },
+  "processes": [
+    {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/01-author-self-review/process.json",
+      "sha256": "591d42ab36a1350a1d99968e1183f6d7da39a6d6924b251766d9d1aecc670c5a",
+      "code": 0,
+      "killed": false,
+      "quiescent": true
+    },
+    {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/02-finalize/process.json",
+      "sha256": "46c516086d75bdd4ccce18a7ae502f69948877ce91b9bc71e92aa6683558fb79",
+      "code": 0,
+      "killed": false,
+      "quiescent": true
+    },
+    {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/00-construct/process.json",
+      "sha256": "f2cb5ca6948eaeca0e194e7202759d7f498f8a187590f2f342b0bfea08e774eb",
+      "code": 0,
+      "killed": false,
+      "quiescent": true
+    },
+    {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/claude-native-structured/02-repair/process.json",
+      "sha256": "5ae7a0406f6c019ecc7fda4558bb45d5d19ccd44ae16905b0fbd0f32a4d6c447",
+      "code": null,
+      "killed": true,
+      "quiescent": true
+    },
+    {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/claude-native-structured/01-author-self-review/process.json",
+      "sha256": "2cf6cae9c14b36f8c8d301f642676502e4cadaeb6425091d3f5a2690523c19cf",
+      "code": 0,
+      "killed": false,
+      "quiescent": true
+    },
+    {
+      "path": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/claude-native-structured/00-construct/process.json",
+      "sha256": "19a6bf705a77effa5f0685aaf48878b9f1d9c692ef431feab3952c0aa14e8b92",
+      "code": 0,
+      "killed": false,
+      "quiescent": true
+    }
+  ],
+  "nativeAuthorCalls": 6,
+  "independentReview": "pending",
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

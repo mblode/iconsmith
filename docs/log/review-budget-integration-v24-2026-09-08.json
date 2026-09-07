@@ -1,0 +1,40 @@
+{
+  "kind": "review-budget-integration-v24",
+  "createdAt": "2026-09-07T14:10:24.995046+00:00",
+  "tests": 1825,
+  "testFiles": 158,
+  "skipped": 0,
+  "buildExit": 0,
+  "typecheckExit": 0,
+  "checkExit": 0,
+  "logs": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-test-v24.log",
+      "sha256": "4819652b5c2ed73f5e27e801474409a5be88868ba9c0e976fba5094d6e1493f9"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-build-v24.log",
+      "sha256": "eb028834557465ec22edb6461761c486280367a391433b45f9878cba30a121f2"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-typecheck-v24.log",
+      "sha256": "adb6c856aec1035f95b2f24538bce6981365f39ea7931ffc9307be5c75de9a02"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-check-v24.log",
+      "sha256": "47bfd9b12036899bd37322894ec453fe51a7ad4d8dcf0d56108b1986876c6138"
+    }
+  ],
+  "sources": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/review-budget.ts",
+      "sha256": "e1583467a2a3ef37923c3203cbbe220d4d2cb4070715387eca0e269d77e3a81e"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/review-budget.test.ts",
+      "sha256": "df37c7fa915e665b8d5a417e71cf1f959c9b28b174df504d3e1858e4b901c6e7"
+    }
+  ],
+  "qualified": false,
+  "providerCallsFromTests": 0
+}

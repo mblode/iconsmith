@@ -1,0 +1,66 @@
+{
+  "id": "compiler21-checkpoint",
+  "compiler": "iconsmith-constrained-21",
+  "validation": {
+    "testsPassed": 1807,
+    "testFiles": 155,
+    "skipped": 0,
+    "build": true,
+    "typecheck": true,
+    "lint": true
+  },
+  "sourceRegression": {
+    "total": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "rasterDifferences": 1007,
+    "regressions": 0
+  },
+  "visualDevelopment": {
+    "a136DeliveredSlots": 0,
+    "a138Craft": {
+      "astra": [
+        3,
+        2
+      ],
+      "claude": [
+        9,
+        8
+      ]
+    },
+    "a140HostPlacementRepair": {
+      "before": [
+        3,
+        2
+      ],
+      "after": [
+        9,
+        7
+      ],
+      "criticalAfter": [
+        false,
+        false
+      ],
+      "medianCraft": 8,
+      "accepted": false
+    }
+  },
+  "spend": {
+    "apiCapUsd": 50,
+    "priorActualUsd": 13.06220785,
+    "priorReservedOrUnknownUsd": 11.37126575,
+    "newApiActualUsd": 0,
+    "newApiReservedUsd": 0,
+    "nativeSubscriptionDollarCost": null,
+    "accountWeeklyUsedPercentObserved": 8
+  },
+  "qualification": false,
+  "outstanding": [
+    "final-route delivery and independent review within deadline",
+    "full morphology visual quality",
+    "matched author and retrieval cohorts",
+    "100 sealed AI critic stimuli and20 independent repair failures",
+    "resource forecast and4442 catalog pairs",
+    "two sealed20-family novel batches"
+  ]
+}

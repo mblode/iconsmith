@@ -1,0 +1,18 @@
+{
+  "purpose": "offline validation of captured successful response from refused A127 run",
+  "originalTerminalHash": "f683cdef16fd745ca12e1260ab379006bdef01c706c4e859cf60ad434e8c4d77",
+  "originalProcessHash": "e20d0599cdb9262ba0a36d151f8b43aaa0626f4e789c0ac998fe514445784ee4",
+  "processCode": 7,
+  "stdout": "",
+  "stderr": "/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19\nprocess.on(\"uncaughtException\",function(b){throw b;}),process.on(\"unhandledRejection\",function(b){throw b;}),f.inspect=function(){return\"[Emscripten Module object]\"};else if(ea||q)q?v=self.location.href:\"undefined\"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf(\"blob:\")?v=v.substr(0,v.replace(/[?#].*/,\"\").lastIndexOf(\"/\")+1):v=\"\",fa=b=>{var a=new XMLHttpRequest;a.open(\"GET\",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=\n                                           ^\n\nError: Style program did not compile: line 9 (fit): Transform the operands before Boolean composition\n    at compileStyle (file:///Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A127/inputs/checker.mjs:4498:11)\n    at file:///Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A127/inputs/checker.mjs:4686:47\n    at Array.map (<anonymous>)\n    at file:///Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A127/inputs/checker.mjs:4686:30\n\nNode.js v24.17.0\n",
+  "qualified": false,
+  "originalDeliveryStatus": "incomplete",
+  "posthocOnly": true,
+  "providerCalls": 0,
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "programHashes": {
+    "outlined": "a0d6de6b5b67116c077defacb8a8f8cd1a983e536d1b9d1f37d3d2393829f2a9",
+    "filled": "65ae27fa114c76fde1a0bf92b990e956795b9cb6ef967de014116953c6da4e2f"
+  }
+}

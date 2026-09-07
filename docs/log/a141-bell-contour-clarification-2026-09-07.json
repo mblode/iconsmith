@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "a141-bell-contour-clarification-2026-09-07",
+  "scope": "Exact host geometry clarification for A141 Astra bell-pause native16; additive diagnostic only",
+  "qualification": "not qualified; independent review remains rejected",
+  "providerCalls": 0,
+  "inputs": {
+    "packet": ".staging/house-quality-execution-2026-09-07/reliability-inputs/bell-pause-packet-v2.json",
+    "packetSha256": "c1003b66ab0e4a22fa06563dd5b144b88948376de35571db7e317a4e72a6ae91",
+    "outlinedProgramSha256": "ca09e28df6d63e6866e1c87457be889c84e8d850b068fb898a4908b81ed693e6",
+    "filledProgramSha256": "0eaf2f7fa9e73e4f163a1e753c602f662243530ebf27601180720ac70263f94a",
+    "outlinedSvgSha256": "a279307188a17ee5f76f3b9508fda722e13e55ecf6d24d0555ddf8900c8fc907",
+    "filledSvgSha256": "96f037bca3a0b238cf2a530b328116cf7946c9e0ee7721df4c9f22d87b26c126",
+    "outlinedNativePngSha256": "7c064202cbd74dd5cb072fee921b76af8a410da17e835c6fab5c3aacb6133906",
+    "filledNativePngSha256": "76e5068154cbcd0771b690265354b571e029a73d9192ae19195a286e2bcc0f23"
+  },
+  "geometry": {
+    "outlinedBellSourceSha256": "dd277328d83c846a5b62e3092d99b2cf2142cee59677fc761a8f5b4af5b10b6a",
+    "filledBellSourceSha256": "921d4df5c0bad966a30b76c40c29c1909f05c76b978396a4e16165ce28db7e2a",
+    "outlinedPlacement": "part bell-outlined-0 centered at 12,12",
+    "filledPlacement": "part bell-filled-0 centered at 12,12",
+    "outlinedTransform": {"type":"translation-only","dx":0.074,"dy":0,"scale":1,"rotationDegrees":0},
+    "filledTransform": {"type":"translation-only","dx":0.0741,"dy":0,"scale":1,"rotationDegrees":0},
+    "contourChange": false,
+    "lowerFlankFinding": "The generated bell body is the admitted bell contour unchanged apart from centering translation. Its lower flank and base topology therefore cannot differ from that source anchor.",
+    "outlinedBaseY": 18,
+    "outlinedClapperEndpointY": 18,
+    "outlinedDesignGap": 0,
+    "outlinedNativeScale": 0.6666666666666666,
+    "outlinedNativeGapPixels": 0,
+    "clapperFinding": "The admitted outlined bell intentionally joins the clapper arc endpoints to the base at y=18. Native16 renders this source-supported junction as one antialiased band; there is no intended open counter to preserve. The requested 1.5-unit gap would alter the admitted bell construction.",
+    "filledFinding": "The filled bell source encodes the lower clapper region inside the same even-odd silhouette; the final program preserves that source path and adds only the pause subtraction."
+  },
+  "reviewReconciliation": {
+    "contradicted": [
+      "The lower flank/base differs structurally from the supplied bell anchor.",
+      "A base-to-clapper gap collapses; the outlined source defines a connected zero-gap junction."
+    ],
+    "stillUnresolved": [
+      "Whether the source-supported connected clapper reads clearly enough at native16 is an optical craft judgment.",
+      "The A141 aggregate remains rejected and this clarification does not promote it."
+    ]
+  }
+}

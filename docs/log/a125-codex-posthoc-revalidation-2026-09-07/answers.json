@@ -1,0 +1,254 @@
+{
+  "answers": {
+    "s001-critical": {
+      "choice": "no",
+      "evidence": "The circular outline is continuous; the upper-right quarter sector has clean edges and clear surrounding space.",
+      "treatment": "None."
+    },
+    "s001-craft": {
+      "choice": "9",
+      "evidence": "Smooth concentric curves, consistent outline weight and crisp radial edges.",
+      "treatment": "None."
+    },
+    "s001-native": {
+      "choice": "yes",
+      "evidence": "Both the outer ring and quarter sector remain distinguishable at 1x on light and dark.",
+      "treatment": "None."
+    },
+    "s001-recognition": {
+      "choice": "clear",
+      "evidence": "A circular indicator with one quarter filled, suggesting time or progress.",
+      "treatment": "None."
+    },
+    "s001-ship": {
+      "choice": "yes",
+      "evidence": "The geometry is polished and its defining sector survives native rendering.",
+      "treatment": "No change necessary."
+    },
+    "s002-critical": {
+      "choice": "no",
+      "evidence": "The enclosing badge and bottom point are continuous; the bear-like head remains separated from the frame.",
+      "treatment": "None."
+    },
+    "s002-craft": {
+      "choice": "9",
+      "evidence": "Balanced rounded frame, controlled bottom point and symmetrical head silhouette with clean ear joins.",
+      "treatment": "None."
+    },
+    "s002-native": {
+      "choice": "yes",
+      "evidence": "The pointed badge, inner head and ear bumps remain visible on both backgrounds at 1x.",
+      "treatment": "None."
+    },
+    "s002-recognition": {
+      "choice": "clear",
+      "evidence": "A bear head inside a pointed badge or map marker.",
+      "treatment": "None."
+    },
+    "s002-ship": {
+      "choice": "yes",
+      "evidence": "The enclosure and animal silhouette are clean, balanced and legible.",
+      "treatment": "No change necessary."
+    },
+    "s003-critical": {
+      "choice": "no",
+      "evidence": "The upper and lower dashes are regularly separated; the central horizontal stroke is intact.",
+      "treatment": "None."
+    },
+    "s003-craft": {
+      "choice": "9",
+      "evidence": "Consistent rounded terminals, even dash spacing and balanced vertical separation.",
+      "treatment": "None."
+    },
+    "s003-native": {
+      "choice": "yes",
+      "evidence": "The solid middle line and both dashed rows stay distinct at 1x in both themes.",
+      "treatment": "None."
+    },
+    "s003-recognition": {
+      "choice": "ambiguous",
+      "evidence": "A solid horizontal line between two dashed rows; a divider or row-formatting symbol, but the exact operation is unclear.",
+      "treatment": "Use a label to identify the operation."
+    },
+    "s003-ship": {
+      "choice": "yes",
+      "evidence": "The abstract line symbol has professional geometry and clear native rendering.",
+      "treatment": "No contour change necessary; label its function."
+    },
+    "s004-critical": {
+      "choice": "yes",
+      "evidence": "An aligned vertical gap cuts through the upper diagonal and lower curved contour, separating the right-hand piece.",
+      "treatment": "Reconnect the interrupted contours."
+    },
+    "s004-craft": {
+      "choice": "4",
+      "evidence": "The rounded handle and blade curve are smooth, but abrupt flat cuts disrupt the otherwise continuous outline.",
+      "treatment": "Repair the central breaks and reconcile the joins."
+    },
+    "s004-native": {
+      "choice": "no",
+      "evidence": "At 1x the separated fragments do not form a reliably readable tool silhouette on either background.",
+      "treatment": "Restore contour continuity and reassess at native size."
+    },
+    "s004-recognition": {
+      "choice": "ambiguous",
+      "evidence": "A handled triangular blade, possibly a trowel or cleaver; the central interruption obscures the object.",
+      "treatment": "Repair the silhouette before assessing recognition again."
+    },
+    "s004-ship": {
+      "choice": "no",
+      "evidence": "The two aligned contour breaks look like missing geometry and weaken recognition.",
+      "treatment": "Close the central gaps."
+    },
+    "s005-critical": {
+      "choice": "no",
+      "evidence": "The balloon outline is closed, the highlight is intentionally detached, and the small knot retains an opening.",
+      "treatment": "None."
+    },
+    "s005-craft": {
+      "choice": "8",
+      "evidence": "Smooth balloon contour and rounded highlight; the knot junction is slightly dense relative to the spacious body.",
+      "treatment": "Optionally open the knot counter slightly."
+    },
+    "s005-native": {
+      "choice": "yes",
+      "evidence": "The balloon body, highlight and small lower knot remain readable at 1x on both backgrounds.",
+      "treatment": "None."
+    },
+    "s005-recognition": {
+      "choice": "clear",
+      "evidence": "An inflated balloon with a highlight and tied neck.",
+      "treatment": "None."
+    },
+    "s005-ship": {
+      "choice": "yes",
+      "evidence": "The silhouette is coherent and recognizable at native size.",
+      "treatment": "No necessary change; knot spacing could receive minor refinement."
+    },
+    "s006-critical": {
+      "choice": "yes",
+      "evidence": "The upper circular node and lower connecting arc terminate abruptly along the same vertical right edge.",
+      "treatment": "Restore the missing right-side geometry."
+    },
+    "s006-craft": {
+      "choice": "3",
+      "evidence": "Surviving curves are smooth, but the clipped upper counter and flat lower cutoff leave an incomplete, left-heavy construction.",
+      "treatment": "Complete the contours and rebalance the full symbol."
+    },
+    "s006-native": {
+      "choice": "no",
+      "evidence": "At 1x both themes show disconnected hooks and a loop without a coherent overall symbol.",
+      "treatment": "Repair the missing geometry before native-size review."
+    },
+    "s006-recognition": {
+      "choice": "ambiguous",
+      "evidence": "Fragments of circular nodes and curved links suggest a sharing or network symbol.",
+      "treatment": "Restore the full node-and-link arrangement."
+    },
+    "s006-ship": {
+      "choice": "no",
+      "evidence": "The aligned right-edge cutoffs visibly truncate the construction.",
+      "treatment": "Complete the upper node and lower arc."
+    },
+    "s007-critical": {
+      "choice": "no",
+      "evidence": "The dotted and solid circles overlap coherently; their intersections alone do not establish an unintended break.",
+      "treatment": "None required for continuity."
+    },
+    "s007-craft": {
+      "choice": "7",
+      "evidence": "The solid ring is smooth, but dots crowd together along the inner overlap and merge into the ring near the crossings.",
+      "treatment": "Adjust dot spacing and phase to reduce crowding."
+    },
+    "s007-native": {
+      "choice": "uncertain",
+      "evidence": "Two overlapping circles are visible, but the dotted treatment becomes a cramped stippled edge at 1x in both themes.",
+      "treatment": "Use fewer, more separated dots and recheck native rendering."
+    },
+    "s007-recognition": {
+      "choice": "clear",
+      "evidence": "Two overlapping circles, one dotted and one solid.",
+      "treatment": "Label the associated operation if needed."
+    },
+    "s007-ship": {
+      "choice": "no",
+      "evidence": "Crowded dots weaken the defining dotted-versus-solid distinction at native size.",
+      "treatment": "Refine dot count and spacing around the overlap."
+    },
+    "s008-critical": {
+      "choice": "uncertain",
+      "evidence": "A large central disk merges with the second vertical bar and obscures the chart-like structure; its intended role is unclear.",
+      "treatment": "Clarify whether the disk is meaningful; separate it from the bars if retained."
+    },
+    "s008-craft": {
+      "choice": "5",
+      "evidence": "Rounded terminals are consistent, but the oversized disk creates a heavy central mass and an awkward fused junction.",
+      "treatment": "Reduce or reposition the disk and establish clear spacing."
+    },
+    "s008-native": {
+      "choice": "no",
+      "evidence": "At 1x the middle becomes a fused blob between vertical marks, obscuring the chart structure on both backgrounds.",
+      "treatment": "Simplify the central overlap."
+    },
+    "s008-recognition": {
+      "choice": "ambiguous",
+      "evidence": "A chart-like arrangement of vertical bars above a baseline, overlaid with a large circular marker.",
+      "treatment": "Make the relationship between marker and bars explicit."
+    },
+    "s008-ship": {
+      "choice": "no",
+      "evidence": "The central disk obscures structure and leaves the symbol's meaning unclear.",
+      "treatment": "Resolve the disk/bar overlap and verify native legibility."
+    },
+    "s009-critical": {
+      "choice": "no",
+      "evidence": "The shallow bowl contour is continuous, its counter stays open, and the floating particles are clearly separated.",
+      "treatment": "None."
+    },
+    "s009-craft": {
+      "choice": "9",
+      "evidence": "Consistent stroke weight, smooth bowl corners, rounded terminals and well-spaced floating accents.",
+      "treatment": "None."
+    },
+    "s009-native": {
+      "choice": "yes",
+      "evidence": "The shallow vessel, extended right edge and floating particles remain distinguishable on both backgrounds at 1x.",
+      "treatment": "None."
+    },
+    "s009-recognition": {
+      "choice": "ambiguous",
+      "evidence": "A frying pan tossing food, though the shallow bowl and particles could also suggest a magician's hat.",
+      "treatment": "Clarify the vessel silhouette if context does not distinguish those readings."
+    },
+    "s009-ship": {
+      "choice": "uncertain",
+      "evidence": "Construction is polished, but pan-versus-hat recognition remains unresolved without context.",
+      "treatment": "Confirm recognition in context; adjust the handle or bowl if necessary."
+    },
+    "s010-critical": {
+      "choice": "yes",
+      "evidence": "A vertical blank strip interrupts both the top and bottom frame and produces abrupt inner edges on the central tapered forms.",
+      "treatment": "Repair the aligned interruptions and restore a coherent central symbol."
+    },
+    "s010-craft": {
+      "choice": "4",
+      "evidence": "Outer corner radii are consistent, but flat frame cutoffs and small stepped inner edges make the center look mechanically sliced.",
+      "treatment": "Reconnect the frame and smooth the central contours."
+    },
+    "s010-native": {
+      "choice": "no",
+      "evidence": "The enclosure is visible at 1x, but the split central marks do not resolve into a clear symbol on either background.",
+      "treatment": "Rebuild the center and reassess native rendering."
+    },
+    "s010-recognition": {
+      "choice": "ambiguous",
+      "evidence": "A split rounded square surrounding two upward-tapering strokes, possibly a divided arrow or letterform.",
+      "treatment": "Clarify the central silhouette and the purpose of the split."
+    },
+    "s010-ship": {
+      "choice": "no",
+      "evidence": "Aligned gaps across the frame and central shape undermine continuity and recognition.",
+      "treatment": "Repair the vertical interruption and refine the inner shape."
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "results": {
+    "astra-native": {
+      "status": "incomplete",
+      "processResult": {
+        "code": 7,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19\nprocess.on(\"uncaughtException\",function(b){throw b;}),process.on(\"unhandledRejection\",function(b){throw b;}),f.inspect=function(){return\"[Emscripten Module object]\"};else if(ea||q)q?v=self.location.href:\"undefined\"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf(\"blob:\")?v=v.substr(0,v.replace(/[?#].*/,\"\").lastIndexOf(\"/\")+1):v=\"\",fa=b=>{var a=new XMLHttpRequest;a.open(\"GET\",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=\n                                           ^\n\nError: Author self-review did not inspect every exact proof\n    at Object.inspect (/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/frozen/repo/packages/iconsmith/scripts/local-astra-author.ts:369:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async runStructuredAuthor (/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/frozen/repo/packages/iconsmith/scripts/local-structured-author.ts:370:9)\n    at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/route.mts:2:1227)\n\nNode.js v24.17.0\n",
+        "stdout": ""
+      },
+      "qualified": false
+    },
+    "claude-native-structured": {
+      "status": "incomplete",
+      "processResult": {
+        "code": 7,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19\nprocess.on(\"uncaughtException\",function(b){throw b;}),process.on(\"unhandledRejection\",function(b){throw b;}),f.inspect=function(){return\"[Emscripten Module object]\"};else if(ea||q)q?v=self.location.href:\"undefined\"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf(\"blob:\")?v=v.substr(0,v.replace(/[?#].*/,\"\").lastIndexOf(\"/\")+1):v=\"\",fa=b=>{var a=new XMLHttpRequest;a.open(\"GET\",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=\n                                           ^\n\nError: Author self-review did not inspect every exact proof\n    at Object.inspect (/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/frozen/repo/packages/iconsmith/scripts/local-claude-author.ts:400:15)\n    at async runStructuredAuthor (/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/frozen/repo/packages/iconsmith/scripts/local-structured-author.ts:370:9)\n    at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/route.mts:2:1272)\n\nNode.js v24.17.0\n",
+        "stdout": ""
+      },
+      "qualified": false
+    }
+  },
+  "independentReview": "pending-reserved-480000ms",
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null
+}

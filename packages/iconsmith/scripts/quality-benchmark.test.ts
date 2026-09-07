@@ -1,4 +1,10 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -16,6 +22,7 @@ import {
   DEVELOPMENT_FAMILIES,
   exportAudit,
   freezeDevelopment,
+  readExportedAuditInputs,
 } from "./quality-benchmark.js";
 
 const revision = createStyleRevision({
@@ -89,9 +96,18 @@ test("audit preserves failed variants, manual provenance and missing rows", asyn
       status: "construction-failed",
     });
     expect(
-      JSON.parse(readFileSync(path.join(out, "human-review.json"), "utf-8"))[0]
-        .approved
-    ).toBeNull();
+      JSON.parse(readFileSync(path.join(out, "ai-review.json"), "utf-8"))[0]
+    ).toMatchObject({
+      nativeImageSha256: expect.stringMatching(/^[a-f0-9]{64}$/u),
+      requiredReviewerCount: 2,
+      reviewAuthority: "independent-ai-panel",
+      reviews: [],
+      status: "pending",
+    });
+    expect(existsSync(path.join(out, "human-review.json"))).toBe(false);
+    expect(readFileSync(path.join(out, "README.md"), "utf-8")).toContain(
+      "independent AI panel reviewers"
+    );
     const wrong = path.join(root, "wrong-paint");
     await exportAudit(
       wrong,
@@ -134,6 +150,38 @@ test("audit preserves failed variants, manual provenance and missing rows", asyn
   }
 });
 
+test("exported packets can be refreshed only while pinned source bytes remain intact", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "quality-refresh-"));
+  try {
+    freezeDevelopment(path.join(root, "frozen"));
+    const source = path.join(root, "source");
+    await exportAudit(
+      source,
+      [
+        {
+          ...context,
+          actualUsd: null,
+          authorship: "model",
+          concept: "cloud-upload",
+          elapsedMs: null,
+          family: "cloud",
+          finish: "filled",
+          model: "fixture",
+          source: "fixture",
+        },
+      ],
+      path.join(root, "frozen/manifest.json")
+    );
+    expect(readExportedAuditInputs(source)).toHaveLength(1);
+    writeFileSync(path.join(source, "Q001.svg"), "<svg/>");
+    expect(() => readExportedAuditInputs(source)).toThrow(
+      "Exported audit artifact changed"
+    );
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
 test("audit binds native identity, original SVG and dependencies", async () => {
   const root = mkdtempSync(path.join(tmpdir(), "quality-pinned-"));
   try {
@@ -157,8 +205,10 @@ test("audit binds native identity, original SVG and dependencies", async () => {
     );
     expect(receipt.artifacts[0]).toMatchObject({
       nativeSize: 16,
+      opticalMasterClaim: "pending-independent-ai-review",
       replay: true,
       revisionHash: revision.hash,
+      status: "pending-independent-ai-review",
     });
     expect(receipt.missing).toContainEqual({
       concept: "cloud-upload",
@@ -236,12 +286,14 @@ test("blind audit batches contain at most twenty genuine native stimuli", async 
     expect(
       labels.every(
         (label: {
-          humanIdentity: unknown;
-          recognition: unknown;
+          reviewAuthority: unknown;
+          requiredReviewerCount: unknown;
+          reviews: unknown[];
           svgSha256: string;
         }) =>
-          label.humanIdentity === null &&
-          label.recognition === null &&
+          label.reviewAuthority === "independent-ai-panel" &&
+          label.requiredReviewerCount === 2 &&
+          label.reviews.length === 0 &&
           label.svgSha256.length === 64
       )
     ).toBe(true);

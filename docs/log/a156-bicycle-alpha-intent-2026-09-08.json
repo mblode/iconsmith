@@ -1,0 +1,20 @@
+{
+  "experimentId": "A156",
+  "status": "frozen",
+  "manifestHash": "cd4a590cb89a1d968090d44b69faa015d2ab6d972f5ab4e8c3d29d54e673397a",
+  "pair": "bicycle-16",
+  "authorArms": 1,
+  "outputSlots": 2,
+  "model": "gpt-6-astra",
+  "maximumAuthorNativeCalls": 5,
+  "maximumReviewNativeCalls": 4,
+  "pairBudgetMs": 1200000,
+  "authorBudgetMs": 600000,
+  "reviewReserveMs": 480000,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "createdAt": "2026-09-07T15:12:18.471510+00:00",
+  "scope": "Fresh exposed development delivery screen; single author arm, two paints. No missing second author arm. Original deadline applies."
+}

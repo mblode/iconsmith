@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "a156-bicycle16-attempt-results",
+  "scope": "development-author-attempt",
+  "qualified": false,
+  "instrumentQualified": false,
+  "phaseGatesClosed": [],
+  "denominators": {
+    "authorArms": 1,
+    "paintSlots": 2,
+    "reviewersRequested": 0
+  },
+  "author": {
+    "route": "astra-native",
+    "status": "rejected-visible-defects",
+    "reason": null,
+    "terminalHash": "a7a3b1cc68939ab8527dad18649e7125e83995d15459ff16d9aada5682c03c04",
+    "aggregateTerminalHash": "ea7ebe0fdda4896f5ea4ecab79002ae9152f8ea1bbb9a8716112a5ac7d3796d4"
+  },
+  "retainedProofs": {
+    "outlined": {
+      "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+      "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+    },
+    "filled": {
+      "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+      "sha256": "28f2775416b13561f06178d381914bc6ca985fed8e322a071900f526d55b96ba"
+    }
+  },
+  "review": {
+    "status": "not-run",
+    "reason": "author arm not delivered; review ineligible",
+    "outcomes": []
+  },
+  "board": {
+    "file": "docs/log/a156-bicycle16-attempt-board-2026-09-08.png",
+    "sha256": "b2e1dea2fa760ad5eb3692dc84c93780b05be99947583bcf49c7ed33f6fe733e"
+  },
+  "cost": {
+    "newApiUsd": 0,
+    "nativeSubscriptionUsd": null
+  },
+  "limitations": [
+    "Attempt evidence only; no phase qualification.",
+    "Missing reviewer work is not represented as a failed reviewer call.",
+    "Retained proofs do not convert an incomplete or rejected author lifecycle to delivered."
+  ]
+}

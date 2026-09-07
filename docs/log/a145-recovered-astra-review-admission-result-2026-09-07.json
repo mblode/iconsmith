@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "a145-recovered-astra-review-admission-result-2026-09-07",
+  "createdAt": "2026-09-07T13:59:58.902Z",
+  "authority": "development-review-admission-result",
+  "originalPairDeadline": 1788789845893,
+  "observedRemainingMs": 246991,
+  "requiredReserveMs": 305000,
+  "requestedReviewerBudgetMs": 150000,
+  "reviewersRequired": 2,
+  "sequential": true,
+  "settlementReserveMs": 5000,
+  "status": "refused-insufficient-original-deadline-reserve",
+  "providerCalls": 0,
+  "authorDenominator": 2,
+  "deliveredArms": 1,
+  "incompleteArms": 1,
+  "supersededDryIntent": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/review-scissors-16/review-intent.json",
+    "sha256": "8c038e5ec4f255b0b384a5d3bd782a2df637c9b24ad9629cb0b8ab00670709a1",
+    "reason": "did not bind postsettlement audit"
+  },
+  "postsettlementAudit": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native-postsettlement-audit.json",
+    "sha256": "c04787bec67fdf589faaf683223c016cb5a798d6cd7ef80704a78c558dc344b9"
+  },
+  "qualified": false
+}

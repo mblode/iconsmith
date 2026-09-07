@@ -1,0 +1,299 @@
+{
+  "assessmentQualified": false,
+  "authority": "AI-only objective-control development diagnostic",
+  "campaign": "A133",
+  "campaignIntentHash": "8536d0363471a9fe55008abc00f087ea4019e1aa348a79fd9e4b106a2e6b6e16",
+  "denominator": 10,
+  "pooledCampaigns": [],
+  "exactTargetAnchors": true,
+  "instrumentQualified": false,
+  "packetSha256": "796045aeef65dba21df90dd98026278cf4749cfb9bc4d46d935d9fbdf354d190",
+  "qualified": false,
+  "qualificationLimitations": [
+    "Only 10 of the required 100 canonical controls are present.",
+    "Exact target source anchors make this a reconstruction-defect diagnostic, not a novel generated-craft assessment.",
+    "Host objective corruptions measure this artificial control distribution only."
+  ],
+  "reviewers": [
+    {
+      "complete": 10,
+      "corruptionDetected": 5,
+      "corruptionTotal": 5,
+      "missing": 0,
+      "recognitionCorrect": 9,
+      "recognitionTotal": 10,
+      "reviewer": "codex",
+      "shipDecisions": 10,
+      "shipTotal": 10,
+      "sourceCriticalFlags": 0,
+      "sourceTotal": 5,
+      "uncertain": 0
+    },
+    {
+      "complete": 10,
+      "corruptionDetected": 5,
+      "corruptionTotal": 5,
+      "missing": 0,
+      "recognitionCorrect": 7,
+      "recognitionTotal": 10,
+      "reviewer": "claude",
+      "shipDecisions": 10,
+      "shipTotal": 10,
+      "sourceCriticalFlags": 1,
+      "sourceTotal": 5,
+      "uncertain": 2
+    }
+  ],
+  "rows": [
+    {
+      "canonicalArtifactHash": "fb350f452fd021f40e6dcd3bad5304af2ffdc10658e65bc27d6beb004c11a894",
+      "control": "source-baseline",
+      "id": "S001",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "yes",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "yes",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "8e7222118bf03ac9debcdcc6b983ec289f8ceb9730fb30e0ed157fd148a65ece",
+      "control": "objective-corruption",
+      "id": "S002",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "no",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "no",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "1eb0f53b4e2cfdf9f025eab02b54efb9178718e20f1c1d2e697339d351f27fd3",
+      "control": "source-baseline",
+      "id": "S003",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "yes",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "yes",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "180cfbcff5b2123a9b2f52041d2e5653a529c20b2093e90b447aacd151c528ea",
+      "control": "objective-corruption",
+      "id": "S004",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "no",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": false,
+          "reviewer": "claude",
+          "ship": "no",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "7fa4e15cada52285a8e013abc4169e3d2ecb713d836136bdfd2c21c9976e5c08",
+      "control": "source-baseline",
+      "id": "S005",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": false,
+          "reviewer": "codex",
+          "ship": "yes",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": false,
+          "reviewer": "claude",
+          "ship": "yes",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "0fc14ddf8dfca76d3017c7da3b8aed17f0af2950531c88d4f3fec8f9f120708f",
+      "control": "objective-corruption",
+      "id": "S006",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "no",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "no",
+          "uncertain": true
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "bf90aa11d9a5438f0df2445b4a46736a07140dbd97e2a2c9b95cee68da6273fe",
+      "control": "source-baseline",
+      "id": "S007",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "yes",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "no",
+          "uncertain": true
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "394450986f20c77b07893c438b064cb18e7d7c170934888732d99a5116bfcc10",
+      "control": "objective-corruption",
+      "id": "S008",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "no",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "no",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "7f215d2ee1f1b4d3a8a31af794a2c9ca132bb018530a39226d897765d48ea4f7",
+      "control": "source-baseline",
+      "id": "S009",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "no",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "yes",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": null,
+          "critical": "yes",
+          "recognitionCorrect": false,
+          "reviewer": "claude",
+          "ship": "yes",
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "canonicalArtifactHash": "b9f0ea826d266c5157698e6502c4bd9c5f232aaff011278f2955555225e2fbe5",
+      "control": "objective-corruption",
+      "id": "S010",
+      "reviewers": [
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "codex",
+          "ship": "no",
+          "uncertain": false
+        },
+        {
+          "complete": true,
+          "corruptionDetected": true,
+          "critical": "yes",
+          "recognitionCorrect": true,
+          "reviewer": "claude",
+          "ship": "no",
+          "uncertain": false
+        }
+      ]
+    }
+  ]
+}

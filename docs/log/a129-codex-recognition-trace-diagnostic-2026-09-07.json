@@ -1,0 +1,45 @@
+{
+  "attempt": "A129",
+  "stage": "codex-recognition",
+  "scope": "offline-native-trace-evidence-diagnostic",
+  "providerCalls": 0,
+  "originalArtifactPreserved": true,
+  "originalResult": {
+    "status": "incomplete",
+    "reason": "Error: Codex reviewer used unverified image orchestration",
+    "reviewSha256": "6d9620f83ec56b9494a701892d45e9912d9b05974523a0a296d26eae56916dee"
+  },
+  "process": {
+    "path": ".staging/house-quality-execution-2026-09-07/A129/codex/recognition/process.json",
+    "sha256": "be4468b04712d01019bf546cd6401a9bc6cf88665540b49060ae24b75cf965d4",
+    "code": 0,
+    "killed": false,
+    "quiescent": true
+  },
+  "trace": {
+    "threadId": "01a07af9-230d-71e3-b4fc-b5eafba9581b",
+    "path": "/Users/mblode/.codex/sessions/2026/09/07/rollout-2026-09-07T18-25-43-01a07af9-230d-71e3-b4fc-b5eafba9581b.jsonl",
+    "sha256": "f8c52960895809581f5ab1a1ea6e4d85530a874d4cddc8fe6659f612a64a9b50",
+    "model": "gpt-6-astra",
+    "cwd": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A129/codex/recognition/images"
+  },
+  "finding": {
+    "classification": "genuine-host-byte-matched-image-inspection-rejected-by-wrapper-shape-mismatch",
+    "toolCall": "one completed custom exec call with an exact stems array, separately declared absolute scoped prefix, four tools.view_image calls at original detail, and no other executed tool statement",
+    "toolOutput": "four PNG input_image blocks byte-match the four immutable packet images",
+    "adapterMismatch": "verifier accepted only its prior paths/template-literal/for-of spelling; native trace used stems/prefix/string-concatenation/indexed-loop spelling",
+    "visualJudgmentValidated": false
+  },
+  "offlineValidationAfterNarrowAdapterChange": {
+    "complete": true,
+    "imageHashes": {
+      "q-m7.png": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+      "q-r2.png": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+      "q-v9.png": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+      "q-x4.png": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+    },
+    "traceSha256": "f8c52960895809581f5ab1a1ea6e4d85530a874d4cddc8fe6659f612a64a9b50"
+  },
+  "safetyDisposition": "Accept only the anchored indexed wrapper grammar and retain exact allowed-path set equality, original-detail requirement, returned-byte hashes, ambient-catalog rejection, and rejection of appended statements or an outside prefix.",
+  "qualification": "development evidence only; recognition content is not an independently qualified critic result"
+}

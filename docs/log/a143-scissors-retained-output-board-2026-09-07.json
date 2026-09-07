@@ -1,0 +1,36 @@
+{
+  "kind": "a143-actual-retained-output-board",
+  "inputs": [
+    {
+      "arm": "astra-native",
+      "paint": "outlined",
+      "file": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/outlined.proof.png",
+      "sha256": "2f7664bd95e24b84cb9170f246fbbd3a131a5414b17edb5b98e26e9a8b04e834"
+    },
+    {
+      "arm": "astra-native",
+      "paint": "filled",
+      "file": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/filled.proof.png",
+      "sha256": "2f7664bd95e24b84cb9170f246fbbd3a131a5414b17edb5b98e26e9a8b04e834"
+    },
+    {
+      "arm": "claude-native-structured",
+      "paint": "outlined",
+      "file": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/claude-native-structured/outlined.proof.png",
+      "sha256": "8a90473697b7fabee79187ed5d805a9236d94b54413a1e76642ac519dff1dbc8"
+    },
+    {
+      "arm": "claude-native-structured",
+      "paint": "filled",
+      "file": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/claude-native-structured/filled.proof.png",
+      "sha256": "57f120a2f9b17bdefec7d62bca4be1c145549ea1084aab2f545e64476bab90c5"
+    }
+  ],
+  "output": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/docs/log/a143-scissors-retained-output-board-2026-09-07.png",
+    "sha256": "dd5c9d75b46e362e4c9152cb25ed68898de988b8eb23c305267910293da3234d"
+  },
+  "qualified": false,
+  "geometryChanged": false,
+  "nativeProofPixelsUnchanged": true
+}

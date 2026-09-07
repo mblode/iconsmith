@@ -1,0 +1,58 @@
+[
+  {
+    "craftRating": null,
+    "criticalDefect": null,
+    "defects": [],
+    "familyFit": null,
+    "humanIdentity": null,
+    "id": "Q001",
+    "nativeImageSha256": "49e17da0bb38d1e6f04120fa39151d023fa53ba5790bfc4cb439de0421a3552d",
+    "nativeLegibility": null,
+    "nativeSize": 24,
+    "recognition": null,
+    "shipUnchanged": null,
+    "svgSha256": "6649ada899d09ca33bf6266ebde62e9b38f4f2c0e9e2116ddacbd6b098479e67"
+  },
+  {
+    "craftRating": null,
+    "criticalDefect": null,
+    "defects": [],
+    "familyFit": null,
+    "humanIdentity": null,
+    "id": "Q002",
+    "nativeImageSha256": "d4c22a1931391cc612ad9ae9adf97519a5bb4cf8c32c7b3787f4b4822d9e1553",
+    "nativeLegibility": null,
+    "nativeSize": 24,
+    "recognition": null,
+    "shipUnchanged": null,
+    "svgSha256": "f7ed7c51d39dc7b6df4d7663a71a25fbea29e4664954c3ef935f6e9f2cc838fd"
+  },
+  {
+    "craftRating": null,
+    "criticalDefect": null,
+    "defects": [],
+    "familyFit": null,
+    "humanIdentity": null,
+    "id": "Q003",
+    "nativeImageSha256": "2c2cdac23f58ff4f3cf715cb1141ff89fe88a2fd3d6e7331ad4253c15e663d80",
+    "nativeLegibility": null,
+    "nativeSize": 24,
+    "recognition": null,
+    "shipUnchanged": null,
+    "svgSha256": "80ab37a1b96b96d2ccba7bc952e6cbca75c76e8787f4c8ec7ef0c09ed76ace96"
+  },
+  {
+    "craftRating": null,
+    "criticalDefect": null,
+    "defects": [],
+    "familyFit": null,
+    "humanIdentity": null,
+    "id": "Q004",
+    "nativeImageSha256": "3c1eca95b48f53c2d7b040ec9d7ab64d449c4a73334ace04c828593293c37703",
+    "nativeLegibility": null,
+    "nativeSize": 24,
+    "recognition": null,
+    "shipUnchanged": null,
+    "svgSha256": "657fa3a3059780d2e4fcff00ef99fb66fb23ddd49535dcc3b459c4037e551255"
+  }
+]

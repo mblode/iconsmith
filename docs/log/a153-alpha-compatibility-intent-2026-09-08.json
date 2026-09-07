@@ -1,0 +1,13 @@
+{
+  "campaign": "A153",
+  "status": "frozen",
+  "manifestHash": "938705e9cb01ada2877d4a5600501c804dde8acb9862d438f61aefdb9db4cc2c",
+  "model": "gpt-6-astra",
+  "maximumNativeCalls": 1,
+  "maxMs": 120000,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "purpose": "One-image compatibility diagnostic with isolated prerelease CLI; no runtime replacement or retrospective recovery."
+}

@@ -1,0 +1,84 @@
+{
+  "id": "A120-enlarged-counter-discrepancy",
+  "status": "unresolved",
+  "scope": "Selected attempt-2 filled enlarged raster display observation; no geometry or stored image was modified.",
+  "files": {
+    "filledPng": {
+      "path": "attempt-2/filled.png",
+      "sha256": "60e833fbe3ea434877ddb432ed4a8f0102c5bad2d0eef6dab8906d6da65a0f68",
+      "width": 192,
+      "height": 192,
+      "channels": 3
+    },
+    "filledProof": {
+      "path": "attempt-2/filled.proof.png",
+      "sha256": "3a5217714f805e0936a9cf8aa87878fc2444770b679b7768289af2bcb6fb9d0a"
+    },
+    "filledSvg": {
+      "path": "attempt-2/filled.svg",
+      "sha256": "cdcb302c18f6f952b58c8c48ee4a5e1ad0db631940d507e69a5393701a595a9d"
+    }
+  },
+  "decodedSamples": {
+    "decoder": "sharp raw RGB",
+    "positions": [
+      {
+        "x": 32,
+        "y": 144,
+        "rgb": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "x": 48,
+        "y": 144,
+        "rgb": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "x": 32,
+        "y": 152,
+        "rgb": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "x": 48,
+        "y": 152,
+        "rgb": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "x": 48,
+        "y": 160,
+        "rgb": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "interpretation": "The four body-counter positions decode white; the lower control position decodes black."
+  },
+  "visualObservation": {
+    "tool": "view_image",
+    "detail": "original",
+    "filledPng": "The displayed 192px image appeared to have a solid black badge body.",
+    "nearestCrop": {
+      "path": ".staging/folder-lock-16-r1-final-2026-09-07/filled-png-badge-crop-8x.png",
+      "sha256": "ffe9dba348568c316ca185daf6f5b561b1f3efea88c75ef26b3a16889ceeda90",
+      "observation": "The nearest-neighbor crop also appeared solid through view_image."
+    }
+  },
+  "separation": "Decoded byte samples, SVG/proof evidence, and tool-visible appearance disagree. This receipt records each observation separately and does not resolve the discrepancy or assert a renderer defect."
+}

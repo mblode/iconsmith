@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "a141-bell-contour-clarification-v2-2026-09-07",
+  "supersedes": "docs/log/a141-bell-contour-clarification-2026-09-07.json",
+  "reason": "The earlier receipt incorrectly used the connected arc endpoints to dismiss collapse of the separate interior clearance.",
+  "providerCalls": 0,
+  "qualification": "not qualified; A141 remains rejected",
+  "preservedFinding": {
+    "contourChange": false,
+    "outlinedTransform": {"type":"translation-only","dx":0.074,"dy":0,"scale":1,"rotationDegrees":0},
+    "filledTransform": {"type":"translation-only","dx":0.0741,"dy":0,"scale":1,"rotationDegrees":0},
+    "conclusion": "The alleged lower-flank mismatch remains contradicted: the admitted bell contour is unchanged apart from centering translation."
+  },
+  "correctedClapperFinding": {
+    "sourceConstruction": "The outlined arc deliberately connects to the y=18 base at both endpoints, descends to y=21 at its center, and uses stroke width 2.",
+    "centralGeometricClearanceDesignUnits": 1,
+    "derivation": "Arc centerline depth 3 minus the base and arc half-strokes (1 + 1).",
+    "native16Scale": 0.6666666666666666,
+    "centralGeometricClearanceNativePixels": 0.6666666666666666,
+    "sourceNative16CenterSamples": {"row11":[85,85],"row12":[85,85],"row13":[57,56],"row14":[107,108]},
+    "generatedNative16CenterSamples": {"row11":[85,85],"row12":[85,85],"row13":[52,60],"row14":[109,105]},
+    "fullyWhiteInteriorRowBetweenBaseAndArc": false,
+    "conclusion": "Endpoint connectivity is intentional, but the central interior counter has only 1 design unit (two thirds of a native pixel) of geometric clearance and no fully white native row. The reviewer's native clapper-legibility uncertainty is supported by the raster evidence."
+  },
+  "evidence": {
+    "sourceOutlinedNative16Png": ".staging/a141-bell-contour-clarification-2026-09-07/source-outlined-native16.png",
+    "sourceOutlinedNative16PngSha256": "bbfe3b6d37b3f60df0703faa1a047cc990fc5cdb15d7fc0b4f0926f0bae806a4",
+    "generatedOutlinedNative16Png": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/outlined.native.png",
+    "generatedOutlinedNative16PngSha256": "7c064202cbd74dd5cb072fee921b76af8a410da17e835c6fab5c3aacb6133906",
+    "generatedPixelReceipt": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/outlined.pixels.json"
+  }
+}

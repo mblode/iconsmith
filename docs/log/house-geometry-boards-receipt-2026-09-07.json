@@ -1,0 +1,52 @@
+{
+  "kind": "house-geometry-native-board-receipt",
+  "createdAt": "2026-09-07",
+  "providerCalls": 0,
+  "artifactDirectory": ".staging/house-geometry-boards-2026-09-07",
+  "booleanCases": [
+    "connected cutters",
+    "overlapping cutters",
+    "tangent cutters",
+    "nested holes",
+    "one-unit bridge",
+    "rounded Boolean join"
+  ],
+  "booleanNativeClaims": {
+    "sizes": [
+      16,
+      24
+    ],
+    "spec": "specAt({size})",
+    "paintViews": [
+      "light",
+      "dark"
+    ],
+    "status": "automated topology regression passed; human visual qualification pending"
+  },
+  "folderEndpoint": {
+    "source": "retained A119 union r1 folder-lock",
+    "status": "construction defect reproduced and isolated endpoint correction shown",
+    "claim": "24-design-spec raster survival at 16px and 24px only; not a native-16 optical-master claim",
+    "keyholeAdditionIncluded": false
+  },
+  "booleanKernelChanged": false,
+  "evidenceSha256": "1152d9a9c6c0ccd9d136f1110b78254a178c6acbd07ded566615febaf147038c",
+  "boards": [
+    {
+      "path": "docs/log/house-geometry-boolean-matrix-16-board.png",
+      "sha256": "92901a381af370c456258aeefc668aedda63d1db5825c0e8f630b04c28bf9d90"
+    },
+    {
+      "path": "docs/log/house-geometry-boolean-matrix-24-board.png",
+      "sha256": "feebb1e1cfde1890db1b2389b2a753493dc503e9c730d899629b23ec28cf09cb"
+    },
+    {
+      "path": "docs/log/house-geometry-folder-endpoint-raster-16-board.png",
+      "sha256": "1eabfa47294546aab39463ecb391c4666cf2e36070882d0073d4766fdd1a5edd"
+    },
+    {
+      "path": "docs/log/house-geometry-folder-endpoint-raster-24-board.png",
+      "sha256": "0cf17bf3c94dcb4614083072021aee6bbfa6ee738a30864a77e7f6423fa89131"
+    }
+  ]
+}

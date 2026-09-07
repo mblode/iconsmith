@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-09-07T14:35:23.389897+00:00",
+  "scope": "reviewer effort configuration and exact-byte presentation-control accounting",
+  "tests": 1827,
+  "testFiles": 158,
+  "skipped": 0,
+  "build": true,
+  "typecheck": true,
+  "check": true,
+  "diffCheck": true,
+  "hashes": {
+    "packages/iconsmith/scripts/local-review.ts": "7806931a50129836a1b2a3c481cd40f6c0ea6219c09a01adb14fb6a2acb2302f",
+    "packages/iconsmith/scripts/local-review.test.ts": "9a62fe89111d3c000fdf1ee68b9be4db67457ee5bf522f3d080276c8175a825b",
+    "packages/iconsmith/scripts/ai-qualification.ts": "3da603dc0b3ead193bb2b572796bc9e6f96820a769ef6330fe4e840484e18979",
+    "packages/iconsmith/scripts/ai-qualification.test.ts": "9016b05ff4e52560946ccd871010aa08edeaebc777a8c3e82969d2390691a768",
+    ".staging/root-test-v26.log": "3b83c00050e029ea7a5ffad5178600dc732df2a7a02357eaa2300acb49ac4b71",
+    ".staging/root-typecheck-v26.log": "63b9647f32949142606b539760b453997b9203737ff14fcfef63e47c887c00e9",
+    ".staging/root-build-v26.log": "afaedb597c59b74bdf7ad59b68783362cc569f43e465c18c55b1f6977602c124",
+    ".staging/root-check-v26.log": "23dd8ef2e26c0655d2a5af155a1c9ea330f79da622b1af7915540f7a66ee6945"
+  },
+  "newApiSpendUsd": 0,
+  "nativeCalls": 0,
+  "qualified": false
+}

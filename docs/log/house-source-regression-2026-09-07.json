@@ -1,0 +1,36 @@
+{
+  "kind": "house-source-regression",
+  "createdAt": "2026-09-07",
+  "providerCalls": 0,
+  "source": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+  "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+  "expected": {
+    "files": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "exactReplay": 4357,
+    "rasterDifferences": 1007
+  },
+  "actual": {
+    "files": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "exactReplay": 4357,
+    "rasterDifferences": 1007
+  },
+  "differences": [],
+  "parseFailures": 0,
+  "renderingFailures": 0,
+  "replayFailures": 0,
+  "rasterDifferenceThreshold": 0.01,
+  "generationQualified": false,
+  "visualStatus": "AI visual assessment pending; this receipt establishes source admission and reconstruction only.",
+  "artifacts": {
+    "directory": ".staging/house-source-regression-2026-09-07",
+    "auditInventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "admissionResultsSha256": "3b357243c5832ddbe5555ab026b5f8c352057c8a6e771b6b857ef15cdf0cb66e",
+    "replayResultsSha256": "74ca9e57a73d01ac0c8afb045adb3db3a26da80d7e5c0d58b9b8e363423e0f25",
+    "auditCliSha256": "5e7e78911d615a9e9bc07c603a0a942cbc24d3a370fd3fe701b0413ab827f1ce",
+    "replayCliSha256": "1f90ee58410643832ba75b49733f517dd4b17fe609ef44df2037595dd37544ea"
+  }
+}

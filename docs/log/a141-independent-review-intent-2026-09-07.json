@@ -1,0 +1,22 @@
+{
+  "id": "A141-independent-review-intent",
+  "createdAt": "2026-09-07T13:09:32.694942+00:00",
+  "status": "frozen",
+  "boundFiles": {
+    ".staging/native-author-screen-prep-v6-2026-09-07/manifest.json": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+    ".staging/native-author-screen-prep-v6-2026-09-07/runtime.json": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+    ".staging/native-author-screen-prep-v6-2026-09-07/run-review.mts": "d5fe5e7ec08b05221d73e8f96ffecbcbeab0ae730fcb7ad5818713df5d3dbd9f",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/receipt.json": "1c360df6bafff1ac633b14aa16a833481af29898aef510490de3a8c70241f89f",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/campaign-input.host.json": "21e227b5e4dc623be887ccc5bbfebb7767eef63a4c736d598236a03427fd0285",
+    ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/review-intent.json": "d63df084687eba9887ee1275fc1b1dea917642f76a08f8304d26ebdaf0829155"
+  },
+  "maximumNativeCalls": 4,
+  "perReviewerMaxMs": 240000,
+  "originalPairDeadline": 1788787351604,
+  "denominatorAuthorPairs": 2,
+  "eligibleAuthorPairs": 1,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

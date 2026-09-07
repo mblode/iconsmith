@@ -1,0 +1,619 @@
+{
+  "kind": "a149-v6-offline-assessment",
+  "campaignHash": "9b1a3464973a7b7ac924907f91ee83cbb0f52b187fa5eb8657dda3670efd5833",
+  "packet": "V2-P01",
+  "qualified": false,
+  "instrumentQualified": false,
+  "denominator": 10,
+  "routeCensus": {
+    "astra": "unstarted",
+    "claude": "complete",
+    "sol": "unstarted"
+  },
+  "unmeasuredDimensions": [
+    "familyParity",
+    "nativeFamilyOpticalParity"
+  ],
+  "rows": [
+    {
+      "opaqueId": "R-8eb8edb10016",
+      "artifactEvidenceSha256": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "squized",
+          "critical": "no",
+          "craft": 8,
+          "ship": "yes",
+          "decision": "uncertain",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-01ccc4437501",
+      "artifactEvidenceSha256": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "cosmos",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-5784039f0165",
+      "artifactEvidenceSha256": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "aura",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-7d4e62603013",
+      "artifactEvidenceSha256": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "mute",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-257222ceba39",
+      "artifactEvidenceSha256": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "adobe-acrobat",
+          "critical": "uncertain",
+          "craft": 5,
+          "ship": "no",
+          "decision": "uncertain",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-4d6bc1b595e0",
+      "artifactEvidenceSha256": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "collaboration-pointer-left",
+          "critical": "no",
+          "craft": 8,
+          "ship": "yes",
+          "decision": "uncertain",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-081de278ac7b",
+      "artifactEvidenceSha256": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "icebowl",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-cfacb7b0ce64",
+      "artifactEvidenceSha256": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "chevron-triangle-up-small",
+          "critical": "no",
+          "craft": 4,
+          "ship": "no",
+          "decision": "reject",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-9e153df1309d",
+      "artifactEvidenceSha256": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "open-quote-1",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-4e416c33775d",
+      "artifactEvidenceSha256": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+      "models": {
+        "astra": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "electrocardiogram",
+          "critical": "no",
+          "craft": 8,
+          "ship": "yes",
+          "decision": "uncertain",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        },
+        "sol": {
+          "eligible": false,
+          "status": "unstarted",
+          "reason": "route directory missing",
+          "familyParity": null,
+          "nativeFamilyOpticalParity": null
+        }
+      },
+      "panels": {
+        "astra": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "claude",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "sol"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "sol": {
+          "decision": "uncertain",
+          "namedEvidenceCorroboration": null,
+          "derivedOnlyFrom": [
+            "astra",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    }
+  ]
+}

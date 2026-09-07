@@ -1,0 +1,310 @@
+{
+  "id": "A131",
+  "scope": "Single-reviewer delivery diagnostic on four generated outputs; not critic qualification or a matched author experiment",
+  "authority": "AI only",
+  "frozenIntentSha256": "222de7a746f80e99a54cb3b5b06e4cab8013b899c274ac5c38ccc1de528c0cad",
+  "terminalSha256": "726dab9270d1301b48bfdc796307352910a8b02d6dbc1c861c5156e8249fe5db",
+  "resultSha256": "1268e13512317b16d2563652f00d1ad6bb56e298d410f680b7a03af6487d945d",
+  "provider": "openai-codex",
+  "model": "gpt-6-astra",
+  "calls": 2,
+  "elapsedMs": 76495,
+  "deadlineExceeded": false,
+  "status": "complete",
+  "stages": {
+    "recognition": {
+      "reviewSha256": "5bef7ca5ff93d9359efb6fd58138fa62d99c47ec6987a841900933d9a16a6733",
+      "processSha256": "032aebec408173e365b7ac63ba7e613b94acee6ba4651fc0bfe7719e9e336c6e",
+      "status": "complete",
+      "model": "gpt-6-astra",
+      "provider": "openai-codex",
+      "initialImageCount": 4,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "q-m7.png": {
+            "exposed": true,
+            "sha256": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380"
+          },
+          "q-r2.png": {
+            "exposed": true,
+            "sha256": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c"
+          },
+          "q-v9.png": {
+            "exposed": true,
+            "sha256": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31"
+          },
+          "q-x4.png": {
+            "exposed": true,
+            "sha256": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+          }
+        },
+        "traceSha256": "11220f5ba24ddb83750ff64b93faa2de035d437d4949e6646394587a66c6b7ad",
+        "visualJudgmentValidated": false
+      },
+      "evidenceHashes": {
+        "q-m7.png": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+        "q-r2.png": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+        "q-v9.png": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+        "q-x4.png": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+      },
+      "processCode": 0,
+      "killed": false,
+      "quiescent": true,
+      "usage": [
+        {
+          "input_tokens": 13420,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 276,
+          "reasoning_output_tokens": 33
+        }
+      ]
+    },
+    "craft": {
+      "reviewSha256": "93b4697683871b6c44f70e7c9274b3ef6a8289ac5ceea7afb9cc5f83ceb7b077",
+      "processSha256": "9345d32151bb7ac5c697edad2f321ebde20c25ba88787e12351601d6dc74eb22",
+      "status": "complete",
+      "model": "gpt-6-astra",
+      "provider": "openai-codex",
+      "initialImageCount": 6,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "q-m7.png": {
+            "exposed": true,
+            "sha256": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380"
+          },
+          "family-d39d339ef16e339cfd14800d75f15f729d76dc706a0f008861ab667c3bb3a097.png": {
+            "exposed": true,
+            "sha256": "d39d339ef16e339cfd14800d75f15f729d76dc706a0f008861ab667c3bb3a097"
+          },
+          "q-r2.png": {
+            "exposed": true,
+            "sha256": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c"
+          },
+          "q-v9.png": {
+            "exposed": true,
+            "sha256": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31"
+          },
+          "family-90f790b3c0e066ebad8e9bf927405d837ad69cc59e12a20c697b1e272e267d82.png": {
+            "exposed": true,
+            "sha256": "90f790b3c0e066ebad8e9bf927405d837ad69cc59e12a20c697b1e272e267d82"
+          },
+          "q-x4.png": {
+            "exposed": true,
+            "sha256": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+          }
+        },
+        "traceSha256": "f3156cbb6c72ba53524e3bbe8660c01fc0a9da03ca5f8bd45a347c61f99da7b6",
+        "visualJudgmentValidated": false
+      },
+      "evidenceHashes": {
+        "q-m7.png": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+        "family-d39d339ef16e339cfd14800d75f15f729d76dc706a0f008861ab667c3bb3a097.png": "d39d339ef16e339cfd14800d75f15f729d76dc706a0f008861ab667c3bb3a097",
+        "q-r2.png": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+        "q-v9.png": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+        "family-90f790b3c0e066ebad8e9bf927405d837ad69cc59e12a20c697b1e272e267d82.png": "90f790b3c0e066ebad8e9bf927405d837ad69cc59e12a20c697b1e272e267d82",
+        "q-x4.png": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+      },
+      "processCode": 0,
+      "killed": false,
+      "quiescent": true,
+      "usage": [
+        {
+          "input_tokens": 17158,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1462,
+          "reasoning_output_tokens": 271
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "q-m7",
+      "concept": "cloud-upload",
+      "paint": "filled",
+      "nativeSize": 24,
+      "imageSha256": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+      "sameImageAsA130": true,
+      "recognition": {
+        "choice": "cloud-upload",
+        "evidence": "A cloud silhouette with an upward-pointing arrow cut into its lower center, visible in native and enlarged proofs.",
+        "treatment": "Filled cloud with a negative-space arrow; reversed in dark mode."
+      },
+      "ratings": {
+        "critical": {
+          "choice": "no",
+          "evidence": "The cloud contour is intact; the bottom-center arrow cutout remains open and connected. No required contour is clipped.",
+          "treatment": "None required."
+        },
+        "craft": {
+          "choice": "9",
+          "evidence": "Smooth cloud lobes, rounded arrow shoulders and a balanced stem opening hold together in vector and raster proofs. No concrete construction defect observed.",
+          "treatment": "Retain unchanged."
+        },
+        "family": {
+          "choice": "yes",
+          "evidence": "The filled cloud and rounded negative-space arrow match the cloud, arrow and filled folder-upload anchors.",
+          "treatment": "None required."
+        },
+        "native": {
+          "choice": "yes",
+          "evidence": "The cloud silhouette and upward arrow remain distinct in both native sizes, in light and dark.",
+          "treatment": "None required."
+        },
+        "ship": {
+          "choice": "yes",
+          "evidence": "Native legibility and enlarged contour quality meet the anchors' standard. No unresolved defect observed.",
+          "treatment": "Ship unchanged."
+        }
+      },
+      "a130ClaudeDiagnosticCraft": 7,
+      "aiConsensus": false,
+      "qualified": false
+    },
+    {
+      "id": "q-r2",
+      "concept": "cloud-upload",
+      "paint": "outlined",
+      "nativeSize": 24,
+      "imageSha256": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+      "sameImageAsA130": true,
+      "recognition": {
+        "choice": "cloud-upload",
+        "evidence": "A cloud outline with an upward-pointing arrow rising through its bottom opening, visible in native and enlarged proofs.",
+        "treatment": "Rounded outline cloud with a solid arrow; reversed in dark mode."
+      },
+      "ratings": {
+        "critical": {
+          "choice": "no",
+          "evidence": "The cloud's bottom opening deliberately accommodates the arrow; both outline terminals remain separate from its stem. No required connection or contour is lost.",
+          "treatment": "None required."
+        },
+        "craft": {
+          "choice": "9",
+          "evidence": "Consistent outline weight, rounded terminals and balanced clearances around the arrow produce a controlled construction. No concrete defect appears in the enlarged proofs.",
+          "treatment": "Retain unchanged."
+        },
+        "family": {
+          "choice": "yes",
+          "evidence": "Rounded cloud strokes and the open-bottom upload arrangement agree with the outlined cloud and folder-upload anchors.",
+          "treatment": "None required."
+        },
+        "native": {
+          "choice": "yes",
+          "evidence": "The cloud interior, arrowhead and bottom separation remain readable in native light and dark cells at both sizes.",
+          "treatment": "None required."
+        },
+        "ship": {
+          "choice": "yes",
+          "evidence": "The outline and upload modifier remain clean across vector, raster and native proofs. No unresolved defect observed.",
+          "treatment": "Ship unchanged."
+        }
+      },
+      "a130ClaudeDiagnosticCraft": 6,
+      "aiConsensus": false,
+      "qualified": false
+    },
+    {
+      "id": "q-v9",
+      "concept": "folder-lock",
+      "paint": "filled",
+      "nativeSize": 16,
+      "imageSha256": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+      "sameImageAsA130": true,
+      "recognition": {
+        "choice": "folder-lock",
+        "evidence": "A tabbed folder with a padlock overlapping its lower-left corner. The lock has an arched shackle and rectangular body in native and enlarged proofs.",
+        "treatment": "Filled folder with a separated padlock; reversed in dark mode."
+      },
+      "ratings": {
+        "critical": {
+          "choice": "no",
+          "evidence": "The lower-left lock retains its shackle opening and body counter; its clearance from the folder preserves the modifier. No required contour is clipped.",
+          "treatment": "None required."
+        },
+        "craft": {
+          "choice": "9",
+          "evidence": "The folder's horizontal separation is clean, its corners are smooth, and the lock has deliberate surrounding clearance. Small counters remain present in raster proofs; no concrete defect observed.",
+          "treatment": "Retain unchanged."
+        },
+        "family": {
+          "choice": "yes",
+          "evidence": "The filled folder construction follows anchor 3, while the outlined foreground lock and its clearance follow the file-lock anchors.",
+          "treatment": "None required."
+        },
+        "native": {
+          "choice": "yes",
+          "evidence": "The folder division and lower-left padlock remain distinguishable at native 1x and 2x in both polarities; the small lock openings survive.",
+          "treatment": "None required."
+        },
+        "ship": {
+          "choice": "yes",
+          "evidence": "The composite matches the anchors' spacing and rounded construction, with readable native details. No unresolved defect observed.",
+          "treatment": "Ship unchanged."
+        }
+      },
+      "a130ClaudeDiagnosticCraft": 3,
+      "aiConsensus": false,
+      "qualified": false
+    },
+    {
+      "id": "q-x4",
+      "concept": "folder-lock",
+      "paint": "outlined",
+      "nativeSize": 16,
+      "imageSha256": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c",
+      "sameImageAsA130": true,
+      "recognition": {
+        "choice": "folder-lock",
+        "evidence": "A tabbed folder outline with a padlock at its lower-left corner, recognizable in native and enlarged proofs.",
+        "treatment": "Rounded outline folder with a solid padlock and open shackle interior; reversed in dark mode."
+      },
+      "ratings": {
+        "critical": {
+          "choice": "no",
+          "evidence": "The folder outline terminates intentionally around the lower-left lock. The lock's shackle and body counters remain intact, with no clipped required contour.",
+          "treatment": "None required."
+        },
+        "craft": {
+          "choice": "9",
+          "evidence": "Rounded outline terminals, a smooth right-side junction and clear spacing around the lock remain controlled in enlarged and raster proofs. No concrete construction defect observed.",
+          "treatment": "Retain unchanged."
+        },
+        "family": {
+          "choice": "yes",
+          "evidence": "The folder outline matches the rounded folder anchor, and the interrupted contour around the lock follows the outlined file-lock anchor.",
+          "treatment": "None required."
+        },
+        "native": {
+          "choice": "yes",
+          "evidence": "The folder outline, internal divider and separate lock remain legible in native light and dark cells at both sizes.",
+          "treatment": "None required."
+        },
+        "ship": {
+          "choice": "yes",
+          "evidence": "Native details survive, and the enlarged construction fits the anchor standard. No unresolved defect observed.",
+          "treatment": "Ship unchanged."
+        }
+      },
+      "a130ClaudeDiagnosticCraft": 5,
+      "aiConsensus": false,
+      "qualified": false
+    }
+  ],
+  "limits": [
+    "Only two concept families and four outputs; no population score.",
+    "A130 and A131 use different adapter/runtime revisions; preserve old results and do not pool delivery yield.",
+    "Astra gives 9/10 to every output, while Claude gave 7/6/3/5; disagreement remains unresolved.",
+    "Host audit contradicts several A130 Claude geometry claims, but does not qualify Astra or establish calibrated approval precision.",
+    "Native 1x/2x are device scales, not evidence of both independently authored optical masters.",
+    "No AI critic or independent panel is qualified."
+  ],
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

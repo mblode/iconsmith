@@ -1,0 +1,20 @@
+{
+  "kind": "staging-inline-transport-verification",
+  "status": "offline-verified",
+  "tests": 16,
+  "productionDefaultChanged": false,
+  "providerCalls": 0,
+  "hashes": {
+    ".staging/claude-inline-review-transport-v2-2026-09-08/adapter.test.ts": "d0b6efa155216fb1f69fca3035b1b64b24dae2411b7e6e348b0d1b6a0e7afe60",
+    ".staging/claude-inline-review-transport-v2-2026-09-08/bridge.ts": "c5539c5a0a81c1903eb786f67c9322edee4e94e151d1ba6ba50a446d87528730",
+    ".staging/claude-inline-review-transport-v2-2026-09-08/adapter.ts": "8d66cdfcba704736bfb7f3d5eb258265d1a04f782312d514a2bd515010fb4b29",
+    ".staging/claude-inline-review-transport-v2-2026-09-08/README.md": "f04a6b6bde462b6c174e1b45eae234cf53df027d75c96dba763d5c420f01064e",
+    ".staging/root-inline-transport-v2-tests.log": "9e5d80c178d783129c1315c499e69ab41e771fa3c9302a037f2d85277104cfd5"
+  },
+  "limits": [
+    "Exact input delivery is instrumented, model attention is not proved.",
+    "No reviewer qualification or craft approval.",
+    "Observed-descendant process containment only."
+  ],
+  "v1Correction": "Root caught blanket rejection of StructuredOutput pseudo-tool and missing schema/duplicate-terminal checks; original v1 preserved."
+}

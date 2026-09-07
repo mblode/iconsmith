@@ -1,0 +1,26 @@
+{
+  "kind": "development-critic-diagnostic-intent",
+  "campaign": "A152",
+  "packet": "V2-P01",
+  "route": "astra",
+  "model": "gpt-6-astra",
+  "maxNativeCalls": 3,
+  "maxConcurrency": 1,
+  "routeMs": 385000,
+  "output": ".staging/a152-p01-astra-diagnostic-prep-v3-2026-09-08/runs/V2-P01/astra",
+  "automaticResumeAllowed": false,
+  "inputs": {
+    ".staging/a152-p01-astra-diagnostic-prep-v3-2026-09-08/manifest.json": "4338dfffb2cd3370eb63fbee02cffb9b84b90bbef5153345deac0dcbf552d427",
+    ".staging/a152-p01-astra-diagnostic-prep-v3-2026-09-08/run.mts": "4b860ecd558939bacdbbe954e6ce41da197b576e0fd9c8169bca0a94cf6f1e65",
+    ".staging/a152-p01-astra-diagnostic-prep-v3-2026-09-08/test.mts": "df81b2ae1bae5091153f0dd44a212067f803f07141e6623322f093065ddc6016",
+    ".staging/a152-root-run.mts": "cc02b8d465d421c2e09df68be309e8d04e61de7596aeabcac463f0e6efe746a8"
+  },
+  "comparison": "Historical A149 Sol high and A150 Claude medium are cross-profile development evidence, not matched qualification.",
+  "apiActualUsd": 0,
+  "apiReservedUsd": 0,
+  "priorApiActualUsd": 13.06220785,
+  "priorApiReservedOrUnknownUsd": 11.37126575,
+  "capUsd": 50,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

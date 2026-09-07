@@ -1,0 +1,128 @@
+{
+  "campaignIntentHash": "fec79c733ca271f769c6f2d4bc91fede42d816af4ce6bb967a1a8d213de5d567",
+  "instrumentQualified": false,
+  "outcomes": [
+    {
+      "completeReviewers": 0,
+      "conflicts": [],
+      "id": "q-m7",
+      "imageSha256": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+      "incompleteReviewers": 2,
+      "reviews": [
+        {
+          "complete": false,
+          "reason": "recognition-incomplete",
+          "route": "codex"
+        },
+        {
+          "complete": false,
+          "diagnosticJudgment": {
+            "craft": 7,
+            "critical": "no",
+            "family": "yes",
+            "native": "yes",
+            "recognition": "cloud-upload",
+            "ship": "yes"
+          },
+          "model": "claude-opus-5",
+          "provider": null,
+          "reason": "review provider identity is missing or inconsistent",
+          "route": "claude"
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "completeReviewers": 0,
+      "conflicts": [],
+      "id": "q-r2",
+      "imageSha256": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+      "incompleteReviewers": 2,
+      "reviews": [
+        {
+          "complete": false,
+          "reason": "recognition-incomplete",
+          "route": "codex"
+        },
+        {
+          "complete": false,
+          "diagnosticJudgment": {
+            "craft": 6,
+            "critical": "no",
+            "family": "yes",
+            "native": "yes",
+            "recognition": "cloud-upload",
+            "ship": "uncertain"
+          },
+          "model": "claude-opus-5",
+          "provider": null,
+          "reason": "review provider identity is missing or inconsistent",
+          "route": "claude"
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "completeReviewers": 0,
+      "conflicts": [],
+      "id": "q-v9",
+      "imageSha256": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+      "incompleteReviewers": 2,
+      "reviews": [
+        {
+          "complete": false,
+          "reason": "recognition-incomplete",
+          "route": "codex"
+        },
+        {
+          "complete": false,
+          "diagnosticJudgment": {
+            "craft": 3,
+            "critical": "yes",
+            "family": "no",
+            "native": "no",
+            "recognition": "folder-lock",
+            "ship": "no"
+          },
+          "model": "claude-opus-5",
+          "provider": null,
+          "reason": "review provider identity is missing or inconsistent",
+          "route": "claude"
+        }
+      ],
+      "status": "incomplete"
+    },
+    {
+      "completeReviewers": 0,
+      "conflicts": [],
+      "id": "q-x4",
+      "imageSha256": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c",
+      "incompleteReviewers": 2,
+      "reviews": [
+        {
+          "complete": false,
+          "reason": "recognition-incomplete",
+          "route": "codex"
+        },
+        {
+          "complete": false,
+          "diagnosticJudgment": {
+            "craft": 5,
+            "critical": "no",
+            "family": "uncertain",
+            "native": "no",
+            "recognition": "folder-lock",
+            "ship": "no"
+          },
+          "model": "claude-opus-5",
+          "provider": null,
+          "reason": "review provider identity is missing or inconsistent",
+          "route": "claude"
+        }
+      ],
+      "status": "incomplete"
+    }
+  ],
+  "qualified": false,
+  "scope": "development-ai-review"
+}

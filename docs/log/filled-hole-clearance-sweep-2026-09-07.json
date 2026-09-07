@@ -1,0 +1,548 @@
+{
+  "schemaVersion": 1,
+  "status": "offline-parameter-feasibility",
+  "qualified": false,
+  "operation": "host-derived contained counter expansion with nonzero fill throughout",
+  "offsets": [
+    0,
+    0.125,
+    0.25,
+    0.375,
+    0.5
+  ],
+  "vectorMinimumBridgeMethod": "Paper nearest boundary query sampled every 0.01 design unit along the counter; diagnostic approximation, not an exact analytic minimum",
+  "rasterBoundary": "Binary threshold topology is diagnostic only and does not assert visual presence or absence.",
+  "outerContoursChanged": false,
+  "findings": {
+    "bell": "Offsets 0 through 0.25 preserve one binary ink component on both surfaces but do not register an enclosed background component. At 0.375 and 0.5, an enclosed background component registers, while ink fragments on at least one surface. No sampled offset satisfies both binary diagnostics on both surfaces; this is evidence of a native16 tradeoff, not proof of visual absence.",
+    "addKeyframe": "All sampled offsets remain strictly contained, with one enclosed background and one ink component on both surfaces. The approximate minimum bridge remains at least 4.626 design units. Geometry supports the full sampled range, but this does not select a craft-optimal offset.",
+    "zoomIn": "All sampled offsets remain strictly contained and retain one enclosed background component. The binary ink count is three at every offset despite connected vector annulus geometry, so the count is pre-existing threshold behavior and cannot select a useful visual range.",
+    "scope": "Every expanded counter is one nonzero contour strictly inside the byte-identical outer path. No outlined geometry was changed. The operation changes only an existing filled counter; it does not establish a general authoring API or visual qualification."
+  },
+  "cases": [
+    {
+      "name": "bell-filled",
+      "sourcePath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/bell-filled.svg",
+      "sourceSvgSha256": "921d4df5c0bad966a30b76c40c29c1909f05c76b978396a4e16165ce28db7e2a",
+      "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+      "sourceCounterSha256": "8904dc34b6e4a4d45f3461a6fa558725b44b1f99f5d6d97b1cd2b737aba9f84e",
+      "sweeps": [
+        {
+          "offset": 0,
+          "strokeExpansionWidth": 0,
+          "expandedHoleSha256": "8904dc34b6e4a4d45f3461a6fa558725b44b1f99f5d6d97b1cd2b737aba9f84e",
+          "paintSha256": "f93fdb00b0f568e92d55741f0af5149416f6a2af6e120a910538d9140837d1ed",
+          "vector": {
+            "area": 3.0424855975000042,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 1.998012611972416,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 0,
+          "paintArea": 260.4839780795,
+          "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 0,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 0,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "af7f7673adc58dbf9b88c620313285afa4cdffd0c842bdebf9c80f8a083824d0",
+            "dark": "b88509b4b083b548563108811409ba2a377aff7e4bbeeaabe1ae134305387f53"
+          }
+        },
+        {
+          "offset": 0.125,
+          "strokeExpansionWidth": 0.25,
+          "expandedHoleSha256": "fcc1161c8b807c416aecc9e0f7332eaeacd48b999a3a4520148b51225b4f37a1",
+          "paintSha256": "5dc85f791c0f4ce34d2ca82567f58d2438378916c0a5443d1f9688da2c9a8635",
+          "vector": {
+            "area": 4.274791416455024,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 1.8729788767767268,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 1.2323058189550196,
+          "paintArea": 259.251672260545,
+          "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 0,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 0,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "1505b983404fbdcde325916e2470e259d2a774df8d74f52406d8d71b1f033bd2",
+            "dark": "f4cbb429c52f12dfdad92f93fdc543d77a9ec7383eeb430701c0541b2604e96f"
+          }
+        },
+        {
+          "offset": 0.25,
+          "strokeExpansionWidth": 0.5,
+          "expandedHoleSha256": "c715b0b885bfc27425321a48e3e658bb23a193600b03906fe0f880b0d441a3c1",
+          "paintSha256": "83be4dc53be43b55f01e1d087f1ca6d4d115822acaf3fb511b4f9227cf3aeecc",
+          "vector": {
+            "area": 5.603879985029984,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 1.7480695323828472,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 2.5613943875299796,
+          "paintArea": 257.92258369197,
+          "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 0,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 0,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "381172e0e3dab3c9473578ba0e358f1810a5d84ef043c88499e15a67ab01de5e",
+            "dark": "beb5cbb82d4ce35439826dc000841ddcaf44facaeac12b0725deb1cccbf6a2fc"
+          }
+        },
+        {
+          "offset": 0.375,
+          "strokeExpansionWidth": 0.75,
+          "expandedHoleSha256": "3fce327ecc2269a8bc2b19a4eaa90653a56127628ada6d335e543216f23e5c99",
+          "paintSha256": "9eaa4533cf3e3c879767f54dfa26757d2b49f40f76a76e7907f2f3068ff809c2",
+          "vector": {
+            "area": 7.030838361394991,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 1.623019623805505,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 3.988352763894987,
+          "paintArea": 256.49562531560497,
+          "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 2
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "05d88af0b8099e5bba9bb7f7c7dc6a0c75ecb747c9c68ab28602d86a7f8f4685",
+            "dark": "96c02ffe2e5c8745d470c4ea7ac920a5378a0bd78b6150e7a6b86e137a9ef08d"
+          }
+        },
+        {
+          "offset": 0.5,
+          "strokeExpansionWidth": 1,
+          "expandedHoleSha256": "e883364f89de8eae6397e75e7a8699f2f6947ed773696841c040e1617a5c4445",
+          "paintSha256": "1c477901cb7d372a8f75607d36698ea425b9f360432bf90e0dbcfbfe03a288ae",
+          "vector": {
+            "area": 8.556258666264995,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 1.4980364929709644,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 5.513773068764991,
+          "paintArea": 254.97020501073496,
+          "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 4
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 2
+            }
+          },
+          "imageSha256": {
+            "light": "cde075e14640a1f412873b07a710325b93ca1c4b28fe3958fc4dfc8a8a981c22",
+            "dark": "43dca48ead8c6c2e9420173aebcb1a8def0eab9d249701408b70e64ca896405e"
+          }
+        }
+      ]
+    },
+    {
+      "name": "add-keyframe-filled",
+      "sourcePath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/add-keyframe-filled.svg",
+      "sourceSvgSha256": "1c1b4eea7ed3f1190b20b12e008d1e6626230144f7f52a1211e1b9d2447ce413",
+      "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+      "sourceCounterSha256": "964a80352c6f3642fbd2c5f7f4681fdbf275e61660cc9251143138086cac0ac6",
+      "sweeps": [
+        {
+          "offset": 0,
+          "strokeExpansionWidth": 0,
+          "expandedHoleSha256": "964a80352c6f3642fbd2c5f7f4681fdbf275e61660cc9251143138086cac0ac6",
+          "paintSha256": "0dbbfe8402a5a81bd8a976027b7c8d811e902188d48a4437edf3656810ceeb96",
+          "vector": {
+            "area": 26.28499765200001,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 5.126454485555866,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 0,
+          "paintArea": 232.10145038900004,
+          "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "a203d74619adc8090dacc4ae7e4a43ad7a6992b5daa50d251332f290dabbbc0c",
+            "dark": "c5a1ea39a9fb6485f14738b03262c0a26b6b169168fc95b2427278d5c9ca4d78"
+          }
+        },
+        {
+          "offset": 0.125,
+          "strokeExpansionWidth": 0.25,
+          "expandedHoleSha256": "667e207b4ae9597ba2160c30e2f6ad5122cc55a75a9eecfebe0a5b2ce0100773",
+          "paintSha256": "33e9e9d61d70267da4521458624c35147c524d65034d48f51521982b2fe5cfdd",
+          "vector": {
+            "area": 29.892916599699998,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 5.001455184817306,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 3.6079189476999893,
+          "paintArea": 228.49353144130004,
+          "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "bf96683457d6bf588c81caa19bcce91804c9dee334fab29b0cdecb21a4fefe56",
+            "dark": "e3bde0bf01144f99ca8239237f02c8d04bafcf345c0c04d49b971177923eb3c2"
+          }
+        },
+        {
+          "offset": 0.25,
+          "strokeExpansionWidth": 0.5,
+          "expandedHoleSha256": "b5bbdd993057052219d6f7ecfb16dfea140d210147d98db3236e3a18bef2b967",
+          "paintSha256": "4be146c45130d7c2887e38d1eda910c655f888a3a57b238f8ff8436e40481df0",
+          "vector": {
+            "area": 33.571659567579935,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 4.876446296965813,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 7.286661915579927,
+          "paintArea": 224.81478847342015,
+          "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "8a71842f1b49d6ad75f9d634a3c280168722841ca99ecb81b79ce4fa26c9f164",
+            "dark": "4f0635f78d42a896e0fc7b5fc0b91b5b0617e04e45432424825a7c036d5125f8"
+          }
+        },
+        {
+          "offset": 0.375,
+          "strokeExpansionWidth": 0.75,
+          "expandedHoleSha256": "577173d237d4cd98bbdd1d1f3361bc3bd3ca2fde8730496a37c1dca85f34580d",
+          "paintSha256": "5312321f97ee0d9b38d6115629b72689614720c7287ef62ac106b00d4d044845",
+          "vector": {
+            "area": 37.32143851109994,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 4.751436520730923,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 11.036440859099933,
+          "paintArea": 221.06500952990012,
+          "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "d3f44655b558563740195d5efa959aeef0171ebf48c885ab30181a1c8eaebf14",
+            "dark": "1e35accb031fb13264739b9c343c29f5485a4cde17f0bb99b6e3afc86efd2403"
+          }
+        },
+        {
+          "offset": 0.5,
+          "strokeExpansionWidth": 1,
+          "expandedHoleSha256": "110ab29381a52e798d2f5281934bc6c227d35fe7cfb7be1972a652ccedd45fff",
+          "paintSha256": "b1ca78d44023b68720a036f9eec9edc3b5e6fe50b0699554c3e336f4a91fbe9d",
+          "vector": {
+            "area": 41.14241872795998,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 4.626427319374457,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 14.85742107595997,
+          "paintArea": 217.24402931304007,
+          "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 1
+            }
+          },
+          "imageSha256": {
+            "light": "a8de2500ef25e86591e9e8acbd5d7d8302e666a16e7550ff80d5d10b60d96d24",
+            "dark": "5c373e687d2de78d7d2c777e81862332bdffb6eef8c35eedf34274049c9ffdc5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zoom-in-filled",
+      "sourcePath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/zoom-in-filled.svg",
+      "sourceSvgSha256": "42fd57b25afe8cead16496561de1cb23d1aef99d7f088b7d0bf462f2ed89c256",
+      "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+      "sourceCounterSha256": "6e6a839e9caa31f5b6b522f407a6ffb84e34f8f2e4ac6b328cafafaeca5bc233",
+      "sweeps": [
+        {
+          "offset": 0,
+          "strokeExpansionWidth": 0,
+          "expandedHoleSha256": "6e6a839e9caa31f5b6b522f407a6ffb84e34f8f2e4ac6b328cafafaeca5bc233",
+          "paintSha256": "47b06dd3dae01c845f1184ff97c88938ffb8a76ff5691dd5a365ba6d5b786017",
+          "vector": {
+            "area": 26.284997651999998,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 4.000000386954155,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 0,
+          "paintArea": 185.9017038835,
+          "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            }
+          },
+          "imageSha256": {
+            "light": "572881f9b3fc7ffb82c157d35163cfda2334a35f8a8804cae59fb561b291d321",
+            "dark": "9eeaa9bad34810f935cd59642d673bbb32c9c675b613ed393f691a842bf5794c"
+          }
+        },
+        {
+          "offset": 0.125,
+          "strokeExpansionWidth": 0.25,
+          "expandedHoleSha256": "f7ed067d510e05d02edebb1d9374cc33b97bea7ba8a45f28d28549555962bf7f",
+          "paintSha256": "571d84b13fe93736ee041ee531a1d09c89bd03f5a4e009e6d5f1d4643f3bab76",
+          "vector": {
+            "area": 29.892957068090062,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 3.875001848810865,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 3.6079594160900648,
+          "paintArea": 182.29374446740997,
+          "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            }
+          },
+          "imageSha256": {
+            "light": "a1ffab1bdb71e8d2cf22c005a6b1a8a246d7e1e4a7104035a66630ddf33bfdbf",
+            "dark": "62e580e462b1dbf07a8973f8cd4a00485bdfe0bebdcf7ef13f22972e6138d7f4"
+          }
+        },
+        {
+          "offset": 0.25,
+          "strokeExpansionWidth": 0.5,
+          "expandedHoleSha256": "f1c09b4c1bd2144db9562b8676cc0242490f9b3f6d59c28f53f60b5b1e886b54",
+          "paintSha256": "ff57e202188c693a768fed3ee2c39011db70f49e9579a48d70e51078cc334a33",
+          "vector": {
+            "area": 33.571628368809996,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 3.7500000479933475,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 7.286630716809999,
+          "paintArea": 178.61507316669,
+          "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            }
+          },
+          "imageSha256": {
+            "light": "142baeff1197b0f96c8b79a68986963719ccc2e7143d35b8a4269554357116a0",
+            "dark": "b871b503d219f01e9564cfec586dad0fe9d35d5b22a30b7f55611d54f0536799"
+          }
+        },
+        {
+          "offset": 0.375,
+          "strokeExpansionWidth": 0.75,
+          "expandedHoleSha256": "cb6cf4520c0d2f03a646c6ba07ab978410a242126fdae72294a054feaee68254",
+          "paintSha256": "b1d8925c3820513c9b40128ff1600240a22f93cf38e09f540ea3629fe0ee47b9",
+          "vector": {
+            "area": 37.321438511099934,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 3.625000019035692,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 11.036440859099937,
+          "paintArea": 174.86526302440006,
+          "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            }
+          },
+          "imageSha256": {
+            "light": "d1cc061f4b7c0d2fcb03e47a9f816547eaff6262662d1802710dfdb51fe4780f",
+            "dark": "1edd1ffc78cd140706228f9674c75f971d54b53c8ceddfed85de54db5e143a1c"
+          }
+        },
+        {
+          "offset": 0.5,
+          "strokeExpansionWidth": 1,
+          "expandedHoleSha256": "d6cf960cd97b25103ab16c6f0f01f84101f1d3ad26d168a60ba8478a11e89114",
+          "paintSha256": "641fff61b737f61b751372983d95d86e81242c41b7e4a92255fe88e2965b0e68",
+          "vector": {
+            "area": 41.142433394350064,
+            "children": 1,
+            "intersections": 0,
+            "outsideArea": 0,
+            "sampledMinimumBridge": 3.5000000023363125,
+            "sampleStep": 0.01
+          },
+          "counterAreaIncrease": 14.857435742350066,
+          "paintArea": 171.04426814115004,
+          "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+          "native16": {
+            "light": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            },
+            "dark": {
+              "binaryThreshold": 128,
+              "enclosedBackgroundComponents": 1,
+              "inkComponents": 3
+            }
+          },
+          "imageSha256": {
+            "light": "8f03624fe7ab298ac67980acb672f7cf737d5c8e0162833374a5b82e365ddcea",
+            "dark": "c6c31c4bed7053fbdb4a64244c46b089e5eff538c07f0fe6b16ddf87dd83a82c"
+          }
+        }
+      ]
+    }
+  ],
+  "boardSha256": "97ff10e823e712cc23600a481b9bf969496256ec9ac1685964f2f8661f795176",
+  "providerCalls": 0
+}

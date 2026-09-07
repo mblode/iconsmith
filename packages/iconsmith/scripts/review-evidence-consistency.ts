@@ -1,0 +1,2 @@
+export const REVIEW_EVIDENCE_CONSISTENCY =
+  "For every factual claim about a count, contact, merge, clipping, closure, or disappearing feature, name the supplied image and visible region that directly show it. If no supplied view directly shows the claim, use an uncertainty choice when one is offered; otherwise explicitly state in the evidence that it is uncertain and inferred rather than observed, while selecting only from the provided choices.";

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "status": "deadline-not-dispatched",
+  "manifestHash": "5e0f31a25831608be6d1edf22242c5d6d2382144b4c29fad401f2caccd2a29d3",
+  "recordedAtEpochMs": 1788784495314,
+  "recoveryDeadline": 1788784533447,
+  "remainingMsAtDecision": 38133,
+  "constructorCalls": 0,
+  "recoveryCalls": 0,
+  "providerCalls": 0,
+  "a136Status": "unchanged-incomplete",
+  "qualified": false,
+  "reason": "Insufficient time remained for meaningful retained-program inspection and finalization while preserving the original 480000ms independent-review reserve and 30000ms margin. The original A136 deadline was not extended.",
+  "sourceReceiptSha256": "ffc55363a36377f226d31ae3fa5842bab15c36db2f6c8a853d1652340f53e7ca"
+}

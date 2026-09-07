@@ -110,7 +110,7 @@ export const variantKey = (v: {
 }): string => `${v.corner}-${v.style}-radius-${v.radius}-stroke-${v.stroke}`;
 
 const ELEMENT = /<(?<tag>path|circle|ellipse|rect|line)\b[^>]*>/gu;
-const ATTR = /(?<name>[a-zA-Z-]+)\s*=\s*"(?<value>[^"]*)"/gu;
+const ATTR = /(?<name>[a-zA-Z][a-zA-Z0-9-]*)\s*=\s*"(?<value>[^"]*)"/gu;
 /** Circular arc → cubic handle ratio for a 90° quadrant. */
 const K = 0.5523;
 

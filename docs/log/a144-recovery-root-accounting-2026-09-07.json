@@ -1,0 +1,78 @@
+{
+  "kind": "a144-recovery-root-accounting",
+  "createdAt": "2026-09-07T14:00:49.778036+00:00",
+  "qualified": false,
+  "originalDeadlineAt": 1788789845893,
+  "recoveredPairs": 1,
+  "originalRequestedPairs": 2,
+  "recoveredSlots": 2,
+  "originalRequestedSlots": 4,
+  "noRedraw": true,
+  "bindings": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/intent.json",
+      "sha256": "6b5252bda22a33596c22152f9bdc902ef12426dd4996e950dbe90150579cec9f"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/claude-intent.json",
+      "sha256": "6ee1df6cf029d044427d97c9bb147804f6e7af83188bfb4ff4df777345eb3d42"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runtime.json",
+      "sha256": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/revision.json",
+      "sha256": "e8376900d197b3ea410f7567a0f88b819021ef2f1d94151e2815cbc5eec73b12"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/program-provenance-astra-native.json",
+      "sha256": "d1d082705b470b8599e75dc65914207846f1d9faf2d88b669fe68ce7b645abc8"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/terminal.json",
+      "sha256": "7dc52d8f40cc1dbe8b5ff06ee1dc2734efe8ed04708220e9542d62d541d7b72d"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/program-provenance-claude-native-structured.json",
+      "sha256": "0cfe3572b3968f89b03eb5a4dfc63e4869b8742bd9170674d4896c694675d9b7"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-native-structured-recovery-terminal.json",
+      "sha256": "a8960b2609bd513d1aae8c65f7cd639fe12df6eda554ea0ae6aab74f370a4881"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-native-structured-terminal.json",
+      "sha256": "2c7f76c5a7144c3721a548036a454dfd0f2b84562bb96f3a1c41fee75e68026d"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native-terminal.json",
+      "sha256": "227e4d8d30e36f894355cae8ad884ed861e292ada194755681ef19da75839a7e"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native-postsettlement-audit.json",
+      "sha256": "c04787bec67fdf589faaf683223c016cb5a798d6cd7ef80704a78c558dc344b9"
+    }
+  ],
+  "nativeProcesses": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native/01-finalize/process.json",
+      "sha256": "0a58531fdd8bb5e12191866a5358d176d487a7b13eb7cdec695e9bb335f4f082"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/claude-fresh-inspection-finalization/00-author-self-review/process.json",
+      "sha256": "ffc5db1755f5329daedd0b67a360508399a18825bddf7065576175d3c8730971"
+    }
+  ],
+  "nativeCalls": 2,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "priorApiActualUsd": 13.06220785,
+  "priorApiReservedOrUnknownUsd": 11.37126575,
+  "limitations": [
+    "Astra delivered with unchanged retained programs; Claude inspection incomplete.",
+    "Recovery outcome distinct from original A143 terminal.",
+    "Independent review tracked under separate A145 budget amendment."
+  ]
+}

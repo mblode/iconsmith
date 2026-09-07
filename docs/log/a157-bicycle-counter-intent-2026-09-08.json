@@ -1,0 +1,21 @@
+{
+  "experimentId": "A157",
+  "status": "frozen",
+  "manifestHash": "6e370145681afaa3dfe17dd7635928c4b22d4760498a49e992da4cf2079b1512",
+  "pair": "bicycle-16",
+  "authorArms": 1,
+  "outputSlots": 2,
+  "maximumAuthorNativeCalls": 6,
+  "maximumReviewNativeCalls": 4,
+  "authorBudgetMs": 600000,
+  "pairBudgetMs": 1200000,
+  "reviewReserveMs": 480000,
+  "compilerRepairs": 1,
+  "visualRepairs": 1,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "createdAt": "2026-09-07T15:29:46.066314+00:00",
+  "purpose": "Isolate verified V28 separate repair counters over exact A156 source/context/runtime; existing rejected artifacts and offline size counterfactual are not injected."
+}

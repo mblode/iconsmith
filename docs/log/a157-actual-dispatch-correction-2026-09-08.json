@@ -1,0 +1,32 @@
+{
+  "experimentId": "A157",
+  "status": "actual-root-dispatch-with-invalid-launch-descriptor",
+  "actualCommand": [
+    "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+    "--import",
+    "tsx",
+    ".staging/native-author-bicycle-counter-a157-2026-09-08/run.mts",
+    "--pair",
+    "bicycle-16",
+    "--execute",
+    "--intent",
+    "docs/log/a157-bicycle-counter-intent-2026-09-08.json"
+  ],
+  "manifestLaunchUsed": false,
+  "actualAuthorConcurrency": 1,
+  "actualAuthorArms": 1,
+  "actualDispatch": {
+    "intentHash": "056084ab5150c64d010eb139807b5ed275b5fcfef3daaf03a32f49c963d4abc8",
+    "intentPath": "/Users/mblode/Code/mblode/iconsmith/docs/log/a157-bicycle-counter-intent-2026-09-08.json",
+    "manifestHash": "6e370145681afaa3dfe17dd7635928c4b22d4760498a49e992da4cf2079b1512",
+    "pair": "bicycle-16",
+    "pairDeadline": 1788796193736
+  },
+  "dispatchSha256": "24917d107f49dc55472a74e83a0ad2eda74b26d1c2b8be36cd4f3a2d1a771d9b",
+  "defects": [
+    "manifest.launch.args contains old A156 runner path",
+    "manifest authorConcurrency says2 while actual single arm concurrency1"
+  ],
+  "qualified": false,
+  "providerCallsAtReceipt": "in-progress; reconcile terminal"
+}

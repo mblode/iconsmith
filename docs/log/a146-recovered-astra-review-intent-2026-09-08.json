@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "a146-recovered-astra-review-intent-2026-09-08",
+  "createdAt": "2026-09-07T14:07:21.145Z",
+  "status": "frozen-before-dispatch",
+  "purpose": "Fresh standalone development diagnostic of sole recovered delivered Astra arm.",
+  "limitations": [
+    "A143/A144 Claude arm remains incomplete and absent from stimuli while retained in author denominator.",
+    "Author/reviewer same-model overlap prevents independent qualification.",
+    "This fresh deadline does not extend A143 delivery or qualification."
+  ],
+  "intent": {
+    "deadlineAt": 1788790621466,
+    "inputHash": "c7af6fbc5476be8a1815d82c2b6d569305c84f19b7af9a13996b849d0bf8e36c",
+    "perReviewerMaxMs": 240000,
+    "reviewerCount": 2,
+    "runnerHash": "293a0e29a17f0ff98b936f555f5e34f2408df33c6c05cf60fdbcdbd201e1d80a",
+    "settlementReserveMs": 5000,
+    "id": "a146-recovered-astra-review",
+    "maximumNativeCalls": 4,
+    "qualified": false,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "sourceAuthorDenominator": 2,
+  "reviewStimuli": 1,
+  "reviewerRoutes": [
+    "gpt-6-astra",
+    "claude-opus-5"
+  ],
+  "boundFiles": {
+    "runner": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/a146-recovered-astra-review-2026-09-08/run.mts",
+      "sha256": "293a0e29a17f0ff98b936f555f5e34f2408df33c6c05cf60fdbcdbd201e1d80a"
+    },
+    "budgetModule": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/a146-recovered-astra-review-2026-09-08/review-budget.ts",
+      "sha256": "e1583467a2a3ef37923c3203cbbe220d4d2cb4070715387eca0e269d77e3a81e"
+    },
+    "input": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/a146-recovered-astra-review-2026-09-08/input/campaign-input.host.json",
+      "sha256": "c7af6fbc5476be8a1815d82c2b6d569305c84f19b7af9a13996b849d0bf8e36c"
+    },
+    "sourcePostsettlementAudit": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native-postsettlement-audit.json",
+      "sha256": "c04787bec67fdf589faaf683223c016cb5a798d6cd7ef80704a78c558dc344b9"
+    },
+    "sourceRecoveryTerminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/runs/astra-native-terminal.json",
+      "sha256": "227e4d8d30e36f894355cae8ad884ed861e292ada194755681ef19da75839a7e"
+    }
+  },
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

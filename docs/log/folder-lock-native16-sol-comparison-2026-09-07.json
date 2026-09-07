@@ -1,0 +1,30 @@
+{
+  "imageSha256": "6e998656c84e4b13045943b40a127006b85a55e1799751629b6f726a3174990d",
+  "reviewerModel": "gpt-5.6-sol",
+  "scope": "pairwise AI development only",
+  "qualified": false,
+  "intendedConcept": "folder-lock",
+  "nativeSize": 16,
+  "ratings": {
+    "A": 8,
+    "B": 8
+  },
+  "preference": "tie",
+  "uncertainty": "high for distinguishing A from B; low that both remain readable as folder-lock",
+  "visibleEvidence": [
+    "Both A and B preserve the same rounded folder tab silhouette and the full-width horizontal counter on light and dark surfaces.",
+    "In both variants the lower-left lock remains attached to the folder rather than floating away, and its body has coherent weight relative to the folder mass.",
+    "At 2x the shackle aperture is visibly open in both variants; at 1x both reduce to a compact arch-and-body mark with no confidently distinguishable advantage.",
+    "Neither variant shows a visible paint-polarity failure between the light and dark rows."
+  ],
+  "defectLocalization": {
+    "A": [
+      "At 1x, the shackle and its attachment legs are compressed into very few pixels, so the inner opening is only marginally separated from the body."
+    ],
+    "B": [
+      "At 1x, the shackle and its attachment legs are compressed into very few pixels, so the inner opening is only marginally separated from the body."
+    ]
+  },
+  "criticalRegressions": [],
+  "qualificationNote": "This is an unqualified pairwise AI development observation from the single supplied board, not an acceptance or independent craft qualification."
+}

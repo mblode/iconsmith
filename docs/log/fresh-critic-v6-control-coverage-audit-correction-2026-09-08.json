@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "v6-ai-critic-control-coverage-audit-correction",
+  "createdAt": "2026-09-08",
+  "qualified": false,
+  "providerCalls": 0,
+  "corrects": {
+    "path": "docs/log/fresh-critic-v6-control-coverage-audit-2026-09-08.json",
+    "sha256": "f1ae938ded795ae7aa48bff8639d7db66b254922983d98ba85e68146dffd92c5",
+    "field": "scorerRelation.requiredCorrectionBeforeQualification[1]"
+  },
+  "correction": "The Phase 4 minimum is at least 20 sealed critic approval predictions used to measure approval precision. It does not require 20 independently panel-approved cases. The existing approvalPredictionCount >= 20 predicate is intentional and remains unchanged.",
+  "remainingFinding": "Presentation controls must permit exact artifact-byte repetition under distinct presentation IDs while remaining outside canonical, critical and approval population counts.",
+  "status": "superseding-interpretation-only"
+}

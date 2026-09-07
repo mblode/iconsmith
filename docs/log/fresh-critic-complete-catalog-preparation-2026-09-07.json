@@ -1,0 +1,46 @@
+{
+  "kind": "fresh-ai-critic-complete-catalog-preparation",
+  "createdAt": "2026-09-07",
+  "qualified": false,
+  "providerCalls": 0,
+  "imageInspection": false,
+  "claimScope": "Absent from provider-facing and unknown-route metadata in the preserved accessible ledger; prospective seal only. This is not a globally-never-seen or novel-generation claim.",
+  "distinction": "General model familiarity with a source family is different from exposure to the exact held-out artifact and host perturbation used for critic qualification.",
+  "inputs": {
+    "ledger": {
+      "path": ".staging/fresh-critic-exposure-ledger-2026-09-07/ledger.json",
+      "sha256": "1839889938e953d8f7bf60ed69112c27d51afab7b4bd6c47c9360092992df58d",
+      "scanFiles": 3265,
+      "structuredEntries": 109778,
+      "parseFailures": [
+        {
+          "path": ".staging/house-source-regression-compiler21-audit-cli.json",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "error": "SyntaxError: Unexpected end of JSON input"
+        }
+      ]
+    },
+    "candidates": {
+      "path": ".staging/fresh-critic-complete-catalog-2026-09-07/candidates.json",
+      "sha256": "c8ad40cb41869b8b18f824e5ec625e41420aa1c1229af30ad7c7acc8b1479630"
+    },
+    "inventory": {
+      "path": ".staging/house-source-regression-compiler21-2026-09-07/audit/inventory.json",
+      "sha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb"
+    }
+  },
+  "counts": {
+    "catalogConcepts": 2221,
+    "eligibleBeforeInternalDerivativeDeduplication": 1333,
+    "prospectiveUniqueFamilies": 927,
+    "threshold100Available": true
+  },
+  "exclusionPolicy": "Exclude exact family names, aliases, distractors, references, admitted parts, and hyphen-prefix derivatives of every provider-facing or unknown-route ledger token. Also prevent such derivative overlap within the prospective roster.",
+  "decision": "At least 100 deterministic metadata-only candidates are available for a prospective seal under the bounded preserved-history exclusion. Exact artifacts and perturbations remain unselected and unexposed.",
+  "limitations": [
+    "No image or semantic inspection was performed.",
+    "Alias coverage is limited to the pinned local alias sources available to loadAliases.",
+    "Deleted, UI-only, provider-cache, and inaccessible histories remain outside the ledger.",
+    "A future sealed builder must choose exact artifacts and perturbations, hash them, balance paint/native-size/critical strata, and exclude the chosen packet from all author and critic context before predictions freeze."
+  ]
+}

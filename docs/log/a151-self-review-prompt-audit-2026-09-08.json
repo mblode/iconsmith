@@ -1,0 +1,39 @@
+{
+  "authority": "offline-prompt-and-reference-audit",
+  "campaign": "A151",
+  "qualified": false,
+  "productionChanged": false,
+  "inputs": {
+    "campaignPrompt": {"file": ".staging/native-author-broader-contexts-v2-2026-09-07/jellyfish-16/prompt.txt", "sha256": "4fdab778ad18fa3143dec6be20d4a0d60e8e158690a4b6952a589f05627db08e"},
+    "campaignSkill": {"file": ".staging/native-author-broader-contexts-v2-2026-09-07/jellyfish-16/SKILL.md", "sha256": "4063e630f7ffb9c576f30ec0ca579401199511febb3a8a244ce010d6c020ab02"},
+    "referenceProofManifest": {"file": ".staging/native-author-broader-contexts-v2-2026-09-07/jellyfish-16/reference-proofs.json", "sha256": "0397a236c9b5fcc41ca4ed54d106188e6c13a106638a0a57e3a75e126361ba90"},
+    "referenceOrder": {"file": ".staging/native-author-broader-contexts-v2-2026-09-07/jellyfish-16/reference-order.json", "sha256": "0d2637ca557d19b7e8ad874ad63fb5e4f402d4047b8a0374254dd9a2cb4a5e5f"},
+    "productionPromptBaseline": {"file": "packages/iconsmith/src/pipeline/prompt.baseline.txt", "sha256": "51b9a434c263b655d899927c3942b62a84cb14c81e29c1e85db231a43ef37278"},
+    "productionPromptBuilder": {"file": "packages/iconsmith/src/pipeline/prompt.ts", "sha256": "fa9b51ddb10ca3359fe073b4d68af06ebb003ead38d9ad8a0788b2d415f3ade4"}
+  },
+  "findings": [
+    {
+      "topic": "rim morphology",
+      "result": "The outlined jellyfish rim is the open dome silhouette's base edge and attachment line for the tentacles. It is not an enclosed counter, ring opening, or independently identifying interior mark."
+    },
+    {
+      "topic": "prompt mandate",
+      "result": "The prompt does not mandate copying every outlined stroke as a filled knockout. It says an enclosed object can retain identifying marks as cutouts, structural openings stay open, and explicitly says filled is a shadow rather than an inversion and may drop unreadable hatch."
+    },
+    {
+      "topic": "anchor applicability",
+      "result": "The bug-filled anchor retains an interior vertical body mark, but that mark is inside an enclosed bug body. This differs morphologically from a jellyfish silhouette boundary where tentacles attach. The anchor alone does not establish a compulsory horizontal jellyfish cutout."
+    },
+    {
+      "topic": "actual semantic preservation",
+      "result": "Both paints preserve the bell silhouette and three tentacles. The absent filled rim is a deliberate construction delta whose acceptability needs matched same-morphology evidence; it is not automatically a lost semantic feature."
+    }
+  ],
+  "decision": "No production prompt correction is justified. The written controls already distinguish structural openings and identifying marks from optional detail and warn against mechanically inverting every stroke.",
+  "recommendedExperiment": {
+    "purpose": "Test whether a filled jellyfish rim knockout improves native recognition and house fit without presuming it is required.",
+    "design": "Render the same terminal-bound filled program unchanged and a single no-redraw geometry counterfactual that adds only a bounded horizontal rim knockout while preserving bell and tentacle topology. Present both anonymously with the same matched native anchors to independent critics; ask first for free description, then native legibility, family fit, and defect evidence.",
+    "controls": "Keep outlined fixed, use exact 16px and 2x light/dark proofs, bind program/proof hashes, randomize order, retain disagreements and the existing rejected A151 denominator.",
+    "limitations": "This would be one exposed development example and cannot establish a universal twin rule, critic qualification, or output acceptance."
+  }
+}

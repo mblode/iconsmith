@@ -1,0 +1,4385 @@
+{
+  "summary": {
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "compiler": "iconsmith-constrained-20",
+    "population": 372,
+    "standardUnexpectedPass": 0,
+    "fineGridResolves": 281,
+    "remaining": 91,
+    "qualification": "offline diagnostic only; production grid and source admission unchanged"
+  },
+  "rows": [
+    {
+      "file": "ai-slop-sign.svg",
+      "prior": "Error: ai-slop-sign: 16px source fidelity failed",
+      "standard": "Error: ai-slop-sign: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "airplane-up.svg",
+      "prior": "Error: airplane-up: 16px source fidelity failed",
+      "standard": "Error: airplane-up: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "amazon.svg",
+      "prior": "Error: amazon: 16px source fidelity failed",
+      "standard": "Error: amazon: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "amp-filled.svg",
+      "prior": "Error: amp: 16px source fidelity failed",
+      "standard": "Error: amp: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "amp.svg",
+      "prior": "Error: amp: 16px source fidelity failed",
+      "standard": "Error: amp: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "angularjs-filled.svg",
+      "prior": "Error: angularjs: 16px source fidelity failed",
+      "standard": "Error: angularjs: 16px source fidelity failed",
+      "fine": "Error: angularjs: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "angularjs.svg",
+      "prior": "Error: angularjs: 16px source fidelity failed",
+      "standard": "Error: angularjs: 16px source fidelity failed",
+      "fine": "Error: angularjs: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "anthropic-filled.svg",
+      "prior": "Error: anthropic: 16px source fidelity failed",
+      "standard": "Error: anthropic: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "anthropic.svg",
+      "prior": "Error: anthropic: 16px source fidelity failed",
+      "standard": "Error: anthropic: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "apple-intelligence-icon-filled.svg",
+      "prior": "Error: apple-intelligence-icon: 16px source fidelity failed",
+      "standard": "Error: apple-intelligence-icon: 16px source fidelity failed",
+      "fine": "Error: apple-intelligence-icon: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "apple-intelligence-icon.svg",
+      "prior": "Error: apple-intelligence-icon: 16px source fidelity failed",
+      "standard": "Error: apple-intelligence-icon: 16px source fidelity failed",
+      "fine": "Error: apple-intelligence-icon: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "apple-spring-filled.svg",
+      "prior": "Error: apple-spring: 16px source fidelity failed",
+      "standard": "Error: apple-spring: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "apple-spring.svg",
+      "prior": "Error: apple-spring: 16px source fidelity failed",
+      "standard": "Error: apple-spring: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arc-filled.svg",
+      "prior": "Error: arc: 24px source fidelity failed",
+      "standard": "Error: arc: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arc.svg",
+      "prior": "Error: arc: 24px source fidelity failed",
+      "standard": "Error: arc: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-left-x.svg",
+      "prior": "Error: arrow-left-x: 16px source fidelity failed",
+      "standard": "Error: arrow-left-x: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-path-left.svg",
+      "prior": "Error: arrow-path-left: 16px source fidelity failed",
+      "standard": "Error: arrow-path-left: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-path-right.svg",
+      "prior": "Error: arrow-path-right: 16px source fidelity failed",
+      "standard": "Error: arrow-path-right: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-path-up.svg",
+      "prior": "Error: arrow-path-up: 16px source fidelity failed",
+      "standard": "Error: arrow-path-up: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-share-left-filled.svg",
+      "prior": "Error: arrow-share-left: 16px source fidelity failed",
+      "standard": "Error: arrow-share-left: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-share-left.svg",
+      "prior": "Error: arrow-share-left: 16px source fidelity failed",
+      "standard": "Error: arrow-share-left: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-share-right.svg",
+      "prior": "Error: arrow-share-right: 16px source fidelity failed",
+      "standard": "Error: arrow-share-right: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-up-down-left-right-filled.svg",
+      "prior": "Error: arrow-up-down-left-right: 16px source fidelity failed",
+      "standard": "Error: arrow-up-down-left-right: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "arrow-up-down-left-right.svg",
+      "prior": "Error: arrow-up-down-left-right: 16px source fidelity failed",
+      "standard": "Error: arrow-up-down-left-right: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "audible.svg",
+      "prior": "Error: audible: 24px source fidelity failed",
+      "standard": "Error: audible: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "auto-flash-filled.svg",
+      "prior": "Error: auto-flash: 16px source fidelity failed",
+      "standard": "Error: auto-flash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "auto-flash.svg",
+      "prior": "Error: auto-flash: 16px source fidelity failed",
+      "standard": "Error: auto-flash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bananas-filled.svg",
+      "prior": "Error: bananas: 16px source fidelity failed",
+      "standard": "Error: bananas: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bank-filled.svg",
+      "prior": "Error: bank: 16px source fidelity failed",
+      "standard": "Error: bank: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bank.svg",
+      "prior": "Error: bank: 16px source fidelity failed",
+      "standard": "Error: bank: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "beehiiv.svg",
+      "prior": "Error: beehiiv: 16px source fidelity failed",
+      "standard": "Error: beehiiv: 16px source fidelity failed",
+      "fine": "Error: beehiiv: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "beer-filled.svg",
+      "prior": "Error: beer: 16px source fidelity failed",
+      "standard": "Error: beer: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "behance-filled.svg",
+      "prior": "Error: behance: 16px source fidelity failed",
+      "standard": "Error: behance: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "behance.svg",
+      "prior": "Error: behance: 16px source fidelity failed",
+      "standard": "Error: behance: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bell-active-filled.svg",
+      "prior": "Error: bell-active: 16px source fidelity failed",
+      "standard": "Error: bell-active: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "birthday-cake-filled.svg",
+      "prior": "Error: birthday-cake: 16px source fidelity failed",
+      "standard": "Error: birthday-cake: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "birthday-cake.svg",
+      "prior": "Error: birthday-cake: 16px source fidelity failed",
+      "standard": "Error: birthday-cake: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bluetooth.svg",
+      "prior": "Error: bluetooth: 16px source fidelity failed",
+      "standard": "Error: bluetooth: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "blur.svg",
+      "prior": "Error: blur: 16px source fidelity failed",
+      "standard": "Error: blur: 16px source fidelity failed",
+      "fine": "Error: blur: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "boat-filled.svg",
+      "prior": "Error: boat: 16px source fidelity failed",
+      "standard": "Error: boat: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bolt-filled.svg",
+      "prior": "Error: bolt: 16px source fidelity failed",
+      "standard": "Error: bolt: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "bolt.svg",
+      "prior": "Error: bolt: 16px source fidelity failed",
+      "standard": "Error: bolt: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "box-sparkle-filled.svg",
+      "prior": "Error: box-sparkle: 16px source fidelity failed",
+      "standard": "Error: box-sparkle: 16px source fidelity failed",
+      "fine": "Error: box-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "brain-1-filled.svg",
+      "prior": "Error: brain-1: 16px source fidelity failed",
+      "standard": "Error: brain-1: 16px source fidelity failed",
+      "fine": "Error: brain-1: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "brain-2-filled.svg",
+      "prior": "Error: brain-2: 16px source fidelity failed",
+      "standard": "Error: brain-2: 16px source fidelity failed",
+      "fine": "Error: brain-2: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "brand-jcb.svg",
+      "prior": "Error: brand-jcb: 16px source fidelity failed",
+      "standard": "Error: brand-jcb: 16px source fidelity failed",
+      "fine": "Error: brand-jcb: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "brand-visa.svg",
+      "prior": "Error: brand-visa: 16px source fidelity failed",
+      "standard": "Error: brand-visa: 16px source fidelity failed",
+      "fine": "Error: brand-visa: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "broom-sparkle-filled.svg",
+      "prior": "Error: broom-sparkle: 16px source fidelity failed",
+      "standard": "Error: broom-sparkle: 16px source fidelity failed",
+      "fine": "Error: broom-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "brush-filled.svg",
+      "prior": "Error: brush: 16px source fidelity failed",
+      "standard": "Error: brush: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "brush.svg",
+      "prior": "Error: brush: 16px source fidelity failed",
+      "standard": "Error: brush: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "building-blocks-filled.svg",
+      "prior": "Error: building-blocks: 16px source fidelity failed",
+      "standard": "Error: building-blocks: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "c-filled.svg",
+      "prior": "Error: c: 16px source fidelity failed",
+      "standard": "Error: c: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "c.svg",
+      "prior": "Error: c: 16px source fidelity failed",
+      "standard": "Error: c: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "calendar-clock.svg",
+      "prior": "Error: calendar-clock: 16px source fidelity failed",
+      "standard": "Error: calendar-clock: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "car-4-ev-filled.svg",
+      "prior": "Error: car-4-ev: 16px source fidelity failed",
+      "standard": "Error: car-4-ev: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "car-4-ev.svg",
+      "prior": "Error: car-4-ev: 16px source fidelity failed",
+      "standard": "Error: car-4-ev: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "car-4.svg",
+      "prior": "Error: car-4: 16px source fidelity failed",
+      "standard": "Error: car-4: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "car-5-ev-filled.svg",
+      "prior": "Error: car-5-ev: 16px source fidelity failed",
+      "standard": "Error: car-5-ev: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "car-5-ev.svg",
+      "prior": "Error: car-5-ev: 16px source fidelity failed",
+      "standard": "Error: car-5-ev: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "castle.svg",
+      "prior": "Error: castle: 16px source fidelity failed",
+      "standard": "Error: castle: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cereals-filled.svg",
+      "prior": "Error: cereals: 16px source fidelity failed",
+      "standard": "Error: cereals: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cereals.svg",
+      "prior": "Error: cereals: 16px source fidelity failed",
+      "standard": "Error: cereals: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "chain-link-2.svg",
+      "prior": "Error: chain-link-2: 16px source fidelity failed",
+      "standard": "Error: chain-link-2: 16px source fidelity failed",
+      "fine": "Error: chain-link-2: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "chain-link-4-filled.svg",
+      "prior": "Error: chain-link-4: 16px source fidelity failed",
+      "standard": "Error: chain-link-4: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "chain-link-4.svg",
+      "prior": "Error: chain-link-4: 16px source fidelity failed",
+      "standard": "Error: chain-link-4: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "chart-3.svg",
+      "prior": "Error: chart-3: 16px source fidelity failed",
+      "standard": "Error: chart-3: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        },
+        {
+          "width": 2,
+          "cap": "square"
+        },
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "check-circle-2-dashed.svg",
+      "prior": "Error: check-circle-2-dashed: 16px source fidelity failed",
+      "standard": "Error: check-circle-2-dashed: 16px source fidelity failed",
+      "fine": "Error: check-circle-2-dashed: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "check-circle-dashed.svg",
+      "prior": "Error: check-circle-dashed: 16px source fidelity failed",
+      "standard": "Error: check-circle-dashed: 16px source fidelity failed",
+      "fine": "Error: check-circle-dashed: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "chrome-filled.svg",
+      "prior": "Error: chrome: 16px source fidelity failed",
+      "standard": "Error: chrome: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "chrome.svg",
+      "prior": "Error: chrome: 16px source fidelity failed",
+      "standard": "Error: chrome: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "circle-dashed.svg",
+      "prior": "Error: circle-dashed: 16px source fidelity failed",
+      "standard": "Error: circle-dashed: 16px source fidelity failed",
+      "fine": "Error: circle-dashed: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "circle-exclamation.svg",
+      "prior": "Error: circle-exclamation: 16px source fidelity failed",
+      "standard": "Error: circle-exclamation: 16px source fidelity failed",
+      "fine": "Error: circle-exclamation: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "circle-placeholder-dashed.svg",
+      "prior": "Error: circle-placeholder-dashed: 16px source fidelity failed",
+      "standard": "Error: circle-placeholder-dashed: 16px source fidelity failed",
+      "fine": "Error: circle-placeholder-dashed: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "claw.svg",
+      "prior": "Error: claw: 16px source fidelity failed",
+      "standard": "Error: claw: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "close-circle-dashed.svg",
+      "prior": "Error: close-circle-dashed: 16px source fidelity failed",
+      "standard": "Error: close-circle-dashed: 16px source fidelity failed",
+      "fine": "Error: close-circle-dashed: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "coin-rupees.svg",
+      "prior": "Error: coin-rupees: 24px source fidelity failed",
+      "standard": "Error: coin-rupees: 24px source fidelity failed",
+      "fine": "Error: coin-rupees: 24px source fidelity failed",
+      "strokes": [
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "collaboration-pointer-left.svg",
+      "prior": "Error: collaboration-pointer-left: 16px source fidelity failed",
+      "standard": "Error: collaboration-pointer-left: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "collaboration-pointer-right.svg",
+      "prior": "Error: collaboration-pointer-right: 16px source fidelity failed",
+      "standard": "Error: collaboration-pointer-right: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "colors-filled.svg",
+      "prior": "Error: colors: 16px source fidelity failed",
+      "standard": "Error: colors: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "columns-3-filled.svg",
+      "prior": "Error: columns-3: 16px source fidelity failed",
+      "standard": "Error: columns-3: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "columns-3-wide-filled.svg",
+      "prior": "Error: columns-3-wide: 24px source fidelity failed",
+      "standard": "Error: columns-3-wide: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "compass-pointer.svg",
+      "prior": "Error: compass-pointer: 16px source fidelity failed",
+      "standard": "Error: compass-pointer: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "components-filled.svg",
+      "prior": "Error: components: 16px source fidelity failed",
+      "standard": "Error: components: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "components.svg",
+      "prior": "Error: components: 16px source fidelity failed",
+      "standard": "Error: components: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "conductor.svg",
+      "prior": "Error: conductor: 16px source fidelity failed",
+      "standard": "Error: conductor: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.5,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "court.svg",
+      "prior": "Error: court: 16px source fidelity failed",
+      "standard": "Error: court: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cursor-1-filled.svg",
+      "prior": "Error: cursor-1: 16px source fidelity failed",
+      "standard": "Error: cursor-1: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cursor-1.svg",
+      "prior": "Error: cursor-1: 16px source fidelity failed",
+      "standard": "Error: cursor-1: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cursor-ai-filled.svg",
+      "prior": "Error: cursor-ai: 16px source fidelity failed",
+      "standard": "Error: cursor-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cursor-ai.svg",
+      "prior": "Error: cursor-ai: 16px source fidelity failed",
+      "standard": "Error: cursor-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cursor-filled.svg",
+      "prior": "Error: cursor: 16px source fidelity failed",
+      "standard": "Error: cursor: 16px source fidelity failed",
+      "fine": "Error: cursor: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "cursor-list.svg",
+      "prior": "Error: cursor-list: 16px source fidelity failed",
+      "standard": "Error: cursor-list: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "cursor.svg",
+      "prior": "Error: cursor: 16px source fidelity failed",
+      "standard": "Error: cursor: 16px source fidelity failed",
+      "fine": "Error: cursor: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "cute-robot-filled.svg",
+      "prior": "Error: cute-robot: 16px source fidelity failed",
+      "standard": "Error: cute-robot: 16px source fidelity failed",
+      "fine": "Error: cute-robot: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "databricks-filled.svg",
+      "prior": "Error: databricks: 16px source fidelity failed",
+      "standard": "Error: databricks: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "databricks-genie-code-filled.svg",
+      "prior": "Error: databricks-genie-code: 16px source fidelity failed",
+      "standard": "Error: databricks-genie-code: 16px source fidelity failed",
+      "fine": "Error: databricks-genie-code: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "databricks-genie-code.svg",
+      "prior": "Error: databricks-genie-code: 16px source fidelity failed",
+      "standard": "Error: databricks-genie-code: 16px source fidelity failed",
+      "fine": "Error: databricks-genie-code: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "databricks.svg",
+      "prior": "Error: databricks: 16px source fidelity failed",
+      "standard": "Error: databricks: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "debugger-filled.svg",
+      "prior": "Error: debugger: 24px source fidelity failed",
+      "standard": "Error: debugger: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "debugger.svg",
+      "prior": "Error: debugger: 16px source fidelity failed",
+      "standard": "Error: debugger: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "deepseek-filled.svg",
+      "prior": "Error: deepseek: 16px source fidelity failed",
+      "standard": "Error: deepseek: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "deepseek.svg",
+      "prior": "Error: deepseek: 16px source fidelity failed",
+      "standard": "Error: deepseek: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "diamond-shine.svg",
+      "prior": "Error: diamond-shine: 16px source fidelity failed",
+      "standard": "Error: diamond-shine: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "diamond.svg",
+      "prior": "Error: diamond: 16px source fidelity failed",
+      "standard": "Error: diamond: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "discord-filled.svg",
+      "prior": "Error: discord: 16px source fidelity failed",
+      "standard": "Error: discord: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "dumbell.svg",
+      "prior": "Error: dumbell: 16px source fidelity failed",
+      "standard": "Error: dumbell: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "earth-2.svg",
+      "prior": "Error: earth-2: 24px source fidelity failed",
+      "standard": "Error: earth-2: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "edit-big.svg",
+      "prior": "Error: edit-big: 16px source fidelity failed",
+      "standard": "Error: edit-big: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "edit-small-1.svg",
+      "prior": "Error: edit-small-1: 16px source fidelity failed",
+      "standard": "Error: edit-small-1: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "edit-small-2.svg",
+      "prior": "Error: edit-small-2: 16px source fidelity failed",
+      "standard": "Error: edit-small-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "einstein.svg",
+      "prior": "Error: einstein: 16px source fidelity failed",
+      "standard": "Error: einstein: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "email-2-filled.svg",
+      "prior": "Error: email-2: 16px source fidelity failed",
+      "standard": "Error: email-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "email-settings-filled.svg",
+      "prior": "Error: email-settings: 16px source fidelity failed",
+      "standard": "Error: email-settings: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "exclamation-triangle-filled.svg",
+      "prior": "Error: exclamation-triangle: 16px source fidelity failed",
+      "standard": "Error: exclamation-triangle: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eye-open.svg",
+      "prior": "Error: eye-open: 16px source fidelity failed",
+      "standard": "Error: eye-open: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eye-slash-2-filled.svg",
+      "prior": "Error: eye-slash-2: 16px source fidelity failed",
+      "standard": "Error: eye-slash-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eye-slash-2.svg",
+      "prior": "Error: eye-slash-2: 16px source fidelity failed",
+      "standard": "Error: eye-slash-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eye-slash-filled.svg",
+      "prior": "Error: eye-slash: 16px source fidelity failed",
+      "standard": "Error: eye-slash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eye-slash.svg",
+      "prior": "Error: eye-slash: 16px source fidelity failed",
+      "standard": "Error: eye-slash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eye-sparkle-filled.svg",
+      "prior": "Error: eye-sparkle: 16px source fidelity failed",
+      "standard": "Error: eye-sparkle: 16px source fidelity failed",
+      "fine": "Error: eye-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "eye-sparkle.svg",
+      "prior": "Error: eye-sparkle: 16px source fidelity failed",
+      "standard": "Error: eye-sparkle: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "eyedropper.svg",
+      "prior": "Error: eyedropper: 16px source fidelity failed",
+      "standard": "Error: eyedropper: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "fashion.svg",
+      "prior": "Error: fashion: 16px source fidelity failed",
+      "standard": "Error: fashion: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "figma-simple-filled.svg",
+      "prior": "Error: figma-simple: 16px source fidelity failed",
+      "standard": "Error: figma-simple: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "figma-simple.svg",
+      "prior": "Error: figma-simple: 16px source fidelity failed",
+      "standard": "Error: figma-simple: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "flashcards-filled.svg",
+      "prior": "Error: flashcards: 16px source fidelity failed",
+      "standard": "Error: flashcards: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "flashcards.svg",
+      "prior": "Error: flashcards: 16px source fidelity failed",
+      "standard": "Error: flashcards: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "form-rhombus.svg",
+      "prior": "Error: form-rhombus: 16px source fidelity failed",
+      "standard": "Error: form-rhombus: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "fortune-teller-ball-filled.svg",
+      "prior": "Error: fortune-teller-ball: 16px source fidelity failed",
+      "standard": "Error: fortune-teller-ball: 16px source fidelity failed",
+      "fine": "Error: fortune-teller-ball: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "frisbee-golf-filled.svg",
+      "prior": "Error: frisbee-golf: 16px source fidelity failed",
+      "standard": "Error: frisbee-golf: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "frisbee-golf.svg",
+      "prior": "Error: frisbee-golf: 16px source fidelity failed",
+      "standard": "Error: frisbee-golf: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "gamecontroller.svg",
+      "prior": "Error: gamecontroller: 16px source fidelity failed",
+      "standard": "Error: gamecontroller: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 1.7,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "garlic.svg",
+      "prior": "Error: garlic: 16px source fidelity failed",
+      "standard": "Error: garlic: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "glass-water.svg",
+      "prior": "Error: glass-water: 16px source fidelity failed",
+      "standard": "Error: glass-water: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "goat-head.svg",
+      "prior": "Error: goat-head: 16px source fidelity failed",
+      "standard": "Error: goat-head: 16px source fidelity failed",
+      "fine": "Error: goat-head: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 1.9,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "goblin.svg",
+      "prior": "Error: goblin: 16px source fidelity failed",
+      "standard": "Error: goblin: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "gold.svg",
+      "prior": "Error: gold: 16px source fidelity failed",
+      "standard": "Error: gold: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "golden-gate-bridge-filled.svg",
+      "prior": "Error: golden-gate-bridge: 16px source fidelity failed",
+      "standard": "Error: golden-gate-bridge: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "google-aistudio-filled.svg",
+      "prior": "Error: google-aistudio: 16px source fidelity failed",
+      "standard": "Error: google-aistudio: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "google-aistudio.svg",
+      "prior": "Error: google-aistudio: 16px source fidelity failed",
+      "standard": "Error: google-aistudio: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "google-colored.svg",
+      "prior": "Error: google-colored: 16px source fidelity failed",
+      "standard": "Error: google-colored: 16px source fidelity failed",
+      "fine": "Error: google-colored: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "graduate-cap-2-filled.svg",
+      "prior": "Error: graduate-cap-2: 16px source fidelity failed",
+      "standard": "Error: graduate-cap-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "granola-filled.svg",
+      "prior": "Error: granola: 16px source fidelity failed",
+      "standard": "Error: granola: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "granola.svg",
+      "prior": "Error: granola: 16px source fidelity failed",
+      "standard": "Error: granola: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "grid-box-filled.svg",
+      "prior": "Error: grid-box: 16px source fidelity failed",
+      "standard": "Error: grid-box: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "gyroscope-sensor.svg",
+      "prior": "Error: gyroscope-sensor: 16px source fidelity failed",
+      "standard": "Error: gyroscope-sensor: 16px source fidelity failed",
+      "fine": "Error: gyroscope-sensor: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "hammer-2.svg",
+      "prior": "Error: hammer-2: 16px source fidelity failed",
+      "standard": "Error: hammer-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "hand-5-finger.svg",
+      "prior": "Error: hand-5-finger: 24px source fidelity failed",
+      "standard": "Error: hand-5-finger: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "hand-bell.svg",
+      "prior": "Error: hand-bell: 16px source fidelity failed",
+      "standard": "Error: hand-bell: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "hat-bunny-filled.svg",
+      "prior": "Error: hat-bunny: 16px source fidelity failed",
+      "standard": "Error: hat-bunny: 16px source fidelity failed",
+      "fine": "Error: hat-bunny: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "hat-sparkle-filled.svg",
+      "prior": "Error: hat-sparkle: 16px source fidelity failed",
+      "standard": "Error: hat-sparkle: 16px source fidelity failed",
+      "fine": "Error: hat-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "highlight-filled.svg",
+      "prior": "Error: highlight: 16px source fidelity failed",
+      "standard": "Error: highlight: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "highlight.svg",
+      "prior": "Error: highlight: 16px source fidelity failed",
+      "standard": "Error: highlight: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "home-door.svg",
+      "prior": "Error: home-door: 16px source fidelity failed",
+      "standard": "Error: home-door: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "home-line-filled.svg",
+      "prior": "Error: home-line: 16px source fidelity failed",
+      "standard": "Error: home-line: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "home-line.svg",
+      "prior": "Error: home-line: 16px source fidelity failed",
+      "standard": "Error: home-line: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "home.svg",
+      "prior": "Error: home: 16px source fidelity failed",
+      "standard": "Error: home: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "iconists-filled.svg",
+      "prior": "Error: iconists: 16px source fidelity failed",
+      "standard": "Error: iconists: 16px source fidelity failed",
+      "fine": "Error: iconists: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "iconists.svg",
+      "prior": "Error: iconists: 16px source fidelity failed",
+      "standard": "Error: iconists: 16px source fidelity failed",
+      "fine": "Error: iconists: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "image-avatar-sparkle-filled.svg",
+      "prior": "Error: image-avatar-sparkle: 16px source fidelity failed",
+      "standard": "Error: image-avatar-sparkle: 16px source fidelity failed",
+      "fine": "Error: image-avatar-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "image-sparkle-filled.svg",
+      "prior": "Error: image-sparkle: 16px source fidelity failed",
+      "standard": "Error: image-sparkle: 16px source fidelity failed",
+      "fine": "Error: image-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "imagine-head.svg",
+      "prior": "Error: imagine-head: 16px source fidelity failed",
+      "standard": "Error: imagine-head: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "iso-org-filled.svg",
+      "prior": "Error: iso-org: 16px source fidelity failed",
+      "standard": "Error: iso-org: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "iso-org.svg",
+      "prior": "Error: iso-org: 16px source fidelity failed",
+      "standard": "Error: iso-org: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "java-coffee-bean-filled.svg",
+      "prior": "Error: java-coffee-bean: 16px source fidelity failed",
+      "standard": "Error: java-coffee-bean: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "java-coffee-bean.svg",
+      "prior": "Error: java-coffee-bean: 16px source fidelity failed",
+      "standard": "Error: java-coffee-bean: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "java-filled.svg",
+      "prior": "Error: java: 16px source fidelity failed",
+      "standard": "Error: java: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "java.svg",
+      "prior": "Error: java: 16px source fidelity failed",
+      "standard": "Error: java: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "layers-three-filled.svg",
+      "prior": "Error: layers-three: 16px source fidelity failed",
+      "standard": "Error: layers-three: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "layers-three.svg",
+      "prior": "Error: layers-three: 16px source fidelity failed",
+      "standard": "Error: layers-three: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "layers-two.svg",
+      "prior": "Error: layers-two: 16px source fidelity failed",
+      "standard": "Error: layers-two: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "layout-third-filled.svg",
+      "prior": "Error: layout-third: 16px source fidelity failed",
+      "standard": "Error: layout-third: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "layout-third-full-filled.svg",
+      "prior": "Error: layout-third-full: 16px source fidelity failed",
+      "standard": "Error: layout-third-full: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "lens-filled.svg",
+      "prior": "Error: lens: 16px source fidelity failed",
+      "standard": "Error: lens: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "lightning-bolt-off.svg",
+      "prior": "Error: lightning-bolt-off: 24px source fidelity failed",
+      "standard": "Error: lightning-bolt-off: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "line-thickness.svg",
+      "prior": "Error: line-thickness: 16px source fidelity failed",
+      "standard": "Error: line-thickness: 16px source fidelity failed",
+      "fine": "Error: line-thickness: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 1.5,
+          "cap": "round"
+        },
+        {
+          "width": 3.5,
+          "cap": "round"
+        },
+        {
+          "width": 2.5,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "list-sparkle-filled.svg",
+      "prior": "Error: list-sparkle: 16px source fidelity failed",
+      "standard": "Error: list-sparkle: 16px source fidelity failed",
+      "fine": "Error: list-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "live-activity-filled.svg",
+      "prior": "Error: live-activity: 16px source fidelity failed",
+      "standard": "Error: live-activity: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "live-activity.svg",
+      "prior": "Error: live-activity: 16px source fidelity failed",
+      "standard": "Error: live-activity: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "live-full-filled.svg",
+      "prior": "Error: live-full: 16px source fidelity failed",
+      "standard": "Error: live-full: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "live-full.svg",
+      "prior": "Error: live-full: 16px source fidelity failed",
+      "standard": "Error: live-full: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "loading-circle.svg",
+      "prior": "Error: loading-circle: 16px source fidelity failed",
+      "standard": "Error: loading-circle: 16px source fidelity failed",
+      "fine": "Error: loading-circle: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "location.svg",
+      "prior": "Error: location: 16px source fidelity failed",
+      "standard": "Error: location: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "lottielab-filled.svg",
+      "prior": "Error: lottielab: 16px source fidelity failed",
+      "standard": "Error: lottielab: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "lottielab.svg",
+      "prior": "Error: lottielab: 16px source fidelity failed",
+      "standard": "Error: lottielab: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "magic-book-filled.svg",
+      "prior": "Error: magic-book: 16px source fidelity failed",
+      "standard": "Error: magic-book: 16px source fidelity failed",
+      "fine": "Error: magic-book: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "magic-edit-filled.svg",
+      "prior": "Error: magic-edit: 16px source fidelity failed",
+      "standard": "Error: magic-edit: 16px source fidelity failed",
+      "fine": "Error: magic-edit: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "magic-hands-filled.svg",
+      "prior": "Error: magic-hands: 16px source fidelity failed",
+      "standard": "Error: magic-hands: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "magic-hands.svg",
+      "prior": "Error: magic-hands: 16px source fidelity failed",
+      "standard": "Error: magic-hands: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "magic-wand-2-filled.svg",
+      "prior": "Error: magic-wand-2: 16px source fidelity failed",
+      "standard": "Error: magic-wand-2: 16px source fidelity failed",
+      "fine": "Error: magic-wand-2: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "magic-wand-2.svg",
+      "prior": "Error: magic-wand-2: 16px source fidelity failed",
+      "standard": "Error: magic-wand-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "magic-wand-3-filled.svg",
+      "prior": "Error: magic-wand-3: 16px source fidelity failed",
+      "standard": "Error: magic-wand-3: 16px source fidelity failed",
+      "fine": "Error: magic-wand-3: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "magic-wand-filled.svg",
+      "prior": "Error: magic-wand: 16px source fidelity failed",
+      "standard": "Error: magic-wand: 16px source fidelity failed",
+      "fine": "Error: magic-wand: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "mailchimp.svg",
+      "prior": "Error: mailchimp: 16px source fidelity failed",
+      "standard": "Error: mailchimp: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "manus-ai-filled.svg",
+      "prior": "Error: manus-ai: 16px source fidelity failed",
+      "standard": "Error: manus-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "manus-ai.svg",
+      "prior": "Error: manus-ai: 16px source fidelity failed",
+      "standard": "Error: manus-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "map.svg",
+      "prior": "Error: map: 16px source fidelity failed",
+      "standard": "Error: map: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "marker-2.svg",
+      "prior": "Error: marker-2: 16px source fidelity failed",
+      "standard": "Error: marker-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "marker.svg",
+      "prior": "Error: marker: 16px source fidelity failed",
+      "standard": "Error: marker: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "mastadon-filled.svg",
+      "prior": "Error: mastadon: 16px source fidelity failed",
+      "standard": "Error: mastadon: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "mastadon.svg",
+      "prior": "Error: mastadon: 16px source fidelity failed",
+      "standard": "Error: mastadon: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "medicine-tablett.svg",
+      "prior": "Error: medicine-tablett: 24px source fidelity failed",
+      "standard": "Error: medicine-tablett: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "medium-filled.svg",
+      "prior": "Error: medium: 16px source fidelity failed",
+      "standard": "Error: medium: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "medium.svg",
+      "prior": "Error: medium: 16px source fidelity failed",
+      "standard": "Error: medium: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "megaphone.svg",
+      "prior": "Error: megaphone: 16px source fidelity failed",
+      "standard": "Error: megaphone: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "meta-ai-filled.svg",
+      "prior": "Error: meta-ai: 16px source fidelity failed",
+      "standard": "Error: meta-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "meta-ai.svg",
+      "prior": "Error: meta-ai: 16px source fidelity failed",
+      "standard": "Error: meta-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "midjourney-filled.svg",
+      "prior": "Error: midjourney: 24px source fidelity failed",
+      "standard": "Error: midjourney: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "midjourney.svg",
+      "prior": "Error: midjourney: 24px source fidelity failed",
+      "standard": "Error: midjourney: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "mistral-filled.svg",
+      "prior": "Error: mistral: 16px source fidelity failed",
+      "standard": "Error: mistral: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "mistral.svg",
+      "prior": "Error: mistral: 16px source fidelity failed",
+      "standard": "Error: mistral: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "modelcontextprotocol-filled.svg",
+      "prior": "Error: modelcontextprotocol: 16px source fidelity failed",
+      "standard": "Error: modelcontextprotocol: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "modelcontextprotocol.svg",
+      "prior": "Error: modelcontextprotocol: 16px source fidelity failed",
+      "standard": "Error: modelcontextprotocol: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "mouse-scroll-up.svg",
+      "prior": "Error: mouse-scroll-up: 24px source fidelity failed",
+      "standard": "Error: mouse-scroll-up: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "netify-filled.svg",
+      "prior": "Error: netify: 16px source fidelity failed",
+      "standard": "Error: netify: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "netify.svg",
+      "prior": "Error: netify: 16px source fidelity failed",
+      "standard": "Error: netify: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "nfc-2-filled.svg",
+      "prior": "Error: nfc-2: 16px source fidelity failed",
+      "standard": "Error: nfc-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "nfc-2.svg",
+      "prior": "Error: nfc-2: 16px source fidelity failed",
+      "standard": "Error: nfc-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "no-flash-filled.svg",
+      "prior": "Error: no-flash: 16px source fidelity failed",
+      "standard": "Error: no-flash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "no-flash.svg",
+      "prior": "Error: no-flash: 16px source fidelity failed",
+      "standard": "Error: no-flash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "notion-ai-filled.svg",
+      "prior": "Error: notion-ai: 16px source fidelity failed",
+      "standard": "Error: notion-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "notion-ai.svg",
+      "prior": "Error: notion-ai: 16px source fidelity failed",
+      "standard": "Error: notion-ai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "notion-filled.svg",
+      "prior": "Error: notion: 16px source fidelity failed",
+      "standard": "Error: notion: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "notion.svg",
+      "prior": "Error: notion: 16px source fidelity failed",
+      "standard": "Error: notion: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "numbers-01-filled.svg",
+      "prior": "Error: numbers-01: 16px source fidelity failed",
+      "standard": "Error: numbers-01: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "numbers-01.svg",
+      "prior": "Error: numbers-01: 16px source fidelity failed",
+      "standard": "Error: numbers-01: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "numbers-123-filled.svg",
+      "prior": "Error: numbers-123: 16px source fidelity failed",
+      "standard": "Error: numbers-123: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "numbers-123.svg",
+      "prior": "Error: numbers-123: 16px source fidelity failed",
+      "standard": "Error: numbers-123: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "openai-filled.svg",
+      "prior": "Error: openai: 16px source fidelity failed",
+      "standard": "Error: openai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "openai-prism-filled.svg",
+      "prior": "Error: openai-prism: 16px source fidelity failed",
+      "standard": "Error: openai-prism: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "openai-prism.svg",
+      "prior": "Error: openai-prism: 16px source fidelity failed",
+      "standard": "Error: openai-prism: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "openai.svg",
+      "prior": "Error: openai: 16px source fidelity failed",
+      "standard": "Error: openai: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "openclaw-filled.svg",
+      "prior": "Error: openclaw: 16px source fidelity failed",
+      "standard": "Error: openclaw: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "openclaw.svg",
+      "prior": "Error: openclaw: 16px source fidelity failed",
+      "standard": "Error: openclaw: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "opencode-filled.svg",
+      "prior": "Error: opencode: 16px source fidelity failed",
+      "standard": "Error: opencode: 16px source fidelity failed",
+      "fine": "Error: opencode: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "opencode.svg",
+      "prior": "Error: opencode: 16px source fidelity failed",
+      "standard": "Error: opencode: 16px source fidelity failed",
+      "fine": "Error: opencode: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "paint-bucket-drop-filled.svg",
+      "prior": "Error: paint-bucket-drop: 16px source fidelity failed",
+      "standard": "Error: paint-bucket-drop: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "paint-bucket-drop.svg",
+      "prior": "Error: paint-bucket-drop: 16px source fidelity failed",
+      "standard": "Error: paint-bucket-drop: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "paper-plane.svg",
+      "prior": "Error: paper-plane: 16px source fidelity failed",
+      "standard": "Error: paper-plane: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "password-stars.svg",
+      "prior": "Error: password-stars: 16px source fidelity failed",
+      "standard": "Error: password-stars: 16px source fidelity failed",
+      "fine": "Error: password-stars: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "payment.svg",
+      "prior": "Error: payment: 16px source fidelity failed",
+      "standard": "Error: payment: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pencil-sparkle-filled.svg",
+      "prior": "Error: pencil-sparkle: 16px source fidelity failed",
+      "standard": "Error: pencil-sparkle: 16px source fidelity failed",
+      "fine": "Error: pencil-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "pencil-sparkle.svg",
+      "prior": "Error: pencil-sparkle: 16px source fidelity failed",
+      "standard": "Error: pencil-sparkle: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pencil-wave.svg",
+      "prior": "Error: pencil-wave: 16px source fidelity failed",
+      "standard": "Error: pencil-wave: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "perplexity-filled.svg",
+      "prior": "Error: perplexity: 16px source fidelity failed",
+      "standard": "Error: perplexity: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "perplexity.svg",
+      "prior": "Error: perplexity: 16px source fidelity failed",
+      "standard": "Error: perplexity: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "php-elephant-filled.svg",
+      "prior": "Error: php-elephant: 24px source fidelity failed",
+      "standard": "Error: php-elephant: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "php-elephant.svg",
+      "prior": "Error: php-elephant: 24px source fidelity failed",
+      "standard": "Error: php-elephant: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "piggy-bank.svg",
+      "prior": "Error: piggy-bank: 16px source fidelity failed",
+      "standard": "Error: piggy-bank: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pin-flag-filled.svg",
+      "prior": "Error: pin-flag: 16px source fidelity failed",
+      "standard": "Error: pin-flag: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pin-location-filled.svg",
+      "prior": "Error: pin-location: 16px source fidelity failed",
+      "standard": "Error: pin-location: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pinterest-simple-filled.svg",
+      "prior": "Error: pinterest-simple: 16px source fidelity failed",
+      "standard": "Error: pinterest-simple: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pinterest-simple.svg",
+      "prior": "Error: pinterest-simple: 16px source fidelity failed",
+      "standard": "Error: pinterest-simple: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pizza-filled.svg",
+      "prior": "Error: pizza: 16px source fidelity failed",
+      "standard": "Error: pizza: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pizza.svg",
+      "prior": "Error: pizza: 16px source fidelity failed",
+      "standard": "Error: pizza: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "playground.svg",
+      "prior": "Error: playground: 16px source fidelity failed",
+      "standard": "Error: playground: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "popcorn.svg",
+      "prior": "Error: popcorn: 16px source fidelity failed",
+      "standard": "Error: popcorn: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "prompt-filled.svg",
+      "prior": "Error: prompt: 16px source fidelity failed",
+      "standard": "Error: prompt: 16px source fidelity failed",
+      "fine": "Error: prompt: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "propeller.svg",
+      "prior": "Error: propeller: 16px source fidelity failed",
+      "standard": "Error: propeller: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "pumpjack.svg",
+      "prior": "Error: pumpjack: 16px source fidelity failed",
+      "standard": "Error: pumpjack: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "push.svg",
+      "prior": "Error: push: 16px source fidelity failed",
+      "standard": "Error: push: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "quick-ai.svg",
+      "prior": "Error: quick-ai: 16px source fidelity failed",
+      "standard": "Error: quick-ai: 16px source fidelity failed",
+      "fine": "Error: quick-ai: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "react-filled.svg",
+      "prior": "Error: react: 24px source fidelity failed",
+      "standard": "Error: react: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "react.svg",
+      "prior": "Error: react: 24px source fidelity failed",
+      "standard": "Error: react: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "red-dot-award-filled.svg",
+      "prior": "Error: red-dot-award: 16px source fidelity failed",
+      "standard": "Error: red-dot-award: 16px source fidelity failed",
+      "fine": "Error: red-dot-award: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "red-dot-award.svg",
+      "prior": "Error: red-dot-award: 16px source fidelity failed",
+      "standard": "Error: red-dot-award: 16px source fidelity failed",
+      "fine": "Error: red-dot-award: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "reduce-motion.svg",
+      "prior": "Error: reduce-motion: 16px source fidelity failed",
+      "standard": "Error: reduce-motion: 16px source fidelity failed",
+      "fine": "Error: reduce-motion: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "reframe.svg",
+      "prior": "Error: reframe: 16px source fidelity failed",
+      "standard": "Error: reframe: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "rewrite.svg",
+      "prior": "Error: rewrite: 16px source fidelity failed",
+      "standard": "Error: rewrite: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "robot-filled.svg",
+      "prior": "Error: robot: 16px source fidelity failed",
+      "standard": "Error: robot: 16px source fidelity failed",
+      "fine": "Error: robot: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "robot-head-slop.svg",
+      "prior": "Error: robot-head-slop: 16px source fidelity failed",
+      "standard": "Error: robot-head-slop: 16px source fidelity failed",
+      "fine": "Error: robot-head-slop: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.6,
+          "cap": "round"
+        },
+        {
+          "width": 1.9,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "roundness.svg",
+      "prior": "Error: roundness: 16px source fidelity failed",
+      "standard": "Error: roundness: 16px source fidelity failed",
+      "fine": "Error: roundness: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "safari-filled.svg",
+      "prior": "Error: safari: 16px source fidelity failed",
+      "standard": "Error: safari: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "safari.svg",
+      "prior": "Error: safari: 16px source fidelity failed",
+      "standard": "Error: safari: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "sandbox-filled.svg",
+      "prior": "Error: sandbox: 16px source fidelity failed",
+      "standard": "Error: sandbox: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "sandbox.svg",
+      "prior": "Error: sandbox: 16px source fidelity failed",
+      "standard": "Error: sandbox: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "satellite-2.svg",
+      "prior": "Error: satellite-2: 24px source fidelity failed",
+      "standard": "Error: satellite-2: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "scan-voice.svg",
+      "prior": "Error: scan-voice: 24px source fidelity failed",
+      "standard": "Error: scan-voice: 24px source fidelity failed",
+      "fine": "Error: scan-voice: 24px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "select-lasso-dashed.svg",
+      "prior": "Error: select-lasso-dashed: 16px source fidelity failed",
+      "standard": "Error: select-lasso-dashed: 16px source fidelity failed",
+      "fine": "Error: select-lasso-dashed: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "send-later-filled.svg",
+      "prior": "Error: send-later: 16px source fidelity failed",
+      "standard": "Error: send-later: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "send-later.svg",
+      "prior": "Error: send-later: 16px source fidelity failed",
+      "standard": "Error: send-later: 16px source fidelity failed",
+      "fine": "Error: send-later: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "send.svg",
+      "prior": "Error: send: 24px source fidelity failed",
+      "standard": "Error: send: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "settings-gear-4.svg",
+      "prior": "Error: settings-gear-4: 16px source fidelity failed",
+      "standard": "Error: settings-gear-4: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "shader-effect-filled.svg",
+      "prior": "Error: shader-effect: 16px source fidelity failed",
+      "standard": "Error: shader-effect: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "shield-check.svg",
+      "prior": "Error: shield-check: 16px source fidelity failed",
+      "standard": "Error: shield-check: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "shield-crossed.svg",
+      "prior": "Error: shield-crossed: 16px source fidelity failed",
+      "standard": "Error: shield-crossed: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "shift-filled.svg",
+      "prior": "Error: shift: 24px source fidelity failed",
+      "standard": "Error: shift: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "shift.svg",
+      "prior": "Error: shift: 16px source fidelity failed",
+      "standard": "Error: shift: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "shovel.svg",
+      "prior": "Error: shovel: 16px source fidelity failed",
+      "standard": "Error: shovel: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "slice.svg",
+      "prior": "Error: slice: 16px source fidelity failed",
+      "standard": "Error: slice: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "solar.svg",
+      "prior": "Error: solar: 16px source fidelity failed",
+      "standard": "Error: solar: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "solidjs-filled.svg",
+      "prior": "Error: solidjs: 16px source fidelity failed",
+      "standard": "Error: solidjs: 16px source fidelity failed",
+      "fine": "Error: solidjs: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "solidjs.svg",
+      "prior": "Error: solidjs: 16px source fidelity failed",
+      "standard": "Error: solidjs: 16px source fidelity failed",
+      "fine": "Error: solidjs: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkle-2-filled.svg",
+      "prior": "Error: sparkle-2: 16px source fidelity failed",
+      "standard": "Error: sparkle-2: 16px source fidelity failed",
+      "fine": "Error: sparkle-2: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkle-2.svg",
+      "prior": "Error: sparkle-2: 16px source fidelity failed",
+      "standard": "Error: sparkle-2: 16px source fidelity failed",
+      "fine": "Error: sparkle-2: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkle-filled.svg",
+      "prior": "Error: sparkle: 16px source fidelity failed",
+      "standard": "Error: sparkle: 16px source fidelity failed",
+      "fine": "Error: sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkles-soft-filled.svg",
+      "prior": "Error: sparkles-soft: 16px source fidelity failed",
+      "standard": "Error: sparkles-soft: 16px source fidelity failed",
+      "fine": "Error: sparkles-soft: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkles-three-filled.svg",
+      "prior": "Error: sparkles-three: 16px source fidelity failed",
+      "standard": "Error: sparkles-three: 16px source fidelity failed",
+      "fine": "Error: sparkles-three: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkles-two-2-filled.svg",
+      "prior": "Error: sparkles-two-2: 16px source fidelity failed",
+      "standard": "Error: sparkles-two-2: 16px source fidelity failed",
+      "fine": "Error: sparkles-two-2: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "sparkles-two-filled.svg",
+      "prior": "Error: sparkles-two: 16px source fidelity failed",
+      "standard": "Error: sparkles-two: 16px source fidelity failed",
+      "fine": "Error: sparkles-two: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "spatial-capture-filled.svg",
+      "prior": "Error: spatial-capture: 16px source fidelity failed",
+      "standard": "Error: spatial-capture: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "spatial-capture.svg",
+      "prior": "Error: spatial-capture: 16px source fidelity failed",
+      "standard": "Error: spatial-capture: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "speed-low.svg",
+      "prior": "Error: speed-low: 16px source fidelity failed",
+      "standard": "Error: speed-low: 16px source fidelity failed",
+      "fine": "Error: speed-low: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "speed-middle.svg",
+      "prior": "Error: speed-middle: 16px source fidelity failed",
+      "standard": "Error: speed-middle: 16px source fidelity failed",
+      "fine": "Error: speed-middle: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "star-half-filled.svg",
+      "prior": "Error: star-half: 16px source fidelity failed",
+      "standard": "Error: star-half: 16px source fidelity failed",
+      "fine": "Error: star-half: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "star-wand-filled.svg",
+      "prior": "Error: star-wand: 16px source fidelity failed",
+      "standard": "Error: star-wand: 16px source fidelity failed",
+      "fine": "Error: star-wand: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "star-wand.svg",
+      "prior": "Error: star-wand: 16px source fidelity failed",
+      "standard": "Error: star-wand: 16px source fidelity failed",
+      "fine": "Error: star-wand: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "steering-wheel-filled.svg",
+      "prior": "Error: steering-wheel: 16px source fidelity failed",
+      "standard": "Error: steering-wheel: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "steering-wheel.svg",
+      "prior": "Error: steering-wheel: 16px source fidelity failed",
+      "standard": "Error: steering-wheel: 16px source fidelity failed",
+      "fine": "Error: steering-wheel: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "steve-jobs.svg",
+      "prior": "Error: steve-jobs: 16px source fidelity failed",
+      "standard": "Error: steve-jobs: 16px source fidelity failed",
+      "fine": "Error: steve-jobs: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.5,
+          "cap": "round"
+        },
+        {
+          "width": 1.5,
+          "cap": "round"
+        },
+        {
+          "width": 1.5,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "strawberry.svg",
+      "prior": "Error: strawberry: 24px source fidelity failed",
+      "standard": "Error: strawberry: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "strike-through.svg",
+      "prior": "Error: strike-through: 16px source fidelity failed",
+      "standard": "Error: strike-through: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "subscription-star.svg",
+      "prior": "Error: subscription-star: 16px source fidelity failed",
+      "standard": "Error: subscription-star: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "subscription-tick-1-filled.svg",
+      "prior": "Error: subscription-tick-1: 16px source fidelity failed",
+      "standard": "Error: subscription-tick-1: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "subscription-tick-1.svg",
+      "prior": "Error: subscription-tick-1: 16px source fidelity failed",
+      "standard": "Error: subscription-tick-1: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "sunburst-chart-2-filled.svg",
+      "prior": "Error: sunburst-chart-2: 16px source fidelity failed",
+      "standard": "Error: sunburst-chart-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "sunburst-chart-2.svg",
+      "prior": "Error: sunburst-chart-2: 16px source fidelity failed",
+      "standard": "Error: sunburst-chart-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "surfing-filled.svg",
+      "prior": "Error: surfing: 16px source fidelity failed",
+      "standard": "Error: surfing: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "surfing.svg",
+      "prior": "Error: surfing: 16px source fidelity failed",
+      "standard": "Error: surfing: 16px source fidelity failed",
+      "fine": "Error: surfing: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 1.8,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "target-2-filled.svg",
+      "prior": "Error: target-2: 16px source fidelity failed",
+      "standard": "Error: target-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "team.svg",
+      "prior": "Error: team: 16px source fidelity failed",
+      "standard": "Error: team: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 1.9,
+          "cap": "round"
+        },
+        {
+          "width": 1.9,
+          "cap": "round"
+        },
+        {
+          "width": 1.9,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "telescope-filled.svg",
+      "prior": "Error: telescope: 16px source fidelity failed",
+      "standard": "Error: telescope: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "telescope.svg",
+      "prior": "Error: telescope: 16px source fidelity failed",
+      "standard": "Error: telescope: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "testflight-filled.svg",
+      "prior": "Error: testflight: 16px source fidelity failed",
+      "standard": "Error: testflight: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "testflight.svg",
+      "prior": "Error: testflight: 16px source fidelity failed",
+      "standard": "Error: testflight: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "text-to-image-filled.svg",
+      "prior": "Error: text-to-image: 16px source fidelity failed",
+      "standard": "Error: text-to-image: 16px source fidelity failed",
+      "fine": "Error: text-to-image: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "things-filled.svg",
+      "prior": "Error: things: 16px source fidelity failed",
+      "standard": "Error: things: 16px source fidelity failed",
+      "fine": "Error: things: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "things.svg",
+      "prior": "Error: things: 16px source fidelity failed",
+      "standard": "Error: things: 16px source fidelity failed",
+      "fine": "Error: things: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "thread-filled.svg",
+      "prior": "Error: thread: 16px source fidelity failed",
+      "standard": "Error: thread: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threads-filled.svg",
+      "prior": "Error: threads: 16px source fidelity failed",
+      "standard": "Error: threads: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threads.svg",
+      "prior": "Error: threads: 16px source fidelity failed",
+      "standard": "Error: threads: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-box-bottom-filled.svg",
+      "prior": "Error: threed-box-bottom: 16px source fidelity failed",
+      "standard": "Error: threed-box-bottom: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-box-bottom.svg",
+      "prior": "Error: threed-box-bottom: 16px source fidelity failed",
+      "standard": "Error: threed-box-bottom: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-box-top.svg",
+      "prior": "Error: threed-box-top: 16px source fidelity failed",
+      "standard": "Error: threed-box-top: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-package-2-filled.svg",
+      "prior": "Error: threed-package-2: 24px source fidelity failed",
+      "standard": "Error: threed-package-2: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-package-2.svg",
+      "prior": "Error: threed-package-2: 16px source fidelity failed",
+      "standard": "Error: threed-package-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-package-filled.svg",
+      "prior": "Error: threed-package: 16px source fidelity failed",
+      "standard": "Error: threed-package: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "threed-package.svg",
+      "prior": "Error: threed-package: 16px source fidelity failed",
+      "standard": "Error: threed-package: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "triangle-exclamation-filled.svg",
+      "prior": "Error: triangle-exclamation: 16px source fidelity failed",
+      "standard": "Error: triangle-exclamation: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "untrash-filled.svg",
+      "prior": "Error: untrash: 16px source fidelity failed",
+      "standard": "Error: untrash: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "user-block.svg",
+      "prior": "Error: user-block: 16px source fidelity failed",
+      "standard": "Error: user-block: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "verified-check.svg",
+      "prior": "Error: verified-check: 16px source fidelity failed",
+      "standard": "Error: verified-check: 16px source fidelity failed",
+      "fine": "Error: verified-check: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "versus-circle.svg",
+      "prior": "Error: versus-circle: 16px source fidelity failed",
+      "standard": "Error: versus-circle: 16px source fidelity failed",
+      "fine": "Error: versus-circle: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "vibe-coding-bird-filled.svg",
+      "prior": "Error: vibe-coding-bird: 24px source fidelity failed",
+      "standard": "Error: vibe-coding-bird: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "video-2-off-filled.svg",
+      "prior": "Error: video-2-off: 24px source fidelity failed",
+      "standard": "Error: video-2-off: 24px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "visual-intelligence-filled.svg",
+      "prior": "Error: visual-intelligence: 16px source fidelity failed",
+      "standard": "Error: visual-intelligence: 16px source fidelity failed",
+      "fine": "Error: visual-intelligence: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "visual-intelligence.svg",
+      "prior": "Error: visual-intelligence: 16px source fidelity failed",
+      "standard": "Error: visual-intelligence: 16px source fidelity failed",
+      "fine": "Error: visual-intelligence: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "voice-2.svg",
+      "prior": "Error: voice-2: 16px source fidelity failed",
+      "standard": "Error: voice-2: 16px source fidelity failed",
+      "fine": "Error: voice-2: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 1.5,
+          "cap": "butt"
+        },
+        {
+          "width": 1.5,
+          "cap": "round"
+        },
+        {
+          "width": 1,
+          "cap": "butt"
+        },
+        {
+          "width": 1,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "volleyball-filled.svg",
+      "prior": "Error: volleyball: 16px source fidelity failed",
+      "standard": "Error: volleyball: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "volume-down.svg",
+      "prior": "Error: volume-down: 16px source fidelity failed",
+      "standard": "Error: volume-down: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "volume-full-filled.svg",
+      "prior": "Error: volume-full: 16px source fidelity failed",
+      "standard": "Error: volume-full: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "volume-full.svg",
+      "prior": "Error: volume-full: 16px source fidelity failed",
+      "standard": "Error: volume-full: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "volume-half.svg",
+      "prior": "Error: volume-half: 16px source fidelity failed",
+      "standard": "Error: volume-half: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "volume-off.svg",
+      "prior": "Error: volume-off: 16px source fidelity failed",
+      "standard": "Error: volume-off: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "volume-up.svg",
+      "prior": "Error: volume-up: 16px source fidelity failed",
+      "standard": "Error: volume-up: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "vue-filled.svg",
+      "prior": "Error: vue: 16px source fidelity failed",
+      "standard": "Error: vue: 16px source fidelity failed",
+      "fine": "Error: vue: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "vue.svg",
+      "prior": "Error: vue: 16px source fidelity failed",
+      "standard": "Error: vue: 16px source fidelity failed",
+      "fine": "Error: vue: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "web3.svg",
+      "prior": "Error: web3: 16px source fidelity failed",
+      "standard": "Error: web3: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "whatsapp-filled.svg",
+      "prior": "Error: whatsapp: 16px source fidelity failed",
+      "standard": "Error: whatsapp: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "window-sparkle-filled.svg",
+      "prior": "Error: window-sparkle: 16px source fidelity failed",
+      "standard": "Error: window-sparkle: 16px source fidelity failed",
+      "fine": "Error: window-sparkle: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "windows-colored.svg",
+      "prior": "Error: windows-colored: 16px source fidelity failed",
+      "standard": "Error: windows-colored: 16px source fidelity failed",
+      "fine": "Error: windows-colored: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "wizard-hat-filled.svg",
+      "prior": "Error: wizard-hat: 16px source fidelity failed",
+      "standard": "Error: wizard-hat: 16px source fidelity failed",
+      "fine": "Error: wizard-hat: 16px source fidelity failed",
+      "strokes": [],
+      "fineGridResolves": false
+    },
+    {
+      "file": "wizard-hat.svg",
+      "prior": "Error: wizard-hat: 16px source fidelity failed",
+      "standard": "Error: wizard-hat: 16px source fidelity failed",
+      "fine": "Error: wizard-hat: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "square"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "wreath-simple-filled.svg",
+      "prior": "Error: wreath-simple: 16px source fidelity failed",
+      "standard": "Error: wreath-simple: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "wreath-simple.svg",
+      "prior": "Error: wreath-simple: 16px source fidelity failed",
+      "standard": "Error: wreath-simple: 16px source fidelity failed",
+      "fine": "Error: wreath-simple: 16px source fidelity failed",
+      "strokes": [
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        },
+        {
+          "width": 1.8,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": false
+    },
+    {
+      "file": "write-1-filled.svg",
+      "prior": "Error: write-1: 16px source fidelity failed",
+      "standard": "Error: write-1: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "write-2-filled.svg",
+      "prior": "Error: write-2: 16px source fidelity failed",
+      "standard": "Error: write-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "write-2.svg",
+      "prior": "Error: write-2: 16px source fidelity failed",
+      "standard": "Error: write-2: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "write-3.svg",
+      "prior": "Error: write-3: 16px source fidelity failed",
+      "standard": "Error: write-3: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        },
+        {
+          "width": 2,
+          "cap": "butt"
+        },
+        {
+          "width": 1.8,
+          "cap": "butt"
+        },
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "writing.svg",
+      "prior": "Error: writing: 16px source fidelity failed",
+      "standard": "Error: writing: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "round"
+        }
+      ],
+      "fineGridResolves": true
+    },
+    {
+      "file": "zap-filled.svg",
+      "prior": "Error: zap: 16px source fidelity failed",
+      "standard": "Error: zap: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [],
+      "fineGridResolves": true
+    },
+    {
+      "file": "zap.svg",
+      "prior": "Error: zap: 16px source fidelity failed",
+      "standard": "Error: zap: 16px source fidelity failed",
+      "fine": "admitted",
+      "strokes": [
+        {
+          "width": 2,
+          "cap": "butt"
+        }
+      ],
+      "fineGridResolves": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "version": 28,
+  "tests": 1830,
+  "testFiles": 158,
+  "skipped": 0,
+  "build": "pass",
+  "typecheck": "pass",
+  "check": "pass",
+  "qualified": false,
+  "newProviderCalls": 0,
+  "change": "Separate compiler and visual repair counters with shared original deadline-derived retry admission ceiling. Slots are not per-stage time slices.",
+  "maximumNativeAuthorCallsForCompiler1Visual1": 6,
+  "hashes": {
+    "packages/iconsmith/scripts/local-structured-author.ts": "a785aa73709d2f083a5e6c6191bccffa8395c99f27fb3a5f32bf273427f16ad3",
+    "packages/iconsmith/scripts/local-structured-author.test.ts": "c394bb60409da7908a6a79a34bef19312ffaf150f0ec8676b5481fbd32984164",
+    ".staging/root-test-v28.log": "91563ce9cb4e112939f9a69d826bf6fcc1a69c609cdfb0eff3c7db02f3e61172",
+    ".staging/root-build-v28.log": "48b916484ea2e701ada8ba4c8b6e176833f7fb9adc5213c7ae3f44e1c0ecbd3d",
+    ".staging/root-typecheck-v28.log": "54547c416b423abb87128eed8dfff9822cdff7c75bdffcafa632c4365aefaa19",
+    ".staging/root-check-v28.log": "a7e998100d905b79f9618f3196189e4b100d992f48363a2b11a63bd8c4b2d2d5"
+  }
+}

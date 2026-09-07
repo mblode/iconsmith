@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08",
+  "scope": "offline architecture audit",
+  "providerCalls": 0,
+  "question": "Can the native Claude exact-attachment reviewer use inline stream-json image blocks and structured output without Read tools?",
+  "conclusion": {
+    "feasibleAsExperimentalTransport": true,
+    "productionReplacementReady": false,
+    "qualityImprovementEstablished": false,
+    "reason": "The installed native Claude route has already accepted inline PNG content blocks and returned one structured output with tools disabled. This establishes local transport feasibility. It does not prove that the model decoded or attended every image, whereas the current Read-tool validator binds each requested pathname to a successful image-content result with the expected byte hash."
+  },
+  "currentReadReviewer": {
+    "source": "packages/iconsmith/scripts/local-review.ts",
+    "sourceSha256": "7806931a50129836a1b2a3c481cd40f6c0ea6219c09a01adb14fb6a2acb2302f",
+    "capabilities": [
+      "Writes every supplied image as an exact local file.",
+      "Allows only Read and StructuredOutput.",
+      "Rejects access outside the supplied image set.",
+      "Requires a successful Read image-content result for every supplied pathname and compares the returned base64 image hash with the source byte hash.",
+      "Requires exactly one terminal structured output and owned-process quiescence."
+    ],
+    "evidenceStrength": "Per-path successful tool-result evidence, including exact returned image bytes and attachment multiplicity by pathname."
+  },
+  "existingInlineAuthorTransport": {
+    "sources": [
+      {
+        "path": "packages/iconsmith/scripts/local-claude-author.ts",
+        "sha256": "cd6cf39f494e89c5c3c47ee7dd397f30935d886d2e05eb7fe9b12f6d4606e616"
+      },
+      {
+        "path": "packages/iconsmith/scripts/local-claude-stream-bridge.ts",
+        "sha256": "2ddc2a1a5dbf99face250bc61a7a3872031dabaabd7be01c791d83e460b3bbbd"
+      }
+    ],
+    "capabilities": [
+      "Serializes labeled PNGs as ordered base64 image content blocks in a stream-json user message.",
+      "Invokes native Claude with input-format stream-json, output-format stream-json, a strict JSON schema, and both tools and allowedTools empty.",
+      "Requires the expected model identity and exactly one successful terminal structured output.",
+      "Runs the bridge through the owned-process helper and records killed/quiescent state."
+    ],
+    "currentProofBoundary": "The input file contains the bytes sent to CLI stdin, but the bridge does not independently persist its recomputed stream hash or per-image manifest. The trace has no per-image echoed payload because tools are disabled."
+  },
+  "a149ReadMeasurements": {
+    "campaign": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/runs/V2-P01/claude",
+    "attachmentsPerStage": 10,
+    "totalSuccessfulReadCalls": 30,
+    "stages": [
+      {
+        "stage": "stage1",
+        "processSha256": "29240976d56b23ca578cbe1f7d07d184417ddc1af8c5569a05c401ddc7859421",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "successfulReadCalls": 10,
+        "firstToLastReadMs": 9494,
+        "traceSpanMs": 80905,
+        "reportedDurationMs": 82846,
+        "apiElapsedMs": 83777
+      },
+      {
+        "stage": "stage2",
+        "processSha256": "f61b9d59a911fc4c291ccbe91a115657ca0135c6fc9063fd6af92a31a8da7cc8",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "successfulReadCalls": 10,
+        "firstToLastReadMs": 8475,
+        "traceSpanMs": 70299,
+        "reportedDurationMs": 72368,
+        "apiElapsedMs": 73431
+      },
+      {
+        "stage": "stage3",
+        "processSha256": "044682526f40228077274c41c0b86660cad8c51c461215bb6424c2a215d1ebf8",
+        "code": null,
+        "killed": true,
+        "quiescent": true,
+        "successfulReadCalls": 10,
+        "firstToLastReadMs": 10376,
+        "traceSpanMs": 102498,
+        "reportedDurationMs": null,
+        "apiElapsedMs": 118367
+      }
+    ],
+    "interpretation": "The observed Read sequences span 8.475 to 10.376 seconds per call. These spans include model and tool scheduling and are not a measurement of pure filesystem or image-decoding overhead. Stage completion time cannot be attributed to Read alone."
+  },
+  "inlineAuthorHistory": [
+    {
+      "run": "v5 shield-check construct",
+      "code": 0,
+      "reportedDurationMs": 120263,
+      "apiElapsedMs": 121706,
+      "toolUses": ["StructuredOutput"]
+    },
+    {
+      "run": "v6 bell-pause construct",
+      "code": 0,
+      "reportedDurationMs": 209871,
+      "apiElapsedMs": 211166,
+      "toolUses": ["StructuredOutput"]
+    },
+    {
+      "run": "v7 scissors construct",
+      "code": 0,
+      "reportedDurationMs": 167235,
+      "apiElapsedMs": 168640,
+      "toolUses": ["StructuredOutput"]
+    },
+    {
+      "run": "v9 jellyfish high construct",
+      "code": null,
+      "reportedDurationMs": null,
+      "toolUses": []
+    },
+    {
+      "run": "v11 jellyfish medium construct",
+      "processSha256": "560480a70e30fd6b883a854a60418b82d082849ebd88e4df2b2b23da07397ae7",
+      "code": 0,
+      "reportedDurationMs": 77461,
+      "apiElapsedMs": 78835,
+      "toolUses": ["StructuredOutput"]
+    }
+  ],
+  "minimalSafeExperiment": {
+    "status": "proposed, not dispatched",
+    "adapter": "New isolated non-default local-claude-inline-review adapter reusing claudeStreamInput and the existing bridge/owned-process path.",
+    "controls": [
+      "Use the identical review prompt, questions, strict schema, model, effort and ordered A149 ten-image packet.",
+      "Disable all tools.",
+      "Persist each ordered attachment name, sha256 and byte length, retaining distinct entries when different paths have duplicate bytes.",
+      "Persist exact serialized stream sha256 and byte length before invocation; make the bridge recompute and record the same values before writing stdin.",
+      "Freeze executable identity/version/model and exact arguments.",
+      "Require code 0, killed false, quiescent true, the expected init model, no unexpected tool events and exactly one successful structured output.",
+      "Classify the result as transport-complete, instrumentQualified false and craftApproved false."
+    ],
+    "injectedRegressionsBeforeAnyLiveCall": [
+      "Exact stdin stream and every ordered image block match the manifest.",
+      "Duplicate-byte attachments retain pathname multiplicity.",
+      "Missing, reordered or mutated attachments fail closed.",
+      "Wrong model, unexpected tool use, missing or duplicate terminal result, killed process or unproven quiescence fail closed."
+    ],
+    "futureMeasurement": "Compare completion, total stage duration and output validity with the historical Read route. Keep recognition/craft quality as a separate matched evaluation; transport timing alone cannot establish a quality gain."
+  },
+  "limitations": [
+    "No provider or native CLI call was made for this audit.",
+    "Inline transport can prove exact bytes supplied to the CLI, not model attention to every image.",
+    "Historical author timings are not directly comparable with critic stages because prompts, image counts and tasks differ.",
+    "Owned-process quiescence is the repository's process-group plus observed-descendant guarantee, not adversarial operating-system containment."
+  ]
+}

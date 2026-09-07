@@ -1,0 +1,44 @@
+{
+  "hash": "1f50e8884b159a44b80825617186516f7662b16334625830762d5d6059208340",
+  "manifest": {
+    "families": [
+      {
+        "concept": "folder-lock",
+        "family": "folder-lock"
+      },
+      {
+        "concept": "bell-pause",
+        "family": "bell-pause"
+      },
+      {
+        "concept": "bicycle",
+        "family": "bicycle"
+      },
+      {
+        "concept": "cloud-upload",
+        "family": "cloud-upload"
+      },
+      {
+        "concept": "shield-check",
+        "family": "shield-check"
+      },
+      {
+        "concept": "hammer-check",
+        "family": "hammer-check"
+      }
+    ],
+    "finishes": [
+      "outlined",
+      "filled"
+    ],
+    "frozenAt": "2026-09-07T06:10:58.294Z",
+    "holdoutClosure": "not-a-holdout; exposed development shared-arm outputs",
+    "humanLabels": "pending",
+    "id": "family-packet-shared-arm-development-v1",
+    "rubric": "docs/plans/generation-quality-10.md",
+    "sizes": [
+      16,
+      24
+    ]
+  }
+}

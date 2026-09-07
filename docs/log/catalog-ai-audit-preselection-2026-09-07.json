@@ -1,0 +1,3744 @@
+{
+  "schemaVersion": 1,
+  "purpose": "prospective catalog AI audit selection",
+  "selectedBeforeCatalogDispatch": true,
+  "catalogFamilyIdentity": "87631283e9cce23e143bb42b738762e763543c2da029f97839e6a174e898411a",
+  "catalogNamesSha256": "73db7f8b692209eb90a1bf2b8421b143103496aeeb10e6977d4d51754afffc7e",
+  "selection": {
+    "hash": "75a86b3c30a63cb2e6c4cecb17c912780331936d35c7c2846c53064b2e86973e",
+    "manifest": {
+      "families": [
+        {
+          "concept": "file-arrow-right-in",
+          "family": "file-arrow-right-in",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "clock",
+          "family": "clock",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-redo-down",
+          "family": "arrow-redo-down",
+          "morphology": "directional"
+        },
+        {
+          "concept": "hand-5-finger",
+          "family": "hand-5-finger",
+          "morphology": "organic"
+        },
+        {
+          "concept": "control-key-left",
+          "family": "control-key-left",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "door",
+          "family": "door",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "sd-card",
+          "family": "sd-card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "clock-9-o-clock",
+          "family": "clock-9-o-clock",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-bottom-top",
+          "family": "arrow-bottom-top",
+          "morphology": "directional"
+        },
+        {
+          "concept": "hand-touch",
+          "family": "hand-touch",
+          "morphology": "organic"
+        },
+        {
+          "concept": "bell",
+          "family": "bell",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "mailchimp",
+          "family": "mailchimp",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "card",
+          "family": "card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "steering-wheel",
+          "family": "steering-wheel",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "square-arrow-bottom-right",
+          "family": "square-arrow-bottom-right",
+          "morphology": "directional"
+        },
+        {
+          "concept": "raising-hand-4-finger",
+          "family": "raising-hand-4-finger",
+          "morphology": "organic"
+        },
+        {
+          "concept": "option-key",
+          "family": "option-key",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "mouse-down",
+          "family": "mouse-down",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "people-id-card",
+          "family": "#people-id-card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "clock-alert",
+          "family": "clock-alert",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "square-arrow-top-right",
+          "family": "#square-arrow-top-right",
+          "morphology": "directional"
+        },
+        {
+          "concept": "money-hand",
+          "family": "money-hand",
+          "morphology": "organic"
+        },
+        {
+          "concept": "square-checklist-bell",
+          "family": "square-checklist-bell",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "chat-bubbles",
+          "family": "chat-bubbles",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-link",
+          "family": "file-link",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "clock-3-o-clock",
+          "family": "clock-3-o-clock",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-rotate-counter-clockwise",
+          "family": "arrow-rotate-counter-clockwise",
+          "morphology": "directional"
+        },
+        {
+          "concept": "hand-4-finger",
+          "family": "hand-4-finger",
+          "morphology": "organic"
+        },
+        {
+          "concept": "food-bell",
+          "family": "food-bell",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "space",
+          "family": "space",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "shield-check",
+          "family": "shield",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "settings-gear-1",
+          "family": "#settings-gear",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-merge-left",
+          "family": "arrow-merge-left",
+          "morphology": "directional"
+        },
+        {
+          "concept": "raising-hand-5-finger",
+          "family": "raising-hand-5-finger",
+          "morphology": "organic"
+        },
+        {
+          "concept": "camera-1",
+          "family": "camera",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "gamecontroller",
+          "family": "gamecontroller",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-pdf",
+          "family": "file-pdf",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "people-gear",
+          "family": "people-gear",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-corner-left-down",
+          "family": "arrow-corner-left-down",
+          "morphology": "directional"
+        },
+        {
+          "concept": "rocket",
+          "family": "#rocket",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "no-flash",
+          "family": "no-flash",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-edit",
+          "family": "file-edit",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "calendar-clock",
+          "family": "#calendar-clock",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-undo-up",
+          "family": "arrow-undo-up",
+          "morphology": "directional"
+        },
+        {
+          "concept": "user-key",
+          "family": "user-key",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "tape",
+          "family": "#tape",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-arrow-right-out",
+          "family": "file-arrow-right-out",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "clock-square",
+          "family": "clock-square",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-rotate-sparkle",
+          "family": "arrow-rotate-sparkle",
+          "morphology": "directional"
+        },
+        {
+          "concept": "hand-bell",
+          "family": "hand-bell",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "vibe-coding",
+          "family": "vibe-coding",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "card-nfc",
+          "family": "card-nfc",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "mountain-bike",
+          "family": "mountain-bike",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-corner-up-right",
+          "family": "arrow-corner-up-right",
+          "morphology": "directional"
+        },
+        {
+          "concept": "receiption-bell",
+          "family": "receiption-bell",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "bolt-new",
+          "family": "bolt-new",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "giro-card",
+          "family": "giro-card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "bike",
+          "family": "bike",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-up-down-left-right",
+          "family": "arrow-up-down-left-right",
+          "morphology": "directional"
+        },
+        {
+          "concept": "umbrella-security",
+          "family": "umbrella-security",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "console-sparkle",
+          "family": "console-sparkle",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "credit-card-1",
+          "family": "credit-card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "clock-snooze",
+          "family": "clock-snooze",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "square-arrow-up-2",
+          "family": "square-arrow-up-2",
+          "morphology": "directional"
+        },
+        {
+          "concept": "key-1",
+          "family": "#key",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "apple-newton",
+          "family": "apple-newton",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-bend",
+          "family": "file-bend",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "delivery-bike",
+          "family": "delivery-bike",
+          "morphology": "circular-mechanism"
+        },
+        {
+          "concept": "arrow-up-square",
+          "family": "arrow-up-square",
+          "morphology": "directional"
+        },
+        {
+          "concept": "control-key-right",
+          "family": "control-key-right",
+          "morphology": "status-object"
+        },
+        {
+          "concept": "sun-high",
+          "family": "sun-high",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-text",
+          "family": "file-text",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "arrow-from-line-down",
+          "family": "arrow-from-line-down",
+          "morphology": "directional"
+        },
+        {
+          "concept": "v0",
+          "family": "v0",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-png",
+          "family": "file-png",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "target-arrow",
+          "family": "target-arrow",
+          "morphology": "directional"
+        },
+        {
+          "concept": "bean",
+          "family": "bean",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "sim-card-1",
+          "family": "#sim-card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "arrow-rounded",
+          "family": "arrow-rounded",
+          "morphology": "directional"
+        },
+        {
+          "concept": "highlight",
+          "family": "highlight",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-arrow-left-out",
+          "family": "file-arrow-left-out",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "square-arrow-top-left-corner",
+          "family": "square-arrow-top-left-corner",
+          "morphology": "directional"
+        },
+        {
+          "concept": "stopwatch",
+          "family": "stopwatch",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-download",
+          "family": "file-download",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "arrow-left-square",
+          "family": "arrow-left-square",
+          "morphology": "directional"
+        },
+        {
+          "concept": "check",
+          "family": "check",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "file-arrow-left-in",
+          "family": "file-arrow-left-in",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "arrow-share-right",
+          "family": "arrow-share-right",
+          "morphology": "directional"
+        },
+        {
+          "concept": "number-0-circle",
+          "family": "number-circle",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "folder-1",
+          "family": "folder",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "square-arrow-bottom-right-corner",
+          "family": "square-arrow-bottom-right-corner",
+          "morphology": "directional"
+        },
+        {
+          "concept": "computer-use",
+          "family": "computer-use",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "move-folder-inside",
+          "family": "move-folder-inside",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "send-later",
+          "family": "send-later",
+          "morphology": "directional"
+        },
+        {
+          "concept": "oculus",
+          "family": "oculus",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "scratch-card",
+          "family": "scratch-card",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "arrow-left-x",
+          "family": "arrow-left-x",
+          "morphology": "directional"
+        },
+        {
+          "concept": "videos",
+          "family": "videos",
+          "morphology": "symbolic"
+        },
+        {
+          "concept": "shopping-bag-bookmark-2",
+          "family": "shopping-bag-bookmark-2",
+          "morphology": "badge-container"
+        },
+        {
+          "concept": "arrow-triangle-right",
+          "family": "arrow-triangle-right",
+          "morphology": "directional"
+        }
+      ],
+      "familyCount": 100,
+      "independence": "catalog-semantic-family",
+      "purpose": "development-blind-audit",
+      "qualificationEligible": false,
+      "seed": "iconsmith-catalog-ai-audit-2026-09-07-v1",
+      "slots": [
+        {
+          "concept": "file-arrow-right-in",
+          "family": "file-arrow-right-in",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-right-in/16/outlined"
+        },
+        {
+          "concept": "file-arrow-right-in",
+          "family": "file-arrow-right-in",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-right-in/16/filled"
+        },
+        {
+          "concept": "file-arrow-right-in",
+          "family": "file-arrow-right-in",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-right-in/24/outlined"
+        },
+        {
+          "concept": "file-arrow-right-in",
+          "family": "file-arrow-right-in",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-right-in/24/filled"
+        },
+        {
+          "concept": "clock",
+          "family": "clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock/16/outlined"
+        },
+        {
+          "concept": "clock",
+          "family": "clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock/16/filled"
+        },
+        {
+          "concept": "clock",
+          "family": "clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock/24/outlined"
+        },
+        {
+          "concept": "clock",
+          "family": "clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock/24/filled"
+        },
+        {
+          "concept": "arrow-redo-down",
+          "family": "arrow-redo-down",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-redo-down/16/outlined"
+        },
+        {
+          "concept": "arrow-redo-down",
+          "family": "arrow-redo-down",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-redo-down/16/filled"
+        },
+        {
+          "concept": "arrow-redo-down",
+          "family": "arrow-redo-down",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-redo-down/24/outlined"
+        },
+        {
+          "concept": "arrow-redo-down",
+          "family": "arrow-redo-down",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-redo-down/24/filled"
+        },
+        {
+          "concept": "hand-5-finger",
+          "family": "hand-5-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "hand-5-finger/16/outlined"
+        },
+        {
+          "concept": "hand-5-finger",
+          "family": "hand-5-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "hand-5-finger/16/filled"
+        },
+        {
+          "concept": "hand-5-finger",
+          "family": "hand-5-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "hand-5-finger/24/outlined"
+        },
+        {
+          "concept": "hand-5-finger",
+          "family": "hand-5-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "hand-5-finger/24/filled"
+        },
+        {
+          "concept": "control-key-left",
+          "family": "control-key-left",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "control-key-left/16/outlined"
+        },
+        {
+          "concept": "control-key-left",
+          "family": "control-key-left",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "control-key-left/16/filled"
+        },
+        {
+          "concept": "control-key-left",
+          "family": "control-key-left",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "control-key-left/24/outlined"
+        },
+        {
+          "concept": "control-key-left",
+          "family": "control-key-left",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "control-key-left/24/filled"
+        },
+        {
+          "concept": "door",
+          "family": "door",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "door/16/outlined"
+        },
+        {
+          "concept": "door",
+          "family": "door",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "door/16/filled"
+        },
+        {
+          "concept": "door",
+          "family": "door",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "door/24/outlined"
+        },
+        {
+          "concept": "door",
+          "family": "door",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "door/24/filled"
+        },
+        {
+          "concept": "sd-card",
+          "family": "sd-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "sd-card/16/outlined"
+        },
+        {
+          "concept": "sd-card",
+          "family": "sd-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "sd-card/16/filled"
+        },
+        {
+          "concept": "sd-card",
+          "family": "sd-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "sd-card/24/outlined"
+        },
+        {
+          "concept": "sd-card",
+          "family": "sd-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "sd-card/24/filled"
+        },
+        {
+          "concept": "clock-9-o-clock",
+          "family": "clock-9-o-clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-9-o-clock/16/outlined"
+        },
+        {
+          "concept": "clock-9-o-clock",
+          "family": "clock-9-o-clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-9-o-clock/16/filled"
+        },
+        {
+          "concept": "clock-9-o-clock",
+          "family": "clock-9-o-clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-9-o-clock/24/outlined"
+        },
+        {
+          "concept": "clock-9-o-clock",
+          "family": "clock-9-o-clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-9-o-clock/24/filled"
+        },
+        {
+          "concept": "arrow-bottom-top",
+          "family": "arrow-bottom-top",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-bottom-top/16/outlined"
+        },
+        {
+          "concept": "arrow-bottom-top",
+          "family": "arrow-bottom-top",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-bottom-top/16/filled"
+        },
+        {
+          "concept": "arrow-bottom-top",
+          "family": "arrow-bottom-top",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-bottom-top/24/outlined"
+        },
+        {
+          "concept": "arrow-bottom-top",
+          "family": "arrow-bottom-top",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-bottom-top/24/filled"
+        },
+        {
+          "concept": "hand-touch",
+          "family": "hand-touch",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "hand-touch/16/outlined"
+        },
+        {
+          "concept": "hand-touch",
+          "family": "hand-touch",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "hand-touch/16/filled"
+        },
+        {
+          "concept": "hand-touch",
+          "family": "hand-touch",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "hand-touch/24/outlined"
+        },
+        {
+          "concept": "hand-touch",
+          "family": "hand-touch",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "hand-touch/24/filled"
+        },
+        {
+          "concept": "bell",
+          "family": "bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "bell/16/outlined"
+        },
+        {
+          "concept": "bell",
+          "family": "bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "bell/16/filled"
+        },
+        {
+          "concept": "bell",
+          "family": "bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "bell/24/outlined"
+        },
+        {
+          "concept": "bell",
+          "family": "bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "bell/24/filled"
+        },
+        {
+          "concept": "mailchimp",
+          "family": "mailchimp",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "mailchimp/16/outlined"
+        },
+        {
+          "concept": "mailchimp",
+          "family": "mailchimp",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "mailchimp/16/filled"
+        },
+        {
+          "concept": "mailchimp",
+          "family": "mailchimp",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "mailchimp/24/outlined"
+        },
+        {
+          "concept": "mailchimp",
+          "family": "mailchimp",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "mailchimp/24/filled"
+        },
+        {
+          "concept": "card",
+          "family": "card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "card/16/outlined"
+        },
+        {
+          "concept": "card",
+          "family": "card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "card/16/filled"
+        },
+        {
+          "concept": "card",
+          "family": "card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "card/24/outlined"
+        },
+        {
+          "concept": "card",
+          "family": "card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "card/24/filled"
+        },
+        {
+          "concept": "steering-wheel",
+          "family": "steering-wheel",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "steering-wheel/16/outlined"
+        },
+        {
+          "concept": "steering-wheel",
+          "family": "steering-wheel",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "steering-wheel/16/filled"
+        },
+        {
+          "concept": "steering-wheel",
+          "family": "steering-wheel",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "steering-wheel/24/outlined"
+        },
+        {
+          "concept": "steering-wheel",
+          "family": "steering-wheel",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "steering-wheel/24/filled"
+        },
+        {
+          "concept": "square-arrow-bottom-right",
+          "family": "square-arrow-bottom-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-bottom-right/16/outlined"
+        },
+        {
+          "concept": "square-arrow-bottom-right",
+          "family": "square-arrow-bottom-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-bottom-right/16/filled"
+        },
+        {
+          "concept": "square-arrow-bottom-right",
+          "family": "square-arrow-bottom-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-bottom-right/24/outlined"
+        },
+        {
+          "concept": "square-arrow-bottom-right",
+          "family": "square-arrow-bottom-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-bottom-right/24/filled"
+        },
+        {
+          "concept": "raising-hand-4-finger",
+          "family": "raising-hand-4-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "raising-hand-4-finger/16/outlined"
+        },
+        {
+          "concept": "raising-hand-4-finger",
+          "family": "raising-hand-4-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "raising-hand-4-finger/16/filled"
+        },
+        {
+          "concept": "raising-hand-4-finger",
+          "family": "raising-hand-4-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "raising-hand-4-finger/24/outlined"
+        },
+        {
+          "concept": "raising-hand-4-finger",
+          "family": "raising-hand-4-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "raising-hand-4-finger/24/filled"
+        },
+        {
+          "concept": "option-key",
+          "family": "option-key",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "option-key/16/outlined"
+        },
+        {
+          "concept": "option-key",
+          "family": "option-key",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "option-key/16/filled"
+        },
+        {
+          "concept": "option-key",
+          "family": "option-key",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "option-key/24/outlined"
+        },
+        {
+          "concept": "option-key",
+          "family": "option-key",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "option-key/24/filled"
+        },
+        {
+          "concept": "mouse-down",
+          "family": "mouse-down",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "mouse-down/16/outlined"
+        },
+        {
+          "concept": "mouse-down",
+          "family": "mouse-down",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "mouse-down/16/filled"
+        },
+        {
+          "concept": "mouse-down",
+          "family": "mouse-down",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "mouse-down/24/outlined"
+        },
+        {
+          "concept": "mouse-down",
+          "family": "mouse-down",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "mouse-down/24/filled"
+        },
+        {
+          "concept": "people-id-card",
+          "family": "#people-id-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "#people-id-card/16/outlined"
+        },
+        {
+          "concept": "people-id-card",
+          "family": "#people-id-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "#people-id-card/16/filled"
+        },
+        {
+          "concept": "people-id-card",
+          "family": "#people-id-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "#people-id-card/24/outlined"
+        },
+        {
+          "concept": "people-id-card",
+          "family": "#people-id-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "#people-id-card/24/filled"
+        },
+        {
+          "concept": "clock-alert",
+          "family": "clock-alert",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-alert/16/outlined"
+        },
+        {
+          "concept": "clock-alert",
+          "family": "clock-alert",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-alert/16/filled"
+        },
+        {
+          "concept": "clock-alert",
+          "family": "clock-alert",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-alert/24/outlined"
+        },
+        {
+          "concept": "clock-alert",
+          "family": "clock-alert",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-alert/24/filled"
+        },
+        {
+          "concept": "square-arrow-top-right",
+          "family": "#square-arrow-top-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "#square-arrow-top-right/16/outlined"
+        },
+        {
+          "concept": "square-arrow-top-right",
+          "family": "#square-arrow-top-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "#square-arrow-top-right/16/filled"
+        },
+        {
+          "concept": "square-arrow-top-right",
+          "family": "#square-arrow-top-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "#square-arrow-top-right/24/outlined"
+        },
+        {
+          "concept": "square-arrow-top-right",
+          "family": "#square-arrow-top-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "#square-arrow-top-right/24/filled"
+        },
+        {
+          "concept": "money-hand",
+          "family": "money-hand",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "money-hand/16/outlined"
+        },
+        {
+          "concept": "money-hand",
+          "family": "money-hand",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "money-hand/16/filled"
+        },
+        {
+          "concept": "money-hand",
+          "family": "money-hand",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "money-hand/24/outlined"
+        },
+        {
+          "concept": "money-hand",
+          "family": "money-hand",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "money-hand/24/filled"
+        },
+        {
+          "concept": "square-checklist-bell",
+          "family": "square-checklist-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "square-checklist-bell/16/outlined"
+        },
+        {
+          "concept": "square-checklist-bell",
+          "family": "square-checklist-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "square-checklist-bell/16/filled"
+        },
+        {
+          "concept": "square-checklist-bell",
+          "family": "square-checklist-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "square-checklist-bell/24/outlined"
+        },
+        {
+          "concept": "square-checklist-bell",
+          "family": "square-checklist-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "square-checklist-bell/24/filled"
+        },
+        {
+          "concept": "chat-bubbles",
+          "family": "chat-bubbles",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "chat-bubbles/16/outlined"
+        },
+        {
+          "concept": "chat-bubbles",
+          "family": "chat-bubbles",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "chat-bubbles/16/filled"
+        },
+        {
+          "concept": "chat-bubbles",
+          "family": "chat-bubbles",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "chat-bubbles/24/outlined"
+        },
+        {
+          "concept": "chat-bubbles",
+          "family": "chat-bubbles",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "chat-bubbles/24/filled"
+        },
+        {
+          "concept": "file-link",
+          "family": "file-link",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-link/16/outlined"
+        },
+        {
+          "concept": "file-link",
+          "family": "file-link",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-link/16/filled"
+        },
+        {
+          "concept": "file-link",
+          "family": "file-link",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-link/24/outlined"
+        },
+        {
+          "concept": "file-link",
+          "family": "file-link",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-link/24/filled"
+        },
+        {
+          "concept": "clock-3-o-clock",
+          "family": "clock-3-o-clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-3-o-clock/16/outlined"
+        },
+        {
+          "concept": "clock-3-o-clock",
+          "family": "clock-3-o-clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-3-o-clock/16/filled"
+        },
+        {
+          "concept": "clock-3-o-clock",
+          "family": "clock-3-o-clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-3-o-clock/24/outlined"
+        },
+        {
+          "concept": "clock-3-o-clock",
+          "family": "clock-3-o-clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-3-o-clock/24/filled"
+        },
+        {
+          "concept": "arrow-rotate-counter-clockwise",
+          "family": "arrow-rotate-counter-clockwise",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-rotate-counter-clockwise/16/outlined"
+        },
+        {
+          "concept": "arrow-rotate-counter-clockwise",
+          "family": "arrow-rotate-counter-clockwise",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-rotate-counter-clockwise/16/filled"
+        },
+        {
+          "concept": "arrow-rotate-counter-clockwise",
+          "family": "arrow-rotate-counter-clockwise",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-rotate-counter-clockwise/24/outlined"
+        },
+        {
+          "concept": "arrow-rotate-counter-clockwise",
+          "family": "arrow-rotate-counter-clockwise",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-rotate-counter-clockwise/24/filled"
+        },
+        {
+          "concept": "hand-4-finger",
+          "family": "hand-4-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "hand-4-finger/16/outlined"
+        },
+        {
+          "concept": "hand-4-finger",
+          "family": "hand-4-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "hand-4-finger/16/filled"
+        },
+        {
+          "concept": "hand-4-finger",
+          "family": "hand-4-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "hand-4-finger/24/outlined"
+        },
+        {
+          "concept": "hand-4-finger",
+          "family": "hand-4-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "hand-4-finger/24/filled"
+        },
+        {
+          "concept": "food-bell",
+          "family": "food-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "food-bell/16/outlined"
+        },
+        {
+          "concept": "food-bell",
+          "family": "food-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "food-bell/16/filled"
+        },
+        {
+          "concept": "food-bell",
+          "family": "food-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "food-bell/24/outlined"
+        },
+        {
+          "concept": "food-bell",
+          "family": "food-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "food-bell/24/filled"
+        },
+        {
+          "concept": "space",
+          "family": "space",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "space/16/outlined"
+        },
+        {
+          "concept": "space",
+          "family": "space",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "space/16/filled"
+        },
+        {
+          "concept": "space",
+          "family": "space",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "space/24/outlined"
+        },
+        {
+          "concept": "space",
+          "family": "space",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "space/24/filled"
+        },
+        {
+          "concept": "shield-check",
+          "family": "shield",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "shield/16/outlined"
+        },
+        {
+          "concept": "shield-check",
+          "family": "shield",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "shield/16/filled"
+        },
+        {
+          "concept": "shield-check",
+          "family": "shield",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "shield/24/outlined"
+        },
+        {
+          "concept": "shield-check",
+          "family": "shield",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "shield/24/filled"
+        },
+        {
+          "concept": "settings-gear-1",
+          "family": "#settings-gear",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "#settings-gear/16/outlined"
+        },
+        {
+          "concept": "settings-gear-1",
+          "family": "#settings-gear",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "#settings-gear/16/filled"
+        },
+        {
+          "concept": "settings-gear-1",
+          "family": "#settings-gear",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "#settings-gear/24/outlined"
+        },
+        {
+          "concept": "settings-gear-1",
+          "family": "#settings-gear",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "#settings-gear/24/filled"
+        },
+        {
+          "concept": "arrow-merge-left",
+          "family": "arrow-merge-left",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-merge-left/16/outlined"
+        },
+        {
+          "concept": "arrow-merge-left",
+          "family": "arrow-merge-left",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-merge-left/16/filled"
+        },
+        {
+          "concept": "arrow-merge-left",
+          "family": "arrow-merge-left",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-merge-left/24/outlined"
+        },
+        {
+          "concept": "arrow-merge-left",
+          "family": "arrow-merge-left",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-merge-left/24/filled"
+        },
+        {
+          "concept": "raising-hand-5-finger",
+          "family": "raising-hand-5-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "raising-hand-5-finger/16/outlined"
+        },
+        {
+          "concept": "raising-hand-5-finger",
+          "family": "raising-hand-5-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 16,
+          "slotId": "raising-hand-5-finger/16/filled"
+        },
+        {
+          "concept": "raising-hand-5-finger",
+          "family": "raising-hand-5-finger",
+          "finish": "outlined",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "raising-hand-5-finger/24/outlined"
+        },
+        {
+          "concept": "raising-hand-5-finger",
+          "family": "raising-hand-5-finger",
+          "finish": "filled",
+          "morphology": "organic",
+          "nativeSize": 24,
+          "slotId": "raising-hand-5-finger/24/filled"
+        },
+        {
+          "concept": "camera-1",
+          "family": "camera",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "camera/16/outlined"
+        },
+        {
+          "concept": "camera-1",
+          "family": "camera",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "camera/16/filled"
+        },
+        {
+          "concept": "camera-1",
+          "family": "camera",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "camera/24/outlined"
+        },
+        {
+          "concept": "camera-1",
+          "family": "camera",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "camera/24/filled"
+        },
+        {
+          "concept": "gamecontroller",
+          "family": "gamecontroller",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "gamecontroller/16/outlined"
+        },
+        {
+          "concept": "gamecontroller",
+          "family": "gamecontroller",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "gamecontroller/16/filled"
+        },
+        {
+          "concept": "gamecontroller",
+          "family": "gamecontroller",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "gamecontroller/24/outlined"
+        },
+        {
+          "concept": "gamecontroller",
+          "family": "gamecontroller",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "gamecontroller/24/filled"
+        },
+        {
+          "concept": "file-pdf",
+          "family": "file-pdf",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-pdf/16/outlined"
+        },
+        {
+          "concept": "file-pdf",
+          "family": "file-pdf",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-pdf/16/filled"
+        },
+        {
+          "concept": "file-pdf",
+          "family": "file-pdf",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-pdf/24/outlined"
+        },
+        {
+          "concept": "file-pdf",
+          "family": "file-pdf",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-pdf/24/filled"
+        },
+        {
+          "concept": "people-gear",
+          "family": "people-gear",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "people-gear/16/outlined"
+        },
+        {
+          "concept": "people-gear",
+          "family": "people-gear",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "people-gear/16/filled"
+        },
+        {
+          "concept": "people-gear",
+          "family": "people-gear",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "people-gear/24/outlined"
+        },
+        {
+          "concept": "people-gear",
+          "family": "people-gear",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "people-gear/24/filled"
+        },
+        {
+          "concept": "arrow-corner-left-down",
+          "family": "arrow-corner-left-down",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-corner-left-down/16/outlined"
+        },
+        {
+          "concept": "arrow-corner-left-down",
+          "family": "arrow-corner-left-down",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-corner-left-down/16/filled"
+        },
+        {
+          "concept": "arrow-corner-left-down",
+          "family": "arrow-corner-left-down",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-corner-left-down/24/outlined"
+        },
+        {
+          "concept": "arrow-corner-left-down",
+          "family": "arrow-corner-left-down",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-corner-left-down/24/filled"
+        },
+        {
+          "concept": "rocket",
+          "family": "#rocket",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "#rocket/16/outlined"
+        },
+        {
+          "concept": "rocket",
+          "family": "#rocket",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "#rocket/16/filled"
+        },
+        {
+          "concept": "rocket",
+          "family": "#rocket",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "#rocket/24/outlined"
+        },
+        {
+          "concept": "rocket",
+          "family": "#rocket",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "#rocket/24/filled"
+        },
+        {
+          "concept": "no-flash",
+          "family": "no-flash",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "no-flash/16/outlined"
+        },
+        {
+          "concept": "no-flash",
+          "family": "no-flash",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "no-flash/16/filled"
+        },
+        {
+          "concept": "no-flash",
+          "family": "no-flash",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "no-flash/24/outlined"
+        },
+        {
+          "concept": "no-flash",
+          "family": "no-flash",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "no-flash/24/filled"
+        },
+        {
+          "concept": "file-edit",
+          "family": "file-edit",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-edit/16/outlined"
+        },
+        {
+          "concept": "file-edit",
+          "family": "file-edit",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-edit/16/filled"
+        },
+        {
+          "concept": "file-edit",
+          "family": "file-edit",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-edit/24/outlined"
+        },
+        {
+          "concept": "file-edit",
+          "family": "file-edit",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-edit/24/filled"
+        },
+        {
+          "concept": "calendar-clock",
+          "family": "#calendar-clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "#calendar-clock/16/outlined"
+        },
+        {
+          "concept": "calendar-clock",
+          "family": "#calendar-clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "#calendar-clock/16/filled"
+        },
+        {
+          "concept": "calendar-clock",
+          "family": "#calendar-clock",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "#calendar-clock/24/outlined"
+        },
+        {
+          "concept": "calendar-clock",
+          "family": "#calendar-clock",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "#calendar-clock/24/filled"
+        },
+        {
+          "concept": "arrow-undo-up",
+          "family": "arrow-undo-up",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-undo-up/16/outlined"
+        },
+        {
+          "concept": "arrow-undo-up",
+          "family": "arrow-undo-up",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-undo-up/16/filled"
+        },
+        {
+          "concept": "arrow-undo-up",
+          "family": "arrow-undo-up",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-undo-up/24/outlined"
+        },
+        {
+          "concept": "arrow-undo-up",
+          "family": "arrow-undo-up",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-undo-up/24/filled"
+        },
+        {
+          "concept": "user-key",
+          "family": "user-key",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "user-key/16/outlined"
+        },
+        {
+          "concept": "user-key",
+          "family": "user-key",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "user-key/16/filled"
+        },
+        {
+          "concept": "user-key",
+          "family": "user-key",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "user-key/24/outlined"
+        },
+        {
+          "concept": "user-key",
+          "family": "user-key",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "user-key/24/filled"
+        },
+        {
+          "concept": "tape",
+          "family": "#tape",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "#tape/16/outlined"
+        },
+        {
+          "concept": "tape",
+          "family": "#tape",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "#tape/16/filled"
+        },
+        {
+          "concept": "tape",
+          "family": "#tape",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "#tape/24/outlined"
+        },
+        {
+          "concept": "tape",
+          "family": "#tape",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "#tape/24/filled"
+        },
+        {
+          "concept": "file-arrow-right-out",
+          "family": "file-arrow-right-out",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-right-out/16/outlined"
+        },
+        {
+          "concept": "file-arrow-right-out",
+          "family": "file-arrow-right-out",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-right-out/16/filled"
+        },
+        {
+          "concept": "file-arrow-right-out",
+          "family": "file-arrow-right-out",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-right-out/24/outlined"
+        },
+        {
+          "concept": "file-arrow-right-out",
+          "family": "file-arrow-right-out",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-right-out/24/filled"
+        },
+        {
+          "concept": "clock-square",
+          "family": "clock-square",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-square/16/outlined"
+        },
+        {
+          "concept": "clock-square",
+          "family": "clock-square",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-square/16/filled"
+        },
+        {
+          "concept": "clock-square",
+          "family": "clock-square",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-square/24/outlined"
+        },
+        {
+          "concept": "clock-square",
+          "family": "clock-square",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-square/24/filled"
+        },
+        {
+          "concept": "arrow-rotate-sparkle",
+          "family": "arrow-rotate-sparkle",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-rotate-sparkle/16/outlined"
+        },
+        {
+          "concept": "arrow-rotate-sparkle",
+          "family": "arrow-rotate-sparkle",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-rotate-sparkle/16/filled"
+        },
+        {
+          "concept": "arrow-rotate-sparkle",
+          "family": "arrow-rotate-sparkle",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-rotate-sparkle/24/outlined"
+        },
+        {
+          "concept": "arrow-rotate-sparkle",
+          "family": "arrow-rotate-sparkle",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-rotate-sparkle/24/filled"
+        },
+        {
+          "concept": "hand-bell",
+          "family": "hand-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "hand-bell/16/outlined"
+        },
+        {
+          "concept": "hand-bell",
+          "family": "hand-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "hand-bell/16/filled"
+        },
+        {
+          "concept": "hand-bell",
+          "family": "hand-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "hand-bell/24/outlined"
+        },
+        {
+          "concept": "hand-bell",
+          "family": "hand-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "hand-bell/24/filled"
+        },
+        {
+          "concept": "vibe-coding",
+          "family": "vibe-coding",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "vibe-coding/16/outlined"
+        },
+        {
+          "concept": "vibe-coding",
+          "family": "vibe-coding",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "vibe-coding/16/filled"
+        },
+        {
+          "concept": "vibe-coding",
+          "family": "vibe-coding",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "vibe-coding/24/outlined"
+        },
+        {
+          "concept": "vibe-coding",
+          "family": "vibe-coding",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "vibe-coding/24/filled"
+        },
+        {
+          "concept": "card-nfc",
+          "family": "card-nfc",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "card-nfc/16/outlined"
+        },
+        {
+          "concept": "card-nfc",
+          "family": "card-nfc",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "card-nfc/16/filled"
+        },
+        {
+          "concept": "card-nfc",
+          "family": "card-nfc",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "card-nfc/24/outlined"
+        },
+        {
+          "concept": "card-nfc",
+          "family": "card-nfc",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "card-nfc/24/filled"
+        },
+        {
+          "concept": "mountain-bike",
+          "family": "mountain-bike",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "mountain-bike/16/outlined"
+        },
+        {
+          "concept": "mountain-bike",
+          "family": "mountain-bike",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "mountain-bike/16/filled"
+        },
+        {
+          "concept": "mountain-bike",
+          "family": "mountain-bike",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "mountain-bike/24/outlined"
+        },
+        {
+          "concept": "mountain-bike",
+          "family": "mountain-bike",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "mountain-bike/24/filled"
+        },
+        {
+          "concept": "arrow-corner-up-right",
+          "family": "arrow-corner-up-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-corner-up-right/16/outlined"
+        },
+        {
+          "concept": "arrow-corner-up-right",
+          "family": "arrow-corner-up-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-corner-up-right/16/filled"
+        },
+        {
+          "concept": "arrow-corner-up-right",
+          "family": "arrow-corner-up-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-corner-up-right/24/outlined"
+        },
+        {
+          "concept": "arrow-corner-up-right",
+          "family": "arrow-corner-up-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-corner-up-right/24/filled"
+        },
+        {
+          "concept": "receiption-bell",
+          "family": "receiption-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "receiption-bell/16/outlined"
+        },
+        {
+          "concept": "receiption-bell",
+          "family": "receiption-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "receiption-bell/16/filled"
+        },
+        {
+          "concept": "receiption-bell",
+          "family": "receiption-bell",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "receiption-bell/24/outlined"
+        },
+        {
+          "concept": "receiption-bell",
+          "family": "receiption-bell",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "receiption-bell/24/filled"
+        },
+        {
+          "concept": "bolt-new",
+          "family": "bolt-new",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "bolt-new/16/outlined"
+        },
+        {
+          "concept": "bolt-new",
+          "family": "bolt-new",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "bolt-new/16/filled"
+        },
+        {
+          "concept": "bolt-new",
+          "family": "bolt-new",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "bolt-new/24/outlined"
+        },
+        {
+          "concept": "bolt-new",
+          "family": "bolt-new",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "bolt-new/24/filled"
+        },
+        {
+          "concept": "giro-card",
+          "family": "giro-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "giro-card/16/outlined"
+        },
+        {
+          "concept": "giro-card",
+          "family": "giro-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "giro-card/16/filled"
+        },
+        {
+          "concept": "giro-card",
+          "family": "giro-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "giro-card/24/outlined"
+        },
+        {
+          "concept": "giro-card",
+          "family": "giro-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "giro-card/24/filled"
+        },
+        {
+          "concept": "bike",
+          "family": "bike",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "bike/16/outlined"
+        },
+        {
+          "concept": "bike",
+          "family": "bike",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "bike/16/filled"
+        },
+        {
+          "concept": "bike",
+          "family": "bike",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "bike/24/outlined"
+        },
+        {
+          "concept": "bike",
+          "family": "bike",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "bike/24/filled"
+        },
+        {
+          "concept": "arrow-up-down-left-right",
+          "family": "arrow-up-down-left-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-up-down-left-right/16/outlined"
+        },
+        {
+          "concept": "arrow-up-down-left-right",
+          "family": "arrow-up-down-left-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-up-down-left-right/16/filled"
+        },
+        {
+          "concept": "arrow-up-down-left-right",
+          "family": "arrow-up-down-left-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-up-down-left-right/24/outlined"
+        },
+        {
+          "concept": "arrow-up-down-left-right",
+          "family": "arrow-up-down-left-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-up-down-left-right/24/filled"
+        },
+        {
+          "concept": "umbrella-security",
+          "family": "umbrella-security",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "umbrella-security/16/outlined"
+        },
+        {
+          "concept": "umbrella-security",
+          "family": "umbrella-security",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "umbrella-security/16/filled"
+        },
+        {
+          "concept": "umbrella-security",
+          "family": "umbrella-security",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "umbrella-security/24/outlined"
+        },
+        {
+          "concept": "umbrella-security",
+          "family": "umbrella-security",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "umbrella-security/24/filled"
+        },
+        {
+          "concept": "console-sparkle",
+          "family": "console-sparkle",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "console-sparkle/16/outlined"
+        },
+        {
+          "concept": "console-sparkle",
+          "family": "console-sparkle",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "console-sparkle/16/filled"
+        },
+        {
+          "concept": "console-sparkle",
+          "family": "console-sparkle",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "console-sparkle/24/outlined"
+        },
+        {
+          "concept": "console-sparkle",
+          "family": "console-sparkle",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "console-sparkle/24/filled"
+        },
+        {
+          "concept": "credit-card-1",
+          "family": "credit-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "credit-card/16/outlined"
+        },
+        {
+          "concept": "credit-card-1",
+          "family": "credit-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "credit-card/16/filled"
+        },
+        {
+          "concept": "credit-card-1",
+          "family": "credit-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "credit-card/24/outlined"
+        },
+        {
+          "concept": "credit-card-1",
+          "family": "credit-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "credit-card/24/filled"
+        },
+        {
+          "concept": "clock-snooze",
+          "family": "clock-snooze",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-snooze/16/outlined"
+        },
+        {
+          "concept": "clock-snooze",
+          "family": "clock-snooze",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "clock-snooze/16/filled"
+        },
+        {
+          "concept": "clock-snooze",
+          "family": "clock-snooze",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-snooze/24/outlined"
+        },
+        {
+          "concept": "clock-snooze",
+          "family": "clock-snooze",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "clock-snooze/24/filled"
+        },
+        {
+          "concept": "square-arrow-up-2",
+          "family": "square-arrow-up-2",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-up-2/16/outlined"
+        },
+        {
+          "concept": "square-arrow-up-2",
+          "family": "square-arrow-up-2",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-up-2/16/filled"
+        },
+        {
+          "concept": "square-arrow-up-2",
+          "family": "square-arrow-up-2",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-up-2/24/outlined"
+        },
+        {
+          "concept": "square-arrow-up-2",
+          "family": "square-arrow-up-2",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-up-2/24/filled"
+        },
+        {
+          "concept": "key-1",
+          "family": "#key",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "#key/16/outlined"
+        },
+        {
+          "concept": "key-1",
+          "family": "#key",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "#key/16/filled"
+        },
+        {
+          "concept": "key-1",
+          "family": "#key",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "#key/24/outlined"
+        },
+        {
+          "concept": "key-1",
+          "family": "#key",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "#key/24/filled"
+        },
+        {
+          "concept": "apple-newton",
+          "family": "apple-newton",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "apple-newton/16/outlined"
+        },
+        {
+          "concept": "apple-newton",
+          "family": "apple-newton",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "apple-newton/16/filled"
+        },
+        {
+          "concept": "apple-newton",
+          "family": "apple-newton",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "apple-newton/24/outlined"
+        },
+        {
+          "concept": "apple-newton",
+          "family": "apple-newton",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "apple-newton/24/filled"
+        },
+        {
+          "concept": "file-bend",
+          "family": "file-bend",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-bend/16/outlined"
+        },
+        {
+          "concept": "file-bend",
+          "family": "file-bend",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-bend/16/filled"
+        },
+        {
+          "concept": "file-bend",
+          "family": "file-bend",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-bend/24/outlined"
+        },
+        {
+          "concept": "file-bend",
+          "family": "file-bend",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-bend/24/filled"
+        },
+        {
+          "concept": "delivery-bike",
+          "family": "delivery-bike",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "delivery-bike/16/outlined"
+        },
+        {
+          "concept": "delivery-bike",
+          "family": "delivery-bike",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 16,
+          "slotId": "delivery-bike/16/filled"
+        },
+        {
+          "concept": "delivery-bike",
+          "family": "delivery-bike",
+          "finish": "outlined",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "delivery-bike/24/outlined"
+        },
+        {
+          "concept": "delivery-bike",
+          "family": "delivery-bike",
+          "finish": "filled",
+          "morphology": "circular-mechanism",
+          "nativeSize": 24,
+          "slotId": "delivery-bike/24/filled"
+        },
+        {
+          "concept": "arrow-up-square",
+          "family": "arrow-up-square",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-up-square/16/outlined"
+        },
+        {
+          "concept": "arrow-up-square",
+          "family": "arrow-up-square",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-up-square/16/filled"
+        },
+        {
+          "concept": "arrow-up-square",
+          "family": "arrow-up-square",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-up-square/24/outlined"
+        },
+        {
+          "concept": "arrow-up-square",
+          "family": "arrow-up-square",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-up-square/24/filled"
+        },
+        {
+          "concept": "control-key-right",
+          "family": "control-key-right",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "control-key-right/16/outlined"
+        },
+        {
+          "concept": "control-key-right",
+          "family": "control-key-right",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 16,
+          "slotId": "control-key-right/16/filled"
+        },
+        {
+          "concept": "control-key-right",
+          "family": "control-key-right",
+          "finish": "outlined",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "control-key-right/24/outlined"
+        },
+        {
+          "concept": "control-key-right",
+          "family": "control-key-right",
+          "finish": "filled",
+          "morphology": "status-object",
+          "nativeSize": 24,
+          "slotId": "control-key-right/24/filled"
+        },
+        {
+          "concept": "sun-high",
+          "family": "sun-high",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "sun-high/16/outlined"
+        },
+        {
+          "concept": "sun-high",
+          "family": "sun-high",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "sun-high/16/filled"
+        },
+        {
+          "concept": "sun-high",
+          "family": "sun-high",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "sun-high/24/outlined"
+        },
+        {
+          "concept": "sun-high",
+          "family": "sun-high",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "sun-high/24/filled"
+        },
+        {
+          "concept": "file-text",
+          "family": "file-text",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-text/16/outlined"
+        },
+        {
+          "concept": "file-text",
+          "family": "file-text",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-text/16/filled"
+        },
+        {
+          "concept": "file-text",
+          "family": "file-text",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-text/24/outlined"
+        },
+        {
+          "concept": "file-text",
+          "family": "file-text",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-text/24/filled"
+        },
+        {
+          "concept": "arrow-from-line-down",
+          "family": "arrow-from-line-down",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-from-line-down/16/outlined"
+        },
+        {
+          "concept": "arrow-from-line-down",
+          "family": "arrow-from-line-down",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-from-line-down/16/filled"
+        },
+        {
+          "concept": "arrow-from-line-down",
+          "family": "arrow-from-line-down",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-from-line-down/24/outlined"
+        },
+        {
+          "concept": "arrow-from-line-down",
+          "family": "arrow-from-line-down",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-from-line-down/24/filled"
+        },
+        {
+          "concept": "v0",
+          "family": "v0",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "v0/16/outlined"
+        },
+        {
+          "concept": "v0",
+          "family": "v0",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "v0/16/filled"
+        },
+        {
+          "concept": "v0",
+          "family": "v0",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "v0/24/outlined"
+        },
+        {
+          "concept": "v0",
+          "family": "v0",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "v0/24/filled"
+        },
+        {
+          "concept": "file-png",
+          "family": "file-png",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-png/16/outlined"
+        },
+        {
+          "concept": "file-png",
+          "family": "file-png",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-png/16/filled"
+        },
+        {
+          "concept": "file-png",
+          "family": "file-png",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-png/24/outlined"
+        },
+        {
+          "concept": "file-png",
+          "family": "file-png",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-png/24/filled"
+        },
+        {
+          "concept": "target-arrow",
+          "family": "target-arrow",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "target-arrow/16/outlined"
+        },
+        {
+          "concept": "target-arrow",
+          "family": "target-arrow",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "target-arrow/16/filled"
+        },
+        {
+          "concept": "target-arrow",
+          "family": "target-arrow",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "target-arrow/24/outlined"
+        },
+        {
+          "concept": "target-arrow",
+          "family": "target-arrow",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "target-arrow/24/filled"
+        },
+        {
+          "concept": "bean",
+          "family": "bean",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "bean/16/outlined"
+        },
+        {
+          "concept": "bean",
+          "family": "bean",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "bean/16/filled"
+        },
+        {
+          "concept": "bean",
+          "family": "bean",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "bean/24/outlined"
+        },
+        {
+          "concept": "bean",
+          "family": "bean",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "bean/24/filled"
+        },
+        {
+          "concept": "sim-card-1",
+          "family": "#sim-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "#sim-card/16/outlined"
+        },
+        {
+          "concept": "sim-card-1",
+          "family": "#sim-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "#sim-card/16/filled"
+        },
+        {
+          "concept": "sim-card-1",
+          "family": "#sim-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "#sim-card/24/outlined"
+        },
+        {
+          "concept": "sim-card-1",
+          "family": "#sim-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "#sim-card/24/filled"
+        },
+        {
+          "concept": "arrow-rounded",
+          "family": "arrow-rounded",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-rounded/16/outlined"
+        },
+        {
+          "concept": "arrow-rounded",
+          "family": "arrow-rounded",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-rounded/16/filled"
+        },
+        {
+          "concept": "arrow-rounded",
+          "family": "arrow-rounded",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-rounded/24/outlined"
+        },
+        {
+          "concept": "arrow-rounded",
+          "family": "arrow-rounded",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-rounded/24/filled"
+        },
+        {
+          "concept": "highlight",
+          "family": "highlight",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "highlight/16/outlined"
+        },
+        {
+          "concept": "highlight",
+          "family": "highlight",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "highlight/16/filled"
+        },
+        {
+          "concept": "highlight",
+          "family": "highlight",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "highlight/24/outlined"
+        },
+        {
+          "concept": "highlight",
+          "family": "highlight",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "highlight/24/filled"
+        },
+        {
+          "concept": "file-arrow-left-out",
+          "family": "file-arrow-left-out",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-left-out/16/outlined"
+        },
+        {
+          "concept": "file-arrow-left-out",
+          "family": "file-arrow-left-out",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-left-out/16/filled"
+        },
+        {
+          "concept": "file-arrow-left-out",
+          "family": "file-arrow-left-out",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-left-out/24/outlined"
+        },
+        {
+          "concept": "file-arrow-left-out",
+          "family": "file-arrow-left-out",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-left-out/24/filled"
+        },
+        {
+          "concept": "square-arrow-top-left-corner",
+          "family": "square-arrow-top-left-corner",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-top-left-corner/16/outlined"
+        },
+        {
+          "concept": "square-arrow-top-left-corner",
+          "family": "square-arrow-top-left-corner",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-top-left-corner/16/filled"
+        },
+        {
+          "concept": "square-arrow-top-left-corner",
+          "family": "square-arrow-top-left-corner",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-top-left-corner/24/outlined"
+        },
+        {
+          "concept": "square-arrow-top-left-corner",
+          "family": "square-arrow-top-left-corner",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-top-left-corner/24/filled"
+        },
+        {
+          "concept": "stopwatch",
+          "family": "stopwatch",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "stopwatch/16/outlined"
+        },
+        {
+          "concept": "stopwatch",
+          "family": "stopwatch",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "stopwatch/16/filled"
+        },
+        {
+          "concept": "stopwatch",
+          "family": "stopwatch",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "stopwatch/24/outlined"
+        },
+        {
+          "concept": "stopwatch",
+          "family": "stopwatch",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "stopwatch/24/filled"
+        },
+        {
+          "concept": "file-download",
+          "family": "file-download",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-download/16/outlined"
+        },
+        {
+          "concept": "file-download",
+          "family": "file-download",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-download/16/filled"
+        },
+        {
+          "concept": "file-download",
+          "family": "file-download",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-download/24/outlined"
+        },
+        {
+          "concept": "file-download",
+          "family": "file-download",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-download/24/filled"
+        },
+        {
+          "concept": "arrow-left-square",
+          "family": "arrow-left-square",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-left-square/16/outlined"
+        },
+        {
+          "concept": "arrow-left-square",
+          "family": "arrow-left-square",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-left-square/16/filled"
+        },
+        {
+          "concept": "arrow-left-square",
+          "family": "arrow-left-square",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-left-square/24/outlined"
+        },
+        {
+          "concept": "arrow-left-square",
+          "family": "arrow-left-square",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-left-square/24/filled"
+        },
+        {
+          "concept": "check",
+          "family": "check",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "check/16/outlined"
+        },
+        {
+          "concept": "check",
+          "family": "check",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "check/16/filled"
+        },
+        {
+          "concept": "check",
+          "family": "check",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "check/24/outlined"
+        },
+        {
+          "concept": "check",
+          "family": "check",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "check/24/filled"
+        },
+        {
+          "concept": "file-arrow-left-in",
+          "family": "file-arrow-left-in",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-left-in/16/outlined"
+        },
+        {
+          "concept": "file-arrow-left-in",
+          "family": "file-arrow-left-in",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "file-arrow-left-in/16/filled"
+        },
+        {
+          "concept": "file-arrow-left-in",
+          "family": "file-arrow-left-in",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-left-in/24/outlined"
+        },
+        {
+          "concept": "file-arrow-left-in",
+          "family": "file-arrow-left-in",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "file-arrow-left-in/24/filled"
+        },
+        {
+          "concept": "arrow-share-right",
+          "family": "arrow-share-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-share-right/16/outlined"
+        },
+        {
+          "concept": "arrow-share-right",
+          "family": "arrow-share-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-share-right/16/filled"
+        },
+        {
+          "concept": "arrow-share-right",
+          "family": "arrow-share-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-share-right/24/outlined"
+        },
+        {
+          "concept": "arrow-share-right",
+          "family": "arrow-share-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-share-right/24/filled"
+        },
+        {
+          "concept": "number-0-circle",
+          "family": "number-circle",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "number-circle/16/outlined"
+        },
+        {
+          "concept": "number-0-circle",
+          "family": "number-circle",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "number-circle/16/filled"
+        },
+        {
+          "concept": "number-0-circle",
+          "family": "number-circle",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "number-circle/24/outlined"
+        },
+        {
+          "concept": "number-0-circle",
+          "family": "number-circle",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "number-circle/24/filled"
+        },
+        {
+          "concept": "folder-1",
+          "family": "folder",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "folder/16/outlined"
+        },
+        {
+          "concept": "folder-1",
+          "family": "folder",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "folder/16/filled"
+        },
+        {
+          "concept": "folder-1",
+          "family": "folder",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "folder/24/outlined"
+        },
+        {
+          "concept": "folder-1",
+          "family": "folder",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "folder/24/filled"
+        },
+        {
+          "concept": "square-arrow-bottom-right-corner",
+          "family": "square-arrow-bottom-right-corner",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-bottom-right-corner/16/outlined"
+        },
+        {
+          "concept": "square-arrow-bottom-right-corner",
+          "family": "square-arrow-bottom-right-corner",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "square-arrow-bottom-right-corner/16/filled"
+        },
+        {
+          "concept": "square-arrow-bottom-right-corner",
+          "family": "square-arrow-bottom-right-corner",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-bottom-right-corner/24/outlined"
+        },
+        {
+          "concept": "square-arrow-bottom-right-corner",
+          "family": "square-arrow-bottom-right-corner",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "square-arrow-bottom-right-corner/24/filled"
+        },
+        {
+          "concept": "computer-use",
+          "family": "computer-use",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "computer-use/16/outlined"
+        },
+        {
+          "concept": "computer-use",
+          "family": "computer-use",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "computer-use/16/filled"
+        },
+        {
+          "concept": "computer-use",
+          "family": "computer-use",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "computer-use/24/outlined"
+        },
+        {
+          "concept": "computer-use",
+          "family": "computer-use",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "computer-use/24/filled"
+        },
+        {
+          "concept": "move-folder-inside",
+          "family": "move-folder-inside",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "move-folder-inside/16/outlined"
+        },
+        {
+          "concept": "move-folder-inside",
+          "family": "move-folder-inside",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "move-folder-inside/16/filled"
+        },
+        {
+          "concept": "move-folder-inside",
+          "family": "move-folder-inside",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "move-folder-inside/24/outlined"
+        },
+        {
+          "concept": "move-folder-inside",
+          "family": "move-folder-inside",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "move-folder-inside/24/filled"
+        },
+        {
+          "concept": "send-later",
+          "family": "send-later",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "send-later/16/outlined"
+        },
+        {
+          "concept": "send-later",
+          "family": "send-later",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "send-later/16/filled"
+        },
+        {
+          "concept": "send-later",
+          "family": "send-later",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "send-later/24/outlined"
+        },
+        {
+          "concept": "send-later",
+          "family": "send-later",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "send-later/24/filled"
+        },
+        {
+          "concept": "oculus",
+          "family": "oculus",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "oculus/16/outlined"
+        },
+        {
+          "concept": "oculus",
+          "family": "oculus",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "oculus/16/filled"
+        },
+        {
+          "concept": "oculus",
+          "family": "oculus",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "oculus/24/outlined"
+        },
+        {
+          "concept": "oculus",
+          "family": "oculus",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "oculus/24/filled"
+        },
+        {
+          "concept": "scratch-card",
+          "family": "scratch-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "scratch-card/16/outlined"
+        },
+        {
+          "concept": "scratch-card",
+          "family": "scratch-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "scratch-card/16/filled"
+        },
+        {
+          "concept": "scratch-card",
+          "family": "scratch-card",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "scratch-card/24/outlined"
+        },
+        {
+          "concept": "scratch-card",
+          "family": "scratch-card",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "scratch-card/24/filled"
+        },
+        {
+          "concept": "arrow-left-x",
+          "family": "arrow-left-x",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-left-x/16/outlined"
+        },
+        {
+          "concept": "arrow-left-x",
+          "family": "arrow-left-x",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-left-x/16/filled"
+        },
+        {
+          "concept": "arrow-left-x",
+          "family": "arrow-left-x",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-left-x/24/outlined"
+        },
+        {
+          "concept": "arrow-left-x",
+          "family": "arrow-left-x",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-left-x/24/filled"
+        },
+        {
+          "concept": "videos",
+          "family": "videos",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "videos/16/outlined"
+        },
+        {
+          "concept": "videos",
+          "family": "videos",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 16,
+          "slotId": "videos/16/filled"
+        },
+        {
+          "concept": "videos",
+          "family": "videos",
+          "finish": "outlined",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "videos/24/outlined"
+        },
+        {
+          "concept": "videos",
+          "family": "videos",
+          "finish": "filled",
+          "morphology": "symbolic",
+          "nativeSize": 24,
+          "slotId": "videos/24/filled"
+        },
+        {
+          "concept": "shopping-bag-bookmark-2",
+          "family": "shopping-bag-bookmark-2",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "shopping-bag-bookmark-2/16/outlined"
+        },
+        {
+          "concept": "shopping-bag-bookmark-2",
+          "family": "shopping-bag-bookmark-2",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 16,
+          "slotId": "shopping-bag-bookmark-2/16/filled"
+        },
+        {
+          "concept": "shopping-bag-bookmark-2",
+          "family": "shopping-bag-bookmark-2",
+          "finish": "outlined",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "shopping-bag-bookmark-2/24/outlined"
+        },
+        {
+          "concept": "shopping-bag-bookmark-2",
+          "family": "shopping-bag-bookmark-2",
+          "finish": "filled",
+          "morphology": "badge-container",
+          "nativeSize": 24,
+          "slotId": "shopping-bag-bookmark-2/24/filled"
+        },
+        {
+          "concept": "arrow-triangle-right",
+          "family": "arrow-triangle-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-triangle-right/16/outlined"
+        },
+        {
+          "concept": "arrow-triangle-right",
+          "family": "arrow-triangle-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 16,
+          "slotId": "arrow-triangle-right/16/filled"
+        },
+        {
+          "concept": "arrow-triangle-right",
+          "family": "arrow-triangle-right",
+          "finish": "outlined",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-triangle-right/24/outlined"
+        },
+        {
+          "concept": "arrow-triangle-right",
+          "family": "arrow-triangle-right",
+          "finish": "filled",
+          "morphology": "directional",
+          "nativeSize": 24,
+          "slotId": "arrow-triangle-right/24/filled"
+        }
+      ]
+    }
+  },
+  "morphologyCounts": {
+    "badge-container": 23,
+    "circular-mechanism": 13,
+    "directional": 23,
+    "organic": 6,
+    "status-object": 13,
+    "symbolic": 22
+  },
+  "reviewedOutputs": 0,
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "limitations": [
+    "This freezes sample membership, not a qualifying review result.",
+    "Six coarse name-derived strata do not establish coverage of every geometric construction class.",
+    "Complete construction-class annotation and review of every flagged or uncertain output remain required.",
+    "Population contains catalog families and is not eligible as an unseen-family sample.",
+    "Existing selector labels development-blind-audit; no eligibility flag is rewritten."
+  ],
+  "sourceHashes": {
+    "packages/iconsmith/scripts/quality-population.ts": "eb60158ecc1a7f6c53ed6cd97a5598bf3394d4f651b0c594705d1fc26af5cf09",
+    "packages/iconsmith/scripts/catalog-families.ts": "5cdb6d2ebeae81edaebf3df12a39da6158b51995f6d6036eb4fd6ccd28223eb3",
+    "packages/iconsmith/scripts/family-morphology.ts": "a7c9ce37b76a60850f489f0034ea00f5f1772a4512a07bed461a0fcec0555116"
+  }
+}

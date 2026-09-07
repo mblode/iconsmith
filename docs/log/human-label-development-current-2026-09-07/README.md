@@ -1,0 +1,1 @@
+Review Q-numbered PNGs without provenance.json or .icon source. Each batch has at most 20 rows in Q-number order; use batches.json to map positions. Inspect the requested native proof size. Record independent recognition before revealing the concept. Missing labels are pending, never passes. Each row represents only its pinned native master; human optical calibration is pending.

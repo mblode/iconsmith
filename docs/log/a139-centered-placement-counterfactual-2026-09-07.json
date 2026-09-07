@@ -1,0 +1,117 @@
+{
+  "id": "A139",
+  "scope": "One exposed host-side placement repair, not model generation or sealed repair qualification",
+  "compiler": "iconsmith-constrained-21",
+  "sourceArtifacts": {
+    ".staging/A139-centered-placement-2026-09-07/centered/outlined.icon": "00f9dd0cd32c276766a8fc4cb050b4b497beec29abde829af56f1c1ccee51eb0",
+    ".staging/A139-centered-placement-2026-09-07/centered/filled.icon": "c959d751f0e83bdb38470ac2947d9a6b1f23520f8101e44edf9b8c99ae1f61c5",
+    ".staging/A139-centered-placement-2026-09-07/before/outlined.icon": "8b2718634d1f7ce629a6c182c7fc00b0a1831eb4ac8428907a603e70846524bc",
+    ".staging/A139-centered-placement-2026-09-07/before/filled.icon": "f869487cb9237e2c6711b1fae27902295dd401e37e2ebeb9b50133f2d7cf55b8",
+    ".staging/A139-centered-placement-2026-09-07/centered/filled.svg": "221fef83d11d62fe0a27f1b87f9a2ede9cf39d01030735dcd0faa96aa2bc666f",
+    ".staging/A139-centered-placement-2026-09-07/centered/outlined.svg": "de3c8e8d32d207ae157c825f8a323068a4e9e4ddaf50a72b6fc58f419ff7ec36",
+    ".staging/A139-centered-placement-2026-09-07/before/filled.svg": "4ee009e4b4f7c31a77482fca1bc01bd77e144e3dbbcf06495b15e83d3e4a1311",
+    ".staging/A139-centered-placement-2026-09-07/before/outlined.svg": "d637ff6ffd4d92c29763052d87df5fc3bd66fe6381eb8c92156ffdb421b7cc84",
+    ".staging/A139-centered-placement-2026-09-07/centered/outlined.proof.png": "35b59e1971ba0a51bae22712559eebd879172b74da0e985caa641908b262353a",
+    ".staging/A139-centered-placement-2026-09-07/centered/filled.proof.png": "5612b5925290a8530b63e36231df95d296dc1bf0ef100975a95f10d654939af8",
+    ".staging/A139-centered-placement-2026-09-07/before/outlined.proof.png": "8ae25089a17e88a8f5decfa0ea813b5bfd0e204051ad863bf71f6006b2303a21",
+    ".staging/A139-centered-placement-2026-09-07/before/filled.proof.png": "f9ec5341cd17b1b072c6b74eded91ab2e65ce4634de4a47e1f3eb7386ae42b4a",
+    ".staging/A139-centered-placement-2026-09-07/centered/outlined.native.png": "55db05971194b034846d2e55e17375fcfc71d9ee0a894e19d0567c0177bcac1a",
+    ".staging/A139-centered-placement-2026-09-07/centered/filled.native.png": "c18b8d6fcea9ffddba4df42d37afa7527b71d1ca9c4734afaa5eb73955e36104",
+    ".staging/A139-centered-placement-2026-09-07/before/outlined.native.png": "0efeaf2630699308ba273ce3ef06ae2d91d71af8155843634bde505eec0a36f5",
+    ".staging/A139-centered-placement-2026-09-07/before/filled.native.png": "d3eb6cc10b5cb26c4babcc45bd5d728354f8da736261a71233886d521cf21244",
+    ".staging/A139-centered-placement-2026-09-07/centered/checks.json": "0dc50c3a84bc0fc28388616f8ddf8f9a38f8604671ea9de4c887f74ad0ca202f",
+    ".staging/A139-centered-placement-2026-09-07/before/checks.json": "09c67f228359cdc439444e99fedf6527f8907075996c5bc11d8cff016683bf62",
+    ".staging/A139-centered-placement-2026-09-07/revision.json": "664edd3e074e26d416b445843f496bf58e1dbc8230e838c51beb646c118c206f"
+  },
+  "beforeExactAgainstA136": {
+    "outlinedSvg": true,
+    "filledSvg": true,
+    "outlinedNative": true,
+    "filledNative": true
+  },
+  "checks": {
+    "before": {
+      "craftApproved": false,
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 19.0\u00b0, 19.0\u00b0 off the nearest permitted axis (0\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e0\" has an edge at 161.0\u00b0, 19.0\u00b0 off the nearest permitted axis (0\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e1\" has an edge at 51.3\u00b0, 6.3\u00b0 off the nearest permitted axis (45\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e1\" has an edge at 122.7\u00b0, 12.3\u00b0 off the nearest permitted axis (135\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "nativeSize": 16,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "pairChecked": true,
+      "pairIssues": [],
+      "preview16": "native",
+      "snapshot": ".staging/A139-centered-placement-2026-09-07/before/check-VzsZkt",
+      "style": "5af5f9e4e32f0405157ea863cb21b6134267717370ac29f4358a249e4dcd2103"
+    },
+    "centered": {
+      "craftApproved": false,
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 19.0\u00b0, 19.0\u00b0 off the nearest permitted axis (0\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e0\" has an edge at 161.0\u00b0, 19.0\u00b0 off the nearest permitted axis (0\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e1\" has an edge at 51.3\u00b0, 6.3\u00b0 off the nearest permitted axis (45\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e1\" has an edge at 122.7\u00b0, 12.3\u00b0 off the nearest permitted axis (135\u00b0). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so \u2014 `off-axis` on the line \u2014 and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "nativeSize": 16,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "pairChecked": true,
+      "pairIssues": [],
+      "preview16": "native",
+      "snapshot": ".staging/A139-centered-placement-2026-09-07/centered/check-Y2g5DY",
+      "style": "5af5f9e4e32f0405157ea863cb21b6134267717370ac29f4358a249e4dcd2103"
+    }
+  },
+  "providerCalls": 0,
+  "qualified": false,
+  "board": "docs/log/a139-centered-placement-comparison-2026-09-07.png"
+}

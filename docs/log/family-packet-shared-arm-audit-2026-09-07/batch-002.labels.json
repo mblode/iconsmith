@@ -1,0 +1,30 @@
+[
+  {
+    "craftRating": null,
+    "criticalDefect": null,
+    "defects": [],
+    "familyFit": null,
+    "humanIdentity": null,
+    "id": "Q021",
+    "nativeImageSha256": "2c2cdac23f58ff4f3cf715cb1141ff89fe88a2fd3d6e7331ad4253c15e663d80",
+    "nativeLegibility": null,
+    "nativeSize": 24,
+    "recognition": null,
+    "shipUnchanged": null,
+    "svgSha256": "80ab37a1b96b96d2ccba7bc952e6cbca75c76e8787f4c8ec7ef0c09ed76ace96"
+  },
+  {
+    "craftRating": null,
+    "criticalDefect": null,
+    "defects": [],
+    "familyFit": null,
+    "humanIdentity": null,
+    "id": "Q022",
+    "nativeImageSha256": "c94ee9f01ba1b3fd08389f5e2ba91143e8c1d39cebd18370cd3d8ef62c10ceb4",
+    "nativeLegibility": null,
+    "nativeSize": 24,
+    "recognition": null,
+    "shipUnchanged": null,
+    "svgSha256": "86abd1a841845f0f50ae8bcaaa84b1b041be95a2d078ae73e25268a4a54338dd"
+  }
+]

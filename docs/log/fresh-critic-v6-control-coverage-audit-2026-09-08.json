@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "id": "v6-ai-critic-control-coverage-audit",
+  "createdAt": "2026-09-08",
+  "mode": "offline-metadata-only",
+  "imageInspection": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "scope": "development-calibration-control-coverage",
+  "inputs": {
+    "v6Campaign": {
+      "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/campaign.json",
+      "sha256": "c21096b43520e005648866845bf01374764f49d415b0c04696ae14e444f82f51"
+    },
+    "v6DecisionRules": {
+      "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/decision-rules.json",
+      "sha256": "6c0c95b9bfcf15661427d1a6b283697876b0a05661a220354a0f050a56f9d1c3"
+    },
+    "withheldKey": {
+      "path": ".staging/fresh-critic-semantic-campaign-v6-2026-09-08/withheld-stage2-and-control-key.json",
+      "sha256": "b7fdb253a4c4db88487d9baa361f06bc54073aa0f628116338ce88b7310708da",
+      "handling": "read only for aggregate metadata counts; not copied to presentation controls"
+    },
+    "catalogCandidateReceipt": {
+      "path": ".staging/fresh-critic-complete-catalog-2026-09-07/receipt.json",
+      "sha256": "9d1603936b6dd38b977a7fc2ad5c22f4986bd90d3fe974f8d01b4b9378c543c8"
+    }
+  },
+  "v6Population": {
+    "canonicalRows": 100,
+    "uniqueCanonicalArtifactHashes": 100,
+    "strata": {
+      "filled-16": 25,
+      "filled-24": 25,
+      "outlined-16": 25,
+      "outlined-24": 25
+    },
+    "sourceBaselines": 50,
+    "objectiveCorruptions": 50,
+    "confirmedCriticalBeforeReview": 0,
+    "independentlyConfirmedApprovalsBeforeReview": 0,
+    "p01DevelopmentExposedRows": 10,
+    "p01SourceBaselines": 8,
+    "p01ObjectiveCorruptions": 2,
+    "unusedDevelopmentRows": 90
+  },
+  "phase4Audit": {
+    "canonicalAtLeast100": "structurally yes for v6 development artifacts, but these are not a fresh sealed qualification population",
+    "criticalAtLeast20": "not established; 50 deterministic corruptions exist but all criticalDefect values remain null pending independent classification",
+    "approvalsAtLeast20": "not established; no independently resolved panel approvals exist before review",
+    "identicalAndReversed": "absent from frozen v6 scored packets; additive P01 presentation-only sequences prepared separately",
+    "recognitionSemanticValidity": "filename meanings remain unvalidated and cannot count as semantic accuracy",
+    "qualificationDecision": "v6 is development calibration. P01 and any protocol-tuned descendants must be excluded from future sealed qualification."
+  },
+  "scorerRelation": {
+    "qualifyAiReviewEnsemble": "Requires >=100 canonical, >=20 objective-corruption rows, both presentation kinds, semantic-label validation, and consistency. Its objective-corruption count is host construction count rather than independently confirmed critical truth. It cannot ingest exact-byte repeated presentation artifacts because it rejects duplicate canonicalArtifactHash values.",
+    "qualifyCriticAgainstIndependentAiPanel": "Requires >=100 canonical, >=20 panel-resolved critical rows, >=20 critic approval predictions, complete independent panel resolution, identical/reversed controls, >=0.95 approval precision, >=0.90 critical recall and >=0.80 decision coverage. The >=20 approval predicate counts critic predictions; at 0.95 precision it may permit only 19 independently confirmed approvals. It also rejects exact-byte presentation repetitions because artifact hashes must be globally unique.",
+    "requiredCorrectionBeforeQualification": [
+      "Represent presentation controls by distinct presentation IDs bound to the same immutable artifact hash, while excluding them from canonical denominators.",
+      "Require at least 20 independently panel-resolved approvals, not merely 20 critic approve predictions.",
+      "Bind panel critical truth to corroborated named defect evidence; deterministic corruption alone is not a critical label.",
+      "Keep semantic recognition qualification disabled until exact artifacts and meanings/choices have independent provenance validation."
+    ]
+  },
+  "additivePresentationControls": {
+    "path": ".staging/fresh-critic-semantic-campaign-v6-p01-presentation-controls-2026-09-08/manifest.json",
+    "sha256": "803ce1267339fff52e5b2f7aaab69f3f531c797fb0203aea86d771e73a964974",
+    "copiedEvidenceTreeHash": "f30c874b18f7575c1bb9f72685096c180b31a5a9fae0e515ee27b51f44b5a740",
+    "canonicalIncrement": 0,
+    "status": "prepared-unreviewed"
+  },
+  "freshQualificationPlan": {
+    "developmentV6Role": "Keep all v6 rows in development calibration. The 90 unused rows may diagnose the frozen protocol but do not close a fresh qualification gate.",
+    "catalogCensus": {
+      "prospectiveUniqueFamilies": 927,
+      "claim": "metadata-only prospective candidates, not a complete global non-exposure guarantee"
+    },
+    "steps": [
+      "Freeze final reviewer protocol and scorer before choosing qualification stimuli.",
+      "Append the v6 artifacts, aliases, families, packet IDs, anchors, and all P01 presentation copies to the immutable exposure ledger.",
+      "Select a new family-disjoint 100-canonical cohort from the 927-candidate census after alias/cluster/transitive-lineage validation; balance 25 per paint/native-size stratum and require 100 unique semantic families.",
+      "Create at least 20 independently corroboratable critical cases and at least 20 independently panel-resolved approval cases; keep presentation repetitions outside the 100 denominator.",
+      "Add exact-byte identical and reversed-order controls using repeated presentation IDs, freeze predictions before panel reveal, and require per-reviewer decision consistency.",
+      "Refuse qualification on missing predictions, unresolved panel labels, recognition provenance gaps, exposure overlap, or any hash/identity drift."
+    ]
+  },
+  "limitations": [
+    "No sealed image was opened or visually assessed.",
+    "The exposure ledger has documented inaccessible/deleted-history limits, so 927 is prospective rather than globally guaranteed novel.",
+    "No prediction, semantic label, critical label, approval, or qualification score was created."
+  ]
+}

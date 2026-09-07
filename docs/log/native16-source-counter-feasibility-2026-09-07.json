@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "native16-source-counter-feasibility-2026-09-07",
+  "status": "representation-gap",
+  "providerCalls": 0,
+  "productionChanges": 0,
+  "scope": "Existing-host feasibility for source-supported tiny-counter repair at native16",
+  "bell": {
+    "source": "bell.svg",
+    "sourceSha256": "dd277328d83c846a5b62e3092d99b2cf2142cee59677fc761a8f5b4af5b10b6a",
+    "shapeCount": 1,
+    "subpathCountWithinAdmittedPart": 2,
+    "components": [
+      {"semantic":"clapper arc","subpath":0,"bbox":{"x0":8,"y0":18,"x1":16,"y1":21},"closed":false},
+      {"semantic":"bell shell and base","subpath":1,"bbox":{"x0":4.426004190796666,"y0":3,"x1":19.573915117168674,"y1":18},"closed":true}
+    ],
+    "existingDslCapability": "The source admission layer creates one part per SVG shape, so both subpaths become bell-outlined-0. DSL placement can transform only the complete part.",
+    "result": "The clapper cannot be translated or its interior clearance expanded without moving/redrawing the shell. No valid before/after bell repair exists in the current semantic DSL.",
+    "nativeEvidence": {"centralClearanceDesignUnits":1,"centralClearanceNativePixels":0.6666666666666666,"fullyWhiteInteriorRow":false}
+  },
+  "boundaryExamples": [
+    {
+      "morphology":"interlocking links",
+      "source":"chain-link-2.svg",
+      "sourceSha256":"2e29947d09c70603e6d16274397b58c4ca5064fc88fa7d30c6867e2a7ffe680a",
+      "shapeCount":3,
+      "finding":"The two link contours and horizontal connector are separate SVG shapes, so admission already exposes three independently placeable host parts. Existing placement can adjust their separation without raw paths."
+    },
+    {
+      "morphology":"circular status mark",
+      "source":"circle-exclamation.svg",
+      "sourceSha256":"c1fd74a128d587b32ad9bc9323557ee9b6d37c4a5f33a6d6aeec605c371edf76",
+      "shapeCount":3,
+      "finding":"Circle, stem and 0.01-unit cap-derived dot are separate SVG shapes, so admission exposes independently placeable host parts. Existing placement can adjust mark spacing while retaining the circle."
+    }
+  ],
+  "minimalSemanticApi": {
+    "admission": "Retain stable source-component descriptors for each parsed subpath: source part id, subpath hash, closed/open role, source bbox and paint rule.",
+    "dsl": "Add a constrained component placement operation that references the admitted part plus a stable subpath hash and permits only spec-grid translation and bounded uniform scaling. It must reassemble the untouched sibling subpaths with the original fill rule.",
+    "example": "part-component bell-outlined-0 subpath <host-hash> translate 0,-0.5",
+    "constraints": [
+      "No path coordinates or handles are author-visible.",
+      "Translation and scale values must use the selected master's legal grid and bounded tiers.",
+      "The host must reject unknown hashes, topology changes, fill-rule changes, and movement outside the source shell/keyline.",
+      "The checker must prove the requested native counter clearance improved while all untouched component hashes and shell geometry remain identical."
+    ]
+  },
+  "decision": "Do not mutate the compiler from this probe. Implement the bounded source-component operation with regression tests before producing claimed bell or cross-morphology before/after proofs."
+}

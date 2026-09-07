@@ -11,6 +11,46 @@ const source = (name: string, svg: string): FamilySource => ({
 });
 
 describe("library retrieval exclusions", () => {
+  it("excludes explicit catalog families through aliases, variants and identical copies", () => {
+    const sources = [
+      source("bicycle", "a"),
+      source("penny-farthing", "b"),
+      source("bike-copy", "b"),
+      source("wheel", "c"),
+    ];
+    const roles = [
+      {
+        family: "#cycle",
+        head: "bicycle",
+        role: "canonical" as const,
+        slug: "bicycle",
+      },
+      {
+        family: "#cycle",
+        head: "bicycle",
+        role: "variant" as const,
+        slug: "penny-farthing",
+      },
+      {
+        family: "#wheel",
+        head: "wheel",
+        role: "canonical" as const,
+        slug: "wheel",
+      },
+    ];
+    expect(
+      libraryCandidates(
+        sources,
+        "new-concept",
+        new Map([["bicycle", ["pedal cycle"]]]),
+        ["pedal cycle"],
+        roles
+      )
+    ).toEqual([sources[3]]);
+    expect(libraryCandidates(sources, "bicycle", new Map(), [], roles)).toEqual(
+      sources.slice(1)
+    );
+  });
   it("excludes target aliases and byte-identical drawings under different names", () => {
     const sources = [
       source("bike", "a"),
@@ -107,6 +147,42 @@ it("pins visually selected references and admits parts while retaining native fi
     expect(
       readFileSync(path.join(root, "retrieval/selection.json"), "utf-8")
     ).toContain("unsupported source semantics");
+    const familyPacket = JSON.parse(
+      readFileSync(path.join(root, "retrieval/family-packet.json"), "utf-8")
+    );
+    const reused = await retrieveLocalStyle({
+      concept: "package-lock",
+      familyPacket,
+      library,
+      master: "24",
+      out: path.join(root, "reused"),
+      review: () => {
+        throw new Error("shared packet reuse must not select again");
+      },
+      revision,
+      set: "blode-icons",
+    });
+    expect(reused.hash).toBe(result.hash);
+    expect(
+      JSON.parse(
+        readFileSync(path.join(root, "reused/selection.json"), "utf-8")
+      ).reused
+    ).toBe(true);
+    expect(
+      readFileSync(path.join(root, "reused/family-packet-proofs.json"), "utf-8")
+    ).toContain('"nativeSize": 24');
+    await expect(
+      retrieveLocalStyle({
+        concept: "package-lock",
+        exclusions: ["box"],
+        familyPacket,
+        library,
+        master: "24",
+        out: path.join(root, "new-exclusion"),
+        revision,
+        set: "blode-icons",
+      })
+    ).rejects.toThrow("exclusion identity mismatch");
     await expect(
       retrieveLocalStyle({
         concept: "x",

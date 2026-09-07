@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "id": "A125-independent-ai-diagnostic",
+  "createdAt": "2026-09-07",
+  "purpose": "Development-only comparison of two independent AI critic answer sets over the same ten blinded canonical stimuli.",
+  "status": "diagnostic-only",
+  "qualificationClaim": false,
+  "generalGeneratedCriticQualified": false,
+  "authority": "AI critic disagreement analysis contextualized by host-recorded source/corruption provenance; no human labels and no universal clean-source ground truth.",
+  "interpretationRules": [
+    "Host-injected corruption provenance establishes that an objective pixel or contour transformation occurred; it does not by itself establish every rubric answer or general craft truth.",
+    "A critical alert on an unmodified house source remains an unresolved source-quality alert and is not counted as a false positive.",
+    "Any critical, native, or ship disagreement or uncertainty is quarantined. Unanimous critical defects or unanimous native/ship rejection may produce a diagnostic reject. Acceptance is only diagnostic consensus, not qualification.",
+    "Recognition was unanchored in A125 because intended names and family references were withheld; recognition agreement is reported but cannot validate semantic accuracy.",
+    "The Codex answers were recovered post hoc under a corrected validator from the original persisted trace; the original dispatch remains incomplete."
+  ],
+  "evidence": {
+    "packetHash": "e02f34462d3211f245ad116247ef85ac11dd48e9da22f029113ed8a3c26139cb",
+    "sealedKey": {
+      "path": ".staging/ai-control-qualification-2026-09-07/sealed-key.json",
+      "sha256": "4c84695956a82b5dad66d351ff79102b9dd06e008fdd386c5103c9f427ee580f"
+    },
+    "intent": {
+      "path": ".staging/house-quality-execution-2026-09-07/ai-pilot-v2/intent.json",
+      "sha256": "371f98fdc217256d7104309b5ecb00e0eb4c39ee5e64eca45771ce52d90518ae"
+    },
+    "claudeOriginal": {
+      "path": ".staging/house-quality-execution-2026-09-07/ai-pilot-v2/claude/review.json",
+      "sha256": "72a2c842d57eab718c5760a159e072dd9faac97f42ff1a454365f5ec3a831693",
+      "model": "claude-opus-5",
+      "status": "complete"
+    },
+    "codexPosthocAnswers": {
+      "path": "docs/log/a125-codex-posthoc-revalidation-2026-09-07/answers.json",
+      "sha256": "902cadf63b313e1b73033d4862b5508543dac95088f4ad231ce37b6c3cec2593",
+      "model": "gpt-6-astra",
+      "provenance": "post-hoc-validator-correction",
+      "originalDispatchStatus": "incomplete"
+    },
+    "codexPosthocReceipt": {
+      "path": "docs/log/a125-codex-posthoc-revalidation-2026-09-07/receipt.json",
+      "sha256": "e0614b93b7c24954f99b3baafc557024acfef9f36bcc459954b93e1de5055fed",
+      "traceSha256": "d2d92480bed027aa22862c7521361a861360358bcc755bc2b7f424f8d3569557",
+      "qualificationClaim": false
+    }
+  },
+  "summary": {
+    "canonicalStimuli": 10,
+    "sourceComparators": 5,
+    "hostCorruptedDerivatives": 5,
+    "ensembleDispositions": {
+      "accept-diagnostic-consensus": 2,
+      "quarantine": 6,
+      "reject": 2
+    },
+    "stimuliWithAnyAnswerDisagreement": 10,
+    "stimuliWithCriticalNativeOrShipDisagreementOrUncertainty": 6,
+    "exactCriticalAgreement": 6,
+    "criticCounts": {
+      "claude-opus-5-original": {
+        "critical": {
+          "no": 4,
+          "yes": 4,
+          "uncertain": 2
+        },
+        "native": {
+          "yes": 2,
+          "no": 8
+        },
+        "recognition": {
+          "clear": 3,
+          "ambiguous": 5,
+          "unrecognizable": 2
+        },
+        "ship": {
+          "yes": 2,
+          "no": 8
+        },
+        "byProvenance": {
+          "positive": {
+            "stimuli": 5,
+            "critical": {
+              "no": 3,
+              "yes": 1,
+              "uncertain": 1
+            },
+            "ship": {
+              "yes": 2,
+              "no": 3
+            }
+          },
+          "negative": {
+            "stimuli": 5,
+            "critical": {
+              "no": 1,
+              "yes": 3,
+              "uncertain": 1
+            },
+            "ship": {
+              "no": 5
+            }
+          }
+        }
+      },
+      "gpt-6-astra-posthoc-corrected": {
+        "critical": {
+          "no": 6,
+          "yes": 3,
+          "uncertain": 1
+        },
+        "native": {
+          "yes": 5,
+          "no": 4,
+          "uncertain": 1
+        },
+        "recognition": {
+          "clear": 4,
+          "ambiguous": 6
+        },
+        "ship": {
+          "yes": 4,
+          "no": 5,
+          "uncertain": 1
+        },
+        "byProvenance": {
+          "positive": {
+            "stimuli": 5,
+            "critical": {
+              "no": 5
+            },
+            "ship": {
+              "yes": 3,
+              "no": 1,
+              "uncertain": 1
+            }
+          },
+          "negative": {
+            "stimuli": 5,
+            "critical": {
+              "no": 1,
+              "yes": 3,
+              "uncertain": 1
+            },
+            "ship": {
+              "yes": 1,
+              "no": 4
+            }
+          }
+        }
+      }
+    },
+    "ensembleDispositionIds": {
+      "accept-diagnostic-consensus": [
+        "S001",
+        "S005"
+      ],
+      "reject": [
+        "S004",
+        "S006"
+      ],
+      "quarantine": [
+        "S002",
+        "S003",
+        "S007",
+        "S008",
+        "S009",
+        "S010"
+      ]
+    }
+  },
+  "stimuli": [
+    {
+      "id": "S001",
+      "nativeSize": 16,
+      "sourceProvenance": {
+        "kind": "positive",
+        "sourceSlug": "progress-25",
+        "family": "#progress",
+        "sourceSvgSha256": "642cbb04ba83ced5341247c239d737b98eb3c1c249b8bee9337dcdd47e0dd279",
+        "presentedSvgSha256": "642cbb04ba83ced5341247c239d737b98eb3c1c249b8bee9337dcdd47e0dd279",
+        "objectiveProbe": null
+      },
+      "presentedProofSha256": "3faff9d18e3e91b6b13e83e9df44f58f109b712d5a23c6fa453812b83b4761fd",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "no",
+          "craft": "7",
+          "native": "yes",
+          "recognition": "clear",
+          "ship": "yes"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "no",
+          "craft": "9",
+          "native": "yes",
+          "recognition": "clear",
+          "ship": "yes"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "craft"
+        ],
+        "uncertainties": [],
+        "craftAbsoluteDifference": 2
+      },
+      "ensembleDisposition": "accept-diagnostic-consensus",
+      "ensembleReason": "both critics report no critical defect and agree native/ship yes"
+    },
+    {
+      "id": "S002",
+      "nativeSize": 24,
+      "sourceProvenance": {
+        "kind": "negative",
+        "sourceSlug": "bubble-crossed",
+        "family": "bubble-crossed",
+        "sourceSvgSha256": "b9aa68362bf8408ef625818e2f34b34c976bdd49c7a972e4e43a625c1b2091aa",
+        "presentedSvgSha256": "165af3dcdc404245f2164a8f89b015dc8e80626e8500ea5c9e121e3a104a52cf",
+        "objectiveProbe": {
+          "afterInk": 2487,
+          "beforeInk": 2205,
+          "changedPixels": 280,
+          "objective": "counter-collapse"
+        }
+      },
+      "presentedProofSha256": "e4b2e8bfa9b71709c8e9f785dfdb493609d7249dbb97a90db170a7bc3b331dc7",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "no",
+          "craft": "6",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "no",
+          "craft": "9",
+          "native": "yes",
+          "recognition": "clear",
+          "ship": "yes"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "craft",
+          "native",
+          "recognition",
+          "ship"
+        ],
+        "uncertainties": [],
+        "craftAbsoluteDifference": 3
+      },
+      "ensembleDisposition": "quarantine",
+      "ensembleReason": "critical/native/ship disagreement or uncertainty"
+    },
+    {
+      "id": "S003",
+      "nativeSize": 16,
+      "sourceProvenance": {
+        "kind": "positive",
+        "sourceSlug": "divider",
+        "family": "divider",
+        "sourceSvgSha256": "50820ce27a1c32c403134abe0cb24f1cb59a9c593a67ab4e0b4e629089b4abab",
+        "presentedSvgSha256": "50820ce27a1c32c403134abe0cb24f1cb59a9c593a67ab4e0b4e629089b4abab",
+        "objectiveProbe": null
+      },
+      "presentedProofSha256": "745fcec5412fcf3f80fb6632ae24f0e15a51fec1b756df5cc037f3bbb5575f5f",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "no",
+          "craft": "6",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "no",
+          "craft": "9",
+          "native": "yes",
+          "recognition": "ambiguous",
+          "ship": "yes"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "craft",
+          "native",
+          "ship"
+        ],
+        "uncertainties": [],
+        "craftAbsoluteDifference": 3
+      },
+      "ensembleDisposition": "quarantine",
+      "ensembleReason": "critical/native/ship disagreement or uncertainty"
+    },
+    {
+      "id": "S004",
+      "nativeSize": 24,
+      "sourceProvenance": {
+        "kind": "negative",
+        "sourceSlug": "slice",
+        "family": "slice",
+        "sourceSvgSha256": "556f71571780522e08eb7ce70927a31ac09494fdd90c7475760cf2d227582cff",
+        "presentedSvgSha256": "b5cb7cede729ed1666e4fd72950e648b75e0092608c8ee0e0f6e4949f7c010f0",
+        "objectiveProbe": {
+          "afterInk": 1572,
+          "beforeInk": 1726,
+          "changedPixels": 154,
+          "objective": "severed-connections"
+        }
+      },
+      "presentedProofSha256": "b0ca6730abc4d2994f457c85d22c410b8009fa263ca3a7038f81ae9b22d391e6",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "yes",
+          "craft": "3",
+          "native": "no",
+          "recognition": "unrecognizable",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "yes",
+          "craft": "4",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "craft",
+          "recognition"
+        ],
+        "uncertainties": [],
+        "craftAbsoluteDifference": 1
+      },
+      "ensembleDisposition": "reject",
+      "ensembleReason": "both critics report a critical defect or reject native/ship readiness"
+    },
+    {
+      "id": "S005",
+      "nativeSize": 16,
+      "sourceProvenance": {
+        "kind": "positive",
+        "sourceSlug": "balloon",
+        "family": "balloon",
+        "sourceSvgSha256": "68c20e57ca5e50d3687ea7253e9b1f1912963f4870253e09380f7872cb99e4dd",
+        "presentedSvgSha256": "68c20e57ca5e50d3687ea7253e9b1f1912963f4870253e09380f7872cb99e4dd",
+        "objectiveProbe": null
+      },
+      "presentedProofSha256": "e6be34963ee229ede1219ce0500f0a648a44583ee1b963fe0792603e1297d839",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "no",
+          "craft": "7",
+          "native": "yes",
+          "recognition": "clear",
+          "ship": "yes"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "no",
+          "craft": "8",
+          "native": "yes",
+          "recognition": "clear",
+          "ship": "yes"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "craft"
+        ],
+        "uncertainties": [],
+        "craftAbsoluteDifference": 1
+      },
+      "ensembleDisposition": "accept-diagnostic-consensus",
+      "ensembleReason": "both critics report no critical defect and agree native/ship yes"
+    },
+    {
+      "id": "S006",
+      "nativeSize": 24,
+      "sourceProvenance": {
+        "kind": "negative",
+        "sourceSlug": "payment",
+        "family": "payment",
+        "sourceSvgSha256": "5092ab8f0cf889c6dd6bf061a18e45479c75855e809f3bec65603d93fb596fa4",
+        "presentedSvgSha256": "5b51b50b2223cf69f7d2240e0966b621ae787212aa81eafc0b51522858c6bf8a",
+        "objectiveProbe": {
+          "afterInk": 1235,
+          "beforeInk": 2192,
+          "changedPixels": 957,
+          "objective": "severely-clipped-contour"
+        }
+      },
+      "presentedProofSha256": "bb7b5a20e333163b0a94fa728ad2bfd006c08a7483cb96a4c15a04efde6a563d",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "yes",
+          "craft": "2",
+          "native": "no",
+          "recognition": "unrecognizable",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "yes",
+          "craft": "3",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "craft",
+          "recognition"
+        ],
+        "uncertainties": [],
+        "craftAbsoluteDifference": 1
+      },
+      "ensembleDisposition": "reject",
+      "ensembleReason": "both critics report a critical defect or reject native/ship readiness"
+    },
+    {
+      "id": "S007",
+      "nativeSize": 16,
+      "sourceProvenance": {
+        "kind": "positive",
+        "sourceSlug": "reduce-motion",
+        "family": "reduce-motion",
+        "sourceSvgSha256": "94a262d205f0b5ba8ed8ec4f1b614da8d76043328e5bb0cd5eb7c9153b742452",
+        "presentedSvgSha256": "94a262d205f0b5ba8ed8ec4f1b614da8d76043328e5bb0cd5eb7c9153b742452",
+        "objectiveProbe": null
+      },
+      "presentedProofSha256": "bff428ae7fb04b21947da2ee939e19eaa328869773cae77e37969c4993ae0574",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "yes",
+          "craft": "3",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "no",
+          "craft": "7",
+          "native": "uncertain",
+          "recognition": "clear",
+          "ship": "no"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "critical",
+          "craft",
+          "native",
+          "recognition"
+        ],
+        "uncertainties": [
+          "codex:native"
+        ],
+        "craftAbsoluteDifference": 4
+      },
+      "ensembleDisposition": "quarantine",
+      "ensembleReason": "critical/native/ship disagreement or uncertainty"
+    },
+    {
+      "id": "S008",
+      "nativeSize": 24,
+      "sourceProvenance": {
+        "kind": "negative",
+        "sourceSlug": "chart-waterfall",
+        "family": "chart-waterfall",
+        "sourceSvgSha256": "1eea572ff2f0a9bfcaaf9d9d9859152b8943e09fd73eb73a04a81640074497e1",
+        "presentedSvgSha256": "a27e8c5e22899703e48c1e8f5f8918e25ad2fa8e4c6cafbbd2aa8b785965dc86",
+        "objectiveProbe": {
+          "afterInk": 2043,
+          "beforeInk": 1560,
+          "changedPixels": 482,
+          "objective": "counter-collapse"
+        }
+      },
+      "presentedProofSha256": "f2f9617d06d3e37f1db04aea29d951a7fa4559dc1517b796e1079946536b83a7",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "yes",
+          "craft": "4",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "uncertain",
+          "craft": "5",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "critical",
+          "craft"
+        ],
+        "uncertainties": [
+          "codex:critical"
+        ],
+        "craftAbsoluteDifference": 1
+      },
+      "ensembleDisposition": "quarantine",
+      "ensembleReason": "critical/native/ship disagreement or uncertainty"
+    },
+    {
+      "id": "S009",
+      "nativeSize": 16,
+      "sourceProvenance": {
+        "kind": "positive",
+        "sourceSlug": "pan",
+        "family": "pan",
+        "sourceSvgSha256": "77ecab18ca43973a8b951cb1bd4ead4aa75b58fce71aac42d9dd8286644f7b0a",
+        "presentedSvgSha256": "77ecab18ca43973a8b951cb1bd4ead4aa75b58fce71aac42d9dd8286644f7b0a",
+        "objectiveProbe": null
+      },
+      "presentedProofSha256": "ce21978772b0383af027d580c42cf197ab092faa8296689d8aee720d7aa330c8",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "uncertain",
+          "craft": "5",
+          "native": "no",
+          "recognition": "clear",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "no",
+          "craft": "9",
+          "native": "yes",
+          "recognition": "ambiguous",
+          "ship": "uncertain"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "critical",
+          "craft",
+          "native",
+          "recognition",
+          "ship"
+        ],
+        "uncertainties": [
+          "claude:critical",
+          "codex:ship"
+        ],
+        "craftAbsoluteDifference": 4
+      },
+      "ensembleDisposition": "quarantine",
+      "ensembleReason": "critical/native/ship disagreement or uncertainty"
+    },
+    {
+      "id": "S010",
+      "nativeSize": 24,
+      "sourceProvenance": {
+        "kind": "negative",
+        "sourceSlug": "letter-a-square",
+        "family": "letter-square",
+        "sourceSvgSha256": "63f8ff550c359a82693b237d8c21b44755e6f4e508a13027ad9bb9a0d753d884",
+        "presentedSvgSha256": "f7ac4df4da3d8924dadb0ea18d37cfe1a0fcaac6bd79b9c75fd664bc2eabface",
+        "objectiveProbe": {
+          "afterInk": 2190,
+          "beforeInk": 2483,
+          "changedPixels": 293,
+          "objective": "severed-connections"
+        }
+      },
+      "presentedProofSha256": "2a4850cf042b71df2337aa5187d16b4b6d0d24f63fd14da328e0d9f6334f4a01",
+      "critics": {
+        "claude-opus-5-original": {
+          "critical": "uncertain",
+          "craft": "5",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        },
+        "gpt-6-astra-posthoc-corrected": {
+          "critical": "yes",
+          "craft": "4",
+          "native": "no",
+          "recognition": "ambiguous",
+          "ship": "no"
+        }
+      },
+      "comparison": {
+        "disagreements": [
+          "critical",
+          "craft"
+        ],
+        "uncertainties": [
+          "claude:critical"
+        ],
+        "craftAbsoluteDifference": 1
+      },
+      "ensembleDisposition": "quarantine",
+      "ensembleReason": "critical/native/ship disagreement or uncertainty"
+    }
+  ],
+  "nextCalibrationAction": "Run a bounded, blind paired-relative calibration on the six quarantined stimuli (S002, S003, S007, S008, S009, S010): present each unchanged source beside its derived stimulus at the same native size, disclose neutral recognition alternatives and relevant family anchors only after blind recognition is sealed, and ask both critics to identify the location and effect of the recorded transformation. Preserve source-quality alerts separately. This tests whether disagreement comes from absolute-source quality, native rendering, or failure to detect the injected delta; it still cannot qualify the critic without the planned 100-family calibration."
+}

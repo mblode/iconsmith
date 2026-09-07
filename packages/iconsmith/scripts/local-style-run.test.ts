@@ -82,6 +82,7 @@ it.each([
   "altered-composition-source",
   "missing-review",
   "interrupted-finalization",
+  "interrupted-finalization-mutated",
   "interrupted-with-review",
   "repeated-interruption",
   "missing-inspection",
@@ -173,14 +174,35 @@ it.each([
         : undefined,
       concept: "ring",
       env: process.env,
+      // The scenario matrix intentionally exercises every delivery guard.
+      // oxlint-disable-next-line eslint/complexity
       invoke: (brief, cwd, images) => {
+        expect(brief).toContain(
+          "This prompt is the complete BRIEF.md; do not reread BRIEF.md."
+        );
+        expect(brief).toContain("Treat checker.mjs as an opaque executable");
+        expect(brief).toContain("use its output to repair the DSL");
+        expect(brief).toContain("never read or search its source");
+        expect(brief).not.toContain("Read BRIEF.md and execute");
+        expect(brief).toContain("Execute this brief.");
+        expect(brief).toContain("Run the real checker after each revision:");
+        expect(brief).toContain("checker.mjs");
+        expect(brief).toContain("revision.json");
         const interrupted =
           scenario === "repeated-interruption" ||
-          (["interrupted-finalization", "interrupted-with-review"].includes(
-            scenario
-          ) &&
+          ([
+            "interrupted-finalization",
+            "interrupted-finalization-mutated",
+            "interrupted-with-review",
+          ].includes(scenario) &&
             path.basename(cwd) === "attempt-1");
-        if (scenario === "interrupted-finalization" && !interrupted) {
+        if (
+          [
+            "interrupted-finalization",
+            "interrupted-finalization-mutated",
+          ].includes(scenario) &&
+          !interrupted
+        ) {
           expect(brief).toContain("previous author was interrupted");
           expect(
             readFileSync(path.join(cwd, "outlined.icon"), "utf-8")
@@ -240,7 +262,9 @@ it.each([
         );
         writeFileSync(
           path.join(cwd, "outlined.icon"),
-          "icon ring\nfinish outlined\ncircle 12,12 r9"
+          scenario === "interrupted-finalization-mutated" && !interrupted
+            ? "icon ring\nfinish outlined\ncircle 12,12 r8"
+            : "icon ring\nfinish outlined\ncircle 12,12 r9"
         );
         writeFileSync(
           path.join(cwd, "filled.icon"),
@@ -361,13 +385,28 @@ it.each([
         ? "delivered"
         : "incomplete"
     );
-    if (
-      ["interrupted-finalization", "interrupted-with-review"].includes(scenario)
-    ) {
+    if (scenario === "interrupted-finalization") {
       expect(result.attempts.map((item) => item.status)).toEqual([
         "incomplete",
         "review-clear",
       ]);
+    }
+    if (scenario === "interrupted-finalization-mutated") {
+      expect(result.changedInputs).toContain(
+        "finalization-geometry:outlined.icon"
+      );
+      expect(result.attempts.map((item) => item.status)).toEqual([
+        "incomplete",
+        "incomplete",
+      ]);
+    }
+    if (scenario === "interrupted-with-review") {
+      expect(result.attempts.map((item) => item.status)).toEqual([
+        "review-clear",
+      ]);
+      expect(result.completionProvenance).toBe(
+        "host-validated-after-author-interruption"
+      );
     }
     if (scenario === "repeated-interruption") {
       expect(result.attempts).toHaveLength(3);
@@ -411,9 +450,13 @@ it.each([
         "altered-reference-proof": ["reference-0-proof.png"],
         "altered-runtime": ["checker.mjs"],
         "altered-runtime-link": ["dependency"],
+        "interrupted-finalization-mutated": [
+          "finalization-geometry:outlined.icon",
+        ],
       }[scenario] ?? []
     );
-    expect(result.checkExitCode).toBe(
+    let expectedCheckExitCode: number | null = 0;
+    if (
       [
         "altered-composition",
         "altered-composition-source",
@@ -423,9 +466,12 @@ it.each([
         "altered-runtime",
         "altered-runtime-link",
       ].includes(scenario)
-        ? null
-        : 0
-    );
+    ) {
+      expectedCheckExitCode = null;
+    } else if (scenario === "interrupted-finalization-mutated") {
+      expectedCheckExitCode = 1;
+    }
+    expect(result.checkExitCode).toBe(expectedCheckExitCode);
   } finally {
     rmSync(root, { force: true, recursive: true });
   }
@@ -566,6 +612,9 @@ it.each([
       );
       if (scenario === "representation") {
         expect(reviewers).toBe(0);
+      }
+      if (scenario === "uncertain") {
+        expect(reviewers).toBe(2);
       }
       if (scenario === "repeat") {
         expect(reviewers).toBe(1);

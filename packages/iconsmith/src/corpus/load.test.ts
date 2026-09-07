@@ -69,3 +69,30 @@ it("resolves nested inherited paint and excludes unpainted canvas paths", () => 
     true
   );
 });
+
+it("reads digit-suffixed coordinates from an inherited stroked horizontal line", () => {
+  const shapes = parseIconSvg(
+    '<svg fill="none" stroke="currentColor" stroke-width="2"><line x1="8" x2="16" y1="12" y2="12"/></svg>'
+  );
+  expect(shapes).toEqual([
+    expect.objectContaining({
+      d: "M8 12L16 12",
+      filled: false,
+      strokeWidth: 2,
+    }),
+  ]);
+});
+
+it("preserves the 0.01-unit round-cap line used as a dot", () => {
+  const shapes = parseIconSvg(
+    '<svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" x2="12.01" y1="16" y2="16"/></svg>'
+  );
+  expect(shapes).toEqual([
+    expect.objectContaining({
+      cap: "round",
+      d: "M12 16L12.01 16",
+      filled: false,
+      strokeWidth: 2,
+    }),
+  ]);
+});

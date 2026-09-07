@@ -1,0 +1,465 @@
+{
+  "schemaVersion": 2,
+  "createdAt": "2026-09-07T13:35:21.991Z",
+  "status": "offline-feasibility-only",
+  "qualified": false,
+  "scope": "host-derived filled nested-hole expansion; no compiler or provider changes",
+  "sourceRoot": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+  "width": 0.5,
+  "outwardExpansion": 0.25,
+  "observations": [
+    "All three expanded counters remain strictly contained and preserve one vector outer ink component.",
+    "Bell's enclosed counter is measurable at 24px but remains absent under the conservative binary 16px raster test before and after; this operation alone does not establish a native-16 bell repair.",
+    "Zoom-in has one vector ink component, while the conservative 16px binary raster reports three ink components both before and after; the prototype preserves rather than resolves that threshold-level behavior."
+  ],
+  "cases": [
+    {
+      "name": "bell-filled",
+      "sourcePath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/bell-filled.svg",
+      "sourceSvgSha256": "921d4df5c0bad966a30b76c40c29c1909f05c76b978396a4e16165ce28db7e2a",
+      "sourceFillRule": "evenodd",
+      "sourceSubpathCount": 2,
+      "operation": "union(counter nonzero, expandStroke(counter,0.5) nonzero); subtract nonzero result from unchanged nonzero outer",
+      "fillRulePropagation": {
+        "sourceCompound": "evenodd",
+        "isolatedOuter": "nonzero",
+        "isolatedCounter": "nonzero",
+        "strokeBand": "nonzero",
+        "unionResult": "nonzero",
+        "subtractionResult": "nonzero",
+        "renderedResult": "nonzero"
+      },
+      "directBooleanObjects": {
+        "union": {
+          "objectArea": 5.60387915733331,
+          "objectChildren": 1,
+          "serializedArea": 5.603879985029984,
+          "pathDataSha256": "c715b0b885bfc27425321a48e3e658bb23a193600b03906fe0f880b0d441a3c1"
+        },
+        "subtract": {
+          "objectArea": 257.92258369197,
+          "objectChildren": 2,
+          "serializedArea": 257.92258369197,
+          "pathDataSha256": "83be4dc53be43b55f01e1d087f1ca6d4d115822acaf3fb511b4f9227cf3aeecc"
+        }
+      },
+      "outerPathSha256": "95e4cc17780bdd5bb289781ea7d23b0bb028d24e947f27b3ff051dcbb01dba9c",
+      "preservedOtherHoleCount": 0,
+      "vectorInkConnectedBefore": true,
+      "vectorInkConnectedAfter": true,
+      "vectorConnectivityBasis": "one closed outer boundary; counter has zero boundary intersections and zero outside area before and after",
+      "before": {
+        "area": 3.0424855975000042,
+        "bounds": [
+          9.7783,
+          19,
+          14.2218,
+          20
+        ],
+        "children": 1,
+        "intersections": 0,
+        "outsideArea": 0
+      },
+      "after": {
+        "area": 5.603879985029984,
+        "bounds": [
+          9.5283,
+          18.749999999999996,
+          14.471775,
+          20.249999999999996
+        ],
+        "children": 1,
+        "intersections": 0,
+        "outsideArea": 0
+      },
+      "counterAreaIncrease": 2.5613943875299796,
+      "paintAreaBefore": 260.4839780795,
+      "paintAreaAfter": 257.92258369197,
+      "expectedPaintAreaDecrease": 2.5613943875299796,
+      "actualPaintAreaDecrease": 2.561394387530015,
+      "nativeRasterTopology": {
+        "before-16-light": {
+          "enclosedCounters": 0,
+          "inkComponents": 1
+        },
+        "before-16-dark": {
+          "enclosedCounters": 0,
+          "inkComponents": 1
+        },
+        "before-32-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-32-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-24-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-24-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-48-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-48-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-16-light": {
+          "enclosedCounters": 0,
+          "inkComponents": 1
+        },
+        "after-16-dark": {
+          "enclosedCounters": 0,
+          "inkComponents": 1
+        },
+        "after-32-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-32-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-24-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-24-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-48-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-48-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        }
+      },
+      "images": {
+        "before-16-light": "af7f7673adc58dbf9b88c620313285afa4cdffd0c842bdebf9c80f8a083824d0",
+        "before-16-dark": "b88509b4b083b548563108811409ba2a377aff7e4bbeeaabe1ae134305387f53",
+        "before-32-light": "0d545de1a9e5ea19b5ed6f12142c2406651b4f286da294219a223f511186228e",
+        "before-32-dark": "33caf2d52c2ef6bddf237f4e1bcfa2dc8a1a5fc8ec8ee9e47a914c7111fb750a",
+        "before-24-light": "e5c865c5827a23c0449f74e491838a058450cf34cce502364e946bdf3250cc3d",
+        "before-24-dark": "ccab38c3fea1a624df86ba3fcb8ef3cccd9e6f872759603e822fbf4b62f03f4b",
+        "before-48-light": "22671b29699087645e85ef56e82d5583ef2a91f446cfdfc76d30f1e944c9a169",
+        "before-48-dark": "c7c905b3566c69d81d27488a72c67b21b8667328cfa6e5afdd6a85f04a694f61",
+        "after-16-light": "381172e0e3dab3c9473578ba0e358f1810a5d84ef043c88499e15a67ab01de5e",
+        "after-16-dark": "beb5cbb82d4ce35439826dc000841ddcaf44facaeac12b0725deb1cccbf6a2fc",
+        "after-32-light": "2953a445e03687bd83e75dd8fd8330fbba06b8b94c25c92eb0683443b5dd9f48",
+        "after-32-dark": "b28b55021e27eea55827d48261cf16e86faa427d0c1a87c1e0b68c2c19e78f0d",
+        "after-24-light": "6964da7ad20f16a94540323c2831e37e4012852807c94f8299388b96639cf06c",
+        "after-24-dark": "be06d7e21caeb83af6d8b4f1cf543f7f422c6f8374c08c05ab4fe14900cea484",
+        "after-48-light": "e907e8dea6c15b11078e663752c6e9825ade4f18b524b167b1f1e9a2b365ada7",
+        "after-48-dark": "562fdf68229114d50216cbb5b64651eb501bfb2a8f4dade542024f86a60d2ba1"
+      }
+    },
+    {
+      "name": "add-keyframe-filled",
+      "sourcePath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/add-keyframe-filled.svg",
+      "sourceSvgSha256": "1c1b4eea7ed3f1190b20b12e008d1e6626230144f7f52a1211e1b9d2447ce413",
+      "sourceFillRule": "evenodd",
+      "sourceSubpathCount": 2,
+      "operation": "union(counter nonzero, expandStroke(counter,0.5) nonzero); subtract nonzero result from unchanged nonzero outer",
+      "fillRulePropagation": {
+        "sourceCompound": "evenodd",
+        "isolatedOuter": "nonzero",
+        "isolatedCounter": "nonzero",
+        "strokeBand": "nonzero",
+        "unionResult": "nonzero",
+        "subtractionResult": "nonzero",
+        "renderedResult": "nonzero"
+      },
+      "directBooleanObjects": {
+        "union": {
+          "objectArea": 33.57166995533331,
+          "objectChildren": 1,
+          "serializedArea": 33.571659567579935,
+          "pathDataSha256": "b5bbdd993057052219d6f7ecfb16dfea140d210147d98db3236e3a18bef2b967"
+        },
+        "subtract": {
+          "objectArea": 224.8147884734201,
+          "objectChildren": 2,
+          "serializedArea": 224.81478847342015,
+          "pathDataSha256": "4be146c45130d7c2887e38d1eda910c655f888a3a57b238f8ff8436e40481df0"
+        }
+      },
+      "outerPathSha256": "f752c56afb2ddeb963ad0df51e221206eed920a6ab2a0240d7ab9aa3339c2e32",
+      "preservedOtherHoleCount": 0,
+      "vectorInkConnectedBefore": true,
+      "vectorInkConnectedAfter": true,
+      "vectorConnectivityBasis": "one closed outer boundary; counter has zero boundary intersections and zero outside area before and after",
+      "before": {
+        "area": 26.28499765200001,
+        "bounds": [
+          7.9995,
+          8,
+          15.9995,
+          16
+        ],
+        "children": 1,
+        "intersections": 0,
+        "outsideArea": 0
+      },
+      "after": {
+        "area": 33.571659567579935,
+        "bounds": [
+          7.749500000000006,
+          7.750000000000001,
+          16.249499999999998,
+          16.249999999999993
+        ],
+        "children": 1,
+        "intersections": 0,
+        "outsideArea": 0
+      },
+      "counterAreaIncrease": 7.286661915579927,
+      "paintAreaBefore": 232.10145038900004,
+      "paintAreaAfter": 224.81478847342015,
+      "expectedPaintAreaDecrease": 7.286661915579927,
+      "actualPaintAreaDecrease": 7.286661915579884,
+      "nativeRasterTopology": {
+        "before-16-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-16-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-32-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-32-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-24-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-24-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-48-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-48-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-16-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-16-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-32-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-32-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-24-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-24-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-48-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-48-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        }
+      },
+      "images": {
+        "before-16-light": "a203d74619adc8090dacc4ae7e4a43ad7a6992b5daa50d251332f290dabbbc0c",
+        "before-16-dark": "c5a1ea39a9fb6485f14738b03262c0a26b6b169168fc95b2427278d5c9ca4d78",
+        "before-32-light": "7c143cb35f9f861ef6c11789e408e0584bb51ba5d2bde128e9eb78b946f03964",
+        "before-32-dark": "5056f9f3fb4ef05ffdfb452d4508f57522b90612ec90d953ec9211d48ce2483d",
+        "before-24-light": "43d84ba86c709f4f8980debfae529c3745be2e004053bbc5080250207b05b17b",
+        "before-24-dark": "30b3a327c5a3b6232a0fb798c858acaef6706f1d005eb9e573983962e4913ad9",
+        "before-48-light": "4957c8ff2baecbeedc08861d01b6047831600f7ba20f1bac6ff59f8c45c16519",
+        "before-48-dark": "5be21855d5962703b0f444776e96387552bdc0aa81e1f672958e445be2e2b3a7",
+        "after-16-light": "8a71842f1b49d6ad75f9d634a3c280168722841ca99ecb81b79ce4fa26c9f164",
+        "after-16-dark": "4f0635f78d42a896e0fc7b5fc0b91b5b0617e04e45432424825a7c036d5125f8",
+        "after-32-light": "76490cc852785303b1bf965b8361ddcfcdf7e26f9db92e2eea7064a55ca0f129",
+        "after-32-dark": "9c7a7d0fecde5cd3912332e597b4103dd68cb7ac840fdbc02b3f07798db33848",
+        "after-24-light": "0b6ae9a8c0862d36f42b9cee6c4bada1311be443eca95d32fb7a2db3190c21f5",
+        "after-24-dark": "014c8d4ee4f198f63117328505794ff40e0281789910faf0972a52c24d0aef55",
+        "after-48-light": "8c1ce60a22e5bab655b50835762463960d68c5bdab531b4be599eff6d23f5e5a",
+        "after-48-dark": "c737ce0763e70a330ca1abfded9a6d68c2365c5d1df35b87c14ab0f268edc4b5"
+      }
+    },
+    {
+      "name": "zoom-in-filled",
+      "sourcePath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/zoom-in-filled.svg",
+      "sourceSvgSha256": "42fd57b25afe8cead16496561de1cb23d1aef99d7f088b7d0bf462f2ed89c256",
+      "sourceFillRule": "evenodd",
+      "sourceSubpathCount": 2,
+      "operation": "union(counter nonzero, expandStroke(counter,0.5) nonzero); subtract nonzero result from unchanged nonzero outer",
+      "fillRulePropagation": {
+        "sourceCompound": "evenodd",
+        "isolatedOuter": "nonzero",
+        "isolatedCounter": "nonzero",
+        "strokeBand": "nonzero",
+        "unionResult": "nonzero",
+        "subtractionResult": "nonzero",
+        "renderedResult": "nonzero"
+      },
+      "directBooleanObjects": {
+        "union": {
+          "objectArea": 33.571637773233356,
+          "objectChildren": 1,
+          "serializedArea": 33.571628368809996,
+          "pathDataSha256": "f1c09b4c1bd2144db9562b8676cc0242490f9b3f6d59c28f53f60b5b1e886b54"
+        },
+        "subtract": {
+          "objectArea": 178.61507316669002,
+          "objectChildren": 2,
+          "serializedArea": 178.61507316669,
+          "pathDataSha256": "ff57e202188c693a768fed3ee2c39011db70f49e9579a48d70e51078cc334a33"
+        }
+      },
+      "outerPathSha256": "d4db456f907f73964a1777ee948872e71169fc8e6122483cfd281d04e10dd845",
+      "preservedOtherHoleCount": 0,
+      "vectorInkConnectedBefore": true,
+      "vectorInkConnectedAfter": true,
+      "vectorConnectivityBasis": "one closed outer boundary; counter has zero boundary intersections and zero outside area before and after",
+      "before": {
+        "area": 26.284997651999998,
+        "bounds": [
+          7,
+          7,
+          15,
+          15
+        ],
+        "children": 1,
+        "intersections": 0,
+        "outsideArea": 0
+      },
+      "after": {
+        "area": 33.571628368809996,
+        "bounds": [
+          6.750000000000002,
+          6.75,
+          15.249999999999998,
+          15.249999999999996
+        ],
+        "children": 1,
+        "intersections": 0,
+        "outsideArea": 0
+      },
+      "counterAreaIncrease": 7.286630716809999,
+      "paintAreaBefore": 185.9017038835,
+      "paintAreaAfter": 178.61507316669,
+      "expectedPaintAreaDecrease": 7.286630716809999,
+      "actualPaintAreaDecrease": 7.286630716810009,
+      "nativeRasterTopology": {
+        "before-16-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 3
+        },
+        "before-16-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 3
+        },
+        "before-32-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-32-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-24-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-24-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-48-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "before-48-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-16-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 3
+        },
+        "after-16-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 3
+        },
+        "after-32-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-32-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-24-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-24-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-48-light": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        },
+        "after-48-dark": {
+          "enclosedCounters": 1,
+          "inkComponents": 1
+        }
+      },
+      "images": {
+        "before-16-light": "572881f9b3fc7ffb82c157d35163cfda2334a35f8a8804cae59fb561b291d321",
+        "before-16-dark": "9eeaa9bad34810f935cd59642d673bbb32c9c675b613ed393f691a842bf5794c",
+        "before-32-light": "5961f698d55a59c770021026c8439ebb8e514264b8ebf45345072dd879984fe1",
+        "before-32-dark": "cb721819c15b246237c5a1edbdee2a89bfdf1d719bcb77d2377b6d43dc8dedbb",
+        "before-24-light": "6efe811f88b9d2d377b82f09734d70e5df12ddabdf000ab917227f22acb89add",
+        "before-24-dark": "4f2c26d987bd21be563d8370e70bd6d8118b5f2c322b21a2baa905e53920c668",
+        "before-48-light": "856c017791bde8bc22e17a29041d831a71d4c7869d0c14c7a87aef03e6ba82e6",
+        "before-48-dark": "53cf83ac4c5b186242e1e53f911a21ac0d8472ee9361524d4e11f53544038861",
+        "after-16-light": "142baeff1197b0f96c8b79a68986963719ccc2e7143d35b8a4269554357116a0",
+        "after-16-dark": "b871b503d219f01e9564cfec586dad0fe9d35d5b22a30b7f55611d54f0536799",
+        "after-32-light": "200a666807af3f42687c254d9eea002dde102cf1c37f1bc086708609a7003375",
+        "after-32-dark": "f9b389aa85ade07060696dd10b560273f8c438d9cbf83d766cd0566af697d951",
+        "after-24-light": "b54103c10682177e40f92ac0df52dcada29b893703cbeae6161b8875fd232c7a",
+        "after-24-dark": "83de36b6d1a95a8029041e3f98b0de2024804daa00242f474f66d23825553cb4",
+        "after-48-light": "110b3abe1a032ec8af2b5eb32f8e15b4991a71c691e63e8326d5ddd91fa7e019",
+        "after-48-dark": "c2310b8d9ea6c1cae84e3b2a0207e94becffdb3835e9ba1ccd6b912db1b196c3"
+      }
+    }
+  ],
+  "boardSha256": "94a3642beb159699c3b4ec5f72a5773ac605c88715bcb926ab3fc0667cbf5a18"
+}

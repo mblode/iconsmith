@@ -1,0 +1,108 @@
+{
+  "date": "2026-09-07",
+  "authority": "100 percent AI evaluation; no human labels requested or fabricated",
+  "validation": {
+    "engineTestsPassed": 1761,
+    "engineTestFiles": 150,
+    "skipped": 0,
+    "maxTestWorkers": 4,
+    "rootBuild": true,
+    "rootTypecheck": true,
+    "rootLintAndLayering": true,
+    "gitDiffCheck": true,
+    "logs": {
+      "test": {
+        "path": ".staging/house-quality-execution-2026-09-07/root-test-v9.log",
+        "sha256": "f6d54d4dd99627476c07effe1afab924f67290389ab90aa2f6076cb36155e4af"
+      },
+      "build": {
+        "path": ".staging/house-quality-execution-2026-09-07/root-build-v9.log",
+        "sha256": "2c7b07918cf01e33246659cda9ce585db332f075e14c65eb1e239e582d707076"
+      },
+      "types": {
+        "path": ".staging/house-quality-execution-2026-09-07/root-types-v9.log",
+        "sha256": "f456cc7827ea846f1c0d08ac60d1ca5a339769707e12bddf8b1fa96432d2329b"
+      },
+      "check": {
+        "path": ".staging/house-quality-execution-2026-09-07/root-check-v9.log",
+        "sha256": "c495615d5616b5c68020f9026a59185a651471f17d9f6b04b97a8a27a33fd88d"
+      }
+    }
+  },
+  "processOwnership": {
+    "observedDescendantsVerified": true,
+    "alreadyReparentedDoubleForkContainmentProven": false,
+    "failedRunsPreserved": [
+      "v5",
+      "v6",
+      "v7",
+      "v8"
+    ]
+  },
+  "sourceAudit": {
+    "exactReplays": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "sourceRasterDifferences": 1007,
+    "receipt": "docs/log/house-source-regression-2026-09-07.json"
+  },
+  "actualAiDevelopmentExport": {
+    "outputs": 10,
+    "missingSlots": 70,
+    "outsideDeclaredCohortOutputs": 2,
+    "path": "docs/log/a126-independent-ai-development-2026-09-07"
+  },
+  "reviewAssessment": {
+    "actualCampaign": "A130",
+    "qualified": false,
+    "completeEligibleReviewers": 0,
+    "allFourOutputs": "incomplete",
+    "diagnosticClaudeCraft": [
+      7,
+      6,
+      3,
+      5
+    ],
+    "receipt": "docs/log/a130-independent-ai-assessment-2026-09-07.json"
+  },
+  "cost": {
+    "newApiSpendUsd": 0,
+    "newApiReservationUsd": 0,
+    "historicalActualUsd": 13.06220785,
+    "historicalReservedUnknownUsd": 11.37126575,
+    "apiCapUsd": 50,
+    "nativeSubscriptionCostUsd": null,
+    "resetCreditConsumed": false,
+    "nativeCodexWeeklyUsedPercent": 96
+  },
+  "qualified": false,
+  "openGates": [
+    "complete process-tree containment",
+    "frozen-route salvage and independent review within deadline",
+    "matched retrieval and author route selection",
+    "complete 80-output development cohort",
+    "100-stimulus independent AI critic qualification",
+    "20-case repair evaluation",
+    "8884 catalog outputs and measured resource forecast",
+    "160 novel outputs and per-stratum acceptance"
+  ],
+  "latestExperiment": {
+    "id": "A131",
+    "status": "complete",
+    "nativeCalls": 2,
+    "elapsedMs": 76495,
+    "recognizedCorrect": 4,
+    "requestedOutputs": 4,
+    "craftScores": [
+      9,
+      9,
+      9,
+      9
+    ],
+    "independentConsensus": false,
+    "criticQualified": false,
+    "receipt": "docs/log/a131-attachment-review-results-2026-09-07.json"
+  },
+  "activeProviderCalls": 0,
+  "nextDispatchGate": "Qualify reviewer on declared controls before catalog; current native usage has 4 percent remaining and no usage-reset authorization."
+}

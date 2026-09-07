@@ -1,0 +1,349 @@
+{
+  "kind": "a133-p01-additive-semantic-validity-audit",
+  "date": "2026-09-07",
+  "campaign": "A133",
+  "authority": "host metadata and already-exposed reviewer evidence; no new model call",
+  "packet": "P01",
+  "denominator": 10,
+  "rawRecognition": {
+    "codex": {
+      "correctByFrozenKey": 9,
+      "total": 10
+    },
+    "claude": {
+      "correctByFrozenKey": 7,
+      "total": 10
+    }
+  },
+  "recognitionPerformanceEligible": false,
+  "qualified": false,
+  "findings": {
+    "confirmedInvalidChoiceSets": [
+      "S005"
+    ],
+    "ambiguousChoiceSets": [
+      "S009"
+    ],
+    "corruptionObscuresSemantics": [
+      "S004"
+    ],
+    "interpretation": "Frozen-key raw scores are preserved but are not qualification evidence. S005 is not a model miss: both reviewers correctly identify power/standby, while the source filename and answer say esc. Filename-derived labels are not verified recognition truth."
+  },
+  "limitations": [
+    "The source SVG hashes are bindings copied from the sealed host key; this audit did not locate an independent retained source byte file with those hashes.",
+    "A plausible filename or reviewer agreement is not independent semantic ground truth.",
+    "P01 is a ten-item development-exposed control packet with exact target anchors and cannot qualify recognition or general craft."
+  ],
+  "rows": [
+    {
+      "id": "S001",
+      "control": "source-baseline",
+      "sourceSlug": "firefox",
+      "aliases": [
+        "mozilla"
+      ],
+      "sourceSvgSha256": "f3374d263ad569f547526b246de141cd271284a5ca950c8b3847e140a47c8765",
+      "candidateSvgSha256": "f3374d263ad569f547526b246de141cd271284a5ca950c8b3847e140a47c8765",
+      "recognitionAnswer": "firefox",
+      "recognitionChoices": [
+        "firefox",
+        "drink",
+        "bezier-curve",
+        "quora"
+      ],
+      "candidateBoardSha256": "4d682ab7bb82b853e245435dfac3ca23b82241a0179ca2859c7b277b82b4a2d0",
+      "sourceAnchorSha256": "a9aabdbc23d7fb074ac2160d878a01df444182d9fa332c1c77d4f3e737ee4714",
+      "reviewers": {
+        "codex": {
+          "choice": "firefox",
+          "evidence": "A curled, pointed animal silhouette wraps around a circular opening, resembling a fox encircling a globe."
+        },
+        "claude": {
+          "choice": "firefox",
+          "evidence": "A solid black disc whose interior carries a white crescent gap spiraling from the upper-left rim inward, leaving a tapering black flame/tail tip curling over the center-right. The circle-plus-swirling-tail motif reads as the Firefox mark rather than a cup, a Q with a stem, or a curve with handles."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    },
+    {
+      "id": "S002",
+      "control": "objective-corruption",
+      "sourceSlug": "diamond-shine",
+      "aliases": [
+        "polish"
+      ],
+      "sourceSvgSha256": "4c752c46f5a00c07826b24cbd8637d9bcf7b9657d4a843d3d3d91a479da49031",
+      "candidateSvgSha256": "b8a2cfe2d1509bbb2c7274a7a87eab60651552f7a633697917ef922d609c7482",
+      "recognitionAnswer": "diamond-shine",
+      "recognitionChoices": [
+        "diamond-shine",
+        "map-edit-flat",
+        "square-arrow-center",
+        "square-info"
+      ],
+      "candidateBoardSha256": "14971fddd86eed4d279ba2bafabf2e91dd8c388967c9bdf246d0dba06ebe6829",
+      "sourceAnchorSha256": "cc12d92d9ae52c35b752c64263642aa73847b48f30385e0ef5a088bd5c8beea9",
+      "reviewers": {
+        "codex": {
+          "choice": "diamond-shine",
+          "evidence": "A faceted diamond divided by cross-shaped gaps has short shine rays above it."
+        },
+        "claude": {
+          "choice": "diamond-shine",
+          "evidence": "A downward-pointing faceted gem body split into four cells by a white cross, with two tilted black ovals flanking the upper corners and two hairline ticks above center acting as sparkle marks. Best fit is a gem with shine, though the oval sparkles read ambiguously as ears at 1x."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    },
+    {
+      "id": "S003",
+      "control": "source-baseline",
+      "sourceSlug": "stable-voice",
+      "aliases": [
+        "stable-volume"
+      ],
+      "sourceSvgSha256": "f3ffe8938f6a98e4bed8fbb4bef7f122dcd4407e1c882fda23e0365b0f4b8b09",
+      "candidateSvgSha256": "f3ffe8938f6a98e4bed8fbb4bef7f122dcd4407e1c882fda23e0365b0f4b8b09",
+      "recognitionAnswer": "stable-voice",
+      "recognitionChoices": [
+        "stable-voice",
+        "email-2-block",
+        "battery-medium",
+        "search-intelligence"
+      ],
+      "candidateBoardSha256": "069b64d5b2ee4d61949481c7f0e9d45cdc584c01c6436d557236717c3c33d13b",
+      "sourceAnchorSha256": "7d6327ee50f95e24dd0014a96183593ec6dce1d635e3455b0856d7841d0688e2",
+      "reviewers": {
+        "codex": {
+          "choice": "stable-voice",
+          "evidence": "A circular outline contains four rounded vertical bars of varying heights, suggesting a voice waveform."
+        },
+        "claude": {
+          "choice": "stable-voice",
+          "evidence": "A thick ring encloses four rounded vertical bars of alternating height (tall pair at center, shorter outer pair), the standard voice/waveform amplitude cluster. Nothing suggests envelopes, a battery cell, or a magnifier."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    },
+    {
+      "id": "S004",
+      "control": "objective-corruption",
+      "sourceSlug": "television-old",
+      "aliases": [],
+      "sourceSvgSha256": "4367f76424cf4bee8a7fd913094d4ed133edb46fbeb960beae432df1ba6b405f",
+      "candidateSvgSha256": "1f3fe438ce241bee56029705e5fea8d51e68f551d966be2c067de2200e84b057",
+      "recognitionAnswer": "television-old",
+      "recognitionChoices": [
+        "television-old",
+        "finder-face",
+        "brackets-1",
+        "webcam"
+      ],
+      "candidateBoardSha256": "a30b4ffd3df0c4dbba711da26baa6ea9de77e290895823fee320bde7b21b3042",
+      "sourceAnchorSha256": "e85449ac7d495ed40d6c79946fba844f66a5879b1a0ae0100310fe06764176b8",
+      "reviewers": {
+        "codex": {
+          "choice": "television-old",
+          "evidence": "A rounded box silhouette has a diagonal antenna-like projection above it, suggesting an old television."
+        },
+        "claude": {
+          "choice": "uncertain",
+          "evidence": "A solid black rounded-cornered blob with a flat, unrounded right edge and one short thick diagonal stub at the top right; there is no screen inset, no face, no lens, and no bracket strokes. The stub could be an antenna or a stem, but with a wholly filled body no listed meaning is decidable."
+        }
+      },
+      "semanticStatus": "corruption-obscures-source-semantics",
+      "finding": "The host-injected corruption removed identifying detail; uncertainty cannot validate or invalidate the original source label."
+    },
+    {
+      "id": "S005",
+      "control": "source-baseline",
+      "sourceSlug": "esc",
+      "aliases": [
+        "escape",
+        "exit",
+        "quit"
+      ],
+      "sourceSvgSha256": "74df6b6bbdebc25b5c9f0f46f18d044802af7f6643f1479993b1f918de5d0835",
+      "candidateSvgSha256": "74df6b6bbdebc25b5c9f0f46f18d044802af7f6643f1479993b1f918de5d0835",
+      "recognitionAnswer": "esc",
+      "recognitionChoices": [
+        "esc",
+        "script",
+        "signature",
+        "door"
+      ],
+      "candidateBoardSha256": "4fb85b6c3faae322e0c848092bfaa0346597cd092fc9d7a15e4f8ea79ba52221",
+      "sourceAnchorSha256": "a9d6892bf555e982e20b623c1598bb2655e09899919cecd1f32191be7974ccd1",
+      "reviewers": {
+        "codex": {
+          "choice": "uncertain",
+          "evidence": "An open circular ring with a short vertical stroke at its top forms a power symbol. None of the offered meanings fits."
+        },
+        "claude": {
+          "choice": "uncertain",
+          "evidence": "An open ring broken at top center with a vertical rounded bar rising through the gap \u2014 the standard power/standby symbol. It matches none of esc, script, signature, or door."
+        }
+      },
+      "semanticStatus": "invalid-choice-set-for-observed-symbol",
+      "finding": "Both independent reviewers describe a standard power/standby glyph and choose uncertain because no offered choice names it. The unmodified candidate is hash-bound to the source SVG, so this is a source filename/semantic-label problem rather than evidence of a renderer change."
+    },
+    {
+      "id": "S006",
+      "control": "objective-corruption",
+      "sourceSlug": "boolean-group-substract",
+      "aliases": [
+        "subtract"
+      ],
+      "sourceSvgSha256": "a1bb9c25b99035c8e8fb358d109ac79cdb119523dc7a23beb8d194892b4c9081",
+      "candidateSvgSha256": "07f858f8fa890369b593ea06e82526523b64f2259d992b36c433760be960c2e4",
+      "recognitionAnswer": "boolean-group-substract",
+      "recognitionChoices": [
+        "boolean-group-substract",
+        "frisbee-golf",
+        "mouse-down",
+        "people-voice"
+      ],
+      "candidateBoardSha256": "633989ddf0e3f05763229a1845e62912b2569866496695c25e8649c7f4cd939d",
+      "sourceAnchorSha256": "aaf07501024b98b09194215725953755652769003e8b1eca2f6db4266d55faff",
+      "reviewers": {
+        "codex": {
+          "choice": "boolean-group-substract",
+          "evidence": "Two diagonally overlapping rounded-square outlines have a filled shared region, suggesting a Boolean shape operation."
+        },
+        "claude": {
+          "choice": "boolean-group-substract",
+          "evidence": "Two equal rounded-square outlines overlap diagonally (lower-left and upper-right), with a filled black disc occupying their intersection region. The two-shape overlap with a marked intersection is a boolean set operation, not a disc, mouse, or people."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    },
+    {
+      "id": "S007",
+      "control": "source-baseline",
+      "sourceSlug": "dot-grid-1x3-vertical-tight",
+      "aliases": [],
+      "sourceSvgSha256": "9eb52617ed7a2603a342838844c0fcfeba547af0f69a60bc7a4de152db95d45a",
+      "candidateSvgSha256": "9eb52617ed7a2603a342838844c0fcfeba547af0f69a60bc7a4de152db95d45a",
+      "recognitionAnswer": "dot-grid-1x3-vertical-tight",
+      "recognitionChoices": [
+        "dot-grid-1x3-vertical-tight",
+        "garage",
+        "arrow-top-bottom",
+        "math-equals"
+      ],
+      "candidateBoardSha256": "182c2f03faf3e2887ca52419bdad8cbc08567d4bd8241ea5ad29f82fbbac7206",
+      "sourceAnchorSha256": "332990db707dfee152b85f7336dfee184deaf0b2e9500e49a5178fbe6348540a",
+      "reviewers": {
+        "codex": {
+          "choice": "dot-grid-1x3-vertical-tight",
+          "evidence": "Three equally sized solid dots form one closely spaced vertical column."
+        },
+        "claude": {
+          "choice": "dot-grid-1x3-vertical-tight",
+          "evidence": "Exactly three equal filled circles stacked in one vertical column with small equal gaps and no other marks. That is a single tight 1x3 vertical dot column."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    },
+    {
+      "id": "S008",
+      "control": "objective-corruption",
+      "sourceSlug": "numbered-list",
+      "aliases": [
+        "enumerate",
+        "ol",
+        "ordered"
+      ],
+      "sourceSvgSha256": "622758b411e16e6bf8a618159022cf57f862c45a14f6722347763cd2fa279f22",
+      "candidateSvgSha256": "8ecf0dd8098d0af3427e805a38888122cf5100e5f0cc21e1ec28d6bcfccf7c15",
+      "recognitionAnswer": "numbered-list",
+      "recognitionChoices": [
+        "numbered-list",
+        "sort-arrow-up-down",
+        "framer",
+        "atom"
+      ],
+      "candidateBoardSha256": "c8a7d1ef632b213e2b37cdae70e11e0a562bf708cbaea977a16da07cd370c1e7",
+      "sourceAnchorSha256": "c070e707508890b1047e1d7bf8ff1de33b0ae7217b177eb212aa4818b74360ca",
+      "reviewers": {
+        "codex": {
+          "choice": "numbered-list",
+          "evidence": "The numerals 1 and 2 are stacked vertically, each followed by a short horizontal mark."
+        },
+        "claude": {
+          "choice": "numbered-list",
+          "evidence": "Bold numerals 1 and 2 stacked at the left, each paired with a mark to its right on the same baseline. The digit-plus-row-content pairing is an ordered list rather than a sort arrow, logo, or atom."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    },
+    {
+      "id": "S009",
+      "control": "source-baseline",
+      "sourceSlug": "text-select",
+      "aliases": [],
+      "sourceSvgSha256": "f70a7dc59375dbfc7f6e8d3b6746cbdc3484c665fe57532001e9ee222428f672",
+      "candidateSvgSha256": "f70a7dc59375dbfc7f6e8d3b6746cbdc3484c665fe57532001e9ee222428f672",
+      "recognitionAnswer": "text-select",
+      "recognitionChoices": [
+        "text-select",
+        "ufo",
+        "calendar-search",
+        "projects"
+      ],
+      "candidateBoardSha256": "27e3424d198301063784ff33da221bf593fee8ac5a77bf48f8ac0686ca55d2e2",
+      "sourceAnchorSha256": "a61dd3ac8c82caf7cb303563438f5c4c4f53873af1d6deb8bfccbeef87bf95a3",
+      "reviewers": {
+        "codex": {
+          "choice": "text-select",
+          "evidence": "Two horizontal text strokes sit between opposing rounded boundary lines with circular handles at the upper left and lower right."
+        },
+        "claude": {
+          "choice": "projects",
+          "evidence": "Three stacked horizontal rules of decreasing length sit inside a rounded bracket/panel, with a hollow node circle at the top-left and another at the bottom-right joined by an elbow path. A list of items linked by branch nodes reads as projects, not a UFO, calendar, or text cursor."
+        }
+      },
+      "semanticStatus": "ambiguous-choice-set",
+      "finding": "Reviewers disagree between text-select and the offered projects distractor; filename alone cannot adjudicate semantic truth."
+    },
+    {
+      "id": "S010",
+      "control": "objective-corruption",
+      "sourceSlug": "check",
+      "aliases": [],
+      "sourceSvgSha256": "1650fe066ecc08237c683c375313d862bc93c61a8d10978ab3bc3c5b31e47e32",
+      "candidateSvgSha256": "ab3596f21387c0a5581876132fe32bff4cb33fa044af0faccf65414ceef2d787",
+      "recognitionAnswer": "check",
+      "recognitionChoices": [
+        "check",
+        "send-later",
+        "truck",
+        "target-arrow"
+      ],
+      "candidateBoardSha256": "98bcb1282f3f3005025b1a7fb9b2073c39d918a0e6d87d2106a8a33e0089a422",
+      "sourceAnchorSha256": "633b0cdbaa2dd028f231a7a74ff5dd278ca20c02ce4fdb7a8abf2128ab3ff256",
+      "reviewers": {
+        "codex": {
+          "choice": "check",
+          "evidence": "A contrasting tick appears inside a filled semicircular shape with an abrupt vertical right edge."
+        },
+        "claude": {
+          "choice": "check",
+          "evidence": "A checkmark drawn in white sits inside a filled disc, but only the left half of the disc is present \u2014 the right side terminates in a straight vertical edge through the center, cutting the check's long ascending arm. The check tick is still the only semantic content, so it reads as check with damaged framing."
+        }
+      },
+      "semanticStatus": "plausible-from-name-and-reviewer-description",
+      "finding": "Both or at least one reviewer selected the source label; no independent semantic ground truth was established by this audit."
+    }
+  ],
+  "terminalHashes": {
+    "codex": "3be3ab9fbb5684a0bd488ba4427aa3fbeb5bce56f647bcd3c83fea2e74b53312",
+    "claude": "b376228cbb55f90e6bbfd9899af452fb856a3dd1704eaada65a7cc6350a1c2f4"
+  }
+}

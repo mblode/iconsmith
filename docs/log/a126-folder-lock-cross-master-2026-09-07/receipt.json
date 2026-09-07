@@ -1,0 +1,120 @@
+{
+  "complete": true,
+  "hash": "746b66517f9d9389948018fe68d60f8d0b34eb863184bb9fc2d25dd02e83a108",
+  "receipt": {
+    "comparisons": [
+      {
+        "finish": "outlined",
+        "key": "folder-lock/folder-lock",
+        "modifierAssessment": "unknown",
+        "modifierShiftPxAt24": null,
+        "native16Sha256": "e9c38140ad6555b01c94e9902262ce99a1c4b7502b05b40973d7afc5d2daa707",
+        "native24Sha256": "1538a6891e831673fc4b3eae9af6615ae380c5ef8a737f5eac4a081bff3cff75",
+        "svg16Sha256": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf",
+        "svg24Sha256": "04bef214693f42bffc33024a69c6947225133831fec3e0ca69282aa1b19e2226"
+      },
+      {
+        "finish": "filled",
+        "key": "folder-lock/folder-lock",
+        "modifierAssessment": "unknown",
+        "modifierShiftPxAt24": null,
+        "native16Sha256": "d4f69c575e914123cc6b1bd562e20eb7b41a89cad4475750363ec6cc97e4bdbb",
+        "native24Sha256": "87be10976b10c039923b96a9d4a3f9c0a285ede1a3669dabbf551e7c8733a73d",
+        "svg16Sha256": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6",
+        "svg24Sha256": "eee1d56452eebd001f7165c5d9da87212ee995c139191c9624cad81da193b43c"
+      },
+      {
+        "advisory": "measured-paint-distinction-only",
+        "key": "folder-lock/folder-lock",
+        "nativeSize": 16,
+        "pixelDifference": 0.15514705882352942
+      },
+      {
+        "advisory": "measured-paint-distinction-only",
+        "key": "folder-lock/folder-lock",
+        "nativeSize": 24,
+        "pixelDifference": 0.19499591503267974
+      }
+    ],
+    "evidence": [
+      {
+        "concept": "folder-lock",
+        "family": "folder-lock",
+        "finish": "outlined",
+        "nativeImageFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1/outlined.native.png",
+        "nativeImageSha256": "e9c38140ad6555b01c94e9902262ce99a1c4b7502b05b40973d7afc5d2daa707",
+        "nativeSize": 16,
+        "svgFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1/outlined.svg",
+        "svgSha256": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf",
+        "modifier": null,
+        "paintedMass": 71.03921568627452
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder-lock",
+        "finish": "filled",
+        "nativeImageFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1/filled.native.png",
+        "nativeImageSha256": "d4f69c575e914123cc6b1bd562e20eb7b41a89cad4475750363ec6cc97e4bdbb",
+        "nativeSize": 16,
+        "svgFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1/filled.svg",
+        "svgSha256": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6",
+        "modifier": null,
+        "paintedMass": 101.58823529411762
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder-lock",
+        "finish": "outlined",
+        "nativeImageFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1/outlined.native.png",
+        "nativeImageSha256": "1538a6891e831673fc4b3eae9af6615ae380c5ef8a737f5eac4a081bff3cff75",
+        "nativeSize": 24,
+        "svgFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1/outlined.svg",
+        "svgSha256": "04bef214693f42bffc33024a69c6947225133831fec3e0ca69282aa1b19e2226",
+        "modifier": null,
+        "paintedMass": 165.1725490196078
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder-lock",
+        "finish": "filled",
+        "nativeImageFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1/filled.native.png",
+        "nativeImageSha256": "87be10976b10c039923b96a9d4a3f9c0a285ede1a3669dabbf551e7c8733a73d",
+        "nativeSize": 24,
+        "svgFile": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1/filled.svg",
+        "svgSha256": "eee1d56452eebd001f7165c5d9da87212ee995c139191c9624cad81da193b43c",
+        "modifier": null,
+        "paintedMass": 237.88627450980397
+      }
+    ],
+    "issues": [],
+    "memberHash": "d99907f1d917f6113e1b77f9875bf32b8e1533c7eaa88d8e28df412413be9893",
+    "memberHashes": [
+      {
+        "id": "folder-lock/folder-lock/filled/16",
+        "modifierMaskSha256": null,
+        "nativeImageSha256": "d4f69c575e914123cc6b1bd562e20eb7b41a89cad4475750363ec6cc97e4bdbb",
+        "svgSha256": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6"
+      },
+      {
+        "id": "folder-lock/folder-lock/filled/24",
+        "modifierMaskSha256": null,
+        "nativeImageSha256": "87be10976b10c039923b96a9d4a3f9c0a285ede1a3669dabbf551e7c8733a73d",
+        "svgSha256": "eee1d56452eebd001f7165c5d9da87212ee995c139191c9624cad81da193b43c"
+      },
+      {
+        "id": "folder-lock/folder-lock/outlined/16",
+        "modifierMaskSha256": null,
+        "nativeImageSha256": "e9c38140ad6555b01c94e9902262ce99a1c4b7502b05b40973d7afc5d2daa707",
+        "svgSha256": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf"
+      },
+      {
+        "id": "folder-lock/folder-lock/outlined/24",
+        "modifierMaskSha256": null,
+        "nativeImageSha256": "1538a6891e831673fc4b3eae9af6615ae380c5ef8a737f5eac4a081bff3cff75",
+        "svgSha256": "04bef214693f42bffc33024a69c6947225133831fec3e0ca69282aa1b19e2226"
+      }
+    ],
+    "status": "pending-independent-review"
+  },
+  "reviewRequired": true
+}

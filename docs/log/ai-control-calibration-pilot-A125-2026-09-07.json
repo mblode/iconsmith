@@ -1,0 +1,229 @@
+{
+  "id": "A125",
+  "authority": "AI-only diagnostic calibration; no human labels",
+  "qualified": false,
+  "generalGeneratedCriticQualified": false,
+  "requestedReviewers": 2,
+  "completedReviewers": 1,
+  "codex": {
+    "status": "incomplete",
+    "reason": "Error: Codex reviewer used a tool outside image review"
+  },
+  "claude": {
+    "status": "complete",
+    "model": "claude-opus-5",
+    "corruptCriticalFlags": 3,
+    "corruptCriticalDenominator": 5,
+    "corruptShipRejections": 5,
+    "cleanCriticalAlerts": 1,
+    "cleanShipApprovals": 2,
+    "cleanDenominator": 5,
+    "criticalUncertain": 2
+  },
+  "limits": [
+    "intact source is a house comparator, not universal defect-free truth",
+    "no target names disclosed; recognition descriptions retained, not scored from self-confidence",
+    "no family reference anchors in this pilot",
+    "no two-reviewer ensemble until scope validation completes"
+  ],
+  "rows": [
+    {
+      "id": "S001",
+      "kind": "positive",
+      "source": "progress-25",
+      "objective": null,
+      "critical": {
+        "choice": "no",
+        "evidence": "The ring is a closed unbroken annulus and the upper-right wedge sits inside it with its apex at the centre; no clipping at the artboard edge and no severed contour.",
+        "treatment": "None required."
+      },
+      "craftRating": 7,
+      "native": "yes",
+      "ship": "yes",
+      "recognition": {
+        "choice": "clear",
+        "evidence": "A circle with exactly one quadrant filled from the centre — a pie/progress quarter.",
+        "treatment": "None required."
+      }
+    },
+    {
+      "id": "S002",
+      "kind": "negative",
+      "source": "bubble-crossed",
+      "objective": "counter-collapse",
+      "critical": {
+        "choice": "no",
+        "evidence": "The bubble outline and its bottom pointer form one closed contour, and the interior head shape keeps a visible white clearance from the inner wall on all sides in the enlarged cell.",
+        "treatment": "None required."
+      },
+      "craftRating": 6,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "ambiguous",
+        "evidence": "The frame is a speech balloon or map pin; the inner form has two ear bumps and a rounded crown, so it reads as an animal head or as a shield depending on size.",
+        "treatment": "None required beyond disambiguating the inner silhouette."
+      }
+    },
+    {
+      "id": "S003",
+      "kind": "positive",
+      "source": "divider",
+      "objective": null,
+      "critical": {
+        "choice": "no",
+        "evidence": "The three top dashes, the solid centre bar and the three bottom dashes are all fully formed rounded rectangles inside the frame; the gaps between dashes are the intended rhythm, not breaks.",
+        "treatment": "None required."
+      },
+      "craftRating": 6,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "ambiguous",
+        "evidence": "Reads as a dashed selection or spacing/divider indicator around a solid rule; the object or action is not pinned down by the geometry alone.",
+        "treatment": "None required."
+      }
+    },
+    {
+      "id": "S004",
+      "kind": "negative",
+      "source": "slice",
+      "objective": "severed-connections",
+      "critical": {
+        "choice": "yes",
+        "evidence": "In the lower-right of the enlarged cell the filled sliver tapers to a hairline spike whose point degenerates to near-zero width, and the outline ribbon's lower-left terminal stops abruptly against it rather than joining.",
+        "treatment": "Give the sliver a blunt terminal with a minimum width of roughly one stroke unit, and either join or clearly separate it from the ribbon's lower-left terminal."
+      },
+      "craftRating": 3,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "unrecognizable",
+        "evidence": "An S-curved outlined ribbon beside a pointed filled sliver; no object or action is identifiable from the geometry.",
+        "treatment": "None applicable."
+      }
+    },
+    {
+      "id": "S005",
+      "kind": "positive",
+      "source": "balloon",
+      "objective": null,
+      "critical": {
+        "choice": "no",
+        "evidence": "The balloon body is a closed oval, the knot at bottom-centre is properly attached where the body opens for it, and the interior highlight arc is a deliberate free-standing stroke.",
+        "treatment": "None required."
+      },
+      "craftRating": 7,
+      "native": "yes",
+      "ship": "yes",
+      "recognition": {
+        "choice": "clear",
+        "evidence": "A rounded oval body with a small knot at the bottom and an interior highlight stroke — a balloon.",
+        "treatment": "None required."
+      }
+    },
+    {
+      "id": "S006",
+      "kind": "negative",
+      "source": "payment",
+      "objective": "severely-clipped-contour",
+      "critical": {
+        "choice": "yes",
+        "evidence": "In the enlarged cell both forms are truncated by a straight vertical edge at the right of the artboard — the upper loop's right side and the lower circle's right side are sliced flat — and the upper form is additionally cut at the top; the two remaining pieces float unconnected.",
+        "treatment": "Refit the geometry inside the viewBox with normal padding, then join or intentionally space the two forms."
+      },
+      "craftRating": 2,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "unrecognizable",
+        "evidence": "An open hook or loop above a circle-with-tail resembling a loupe, both cut off at the frame; no coherent object or action results.",
+        "treatment": "None applicable until the geometry is unclipped."
+      }
+    },
+    {
+      "id": "S007",
+      "kind": "positive",
+      "source": "reduce-motion",
+      "objective": null,
+      "critical": {
+        "choice": "yes",
+        "evidence": "Along the upper-left and lower-left of the ring the beads of the dot arc run tangent to and merge with the solid ring stroke, so the arc and ring lose separation; the three interior dots read as a fourth unrelated element.",
+        "treatment": "Increase the clearance between the bead arc and the ring stroke to at least one stroke width so the two systems stay distinct."
+      },
+      "craftRating": 3,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "ambiguous",
+        "evidence": "An outlined circle overlapped on its left by an arc of dots, with three dots inside; reads variably as an overlap/Venn, a phase diagram or a cell.",
+        "treatment": "None required beyond resolving the collisions."
+      }
+    },
+    {
+      "id": "S008",
+      "kind": "negative",
+      "source": "chart-waterfall",
+      "objective": "counter-collapse",
+      "critical": {
+        "choice": "yes",
+        "evidence": "At the centre of the enlarged cell the round plate and the adjoining rounded-rect form merge into one blob with no separating gap, so the utensil and the plate cannot be told apart; the two bars at right are unequal and unattached to any handle.",
+        "treatment": "Open a clear gap between the plate circle and the adjacent utensil, and give the right-hand bars a shared base so they read as one implement."
+      },
+      "craftRating": 4,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "ambiguous",
+        "evidence": "A round plate flanked by bar-like implements above a long horizontal bar suggests a place setting or dining, but the implements lack tines or bowls to confirm it.",
+        "treatment": "None required beyond differentiating the utensils."
+      }
+    },
+    {
+      "id": "S009",
+      "kind": "positive",
+      "source": "pan",
+      "objective": null,
+      "critical": {
+        "choice": "uncertain",
+        "evidence": "The junction where the handle meets the pan rim at upper-right shows a small notch and a slight change of stroke width; it may be an intended overlap rather than a break, and nothing is clipped by the artboard.",
+        "treatment": "If unintended, merge the handle and rim into a single continuous contour at the junction."
+      },
+      "craftRating": 5,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "clear",
+        "evidence": "A shallow bowl with a long angled handle and small marks flying above it — a frying pan with sizzle.",
+        "treatment": "None required."
+      }
+    },
+    {
+      "id": "S010",
+      "kind": "negative",
+      "source": "letter-a-square",
+      "objective": "severed-connections",
+      "critical": {
+        "choice": "uncertain",
+        "evidence": "A vertical white channel at the horizontal centre cuts through both the top and bottom borders of the rounded frame, splitting the outer contour into two unconnected halves; this may be a deliberate split rather than a break.",
+        "treatment": "If unintended, close the frame at top and bottom centre; if intended, widen the channel so it reads as a deliberate gap rather than a hairline fault."
+      },
+      "craftRating": 5,
+      "native": "no",
+      "ship": "no",
+      "recognition": {
+        "choice": "ambiguous",
+        "evidence": "Two mirrored tapering forms inside a split rounded frame; reads variably as legs/trousers, a pair of leaves, or an abstract badge.",
+        "treatment": "None required beyond clarifying the interior forms."
+      }
+    }
+  ],
+  "evidence": {
+    "intent": "371f98fdc217256d7104309b5ecb00e0eb4c39ee5e64eca45771ce52d90518ae",
+    "claude": "72a2c842d57eab718c5760a159e072dd9faac97f42ff1a454365f5ec3a831693",
+    "codex": "0f38fc47352126a016088ccdb900b71d04d74f7db16d22fa91624b80310ccae7",
+    "sealedKey": "4c84695956a82b5dad66d351ff79102b9dd06e008fdd386c5103c9f427ee580f"
+  },
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null
+}

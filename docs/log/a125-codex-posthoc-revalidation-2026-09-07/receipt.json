@@ -1,0 +1,64 @@
+{
+  "answers": 50,
+  "answersSha256": "902cadf63b313e1b73033d4862b5508543dac95088f4ad231ce37b6c3cec2593",
+  "images": 10,
+  "imageInspection": {
+    "complete": true,
+    "images": {
+      "s001.png": {
+        "exposed": true,
+        "sha256": "3faff9d18e3e91b6b13e83e9df44f58f109b712d5a23c6fa453812b83b4761fd"
+      },
+      "s002.png": {
+        "exposed": true,
+        "sha256": "e4b2e8bfa9b71709c8e9f785dfdb493609d7249dbb97a90db170a7bc3b331dc7"
+      },
+      "s003.png": {
+        "exposed": true,
+        "sha256": "745fcec5412fcf3f80fb6632ae24f0e15a51fec1b756df5cc037f3bbb5575f5f"
+      },
+      "s004.png": {
+        "exposed": true,
+        "sha256": "b0ca6730abc4d2994f457c85d22c410b8009fa263ca3a7038f81ae9b22d391e6"
+      },
+      "s005.png": {
+        "exposed": true,
+        "sha256": "e6be34963ee229ede1219ce0500f0a648a44583ee1b963fe0792603e1297d839"
+      },
+      "s006.png": {
+        "exposed": true,
+        "sha256": "bb7b5a20e333163b0a94fa728ad2bfd006c08a7483cb96a4c15a04efde6a563d"
+      },
+      "s007.png": {
+        "exposed": true,
+        "sha256": "bff428ae7fb04b21947da2ee939e19eaa328869773cae77e37969c4993ae0574"
+      },
+      "s008.png": {
+        "exposed": true,
+        "sha256": "f2f9617d06d3e37f1db04aea29d951a7fa4559dc1517b796e1079946536b83a7"
+      },
+      "s009.png": {
+        "exposed": true,
+        "sha256": "ce21978772b0383af027d580c42cf197ab092faa8296689d8aee720d7aa330c8"
+      },
+      "s010.png": {
+        "exposed": true,
+        "sha256": "2a4850cf042b71df2337aa5187d16b4b6d0d24f63fd14da328e0d9f6334f4a01"
+      }
+    },
+    "traceSha256": "d2d92480bed027aa22862c7521361a861360358bcc755bc2b7f424f8d3569557",
+    "visualJudgmentValidated": false
+  },
+  "originalDispatchStatus": "incomplete",
+  "originalProcessSha256": "132d6bf76f5c344f40cbe467344ebfa1cb800e2e1fe08d0f467713df68a6109e",
+  "originalReviewSha256": "0f38fc47352126a016088ccdb900b71d04d74f7db16d22fa91624b80310ccae7",
+  "provenance": "post-hoc-validator-correction",
+  "qualificationClaim": false,
+  "sourceDirectory": ".staging/house-quality-execution-2026-09-07/ai-pilot-v2/codex",
+  "status": "offline-revalidated",
+  "traceSha256": "d2d92480bed027aa22862c7521361a861360358bcc755bc2b7f424f8d3569557",
+  "validatorFiles": {
+    "packages/iconsmith/scripts/local-codex-review.ts": "9321911898bddf61812a5460db7aeb86ede037171955fd5e0199c88645db0093",
+    "packages/iconsmith/scripts/local-author-evidence.ts": "3c68990268497ab104e8a3f6b7804999f16c22dd9ca759e6b39206b9dcc09329"
+  }
+}

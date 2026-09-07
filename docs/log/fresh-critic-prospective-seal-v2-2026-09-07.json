@@ -1,0 +1,60 @@
+{
+  "hash": "db7ab61092d85f520163b1b408b347def10deab727abbbb9a4cf37040b8165d5",
+  "receipt": {
+    "kind": "prospective-ai-critic-semantic-and-criticality-assessment-plan-v2",
+    "createdAt": "2026-09-07",
+    "status": "prepared-not-runnable",
+    "providerCalls": 0,
+    "qualified": false,
+    "supersedesClaimsOnly": "v1 artifacts and hashes remain immutable; this receipt corrects interpretation of their labels.",
+    "corrections": [
+      "A canonical filename is an unvalidated semantic hypothesis until the exact artifact is identified by at least two distinct AI reviewer identities.",
+      "A deterministic corruption probe proves the named geometry change occurred; it does not prove the change is critical or meaning-changing.",
+      "Unaltered house-source controls are source baselines, not human-approved or AI-approved craft positives."
+    ],
+    "protocol": {
+      "reviewerIdentityMinimum": 2,
+      "distinctActualIdentityRequired": true,
+      "stageOrder": [
+        "blind-free-description",
+        "seal-stage-one-transcript-and-hash",
+        "reveal-neutral-choices",
+        "independent-criticality-classification"
+      ],
+      "semanticResolution": "Retain each free description and choice. A catalog filename becomes an assessment label only when two distinct actual reviewer identities independently agree on object and modifier/action. Disagreement or uncertainty remains unresolved.",
+      "criticalityResolution": "For corrupted controls, retain objective probe truth separately. Criticality requires two distinct actual reviewer identities to classify the visible consequence as critical. Geometry corruption alone cannot satisfy this gate.",
+      "leakageBoundary": "Packet files expose only opaque IDs, artifact hashes, native size, stratum, free-description prompt, and a hash of withheld stage-two choices. Catalog labels, aliases, choices, control kind, corruption objective, and criticality status remain in the withheld key.",
+      "packetCount": 10,
+      "stimuliPerPacket": 10,
+      "outputsPerReviewerPerPacket": 20
+    },
+    "counts": {
+      "stimuli": 100,
+      "objectiveGeometryCorruptions": 50,
+      "criticalLabelsResolved": 0,
+      "filenameSemanticLabelsResolved": 0,
+      "packets": 10
+    },
+    "inputs": {
+      "v1Manifest": {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/fresh-critic-prospective-seal-2026-09-07/manifest.json",
+        "sha256": "65cc29954847d3e04e036456ccbcf1adc4ad063e5ff44bb8ffcb867fd62705c0",
+        "bodyHash": "b8ebc7063e50718c59eca522c7363db85f5a334535166aef6c185b4dacc9b39c"
+      },
+      "v1SealedKey": {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/fresh-critic-prospective-seal-2026-09-07/sealed-key.json",
+        "sha256": "66aa7576535dff4c4161248c963dd89b772ebc84ac975661d121dd4693f9b3ab"
+      },
+      "generator": {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/fresh-critic-prospective-seal-v2-2026-09-07/build.mts",
+        "sha256": "5f251b32d1f493afe53005ac5c9da640c81155c42a55c5167ee41124d1bd172d"
+      }
+    },
+    "withheldKeySha256": "b7fdb253a4c4db88487d9baa361f06bc54073aa0f628116338ce88b7310708da",
+    "limitations": [
+      "No AI reviewer or image inspection ran; all semantic and criticality decisions remain unresolved.",
+      "The seal is bounded to the preserved accessible history inherited from v1 and does not claim global novelty.",
+      "SVG artifacts are inputs only. A runnable campaign must separately freeze rendered evidence, actual reviewer routes, deadlines, and exact stage-one-before-stage-two enforcement."
+    ]
+  }
+}

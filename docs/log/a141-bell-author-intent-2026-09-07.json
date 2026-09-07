@@ -1,0 +1,27 @@
+{
+  "id": "A141",
+  "status": "frozen",
+  "pair": "bell-pause-16",
+  "manifestHash": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+  "createdAt": "2026-09-07T13:02:04.486731+00:00",
+  "purpose": "Matched compiler21 bell-pause native16 author lifecycle and independent AI development review",
+  "models": [
+    "gpt-6-astra",
+    "claude-opus-5"
+  ],
+  "authorBudgetMsPerRoute": 600000,
+  "reservedReviewMsTotal": 480000,
+  "pairBudgetMs": 1200000,
+  "maximumNativeAuthorCalls": 10,
+  "maximumNativeReviewCalls": 4,
+  "maximumNativeConcurrency": 2,
+  "reviewBuilderSha256": "09c117717babdc4a0a2fe838c40e2a716354e2f65538cbee9695834f47e55b42",
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "noAutomaticRetry": true,
+  "existingApiActualUsd": 13.06220785,
+  "existingReservedOrUnknownUsd": 11.37126575,
+  "apiCapUsd": 50
+}

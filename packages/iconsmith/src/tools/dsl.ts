@@ -18,7 +18,7 @@
  *   icon     <slug>
  *   keyline  circle | square | wide | tall
  *   finish   outlined | filled
- *   part     <name> [at <x>,<y> | at <anchor>] [size <n> | scale <factor> | fill] [turn cw|half|ccw] [flip]
+ *   part     <name> [at <x>,<y> | at <anchor> | centered at <x>,<y>] [size <n> | scale <factor> | fill] [turn cw|half|ccw] [flip]
  *   rect     <x>,<y> <w>x<h> [r<n>]
  *   circle   <cx>,<cy> r<n>
  *   arc      <cx>,<cy> r<n> quarter|half|three-quarter from top|right|bottom|left [ccw]
@@ -174,6 +174,22 @@ const num = (tok: string | undefined, what: string): number => {
   return v;
 };
 
+const hasExplicitCentre = (tokens: string[]): boolean => {
+  const centeredIdx = tokens.indexOf("centered");
+  const atIdx = tokens.indexOf("at");
+  const centered = centeredIdx !== -1;
+  if (
+    tokens.filter((token) => token === "centered").length > 1 ||
+    tokens.filter((token) => token === "at").length > 1 ||
+    (centered && (centeredIdx !== 2 || atIdx !== centeredIdx + 1))
+  ) {
+    throw new Error(
+      'centered part placement must be exactly "centered at <x>,<y>"'
+    );
+  }
+  return centered;
+};
+
 const placePart = (
   canvas: Canvas,
   byName: Map<string, Part>,
@@ -187,6 +203,7 @@ const placePart = (
     );
   }
   const atIdx = t.indexOf("at");
+  const centered = hasExplicitCentre(t);
   const sizeIdx = t.indexOf("size");
   const scaleIdx = t.indexOf("scale");
   const turnIdx = t.indexOf("turn");
@@ -235,7 +252,9 @@ const placePart = (
   if (atIdx !== -1) {
     const a = t[atIdx + 1];
     const anchor = ANCHORS[a];
-    if (anchor) {
+    if (centered) {
+      [cx, cy] = pair(a);
+    } else if (anchor) {
       [cx, cy] = anchor;
     } else {
       // A bare coordinate names the top-left; an anchor names the centre.

@@ -335,3 +335,40 @@ export const qualifyCraftJudge = (
     reasons,
   };
 };
+
+export interface SealedCraftQualification {
+  /** Hash of model, prompt, thresholds and image preprocessing frozen before labels. */
+  frozenInstrumentHash: string;
+  observedInstrumentHash: string;
+  /** Canonical hash of the predeclared stimulus roster, independent of labels. */
+  frozenRosterHash: string;
+  observedRosterHash: string;
+  /** True once any test label was available to critic tuning or threshold choice. */
+  labelsExposedBeforePrediction: boolean;
+  observations: readonly CraftJudgeObservation[];
+  controls: ReturnType<typeof qualifyInstrument>;
+}
+
+/** Adds the sealing boundary that the metric-only gate cannot infer. A passing
+ * score is qualification only when instrument and roster identities were
+ * frozen before predictions and human labels were joined. */
+export const qualifySealedCraftJudge = (input: SealedCraftQualification) => {
+  const result = qualifyCraftJudge(input.observations, input.controls);
+  const reasons = [...result.reasons];
+  if (
+    !validHash(input.frozenInstrumentHash) ||
+    input.observedInstrumentHash !== input.frozenInstrumentHash
+  ) {
+    reasons.push("Craft instrument changed after it was frozen");
+  }
+  if (
+    !validHash(input.frozenRosterHash) ||
+    input.observedRosterHash !== input.frozenRosterHash
+  ) {
+    reasons.push("Sealed stimulus roster changed after it was frozen");
+  }
+  if (input.labelsExposedBeforePrediction !== false) {
+    reasons.push("Human test labels were exposed before critic prediction");
+  }
+  return { ...result, qualified: reasons.length === 0, reasons };
+};

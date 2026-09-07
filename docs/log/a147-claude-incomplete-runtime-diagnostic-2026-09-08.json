@@ -1,0 +1,67 @@
+{
+  "id": "a147-claude-incomplete-runtime-diagnostic-2026-09-08",
+  "date": "2026-09-08",
+  "scope": "offline read-only diagnosis of preserved A147 evidence; no provider call, retry, or production source change",
+  "run": ".staging/native-author-screen-prep-v9-2026-09-08/runs/jellyfish-16",
+  "route": "claude-native-structured",
+  "result": {
+    "status": "incomplete",
+    "outerProcessCode": 7,
+    "outerKilled": false,
+    "outerQuiescent": true,
+    "innerStage": "00-construct",
+    "innerProcessCode": null,
+    "innerKilled": true,
+    "innerQuiescent": true
+  },
+  "cause": {
+    "primary": "The sole native Claude construction invocation exhausted its frozen 240000 ms initial-construction cap without emitting an assistant message, StructuredOutput invocation, result, or other terminal response.",
+    "traceSummary": {
+      "sessionId": "aef30567-0d67-4a97-ba1f-90d42f6ab792",
+      "actualModel": "claude-opus-5",
+      "actualCliVersion": "2.1.263 (Claude Code)",
+      "authMethod": "claude.ai subscription",
+      "events": 194,
+      "eventTypes": {"system:init": 1, "rate_limit_event": 1, "system:thinking_tokens": 192},
+      "lastEstimatedThinkingTokens": 17400,
+      "structuredOrAssistantEvents": 0,
+      "rateLimitAtStart": "allowed"
+    },
+    "code7Explanation": "Code 7 is the outer Node route's secondary failure encoding after invokeNativeClaude deliberately threw 'Claude structured stage did not complete'. The stderr shows PathKit's installed uncaughtException handler rethrowing that exception. It is not evidence that PathKit geometry failed and it is not the inner Claude process exit code.",
+    "providerFailureObserved": false,
+    "reproducibleRuntimeBugObserved": false
+  },
+  "budget": {
+    "routeBudgetMs": 600000,
+    "initialConstructionCapMs": 240000,
+    "inspectionReserveMs": 150000,
+    "finalStageReserveMs": 90000,
+    "constructionStageDeadlineAt": 1788790560435,
+    "requestFileMtimeEpochSeconds": 1788790320,
+    "processReceiptMtimeEpochSeconds": 1788790558,
+    "observedFileTimeSpanSecondsApprox": 238,
+    "inspectionReached": false,
+    "checkerReached": false,
+    "repairReached": false,
+    "finalizerReached": false
+  },
+  "callAccounting": {
+    "nativeSubscriptionCalls": 1,
+    "nativeStages": ["construct"],
+    "nativeInspectionCalls": 0,
+    "nativeRepairCalls": 0,
+    "nativeFinalizerCalls": 0,
+    "apiCalls": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "evidence": {
+    "constructRequest": {"path": ".staging/native-author-screen-prep-v9-2026-09-08/runs/jellyfish-16/claude-native-structured/00-construct/request.json", "sha256": "4ebf79e71556118b015e3f0262f75cf52d2763b0d91971cc7d3868e28031eda0", "bytes": 35636},
+    "constructProcess": {"path": ".staging/native-author-screen-prep-v9-2026-09-08/runs/jellyfish-16/claude-native-structured/00-construct/process.json", "sha256": "018883fc0e543b624e39da1d90b2d023d921220cc55b792e14b91ec72508cc98", "bytes": 43430},
+    "routeIdentity": {"path": ".staging/native-author-screen-prep-v9-2026-09-08/runs/jellyfish-16/claude-native-structured/native-claude-author.json", "sha256": "e087728025804af627c08f5ce66f934a360c3454c2c44193e27a7fa630b45dae", "bytes": 822}
+  },
+  "disposition": {
+    "productionFix": "none",
+    "reason": "The process ownership and deadline gates behaved as designed: the nonterminal native call was killed, quiescence was proved at the declared scope, the route failed closed, and no uninspected artifact was accepted. Increasing the cap or changing prompt/model behavior is an experiment, not a runtime correctness fix supported by this single trace.",
+    "remainingHypothesis": "The 35.6 KB grammar/spec/reference prompt may contribute to prolonged reasoning, but A147 alone does not causally separate prompt size, concept difficulty, or model latency. Any prompt reduction needs a separately frozen comparison and cannot be claimed as a bug fix from this evidence."
+  }
+}

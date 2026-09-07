@@ -1,0 +1,110 @@
+{
+  "hash": "5102e4aae1e863c0e09519c0b57ac5978ca267acd51d51dcee138a546b7b2ccd",
+  "familyCount": 1587,
+  "unclassifiedCount": 1243,
+  "counts": {
+    "organic": 27,
+    "container": 61,
+    "tool": 12,
+    "transport": 13,
+    "symbol": 211,
+    "dense": 22,
+    "narrow": 17,
+    "asymmetric": 12
+  },
+  "examples": {
+    "organic": [
+      "feather",
+      "broken-heart",
+      "bubble-heart",
+      "cat",
+      "cloud-api",
+      "cloud",
+      "cloud-snow",
+      "code-tree"
+    ],
+    "container": [
+      "add-to-basket",
+      "airdrop",
+      "basket-1",
+      "file-arrow-left",
+      "file-arrow-right",
+      "people-id-card",
+      "remove-from-basket",
+      "shopping-bag-1"
+    ],
+    "tool": [
+      "hammer",
+      "pencil",
+      "scissors-1",
+      "brush",
+      "paint-brush",
+      "pencil-ai",
+      "pencil-line",
+      "pencil-sparkle"
+    ],
+    "transport": [
+      "rocket",
+      "airplane",
+      "bike",
+      "boat",
+      "bus",
+      "car",
+      "delivery-bike",
+      "formula1"
+    ],
+    "symbol": [
+      "calendar-check",
+      "file-arrow-left",
+      "file-arrow-right",
+      "square-arrow-down",
+      "square-arrow-top-right",
+      "arrow",
+      "arrow-bottom-top",
+      "arrow-box-left"
+    ],
+    "dense": [
+      "scissors-1",
+      "agent-network",
+      "bike",
+      "canvas-grid",
+      "cloud-api",
+      "dot-grid-1x3-horizontal",
+      "dot-grid-1x3-horizontal-tight",
+      "dot-grid-1x3-vertical"
+    ],
+    "narrow": [
+      "key-1",
+      "magic-wand",
+      "map-pin",
+      "pin",
+      "control-key-left",
+      "control-key-right",
+      "magic",
+      "map-pin-flat"
+    ],
+    "asymmetric": [
+      "feather",
+      "flag-1",
+      "key-1",
+      "rocket",
+      "control-key-left",
+      "control-key-right",
+      "option-key",
+      "parasol"
+    ]
+  },
+  "normalization": "paired -filled slugs folded only when base exists",
+  "qualified": false,
+  "authority": "catalog-token-routing-only",
+  "denominatorMeaning": "Canonical resolver rows after paired paint normalization, not independently verified semantic families",
+  "fullReportPath": ".staging/house-construction-coverage-2026-09-07/report.json",
+  "fullReportSha256": "1ffa2ce80a0217fb527bdf266afa273c95f5103470f766a86f4ade524ff63bc3",
+  "implementationSha256": "d0bf4a53f0053df6fa9e89b03b61f99650cd6b38bd822b63b645f553477691de",
+  "initialInvalidProbe": {
+    "resolverRows": 3255,
+    "unclassified": 2589,
+    "cause": "Unfolded paired filled slugs incorrectly treated as separate canonical inputs; this is a census caller error, not evidence of a catalog grouping failure."
+  },
+  "newApiSpendUsd": 0
+}

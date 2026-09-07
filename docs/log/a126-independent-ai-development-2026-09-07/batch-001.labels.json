@@ -1,0 +1,102 @@
+[
+  {
+    "id": "Q001",
+    "nativeImageSha256": "e9c38140ad6555b01c94e9902262ce99a1c4b7502b05b40973d7afc5d2daa707",
+    "nativeSize": 16,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf"
+  },
+  {
+    "id": "Q002",
+    "nativeImageSha256": "e9d044c431a9fc45377a4e173d89dfbf087306ea3cc61587a0c4b30ae9c8d979",
+    "nativeSize": 24,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "f7df5849b0135c4c54b79f398f11b11d46c78e1482f517cb4bb9f381b0f1514b"
+  },
+  {
+    "id": "Q003",
+    "nativeImageSha256": "b600ba9a09f8afdc02109a9593744c6a4c40285b9611b9d81003ab33efde593a",
+    "nativeSize": 24,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "35bd222e2856d0b075d66e8ec304efe18886c39e105246b16a96be13cc4bd7d6"
+  },
+  {
+    "id": "Q004",
+    "nativeImageSha256": "c34204a366baf893997d1d9105a4143e4c922508a4446c550e149ce082c9ddb7",
+    "nativeSize": 24,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "f5dae008d299570ac3d42509061a290331daeb7961cb85bc6da2107098416198"
+  },
+  {
+    "id": "Q005",
+    "nativeImageSha256": "edbfe5491ebfbeac1af4c3b905c247fcb29c25fa083312e0ece1bca3857b829a",
+    "nativeSize": 24,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "01fe6adf91d930c1f7ee63c410b52e12484514a169b29daa7e4f3737c45b271e"
+  },
+  {
+    "id": "Q006",
+    "nativeImageSha256": "87be10976b10c039923b96a9d4a3f9c0a285ede1a3669dabbf551e7c8733a73d",
+    "nativeSize": 24,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "eee1d56452eebd001f7165c5d9da87212ee995c139191c9624cad81da193b43c"
+  },
+  {
+    "id": "Q007",
+    "nativeImageSha256": "1538a6891e831673fc4b3eae9af6615ae380c5ef8a737f5eac4a081bff3cff75",
+    "nativeSize": 24,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "04bef214693f42bffc33024a69c6947225133831fec3e0ca69282aa1b19e2226"
+  },
+  {
+    "id": "Q008",
+    "nativeImageSha256": "7ecdd1005003b6b2a56d46cc8d0da20f288d1b52486d2fd39f863ea3e916ade8",
+    "nativeSize": 16,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "9a7103f5ab6cfcfa77b0de66743df1cb5c47be64a9a5692f40d13a6acfdef8cf"
+  },
+  {
+    "id": "Q009",
+    "nativeImageSha256": "7f7a22770a3b885620524dbe70db1682c77c33626c9cc1c592ccb38f1da4c984",
+    "nativeSize": 16,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "09060556765a115c20918f0117a4a025b45af490f781c5184806650abb288912"
+  },
+  {
+    "id": "Q010",
+    "nativeImageSha256": "d4f69c575e914123cc6b1bd562e20eb7b41a89cad4475750363ec6cc97e4bdbb",
+    "nativeSize": 16,
+    "requiredReviewerCount": 2,
+    "reviewAuthority": "independent-ai-panel",
+    "reviews": [],
+    "status": "pending",
+    "svgSha256": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6"
+  }
+]

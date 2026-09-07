@@ -1,0 +1,121 @@
+{
+  "hash": "93daf8008b02e4ff34625fa81efabef90036a8b6f8385ddc9e3bc3f57ac4f60b",
+  "manifest": {
+    "families": [
+      {
+        "challenge": "open body and external modifier",
+        "concept": "cloud-upload",
+        "family": "cloud"
+      },
+      {
+        "challenge": "curved body and interrupted rim",
+        "concept": "bell-pause",
+        "family": "bell"
+      },
+      {
+        "challenge": "curved counter and acute intersections",
+        "concept": "shield-check",
+        "family": "shield"
+      },
+      {
+        "challenge": "asymmetric body and badge clearance",
+        "concept": "folder-lock",
+        "family": "folder"
+      },
+      {
+        "challenge": "intersecting cutters",
+        "concept": "clock-check",
+        "family": "clock"
+      },
+      {
+        "challenge": "organic continuous contours",
+        "concept": "jellyfish",
+        "family": "jellyfish"
+      },
+      {
+        "challenge": "curved diagonal construction",
+        "concept": "satellite-dish",
+        "family": "satellite"
+      },
+      {
+        "challenge": "nested counters and detail",
+        "concept": "camera-sparkle",
+        "family": "camera"
+      },
+      {
+        "challenge": "concave contour and solid modifier",
+        "concept": "bookmark-play",
+        "family": "bookmark"
+      },
+      {
+        "challenge": "thin connecting features",
+        "concept": "key",
+        "family": "key"
+      },
+      {
+        "challenge": "symmetric curved terminals",
+        "concept": "headphones",
+        "family": "headphones"
+      },
+      {
+        "challenge": "asymmetric organic silhouette",
+        "concept": "leaf",
+        "family": "leaf"
+      },
+      {
+        "challenge": "dense linked circular forms",
+        "concept": "bicycle",
+        "family": "bicycle"
+      },
+      {
+        "challenge": "crossing diagonal bars",
+        "concept": "scissors",
+        "family": "scissors"
+      },
+      {
+        "challenge": "dense organic detail",
+        "concept": "hand-heart",
+        "family": "hand"
+      },
+      {
+        "challenge": "wide body and negative modifier",
+        "concept": "battery-charging",
+        "family": "battery"
+      },
+      {
+        "challenge": "curved canopy and narrow stem",
+        "concept": "umbrella",
+        "family": "umbrella"
+      },
+      {
+        "challenge": "diagonal pointed body",
+        "concept": "rocket",
+        "family": "rocket"
+      },
+      {
+        "challenge": "wide body and short gaps",
+        "concept": "credit-card-check",
+        "family": "credit-card"
+      },
+      {
+        "challenge": "narrow waist and enclosed counters",
+        "concept": "hourglass",
+        "family": "hourglass"
+      }
+    ],
+    "finishes": [
+      "outlined",
+      "filled"
+    ],
+    "frozenAt": "2026-09-07T09:01:21.481Z",
+    "holdoutClosure": "pending-source-alias-geometry-and-history-audit",
+    "id": "blode-quality-development-v1",
+    "independentAiPanelLabels": "pending",
+    "reviewAuthority": "independent-ai-panel",
+    "rubric": "docs/plans/generation-quality-10.md",
+    "sizes": [
+      16,
+      24
+    ]
+  }
+}

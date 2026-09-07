@@ -1,0 +1,11 @@
+icon bell-pause
+keyline portrait
+finish filled
+part bell-check-filled-0 at 3.25,2
+rect 8,7 8x7 r2
+union
+part pause-filled-0 at 8.75,7.5 size 6.75
+subtract
+part pause-filled-1 at 13,7.5 size 6.75
+subtract
+part bell-check-filled-1 at 7.5,19

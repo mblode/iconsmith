@@ -1,0 +1,38 @@
+{
+  "id": "A135",
+  "status": "complete-with-failures",
+  "qualified": false,
+  "requestedSlots": 4,
+  "deliveredSlots": 0,
+  "authorRoutes": {
+    "astra-native": {
+      "status": "incomplete",
+      "reason": "Provider400 invalid_json_schema: programs.required missing filled; no generation",
+      "processHash": "c4b53cfb95d945e3816e9e8e9710012f686c5cdf52eabf4d9045914f344b5f55",
+      "code": 1,
+      "killed": false,
+      "quiescent": true,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "requestedSlots": 2,
+      "deliveredSlots": 0
+    },
+    "claude-native-structured": {
+      "status": "incomplete",
+      "reason": "Construction timed out within approximately120s available from360s author allocation minus240s final reserve; no candidate",
+      "processHash": "57bd79b37c19f2a290e24a04dedddaaa5c4238418ebd42fb42839a2abc4d6791",
+      "code": null,
+      "killed": true,
+      "quiescent": true,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "requestedSlots": 2,
+      "deliveredSlots": 0
+    }
+  },
+  "terminalHash": "2c67993b33f51e34a072ad9ec599db5938674c0f311232af33745da1c0038fce",
+  "dispatchHash": "521b9541b7d729b3a6d826b421a61f55bd5bdce3af4186cef60d128a56c0b9fa",
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "nativeCalls": 2,
+  "independentReview": "not-dispatched-no-candidates"
+}

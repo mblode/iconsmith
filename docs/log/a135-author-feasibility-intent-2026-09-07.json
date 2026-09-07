@@ -1,0 +1,22 @@
+{
+  "id": "A135",
+  "status": "frozen",
+  "pair": "shield-check-16",
+  "manifestHash": "321e73661c6efd5eaef18d8d32bac039e8d11ba51fa218894669084ebefb1a72",
+  "createdAt": "2026-09-07T12:16:13.970202+00:00",
+  "purpose": "Matched native structured author feasibility: identical packet and lifecycle; independent review pending, no winner qualification.",
+  "models": [
+    "gpt-6-astra",
+    "claude-opus-5"
+  ],
+  "authorBudgetMsPerRoute": 360000,
+  "reservedReviewMsPerRoute": 240000,
+  "pairBudgetMs": 1200000,
+  "maximumNativeCalls": 10,
+  "maximumNativeConcurrency": 1,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false,
+  "noAutomaticRetry": true
+}

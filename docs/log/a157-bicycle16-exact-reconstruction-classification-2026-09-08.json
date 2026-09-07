@@ -1,0 +1,46 @@
+{
+  "id": "a157-bicycle16-exact-reconstruction-classification",
+  "scope": "exposed-development-author-output",
+  "qualified": false,
+  "authorSummary": {
+    "file": "docs/log/a157-bicycle16-attempt-results-2026-09-08.json",
+    "sha256": "63eb15b384588a5cfdd88968d31b7510becdbec84698116731f6ed1d8795b789"
+  },
+  "board": {
+    "file": "docs/log/a157-bicycle16-attempt-board-2026-09-08.png",
+    "sha256": "3ed118f71102db02e5245663a5f0a24974d1338646ce9c8d8eccd8b857de8f02"
+  },
+  "rows": [
+    {
+      "finish": "outlined",
+      "reference": {
+        "file": ".staging/native-author-broader-contexts-v2-2026-09-07/bicycle-16/reference-1-proof.png",
+        "sha256": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c"
+      },
+      "candidate": {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+        "sha256": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c"
+      },
+      "byteIdentical": true,
+      "classification": "exact-reference-proof-reconstruction"
+    },
+    {
+      "finish": "filled",
+      "reference": {
+        "file": ".staging/native-author-broader-contexts-v2-2026-09-07/bicycle-16/reference-0-proof.png",
+        "sha256": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+      },
+      "candidate": {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+        "sha256": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+      },
+      "byteIdentical": true,
+      "classification": "exact-reference-proof-reconstruction"
+    }
+  ],
+  "finding": "Both delivered paint proofs are byte-identical to their exact same-paint development anchors. This is reconstruction evidence, not novel icon generation or qualification.",
+  "limitations": [
+    "Independent review was already dispatched by root and remains separately assessed.",
+    "No provider call was made for this classification."
+  ]
+}

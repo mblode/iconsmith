@@ -1,0 +1,43 @@
+{
+  "id": "A136",
+  "status": "complete-with-finalization-failures",
+  "qualified": false,
+  "requestedSlots": 4,
+  "hostValidDraftSlots": 4,
+  "deliveredSlots": 0,
+  "terminalHash": "61916f264ef4b8c0627118630c9a29744c5528e9372ded123e904fd0b4510783",
+  "dispatchHash": "8c87b6f8ea40caf5ca8d1c993305bff4ed933ac943963055825fec63f544b371",
+  "reason": "Both adapters precreated reviewer output directory, then reviewer exclusive mkdir failed EEXIST before self-inspection.",
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "nativeCalls": 2,
+  "arms": {
+    "astra-native": {
+      "status": "incomplete",
+      "sourceTerminalHash": "1e2b32b48325fed23defdb34a9d701da02397a0b28ec6551c38fb09798018a0e",
+      "checksHash": "36427a07e6b50715e384713314208085d7ccd005aa22e9950b376430e6e4bc60",
+      "draftHashes": {
+        "outlined.icon": "8b2718634d1f7ce629a6c182c7fc00b0a1831eb4ac8428907a603e70846524bc",
+        "filled.icon": "f869487cb9237e2c6711b1fae27902295dd401e37e2ebeb9b50133f2d7cf55b8",
+        "outlined.proof.png": "8ae25089a17e88a8f5decfa0ea813b5bfd0e204051ad863bf71f6006b2303a21",
+        "filled.proof.png": "f9ec5341cd17b1b072c6b74eded91ab2e65ce4634de4a47e1f3eb7386ae42b4a"
+      },
+      "inspectionCompleted": false,
+      "authorFinalReviewCompleted": false
+    },
+    "claude-native-structured": {
+      "status": "incomplete",
+      "sourceTerminalHash": "327ff1248bc257ce861daec665f32acab6b09874d9f277ad84b59084050b0746",
+      "checksHash": "475f339ed298252b9a77f102d9434dbc1132cc36f9f90442ed95b8221bd55d0a",
+      "draftHashes": {
+        "outlined.icon": "ab85583f3458e496995a90514ccaaaee6fec54f0c5664784b5efc60da9e64e0f",
+        "filled.icon": "94a467009b5567d4a410ce5b660ce979471f59327c25565da9a98c57efd7ef00",
+        "outlined.proof.png": "fac402f37802479216fd9b1da695d102ede2180ea1a472668855b57771a3c320",
+        "filled.proof.png": "8311e0be149c4eb25ef23421a1e4564ad0d75a5298282fd73be8c0e84423b23c"
+      },
+      "inspectionCompleted": false,
+      "authorFinalReviewCompleted": false
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "a146-recovered-astra-review-results",
+  "createdAt": "2026-09-07T14:12:16.116Z",
+  "scope": "standalone-development-diagnostic",
+  "qualified": false,
+  "instrumentQualified": false,
+  "qualificationLimitations": [
+    "Only one of two original author arms was delivered and reviewed; the Claude author arm remains an incomplete denominator.",
+    "The recovered Astra author and Codex Astra reviewer share a model family, so that judgment is not independent of authorship.",
+    "This fresh diagnostic does not extend or repair the expired A143 pair deadline and cannot qualify a generation route."
+  ],
+  "source": {
+    "predispatchIntent": "docs/log/a146-recovered-astra-review-intent-2026-09-08.json",
+    "predispatchIntentHash": "f6485d1c3a627e95ebdf39e08f85bcca2812e072ada4c72dae7477ea5e0cd3d9",
+    "budgetIntentHash": "fd37651d2fc055fd2ac49cb70923d2e5d79e36f23e994e8d0b6785d7f7db7cd1",
+    "campaignIntentHash": "0d1f0ad85fd2232f40265ff862b22e036b787aad3e05ce15d27e1bf891052ede",
+    "campaignIntentFileHash": "5c9d72fb347d8b615a62d9036ed73c52872f75c05b19f4b69518c9a992440b70",
+    "inputHash": "c7af6fbc5476be8a1815d82c2b6d569305c84f19b7af9a13996b849d0bf8e36c",
+    "candidateBoardHash": "759975b322220ad04e449b5f109c131601222b3988368e47a6d45b5443d146df",
+    "a144PostsettlementAuditHash": "c04787bec67fdf589faaf683223c016cb5a798d6cd7ef80704a78c558dc344b9"
+  },
+  "accounting": {
+    "authorArms": 2,
+    "deliveredAuthorArms": 1,
+    "incompleteAuthorArms": 1,
+    "reviewers": 2,
+    "completeReviewers": 2,
+    "nativeCalls": 4,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "routes": [
+    {
+      "id": "codex",
+      "terminalHash": "21dfc6b9991330ae897d3b211ce3592103c77f1d67f770180b4651a4e0823217",
+      "resultHash": "57231292240eb08247d1bc2850e95a6237fec3170edae5a6584b1db64b962f1e",
+      "status": "complete",
+      "model": "gpt-6-astra",
+      "elapsedMs": 54873,
+      "artifactTreeHash": "ad761b072df6d242cfb450917c3c25b98a6dd27010a69b229da9a145369b9da1"
+    },
+    {
+      "id": "claude",
+      "terminalHash": "36c8b74ffb0075a8250bdcd9ed99a1a658d21fdefcb97318a6b8b359dd3b27c5",
+      "resultHash": "f06eefe05a0eb056553395991ba81baba703a71557b8ca3d5d7ef81551851d90",
+      "status": "complete",
+      "model": "claude-opus-5",
+      "elapsedMs": 105959,
+      "artifactTreeHash": "113fea0ae4688676b916247a6190ab7e6d8776a07acc249e0a40b86009c79dda"
+    }
+  ],
+  "assessment": {
+    "campaignIntentHash": "0d1f0ad85fd2232f40265ff862b22e036b787aad3e05ce15d27e1bf891052ede",
+    "instrumentQualified": false,
+    "outcomes": [
+      {
+        "completeReviewers": 2,
+        "conflicts": [],
+        "id": "arm-a",
+        "imageSha256": "759975b322220ad04e449b5f109c131601222b3988368e47a6d45b5443d146df",
+        "incompleteReviewers": 0,
+        "reviews": [
+          {
+            "complete": true,
+            "identity": {
+              "model": "gpt-6-astra",
+              "provider": "openai-codex"
+            },
+            "judgment": {
+              "craft": 9,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "scissors",
+              "ship": "yes"
+            },
+            "route": "codex"
+          },
+          {
+            "complete": true,
+            "identity": {
+              "model": "claude-opus-5",
+              "provider": "anthropic-claude"
+            },
+            "judgment": {
+              "craft": 7,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "scissors",
+              "ship": "yes"
+            },
+            "route": "claude"
+          }
+        ],
+        "status": "rejected"
+      }
+    ],
+    "qualified": false,
+    "scope": "development-ai-review"
+  }
+}

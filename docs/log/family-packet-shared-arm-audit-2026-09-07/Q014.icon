@@ -1,0 +1,10 @@
+icon bell-pause
+keyline portrait
+finish filled
+part bell-check-filled-0 at 3.25,2
+rect 8,7 8x7 r1
+union
+hole rect 8.5,8 2.5x6 r1
+hole rect 13,8 2.5x6 r1
+part bell-check-filled-1 at 7.5,19
+union

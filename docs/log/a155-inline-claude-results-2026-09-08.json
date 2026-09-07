@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "kind": "a155-one-stage-inline-claude-transport-diagnostic",
+  "createdAt": "2026-09-08",
+  "qualified": false,
+  "instrumentQualified": false,
+  "craftApproved": false,
+  "panelAdmission": "excluded",
+  "providerAccounting": {
+    "nativeSubscriptionCalls": 1,
+    "apiCalls": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "a155": {
+    "status": "transport-complete",
+    "requestedModel": "claude-opus-5",
+    "actualModel": "claude-opus-5",
+    "requestedEffort": "high",
+    "stageCapMs": 120000,
+    "elapsedMs": 93856,
+    "providerReportedDurationMs": 92107,
+    "providerReportedApiDurationMs": 94089,
+    "process": {
+      "code": 0,
+      "killed": false,
+      "quiescent": true,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "readToolUses": 0,
+      "structuredOutputUses": 1,
+      "terminalResults": 1
+    },
+    "transport": {
+      "attachmentCount": 10,
+      "streamByteLength": 89342,
+      "preparedStreamSha256": "f94d4837012c91d8ebf5fdbbbd84c44caa647a5ed35b7a73b9747769bfd7948e",
+      "bridgeStreamSha256": "f94d4837012c91d8ebf5fdbbbd84c44caa647a5ed35b7a73b9747769bfd7948e",
+      "readToolPromptSha256": "c5f09399a1759577eaa9fb05dfd00fa020e1d256f550294f2bf57ed3e3302d24",
+      "inlinePromptSha256": "179aafd5cff90bacb9f39b8c4fe16fd1ca1aaadd84bae144927681d80ab5f1a4",
+      "onlyPromptChange": "Read transport instruction replaced by the frozen inline transport instruction"
+    },
+    "craftDistribution": {
+      "scoresInStimulusOrder": [8, 7, 8, 7, 5, 8, 8, 4, 8, 8],
+      "counts": { "4": 1, "5": 1, "7": 2, "8": 6 },
+      "mean": 7.1
+    },
+    "shipDistribution": { "yes": 0, "no": 10, "uncertain": 0 },
+    "craftBelow9AndShipYes": { "count": 0, "stimuli": [] }
+  },
+  "historicalComparisons": {
+    "a149HighRead": {
+      "samePromptSchemaImageBytesAndOrder": true,
+      "requestedEffort": "high",
+      "status": "incomplete",
+      "stageCapMs": 120000,
+      "observedArtifactIntervalMs": 118367,
+      "process": {
+        "code": null,
+        "killed": true,
+        "quiescent": true,
+        "readToolUses": 10,
+        "structuredOutputUses": 1,
+        "terminalResults": 0
+      },
+      "acceptedCraftDistribution": null,
+      "acceptedShipDistribution": null,
+      "rejectedDraft": {
+        "reason": "StructuredOutput included forbidden choice_note properties, then the stage timed out before a valid terminal result.",
+        "craftScoresInStimulusOrder": [8, 7, 8, 7, 6, 8, 7, 5, 7, 9],
+        "shipDistribution": { "yes": 1, "no": 9, "uncertain": 0 },
+        "craftBelow9AndShipYes": 0
+      }
+    },
+    "a150MediumRead": {
+      "samePromptSchemaImageBytesAndOrder": true,
+      "requestedEffort": "medium",
+      "status": "complete",
+      "stageCapMs": 120000,
+      "observedArtifactIntervalMs": 83250,
+      "providerReportedDurationMs": 81831,
+      "providerReportedApiDurationMs": 82892,
+      "process": {
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "readToolUses": 10,
+        "structuredOutputUses": 2,
+        "terminalResults": 1
+      },
+      "craftDistribution": {
+        "scoresInStimulusOrder": [8, 7, 7, 7, 5, 8, 7, 4, 7, 8],
+        "counts": { "4": 1, "5": 1, "7": 5, "8": 3 },
+        "mean": 6.8
+      },
+      "shipDistribution": { "yes": 3, "no": 7, "uncertain": 0 },
+      "craftBelow9AndShipYes": {
+        "count": 3,
+        "stimuli": [
+          "r-8eb8edb10016",
+          "r-4d6bc1b595e0",
+          "r-4e416c33775d"
+        ]
+      }
+    }
+  },
+  "interpretation": [
+    "A155 demonstrates that this exact ten-image stage can complete through inline transport with exact host-to-CLI stream-byte binding and repository-level process quiescence.",
+    "A155 completed 24.511 seconds before A149's observed timeout interval but 10.606 seconds after A150's completed observed interval. One run per configuration cannot isolate a transport effect.",
+    "Removing Read calls did not establish a speed improvement over the medium-effort Read route. It only avoided the high-effort A149 timeout in this sample.",
+    "A155 produced no craft-below-9 plus ship-yes conflicts, while A150 produced three. A155 also rejected all ten stimuli, including scores of 8, so this may reflect a stricter ship interpretation rather than better rubric calibration.",
+    "The A149 rejected draft is diagnostic trace evidence only and is not counted as an accepted answer distribution."
+  ],
+  "confounds": [
+    "A149 high Read and A155 high inline are sequential non-randomized calls and can differ through model sampling and service conditions.",
+    "A150 uses medium effort, so its timing cannot isolate transport from reasoning effort.",
+    "A150 and A149 were invoked through the production Read reviewer; A155 uses an experimental adapter and one transport-only prompt sentence replacement.",
+    "Provider-reported duration and host artifact intervals use different clocks and should not be subtracted as one timing series.",
+    "The inline receipt proves exact bytes supplied to the CLI, not model attention to every attachment.",
+    "No independent labels were revealed or scored here, so stricter ship decisions cannot be called more accurate."
+  ],
+  "evidence": {
+    "manifest": {
+      "path": ".staging/A155-inline-claude-stage3-2026-09-08/manifest.json",
+      "sha256": "2bf4e370a5ac268ee70ce10b301bf3f2fae67e2c47ef27904dccac20a674bc0f"
+    },
+    "rootIntent": {
+      "path": "docs/log/a155-inline-claude-intent-2026-09-08.json",
+      "sha256": "1d4cd21889e17ddb87ac0233842ee196d79a5d5a553ac047d360422b82adec8a"
+    },
+    "terminal": {
+      "path": ".staging/A155-inline-claude-stage3-2026-09-08/run/terminal.json",
+      "sha256": "edc56a809a211b30fb5d57a6df8697e05dc787cfd87dad857d0eae4321c72385"
+    },
+    "request": {
+      "path": ".staging/A155-inline-claude-stage3-2026-09-08/run/review/request.json",
+      "sha256": "68e9587392f68296a7bad721d8b066451d54db109e74f5d34fd485750f6a4cf3"
+    },
+    "bridgeInput": {
+      "path": ".staging/A155-inline-claude-stage3-2026-09-08/run/review/bridge-input.json",
+      "sha256": "3f414eae3efb5288cf0ce6c6ab65365e0134065aac42f9dfc83efb5eb97ec642"
+    },
+    "process": {
+      "path": ".staging/A155-inline-claude-stage3-2026-09-08/run/review/process.json",
+      "sha256": "8230dce71098b0a05b23c9a7b790b5b42e2b35cc356d7138b1a895234f6f684b"
+    }
+  }
+}

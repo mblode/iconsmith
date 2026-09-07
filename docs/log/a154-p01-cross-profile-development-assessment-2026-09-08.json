@@ -1,0 +1,881 @@
+{
+  "kind": "p01-cross-profile-development-assessment",
+  "scope": "development-only-cross-profile",
+  "qualified": false,
+  "instrumentQualified": false,
+  "sealedPopulation": false,
+  "matchedQualification": false,
+  "packet": "V2-P01",
+  "denominator": 10,
+  "canonicalIds": [
+    "R-8eb8edb10016",
+    "R-01ccc4437501",
+    "R-5784039f0165",
+    "R-7d4e62603013",
+    "R-257222ceba39",
+    "R-4d6bc1b595e0",
+    "R-081de278ac7b",
+    "R-cfacb7b0ce64",
+    "R-9e153df1309d",
+    "R-4e416c33775d"
+  ],
+  "decisionRules": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/fresh-critic-semantic-campaign-v6-2026-09-08/decision-rules.json",
+    "sha256": "6c0c95b9bfcf15661427d1a6b283697876b0a05661a220354a0f050a56f9d1c3",
+    "rules": {
+      "schemaVersion": 1,
+      "kind": "predispatch-critic-panel-decision-rules",
+      "createdAt": "2026-09-08",
+      "individualDecisionOrder": [
+        "uncertain when any required answer is missing or uncertain",
+        "uncertain when critical=yes and ship=yes",
+        "uncertain when craft<9 and ship=yes",
+        "uncertain when craft>=9 and ship=no",
+        "reject when critical=yes or ship=no",
+        "approve only when critical=no, craft>=9 and ship=yes"
+      ],
+      "recognition": {
+        "neutralChoice": "none of these / uncertain",
+        "neutralTreatment": "uncertain",
+        "filenameLabelsValidatedBeforeCampaign": false,
+        "agreementRequired": "For any model treated as critic, both other distinct model identities must independently select the same non-neutral meaning before semantic agreement can be recorded."
+      },
+      "panelConsensus": {
+        "selfPanelAllowed": false,
+        "requiredOtherIdentityPanels": 2,
+        "derivation": "Panel truth for a held-out critic is derived only from the two other model identities. The held-out critic answer is never an input to panel truth.",
+        "approve": "both other identities independently approve and select the same non-neutral recognition meaning",
+        "reject": "both other identities independently reject for a corroborated named critical defect or ship=no, without contradictory rating/ship pairs",
+        "uncertain": "the two other identities disagree, select different or neutral meanings, omit required evidence, or contain contradictory rating/ship/critical combinations",
+        "measurement": "The held-out critic decision is compared afterward with the independently derived panel decision for precision and recall; critic disagreement does not make panel truth uncertain."
+      },
+      "thresholds": {
+        "minimumCraftForApprove": 9,
+        "requiredShip": "yes",
+        "requiredCritical": "no"
+      },
+      "unmeasuredDimensions": {
+        "familyParity": null,
+        "nativeFamilyOpticalParity": null
+      },
+      "qualified": false,
+      "instrumentQualified": false,
+      "scope": "Development critic-decision agreement on this bounded control distribution only; never full icon qualification."
+    }
+  },
+  "routeCensus": {
+    "sol": "complete",
+    "claude": "complete",
+    "astra": "complete"
+  },
+  "limitations": [
+    "ten exposed development controls",
+    "reviewer profiles are not matched",
+    "named defect corroboration remains unresolved",
+    "no sealed-population qualification"
+  ],
+  "rows": [
+    {
+      "opaqueId": "R-8eb8edb10016",
+      "artifactEvidenceSha256": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "integrations",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a central vertical divider with arrows on both sides. Action/modifier: the arrows point inward toward the divider, suggesting horizontal compression or collapsing inward.",
+            "critical": "The arrows, central divider, spacing, and direction remain clear in both native and enlarged proofs.",
+            "craft": "The opposing arrows, center bar, and intervening gaps remain crisp and balanced in both native and enlarged proofs on both backgrounds.",
+            "ship": "The convergence symbol remains immediately legible at the supplied native size, with no blocking contour or spacing defect."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "squized",
+          "critical": "no",
+          "craft": 8,
+          "ship": "yes",
+          "decision": "uncertain",
+          "namedEvidence": {
+            "description": "A tall vertical bar at center with a solid triangular arrowhead pointing inward from the left and another pointing inward from the right, meeting at the line. Object: a vertical divider/seam line; modifier/action: two opposed inward-pointing arrows, reading as collapse, compress horizontally, or snap-to-center.",
+            "critical": "Both arrowheads and the center bar are separate, unbroken strokes with clear gaps at the bar in the small render; no stroke merges or truncates.",
+            "craft": "Center vertical bar with two triangular arrowheads reads cleanly at the large size on both light and dark bars; at the small size the left arrowhead's tip and the bar close to roughly one pixel of white, so the gap is nearly lost.",
+            "ship": "No broken contour or misconnection at either supplied size; the only weakness is the tight tip-to-bar gap at the small size, which still resolves as separate marks."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "squized",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: two horizontal arrows on opposite sides of a vertical bar. Action: both point inward toward the bar, suggesting horizontal compression or alignment to the center.",
+            "critical": "Arrowheads and central bar remain distinct at native and enlarged sizes in both polarities.",
+            "craft": "The inward arrows balance around a straight central bar. Rounded ends and clear separation hold in the small and enlarged proofs on both backgrounds.",
+            "ship": "Both arrowheads and the central divider remain distinct at the supplied native size. No visible blocking defect."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-01ccc4437501",
+      "artifactEvidenceSha256": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "difference-modified",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a circular ring of rounded dots or petals. Action/modifier: the repeated elements form a radial spinner, suggesting loading or activity in progress.",
+            "critical": "All peripheral dots and the contrasting split elements are visibly preserved at both sizes and on both backgrounds.",
+            "craft": "The radial elements form a coherent, evenly weighted ring with clean negative space; the structure survives at native size in both polarities.",
+            "ship": "The circular arrangement and individual lobes remain distinct at the supplied native size, with no visible blocking defect."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "cosmos",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "Four solid dots arranged at the diagonal corners of a ring around a small center element that shows short radiating tick marks (upper and lower) with a narrow vertical slot. Object: a circular cluster of dots (a loading/orbit ring or particle group); modifier/action: a radiating/spinning center, reading as loading, processing, or scatter.",
+            "critical": "In the 16px render the four discs and the center marks stay separated by visible background; no counter is filled in and no petal is fused to the center.",
+            "craft": "At the large size the ring of eight round dots plus center dot is even and well spaced, but at the small size the top and lower-left dots blur into a single cluster and the center dot is indistinguishable from its neighbors.",
+            "ship": "Blocking defect: at the small light-background rendering the dot ring merges into an undifferentiated cluster, losing the ring-and-center structure visible at the large size."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "cosmos",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: six round dots arranged like petals around a vertical central line. Modifier: the upper and lower dots are bisected by the line, suggesting a symmetrical cluster organized around an axis; the exact function is unclear.",
+            "critical": "Lobes and central separation remain legible in all proofs; no broken contour is visible.",
+            "craft": "The circular elements form a balanced arrangement, with consistent contours and a clear central slit. The small proofs preserve the individual elements in both polarities.",
+            "ship": "The dots and split central forms remain distinguishable at native size. No visible collision or contour defect blocks shipping."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-5784039f0165",
+      "artifactEvidenceSha256": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "aura",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a simple person or user bust formed by a circular head and curved shoulders. Modifier: small radiating marks surround the figure, suggesting a highlighted, featured, or active person.",
+            "critical": "The central figure, outer arc, and surrounding aura marks are complete and legible in every proof.",
+            "craft": "The central figure and surrounding dots are clearly separated, centered, and consistently weighted across native and enlarged proofs.",
+            "ship": "All essential interior and radial details remain visible at the supplied native size on light and dark backgrounds."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "aura",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "A round head over a rounded shoulder/torso arc (a person bust) with short radiating rays around the top of the head. Object: a person/user figure; modifier/action: emanating rays above and beside the head, reading as an active, highlighted, or 'idea/insight' user.",
+            "critical": "Head circle, shoulder arc and each surrounding dash remain distinct at 16px; the head counter is not filled and the shoulder arc is unbroken.",
+            "craft": "Large size shows a head, shoulder arc and short radiating ticks clearly; at the small size the ticks above and beside the head collapse toward the head outline and the head counter nearly fills in.",
+            "ship": "The ray ticks touch the head silhouette at the small size, turning the top of the mark into a speckled mass rather than distinct rays."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "aura",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a person's head and shoulders. Modifier: short rays and dots surround the head like a halo, suggesting a highlighted or radiant person.",
+            "critical": "Head and body counters remain open, and surrounding rays stay separate at both sizes and polarities.",
+            "craft": "The surrounding marks are evenly distributed around the open head and shoulder shapes. Their spacing and rounded strokes remain clear in the small and enlarged proofs.",
+            "ship": "The head, shoulders and surrounding marks stay separated at the supplied native size on both backgrounds."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "approve",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-7d4e62603013",
+      "artifactEvidenceSha256": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "mute",
+          "critical": "no",
+          "craft": 8,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "Object: a notification bell. Modifier/action: a diagonal slash crosses the bell, indicating muted or disabled notifications.",
+            "critical": "The diagonal mute modifier is continuous and clearly intersects the underlying symbol at both sizes.",
+            "craft": "The enlarged muted-bell construction is coherent, but at native size the slash consumes much of the bell silhouette and creates a cramped, ambiguous central shape.",
+            "ship": "The blocking defect is reduced bell recognition at the supplied native size because the diagonal slash and body merge too heavily."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "mute",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "A speaker/megaphone body at lower left (small rectangle with a flared trapezoid cone) crossed by a bold diagonal slash running lower-left to upper-right. Object: a loudspeaker; modifier/action: a diagonal strike-through, reading as muted or sound off.",
+            "critical": "The slash fully crosses the speaker body at both ends in the small render, so the negation modifier survives; the cone silhouette stays readable.",
+            "craft": "At the large size the speaker body plus diagonal slash is coherent, but the slash runs directly through the cone with only a hairline of background, and at the small size the cone and slash fuse into a single dark wedge.",
+            "ship": "Blocking defect: slash and speaker cone merge at the small size, so the mute distinction is not readable there."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "mute",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a speaker. Modifier: a diagonal slash crosses it, indicating muted or disabled sound.",
+            "critical": "Speaker and muting slash remain recognizable in native and enlarged proofs in both polarities.",
+            "craft": "The diagonal slash has clean terminals and a consistent angle. The filled body and separating diagonal channel remain readable in both proof sizes and polarities.",
+            "ship": "The slash remains prominent and the adjacent filled portions stay distinct at native size. No visible blocking defect."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "candidateDecision": "reject",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-257222ceba39",
+      "artifactEvidenceSha256": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "adobe-acrobat",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "Object: a three-lobed, triangular loop resembling the Acrobat or PDF symbol. Modifier/action: none visible.",
+            "critical": "All three curved branches and their connections remain recognizable in the native and enlarged proofs.",
+            "craft": "The enlarged looping mark is understandable, but its thin, intricate crossings and small terminal loops collapse into a fragile squiggle at native size.",
+            "ship": "Native-size legibility is blocked by the delicate multi-loop structure, whose branches and crossings are difficult to distinguish."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "adobe-acrobat",
+          "critical": "uncertain",
+          "craft": 5,
+          "ship": "no",
+          "decision": "uncertain",
+          "namedEvidence": {
+            "description": "A single continuous looping ribbon stroke that curls into a closed loop at the upper left and sweeps into a broad tapering tail curving down and right, with a small hook at bottom left. Object: a curled ribbon/knot or flourish; modifier/action: the sweeping open tail, reading as a bookmark ribbon, award flourish, or decorative swirl.",
+            "critical": "At 16px the tight inner loops of the swash nearly close, so the counters may fill at native size, though they are still visible as light pixels.",
+            "craft": "The large rendering is a swirling ribbon with strongly varying thickness, a heavy blob at lower left tapering to a hairline at the upper loop, and the small rendering degrades to an ambiguous smear with no identifiable subject.",
+            "ship": "Blocking defects: non-uniform stroke weight across the loop and complete loss of form at the small size."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "adobe-acrobat",
+          "critical": "no",
+          "craft": 8,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "Object: a continuous curved ribbon forming three outward loops, resembling the Adobe Acrobat symbol. Meaning: PDF documents or Acrobat; no separate action modifier is visible.",
+            "critical": "The three loops and central junction remain intact at both sizes in both polarities.",
+            "craft": "The enlarged proof shows a flowing three-loop contour, but the narrow upper loop loses its open interior in the small proof. The central crossing also becomes a dense junction.",
+            "ship": "The upper loop pinches closed in the native proof, weakening the loop structure visible in the enlargement."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "candidateDecision": "reject",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-4d6bc1b595e0",
+      "artifactEvidenceSha256": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "collaboration-pointer-left",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a mouse-pointer arrow. Modifier/action: none visible; it represents pointing, selecting, or cursor control.",
+            "critical": "The pointer outline, tip, inner counter, and lower tail are intact on both backgrounds.",
+            "craft": "The pointer has a clear tip, coherent outline, well-resolved inner notch, and stable stroke weight at both displayed scales and polarities.",
+            "ship": "The pointer remains recognizable and structurally clear at the supplied native size, with no blocking defect."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "collaboration-pointer-left",
+          "critical": "no",
+          "craft": 8,
+          "ship": "yes",
+          "decision": "uncertain",
+          "namedEvidence": {
+            "description": "An outlined arrow/cursor pointer aimed up-left with a short curved stroke trailing off its lower-right side. Object: a mouse cursor or navigation pointer; modifier/action: the trailing curved motion arc, reading as click, swipe, or movement of the pointer.",
+            "critical": "The pointer outline is closed with its interior counter still open at 16px, and the trailing arc stays separated from the arrow body.",
+            "craft": "Cursor outline with trailing motion arc has an even stroke and clean pointed tip at the large size; at the small size the arc sits close enough to the cursor's lower-right edge that the two nearly touch.",
+            "ship": "Contour, tip and arc all remain distinguishable at both supplied sizes on light and dark backgrounds; the tight arc gap is a refinement, not a failure."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "collaboration-pointer-left",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: an outlined arrowhead resembling a cursor or paper airplane, pointing toward the upper left. Modifier: a separate bent stroke follows its lower-right edge, suggesting movement or sending.",
+            "critical": "Pointer outline and companion stroke remain distinguishable across all proofs; no meaning-breaking contour defect is visible.",
+            "craft": "The angular outline uses smooth rounded corners and consistent stroke weight. Its interior space and separated trailing stroke remain visible in the small proofs.",
+            "ship": "The pointed silhouette and trailing stroke remain distinguishable at native size in both polarities. No visible blocking defect."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "approve",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-081de278ac7b",
+      "artifactEvidenceSha256": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "emoji-tongue",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a bowl or shallow dish containing several small food-like pieces. Modifier/action: none visible.",
+            "critical": "The face contour, eyes, mouth, and tongue detail remain visible in native and enlarged proofs.",
+            "craft": "The rim, rounded bowl contour, eyes, and smile are cleanly organized and remain distinct in both native and enlarged proofs.",
+            "ship": "The facial details and enclosing contour remain legible at the supplied native size on both backgrounds."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "icebowl",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "A half-circle bowl seen from the front with a straight rim across the top and three or four solid oval shapes sitting in a row along the rim. Object: a bowl or dish; modifier/action: rounded contents (beans, fruit, or scoops) filling it, reading as food, a serving, or a meal.",
+            "critical": "The rim line stays distinct from the bowl wall and the interior dots remain separate at 16px; the bowl contour is continuous.",
+            "craft": "The large bowl shows a rim line and three interior dots with clear separation; at the small size the interior dots and the rim line merge into a solid dark band across the bowl.",
+            "ship": "Blocking defect: interior dots fill against the rim at the small size, reducing the mark to a filled half-disc."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "icebowl",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a rounded bowl with an elliptical rim and several small pieces visible inside. Modifier: the bowl contains food, suggesting a serving of soup or cereal; no action is shown.",
+            "critical": "Bowl contour, rim, and contents remain readable at native and enlarged sizes in both polarities.",
+            "craft": "The elliptical rim joins the rounded bowl cleanly. Interior dots remain separated from the outline, and the bowl retains an open interior in the small proofs.",
+            "ship": "The rim, contents and lower bowl remain readable at the supplied native size on both backgrounds."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-cfacb7b0ce64",
+      "artifactEvidenceSha256": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "chevron-triangle-up-small",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a small upward-pointing triangular caret. Action/modifier: its upward direction suggests moving up or collapsing an open section.",
+            "critical": "The upward point and complete filled contour are clean and consistent across proofs.",
+            "craft": "The compact upward caret has a centered apex, stable filled silhouette, and clear directional reading at both supplied scales.",
+            "ship": "Despite its small footprint, the upward-pointing shape remains distinct at the supplied native size with no blocking defect."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "chevron-triangle-up-small",
+          "critical": "no",
+          "craft": 4,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "A single small solid shape with a rounded top and a flat base, like a filled dome, blob, or upward-pointing rounded triangle, alone on the canvas. Object: a solid rounded mound/caret-like form; modifier/action: none discernible — no secondary mark, badge, or arrow accompanies it.",
+            "critical": "The triangle is solid with clean apex and baseline in the 16px render; nothing is clipped by the frame edge.",
+            "craft": "Both renderings are a single small solid triangular blob occupying a fraction of the frame; the large size shows a lumpy, asymmetric silhouette with no internal structure and the small size is a three-to-four pixel speck.",
+            "ship": "Blocking defect: the mark grossly underfills the icon box and carries no legible form at the small size."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "chevron-triangle-up-small",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a small filled triangle with rounded corners. Direction: it points upward, suggesting an up control or an upward-facing disclosure indicator.",
+            "critical": "The upward apex and continuous triangular silhouette remain clear in every proof.",
+            "craft": "The compact upward triangle has balanced sides, softened corners and a stable base. Its direction remains clear in the small proofs and its contour is coherent when enlarged.",
+            "ship": "The native proofs preserve a distinct upward-pointing silhouette in both polarities. No visible blocking defect."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "approve",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-9e153df1309d",
+      "artifactEvidenceSha256": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "open-quote-1",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a single comma-shaped quotation mark. Modifier/action: none visible; it most likely denotes an opening quotation or quoted text.",
+            "critical": "The quote's rounded body and tapered upper hook are intact at both displayed sizes.",
+            "craft": "The quotation/comma form has a smooth rounded body and a clear upper notch, retaining the same silhouette in both polarities and scales.",
+            "ship": "The mark remains readable at the supplied native size, and no contour failure is visible."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "open-quote-1",
+          "critical": "no",
+          "craft": 7,
+          "ship": "no",
+          "decision": "reject",
+          "namedEvidence": {
+            "description": "A single solid comma-shaped mark with a thick round head at the top tapering to a curled tail at the lower left, positioned in the upper area of the frame. Object: a comma/apostrophe or opening quotation mark; modifier/action: none — there is no second mark, text line, or container beside it.",
+            "critical": "The bowl and tail form one continuous solid mass at 16px with no break in the tail; shape stays legible as a quote mark.",
+            "craft": "The large size is a single solid comma/quote form with a smooth outer contour and clean tail, but it fills only the upper-left area of the box, and the small size reduces to an almost featureless dot.",
+            "ship": "Blocking defect: the tail that defines the mark disappears at the small size, leaving an indistinct dot, and the form sits off-center in the box."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "open-quote-1",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a single opening quotation mark, with a rounded lower bulb and a curved upper tail. Meaning: a quotation or quoted text; no separate modifier is visible.",
+            "critical": "Hook and bulb form an intact, recognizable quotation mark at both sizes and polarities.",
+            "craft": "The rounded lower mass flows cleanly into the curved upper hook. The open notch remains visible at native size, and the enlarged contour has no conspicuous kink.",
+            "ship": "The hook and rounded body remain distinct in the supplied small proofs on both backgrounds."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "approve",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    },
+    {
+      "opaqueId": "R-4e416c33775d",
+      "artifactEvidenceSha256": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+      "models": {
+        "sol": {
+          "eligible": true,
+          "actualModel": "gpt-5.6-sol",
+          "recognition": "electrocardiogram",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a short oscillating waveform or signal line. Modifier/action: the alternating peaks and troughs indicate fluctuation, audio, or pulse activity.",
+            "critical": "The waveform is continuous, with its peak, valley, and terminal strokes clearly preserved.",
+            "craft": "The waveform has smooth transitions, controlled peaks and troughs, rounded terminals, and consistent clarity across both scales and backgrounds.",
+            "ship": "The waveform remains crisp and recognizable at the supplied native size, with no blocking connection or weight defect."
+          }
+        },
+        "claude": {
+          "eligible": true,
+          "actualModel": "claude-opus-5",
+          "recognition": "electrocardiogram",
+          "critical": "no",
+          "craft": 8,
+          "ship": "yes",
+          "decision": "uncertain",
+          "namedEvidence": {
+            "description": "A single continuous stroke running horizontally that dips down, spikes sharply up, then dips down again before flattening — a waveform or pulse trace. Object: a signal/heartbeat waveform line; modifier/action: the tall central spike, reading as a pulse, peak, activity, or vital-signs reading.",
+            "critical": "The trace is one unbroken polyline from left to right in the small render; the spike peak is not clipped and no segment is severed.",
+            "craft": "The S-shaped pulse stroke is uniform in weight with clean rounded terminals at the large size and stays readable as a waveform at the small size; the steep central rise and fall sit very close together, thinning the white channel between them.",
+            "ship": "Stroke weight, terminals and overall waveform hold at both supplied sizes on light and dark backgrounds; the tight central counter is a refinement only."
+          }
+        },
+        "astra": {
+          "eligible": true,
+          "actualModel": "gpt-6-astra",
+          "recognition": "electrocardiogram",
+          "critical": "no",
+          "craft": 9,
+          "ship": "yes",
+          "decision": "approve",
+          "namedEvidence": {
+            "description": "Object: a short waveform with one upward peak and one downward trough. Meaning: a pulse, signal, or activity monitor; no separate modifier is visible.",
+            "critical": "The waveform stays continuous, with distinct peak and trough in native and enlarged proofs in both polarities.",
+            "craft": "The continuous wave has consistent stroke weight, rounded terminals and smooth peak and trough transitions. Both bends remain clearly resolved in the native proofs.",
+            "ship": "The complete waveform stays legible at the supplied native size in both polarities, without a visible break or congested bend."
+          }
+        }
+      },
+      "panels": {
+        "sol": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "claude",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "claude": {
+          "decision": "approve",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "astra"
+          ],
+          "criticInfluencedPanel": false
+        },
+        "astra": {
+          "decision": "uncertain",
+          "namedDefectCorroboration": "unresolved",
+          "derivedOnlyFrom": [
+            "sol",
+            "claude"
+          ],
+          "criticInfluencedPanel": false
+        }
+      }
+    }
+  ]
+}

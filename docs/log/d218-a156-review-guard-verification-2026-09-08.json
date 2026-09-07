@@ -1,0 +1,31 @@
+{
+  "id": "D218",
+  "scope": "A156 staging-only independent-review guard verification",
+  "status": "passed",
+  "qualified": false,
+  "providerCalls": 0,
+  "correctRunner": {
+    "command": "node --import tsx --test .staging/a156-review-guard-2026-09-08/guard.test.ts",
+    "log": ".staging/root-a156-review-guard-tests-node.log",
+    "logSha256": "544678624aff975257ebf8eadfe496763b9f818e0677d1b8097889b8da05c9e2",
+    "tests": 4,
+    "passed": 4,
+    "failed": 0
+  },
+  "preservedRunnerMismatch": {
+    "commandFamily": "Vitest",
+    "status": "failed-runner-mismatch",
+    "reason": "The test uses node:test; Vitest imported it and then reported that the file contained no Vitest suite.",
+    "log": ".staging/root-a156-review-guard-tests.log",
+    "logSha256": "0087ad6ec7af44b77a41ffa99470729525247402a36b324611bd67f860d44e10"
+  },
+  "sourceHashes": {
+    ".staging/a156-review-guard-2026-09-08/guard.ts": "59ac8d86b1cbda2b3e6f814b008dc7c2d7a6751a879555b97adc8c3f792ffb89",
+    ".staging/a156-review-guard-2026-09-08/guard.test.ts": "3562381790bc1db71010ac6348d09ade0b6fe966978003a856c105c445e0f982",
+    ".staging/a156-review-guard-2026-09-08/run.mts": "530d9b32688a48355666e526f651b801ac73128ddf009fe88ad9230409a7bc41"
+  },
+  "limits": [
+    "This verifies the offline guard state machine only.",
+    "A156 author status was rejected-visible-defects, so no independent review was admissible or dispatched."
+  ]
+}

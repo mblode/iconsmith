@@ -1,0 +1,914 @@
+{
+  "schema": "iconsmith.family-packet-comparison-status.v1",
+  "generatedAt": "2026-09-07T06:38:33.137Z",
+  "qualification": {
+    "humanLabels": "pending",
+    "qualified": false,
+    "scope": "development-only"
+  },
+  "costs": {
+    "actualUsd": null,
+    "billing": "native subscriptions",
+    "note": "Dollar cost is unknown; zero API spend does not establish a zero-cost campaign."
+  },
+  "requestOutcomes": [
+    {
+      "actualUsd": null,
+      "authorExitCode": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "d212f7a45a4212ef017a52aa0c6ddcdc70dad89d0c9260d240c130a45720756e",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-16/attempt-1",
+          "receiptHash": null,
+          "status": "incomplete"
+        },
+        {
+          "attempt": 2,
+          "artifactPairPresent": true,
+          "authorReviewPresent": false,
+          "authorReviewSha256": null,
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-16/attempt-2",
+          "receiptHash": null,
+          "status": "incomplete"
+        },
+        {
+          "attempt": 3,
+          "artifactPairPresent": true,
+          "authorReviewPresent": false,
+          "authorReviewSha256": null,
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-16/attempt-3",
+          "receiptHash": null,
+          "status": "incomplete"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "folder-lock",
+      "deadlineExceeded": false,
+      "elapsedMs": 567194,
+      "master": 16,
+      "missing": [
+        "author-review.json"
+      ],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-16",
+      "qualityStatus": "not-reviewed",
+      "requestId": "shared-family-packet:folder-lock:16",
+      "requestSha256": "9bb9e5f8b9e368a93e098ac83834b7ef5be64d547017471e8d0c73adb0544379",
+      "route": "shared-family-packet",
+      "status": "incomplete",
+      "stoppedReason": "author-incomplete",
+      "generationReceiptElapsedMs": 566086,
+      "elapsedSource": "observed terminal request receipt",
+      "failureAccounting": "native-process-did-not-finalize-after-authored-review; later-attempt-review-missing"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "d212f7a45a4212ef017a52aa0c6ddcdc70dad89d0c9260d240c130a45720756e",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-24/attempt-1",
+          "receiptHash": null,
+          "status": "incomplete"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 1,
+      "concept": "folder-lock",
+      "deadlineExceeded": false,
+      "elapsedMs": 387628,
+      "master": 24,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-24",
+      "qualityStatus": "not-reviewed",
+      "requestId": "shared-family-packet:folder-lock:24",
+      "requestSha256": "f07715a2e8910c054bb3b86a06999ec7bb54d3746ff3430823aa89310c8cbf01",
+      "route": "automatic-retrieval",
+      "status": "incomplete",
+      "stoppedReason": "author-incomplete",
+      "generationReceiptElapsedMs": 304582,
+      "elapsedSource": "observed terminal request receipt",
+      "failureAccounting": "native-process-did-not-finalize-despite-authored-review"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/bell-pause-16/attempt-1",
+          "receiptHash": "1b5f4e39fbb3adb09d0e0298b531ce6f604a744f44cd8ef318a3c0956d0c9106",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "bell-pause",
+      "deadlineExceeded": false,
+      "elapsedMs": 385774,
+      "master": 16,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/bell-pause-16",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:bell-pause:16",
+      "requestSha256": "e5cab47a6d727f81b82691012aab60350e2a926f4060aec652f415d640ffe812",
+      "route": "shared-family-packet",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 384696,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": false,
+          "authorReviewPresent": false,
+          "authorReviewSha256": null,
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/bell-pause-24/attempt-1",
+          "receiptHash": null,
+          "status": "incomplete"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 7,
+      "concept": "bell-pause",
+      "deadlineExceeded": false,
+      "elapsedMs": 401829,
+      "master": 24,
+      "missing": [
+        "outlined.icon",
+        "filled.icon",
+        "author-review.json"
+      ],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/bell-pause-24",
+      "qualityStatus": "not-reviewed",
+      "requestId": "shared-family-packet:bell-pause:24",
+      "requestSha256": "f65cc5603221231034df099c6f020bdbee3352bd16f169587bf9631db1893747",
+      "route": "automatic-retrieval",
+      "status": "incomplete",
+      "stoppedReason": "author-incomplete",
+      "generationReceiptElapsedMs": 304425,
+      "elapsedSource": "observed terminal request receipt",
+      "failureAccounting": "output-and-author-review-missing"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/bicycle-16/attempt-1",
+          "receiptHash": "2e82d25086cbba82453f3895b42a5b4c17ba13646027bddd906b3fc2fa074058",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "bicycle",
+      "deadlineExceeded": false,
+      "elapsedMs": 291002,
+      "master": 16,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/bicycle-16",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:bicycle:16",
+      "requestSha256": "2100b4f711330a55b7698057122da68667fe065e02896b810a2418a19d47f673",
+      "route": "shared-family-packet",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 289954,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/bicycle-24/attempt-1",
+          "receiptHash": "b234a8032713925aa424b54efbc0d6b7d959435a0c39392a809070fb28231a2e",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "bicycle",
+      "deadlineExceeded": false,
+      "elapsedMs": 524768,
+      "master": 24,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/bicycle-24",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:bicycle:24",
+      "requestSha256": "9b7e7c3ae2955a143d9d324c6f6ad34c940e221ff6a2e9619e0364a6052eca67",
+      "route": "automatic-retrieval",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 409956,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-16/attempt-1",
+          "receiptHash": "802fa17509fae7445f02f2741faa4b604945fb2932a5c80ba13a6db62b6f6eb7",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "cloud-upload",
+      "deadlineExceeded": false,
+      "elapsedMs": 413933,
+      "master": 16,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-16",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:cloud-upload:16",
+      "requestSha256": "e00d5939fdaf7a0e75fcea391fbef3403bee0ec3f00f6367a31c4a35d67303fb",
+      "route": "shared-family-packet",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 412915,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24/attempt-1",
+          "receiptHash": "4c8b9e4ccec8e91f5c8876cfde3a17aa38009f558f55290b74a29d441a5bbc9e",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "cloud-upload",
+      "deadlineExceeded": false,
+      "elapsedMs": 447833,
+      "master": 24,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:cloud-upload:24",
+      "requestSha256": "66e80bf603f71fc2af39e805ab3a1899079e906c7624738a75f65d9ab3c598e1",
+      "route": "automatic-retrieval",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 343291,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/shield-check-16/attempt-1",
+          "receiptHash": "8b341504fec63591e1eaebb98c7c16a8751c7e4cc9dbc9e094ccb3f0839a7f03",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "shield-check",
+      "deadlineExceeded": false,
+      "elapsedMs": 256133,
+      "master": 16,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/shield-check-16",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:shield-check:16",
+      "requestSha256": "b18d662e0f75f8b0e52ec572d5bfbb9e563d1c9375bc1c91c3d7c50fd456cf71",
+      "route": "shared-family-packet",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 255076,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "6d87a6b92eb54df01f03888b67f4fb2520207e1b20ee0d90753b1502a5050dc1",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24/attempt-1",
+          "receiptHash": "990514b196cd3357ed9813236a62c5dcaba2ef3c521f578c685ec00507ce9775",
+          "status": "review-clear"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "shield-check",
+      "deadlineExceeded": false,
+      "elapsedMs": 374743,
+      "master": 24,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24",
+      "qualityStatus": "review-clear",
+      "requestId": "shared-family-packet:shield-check:24",
+      "requestSha256": "3fbc26f9d26c5ad4989ad929e72b765cebe73f9711045a7800c576471dec82d8",
+      "route": "automatic-retrieval",
+      "status": "delivered",
+      "stoppedReason": "review-clear",
+      "generationReceiptElapsedMs": 270205,
+      "elapsedSource": "observed terminal request receipt"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "d212f7a45a4212ef017a52aa0c6ddcdc70dad89d0c9260d240c130a45720756e",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-16/attempt-1",
+          "receiptHash": null,
+          "status": "incomplete"
+        },
+        {
+          "attempt": 2,
+          "artifactPairPresent": true,
+          "authorReviewPresent": false,
+          "authorReviewSha256": null,
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-16/attempt-2",
+          "receiptHash": null,
+          "status": "incomplete"
+        },
+        {
+          "attempt": 3,
+          "artifactPairPresent": true,
+          "authorReviewPresent": false,
+          "authorReviewSha256": null,
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-16/attempt-3",
+          "receiptHash": null,
+          "status": "incomplete"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "hammer-check",
+      "deadlineExceeded": false,
+      "elapsedMs": 568280,
+      "master": 16,
+      "missing": [
+        "author-review.json"
+      ],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-16",
+      "qualityStatus": "not-reviewed",
+      "requestId": "shared-family-packet:hammer-check:16",
+      "requestSha256": "52cd30923d866f7f54dd9ec6490b3648f90adb82dec9240fd5705f86c28ee403",
+      "route": "shared-family-packet",
+      "status": "incomplete",
+      "stoppedReason": "author-incomplete",
+      "generationReceiptElapsedMs": 567182,
+      "elapsedSource": "observed terminal request receipt",
+      "failureAccounting": "native-process-did-not-finalize-after-authored-review; later-attempt-review-missing"
+    },
+    {
+      "actualUsd": null,
+      "authorExitCode": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "artifactPairPresent": true,
+          "authorReviewPresent": true,
+          "authorReviewSha256": "d212f7a45a4212ef017a52aa0c6ddcdc70dad89d0c9260d240c130a45720756e",
+          "checksPresent": true,
+          "directory": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-24/attempt-1",
+          "receiptHash": null,
+          "status": "incomplete"
+        }
+      ],
+      "billing": "subscription",
+      "checkExitCode": 0,
+      "concept": "hammer-check",
+      "deadlineExceeded": false,
+      "elapsedMs": 415950,
+      "master": 24,
+      "missing": [],
+      "output": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-24",
+      "qualityStatus": "not-reviewed",
+      "requestId": "shared-family-packet:hammer-check:24",
+      "requestSha256": "7dcfcdc54d25116bc9b79626eea300cb5df336c8ec83da5d81e9f13a5b556cdb",
+      "route": "automatic-retrieval",
+      "status": "incomplete",
+      "stoppedReason": "author-incomplete",
+      "generationReceiptElapsedMs": 306036,
+      "elapsedSource": "observed terminal request receipt",
+      "failureAccounting": "native-process-did-not-finalize-despite-authored-review"
+    }
+  ],
+  "comparisonSlots": [
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "folder-lock",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "folder-lock",
+      "finish": "filled",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "folder-lock",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "folder-lock",
+      "finish": "filled",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bell-pause",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bell-pause",
+      "finish": "filled",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bell-pause",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bell-pause",
+      "finish": "filled",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bicycle",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bicycle",
+      "finish": "filled",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bicycle",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "bicycle",
+      "finish": "filled",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "cloud-upload",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "cloud-upload",
+      "finish": "filled",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "cloud-upload",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "cloud-upload",
+      "finish": "filled",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "shield-check",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "shield-check",
+      "finish": "filled",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "shield-check",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "shield-check",
+      "finish": "filled",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "hammer-check",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "hammer-check",
+      "finish": "filled",
+      "master": 16,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "hammer-check",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "independent-retrieval",
+      "artifactAvailable": false,
+      "concept": "hammer-check",
+      "finish": "filled",
+      "master": 24,
+      "requestId": null,
+      "status": "not-run"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "folder-lock",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": "shared-family-packet:folder-lock:16",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "folder-lock",
+      "finish": "filled",
+      "master": 16,
+      "requestId": "shared-family-packet:folder-lock:16",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "folder-lock",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": "shared-family-packet:folder-lock:24",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "folder-lock",
+      "finish": "filled",
+      "master": 24,
+      "requestId": "shared-family-packet:folder-lock:24",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "bell-pause",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": "shared-family-packet:bell-pause:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "bell-pause",
+      "finish": "filled",
+      "master": 16,
+      "requestId": "shared-family-packet:bell-pause:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": false,
+      "concept": "bell-pause",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": "shared-family-packet:bell-pause:24",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": false,
+      "concept": "bell-pause",
+      "finish": "filled",
+      "master": 24,
+      "requestId": "shared-family-packet:bell-pause:24",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "bicycle",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": "shared-family-packet:bicycle:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "bicycle",
+      "finish": "filled",
+      "master": 16,
+      "requestId": "shared-family-packet:bicycle:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "bicycle",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": "shared-family-packet:bicycle:24",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "bicycle",
+      "finish": "filled",
+      "master": 24,
+      "requestId": "shared-family-packet:bicycle:24",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "cloud-upload",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": "shared-family-packet:cloud-upload:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "cloud-upload",
+      "finish": "filled",
+      "master": 16,
+      "requestId": "shared-family-packet:cloud-upload:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "cloud-upload",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": "shared-family-packet:cloud-upload:24",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "cloud-upload",
+      "finish": "filled",
+      "master": 24,
+      "requestId": "shared-family-packet:cloud-upload:24",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "shield-check",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": "shared-family-packet:shield-check:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "shield-check",
+      "finish": "filled",
+      "master": 16,
+      "requestId": "shared-family-packet:shield-check:16",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "shield-check",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": "shared-family-packet:shield-check:24",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "shield-check",
+      "finish": "filled",
+      "master": 24,
+      "requestId": "shared-family-packet:shield-check:24",
+      "status": "pending-human-review"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "hammer-check",
+      "finish": "outlined",
+      "master": 16,
+      "requestId": "shared-family-packet:hammer-check:16",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "hammer-check",
+      "finish": "filled",
+      "master": 16,
+      "requestId": "shared-family-packet:hammer-check:16",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "hammer-check",
+      "finish": "outlined",
+      "master": 24,
+      "requestId": "shared-family-packet:hammer-check:24",
+      "status": "delivery-incomplete"
+    },
+    {
+      "arm": "shared-family-packet",
+      "artifactAvailable": true,
+      "concept": "hammer-check",
+      "finish": "filled",
+      "master": 24,
+      "requestId": "shared-family-packet:hammer-check:24",
+      "status": "delivery-incomplete"
+    }
+  ],
+  "summary": {
+    "comparisonSlots": 48,
+    "independentNotRunSlots": 24,
+    "sharedArtifactSlots": 22,
+    "sharedMissingArtifactSlots": 2,
+    "sharedPendingHumanReviewSlots": 14,
+    "sharedDeliveryIncompleteSlots": 10,
+    "requests": 12,
+    "deliveredRequests": 7,
+    "incompleteRequests": 5
+  },
+  "receipts": {
+    "intent": {
+      "path": ".staging/family-packet-screen-2026-09-07/A124-intent.json",
+      "sha256": "1ae40194affca7459e7c38e6bf1ed20e3cd85c1d1fc3cb6ecb2e742acbdf02aa"
+    },
+    "packetHashes": [
+      {
+        "path": ".staging/family-packet-screen-2026-09-07/A124-packet-hashes.json",
+        "sha256": "53ba0b1b7115ed0f42de0ac764edf8e6e7ecf14b802dc3a2bff5cf5adab76552"
+      },
+      {
+        "path": ".staging/family-packet-screen-2026-09-07/A124-packet-hashes-2.json",
+        "sha256": "9e3f9c234a0e48d77d1d3184dc58dfa6d9daa8c1d9b468266a202f2dc86c0579"
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "house-source-regression-family-triage-interpretation-v2",
+  "date": "2026-09-07",
+  "supersedesTerminologyOnly": "docs/log/house-source-regression-family-triage-2026-09-07.json",
+  "sourceReceiptSha256": "bee582b83d917006a9147ede958ae06a0024d802fe86bb23ba2c36d1475c796d",
+  "terminology": {
+    "affectedFamily": "A semantic family containing at least one source file with a replay raster difference above the recorded threshold or a source-admission refusal.",
+    "fullyRefusedFamily": "Every source file assigned to the semantic family was refused by source admission.",
+    "partiallyAvailableFamily": "The semantic family has at least one refused source file and at least one admitted source file.",
+    "qualificationBoundary": "Affected and flagged are prioritization terms. They do not prove that generation is blocked, that an admitted donor is unusable, or that a family fails visual qualification."
+  },
+  "counts": {
+    "totalSemanticFamilies": 1587,
+    "unaffectedSemanticFamilies": 887,
+    "affectedSemanticFamilies": 700,
+    "fullyRefusedFamilies": 95,
+    "partiallyAvailableFamiliesWithRefusals": 190,
+    "affectedFamiliesWithNoRefusals": 415,
+    "affectedFamiliesWithAtLeastOneAdmittedSource": 605,
+    "fullyRasterDifferentFamilies": 162
+  },
+  "accounting": {
+    "affectedFamilyPartition": "95 fully refused + 190 partially available with refusals + 415 affected with no refusals = 700 affected families.",
+    "availability": "605 of 700 affected families retain at least one admitted source file. Admission establishes source compatibility under the current gate; it does not establish generated output quality.",
+    "rasterDifferenceBoundary": "The 162 families where every source file exceeds the replay threshold are flagged for replay investigation. This does not by itself establish donor or generation failure."
+  },
+  "scope": "Additive interpretation of the immutable v1 accounting receipt. No source admission, generation, remediation, or visual qualification decision is changed or closed."
+}

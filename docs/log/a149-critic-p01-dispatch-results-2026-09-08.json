@@ -1,0 +1,400 @@
+{
+  "startedAt": 1788791165093,
+  "finishedAt": 1788791446737,
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "status": "complete",
+        "qualified": false,
+        "instrumentQualified": false,
+        "campaignHash": "6436db7b0672558d371ce9946da742f92f5d6be559c606847792a53cfcf7c2af",
+        "packet": "V2-P01",
+        "route": "sol",
+        "actualModel": "gpt-5.6-sol",
+        "stageHashes": [
+          "15a5824ea55dd02659e001c875489ba9390120cff1836569b10f0ef4886e88c7",
+          "928832dc26ac9d72b3abd9b5b0767e52ba7798ee07d2503ef2bdcb8ad9c640a0",
+          "ffb92af05e05d9dd0b71abccbcdc868b14391d7586312958894a43c54a5afdb2"
+        ],
+        "answers": {
+          "description": {
+            "r-8eb8edb10016-describe": {
+              "choice": "described",
+              "evidence": "Object: a central vertical divider with arrows on both sides. Action/modifier: the arrows point inward toward the divider, suggesting horizontal compression or collapsing inward.",
+              "treatment": "Solid, minimal directional symbol."
+            },
+            "r-01ccc4437501-describe": {
+              "choice": "described",
+              "evidence": "Object: a circular ring of rounded dots or petals. Action/modifier: the repeated elements form a radial spinner, suggesting loading or activity in progress.",
+              "treatment": "Solid radial indicator with alternating rounded elements."
+            },
+            "r-5784039f0165-describe": {
+              "choice": "described",
+              "evidence": "Object: a simple person or user bust formed by a circular head and curved shoulders. Modifier: small radiating marks surround the figure, suggesting a highlighted, featured, or active person.",
+              "treatment": "Outlined central figure with decorative rays and dots."
+            },
+            "r-7d4e62603013-describe": {
+              "choice": "described",
+              "evidence": "Object: a notification bell. Modifier/action: a diagonal slash crosses the bell, indicating muted or disabled notifications.",
+              "treatment": "Solid bell silhouette with a contrasting diagonal strike."
+            },
+            "r-257222ceba39-describe": {
+              "choice": "described",
+              "evidence": "Object: a three-lobed, triangular loop resembling the Acrobat or PDF symbol. Modifier/action: none visible.",
+              "treatment": "Thin outlined continuous-loop mark."
+            },
+            "r-4d6bc1b595e0-describe": {
+              "choice": "described",
+              "evidence": "Object: a mouse-pointer arrow. Modifier/action: none visible; it represents pointing, selecting, or cursor control.",
+              "treatment": "Bold outlined cursor shape."
+            },
+            "r-081de278ac7b-describe": {
+              "choice": "described",
+              "evidence": "Object: a bowl or shallow dish containing several small food-like pieces. Modifier/action: none visible.",
+              "treatment": "Outlined bowl with small interior details."
+            },
+            "r-cfacb7b0ce64-describe": {
+              "choice": "described",
+              "evidence": "Object: a small upward-pointing triangular caret. Action/modifier: its upward direction suggests moving up or collapsing an open section.",
+              "treatment": "Tiny solid rounded triangle."
+            },
+            "r-9e153df1309d-describe": {
+              "choice": "described",
+              "evidence": "Object: a single comma-shaped quotation mark. Modifier/action: none visible; it most likely denotes an opening quotation or quoted text.",
+              "treatment": "Solid curved punctuation mark."
+            },
+            "r-4e416c33775d-describe": {
+              "choice": "described",
+              "evidence": "Object: a short oscillating waveform or signal line. Modifier/action: the alternating peaks and troughs indicate fluctuation, audio, or pulse activity.",
+              "treatment": "Single smooth outlined wave stroke."
+            }
+          },
+          "recognitionCritical": {
+            "r-8eb8edb10016-choice": {
+              "choice": "integrations",
+              "evidence": "Two opposing arrows converge toward a central vertical divider, visually suggesting systems being brought together.",
+              "treatment": "Label as integrations."
+            },
+            "r-8eb8edb10016-critical": {
+              "choice": "no",
+              "evidence": "The arrows, central divider, spacing, and direction remain clear in both native and enlarged proofs.",
+              "treatment": "No repair needed."
+            },
+            "r-01ccc4437501-choice": {
+              "choice": "difference-modified",
+              "evidence": "A circular arrangement of contrasting solid and divided dots most closely represents a modified-difference symbol.",
+              "treatment": "Label as difference-modified."
+            },
+            "r-01ccc4437501-critical": {
+              "choice": "no",
+              "evidence": "All peripheral dots and the contrasting split elements are visibly preserved at both sizes and on both backgrounds.",
+              "treatment": "No repair needed."
+            },
+            "r-5784039f0165-choice": {
+              "choice": "aura",
+              "evidence": "A central person-like circle is surrounded by a ring of radiating dots and marks.",
+              "treatment": "Label as aura."
+            },
+            "r-5784039f0165-critical": {
+              "choice": "no",
+              "evidence": "The central figure, outer arc, and surrounding aura marks are complete and legible in every proof.",
+              "treatment": "No repair needed."
+            },
+            "r-7d4e62603013-choice": {
+              "choice": "mute",
+              "evidence": "The glyph has a sound-related silhouette crossed by a prominent diagonal cancellation slash.",
+              "treatment": "Label as mute."
+            },
+            "r-7d4e62603013-critical": {
+              "choice": "no",
+              "evidence": "The diagonal mute modifier is continuous and clearly intersects the underlying symbol at both sizes.",
+              "treatment": "No repair needed."
+            },
+            "r-257222ceba39-choice": {
+              "choice": "adobe-acrobat",
+              "evidence": "The three-loop ribbon contour is the distinctive Adobe Acrobat mark.",
+              "treatment": "Label as adobe-acrobat."
+            },
+            "r-257222ceba39-critical": {
+              "choice": "no",
+              "evidence": "All three curved branches and their connections remain recognizable in the native and enlarged proofs.",
+              "treatment": "No repair needed."
+            },
+            "r-4d6bc1b595e0-choice": {
+              "choice": "collaboration-pointer-left",
+              "evidence": "The image is an outlined cursor pointer directed toward the upper left.",
+              "treatment": "Label as collaboration-pointer-left."
+            },
+            "r-4d6bc1b595e0-critical": {
+              "choice": "no",
+              "evidence": "The pointer outline, tip, inner counter, and lower tail are intact on both backgrounds.",
+              "treatment": "No repair needed."
+            },
+            "r-081de278ac7b-choice": {
+              "choice": "emoji-tongue",
+              "evidence": "An oval smiling face contains two eyes and a centrally indicated tongue within the mouth.",
+              "treatment": "Label as emoji-tongue."
+            },
+            "r-081de278ac7b-critical": {
+              "choice": "no",
+              "evidence": "The face contour, eyes, mouth, and tongue detail remain visible in native and enlarged proofs.",
+              "treatment": "No repair needed."
+            },
+            "r-cfacb7b0ce64-choice": {
+              "choice": "chevron-triangle-up-small",
+              "evidence": "The glyph is a small solid upward-pointing triangular chevron.",
+              "treatment": "Label as chevron-triangle-up-small."
+            },
+            "r-cfacb7b0ce64-critical": {
+              "choice": "no",
+              "evidence": "The upward point and complete filled contour are clean and consistent across proofs.",
+              "treatment": "No repair needed."
+            },
+            "r-9e153df1309d-choice": {
+              "choice": "open-quote-1",
+              "evidence": "A single enlarged comma-like quotation form curves upward at its opening edge.",
+              "treatment": "Label as open-quote-1."
+            },
+            "r-9e153df1309d-critical": {
+              "choice": "no",
+              "evidence": "The quote's rounded body and tapered upper hook are intact at both displayed sizes.",
+              "treatment": "No repair needed."
+            },
+            "r-4e416c33775d-choice": {
+              "choice": "electrocardiogram",
+              "evidence": "The glyph is a continuous pulse waveform with a sharp central peak and following trough.",
+              "treatment": "Label as electrocardiogram."
+            },
+            "r-4e416c33775d-critical": {
+              "choice": "no",
+              "evidence": "The waveform is continuous, with its peak, valley, and terminal strokes clearly preserved.",
+              "treatment": "No repair needed."
+            }
+          },
+          "craftShip": {
+            "r-8eb8edb10016-craft": {
+              "choice": "9",
+              "evidence": "The opposing arrows, center bar, and intervening gaps remain crisp and balanced in both native and enlarged proofs on both backgrounds.",
+              "treatment": "Ship unchanged."
+            },
+            "r-8eb8edb10016-ship": {
+              "choice": "yes",
+              "evidence": "The convergence symbol remains immediately legible at the supplied native size, with no blocking contour or spacing defect.",
+              "treatment": "Ship unchanged."
+            },
+            "r-01ccc4437501-craft": {
+              "choice": "9",
+              "evidence": "The radial elements form a coherent, evenly weighted ring with clean negative space; the structure survives at native size in both polarities.",
+              "treatment": "Ship unchanged."
+            },
+            "r-01ccc4437501-ship": {
+              "choice": "yes",
+              "evidence": "The circular arrangement and individual lobes remain distinct at the supplied native size, with no visible blocking defect.",
+              "treatment": "Ship unchanged."
+            },
+            "r-5784039f0165-craft": {
+              "choice": "9",
+              "evidence": "The central figure and surrounding dots are clearly separated, centered, and consistently weighted across native and enlarged proofs.",
+              "treatment": "Ship unchanged."
+            },
+            "r-5784039f0165-ship": {
+              "choice": "yes",
+              "evidence": "All essential interior and radial details remain visible at the supplied native size on light and dark backgrounds.",
+              "treatment": "Ship unchanged."
+            },
+            "r-7d4e62603013-craft": {
+              "choice": "8",
+              "evidence": "The enlarged muted-bell construction is coherent, but at native size the slash consumes much of the bell silhouette and creates a cramped, ambiguous central shape.",
+              "treatment": "Preserve more of the bell body around the slash, or simplify the overlap for clearer native-size recognition."
+            },
+            "r-7d4e62603013-ship": {
+              "choice": "no",
+              "evidence": "The blocking defect is reduced bell recognition at the supplied native size because the diagonal slash and body merge too heavily.",
+              "treatment": "Refine the slash-to-bell overlap before shipping."
+            },
+            "r-257222ceba39-craft": {
+              "choice": "7",
+              "evidence": "The enlarged looping mark is understandable, but its thin, intricate crossings and small terminal loops collapse into a fragile squiggle at native size.",
+              "treatment": "Increase the effective stroke weight and simplify or open the smallest loops and crossings."
+            },
+            "r-257222ceba39-ship": {
+              "choice": "no",
+              "evidence": "Native-size legibility is blocked by the delicate multi-loop structure, whose branches and crossings are difficult to distinguish.",
+              "treatment": "Redraw or optically simplify the native-size version before shipping."
+            },
+            "r-4d6bc1b595e0-craft": {
+              "choice": "9",
+              "evidence": "The pointer has a clear tip, coherent outline, well-resolved inner notch, and stable stroke weight at both displayed scales and polarities.",
+              "treatment": "Ship unchanged."
+            },
+            "r-4d6bc1b595e0-ship": {
+              "choice": "yes",
+              "evidence": "The pointer remains recognizable and structurally clear at the supplied native size, with no blocking defect.",
+              "treatment": "Ship unchanged."
+            },
+            "r-081de278ac7b-craft": {
+              "choice": "9",
+              "evidence": "The rim, rounded bowl contour, eyes, and smile are cleanly organized and remain distinct in both native and enlarged proofs.",
+              "treatment": "Ship unchanged."
+            },
+            "r-081de278ac7b-ship": {
+              "choice": "yes",
+              "evidence": "The facial details and enclosing contour remain legible at the supplied native size on both backgrounds.",
+              "treatment": "Ship unchanged."
+            },
+            "r-cfacb7b0ce64-craft": {
+              "choice": "9",
+              "evidence": "The compact upward caret has a centered apex, stable filled silhouette, and clear directional reading at both supplied scales.",
+              "treatment": "Ship unchanged."
+            },
+            "r-cfacb7b0ce64-ship": {
+              "choice": "yes",
+              "evidence": "Despite its small footprint, the upward-pointing shape remains distinct at the supplied native size with no blocking defect.",
+              "treatment": "Ship unchanged."
+            },
+            "r-9e153df1309d-craft": {
+              "choice": "9",
+              "evidence": "The quotation/comma form has a smooth rounded body and a clear upper notch, retaining the same silhouette in both polarities and scales.",
+              "treatment": "Ship unchanged."
+            },
+            "r-9e153df1309d-ship": {
+              "choice": "yes",
+              "evidence": "The mark remains readable at the supplied native size, and no contour failure is visible.",
+              "treatment": "Ship unchanged."
+            },
+            "r-4e416c33775d-craft": {
+              "choice": "9",
+              "evidence": "The waveform has smooth transitions, controlled peaks and troughs, rounded terminals, and consistent clarity across both scales and backgrounds.",
+              "treatment": "Ship unchanged."
+            },
+            "r-4e416c33775d-ship": {
+              "choice": "yes",
+              "evidence": "The waveform remains crisp and recognizable at the supplied native size, with no blocking connection or weight defect.",
+              "treatment": "Ship unchanged."
+            }
+          }
+        },
+        "artifactHashes": {
+          "intent.json": "1f7c396a5bb3ede2a7b5efeceb9cf453349e78d1a7b06b9127804212993ab594",
+          "stage1/context-preflight.json": "5c74c9ee4f9432fbe827701860d0b79a23e560de4cc4bbe4293dab0598f8e714",
+          "stage1/images/r-01ccc4437501.png": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+          "stage1/images/r-081de278ac7b.png": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+          "stage1/images/r-257222ceba39.png": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+          "stage1/images/r-4d6bc1b595e0.png": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+          "stage1/images/r-4e416c33775d.png": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+          "stage1/images/r-5784039f0165.png": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+          "stage1/images/r-7d4e62603013.png": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+          "stage1/images/r-8eb8edb10016.png": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+          "stage1/images/r-9e153df1309d.png": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+          "stage1/images/r-cfacb7b0ce64.png": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+          "stage1/process.json": "c7c0a0f00d82b652247b8dc190cbccf17373da431becd8e7d75ce8e21d60b6df",
+          "stage1/request.json": "18ed19c5d93d951f304a19cc45dfbbaf8b62328514afc3e569d3efe88264d248",
+          "stage1/review.json": "0f24a95efa5685828d34d70a31d6f04906c2b340f83b4b2839c529f3bdce9fa1",
+          "stage1/schema.json": "f84f41a702c2da5a8fe6cdee7f7620be406fa0ceb9623020794f2c303632cbf4",
+          "stage1-seal.json": "544127cf32e27cf20d65fd4e79ff05474cd1266e4bb7515c0b0a66fe901f0d2e",
+          "stage2/context-preflight.json": "afd49cb903b1306fb76dbccaa17ba5a6443b2de601f2a7019bf220552ef10252",
+          "stage2/images/r-01ccc4437501.png": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+          "stage2/images/r-081de278ac7b.png": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+          "stage2/images/r-257222ceba39.png": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+          "stage2/images/r-4d6bc1b595e0.png": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+          "stage2/images/r-4e416c33775d.png": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+          "stage2/images/r-5784039f0165.png": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+          "stage2/images/r-7d4e62603013.png": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+          "stage2/images/r-8eb8edb10016.png": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+          "stage2/images/r-9e153df1309d.png": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+          "stage2/images/r-cfacb7b0ce64.png": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+          "stage2/process.json": "112fd94c5071f5979c9aae70afc30d9aa455dd465d759af2cad806c23c19032a",
+          "stage2/request.json": "a2341715760e11425c0498c61292ca8544d89553c4c791bd831c5a3d5bde7c57",
+          "stage2/review.json": "300c4d536ce8d8fcc1962463795ea324829fe5c04b938b298c1f2992e8d54e89",
+          "stage2/schema.json": "5f0523e40fb59828c8af129c07b91b745484948a6c52afc1262a245a04c09aa1",
+          "stage2-seal.json": "3bf68682a767b48a4d8d156529e74cbc2f33e9074c512aa3c9ae602c6bc3c2cd",
+          "stage3/context-preflight.json": "c3734e23a960f6cb89a99c399864abcb433c030b01592d09e9e88e1e921037f0",
+          "stage3/images/r-01ccc4437501.png": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+          "stage3/images/r-081de278ac7b.png": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+          "stage3/images/r-257222ceba39.png": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+          "stage3/images/r-4d6bc1b595e0.png": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+          "stage3/images/r-4e416c33775d.png": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+          "stage3/images/r-5784039f0165.png": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+          "stage3/images/r-7d4e62603013.png": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+          "stage3/images/r-8eb8edb10016.png": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+          "stage3/images/r-9e153df1309d.png": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+          "stage3/images/r-cfacb7b0ce64.png": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+          "stage3/process.json": "880e169ff64114930cfd5a2e5fb05888cf33bec55761462f269c1f5660d86762",
+          "stage3/request.json": "23016b6a51e3334adebc7bf8915f74553a8b1161a73a855004ca6066a45b6156",
+          "stage3/review.json": "b94a4dbe84eb5c88f46de3c14f69bf9260bbc5ab1502bfdac37b16d2b75cc531",
+          "stage3/schema.json": "7102c1b13af0c80ef0f90c15917f5c76f103cb8f8fc4cb204fc4df25afb859c0",
+          "stage3-seal.json": "516b43c2261d92050409b43070cca37885c498e864a56bc9ff8f218c5a9722a9"
+        },
+        "nativeCalls": 3,
+        "apiSpendUsd": 0,
+        "nativeSubscriptionCostUsd": null
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "status": "incomplete",
+        "qualified": false,
+        "instrumentQualified": false,
+        "campaignHash": "6436db7b0672558d371ce9946da742f92f5d6be559c606847792a53cfcf7c2af",
+        "packet": "V2-P01",
+        "route": "claude",
+        "reason": "Error: Stage three incomplete",
+        "nativeCallsAttempted": 3,
+        "apiSpendUsd": 0,
+        "nativeSubscriptionCostUsd": null,
+        "automaticResumeAllowed": false,
+        "artifactHashes": {
+          "intent.json": "7b435c2c2a0ab3640baaf094356047c5a3657ba8f1654a797213583eb8753230",
+          "stage1/images/r-01ccc4437501.png": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+          "stage1/images/r-081de278ac7b.png": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+          "stage1/images/r-257222ceba39.png": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+          "stage1/images/r-4d6bc1b595e0.png": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+          "stage1/images/r-4e416c33775d.png": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+          "stage1/images/r-5784039f0165.png": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+          "stage1/images/r-7d4e62603013.png": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+          "stage1/images/r-8eb8edb10016.png": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+          "stage1/images/r-9e153df1309d.png": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+          "stage1/images/r-cfacb7b0ce64.png": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+          "stage1/process.json": "29240976d56b23ca578cbe1f7d07d184417ddc1af8c5569a05c401ddc7859421",
+          "stage1/request.json": "90075f962d4fdd413cf0e1f8aa855ca3b3515395f153d75cbe2eb7ee433ec1fd",
+          "stage1/review.json": "5aa00951a200aaa4345e1f055d46ff100b1b5cf9a2a3ac911e8d31c562e32936",
+          "stage1-seal.json": "180115e3bb44719b124344fc6bd8eabffd859d65a391564ab856a5349d118936",
+          "stage2/images/r-01ccc4437501.png": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+          "stage2/images/r-081de278ac7b.png": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+          "stage2/images/r-257222ceba39.png": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+          "stage2/images/r-4d6bc1b595e0.png": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+          "stage2/images/r-4e416c33775d.png": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+          "stage2/images/r-5784039f0165.png": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+          "stage2/images/r-7d4e62603013.png": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+          "stage2/images/r-8eb8edb10016.png": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+          "stage2/images/r-9e153df1309d.png": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+          "stage2/images/r-cfacb7b0ce64.png": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+          "stage2/process.json": "f61b9d59a911fc4c291ccbe91a115657ca0135c6fc9063fd6af92a31a8da7cc8",
+          "stage2/request.json": "c0bf81b57c025634307d1214a7e2e94284d6d3ad6c9ef6584fd4f2e316b67eec",
+          "stage2/review.json": "dec46e32c50ecfc307df2cbafe7272839d30f426f5ecf421fa7e3c5165aaee96",
+          "stage2-seal.json": "98a4afd2528fa965d43cdbb3d0aa8f8c670d365ea1c2be2bf1ec47b87076af5b",
+          "stage3/images/r-01ccc4437501.png": "1d03797a1c8e27e3c3f0cd9bb291ae4de527ec8520c96c7b7a3370cdae890ad8",
+          "stage3/images/r-081de278ac7b.png": "294a9ba4a674f0937847ce7b9f36ddec4926d72027a579968928ae09218b959e",
+          "stage3/images/r-257222ceba39.png": "04b3e65b7c290eb5fc83db4d27c23afaa12f86c5bdc55b73e688a423917c4869",
+          "stage3/images/r-4d6bc1b595e0.png": "3e8f0203b7d2581bdd8c51c973362846edfff49ab36465438751c2e056583e60",
+          "stage3/images/r-4e416c33775d.png": "8289036b02e4236f66f5f56eea91eacd21923da64f5486d8ad2f85b8ca13bf75",
+          "stage3/images/r-5784039f0165.png": "f525595b8aba25aaad3e041c4f0ff7546f0192c91bd553801613b820f1e30972",
+          "stage3/images/r-7d4e62603013.png": "27498fcee7b6c93ff5a4ab9c691f22e2044fec043f0e111b68d95eee6be3e170",
+          "stage3/images/r-8eb8edb10016.png": "f3fa9d22ec9c1924c06a9e559ab3d35ba00dc5ca647ed063cd24a7c68d226038",
+          "stage3/images/r-9e153df1309d.png": "46534e846e0af0a2b2384f12ca5d6458acd6fc6e080477627f9e567b6fb9876c",
+          "stage3/images/r-cfacb7b0ce64.png": "88f3b139851ebc602456fe097e587ff406d0eb5e88b6ae000df328be0a443c0f",
+          "stage3/process.json": "044682526f40228077274c41c0b86660cad8c51c461215bb6424c2a215d1ebf8",
+          "stage3/request.json": "b6e2afb93b3a7b09cee58e8e5356aa3624e49228b954b0eaca03ac19f938e538",
+          "stage3/review.json": "529b53502d2f063c7ee908749b72c482260b3c782602a8c621f052774d6734d7",
+          "stage3-seal.json": "c33f1db87501f0a91f4cd44c4026f0daa42227255afe0aa52815f6a41134c611"
+        }
+      }
+    }
+  ],
+  "thirdRouteSkipped": true,
+  "qualified": false,
+  "apiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null
+}

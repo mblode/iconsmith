@@ -1,0 +1,60 @@
+{
+  "id": "a146-scissors-tip-geometry-clarification-2026-09-08",
+  "date": "2026-09-08",
+  "scope": "offline geometry and raster comparison only; no provider call, geometry change, redraw, or quality qualification",
+  "candidate": {
+    "sourceRun": ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native",
+    "programs": {
+      "outlined": "icon scissors\nkeyline landscape\nfinish outlined\npart scissors-2-outlined-0 at 2,3\npart scissors-2-outlined-1 at 14.5,12.5\ncenter\nfit",
+      "filled": "icon scissors\nkeyline landscape\nfinish filled\npart scissors-2-filled-0 at 2,3\npart scissors-2-filled-1 at 14.5,12.5\ncenter\nfit"
+    },
+    "construction": "Both paints use the two admitted fixed-source-ink compounds extracted from the same literal Blode scissors-2 SVG. The outlined and filled part records have identical dimensions and source curves; the emitted SVG serialization differs only in artifact metadata/serialization, and their checker-native rasters are byte-identical.",
+    "nativePngSha256": {
+      "outlined": "76d9a913ccc7e627d792879dba700dcbf54859f39cc2528a08df2b2775451d26",
+      "filled": "76d9a913ccc7e627d792879dba700dcbf54859f39cc2528a08df2b2775451d26"
+    }
+  },
+  "slimAnchor": {
+    "family": "scissors-2",
+    "sourceSvgSha256": "2fcf7585ee86f0b64047bd845c1ac7e0b0e39fdac33b63de37690b456f9564aa",
+    "proofSha256": "b5609d5236c4ebe18a83bf5459f63de0262a76cd5c460a2083e8a2dbcef90e69",
+    "referenceIndices": [4, 5],
+    "note": "The packet's filled and outlined scissors-2 references are literally the same SVG bytes and therefore the same proof bytes. This family variant has one broad lower blade and one intrinsically narrow upper blade tip."
+  },
+  "curveAndTransformComparison": {
+    "curveResult": "No candidate-authored curve or tip geometry exists. The first compound is the literal scissors-2 main compound under a uniform host transform. Matching source (2,3)->candidate (2,3.25) and source (10,7)->candidate (9.8104,7.1552) gives scale approximately 0.9763 with translation approximately (+0.0474,+0.3211); other reported main-compound coordinates agree to the four-decimal serialization precision.",
+    "placementResult": "The source scissors-2 SVG already separates its lower blade as a second compound. The candidate places the extracted main compound at top-left 2,3 and the extracted lower-blade compound at top-left 14.5,12.5, then center+fit uniformly reduce the assembled drawing. Thus fit reduces both blade weights together; it does not selectively thin the upper tip. Splitting/replacing the second compound only changes its relative placement by the quantized top-left placement before the shared fit.",
+    "sourceOverallBounds24": {"minX": 2, "minY": 3, "maxX": 22.3868, "maxY": 21},
+    "candidateOverallBounds24": {"minX": 2, "minY": 3.25, "maxX": 22.0462, "maxY": 20.8235},
+    "candidateMainCompoundBounds24": {"minX": 2, "minY": 3.25, "maxX": 21.9037, "maxY": 20.8235},
+    "sharedScaleApprox": 0.9763,
+    "heightChange24": -0.4265,
+    "widthChange24": -0.3406
+  },
+  "nativeRasterComparison": {
+    "method": "Rendered the immutable literal scissors-2 source SVG and immutable candidate SVG through the workspace Sharp renderer at 16 and 32 pixels, flattened black on white, then compared grayscale bytes. This is a diagnostic rerender, not replacement canonical evidence.",
+    "at16": {"meanAbsoluteGrayDelta": 6.4375, "maxGrayDelta": 68, "changedPixels": 99, "pixelCount": 256},
+    "at32": {"meanAbsoluteGrayDelta": 6.5126953125, "maxGrayDelta": 127, "changedPixels": 238, "pixelCount": 1024},
+    "interpretation": "The small global fit/placement change makes the whole candidate slightly lighter than the literal source. In matched 16px right-side sample windows, source-to-candidate ink decreased for both upper and lower blade regions (upper -164 gray-ink units; lower -132). The effect is not confined to the upper tip."
+  },
+  "variantSeparation": {
+    "lobeVariant": {"family": "scissors-1", "filledProofSha256": "50903e1a36207d1980ee9566fe5a1a6ba83d2b894a07eb61281d7012be9b2633", "outlinedProofSha256": "260821b0a84e1d711e607c7d7c13934932358786f5c4506354bfa3bc5a303c6c", "construction": "separate lobe/ring and heavier blade-body construction"},
+    "slimVariant": {"family": "scissors-2", "proofSha256": "b5609d5236c4ebe18a83bf5459f63de0262a76cd5c460a2083e8a2dbcef90e69", "construction": "asymmetric slim upper blade and broad lower wedge in one literal source silhouette"},
+    "decision": "Using scissors-1/50903 tip weight as a required correction would hybridize two admitted house variants. It is valid only as an explicit choice to switch variants, not evidence that this scissors-2 reconstruction introduced a tip-specific defect."
+  },
+  "conclusion": {
+    "candidateSpecificTipDefect": false,
+    "inheritedHouseDrawing": true,
+    "qualification": "The upper-tip lightness is visible and slightly amplified by the candidate's approximately 2.37% uniform fit reduction, but its asymmetric tip topology is inherited exactly from the admitted scissors-2 house source. The measurable candidate-specific change is the small uniform scale plus quantized second-compound placement, affecting both tips and rings. The A146 proposed upper-only thickening is therefore a cross-variant style preference, not an objective repair of candidate-authored geometry."
+  },
+  "evidence": [
+    ".staging/native-author-next-cohort-prep-v2-2026-09-07/packets/scissors.json",
+    ".staging/native-author-broader-contexts-v2-2026-09-07/scissors-16/reference-4-proof.json",
+    ".staging/native-author-broader-contexts-v2-2026-09-07/scissors-16/reference-5-proof.json",
+    ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/outlined.icon",
+    ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/filled.icon",
+    ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/outlined.svg",
+    ".staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/filled.svg",
+    ".staging/a146-recovered-astra-review-2026-09-08/campaign/claude/craft/review.json"
+  ]
+}

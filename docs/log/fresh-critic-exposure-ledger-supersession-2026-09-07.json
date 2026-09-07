@@ -1,0 +1,12 @@
+{
+  "kind": "fresh-critic-exposure-ledger-supersession",
+  "createdAt": "2026-09-07",
+  "status": "historical-artifact-overwrite-disclosed",
+  "originalReportedSha256": "33b9-unavailable-full-hash-recorded-by-root",
+  "intermediateReportedSha256": "72eaaba32a0bbdf0f2dc9b558131e3d4997e9364d7fbb267e6a25b1b961d1243",
+  "currentSha256": "1839889938e953d8f7bf60ed69112c27d51afab7b4bd6c47c9360092992df58d",
+  "path": ".staging/fresh-critic-exposure-ledger-2026-09-07/ledger.json",
+  "correction": "The census builder rewrote the ledger at the same path while expanding vocabulary to the complete catalog and reclassifying the host-only catalog manifest. The earlier bytes were not preserved and cannot be reconstructed from their hash. Consumers must bind the current complete-catalog receipt to the current ledger hash and must not treat the former path as immutable historical evidence.",
+  "providerCalls": 0,
+  "imageInspection": false
+}

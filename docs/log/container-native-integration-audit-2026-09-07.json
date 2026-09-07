@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "status": "native-runtime-unavailable",
+  "qualified": false,
+  "boundary": "Live pinned Linux container timeout containment verified separately; native author CLI integration not yet runnable.",
+  "blockers": [
+    "Pinned native Codex and Claude binaries are Mach-O arm64, incompatible with Linux image.",
+    "Author adapters own host process calls; no injected container process boundary.",
+    "Frozen Node and native dependencies are Darwin-specific.",
+    "No qualified Linux subscription authentication mechanism.",
+    "CLI writable HOME/state layout requires declared ephemeral mounts."
+  ],
+  "requiredSteps": [
+    "Freeze Linux arm64 Node, dependencies and exact CLI executable identities in digest-pinned image.",
+    "Qualify supported subscription authentication and returned model/billing identity.",
+    "Inject container runner for every constructor, self-review and finalizer invocation.",
+    "Use hashed read-only inputs, dedicated output, ephemeral HOME and durable owned container identity.",
+    "Run offline version/image-input probe before one explicitly recorded native feasibility call."
+  ],
+  "newApiSpendUsd": 0,
+  "providerCalls": 0,
+  "evidence": "docs/log/container-containment-probe-v4-2026-09-07.json"
+}

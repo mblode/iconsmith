@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "a141-author-review-packet-helper-integration-2026-09-07",
+  "authority": "offline-helper-integration-diagnostic-only",
+  "createdAt": "2026-09-07T13:52:29.759Z",
+  "sourceA141Status": "delivered",
+  "sourceFiles": {
+    "helper": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/author-review-packet.ts",
+      "sha256": "5b6a0cd119b6be7a66de62f4c61c5a5fb2a0a782bb1d7e740998ab5609c408cd"
+    },
+    "terminal": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native-terminal.json",
+      "sha256": "c5cd3dc26b9ce341815234dd267677bf5aaae9e1149d6337591c840b2f089147"
+    },
+    "checks": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/checks.json",
+      "sha256": "edb9750f3cea6e523ad0b1fd87a8dca13cb6070701fd86a0c8b3a3dfaa953503"
+    },
+    "inspection": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/01-author-self-review/review.json",
+      "sha256": "539579704a2fe9beaec3d1f41d97f8c6b26e552d8abcc6bffd1cdb195c4c976a"
+    },
+    "authorReview": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/author-review.json",
+      "sha256": "1354668707c443991216af33420bc814e94ba12aa348eb0cef16e1a85be955ed"
+    },
+    "reviewMarkdown": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native/review.md",
+      "sha256": "375fc1a295fec17839213d05fff599364107ed461d5a0297188c33211f302194"
+    }
+  },
+  "generatedSnapshot": {
+    "durability": "temporary output inspected at receipt creation; hashes retained for reproducibility, files are not claimed durable",
+    "campaignInputSha256": "586219f4a4fa9280f84070d56c80de1cf0fd470da9547da48b0c38f7512d8fda",
+    "candidateSha256": "cacb6f6e54a6e6abf9e73183354862795f9d2440f0bd8aed838bd70e654954d5",
+    "helperReceiptSha256": "fea9fd53f863528879b91b1924b530fe248b16ef931fee136f30e043ef1df628",
+    "familyAnchorCount": 6
+  },
+  "result": "passed",
+  "qualified": false,
+  "providerCalls": 0
+}

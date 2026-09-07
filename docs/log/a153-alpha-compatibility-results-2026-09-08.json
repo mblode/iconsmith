@@ -1,0 +1,27 @@
+{
+  "campaign": "A153",
+  "purpose": "compatibility only",
+  "status": "complete",
+  "actualModel": "gpt-6-astra",
+  "exactAttachmentHash": "27e3424d198301063784ff33da221bf593fee8ac5a77bf48f8ac0686ca55d2e2",
+  "runtimeVersion": "0.154.0-alpha.3",
+  "preRelease": true,
+  "calls": 1,
+  "process": {
+    "code": 0,
+    "killed": false,
+    "quiescent": true,
+    "quiescenceScope": "process-group-and-observed-descendants"
+  },
+  "artifacts": {
+    ".staging/astra-alpha-compat-smoke-v2-2026-09-08/review/process.json": "dda08b9e1739f80e668e8195812765ef74087bdaba1691d2fcae999730a83c2f",
+    ".staging/astra-alpha-compat-smoke-v2-2026-09-08/terminal.json": "fdc414e149043ae7ecd6d41e14c3dea9350a07ea171d552898cb487519f82360",
+    ".staging/astra-alpha-compat-smoke-v2-2026-09-08/manifest.json": "938705e9cb01ada2877d4a5600501c804dde8acb9862d438f61aefdb9db4cc2c",
+    ".staging/astra-alpha-compat-smoke-v2-2026-09-08/review/request.json": "b684dbacc26470f2f0c7194ad29ffedcde6aa73746f4d790d482a6452f7e0e4f",
+    ".staging/astra-alpha-compat-smoke-v2-2026-09-08/review/review.json": "b2cd9d490dfe054697e58597f4716b7c7e8b5e97b95e85415e845183f207eca1"
+  },
+  "newApiActualUsd": 0,
+  "newApiReservedUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

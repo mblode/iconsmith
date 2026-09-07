@@ -1,0 +1,39 @@
+{
+  "kind": "ai-control-qualification-v2-receipt",
+  "createdAt": "2026-09-07T17:38:00+10:00",
+  "artifactDirectory": ".staging/ai-control-qualification-v2-2026-09-07",
+  "providerCalls": 0,
+  "instrumentQualified": false,
+  "qualificationEligible": true,
+  "qualificationScope": "objective host-corruption control distribution only",
+  "independentSourceFamilies": 100,
+  "scoredStimuli": 100,
+  "labels": {
+    "negative": 50,
+    "positive": 50
+  },
+  "strata": {
+    "filled-16": 25,
+    "filled-24": 25,
+    "outlined-16": 25,
+    "outlined-24": 25
+  },
+  "objectiveControls": {
+    "counter-collapse": 4,
+    "severed-connections": 26,
+    "severely-clipped-contour": 20
+  },
+  "excludedDevelopmentFamilyOverlap": [],
+  "excludedPriorControlFamilyOverlap": [],
+  "evidenceFiles": 600,
+  "evidenceHashFailures": [],
+  "manifestSha256": "5997389730fa3d39ee76263d6aff24c5a75adcfaf593c1aa13aa530c760e2cb8",
+  "sealedKeySha256": "d2f77f9eb7c91f380953fbb98c5084a52f6f67ef6badf5bcb9362c80071794a1",
+  "auditSha256": "3e7e67d095a58351d7e71864ff6ea4f6184b9b2988608073b0348931a630471a",
+  "firstPacketSha256": "d7c752b4ca063d902cc50b2a6558c1c2cdc54f762aeb6afe67a51f4dd8aeb148",
+  "limitations": [
+    "Qualification is scoped to detecting this objective host-corruption distribution.",
+    "It does not establish sensitivity to subtle defects in novel generated families.",
+    "Source positives are house sources and are not labeled as human-approved."
+  ]
+}

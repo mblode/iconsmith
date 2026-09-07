@@ -1,0 +1,162 @@
+{
+  "image": "alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b",
+  "outcome": {
+    "artifactEligible": false,
+    "containerAbsent": true,
+    "containerId": "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48",
+    "containmentScope": "docker-private-pid-namespace",
+    "process": {
+      "code": null,
+      "killed": true,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "quiescent": true,
+      "stderr": "",
+      "stdout": ""
+    },
+    "status": "workload-failed"
+  },
+  "calls": [
+    {
+      "request": {
+        "args": [
+          "container",
+          "create",
+          "--name",
+          "iconsmith-containment-b7ff8842-7f0f-42bf-9d84-65fcbe05bd35",
+          "--label",
+          "iconsmith.owner=44e12754-c2f0-42f6-84b1-5b5714b74cd3",
+          "--network=bridge",
+          "--cap-drop=ALL",
+          "--security-opt=no-new-privileges",
+          "--pids-limit=256",
+          "--read-only",
+          "--tmpfs=/tmp:rw,noexec,nosuid,size=256m",
+          "--mount",
+          "type=bind,src=/Users/mblode/Code/mblode/iconsmith/.staging/container-containment-probe-v4-2026-09-07/artifacts,dst=/out",
+          "alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b",
+          "sh",
+          "/out/parent.sh"
+        ],
+        "deadlineAt": 1788782565799,
+        "phase": "create"
+      },
+      "result": {
+        "code": 0,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "",
+        "stdout": "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48\n"
+      }
+    },
+    {
+      "request": {
+        "args": [
+          "container",
+          "inspect",
+          "--format={{json .}}",
+          "iconsmith-containment-b7ff8842-7f0f-42bf-9d84-65fcbe05bd35"
+        ],
+        "deadlineAt": 1788782565799,
+        "phase": "resolve-identity"
+      },
+      "result": {
+        "code": 0,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "",
+        "stdout": "{\"Id\":\"3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48\",\"Created\":\"2026-09-07T12:02:38.893699281Z\",\"Path\":\"sh\",\"Args\":[\"/out/parent.sh\"],\"State\":{\"Status\":\"created\",\"Running\":false,\"Paused\":false,\"Restarting\":false,\"OOMKilled\":false,\"Dead\":false,\"Pid\":0,\"ExitCode\":0,\"Error\":\"\",\"StartedAt\":\"0001-01-01T00:00:00Z\",\"FinishedAt\":\"0001-01-01T00:00:00Z\"},\"Image\":\"sha256:1991bd789d7184290c3cce84fd6af068b8b745e9bddf178661ce7f5ecf68135c\",\"ResolvConfPath\":\"\",\"HostnamePath\":\"\",\"HostsPath\":\"\",\"LogPath\":\"\",\"Name\":\"/iconsmith-containment-b7ff8842-7f0f-42bf-9d84-65fcbe05bd35\",\"RestartCount\":0,\"Driver\":\"overlay2\",\"Platform\":\"linux\",\"MountLabel\":\"\",\"ProcessLabel\":\"\",\"AppArmorProfile\":\"\",\"ExecIDs\":null,\"HostConfig\":{\"Binds\":null,\"ContainerIDFile\":\"\",\"LogConfig\":{\"Type\":\"json-file\",\"Config\":{\"max-file\":\"5\",\"max-size\":\"20m\"}},\"NetworkMode\":\"bridge\",\"PortBindings\":{},\"RestartPolicy\":{\"Name\":\"no\",\"MaximumRetryCount\":0},\"AutoRemove\":false,\"VolumeDriver\":\"\",\"VolumesFrom\":null,\"ConsoleSize\":[0,0],\"CapAdd\":null,\"CapDrop\":[\"ALL\"],\"CgroupnsMode\":\"private\",\"Dns\":null,\"DnsOptions\":[],\"DnsSearch\":[],\"ExtraHosts\":null,\"GroupAdd\":null,\"IpcMode\":\"private\",\"Cgroup\":\"\",\"Links\":null,\"OomScoreAdj\":0,\"PidMode\":\"\",\"Privileged\":false,\"PublishAllPorts\":false,\"ReadonlyRootfs\":true,\"SecurityOpt\":[\"no-new-privileges\"],\"Tmpfs\":{\"/tmp\":\"rw,noexec,nosuid,size=256m\"},\"UTSMode\":\"\",\"UsernsMode\":\"\",\"ShmSize\":8408530944,\"Runtime\":\"runc\",\"Isolation\":\"\",\"CpuShares\":0,\"Memory\":0,\"NanoCpus\":0,\"CgroupParent\":\"\",\"BlkioWeight\":0,\"BlkioWeightDevice\":[],\"BlkioDeviceReadBps\":[],\"BlkioDeviceWriteBps\":[],\"BlkioDeviceReadIOps\":[],\"BlkioDeviceWriteIOps\":[],\"CpuPeriod\":0,\"CpuQuota\":0,\"CpuRealtimePeriod\":0,\"CpuRealtimeRuntime\":0,\"CpusetCpus\":\"\",\"CpusetMems\":\"\",\"Devices\":[],\"DeviceCgroupRules\":null,\"DeviceRequests\":null,\"MemoryReservation\":0,\"MemorySwap\":0,\"MemorySwappiness\":null,\"OomKillDisable\":false,\"PidsLimit\":256,\"Ulimits\":[],\"CpuCount\":0,\"CpuPercent\":0,\"IOMaximumIOps\":0,\"IOMaximumBandwidth\":0,\"Mounts\":[{\"Type\":\"bind\",\"Source\":\"/Users/mblode/Code/mblode/iconsmith/.staging/container-containment-probe-v4-2026-09-07/artifacts\",\"Target\":\"/out\"}],\"MaskedPaths\":[\"/proc/acpi\",\"/proc/asound\",\"/proc/interrupts\",\"/proc/kcore\",\"/proc/keys\",\"/proc/latency_stats\",\"/proc/sched_debug\",\"/proc/scsi\",\"/proc/timer_list\",\"/proc/timer_stats\",\"/sys/devices/virtual/powercap\",\"/sys/firmware\"],\"ReadonlyPaths\":[\"/proc/bus\",\"/proc/fs\",\"/proc/irq\",\"/proc/sys\",\"/proc/sysrq-trigger\"]},\"GraphDriver\":{\"Data\":{\"ID\":\"3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48\",\"LowerDir\":\"/var/lib/docker/overlay2/9698a3eea58fb99b7bd19e2633655dbdb956a9b7c1764a870e03bcf99c2f75be-init/diff:/var/lib/docker/overlay2/d8f2f8150c32ad4b7331c35ac65f272e442826f8205c4a61876755b7aad7e32f/diff\",\"MergedDir\":\"/var/lib/docker/overlay2/9698a3eea58fb99b7bd19e2633655dbdb956a9b7c1764a870e03bcf99c2f75be/merged\",\"UpperDir\":\"/var/lib/docker/overlay2/9698a3eea58fb99b7bd19e2633655dbdb956a9b7c1764a870e03bcf99c2f75be/diff\",\"WorkDir\":\"/var/lib/docker/overlay2/9698a3eea58fb99b7bd19e2633655dbdb956a9b7c1764a870e03bcf99c2f75be/work\"},\"Name\":\"overlay2\"},\"Mounts\":[{\"Type\":\"bind\",\"Source\":\"/Users/mblode/Code/mblode/iconsmith/.staging/container-containment-probe-v4-2026-09-07/artifacts\",\"Destination\":\"/out\",\"Mode\":\"\",\"RW\":true,\"Propagation\":\"rprivate\"}],\"Config\":{\"Hostname\":\"3a21b07f09e8\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":false,\"AttachStdout\":true,\"AttachStderr\":true,\"Tty\":false,\"OpenStdin\":false,\"StdinOnce\":false,\"Env\":[\"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"],\"Cmd\":[\"sh\",\"/out/parent.sh\"],\"Image\":\"alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b\",\"Volumes\":null,\"WorkingDir\":\"/\",\"Entrypoint\":null,\"Labels\":{\"iconsmith.owner\":\"44e12754-c2f0-42f6-84b1-5b5714b74cd3\"}},\"NetworkSettings\":{\"SandboxID\":\"\",\"SandboxKey\":\"\",\"Ports\":{},\"Networks\":{\"bridge\":{\"IPAMConfig\":null,\"Links\":null,\"Aliases\":null,\"DriverOpts\":null,\"GwPriority\":0,\"NetworkID\":\"\",\"EndpointID\":\"\",\"Gateway\":\"\",\"IPAddress\":\"\",\"MacAddress\":\"\",\"IPPrefixLen\":0,\"IPv6Gateway\":\"\",\"GlobalIPv6Address\":\"\",\"GlobalIPv6PrefixLen\":0,\"DNSNames\":null}}}}\n"
+      }
+    },
+    {
+      "request": {
+        "args": [
+          "container",
+          "start",
+          "--attach",
+          "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48"
+        ],
+        "deadlineAt": 1788782565799,
+        "phase": "start"
+      },
+      "result": {
+        "code": null,
+        "killed": true,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "",
+        "stdout": ""
+      }
+    },
+    {
+      "request": {
+        "args": [
+          "container",
+          "kill",
+          "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48"
+        ],
+        "deadlineAt": 1788782570799,
+        "phase": "kill"
+      },
+      "result": {
+        "code": 0,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "",
+        "stdout": "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48\n"
+      }
+    },
+    {
+      "request": {
+        "args": [
+          "container",
+          "rm",
+          "--force",
+          "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48"
+        ],
+        "deadlineAt": 1788782570799,
+        "phase": "remove"
+      },
+      "result": {
+        "code": 0,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "",
+        "stdout": "3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48\n"
+      }
+    },
+    {
+      "request": {
+        "args": [
+          "container",
+          "ls",
+          "--all",
+          "--quiet",
+          "--no-trunc",
+          "--filter",
+          "id=3a21b07f09e867b40baf84eeedf983122c7b32c6bba572ef13ff7cdf33017d48"
+        ],
+        "deadlineAt": 1788782570799,
+        "phase": "verify-absent"
+      },
+      "result": {
+        "code": 0,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "",
+        "stdout": ""
+      }
+    }
+  ],
+  "settledHash": "2b6490b02c82bd91520f637df8ab45c29a9292608b06425bc3d734393099ac58",
+  "delayedHash": "2b6490b02c82bd91520f637df8ab45c29a9292608b06425bc3d734393099ac58",
+  "writesStopped": true,
+  "writerBytes": 510,
+  "scope": "Real detached-session grandchild writer in private Linux PID namespace; no provider runtime or authentication qualification",
+  "qualified": false,
+  "newApiSpendUsd": 0
+}

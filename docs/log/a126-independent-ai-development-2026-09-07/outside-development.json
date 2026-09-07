@@ -1,0 +1,148 @@
+{
+  "reason": "The declared 20-family development population does not include hammer-check. Both original failed repair outputs remain in the six-request reliability receipt and board; they cannot occupy a different declared family slot.",
+  "slots": [
+    {
+      "run": "hammer-check-16",
+      "concept": "hammer-check",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "needs-repair",
+      "displayStatus": "needs-repair",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+      "requestId": "6342d9ef18fb16db6ce52d175a73614f4b27140897c84013e79500bb41d38858",
+      "requestSha256": "2f35438ae12e86fe533eba79ab62948786ee5179d64a9dcab22e75939e0315f3",
+      "hashes": {
+        "outlined.icon": "7183b645bb94ace35c7eebe766ec0714552bda9b8249222f12f8509ff9b9549a",
+        "outlined.svg": "a4bca0c1f37bb295858066a8a8794e6f2860bf9ed63b4714ce36a4e2f3957a6a",
+        "outlined.native.png": "0a8f135c2405bb8939bd27628d090021a00f15e6e383cdda2950bf1ecd7832f3",
+        "outlined.retina.png": "ec562b939a87b627dba79ead0c48b15a7062c81261c45c1d7a01a1719bf8be1a",
+        "outlined.proof.png": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9",
+        "outlined.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "outlined.pixels.json": "db3b24fd2b92d031f252c1509a79739dd99b760484dae1de6725de041fe2b5f7",
+        "outlined.artifact.json": "dc5fa92f85441557ab3e412f03b7d92055e17145a8f88e149a65d4ed4575f40d"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+          "hash": "14e0841a7fddb77237eb29e3bd7345a9f7034f76ea708a90d8e002e1455a8f04",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-2",
+          "status": "incomplete"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-3",
+          "status": "incomplete"
+        }
+      ],
+      "stoppedReason": "author-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214"
+          }
+        },
+        "traceSha256": "0b19eec96e482209d1ac02f81b44459c158350de8510dac3c7f21fd5a586e26d",
+        "visualJudgmentValidated": false
+      },
+      "trueSize": {
+        "native": {
+          "width": 16,
+          "height": 16,
+          "sha256": "0a8f135c2405bb8939bd27628d090021a00f15e6e383cdda2950bf1ecd7832f3"
+        },
+        "retina": {
+          "width": 32,
+          "height": 32,
+          "sha256": "ec562b939a87b627dba79ead0c48b15a7062c81261c45c1d7a01a1719bf8be1a"
+        },
+        "darkNativeSha256": "a2eed134136a3076adbe7e775d568c8e323dbf899890effc2153418d87952dd0",
+        "darkRetinaSha256": "fb408ba06a85297afba10ca11de389bfa99fb4e670f886a7d7f6032169ac92fb"
+      }
+    },
+    {
+      "run": "hammer-check-16",
+      "concept": "hammer-check",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "needs-repair",
+      "displayStatus": "needs-repair",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+      "requestId": "6342d9ef18fb16db6ce52d175a73614f4b27140897c84013e79500bb41d38858",
+      "requestSha256": "2f35438ae12e86fe533eba79ab62948786ee5179d64a9dcab22e75939e0315f3",
+      "hashes": {
+        "filled.icon": "eaf7ed38f2ac95eee4abfa4a49bc5ea0c091a1c4193bfdbf6ff34869f9155e9e",
+        "filled.svg": "60cb86d0daaf14bad48ddd3a2ec074f711cfa8b7f471c525af68ffa20be35637",
+        "filled.native.png": "65b472789f5190b5b06076e777bd17632690dee9681b6ed271ddd9627bde2d4d",
+        "filled.retina.png": "0691c5cd8a98345bedf957342574b5445e8733e5bcacd1b130fe7c9ebc137a63",
+        "filled.proof.png": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214",
+        "filled.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "filled.pixels.json": "f6409cbf7b8f685527a712493cc93e22dce5394652060a1af1fe3fd09418bc43",
+        "filled.artifact.json": "e889776d8b249dc583c685ad9eff4dec0295fbca7ecb9b1ba709100afdc68ff7"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+          "hash": "14e0841a7fddb77237eb29e3bd7345a9f7034f76ea708a90d8e002e1455a8f04",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-2",
+          "status": "incomplete"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-3",
+          "status": "incomplete"
+        }
+      ],
+      "stoppedReason": "author-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214"
+          }
+        },
+        "traceSha256": "0b19eec96e482209d1ac02f81b44459c158350de8510dac3c7f21fd5a586e26d",
+        "visualJudgmentValidated": false
+      },
+      "trueSize": {
+        "native": {
+          "width": 16,
+          "height": 16,
+          "sha256": "65b472789f5190b5b06076e777bd17632690dee9681b6ed271ddd9627bde2d4d"
+        },
+        "retina": {
+          "width": 32,
+          "height": 32,
+          "sha256": "0691c5cd8a98345bedf957342574b5445e8733e5bcacd1b130fe7c9ebc137a63"
+        },
+        "darkNativeSha256": "f81830e546559b9893388ad33b10e8983351801f68907c4a6f70bcaf80a1d6d0",
+        "darkRetinaSha256": "c7ed30b364a469683eaf1b7b80bb024de166e95adcca59f99ded73e35b6ead32"
+      }
+    }
+  ],
+  "qualified": false
+}

@@ -1,0 +1,55 @@
+{
+  "experimentId": "A157",
+  "scope": "read-only frozen launch and runtime admission audit",
+  "status": "development-dispatch-active-with-invalid-launch-descriptor",
+  "qualified": false,
+  "providerCallsByAudit": 0,
+  "authoritativeManifest": {
+    "path": ".staging/native-author-bicycle-counter-a157-2026-09-08/manifest.json",
+    "sha256": "6e370145681afaa3dfe17dd7635928c4b22d4760498a49e992da4cf2079b1512"
+  },
+  "freezeReceipt": {
+    "path": ".staging/native-author-bicycle-counter-a157-2026-09-08/offline-freeze-receipt.json",
+    "sha256": "88b9a4decf0c9565e5c63f197f87fe0533fec928233bd090c80e8d7a7756d379"
+  },
+  "verified": {
+    "pairCount": 1,
+    "authorRouteCount": 1,
+    "paintSlots": 2,
+    "maximumAuthorNativeCalls": 6,
+    "maximumReviewNativeCalls": 4,
+    "sourceDifferencesFromA156": [
+      "packages/iconsmith/scripts/local-structured-author.ts",
+      "packages/iconsmith/scripts/local-structured-author.test.ts"
+    ],
+    "pairBytesMatchA156": true,
+    "routesMatchA156": true,
+    "runtimeHashMatchesA156": true,
+    "frozenSourceInputAndAuthorOrchestratorHashFailures": 0,
+    "offlineAuthorPreflightReady": true,
+    "reviewPreparationBeforeAuthorTerminalRefused": true
+  },
+  "defects": [
+    {
+      "id": "manifest-launch-points-to-a156",
+      "severity": "material-provenance",
+      "detail": "manifest.launch.args names the A156 run.mts instead of the A157 run.mts. The descriptor cannot be used as the canonical A157 launch command."
+    },
+    {
+      "id": "author-concurrency-overstates-one-arm",
+      "severity": "accounting",
+      "detail": "manifest.budget.authorConcurrency is 2 although the manifest contains exactly one author route."
+    }
+  ],
+  "actualDispatchEvidence": {
+    "classification": "explicit-A157-runner-development-only",
+    "intentPath": "docs/log/a157-bicycle-counter-intent-2026-09-08.json",
+    "intentSha256": "056084ab5150c64d010eb139807b5ed275b5fcfef3daaf03a32f49c963d4abc8",
+    "dispatchPath": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/dispatch.json",
+    "dispatchSha256": "24917d107f49dc55472a74e83a0ad2eda74b26d1c2b8be36cd4f3a2d1a771d9b",
+    "pairSha256": "85807df5e8d136cd6d4daa0adcfaef5169fd0f2207600a6fb338bb909eeaf6f6",
+    "manifestHashRecordedByDispatch": "6e370145681afaa3dfe17dd7635928c4b22d4760498a49e992da4cf2079b1512",
+    "pairDeadline": 1788796193736,
+    "note": "The root operator reported launching the explicit A157 run.mts. The A157-only runs directory and dispatch manifest binding prove A157 handled the active dispatch; no A156 rerun appeared. The invalid manifest launch descriptor remains preserved."
+  }
+}

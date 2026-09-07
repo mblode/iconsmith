@@ -1,0 +1,20 @@
+{
+  "id": "A140",
+  "status": "frozen",
+  "scope": "One exposed host-centered repair counterfactual, not delivery recovery or qualification",
+  "files": {
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/source-freeze.json": "723f3e19e7413f97ad985eedea979a79852d9601ff42edf928681f7881151ce5",
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/tooling-manifest.json": "53214fd6e5049dbbf9abaa7b35ba3c0600a9e4bd6e963ed7236b98d5c8399d20",
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/runtime.json": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/run-review.mts": "dae6b85eed3d23ebd073044655d964a18f4986471af819971849c81bf46173db",
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/input/review-intent.json": "f320b5b9e7a5855baf6d0cd90792ffb5162d4cab301dbe30085f14be1c40aff6",
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/input/receipt.json": "a3e8ecbe2b1b9fa7f3d55efef2bd75aee6cfd43189086ff11d1d5e7d916c87ae",
+    ".staging/A140-centered-counterfactual-diagnostic-2026-09-07/input/campaign/intent.json": "f589cd8fbf01827fc67b9c2c15ab1d1e807971d7ee3b52b306d66e934ff70312"
+  },
+  "diagnosticDeadline": 1788785863495,
+  "maximumNativeCalls": 4,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

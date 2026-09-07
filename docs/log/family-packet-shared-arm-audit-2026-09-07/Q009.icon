@@ -1,0 +1,9 @@
+icon hammer-check
+keyline circle
+finish filled
+part hammer-filled-0 at 2,2 size 12
+part hammer-filled-1 at 10,10 size 8
+circle 17.5,17.5 r6
+subtract
+circle 17.5,17.5 r4.5
+hole line 15.5,17.5 17,19 19.5,16 off-axis

@@ -1,0 +1,1404 @@
+{
+  "artifacts": [
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "outlined",
+      "terminal": {
+        "status": "review-incomplete",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 496815,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q001",
+      "master": "16",
+      "nativeImageSha256": "e9c38140ad6555b01c94e9902262ce99a1c4b7502b05b40973d7afc5d2daa707",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "1bd174c2295591997f217417f49914f350cff5f82243f5ee91bb93946cda8791",
+      "replay": true,
+      "revisionHash": "0663fcfcb6fcc8d14a24647649a5f8e263de66e43ba704e4519e2f7a78b69fcb",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf"
+    },
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "outlined",
+      "terminal": {
+        "status": "review-clear",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/cloud-upload-24/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 350997,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.6 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.4 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q002",
+      "master": "24",
+      "nativeImageSha256": "e9d044c431a9fc45377a4e173d89dfbf087306ea3cc61587a0c4b30ae9c8d979",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "0ec9ac09a2c9e20799ef48c42b271b6c137bb3734855daf413d9206a71ba6df3",
+      "replay": true,
+      "revisionHash": "f07560bfdd11f37783b46c5e935a6c390d86dbca3709446752d2aade4a4e5270",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "f7df5849b0135c4c54b79f398f11b11d46c78e1482f517cb4bb9f381b0f1514b"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "outlined",
+      "terminal": {
+        "status": "review-clear",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bell-pause-24/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 275186,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 81.9°, 8.1° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q003",
+      "master": "24",
+      "nativeImageSha256": "b600ba9a09f8afdc02109a9593744c6a4c40285b9611b9d81003ab33efde593a",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "c2abea5dd4781bfc10a56b4efe0de13de5f4167b224f08469658967d84d2ee29",
+      "replay": true,
+      "revisionHash": "9f48310de08799f3a355e949b92a2bf5d54063c4c1c7dbddc1de45173e1fe5a5",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "35bd222e2856d0b075d66e8ec304efe18886c39e105246b16a96be13cc4bd7d6"
+    },
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "filled",
+      "terminal": {
+        "status": "review-clear",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/cloud-upload-24/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 350997,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q004",
+      "master": "24",
+      "nativeImageSha256": "c34204a366baf893997d1d9105a4143e4c922508a4446c550e149ce082c9ddb7",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "53713903a68d6a5a5d9ce700220b18130f895270ddd35950818553022d9027d8",
+      "replay": true,
+      "revisionHash": "f07560bfdd11f37783b46c5e935a6c390d86dbca3709446752d2aade4a4e5270",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "f5dae008d299570ac3d42509061a290331daeb7961cb85bc6da2107098416198"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "filled",
+      "terminal": {
+        "status": "review-clear",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bell-pause-24/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 275186,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q005",
+      "master": "24",
+      "nativeImageSha256": "edbfe5491ebfbeac1af4c3b905c247fcb29c25fa083312e0ece1bca3857b829a",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "518d0061369cc68e30bb3f79c142c2a8777b34c8bec15d083a5630a364618564",
+      "replay": true,
+      "revisionHash": "9f48310de08799f3a355e949b92a2bf5d54063c4c1c7dbddc1de45173e1fe5a5",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "01fe6adf91d930c1f7ee63c410b52e12484514a169b29daa7e4f3737c45b271e"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "filled",
+      "terminal": {
+        "status": "review-incomplete",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 514007,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q006",
+      "master": "24",
+      "nativeImageSha256": "87be10976b10c039923b96a9d4a3f9c0a285ede1a3669dabbf551e7c8733a73d",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "0f190a260b6a916286ec823dffaad0b0b08d365e4666d6a99183c7de45685bc7",
+      "replay": true,
+      "revisionHash": "6a0e2ae333fbae7a15da555b605c48745aa4d44d9e4fef3bbe1eed0b32c32cb8",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "eee1d56452eebd001f7165c5d9da87212ee995c139191c9624cad81da193b43c"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "outlined",
+      "terminal": {
+        "status": "review-incomplete",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 514007,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "e4 and e5 are 0.75px apart; minimum is 1px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q007",
+      "master": "24",
+      "nativeImageSha256": "1538a6891e831673fc4b3eae9af6615ae380c5ef8a737f5eac4a081bff3cff75",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "95eb79dfafb9d8058ad0a743f8959a90fdc5581f448c66b68e91b9dafe60466e",
+      "replay": true,
+      "revisionHash": "6a0e2ae333fbae7a15da555b605c48745aa4d44d9e4fef3bbe1eed0b32c32cb8",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "04bef214693f42bffc33024a69c6947225133831fec3e0ca69282aa1b19e2226"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "terminal": {
+        "status": "review-clear",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bicycle-16/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 277002,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q008",
+      "master": "16",
+      "nativeImageSha256": "7ecdd1005003b6b2a56d46cc8d0da20f288d1b52486d2fd39f863ea3e916ade8",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "73b802d0d361963c97d583bf026d980244146f748a9b5bfac02bf72bed216109",
+      "replay": true,
+      "revisionHash": "fb8b631488fa61754bc3b3a95353abb5a686951d3ddd01920f7e209dff97446b",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "9a7103f5ab6cfcfa77b0de66743df1cb5c47be64a9a5692f40d13a6acfdef8cf"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "terminal": {
+        "status": "review-clear",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bicycle-16/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 277002,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q009",
+      "master": "16",
+      "nativeImageSha256": "7f7a22770a3b885620524dbe70db1682c77c33626c9cc1c592ccb38f1da4c984",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "baf1208c8ff19c0acdbe908fcfd3dfdb3b5ccd3d489b392675ef5ee6d6c6af57",
+      "replay": true,
+      "revisionHash": "fb8b631488fa61754bc3b3a95353abb5a686951d3ddd01920f7e209dff97446b",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "09060556765a115c20918f0117a4a025b45af490f781c5184806650abb288912"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder",
+      "finish": "filled",
+      "terminal": {
+        "status": "review-incomplete",
+        "deadlineExceeded": false
+      },
+      "source": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1",
+      "authorship": "model",
+      "model": null,
+      "elapsedMs": 496815,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "e6 contour 2 has a 2.00-unit short-axis bounding box (1.33px at 16px), below the selected 2.25-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+          "rule": "feature",
+          "severity": "warn"
+        },
+        {
+          "message": "e6 contour 3 has a 1.50-unit short-axis bounding box (1.00px at 16px), below the selected 2.25-unit minimum. Inspect its native-size visibility; widen or simplify if needed.",
+          "rule": "feature",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q010",
+      "master": "16",
+      "nativeImageSha256": "d4f69c575e914123cc6b1bd562e20eb7b41a89cad4475750363ec6cc97e4bdbb",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-independent-ai-review",
+      "paintMatches": true,
+      "programSha256": "734991d8bb5830a348779f0615873834594a3e62e94c562917b0c26c992a8f98",
+      "replay": true,
+      "revisionHash": "0663fcfcb6fcc8d14a24647649a5f8e263de66e43ba704e4519e2f7a78b69fcb",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6"
+    }
+  ],
+  "manifestHash": "93daf8008b02e4ff34625fa81efabef90036a8b6f8385ddc9e3bc3f57ac4f60b",
+  "missing": [
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "cloud-upload",
+      "family": "cloud",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "shield-check",
+      "family": "shield",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "clock-check",
+      "family": "clock",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "jellyfish",
+      "family": "jellyfish",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "satellite-dish",
+      "family": "satellite",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "camera-sparkle",
+      "family": "camera",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bookmark-play",
+      "family": "bookmark",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "key",
+      "family": "key",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "headphones",
+      "family": "headphones",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "leaf",
+      "family": "leaf",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "scissors",
+      "family": "scissors",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hand-heart",
+      "family": "hand",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "battery-charging",
+      "family": "battery",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "umbrella",
+      "family": "umbrella",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "rocket",
+      "family": "rocket",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "credit-card-check",
+      "family": "credit-card",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "outlined",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "filled",
+      "nativeSize": 16,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "hourglass",
+      "family": "hourglass",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    }
+  ],
+  "qualified": false
+}

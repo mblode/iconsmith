@@ -37,6 +37,33 @@ const centres = (canvas: { elements: { d: string }[] }): [number, number][] =>
   });
 
 describe("runProgram", () => {
+  it("emits and replays an explicit centered asymmetric part", async () => {
+    const result = await runProgram(
+      `await draw.part({ name: "tooth", center: [12, 11.5], size: 5, turn: "cw" });`,
+      [TOOTH]
+    );
+
+    expect(result.errors).toEqual([]);
+    expect(result.program).toBe(
+      "part tooth centered at 12,11.5 size 5 turn cw\n"
+    );
+    expect(centres(result.canvas)).toEqual([[12, 11.5]]);
+    expect(runDsl(result.program, [TOOTH]).canvas.toSVG()).toBe(
+      result.canvas.toSVG()
+    );
+  });
+
+  it("refuses conflicting top-left and center placement", async () => {
+    const result = await runProgram(
+      `await draw.part({ name: "tooth", at: [4, 4], center: [12, 12] });`,
+      [TOOTH]
+    );
+    expect(result.errors).toEqual([
+      expect.stringContaining("either `at` or `center`"),
+    ]);
+    expect(result.program).toBe("");
+  });
+
   it("turns a loop into a program the DSL can replay", async () => {
     const result = await runProgram(`
       await icon.name("clock");

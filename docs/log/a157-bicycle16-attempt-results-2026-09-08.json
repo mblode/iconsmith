@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "id": "a157-bicycle16-attempt-results",
+  "scope": "development-author-attempt",
+  "qualified": false,
+  "instrumentQualified": false,
+  "phaseGatesClosed": [],
+  "denominators": {
+    "authorArms": 1,
+    "paintSlots": 2,
+    "reviewersRequested": 2
+  },
+  "accounting": {
+    "authorNativeCalls": 6,
+    "authorProcesses": [
+      {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/00-construct/process.json",
+        "sha256": "4eeef88b00fbccfa1c35585fd04751852795e507660205df0bd9c068d50e9e72",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/01-repair/process.json",
+        "sha256": "7753f2af9780517054b3b0d2897546ef54fbcf7feaa866f9edb07f06c191e79e",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/02-author-self-review/process.json",
+        "sha256": "96d5ec482a6b6650e627c896c21163ae6a4fb6396863f51196c2efbe05373ab1",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/03-repair/process.json",
+        "sha256": "fee6df9d828a6d17ffc8fca012f82cc1354bbbd236d62d0e00bacffa7d95cddd",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/04-author-self-review/process.json",
+        "sha256": "4c9a044899ed84ad898e52428e96099e62c061fb42f3ae0403b07287301423eb",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/05-finalize/process.json",
+        "sha256": "1a6b4f0fe65293859dfd475ffba0f652638f9693dcb73f765363eb5bfc755e88",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      }
+    ],
+    "reviewNativeCalls": 0,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionUsd": null
+  },
+  "dispatch": {
+    "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/dispatch.json",
+    "sha256": "24917d107f49dc55472a74e83a0ad2eda74b26d1c2b8be36cd4f3a2d1a771d9b",
+    "correction": {
+      "file": "docs/log/a157-actual-dispatch-correction-2026-09-08.json",
+      "sha256": "9ce94835138041bb8a31fd0c6f06554cfc839290300560888a078608bc7ff543"
+    },
+    "frozenLaunchDescriptorStatus": "stale-not-used"
+  },
+  "author": {
+    "route": "astra-native",
+    "status": "delivered",
+    "reason": null,
+    "terminalHash": "1b6d7ff968cba4803e4229cc983f59eef29274695d5b25ff7936898a7275488b",
+    "aggregateTerminalHash": "733d2aab00b62b1dd867ff0798fb0764ce1659ce90f728e42d8a0e6ce0390cfd"
+  },
+  "retainedProofs": {
+    "outlined": {
+      "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+      "sha256": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c"
+    },
+    "filled": {
+      "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+      "sha256": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+    }
+  },
+  "review": {
+    "status": "not-run",
+    "reason": "independent review terminal absent",
+    "outcomes": []
+  },
+  "board": {
+    "file": "docs/log/a157-bicycle16-attempt-board-2026-09-08.png",
+    "sha256": "3ed118f71102db02e5245663a5f0a24974d1338646ce9c8d8eccd8b857de8f02"
+  },
+  "cost": {
+    "newApiUsd": 0,
+    "nativeSubscriptionUsd": null
+  },
+  "limitations": [
+    "Attempt evidence only; no phase qualification.",
+    "The frozen manifest launch descriptor retained stale A156 identity/concurrency metadata; actual execution is bound through dispatch.json and the additive correction receipt.",
+    "Missing reviewer work is not represented as a failed reviewer call.",
+    "Retained proofs do not convert an incomplete or rejected author lifecycle to delivered."
+  ]
+}

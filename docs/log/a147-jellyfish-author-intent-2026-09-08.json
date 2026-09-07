@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "A147-jellyfish-native16-author-screen",
+  "createdAt": "2026-09-07T14:06:34.774306+00:00",
+  "status": "frozen",
+  "manifestHash": "2a2ec6a049c52b5c3db899af914ea32467da72cfbd5f50fda0a7d4d60253463e",
+  "pair": "jellyfish-16",
+  "authority": "matched-author-development-screen-not-qualified",
+  "qualified": false,
+  "budget": {
+    "pairDeadlineMs": 1200000,
+    "authorMsPerRoute": 600000,
+    "authorConcurrency": 2,
+    "independentReviewReserveMs": 480000,
+    "maxAuthorNativeCalls": 10,
+    "maxReviewNativeCalls": 4,
+    "initialConstructionCapMs": 240000,
+    "inspectionReserveMs": 150000,
+    "finalizationReserveMs": 90000
+  },
+  "requestedSlots": 4,
+  "routes": [
+    {
+      "id": "astra-native",
+      "model": "gpt-6-astra",
+      "command": "/Applications/ChatGPT.app/Contents/Resources/codex",
+      "executable": "/Applications/ChatGPT.app/Contents/Resources/codex",
+      "executableSha256": "a30ec314bbd0e3721632234d07db7c99855db3b9f1e32dbe8c791947f07e7629",
+      "billing": "native subscription",
+      "usd": null
+    },
+    {
+      "id": "claude-native-structured",
+      "model": "claude-opus-5",
+      "command": "claude",
+      "executable": "/Users/mblode/.local/share/claude/versions/2.1.263",
+      "executableSha256": "ef5d2909c8af49f31ab6d5487e90316777bc2fac170adfe8160716caa8aaf4f9",
+      "billing": "native subscription",
+      "usd": null
+    }
+  ],
+  "intentBindings": {
+    ".staging/native-author-screen-prep-v9-2026-09-08/manifest.json": "2a2ec6a049c52b5c3db899af914ea32467da72cfbd5f50fda0a7d4d60253463e",
+    ".staging/native-author-screen-prep-v9-2026-09-08/runtime.json": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+    ".staging/native-author-screen-prep-v9-2026-09-08/run.mts": "39eb46f7a1b98d1eda5a7400edf072ba67ec90af90f06eef0bfc32065bfd76fa",
+    ".staging/native-author-screen-prep-v9-2026-09-08/route.mts": "dd95f0c5d3341edd78c03b0bed156666d693016575dc99eb339fdceec5788a01",
+    ".staging/native-author-screen-prep-v9-2026-09-08/preflight-jellyfish-16.json": "c3031861ddfc74687caa79da0084a0952ea05db3bc7409f992f4f606e1da46ab"
+  },
+  "cost": {
+    "apiCapUsd": 50,
+    "priorActualUsd": 13.06220785,
+    "priorReservedOrUnknownUsd": 11.37126575,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "limitations": [
+    "Explicit --pair jellyfish-16 overrides scaffold scissors default.",
+    "First live test of150s author inspection reserve; no measured improvement yet.",
+    "Native containment remains process-group-and-observed-descendants.",
+    "Development donor exposure explicit, not novel qualification.",
+    "Two concurrently copied review-budget helper files are not dependencies of the author route and were not part of v23 validation.",
+    "Dispatch awaits settlement of active diagnostic reviewer calls to retain native concurrency<=2."
+  ],
+  "dispatchCommand": [
+    "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+    "--import",
+    "tsx",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v9-2026-09-08/run.mts",
+    "--pair",
+    "jellyfish-16",
+    "--execute",
+    "--intent",
+    "/Users/mblode/Code/mblode/iconsmith/docs/log/a147-jellyfish-author-intent-2026-09-08.json"
+  ]
+}

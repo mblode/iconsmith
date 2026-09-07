@@ -1,0 +1,48 @@
+{
+  "schema": "iconsmith.a126-folder-lock-cross-master-identity.v1",
+  "status": "pending-independent-craft-review",
+  "familyIdentity": {
+    "concept": "folder-lock",
+    "key": "folder-lock",
+    "role": "unknown",
+    "source": "unknown",
+    "packetHash": "c444999d6ba57dbee78d3e09bf11248dc2c997c1c2c404b6b61224df83938a76"
+  },
+  "packetEvidence": [
+    {
+      "master": 16,
+      "packetHash": "c444999d6ba57dbee78d3e09bf11248dc2c997c1c2c404b6b61224df83938a76",
+      "fileSha256": "44b628794b152145891c060a0f858f29b8ea381a532d88365b8a21d4ff65c9d2",
+      "concept": "folder-lock",
+      "family": {
+        "head": "folder-lock",
+        "key": "folder-lock",
+        "role": "unknown",
+        "source": "unknown"
+      }
+    },
+    {
+      "master": 24,
+      "packetHash": "c444999d6ba57dbee78d3e09bf11248dc2c997c1c2c404b6b61224df83938a76",
+      "fileSha256": "44b628794b152145891c060a0f858f29b8ea381a532d88365b8a21d4ff65c9d2",
+      "concept": "folder-lock",
+      "family": {
+        "head": "folder-lock",
+        "key": "folder-lock",
+        "role": "unknown",
+        "source": "unknown"
+      }
+    }
+  ],
+  "modifierEvidence": "unknown; no host-produced modifier mask supplied",
+  "crossMasterReceiptHash": "746b66517f9d9389948018fe68d60f8d0b34eb863184bb9fc2d25dd02e83a108",
+  "crossMasterMemberHash": "d99907f1d917f6113e1b77f9875bf32b8e1533c7eaa88d8e28df412413be9893",
+  "crossMasterReceiptFileSha256": "8dbd2ce2346bd9f820fed3c1494dea534c38536d344572d02ca1fbbd220fe543",
+  "writerBoardSha256": "d8ce1e576ddbf06ce4c385177f9bd630860f72850dca54fdd6f14e737581600a",
+  "trueSizeBoardSha256": "738444ddc642ebe63a0cb8cdea708f3a6ed55dbae3222c162106aae951fe2479",
+  "complete": true,
+  "reviewRequired": true,
+  "issues": [],
+  "providerCalls": 0,
+  "approved": false
+}

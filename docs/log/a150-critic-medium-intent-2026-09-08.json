@@ -1,0 +1,20 @@
+{
+  "id": "A150",
+  "status": "frozen",
+  "createdAt": "2026-09-07T14:37:13.122355+00:00",
+  "scope": "development P01 Claude medium efficiency diagnostic; A149 high remains historical control",
+  "requestedModel": "claude-opus-5",
+  "requestedEffort": "medium",
+  "inputs": {
+    ".staging/a150-p01-claude-medium-diagnostic-2026-09-08/campaign.json": "7b3608131b1692e240890343ed8588060694863c382d63a4d899263e5ed03080",
+    ".staging/a150-p01-claude-medium-diagnostic-2026-09-08/run.mts": "199fe646170034dd99b49d8b6123e62c6f1b9ee82dacc40346241515bfaad1ab",
+    ".staging/a150-root-run.mts": "58ca693707ec984ffbcf29a1facc03d2fc17dae67993bd373a79618f1028102d"
+  },
+  "maxNativeCalls": 3,
+  "concurrency": 1,
+  "deadlineMs": 385000,
+  "stageCapMs": 120000,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

@@ -1,0 +1,5 @@
+icon bicycle
+finish outlined
+part mountain-bike-outlined-0 at 6.25,6.25 size 11.5
+circle 6.25,14.5 r3.25
+circle 17.75,14.5 r3.25

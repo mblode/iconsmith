@@ -1,0 +1,116 @@
+{
+  "kind": "offline-a130-craft-host-audit",
+  "date": "2026-09-07",
+  "authority": "Host inspection of frozen pixels and source geometry; diagnostic only",
+  "qualified": false,
+  "inputs": {
+    "claudeCraft": {
+      "path": ".staging/house-quality-execution-2026-09-07/A130/campaign/claude/craft.json",
+      "sha256": "98091b79e1dc7896fd010e248561b14b9d1531f1a32984823c3b02387fe926e9"
+    },
+    "candidateProofs": {
+      "q-m7.png": "e5c6d9de24635150d2bbbd0e96e8569223cde2e9c97d4869e884061dfc8cb380",
+      "q-r2.png": "ef44db94eb76560af95c028ea57f2d28c4bf9cddaa831a7aef0f21589f3f9b7c",
+      "q-v9.png": "34c714a1a216687c5bbb3040d8b067e243caca0ff12701f503ef0c45d447bb31",
+      "q-x4.png": "b5736af826a82aa72daa08b10fcf706cf83e69337ce3aff9d4064b14c48c5a2c"
+    },
+    "anchorSheets": {
+      "cloud": "d39d339ef16e339cfd14800d75f15f729d76dc706a0f008861ab667c3bb3a097",
+      "folderLock": "90f790b3c0e066ebad8e9bf927405d837ad69cc59e12a20c697b1e272e267d82"
+    },
+    "candidateGeometry": {
+      "folderFilledIcon": "734991d8bb5830a348779f0615873834594a3e62e94c562917b0c26c992a8f98",
+      "folderFilledSvg": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6",
+      "folderOutlinedIcon": "1bd174c2295591997f217417f49914f350cff5f82243f5ee91bb93946cda8791",
+      "folderOutlinedSvg": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf",
+      "cloudFilledIcon": "53713903a68d6a5a5d9ce700220b18130f895270ddd35950818553022d9027d8",
+      "cloudFilledSvg": "f5dae008d299570ac3d42509061a290331daeb7961cb85bc6da2107098416198",
+      "cloudOutlinedIcon": "0ec9ac09a2c9e20799ef48c42b271b6c137bb3734855daf413d9206a71ba6df3",
+      "cloudOutlinedSvg": "f7df5849b0135c4c54b79f398f11b11d46c78e1482f517cb4bb9f381b0f1514b"
+    },
+    "houseGeometry": {
+      "folder-2-filled.svg": "dd198bfddc9aff2b31e5564aa1166058d5e69301a3ac08852d0c0365de7e6129",
+      "folder-2.svg": "b8e6725980c81796ed20803e57594f57e327012d9ad0be00634402b79e69aa48",
+      "cloud-filled.svg": "703304c7a48a2796e5997a047272af64b2777c1a62320b065a0f2737016642a7",
+      "cloud.svg": "6c2c160b6130e56882ee8b6c28c40ba57f90e0580baa4c72bf568b618a80e25a"
+    }
+  },
+  "findings": [
+    {
+      "stimulus": "q-v9",
+      "claim": "The filled folder has a full-width horizontal void that is unlike the house folder and proves a broken family construction.",
+      "disposition": "claim-contradicted",
+      "objectiveEvidence": [
+        "The void is real: the candidate's upper source-derived path ends at y=9.9996 and its lower body begins at y=11, leaving about 1.0004 SVG units between the two filled regions.",
+        "The hashed house folder-2-filled.svg has the same two-path construction and the same y=9.9996 to y=11 separation. Anchor 3 visibly presents this separated upper strip and lower body in both paints.",
+        "The candidate DSL explicitly places folder-2-filled-0 and folder-2-filled-1 as separate admitted parts; the separation is inherited house geometry rather than evidence of accidental severing."
+      ],
+      "conclusion": "The pixels support the existence of the band but contradict the reviewer's assertion that it departs from the supplied house anchor. This band cannot support q-v9-critical=yes or q-v9-family=no on its own."
+    },
+    {
+      "stimulus": "q-v9",
+      "claim": "At native 16px the lock loses its shackle and keyhole and the icon reads only as stacked bars.",
+      "disposition": "unresolved-subjective-overstatement",
+      "objectiveEvidence": [
+        "The inspected 16px light and dark native rasters retain a distinct lower-left lock silhouette, shackle opening and internal body mark; the compact proof also remains recognizable as folder-lock.",
+        "The source SVG contains separate explicit shackle and lock-body geometry."
+      ],
+      "conclusion": "The absolute claim that the modifier is absent is not supported by the frozen pixels. Whether its small counters meet the house craft bar remains a visual judgment and is not host-cleared here."
+    },
+    {
+      "stimulus": "q-m7",
+      "claim": "The filled cloud has a hairline base and a small unintended seam or step where the arrow stem reaches the baseline.",
+      "disposition": "claim-contradicted",
+      "objectiveEvidence": [
+        "The DSL deliberately subtracts the arrow through y=20.5, beyond the cloud silhouette's approximately y=19.2955 bottom. The resulting arrow counter is intentionally open at the bottom; there is no geometric hairline base beneath the stem.",
+        "The inspected enlarged and native light/dark proofs show the designed bottom-opening arrow cut, not a separate seam or accidental gap."
+      ],
+      "conclusion": "The alleged hairline base is not present in the emitted SVG. A preference for a closed cloud baseline would be a design alternative, not a host-confirmed construction defect."
+    },
+    {
+      "stimulus": "q-r2",
+      "claim": "The outline ring closes continuously and the arrow stem joins a base stroke in a clean T.",
+      "disposition": "claim-contradicted",
+      "objectiveEvidence": [
+        "The candidate SVG's cloud path ends at x=8 on the left and x=16 on the right, leaving the bottom of the cloud ring open.",
+        "The arrow is emitted as two separate paths: barbs from x=9.5 through x=12 to x=14.5, and a vertical stem from y=13.25 to y=18.25. There is no cloud base stroke for the stem to join.",
+        "The open-bottom topology is plainly visible in the enlarged light/dark proof and both native cells."
+      ],
+      "conclusion": "The reviewer's no-critical rationale describes topology that the frozen SVG and pixels do not contain. This factual error does not itself prove a defect; it makes that rationale unreliable."
+    },
+    {
+      "stimulus": "q-r2",
+      "claim": "The outlined cloud's lower-left arrow clearance is materially tighter than the right and forms a defective seam or gap.",
+      "disposition": "not-host-confirmed",
+      "objectiveEvidence": [
+        "The arrow geometry is centered at x=12 with symmetric barbs at x=9.5 and x=14.5. The cloud's lower open endpoints are x=8 and x=16, giving equal 1.5-unit horizontal endpoint clearance.",
+        "The inspected source has separate continuous cloud and arrow paths; no broken connection or extra seam appears in the SVG."
+      ],
+      "conclusion": "Raster antialiasing and the asymmetric cloud silhouette may produce local gray differences, but the claimed left/right construction imbalance is not established by the geometry. Keep the craft concern uncertain rather than confirmed."
+    },
+    {
+      "stimulus": "q-x4",
+      "claim": "The outlined folder uses a stepped, short-wide profile and its lock is crowded at native size.",
+      "disposition": "partially-supported",
+      "objectiveEvidence": [
+        "The enlarged proof visibly has a right shoulder transition and a wide landscape body; the DSL declares keyline landscape and places a source folder part plus separately trimmed lock geometry.",
+        "The native rasters retain the lock silhouette, but its strokes visually approach the surrounding folder geometry."
+      ],
+      "conclusion": "The profile and proximity observations are visible. Their severity, family acceptability and ship decision remain unresolved visual judgments."
+    }
+  ],
+  "summary": {
+    "supported": [
+      "q-v9 contains a horizontal band, but the same band is present in the supplied house folder-2-filled anchor.",
+      "q-x4 has the described wide profile and close lock-to-folder geometry."
+    ],
+    "contradictedOrUnconfirmed": [
+      "q-v9's band is not unlike the house anchor and does not establish a critical severing defect.",
+      "q-m7 has no hairline base beneath the arrow stem; its bottom opening is explicit subtraction geometry.",
+      "q-r2's ring is open at the base and its arrow is separate; the reviewer's closed-ring and clean-T account is false.",
+      "q-r2's arrow and lower endpoint clearances are geometrically centered and symmetric.",
+      "The frozen 16px folder proofs do not support saying the lock modifier is absent, though craft-level legibility remains unresolved."
+    ],
+    "scope": "This audit checks factual claims against frozen artifacts. It neither approves candidates nor substitutes for independent qualification."
+  }
+}

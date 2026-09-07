@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "id": "A128-claude-craft-timeout-diagnostic",
+  "createdAt": "2026-09-07",
+  "status": "diagnostic-only",
+  "providerCallsMadeByThisDiagnostic": 0,
+  "qualified": false,
+  "scope": "Frozen A128 Claude two-stage review only; no artifact or result recovery attempted.",
+  "evidence": {
+    "intent": {
+      "path": ".staging/house-quality-execution-2026-09-07/A128/intent.json",
+      "sha256": "2bf52c0caa645443b9da983d1ea16ca78d85c8055e172ae31765b92dc4af58a9",
+      "maxTotalMsPerReviewer": 480000,
+      "recognitionStageCeilingMs": 120000
+    },
+    "driver": {
+      "path": ".staging/house-quality-execution-2026-09-07/run-two-stage.mts",
+      "sha256": "02b2474cd1d50bed8df18cd5292c49fc0020e6cc1e751411d89cecccb9f8ee4a"
+    },
+    "terminal": {
+      "path": ".staging/house-quality-execution-2026-09-07/A128/claude-terminal.json",
+      "sha256": "ad9b4da827b13ed8a0f21ecdde0d3e5c0044730b84452fee2d018f6702b05731",
+      "elapsedMs": 289241,
+      "deadlineExceeded": false,
+      "calls": 2
+    },
+    "stages": {
+      "recognition": {
+        "request": {
+          "path": ".staging/house-quality-execution-2026-09-07/A128/claude/recognition/request.json",
+          "sha256": "94a442a670c7d79394f374de5f070f473fb9c770555319f5d07c1c491ade0ed5",
+          "startedAt": "2026-09-07T08:22:09.106Z",
+          "imageCount": 4,
+          "promptBytes": 2231,
+          "questionCount": 4,
+          "requestedEffort": "high",
+          "requestedModel": "claude-opus-5"
+        },
+        "process": {
+          "path": ".staging/house-quality-execution-2026-09-07/A128/claude/recognition/process.json",
+          "sha256": "6fe4c140a8b4bb626b775a115628f8c062a034d4e8e46c491696b2dc330bec74",
+          "code": 0,
+          "killed": false,
+          "quiescent": true,
+          "stdoutBytes": 460322,
+          "eventCount": 35,
+          "readCalls": 4,
+          "uniqueImagesRead": 4,
+          "rereadCount": 0,
+          "firstReadAt": "2026-09-07T08:22:12.537Z",
+          "lastReadAt": "2026-09-07T08:22:14.771Z",
+          "structuredOutputCount": 1,
+          "thinkingEventCount": 19,
+          "lastEstimatedThinkingTokens": 1800,
+          "assistantProgressText": [
+            "I'll read the four images.",
+            "All four read clearly at the enlarged proofs and hold at 1x/2x true size.\n\n- **q-m7** \u2014 solid filled cloud, upward arrow knocked out at bottom-center (head near cloud mid-height, shaft exiting the cloud's lower edge): **cloud-upload**.\n- **q-r2** \u2014 stroked/outline cloud, upward arrow inside, cloud's bottom contour opening around the shaft: **cloud-upload** (same meaning, outline weight).\n- **q-v9** \u2014 filled folder (tab upper-left, seam between back and front panel) with a padlock badge lower-left: shackle arc over a rounded body with a light keyhole: **folder-lock**.\n- **q-x4** \u2014 outline folder with the same padlock badge at lower-left: **folder-lock**.\n\nNo defects observed that warrant a treatment; the one thing I'd call uncertain rather than failed is the v9 keyhole at 1x light (it blurs into the lock body in the 16px 1x proof), which is expected density loss, not a construction error."
+          ]
+        },
+        "review": {
+          "path": ".staging/house-quality-execution-2026-09-07/A128/claude/recognition/review.json",
+          "sha256": "a77f0f1f345f720c7141422769dcc2200c792430c69cd07bc1383a90cfe1a811",
+          "status": "complete",
+          "model": "claude-opus-5",
+          "answerCount": 4,
+          "reason": null
+        }
+      },
+      "craft": {
+        "request": {
+          "path": ".staging/house-quality-execution-2026-09-07/A128/claude/craft/request.json",
+          "sha256": "4543fa5be8026c15821e10597a04ecc70ef63f6aca8a786e79db09036f17acdc",
+          "startedAt": "2026-09-07T08:22:57.778Z",
+          "imageCount": 16,
+          "promptBytes": 17589,
+          "questionCount": 20,
+          "requestedEffort": "high",
+          "requestedModel": "claude-opus-5"
+        },
+        "process": {
+          "path": ".staging/house-quality-execution-2026-09-07/A128/claude/craft/process.json",
+          "sha256": "278a2f32ecb88788796c9b41a7d4674927f8e3e1043eea50432e442744144c9c",
+          "code": null,
+          "killed": true,
+          "quiescent": true,
+          "stdoutBytes": 1892785,
+          "eventCount": 179,
+          "readCalls": 18,
+          "uniqueImagesRead": 16,
+          "rereadCount": 2,
+          "firstReadAt": "2026-09-07T08:23:02.583Z",
+          "lastReadAt": "2026-09-07T08:25:24.472Z",
+          "structuredOutputCount": 0,
+          "thinkingEventCount": 136,
+          "lastEstimatedThinkingTokens": 7550,
+          "assistantProgressText": [
+            "I'll read all 16 images now.",
+            "Now the cloud-upload family anchors.",
+            "Now the folder-lock family anchors.",
+            "Let me look again at the two folder-lock candidates."
+          ]
+        },
+        "review": {
+          "path": ".staging/house-quality-execution-2026-09-07/A128/claude/craft/review.json",
+          "sha256": "07bee37b0f1df45007659ec66eb299cd5fcc2c174ba968aab2e6d47e62ca1f81",
+          "status": "incomplete",
+          "model": null,
+          "answerCount": 0,
+          "reason": "Error: Interrupted reviewer lacks one terminal structured output."
+        }
+      }
+    }
+  },
+  "findings": [
+    "Recognition completed all 4 questions in about 47 seconds and emitted one StructuredOutput after exactly 4 image reads.",
+    "Craft was given 16 unique images (4 candidates and 12 hash-deduplicated family anchors) and 20 questions. It read every unique image by 08:23:30, about 28 seconds after its first read, satisfying the inspection set before extended reasoning.",
+    "Craft then accumulated 136 thinking-token progress events reaching an estimated 7,550 tokens. At about 142 seconds it reread two candidates, continued thinking, and reached the adapter hard 240-second timeout without emitting StructuredOutput.",
+    "The failure is not missing image access, byte evidence, malformed output, or the campaign-wide 480-second deadline. The terminal finished at 289,241ms and explicitly reports deadlineExceeded false. The inner local-review adapter capped this stage at 240,000ms.",
+    "The craft request was materially larger than recognition: 16 versus 4 images, 20 versus 4 answers, and 17,589 versus 2,231 prompt bytes. High effort was explicitly selected. Claude CLI 2.1.263 locally exposes --effort low|medium|high|xhigh|max, but its help exposes no direct thinking-token ceiling."
+  ],
+  "smallestEvidencedRouteImprovement": {
+    "change": "Let the craft review use the remaining caller deadline instead of applying local-review\u2019s fixed 240,000ms cap. Keep the campaign total at 480,000ms, the recognition ceiling at 120,000ms, high effort, the same 16 byte-bound reads, the same questions, and the sealed recognition boundary.",
+    "why": "A128 had roughly 186 seconds of campaign budget remaining when craft was killed, every required image had already been inspected, and the model was still producing thinking progress rather than stalled I/O. This isolates the observed limiting boundary without weakening inspection or changing the rubric.",
+    "boundedFollowUp": "One development retry on the same frozen 4-stimulus packet with an absolute 480-second reviewer deadline and craft allowed the remaining time. Preserve timeout/incomplete if no unique StructuredOutput arrives. Do not infer that success qualifies the reviewer."
+  },
+  "secondaryOptionNotYetNeeded": "If the remaining-deadline retry still times out, make effort configurable and test medium for craft while retaining high for blind recognition. That changes reviewer behavior and should be a separate matched feasibility test, not combined with the deadline fix.",
+  "limitations": [
+    "No completed craft answers exist to assess answer quality.",
+    "The trace demonstrates continued thinking but cannot guarantee that more time would produce a valid terminal output.",
+    "This diagnostic does not authorize or perform a retry."
+  ]
+}

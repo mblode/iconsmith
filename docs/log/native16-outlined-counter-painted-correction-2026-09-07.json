@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "native16-source-counter-component-prototype-painted-correction-2026-09-07",
+  "supersedesFindingIn": ".staging/native16-source-counter-component-prototype-2026-09-07/receipt.json",
+  "reason": "Centerline endpoint separation was incorrectly treated as painted-topology separation.",
+  "providerCalls": 0,
+  "preserved": [
+    "The shell subpath hash is unchanged.",
+    "The clapper component is host-derived and translated by a legal 0.5-unit step without author path coordinates.",
+    "Filled bell remains untested and requires separate hole-clearance evidence."
+  ],
+  "correction": {
+    "centerlineEndpoints": "separated by 0.5 design units",
+    "strokeWidth": 2,
+    "paintedConnectivity": "continuous at both joins",
+    "leftIntersectionBoundsDesign": {"x0":7.06,"y0":18.14,"x1":9.38,"y1":19,"width":2.32,"height":0.86},
+    "rightIntersectionBoundsDesign": {"x0":14.62,"y0":18.14,"x1":16.94,"y1":19,"width":2.32,"height":0.86},
+    "intersectionMethod": "Independent shell and shifted-clapper alpha masks rasterized at 100 pixels per design unit.",
+    "unionInkComponents": {"native16":1,"native24":1,"highResolution2400":1},
+    "centralClearanceBeforeDesignUnits": 1,
+    "centralClearanceAfterDesignUnits": 1.5,
+    "centralClearanceAfterNative16Pixels": 1,
+    "conclusion": "The outlined dy+0.5 prototype is a feasible connected painted repair candidate. It is not rejected on topology grounds. Visual craft and family acceptance remain unqualified."
+  },
+  "evidence": {
+    "paintedJoinAudit": ".staging/native16-source-counter-component-prototype-2026-09-07/painted-join-audit.json",
+    "paintedJoinAuditSha256": "c1adba83a24e91f5b07eb69764384957011f0f0408491a6fbd7e603eec7fcbc6",
+    "board": ".staging/native16-source-counter-component-prototype-2026-09-07/board.png",
+    "boardSha256": "188de2cd5ad75d1b3d51edfd298104aadaf77bde0c330ca0d34513c8045afd6f"
+  }
+}

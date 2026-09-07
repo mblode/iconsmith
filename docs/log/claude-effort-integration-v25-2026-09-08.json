@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-09-07T14:28:40.010706+00:00",
+  "scope": "typed native Claude author effort configuration; no live uplift established",
+  "tests": 1825,
+  "testFiles": 158,
+  "skipped": 0,
+  "build": true,
+  "typecheck": true,
+  "check": true,
+  "diffCheck": true,
+  "hashes": {
+    "packages/iconsmith/scripts/local-claude-author.ts": "cd6cf39f494e89c5c3c47ee7dd397f30935d886d2e05eb7fe9b12f6d4606e616",
+    "packages/iconsmith/scripts/local-claude-author.test.ts": "763a1bbb0d9b85b7069d1b125dd4ad4e1320e69ea54b98ceb6bf7a08a622e524",
+    ".staging/root-test-v25.log": "6854edd72430657a6ec6fd696241e8c7d75d134de48b1009feec9d60b89bdc2e",
+    ".staging/root-typecheck-v25.log": "1860bf9e5b38afca3ee93c685d5862dd64d57ecaac67446b320a52078becc72d",
+    ".staging/root-build-v25.log": "f686222953623c12c3a56a027be9fcfb9e4a05e69506c67baa17ac9f57da3fa5",
+    ".staging/root-check-v25.log": "9bc1c6ca8f0049b5a748f15c40987cdcaf8372f23f94174f2acba7e4d210f1dd"
+  },
+  "newApiSpendUsd": 0,
+  "nativeCalls": 0,
+  "qualified": false
+}

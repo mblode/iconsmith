@@ -1,0 +1,667 @@
+{
+  "hash": "b291af7a7d8b6f8f0b8fa291ac6a93ac69d2f182eb566ebeb9f6b5bf716a08a4",
+  "manifest": {
+    "assumptions": {
+      "deadlineMsPerConceptSizePair": 600000,
+      "outputsPerConceptSizePair": 2,
+      "providerCost": "unknown-until-receipted"
+    },
+    "campaign": "blode-quality-development-v1",
+    "concepts": [
+      {
+        "concept": "cloud-upload",
+        "family": "cloud"
+      },
+      {
+        "concept": "bell-pause",
+        "family": "bell"
+      },
+      {
+        "concept": "shield-check",
+        "family": "shield"
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder"
+      },
+      {
+        "concept": "clock-check",
+        "family": "clock"
+      },
+      {
+        "concept": "jellyfish",
+        "family": "jellyfish"
+      },
+      {
+        "concept": "satellite-dish",
+        "family": "satellite"
+      },
+      {
+        "concept": "camera-sparkle",
+        "family": "camera"
+      },
+      {
+        "concept": "bookmark-play",
+        "family": "bookmark"
+      },
+      {
+        "concept": "key",
+        "family": "key"
+      },
+      {
+        "concept": "headphones",
+        "family": "headphones"
+      },
+      {
+        "concept": "leaf",
+        "family": "leaf"
+      },
+      {
+        "concept": "bicycle",
+        "family": "bicycle"
+      },
+      {
+        "concept": "scissors",
+        "family": "scissors"
+      },
+      {
+        "concept": "hand-heart",
+        "family": "hand"
+      },
+      {
+        "concept": "battery-charging",
+        "family": "battery"
+      },
+      {
+        "concept": "umbrella",
+        "family": "umbrella"
+      },
+      {
+        "concept": "rocket",
+        "family": "rocket"
+      },
+      {
+        "concept": "credit-card-check",
+        "family": "credit-card"
+      },
+      {
+        "concept": "hourglass",
+        "family": "hourglass"
+      }
+    ],
+    "kind": "development",
+    "slots": [
+      {
+        "concept": "cloud-upload",
+        "family": "cloud",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "cloud/cloud-upload/16/outlined"
+      },
+      {
+        "concept": "cloud-upload",
+        "family": "cloud",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "cloud/cloud-upload/16/filled"
+      },
+      {
+        "concept": "cloud-upload",
+        "family": "cloud",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "cloud/cloud-upload/24/outlined"
+      },
+      {
+        "concept": "cloud-upload",
+        "family": "cloud",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "cloud/cloud-upload/24/filled"
+      },
+      {
+        "concept": "bell-pause",
+        "family": "bell",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "bell/bell-pause/16/outlined"
+      },
+      {
+        "concept": "bell-pause",
+        "family": "bell",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "bell/bell-pause/16/filled"
+      },
+      {
+        "concept": "bell-pause",
+        "family": "bell",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "bell/bell-pause/24/outlined"
+      },
+      {
+        "concept": "bell-pause",
+        "family": "bell",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "bell/bell-pause/24/filled"
+      },
+      {
+        "concept": "shield-check",
+        "family": "shield",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "shield/shield-check/16/outlined"
+      },
+      {
+        "concept": "shield-check",
+        "family": "shield",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "shield/shield-check/16/filled"
+      },
+      {
+        "concept": "shield-check",
+        "family": "shield",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "shield/shield-check/24/outlined"
+      },
+      {
+        "concept": "shield-check",
+        "family": "shield",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "shield/shield-check/24/filled"
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "folder/folder-lock/16/outlined"
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "folder/folder-lock/16/filled"
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "folder/folder-lock/24/outlined"
+      },
+      {
+        "concept": "folder-lock",
+        "family": "folder",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "folder/folder-lock/24/filled"
+      },
+      {
+        "concept": "clock-check",
+        "family": "clock",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "clock/clock-check/16/outlined"
+      },
+      {
+        "concept": "clock-check",
+        "family": "clock",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "clock/clock-check/16/filled"
+      },
+      {
+        "concept": "clock-check",
+        "family": "clock",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "clock/clock-check/24/outlined"
+      },
+      {
+        "concept": "clock-check",
+        "family": "clock",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "clock/clock-check/24/filled"
+      },
+      {
+        "concept": "jellyfish",
+        "family": "jellyfish",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "jellyfish/jellyfish/16/outlined"
+      },
+      {
+        "concept": "jellyfish",
+        "family": "jellyfish",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "jellyfish/jellyfish/16/filled"
+      },
+      {
+        "concept": "jellyfish",
+        "family": "jellyfish",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "jellyfish/jellyfish/24/outlined"
+      },
+      {
+        "concept": "jellyfish",
+        "family": "jellyfish",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "jellyfish/jellyfish/24/filled"
+      },
+      {
+        "concept": "satellite-dish",
+        "family": "satellite",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "satellite/satellite-dish/16/outlined"
+      },
+      {
+        "concept": "satellite-dish",
+        "family": "satellite",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "satellite/satellite-dish/16/filled"
+      },
+      {
+        "concept": "satellite-dish",
+        "family": "satellite",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "satellite/satellite-dish/24/outlined"
+      },
+      {
+        "concept": "satellite-dish",
+        "family": "satellite",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "satellite/satellite-dish/24/filled"
+      },
+      {
+        "concept": "camera-sparkle",
+        "family": "camera",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "camera/camera-sparkle/16/outlined"
+      },
+      {
+        "concept": "camera-sparkle",
+        "family": "camera",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "camera/camera-sparkle/16/filled"
+      },
+      {
+        "concept": "camera-sparkle",
+        "family": "camera",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "camera/camera-sparkle/24/outlined"
+      },
+      {
+        "concept": "camera-sparkle",
+        "family": "camera",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "camera/camera-sparkle/24/filled"
+      },
+      {
+        "concept": "bookmark-play",
+        "family": "bookmark",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "bookmark/bookmark-play/16/outlined"
+      },
+      {
+        "concept": "bookmark-play",
+        "family": "bookmark",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "bookmark/bookmark-play/16/filled"
+      },
+      {
+        "concept": "bookmark-play",
+        "family": "bookmark",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "bookmark/bookmark-play/24/outlined"
+      },
+      {
+        "concept": "bookmark-play",
+        "family": "bookmark",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "bookmark/bookmark-play/24/filled"
+      },
+      {
+        "concept": "key",
+        "family": "key",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "key/key/16/outlined"
+      },
+      {
+        "concept": "key",
+        "family": "key",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "key/key/16/filled"
+      },
+      {
+        "concept": "key",
+        "family": "key",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "key/key/24/outlined"
+      },
+      {
+        "concept": "key",
+        "family": "key",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "key/key/24/filled"
+      },
+      {
+        "concept": "headphones",
+        "family": "headphones",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "headphones/headphones/16/outlined"
+      },
+      {
+        "concept": "headphones",
+        "family": "headphones",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "headphones/headphones/16/filled"
+      },
+      {
+        "concept": "headphones",
+        "family": "headphones",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "headphones/headphones/24/outlined"
+      },
+      {
+        "concept": "headphones",
+        "family": "headphones",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "headphones/headphones/24/filled"
+      },
+      {
+        "concept": "leaf",
+        "family": "leaf",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "leaf/leaf/16/outlined"
+      },
+      {
+        "concept": "leaf",
+        "family": "leaf",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "leaf/leaf/16/filled"
+      },
+      {
+        "concept": "leaf",
+        "family": "leaf",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "leaf/leaf/24/outlined"
+      },
+      {
+        "concept": "leaf",
+        "family": "leaf",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "leaf/leaf/24/filled"
+      },
+      {
+        "concept": "bicycle",
+        "family": "bicycle",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "bicycle/bicycle/16/outlined"
+      },
+      {
+        "concept": "bicycle",
+        "family": "bicycle",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "bicycle/bicycle/16/filled"
+      },
+      {
+        "concept": "bicycle",
+        "family": "bicycle",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "bicycle/bicycle/24/outlined"
+      },
+      {
+        "concept": "bicycle",
+        "family": "bicycle",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "bicycle/bicycle/24/filled"
+      },
+      {
+        "concept": "scissors",
+        "family": "scissors",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "scissors/scissors/16/outlined"
+      },
+      {
+        "concept": "scissors",
+        "family": "scissors",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "scissors/scissors/16/filled"
+      },
+      {
+        "concept": "scissors",
+        "family": "scissors",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "scissors/scissors/24/outlined"
+      },
+      {
+        "concept": "scissors",
+        "family": "scissors",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "scissors/scissors/24/filled"
+      },
+      {
+        "concept": "hand-heart",
+        "family": "hand",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "hand/hand-heart/16/outlined"
+      },
+      {
+        "concept": "hand-heart",
+        "family": "hand",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "hand/hand-heart/16/filled"
+      },
+      {
+        "concept": "hand-heart",
+        "family": "hand",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "hand/hand-heart/24/outlined"
+      },
+      {
+        "concept": "hand-heart",
+        "family": "hand",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "hand/hand-heart/24/filled"
+      },
+      {
+        "concept": "battery-charging",
+        "family": "battery",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "battery/battery-charging/16/outlined"
+      },
+      {
+        "concept": "battery-charging",
+        "family": "battery",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "battery/battery-charging/16/filled"
+      },
+      {
+        "concept": "battery-charging",
+        "family": "battery",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "battery/battery-charging/24/outlined"
+      },
+      {
+        "concept": "battery-charging",
+        "family": "battery",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "battery/battery-charging/24/filled"
+      },
+      {
+        "concept": "umbrella",
+        "family": "umbrella",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "umbrella/umbrella/16/outlined"
+      },
+      {
+        "concept": "umbrella",
+        "family": "umbrella",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "umbrella/umbrella/16/filled"
+      },
+      {
+        "concept": "umbrella",
+        "family": "umbrella",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "umbrella/umbrella/24/outlined"
+      },
+      {
+        "concept": "umbrella",
+        "family": "umbrella",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "umbrella/umbrella/24/filled"
+      },
+      {
+        "concept": "rocket",
+        "family": "rocket",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "rocket/rocket/16/outlined"
+      },
+      {
+        "concept": "rocket",
+        "family": "rocket",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "rocket/rocket/16/filled"
+      },
+      {
+        "concept": "rocket",
+        "family": "rocket",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "rocket/rocket/24/outlined"
+      },
+      {
+        "concept": "rocket",
+        "family": "rocket",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "rocket/rocket/24/filled"
+      },
+      {
+        "concept": "credit-card-check",
+        "family": "credit-card",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "credit-card/credit-card-check/16/outlined"
+      },
+      {
+        "concept": "credit-card-check",
+        "family": "credit-card",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "credit-card/credit-card-check/16/filled"
+      },
+      {
+        "concept": "credit-card-check",
+        "family": "credit-card",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "credit-card/credit-card-check/24/outlined"
+      },
+      {
+        "concept": "credit-card-check",
+        "family": "credit-card",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "credit-card/credit-card-check/24/filled"
+      },
+      {
+        "concept": "hourglass",
+        "family": "hourglass",
+        "finish": "outlined",
+        "nativeSize": 16,
+        "slotId": "hourglass/hourglass/16/outlined"
+      },
+      {
+        "concept": "hourglass",
+        "family": "hourglass",
+        "finish": "filled",
+        "nativeSize": 16,
+        "slotId": "hourglass/hourglass/16/filled"
+      },
+      {
+        "concept": "hourglass",
+        "family": "hourglass",
+        "finish": "outlined",
+        "nativeSize": 24,
+        "slotId": "hourglass/hourglass/24/outlined"
+      },
+      {
+        "concept": "hourglass",
+        "family": "hourglass",
+        "finish": "filled",
+        "nativeSize": 24,
+        "slotId": "hourglass/hourglass/24/filled"
+      }
+    ],
+    "source": {
+      "concepts": 2221,
+      "id": "blode-icons",
+      "treeHash": "08ffa45ff06aa011131f1678a2ca98016e63737cc753e7601017f71731ecd75d"
+    }
+  },
+  "resources": {
+    "maximumDeadlineHours": 6.666666666666667,
+    "outputSlots": 80,
+    "pairRequests": 40,
+    "providerCostUsd": null
+  }
+}

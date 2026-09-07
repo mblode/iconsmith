@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 2,
+  "id": "a156-bicycle16-attempt-results",
+  "scope": "development-author-attempt",
+  "qualified": false,
+  "instrumentQualified": false,
+  "phaseGatesClosed": [],
+  "denominators": {
+    "authorArms": 1,
+    "paintSlots": 2,
+    "reviewersRequested": 0
+  },
+  "accounting": {
+    "authorNativeCalls": 4,
+    "authorProcesses": [
+      {
+        "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/00-construct/process.json",
+        "sha256": "87271ed2d9435c33fbf7186df888befb1627bd1cd2bb3bf1b6c64c4460c63038",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/01-repair/process.json",
+        "sha256": "92e03b3c78123cdb334f306926d62a3f3a371a7b26f4f64af5419324da068544",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/02-author-self-review/process.json",
+        "sha256": "5a17f7588246331ba7be99c60649a3cb5a44f5febe6c7e91e0401f6c2957a4fb",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      },
+      {
+        "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/03-finalize/process.json",
+        "sha256": "0f42e023d0ba5cee36028da9479b02f59b76fdf5cc18248b0c1f34a1fb663745",
+        "code": 0,
+        "killed": false,
+        "quiescent": true
+      }
+    ],
+    "reviewNativeCalls": 0,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionUsd": null
+  },
+  "author": {
+    "route": "astra-native",
+    "status": "rejected-visible-defects",
+    "reason": null,
+    "terminalHash": "a7a3b1cc68939ab8527dad18649e7125e83995d15459ff16d9aada5682c03c04",
+    "aggregateTerminalHash": "ea7ebe0fdda4896f5ea4ecab79002ae9152f8ea1bbb9a8716112a5ac7d3796d4"
+  },
+  "retainedProofs": {
+    "outlined": {
+      "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+      "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+    },
+    "filled": {
+      "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+      "sha256": "28f2775416b13561f06178d381914bc6ca985fed8e322a071900f526d55b96ba"
+    }
+  },
+  "review": {
+    "status": "not-run",
+    "reason": "author arm not delivered; review ineligible",
+    "outcomes": []
+  },
+  "board": {
+    "file": "docs/log/a156-bicycle16-attempt-board-v2-2026-09-08.png",
+    "sha256": "b2e1dea2fa760ad5eb3692dc84c93780b05be99947583bcf49c7ed33f6fe733e"
+  },
+  "cost": {
+    "newApiUsd": 0,
+    "nativeSubscriptionUsd": null
+  },
+  "limitations": [
+    "Attempt evidence only; no phase qualification.",
+    "Missing reviewer work is not represented as a failed reviewer call.",
+    "Retained proofs do not convert an incomplete or rejected author lifecycle to delivered."
+  ]
+}

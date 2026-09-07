@@ -1,0 +1,6 @@
+icon folder-lock
+finish outlined
+part folder-2-outlined-0
+rect 0,10.5 13x14 r2
+trim
+part file-lock-filled-2

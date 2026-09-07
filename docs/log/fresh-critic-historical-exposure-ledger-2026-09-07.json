@@ -1,0 +1,116 @@
+{
+  "kind": "conservative-historical-exposure-ledger-receipt",
+  "createdAt": "2026-09-07",
+  "status": "bounded-ledger-complete-global-exclusion-unproven",
+  "qualified": false,
+  "providerCalls": 0,
+  "imageInspection": false,
+  "ledger": {
+    "path": ".staging/fresh-critic-exposure-ledger-2026-09-07/ledger.json",
+    "sha256": "33b9bfaf251458c9aece21bd602ea289d3110ac9cea6567d44d795aaab6fc98e",
+    "scannedFiles": 3087,
+    "structuredEntries": 18250,
+    "parseFailures": [
+      {
+        "path": ".staging/house-source-regression-compiler21-audit-cli.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "error": "SyntaxError: Unexpected end of JSON input"
+      }
+    ],
+    "routeCounts": {
+      "host-only-source": 1308,
+      "provider-facing-or-response": 3563,
+      "unknown-metadata-route": 5335,
+      "host-only-catalog": 8044
+    },
+    "roleCounts": {
+      "target-or-semantic-name": 11593,
+      "alias": 347,
+      "unstructured-text-mention": 5004,
+      "distractor-or-choice": 1304,
+      "reference": 1,
+      "admitted-part": 1
+    }
+  },
+  "policy": "Any family, alias, recognition choice/distractor, reference/anchor, admitted part, or unstructured prompt mention in provider-facing or unknown-route metadata is exposed. Host-only sealed source files do not alone establish exposure.",
+  "results": {
+    "retainedS011ToS100": {
+      "total": 90,
+      "excluded": 80,
+      "unusedWithinBoundedScan": 10
+    },
+    "unusedWithinBoundedScan": [
+      {
+        "family": "#square-arrow-down",
+        "aliases": [
+          "download-square"
+        ]
+      },
+      {
+        "family": "ar-cube",
+        "aliases": [
+          "ar-cube"
+        ]
+      },
+      {
+        "family": "#calendar-search",
+        "aliases": [
+          "date-search",
+          "events",
+          "find-event"
+        ]
+      },
+      {
+        "family": "edit-small",
+        "aliases": [
+          "edit-small"
+        ]
+      },
+      {
+        "family": "#postcard",
+        "aliases": [
+          "postcard"
+        ]
+      },
+      {
+        "family": "#color-palette",
+        "aliases": [
+          "colour-palette"
+        ]
+      },
+      {
+        "family": "#add-to-basket",
+        "aliases": []
+      },
+      {
+        "family": "#bubble-annotation",
+        "aliases": [
+          "bubble-annotation"
+        ]
+      },
+      {
+        "family": "sidebar-square",
+        "aliases": []
+      },
+      {
+        "family": "broken-chain-link",
+        "aliases": [
+          "broken-chain-link",
+          "unlink"
+        ]
+      }
+    ],
+    "replacementRoster": {
+      "total": 40,
+      "excluded": 40,
+      "unusedWithinBoundedScan": 0
+    },
+    "replacementFamiliesProvenGloballyUnused": 0
+  },
+  "completenessBoundary": [
+    "bounded-to-machine-readable-files-found; unknown and unparseable routes prevent a proof of global historical non-exposure",
+    "Exact image bytes were never opened. Binary/image-only disclosures, deleted artifacts, terminal/UI-only context, provider-side caches, and semantically equivalent names absent from recorded aliases cannot be enumerated from this scan.",
+    "Unstructured text mentions are conservatively included but cannot prove that a named artifact or image was shown; unknown metadata routes remain exclusions rather than being upgraded to confirmed provider exposure."
+  ],
+  "disposition": "Do not seal the ten bounded-scan survivors or claim a fresh ten-family replacement. The 40-family replacement roster has zero survivors under the conservative recorded-route policy."
+}

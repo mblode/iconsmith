@@ -1,0 +1,630 @@
+{
+  "schema": "iconsmith.a126-reliability-results.v1",
+  "date": "2026-09-07",
+  "status": "terminal-output-evidence-not-qualified",
+  "sourceRoot": ".staging/house-quality-execution-2026-09-07/reliability",
+  "runs": 6,
+  "outputSlots": 12,
+  "qualityStatusCounts": {
+    "review-incomplete": 4,
+    "needs-repair": 2,
+    "model-review-clear": 6
+  },
+  "board": {
+    "file": "docs/log/a126-reliability-output-board-2026-09-07.png",
+    "sha256": "2a1f838c0b8274ea787fa7cda2465471993dd54832cb6adb38b32c3c22e2e5ed",
+    "layout": "3 columns x 4 rows; each slot is the selected optical proof with vector, native 1x, native 2x, light and dark"
+  },
+  "slots": [
+    {
+      "run": "folder-lock-16",
+      "concept": "folder-lock",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "review-incomplete",
+      "displayStatus": "review-incomplete",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1",
+      "requestId": "a32695a9d4890b5396fe28032605146765f7e4d4f8510e89aee7b6691575cbb9",
+      "requestSha256": "73dcd8c167327952a055400a6ad649f5ff1929aebc181cc35deba9e69e34fc6b",
+      "hashes": {
+        "outlined.icon": "1bd174c2295591997f217417f49914f350cff5f82243f5ee91bb93946cda8791",
+        "outlined.svg": "a76e91714e153275e40a249cc9c4b31cc0c7a78f3d15653dfe34f3bc2cddeebf",
+        "outlined.native.png": "e9c38140ad6555b01c94e9902262ce99a1c4b7502b05b40973d7afc5d2daa707",
+        "outlined.retina.png": "917de90e208f42e35ae21c513e5b17f9464257d0469c014da8c91e2725598b67",
+        "outlined.proof.png": "20e31574134cac64ed6f304f8091ab36958091a9402ffea48c8bb5622ad97e14",
+        "outlined.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "outlined.pixels.json": "639dbb4d7cf8dd4dfe31c772429624fbbc63c65f6880349b7a6e2fb8c0b84091",
+        "outlined.artifact.json": "ec517980b857079cb4d639002d556dddf26b8797942513711437c01a6af4d996"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1",
+          "hash": "3b106e1e5bf53197e89d596466e6b95dd558cb7ed3f5dc04ddebd65ac94bb73b",
+          "status": "review-incomplete"
+        }
+      ],
+      "stoppedReason": "review-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "20e31574134cac64ed6f304f8091ab36958091a9402ffea48c8bb5622ad97e14"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "cfcd6aeb6343dfb9346d67c6b29147e54879eae26cba70132befe42e35d8ac93"
+          }
+        },
+        "traceSha256": "14a69b3bbc76a214db96a19e8e89b24de1cfbaee45626ad0c8e180634330ff60",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "folder-lock-16",
+      "concept": "folder-lock",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "review-incomplete",
+      "displayStatus": "review-incomplete",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1",
+      "requestId": "a32695a9d4890b5396fe28032605146765f7e4d4f8510e89aee7b6691575cbb9",
+      "requestSha256": "73dcd8c167327952a055400a6ad649f5ff1929aebc181cc35deba9e69e34fc6b",
+      "hashes": {
+        "filled.icon": "734991d8bb5830a348779f0615873834594a3e62e94c562917b0c26c992a8f98",
+        "filled.svg": "15428444fb840bf301c838e684ef5f8e4577b2b38b32a4fc42f0bfb77bd767a6",
+        "filled.native.png": "d4f69c575e914123cc6b1bd562e20eb7b41a89cad4475750363ec6cc97e4bdbb",
+        "filled.retina.png": "0fbaa3b666f5b7a77f762b82d8c18b91bf85452bb1421068c68a59ac5d20ef65",
+        "filled.proof.png": "cfcd6aeb6343dfb9346d67c6b29147e54879eae26cba70132befe42e35d8ac93",
+        "filled.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "filled.pixels.json": "c354f45baec9be9c60490d8276bad81cc984188b7ecc81d24c69cc1431926cff",
+        "filled.artifact.json": "f08a5d906e1dd5cbcd8457e2d8e3956bd87cc104828d4284f23ff2c035d9a565"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-16/attempt-1",
+          "hash": "3b106e1e5bf53197e89d596466e6b95dd558cb7ed3f5dc04ddebd65ac94bb73b",
+          "status": "review-incomplete"
+        }
+      ],
+      "stoppedReason": "review-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "20e31574134cac64ed6f304f8091ab36958091a9402ffea48c8bb5622ad97e14"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "cfcd6aeb6343dfb9346d67c6b29147e54879eae26cba70132befe42e35d8ac93"
+          }
+        },
+        "traceSha256": "14a69b3bbc76a214db96a19e8e89b24de1cfbaee45626ad0c8e180634330ff60",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "hammer-check-16",
+      "concept": "hammer-check",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "needs-repair",
+      "displayStatus": "needs-repair",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+      "requestId": "6342d9ef18fb16db6ce52d175a73614f4b27140897c84013e79500bb41d38858",
+      "requestSha256": "2f35438ae12e86fe533eba79ab62948786ee5179d64a9dcab22e75939e0315f3",
+      "hashes": {
+        "outlined.icon": "7183b645bb94ace35c7eebe766ec0714552bda9b8249222f12f8509ff9b9549a",
+        "outlined.svg": "a4bca0c1f37bb295858066a8a8794e6f2860bf9ed63b4714ce36a4e2f3957a6a",
+        "outlined.native.png": "0a8f135c2405bb8939bd27628d090021a00f15e6e383cdda2950bf1ecd7832f3",
+        "outlined.retina.png": "ec562b939a87b627dba79ead0c48b15a7062c81261c45c1d7a01a1719bf8be1a",
+        "outlined.proof.png": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9",
+        "outlined.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "outlined.pixels.json": "db3b24fd2b92d031f252c1509a79739dd99b760484dae1de6725de041fe2b5f7",
+        "outlined.artifact.json": "dc5fa92f85441557ab3e412f03b7d92055e17145a8f88e149a65d4ed4575f40d"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+          "hash": "14e0841a7fddb77237eb29e3bd7345a9f7034f76ea708a90d8e002e1455a8f04",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-2",
+          "status": "incomplete"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-3",
+          "status": "incomplete"
+        }
+      ],
+      "stoppedReason": "author-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214"
+          }
+        },
+        "traceSha256": "0b19eec96e482209d1ac02f81b44459c158350de8510dac3c7f21fd5a586e26d",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "hammer-check-16",
+      "concept": "hammer-check",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "needs-repair",
+      "displayStatus": "needs-repair",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+      "requestId": "6342d9ef18fb16db6ce52d175a73614f4b27140897c84013e79500bb41d38858",
+      "requestSha256": "2f35438ae12e86fe533eba79ab62948786ee5179d64a9dcab22e75939e0315f3",
+      "hashes": {
+        "filled.icon": "eaf7ed38f2ac95eee4abfa4a49bc5ea0c091a1c4193bfdbf6ff34869f9155e9e",
+        "filled.svg": "60cb86d0daaf14bad48ddd3a2ec074f711cfa8b7f471c525af68ffa20be35637",
+        "filled.native.png": "65b472789f5190b5b06076e777bd17632690dee9681b6ed271ddd9627bde2d4d",
+        "filled.retina.png": "0691c5cd8a98345bedf957342574b5445e8733e5bcacd1b130fe7c9ebc137a63",
+        "filled.proof.png": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214",
+        "filled.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "filled.pixels.json": "f6409cbf7b8f685527a712493cc93e22dce5394652060a1af1fe3fd09418bc43",
+        "filled.artifact.json": "e889776d8b249dc583c685ad9eff4dec0295fbca7ecb9b1ba709100afdc68ff7"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-1",
+          "hash": "14e0841a7fddb77237eb29e3bd7345a9f7034f76ea708a90d8e002e1455a8f04",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-2",
+          "status": "incomplete"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/hammer-check-16/attempt-3",
+          "status": "incomplete"
+        }
+      ],
+      "stoppedReason": "author-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "c0313eec61198a0b0a9d93d009dbb2cd5b7f6a16d28ab88123fa8083cd44bde9"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "ff009653fce7449c78711539098de29f569822d5c2ce1566cbef2adcae152214"
+          }
+        },
+        "traceSha256": "0b19eec96e482209d1ac02f81b44459c158350de8510dac3c7f21fd5a586e26d",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "bell-pause-24",
+      "concept": "bell-pause",
+      "master": "24",
+      "nativeSize": 24,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "displayStatus": "model-review-clear",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/bell-pause-24/attempt-1",
+      "requestId": "dab82de628e0cde6986cdfc6dad3864518d9f11cf8f41de93a1c649b9b503485",
+      "requestSha256": "559cef974dc98bc8ca7123837eef5d4f2161b5ce58e59e822ef215ddeb8a4587",
+      "hashes": {
+        "outlined.icon": "c2abea5dd4781bfc10a56b4efe0de13de5f4167b224f08469658967d84d2ee29",
+        "outlined.svg": "35bd222e2856d0b075d66e8ec304efe18886c39e105246b16a96be13cc4bd7d6",
+        "outlined.native.png": "b600ba9a09f8afdc02109a9593744c6a4c40285b9611b9d81003ab33efde593a",
+        "outlined.retina.png": "ffee77b0c46ee02d0dc63a1012c56163b4736c0979aa7c7b5a9a45f0b0d58b9e",
+        "outlined.proof.png": "9774c7cc51e6a28aee8a8352e2fdd21ac4cb30b208606883ed93f9b591c50c50",
+        "outlined.proof.json": "dfde7352fa422f6194360daf4c5d9a8b8b1808e915e67edccabc8e4161d34761",
+        "outlined.pixels.json": "42aa255821d4795fff00b826077a74e4172753700ebb175b5d6088b08d3abdfa",
+        "outlined.artifact.json": "2d830575912c9e78d2a319845b1e2f7403f5ca3f817fdd5e694921724098f304"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bell-pause-24/attempt-1",
+          "hash": "71a9643c0739d3eadcf85fa6ef0be2d6c48fde4d5e00e4cfa38d0b3fe6e5e866",
+          "status": "review-clear"
+        }
+      ],
+      "stoppedReason": "review-clear",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "9774c7cc51e6a28aee8a8352e2fdd21ac4cb30b208606883ed93f9b591c50c50"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "1c887dc3332e81108ce83f7e86afa2675fea8f273d8b602f332b178a1a230e25"
+          }
+        },
+        "traceSha256": "9d7f531f33e309f4ab6fe5c2f80ce3b4621e418557dd10f623fb1198b9837ff6",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "bell-pause-24",
+      "concept": "bell-pause",
+      "master": "24",
+      "nativeSize": 24,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "displayStatus": "model-review-clear",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/bell-pause-24/attempt-1",
+      "requestId": "dab82de628e0cde6986cdfc6dad3864518d9f11cf8f41de93a1c649b9b503485",
+      "requestSha256": "559cef974dc98bc8ca7123837eef5d4f2161b5ce58e59e822ef215ddeb8a4587",
+      "hashes": {
+        "filled.icon": "518d0061369cc68e30bb3f79c142c2a8777b34c8bec15d083a5630a364618564",
+        "filled.svg": "01fe6adf91d930c1f7ee63c410b52e12484514a169b29daa7e4f3737c45b271e",
+        "filled.native.png": "edbfe5491ebfbeac1af4c3b905c247fcb29c25fa083312e0ece1bca3857b829a",
+        "filled.retina.png": "877bf5f3dc257bfb52c3f59cc0fe3bb5a261c60f3b53b9983525e084fbe23cd2",
+        "filled.proof.png": "1c887dc3332e81108ce83f7e86afa2675fea8f273d8b602f332b178a1a230e25",
+        "filled.proof.json": "dfde7352fa422f6194360daf4c5d9a8b8b1808e915e67edccabc8e4161d34761",
+        "filled.pixels.json": "1d4c9d40e9725c97e074d2663472901b6b6f12fc0d96b18944ac98b179de12e6",
+        "filled.artifact.json": "0b521b4bac5d9c7b13df6ee2525c49d87ccc37702d7abeec0599f730bd38ba87"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bell-pause-24/attempt-1",
+          "hash": "71a9643c0739d3eadcf85fa6ef0be2d6c48fde4d5e00e4cfa38d0b3fe6e5e866",
+          "status": "review-clear"
+        }
+      ],
+      "stoppedReason": "review-clear",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "9774c7cc51e6a28aee8a8352e2fdd21ac4cb30b208606883ed93f9b591c50c50"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "1c887dc3332e81108ce83f7e86afa2675fea8f273d8b602f332b178a1a230e25"
+          }
+        },
+        "traceSha256": "9d7f531f33e309f4ab6fe5c2f80ce3b4621e418557dd10f623fb1198b9837ff6",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "folder-lock-24",
+      "concept": "folder-lock",
+      "master": "24",
+      "nativeSize": 24,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "review-incomplete",
+      "displayStatus": "review-incomplete",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1",
+      "requestId": "957f4352d5a537486e8e3fae723ecb9731ee6b2bfb404c2d565a657d3b14fc82",
+      "requestSha256": "e340edb51776a88a3dbaf39bd05941f373b91b50af96e2495f14fa0c60b642bc",
+      "hashes": {
+        "outlined.icon": "95eb79dfafb9d8058ad0a743f8959a90fdc5581f448c66b68e91b9dafe60466e",
+        "outlined.svg": "04bef214693f42bffc33024a69c6947225133831fec3e0ca69282aa1b19e2226",
+        "outlined.native.png": "1538a6891e831673fc4b3eae9af6615ae380c5ef8a737f5eac4a081bff3cff75",
+        "outlined.retina.png": "e340fcaadbd58a0cc07f69808dd92bbb20cf61b145b0ffae074cf955c7d5b6f2",
+        "outlined.proof.png": "ab4a90e1841e236bed62410c9ab3a9916e2885ed86c43138e1967a1baa8daf8b",
+        "outlined.proof.json": "dfde7352fa422f6194360daf4c5d9a8b8b1808e915e67edccabc8e4161d34761",
+        "outlined.pixels.json": "ce7c9d195fcedf74955e8db2b8fba3f5fc32bdd1390a7e629c6a9d1b8d25ecf8",
+        "outlined.artifact.json": "4e44d6602729ea846c591c76d1fbfa1b3eff7929e48eae7933176eb987a449f0"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1",
+          "hash": "c649bb453482bccb66a758d62bb97583ab15cc8e03034f5bc3a4efaffcf508e2",
+          "status": "review-incomplete"
+        }
+      ],
+      "stoppedReason": "review-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "ab4a90e1841e236bed62410c9ab3a9916e2885ed86c43138e1967a1baa8daf8b"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "55057daf7d82959ad00df4fbae68b99089f18085705da70d3c5c1f4df468c3b0"
+          }
+        },
+        "traceSha256": "756e055a781a9a05899fedbb0f899cbba153eb1fb80f74b8c1a8dc149c56c863",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "folder-lock-24",
+      "concept": "folder-lock",
+      "master": "24",
+      "nativeSize": 24,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "review-incomplete",
+      "displayStatus": "review-incomplete",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1",
+      "requestId": "957f4352d5a537486e8e3fae723ecb9731ee6b2bfb404c2d565a657d3b14fc82",
+      "requestSha256": "e340edb51776a88a3dbaf39bd05941f373b91b50af96e2495f14fa0c60b642bc",
+      "hashes": {
+        "filled.icon": "0f190a260b6a916286ec823dffaad0b0b08d365e4666d6a99183c7de45685bc7",
+        "filled.svg": "eee1d56452eebd001f7165c5d9da87212ee995c139191c9624cad81da193b43c",
+        "filled.native.png": "87be10976b10c039923b96a9d4a3f9c0a285ede1a3669dabbf551e7c8733a73d",
+        "filled.retina.png": "02a4f47b1065a0784a8d4d4050783be23a1e96d962c78d86b204aba484b8b48d",
+        "filled.proof.png": "55057daf7d82959ad00df4fbae68b99089f18085705da70d3c5c1f4df468c3b0",
+        "filled.proof.json": "dfde7352fa422f6194360daf4c5d9a8b8b1808e915e67edccabc8e4161d34761",
+        "filled.pixels.json": "c093ea6433b7f19a2420d62872dcaf624521f2f3a9c69941635be819f4af839f",
+        "filled.artifact.json": "fd6101bfc9f31ec8f75d3f1ee12524cc0af1953f8226e6d8ffb9ef1cbb5666d9"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/folder-lock-24/attempt-1",
+          "hash": "c649bb453482bccb66a758d62bb97583ab15cc8e03034f5bc3a4efaffcf508e2",
+          "status": "review-incomplete"
+        }
+      ],
+      "stoppedReason": "review-incomplete",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "ab4a90e1841e236bed62410c9ab3a9916e2885ed86c43138e1967a1baa8daf8b"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "55057daf7d82959ad00df4fbae68b99089f18085705da70d3c5c1f4df468c3b0"
+          }
+        },
+        "traceSha256": "756e055a781a9a05899fedbb0f899cbba153eb1fb80f74b8c1a8dc149c56c863",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "cloud-upload-24",
+      "concept": "cloud-upload",
+      "master": "24",
+      "nativeSize": 24,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "displayStatus": "model-review-clear",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/cloud-upload-24/attempt-1",
+      "requestId": "67f33c88077c33ffca8e9d7507bb229d2575d38f9938b2d79d4eddae3d53142c",
+      "requestSha256": "aa8e8a2cea0d24870c70a31cfe80d12c5d2d5dbec877d9f91172db78ec482d73",
+      "hashes": {
+        "outlined.icon": "0ec9ac09a2c9e20799ef48c42b271b6c137bb3734855daf413d9206a71ba6df3",
+        "outlined.svg": "f7df5849b0135c4c54b79f398f11b11d46c78e1482f517cb4bb9f381b0f1514b",
+        "outlined.native.png": "e9d044c431a9fc45377a4e173d89dfbf087306ea3cc61587a0c4b30ae9c8d979",
+        "outlined.retina.png": "ff7d97cf217245b0f4a10d02910be2d239a1dddb14407a7630a1c96746c47096",
+        "outlined.proof.png": "1808235bf42389d7f1fb842429be0df58e3413d2cc4cba6be3a6f3fe26ce5560",
+        "outlined.proof.json": "dfde7352fa422f6194360daf4c5d9a8b8b1808e915e67edccabc8e4161d34761",
+        "outlined.pixels.json": "1bcd8d870278f49c544112cbf9ece680020517b3e3bc0421d45e3ecea2b389b5",
+        "outlined.artifact.json": "1effcd1588d503005f9643b352fb93d16831ce6df87673bfec63b8ff4c7d1c22"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/cloud-upload-24/attempt-1",
+          "hash": "1a5353228deeebf1c20f17144d97e1bb3124b9c48dff7987a2e9433402ca9d11",
+          "status": "review-clear"
+        }
+      ],
+      "stoppedReason": "review-clear",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "1808235bf42389d7f1fb842429be0df58e3413d2cc4cba6be3a6f3fe26ce5560"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "37ff281d219868dadce99ca4ba5598701d59c16939d91001182a5432315f8f90"
+          }
+        },
+        "traceSha256": "2f4c68f850409dc4237acd8eb3b2cfa182f80f10ba8908542c8a08a38564025d",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "cloud-upload-24",
+      "concept": "cloud-upload",
+      "master": "24",
+      "nativeSize": 24,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "displayStatus": "model-review-clear",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/cloud-upload-24/attempt-1",
+      "requestId": "67f33c88077c33ffca8e9d7507bb229d2575d38f9938b2d79d4eddae3d53142c",
+      "requestSha256": "aa8e8a2cea0d24870c70a31cfe80d12c5d2d5dbec877d9f91172db78ec482d73",
+      "hashes": {
+        "filled.icon": "53713903a68d6a5a5d9ce700220b18130f895270ddd35950818553022d9027d8",
+        "filled.svg": "f5dae008d299570ac3d42509061a290331daeb7961cb85bc6da2107098416198",
+        "filled.native.png": "c34204a366baf893997d1d9105a4143e4c922508a4446c550e149ce082c9ddb7",
+        "filled.retina.png": "4da2acee2c53eaa4dc5eb01247647860249fba64bd3a8c694673f71433ac746b",
+        "filled.proof.png": "37ff281d219868dadce99ca4ba5598701d59c16939d91001182a5432315f8f90",
+        "filled.proof.json": "dfde7352fa422f6194360daf4c5d9a8b8b1808e915e67edccabc8e4161d34761",
+        "filled.pixels.json": "1dda183b064462c4dd48274376008c5032a7176be339d59d88475e2fd04e1e28",
+        "filled.artifact.json": "201ac1ec9def7bb7af0b64c793a0db1644de0530d62168609d0565935523fd1e"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/cloud-upload-24/attempt-1",
+          "hash": "1a5353228deeebf1c20f17144d97e1bb3124b9c48dff7987a2e9433402ca9d11",
+          "status": "review-clear"
+        }
+      ],
+      "stoppedReason": "review-clear",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "1808235bf42389d7f1fb842429be0df58e3413d2cc4cba6be3a6f3fe26ce5560"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "37ff281d219868dadce99ca4ba5598701d59c16939d91001182a5432315f8f90"
+          }
+        },
+        "traceSha256": "2f4c68f850409dc4237acd8eb3b2cfa182f80f10ba8908542c8a08a38564025d",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "bicycle-16",
+      "concept": "bicycle",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "outlined",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "displayStatus": "model-review-clear",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/bicycle-16/attempt-1",
+      "requestId": "5c9ebf9536bb70414ca31863ffc1bd356e13aa7c535ef3cf2f0fe7300c217aa4",
+      "requestSha256": "1daa80b763993ed7f0b8550fa3468f8fd7f33392d7d6b71e492a657a796b264e",
+      "hashes": {
+        "outlined.icon": "baf1208c8ff19c0acdbe908fcfd3dfdb3b5ccd3d489b392675ef5ee6d6c6af57",
+        "outlined.svg": "09060556765a115c20918f0117a4a025b45af490f781c5184806650abb288912",
+        "outlined.native.png": "7f7a22770a3b885620524dbe70db1682c77c33626c9cc1c592ccb38f1da4c984",
+        "outlined.retina.png": "669b147db1083c1b594295adfa53b97039e872b8f9f37047fef40edfaa25922d",
+        "outlined.proof.png": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf",
+        "outlined.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "outlined.pixels.json": "d5be700bf8cdd0f78507b2da0707bd6dcc1731d7f5d8b1277d506d31a2765ff9",
+        "outlined.artifact.json": "1ee277b6fcfe07470eb04dfee814f3ac29dda60e113f14f173cbc7656c4c3aa9"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bicycle-16/attempt-1",
+          "hash": "2e82d25086cbba82453f3895b42a5b4c17ba13646027bddd906b3fc2fa074058",
+          "status": "review-clear"
+        }
+      ],
+      "stoppedReason": "review-clear",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "d586db1bfaf6e313ec2c0aa06023db01a79fb0e5a2d4e499026f94c652b778ff"
+          }
+        },
+        "traceSha256": "841621da9033f2038a285433661e617740a7c93972ef470e3e24b09c18595096",
+        "visualJudgmentValidated": false
+      }
+    },
+    {
+      "run": "bicycle-16",
+      "concept": "bicycle",
+      "master": "16",
+      "nativeSize": 16,
+      "paint": "filled",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "displayStatus": "model-review-clear",
+      "selectedAttempt": ".staging/house-quality-execution-2026-09-07/reliability/bicycle-16/attempt-1",
+      "requestId": "5c9ebf9536bb70414ca31863ffc1bd356e13aa7c535ef3cf2f0fe7300c217aa4",
+      "requestSha256": "1daa80b763993ed7f0b8550fa3468f8fd7f33392d7d6b71e492a657a796b264e",
+      "hashes": {
+        "filled.icon": "73b802d0d361963c97d583bf026d980244146f748a9b5bfac02bf72bed216109",
+        "filled.svg": "9a7103f5ab6cfcfa77b0de66743df1cb5c47be64a9a5692f40d13a6acfdef8cf",
+        "filled.native.png": "7ecdd1005003b6b2a56d46cc8d0da20f288d1b52486d2fd39f863ea3e916ade8",
+        "filled.retina.png": "4df791fb3295ebd7db041627dfa84122327dac5472f0fe22da79df455272d79b",
+        "filled.proof.png": "d586db1bfaf6e313ec2c0aa06023db01a79fb0e5a2d4e499026f94c652b778ff",
+        "filled.proof.json": "8daee4d2980878e4949f593b34eb0a50d8739d865ddf8db1568a5c6b7323f1b3",
+        "filled.pixels.json": "758bdbbb049c1ddf86657a25eb791592f0f16a65d146396d4aa8ad3318f2e967",
+        "filled.artifact.json": "c8cc9119ed766aafc502d583932bcee7ae51c49d1b699428172494cd1974ad55"
+      },
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/reliability/bicycle-16/attempt-1",
+          "hash": "2e82d25086cbba82453f3895b42a5b4c17ba13646027bddd906b3fc2fa074058",
+          "status": "review-clear"
+        }
+      ],
+      "stoppedReason": "review-clear",
+      "craftApproved": false,
+      "instrumentQualified": false,
+      "reviewContentValidated": false,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "d586db1bfaf6e313ec2c0aa06023db01a79fb0e5a2d4e499026f94c652b778ff"
+          }
+        },
+        "traceSha256": "841621da9033f2038a285433661e617740a7c93972ef470e3e24b09c18595096",
+        "visualJudgmentValidated": false
+      }
+    }
+  ],
+  "qualification": {
+    "qualified": false,
+    "meaning": "Statuses reproduce request.json model-review state; delivered and review-clear do not establish instrument or craft qualification."
+  },
+  "providerCallsForThisExport": 0,
+  "sourceMutated": false
+}

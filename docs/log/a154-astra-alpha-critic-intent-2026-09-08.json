@@ -1,0 +1,21 @@
+{
+  "campaign": "A154",
+  "status": "frozen",
+  "manifestHash": "9ce8518ff728a23d83a793ca497bca52ae4bfd422482031520d2556a4e6c3a68",
+  "packet": "V2-P01",
+  "route": "astra",
+  "maximumNativeCalls": 3,
+  "maxMs": 385000,
+  "maxConcurrency": 1,
+  "inputs": {
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/campaign.json": "9ce8518ff728a23d83a793ca497bca52ae4bfd422482031520d2556a4e6c3a68",
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/run-p01.mts": "3b4466c1236ab2b24e34707397218b6398a45f56966fd4be41d09721fe78f928",
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/run.mts": "367693fcdfe7d16bac1aa6b6e4acb3d631b328915b5d8ae99fbac99cc04287d4",
+    ".staging/a154-p01-astra-alpha-campaign-2026-09-08/test-p01.mts": "365f6581ca25cd935c5ab2cd02628b9ee62d44d0c7da5dd159b7e20f3a40108d"
+  },
+  "scope": "Exposed P01 same images/questions/high effort with isolated alpha runtime. Historical Sol-high and Claude-medium comparisons are cross-profile development, never qualification.",
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

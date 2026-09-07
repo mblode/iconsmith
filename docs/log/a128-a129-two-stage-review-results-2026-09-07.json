@@ -1,0 +1,313 @@
+{
+  "id": "A128-A129-two-stage-AI-review-diagnostic",
+  "authority": "AI-only development evidence",
+  "rows": [
+    {
+      "experiment": "A128",
+      "provider": "codex",
+      "terminalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A128/codex-terminal.json",
+      "terminalSha256": "e2f87809420e0370300daf17cc159f3e41eef51346c0654ceb8a41fb37490f1a",
+      "status": "recognition-incomplete",
+      "calls": 1,
+      "elapsedMs": 9749,
+      "deadlineExceeded": false,
+      "qualified": false
+    },
+    {
+      "experiment": "A128",
+      "provider": "claude",
+      "terminalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A128/claude-terminal.json",
+      "terminalSha256": "ad9b4da827b13ed8a0f21ecdde0d3e5c0044730b84452fee2d018f6702b05731",
+      "status": "craft-incomplete",
+      "calls": 2,
+      "elapsedMs": 289241,
+      "deadlineExceeded": false,
+      "qualified": false
+    },
+    {
+      "experiment": "A129",
+      "provider": "codex",
+      "terminalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/house-quality-execution-2026-09-07/A129/codex-terminal.json",
+      "terminalSha256": "9a93f69442797ad58daa53eba41553cbe5d1022ea693f63b092cc5ef9d0d245e",
+      "status": "recognition-incomplete",
+      "calls": 1,
+      "elapsedMs": 29801,
+      "deadlineExceeded": false,
+      "qualified": false
+    }
+  ],
+  "recognition": {
+    "claudeA128": {
+      "receiptComplete": true,
+      "correct": 4,
+      "count": 4
+    },
+    "codexA129": {
+      "originalStatus": "recognition-incomplete",
+      "offlineInspectionVerified": true,
+      "diagnostic": "a129-codex-recognition-trace-diagnostic-2026-09-07.json",
+      "craftNotDispatched": true
+    }
+  },
+  "craftCompleteReviewers": 0,
+  "qualified": false,
+  "limitations": [
+    "A128 Codex used unsupported old executable; configuration failure retained.",
+    "A129 original evidence rejected a benign wrapper; later byte-bound trace validation is additive, not a rewritten terminal.",
+    "A128 Claude craft reached the inner240s limit without StructuredOutput although campaign time remained.",
+    "Four development outputs cannot qualify critic or whole-library parity."
+  ],
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionChargeUsd": null,
+  "knownClaudeRecognitionListPriceEstimateUsd": 0.177894,
+  "priorApiBudget": {
+    "ceilingUsd": 50,
+    "reservedUsd": 11.37126575,
+    "runs": [
+      {
+        "id": "folder-lock-01",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.30503875
+      },
+      {
+        "id": "folder-lock-02",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.2293775
+      },
+      {
+        "id": "instrument-weight",
+        "reservationUsd": 10,
+        "state": "complete",
+        "actualUsd": 0.5360916
+      },
+      {
+        "id": "folder-lock-03",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.14643875
+      },
+      {
+        "id": "folder-lock-04",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.4009665
+      },
+      {
+        "id": "camera-thin",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.12789124999999998
+      },
+      {
+        "id": "camera-heavy",
+        "reservationUsd": 2,
+        "state": "complete",
+        "actualUsd": 0.18304225
+      },
+      {
+        "id": "folder-lock-components",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.464283
+      },
+      {
+        "id": "folder-lock-components-02",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.8288172500000001
+      },
+      {
+        "id": "folder-lock-components-replay",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.0305745
+      },
+      {
+        "id": "folder-lock-components-replay-02",
+        "reservationUsd": 0.25,
+        "state": "complete",
+        "actualUsd": 0.029787
+      },
+      {
+        "id": "folder-lock-companion-01",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.50104475
+      },
+      {
+        "id": "folder-lock-round-clearance",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.15121575
+      },
+      {
+        "id": "folder-lock-round-body",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 1.792056
+      },
+      {
+        "id": "folder-lock-boolean-source",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 1.4383655000000002
+      },
+      {
+        "id": "folder-lock-visual-review",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.907821
+      },
+      {
+        "id": "folder-lock-trim",
+        "reservationUsd": 6,
+        "state": "complete",
+        "actualUsd": 0.8539760000000001
+      },
+      {
+        "id": "folder-lock-retained-fill",
+        "reservationUsd": 4,
+        "state": "complete",
+        "actualUsd": 0.36568174999999997
+      },
+      {
+        "id": "folder-lock-program-repair",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.23141974999999998
+      },
+      {
+        "id": "folder-lock-program-repair-02",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.37847525
+      },
+      {
+        "id": "folder-lock-counter-repair",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.25679
+      },
+      {
+        "id": "folder-lock-astra-repair",
+        "reservationUsd": 3,
+        "state": "complete",
+        "actualUsd": 0.49989549999999994
+      },
+      {
+        "id": "strategy-screen-gemini-grok",
+        "reservationUsd": 4,
+        "state": "cost-unresolved",
+        "actualUsd": 0.03801525,
+        "outstandingReservationUsd": 3.96198475,
+        "members": [
+          {
+            "arm": "gemini",
+            "state": "complete",
+            "actualUsd": 0.03801525,
+            "generationId": "gen_01M1TW4XVH29XXRTFKQ1PF3NMG",
+            "finishReason": "length",
+            "elapsedMs": 64764
+          },
+          {
+            "arm": "grok",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          }
+        ]
+      },
+      {
+        "id": "strategy-screen-provider-fallback",
+        "reservationUsd": 6,
+        "state": "complete",
+        "actualUsd": 0.774424,
+        "outstandingReservationUsd": 0,
+        "members": [
+          {
+            "arm": "fableapi",
+            "state": "complete",
+            "actualUsd": 0.51112,
+            "generationId": "gen_01M1TW7M3W37XBZH640BR2VHSY",
+            "finishReason": "length",
+            "elapsedMs": 137369
+          },
+          {
+            "arm": "nanoapi",
+            "state": "complete",
+            "actualUsd": 0.148304,
+            "generationId": "gen_01M1TW7N0GXJN5RPG3YJEH2HHG",
+            "finishReason": "stop",
+            "elapsedMs": 42135
+          },
+          {
+            "arm": "seedreamapi",
+            "state": "complete",
+            "actualUsd": 0.035,
+            "generationId": "gen_01M1TW7P7BMS13YW5MB1JCJSE3",
+            "elapsedMs": 64690
+          },
+          {
+            "arm": "recraftapi",
+            "state": "complete",
+            "actualUsd": 0.08,
+            "generationId": "gen_01M1TW7Q78MKRJ58WWQPDBJ3P6",
+            "elapsedMs": 14769
+          }
+        ]
+      },
+      {
+        "id": "strategy-screen-output-budget-correction",
+        "reservationUsd": 5,
+        "state": "cost-unresolved",
+        "actualUsd": 0.121599,
+        "outstandingReservationUsd": 4.878401,
+        "members": [
+          {
+            "arm": "gemini2",
+            "state": "complete",
+            "actualUsd": 0.121599,
+            "generationId": "gen_01M1TWEAJ6903STWKG3NV6MHN4",
+            "finishReason": "stop",
+            "elapsedMs": 190476
+          },
+          {
+            "arm": "grok2",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          },
+          {
+            "arm": "fableapi2",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          }
+        ]
+      },
+      {
+        "id": "strategy-screen-streaming",
+        "reservationUsd": 4,
+        "state": "cost-unresolved",
+        "actualUsd": 1.46912,
+        "outstandingReservationUsd": 2.53088,
+        "members": [
+          {
+            "arm": "fablestream",
+            "state": "complete",
+            "actualUsd": 1.46912,
+            "generationId": "gen_01M1TWWQ7BBXESF1BT2TZ4T0NX",
+            "finishReason": "stop",
+            "elapsedMs": 378086
+          },
+          {
+            "arm": "grokstream",
+            "state": "failed-cost-unknown",
+            "actualUsd": null
+          }
+        ]
+      }
+    ],
+    "actualUsd": 13.06220785
+  }
+}

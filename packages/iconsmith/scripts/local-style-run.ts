@@ -1,5 +1,5 @@
 /** Selected-style local run: prepare, author, recheck, require delivery. */
-import { execFile, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   copyFileSync,
@@ -12,7 +12,6 @@ import {
 } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
 
 import { z } from "zod";
 
@@ -25,6 +24,8 @@ import {
   COMPOSITION_INSTRUCTIONS,
   stageComposition,
 } from "./local-composition.js";
+import { runOwnedProcess } from "./local-process.js";
+import type { ProcessResult } from "./local-process.js";
 import { reviewImages } from "./local-review.js";
 import type { LocalRuntime } from "./local-runtime.js";
 import { referenceProofName, referenceProofs } from "./reference-proofs.js";
@@ -56,13 +57,11 @@ const authorReviewSchema = z
     "Limitation IDs must be distinct"
   );
 
-interface ProcessResult {
-  code: number | string | null;
-  killed: boolean;
-  stdout: string;
-  stderr: string;
-}
 interface LocalStyleOptions {
+  /** Fixed allocation for this phase; never recomputed from shrinking time. */
+  authorBudgetMs?: number;
+  reviewerReserveMs?: number;
+  reviewerCommand?: string;
   maxWallMs?: number;
   /** Internal shared deadline, including author, review and repair attempts. */
   deadlineAt?: number;
@@ -134,6 +133,8 @@ const changedRuntimeLinks = (
     })
     .map(([link]) => path.relative(out, link));
 
+// This packet builder's branches correspond to optional, protected evidence.
+// oxlint-disable-next-line eslint/complexity
 const authorStyle = async (options: LocalStyleOptions) => {
   const { out } = options;
   const sourceRevision = createStyleRevision(
@@ -251,7 +252,7 @@ const authorStyle = async (options: LocalStyleOptions) => {
   // consume the whole request merely because its own per-process cap allows it.
   const authorBudgetMs = Math.max(
     1,
-    Math.min(300_000, Math.floor(remainingTime(options) * 0.65))
+    Math.min(options.authorBudgetMs ?? 300_000, remainingTime(options))
   );
   const brief = `Design ${options.concept} in the pinned reference style. Read SKILL.md, spec.json and parts-names.json. Selected spec values override generic house defaults. ${style.references.length ? "Inspect references.png; reference-order.json lists its row-major order." : "No reference images supplied; do not claim reference matching."}
 Reference-<index>-proof images use the same reference-order.json indices and candidate native size. They show unchanged source drawings at 1x/2x on both surfaces, not newly calibrated optical masters. Compare matching raster columns as well as enlarged contours.
@@ -259,9 +260,10 @@ Initial image attachments, in order: ${imageNames.length ? imageNames.join(", ")
 ${compositionImages.length ? COMPOSITION_INSTRUCTIONS : ""}
 Write ${paints.map((p) => `${p}.icon`).join(" and ")} and author-review.json in this directory; review.md may retain fuller design notes. ${AUTHOR_REVIEW_INSTRUCTIONS} Do not modify compiler, specs or reference files. Use only constrained DSL primitives and admitted parts; no raw path data. No network, API tools, other agents or installs.
 ${options.guidance ?? ""}
+This prompt is the complete BRIEF.md; do not reread BRIEF.md. Treat checker.mjs as an opaque executable: run the exact command below and use its output to repair the DSL; never read or search its source.
 Run the real checker after each revision:
 ${[checkerNode, ...checker].map(quote).join(" ")}
-Use the native view_image tool with detail original to inspect every final *.proof.png after the final checker run; byte-matching tool-returned images are required for delivery. Inspect newly generated proof PNGs; initial attachments show references or previous candidates only. Listing files, reading image metadata or analysing pixel JSON does not establish visual inspection. If image viewing is unavailable or fails, state that inspection is incomplete in review.md and retain any uncertain defects; never claim to have seen an image from metadata alone. Inspect both *.proof.png files (or the requested single paint) for native 1x/2x pixels on light and dark surfaces, the enlarged PNGs and native.png at ${style.spec.size}px. Use each paint’s .pixels.json to verify a disputed gap or counter with exact native and retina grayscale rows[y][x], in local zero-based image pixels; do not transcribe whole matrices or substitute them for image inspection. Each matrix is hash-bound to its .native.png or .retina.png. These host files avoid custom raster scripts or dependency lookup. Review gaps, counter survival, curves, modifier readability and family proportions. Normal antialiasing is not itself a defect: identify a lost distinction, break, imbalance or inconsistent weight. Inspect resolved SVG contours when feature warnings identify tiny regions: invisibility at native size does not prove a contour is redundant. Account for intended holes and solid regions; repair unexpected holes or report them as unresolved. Never dismiss a contour as Boolean bookkeeping without geometric evidence. Preserve attempt-N programs before changes; checker snapshots retain compile evidence. Fix errors and explain unresolved warnings. A clean check is not a craft verdict. Up to four revisions within ${Math.floor(authorBudgetMs / 1000)} seconds, including final checks and image inspection. Finish a valid first candidate early; spend remaining time on a specific visible defect, not a long written defense. Review.md should be concise: construction choices, actual defects, and inspection evidence. Keep inspection notes in review.md and record all unresolved defects in author-review.json. Missing or malformed author-review.json means incomplete delivery, regardless of process exit code. Only write here. Read BRIEF.md and execute.`;
+Use the native view_image tool with detail original to inspect every final *.proof.png after the final checker run; byte-matching tool-returned images are required for delivery. Inspect newly generated proof PNGs; initial attachments show references or previous candidates only. Listing files, reading image metadata or analysing pixel JSON does not establish visual inspection. If image viewing is unavailable or fails, state that inspection is incomplete in review.md and retain any uncertain defects; never claim to have seen an image from metadata alone. Inspect both *.proof.png files (or the requested single paint) for native 1x/2x pixels on light and dark surfaces, the enlarged PNGs and native.png at ${style.spec.size}px. Use each paint’s .pixels.json to verify a disputed gap or counter with exact native and retina grayscale rows[y][x], in local zero-based image pixels; do not transcribe whole matrices or substitute them for image inspection. Each matrix is hash-bound to its .native.png or .retina.png. These host files avoid custom raster scripts or dependency lookup. Review gaps, counter survival, curves, modifier readability and family proportions. Normal antialiasing is not itself a defect: identify a lost distinction, break, imbalance or inconsistent weight. Inspect resolved SVG contours when feature warnings identify tiny regions: invisibility at native size does not prove a contour is redundant. Account for intended holes and solid regions; repair unexpected holes or report them as unresolved. Never dismiss a contour as Boolean bookkeeping without geometric evidence. Preserve attempt-N programs before changes; checker snapshots retain compile evidence. Fix errors and explain unresolved warnings. A clean check is not a craft verdict. Up to four revisions within ${Math.floor(authorBudgetMs / 1000)} seconds, including final checks and image inspection. Finish a valid first candidate early; spend remaining time on a specific visible defect, not a long written defense. Review.md should be concise: construction choices, actual defects, and inspection evidence. Keep inspection notes in review.md and record all unresolved defects in author-review.json. Missing or malformed author-review.json means incomplete delivery, regardless of process exit code. Only write here. Execute this brief.`;
   save("BRIEF.md", brief);
   const intent = {
     billing: "subscription",
@@ -278,39 +280,15 @@ Use the native view_image tool with detail original to inspect every final *.pro
   );
   const invoke =
     options.invoke ??
-    (async (prompt: string): Promise<ProcessResult> => {
-      try {
-        const running = promisify(execFile)(
-          options.command,
-          options.args(prompt, runtime.permissionArgs, images),
-          {
-            cwd: out,
-            env: options.env,
-            maxBuffer: 20 * 1024 * 1024,
-            timeout: Math.max(
-              1,
-              Math.min(authorBudgetMs, remainingTime(options))
-            ),
-          }
-        );
-        running.child.stdin?.end();
-        const { stdout, stderr } = await running;
-        return { code: 0, killed: false, stderr, stdout };
-      } catch (error) {
-        const failure = error as Error & {
-          code?: number | string;
-          killed?: boolean;
-          stdout?: string;
-          stderr?: string;
-        };
-        return {
-          code: failure.code ?? null,
-          killed: failure.killed ?? false,
-          stderr: failure.stderr ?? String(error),
-          stdout: failure.stdout ?? "",
-        };
-      }
-    });
+    ((prompt: string): Promise<ProcessResult> =>
+      runOwnedProcess({
+        args: options.args(prompt, runtime.permissionArgs, images),
+        command: options.command,
+        cwd: out,
+        env: options.env,
+        maxBuffer: 20 * 1024 * 1024,
+        timeoutMs: authorBudgetMs,
+      }));
   const inputNames = [
     "revision.json",
     "spec.json",
@@ -329,6 +307,9 @@ Use the native view_image tool with detail original to inspect every final *.pro
   );
   let author: ProcessResult;
   try {
+    if (remainingTime(options) <= (options.reviewerReserveMs ?? 0)) {
+      throw new Error("Reviewer reserve reached before author invocation");
+    }
     requireRunTime(options);
     author = await invoke(brief, out, images);
   } catch (error) {
@@ -388,14 +369,19 @@ Use the native view_image tool with detail original to inspect every final *.pro
     "author-inspection.json",
     JSON.stringify({ imageInspection, imageInspectionError }, null, 2)
   );
-  const complete = [
-    author.code === 0,
-    !author.killed,
+  const hostValid = [
     checked.status === 0,
     missing.length === 0,
     authorReview !== null,
     imageInspection?.complete === true,
   ].every(Boolean);
+  let completionProvenance = "incomplete";
+  if (author.code === 0 && !author.killed) {
+    completionProvenance = "author-process-complete";
+  } else if (author.code === null && hostValid) {
+    completionProvenance = "host-validated-after-author-interruption";
+  }
+  const complete = hostValid && completionProvenance !== "incomplete";
   const result = {
     ...intent,
     authorExitCode: author.code,
@@ -403,6 +389,7 @@ Use the native view_image tool with detail original to inspect every final *.pro
     authorReviewError,
     changedInputs,
     checkExitCode: checked.status,
+    completionProvenance,
     imageInspection,
     imageInspectionError,
     missing,
@@ -498,7 +485,8 @@ const inspectCandidate = async (
     path.join(options.out, "construction-evidence.json"),
     JSON.stringify(facts, null, 2)
   );
-  const review = await (options.review ?? reviewImages)({
+  const reviewRequest = {
+    command: options.reviewerCommand,
     deadlineAt: options.deadlineAt,
     images: Object.fromEntries(
       imageNames.map((name) => [
@@ -508,7 +496,31 @@ const inspectCandidate = async (
     ),
     out: path.join(options.out, "independent-review"),
     questions: qualityQuestions(options.meanings, facts),
-  });
+  };
+  let review = await (options.review ?? reviewImages)(reviewRequest);
+  if (
+    review.answers &&
+    Object.values(review.answers).some(
+      (answer) => answer.choice === "uncertain"
+    ) &&
+    remainingTime(options) > 0
+  ) {
+    const clarification = await (options.review ?? reviewImages)({
+      ...reviewRequest,
+      out: path.join(options.out, "independent-review-clarification"),
+      questions: reviewRequest.questions.map((question) => ({
+        ...question,
+        prompt: `${question.prompt} This is a clarification pass. Resolve uncertainty only when the supplied pixels establish the answer; otherwise retain uncertain and state the missing evidence.`,
+      })),
+    });
+    writeFileSync(
+      path.join(options.out, "review-clarification.json"),
+      JSON.stringify(clarification, null, 2)
+    );
+    if (clarification.answers) {
+      review = clarification;
+    }
+  }
   const observed = review.answers?.meaning.choice ?? null;
   let decision = "uncertain";
   if (observed !== null && observed !== "uncertain") {
@@ -618,7 +630,7 @@ const attemptGuidance = (
     guidance ?? "",
     ...(interrupted
       ? [
-          "The previous author was interrupted before finalizing delivery. Its checked programs are staged here but remain unreviewed. Inspect them, repair actual defects, run the checker, inspect final proofs and write an honest author-review.json before the deadline. Do not infer approval from the previous check.",
+          "This is finalization only. The previous author was interrupted after leaving checked programs. Do not redesign them. Rerun the checker, inspect the final proofs, and write an honest author-review.json. Change geometry only when the checker or your inspection identifies a specific defect, and record that evidence.",
         ]
       : []),
     ...(best
@@ -643,7 +655,8 @@ const canResumeFinalization = (
   delivery.checkExitCode === 0 &&
   delivery.changedInputs.length === 0 &&
   delivery.imageInspection?.complete === true &&
-  delivery.missing.every((name) => name === "author-review.json");
+  delivery.missing.length === 1 &&
+  delivery.missing[0] === "author-review.json";
 
 /** One local production loop. Every author/reviewer attempt remains on disk.
  * An unqualified critic can request repairs, never promote an icon to approved.
@@ -660,6 +673,22 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
   const options = {
     ...input,
     deadlineAt: Math.min(input.deadlineAt ?? Infinity, startedAt + maxWallMs),
+  };
+  const totalBudgetMs = options.deadlineAt - startedAt;
+  const authorBudgets = {
+    construction: Math.max(1, Math.min(300_000, totalBudgetMs - 180_000)),
+    finalization: Math.max(1, Math.min(60_000, totalBudgetMs - 150_000)),
+    repair: Math.max(1, Math.min(90_000, totalBudgetMs - 120_000)),
+  };
+  const budgetFor = (hasBest: boolean, interrupted: boolean) => {
+    const availableBeforeReview = Math.max(1, remainingTime(options) - 240_000);
+    if (interrupted) {
+      return Math.min(authorBudgets.finalization, availableBeforeReview);
+    }
+    return Math.min(
+      hasBest ? authorBudgets.repair : authorBudgets.construction,
+      availableBeforeReview
+    );
   };
   const meanings = z
     .array(z.string().trim().min(1))
@@ -686,6 +715,8 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
       }
     : undefined;
   const seen = new Set<string>();
+  // State transitions mirror the bounded construction/finalization/repair loop.
+  // oxlint-disable-next-line eslint/complexity
   const attempt = async (
     index: number,
     best?: Candidate,
@@ -710,6 +741,14 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
         );
       }
     }
+    const finalizationPrograms = interrupted
+      ? new Map(
+          interrupted.delivery.paints.map((paint) => [
+            paint,
+            readFileSync(path.join(directory, `${paint}.icon`)),
+          ])
+        )
+      : undefined;
     const guidance = attemptGuidance(
       options.guidance,
       best,
@@ -717,12 +756,34 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
     );
     const currentOptions = {
       ...options,
+      authorBudgetMs: budgetFor(Boolean(best), Boolean(interrupted)),
       composition,
       guidance,
       meanings,
       out: directory,
+      reviewerReserveMs: 240_000,
     };
     const delivery = await authorStyle(currentOptions);
+    const changedFinalizationPrograms = finalizationPrograms
+      ? [...finalizationPrograms].flatMap(([paint, original]) =>
+          original.equals(readFileSync(path.join(directory, `${paint}.icon`)))
+            ? []
+            : [`${paint}.icon`]
+        )
+      : [];
+    if (changedFinalizationPrograms.length) {
+      delivery.changedInputs.push(
+        ...changedFinalizationPrograms.map(
+          (name) => `finalization-geometry:${name}`
+        )
+      );
+      delivery.completionProvenance = "incomplete";
+      delivery.status = "incomplete";
+      writeFileSync(
+        path.join(directory, "delivery.json"),
+        JSON.stringify(delivery, null, 2)
+      );
+    }
     if (delivery.status !== "delivered") {
       history.push({ directory, status: "incomplete" });
       if (canResumeFinalization(delivery, index, options)) {

@@ -1,0 +1,162 @@
+{
+  "kind": "a150-critic-medium-results-v2",
+  "createdAt": "2026-09-08",
+  "qualified": false,
+  "instrumentQualified": false,
+  "campaignHash": "9b1a3464973a7b7ac924907f91ee83cbb0f52b187fa5eb8657dda3670efd5833",
+  "terminal": {
+    "path": ".staging/a150-p01-claude-medium-diagnostic-2026-09-08/runs/V2-P01/claude/terminal.json",
+    "sha256": "d6895403b1fd951e065c8d7841e574e2542c9717edf67b51a6ded2ecfde37e90",
+    "status": "complete",
+    "actualModel": "claude-opus-5",
+    "artifactTreeEntries": 43
+  },
+  "offlineAssessment": {
+    "path": "docs/log/a150-critic-medium-offline-assessment-2026-09-08.json",
+    "sha256": "3e536f0b4042f57a694de17fb30c2884f13bab68aa2c6e17b0e55dc947ba27ab"
+  },
+  "execution": {
+    "nativeCalls": 3,
+    "apiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null,
+    "allRequestedEffort": "medium",
+    "allQuiescent": true,
+    "calls": [
+      {
+        "stage": "stage1",
+        "requestedEffort": "medium",
+        "requestedModel": "claude-opus-5",
+        "requestStartedAt": "2026-09-07T14:37:13.484Z",
+        "processSha256": "adb45a7b44ec6f2db69aa9e342b5076d6a95d779fe2e2284bf81d72a00f3b7b5",
+        "requestSha256": "5a5aa9716e2a1a9fbe8c2fb3390a07a4a7e4644a89fee7a1e795988498114563",
+        "reviewSha256": "2cf07f7b6739e8538ba2cf766464256bde8eb8f87d925cce3aeb11c9281b0bfe",
+        "status": "complete",
+        "actualModel": "claude-opus-5",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "artifactFinishedMtimeUtc": "2026-09-07T14:38:20.115551+00:00"
+      },
+      {
+        "stage": "stage2",
+        "requestedEffort": "medium",
+        "requestedModel": "claude-opus-5",
+        "requestStartedAt": "2026-09-07T14:38:20.117Z",
+        "processSha256": "e303a1b93642d31499a11b2c04c83d73f2c64cb8b6d3b329df124d8958175206",
+        "requestSha256": "520fe6e839fe4b5e5efd208cb3e72d1e9b5f7640f63b6b780cde5fdbc58d204a",
+        "reviewSha256": "a0e6ce3cdba94fc6455540d263f928733aacb1da2f65ed314524136f8bebaf9e",
+        "status": "complete",
+        "actualModel": "claude-opus-5",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "artifactFinishedMtimeUtc": "2026-09-07T14:39:11.463078+00:00"
+      },
+      {
+        "stage": "stage3",
+        "requestedEffort": "medium",
+        "requestedModel": "claude-opus-5",
+        "requestStartedAt": "2026-09-07T14:39:11.465Z",
+        "processSha256": "21c3646bf44f40a751b5946d46d2d44521b6211bb496cbfb32e7e4eeadb7a2f3",
+        "requestSha256": "11fe243559cc85c14e066aa78780c49a1faa39fda6be362b7efa352f1fe20bdd",
+        "reviewSha256": "d33124de04a30e65f38543e70fbbc17f62d64b4435a91e337ef2418845955120",
+        "status": "complete",
+        "actualModel": "claude-opus-5",
+        "code": 0,
+        "killed": false,
+        "quiescent": true,
+        "artifactFinishedMtimeUtc": "2026-09-07T14:40:34.714745+00:00"
+      }
+    ]
+  },
+  "historicalComparison": {
+    "a149HighStatus": "incomplete-stage3",
+    "a149HighIsMatchedRouteFreeze": false,
+    "observation": "Medium completed all three stages; A149 high completed only stages one and two before its stage-three timeout. This is an additive operational diagnostic, not evidence that medium is a better critic or a qualification result."
+  },
+  "limitations": [
+    "Only one model identity completed in this diagnostic.",
+    "A149 high used a different frozen route and cannot serve as a matched performance arm.",
+    "Family and native-family parity remain unmeasured."
+  ],
+  "sourceV1": {
+    "path": "docs/log/a150-critic-medium-results-2026-09-08.json",
+    "sha256": "a8237def088b23a6fe3781595ecaa4ae5a0f5a8ec68b2bb7d98ea114ba635cea"
+  },
+  "decisionDiagnostics": {
+    "craftHistogram": {
+      "4": 1,
+      "5": 1,
+      "7": 5,
+      "8": 3
+    },
+    "shipHistogram": {
+      "yes": 3,
+      "no": 7
+    },
+    "craftBelow9ShipYesConflicts": 3,
+    "pairs": [
+      {
+        "stimulus": "r-8eb8edb10016",
+        "craft": 8,
+        "ship": "yes",
+        "conflict": true
+      },
+      {
+        "stimulus": "r-01ccc4437501",
+        "craft": 7,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-5784039f0165",
+        "craft": 7,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-7d4e62603013",
+        "craft": 7,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-257222ceba39",
+        "craft": 5,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-4d6bc1b595e0",
+        "craft": 8,
+        "ship": "yes",
+        "conflict": true
+      },
+      {
+        "stimulus": "r-081de278ac7b",
+        "craft": 7,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-cfacb7b0ce64",
+        "craft": 4,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-9e153df1309d",
+        "craft": 7,
+        "ship": "no",
+        "conflict": false
+      },
+      {
+        "stimulus": "r-4e416c33775d",
+        "craft": 8,
+        "ship": "yes",
+        "conflict": true
+      }
+    ],
+    "interpretation": "Completion is operational evidence only. Craft below 9 with ship yes is uncertain under frozen decision rules and does not establish quality equivalence."
+  }
+}

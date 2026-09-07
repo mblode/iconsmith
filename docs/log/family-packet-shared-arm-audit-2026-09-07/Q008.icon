@@ -1,0 +1,5 @@
+icon shield-check
+keyline portrait
+finish outlined
+part shield-outlined-0 at 4,3
+line 8.5,12 10.5,14 14.75,8.25 off-axis

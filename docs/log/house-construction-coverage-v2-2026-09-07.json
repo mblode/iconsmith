@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "complete",
+  "scope": "metadata-token-routing-only",
+  "reportHash": "481e0890078e67b443f2c8a8fc6d186fdefcdf76755e104205a3ac2f63d058a3",
+  "summaryHash": "8a5eb3666c4eba3bb06d5e3a59320dc958f7cc14cefc47d0294c27af63817b40",
+  "coverageHash": "9d8eecd80b11748018cc6d848a2bfb4289617ad0ae021f70a203714722993fa1",
+  "familyCount": 1587,
+  "unclassifiedCount": 1190,
+  "counts": {
+    "organic": 34,
+    "container": 104,
+    "tool": 15,
+    "transport": 15,
+    "symbol": 211,
+    "dense": 23,
+    "narrow": 23,
+    "asymmetric": 12
+  },
+  "qualified": false,
+  "providerCalls": 0,
+  "limitations": [
+    "Catalog words establish routing strata only, not visual geometry.",
+    "The canonical-row denominator is not an independent semantic-family count.",
+    "Unclassified rows remain explicit; no fallback class is assigned."
+  ],
+  "sourceReceiptSha256": "c11be14e5400c4eb39cdc6a531b207a17910e37ff18e4238ead93dab4191bf1e"
+}

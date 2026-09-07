@@ -1,0 +1,24 @@
+{
+  "version": 27,
+  "scope": "Shared evidence-consistency prompts for Claude/Codex; no live quality uplift established",
+  "tests": 1827,
+  "testFiles": 158,
+  "skipped": 0,
+  "build": "pass",
+  "typecheck": "pass",
+  "check": "pass after final scoped formatting; first check formatting failed during agent final correction",
+  "qualified": false,
+  "providerCalls": 0,
+  "hashes": {
+    "packages/iconsmith/scripts/review-evidence-consistency.ts": "6f070559baa38a25b31fff5bb512cb0f499861eb87c558ddaeb43cf6f1e3153f",
+    "packages/iconsmith/scripts/local-review.ts": "d102b5f52326c312954c51939a0455bfeb86db3119b2893aa6a21e87df40a326",
+    "packages/iconsmith/scripts/local-review.test.ts": "38038b853d6614ab6769f9b075f108989cf55ad4150930c90d68f611563ddf51",
+    "packages/iconsmith/scripts/local-codex-review.ts": "41968d471620f7b10696ab4751f426d39e91a980fbb918adb86473cec4797aa5",
+    "packages/iconsmith/scripts/local-codex-review.test.ts": "19c83bb8aeee384bd9131d9aa34a707e0557b1659f5a9930288d80d694e8399a",
+    ".staging/root-test-v27.log": "1bf8bc6fdcf95f4654310b15955a237c2474aff1969d50f65f768911be604666",
+    ".staging/root-build-v27.log": "078b05184668646a6207f9e9c4524ab9591f6ca722d1be834599af64757c952e",
+    ".staging/root-typecheck-v27.log": "11b489d7e820684d5b8ecb25ff885b370e54e5c7b30683bcb03d72f6c8e65e52",
+    ".staging/root-check-v27.log": "a613e87e390d9a17448e52382a92b5cb04aa0084a0b1daccc1e1ce559c94117d",
+    ".staging/root-check-v27-rerun.log": "a0827d02ed425f3adf1baaef52512e087f48e2eb434e5e551186c2b842afa4fc"
+  }
+}

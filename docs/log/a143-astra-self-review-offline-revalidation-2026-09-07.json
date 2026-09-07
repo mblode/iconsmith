@@ -1,0 +1,70 @@
+{
+  "kind": "a143-astra-self-review-offline-revalidation",
+  "createdAt": "2026-09-07T13:48:25.430Z",
+  "providerCalls": 0,
+  "sourceFrozenArtifactUnchanged": true,
+  "process": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-screen-prep-v7-2026-09-07/runs/scissors-16/astra-native/01-author-self-review/process.json",
+    "sha256": "4a5edfa90be7c1df666e9b94117d778222fb135f4aff555c63f8e2d965649451",
+    "code": 0,
+    "killed": false,
+    "quiescent": true
+  },
+  "traceSha256": "cdc2a3965df48a30d0c853865a6bb22e7683c2bcdd217742f0745b38c5489a84",
+  "attachmentValidation": {
+    "complete": true,
+    "images": {
+      "anchor-reference-0-proof.png": {
+        "exposed": true,
+        "sha256": "fcf109ce6f8bae2c69c52810d04af2fe1b9ab364e32ccda86d0336ae8ba01caf"
+      },
+      "anchor-reference-1-proof.png": {
+        "exposed": true,
+        "sha256": "076c8c61eae894dd2493a472884f338210cef03fd7c52efc2998512d45d00944"
+      },
+      "anchor-reference-2-proof.png": {
+        "exposed": true,
+        "sha256": "50903e1a36207d1980ee9566fe5a1a6ba83d2b894a07eb61281d7012be9b2633"
+      },
+      "anchor-reference-3-proof.png": {
+        "exposed": true,
+        "sha256": "260821b0a84e1d711e607c7d7c13934932358786f5c4506354bfa3bc5a303c6c"
+      },
+      "anchor-reference-4-proof.png": {
+        "exposed": true,
+        "sha256": "b5609d5236c4ebe18a83bf5459f63de0262a76cd5c460a2083e8a2dbcef90e69"
+      },
+      "anchor-reference-5-proof.png": {
+        "exposed": true,
+        "sha256": "b5609d5236c4ebe18a83bf5459f63de0262a76cd5c460a2083e8a2dbcef90e69"
+      },
+      "anchor-references.png": {
+        "exposed": true,
+        "sha256": "01f5d6f68e422ee8fd6bfe2c573cbe7981da1249acdc8b990336867280c815fa"
+      },
+      "filled-proof.png": {
+        "exposed": true,
+        "sha256": "2f7664bd95e24b84cb9170f246fbbd3a131a5414b17edb5b98e26e9a8b04e834"
+      },
+      "outlined-proof.png": {
+        "exposed": true,
+        "sha256": "2f7664bd95e24b84cb9170f246fbbd3a131a5414b17edb5b98e26e9a8b04e834"
+      }
+    },
+    "traceSha256": "cdc2a3965df48a30d0c853865a6bb22e7683c2bcdd217742f0745b38c5489a84",
+    "visualJudgmentValidated": false
+  },
+  "answers": {
+    "author-self-review-outlined": {
+      "choice": "pass",
+      "evidence": "Across all supplied anchors and enlarged, 1×, and 2× proofs, the outlined scissors match the thin-blade family: round open handles, clear crossing, and consistent weight. Both paint polarities remain legible; no visible defect or unresolved doubt remains.",
+      "treatment": "Author self-review only; no changes indicated."
+    },
+    "author-self-review-filled": {
+      "choice": "pass",
+      "evidence": "The filled scissors match the supplied thin-blade anchors, which also share geometry across treatments. Handle openings and blade separation remain readable at 1× and 2×, with consistent enlarged geometry and reversed paint. No visible defect or unresolved doubt remains.",
+      "treatment": "Author self-review only; no changes indicated."
+    }
+  },
+  "conclusion": "Original immutable review evidence is valid under the corrected ordered-multiset attachment verifier. This additive receipt does not change the frozen A143 terminal result or constitute independent qualification."
+}

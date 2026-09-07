@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "id": "d222-live-repair-mechanism",
+  "date": "2026-09-08",
+  "scope": "offline A156-to-A157 lifecycle and artifact comparison",
+  "providerCallsByThisAudit": 0,
+  "qualified": false,
+  "instrumentQualified": false,
+  "criticQualified": false,
+  "classification": "exposed-source-reconstruction-only",
+  "runs": {
+    "A156": {
+      "status": "rejected-visible-defects",
+      "structuredAuthor": {
+        "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/structured-author.json",
+        "sha256": "a7a3b1cc68939ab8527dad18649e7125e83995d15459ff16d9aada5682c03c04"
+      },
+      "checks": {
+        "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/checks.json",
+        "sha256": "8b19a975031e7daad8677726059b8cf191a4a618556014bf33135f6b61318cdc",
+        "exactReplay": true,
+        "craftApproved": false,
+        "findings": [
+          {
+            "finish": "outlined",
+            "rule": "keyline",
+            "severity": "warn",
+            "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted."
+          },
+          {
+            "finish": "outlined",
+            "rule": "off-axis",
+            "severity": "warn",
+            "message": "\"e0\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix."
+          },
+          {
+            "finish": "outlined",
+            "rule": "off-axis",
+            "severity": "warn",
+            "message": "\"e0\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix."
+          },
+          {
+            "finish": "outlined",
+            "rule": "off-axis",
+            "severity": "warn",
+            "message": "\"e0\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix."
+          },
+          {
+            "finish": "filled",
+            "rule": "keyline",
+            "severity": "warn",
+            "message": "Visual extent 20.0×13.3 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.7 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted."
+          }
+        ]
+      },
+      "repairBudget": null,
+      "stages": [
+        {
+          "attempt": 0,
+          "status": "check-failed",
+          "programHashes": {
+            "outlined": "bd437d82bf6cf2d75f25222a0e8aabf4e939b438575d0eec7e84beb9bcc1fd54",
+            "filled": "d66a8e41a6e89c7a3ebb39526d2cd6d961eb7a55021641b79b138d2c7342a9f7"
+          },
+          "proofHashes": null,
+          "defects": []
+        },
+        {
+          "attempt": 1,
+          "status": "inspected",
+          "programHashes": {
+            "outlined": "0486ccde51a1c73a454f176041a4fbfe42f73e64ee746f52f01c276ab2cae531",
+            "filled": "516fc3a93730b4885cb4fb7818025ffc9990c708ff0f506ae2827610c44d8e0a"
+          },
+          "proofHashes": {
+            "outlined": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf",
+            "filled": "28f2775416b13561f06178d381914bc6ca985fed8e322a071900f526d55b96ba"
+          },
+          "defects": [
+            {
+              "description": "Across the enlarged and native proofs, the bicycle is visibly undersized relative to the bicycle anchors. Heavy strokes within the smaller footprint tighten the wheel openings and crowd the 1× rendering.",
+              "finish": "outlined",
+              "id": "author-self-review-outlined",
+              "kind": "visual",
+              "treatment": "Increase the bicycle’s optical size toward the bicycle anchors while preserving family stroke weight and clear wheel openings."
+            },
+            {
+              "description": "The filled proof repeats the smaller bicycle footprint and cramped wheel openings. The resulting density is visible at 1× in both paint polarities compared with the bicycle anchors.",
+              "finish": "filled",
+              "id": "author-self-review-filled",
+              "kind": "visual",
+              "treatment": "Match the bicycle anchors’ optical scale and open the wheel counters, then recheck both paint polarities at native size."
+            }
+          ]
+        }
+      ],
+      "final": {
+        "programs": {
+          "outlined": {
+            "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/outlined.icon",
+            "sha256": "0486ccde51a1c73a454f176041a4fbfe42f73e64ee746f52f01c276ab2cae531"
+          },
+          "filled": {
+            "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/filled.icon",
+            "sha256": "516fc3a93730b4885cb4fb7818025ffc9990c708ff0f506ae2827610c44d8e0a"
+          }
+        },
+        "proofs": {
+          "outlined": {
+            "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+            "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+          },
+          "filled": {
+            "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+            "sha256": "28f2775416b13561f06178d381914bc6ca985fed8e322a071900f526d55b96ba"
+          }
+        },
+        "native": {
+          "outlined": {
+            "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/outlined.native.png",
+            "sha256": "7f7a22770a3b885620524dbe70db1682c77c33626c9cc1c592ccb38f1da4c984",
+            "dimensions": [
+              16,
+              16
+            ],
+            "foregroundDefinition": "maximum RGB channel difference from top-left background > 4",
+            "foregroundPixelCount": 97,
+            "foregroundDifferenceSum": 14524,
+            "foregroundBoundingBox": {
+              "x": 1,
+              "y": 3,
+              "width": 14,
+              "height": 10
+            }
+          },
+          "filled": {
+            "file": ".staging/native-author-bicycle-alpha-a156-2026-09-08/runs/bicycle-16/astra-native/filled.native.png",
+            "sha256": "59eee299f481dfdb2da71351dac8f099870165cbc320573b7ecdc53484082535",
+            "dimensions": [
+              16,
+              16
+            ],
+            "foregroundDefinition": "maximum RGB channel difference from top-left background > 4",
+            "foregroundPixelCount": 95,
+            "foregroundDifferenceSum": 12569,
+            "foregroundBoundingBox": {
+              "x": 1,
+              "y": 3,
+              "width": 14,
+              "height": 10
+            }
+          }
+        }
+      }
+    },
+    "A157": {
+      "status": "delivered",
+      "structuredAuthor": {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/structured-author.json",
+        "sha256": "1b6d7ff968cba4803e4229cc983f59eef29274695d5b25ff7936898a7275488b"
+      },
+      "checks": {
+        "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/checks.json",
+        "sha256": "c915d9e814c31bea9332863497df311af994a801d74168390f0dea4240eca28b",
+        "exactReplay": true,
+        "craftApproved": false,
+        "findings": [
+          {
+            "finish": "outlined",
+            "rule": "keyline",
+            "severity": "warn",
+            "message": "Visual extent 24.0×16.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is circle 20×20 (4.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted."
+          },
+          {
+            "finish": "outlined",
+            "rule": "off-axis",
+            "severity": "warn",
+            "message": "\"e0\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix."
+          },
+          {
+            "finish": "outlined",
+            "rule": "off-axis",
+            "severity": "warn",
+            "message": "\"e0\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix."
+          },
+          {
+            "finish": "outlined",
+            "rule": "off-axis",
+            "severity": "warn",
+            "message": "\"e0\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix."
+          },
+          {
+            "finish": "filled",
+            "rule": "keyline",
+            "severity": "warn",
+            "message": "Visual extent 24.0×16.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is circle 20×20 (4.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted."
+          }
+        ]
+      },
+      "repairBudget": {
+        "compiler": {
+          "requested": 1,
+          "used": 1
+        },
+        "totalRetrySlots": 3,
+        "totalRetrySlotsUsed": 2,
+        "visual": {
+          "requested": 1,
+          "used": 1
+        }
+      },
+      "stages": [
+        {
+          "attempt": 0,
+          "status": "check-failed",
+          "programHashes": {
+            "outlined": "8a290eb9b0a274f77ee0b64bae0ad01be3dc3100fa26ee9afbd6147bd36b9f78",
+            "filled": "8c946b45758286c1a537559fbab741c384099d06bda2858985753f1734e5a6f5"
+          },
+          "proofHashes": null,
+          "defects": []
+        },
+        {
+          "attempt": 1,
+          "status": "inspected",
+          "programHashes": {
+            "outlined": "4083c3889d7b9a2c43ee1edbb1c995c74dc21391e0bb88d202e3ac96e33db648",
+            "filled": "76da9aca92fbda5e0ef83df25db986f67a2e2988172ffc24a5212538d571e0c1"
+          },
+          "proofHashes": {
+            "outlined": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf",
+            "filled": "28f2775416b13561f06178d381914bc6ca985fed8e322a071900f526d55b96ba"
+          },
+          "defects": [
+            {
+              "description": "The bicycle is visibly smaller than both bicycle anchors while retaining heavy strokes, crowding the wheel counters. At native 16px/1x, the wheel openings lose the anchors’ clearer separation around the frame and fork. The issue appears in both polarities.",
+              "finish": "outlined",
+              "id": "author-self-review-outlined",
+              "kind": "visual",
+              "treatment": "Enlarge the bicycle and wheel counters toward the bicycle anchors’ proportions, then recheck native legibility in both polarities."
+            },
+            {
+              "description": "The filled proof shows the same reduced bicycle footprint and cramped wheel counters. Enlarged geometry remains recognizable, but the 16px/1x wheel interiors are visibly less open than the bicycle anchors in both polarities.",
+              "finish": "filled",
+              "id": "author-self-review-filled",
+              "kind": "visual",
+              "treatment": "Increase the wheel openings and overall bicycle scale while preserving family stroke weight; verify at 1x and 2x."
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "status": "inspected",
+          "programHashes": {
+            "outlined": "3986c02522bafd0b4cb9698cfe7f615b82889f2e1ba383c1d9ee0f32be2fb5ae",
+            "filled": "a993ed1f5d456e95af24a351ebdc39c520aa2be38e29197bb6aa2e82c7ad556c"
+          },
+          "proofHashes": {
+            "outlined": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c",
+            "filled": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+          },
+          "defects": []
+        }
+      ],
+      "final": {
+        "programs": {
+          "outlined": {
+            "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/outlined.icon",
+            "sha256": "3986c02522bafd0b4cb9698cfe7f615b82889f2e1ba383c1d9ee0f32be2fb5ae"
+          },
+          "filled": {
+            "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.icon",
+            "sha256": "a993ed1f5d456e95af24a351ebdc39c520aa2be38e29197bb6aa2e82c7ad556c"
+          }
+        },
+        "proofs": {
+          "outlined": {
+            "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+            "sha256": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c"
+          },
+          "filled": {
+            "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+            "sha256": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+          }
+        },
+        "native": {
+          "outlined": {
+            "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/outlined.native.png",
+            "sha256": "8f6f921d3236b141eb4211cb06ee41581b2913e31102b429a039906ce3f3a304",
+            "dimensions": [
+              16,
+              16
+            ],
+            "foregroundDefinition": "maximum RGB channel difference from top-left background > 4",
+            "foregroundPixelCount": 125,
+            "foregroundDifferenceSum": 18089,
+            "foregroundBoundingBox": {
+              "x": 0,
+              "y": 2,
+              "width": 16,
+              "height": 12
+            }
+          },
+          "filled": {
+            "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.native.png",
+            "sha256": "95a4167c90c21f1d2606490a62b84c64e5c45bdc5f367caac756a10c17c097bd",
+            "dimensions": [
+              16,
+              16
+            ],
+            "foregroundDefinition": "maximum RGB channel difference from top-left background > 4",
+            "foregroundPixelCount": 125,
+            "foregroundDifferenceSum": 18117,
+            "foregroundBoundingBox": {
+              "x": 0,
+              "y": 2,
+              "width": 16,
+              "height": 12
+            }
+          }
+        }
+      }
+    }
+  },
+  "comparison": {
+    "lifecycle": {
+      "A156": [
+        "construct",
+        "compiler repair",
+        "self inspection",
+        "finalize"
+      ],
+      "A157": [
+        "construct",
+        "compiler repair",
+        "self inspection",
+        "visual repair",
+        "self reinspection",
+        "finalize"
+      ],
+      "authorNativeCalls": {
+        "A156": 4,
+        "A157": 6
+      }
+    },
+    "mechanismFinding": "A157 exercised one compiler repair and one visual repair under separate counters. The first inspected A157 proofs exactly equal the retained A156 proofs; the second inspection has no named defects and became the delivered result.",
+    "namedDefectTransition": {
+      "before": [
+        "Both paints were undersized relative to bicycle anchors.",
+        "Heavy strokes in the smaller footprint crowded wheel counters at native 16px."
+      ],
+      "after": "A157 self reinspection reported no visible defects after enlarging the bicycle and opening wheel counters.",
+      "boundary": "This establishes lifecycle execution and removal of the author self-inspection finding. It does not establish independent craft quality."
+    },
+    "nativeFootprint": {
+      "designExtent": {
+        "A156": {
+          "outlined": [
+            20,
+            13.5
+          ],
+          "filled": [
+            20,
+            13.3
+          ]
+        },
+        "A157": {
+          "outlined": [
+            24,
+            16
+          ],
+          "filled": [
+            24,
+            16
+          ]
+        }
+      },
+      "pixelObservation": "At native 16px on the light-background PNG, the thresholded foreground bbox changed from 14x10 at x=1,y=3 for both A156 paints to 16x12 at x=0,y=2 for both A157 paints. Foreground counts changed from 97/95 to 125/125 outlined/filled."
+    },
+    "anchorIdentity": {
+      "outlined": {
+        "candidate": {
+          "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/outlined.proof.png",
+          "sha256": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c"
+        },
+        "reference": {
+          "file": ".staging/native-author-broader-contexts-v2-2026-09-07/bicycle-16/reference-1-proof.png",
+          "sha256": "3976da9846e50f94e72317f4344cf1fe38b9eddbc7c3a86be352c32239498b7c"
+        },
+        "byteIdentical": true
+      },
+      "filled": {
+        "candidate": {
+          "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.proof.png",
+          "sha256": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+        },
+        "reference": {
+          "file": ".staging/native-author-broader-contexts-v2-2026-09-07/bicycle-16/reference-0-proof.png",
+          "sha256": "4355919d5722e19f503655fe076981265544a473fa86529d00bfd16bd244e413"
+        },
+        "byteIdentical": true
+      }
+    },
+    "conclusion": "The repair mechanism converted the rejected undersized A156 geometry into exact copies of the exposed same-paint mountain-bike proof anchors. Count this only as exposed-source reconstruction and a successful compile-to-inspect-to-visual-repair mechanism trace, never as novel generation or visual qualification."
+  },
+  "preservedDefects": [
+    {
+      "id": "a157-stale-launch-descriptor",
+      "receipt": {
+        "file": "docs/log/a157-launch-descriptor-audit-2026-09-08.json",
+        "sha256": "6752dce6ee73400ada55282386bf87756e772c2ddae48cb5e9de90e6d3b36bd5"
+      },
+      "status": "preserved",
+      "detail": "The frozen manifest launch descriptor names A156 and overstates concurrency. Actual A157 dispatch was bound separately; this receipt does not repair the descriptor."
+    },
+    {
+      "id": "no-qualified-critic",
+      "status": "open",
+      "detail": "A157 has no qualified critic consensus. A complete single Codex development review remains insufficient for qualification."
+    }
+  ],
+  "supportingEvidence": {
+    "exactReconstructionReceipt": {
+      "file": "docs/log/a157-bicycle16-exact-reconstruction-classification-2026-09-08.json",
+      "sha256": "6296aa5f65897b49ed6769ab4a633d03a2c77750988403e6ef1928b2704304d3"
+    },
+    "a156AttemptReceipt": {
+      "file": "docs/log/a156-bicycle16-attempt-results-v2-2026-09-08.json",
+      "sha256": "e53d87fac49149c7c84790c524b61b43bb3f9bf581244010297dbb909e44ca71"
+    },
+    "a157AttemptReceipt": {
+      "file": "docs/log/a157-bicycle16-attempt-results-2026-09-08.json",
+      "sha256": "63eb15b384588a5cfdd88968d31b7510becdbec84698116731f6ed1d8795b789"
+    }
+  },
+  "limitations": [
+    "Pixel footprint uses a stated deterministic color-difference threshold; it is evidence of occupied raster extent, not a visual-quality score.",
+    "Author self-inspection defect removal is not independent review.",
+    "Exact anchor-byte reproduction makes this case unsuitable as evidence of novel-family generation."
+  ],
+  "independentReview": {
+    "status": "two-complete-development-reviews",
+    "nativeCalls": 4,
+    "qualified": false,
+    "criticQualified": false,
+    "rows": [
+      {
+        "route": "codex",
+        "model": "gpt-6-astra",
+        "provider": "openai-codex",
+        "craft": 9,
+        "critical": "no",
+        "family": "yes",
+        "native": "yes",
+        "ship": "yes",
+        "result": {
+          "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/campaign/codex/result.json",
+          "sha256": "68bd4925e43a63ff7eda20d520d3cf03df8703a89fecc7d12b837bfe6f01aa66"
+        },
+        "terminal": {
+          "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/campaign/codex/terminal.json",
+          "sha256": "309f2d7801d7e0b2bf4dafd4f70eb0c17e01ca86d696f0f246cb624ccb8dacd1"
+        }
+      },
+      {
+        "route": "claude",
+        "model": "claude-opus-5",
+        "provider": "anthropic-claude",
+        "craft": 8,
+        "critical": "no",
+        "family": "yes",
+        "native": "yes",
+        "ship": "yes",
+        "result": {
+          "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/campaign/claude/result.json",
+          "sha256": "49c448e9c3722f42148e8499222c635868c7e9ba714d742723c8414725253af6"
+        },
+        "terminal": {
+          "file": ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/campaign/claude/terminal.json",
+          "sha256": "090ec28bf6c48f9ecea2f7cd89edfd01ee7ace0b7c94e73ca39db49f1b47702a"
+        }
+      }
+    ],
+    "finding": "Both reviews completed and found no critical defect, but scores were 9 and 8. This does not meet a craft median >=9 gate and cannot qualify an exact exposed-anchor reconstruction as novel generation."
+  }
+}

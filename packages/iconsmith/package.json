@@ -40,7 +40,7 @@
     "dev": "tsdown --watch",
     "start": "node dist/cli.js",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.scripts.json",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run --passWithNoTests --maxWorkers=4",
     "check": "ultracite check && npm run check:boundaries",
     "fix": "ultracite fix",
     "check:boundaries": "node scripts/check-boundaries.ts"

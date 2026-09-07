@@ -1,0 +1,44 @@
+{
+  "experiment": "A130",
+  "scope": "Offline resume of actual complete and incomplete terminals with provider dispatch replaced by a throwing sentinel",
+  "attemptedCalls": 0,
+  "terminalHashesBefore": {
+    "codex": "7f897d8f25d66397688907110fffed40c631c4ea67f621caaaa84f16753ae937",
+    "claude": "565fb68e1f78ba4f7bf9eddc84d6ae2da8236e97f5b6c22fc7385f74e0e96d26"
+  },
+  "terminalHashesAfter": {
+    "codex": "7f897d8f25d66397688907110fffed40c631c4ea67f621caaaa84f16753ae937",
+    "claude": "565fb68e1f78ba4f7bf9eddc84d6ae2da8236e97f5b6c22fc7385f74e0e96d26"
+  },
+  "result": {
+    "intentHash": "fec79c733ca271f769c6f2d4bc91fede42d816af4ce6bb967a1a8d213de5d567",
+    "outcomes": [
+      {
+        "artifactTreeHash": "38397b15c84bdeb10731b5754c0e271f84747bfdbeeb543fcbdf2691bc0978cb",
+        "deadlineAt": 1788771262405,
+        "elapsedMs": 27113,
+        "intentHash": "08d1ec718541d8c56652f405b2bc3705f0da6b3e597aaf03760e8c723c8ec968",
+        "model": "gpt-6-astra",
+        "qualified": false,
+        "resultHash": "337a7f47ff34d5aded2264c2a27dfbd0147eed7897fbad38fdd5c4cf367e1778",
+        "startedAt": 1788770782405,
+        "status": "recognition-incomplete"
+      },
+      {
+        "artifactTreeHash": "c0d5135ee554345854f801ea32ef22b55b544b7ad5ded325965040018bfdc662",
+        "deadlineAt": 1788771289519,
+        "elapsedMs": 255224,
+        "intentHash": "e84b32712aa3e9941c5d647ed27d9b3cc15da9ee300623cb3d46e4a222272fa5",
+        "model": "claude-opus-5",
+        "qualified": false,
+        "resultHash": "e5bc017768187c3ef5a02c7b45f7d8391e5e7387c03069d7200e3cb5ef64ff32",
+        "startedAt": 1788770809519,
+        "status": "complete"
+      }
+    ],
+    "qualified": false,
+    "status": "diagnostic"
+  },
+  "qualified": false,
+  "newApiSpendUsd": 0
+}

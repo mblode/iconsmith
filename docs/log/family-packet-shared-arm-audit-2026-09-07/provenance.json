@@ -1,0 +1,2002 @@
+{
+  "artifacts": [
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "folder-lock",
+      "elapsedMs": null,
+      "family": "folder-lock",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q001",
+      "master": "16",
+      "nativeImageSha256": "2c6cc6d773db78785c01bf9da52bbb992e65c9f3d2124176813de0971e94fc0b",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "bea8ef33c8b37e7d59e3449d070a7cbb7609147f51998295d487f806cee9549e",
+      "replay": true,
+      "revisionHash": "0663fcfcb6fcc8d14a24647649a5f8e263de66e43ba704e4519e2f7a78b69fcb",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "dbcb3cb4d8b4ad7b63cc0ae1abdd88cd33827fa54a0f08d6f4064e456436fbbb"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "hammer-check",
+      "elapsedMs": null,
+      "family": "hammer-check",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "e0 and e1 are 0.19px apart; minimum is 1px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e2\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q002",
+      "master": "24",
+      "nativeImageSha256": "8d725aa31b45b5c2d0610053a5212a33074c56e57a758401bd24062c54eb278a",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "df00c7b655dd290864c7eca1ffe3134b9d52a41c76909bd2e8a11b46dde537ca",
+      "replay": true,
+      "revisionHash": "f3741873d1c694b0025910fcb9573365a2fe7c941b39dd32b9d2907d021aeb9c",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "481d61ce1001a93cb8561f5fbf6d9cfec2bf44149c27fa1c5edd5839b51a6655"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "bicycle",
+      "elapsedMs": null,
+      "family": "bicycle",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/bicycle-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q003",
+      "master": "24",
+      "nativeImageSha256": "c99fbbf6c1b87a43941fe75f22f16a6a9fc601220bdc7e82eb3e97662d87aca5",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "92ffd4d02f3c2bb7b65babd5c70b23b8a93bbb728acc8f3ceaccb3489c87353e",
+      "replay": true,
+      "revisionHash": "89e23c024dfc69ba11b7dc495cd0fd3b1a4175c34373fb46de7bd7231af43a37",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "8cc415282bb6fa65b36654ffd152ab88670c58522a2053752751f4e0f24e1ee1"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "cloud-upload",
+      "elapsedMs": null,
+      "family": "cloud-upload",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.6 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.4 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q004",
+      "master": "16",
+      "nativeImageSha256": "b567f6ca8187e7abecef630ad3bf024c92465c422cbf6b253ce50edb144a0554",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "ed88330e699bca396fa1f472eeab2353c378dd6b91fefa23e81984d3b0e3d01a",
+      "replay": true,
+      "revisionHash": "2e5936eb4f50acb3b45934d221fa7e669a77bed6273a4c3ec840980d1b1de247",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "cfb5e03a5cc4e6819d6e8c7868c0185a32c40385fbce8d2c4d93fe036a68b567"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "bell-pause",
+      "elapsedMs": null,
+      "family": "bell-pause",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/bell-pause-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 81.9°, 8.1° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q005",
+      "master": "16",
+      "nativeImageSha256": "d95effc10c658155d149cbe2d9fd319ffd41a6af1bb28665754701a05e676702",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "1d9b40c55e97c84f511591180bf8e296bf61b703ad70a8593e3261c1368fe34f",
+      "replay": true,
+      "revisionHash": "09c8308f4fd54437a081026003501ae2abbbaff0fa7b29af5538eda36603f305",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "6dd21cafdaeed97ced6e54020eae20a8611de7787229197a328b73fc31a503df"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "bicycle",
+      "elapsedMs": null,
+      "family": "bicycle",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/bicycle-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q006",
+      "master": "16",
+      "nativeImageSha256": "7f7a22770a3b885620524dbe70db1682c77c33626c9cc1c592ccb38f1da4c984",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "8baf9fbec7b14bf3a8745a398b1e23b6af21dcf772b9ba6b91a3fe031f9341bf",
+      "replay": true,
+      "revisionHash": "fb8b631488fa61754bc3b3a95353abb5a686951d3ddd01920f7e209dff97446b",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "09060556765a115c20918f0117a4a025b45af490f781c5184806650abb288912"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "shield-check",
+      "elapsedMs": null,
+      "family": "shield-check",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/shield-check-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q007",
+      "master": "16",
+      "nativeImageSha256": "490b291f5b0a3c04258c0a44ba13a36b0a124575cc1cf5c9fa2832bae27977e5",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "b6cc243ad70583c882687702fe7c92125d6579237905e2331887b8df7ff43367",
+      "replay": true,
+      "revisionHash": "3f57f00402d629da987435e05185a885f14fda46769a03d3673cad2260c91ec9",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "dd4cc025456e08bb0fe38e3914cca5aef215ab269e3e5a02a64092931c5df43e"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "shield-check",
+      "elapsedMs": null,
+      "family": "shield-check",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/shield-check-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 19.0°, 19.0° off the nearest permitted axis (0°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 161.0°, 19.0° off the nearest permitted axis (0°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e1\" has an edge at 126.5°, 8.5° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q008",
+      "master": "16",
+      "nativeImageSha256": "29a38c8a896442d2eb9e761eb3ae69586e1b176edc1848cdad2f1d587b6ed67c",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "98019cc9b81d167208a043f8d2c589fb258c742a68109719638249fb8dc2102a",
+      "replay": true,
+      "revisionHash": "3f57f00402d629da987435e05185a885f14fda46769a03d3673cad2260c91ec9",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "115f24e1951e7aac507302e6603a79650b92be08f8fddcc990e708de450f4831"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "hammer-check",
+      "elapsedMs": null,
+      "family": "hammer-check",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q009",
+      "master": "24",
+      "nativeImageSha256": "13de347d2e1941d65e4d7e60684a1a56094e3ee6baa3091cfc78daa536ee8cc7",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "35611f74c2e52a2a5bb1c29a678b4cd8ee71fa580959f8dbf77f2b6f986c83c8",
+      "replay": true,
+      "revisionHash": "f3741873d1c694b0025910fcb9573365a2fe7c941b39dd32b9d2907d021aeb9c",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "274eae3a8521f5052b27e9720709ae581b3b94eb6d19eeb5658f07f20e714843"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "cloud-upload",
+      "elapsedMs": null,
+      "family": "cloud-upload",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q010",
+      "master": "16",
+      "nativeImageSha256": "aa4f1ca3d59240b7e4cc800cb63bd53a5b0e3e5e9e1a5a168e08351512ed373e",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "f679256b9bde635f9838ebec4e516dee92b3c05770d0f842a3780c0a53a6000a",
+      "replay": true,
+      "revisionHash": "2e5936eb4f50acb3b45934d221fa7e669a77bed6273a4c3ec840980d1b1de247",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "0ac7f6c371a6744fbe5f8d89424ac4044ceda9ffb152b43124f33a7c88b23579"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "bicycle",
+      "elapsedMs": null,
+      "family": "bicycle",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/bicycle-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q011",
+      "master": "16",
+      "nativeImageSha256": "7ecdd1005003b6b2a56d46cc8d0da20f288d1b52486d2fd39f863ea3e916ade8",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "73b802d0d361963c97d583bf026d980244146f748a9b5bfac02bf72bed216109",
+      "replay": true,
+      "revisionHash": "fb8b631488fa61754bc3b3a95353abb5a686951d3ddd01920f7e209dff97446b",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "9a7103f5ab6cfcfa77b0de66743df1cb5c47be64a9a5692f40d13a6acfdef8cf"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "folder-lock",
+      "elapsedMs": null,
+      "family": "folder-lock",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q012",
+      "master": "16",
+      "nativeImageSha256": "ac5088141e62414943f4621b54fa48a34b807de2e1cd706b7eb9f14482a37446",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "537501c7ceefd0066c876338772148a0d98102b6e245f5afa4e5c7f3ea7a26e7",
+      "replay": true,
+      "revisionHash": "0663fcfcb6fcc8d14a24647649a5f8e263de66e43ba704e4519e2f7a78b69fcb",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "ac12496721e0e50851e061d8cea6621f005125fe1552d1a44b3c4edd79435920"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "cloud-upload",
+      "elapsedMs": null,
+      "family": "cloud-upload",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q013",
+      "master": "24",
+      "nativeImageSha256": "49e17da0bb38d1e6f04120fa39151d023fa53ba5790bfc4cb439de0421a3552d",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "02284460f02130faeea3a22fe9efd9baf622cd32cf8d3e928963963c9156a7cd",
+      "replay": true,
+      "revisionHash": "f07560bfdd11f37783b46c5e935a6c390d86dbca3709446752d2aade4a4e5270",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "6649ada899d09ca33bf6266ebde62e9b38f4f2c0e9e2116ddacbd6b098479e67"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "bell-pause",
+      "elapsedMs": null,
+      "family": "bell-pause",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/bell-pause-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q014",
+      "master": "16",
+      "nativeImageSha256": "b8652b22a363d7fda5cd266b019943094ff40f15847d3a864be493b3d70fb784",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "190eb557ac50a617695feebec475570ac78753495bf2821f602785a29d84e4ba",
+      "replay": true,
+      "revisionHash": "09c8308f4fd54437a081026003501ae2abbbaff0fa7b29af5538eda36603f305",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "9c9f49e2358b5047fcf08ac0bbec9a431e8cc4c912cff35d365ec2378af24ad2"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "shield-check",
+      "elapsedMs": null,
+      "family": "shield-check",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 19.0°, 19.0° off the nearest permitted axis (0°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 161.0°, 19.0° off the nearest permitted axis (0°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e1\" has an edge at 125.8°, 9.2° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q015",
+      "master": "24",
+      "nativeImageSha256": "d4c22a1931391cc612ad9ae9adf97519a5bb4cf8c32c7b3787f4b4822d9e1553",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "0b0eef1ff65d1a4f967eeb065bca1e645b78ae56c2b0f5b74cd7b9429d25cd1b",
+      "replay": true,
+      "revisionHash": "8303234adfa7e0969b4ca3321e8b4c87aab5c7e24f51b3f785939d9a4067530e",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "f7ed7c51d39dc7b6df4d7663a71a25fbea29e4664954c3ef935f6e9f2cc838fd"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "hammer-check",
+      "elapsedMs": null,
+      "family": "hammer-check",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q016",
+      "master": "16",
+      "nativeImageSha256": "6f1ea6ec20481583f3617ad2116d040afb5bb4cae08f408f1a0a3755b9888cf4",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "e38c94e3ae7aa4eb614cafc756109a4385e991fc64b01b09d5b6840ad12ab194",
+      "replay": true,
+      "revisionHash": "cc4a97c7ef6c7715ae4747352b5887e26c2539c6a172dff221726e633436ae92",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "6684a2e9f0c4f35b5e7d7e6d6cefb76496aced7b66e4f714d0afe4215d4d2727"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "hammer-check",
+      "elapsedMs": null,
+      "family": "hammer-check",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/hammer-check-16",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q017",
+      "master": "16",
+      "nativeImageSha256": "e9839b172b8f81583f4001732168e64ccceef43efa74391cbf43007d5e21a46c",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "059139c37dab018999b51ffa6a462613a38957cd6eba81fe1592f93286e5e43b",
+      "replay": true,
+      "revisionHash": "cc4a97c7ef6c7715ae4747352b5887e26c2539c6a172dff221726e633436ae92",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "2c495db495de775fa63307344cf02f0436cfdbbe2717b196ecdfd137fb3c981c"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "cloud-upload",
+      "elapsedMs": null,
+      "family": "cloud-upload",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/cloud-upload-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×14.6 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (1.4 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q018",
+      "master": "24",
+      "nativeImageSha256": "3c1eca95b48f53c2d7b040ec9d7ab64d449c4a73334ace04c828593293c37703",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "ba8a7a701e40d1e88dc64eec5919b800b50913b2677be266e66434dec47aa1a9",
+      "replay": true,
+      "revisionHash": "f07560bfdd11f37783b46c5e935a6c390d86dbca3709446752d2aade4a4e5270",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "657fa3a3059780d2e4fcff00ef99fb66fb23ddd49535dcc3b459c4037e551255"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "folder-lock",
+      "elapsedMs": null,
+      "family": "folder-lock",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q019",
+      "master": "24",
+      "nativeImageSha256": "b48a6a8d35c7ee47c5e2011c300576a5518cb9c5702e223ce0a26bed09f85df7",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "70919d56eac1ddd485261e6f630157c127dafde2c10cdeaefe3d1ace03d76fa1",
+      "replay": true,
+      "revisionHash": "6a0e2ae333fbae7a15da555b605c48745aa4d44d9e4fef3bbe1eed0b32c32cb8",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "4acad17a88de681ad379ebcec2094b69fc38647d668b685ca9a5c07eedcd87ed"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "bicycle",
+      "elapsedMs": null,
+      "family": "bicycle",
+      "finish": "outlined",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/bicycle-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e2\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e2\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e2\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q020",
+      "master": "24",
+      "nativeImageSha256": "2776dfa4238d6639af33188d569c480bfb0a5f61bcd4f2b2b2f111e2e1f995c8",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "e7f96036d8db5b1b4048c5a36fe2761f1841efe48b53a4d412b268f02189ac99",
+      "replay": true,
+      "revisionHash": "89e23c024dfc69ba11b7dc495cd0fd3b1a4175c34373fb46de7bd7231af43a37",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "83941ba5df7a1eb71136e276060ef9d4ec4a6bc888240944eae8cce39eeae70d"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "shield-check",
+      "elapsedMs": null,
+      "family": "shield-check",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/shield-check-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "delivered"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q021",
+      "master": "24",
+      "nativeImageSha256": "2c2cdac23f58ff4f3cf715cb1141ff89fe88a2fd3d6e7331ad4253c15e663d80",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "52b5f3978079e4f33ee84c46ea5b096cfb603f3e089af52bb4c00ac17bbcf3bf",
+      "replay": true,
+      "revisionHash": "8303234adfa7e0969b4ca3321e8b4c87aab5c7e24f51b3f785939d9a4067530e",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "80ab37a1b96b96d2ccba7bc952e6cbca75c76e8787f4c8ec7ef0c09ed76ace96"
+    },
+    {
+      "actualUsd": null,
+      "authorship": "model",
+      "concept": "folder-lock",
+      "elapsedMs": null,
+      "family": "folder-lock",
+      "finish": "filled",
+      "model": "gpt-6-astra/high",
+      "source": ".staging/family-packet-screen-2026-09-07/shared/folder-lock-24",
+      "terminal": {
+        "deadlineExceeded": false,
+        "status": "incomplete"
+      },
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×9.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (7.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q022",
+      "master": "24",
+      "nativeImageSha256": "c94ee9f01ba1b3fd08389f5e2ba91143e8c1d39cebd18370cd3d8ef62c10ceb4",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "5980585f7ee5f3dcba037ad9340b7733710a1978cbec4477e47f826baf00a716",
+      "replay": true,
+      "revisionHash": "6a0e2ae333fbae7a15da555b605c48745aa4d44d9e4fef3bbe1eed0b32c32cb8",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "delivery-incomplete",
+      "svgSha256": "86abd1a841845f0f50ae8bcaaa84b1b041be95a2d078ae73e25268a4a54338dd"
+    }
+  ],
+  "manifestHash": "1f50e8884b159a44b80825617186516f7662b16334625830762d5d6059208340",
+  "missing": [
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    }
+  ],
+  "qualified": false
+}

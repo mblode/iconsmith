@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "a145-v3-review-runner-failure-2026-09-07",
+  "createdAt": "2026-09-07T14:01:21.809Z",
+  "status": "failed-before-provider-call",
+  "error": "ReferenceError: reviewerCapMs is not defined",
+  "cause": "Runner used a dry-freeze local variable during execute instead of intent.perReviewerMaxMs.",
+  "frozenReviewerCapMs": 93985,
+  "remainingAfterFailureMs": 164084,
+  "minimumAuthorizedRemainingMs": 190000,
+  "retryAdmissible": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "boundFiles": {
+    "intent": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/review-scissors-16/review-intent-a145-v3.json",
+      "sha256": "d1811bf9974b5dc682044d66f74ead0836c80bdd3c3e330b33d3a93da9b917b4"
+    },
+    "runner": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-finalization-recovery-a144-2026-09-07/run-review-a145-v3.mts",
+      "sha256": "1282a844407d6d1919fec6c454ca40054eee0b4730df62b16a19a4c26970ecd1"
+    }
+  }
+}

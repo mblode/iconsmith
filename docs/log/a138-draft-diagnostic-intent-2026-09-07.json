@@ -1,0 +1,14 @@
+{
+  "id": "A138",
+  "status": "frozen",
+  "intent": ".staging/A138-draft-diagnostic-2026-09-07/input/review-intent.json",
+  "intentSha256": "fc4b2c7e9cc659ebedd62961e5efa92c52fa64c5f1cd27cd6176e14c231e2ff5",
+  "scope": "two incomplete uninspected A136 drafts; not delivery recovery or qualification",
+  "diagnosticDeadline": 1788785168339,
+  "maximumNativeCalls": 4,
+  "maximumConcurrency": 1,
+  "newApiSpendUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

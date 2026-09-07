@@ -1,0 +1,49 @@
+{
+  "kind": "runtime-attachment-integration-v22",
+  "createdAt": "2026-09-07T13:53:45.611888+00:00",
+  "validation": {
+    "tests": 1821,
+    "testFiles": 157,
+    "skipped": 0,
+    "testExit": 0,
+    "typecheckExit": 0,
+    "checkExit": 0,
+    "buildExit": 0
+  },
+  "logs": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-test-v22.log",
+      "sha256": "da84947e7049f8c1c2d3db66ef008f188505945c0ca5e23601ce91c1ccd148d3"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-typecheck-v22.log",
+      "sha256": "8462580863f443f563c886d5b4ae13e6e2a92c34082b232266f86fc1f24791d3"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-check-v22.log",
+      "sha256": "7b8c751bcb43cf661c2661928d13a59cf78cf98522f1f4c9af096a72f14a1bad"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/root-build-v22.log",
+      "sha256": "507fb9e2c726adb667bdde87a99a50fe5e287a669aa00a198953c963d5f00aa6"
+    }
+  ],
+  "sources": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/local-codex-review.ts",
+      "sha256": "a3dfe7815d3a08c496b20a25485f632fafb5f0e2e563c40e9fb72e5dacbf3dc5"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/local-codex-review.test.ts",
+      "sha256": "318cefc688cb59a05fded73b4f7cb6523baf1413b578852d142c666d9e3853e4"
+    }
+  ],
+  "compilerRevision": 21,
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "limitations": [
+    "Ordered attachment multiplicity verified; tests are not visual qualification.",
+    "Frozen A143 unchanged; additive recovery is tracked separately."
+  ]
+}

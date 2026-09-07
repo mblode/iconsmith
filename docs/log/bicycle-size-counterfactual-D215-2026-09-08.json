@@ -1,0 +1,195 @@
+{
+  "id": "bicycle-size-counterfactual-D215",
+  "scope": "exposed-development-geometry-counterfactual",
+  "qualified": false,
+  "original": {
+    "outlinedIconHash": "0486ccde51a1c73a454f176041a4fbfe42f73e64ee746f52f01c276ab2cae531",
+    "filledIconHash": "516fc3a93730b4885cb4fb7818025ffc9990c708ff0f506ae2827610c44d8e0a"
+  },
+  "proposal": {
+    "outlinedIconHash": "47c5b1b520923f10cb62aba3fbb84cc65215b29435884694a24fab4766c94d79",
+    "filledIconHash": "ccce311b6f3d994879c4b2808cdadd800a553db023c0a92715dc5fcf49be3318",
+    "checkerExit": 0,
+    "checksHash": "02407976a2ec78bc2b63faae56ced8856805a91093ef5ddd1a4a7fdf8a7679da",
+    "findings": [
+      {
+        "message": "Visual extent 23.6×15.8 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is landscape 20×18 (3.6 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+        "rule": "keyline",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "\"e0\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "\"e0\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "\"e0\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+        "rule": "off-axis",
+        "severity": "warn",
+        "finish": "outlined"
+      },
+      {
+        "message": "Visual extent 24.0×16.0 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is circle 20×20 (4.0 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+        "rule": "keyline",
+        "severity": "warn",
+        "finish": "filled"
+      }
+    ]
+  },
+  "measurements": {
+    "outlined": {
+      "sourceVector": {
+        "x": 0,
+        "y": 400,
+        "width": 2400,
+        "height": 1600,
+        "paintedPixels": 1634901,
+        "units": {
+          "width": 24,
+          "height": 16
+        }
+      },
+      "candidateVector": {
+        "x": 200,
+        "y": 525,
+        "width": 2000,
+        "height": 1350,
+        "paintedPixels": 1321201,
+        "units": {
+          "width": 20,
+          "height": 13.5
+        }
+      },
+      "counterfactualVector": {
+        "x": 25,
+        "y": 400,
+        "width": 2355,
+        "height": 1580,
+        "paintedPixels": 1599898,
+        "units": {
+          "width": 23.55,
+          "height": 15.8
+        }
+      },
+      "sourceNative": {
+        "x": 0,
+        "y": 2,
+        "width": 16,
+        "height": 12,
+        "paintedPixels": 125,
+        "units": {
+          "width": 24,
+          "height": 18
+        }
+      },
+      "candidateNative": {
+        "x": 1,
+        "y": 3,
+        "width": 14,
+        "height": 10,
+        "paintedPixels": 97,
+        "units": {
+          "width": 21,
+          "height": 15
+        }
+      },
+      "counterfactualNative": {
+        "x": 0,
+        "y": 2,
+        "width": 16,
+        "height": 12,
+        "paintedPixels": 118,
+        "units": {
+          "width": 24,
+          "height": 18
+        }
+      }
+    },
+    "filled": {
+      "sourceVector": {
+        "x": 0,
+        "y": 400,
+        "width": 2400,
+        "height": 1600,
+        "paintedPixels": 1635048,
+        "units": {
+          "width": 24,
+          "height": 16
+        }
+      },
+      "candidateVector": {
+        "x": 200,
+        "y": 525,
+        "width": 2000,
+        "height": 1334,
+        "paintedPixels": 1136875,
+        "units": {
+          "width": 20,
+          "height": 13.34
+        }
+      },
+      "counterfactualVector": {
+        "x": 0,
+        "y": 400,
+        "width": 2400,
+        "height": 1600,
+        "paintedPixels": 1635048,
+        "units": {
+          "width": 24,
+          "height": 16
+        }
+      },
+      "sourceNative": {
+        "x": 0,
+        "y": 2,
+        "width": 16,
+        "height": 12,
+        "paintedPixels": 125,
+        "units": {
+          "width": 24,
+          "height": 18
+        }
+      },
+      "candidateNative": {
+        "x": 1,
+        "y": 3,
+        "width": 14,
+        "height": 10,
+        "paintedPixels": 95,
+        "units": {
+          "width": 21,
+          "height": 15
+        }
+      },
+      "counterfactualNative": {
+        "x": 0,
+        "y": 2,
+        "width": 16,
+        "height": 12,
+        "paintedPixels": 125,
+        "units": {
+          "width": 24,
+          "height": 18
+        }
+      }
+    }
+  },
+  "board": {
+    "file": "docs/log/bicycle-size-counterfactual-D215-board-2026-09-08.png",
+    "sha256": "32ad6e7346282076091defd8dff5ab66ebd50bd066e6017d326182a1d3d940b3"
+  },
+  "finding": "The admitted mountain-bike sources paint approximately 24 design units wide. A156 explicitly chose size 20 and paints approximately 20 units wide. Size 24 is legal in the DSL and checker-complete; it restores source-like width but remains off-keyline by warning and is not a qualified design.",
+  "causeAssessment": {
+    "partSize": "A156 filled uses size 20; the outlined composition was likewise assembled to 20 units. This directly causes the measured shrink.",
+    "keyline": "The checker does not force size 20: off-keyline size 24 is legal and produces warnings only.",
+    "prompt": "The prompt requests source silhouette and optical scale; it does not require the smaller size. The shrink was an authored part-size choice."
+  }
+}

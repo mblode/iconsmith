@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "id": "A138-draft-diagnostic-results",
+  "createdAt": "2026-09-07T12:41:32.536Z",
+  "authority": "development-draft-diagnostic-only",
+  "scope": "Independent AI review of two preserved A136 incomplete, uninspected drafts. This is not delivery recovery, author acceptance, visual qualification, or generator qualification.",
+  "eligibility": {
+    "delivery": false,
+    "qualification": false,
+    "instrumentQualified": false,
+    "reasons": [
+      "Both stimuli are incomplete-uninspected-draft author lifecycle artifacts.",
+      "Neither draft has an author final review.",
+      "The diagnostic includes same-model author/reviewer identity overlap.",
+      "The population contains one development pair only."
+    ]
+  },
+  "source": {
+    "directory": ".staging/A138-draft-diagnostic-2026-09-07",
+    "sourceReceiptSha256": "63d1b655a40dd47f25373eec5650578dd2b1852d0a0afa4e3f24abbbe33e52c4",
+    "reviewIntentSha256": "fc4b2c7e9cc659ebedd62961e5efa92c52fa64c5f1cd27cd6176e14c231e2ff5",
+    "campaignIntentSha256": "0cae1052013b9c815478af69f29c339dbcb27f8fbb5fdc6da6dc50296bb27343",
+    "campaignIntentHash": "f682c77a0cd26ac4dffe47ca812119412bd72d7798b1ae41051587a296c51112",
+    "sourceManifestSha256": "53214fd6e5049dbbf9abaa7b35ba3c0600a9e4bd6e963ed7236b98d5c8399d20",
+    "runtimeSha256": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+    "runnerSha256": "aac50716004267720996c867bd97596610c66b7dee5abcda8c2adb3d3efe0d14"
+  },
+  "validation": {
+    "tool": "packages/iconsmith/scripts/quality-campaign.ts assess-ai",
+    "terminalReceiptsValidated": true,
+    "artifactTreesValidated": true,
+    "stageEvidenceHashesValidated": true,
+    "reviewerIdentityValidated": true,
+    "allRoutesTerminal": true,
+    "allStagesComplete": true
+  },
+  "accounting": {
+    "plannedNativeCalls": 4,
+    "actualNativeCalls": 4,
+    "completedNativeCalls": 4,
+    "reviewerRouteCount": 2,
+    "totalElapsedMs": 156616,
+    "newApiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "routes": [
+    {
+      "route": "codex",
+      "provider": "openai-codex",
+      "model": "gpt-6-astra",
+      "status": "complete",
+      "startedAt": 1788784622148,
+      "deadlineAt": 1788784862148,
+      "elapsedMs": 63282,
+      "stageCallCount": 2,
+      "qualified": false,
+      "terminalSha256": "1fb1d2b9a8ec3ab5dbfdea3e693556dcf2dafa58241150d0420c93a787ca82d3",
+      "resultSha256": "50488e8795c79084112f1eea62121461e865fb942c2e4e6d15ed0684383a8cf2",
+      "artifactTreeHash": "6a8f4bbe287abaa6a013d0e6c9daad704653e971d80090cdaa43b5a7b157482f",
+      "resultHash": "8e49dcf54827b187ed14057d8da6cb4d9b1d84f3c2d865cb09999ad8909b4299",
+      "intentHash": "dbf4d1b6a512bfd366fef227a159e3d194a9dcb9f921b570c6c57ca739f2d218"
+    },
+    {
+      "route": "claude",
+      "provider": "anthropic-claude",
+      "model": "claude-opus-5",
+      "status": "complete",
+      "startedAt": 1788784685430,
+      "deadlineAt": 1788784925430,
+      "elapsedMs": 93334,
+      "stageCallCount": 2,
+      "qualified": false,
+      "terminalSha256": "89a6efffbf2526bcb79060b75fa0c24062d7a48400d67c5138f9f26e92bda51c",
+      "resultSha256": "4603bbf8433f9fa8978b31d0809f624afd8032f4c62d1d027aa44dfc61a9c25f",
+      "artifactTreeHash": "80ad9a116d5736d042596e9f01506df4fc5809f141e5d3d5cdb9c101ce98e7d7",
+      "resultHash": "258575e999a71469245b9ccb603314ec3aa69ad61389857a8ce6e44a96238f92",
+      "intentHash": "d2ae7c1b77b5a1662b0f8d8a5f54d41f11d6b38cf3498b058a054f737db5309d"
+    }
+  ],
+  "outcomes": [
+    {
+      "completeReviewers": 2,
+      "conflicts": [
+        "recognition"
+      ],
+      "id": "arm-a",
+      "imageSha256": "fa7d4d97c425f58adc14d4aef377dd1b8253567ac4313d9bace4cc49f3df6848",
+      "incompleteReviewers": 0,
+      "reviews": [
+        {
+          "complete": true,
+          "identity": {
+            "model": "gpt-6-astra",
+            "provider": "openai-codex"
+          },
+          "judgment": {
+            "craft": 3,
+            "critical": "yes",
+            "family": "no",
+            "native": "no",
+            "recognition": "shield-check",
+            "ship": "no"
+          },
+          "route": "codex"
+        },
+        {
+          "complete": true,
+          "identity": {
+            "model": "claude-opus-5",
+            "provider": "anthropic-claude"
+          },
+          "judgment": {
+            "craft": 2,
+            "critical": "yes",
+            "family": "no",
+            "native": "no",
+            "recognition": "uncertain",
+            "ship": "no"
+          },
+          "route": "claude"
+        }
+      ],
+      "status": "quarantined"
+    },
+    {
+      "completeReviewers": 2,
+      "conflicts": [],
+      "id": "arm-b",
+      "imageSha256": "ec1156c222e7273060608d91e333c6c13f07a8022fcf7027afc68690091c82d8",
+      "incompleteReviewers": 0,
+      "reviews": [
+        {
+          "complete": true,
+          "identity": {
+            "model": "gpt-6-astra",
+            "provider": "openai-codex"
+          },
+          "judgment": {
+            "craft": 9,
+            "critical": "no",
+            "family": "yes",
+            "native": "yes",
+            "recognition": "shield-check",
+            "ship": "yes"
+          },
+          "route": "codex"
+        },
+        {
+          "complete": true,
+          "identity": {
+            "model": "claude-opus-5",
+            "provider": "anthropic-claude"
+          },
+          "judgment": {
+            "craft": 8,
+            "critical": "no",
+            "family": "yes",
+            "native": "yes",
+            "recognition": "shield-check",
+            "ship": "yes"
+          },
+          "route": "claude"
+        }
+      ],
+      "status": "rejected"
+    }
+  ],
+  "findings": {
+    "arm-a": {
+      "consensus": "critical defect; do not ship",
+      "craftScores": {
+        "codex": 3,
+        "claude": 2
+      },
+      "recognition": {
+        "codex": "shield-check",
+        "claude": "uncertain"
+      },
+      "critical": {
+        "codex": "yes",
+        "claude": "yes"
+      },
+      "family": {
+        "codex": "no",
+        "claude": "no"
+      },
+      "native": {
+        "codex": "no",
+        "claude": "no"
+      },
+      "ship": {
+        "codex": "no",
+        "claude": "no"
+      },
+      "assessmentStatus": "quarantined"
+    },
+    "arm-b": {
+      "consensus": "no critical defect and both reviewers would ship; below the campaign median craft threshold",
+      "craftScores": {
+        "codex": 9,
+        "claude": 8
+      },
+      "recognition": {
+        "codex": "shield-check",
+        "claude": "shield-check"
+      },
+      "critical": {
+        "codex": "no",
+        "claude": "no"
+      },
+      "family": {
+        "codex": "yes",
+        "claude": "yes"
+      },
+      "native": {
+        "codex": "yes",
+        "claude": "yes"
+      },
+      "ship": {
+        "codex": "yes",
+        "claude": "yes"
+      },
+      "assessmentStatus": "rejected"
+    }
+  },
+  "qualified": false
+}

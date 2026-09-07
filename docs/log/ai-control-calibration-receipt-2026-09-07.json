@@ -1,0 +1,33 @@
+{
+  "kind": "ai-only-blind-control-calibration-artifacts",
+  "date": "2026-09-07",
+  "status": "generated-offline-not-reviewed",
+  "qualified": false,
+  "instrumentQualified": false,
+  "stagingRoot": "/Users/mblode/Code/mblode/iconsmith/.staging/ai-control-qualification-2026-09-07",
+  "manifestHash": "aa65da4a78e1145054f1425182cf75e6ae9571a750aef7e8ffbc22e1e61c916d",
+  "manifestFileSha256": "6a83af45543221024e71662fcb8ba164cdaf63568c43bf531544390022348747",
+  "sealedKeySha256": "4c84695956a82b5dad66d351ff79102b9dd06e008fdd386c5103c9f427ee580f",
+  "firstPacketSha256": "e02f34462d3211f245ad116247ef85ac11dd48e9da22f029113ed8a3c26139cb",
+  "scoredStimuli": 100,
+  "sourcePositiveControls": 50,
+  "hostCorruptedNegativeControls": 50,
+  "independentSemanticSourceFamilies": 50,
+  "nativeSizeCounts": {
+    "16": 50,
+    "24": 50
+  },
+  "negativeObjectives": {
+    "severely-clipped-contour": 18,
+    "counter-collapse": 16,
+    "severed-connections": 16
+  },
+  "controlsOutsideScoredCount": 2,
+  "evidenceFilesPerStimulus": 6,
+  "allEvidenceHashesVerified": true,
+  "limitations": [
+    "Controls calibrate the AI review instrument against objective source/corruption distinctions; they do not qualify novel family generation.",
+    "16px and 24px artifacts are raster-survival views of source geometry; opticalMasterClaim remains false.",
+    "House source positives are source controls, not human-approved quality labels."
+  ]
+}

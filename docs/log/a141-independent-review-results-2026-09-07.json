@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "id": "A141-independent-review-results",
+  "createdAt": "2026-09-07T13:18:02.419Z",
+  "authority": "single-pair-ai-development-diagnostic-only",
+  "qualified": false,
+  "instrumentQualified": false,
+  "scope": {
+    "concept": "bell-pause",
+    "nativeSize": 16,
+    "authorDenominator": 2,
+    "deliveredAuthors": 1,
+    "independentlyReviewedAuthors": 1,
+    "exposedPair": true,
+    "deliveryRecovery": false
+  },
+  "limitations": [
+    "Claude author remained incomplete after self-review and repair; its drafts are retained but excluded from independent scoring.",
+    "One exposed author pair cannot qualify a generator, critic, or catalog.",
+    "Astra author and Codex reviewer share a model family, so reviewer independence is limited.",
+    "Reviewer score disagreements are retained; this receipt does not override either score or claim acceptance."
+  ],
+  "frozenIntent": {
+    "path": "docs/log/a141-independent-review-intent-2026-09-07.json",
+    "sha256": "b993ada3da6576aa9f37a250ea5303b9fd32c648b85037866c4e1ee987404ed4",
+    "boundValidation": [
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/manifest.json",
+        "expectedSha256": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+        "actualSha256": "c023974cb08ab611ac729e5773c8c443141d9bbcb8557aa923207605a39f0a5b",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/runtime.json",
+        "expectedSha256": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+        "actualSha256": "66d1dd2361dce0a628136f1173d03d844bb9347188c7c2feef7c753e893f46df",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/run-review.mts",
+        "expectedSha256": "d5fe5e7ec08b05221d73e8f96ffecbcbeab0ae730fcb7ad5818713df5d3dbd9f",
+        "actualSha256": "d5fe5e7ec08b05221d73e8f96ffecbcbeab0ae730fcb7ad5818713df5d3dbd9f",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/receipt.json",
+        "expectedSha256": "1c360df6bafff1ac633b14aa16a833481af29898aef510490de3a8c70241f89f",
+        "actualSha256": "1c360df6bafff1ac633b14aa16a833481af29898aef510490de3a8c70241f89f",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/campaign-input.host.json",
+        "expectedSha256": "21e227b5e4dc623be887ccc5bbfebb7767eef63a4c736d598236a03427fd0285",
+        "actualSha256": "21e227b5e4dc623be887ccc5bbfebb7767eef63a4c736d598236a03427fd0285",
+        "matches": true
+      },
+      {
+        "file": ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/review-intent.json",
+        "expectedSha256": "d63df084687eba9887ee1275fc1b1dea917642f76a08f8304d26ebdaf0829155",
+        "actualSha256": "d63df084687eba9887ee1275fc1b1dea917642f76a08f8304d26ebdaf0829155",
+        "matches": true
+      }
+    ]
+  },
+  "campaign": {
+    "intentHash": "daedb6d7a2d5c037bc073dbc9778a4ab9f5409d25e68c3c876382d4619ba9867",
+    "status": "uncertain",
+    "outcomes": [
+      {
+        "completeReviewers": 2,
+        "conflicts": [
+          "family",
+          "native",
+          "ship"
+        ],
+        "id": "arm-a",
+        "imageSha256": "9595ad22d079dfbe7414c5fa4edec4b47d20fac3af4849303e2c6635c174ab1d",
+        "incompleteReviewers": 0,
+        "reviews": [
+          {
+            "complete": true,
+            "identity": {
+              "model": "gpt-6-astra",
+              "provider": "openai-codex"
+            },
+            "judgment": {
+              "craft": 9,
+              "critical": "no",
+              "family": "yes",
+              "native": "yes",
+              "recognition": "bell-pause",
+              "ship": "yes"
+            },
+            "route": "codex"
+          },
+          {
+            "complete": true,
+            "identity": {
+              "model": "claude-opus-5",
+              "provider": "anthropic-claude"
+            },
+            "judgment": {
+              "craft": 6,
+              "critical": "no",
+              "family": "uncertain",
+              "native": "uncertain",
+              "recognition": "bell-pause",
+              "ship": "no"
+            },
+            "route": "claude"
+          }
+        ],
+        "status": "uncertain"
+      }
+    ]
+  },
+  "authorLifecycle": {
+    "astra-native": {
+      "status": "delivered",
+      "terminalPath": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/astra-native-terminal.json",
+      "terminalSha256": "c5cd3dc26b9ce341815234dd267677bf5aaae9e1149d6337591c840b2f089147"
+    },
+    "claude-native-structured": {
+      "status": "incomplete",
+      "terminalPath": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/claude-native-structured-terminal.json",
+      "terminalSha256": "f6628448bf45c2b06bd97a783a7c8198d07fca505de72190ea2a3c75c487cc53",
+      "selfReviewPath": ".staging/native-author-screen-prep-v6-2026-09-07/runs/bell-pause-16/claude-native-structured/01-author-self-review/review.json",
+      "selfReviewSha256": "4f8ed0a8ae30a137812b51fd7072d109181b45fc6f0f1b0045f1afe91d35f142",
+      "selfReviewSummary": {
+        "outlined": "fail: face-like reading from pause bars and clapper",
+        "filled": "fail: face-like reading and 16px pause separation not carried by whole pixels"
+      },
+      "independentReview": "excluded"
+    }
+  },
+  "evidence": {
+    "proofBindings": {
+      "astra-native/outlined.proof.png": "a0a5eecca01d4e1c75a0b86d607f7e973e2f1ad232b435e880e4499e5466d09d",
+      "astra-native/outlined.native.png": "7c064202cbd74dd5cb072fee921b76af8a410da17e835c6fab5c3aacb6133906",
+      "astra-native/filled.proof.png": "e11fb3b8c759ce555e545a866b832a4943d305983a3921b699cee09b5c73fd22",
+      "astra-native/filled.native.png": "76e5068154cbcd0771b690265354b571e029a73d9192ae19195a286e2bcc0f23",
+      "claude-native-structured/outlined.proof.png": "3cb03b338431a0a88389fc3c62e177982a68318799091b50e75c9434776006d0",
+      "claude-native-structured/outlined.native.png": "826ab6dbd0674019b816562b2fb10fbb4a974c9dd388cc9697f1538a62f0efb8",
+      "claude-native-structured/filled.proof.png": "932f07afd792a2a1cff5aeee4211e4946a643a12d2cc38941c4a826b993c1c94",
+      "claude-native-structured/filled.native.png": "d97934baf1678b86595b98e6b9c5b5fbffdd26d7a9ab66fb4c2ca50c8caedc2a"
+    },
+    "reviewTerminals": {
+      "codex": {
+        "path": ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/campaign/codex/terminal.json",
+        "sha256": "9e30dd4129bbf3c91e6a03727a02e2f1382ddf9c23e95468a11d0d775daaa4d1",
+        "status": "complete",
+        "elapsedMs": 58319,
+        "artifactTreeHash": "ea0e7bd225df221d7f3618da32bbfe03cd6f2021f4b47c5d784d47b07abe8bb9",
+        "resultHash": "5fa4e30fe1f27be8b049b11dd05097fec84b71dac6aeeff02231001f40a78961",
+        "intentHash": "d5df5213b0fdb369a0fb34320d2b2e42f9d226ce561ffcdeb547f717c4d7e1c7"
+      },
+      "claude": {
+        "path": ".staging/native-author-screen-prep-v6-2026-09-07/review-A141/campaign/claude/terminal.json",
+        "sha256": "6114070e7ac82e03874eedfa535d5bb76292b2c18b45603b771636472d9ceb6d",
+        "status": "complete",
+        "elapsedMs": 97113,
+        "artifactTreeHash": "f2dddf913e4798b36224571aab8fd62f2ed81183cbdbf1051f5adf342cf95632",
+        "resultHash": "3b283275db0c21764263874fac5fd9f96f42e66ba87cca9043046e1f1a65b408",
+        "intentHash": "f69771f72f513f65320141f62082ebc8931039f7bc324b229330e00d253384b4"
+      }
+    },
+    "assessmentValidation": "quality-campaign assess-ai completed and validated terminal, identity, artifact-tree, and stage evidence bindings"
+  },
+  "accounting": {
+    "authorNativeCalls": 6,
+    "reviewNativeCalls": 4,
+    "totalNativeCalls": 10,
+    "reviewElapsedMs": 155432,
+    "apiSpendUsd": 0,
+    "nativeSubscriptionCostUsd": null
+  },
+  "board": {
+    "path": "docs/log/a141-author-comparison-board-2026-09-07.png",
+    "sha256": "6605ce02b6f478025827538b6acf96b2c870ef9bd6c7fcfc3a671f27b6928ac3",
+    "width": 1000,
+    "height": 1040,
+    "proofPixelsResampled": false,
+    "nativePixelsResampled": false,
+    "lifecycleLabels": true
+  }
+}

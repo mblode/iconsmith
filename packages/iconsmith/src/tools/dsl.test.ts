@@ -268,6 +268,37 @@ test("an anchor names a centre; a bare coordinate names the top-left", () => {
   expect([p.x0, p.y0]).toStrictEqual([4, 6]);
 });
 
+test("explicit numeric centre uses the turned asymmetric part extent", () => {
+  const centered = run("part cloud centered at 12,11.5 size 8 turn cw", PARTS);
+  expect(centered.errors).toEqual([]);
+  expect(extent(centered.canvas)).toMatchObject({
+    cx: 12,
+    cy: 11.5,
+    // Visual bounds include the 2-unit outlined stroke around the turned path.
+    h: 10,
+    w: 8,
+  });
+});
+
+test("explicit centre preserves grid quantisation for fractional extents", () => {
+  const centered = run("part cloud centered at 12,11.5 size 10.5", PARTS);
+  expect(centered.errors).toEqual([]);
+  const achieved = extent(centered.canvas);
+  expect(Math.abs(achieved.cx - 12)).toBeLessThanOrEqual(SPEC.grid / 2);
+  expect(Math.abs(achieved.cy - 11.5)).toBeLessThanOrEqual(SPEC.grid / 2);
+});
+
+test.each([
+  "part cloud centered 12,12 size 8",
+  "part cloud centered at center size 8",
+  "part cloud at 4,4 centered at 12,12 size 8",
+  "part cloud centered centered at 12,12 size 8",
+])("refuses malformed explicit centre placement: %s", (source) => {
+  const { errors } = run(source, PARTS);
+  expect(errors).toHaveLength(1);
+  expect(errors[0]).toMatch(/centered part placement|bad coordinate/u);
+});
+
 test("size sets the part's longest side; fill takes the keyline", () => {
   const sized = run("part cloud at center size 8", PARTS);
   const filled = run("keyline wide\npart cloud fill", PARTS);

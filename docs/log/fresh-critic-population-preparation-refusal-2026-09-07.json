@@ -1,0 +1,50 @@
+{
+  "kind": "fresh-critic-population-preparation-refusal",
+  "createdAt": "2026-09-07",
+  "status": "refused-unproven-exposure-exclusion",
+  "qualified": false,
+  "providerCalls": 0,
+  "imageInspection": false,
+  "sourcePopulation": {
+    "directory": ".staging/ai-control-qualification-v3-2026-09-07",
+    "manifestSha256": "b8d5470b28bd0bee676d0b81abd3b133b931f7f81560973ec57b9ae04ef73bbf",
+    "sealedKeySha256": "61fcd6c8bf4cded81b527bff16b715b1ed7066e862410054f53eac69c3e037d7",
+    "auditSha256": "83dec77f8565f018c80481c2bedaf655775af650449a34db99bcba48ccabdb42"
+  },
+  "retainedCandidateAudit": {
+    "requestedIds": "S011-S100",
+    "rows": 90,
+    "uniqueFamilies": 90,
+    "uniqueCanonicalArtifactHashes": 90,
+    "packetHashes": {
+      "P02": "789deb0adc29ae343727e5884d576491abc8e3bd6efe82da70ac8ac080b5abc7",
+      "P03": "80ab359cab2af52ed5e6f05786b7f1a681de637ac4516190228df0aef5fd7889",
+      "P04": "aed36889e59cde1cb21c7d26efb086a9a6489a702101bde52230f5220af31ba1",
+      "P05": "df22bac1f7a9a0b5758dcf233dacb91ff6a9509d0b40feb6189223002265df3f",
+      "P06": "fd03620e663a7b7391f97ac8230aeb3ad01edae070b6959256d366cd4cc533ad",
+      "P07": "2ec6929a8c02b5cedacac7b7d176f6c6c460d732213791237ff85eb2d647401e",
+      "P08": "89098c3550b64113e1c1cc40d1ba30f248c1c6833548fb3fd6b3ad615a2147e7",
+      "P09": "e4f0f4a38f6040c4fe4f499d85429f132b855e95b334ad3562b199497c96d6da",
+      "P10": "b0d297a619794fcfbcf82a1b250a78044a2703462331fe0f4c28b9aadd3a84e8"
+    },
+    "disposition": "not-retained-as-sealed: full prior exposure cannot be proven"
+  },
+  "knownExposure": {
+    "excludedPacket": "P01/S001-S010",
+    "a133SemanticAuditSha256": "345a73cb205c0b78035c83bba6b940376279413206aaddb25551ef0ac5056f2a",
+    "recognitionPerformanceEligible": false
+  },
+  "blockers": [
+    "No authoritative append-only exposure ledger binds every prior candidate, anchor, admitted part, cache, reviewer packet, and recognition-choice disclosure by family, alias, source hash, and artifact hash.",
+    "The existing metadata exposure validator explicitly provides declared-metadata-only evidence; it cannot prove completeness of historical exposure.",
+    "P01 was opened for A132/A133 and cannot remain in a fresh sealed denominator; some P02-P10 family names also appeared as P01 recognition alternatives, requiring an explicit policy decision and ledger classification rather than silent reuse.",
+    "Selecting replacement families and genuine semantic alternatives from catalog metadata alone cannot establish independent semantic validity; two exact-artifact AI identities remain required after critic predictions are sealed."
+  ],
+  "safeNextStep": [
+    "Create an append-only exposure ledger from all preserved run manifests and packets, with normalized family/head/alias plus source/artifact/evidence hashes and exposure role.",
+    "Validate P02-P10 against that ledger; exclude any target-image, anchor, admitted-part, cache, or policy-defined recognition-choice overlap.",
+    "Only then generate enough replacement candidates to restore 100 unique canonical families and the four-stratum/critical-count balance; keep images and answer key sealed.",
+    "Freeze critic configuration and predictions before revealing the key or requesting two identity-distinct AI panel labels."
+  ],
+  "limitations": "This receipt audits metadata and hashes only. It neither opens images nor claims the undispatched 90 are unexposed."
+}

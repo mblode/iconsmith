@@ -1,0 +1,7 @@
+icon bell-pause
+keyline portrait
+finish outlined
+part bell-check-outlined-0 at 4,3
+part bell-check-outlined-1 at 8,17
+line 10,9 10,13
+line 14,9 14,13

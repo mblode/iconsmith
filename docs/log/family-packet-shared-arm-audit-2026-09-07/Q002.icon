@@ -1,0 +1,6 @@
+icon hammer-check
+keyline circle
+finish outlined
+part hammer-outlined-0 at 3,3 size 10
+line 7.5,10.5 12,15 15,12 10.5,7.5 r1
+line 15.5,19 17,21 21,16.5 off-axis

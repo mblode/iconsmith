@@ -1,0 +1,78 @@
+{
+  "controls": [
+    {
+      "canonicalOrder": [
+        "S001",
+        "S002"
+      ],
+      "presentationOrder": [
+        "C001",
+        "C002"
+      ],
+      "type": "identical"
+    },
+    {
+      "canonicalOrder": [
+        "S001",
+        "S002"
+      ],
+      "presentationOrder": [
+        "C002",
+        "C001"
+      ],
+      "type": "reversed"
+    }
+  ],
+  "images": [
+    {
+      "canonicalArtifactHash": "281135a81856274dfdd798ee699e2218b126279b22cfd3378a6b7d5e1b1002db",
+      "evidenceHashes": {
+        "images/C001/1x-light.png": "8c70347e6e2771abff5909756d43839f8435cbbf04a6c7b01664d81ecd94ec41",
+        "images/C001/2x-light.png": "ab7dae59fc7ccaea40cafde14edc2977e080a2cb579b22ec2a91749968eb72ed",
+        "images/C001/enlarged-light.png": "ed9687c2d400d613ba75713af2c0c68b9338e5da78c0b6f09077aaefc682c779",
+        "images/C001/1x-dark.png": "9c99daf065b5b4c15f8c2b08f5ab261458804d14aa45e2766cc6a0b9959c2496",
+        "images/C001/2x-dark.png": "681a4d50afcde4ec1bbb97c999cfa5955375d9e7df34a390ca0f5f1b10db403b",
+        "images/C001/enlarged-dark.png": "e5e56c3ed9ac3bdf301ade55fe679a0a93180ef6854672b48fddbfa40fa65285"
+      },
+      "id": "C001",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "presentationOf": "fb350f452fd021f40e6dcd3bad5304af2ffdc10658e65bc27d6beb004c11a894",
+      "presentationOrder": "identical",
+      "qualified": false,
+      "recognitionChoices": [
+        "firefox",
+        "drink",
+        "bezier-curve",
+        "quora"
+      ]
+    },
+    {
+      "canonicalArtifactHash": "98409a20f6976d1b2044917bd8670659fbbcdee822e35c61d2106da50026269f",
+      "evidenceHashes": {
+        "images/C002/1x-light.png": "049ab80757db3454dcea6f7e6ac0c4638427fc3fad93e9137a631ef3606d81e0",
+        "images/C002/2x-light.png": "34cdb593542029b31c3d92456c679769c057e7176d1c4fc6cf9e89604bbc529b",
+        "images/C002/enlarged-light.png": "bcfdf0df4b0a91c65cf03a5fd93df49368149d0117ddd96ba83477e70aa1091c",
+        "images/C002/1x-dark.png": "6d8a00d82f1036cba873b86cb495ee3fe466cee7c99277b8c10c3a613099ed98",
+        "images/C002/2x-dark.png": "2f346a926a574a63ffec5a8f9ef5afde9f073cd000e17442af50240849b1277f",
+        "images/C002/enlarged-dark.png": "baca8664b97d006b9e9211a5f884e0b7b1ae552f30c0a0003b19630347588a4c"
+      },
+      "id": "C002",
+      "nativeSize": 16,
+      "opticalMasterClaim": false,
+      "presentationOf": "8e7222118bf03ac9debcdcc6b983ec289f8ceb9730fb30e0ed157fd148a65ece",
+      "presentationOrder": "reversed",
+      "qualified": false,
+      "recognitionChoices": [
+        "diamond-shine",
+        "map-edit-flat",
+        "square-arrow-center",
+        "square-info"
+      ]
+    }
+  ],
+  "independentSourceFamilies": 100,
+  "instrumentQualified": false,
+  "packetId": "P-presentation-controls",
+  "scored": false
+}

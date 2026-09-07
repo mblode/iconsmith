@@ -1,0 +1,27 @@
+{
+  "id": "A151",
+  "status": "frozen",
+  "createdAt": "2026-09-07T14:39:07.854194+00:00",
+  "manifestHash": "2ed4a97ae6ff8c6f4ce0e50c4f9e8c41b5475c736167cc9a1f58ac69227c034f",
+  "pair": "jellyfish-16",
+  "requestedEffort": "medium",
+  "requestedModel": "claude-opus-5",
+  "routeBudgetMs": 600000,
+  "matchedPairBudgetMs": 1200000,
+  "maxAuthorNativeCalls": 5,
+  "maxReviewNativeCalls": 4,
+  "independentReviewReserveMs": 480000,
+  "inputs": {
+    ".staging/native-author-medium-effort-v11-2026-09-08/manifest.json": "2ed4a97ae6ff8c6f4ce0e50c4f9e8c41b5475c736167cc9a1f58ac69227c034f",
+    ".staging/native-author-medium-effort-v11-2026-09-08/run.mts": "39c71aa884147d353e71ceba4f90b5deab4750d73b82d1eebd1541ab16ef04b7",
+    ".staging/native-author-medium-effort-v11-2026-09-08/route.mts": "701c698c947035784a86230e6e0ffe7ac9edb7dbf43742104e19598226919835",
+    ".staging/native-author-medium-effort-v11-2026-09-08/prepare-review-jellyfish-16.mts": "bef127d0f1f1fad4e448f86db21147e3e7e420e5f9b087de1bf58fd4b7528be1",
+    ".staging/native-author-medium-effort-v11-2026-09-08/run-review-jellyfish-16.mts": "80d42aec3b36200071497473363326fd7776c6264937478b1cdf248638f6580f",
+    ".staging/native-author-medium-effort-v11-2026-09-08/review-budget-reviewed.ts": "e1583467a2a3ef37923c3203cbbe220d4d2cb4070715387eca0e269d77e3a81e",
+    ".staging/native-author-medium-effort-v11-2026-09-08/review-offline-verification.json": "6127212856e611e2fc65db18861fe2bd38c1a5b64bda975104dff082f6e5d95f"
+  },
+  "scope": "historical high versus fresh medium efficiency diagnostic, no randomized matched uplift claim",
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "qualified": false
+}

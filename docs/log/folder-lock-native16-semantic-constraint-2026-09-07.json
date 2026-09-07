@@ -1,0 +1,23 @@
+{
+  "schema": "iconsmith.folder-lock-native16-semantic-constraint-receipt.v1",
+  "date": "2026-09-07",
+  "status": "ai-visual-assessment-pending",
+  "sourceExperiment": ".staging/folder-lock-native16-parameter-probe-2026-09-07/manifest.json",
+  "sourceExperimentPreserved": true,
+  "constraintReport": ".staging/folder-lock-native16-semantic-constraint-2026-09-07/constraint-report.json",
+  "reviewInput": ".staging/folder-lock-native16-semantic-constraint-2026-09-07/review-input.json",
+  "imageMetadata": ".staging/folder-lock-native16-semantic-constraint-2026-09-07/image-metadata.json",
+  "sealedKey": ".staging/folder-lock-native16-semantic-constraint-2026-09-07/sealed-key.json",
+  "durableBoard": "docs/log/folder-lock-native16-semantic-constraint-board-2026-09-07.png",
+  "boardSha256": "6e998656c84e4b13045943b40a127006b85a55e1799751629b6f726a3174990d",
+  "semanticConstraints": {
+    "shackleCenterX": 6.75,
+    "nativeDarkComponents": 3,
+    "nativeLightComponents": 4
+  },
+  "constrainedObjectiveLeader": "C15",
+  "unconstrainedLeaderRejected": {"candidate":"C23","reason":"shackle center 7 differs from pinned family anchor 6.75"},
+  "craftQualified": false,
+  "providerCalls": 0,
+  "originalA126StatusPreserved": true
+}

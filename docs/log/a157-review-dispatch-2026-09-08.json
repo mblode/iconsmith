@@ -1,0 +1,19 @@
+{
+  "experimentId": "A157",
+  "stage": "independent-review",
+  "maximumNativeCalls": 4,
+  "originalDeadlineAt": 1788796193736,
+  "authorStatus": "delivered",
+  "authorNativeCalls": 6,
+  "scope": "exposed-source reconstruction; descriptor defect preserved",
+  "qualified": false,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null,
+  "hashes": {
+    ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/review-intent.json": "2b1aa400b075875fd970cc3e86ec38a2eaf889f859aec8ee8b0a8b9937f2b8f4",
+    ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/receipt.json": "d99a73a5353f1f409c0a6a377406bf29010f7fe7ca86dee2d4e3e431908244ac",
+    ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/campaign-input.host.json": "71dcc6adf01e26065445e4149fe6bf5b702fd4397366f505e9d627749030cb97",
+    ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/terminal.json": "733d2aab00b62b1dd867ff0798fb0764ce1659ce90f728e42d8a0e6ce0390cfd"
+  }
+}
