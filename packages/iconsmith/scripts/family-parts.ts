@@ -49,17 +49,15 @@ export const admitFamilyParts = async (
     for (const [index, shape] of shapes.entries()) {
       const solid = shape.filled && shape.strokeWidth === 0;
       if (
-        solid !== (source.finish === "filled") ||
+        (source.finish === "filled" && !solid) ||
         (shape.filled && shape.strokeWidth > 0)
       ) {
         throw new Error(`${source.name}: mixed or incompatible source paint`);
       }
-      const paths = parsePath(shape.d);
-      if (solid && paths.some((p) => !p.closed)) {
-        throw new Error(
-          `${source.name}: filled component must close explicitly`
-        );
-      }
+      // SVG fill implicitly closes subpaths; make those host-derived closures explicit.
+      const paths = parsePath(shape.d).map((p) =>
+        solid ? { ...p, closed: true } : p
+      );
       const box = bbox(paths);
       const id = `${source.name}-${source.finish}-${index}`;
       const part = {
@@ -75,6 +73,9 @@ export const admitFamilyParts = async (
           number,
           number,
         ],
+        ...(solid
+          ? { sourceFillRule: shape.fillRule ?? ("nonzero" as const) }
+          : {}),
         w: box.w,
       };
       dependencies.push({ master, part, provenance: source.provenance });

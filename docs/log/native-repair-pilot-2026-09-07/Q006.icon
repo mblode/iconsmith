@@ -1,0 +1,9 @@
+icon bicycle
+keyline wide
+finish outlined
+circle 6.5,15 r3.5
+circle 17.5,15 r3.5
+line 13.25,5.5 15,5.5 17.5,15 r2 off-axis
+line 8,7.25 10.5,7.25
+line 9,7.25 11.5,12.5 off-axis
+line 6.5,15 16,10 off-axis

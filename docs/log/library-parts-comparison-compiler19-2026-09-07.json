@@ -1,0 +1,2445 @@
+{
+  "newlyAdmitted": [
+    {
+      "file": "adobe-acrobat.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "affinity.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "agentic-coding.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "ai-tokens.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "ai-translate.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "airplay-video.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "airplay.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "alt.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "antigravity.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "appearance-dark-mode.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "appearance-light-mode.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "apple-intelligence.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "apple-music.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "apple-podcast.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "apple.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "appstore.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "ar-scan-cube-2.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "archive-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "arena.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "arrow-left-right-filled.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "arrow-right-left-filled.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "arrow-rotate-point.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "arrow-rotate-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "arrow-top-bottom-filled.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "arrow-wall-2-up-filled.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "arrow.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "arrows-repeat-circle.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "artifact-news.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "atlassian.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "auto-crop.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "back-10s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bag-2-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bank-2.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "base44.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "baseball.svg",
+      "status": "source-admitted",
+      "parts": 11
+    },
+    {
+      "file": "baymax.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "bell-2-snooze.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bell-alarm.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bell-off.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bitcoin-circle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bitcoin-logo.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bluesky.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "board.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bolt-new.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "book.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bookmark-check.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bookmark-delete.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bookmark-plus.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bowling.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "brand-zoom.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "broken-chain-link-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "bronce-medal.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "broom-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bubble-quotes.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "bubble-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "bubble-wide-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "bug-face.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "bun.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "burger.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "buymeacoffee.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "calendar-days.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "calendar-repeat.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "calender-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "call-cancel.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "camera-2.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "camera-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "car-1-ev.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "car-10-ev.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "car-2-ev.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "car-3-ev.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "car-6-ev.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "car-7-ev.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "car-8-ev.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "car-9-ev.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "cash.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "cashapp.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "cat.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "central-icon-system.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "chain-link-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "charging-station.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "chart-7.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "cheeseburger.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "circle-half-fill.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "circle-record.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "clapboard-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "claudeai.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "clawd.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "clipboard-2-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "clock-alert.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "clock-snooze.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "closed-captioning.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "cloud-dots.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "cloud-sync-2.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "cloud-sync.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "cloudy-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "cmd-box.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "code-analyze.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "code-assistant.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "codepen.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "color-palette-2.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "column-wide-add.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "column-wide-remove.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "column-wide.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "computer-use.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "confluence.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "console-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "cookies.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "copilot.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "cosmos.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "curtain.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "decimal-number-comma.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "decimal-number-dot.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "devices.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "devin.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "dia.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "dices.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "difference-modified.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "disco-ball.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "discord.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "doordash.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "dot-grid-1x3-horizontal-tight.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "dot-grid-1x3-vertical-tight.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "dot-small.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "draft-simple.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "dribbble.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "duolingo.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "email-1-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "email-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "email-2-unread.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "email-3.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "emoji-angry.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "emoji-astonished.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "emoji-grinning.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "emoji-lol.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "emoji-mouthless.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "emoji-neutral.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "emoji-sad-tear.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "emoji-smiley.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "emoji-smiling-face.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "emoji-smirking.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "emoji-star-struck.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "emoji-tongue.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "emoji-wink-tongue.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "emoji-wink.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "enter.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "ethereum.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "european-union.svg",
+      "status": "source-admitted",
+      "parts": 12
+    },
+    {
+      "file": "exclamation-circle-bold.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "exclamation-circle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "facebook-messenger.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "facebook.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "factory.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "fast-forward-10s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "fast-forward-15s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "fast-forward-30s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "fast-forward-5s.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "figma.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "file-cloud.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "file-lock.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "file-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "file-zip.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "firefox.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "focus-magic.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "focus-mode.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "focus-renew.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "folder-shared.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "folder-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "font-style.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "formula1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "fortune-teller-ball.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "forwards-10s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "four-k.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "fourk.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "framer.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "full-moon.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "gemini.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "ghost-2.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "gif-square.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "gif.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "git.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "github.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "goblin-2.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "gold-medal.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "golf-ball.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "google-deepmind.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "google-play-store.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "google-play.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "google.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "goose.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "green-power.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "gumroad.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "hd.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "home-energy-2.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "home-energy.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "hourglass-2.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "human-mashine.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "icebowl.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "illustration.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "imac.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "image-avatar-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "image-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "images-3.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "images-4.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "images-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "imagine-ai.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "imagine.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "imessage.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "info-simple.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "insights.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "instagram.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "javascript.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "jira.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "json.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "kakaotalk.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "key-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "key.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "kick.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "kickball.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "kimi.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "ladybug.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "layout-align-bottom.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-align-left.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-align-right.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-align-top.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-bottom-full.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "layout-bottom.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-column.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-dashboard.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-half-full.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "layout-half.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-left-full.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "layout-left.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-right-full.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "layout-right.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-sidebar.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-third-full.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "layout-third.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-top-full.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "layout-top.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-topbar.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "layout-window.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "lemonsqueezy.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "letter-a-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "letter-a-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "letter-z-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "letter-z-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "lightbulb-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "line-brand.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "linear.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "linkedin.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "linktree.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "liquid-glass.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "list-bullets-square.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "live-weak.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "location-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "lovable.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "mac-mini.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "macbook-air.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "magic-book.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "magic-edit.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "magic-mouse.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "magic-wand-3.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "magic.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "make-it-pop.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "meandu.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "microphone-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "minimax.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "moon-star.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "morning-brief.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "multi-media.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "mute.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "nailed-it.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "nintendo-switch.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "noise-reduction.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "notebooklm.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "npm.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "number-0-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-0-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-1-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-1-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-2-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-2-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-3-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-3-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-4-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-4-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-5-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-5-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-6-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-6-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-7-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-7-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-8-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-8-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-9-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "number-9-square.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "nvidia-filled.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "nvidia.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "offline.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "ollama.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "onlyfans.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "openai-atlas.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "openai-codex.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "openai-sora.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "opentable.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "opera.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "orange.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "owl-face.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "pan.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "passkeys.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "patreon.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "paypal.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "pencil-ai.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "people-gear.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "people-noise.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "people-sparkles.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "persona.svg",
+      "status": "source-admitted",
+      "parts": 15
+    },
+    {
+      "file": "phone-top-punch-hole-center.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "php.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "phyton.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "pickelball.svg",
+      "status": "source-admitted",
+      "parts": 8
+    },
+    {
+      "file": "piggy-bank-coin.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "pin-2.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "pin-focus.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "pinterest.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "play-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "playstation.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "politics.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "popsicle-2.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "producthunt.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "progress-100.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "progress-25.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "progress-50.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "progress-75.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "progress-arc.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "prompt-suggestion.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "prompt-text-to-video.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "quick-search.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "quora.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "quote.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "qwen.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "qwik.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "racing-flag.svg",
+      "status": "source-admitted",
+      "parts": 18
+    },
+    {
+      "file": "receipt-tax.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "receiption-bell-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "record.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "recraft.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "reddit.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "remove-background-2.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "repaint-filled.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "repaint.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "replay.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "replit.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "retouch.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "review.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "rewind-10s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "rewind-15s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "rewind-30s.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "rewind-5s.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "rewrite-1.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "rewrite-2.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "riot-games.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "rive.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "robinhood.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "robot-3.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "rotate.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "rss-feed.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "rust.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "scan-code.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "scan-text-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "scissors-2.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "script-2-filled.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "script-ai.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "search-intelligence.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "search-lines-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "sevenrooms.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "shapes-plus-x-square-circle.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "shield-access.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "shield-ai.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "shield-safe-search.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "shield-user.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "shopify.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "shopping-bag-like-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "shortcut.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "sidebar-floating.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "signature.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "silver-medal.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "siri-gen-1.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "siri-gen-2.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "siri.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "sketch.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "slack.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "slots.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "smartwatch-2.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "snapchat.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "sound-fx.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "soundcloud.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "space.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "spacexai.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "sparkles-2-bold.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "sparkles-soft.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "sparkles-three.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "speaker.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "speed-dots.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "speed-high.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "spotify.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-check.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-checklist-bell.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-grid-maginfying-glass.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-grid-magnifying-glass.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-minus.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-plus.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "square-x.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "stack-overflow.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "steam.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "stop-circle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "substack.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "suitcase-sticker.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "sunrise-arrow-up.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "sunset-arrow-down.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "supabase.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "support.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "svelte.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "swift.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "switch-voice.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "table.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "tasks.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "teddy-bear.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "telegram.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "text-to-image.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "threed.svg",
+      "status": "source-admitted",
+      "parts": 25
+    },
+    {
+      "file": "tiktok.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "timeslot.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "title-case.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "todoist.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "toggle.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "toilet-paper.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "touch.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "train-front-view.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "trash-can-simple.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "trash-can.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "tumblr.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "twitch.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "twitter.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "typescript.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "uber.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "unblur.svg",
+      "status": "source-admitted",
+      "parts": 13
+    },
+    {
+      "file": "unicorn.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "unpin-2.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "user-key.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "user-settings.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "v0.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "venmo.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "vercel.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "vibe-coding-2.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "vibe-coding-star.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "vibe-coding.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "video-play.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "vignette.svg",
+      "status": "source-admitted",
+      "parts": 9
+    },
+    {
+      "file": "vimeo.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "vk.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "vkontakte.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "voice-control.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "voice-mode.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "voice-record.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "voice-settings.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "voice-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "voiceover.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "warp.svg",
+      "status": "source-admitted",
+      "parts": 2
+    },
+    {
+      "file": "webflow.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "webhooks.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "wechat.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "weibo.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "whatsapp.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "wheelchair.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "wind-power.svg",
+      "status": "source-admitted",
+      "parts": 3
+    },
+    {
+      "file": "window-sparkle.svg",
+      "status": "source-admitted",
+      "parts": 4
+    },
+    {
+      "file": "window-square-delete.svg",
+      "status": "source-admitted",
+      "parts": 7
+    },
+    {
+      "file": "window-square-locked.svg",
+      "status": "source-admitted",
+      "parts": 6
+    },
+    {
+      "file": "window-square-plus.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "window-square-security.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "window-square.svg",
+      "status": "source-admitted",
+      "parts": 5
+    },
+    {
+      "file": "windsurf.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "x-twitter.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "xbox.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "yen.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "youtube.svg",
+      "status": "source-admitted",
+      "parts": 1
+    },
+    {
+      "file": "zai.svg",
+      "status": "source-admitted",
+      "parts": 1
+    }
+  ],
+  "regressed": []
+}

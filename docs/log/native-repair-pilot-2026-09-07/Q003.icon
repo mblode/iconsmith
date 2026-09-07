@@ -1,0 +1,9 @@
+icon bicycle
+keyline wide
+finish outlined
+part mountain-bike-outlined-1 at 14,12 size 7
+part mountain-bike-outlined-2 at 3,12 size 7
+line 13.5,5 15.5,5 17.5,15.5 r2 off-axis
+line 6.5,15.5 16.25,10.25 off-axis
+line 8.5,7.5 11.5,12.75 off-axis
+line 7.5,7.5 10,7.5

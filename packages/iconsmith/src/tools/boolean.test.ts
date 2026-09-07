@@ -256,3 +256,13 @@ test("a covering hole produces empty ink with no inverted silhouette", () => {
   expect(r.canvas.toSVG()).toContain('d=""');
   expect(r.canvas.visualBbox()).toBeNull();
 });
+
+test("trim preserves disjoint compound contours and removes contained contours", () => {
+  const result = combinePaths(
+    "trim",
+    { d: "M2 2L6 2M12 12L18 12" },
+    { d: "M10 10H20V20H10Z" }
+  );
+  expect(parsePath(result)).toHaveLength(1);
+  expect(bbox(parsePath(result))).toMatchObject({ x0: 2, x1: 6, y0: 2, y1: 2 });
+});

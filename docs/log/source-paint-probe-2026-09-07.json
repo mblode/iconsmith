@@ -1,0 +1,4743 @@
+{
+  "summary": {
+    "kind": "offline-nonreplayable-source-paint-probe",
+    "generation": false,
+    "admitted": false,
+    "total": 338,
+    "sourceFidelityPass": 251
+  },
+  "results": [
+    {
+      "file": "adobe-acrobat.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0028952205882352942
+        },
+        {
+          "size": 24,
+          "error": 0.003540305010893246
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "affinity.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "airplay-video.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "airplay.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "amazon.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.012622549019607843
+        },
+        {
+          "size": 24,
+          "error": 0.014705882352941176
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "amp.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.016544117647058824
+        },
+        {
+          "size": 24,
+          "error": 0.016122004357298474
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "angularjs.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.03987438725490196
+        },
+        {
+          "size": 24,
+          "error": 0.039760348583877995
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "anthropic.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.014384191176470587
+        },
+        {
+          "size": 24,
+          "error": 0.014249727668845316
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "antigravity.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00548406862745098
+        },
+        {
+          "size": 24,
+          "error": 0.005637254901960784
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "apple-intelligence.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.20796568627450981
+        },
+        {
+          "size": 24,
+          "error": 0.20396922657952068
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "apple-music.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "apple-podcast.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "apple-spring.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01992953431372549
+        },
+        {
+          "size": 24,
+          "error": 0.023869825708061003
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "apple.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.001439950980392157
+        },
+        {
+          "size": 24,
+          "error": 0.0011778322440087147
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "appstore.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "ar-scan-cube-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "arc.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.009589460784313726
+        },
+        {
+          "size": 24,
+          "error": 0.010062636165577342
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "archive-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "arena.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005958946078431372
+        },
+        {
+          "size": 24,
+          "error": 0.0069104030501089325
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "arrows-repeat-circle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "artifact-news.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "atlassian.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0014552696078431373
+        },
+        {
+          "size": 24,
+          "error": 0.0015590958605664488
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "audible.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00857843137254902
+        },
+        {
+          "size": 24,
+          "error": 0.010083061002178649
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "base44.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00701593137254902
+        },
+        {
+          "size": 24,
+          "error": 0.006998910675381264
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "baseball.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004871323529411765
+        },
+        {
+          "size": 24,
+          "error": 0.0056100217864923745
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "beehiiv.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.13143382352941177
+        },
+        {
+          "size": 24,
+          "error": 0.12768927015250545
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "behance.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015073529411764706
+        },
+        {
+          "size": 24,
+          "error": 0.01497140522875817
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "bell-2-snooze.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bell-alarm.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.001608455882352941
+        },
+        {
+          "size": 24,
+          "error": 0.0014297385620915032
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bell-off.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "birthday-cake.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01407781862745098
+        },
+        {
+          "size": 24,
+          "error": 0.012370642701525054
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "bitcoin-circle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0024356617647058824
+        },
+        {
+          "size": 24,
+          "error": 0.0025871459694989107
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bitcoin-logo.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0024356617647058824
+        },
+        {
+          "size": 24,
+          "error": 0.0025871459694989107
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bluesky.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006433823529411764
+        },
+        {
+          "size": 24,
+          "error": 0.006665305010893246
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "blur.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.19088541666666667
+        },
+        {
+          "size": 24,
+          "error": 0.2161900871459695
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "bolt-new.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.03550857843137255
+        },
+        {
+          "size": 24,
+          "error": 0.0355187908496732
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "book.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bookmark-check.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bookmark-delete.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bookmark-plus.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "brand-jcb.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.49197303921568625
+        },
+        {
+          "size": 24,
+          "error": 0.49710648148148145
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "brand-visa.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.07469362745098039
+        },
+        {
+          "size": 24,
+          "error": 0.07282815904139434
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "brand-zoom.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.000030637254901960784
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "broken-chain-link-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "broom-sparkle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.003477328431372549
+        },
+        {
+          "size": 24,
+          "error": 0.003724128540305011
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "bun.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00027573529411764705
+        },
+        {
+          "size": 24,
+          "error": 0.000789760348583878
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "burger.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "buymeacoffee.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "c.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.04152879901960784
+        },
+        {
+          "size": 24,
+          "error": 0.041183278867102394
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "calendar-days.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "call-cancel.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.03175551470588235
+        },
+        {
+          "size": 24,
+          "error": 0.03180147058823529
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "camera-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cash.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cashapp.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "central-icon-system.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "chain-link-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0013633578431372548
+        },
+        {
+          "size": 24,
+          "error": 0.0012595315904139434
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "chart-7.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cheeseburger.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "chrome.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010906862745098039
+        },
+        {
+          "size": 24,
+          "error": 0.011587690631808279
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "circle-half-fill.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "circle-record.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "claudeai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "clawd.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "clock-alert.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "clock-snooze.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cmd-box.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "codepen.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "column-wide-add.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "column-wide-remove.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "column-wide.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "confluence.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007123161764705882
+        },
+        {
+          "size": 24,
+          "error": 0.0072780501089324615
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cookies.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "copilot.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0015165441176470589
+        },
+        {
+          "size": 24,
+          "error": 0.001579520697167756
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cosmos.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.008333333333333333
+        },
+        {
+          "size": 24,
+          "error": 0.008251633986928105
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "cursor.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.14595588235294119
+        },
+        {
+          "size": 24,
+          "error": 0.14946214596949892
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "curtain.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "databricks-genie-code.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.10122549019607843
+        },
+        {
+          "size": 24,
+          "error": 0.10145697167755992
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "databricks.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.019025735294117645
+        },
+        {
+          "size": 24,
+          "error": 0.024278322440087145
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "decimal-number-comma.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.009206495098039216
+        },
+        {
+          "size": 24,
+          "error": 0.009837962962962963
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "decimal-number-dot.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.008409926470588235
+        },
+        {
+          "size": 24,
+          "error": 0.009313725490196078
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "deepseek.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0163296568627451
+        },
+        {
+          "size": 24,
+          "error": 0.016904956427015252
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "devices.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "devin.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005208333333333333
+        },
+        {
+          "size": 24,
+          "error": 0.005249183006535948
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "dia.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0036917892156862744
+        },
+        {
+          "size": 24,
+          "error": 0.0032271241830065358
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "discord.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "doordash.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "dot-grid-1x3-horizontal-tight.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "dot-grid-1x3-vertical-tight.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "dot-small.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "dribbble.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "duolingo.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.001991421568627451
+        },
+        {
+          "size": 24,
+          "error": 0.0020152505446623093
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "edit-big.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.019163602941176472
+        },
+        {
+          "size": 24,
+          "error": 0.02062908496732026
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "edit-small-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015916053921568626
+        },
+        {
+          "size": 24,
+          "error": 0.01770152505446623
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "edit-small-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015916053921568626
+        },
+        {
+          "size": 24,
+          "error": 0.01770152505446623
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "email-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "email-3.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "emoji-smiley.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "ethereum.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "european-union.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00821078431372549
+        },
+        {
+          "size": 24,
+          "error": 0.009892429193899783
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "eye-slash-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.02075674019607843
+        },
+        {
+          "size": 24,
+          "error": 0.021207788671023964
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "eye-slash.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01796875
+        },
+        {
+          "size": 24,
+          "error": 0.018252995642701525
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "eye-sparkle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015027573529411765
+        },
+        {
+          "size": 24,
+          "error": 0.014699074074074074
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "facebook-messenger.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "facebook.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "factory.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "fast-forward-10s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005392156862745098
+        },
+        {
+          "size": 24,
+          "error": 0.0061342592592592594
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "fast-forward-15s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006847426470588235
+        },
+        {
+          "size": 24,
+          "error": 0.007577614379084967
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "fast-forward-30s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0028952205882352942
+        },
+        {
+          "size": 24,
+          "error": 0.0032271241830065358
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "fast-forward-5s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004564950980392157
+        },
+        {
+          "size": 24,
+          "error": 0.0055147058823529415
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "figma-simple.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010768995098039216
+        },
+        {
+          "size": 24,
+          "error": 0.01179193899782135
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "figma.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.011106004901960785
+        },
+        {
+          "size": 24,
+          "error": 0.011621732026143791
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "file-cloud.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "file-lock.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "file-zip.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "firefox.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "folder-shared.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0025122549019607845
+        },
+        {
+          "size": 24,
+          "error": 0.0023011982570806102
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "font-style.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "formula1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "framer.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.008394607843137255
+        },
+        {
+          "size": 24,
+          "error": 0.009163943355119825
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "gemini.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "git.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "github.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "google-aistudio.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.011243872549019608
+        },
+        {
+          "size": 24,
+          "error": 0.00903458605664488
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "google-colored.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.21253063725490196
+        },
+        {
+          "size": 24,
+          "error": 0.21457652505446623
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "google-deepmind.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "google-play-store.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "google-play.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "google.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00505514705882353
+        },
+        {
+          "size": 24,
+          "error": 0.0050585511982570806
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "goose.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "granola.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.013051470588235295
+        },
+        {
+          "size": 24,
+          "error": 0.013391884531590414
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "gumroad.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "home-door.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.014001225490196079
+        },
+        {
+          "size": 24,
+          "error": 0.01468545751633987
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "home-energy-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.002466299019607843
+        },
+        {
+          "size": 24,
+          "error": 0.002662037037037037
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "home-line.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015762867647058823
+        },
+        {
+          "size": 24,
+          "error": 0.017674291938997822
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "iconists.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.08146446078431373
+        },
+        {
+          "size": 24,
+          "error": 0.08149509803921569
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "imac.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "image-avatar-sparkle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0033854166666666668
+        },
+        {
+          "size": 24,
+          "error": 0.004071350762527233
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "image-sparkle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0018995098039215686
+        },
+        {
+          "size": 24,
+          "error": 0.0022807734204793027
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "images-3.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "images-4.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0018841911764705883
+        },
+        {
+          "size": 24,
+          "error": 0.0019267429193899782
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "imessage.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "instagram.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "iso-org.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.012178308823529412
+        },
+        {
+          "size": 24,
+          "error": 0.014406318082788671
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "java-coffee-bean.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010003063725490195
+        },
+        {
+          "size": 24,
+          "error": 0.010103485838779956
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "java.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01173406862745098
+        },
+        {
+          "size": 24,
+          "error": 0.01674155773420479
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "javascript.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "jira.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "json.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "kakaotalk.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "key-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "key.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "kick.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "kimi.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layers-three.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.017708333333333333
+        },
+        {
+          "size": 24,
+          "error": 0.018021514161220043
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "layout-align-bottom.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-align-left.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-align-right.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-align-top.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-bottom-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-bottom.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-column.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-dashboard.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-half-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-half.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-left-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-left.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-right-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-right.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-sidebar.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-third-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007965686274509803
+        },
+        {
+          "size": 24,
+          "error": 0.007625272331154684
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-third.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-top-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-top.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-topbar.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "layout-window.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "lemonsqueezy.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007153799019607843
+        },
+        {
+          "size": 24,
+          "error": 0.007788671023965142
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "line-brand.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "linear.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "linkedin.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.05545343137254902
+        },
+        {
+          "size": 24,
+          "error": 0.05618872549019608
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "linktree.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.003002450980392157
+        },
+        {
+          "size": 24,
+          "error": 0.0031386165577342046
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "live-full.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01014093137254902
+        },
+        {
+          "size": 24,
+          "error": 0.010818355119825708
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "live-weak.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.001608455882352941
+        },
+        {
+          "size": 24,
+          "error": 0.0017224945533769063
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "lottielab.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01174938725490196
+        },
+        {
+          "size": 24,
+          "error": 0.012220860566448801
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "lovable.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0045802696078431375
+        },
+        {
+          "size": 24,
+          "error": 0.003982843137254902
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "macbook-air.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "magic-book.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.20824142156862746
+        },
+        {
+          "size": 24,
+          "error": 0.20800653594771243
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "magic-wand-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010049019607843138
+        },
+        {
+          "size": 24,
+          "error": 0.011151960784313726
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "magic-wand-3.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.03821997549019608
+        },
+        {
+          "size": 24,
+          "error": 0.037888071895424834
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "magic.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "mailchimp.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.011642156862745098
+        },
+        {
+          "size": 24,
+          "error": 0.014957788671023965
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "manus-ai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.11469056372549019
+        },
+        {
+          "size": 24,
+          "error": 0.11524373638344226
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "mastadon.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.10347732843137254
+        },
+        {
+          "size": 24,
+          "error": 0.10287309368191722
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "meandu.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00742953431372549
+        },
+        {
+          "size": 24,
+          "error": 0.00838099128540305
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "medium.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010738357843137255
+        },
+        {
+          "size": 24,
+          "error": 0.010648148148148148
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "meta-ai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010370710784313725
+        },
+        {
+          "size": 24,
+          "error": 0.010641339869281046
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "midjourney.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.009175857843137255
+        },
+        {
+          "size": 24,
+          "error": 0.01403186274509804
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "minimax.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.000015318627450980392
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "mistral.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010922181372549019
+        },
+        {
+          "size": 24,
+          "error": 0.008898420479302832
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "modelcontextprotocol.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.011106004901960785
+        },
+        {
+          "size": 24,
+          "error": 0.014045479302832243
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "moon-star.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007352941176470588
+        },
+        {
+          "size": 24,
+          "error": 0.007604847494553377
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "multi-media.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "mute.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.05108762254901961
+        },
+        {
+          "size": 24,
+          "error": 0.051252723311546844
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "netify.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010049019607843138
+        },
+        {
+          "size": 24,
+          "error": 0.008203976034858387
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "nintendo-switch.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.016222426470588237
+        },
+        {
+          "size": 24,
+          "error": 0.016271786492374728
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "no-flash.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.05358455882352941
+        },
+        {
+          "size": 24,
+          "error": 0.054336873638344226
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "notebooklm.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "notion-ai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010263480392156863
+        },
+        {
+          "size": 24,
+          "error": 0.011288126361655774
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "notion.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.019408700980392157
+        },
+        {
+          "size": 24,
+          "error": 0.01997549019607843
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "npm.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "numbers-01.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015762867647058823
+        },
+        {
+          "size": 24,
+          "error": 0.016407952069716774
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "numbers-123.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01055453431372549
+        },
+        {
+          "size": 24,
+          "error": 0.011403867102396515
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "nvidia.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0003982843137254902
+        },
+        {
+          "size": 24,
+          "error": 0.00023828976034858388
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "ollama.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00234375
+        },
+        {
+          "size": 24,
+          "error": 0.003056917211328976
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "onlyfans.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0003982843137254902
+        },
+        {
+          "size": 24,
+          "error": 0.0005174291938997821
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "openai-atlas.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "openai-codex.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "openai-prism.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.011764705882352941
+        },
+        {
+          "size": 24,
+          "error": 0.012826797385620915
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "openai-sora.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00044424019607843137
+        },
+        {
+          "size": 24,
+          "error": 0.0006467864923747277
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "openai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.02426470588235294
+        },
+        {
+          "size": 24,
+          "error": 0.028622004357298475
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "openclaw.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.014552696078431373
+        },
+        {
+          "size": 24,
+          "error": 0.015393518518518518
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "opencode.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.061243872549019605
+        },
+        {
+          "size": 24,
+          "error": 0.06666666666666667
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "opentable.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "opera.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005775122549019608
+        },
+        {
+          "size": 24,
+          "error": 0.005848311546840959
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "orange.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0033088235294117647
+        },
+        {
+          "size": 24,
+          "error": 0.003431372549019608
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "patreon.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "paypal.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "pencil-sparkle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.046583946078431374
+        },
+        {
+          "size": 24,
+          "error": 0.04667755991285403
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "perplexity.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.01441482843137255
+        },
+        {
+          "size": 24,
+          "error": 0.014569716775599128
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "php-elephant.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.009604779411764706
+        },
+        {
+          "size": 24,
+          "error": 0.010797930283224401
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "php.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0018995098039215686
+        },
+        {
+          "size": 24,
+          "error": 0.0016748366013071894
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "phyton.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007766544117647059
+        },
+        {
+          "size": 24,
+          "error": 0.007087418300653595
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "pinterest-simple.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.015977328431372548
+        },
+        {
+          "size": 24,
+          "error": 0.0159109477124183
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "pinterest.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "play-circle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.000934436274509804
+        },
+        {
+          "size": 24,
+          "error": 0.0010416666666666667
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "playstation.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0031096813725490194
+        },
+        {
+          "size": 24,
+          "error": 0.0030773420479302833
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "popsicle-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "producthunt.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.08092830882352942
+        },
+        {
+          "size": 24,
+          "error": 0.08090277777777778
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "quora.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "quote.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0006433823529411765
+        },
+        {
+          "size": 24,
+          "error": 0.0006195533769063181
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "qwen.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.009941789215686274
+        },
+        {
+          "size": 24,
+          "error": 0.009375
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "qwik.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.008486519607843137
+        },
+        {
+          "size": 24,
+          "error": 0.008435457516339869
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "react.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00900735294117647
+        },
+        {
+          "size": 24,
+          "error": 0.012322984749455338
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "record.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "recraft.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004365808823529412
+        },
+        {
+          "size": 24,
+          "error": 0.004568355119825708
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "red-dot-award.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.07090992647058823
+        },
+        {
+          "size": 24,
+          "error": 0.07117374727668846
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "reddit.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0194546568627451
+        },
+        {
+          "size": 24,
+          "error": 0.019471677559912855
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "replit.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006372549019607843
+        },
+        {
+          "size": 24,
+          "error": 0.006358932461873639
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "rewind-10s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005545343137254902
+        },
+        {
+          "size": 24,
+          "error": 0.006168300653594771
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "rewind-15s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006924019607843137
+        },
+        {
+          "size": 24,
+          "error": 0.007516339869281046
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "rewind-30s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.002879901960784314
+        },
+        {
+          "size": 24,
+          "error": 0.0032407407407407406
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "rewind-5s.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004564950980392157
+        },
+        {
+          "size": 24,
+          "error": 0.0055147058823529415
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "riot-games.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006295955882352941
+        },
+        {
+          "size": 24,
+          "error": 0.005916394335511983
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "rive.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.001011029411764706
+        },
+        {
+          "size": 24,
+          "error": 0.0009463507625272331
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "robinhood.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004518995098039216
+        },
+        {
+          "size": 24,
+          "error": 0.004391339869281046
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "rotate.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0029564950980392156
+        },
+        {
+          "size": 24,
+          "error": 0.002852668845315904
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "roundness.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.16977634803921568
+        },
+        {
+          "size": 24,
+          "error": 0.1849809368191721
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "rss-feed.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.07146139705882353
+        },
+        {
+          "size": 24,
+          "error": 0.07163671023965142
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "rust.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "safari.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.013005514705882354
+        },
+        {
+          "size": 24,
+          "error": 0.014985021786492374
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "scissors-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0036151960784313727
+        },
+        {
+          "size": 24,
+          "error": 0.003792211328976035
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "sevenrooms.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "shapes-plus-x-square-circle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "shopify.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.002650122549019608
+        },
+        {
+          "size": 24,
+          "error": 0.002648420479302832
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "shopping-bag-like-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.009175857843137255
+        },
+        {
+          "size": 24,
+          "error": 0.009129901960784314
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "signature.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "siri-gen-1.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "siri-gen-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006127450980392157
+        },
+        {
+          "size": 24,
+          "error": 0.006311274509803922
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "siri.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "sketch.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.09416360294117647
+        },
+        {
+          "size": 24,
+          "error": 0.09419253812636165
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "slack.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00274203431372549
+        },
+        {
+          "size": 24,
+          "error": 0.0030160675381263615
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "smartwatch-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "snapchat.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "solidjs.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.09471507352941176
+        },
+        {
+          "size": 24,
+          "error": 0.0968818082788671
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "soundcloud.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "spacexai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006311274509803922
+        },
+        {
+          "size": 24,
+          "error": 0.007427832244008715
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "sparkle-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.39808517156862744
+        },
+        {
+          "size": 24,
+          "error": 0.3885688997821351
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "sparkles-2-bold.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "sparkles-three.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "speaker.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "speed-dots.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "spotify.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-check.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-checklist-bell.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-grid-maginfying-glass.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-grid-magnifying-glass.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-minus.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-plus.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "square-x.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "stack-overflow.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "steam.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004779411764705883
+        },
+        {
+          "size": 24,
+          "error": 0.005848311546840959
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "stop-circle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "substack.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "sunrise-arrow-up.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "sunset-arrow-down.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "supabase.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.00392156862745098
+        },
+        {
+          "size": 24,
+          "error": 0.0058823529411764705
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "support.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "svelte.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.004810049019607843
+        },
+        {
+          "size": 24,
+          "error": 0.00479983660130719
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "swift.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "table.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "telegram.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "text-to-image.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "things.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.016942401960784313
+        },
+        {
+          "size": 24,
+          "error": 0.016346677559912853
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "threads.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.010064338235294118
+        },
+        {
+          "size": 24,
+          "error": 0.010328159041394336
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "threed.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "tiktok.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.000045955882352941176
+        },
+        {
+          "size": 24,
+          "error": 0.0001974400871459695
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "title-case.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007582720588235294
+        },
+        {
+          "size": 24,
+          "error": 0.0074142156862745095
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "todoist.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "touch.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "trash-can-simple.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "trash-can.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "tumblr.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005897671568627451
+        },
+        {
+          "size": 24,
+          "error": 0.005991285403050109
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "twitch.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "twitter.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "typescript.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "uber.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "v0.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "venmo.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "vercel.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.006387867647058823
+        },
+        {
+          "size": 24,
+          "error": 0.005221949891067538
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "verified-check.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.22158394607843138
+        },
+        {
+          "size": 24,
+          "error": 0.23900462962962962
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "video-play.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "vimeo.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "vk.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "vkontakte.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "vue.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0469515931372549
+        },
+        {
+          "size": 24,
+          "error": 0.046840958605664486
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "warp.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.003216911764705882
+        },
+        {
+          "size": 24,
+          "error": 0.002743736383442266
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "webflow.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.0057904411764705885
+        },
+        {
+          "size": 24,
+          "error": 0.009068627450980393
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "wechat.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.007965686274509803
+        },
+        {
+          "size": 24,
+          "error": 0.009395424836601307
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "weibo.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005147058823529412
+        },
+        {
+          "size": 24,
+          "error": 0.006685729847494553
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "whatsapp.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "window-sparkle.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "windows-colored.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.24699754901960785
+        },
+        {
+          "size": 24,
+          "error": 0.25019744008714595
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "windsurf.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.005269607843137255
+        },
+        {
+          "size": 24,
+          "error": 0.005208333333333333
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "write-2.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.019209558823529413
+        },
+        {
+          "size": 24,
+          "error": 0.01945125272331155
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "x-twitter.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "xbox.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "yen.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    },
+    {
+      "file": "youtube.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0.03279718137254902
+        },
+        {
+          "size": 24,
+          "error": 0.03287037037037037
+        }
+      ],
+      "sourceFidelityPass": false
+    },
+    {
+      "file": "zai.svg",
+      "errors": [
+        {
+          "size": 16,
+          "error": 0
+        },
+        {
+          "size": 24,
+          "error": 0
+        }
+      ],
+      "sourceFidelityPass": true
+    }
+  ]
+}

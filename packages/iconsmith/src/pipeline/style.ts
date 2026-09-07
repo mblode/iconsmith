@@ -15,7 +15,7 @@ import type { Policy } from "./policy.js";
 
 /** Bump when the compiler's interpretation changes. Stored SVGs remain the
  * authoritative artifact; replay additionally checks their exact bytes. */
-export const STYLE_COMPILER = "iconsmith-constrained-18";
+export const STYLE_COMPILER = "iconsmith-constrained-20";
 
 const positive = z.number().finite().positive();
 const pair = z.tuple([positive, positive]);
@@ -84,6 +84,7 @@ const partSchema = z
     name: z.string().min(1).optional(),
     nodes: z.number().int().nonnegative(),
     sizeRange: z.tuple([z.number(), z.number()]),
+    sourceFillRule: z.enum(["nonzero", "evenodd"]).optional(),
     turns: z.tuple([z.number(), z.number(), z.number(), z.number()]).optional(),
     w: z.number().finite().nonnegative(),
   })
@@ -166,6 +167,9 @@ export const createStyleRevision = (input: unknown): StyleRevision => {
       throw new Error(`Unknown part master: ${master}`);
     }
     asReference({ name: part.id, svg: part.d }, provenance);
+    if (part.sourceFillRule && !part.closed) {
+      throw new Error("Source-filled parts must have closed contours");
+    }
     try {
       const paths = parsePath(part.d);
       if (!paths.length || !Object.values(bbox(paths)).every(Number.isFinite)) {

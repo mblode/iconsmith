@@ -1,0 +1,16 @@
+icon bicycle
+keyline wide
+finish filled
+circle 17.5,15.5 r4.5
+hole circle 17.5,15.5 r2.5
+circle 6.5,15.5 r4.5
+hole circle 6.5,15.5 r2.5
+union
+line 13.5,5 15.5,5 17.5,15.5 r2 off-axis
+union
+line 6.5,15.5 16.25,10.25 off-axis
+union
+line 8.5,7.5 11.5,12.75 off-axis
+union
+line 7.5,7.5 10,7.5
+union

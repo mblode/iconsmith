@@ -1,0 +1,11 @@
+icon folder-lock
+keyline landscape
+finish outlined
+# Source folder skeleton, opened at lower right.
+line 12,19 3,19 3,4 10,4 12,6 21,6 21,10 r3
+arc 6,13 r3 quarter from left
+line 6,10 21,10
+rect 15,16 6x4 r1
+arc 18,15 r2 half from left
+line 16,15 16,16
+line 20,15 20,16

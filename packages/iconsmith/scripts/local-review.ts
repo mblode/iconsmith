@@ -87,6 +87,10 @@ const invokeClaude = async (request: {
   const status = spawnSync("claude", ["auth", "status"], {
     encoding: "utf-8",
     env,
+    timeout: Math.max(
+      1,
+      Math.min(10_000, (request.deadlineAt ?? Infinity) - Date.now())
+    ),
   });
   const auth = z
     .object({ authMethod: z.literal("claude.ai"), loggedIn: z.literal(true) })
@@ -97,6 +101,9 @@ const invokeClaude = async (request: {
     );
   }
   try {
+    if (Date.now() >= (request.deadlineAt ?? Infinity)) {
+      throw new Error("Run deadline exhausted during reviewer authentication");
+    }
     const running = promisify(execFile)(
       "claude",
       [

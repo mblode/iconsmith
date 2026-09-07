@@ -1,0 +1,403 @@
+{
+  "kind": "development-pilot-not-qualification",
+  "audit": {
+    "count": 12,
+    "missing": 0,
+    "qualified": false
+  },
+  "runs": [
+    {
+      "concept": "bicycle",
+      "size": 16,
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "16",
+      "nativeSize": 16,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "0c127fc6749a510cc5ebe4a0eac1bf126a6c079658a6c123461756ebb7fd015c",
+      "style": "cd24e0d7216ef81e24f34b1dc6b51627405707d88f4c269e0330041b5c1eb744",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "The central seat-tube attachment does not fully preserve the family's smooth, even tube junction. The seat tube ends at (11.5,12.5), slightly beyond the diagonal centerline, whose y at x=11.5 is approximately 12.368. Its round cap produces a small downward bulge visible in the enlarged contours of both paints. The resolved filled SVG includes an extra cap lobe around (11.5,13.5), approximately 0.25 canonical units below the diagonal's lower boundary. Native readability survives, but this subpixel contour defect remains after the four-revision limit.",
+            "id": "visual-central-junction-overshoot",
+            "kind": "visual"
+          }
+        ]
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "dd6cc017cb2741a557cf6bd9e3cab6a59449f9b31b6cde5a903a9938b5c11c47"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "5e744ca765b22ed49012af983aa12b4aac0715d0d734a5b7e6f178b9b34866a0"
+          }
+        },
+        "traceSha256": "c0f25f32e032a205986983ec21b32efd88d906d6b7ec5da6e5fcd9565c967969",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-1",
+          "hash": "2d4035ad02ba98dc5a43c15d3c8d11dd752bcfe584e6778a4b708390e71cb0ff",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-2",
+          "status": "incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 600590,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "deadline-exhausted",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-1",
+      "stoppedReason": "deadline-exhausted",
+      "deadlineAt": 1788740015450,
+      "route": "automatic-retrieval",
+      "stageTimings": {
+        "preflight": 261,
+        "retrieval": 103011,
+        "generation": 497318
+      }
+    },
+    {
+      "concept": "bicycle",
+      "size": 24,
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "a53c09a648905ae773ca215d2741841f42eb6bc44f0588bbe58ea5e4988a9dd6",
+      "style": "f39319c2581db2dfa05a237111668a6a47d5fdf7e9b01246e965b5a5525f65a6",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "02467f909bcc181e39a1f02ad6fe9dfa22469a4cbe125496d56d5db3cfb12478"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "a17facd08e0e0192c6a27c7f1a52fc4f79c11fc19c13fe4b620f5467721dae1f"
+          }
+        },
+        "traceSha256": "afcbde92607c9373f95ba4ce27b01cf3ba47edf313937b845e3b8abd33cd6a52",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-24/attempt-1",
+          "hash": "53c952270b822c9dda005eeca2130f3734f4f1406249c02a72d97f2b482d206b",
+          "status": "review-clear"
+        }
+      ],
+      "deadlineExceeded": false,
+      "elapsedMs": 525696,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "review-clear",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-24/attempt-1",
+      "stoppedReason": "review-clear",
+      "deadlineAt": 1788739454176,
+      "route": "automatic-retrieval",
+      "stageTimings": {
+        "preflight": 309,
+        "retrieval": 87052,
+        "generation": 438335
+      }
+    },
+    {
+      "concept": "bell-pause",
+      "size": 16,
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "16",
+      "nativeSize": 16,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "dcdd13d6f916a37df17b0843191475e98d725f30e7435ebb89e2545a94446ce2",
+      "style": "e0771d5528eeeec1de6e5775e38b5981bff43add19da3a01f99bfcc3af94c823",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "ba4fcf81bfef0362e7e2ed3ec339c2d661a46fad3b176dc8a16ffa50a3e53be7"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "bac6b425e17d140574a6a24793baadc4fbb18890f0af5ded14d4cbf1426a539d"
+          }
+        },
+        "traceSha256": "118fa487c55f960b674aa545266c05644ebac9ea357a6795b8724ce0400cf11c",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1",
+          "hash": "577ff1b7b4f9bebbeca41a3877ee121ed19adb99f9d1f7c860c382ffbecf2066",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2",
+          "status": "incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 600585,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "deadline-exhausted",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1",
+      "stoppedReason": "deadline-exhausted",
+      "deadlineAt": 1788739816186,
+      "route": "automatic-retrieval",
+      "stageTimings": {
+        "preflight": 273,
+        "retrieval": 83067,
+        "generation": 517245
+      }
+    },
+    {
+      "concept": "bell-pause",
+      "size": 24,
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "69e49c0db6a782eebc4f049a57b143b08989b0baaa8f2bd158141589911286ac",
+      "style": "c086edd183cd6d3c9975cac2c0496b046dd49babde14822331dbf71dcffefc6a",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "38444c0d3edb4af14f32ccade5e7d49ffc7449cd73303da81d9eaa794cf01100"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "fc7f162cf401044bbebc7f35b4c568282d9d1d00d89b497a2310bfa1b9fb03f1"
+          }
+        },
+        "traceSha256": "a71076ebb8522ca3b5310f222a92f7f3b6b21a5b77b426f9f1de7002690d19ae",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1",
+          "hash": "7b9213551e9fe70ae274089936b99eb18bdfcb3b63fd0d693f641092ede30053",
+          "status": "review-clear"
+        }
+      ],
+      "deadlineExceeded": false,
+      "elapsedMs": 333184,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "review-clear",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1",
+      "stoppedReason": "review-clear",
+      "deadlineAt": 1788739454177,
+      "route": "automatic-retrieval",
+      "stageTimings": {
+        "preflight": 308,
+        "retrieval": 83922,
+        "generation": 248954
+      }
+    },
+    {
+      "concept": "folder-lock",
+      "size": 16,
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "16",
+      "nativeSize": 16,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "91e92d9caf4bbfcb3db91a8fb1ff88a1ad2f29f1eee97f35551e1534afeac759",
+      "style": "272af17fad695e994b925d9969c5e41d6aca6d4c0d0ff7193f5b5822a1988189",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": []
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "b518b2f93051d9695ff9703cd3f6e0b29cc0a6ea831c287b4d139bc2b20ba48b"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "781aa827aaa2dd55507248daab2824294c358140eb3577a141ef7b8c50b26ea6"
+          }
+        },
+        "traceSha256": "0f7e67f36ceabf5a71ab4fcb16e1759cb74794446f80509c70984ffd955dfbc7",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1",
+          "hash": "19b3a94f113df8d7d63683e218e694be2737c68ebed02ff2500dc0c9e1463ec5",
+          "status": "needs-repair"
+        },
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2",
+          "status": "incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 600348,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "deadline-exhausted",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1",
+      "stoppedReason": "deadline-exhausted",
+      "deadlineAt": 1788740090613,
+      "route": "automatic-retrieval",
+      "stageTimings": {
+        "preflight": 511,
+        "retrieval": 90687,
+        "generation": 509150
+      }
+    },
+    {
+      "concept": "folder-lock",
+      "size": 24,
+      "billing": "subscription",
+      "craftApproved": false,
+      "master": "24",
+      "nativeSize": 24,
+      "paints": [
+        "outlined",
+        "filled"
+      ],
+      "sourceRevisionHash": "7db4c9366f801911e0df45e746f09ce59f8ad35a53642b41d0f036107f06f010",
+      "style": "507feb1447447c8179b1a9ade4d2ce6ab5ade82454847304e5e49f5cc30ac5f5",
+      "authorExitCode": 0,
+      "authorReview": {
+        "unresolved": [
+          {
+            "description": "Required lock-body counter is not consistently evidenced across final renders: tool-returned standalone outlined.png and filled.png appear solid at the rectangular opening, while both final proof sheets show it and native rows y17–18, x16–19 are 255 in both paints. The discrepancy persisted after the final unchanged checker run. SVG contours express the intended opening, but its consistent enlarged PNG presentation remains uncertain.",
+            "id": "enlarged-lock-counter",
+            "kind": "visual"
+          }
+        ]
+      },
+      "authorReviewError": null,
+      "changedInputs": [],
+      "checkExitCode": 0,
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "outlined.proof.png": {
+            "exposed": true,
+            "sha256": "34b6d88b47e6493b67d0fe7b5aefd3438b0c00d3e9098e18a24decaf948ac27f"
+          },
+          "filled.proof.png": {
+            "exposed": true,
+            "sha256": "b914a1750368fd8a1390d3792c44d40e235f16b0792a4fd48f58e243fc3d5896"
+          }
+        },
+        "traceSha256": "1b5da92d63d8e87a766acddeac0aa30d5abcd7d1a68fa48307ccdee1131931e3",
+        "visualJudgmentValidated": false
+      },
+      "imageInspectionError": null,
+      "missing": [],
+      "reviewContentValidated": false,
+      "status": "delivered",
+      "attempts": [
+        {
+          "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1",
+          "hash": "19844ee33c557842a29276790f21986c21ac234b9b5b30076259cc10d1a84884",
+          "status": "review-incomplete"
+        }
+      ],
+      "deadlineExceeded": true,
+      "elapsedMs": 602595,
+      "instrumentQualified": false,
+      "maxWallMs": 600000,
+      "qualityStatus": "deadline-exhausted",
+      "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1",
+      "stoppedReason": "deadline-exhausted",
+      "deadlineAt": 1788739454176,
+      "route": "automatic-retrieval",
+      "stageTimings": {
+        "preflight": 309,
+        "retrieval": 101523,
+        "generation": 500762
+      }
+    }
+  ],
+  "newApiSpendUsd": 0,
+  "subscriptionCostUsd": null,
+  "humanApprovals": 0
+}

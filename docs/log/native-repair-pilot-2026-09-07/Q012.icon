@@ -1,0 +1,6 @@
+icon bell-pause
+keyline portrait
+finish filled
+part bell-filled-0 at center
+hole line 10,9 10,14
+hole line 14,9 14,14

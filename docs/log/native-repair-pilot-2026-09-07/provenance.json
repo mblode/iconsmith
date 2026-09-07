@@ -1,0 +1,1792 @@
+{
+  "artifacts": [
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "dcdd13d6f916a37df17b0843191475e98d725f30e7435ebb89e2545a94446ce2",
+        "style": "e0771d5528eeeec1de6e5775e38b5981bff43add19da3a01f99bfcc3af94c823",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "ba4fcf81bfef0362e7e2ed3ec339c2d661a46fad3b176dc8a16ffa50a3e53be7"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "bac6b425e17d140574a6a24793baadc4fbb18890f0af5ded14d4cbf1426a539d"
+            }
+          },
+          "traceSha256": "118fa487c55f960b674aa545266c05644ebac9ea357a6795b8724ce0400cf11c",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1",
+            "hash": "577ff1b7b4f9bebbeca41a3877ee121ed19adb99f9d1f7c860c382ffbecf2066",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 600585,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788739816186,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 273,
+          "retrieval": 83067,
+          "generation": 517245
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bell-pause-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 600585,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 81.9°, 8.1° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q001",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "1d9b40c55e97c84f511591180bf8e296bf61b703ad70a8593e3261c1368fe34f",
+      "replay": true,
+      "revisionHash": "59d4dc382456d4913ecdba5a63eef53c5f6a2437ef63922ab9b6d5ad4790166a",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "6dd21cafdaeed97ced6e54020eae20a8611de7787229197a328b73fc31a503df"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "7db4c9366f801911e0df45e746f09ce59f8ad35a53642b41d0f036107f06f010",
+        "style": "507feb1447447c8179b1a9ade4d2ce6ab5ade82454847304e5e49f5cc30ac5f5",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "Required lock-body counter is not consistently evidenced across final renders: tool-returned standalone outlined.png and filled.png appear solid at the rectangular opening, while both final proof sheets show it and native rows y17–18, x16–19 are 255 in both paints. The discrepancy persisted after the final unchanged checker run. SVG contours express the intended opening, but its consistent enlarged PNG presentation remains uncertain.",
+              "id": "enlarged-lock-counter",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "34b6d88b47e6493b67d0fe7b5aefd3438b0c00d3e9098e18a24decaf948ac27f"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "b914a1750368fd8a1390d3792c44d40e235f16b0792a4fd48f58e243fc3d5896"
+            }
+          },
+          "traceSha256": "1b5da92d63d8e87a766acddeac0aa30d5abcd7d1a68fa48307ccdee1131931e3",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1",
+            "hash": "19844ee33c557842a29276790f21986c21ac234b9b5b30076259cc10d1a84884",
+            "status": "review-incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 602595,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788739454176,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 309,
+          "retrieval": 101523,
+          "generation": 500762
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/folder-lock-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 602595,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q002",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "d1231daad690928dd1b2ec557c86cc67b3d13e5d70c64b0cb407b12e56c039f7",
+      "replay": true,
+      "revisionHash": "542f68f4255a15beb562c598d3753159ce6fa161eac959fb965049992067b60d",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "bb323e27214995e9a4a5cd98a23096caa02713f6c1f6441fa3431e70478ebf9b"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "a53c09a648905ae773ca215d2741841f42eb6bc44f0588bbe58ea5e4988a9dd6",
+        "style": "f39319c2581db2dfa05a237111668a6a47d5fdf7e9b01246e965b5a5525f65a6",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "02467f909bcc181e39a1f02ad6fe9dfa22469a4cbe125496d56d5db3cfb12478"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "a17facd08e0e0192c6a27c7f1a52fc4f79c11fc19c13fe4b620f5467721dae1f"
+            }
+          },
+          "traceSha256": "afcbde92607c9373f95ba4ce27b01cf3ba47edf313937b845e3b8abd33cd6a52",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-24/attempt-1",
+            "hash": "53c952270b822c9dda005eeca2130f3734f4f1406249c02a72d97f2b482d206b",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 525696,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788739454176,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 309,
+          "retrieval": 87052,
+          "generation": 438335
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bicycle-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 525696,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [
+        {
+          "message": "e2 and e3 are 0.25px apart; minimum is 1px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "message": "e3 and e4 are 0.05px apart; minimum is 1px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e2\" has an edge at 79.2°, 10.8° off the nearest permitted axis (90°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e3\" has an edge at 151.7°, 16.7° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e4\" has an edge at 60.3°, 15.3° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q003",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "52c585ccd46efebd4dd3ed1ada584d36f928eb09a911d6af9db6041d822c1bb6",
+      "replay": true,
+      "revisionHash": "718dd31b2693a1c7953a71dc8c8e537b753f616b916c300f034c32a58a841200",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "9bfa1dd3ab7992ba3fab4a626e4e952d8af99cec1032d5cf15a2a3edcdef3bfa"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "69e49c0db6a782eebc4f049a57b143b08989b0baaa8f2bd158141589911286ac",
+        "style": "c086edd183cd6d3c9975cac2c0496b046dd49babde14822331dbf71dcffefc6a",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "38444c0d3edb4af14f32ccade5e7d49ffc7449cd73303da81d9eaa794cf01100"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "fc7f162cf401044bbebc7f35b4c568282d9d1d00d89b497a2310bfa1b9fb03f1"
+            }
+          },
+          "traceSha256": "a71076ebb8522ca3b5310f222a92f7f3b6b21a5b77b426f9f1de7002690d19ae",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1",
+            "hash": "7b9213551e9fe70ae274089936b99eb18bdfcb3b63fd0d693f641092ede30053",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 333184,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788739454177,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 308,
+          "retrieval": 83922,
+          "generation": 248954
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bell-pause-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 333184,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 82.4°, 7.6° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 97.6°, 7.6° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q004",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "6958879c2c0af46d1c808afe0a6794dbd9e0c6f6751897475098e07c5d656fff",
+      "replay": true,
+      "revisionHash": "6f19119128fbfb8076512af9836208c3ad325b9700a4f4590ff618d99acd2fcb",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "4903cf53eaecddec0d34351661927f22577791bd6276a4047d5d6ba81aca059d"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "91e92d9caf4bbfcb3db91a8fb1ff88a1ad2f29f1eee97f35551e1534afeac759",
+        "style": "272af17fad695e994b925d9969c5e41d6aca6d4c0d0ff7193f5b5822a1988189",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "b518b2f93051d9695ff9703cd3f6e0b29cc0a6ea831c287b4d139bc2b20ba48b"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "781aa827aaa2dd55507248daab2824294c358140eb3577a141ef7b8c50b26ea6"
+            }
+          },
+          "traceSha256": "0f7e67f36ceabf5a71ab4fcb16e1759cb74794446f80509c70984ffd955dfbc7",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1",
+            "hash": "19b3a94f113df8d7d63683e218e694be2737c68ebed02ff2500dc0c9e1463ec5",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 600348,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788740090613,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 511,
+          "retrieval": 90687,
+          "generation": 509150
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/folder-lock-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 600348,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q005",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "cc2c4e600ac08e997601131844c3050d210c33a2a826948b8a40e3b35a44f425",
+      "replay": true,
+      "revisionHash": "8e8ab60690db1d273d2496b3134320490d2909789d4aadd2edbb7d167551b3fe",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "401aa890244572cef97b643b24528dea56523cae6451ebbe7f6707e845713964"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "0c127fc6749a510cc5ebe4a0eac1bf126a6c079658a6c123461756ebb7fd015c",
+        "style": "cd24e0d7216ef81e24f34b1dc6b51627405707d88f4c269e0330041b5c1eb744",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "The central seat-tube attachment does not fully preserve the family's smooth, even tube junction. The seat tube ends at (11.5,12.5), slightly beyond the diagonal centerline, whose y at x=11.5 is approximately 12.368. Its round cap produces a small downward bulge visible in the enlarged contours of both paints. The resolved filled SVG includes an extra cap lobe around (11.5,13.5), approximately 0.25 canonical units below the diagonal's lower boundary. Native readability survives, but this subpixel contour defect remains after the four-revision limit.",
+              "id": "visual-central-junction-overshoot",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "dd6cc017cb2741a557cf6bd9e3cab6a59449f9b31b6cde5a903a9938b5c11c47"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "5e744ca765b22ed49012af983aa12b4aac0715d0d734a5b7e6f178b9b34866a0"
+            }
+          },
+          "traceSha256": "c0f25f32e032a205986983ec21b32efd88d906d6b7ec5da6e5fcd9565c967969",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-1",
+            "hash": "2d4035ad02ba98dc5a43c15d3c8d11dd752bcfe584e6778a4b708390e71cb0ff",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 600590,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788740015450,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 261,
+          "retrieval": 103011,
+          "generation": 497318
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bicycle-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 600590,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [
+        {
+          "message": "e2 and e5 are 0.18px apart; minimum is 1.5px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e2\" has an edge at 75.3°, 14.7° off the nearest permitted axis (90°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e4\" has an edge at 64.5°, 19.5° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e5\" has an edge at 152.2°, 17.2° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "6 elements. At 16px the ceiling is 5; fewer, larger marks survive.",
+          "rule": "density",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q006",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "5dece227b58e84938a7b4da8afa85d0417c72d7dda54648a83055f508770ecf5",
+      "replay": true,
+      "revisionHash": "a36810fbfafcf4bab4784fb7bb0f356cc9e6a984242fa4425051f52125db2bdc",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "b26ff8f03bc47914d4c401ce2d29d2b09ceba33aa9dc42f8cbc1a7ba4efd0b02"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "91e92d9caf4bbfcb3db91a8fb1ff88a1ad2f29f1eee97f35551e1534afeac759",
+        "style": "272af17fad695e994b925d9969c5e41d6aca6d4c0d0ff7193f5b5822a1988189",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "b518b2f93051d9695ff9703cd3f6e0b29cc0a6ea831c287b4d139bc2b20ba48b"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "781aa827aaa2dd55507248daab2824294c358140eb3577a141ef7b8c50b26ea6"
+            }
+          },
+          "traceSha256": "0f7e67f36ceabf5a71ab4fcb16e1759cb74794446f80509c70984ffd955dfbc7",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1",
+            "hash": "19b3a94f113df8d7d63683e218e694be2737c68ebed02ff2500dc0c9e1463ec5",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 600348,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-16/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788740090613,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 511,
+          "retrieval": 90687,
+          "generation": 509150
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/folder-lock-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 600348,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [
+        {
+          "message": "e3 and e6 are 1.00px apart; minimum is 1.5px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q007",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "dbf024ef22685888995e3df2057a1609c414e22ad966306a262da30fca655f76",
+      "replay": true,
+      "revisionHash": "8e8ab60690db1d273d2496b3134320490d2909789d4aadd2edbb7d167551b3fe",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "5fa30559ab1d28cad47a7cbd2c7accb57788cb273596ad9d07922b1ffb1f2383"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "7db4c9366f801911e0df45e746f09ce59f8ad35a53642b41d0f036107f06f010",
+        "style": "507feb1447447c8179b1a9ade4d2ce6ab5ade82454847304e5e49f5cc30ac5f5",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "Required lock-body counter is not consistently evidenced across final renders: tool-returned standalone outlined.png and filled.png appear solid at the rectangular opening, while both final proof sheets show it and native rows y17–18, x16–19 are 255 in both paints. The discrepancy persisted after the final unchanged checker run. SVG contours express the intended opening, but its consistent enlarged PNG presentation remains uncertain.",
+              "id": "enlarged-lock-counter",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "34b6d88b47e6493b67d0fe7b5aefd3438b0c00d3e9098e18a24decaf948ac27f"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "b914a1750368fd8a1390d3792c44d40e235f16b0792a4fd48f58e243fc3d5896"
+            }
+          },
+          "traceSha256": "1b5da92d63d8e87a766acddeac0aa30d5abcd7d1a68fa48307ccdee1131931e3",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1",
+            "hash": "19844ee33c557842a29276790f21986c21ac234b9b5b30076259cc10d1a84884",
+            "status": "review-incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 602595,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/folder-lock-24/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788739454176,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 309,
+          "retrieval": 101523,
+          "generation": 500762
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/folder-lock-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 602595,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q008",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "846ee25a45ca806ded8c409f95684e18a7c5c286ca3fc7d5a60cd9d93785a7e0",
+      "replay": true,
+      "revisionHash": "542f68f4255a15beb562c598d3753159ce6fa161eac959fb965049992067b60d",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "c278282dd938f572624276aed17095d19aa7fd544946299a69a5868e7dd49277"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "a53c09a648905ae773ca215d2741841f42eb6bc44f0588bbe58ea5e4988a9dd6",
+        "style": "f39319c2581db2dfa05a237111668a6a47d5fdf7e9b01246e965b5a5525f65a6",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "02467f909bcc181e39a1f02ad6fe9dfa22469a4cbe125496d56d5db3cfb12478"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "a17facd08e0e0192c6a27c7f1a52fc4f79c11fc19c13fe4b620f5467721dae1f"
+            }
+          },
+          "traceSha256": "afcbde92607c9373f95ba4ce27b01cf3ba47edf313937b845e3b8abd33cd6a52",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-24/attempt-1",
+            "hash": "53c952270b822c9dda005eeca2130f3734f4f1406249c02a72d97f2b482d206b",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 525696,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788739454176,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 309,
+          "retrieval": 87052,
+          "generation": 438335
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bicycle-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 525696,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q009",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "cf2ca97e7d9f355d21208de2d55b86dfb2bc0476bf378961e9099ebe34f83c03",
+      "replay": true,
+      "revisionHash": "718dd31b2693a1c7953a71dc8c8e537b753f616b916c300f034c32a58a841200",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "6b120723793c4cd94461af2de2276e91d5adcabf2558892fa8901ca5881b324c"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "0c127fc6749a510cc5ebe4a0eac1bf126a6c079658a6c123461756ebb7fd015c",
+        "style": "cd24e0d7216ef81e24f34b1dc6b51627405707d88f4c269e0330041b5c1eb744",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "The central seat-tube attachment does not fully preserve the family's smooth, even tube junction. The seat tube ends at (11.5,12.5), slightly beyond the diagonal centerline, whose y at x=11.5 is approximately 12.368. Its round cap produces a small downward bulge visible in the enlarged contours of both paints. The resolved filled SVG includes an extra cap lobe around (11.5,13.5), approximately 0.25 canonical units below the diagonal's lower boundary. Native readability survives, but this subpixel contour defect remains after the four-revision limit.",
+              "id": "visual-central-junction-overshoot",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "dd6cc017cb2741a557cf6bd9e3cab6a59449f9b31b6cde5a903a9938b5c11c47"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "5e744ca765b22ed49012af983aa12b4aac0715d0d734a5b7e6f178b9b34866a0"
+            }
+          },
+          "traceSha256": "c0f25f32e032a205986983ec21b32efd88d906d6b7ec5da6e5fcd9565c967969",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-1",
+            "hash": "2d4035ad02ba98dc5a43c15d3c8d11dd752bcfe584e6778a4b708390e71cb0ff",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 600590,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bicycle-16/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788740015450,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 261,
+          "retrieval": 103011,
+          "generation": 497318
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bicycle-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 600590,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q010",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "bc9c1df1ac01659199e4a9ba90abe673b940fb97fc4266e55c2a5f9b0d94e587",
+      "replay": true,
+      "revisionHash": "a36810fbfafcf4bab4784fb7bb0f356cc9e6a984242fa4425051f52125db2bdc",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "b69fe61e167516dd25c6afc7dbc4ca2582a3291c356dc2d1bf898a6797d752b2"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "dcdd13d6f916a37df17b0843191475e98d725f30e7435ebb89e2545a94446ce2",
+        "style": "e0771d5528eeeec1de6e5775e38b5981bff43add19da3a01f99bfcc3af94c823",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "ba4fcf81bfef0362e7e2ed3ec339c2d661a46fad3b176dc8a16ffa50a3e53be7"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "bac6b425e17d140574a6a24793baadc4fbb18890f0af5ded14d4cbf1426a539d"
+            }
+          },
+          "traceSha256": "118fa487c55f960b674aa545266c05644ebac9ea357a6795b8724ce0400cf11c",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1",
+            "hash": "577ff1b7b4f9bebbeca41a3877ee121ed19adb99f9d1f7c860c382ffbecf2066",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": true,
+        "elapsedMs": 600585,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "deadline-exhausted",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-16/attempt-1",
+        "stoppedReason": "deadline-exhausted",
+        "deadlineAt": 1788739816186,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 273,
+          "retrieval": 83067,
+          "generation": 517245
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bell-pause-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 600585,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q011",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "501626d6dcce8cf0887372ebbb7bb0f6eae45030949765ddeb92317e2eb0daf5",
+      "replay": true,
+      "revisionHash": "59d4dc382456d4913ecdba5a63eef53c5f6a2437ef63922ab9b6d5ad4790166a",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "construction-failed",
+      "svgSha256": "28138cd18319564057a061fb188a27213bccd5738052de7096c6c6ecadc49976"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "69e49c0db6a782eebc4f049a57b143b08989b0baaa8f2bd158141589911286ac",
+        "style": "c086edd183cd6d3c9975cac2c0496b046dd49babde14822331dbf71dcffefc6a",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "38444c0d3edb4af14f32ccade5e7d49ffc7449cd73303da81d9eaa794cf01100"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "fc7f162cf401044bbebc7f35b4c568282d9d1d00d89b497a2310bfa1b9fb03f1"
+            }
+          },
+          "traceSha256": "a71076ebb8522ca3b5310f222a92f7f3b6b21a5b77b426f9f1de7002690d19ae",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1",
+            "hash": "7b9213551e9fe70ae274089936b99eb18bdfcb3b63fd0d693f641092ede30053",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 333184,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/qualification-execution-2026-09-07/bell-pause-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788739454177,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 308,
+          "retrieval": 83922,
+          "generation": 248954
+        }
+      },
+      "source": ".staging/qualification-execution-2026-09-07/bell-pause-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 333184,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-18",
+      "errors": [],
+      "findings": [],
+      "id": "Q012",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "6118e47a7b152e6f2e927822887ee5bf600d9e0ff4f16502bbcd7fd31d6f63c4",
+      "replay": true,
+      "revisionHash": "6f19119128fbfb8076512af9836208c3ad325b9700a4f4590ff618d99acd2fcb",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "bebf8b007c12955b32faf5692437e9af35e969ba0777bffb1e2752ce9ecd2289"
+    }
+  ],
+  "manifestHash": "6cbbc6198affe41c0f9c1102104ab1857991e49a3f8534aa1f1cfe27904eb314",
+  "missing": [],
+  "qualified": false
+}

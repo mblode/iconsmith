@@ -1,0 +1,6 @@
+icon bicycle
+finish outlined
+# The admitted frame preserves the continuous handlebar curve.
+part mountain-bike-outlined-0 at 6.25,6.25 scale 0.8214285714285714
+circle 6.25,14.5 r3.25
+circle 17.75,14.5 r3.25

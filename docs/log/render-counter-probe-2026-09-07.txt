@@ -1,0 +1,9 @@
+16 255
+24 255
+48 255
+96 255
+128 255
+192 255
+256 255
+explicit192 255
+stored-identical-fresh192 true

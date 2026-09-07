@@ -1,0 +1,7 @@
+icon bell-pause
+keyline portrait
+finish outlined
+part bell-check-outlined-0 at 4,3
+part bell-check-outlined-1 at 8,17
+part pause-filled-0 at 8.75,7.5 size 6.75
+part pause-filled-1 at 13,7.5 size 6.75

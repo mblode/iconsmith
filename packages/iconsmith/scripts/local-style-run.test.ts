@@ -70,6 +70,10 @@ const reviewVerdict = (optics: string) => ({
   status: "complete" as const,
 });
 
+const writesReview = (scenario: string, interrupted: boolean) =>
+  scenario !== "missing-review" &&
+  (!interrupted || scenario === "interrupted-with-review");
+
 it.each([
   "delivered",
   "selected-master",
@@ -77,6 +81,9 @@ it.each([
   "altered-composition",
   "altered-composition-source",
   "missing-review",
+  "interrupted-finalization",
+  "interrupted-with-review",
+  "repeated-interruption",
   "missing-inspection",
   "author-failed",
   "altered-input",
@@ -167,6 +174,18 @@ it.each([
       concept: "ring",
       env: process.env,
       invoke: (brief, cwd, images) => {
+        const interrupted =
+          scenario === "repeated-interruption" ||
+          (["interrupted-finalization", "interrupted-with-review"].includes(
+            scenario
+          ) &&
+            path.basename(cwd) === "attempt-1");
+        if (scenario === "interrupted-finalization" && !interrupted) {
+          expect(brief).toContain("previous author was interrupted");
+          expect(
+            readFileSync(path.join(cwd, "outlined.icon"), "utf-8")
+          ).toContain("circle 12,12 r9");
+        }
         if (hasComposition) {
           expect(images[0]).toBe(path.join(cwd, "composition.png"));
           expect(brief).toContain("unapproved composition hypothesis");
@@ -227,7 +246,7 @@ it.each([
           path.join(cwd, "filled.icon"),
           "icon ring\nfinish filled\ncircle 12,12 r10\nhole circle 12,12 r8"
         );
-        if (scenario !== "missing-review") {
+        if (writesReview(scenario, interrupted)) {
           writeFileSync(
             path.join(cwd, "author-review.json"),
             JSON.stringify({ unresolved: [] })
@@ -271,8 +290,9 @@ it.each([
         if (scenario === "altered-input") {
           writeFileSync(path.join(cwd, "spec.json"), "{}");
         }
+        const code = scenario === "author-failed" ? 1 : 0;
         return Promise.resolve({
-          code: scenario === "author-failed" ? 1 : 0,
+          code: interrupted ? null : code,
           killed: false,
           stderr: "",
           stdout: "",
@@ -331,10 +351,28 @@ it.each([
       revisionPath,
     });
     expect(result.status).toBe(
-      ["delivered", "selected-master", "composition"].includes(scenario)
+      [
+        "delivered",
+        "selected-master",
+        "composition",
+        "interrupted-finalization",
+        "interrupted-with-review",
+      ].includes(scenario)
         ? "delivered"
         : "incomplete"
     );
+    if (
+      ["interrupted-finalization", "interrupted-with-review"].includes(scenario)
+    ) {
+      expect(result.attempts.map((item) => item.status)).toEqual([
+        "incomplete",
+        "review-clear",
+      ]);
+    }
+    if (scenario === "repeated-interruption") {
+      expect(result.attempts).toHaveLength(3);
+      expect(result.qualityStatus).toBe("not-reviewed");
+    }
     if (["malformed-review", "duplicate-limitations"].includes(scenario)) {
       expect(result.authorReview).toBeNull();
       expect(result.authorReviewError).toBeTruthy();
@@ -360,7 +398,9 @@ it.each([
     expect(result.craftApproved).toBe(false);
     expect(result.reviewContentValidated).toBe(false);
     expect(result.missing).toEqual(
-      scenario === "missing-review" ? ["author-review.json"] : []
+      ["missing-review", "repeated-interruption"].includes(scenario)
+        ? ["author-review.json"]
+        : []
     );
     expect(result.changedInputs).toEqual(
       {
@@ -571,53 +611,57 @@ it("refuses missing, duplicate or invalid confusion plans before invoking an aut
   }
 });
 
-it("never invokes an author after the shared deadline", async () => {
-  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-deadline-"));
-  const out = path.join(root, "out");
-  mkdirSync(out);
-  const revisionPath = path.join(root, "revision.json");
-  writeFileSync(
-    revisionPath,
-    JSON.stringify(
-      createStyleRevision({
-        calibration: "unvalidated",
-        compiler: STYLE_COMPILER,
-        id: "deadline-fixture",
-        masters: { native: specAt() },
-        parts: [],
-        policy: DEFAULT_POLICY,
-        references: [],
-        rubric: "Fixture only",
-      }).definition
-    )
-  );
-  const invoke = vi.fn();
-  const now = vi
-    .spyOn(Date, "now")
-    .mockReturnValueOnce(0)
-    .mockReturnValue(600_001);
-  try {
-    const result = await runLocalStyle({
-      args: () => [],
-      command: "not-a-real-command",
-      concept: "ring",
-      env: process.env,
-      invoke,
-      master: "native",
-      meanings: ["ring", "disc", "square"],
-      out,
+it.each(["elapsed", "inherited"])(
+  "never invokes an author after the shared deadline: %s",
+  async (scenario) => {
+    const root = mkdtempSync(path.join(tmpdir(), "iconsmith-deadline-"));
+    const out = path.join(root, "out");
+    mkdirSync(out);
+    const revisionPath = path.join(root, "revision.json");
+    writeFileSync(
       revisionPath,
-    });
-    expect(invoke).not.toHaveBeenCalled();
-    expect(result).toMatchObject({
-      craftApproved: false,
-      deadlineExceeded: true,
-      maxWallMs: 600_000,
-      status: "incomplete",
-      stoppedReason: "deadline-exhausted",
-    });
-  } finally {
-    now.mockRestore();
-    rmSync(root, { force: true, recursive: true });
+      JSON.stringify(
+        createStyleRevision({
+          calibration: "unvalidated",
+          compiler: STYLE_COMPILER,
+          id: "deadline-fixture",
+          masters: { native: specAt() },
+          parts: [],
+          policy: DEFAULT_POLICY,
+          references: [],
+          rubric: "Fixture only",
+        }).definition
+      )
+    );
+    const invoke = vi.fn();
+    const now = vi
+      .spyOn(Date, "now")
+      .mockReturnValueOnce(0)
+      .mockReturnValue(scenario === "inherited" ? 200 : 600_001);
+    try {
+      const result = await runLocalStyle({
+        args: () => [],
+        command: "not-a-real-command",
+        concept: "ring",
+        deadlineAt: scenario === "inherited" ? 100 : undefined,
+        env: process.env,
+        invoke,
+        master: "native",
+        meanings: ["ring", "disc", "square"],
+        out,
+        revisionPath,
+      });
+      expect(invoke).not.toHaveBeenCalled();
+      expect(result).toMatchObject({
+        craftApproved: false,
+        deadlineExceeded: true,
+        maxWallMs: 600_000,
+        status: "incomplete",
+        stoppedReason: "deadline-exhausted",
+      });
+    } finally {
+      now.mockRestore();
+      rmSync(root, { force: true, recursive: true });
+    }
   }
-});
+);

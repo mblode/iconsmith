@@ -1,0 +1,762 @@
+{
+  "calibration": "unvalidated",
+  "compiler": "iconsmith-constrained-18",
+  "id": "blode-native-repair-cohort-v1",
+  "masters": {
+    "24": {
+      "canvas": 24,
+      "clearance": 2,
+      "dots": {
+        "floating": 3,
+        "more": 2.5,
+        "node": 4,
+        "terminal": 2
+      },
+      "fillRadiusTiers": [
+        0.5,
+        1,
+        1.5,
+        2,
+        3,
+        4
+      ],
+      "grid": 0.25,
+      "keylines": {
+        "circle": [
+          20,
+          20
+        ],
+        "landscape": [
+          20,
+          18
+        ],
+        "portrait": [
+          18,
+          20
+        ],
+        "square": [
+          18,
+          18
+        ],
+        "tall": [
+          16,
+          20
+        ],
+        "wide": [
+          20,
+          16
+        ]
+      },
+      "maxElements": 8,
+      "minFeature": 1.5,
+      "minGap": 1,
+      "partGeometry": "source",
+      "radius": 3,
+      "radiusTiers": [
+        0.5,
+        1,
+        2,
+        3
+      ],
+      "size": 24,
+      "stroke": 2
+    }
+  },
+  "parts": [
+    {
+      "master": "24",
+      "part": {
+        "closed": true,
+        "d": "M13 1C13 0.4477 13.4477 0 14 0C15.6287 0 17.0645 1.0683 17.5325 2.6283L18.55 6.02C18.6982 6.0068 18.8483 6 19 6C21.7614 6 24 8.2386 24 11C24 13.7614 21.7614 16 19 16C16.2386 16 14 13.7614 14 11C14 9.0944 15.066 7.4378 16.6342 6.594L16.4951 6.1305L9.8071 9.6199C9.9327 10.0582 10 10.5213 10 11C10 13.7614 7.7614 16 5 16C2.2386 16 0 13.7614 0 11C0 8.2386 2.2386 6 5 6C6.5662 6 7.9642 6.7201 8.881 7.8472L9.6928 7.4237L7.2 4.1C7.1757 4.0676 7.1537 4.0342 7.1339 4L7 4C6.4477 4 6 3.5523 6 3C6 2.4477 6.4477 2 7 2L10 2C10.5523 2 11 2.4477 11 3C11 3.5523 10.5523 4 10 4L9.625 4L11.4896 6.4862L15.9099 4.1799L15.6169 3.203C15.4027 2.489 14.7455 2 14 2C13.4477 2 13 1.5523 13 1ZM7.045 8.8051C6.5093 8.3056 5.7904 8 5 8C3.3432 8 2 9.3431 2 11C2 12.6569 3.3432 14 5 14C6.6568 14 8 12.6569 8 11C8 10.8568 7.99 10.7159 7.9706 10.5781L5.4626 11.8866C4.9729 12.1421 4.3689 11.9522 4.1134 11.4626C3.8579 10.9729 4.0478 10.3689 4.5374 10.1134ZM17.2294 8.578C16.484 9.1238 16 10.0054 16 11C16 12.6569 17.3431 14 19 14C20.6569 14 22 12.6569 22 11C22 9.3918 20.7345 8.0791 19.1451 8.0034L19.9578 10.7127C20.1165 11.2416 19.8163 11.7991 19.2873 11.9578C18.7583 12.1165 18.2009 11.8163 18.0422 11.2873Z",
+        "h": 16,
+        "icons": [
+          "mountain-bike"
+        ],
+        "id": "mountain-bike-filled-0",
+        "instances": 1,
+        "name": "mountain-bike-filled-0",
+        "nodes": 45,
+        "sizeRange": [
+          24,
+          24
+        ],
+        "w": 24
+      },
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "mountain-bike-filled.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      }
+    },
+    {
+      "master": "24",
+      "part": {
+        "closed": false,
+        "d": "M14 10L11.5747 1.9157C11.2336 0.7786 10.1871 0 9 0L9 0M2 2L5 2M6 6.5L3 2.5M11.5 4L0 10",
+        "h": 10,
+        "icons": [
+          "mountain-bike"
+        ],
+        "id": "mountain-bike-outlined-0",
+        "instances": 1,
+        "name": "mountain-bike-outlined-0",
+        "nodes": 6,
+        "sizeRange": [
+          14,
+          14
+        ],
+        "w": 14
+      },
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "mountain-bike.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      }
+    },
+    {
+      "master": "24",
+      "part": {
+        "closed": true,
+        "d": "M8 4C8 6.2092 6.2092 8 4 8C1.7908 8 0 6.2092 0 4C0 1.7908 1.7908 0 4 0C6.2092 0 8 1.7908 8 4Z",
+        "h": 8,
+        "icons": [
+          "mountain-bike"
+        ],
+        "id": "mountain-bike-outlined-1",
+        "instances": 1,
+        "name": "mountain-bike-outlined-1",
+        "nodes": 4,
+        "sizeRange": [
+          8,
+          8
+        ],
+        "w": 8
+      },
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "mountain-bike.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      }
+    },
+    {
+      "master": "24",
+      "part": {
+        "closed": true,
+        "d": "M8 4C8 6.2092 6.2092 8 4 8C1.7908 8 0 6.2092 0 4C0 1.7908 1.7908 0 4 0C6.2092 0 8 1.7908 8 4Z",
+        "h": 8,
+        "icons": [
+          "mountain-bike"
+        ],
+        "id": "mountain-bike-outlined-2",
+        "instances": 1,
+        "name": "mountain-bike-outlined-2",
+        "nodes": 4,
+        "sizeRange": [
+          8,
+          8
+        ],
+        "w": 8
+      },
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "mountain-bike.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      }
+    }
+  ],
+  "policy": {
+    "principles": [
+      {
+        "enabled": true,
+        "id": "intro.role",
+        "provenance": "inferred",
+        "section": "intro",
+        "text": "You are an icon designer working inside a constrained drawing system."
+      },
+      {
+        "enabled": true,
+        "evidence": "House names draw the object noun and carry the intent word as a modifier: the `search` icon is a magnifying glass. Of 2,221 slugs there is no `search`, `delete` or `chat`; there is `magnifying-glass`, `trash-can`, `bubble-text`, `settings-gear-1`, and the intent sits in `page-search` and `folder-delete`.",
+        "id": "meaning.object-noun",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **The object noun names the drawing** the intent word appears only as a\n  modifier. Draw a magnifying glass, not a search."
+      },
+      {
+        "enabled": true,
+        "evidence": "blode-icons draws all four and keeps them apart: `trash-can`, `minus-medium`, `cross-medium`, `shredder`, alongside `trash-permanently` and `untrash` (n=2,221). Choosing wrong is the most legible error the drawing can make.",
+        "gap": "tight",
+        "id": "meaning.destruction",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **Destruction is four objects** `trash-can` destroys the thing; `minus-medium`\n  takes it off a list and it survives; `cross-medium` dismisses a surface and\n  destroys nothing; `shredder` destroys irreversibly."
+      },
+      {
+        "enabled": true,
+        "evidence": "32 `chevron-*` slugs against 83 `arrow-*`. Every chevron is direction or size within a set — `chevron-left-small`, `chevron-double-right`, `chevron-grabber-*`; the arrows carry travel — `arrow-corner-*`, `arrow-undo-up`, `arrow-share-left`.",
+        "gap": "tight",
+        "id": "meaning.chevron-arrow",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **A chevron is not an arrow** it marks disclosure and position in a set:\n  expand, collapse, previous. An arrow is travel: back, forward."
+      },
+      {
+        "enabled": true,
+        "evidence": "20 `circle-*` slugs carry state: `circle-check`, `circle-x`, `circle-info`, `circle-questionmark`, `circle-minus`. Of the 13 slugs containing `triangle` only `exclamation-triangle` and `triangle-exclamation` carry one; the other 11 are `arrow-triangle-*`, `chevron-triangle-*` and `controller-button-triangle`, where triangle is a shape word.",
+        "gap": "tight",
+        "id": "meaning.status-container",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **Circle informs, triangle warns** `circle-check`, `circle-x`, `circle-info`;\n  triangle means danger only."
+      },
+      {
+        "enabled": true,
+        "evidence": "The 10 `settings-*` slugs split three ways: four `settings-gear-*`, three `settings-slider-*` (hor, ver, three) and two `settings-toggle-*`, plus a bare `toggle` and `settings-knob`.",
+        "gap": "tight",
+        "id": "meaning.settings",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **Settings is three shapes** a gear is a destination, sliders tune values in\n  place, a toggle one binary."
+      },
+      {
+        "enabled": true,
+        "evidence": "12 `user-*` slugs beside the bare `user`, all account actions — `user-add`, `user-block`, `user-key`, `user-settings`. 19 `people-*` slugs beside the bare `people`, all groups. One neutral figure, `person-simple`, beside `persona` and `circle-person`.",
+        "gap": "tight",
+        "id": "meaning.people",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **People** `user-*` is the account, `people-*` the group, `person-simple` a\n  plain figure."
+      },
+      {
+        "enabled": true,
+        "evidence": "21 `file-*` slugs beside `files` carry the format labels — `file-pdf`, `file-jpg`, `file-png`, `file-zip`. 21 `page-*` slugs carry content operations — `page-text`, `page-edit`, `page-search` — and not one takes a format label.",
+        "gap": "tight",
+        "id": "meaning.documents",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **Documents** `file-*` has a folded corner and takes format labels\n  (`file-pdf`); `page-*` is a plain sheet."
+      },
+      {
+        "enabled": true,
+        "evidence": "32 slugs carry `bubble`. No `comment-*` or `message-*` slug exists, and the only two `chat-` names, `chat-bubble-7` and `chat-bubbles`, still name the object `bubble`. Mail is 13 `email-*` slugs plus `mailbox`.",
+        "gap": "tight",
+        "id": "meaning.messaging",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **The house word is `bubble`** no `chat-*`, `comment-*` or `message-*` stem;\n  mail is always `email-*`."
+      },
+      {
+        "enabled": true,
+        "evidence": "The house names the container the thing lands in: `arrow-inbox`, `arrow-out-of-box`, `inbox-checked`, `inbox-empty`, `cloud-download`, `file-download`, `folder-upload`. No bare directional arrow carries the transfer sense.",
+        "gap": "tight",
+        "id": "meaning.transfer",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **Transfer draws the container** download is `arrow-inbox`, upload\n  `arrow-out-of-box`, not a bare arrow."
+      },
+      {
+        "enabled": true,
+        "evidence": "17 slugs end `-add` against 8 ending `-plus`; Tabler is the reverse, 105 `-plus` against 2 `-add`. The house folder names are `folder-add-left` and `folder-add-right`, and no `folder-plus` exists.",
+        "gap": "tight",
+        "id": "meaning.verb-badge",
+        "provenance": "measured",
+        "section": "meaning",
+        "text": "- **Badge with a verb, not a symbol** prefer `folder-add` over `folder-plus`."
+      },
+      {
+        "enabled": true,
+        "evidence": "The whole corpus draws on a 24×24 viewBox (SPEC.canvas).",
+        "id": "house.canvas",
+        "provenance": "measured",
+        "section": "house",
+        "text": "You draw on a {{canvas}}×{{canvas}} canvas, shown at {{size}}px. Y grows downward; (0,0) is\ntop-left."
+      },
+      {
+        "enabled": true,
+        "evidence": "97.5% of stroked shapes are exactly 2 units wide (SPEC.stroke).",
+        "id": "house.stroke",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Stroke** {{stroke}} units at {{size}}px, round caps, round joins. {{paintRule}}"
+      },
+      {
+        "enabled": true,
+        "evidence": "65.9% of design anchors land on 0.25, 63.3% on 0.5 (SPEC.grid).",
+        "gap": "tight",
+        "id": "house.grid",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Grid** every coordinate lands on a {{grid}} step. You do not round\n  anything yourself; the primitives quantise for you."
+      },
+      {
+        "enabled": true,
+        "evidence": "Joint (w,h) modes over n=2,085: 20×20 (349), 18×18 (314), 20×16 (106), 16×20 (63), plus 20×18 (77) and 18×20 (76). 54.2% of icons land within 0.5 of one (SPEC.keylines).",
+        "gap": "tight",
+        "id": "house.keylines",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Keylines** the four canonical extents. Pick the one that suits the concept\n  and keep the whole drawing inside it:\n{{keylines}}"
+      },
+      {
+        "enabled": true,
+        "evidence": "Symmetric-handle corner arcs, n=6,188: the flat tier set matches 78.4% exactly (SPEC.radiusTiers).",
+        "gap": "tight",
+        "id": "house.radii",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Corner radii** family {{radius}}, legal tiers {{radiusTiers}}.\n  Ask for the one you want; the nearest legal tier is what gets drawn."
+      },
+      {
+        "enabled": true,
+        "evidence": "n=446 dots over 163 icons, four modes: 3.0 (27.6%), 2.0 (21.5%), 4.0 (16.6%), 2.5 (12.3%) (SPEC.dots).",
+        "gap": "tight",
+        "id": "house.dots",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Dot sizes** by role, as visual diameters: {{dots}}."
+      },
+      {
+        "enabled": true,
+        "evidence": "Tightest positive ink gap per icon, n=1,306: median 2.00, p25 1.16, p10 0.83. The floor sits at the tail (SPEC.minGap).",
+        "gap": "tight",
+        "id": "house.min-gap",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Minimum gap** {{minGap}}px of clear space between any two strokes that\n  are not meant to touch. Below that they merge into a smudge at {{size}}px."
+      },
+      {
+        "enabled": true,
+        "evidence": "Margin from visual extent to the nearest canvas edge, n=2,085: mode 2.0 (46% of icons), median 2.00 (SPEC.clearance).",
+        "gap": "tight",
+        "id": "house.clearance",
+        "provenance": "measured",
+        "section": "house",
+        "text": "- **Clearance** keep {{clearance}}px in from the canvas edge; a stroke that\n  runs to the edge is clipped by every container the icon is put in."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "house.optical-centring",
+        "provenance": "inferred",
+        "section": "house",
+        "text": "- **Optical centring** the drawing's visual extent — path bounds inflated by the\n  stroke, half on each side — is what must sit centred, not the path bounds."
+      },
+      {
+        "enabled": true,
+        "id": "house.ordinary",
+        "provenance": "inferred",
+        "section": "house",
+        "text": "The set this joins is a stroke set of thousands of icons. An icon that is\n*correct* but drawn in its own dialect is worse than one that is plain and\ndrawn in the set's. Reach for the ordinary solution."
+      },
+      {
+        "enabled": false,
+        "evidence": "Element count over 1,863 stroked outline icons of the house set: median 4, p75 5, p90 7, p95 9.",
+        "id": "measured.element-count",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **Element count** draw 4 elements, and allow yourself up to 7. Fewer, larger\n  elements read better at 16px than many small ones."
+      },
+      {
+        "enabled": false,
+        "evidence": "86% of house icons are horizontally centred within 0.25u of x=12; 81% vertically within 0.25u of y=12 (n=2,085).",
+        "gap": "tight",
+        "id": "measured.twenty-box",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **The 20×20 box** fit the drawing to a 20×20 box centred on (12,12)."
+      },
+      {
+        "enabled": false,
+        "evidence": "0.43% of all corpus ink falls in the four 4×4 corner squares, against 11.1% for a uniform distribution.",
+        "gap": "tight",
+        "id": "measured.empty-corners",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **Empty corners** keep 2u margins, and never put ink in the corners."
+      },
+      {
+        "enabled": false,
+        "evidence": "The largest element spans 18–20u on its long axis and carries a median 55% of the icon's total path length (n=2,085).",
+        "gap": "tight",
+        "id": "measured.dominant-element",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **One dominant element** block in one element at 18–20u on its long axis. It\n  carries a median 55% of the icon's total path length."
+      },
+      {
+        "enabled": false,
+        "evidence": "Badge glyphs in the house set: plus/check/lock/search are 6×6 centred on (18,17); the sparkle is 8×8; the X badge is 4–4.5. `user-add` is `M18 14V20M21 17H15`.",
+        "gap": "tight",
+        "id": "measured.badge-stamp",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **The badge is a stamp** a plus, check, lock or search badge is 6×6 centred on\n  (18,17) — `user-add` is literally `M18 14V20M21 17H15`. The sparkle is a\n  different stamp at 8×8, and the X badge is 4–4.5."
+      },
+      {
+        "enabled": false,
+        "evidence": "Where the base is a container (shield, bell, bookmark, cloud, page) the modifier sits inside on the vertical axis near (12,11) rather than at the corner badge position.",
+        "gap": "tight",
+        "id": "measured.container-modifier",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **Containers take the modifier inside** when the base is a container — shield,\n  bell, bookmark, cloud, page — the modifier goes inside on the vertical axis\n  near (12,11) instead. The base shape decides that, not the name suffix."
+      },
+      {
+        "enabled": false,
+        "evidence": "Base and derived icons share an origin and a top-left; the base shows a truncated path where the badge sits, rather than a scaled-down copy.",
+        "gap": "tight",
+        "id": "measured.cut-not-shrunk",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **The base is cut, never shrunk** a base and its derived icon share an origin\n  and a top-left, and the base shows a truncated path where the badge sits."
+      },
+      {
+        "enabled": false,
+        "evidence": "83% of straight runs sit on 0/45/90. Off-axis runs cluster by subject — car, triangle, shield, check, bubble — not by slope; layout, alignment and page icons stay on axis.",
+        "gap": "tight",
+        "id": "measured.axis-runs",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **Straight runs sit on axis** 83% of them do. Off-axis is licensed by the\n  subject, not by the slope: car, triangle, shield, check and bubble go\n  off-axis; layout, alignment and page do not."
+      },
+      {
+        "enabled": false,
+        "evidence": "Every `-off` variant in the house set runs its slash NW to SE.",
+        "gap": "tight",
+        "id": "measured.off-slash",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **The `-off` slash runs NW to SE** always, and never SW to NE."
+      },
+      {
+        "enabled": false,
+        "evidence": "33.1% of house icons are mirror-symmetric about the vertical axis at IoU ≥ 0.95, twice the rate of any other axis.",
+        "gap": "tight",
+        "id": "measured.mirror-axis",
+        "provenance": "measured",
+        "section": "measured",
+        "text": "- **Mirror about the vertical axis** by default, yielding to handedness where\n  the subject has a hand."
+      },
+      {
+        "enabled": true,
+        "id": "grammar.primitives",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "You never write coordinates into a path. You call primitives, and they place\ngeometry on-spec: they quantise to the grid, snap angles to 0/45/90, and take\nradii from the tiers above. You choose *what* and *where*; the canvas chooses\n*how*. If a primitive refuses your input it has corrected it — read what came\nback rather than trying to force the original numbers through."
+      },
+      {
+        "enabled": true,
+        "id": "grammar.rect",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `rect` — a rectangle, optionally rounded by tier. Bodies, screens, cards,\n  frames."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.circle",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `circle` / `arc` — closed ring, or open cubics from a pole. Never a polyline."
+      },
+      {
+        "enabled": true,
+        "evidence": "Off-axis edges are 29.3% of the set's stroked icons, roughly one edge in seven, and they cluster on rational slopes (atan(1/2), 36.87°/53.13°, atan(3)).",
+        "gap": "tight",
+        "id": "grammar.line",
+        "provenance": "measured",
+        "section": "grammar",
+        "text": "- `line` — a polyline through two or more points, angles snapped. Arrows,\n  ticks, strokes, connectors, chart lines. Segments within a few degrees of\n  0/45/90 are pulled onto the axis; one further out is refused unless you add\n  `off-axis`, which says the diagonal is the shape rather than a slip. Roughly\n  one edge in seven in this set is off-axis, so it is a real choice — but make\n  it on purpose, and keep both endpoints on the grid."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.diamond",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `diamond` — a 45° lozenge. `r` is centre to vertex, so every edge sits on 45°/135°."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.dot",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `dot` — a small solid disc with a role: `terminal` ends a stroke,\n  `more` is one of an ellipsis or a list bullet, `floating` is a separate\n  interior mark (a dice pip, an eye, a day on a calendar), and `node` is a\n  point the drawing is *about* — a cell of a dot grid, a bezier handle, a\n  data point, the centre of a target."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.part",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `part` — place a shape from the extracted vocabulary by id. Prefer this over\n  drawing a common form from scratch: it is *the same* folder, chevron, or\n  magnifier that the rest of the set already uses, which is the whole point.\n  `turn` names a quarter-turn — `cw`, `half`, `ccw` — and `flip` mirrors\n  the part before turning it. A part is stored at one orientation because the\n  clusterer folds a mark together with its turns and its mirror, so these are\n  how you reach the other seven. Ask for `flip` on purpose — chirality is the\n  one symmetry that can be simply wrong."
+      },
+      {
+        "enabled": true,
+        "evidence": "The 20-set: filled plus/lock/check/clock/heart are one evenodd compound; outlined plus-large is four open strokes; outlined clock is circle 12,12 r9 plus a polyline; 45% of filled icons knock a hole; a mark between circle and hole ships a solid disc.",
+        "gap": "tight",
+        "id": "grammar.paint",
+        "provenance": "measured",
+        "section": "grammar",
+        "text": "- **Paints are constructions, not a restamp** filled marks are evenodd\n  compounds. Plus: open strokes vs one evenodd solid. Clock: ring+hands\n  vs disc with hands cut out. Check: open tick vs badge+cutout. A ring\n  is `circle` then `hole` immediately after (or `cutFrom`)."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.remove",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `remove` — delete an element by the id the draw tool returned (`e3`,\n  not `3`) when you change your mind."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.center",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `center` — recentre the drawing optically on the canvas."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "grammar.fit",
+        "provenance": "inferred",
+        "section": "grammar",
+        "text": "- `fit` — scale the drawing to the chosen keyline. Do this once, near the end."
+      },
+      {
+        "enabled": true,
+        "id": "work.list-parts",
+        "provenance": "inferred",
+        "section": "work",
+        "text": "1. `listParts` for the shapes your concept implies, by name and by synonym.\n   Two searches beat inventing a form the set already owns."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "work.block-in",
+        "provenance": "inferred",
+        "section": "work",
+        "text": "2. Block in the largest element first, then the details. Fewer, larger elements\n   read better at 16px than many small ones."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "work.render",
+        "provenance": "inferred",
+        "section": "work",
+        "text": "3. `render` and **look at the image**. You are the only check on whether it\n   reads as the thing. Ask: at 16px, what is this? If the answer is \"a blob\" or\n   \"some other icon\", change the drawing, not the size."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "work.compare",
+        "provenance": "inferred",
+        "section": "work",
+        "text": "4. `compare` against the nearest existing icons. If yours looks like a\n   different set drew it, it is wrong even when it lints clean."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "work.lint",
+        "provenance": "inferred",
+        "section": "work",
+        "text": "5. `lint` and fix what it reports. Clean lint is the floor, not the goal."
+      },
+      {
+        "enabled": true,
+        "gap": "tight",
+        "id": "work.stop",
+        "provenance": "inferred",
+        "section": "work",
+        "text": "6. Stop. When it lints clean and reads correctly, reply with one sentence\n   describing what you drew. If you find yourself looking for something to\n   adjust, that is the signal to reply, not to adjust it."
+      },
+      {
+        "enabled": true,
+        "id": "proposal.what-it-is",
+        "provenance": "inferred",
+        "section": "proposal",
+        "text": "An image model has sketched a composition for this icon, and it has been read\ninto words: how many elements, roughly where each sits in a 3×3 grid, their\nrelative sizes, how they overlap or sit beside each other, and which parts of\nthe vocabulary resemble them. A blurred thumbnail comes with it."
+      },
+      {
+        "enabled": true,
+        "id": "proposal.once",
+        "provenance": "inferred",
+        "section": "proposal",
+        "text": "Call `proposal` **once**, first, before you draw. It is available once on\npurpose. What it is good for is the *arrangement* — how many things there are,\nwhich one is dominant, what sits inside what. What it is not is a drawing: it\nholds no coordinates, its thumbnail is blurred past the point where any stroke\ncould be read off it, and the sketch it came from was not drawn to this spec."
+      },
+      {
+        "enabled": true,
+        "id": "proposal.set-wins",
+        "provenance": "inferred",
+        "section": "proposal",
+        "text": "Take the arrangement, then draw it here with the primitives. If the proposal\ndisagrees with what reads at 16px, or asks for more elements than the set would\nuse, the set wins — it is one opinion about composition, not a brief you owe\nanything to."
+      },
+      {
+        "enabled": true,
+        "id": "cohort.membership",
+        "provenance": "inferred",
+        "section": "cohort",
+        "text": "This icon is a member of `{{cohortName}}`{{cohortMembers}}.\nThose icons replace each other in place — a toggle, a state, a variant — so they\nmust occupy the same box. Their measured path extent is:"
+      },
+      {
+        "enabled": true,
+        "evidence": "Rendered per call from the cohort's own measured path extent; there is no standing number.",
+        "id": "cohort.extent-x",
+        "provenance": "measured",
+        "section": "cohort",
+        "text": "{{cohortX}}"
+      },
+      {
+        "enabled": true,
+        "evidence": "Rendered per call from the cohort's own measured path extent; there is no standing number.",
+        "gap": "tight",
+        "id": "cohort.extent-y",
+        "provenance": "measured",
+        "section": "cohort",
+        "text": "{{cohortY}}"
+      },
+      {
+        "enabled": true,
+        "id": "cohort.op",
+        "provenance": "inferred",
+        "section": "cohort",
+        "text": "- `cohort` — scale and place the drawing onto that extent. Use it **instead of**\n  `fit`, once, at the end: it is the same operation against a measured target\n  rather than a nominal keyline, and running `fit` afterwards throws it away.\n  Where the two disagree, the family wins — a 1px disagreement is a visible jump\n  when the icon swaps."
+      },
+      {
+        "enabled": true,
+        "id": "cohort.redraw",
+        "provenance": "inferred",
+        "section": "cohort",
+        "text": "If `cohort` reports that your drawing is the wrong shape for the family, the\nfix is the drawing, not the number: redraw it to the family's proportions."
+      },
+      {
+        "enabled": true,
+        "id": "keyline.forced",
+        "provenance": "inferred",
+        "section": "keyline",
+        "text": "This icon must use the `{{keyline}}` keyline."
+      }
+    ],
+    "sections": [
+      {
+        "heading": null,
+        "id": "intro",
+        "when": "always"
+      },
+      {
+        "heading": "# What to draw",
+        "id": "meaning",
+        "when": "always"
+      },
+      {
+        "heading": "# The house spec",
+        "id": "house",
+        "when": "always"
+      },
+      {
+        "heading": "# What the set does",
+        "id": "measured",
+        "when": "always"
+      },
+      {
+        "heading": "# What you can draw",
+        "id": "grammar",
+        "when": "always"
+      },
+      {
+        "heading": "# How to work",
+        "id": "work",
+        "when": "always"
+      },
+      {
+        "heading": "# The composition proposal",
+        "id": "proposal",
+        "when": "proposal"
+      },
+      {
+        "heading": "# The family this icon joins",
+        "id": "cohort",
+        "when": "cohort"
+      },
+      {
+        "heading": null,
+        "id": "keyline",
+        "when": "keyline"
+      }
+    ]
+  },
+  "references": [
+    {
+      "master": "24",
+      "name": "mountain-bike-filled",
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "mountain-bike-filled.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M13 5c0-.5523.4477-1 1-1 1.6287 0 3.0645 1.0683 3.5325 2.6283L18.55 10.02c.1482-.0132.2983-.02.45-.02 2.7614 0 5 2.2386 5 5s-2.2386 5-5 5-5-2.2386-5-5c0-1.9056 1.066-3.5622 2.6342-4.406l-.1391-.4635-6.688 3.4894C9.9327 14.0582 10 14.5213 10 15c0 2.7614-2.2386 5-5 5s-5-2.2386-5-5 2.2386-5 5-5c1.5662 0 2.9642.7201 3.881 1.8472l.8118-.4235L7.2 8.1c-.0243-.0324-.0463-.0658-.0661-.1H7c-.5523 0-1-.4477-1-1s.4477-1 1-1h3c.5523 0 1 .4477 1 1s-.4477 1-1 1h-.375l1.8646 2.4862 4.4203-2.3063-.293-.9769C15.4027 6.489 14.7455 6 14 6c-.5523 0-1-.4477-1-1Zm-5.955 7.8051C6.5093 12.3056 5.7904 12 5 12c-1.6568 0-3 1.3431-3 3s1.3432 3 3 3 3-1.3431 3-3c0-.1432-.01-.2841-.0294-.4219l-2.508 1.3085c-.4897.2555-1.0937.0656-1.3492-.424-.2555-.4897-.0656-1.0937.424-1.3492zm10.1844-.2271C16.484 13.1238 16 14.0054 16 15c0 1.6569 1.3431 3 3 3s3-1.3431 3-3c0-1.6082-1.2655-2.9209-2.8549-2.9966l.8127 2.7093c.1587.5289-.1415 1.0864-.6705 1.2451s-1.0864-.1415-1.2451-.6705z\" clip-rule=\"evenodd\"/></svg>\n"
+    },
+    {
+      "master": "24",
+      "name": "mountain-bike-outlined",
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "mountain-bike.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m19 15-2.4253-8.0843C16.2336 5.7786 15.1871 5 14 5v0M7 7h3m1 4.5-3-4M16.5 9 5 15\"/><circle cx=\"19\" cy=\"15\" r=\"4\" stroke=\"currentColor\" stroke-width=\"2\"/><circle cx=\"5\" cy=\"15\" r=\"4\" stroke=\"currentColor\" stroke-width=\"2\"/></svg>\n"
+    },
+    {
+      "master": "24",
+      "name": "settings-gear-1-filled",
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "settings-gear-1-filled.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M3 9.2543c0-1.445.7795-2.7778 2.039-3.4863l5-2.8124c1.2176-.685 2.7044-.685 3.922 0l5 2.8124C20.2206 6.4765 21 7.8094 21 9.2545v5.4908c0 1.4452-.7794 2.7779-2.039 3.4864l-5 2.8124c-1.2176.6849-2.7044.6849-3.922.0001l-5-2.8122C3.7796 17.5234 3 16.1906 3 14.7455zM8.5 12c0-1.933 1.567-3.5 3.5-3.5s3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5-3.5-1.567-3.5-3.5Z\" clip-rule=\"evenodd\"/></svg>\n"
+    },
+    {
+      "master": "24",
+      "name": "settings-gear-1-outlined",
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "settings-gear-1.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"square\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M10.53 3.8273c.9132-.5137 2.0283-.5137 2.9415 0l5.0001 2.8125c.9446.5313 1.5292 1.5309 1.5292 2.6147v5.4909c0 1.0838-.5846 2.0834-1.5293 2.6147l-5 2.8125c-.9132.5137-2.0283.5137-2.9415 0l-5-2.8122c-.9446-.5313-1.5292-1.5309-1.5292-2.6148V9.2545c0-1.0838.5846-2.0834 1.5292-2.6148z\"/><path stroke=\"currentColor\" stroke-linecap=\"square\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M10.5292 3.8273c.9133-.5137 2.0283-.5137 2.9416 0l5 2.8125C19.4154 7.171 20 8.1707 20 9.2545v5.4909c0 1.0838-.5846 2.0834-1.5292 2.6147l-5.0001 2.8125c-.9132.5137-2.0282.5137-2.9414 0l-5-2.8122C4.5846 16.8291 4 15.8295 4 14.7456V9.2545c0-1.0839.5846-2.0834 1.5292-2.6148z\"/><path stroke=\"currentColor\" stroke-linecap=\"square\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 12c0 1.6568-1.3431 3-3 3s-3-1.3432-3-3 1.3432-3 3-3 3 1.3431 3 3Z\"/></svg>\n"
+    },
+    {
+      "master": "24",
+      "name": "steering-wheel-filled",
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "steering-wheel-filled.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M12.0016 1.0996c.497 0 .9.403.9.9v1.145c1.7826.179 3.4102.884 4.725 1.9576l.8103-.8103c.3515-.3515.9214-.3515 1.2728 0 .3515.3515.3515.9213 0 1.2728l-.8103.8104c1.0733 1.3147 1.7782 2.942 1.9572 4.7245h1.145c.497 0 .9.403.9.9s-.403.9-.9.9h-1.145c-.179 1.7825-.8839 3.4099-1.9573 4.7247l.8097.8098c.3515.3514.3515.9213 0 1.2728s-.9213.3514-1.2727 0l-.8098-.8098c-1.3148 1.0735-2.9423 1.7786-4.7249 1.9576v1.1449c0 .4971-.403.9-.9.9s-.9-.4029-.9-.9v-1.1449c-1.7825-.179-3.4098-.8839-4.7246-1.9573l-.8094.8095c-.3515.3514-.9213.3514-1.2728 0s-.3515-.9214 0-1.2728l.8094-.8094c-1.0736-1.3149-1.7787-2.9424-1.9577-4.7251h-1.145c-.497 0-.9-.4029-.9-.9 0-.497.403-.9.9-.9h1.145c.179-1.7826.884-3.4101 1.9576-4.725l-.81-.8099c-.3515-.3515-.3515-.9213 0-1.2728s.9213-.3515 1.2728 0l.81.81c1.3148-1.0734 2.9422-1.7783 4.7247-1.9573v-1.145c0-.497.4029-.9.9-.9Zm-.9 3.8565c-1.2871.1628-2.4668.6702-3.4437 1.4268l3.4437 3.4437zM9.829 11.0996l-3.444-3.444c-.7566.977-1.2641 2.1568-1.427 3.444zm-4.871 1.8c.1629 1.2873.6704 2.4671 1.4272 3.4441l3.444-3.4441zm6.1436 1.2733L7.658 17.6164c.977.7566 2.1565 1.2639 3.4436 1.4267zm1.8 4.8702c1.2872-.1628 2.4669-.6703 3.4439-1.427l-3.4439-3.4439zm1.273-6.1435 3.4437 3.4437c.7566-.9769 1.2639-2.1566 1.4268-3.4437zm4.8705-1.8c-.1628-1.287-.6702-2.4666-1.4267-3.4435l-3.4436 3.4435zm-6.1435-1.2723 3.444-3.444c-.977-.7568-2.1568-1.2644-3.444-1.4272z\" clip-rule=\"evenodd\"/></svg>\n"
+    },
+    {
+      "master": "24",
+      "name": "steering-wheel-outlined",
+      "provenance": {
+        "date": "2026-09-06T23:54:14.494Z",
+        "icon": "steering-wheel.svg",
+        "origin": "literal",
+        "set": "blode-icons"
+      },
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"8\" stroke=\"currentColor\" stroke-width=\"2\"/><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.8\" d=\"M12 2v20\"/><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.8\" d=\"M2 12h20\"/><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.8\" d=\"m4.9297 4.9287 14.1421 14.1421\"/><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"1.8\" d=\"M19.0703 4.9287 4.9282 19.0708\"/></svg>\n"
+    }
+  ],
+  "rubric": "Reference-conditioned development. No target paths supplied. Both paints and native24 plus16downsample. No blind qualification or calibrated16master claim."
+}

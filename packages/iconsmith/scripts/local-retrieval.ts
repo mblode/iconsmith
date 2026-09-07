@@ -7,6 +7,7 @@ import { loadAliases } from "../src/corpus/aliases.js";
 import { asReference } from "../src/pipeline/licence.js";
 import { createStyleRevision, selectStyle } from "../src/pipeline/style.js";
 import type { StyleRevision } from "../src/pipeline/style.js";
+import { opticalProof } from "../src/tools/proof.js";
 import { sheet } from "../src/tools/render.js";
 import { admitFamilyParts } from "./family-parts.js";
 import type { FamilySource } from "./family-parts.js";
@@ -46,9 +47,16 @@ export const retrieveLocalStyle = async (options: {
   library: string;
   set: string;
   out: string;
+  deadlineAt?: number;
   exclusions?: readonly string[];
   review?: typeof reviewImages;
 }) => {
+  const assertTime = () => {
+    if (Date.now() >= (options.deadlineAt ?? Infinity)) {
+      throw new Error("Run deadline exhausted during retrieval");
+    }
+  };
+  assertTime();
   const { revision, master, concept, out } = options;
   const style = selectStyle(revision, master);
   // Validate policy before either model sees library names or pixels.
@@ -118,7 +126,9 @@ export const retrieveLocalStyle = async (options: {
   }
   const review = options.review ?? reviewImages;
   const roles = ["body", "modifier", "construction"];
+  assertTime();
   const discovery = await review({
+    deadlineAt: options.deadlineAt,
     images: {
       "style.png": await sheet(
         anchors.map((r) => r.svg),
@@ -133,6 +143,7 @@ export const retrieveLocalStyle = async (options: {
       prompt: `Retrieve a useful ${role} family for a NEW ${concept} icon. The images establish the target style only. Choose a library NAME by semantic relation, component utility or analogous construction. Its appearance is not yet verified. Prefer a different useful family for each role; none is valid. Do not infer unseen geometry.`,
     })),
   });
+  assertTime();
   const discoveryAnswers = discovery.answers;
   if (!discoveryAnswers) {
     throw new Error("Semantic retrieval failed; inspect discovery receipt");
@@ -150,13 +161,15 @@ export const retrieveLocalStyle = async (options: {
   }
   const images = Object.fromEntries(
     await Promise.all(
-      shortlisted.map(async (source, index) => [
-        `candidate-${index}.png`,
-        await sheet([source.svg], { cols: 1, size: 96 }),
-      ])
+      shortlisted.map(async (source, index) => {
+        const proof = await opticalProof(source.svg, style.spec.size);
+        return [`candidate-${index}.png`, proof.proof];
+      })
     )
   );
+  assertTime();
   const visual = await review({
+    deadlineAt: options.deadlineAt,
     images: {
       ...images,
       "style.png": await sheet(
@@ -168,9 +181,10 @@ export const retrieveLocalStyle = async (options: {
     questions: shortlisted.map((source, index) => ({
       choices: ["reference-and-parts", "reference-only", "reject"],
       id: `candidate-${index}`,
-      prompt: `Inspect candidate-${index}.png (${source.name}, ${source.finish}) against style.png for creating ${concept}. Choose reference-and-parts if visible components could help, reference-only if useful for visual grammar alone, otherwise reject. Identify the useful contour or construction and its intended role; similarity of names alone is insufficient. Host fidelity checks will separately decide component admission.`,
+      prompt: `Inspect the native ${style.spec.size}px light/dark proof and enlarged context in candidate-${index}.png (${source.name}, ${source.finish}) against style.png for creating ${concept}. Choose reference-and-parts if visible components could help, reference-only if useful for visual grammar alone, otherwise reject. Identify the useful contour or construction and its intended role; similarity of names alone is insufficient. Host fidelity checks will separately decide component admission.`,
     })),
   });
+  assertTime();
   const visualAnswers = visual.answers;
   if (!visualAnswers) {
     throw new Error("Visual retrieval failed; inspect selection receipt");
@@ -238,6 +252,7 @@ export const retrieveLocalStyle = async (options: {
       { cols: 4, size: 96 }
     )
   );
+  assertTime();
   save("revision.json", result.definition);
   return result;
 };

@@ -1,0 +1,1219 @@
+{
+  "artifacts": [
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "09cb253af0327c9c00b99f68f9485a2d5e5a5c0f547ffdd280633622c9f883a6",
+        "style": "6fc2790d93033d7908970011217c6dcaa9aee752ef9af952e46e097a878d56ef",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "d586db1bfaf6e313ec2c0aa06023db01a79fb0e5a2d4e499026f94c652b778ff"
+            }
+          },
+          "traceSha256": "e0ef33c5bc8a6e7b7254bec95612f0dc055760dd073bb9000eefd4fba68848ec",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bicycle-16/attempt-1",
+            "hash": "2e82d25086cbba82453f3895b42a5b4c17ba13646027bddd906b3fc2fa074058",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 383493,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bicycle-16/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788741517209,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 467,
+          "retrieval": 103338,
+          "generation": 279688
+        }
+      },
+      "source": ".staging/repair20-2026-09-07/bicycle-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 383493,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 73.3°, 16.7° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 53.1°, 8.1° off the nearest permitted axis (45°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        },
+        {
+          "message": "\"e0\" has an edge at 152.4°, 17.4° off the nearest permitted axis (135°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q001",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "18b0498c4b4abd5da11304901bd4ff7810eed0311da7da595e765682b2059fea",
+      "replay": true,
+      "revisionHash": "557c36920fb2e062bbc2b5b602972d18e70c6b3485aaf8a4648f81e4a78972c3",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "09060556765a115c20918f0117a4a025b45af490f781c5184806650abb288912"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "09cb253af0327c9c00b99f68f9485a2d5e5a5c0f547ffdd280633622c9f883a6",
+        "style": "6fc2790d93033d7908970011217c6dcaa9aee752ef9af952e46e097a878d56ef",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "07dd689aded955cde458021bce71c4197db02ec1bd439cafbb91249c9fb785cf"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "d586db1bfaf6e313ec2c0aa06023db01a79fb0e5a2d4e499026f94c652b778ff"
+            }
+          },
+          "traceSha256": "e0ef33c5bc8a6e7b7254bec95612f0dc055760dd073bb9000eefd4fba68848ec",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bicycle-16/attempt-1",
+            "hash": "2e82d25086cbba82453f3895b42a5b4c17ba13646027bddd906b3fc2fa074058",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 383493,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bicycle-16/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788741517209,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 467,
+          "retrieval": 103338,
+          "generation": 279688
+        }
+      },
+      "source": ".staging/repair20-2026-09-07/bicycle-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 383493,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Visual extent 20.0×13.5 matches no keyline within ±1 (circle 20×20, landscape 20×18, portrait 18×20, square 18×18, tall 16×20, wide 20×16). Nearest is wide 20×16 (2.5 away). Off-keyline is legal — Central's key shapes are guidelines — so treat this as a prompt to check the size was chosen, not drifted.",
+          "rule": "keyline",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q002",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "4f8859d37775765fdbf61643043ddf5c2e7c3298fd8c5418a6b3ee2eb4984181",
+      "replay": true,
+      "revisionHash": "557c36920fb2e062bbc2b5b602972d18e70c6b3485aaf8a4648f81e4a78972c3",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "9a7103f5ab6cfcfa77b0de66743df1cb5c47be64a9a5692f40d13a6acfdef8cf"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "405e75d7b306d2e4c74bc77eeb35ba820ddf64b2fac3887eca21ebeb4cadbffa",
+        "style": "c9425912c2f82491b36fb78b7fe582754869c18796d791176c4265e32b0a2af1",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "2f8b690317da03f0da2b2edf786e8652cb5f2c642bdf89dae2ba7c76e22967dc"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "345bab3f06c149bf1c7b34b0b19beea493d91dbc3211be29c85e83bbc1980120"
+            }
+          },
+          "traceSha256": "2b93fddef83b743e39f095879127d7f896b396c19b5c714d36349da330898ee4",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/folder-lock-24/attempt-1",
+            "hash": "f6bb0f7904e987663e296033a6d0404597af6d16ee5c53b39e7bbe5a9d8a3ede",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 492260,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/folder-lock-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788741519398,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 386,
+          "retrieval": 95579,
+          "generation": 396295
+        }
+      },
+      "source": ".staging/repair20-2026-09-07/folder-lock-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 492260,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q003",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "5358410ef7bf5cd6897475d975e43726efa5229c0900f38df48dc187367f22c3",
+      "replay": true,
+      "revisionHash": "9d3b44ad74e6f66d9517c44432d840e5ac7ab94ac0bce13e85ed0077a6251800",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "b3799f8a2971a0de931add88a7e7c216a2539ca91aaca086e9376533dfc4e257"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+        "style": "d858a7b570fa3cb018bd443419da68df1550f962ba7e51ec0796a60be8d30f74",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "The filled knockout should have a smooth family-consistent shoulder. The enlarged final proof and resolved SVG show a tangent change where the circular shackle clearance joins the rounded rectangular clearance, near canonical (10.343,14.817). Native separation survives, but the small contour kink remains.",
+              "id": "filled-clearance-shoulder",
+              "kind": "visual"
+            },
+            {
+              "description": "The lock-body counter should survive in every delivered rendering. Final outlined.png and filled.png as returned by view_image show a solid lock body, while both final proof PNGs, native pixels and resolved SVG retain its rectangular counter. This rendering discrepancy remains unexplained.",
+              "id": "enlarged-counter-discrepancy",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "91abdb539d8ba50e026c689cc03b8700900323bcb9acd4a33ba7fb7ce79fc8b5"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "b605dca99515557814b22bb0f1de9f2270af021d88ce989b28ec62f68813d23c"
+            }
+          },
+          "traceSha256": "6428abbb9df0f41da4947d32973a85ea50619332c4357d9d8f39898180e80cff",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1",
+            "hash": "fc2fde0eac68440a1e192de1c52bc146a0a809e6e8e7d6fc7d295cdfa8b0403b",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 526934,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "needs-repair",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1",
+        "stoppedReason": "author-incomplete",
+        "deadlineAt": 1788742378002,
+        "route": "pinned-control",
+        "stageTimings": {
+          "preflight": 291,
+          "retrieval": 0,
+          "generation": 526643
+        }
+      },
+      "source": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 526934,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q004",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "6f30368bb7b9d4175724593aca2f4d5a91c751b6107f5e16e6fca77a25232d4c",
+      "replay": true,
+      "revisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "ca03aedf85d0e7aca1fb49856a190a8e6d1e2c3d3505fbc61a49bfa7b7b382bb"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "24",
+        "nativeSize": 24,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "405e75d7b306d2e4c74bc77eeb35ba820ddf64b2fac3887eca21ebeb4cadbffa",
+        "style": "c9425912c2f82491b36fb78b7fe582754869c18796d791176c4265e32b0a2af1",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "2f8b690317da03f0da2b2edf786e8652cb5f2c642bdf89dae2ba7c76e22967dc"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "345bab3f06c149bf1c7b34b0b19beea493d91dbc3211be29c85e83bbc1980120"
+            }
+          },
+          "traceSha256": "2b93fddef83b743e39f095879127d7f896b396c19b5c714d36349da330898ee4",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/folder-lock-24/attempt-1",
+            "hash": "f6bb0f7904e987663e296033a6d0404597af6d16ee5c53b39e7bbe5a9d8a3ede",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 492260,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/folder-lock-24/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788741519398,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 386,
+          "retrieval": 95579,
+          "generation": 396295
+        }
+      },
+      "source": ".staging/repair20-2026-09-07/folder-lock-24",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 492260,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q005",
+      "master": "24",
+      "nativeSize": 24,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "b9cdb3ce51d3564825703148c621d4e36bab46a9b46554e75875fb663b83b4fc",
+      "replay": true,
+      "revisionHash": "9d3b44ad74e6f66d9517c44432d840e5ac7ab94ac0bce13e85ed0077a6251800",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4,
+          "terminal": 2
+        },
+        "fillRadiusTiers": [
+          0.5,
+          1,
+          1.5,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 8,
+        "minFeature": 1.5,
+        "minGap": 1,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          0.5,
+          1,
+          2,
+          3
+        ],
+        "size": 24,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "79eab28127c6f02d2b1aa75d8df42573ac5e3135ccc89c2bcb0fd616d9ec11ba"
+    },
+    {
+      "concept": "folder-lock",
+      "family": "folder-lock",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+        "style": "d858a7b570fa3cb018bd443419da68df1550f962ba7e51ec0796a60be8d30f74",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": [
+            {
+              "description": "The filled knockout should have a smooth family-consistent shoulder. The enlarged final proof and resolved SVG show a tangent change where the circular shackle clearance joins the rounded rectangular clearance, near canonical (10.343,14.817). Native separation survives, but the small contour kink remains.",
+              "id": "filled-clearance-shoulder",
+              "kind": "visual"
+            },
+            {
+              "description": "The lock-body counter should survive in every delivered rendering. Final outlined.png and filled.png as returned by view_image show a solid lock body, while both final proof PNGs, native pixels and resolved SVG retain its rectangular counter. This rendering discrepancy remains unexplained.",
+              "id": "enlarged-counter-discrepancy",
+              "kind": "visual"
+            }
+          ]
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "91abdb539d8ba50e026c689cc03b8700900323bcb9acd4a33ba7fb7ce79fc8b5"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "b605dca99515557814b22bb0f1de9f2270af021d88ce989b28ec62f68813d23c"
+            }
+          },
+          "traceSha256": "6428abbb9df0f41da4947d32973a85ea50619332c4357d9d8f39898180e80cff",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1",
+            "hash": "fc2fde0eac68440a1e192de1c52bc146a0a809e6e8e7d6fc7d295cdfa8b0403b",
+            "status": "needs-repair"
+          },
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-2",
+            "status": "incomplete"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 526934,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "needs-repair",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/family-reference-repair-2026-09-07/folder-lock-16-v2/attempt-1",
+        "stoppedReason": "author-incomplete",
+        "deadlineAt": 1788742378002,
+        "route": "pinned-control",
+        "stageTimings": {
+          "preflight": 291,
+          "retrieval": 0,
+          "generation": 526643
+        }
+      },
+      "source": ".staging/family-reference-repair-2026-09-07/folder-lock-16-v2",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 526934,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 12.50); the house spec is (12, 12) within 0.25. Shift by (0.00, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q006",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "1d84bd5b6cf0257aba1366ad7b9ee23e8ba7dff809754ab66e6e3995cb20ad9c",
+      "replay": true,
+      "revisionHash": "db1f1957da09f17a141331c3456069fea23d033b774d4c3076d1dcf573e9b0ff",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "9b8087720a831032b38670c0f949181a3660ef30e4f2a91bce9e7b68f86fcf3d"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "outlined",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "4d043da1d68cdd0fdba833924bf8112f7f9a5ada160bd9de685ea47f29b15523",
+        "style": "26b33906e69677b267806c400f19ccd498207f82e68dad665a1a554463ca1ec9",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "2844f5383ccb7e619547ec770be3c43748bd7fc85c8b6171afde9ff37d931bbb"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "1993a8fda847ab36937f57801eddc6b3197d183aff6fac5ca03540352a387a50"
+            }
+          },
+          "traceSha256": "1c58d49cb98c926d5a0a31c86a76226937f7d0df0ade32c66639d154983ff0a2",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bell-pause-16/attempt-1",
+            "hash": "8371735e0437cbe87b126b733ee0c1f51ca737ea46e33f02a5db4d75ef28dcf7",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 360574,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bell-pause-16/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788741518125,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 334,
+          "retrieval": 69274,
+          "generation": 290966
+        }
+      },
+      "source": ".staging/repair20-2026-09-07/bell-pause-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 360574,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [
+        {
+          "message": "\"e0\" has an edge at 81.9°, 8.1° off the nearest permitted axis (90°). The house axes are 0/45/90; an edge between two grid points is not automatically on one. If the diagonal is the shape, say so — `off-axis` on the line — and this becomes a confirmation rather than a fix.",
+          "rule": "off-axis",
+          "severity": "warn"
+        }
+      ],
+      "id": "Q007",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "1ec3a5f2ff5dade53c65adbd8b26abb46b627da92bcff547638da530e7c6fb23",
+      "replay": true,
+      "revisionHash": "22730581dbaa8423a84654b8348e2feda6a7928c897e980bf2ee3bd658592c72",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "05c67ecc816165bc6a9a26db5a2d5d583722127590f46003cea28d48fd3037e4"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "filled",
+      "terminal": {
+        "billing": "subscription",
+        "craftApproved": false,
+        "master": "16",
+        "nativeSize": 16,
+        "paints": [
+          "outlined",
+          "filled"
+        ],
+        "sourceRevisionHash": "4d043da1d68cdd0fdba833924bf8112f7f9a5ada160bd9de685ea47f29b15523",
+        "style": "26b33906e69677b267806c400f19ccd498207f82e68dad665a1a554463ca1ec9",
+        "authorExitCode": 0,
+        "authorReview": {
+          "unresolved": []
+        },
+        "authorReviewError": null,
+        "changedInputs": [],
+        "checkExitCode": 0,
+        "imageInspection": {
+          "complete": true,
+          "images": {
+            "outlined.proof.png": {
+              "exposed": true,
+              "sha256": "2844f5383ccb7e619547ec770be3c43748bd7fc85c8b6171afde9ff37d931bbb"
+            },
+            "filled.proof.png": {
+              "exposed": true,
+              "sha256": "1993a8fda847ab36937f57801eddc6b3197d183aff6fac5ca03540352a387a50"
+            }
+          },
+          "traceSha256": "1c58d49cb98c926d5a0a31c86a76226937f7d0df0ade32c66639d154983ff0a2",
+          "visualJudgmentValidated": false
+        },
+        "imageInspectionError": null,
+        "missing": [],
+        "reviewContentValidated": false,
+        "status": "delivered",
+        "attempts": [
+          {
+            "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bell-pause-16/attempt-1",
+            "hash": "8371735e0437cbe87b126b733ee0c1f51ca737ea46e33f02a5db4d75ef28dcf7",
+            "status": "review-clear"
+          }
+        ],
+        "deadlineExceeded": false,
+        "elapsedMs": 360574,
+        "instrumentQualified": false,
+        "maxWallMs": 600000,
+        "qualityStatus": "review-clear",
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/repair20-2026-09-07/bell-pause-16/attempt-1",
+        "stoppedReason": "review-clear",
+        "deadlineAt": 1788741518125,
+        "route": "automatic-retrieval",
+        "stageTimings": {
+          "preflight": 334,
+          "retrieval": 69274,
+          "generation": 290966
+        }
+      },
+      "source": ".staging/repair20-2026-09-07/bell-pause-16",
+      "authorship": "model",
+      "model": "gpt-6-astra",
+      "elapsedMs": 360574,
+      "actualUsd": null,
+      "compiler": "iconsmith-constrained-20",
+      "errors": [],
+      "findings": [],
+      "id": "Q008",
+      "master": "16",
+      "nativeSize": 16,
+      "opticalMasterClaim": "pending-human-calibration",
+      "paintMatches": true,
+      "programSha256": "a92dd9ac0c881e6c23e66c3a124b6284754aaa00abf9adfee7bb4d0a07a50f93",
+      "replay": true,
+      "revisionHash": "22730581dbaa8423a84654b8348e2feda6a7928c897e980bf2ee3bd658592c72",
+      "spec": {
+        "canvas": 24,
+        "clearance": 2,
+        "dots": {
+          "floating": 3,
+          "more": 2.5,
+          "node": 4
+        },
+        "fillRadiusTiers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grid": 0.25,
+        "keylines": {
+          "circle": [
+            20,
+            20
+          ],
+          "landscape": [
+            20,
+            18
+          ],
+          "portrait": [
+            18,
+            20
+          ],
+          "square": [
+            18,
+            18
+          ],
+          "tall": [
+            16,
+            20
+          ],
+          "wide": [
+            20,
+            16
+          ]
+        },
+        "maxElements": 5,
+        "minFeature": 2.25,
+        "minGap": 1.5,
+        "partGeometry": "source",
+        "radius": 3,
+        "radiusTiers": [
+          1,
+          2,
+          3
+        ],
+        "size": 16,
+        "stroke": 2
+      },
+      "status": "needs-human-review",
+      "svgSha256": "9df623e12171ffea86c5f501fe28342b3eb1953e9b547794a7574d9acc143fee"
+    }
+  ],
+  "manifestHash": "249d533ce1915e888ca6c6cb7bd2d16753d3bf3cf7621183ba69b22bf32d0f9f",
+  "missing": [
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bicycle",
+      "family": "bicycle",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "outlined",
+      "nativeSize": 24,
+      "status": "not-generated"
+    },
+    {
+      "concept": "bell-pause",
+      "family": "bell-pause",
+      "finish": "filled",
+      "nativeSize": 24,
+      "status": "not-generated"
+    }
+  ],
+  "qualified": false
+}

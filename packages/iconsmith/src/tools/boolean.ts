@@ -72,10 +72,28 @@ export const combinePaths = (
       });
     const a = make(left);
     const b = make(right);
-    const result =
-      operation === "union"
-        ? a.unite(b, { insert: false })
-        : a.subtract(b, { insert: false, trace: operation !== "trim" });
+    // Paper's non-tracing subtraction requires individual paths. Snapshot and
+    // clone children: subtraction can otherwise mutate the parent's child list.
+    const trim = () =>
+      new scope.CompoundPath({
+        insert: false,
+        pathData: [...a.children]
+          .map(
+            (child) =>
+              (child as paper.Path)
+                .clone({ insert: false })
+                .subtract(b, { insert: false, trace: false }).pathData
+          )
+          .join(""),
+      });
+    let result: paper.PathItem;
+    if (operation === "trim") {
+      result = trim();
+    } else if (operation === "union") {
+      result = a.unite(b, { insert: false });
+    } else {
+      result = a.subtract(b, { insert: false });
+    }
     const data = (
       radius === undefined
         ? result

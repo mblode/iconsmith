@@ -1,0 +1,115 @@
+{
+  "kind": "new-compiler-replay-not-generation",
+  "rows": [
+    {
+      "id": "Q001",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "72ccb37a709d9508ca8257cd9eddcc5208621b3e84710d056a9aa3efbaabb9aa",
+      "originalSvgSha256": "6dd21cafdaeed97ced6e54020eae20a8611de7787229197a328b73fc31a503df",
+      "svgSha256": "6dd21cafdaeed97ced6e54020eae20a8611de7787229197a328b73fc31a503df",
+      "exact": true
+    },
+    {
+      "id": "Q002",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "5a7c27e26cccbd97af75760e381c7f3716978429a33cafd65ece09895ab03f42",
+      "originalSvgSha256": "bb323e27214995e9a4a5cd98a23096caa02713f6c1f6441fa3431e70478ebf9b",
+      "svgSha256": "bb323e27214995e9a4a5cd98a23096caa02713f6c1f6441fa3431e70478ebf9b",
+      "exact": true
+    },
+    {
+      "id": "Q003",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "a8674605882d20653e0a1ac040a348c80528bb09ff0ac1ea7946bf6a0b2d162d",
+      "originalSvgSha256": "9bfa1dd3ab7992ba3fab4a626e4e952d8af99cec1032d5cf15a2a3edcdef3bfa",
+      "svgSha256": "9bfa1dd3ab7992ba3fab4a626e4e952d8af99cec1032d5cf15a2a3edcdef3bfa",
+      "exact": true
+    },
+    {
+      "id": "Q004",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "bd60938a1e3a2f4dbd1acb64add94d1b6426298b2bc7768ffce5ced6bddfef0f",
+      "originalSvgSha256": "4903cf53eaecddec0d34351661927f22577791bd6276a4047d5d6ba81aca059d",
+      "svgSha256": "4903cf53eaecddec0d34351661927f22577791bd6276a4047d5d6ba81aca059d",
+      "exact": true
+    },
+    {
+      "id": "Q005",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "38e7a32f8094e4ab38a3605e398ddfb9e0213a3e2cd49de48a47275614b2bb10",
+      "originalSvgSha256": "401aa890244572cef97b643b24528dea56523cae6451ebbe7f6707e845713964",
+      "svgSha256": "401aa890244572cef97b643b24528dea56523cae6451ebbe7f6707e845713964",
+      "exact": true
+    },
+    {
+      "id": "Q006",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "a0bad8f935f6a51f47d34f4305b75f7d2c1dfc9076a486efcf156d049dd83b78",
+      "originalSvgSha256": "b26ff8f03bc47914d4c401ce2d29d2b09ceba33aa9dc42f8cbc1a7ba4efd0b02",
+      "svgSha256": "b26ff8f03bc47914d4c401ce2d29d2b09ceba33aa9dc42f8cbc1a7ba4efd0b02",
+      "exact": true
+    },
+    {
+      "id": "Q007",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "38e7a32f8094e4ab38a3605e398ddfb9e0213a3e2cd49de48a47275614b2bb10",
+      "originalSvgSha256": "5fa30559ab1d28cad47a7cbd2c7accb57788cb273596ad9d07922b1ffb1f2383",
+      "svgSha256": "5fa30559ab1d28cad47a7cbd2c7accb57788cb273596ad9d07922b1ffb1f2383",
+      "exact": true
+    },
+    {
+      "id": "Q008",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "5a7c27e26cccbd97af75760e381c7f3716978429a33cafd65ece09895ab03f42",
+      "originalSvgSha256": "c278282dd938f572624276aed17095d19aa7fd544946299a69a5868e7dd49277",
+      "svgSha256": "c278282dd938f572624276aed17095d19aa7fd544946299a69a5868e7dd49277",
+      "exact": true
+    },
+    {
+      "id": "Q009",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "a8674605882d20653e0a1ac040a348c80528bb09ff0ac1ea7946bf6a0b2d162d",
+      "originalSvgSha256": "6b120723793c4cd94461af2de2276e91d5adcabf2558892fa8901ca5881b324c",
+      "svgSha256": "6b120723793c4cd94461af2de2276e91d5adcabf2558892fa8901ca5881b324c",
+      "exact": true
+    },
+    {
+      "id": "Q010",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "a0bad8f935f6a51f47d34f4305b75f7d2c1dfc9076a486efcf156d049dd83b78",
+      "originalSvgSha256": "b69fe61e167516dd25c6afc7dbc4ca2582a3291c356dc2d1bf898a6797d752b2",
+      "svgSha256": "b69fe61e167516dd25c6afc7dbc4ca2582a3291c356dc2d1bf898a6797d752b2",
+      "exact": true
+    },
+    {
+      "id": "Q011",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "72ccb37a709d9508ca8257cd9eddcc5208621b3e84710d056a9aa3efbaabb9aa",
+      "originalSvgSha256": "28138cd18319564057a061fb188a27213bccd5738052de7096c6c6ecadc49976",
+      "svgSha256": "28138cd18319564057a061fb188a27213bccd5738052de7096c6c6ecadc49976",
+      "exact": true
+    },
+    {
+      "id": "Q012",
+      "sourceCompiler": "iconsmith-constrained-18",
+      "compiler": "iconsmith-constrained-19",
+      "revisionHash": "bd60938a1e3a2f4dbd1acb64add94d1b6426298b2bc7768ffce5ced6bddfef0f",
+      "originalSvgSha256": "bebf8b007c12955b32faf5692437e9af35e969ba0777bffb1e2752ce9ecd2289",
+      "svgSha256": "bebf8b007c12955b32faf5692437e9af35e969ba0777bffb1e2752ce9ecd2289",
+      "exact": true
+    }
+  ],
+  "exact": 12,
+  "count": 12
+}

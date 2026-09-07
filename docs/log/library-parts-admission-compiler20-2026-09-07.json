@@ -1,0 +1,9 @@
+{
+  "compiler": "iconsmith-constrained-20",
+  "total": 4357,
+  "admitted": 3919,
+  "refused": 438,
+  "parts": 8144,
+  "generationQualified": false,
+  "evidence": ".staging/repair20-2026-09-07/admitted-library20.json"
+}

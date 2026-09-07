@@ -1,0 +1,15 @@
+{
+  "exactReplay": 4357,
+  "failures": 0,
+  "generationQualified": false,
+  "kind": "admitted-source-reconstruction",
+  "rasterDifferenceThreshold": 0.01,
+  "rasterDifferences": 1009,
+  "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+  "total": 4357,
+  "improved": [
+    "microphone-sparkle-filled.svg"
+  ],
+  "regressed": [],
+  "evidence": ".staging/repair20-2026-09-07/replay/results.json"
+}

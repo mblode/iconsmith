@@ -37,6 +37,7 @@ export interface CorpusShape {
   cap: "butt" | "round" | "square";
   d: string;
   filled: boolean;
+  fillRule?: "nonzero" | "evenodd";
   strokeWidth: number;
 }
 
@@ -273,6 +274,9 @@ export const parseIconSvg = (svg: string): CorpusShape[] => {
       cap: (attrs["stroke-linecap"] ?? "butt") as CorpusShape["cap"],
       d,
       filled,
+      ...(attrs["fill-rule"]
+        ? { fillRule: attrs["fill-rule"] as "nonzero" | "evenodd" }
+        : {}),
       strokeWidth: stroked ? num(attrs["stroke-width"], 1) : 0,
     });
   }

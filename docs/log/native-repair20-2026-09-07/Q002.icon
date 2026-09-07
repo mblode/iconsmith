@@ -1,0 +1,8 @@
+icon folder-lock
+keyline landscape
+finish filled
+part folder-2-filled-0 at 2,3
+part folder-2-filled-1 at 2,11
+rect 0,10.5 11.5x13 r4
+subtract r1
+part file-lock-filled-2 at 2,12

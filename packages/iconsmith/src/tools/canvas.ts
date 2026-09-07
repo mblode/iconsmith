@@ -20,7 +20,6 @@ import {
   translate,
 } from "../geometry/path.js";
 import { roundedLinePath } from "../geometry/rounded-line.js";
-import { flatten } from "../parts/shape.js";
 import type {
   BooleanDrawOp,
   Box,
@@ -30,7 +29,6 @@ import type {
   IconDoc,
   Keyline,
   Part,
-  Subpath,
 } from "../types.js";
 import { combinePaths } from "./boolean.js";
 import type { BooleanOperand, BooleanOperation } from "./boolean.js";
@@ -232,7 +230,9 @@ export type Op = "add" | "knockout";
 export type Element = {
   /** Derived from a solid modifier recipe; zero means this element is already ink. */
   strokeWidth?: number;
-  fillRule?: "nonzero";
+  /** Host-derived centerline for an expanded source part; rebuilt from its recipe. */
+  centerline?: string;
+  fillRule?: "nonzero" | "evenodd";
   op?: Op;
 } & (
   | {
@@ -1336,6 +1336,12 @@ export class Canvas {
       );
     }
     const preserve = this.spec.partGeometry !== "grid";
+    if (p.sourceFillRule && !p.closed) {
+      throw new Error("Source-filled parts must have closed contours");
+    }
+    const sourcePaint = p.sourceFillRule
+      ? { fillRule: p.sourceFillRule, strokeWidth: 0 }
+      : {};
     const px = preserve ? q(x, this.spec.grid) : x;
     const py = preserve ? q(y, this.spec.grid) : y;
     const t = quarterTurn(turn);
@@ -1348,20 +1354,23 @@ export class Canvas {
     const moved = placed.map((sp) =>
       translate(scale(sp, k), px - b.x0 * k, py - b.y0 * k)
     );
-    if (this.finish === "filled" && !p.closed) {
-      // The vocabulary is extracted from a stroked set, so most of its marks
-      // are open runs. Filling the path as-is encloses nothing. The filled
-      // twin is the same stroke expanded to a bar, segment by segment — the
-      // same bargain `#filledBar` already makes for a two-point `line`.
-      return this.#fillOpenPart(moved);
-    }
+    const centerline = serialise(
+      moved,
+      preserve ? undefined : { grid: this.spec.grid }
+    );
+    const expanded = this.finish === "filled" && !p.closed;
+    const drawing = expanded
+      ? {
+          centerline,
+          d: expandStroke(centerline, this.spec.stroke, strokeStyle(this.spec)),
+          fillRule: "nonzero" as const,
+          strokeWidth: 0,
+        }
+      : { d: centerline, ...sourcePaint };
     return this.#push((elId) =>
       flip
         ? {
-            d: serialise(
-              moved,
-              preserve ? undefined : { grid: this.spec.grid }
-            ),
+            ...drawing,
             flip: true,
             id: elId,
             kind: "part",
@@ -1372,10 +1381,7 @@ export class Canvas {
             y: py,
           }
         : {
-            d: serialise(
-              moved,
-              preserve ? undefined : { grid: this.spec.grid }
-            ),
+            ...drawing,
             id: elId,
             kind: "part",
             partId: id,
@@ -1387,63 +1393,7 @@ export class Canvas {
     );
   }
 
-  /** Expand an open part into the filled bars of its centre-line, one
-   *  segment at a time. A zero-length run is skipped; a part with no
-   *  remaining length is still nothing, and is refused.
-   *
-   *  Each bar declares whether it is off-axis, measured from its own two
-   *  points at the same {@link ANGLE_TOLERANCE} `line` judges by. Leaving the
-   *  flag off — as this did — is what made a filled part unfittable: all 48
-   *  bars of `circle-placeholder-dashed-1` came out unpermitted, element 1 of
-   *  them running (21,13.25) → (20.75,14.5), and `transform` re-emits a bar
-   *  through `line`, which refused it and took the whole drawing down with it.
-   *
-   *  This does not widen the escape the AGENTS.md invariant names. That escape
-   *  is a *model* asking for a free angle by name, and it still is: nothing
-   *  here reaches a coordinate the model wrote. These points come off a curve
-   *  the vocabulary already holds, flattened by `flatten` — a chord of a curve
-   *  is off-axis by construction, so refusing it is the angle guarantee
-   *  misfiring on geometry the library itself produced. And the flag stays a
-   *  statement about geometry rather than permission: it is set per bar from
-   *  the angle that bar actually runs at, so an axial bar carries nothing and
-   *  `lint`'s `off-axis` warning still fires on exactly the diagonals. */
-  #fillOpenPart(moved: readonly Subpath[]): string {
-    let last = "";
-    const min = this.spec.grid / 2;
-    for (const sp of moved) {
-      const poly = flatten(sp);
-      for (let i = 1; i < poly.length; i += 1) {
-        const a = poly[i - 1];
-        const b = poly[i];
-        if (Math.hypot(b[0] - a[0], b[1] - a[1]) < min) {
-          continue;
-        }
-        const from: [number, number] = [
-          q(a[0], this.spec.grid),
-          q(a[1], this.spec.grid),
-        ];
-        const to: [number, number] = [
-          q(b[0], this.spec.grid),
-          q(b[1], this.spec.grid),
-        ];
-        last = this.#filledBar(
-          from,
-          to,
-          snapAngle(from[0], from[1], to[0], to[1]).offBy > 0
-        );
-      }
-    }
-    if (last === "") {
-      throw new Error(
-        "an open part painted nothing when filled: every segment was shorter " +
-          "than the grid. Use a closed part, or draw the shape with rect/circle."
-      );
-    }
-    return last;
-  }
-
-  /** Import existing path data unchanged, so any icon can enter a document. */
-  raw(d: string, fillRule?: "nonzero"): string {
+  raw(d: string, fillRule?: "nonzero" | "evenodd"): string {
     return this.#push((id) => ({
       d,
       id,
@@ -1695,6 +1645,9 @@ export class Canvas {
       return null;
     }
     const boxes = solids.map((e) => {
+      if (e.kind === "part" && e.centerline) {
+        return bbox(parsePath(e.centerline));
+      }
       const half =
         ((e.kind === "line" || e.kind === "arc") && e.weight
           ? (this.spec.detailStroke ?? this.spec.stroke)
@@ -1782,7 +1735,7 @@ export class Canvas {
         : this.elements
             .map((e) =>
               e.strokeWidth === 0
-                ? `<path d="${e.d}" fill="currentColor" fill-rule="nonzero"/>`
+                ? `<path d="${e.d}" fill="currentColor" fill-rule="${e.fillRule ?? "nonzero"}"/>`
                 : `<path d="${e.d}" stroke="currentColor" stroke-width="${e.strokeWidth ?? width}" stroke-linecap="${e.kind === "dot" ? "round" : (this.spec.strokeCap ?? "round")}" stroke-linejoin="${this.spec.strokeJoin ?? "round"}"${this.spec.strokeJoin === "miter" ? ' stroke-miterlimit="4"' : ""}/>`
             )
             .join("\n");

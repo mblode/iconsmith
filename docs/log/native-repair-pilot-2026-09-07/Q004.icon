@@ -1,0 +1,6 @@
+icon bell-pause
+keyline portrait
+finish outlined
+part bell-outlined-0 at center
+line 10,9 10,14
+line 14,9 14,14

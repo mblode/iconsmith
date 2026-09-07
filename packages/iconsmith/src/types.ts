@@ -58,6 +58,8 @@ export interface Part {
   name?: string;
   nodes: number;
   sizeRange: [number, number];
+  /** Host-admitted source ink, fixed by the pinned dependency, never a DSL paint override. */
+  sourceFillRule?: "nonzero" | "evenodd";
   /** How many instances the set draws at each clockwise quarter-turn of `d` —
    *  index 1 is 90° clockwise, 2 is upside down, 3 is 90° anticlockwise. It is
    *  evidence, not permission: a placement may use any turn, but this is the
@@ -134,7 +136,7 @@ export type DrawOp =
       reach: number;
     }
   | { cx: number; cy: number; op: "dot"; role: DotRole }
-  | { d: string; fillRule?: "nonzero"; op: "raw" }
+  | { d: string; fillRule?: "nonzero" | "evenodd"; op: "raw" }
   | {
       h: number;
       /** See the note on `circle`. */

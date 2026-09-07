@@ -2,13 +2,14 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import sharp from "sharp";
 import { expect, test } from "vitest";
 
 import { bbox, parsePath } from "../geometry/path.js";
 import { extractParts } from "../parts/extract.js";
 import { fingerprint, flatten, match } from "../parts/shape.js";
 import type { IconDoc, Part } from "../types.js";
-import { ANGLE_TOLERANCE, Canvas, SPEC } from "./canvas.js";
+import { Canvas, SPEC } from "./canvas.js";
 import { programFromDoc } from "./twin.js";
 
 const PARTS: Part[] = [
@@ -430,42 +431,19 @@ const CURVED: Part[] = [
   },
 ];
 
-/**
- * A curve-flattened bar is off-axis because the curve is, and the bar has to
- * say so.
- *
- * Measured before this: all 48 bars of a filled `circle-placeholder-dashed-1`
- * carried no permission, element 1 of them running (21,13.25) → (20.75,14.5) —
- * plainly diagonal. Nothing complained at draw time, because `#filledBar` does
- * not judge angles; it complained at `fit`, where `transform` re-emits a bar
- * through `line` and `line` refused it, taking the drawing with it.
- *
- * The flag is geometry, not permission: it is measured per bar, so the axial
- * bars of the same part stay unmarked and `lint` still warns on the diagonals.
- */
-test("an open part's curve-flattened bars declare the diagonals they are", () => {
+test("filled open curves retain a single replayable part and their stroke skeleton", () => {
   const c = new Canvas(CURVED, { finish: "filled" });
   c.part({ id: "p0002", x: 4, y: 4 });
-  const bars = c.elements.filter((e) => e.kind === "line");
-  expect(bars.length).toBeGreaterThan(1);
-  for (const bar of bars) {
-    if (bar.kind !== "line") {
-      continue;
-    }
-    const [[x0, y0], [x1, y1]] = [bar.points[0], bar.points.at(-1) ?? [0, 0]];
-    const deg = (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI;
-    const off = Math.min(
-      ...[0, 45, 90, 135, 180, -45, -90, -135, -180].map((axis) =>
-        Math.abs(axis - deg)
-      )
-    );
-    expect(Boolean(bar.offAxis), `${deg.toFixed(2)}° bar`).toBe(
-      off > ANGLE_TOLERANCE
-    );
-  }
-  expect(bars.some((e) => e.kind === "line" && e.offAxis)).toBe(true);
-  // The consequence, and the reason this matters: the part is fittable.
-  expect(() => c.transform(0.5, 2, 2)).not.toThrow();
+  expect(c.elements).toHaveLength(1);
+  expect(c.elements[0].kind).toBe("part");
+  expect(c.elements[0].d).toMatch(/[CQ]/u);
+  const doc = c.toJSON();
+  expect(programFromDoc(doc)).toContain("part p0002 at 4,4");
+  expect(Canvas.fromJSON(doc, CURVED).toSVG()).toBe(c.toSVG());
+  expect(c.skeletonBbox()).toMatchObject({ x0: 4, x1: 8, y0: 4, y1: 8 });
+  c.transform(0.5, 2, 2);
+  expect(c.elements).toHaveLength(1);
+  expect(c.visualBbox()?.w).toBeCloseTo(4, 2);
 });
 
 test("toJSON → fromJSON → toSVG round-trips identically", () => {
@@ -780,4 +758,46 @@ test("default part placement snaps the anchor without deforming admitted curves"
   expect(c.elements[0].d).toBe("M3.25 5C3.8023 5 7.3734 6.8765 7.3734 11");
   const doc = c.toJSON({ icon: "curve" });
   expect(Canvas.fromJSON(doc, [part]).toSVG()).toBe(c.toSVG());
+});
+
+test.each(["round", "square"] as const)(
+  "filled source curve matches independent SVG stroke pixels with %s caps",
+  async (cap) => {
+    const c = new Canvas(CURVED, {
+      finish: "filled",
+      spec: { ...SPEC, stroke: 1.5, strokeCap: cap },
+    });
+    c.part({ id: "p0002", x: 4, y: 4 });
+    const reference = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M4 4C6 4 8 6 8 8" fill="none" stroke="black" stroke-width="1.5" stroke-linecap="${cap}"/></svg>`;
+    for (const size of [16, 24, 192]) {
+      const raster = (svg: string) =>
+        sharp(Buffer.from(svg))
+          .resize(size, size)
+          .flatten({ background: "white" })
+          .greyscale()
+          .raw()
+          .toBuffer();
+      // eslint-disable-next-line no-await-in-loop
+      const [actual, expected] = await Promise.all([
+        raster(c.toSVG()),
+        raster(reference),
+      ]);
+      let error = 0;
+      for (let i = 0; i < actual.length; i += 1) {
+        error += Math.abs(actual[i] - expected[i]);
+      }
+      expect(error / (255 * actual.length)).toBeLessThan(0.01);
+    }
+  }
+);
+
+test("an expanded source part is a complete Boolean cutter with exact replay", () => {
+  const c = new Canvas(CURVED, { finish: "filled" });
+  c.rect({ h: 16, r: 1, w: 16, x: 2, y: 2 });
+  c.part({ id: "p0002", scale: 2, x: 4, y: 4 });
+  c.combine("subtract");
+  const doc = c.toJSON();
+  expect(c.elements).toHaveLength(1);
+  expect(Canvas.fromJSON(doc, CURVED).toSVG()).toBe(c.toSVG());
+  expect(programFromDoc(doc)).toContain("part p0002");
 });

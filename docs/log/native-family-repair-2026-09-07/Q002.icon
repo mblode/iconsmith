@@ -1,0 +1,9 @@
+icon bicycle
+finish filled
+part mountain-bike-outlined-0 at 6.25,6.25 scale 0.8214285714285714
+circle 6.25,14.5 r4.25
+hole circle 6.25,14.5 r2.25
+union
+circle 17.75,14.5 r4.25
+hole circle 17.75,14.5 r2.25
+union

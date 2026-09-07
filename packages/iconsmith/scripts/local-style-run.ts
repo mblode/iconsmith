@@ -161,15 +161,20 @@ const authorStyle = async (options: LocalStyleOptions) => {
   save(
     "parts-names.json",
     JSON.stringify(
-      style.parts.map(({ id, name, w, h, closed, nodes, icons }) => ({
-        closed,
-        h,
-        id,
-        name,
-        nodes,
-        sources: icons,
-        w,
-      })),
+      style.parts.map(
+        ({ id, name, w, h, closed, nodes, icons, sourceFillRule }) => ({
+          closed,
+          h,
+          id,
+          name,
+          nodes,
+          paint: sourceFillRule
+            ? "fixed-source-ink"
+            : "centerline-or-silhouette",
+          sources: icons,
+          w,
+        })
+      ),
       null,
       2
     )
@@ -242,6 +247,12 @@ const authorStyle = async (options: LocalStyleOptions) => {
       2
     )
   );
+  // Reserve time for independent review and a targeted repair; the author cannot
+  // consume the whole request merely because its own per-process cap allows it.
+  const authorBudgetMs = Math.max(
+    1,
+    Math.min(300_000, Math.floor(remainingTime(options) * 0.65))
+  );
   const brief = `Design ${options.concept} in the pinned reference style. Read SKILL.md, spec.json and parts-names.json. Selected spec values override generic house defaults. ${style.references.length ? "Inspect references.png; reference-order.json lists its row-major order." : "No reference images supplied; do not claim reference matching."}
 Reference-<index>-proof images use the same reference-order.json indices and candidate native size. They show unchanged source drawings at 1x/2x on both surfaces, not newly calibrated optical masters. Compare matching raster columns as well as enlarged contours.
 Initial image attachments, in order: ${imageNames.length ? imageNames.join(", ") : "none"}. Images named previous-* show the candidate before this repair, never the final output.
@@ -250,7 +261,7 @@ Write ${paints.map((p) => `${p}.icon`).join(" and ")} and author-review.json in 
 ${options.guidance ?? ""}
 Run the real checker after each revision:
 ${[checkerNode, ...checker].map(quote).join(" ")}
-Use the native view_image tool with detail original to inspect every final *.proof.png after the final checker run; byte-matching tool-returned images are required for delivery. Inspect newly generated proof PNGs; initial attachments show references or previous candidates only. Listing files, reading image metadata or analysing pixel JSON does not establish visual inspection. If image viewing is unavailable or fails, state that inspection is incomplete in review.md and retain any uncertain defects; never claim to have seen an image from metadata alone. Inspect both *.proof.png files (or the requested single paint) for native 1x/2x pixels on light and dark surfaces, the enlarged PNGs and native.png at ${style.spec.size}px. Read each paint’s .pixels.json for exact native and retina grayscale rows[y][x], in local zero-based image pixels. Each matrix is hash-bound to its .native.png or .retina.png. These host files avoid custom raster scripts or dependency lookup. Review gaps, counter survival, curves, modifier readability and family proportions. Normal antialiasing is not itself a defect: identify a lost distinction, break, imbalance or inconsistent weight. Inspect resolved SVG contours when feature warnings identify tiny regions: invisibility at native size does not prove a contour is redundant. Account for intended holes and solid regions; repair unexpected holes or report them as unresolved. Never dismiss a contour as Boolean bookkeeping without geometric evidence. Preserve attempt-N programs before changes; checker snapshots retain compile evidence. Fix errors and explain unresolved warnings. A clean check is not a craft verdict. Up to four revisions, eight minutes. Keep inspection notes in review.md and record all unresolved defects in author-review.json. Missing or malformed author-review.json means incomplete delivery, regardless of process exit code. Only write here. Read BRIEF.md and execute.`;
+Use the native view_image tool with detail original to inspect every final *.proof.png after the final checker run; byte-matching tool-returned images are required for delivery. Inspect newly generated proof PNGs; initial attachments show references or previous candidates only. Listing files, reading image metadata or analysing pixel JSON does not establish visual inspection. If image viewing is unavailable or fails, state that inspection is incomplete in review.md and retain any uncertain defects; never claim to have seen an image from metadata alone. Inspect both *.proof.png files (or the requested single paint) for native 1x/2x pixels on light and dark surfaces, the enlarged PNGs and native.png at ${style.spec.size}px. Use each paint’s .pixels.json to verify a disputed gap or counter with exact native and retina grayscale rows[y][x], in local zero-based image pixels; do not transcribe whole matrices or substitute them for image inspection. Each matrix is hash-bound to its .native.png or .retina.png. These host files avoid custom raster scripts or dependency lookup. Review gaps, counter survival, curves, modifier readability and family proportions. Normal antialiasing is not itself a defect: identify a lost distinction, break, imbalance or inconsistent weight. Inspect resolved SVG contours when feature warnings identify tiny regions: invisibility at native size does not prove a contour is redundant. Account for intended holes and solid regions; repair unexpected holes or report them as unresolved. Never dismiss a contour as Boolean bookkeeping without geometric evidence. Preserve attempt-N programs before changes; checker snapshots retain compile evidence. Fix errors and explain unresolved warnings. A clean check is not a craft verdict. Up to four revisions within ${Math.floor(authorBudgetMs / 1000)} seconds, including final checks and image inspection. Finish a valid first candidate early; spend remaining time on a specific visible defect, not a long written defense. Review.md should be concise: construction choices, actual defects, and inspection evidence. Keep inspection notes in review.md and record all unresolved defects in author-review.json. Missing or malformed author-review.json means incomplete delivery, regardless of process exit code. Only write here. Read BRIEF.md and execute.`;
   save("BRIEF.md", brief);
   const intent = {
     billing: "subscription",
@@ -276,7 +287,10 @@ Use the native view_image tool with detail original to inspect every final *.pro
             cwd: out,
             env: options.env,
             maxBuffer: 20 * 1024 * 1024,
-            timeout: Math.max(1, Math.min(480_000, remainingTime(options))),
+            timeout: Math.max(
+              1,
+              Math.min(authorBudgetMs, remainingTime(options))
+            ),
           }
         );
         running.child.stdin?.end();
@@ -341,6 +355,7 @@ Use the native view_image tool with detail original to inspect every final *.pro
         cwd: out,
         encoding: "utf-8",
         env: options.env,
+        timeout: Math.max(1, remainingTime(options)),
       });
   save("check-output.txt", `${checked.stdout ?? ""}\n${checked.stderr ?? ""}`);
   const missing = [
@@ -594,6 +609,42 @@ const stopReason = (
   return status === "needs-repair" ? null : status;
 };
 
+const attemptGuidance = (
+  guidance: string | undefined,
+  best: Candidate | undefined,
+  interrupted: boolean
+) =>
+  [
+    guidance ?? "",
+    ...(interrupted
+      ? [
+          "The previous author was interrupted before finalizing delivery. Its checked programs are staged here but remain unreviewed. Inspect them, repair actual defects, run the checker, inspect final proofs and write an honest author-review.json before the deadline. Do not infer approval from the previous check.",
+        ]
+      : []),
+    ...(best
+      ? [
+          "Repair the existing programs using the independent observations below. Treat them as fallible evidence: inspect each claimed defect before changing geometry. Preserve passing dimensions, family geometry and meaning. Make a geometric improvement, not just different prose. Explain any disputed observation with actual image evidence.",
+          JSON.stringify({
+            author: best.delivery.authorReview,
+            independent: best.review.answers,
+          }),
+        ]
+      : []),
+  ].join("\n");
+
+const canResumeFinalization = (
+  delivery: AuthorResult,
+  index: number,
+  options: LocalStyleOptions
+) =>
+  index < 3 &&
+  remainingTime(options) > 0 &&
+  delivery.authorExitCode === null &&
+  delivery.checkExitCode === 0 &&
+  delivery.changedInputs.length === 0 &&
+  delivery.imageInspection?.complete === true &&
+  delivery.missing.every((name) => name === "author-review.json");
+
 /** One local production loop. Every author/reviewer attempt remains on disk.
  * An unqualified critic can request repairs, never promote an icon to approved.
  */
@@ -603,7 +654,13 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
   if (!Number.isFinite(maxWallMs) || maxWallMs <= 0) {
     throw new Error("Run wall budget must be positive and finite");
   }
-  const options = { ...input, deadlineAt: startedAt + maxWallMs };
+  if (input.deadlineAt !== undefined && !Number.isFinite(input.deadlineAt)) {
+    throw new Error("Run deadline must be finite");
+  }
+  const options = {
+    ...input,
+    deadlineAt: Math.min(input.deadlineAt ?? Infinity, startedAt + maxWallMs),
+  };
   const meanings = z
     .array(z.string().trim().min(1))
     .min(3)
@@ -631,7 +688,8 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
   const seen = new Set<string>();
   const attempt = async (
     index: number,
-    best?: Candidate
+    best?: Candidate,
+    interrupted?: { directory: string; delivery: AuthorResult }
   ): Promise<{
     delivery: AuthorResult;
     selected?: Candidate;
@@ -639,30 +697,24 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
   }> => {
     const directory = path.join(options.out, `attempt-${index}`);
     mkdirSync(directory);
-    if (best) {
-      for (const paint of best.delivery.paints) {
+    const seed = interrupted ?? best;
+    if (seed) {
+      for (const paint of seed.delivery.paints) {
         copyFileSync(
-          path.join(best.directory, `${paint}.icon`),
+          path.join(seed.directory, `${paint}.icon`),
           path.join(directory, `${paint}.icon`)
         );
         copyFileSync(
-          path.join(best.directory, `${paint}.proof.png`),
+          path.join(seed.directory, `${paint}.proof.png`),
           path.join(directory, `previous-${paint}.proof.png`)
         );
       }
     }
-    const guidance = [
-      options.guidance ?? "",
-      ...(best
-        ? [
-            "Repair the existing programs using the independent observations below. Treat them as fallible evidence: inspect each claimed defect before changing geometry. Preserve passing dimensions, family geometry and meaning. Make a geometric improvement, not just different prose. Explain any disputed observation with actual image evidence.",
-            JSON.stringify({
-              author: best.delivery.authorReview,
-              independent: best.review.answers,
-            }),
-          ]
-        : []),
-    ].join("\n");
+    const guidance = attemptGuidance(
+      options.guidance,
+      best,
+      Boolean(interrupted)
+    );
     const currentOptions = {
       ...options,
       composition,
@@ -673,6 +725,9 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
     const delivery = await authorStyle(currentOptions);
     if (delivery.status !== "delivered") {
       history.push({ directory, status: "incomplete" });
+      if (canResumeFinalization(delivery, index, options)) {
+        return attempt(index + 1, best, { delivery, directory });
+      }
       return {
         delivery: best?.delivery ?? delivery,
         reason:
@@ -741,6 +796,9 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
     result.reason === "representation-blocked"
       ? "representation-blocked"
       : "not-reviewed";
+  const finalQuality = result.selected
+    ? qualityStatus(result.selected)
+    : fallbackStatus;
   const receipt = {
     ...result.delivery,
     attempts: history,
@@ -749,9 +807,8 @@ export const runLocalStyle = async (input: LocalStyleOptions) => {
     elapsedMs: Date.now() - startedAt,
     instrumentQualified: false,
     maxWallMs,
-    qualityStatus: result.selected
-      ? qualityStatus(result.selected)
-      : fallbackStatus,
+    qualityStatus:
+      remainingTime(options) <= 0 ? "deadline-exhausted" : finalQuality,
     selectedAttempt,
     stoppedReason: result.reason,
   };
