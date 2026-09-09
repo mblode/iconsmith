@@ -92,18 +92,24 @@ try {
 
   // Exercise the included pinned revision through the actual checker, including
   // raster proof creation and exact replay. No mocked qualification stands in.
-  const checkDirectory = path.join(relocated, "checked");
-  mkdirSync(checkDirectory);
-  cpSync(path.join(relocated, example), path.join(checkDirectory, "outlined.icon"));
-  execute([
-    "--import",
-    pathToFileURL(require.resolve("tsx")).href,
+  const checkerArgs = [
     `${engine}/scripts/style-check.ts`,
     "examples/starter/revision.json",
     "24",
-    checkDirectory,
+    "starter-draft",
     "outlined",
-  ]);
+  ];
+  const packet = readFileSync(path.join(relocated, "examples/starter/AGENT.md"), "utf-8");
+  assert.ok(
+    packet.includes(`node --import tsx ${checkerArgs.join(" ")}`),
+    "Agent packet must document the exact checker command exercised here.",
+  );
+  assert.doesNotMatch(packet, /\/Users\/|\/home\/|\.staging\//u);
+  assert.match(packet, /craftApproved: false/u);
+  const checkDirectory = path.join(relocated, "starter-draft");
+  mkdirSync(checkDirectory);
+  cpSync(path.join(relocated, example), path.join(checkDirectory, "outlined.icon"));
+  execute(["--import", pathToFileURL(require.resolve("tsx")).href, ...checkerArgs]);
   const checked = JSON.parse(readFileSync(path.join(checkDirectory, "checks.json"), "utf-8"));
   assert.equal(checked.exactReplay, true);
   assert.equal(checked.assessment, "structural-only");
@@ -112,7 +118,7 @@ try {
   assert.notEqual(checked.structuralStatus, "failed");
   assert.ok(readFileSync(path.join(checkDirectory, "outlined.native.png")).byteLength > 0);
   console.log(
-    "Public onboarding smoke passed: relocated example draw/lint/JSON, overwrite refusal, pinned replay and native proof; no corpus, credentials or agent dispatch. Visual review remains required.",
+    "Public onboarding smoke passed: relocated example draw/lint/JSON, overwrite refusal, agent packet checker, pinned replay and native proof; no corpus, credentials or agent dispatch. Visual review remains required.",
   );
 } finally {
   rmSync(temporary, { recursive: true, force: true });

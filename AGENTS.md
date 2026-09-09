@@ -39,6 +39,9 @@ npm run verify       # serialized integrated checks with immutable evidence
 revision and concept alternatives for the documented agent quickstart. It is
 independent of the private measurement corpus below. Keep the starter portable:
 no sibling checkout, author home paths or ignored staging artifacts.
+For user-requested icon drafting, follow `examples/starter/AGENT.md`; it uses
+the bundled revision and real checker. `generate:local` is a separate advanced
+contained route and is not configured by a fresh clone.
 
 ## Gotchas
 

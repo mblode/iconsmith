@@ -75,6 +75,44 @@ test("requires an account-selected model before login or output creation", () =>
   }
 });
 
+test("unconfigured host generation fails before login or output creation", () => {
+  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-generate-route-"));
+  const out = path.join(root, "out");
+  try {
+    const result = spawnSync(
+      process.execPath,
+      [
+        "--import",
+        import.meta.resolve("tsx"),
+        path.resolve(import.meta.dirname, "local-generate.ts"),
+        "square-check",
+        out,
+        "--revision",
+        path.join(root, "revision.json"),
+        "--master",
+        "24",
+        "--meanings",
+        path.join(root, "meanings.json"),
+        "--model",
+        "account-model",
+      ],
+      {
+        cwd: root,
+        encoding: "utf-8",
+        env: { HOME: root, PATH: "", TMPDIR: root },
+      }
+    );
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain(
+      "Unattended generation requires --native-route"
+    );
+    expect(result.stderr).toContain("examples/starter/AGENT.md");
+    expect(existsSync(out)).toBe(false);
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
 test("a parent-bound request cannot create a fresh deadline", () => {
   const root = mkdtempSync(path.join(tmpdir(), "iconsmith-generate-clock-"));
   const out = path.join(root, "out");

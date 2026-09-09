@@ -4,30 +4,58 @@ The primary workflow is local: reference files → coding-agent CLI → constrai
 icon program → host compiler → native-size visual review → saved SVG library.
 No public web app, deployed Eve agent, database or API judge is required.
 
-The canonical command requires a pinned style and master. Codex authors the
-programs through its native ChatGPT subscription; Claude reviews the rendered
-images through its native subscription. Both logins are checked before generation.
-Inherited API keys and provider overrides are removed; there is no API fallback.
-The author and reviewer request high reasoning. Pass `--model` with a model
-available to your Codex account; this command does not assume access to a
-particular model. The author uses `codex` on PATH by default; `--codex` selects
-another installed executable without changing account settings. Actual reviewer
-model identity and native process outputs are retained in the review receipts.
-The Codex executable must support the restricted permission profile exercised
-by preflight; an incompatible CLI fails before authoring, without broader access.
+## Public agent draft workflow
 
-Run from the repository root after building the engine:
+A fresh clone includes an original MIT reference family and a complete drawing
+brief at [examples/starter/AGENT.md](../examples/starter/AGENT.md). After `npm ci`
+and `npm run build:local`, open the checkout in your signed-in coding agent:
 
-```sh
-npm run build --workspace iconsmith
-node --import tsx packages/iconsmith/scripts/local-generate.ts bookmark-check .staging/new-bookmark --revision path/to/revision.json --master large --model YOUR_CODEX_MODEL --meanings path/to/meanings.json --brief path/to/design-brief.md
+```bash
+codex --model YOUR_CODEX_MODEL "Read examples/starter/AGENT.md and execute its drawing task."
 ```
 
-Use a new output directory. Omit `--finish` for both paints, or choose `--finish
-outlined` / `--finish filled`. The former unpinned house-draft and agent-selection
-arguments were removed from this entry point. Historical experiment receipts
-remain in the foundry log; retired experiment runners have been removed.
+Or use Claude Code:
 
+```bash
+claude "Read examples/starter/AGENT.md and execute its drawing task."
+```
+
+Select a Codex model available to your account. These commands use the user's
+normal agent session and permissions. They produce a draft through the existing
+constrained DSL and pinned checker; they do not invoke the independent contained
+review pipeline. The brief requires actual proof inspection and records missing
+visual inspection explicitly. The output retains `craftApproved: false`.
+
+The real checker command used by the brief is:
+
+```bash
+node --import tsx packages/iconsmith/scripts/style-check.ts examples/starter/revision.json 24 starter-draft outlined
+```
+
+The agent first creates a fresh `starter-draft` directory and writes its
+`outlined.icon`. The checker compiles that program, validates exact replay,
+retains structural findings and renders proof images. Use a new directory when
+one already exists. The example's family is illustrative and unvalidated.
+
+## Advanced contained foundry
+
+`generate:local` is an advanced host-orchestrated pipeline. Its legacy default
+host route is disabled by containment guards; signing into Codex and Claude
+alone does not make that route available. Do not use the former no-manifest
+`generate:local` example for public onboarding or bypass its guards.
+
+A configured `--native-route` needs an immutable Docker image, verified native
+Linux executables and runtime assets, isolated authentication files, and the
+supported author/reviewer identities declared by the adapters. It also requires
+the frozen route hash and an original parent deadline. These user-specific
+runtime inputs are not bundled with a clone. The remaining sections describe
+that advanced route's evidence and review contracts, not prerequisites for the
+public agent draft workflow above.
+
+The canonical contained pipeline removes inherited API keys and provider
+overrides and has no API fallback. Actual model identity and native process
+outputs are retained in its review receipts. Positive review alone does not
+qualify its critic or approve the artwork.
 Subscription consumption is recorded separately from actual API spending. The
 API experiment ledger is `.staging/foundry-round-1/budget.json`; consult its current
 receipts and the append-only foundry log for charges and outstanding reservations.

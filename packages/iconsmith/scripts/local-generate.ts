@@ -74,6 +74,8 @@ Required:
   --revision <file>       Pinned style revision JSON
   --master <name>         Master declared in that revision
   --meanings <file>       JSON array of 3–12 plausible labels, including the concept
+  --native-route <file>   Frozen contained route manifest (advanced setup)
+  --native-route-hash <hash> SHA256 of that manifest
 
 Options:
   --finish outlined|filled  Omit to generate both paints
@@ -87,8 +89,10 @@ Options:
   --exclude <concept>      Repeat to exclude retrieval subjects
   -h, --help               Show help without authentication or generation
 
-Build first with npm run build:local. The default route requires native
-ChatGPT and Claude subscription logins and a compatible restricted runtime.
+Build first with npm run build:local. Unattended generation requires a contained
+route manifest, Docker, frozen runtime assets and native subscription logins.
+The legacy host route is disabled. For public agent-assisted drafting, read
+examples/starter/AGENT.md in Codex or Claude Code.
 Generation consumes subscription usage; no API-key fallback is used.
 Use a new output directory whose parent already exists.
 See docs/local-foundry.md for revision setup, advanced contained routes,
@@ -196,6 +200,11 @@ if (
 if (!values["native-route"] && !authorModel) {
   throw new Error(
     "--model is required: select a model available to your Codex account. Native routes pin models in their manifest."
+  );
+}
+if (!values["native-route"]) {
+  throw new Error(
+    "Unattended generation requires --native-route and --native-route-hash with a configured contained runtime. For public agent-assisted drafting, read examples/starter/AGENT.md in Codex or Claude Code."
   );
 }
 const nativeManifest = values["native-route"]

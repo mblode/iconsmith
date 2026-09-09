@@ -51,27 +51,21 @@ The clone includes an [original MIT starter reference family](examples/starter/R
 its pinned revision, and example meanings. No private corpus or sibling repository
 is needed for this example.
 
-Use macOS and the standard Node 24 distribution for the tested agent runtime (see [setup](docs/local-setup.md#tested-native-runtime)). Install [Codex CLI](https://help.openai.com/en/articles/11096431) and
-[Claude Code](https://code.claude.com/docs/en/quickstart), then sign in to your
-ChatGPT and Claude subscriptions. The generator uses `codex` and `claude` on PATH.
-Generation consumes your subscription usage; credentials are not included.
+After `npm ci` and `npm run build:local`, open Codex or Claude Code in this
+checkout with your own account, then send this prompt:
 
-```bash
-npm install -g @openai/codex
-npm run check:agent
-codex login
-claude auth login
-npm run generate:local -- square-check ./starter-run \
-  --revision examples/starter/revision.json --master 24 \
-  --meanings examples/starter/meanings.json --finish outlined \
-  --model YOUR_CODEX_MODEL
-```
+> Read examples/starter/AGENT.md and create a square-check icon in a new
+> starter-run directory. Use the bundled references, run the pinned checker,
+> and inspect the SVG and native-size proof before reporting the result.
 
-Replace `YOUR_CODEX_MODEL` with a model available to your account. Use a new output
-directory for each run. The command checks subscription authentication and actual
-sandbox permissions before authoring; unsupported runtimes fail without falling
-back to broader access. The starter demonstrates the workflow and is not a
-qualified production icon family.
+The [authoring brief](examples/starter/AGENT.md) contains the exact commands and
+reference paths. This workflow needs no private corpus or sibling repository.
+Your agent uses its normal account, model, and permissions; generation consumes
+your account usage. Drafts retain structural findings and require visual review.
+
+`generate:local` is the advanced unattended foundry entry point. It requires a
+configured contained route, Docker, frozen runtime assets, and supported model
+identities; account login alone is insufficient. The legacy host route is disabled.
 
 See [local setup](docs/local-setup.md) for prerequisites and
 [the foundry guide](docs/local-foundry.md) for custom references and review.

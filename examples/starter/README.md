@@ -10,17 +10,12 @@ private path or download is needed. `references/*.icon` are the editable sources
 `references/*.svg` are their exact compiled outputs. The regression test rejects
 stale compiler identities or source/SVG divergence.
 
-From the repository root, after installation and build:
-
-```bash
-npm run generate:local -- square-check ./starter-run --revision examples/starter/revision.json --master 24 --meanings examples/starter/meanings.json --finish outlined --model YOUR_CODEX_MODEL
-```
-
-Replace `YOUR_CODEX_MODEL` with a model available to your Codex account.
-The output directory must not exist. Generation requires the native agent logins
-and runtime described in [local setup](../../docs/local-setup.md) and consumes
-subscription usage. The bundled inputs do not supply credentials or remove
-independent review requirements. See that guide for selecting installed agents.
+After `npm ci` and `npm run build:local`, open Codex or Claude Code in the
+repository and ask it to read [AGENT.md](AGENT.md) and execute the drawing task.
+The brief includes the exact pinned checker command and requires proof inspection.
+Use your own agent account and model; the result remains a draft for user review.
+See [local setup](../../docs/local-setup.md) for commands and the separate advanced
+contained foundry requirements.
 
 The four alternatives in `meanings.json` are an illustrative square-check label
 set. Freeze suitable alternatives for a different requested concept before a run.

@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Merge the composition fixes and make the public clone usable for offline drawing and reference-guided agent generation. A clone must include reference artwork, a pinned starter revision, concept alternatives and exact commands. Native agent logins remain user-owned. No private corpus, credentials or private machine paths may be required by the starter.
+Merge the composition fixes and make the public clone usable for offline drawing and reference-guided agent drafting in an ordinary Codex or Claude session. A clone must include reference artwork, a pinned starter revision, concept alternatives and exact commands. Native agent logins remain user-owned. The advanced unattended foundry requires separately configured contained assets and is not the public quickstart. No private corpus, credentials or private machine paths may be required by the starter.
 
 ## Checklist
 
@@ -19,10 +19,14 @@ Scoped tests plus relocated public smoke exercise actual draw/replay/reference p
 
 ## Delivery
 
-Current checkout is main and matches origin/main, with only this task work uncommitted. User explicitly authorizes merge. Commit scoped changes and push normally, never force. Resolve concurrent remote changes before push if necessary. Rollback is a normal revert of task commits.
+Task implementation commits are on public main. User explicitly authorizes merge. Push scoped follow-ups normally, never force. Resolve concurrent remote changes before push if necessary. Rollback is a normal revert of task commits.
 
 ## Local evidence
 
 The relocated public smoke passes without private corpus or credentials. New focused onboarding/reference tests pass; typecheck/build/check pass. Native permission probe passes with standard Node24.15.0 and PATH Codex0.150.1, including positive inside access and denied outside/source/symlink/network access. Homebrew Node26 library probes failed; attempted library admission did not fix them and was removed. Setup now identifies the tested Node24 distribution. No model dispatch occurred. Clean remote CI remains the integrated fresh-install gate.
 
 Public sandbox preflight is now a reusable `check:agent` command and CI uses pinned public Codex 0.153.4. Local credential-free Node24/Codex0.150.1 probe passes under an empty auth home. Initial implementation needed creation of that empty directory; fixed before delivery. Commit da7e62c is public and anonymous reference downloads match local bytes.
+
+## Final route correction
+
+An end-to-end command audit found that the old no-manifest generate:local example could never pass the contained author/reviewer guards. Replaced public onboarding with examples/starter/AGENT.md for normal user-directed Codex or Claude drafting. The exact pinned checker command runs in the isolated public smoke. The advanced CLI now fails before authentication/output creation when no contained route is configured, with an actionable pointer to the public brief. No guards removed. No authenticated model dispatch or independent craft qualification claimed.
