@@ -2759,3 +2759,8 @@ Source1075543 passed CI34338775915: 2,335 tests passed,33 expected missing-datas
 ### README and onboarding simplification — 2026-09-09
 
 Shortened the public README to install, visible output and one coding-agent prompt. Consolidated export commands and troubleshooting in local setup; moved contributor and native-sandbox details into the foundry guide. Preserved advanced-route limits and dataset availability. Local documentation links and git diff checks pass. Documentation only: no engine, command, reference or permission changes, no provider calls, and no repeated full suite.
+
+
+### AI-only onboarding — 2026-09-09
+
+User clarified that the only onboarding path should use AI. README now leads directly from installation to the coding-agent prompt. Local setup covers requesting an icon, reviewing agent outputs and troubleshooting. Removed manual drawing/export and alternate generation routes from onboarding. Engine commands remain available to the agent; no runtime behavior changed. Documentation links and diff checks pass. No model dispatch or repeated full tests.
