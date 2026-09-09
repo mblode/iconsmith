@@ -2754,3 +2754,8 @@ Final read-only route audit found the earlier no-manifest quickstart was structu
 ### Public clone workflow merged and verified — 2026-09-09
 
 Source1075543 passed CI34338775915: 2,335 tests passed,33 expected missing-dataset skips; integrated source verification, public packet smoke, macOS Codex0.153.4 sandbox and secret scan passed. A coding agent executed the included brief and authored a fresh square-check; exact pinned replay, no findings, actual native/proof inspection. Root inspected the proof. Draft only, craftApproved false; no authenticated provider CLI dispatch, independent qualification or new provider spend. Public main is synchronized. Checklist complete for public user-directed drafting; advanced unattended runtime configuration remains explicitly unbundled. This docs-only receipt does not change tested engine sources. [Receipt](log/public-clone-readiness-2026-09-09.json).
+
+
+### README and onboarding simplification — 2026-09-09
+
+Shortened the public README to install, visible output and one coding-agent prompt. Consolidated export commands and troubleshooting in local setup; moved contributor and native-sandbox details into the foundry guide. Preserved advanced-route limits and dataset availability. Local documentation links and git diff checks pass. Documentation only: no engine, command, reference or permission changes, no provider calls, and no repeated full suite.

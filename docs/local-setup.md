@@ -1,82 +1,68 @@
 # Local setup
 
-Run commands from the repository root. Use Node.js 24.11 or newer, npm, and the
-committed lockfile (`npm ci`). The offline CLI needs no account or environment file.
+Follow [Install and Quickstart](../README.md#install) first. Run commands from the
+repository root. The CLI runs from the checkout and is not published to npm.
 
-## Offline engine
+## Draw and export
+
+Edit [the example program](../examples/square-check.icon), then export and check it:
 
 ```bash
-npm run build:local
 npm run iconsmith -- draw examples/square-check.icon -o square-check.svg
 npm run iconsmith -- lint square-check.svg
 ```
 
-Open the exported SVG in an image viewer. Output paths resolve from
-the repository root. Use a new filename, or explicitly pass `--force` to replace an
-existing SVG. When piping output, use `npm run --silent iconsmith -- ...` or invoke
-`node packages/iconsmith/dist/cli.js` directly.
+Open the SVG in a browser or image viewer. Output paths are relative to the
+repository root. Add `--force` to replace an existing file.
 
-## Agent-assisted drafting
+The program uses `rect`, `line`, `circle`, `arc`, and named parts. The engine
+computes curves from its grid and radius rules and keeps the program editable.
 
-After installing dependencies and building, open Codex or Claude Code in this
-checkout and ask it to read [the starter authoring brief](../examples/starter/AGENT.md):
+For JSON output without npm's banner:
 
-> Read examples/starter/AGENT.md and create a square-check icon in a new
-> starter-run directory. Use the bundled references, run the pinned checker,
-> and inspect the SVG and native-size proof before reporting the result.
+```bash
+npm run --silent iconsmith -- --output json draw examples/square-check.icon
+```
 
-Use your own agent login and model. Either agent can carry out this workflow;
-it does not require both subscriptions. The brief uses original MIT references,
-the bundled pinned revision and the real compiler/checker. Its outputs are drafts
-with structural diagnostics, not independently approved artwork. Agent invocation
-and permissions belong to your normal coding-agent session.
+Use `draw -` to read stdin, omit `-o` to write SVG to stdout, or pass `--doc` for
+the editable document. Errors and lint findings can return a nonzero exit code.
 
-## Advanced unattended foundry
+## Draw with an agent
 
-`npm run generate:local -- --help` describes the separate contained foundry
-entry point. It requires `--native-route` and `--native-route-hash`, Docker,
-frozen runtime/credential assets, and supported author/reviewer identities.
-The legacy host-author route is disabled; signing in and passing `--model`
-alone cannot run it. It is not the public quickstart. See
-[the local foundry guide](local-foundry.md) for this research route and its limits.
-Parent-bound runs retain their original deadline and need a fresh output directory.
+Open Codex or Claude Code in the checkout with your own account and send:
+
+> Read examples/starter/AGENT.md and execute its drawing task.
+
+Either agent can follow the [brief](../examples/starter/AGENT.md). It uses the
+bundled style and references, creates a fresh output directory, and runs the
+compiler and image checks. Your session controls the model and permissions and
+uses your account's allowance. Inspect the SVG and native-size proof before use.
 
 ## Troubleshooting
 
-| Symptom | Action |
+| Problem | Fix |
 | --- | --- |
-| `iconsmith: command not found` | Use the root npm script. This repository installs no global executable. |
-| Missing `dist/cli.js` | Run `npm run build:local` from the repository root. |
-| Existing output file or directory | Choose a new destination. `draw` supports explicit `--force`; foundry attempts require a fresh directory. |
-| Unsupported Node or native dependency failure | Check `node --version`, select Node 24.11 or newer, and rerun `npm ci`. |
-| Missing corpus | Offline drawing still works. Corpus-dependent tests and measurements remain unavailable. |
-| Authentication or restricted-runtime failure | Follow the named login/runtime error; do not bypass the permission check or substitute an API key. |
+| `iconsmith: command not found` | Use `npm run iconsmith --`. There is no global executable. |
+| Missing `dist/cli.js` | Run `npm run build:local`. |
+| Output already exists | Use a new path, or `--force` with `draw`. Agent tasks need a fresh directory. |
+| Node or dependency error | Use Node.js 24.11 or newer and run `npm ci`. |
+| Missing corpus | Drawing works without it. Some evaluation checks need datasets that are not included or downloadable. |
+| `generate:local` asks for a route | Follow the agent brief above, or configure the [advanced foundry](local-foundry.md#advanced-contained-foundry). Login alone is insufficient. |
+| Advanced authentication or runtime failure | Follow the reported error. Do not bypass permission checks or substitute an API key. |
 
-To check repository changes, see [the agent commands](../AGENTS.md). Full verification
-on a clone without private datasets uses `npm run verify -- --allow-missing-corpus`;
-its skipped measurements are explicitly unverified, not foundry qualification.
-The cached-inventory measurement in `campaign-manifest.test.ts` additionally
-requires `.corpus/manifest.json` and `.corpus/icons.jsonl`. The exact-source check
-in `source-feature-admission-profile.test.ts` requires the sibling `blode-icons`
-checkout. Their skips are separate from the thirteen legacy corpus canaries;
-the portable manifest and profile-validation controls still run.
-The three canonical-library controls in `ai-control-packet.test.ts` also require
-the sibling `blode-icons` artwork and metadata; their explicit skips are separate
-from the private-corpus canary. The library is resolved relative to this checkout.
+## Other commands
 
-## Dead-code checks
+| Command | Use |
+| --- | --- |
+| `npm run iconsmith -- --help` | List commands and flags. |
+| `npm run iconsmith -- new --help` | Draw supported concepts without a model. Other routes need their documented agent or credentials. |
+| `parts` | Extract a vocabulary from an SVG directory. |
+| `eval`, `conform` | Evaluate icons with the required datasets. See [evaluation notes](evaluation-notes.md). |
+| `npm run generate:local -- --help` | Inspect the advanced unattended route without authentication. |
 
-`npm run check:dead` runs the pinned Knip version and is included in `npm run check`.
-Knip discovers the CLI from tsdown and tests from Vitest. `knip.json` also lists
-standalone research and maintenance commands that are invoked directly rather
-than imported. Keep these explicit; new helper modules must have real consumers.
-Entry exports are checked too. `mkfifo` is a system binary used by the container
-runtime tests, so it is the sole binary exception.
-
-### Advanced native sandbox probe
-
-Use the standard Node 24 distribution (for example `nvm install 24` and `nvm use 24`) for this low-level sandbox probe. Passing it does not configure or validate an entire contained foundry route. The native read/network boundary probe passed on macOS with Node 24.15.0 and Codex CLI 0.150.1. Homebrew Node 26.7.0 failed because its separately installed shared libraries were blocked; that combination is not supported by the tested restricted runtime. The checker fails before author dispatch rather than widening file access. Offline drawing is unaffected.
-
-Run `npm run check:agent` before signing in to check the real generation sandbox with no account or model call. It uses an empty temporary auth directory and verifies both allowed workspace operations and denied outside-file/network access. Pass `-- --codex /path/to/codex` for an explicit executable. `npm run check:public` separately checks included references and exports without agents or a corpus.
-
-The agent sandbox is tested on macOS. Linux offline build and reference smoke tests run in CI, but Linux agent compatibility is not yet verified: the Ubuntu hosted runner rejected Codex 0.153.4 bubblewrap loopback setup (`RTM_NEWADDR: Operation not permitted`) before the probe ran. Run `check:agent` on your host; a failed check blocks generation. Windows native agent support is unverified.
+The [foundry guide](local-foundry.md) covers custom references, contained runtimes,
+review limits, and contributor checks. The unattended route requires
+`--native-route`, `--native-route-hash`, Docker, frozen runtime and credential
+assets, and supported author/reviewer identities. Its legacy host route is
+disabled. Parent-bound runs retain their original deadline and need a fresh output
+directory. See [agent commands](../AGENTS.md) for repository development.
