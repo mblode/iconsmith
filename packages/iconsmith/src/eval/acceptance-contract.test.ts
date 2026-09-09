@@ -894,14 +894,17 @@ describe("draft AI-only acceptance contract", () => {
       review.recognitionCorrect = false;
     }
     resealIndependentPopulation(candidate, novel);
+    const passing = validateAcceptanceReport(candidate);
     expect(
-      independentMetric(candidate, "novel-batch-a/outlined-16")
+      passing.independentReviewMetrics.find(
+        ({ scope }) => scope === "novel-batch-a/outlined-16"
+      )
     ).toMatchObject({
       recognitionRate: 0.95,
       recognitionSuccesses: 19,
       requestedCount: 20,
     });
-    expect(validateAcceptanceReport(candidate).reasons).not.toContain(
+    expect(passing.reasons).not.toContain(
       "Acceptance gate pass contradicts independent review evidence: recognition/novel-batch-a/outlined-16"
     );
 
@@ -909,14 +912,17 @@ describe("draft AI-only acceptance contract", () => {
       review.recognitionCorrect = false;
     }
     resealIndependentPopulation(candidate, novel);
+    const failing = validateAcceptanceReport(candidate);
     expect(
-      independentMetric(candidate, "novel-batch-a/outlined-16")
+      failing.independentReviewMetrics.find(
+        ({ scope }) => scope === "novel-batch-a/outlined-16"
+      )
     ).toMatchObject({
       recognitionRate: 0.9,
       recognitionSuccesses: 18,
       requestedCount: 20,
     });
-    expect(validateAcceptanceReport(candidate).reasons).toContain(
+    expect(failing.reasons).toContain(
       "Acceptance gate pass contradicts independent review evidence: recognition/novel-batch-a/outlined-16"
     );
   });
@@ -942,17 +948,23 @@ describe("draft AI-only acceptance contract", () => {
       }
     }
     resealIndependentPopulation(candidate, audit);
-    expect(independentMetric(candidate, "catalog/outlined-16")).toMatchObject({
+    const passing = validateAcceptanceReport(candidate);
+    const metric = passing.independentReviewMetrics.find(
+      ({ scope }) => scope === "catalog/outlined-16"
+    );
+    expect(metric).toMatchObject({
       requestedCount: 100,
       shipRate: 0.95,
       shipSuccesses: 95,
     });
-    const shipInterval = independentMetric(candidate, "catalog/outlined-16")
-      .uncertainty.shipRate;
+    if (!metric) {
+      throw new Error("Missing catalog independent metric");
+    }
+    const shipInterval = metric.uncertainty.shipRate;
     expect(shipInterval.available && shipInterval.interval.lower).toBeLessThan(
       0.95
     );
-    expect(validateAcceptanceReport(candidate).reasons).not.toContain(
+    expect(passing.reasons).not.toContain(
       "Acceptance gate pass contradicts independent review evidence: craft/catalog/outlined-16"
     );
 
@@ -960,11 +972,16 @@ describe("draft AI-only acceptance contract", () => {
       review.shipUnchanged = false;
     }
     resealIndependentPopulation(candidate, audit);
-    expect(independentMetric(candidate, "catalog/outlined-16")).toMatchObject({
+    const failing = validateAcceptanceReport(candidate);
+    expect(
+      failing.independentReviewMetrics.find(
+        ({ scope }) => scope === "catalog/outlined-16"
+      )
+    ).toMatchObject({
       shipRate: 0.94,
       shipSuccesses: 94,
     });
-    expect(validateAcceptanceReport(candidate).reasons).toContain(
+    expect(failing.reasons).toContain(
       "Acceptance gate pass contradicts independent review evidence: craft/catalog/outlined-16"
     );
   });

@@ -491,7 +491,8 @@ it("continues cleanup after a non-ESRCH process-group signal failure", async () 
       require("node:child_process")
         .spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], { stdio: "ignore" })
         .unref();
-      setTimeout(() => {}, 60);
+      // Keep the owner alive until cleanup, even if a busy runner delays polling.
+      setInterval(() => {}, 1000);
     `;
     const result = await runOwnedProcess({
       args: ["-e", source],
@@ -499,10 +500,13 @@ it("continues cleanup after a non-ESRCH process-group signal failure", async () 
       cwd,
       env: process.env,
       maxBuffer: 1024,
-      pollMs: 5,
-      timeoutMs: 1000,
+      pollMs: 20,
+      termGraceMs: 2000,
+      timeoutMs: 6000,
     });
-    expect(simulatedFailure).toBe(true);
+    expect(simulatedFailure, JSON.stringify({ attemptedSignals, result })).toBe(
+      true
+    );
     expect(result).toMatchObject({
       code: "quiescence-unproven",
       killed: true,
@@ -516,4 +520,4 @@ it("continues cleanup after a non-ESRCH process-group signal failure", async () 
     kill.mockRestore();
     rmSync(cwd, { force: true, recursive: true });
   }
-});
+}, 10_000);

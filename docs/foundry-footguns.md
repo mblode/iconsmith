@@ -217,3 +217,8 @@ D525 Quiver: valid credentials and a200 model listing do not establish a funded 
 ### CI verification evidence — 2026-09-09
 
 A verifier that retains immutable stage logs only on an ephemeral Actions runner can fail without exposing the cause. Public-readiness run 34323499722 reported only failed-stage and a runner-local path. CI now uses a known output directory and always prints its stage logs and receipt, including on failure; the verifier's pass/fail behavior is unchanged. Do not infer the failed test from an earlier local run.
+
+
+### Public clone fixture portability — 2026-09-09
+
+Author-absolute library paths can survive a local green suite and fail every public runner. Resolve the real sibling library, explicitly gate exact-source measurements, and prove both present and absent cases; never invent replacement artwork. A cleanup fault-injection fixture must keep its owner alive long enough to observe descendants and attempt the injected signal. Repeated full-population validation inside one assertion group can exhaust the test timeout; reuse only within the same candidate mutation state, preserving all checks. Use Node24 for CI parity, and check disk headroom before installing another dependency tree on a host with a two-GiB guard. Keep incomplete and failed attempts separate from successful evidence.
