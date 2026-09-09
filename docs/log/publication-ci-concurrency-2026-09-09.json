@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-09",
+  "sourceCommit": "c7b7dd5c297bd62a78573e990b263e1bc3e31dd6",
+  "ciRun": "https://github.com/mblode/iconsmith/actions/runs/34325713380",
+  "result": {
+    "passed": 2505,
+    "failed": 11,
+    "skipped": 34
+  },
+  "failureClass": "All eleven failures were five-second test timeouts across six files; previous missing-source, cleanup injection and two threshold controls did not fail.",
+  "changedVariable": "Use one Vitest worker in CI, retaining four locally. Move existing worker policy from CLI to Vitest configuration so CI can select a bounded concurrency. No test timeout, population, assertion, product deadline or skip condition changes in this repair.",
+  "evidence": {
+    "path": ".staging/public-readiness-2026-09-09/publication-portability-ci-all.log",
+    "sha256": "5e1ac82561b043d40e0beb4f49b5476a24f7061ea26e5562ff53743bbdc3bd44"
+  },
+  "status": "pending full GitHub CI",
+  "providerCalls": 0,
+  "newProviderSpendUsd": 0
+}

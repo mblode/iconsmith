@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-09",
+  "purpose": "Repair public-clone CI tests without changing engine behavior or acceptance criteria",
+  "baseCommit": "5a613ecff8fdac61779915b5ff45f5744bdb631e",
+  "failedCi": {
+    "url": "https://github.com/mblode/iconsmith/actions/runs/34323979148",
+    "engineTests": {
+      "passed": 2513,
+      "failed": 6,
+      "skipped": 31
+    },
+    "failures": [
+      "Three hard-coded author-only canonical-library paths",
+      "Process cleanup fixture exited before delayed observation could inject its signal failure",
+      "Two acceptance threshold tests repeated expensive full-population validation and exceeded five seconds"
+    ],
+    "secretScan": "passed"
+  },
+  "changes": [
+    "Resolve actual canonical library relative to checkout; skip three exact-source controls only when absent",
+    "Allow twenty seconds for two real-library raster packet tests; preserve all assertions",
+    "Keep process fixture owner alive until cleanup and reserve sufficient observation/cleanup time; preserve injected EACCES and SIGKILL assertions",
+    "Reuse each acceptance validation result within its unchanged mutation state; preserve populations, thresholds and rejection assertions"
+  ],
+  "localValidation": {
+    "node": "24.17.0",
+    "acceptanceThresholdControls": {
+      "passed": 2
+    },
+    "processSignalFailureControl": {
+      "passed": 1
+    },
+    "canonicalLibraryPresent": {
+      "passed": 3,
+      "skipped": 0
+    },
+    "canonicalLibraryAbsent": {
+      "passed": 0,
+      "skipped": 3
+    },
+    "typecheck": "passed",
+    "check": "passed",
+    "fullIntegrated": "pending GitHub CI"
+  },
+  "retainedAttempts": [
+    "Disposable dependency installation reduced free disk below the existing two-GiB test floor; stopped only audit-owned processes and removed only the audit install",
+    "A slow Node26 targeted run was stopped and retained; final focused checks used Node24 matching CI",
+    "An earlier process fixture reserve expired during process-list polling; final fixture reserve increased without changing product deadlines",
+    "Real-library first rerun passed two controls and hit the default five-second timeout in one packet control; all three passed with scoped raster-test budgets"
+  ],
+  "isolation": "Further source changes made only in detached publication-source worktree, preserving ongoing canonical source freeze and unrelated dirty campaign work. Temporary real-library symlink removed after positive check. Shared dependency symlinks are not staged.",
+  "providerCalls": 0,
+  "newProviderSpendUsd": 0,
+  "evidence": [
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-ci-diagnostics-all.log",
+      "sha256": "c4544d2725e86a7fdfbc8ba8d884fdb94c766c90af321c9718c1ee46db4ad223"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-portability-node24-targeted.log",
+      "sha256": "31927e6ef321bbe5e0247ad32ad1de264e4c2929a2e3ebaf101e1d2c8a9aa54c"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-process-targeted-v3.log",
+      "sha256": "a24051f6801af63d871c4b7d155c8504851c716431d893c1f33de3e5ee2003d7"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-portability-typecheck.log",
+      "sha256": "9101c0b75865233c763aef8682ecf5dc6af680d366a8d957810fcad55eacc6d1"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-portability-check.log",
+      "sha256": "cfdaada0a39ccbd6f52ef65043aad19ea9336a32cb51b9a279eb0fb6c5bb909c"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-library-positive.log",
+      "sha256": "07a114908adcdebd68f3d8e436459c9893fc413d98e6494504b8394b0af532e1"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-library-positive-v2.log",
+      "sha256": "3d1d3f79c8328b0368246466418f934831d9d061adc3228b36d562e97b390a71"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-library-absent.log",
+      "sha256": "818b78c3be586d23491629e487321c5b9546bd16d9e632455236702ded699785"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-local-abort.json",
+      "sha256": "f77fc9a24c4f1c9407d0d53b04747c56421bae38cab26ebde90f6994f0165b07"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-node26-abort.json",
+      "sha256": "45066410f1440ceceee2a6417ff1e4da15ed45528815097c5757468329eb82ba"
+    }
+  ]
+}

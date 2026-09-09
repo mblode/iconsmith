@@ -272,3 +272,9 @@ The obsolete demo test was removed with its runner. The current private-corpus c
 
 
 D545 correction: a shared Vitest cache contained another worktree's live-demo.test.ts timing. Never attribute shared cache rows to the active run; use its immutable stage log. Repeating full verification for artifact-only repair under machine contention wasted time and produced no closure. Current/aligned/serial failures retained; scoped controls expose ps inspection timeouts and quiescence-unproven. Stop provider dispatch on failed containment; do not lengthen production clocks to manufacture a pass. A second cleanup removed1,369,275,211bytes of old disposable Turbo archives only; private evidence and original attempts retained. No new calls or reservations.
+### Public clone fixture portability — 2026-09-09
+
+Author-absolute library paths can survive a local green suite and fail every public runner. Resolve the real sibling library, explicitly gate exact-source measurements, and prove both present and absent cases; never invent replacement artwork. A cleanup fault-injection fixture must keep its owner alive long enough to observe descendants and attempt the injected signal. Repeated full-population validation inside one assertion group can exhaust the test timeout; reuse only within the same candidate mutation state, preserving all checks. Use Node24 for CI parity, and check disk headroom before installing another dependency tree on a host with a two-GiB guard. Keep incomplete and failed attempts separate from successful evidence.
+
+
+CI run 34325713380 shifted from six specific fixture failures to eleven five-second timeouts across six unrelated heavy suites after those fixes. Do not repeatedly raise individual deadlines when the failing test set rotates with worker contention. Bound CI concurrency separately from local concurrency and rerun the unchanged full suite. A serial focused pass alone does not establish integrated closure.

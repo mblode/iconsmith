@@ -70,6 +70,9 @@ requires `.corpus/manifest.json` and `.corpus/icons.jsonl`. The exact-source che
 in `source-feature-admission-profile.test.ts` requires the sibling `blode-icons`
 checkout. Their skips are separate from the thirteen legacy corpus canaries;
 the portable manifest and profile-validation controls still run.
+The three canonical-library controls in `ai-control-packet.test.ts` also require
+the sibling `blode-icons` artwork and metadata; their explicit skips are separate
+from the private-corpus canary. The library is resolved relative to this checkout.
 
 ## Dead-code checks
 
