@@ -1,0 +1,108 @@
+{
+  "date": "2026-09-09",
+  "status": "published",
+  "repository": "https://github.com/mblode/iconsmith",
+  "sourceCommit": "7b4efb1b9c01d84eff8aa6d3d328f2ad4bb1f18e",
+  "authorization": "Owner explicitly instructed Git commit and push and make public after receiving the audit findings.",
+  "verification": {
+    "ciRun": "https://github.com/mblode/iconsmith/actions/runs/34326365545",
+    "status": "passed",
+    "engineTests": {
+      "passed": 2516,
+      "failed": 0,
+      "skipped": 34
+    },
+    "sourceStable": true,
+    "sourceAggregateSha256": "e53be7a49c000fc58f6407db698136d974bd43692902509786a03951dad51e0b",
+    "stages": [
+      {
+        "id": "test",
+        "passed": true,
+        "durationMs": 266927,
+        "exitCode": 0
+      },
+      {
+        "id": "typecheck",
+        "passed": true,
+        "durationMs": 5587,
+        "exitCode": 0
+      },
+      {
+        "id": "build",
+        "passed": true,
+        "durationMs": 801,
+        "exitCode": 0
+      },
+      {
+        "id": "check",
+        "passed": true,
+        "durationMs": 5437,
+        "exitCode": 0
+      },
+      {
+        "id": "diff",
+        "passed": true,
+        "durationMs": 132,
+        "exitCode": 0
+      }
+    ],
+    "privateCorpusMeasurementsAvailable": false,
+    "historySecretScan": {
+      "commits": 247,
+      "findings": 0,
+      "scope": "GitHub checkout branches and tags; earlier local audit separately included all 19 fetched PR heads."
+    }
+  },
+  "visibilityVerification": {
+    "verifiedAt": "2026-09-09T08:01:55.325103+00:00",
+    "repository": "https://github.com/mblode/iconsmith",
+    "visibility": "public",
+    "anonymousApi": {
+      "status": 200,
+      "private": false
+    },
+    "anonymousFile": {
+      "url": "https://raw.githubusercontent.com/mblode/iconsmith/7b4efb1b9c01d84eff8aa6d3d328f2ad4bb1f18e/SECURITY.md",
+      "status": 200,
+      "matchesCommittedBytes": true,
+      "sha256": "8ec79d881a9d3f5ecc85414538c5c7af013f8072a390674adeb094417a9dd766"
+    },
+    "sourceCommit": "7b4efb1b9c01d84eff8aa6d3d328f2ad4bb1f18e"
+  },
+  "commentRemediation": {
+    "commentsEdited": 6,
+    "preparedBodyReadbackMatches": 6,
+    "scope": "Only encoded Cursor action-link blocks removed; review prose preserved."
+  },
+  "localRuntimeSharp": "0.35.4",
+  "concurrentWork": "Publication source and test repairs were committed in an isolated worktree, preserving canonical campaign and cleanup changes. The owner of the canonical all-changes commit is integrating remote publication commits and this documentation result.",
+  "limits": [
+    "Private corpus measurements are unavailable on CI, and missing private/sibling/retained reference controls remain explicit skips.",
+    "Engineering verification is not an independent visual qualification or redistribution-rights audit; original audit findings and owner publication decision remain recorded.",
+    "Earlier failed and incomplete runs are preserved; this result supersedes their pending source verification, not their historical records."
+  ],
+  "evidence": [
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-serial-ci-all.log",
+      "sha256": "343b16cb95db34a7cffaafc97f4fd6540aa258102d601dba697d2e35aebacceb"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-serial-ci-result.json",
+      "sha256": "9c6170ac90b52e4f97b5f45ef11a9c1bc072467830ad5ee5ed5e8c0d7b4129b8"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-visibility-authenticated.json",
+      "sha256": "256ccc08b6ba3a52c33ac2bfc4a1f65effaf5c25afe4ec243725568a72819059"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-visibility-anonymous.json",
+      "sha256": "e93d7446f338d82acf1638bab54f052496c4e4534239d224c800008e635c590d"
+    },
+    {
+      "path": ".staging/public-readiness-2026-09-09/publication-ci-worker-probe.log",
+      "sha256": "2404eb7c2731d225e172a143d2b02c5f44474d105c9734e4aba05fc7df1d7e75"
+    }
+  ],
+  "providerCalls": 0,
+  "newProviderSpendUsd": 0
+}

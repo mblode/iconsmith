@@ -2715,3 +2715,10 @@ Node24 focused checks pass two acceptance controls, one cleanup control, and all
 ### CI concurrency correction — 2026-09-09
 
 Run 34325713380 passed the repaired missing-source, cleanup-injection and two threshold controls, but eleven other tests in six files hit the default five-second timeout: 2,505 passed and 34 explicit skips. The rotating failures span raster rendering, full-population validation and offline CLI startup, consistent with contention under four workers. Move the existing worker cap into Vitest configuration and use one worker in CI while retaining four locally. No timeouts, assertions, populations, product deadlines or source-availability gates change in this correction. Preserve the failed run and verify the changed concurrency through a fresh full CI run. No provider calls or new spend. [Receipt](log/publication-ci-concurrency-2026-09-09.json).
+
+
+### Public publication completed — 2026-09-09
+
+Source commit 7b4efb1 passed GitHub CI run 34326365545: 2,516 engine tests passed, zero failed and 34 explicitly skipped; test/typecheck/build/check/diff stages passed with stable source hashes. Serial CI concurrency resolved the rotating five-second failures without changing test deadlines or assertions. The CI Gitleaks scan found no leaks across 247 commits; the earlier local scan separately included all 19 PR heads. Missing private-corpus measurements remain unavailable, and this engineering result supplies no independent foundry qualification.
+
+Applied the owner's visibility instruction: mblode/iconsmith is public. Anonymous GitHub API returned HTTP200 with private:false; anonymous raw SECURITY.md returned HTTP200 and matched committed bytes exactly. The six earlier action-link comment edits remain verified. Canonical in-progress work was preserved throughout; its owner is integrating publication commits and this documentation result into the separately requested all-changes commit. No history rewrite, provider calls or new provider spend. [Final receipt](log/publication-result-2026-09-09.json).

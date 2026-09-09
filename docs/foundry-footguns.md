@@ -278,3 +278,6 @@ Author-absolute library paths can survive a local green suite and fail every pub
 
 
 CI run 34325713380 shifted from six specific fixture failures to eleven five-second timeouts across six unrelated heavy suites after those fixes. Do not repeatedly raise individual deadlines when the failing test set rotates with worker contention. Bound CI concurrency separately from local concurrency and rerun the unchanged full suite. A serial focused pass alone does not establish integrated closure.
+
+
+The one-worker CI rerun 34326365545 passed all 2,516 available engine tests with 34 explicit skips and all integrated stages. This closes the publication CI failure, not unavailable private-data measurements or visual qualification. GitHub visibility output was followed by independent anonymous API and raw-file byte verification before recording publication as complete.

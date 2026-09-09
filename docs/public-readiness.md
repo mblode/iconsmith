@@ -1,5 +1,13 @@
 # Public repository readiness
 
+**Published:** [mblode/iconsmith](https://github.com/mblode/iconsmith) is public.
+Anonymous API and raw-file access were verified on 9 September 2026.
+Source commit `7b4efb1` passed the [complete CI run](https://github.com/mblode/iconsmith/actions/runs/34326365545):
+2,516 engine tests passed, 34 skipped, and test/typecheck/build/check/diff plus
+Gitleaks passed with stable source hashes. Missing private-corpus measurements
+remain unavailable. The [publication result](log/publication-result-2026-09-09.json)
+records the execution and evidence.
+
 On 9 September 2026, the owner instructed: "Git commit and push and make public"
 after receiving the audit findings. Publication of the reviewed history is
 authorized; no additional license documents were supplied. Audit base: `bcd321b99d06ea521dd12388c50dbd6924b416ce` plus the
@@ -35,8 +43,9 @@ audit included those surfaces. [GitHub visibility documentation](https://docs.gi
   The private corpus remains ignored at its exact existing path.
 - Updated Sharp from 0.35.3 to 0.35.4 in the manifest and lockfile, addressing
   [GHSA-rgj7-g3m4-5g8c](https://github.com/advisories/GHSA-rgj7-g3m4-5g8c).
-- Made two exact-source measurements explicitly skip when their private or
-  sibling datasets are absent. Their portable validation tests still run.
+- Made exact-source measurements explicitly skip when their private or sibling
+  datasets are absent. Portable validation tests still run; real-library checks
+  also passed locally. Removed hard-coded author paths from the packet controls.
 - Corrected the licensing comment that inferred redistribution permission from
   existing MIT distribution.
 
@@ -59,19 +68,27 @@ ignored private corpus did not appear in the inspected Git history.
 In an isolated snapshot without private datasets, build, typecheck, lint, dead-code
 and boundary checks passed; the CLI drew and linted an icon with zero errors and
 warnings using Sharp 0.35.4. The production dependency audit reported zero
-vulnerabilities. The active checkout's installed Sharp remains 0.35.3 to preserve
-the ongoing campaign; refresh its dependencies after that work has stopped.
+vulnerabilities. The active checkout retained Sharp 0.35.3 during the initial audit
+to preserve an ongoing campaign; after that freeze, its owner reinstalled the
+updated dependency. The installed runtime was subsequently verified as 0.35.4.
 
-The full default-worker verification initially failed: 2,520 tests passed,
+The initial audit snapshot's full default-worker verification failed:
+2,520 tests passed,
 9 failed, and 29 skipped. Two missing-data failures were fixed. All five failing
 files plus renderer tests then passed with one worker: 209 passed, 2 explicitly
 skipped. With the real local datasets, the two modified test files passed all
-16 tests with no skips. This is not a completed green full-suite verification;
-the earlier process-timing failures and timeouts remain recorded.
+16 tests with no skips. These focused checks alone were not a completed green
+full-suite verification;
+the earlier process-timing failures and timeouts remain recorded. Subsequent
+public-clone CI findings and scoped repairs are retained in the
+[portability receipt](log/publication-portability-2026-09-09.json).
 
 The initial [audit receipt](log/public-readiness-2026-09-09.json) is retained as
 recorded, including its then-pending decisions. The
 [publication follow-up](log/public-publication-2026-09-09.json) records the owner's
 subsequent instruction, verified comment edits, and publication execution.
-The publication commit excludes separate uncommitted campaign work; GitHub CI
-will validate that committed source independently of the local audit snapshot.
+The publication commits excluded separate uncommitted campaign work. GitHub CI
+subsequently validated the committed source independently of the local audit
+snapshot. All earlier failures remain recorded; the final successful run uses
+one CI test worker to avoid the rotating timeouts observed with four workers.
+Local test runs retain four workers and all existing assertions remain active.
