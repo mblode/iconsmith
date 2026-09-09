@@ -11,7 +11,7 @@ Merge the composition fixes and make the public clone usable for offline drawing
 - [x] Delivery: portable agent selection and executable setup instructions.
 - [x] Arrowhead: isolated public smoke test and CI coverage.
 - [x] Root: integrate, verify source, commit and push to main.
-- [ ] Root: verify remote commit and clean CI checkout results.
+- [x] Root: verify remote commit and clean CI checkout results.
 
 ## Verification and limits
 
@@ -30,3 +30,7 @@ Public sandbox preflight is now a reusable `check:agent` command and CI uses pin
 ## Final route correction
 
 An end-to-end command audit found that the old no-manifest generate:local example could never pass the contained author/reviewer guards. Replaced public onboarding with examples/starter/AGENT.md for normal user-directed Codex or Claude drafting. The exact pinned checker command runs in the isolated public smoke. The advanced CLI now fails before authentication/output creation when no contained route is configured, with an actionable pointer to the public brief. No guards removed. No authenticated model dispatch or independent craft qualification claimed.
+
+## Completion evidence
+
+Source107554330adb6960eb9c3239fc588bcaf72eeada passed clean GitHub CI34338775915: 2,335 tests passed,33 expected missing-dataset skips; full verification, relocated public agent-packet smoke, macOS public Codex0.153.4 sandbox and secret scan passed. A coding agent also executed the bundled brief, authored a new square-check, ran the pinned checker and inspected the actual proof: exact replay, no findings, draft with craftApproved false. The final receipt is docs/log/public-clone-readiness-2026-09-09.json. All task commits pushed normally to public main. This completion covers the public user-directed draft workflow; advanced unattended runtime bootstrap remains unbundled and no authenticated provider CLI run is claimed.

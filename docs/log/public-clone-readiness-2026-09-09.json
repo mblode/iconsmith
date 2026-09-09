@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-09",
+  "sourceCommit": "107554330adb6960eb9c3239fc588bcaf72eeada",
+  "repository": "https://github.com/mblode/iconsmith",
+  "ci": {
+    "url": "https://github.com/mblode/iconsmith/actions/runs/34338775915",
+    "conclusion": "success",
+    "testsPassed": 2335,
+    "testsSkipped": 33,
+    "skips": "Expected unavailable private and sibling datasets",
+    "jobs": [
+      "build",
+      "agent-sandbox",
+      "secrets"
+    ],
+    "publicSmoke": "relocated empty-auth clone; exact packet checker command, references, replay and proof"
+  },
+  "sandbox": {
+    "platform": "macOS",
+    "node": "24.20.0",
+    "codex": "0.153.4",
+    "insideRead": "allowed",
+    "insideWrite": "allowed",
+    "outsideRead": "EPERM",
+    "outsideWrite": "EPERM",
+    "sourceRead": "EPERM",
+    "symlinkRead": "EPERM",
+    "network": "EPERM",
+    "modelDispatch": false
+  },
+  "agentDraft": {
+    "workflow": "examples/starter/AGENT.md",
+    "concept": "square-check",
+    "exactReplay": true,
+    "findings": [],
+    "craftApproved": false,
+    "visualInspection": "Author inspected native/proof; root inspected proof",
+    "hashes": {
+      "outlined.icon": "03fecfeb192abc294f59b381a7de8815459a13eb67ceb91d1e5d1d96be4d84be",
+      "outlined.svg": "fb24696f157410d6671b2a9468b69ad2a2da15d0ed602ce773acbffa022d7df5",
+      "outlined.proof.png": "31130325583288c4bef9d3dbfa4365a087b18a4698ab17677b70698944d47dab"
+    }
+  },
+  "retainedFailures": [
+    {
+      "run": 34337556538,
+      "reason": "Ubuntu bubblewrap RTM_NEWADDR EPERM before sandbox probe; no policy weakened"
+    },
+    {
+      "reason": "Earlier legacy no-manifest generate quickstart blocked by contained author/reviewer guards; replaced with real user-directed packet workflow and immediate CLI failure"
+    }
+  ],
+  "limits": [
+    "Advanced unattended foundry still requires separately configured immutable Docker/runtime/auth assets and supported model roster",
+    "No authenticated provider CLI model dispatch in this verification",
+    "No independent visual qualification",
+    "Linux/Windows advanced native agent compatibility unverified"
+  ],
+  "apiSpend": 0
+}
