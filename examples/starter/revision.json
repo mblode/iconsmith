@@ -1,7 +1,7 @@
 {
   "calibration": "unvalidated",
   "compiler": "iconsmith-constrained-25-source-exact",
-  "id": "iconsmith-original-starter-v1",
+  "id": "blode-icons-24-v1",
   "masters": {
     "24": {
       "canvas": 24,
@@ -35,70 +35,74 @@
   "policy": {
     "sections": [
       {
-        "id": "starter",
-        "heading": "Original starter family",
+        "id": "house",
+        "heading": "Blode house family",
         "when": "always"
       }
     ],
     "principles": [
       {
-        "id": "starter.geometry",
-        "section": "starter",
+        "id": "house.geometry",
+        "section": "house",
         "enabled": true,
         "provenance": "inferred",
-        "text": "Use the constrained DSL and selected spec. Match these original illustrative references: clear 2-unit outlined strokes, round terminals and simple interior details. Keep each mark optically balanced within its host. Inspect native proofs; structural checks do not establish craft approval."
+        "text": "Use the constrained DSL and selected spec. Match the bundled blode-icons references: 2-unit outlined strokes, round caps and joins, radius-3 corners on containers and simple interior details. Keep each mark optically balanced within its host. Inspect native proofs; structural checks do not establish craft approval."
       }
     ]
   },
   "references": [
     {
       "master": "24",
-      "name": "folder",
-      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M4 8L4 19L20 19L20 8L12 8L10 6L4 6L4 8\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "name": "folder-1",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M3 7v9c0 1.6569 1.3431 3 3 3h12c1.6569 0 3-1.3431 3-3v-6c0-1.6569-1.3431-3-3-3h-4.9296c-.6687 0-1.2932-.3342-1.6641-.8906l-.8126-1.2188C10.2228 4.3342 9.5983 4 8.9297 4H6C4.3431 4 3 5.3431 3 7Z\"/></svg>\n",
       "provenance": {
-        "date": "2026-09-09",
-        "icon": "folder",
+        "date": "2026-09-10",
+        "icon": "folder-1",
         "licenses": ["MIT"],
-        "origin": "original",
-        "version": "1"
+        "origin": "literal",
+        "set": "blode-icons",
+        "version": "5743371d"
       }
     },
     {
       "master": "24",
       "name": "clock",
-      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12 4C16.4184 4 20 7.5816 20 12C20 16.4184 16.4184 20 12 20C7.5816 20 4 16.4184 4 12C4 7.5816 7.5816 4 12 4Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M12 7L12 12L15 15\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8v4l2.5 2.5M21 12c0 4.9706-4.0294 9-9 9s-9-4.0294-9-9 4.0294-9 9-9 9 4.0294 9 9Z\"/></svg>\n",
       "provenance": {
-        "date": "2026-09-09",
+        "date": "2026-09-10",
         "icon": "clock",
         "licenses": ["MIT"],
-        "origin": "original",
-        "version": "1"
+        "origin": "literal",
+        "set": "blode-icons",
+        "version": "5743371d"
       }
     },
     {
       "master": "24",
-      "name": "arrow-up-right",
-      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M5 19L19 5\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M10 5L19 5L19 14\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "name": "calendar-1",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 10h16M8 5V3m8 2V3M7 20h10c1.6569 0 3-1.3431 3-3V8c0-1.6569-1.3431-3-3-3H7C5.3431 5 4 6.3431 4 8v9c0 1.6569 1.3431 3 3 3Z\"/></svg>\n",
       "provenance": {
-        "date": "2026-09-09",
-        "icon": "arrow-up-right",
+        "date": "2026-09-10",
+        "icon": "calendar-1",
         "licenses": ["MIT"],
-        "origin": "original",
-        "version": "1"
+        "origin": "literal",
+        "set": "blode-icons",
+        "version": "5743371d"
       }
     },
     {
       "master": "24",
-      "name": "calendar",
-      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M7 5L17 5C18.6569 5 20 6.3431 20 8L20 17C20 18.6569 18.6569 20 17 20L7 20C5.3431 20 4 18.6569 4 17L4 8C4 6.3431 5.3431 5 7 5Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M4 10L20 10\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M8 3L8 7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M16 3L16 7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M8 14L10 14\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M14 14L16 14\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "name": "magnifying-glass",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-width=\"2\" d=\"m20 20-3.95-3.95M18 11c0 3.866-3.134 7-7 7s-7-3.134-7-7 3.134-7 7-7 7 3.134 7 7Z\"/></svg>\n",
       "provenance": {
-        "date": "2026-09-09",
-        "icon": "calendar",
+        "date": "2026-09-10",
+        "icon": "magnifying-glass",
         "licenses": ["MIT"],
-        "origin": "original",
-        "version": "1"
+        "origin": "literal",
+        "set": "blode-icons",
+        "version": "5743371d"
       }
     }
   ],
-  "rubric": "Illustrative original starter family, not a calibrated professional reference set. Compare stroke weight, clear silhouettes and interior mark balance at native 24px and downsampled 16px. Report unresolved defects; do not infer quality from structural validity."
+  "rubric": "Blode house family drawn from the bundled blode-icons library (MIT). Compare stroke weight, corner radius, clear silhouettes and interior mark balance at native 24px and downsampled 16px against the references. Report unresolved defects; do not infer quality from structural validity."
 }

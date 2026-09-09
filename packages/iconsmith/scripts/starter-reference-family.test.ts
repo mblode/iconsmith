@@ -4,16 +4,16 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import {
-  compileStyle,
   createStyleRevision,
   selectStyle,
   STYLE_COMPILER,
 } from "../src/pipeline/style.js";
+import { BLODE_ICONS_PACKAGE, BLODE_ICONS_SVG_URL } from "./blode-icons.js";
 
 const root = new URL("../../../examples/starter/", import.meta.url);
 const read = (name: string) => readFileSync(new URL(name, root), "utf-8");
 
-describe("portable original starter reference family", () => {
+describe("bundled blode-icons default reference family", () => {
   it("loads a current self-contained revision without parts or corpus", () => {
     const revision = createStyleRevision(JSON.parse(read("revision.json")));
     expect(revision.definition.compiler).toBe(STYLE_COMPILER);
@@ -28,23 +28,34 @@ describe("portable original starter reference family", () => {
     expect(labels.length).toBeGreaterThanOrEqual(3);
     expect(labels.length).toBeLessThanOrEqual(12);
   });
-  it("pins every shipped SVG to editable original DSL and MIT provenance", () => {
+  it("pins every shipped SVG byte-for-byte to the bundled blode-icons library", () => {
     const revision = createStyleRevision(JSON.parse(read("revision.json")));
-    const style = selectStyle(revision, "24");
     const names = readdirSync(fileURLToPath(new URL("references/", root)));
     expect(names.filter((name) => name.endsWith(".svg"))).toHaveLength(4);
+    const source = JSON.parse(
+      readFileSync(`${BLODE_ICONS_PACKAGE}/SOURCE.json`, "utf-8")
+    ) as { commit: string; set: string };
+    expect(source.set).toBe("blode-icons");
     for (const reference of revision.definition.references) {
       expect(reference.provenance).toMatchObject({
+        icon: reference.name,
         licenses: ["MIT"],
-        origin: "original",
+        origin: "literal",
+        set: "blode-icons",
       });
-      const { svg } = compileStyle(
-        style,
-        read(`references/${reference.name}.icon`)
+      expect(source.commit.startsWith(reference.provenance.version ?? "")).toBe(
+        true
       );
-      expect(svg).toBe(read(`references/${reference.name}.svg`));
-      expect(svg).toBe(reference.svg);
+      const library = readFileSync(
+        new URL(`${reference.name}.svg`, BLODE_ICONS_SVG_URL),
+        "utf-8"
+      );
+      expect(library).not.toContain("lucide");
+      expect(reference.svg).toBe(library);
+      expect(read(`references/${reference.name}.svg`)).toBe(library);
     }
-    expect(read("LICENSE.md")).toContain("Permission is hereby granted");
+    expect(
+      readFileSync(`${BLODE_ICONS_PACKAGE}/LICENSE.md`, "utf-8")
+    ).toContain("Permission is hereby granted");
   });
 });

@@ -10,6 +10,7 @@ import {
   STYLE_COMPILER,
 } from "../src/pipeline/style.js";
 import { SPEC } from "../src/tools/canvas.js";
+import { BLODE_ICONS_SVG_URL } from "./blode-icons.js";
 import type { FamilySource } from "./family-parts.js";
 import {
   applyFamilyReferencePacket,
@@ -59,11 +60,7 @@ const packet = () =>
       },
     ],
   });
-const houseSourceUrl = (file: string) =>
-  new URL(
-    `../../../../blode-icons/packages/blode-icons-react/icons-svg/${file}`,
-    import.meta.url
-  );
+const houseSourceUrl = (file: string) => new URL(file, BLODE_ICONS_SVG_URL);
 
 test("reuses one source choice while admitting independently per master", async () => {
   const shared = packet();

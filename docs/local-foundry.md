@@ -6,7 +6,7 @@ No public web app, deployed Eve agent, database or API judge is required.
 
 ## Public agent draft workflow
 
-A fresh clone includes an original MIT reference family and a complete drawing
+A fresh clone includes the bundled blode-icons library, a Blode reference family and a complete drawing
 brief at [examples/starter/AGENT.md](../examples/starter/AGENT.md). After `npm ci`
 and `npm run build:local`, open the checkout in your signed-in coding agent:
 
@@ -348,13 +348,10 @@ To check repository changes, see [the agent commands](../AGENTS.md). Full verifi
 on a clone without private datasets uses `npm run verify -- --allow-missing-corpus`;
 its skipped measurements are explicitly unverified, not foundry qualification.
 The cached-inventory measurement in `campaign-manifest.test.ts` additionally
-requires `.corpus/manifest.json` and `.corpus/icons.jsonl`. The exact-source check
-in `source-feature-admission-profile.test.ts` requires the sibling `blode-icons`
-checkout. Their skips are separate from the thirteen legacy corpus canaries;
-the portable manifest and profile-validation controls still run.
-The three canonical-library controls in `ai-control-packet.test.ts` also require
-the sibling `blode-icons` artwork and metadata; their explicit skips are separate
-from the private-corpus canary. The library is resolved relative to this checkout.
+requires `.corpus/manifest.json` and `.corpus/icons.jsonl`. Its skip is separate
+from the thirteen legacy corpus canaries. The exact-source check in `source-feature-admission-profile.test.ts` and the three canonical-library
+controls in `ai-control-packet.test.ts` read the bundled `blode-icons` library at
+`packages/iconsmith/library/blode-icons` and always run.
 
 ## Dead-code checks
 

@@ -50,6 +50,8 @@ pre-commit:
         - "**/workbench/*/campaign.json"
         - "bench/*.json"
         - "**/bench/*.json"
+        - "library/blode-icons/**"
+        - "**/library/blode-icons/**"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
 

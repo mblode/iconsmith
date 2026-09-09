@@ -1,6 +1,6 @@
 # Create and independently review an icon
 
-Create one outlined `square-check` icon using the bundled original starter family.
+Create one outlined `square-check` icon in the Blode house style, using the bundled blode-icons reference family.
 Use parallel AI authors and independent AI reviewers. Spend effort on competing
 candidates and repairs; do not stop at the first structurally valid drawing.
 This is the default agent workflow. It does not yet have a qualified 10/10 score.
@@ -9,8 +9,9 @@ This is the default agent workflow. It does not yet have a qualified 10/10 score
 
 Read `packages/iconsmith/SKILL.md`, `examples/starter/revision.json` and the
 reference drawings in `examples/starter/references/`. The revision's `24` master
-and original references override generic house defaults. No private corpus,
-sibling repository or external icon pack is needed.
+and Blode references are the house defaults. The full library is bundled at
+`packages/iconsmith/library/blode-icons`; no private corpus, sibling repository
+or download is needed.
 
 Record the intended object, action and native size before drawing. Create a fresh
 `starter-draft` directory; choose another name if it exists. Preserve every

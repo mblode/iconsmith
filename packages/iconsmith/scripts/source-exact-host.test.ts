@@ -16,13 +16,11 @@ import { expect, test } from "vitest";
 import { DEFAULT_POLICY } from "../src/pipeline/policy.js";
 import { STYLE_COMPILER } from "../src/pipeline/style.js";
 import { SPEC } from "../src/tools/canvas.js";
+import { BLODE_ICONS_SVG_URL } from "./blode-icons.js";
 
 const sha256 = (value: string | Buffer): string =>
   createHash("sha256").update(value).digest("hex");
-const houseSource = new URL(
-  "../../../../blode-icons/packages/blode-icons-react/icons-svg/branch-simple.svg",
-  import.meta.url
-);
+const houseSource = new URL("branch-simple.svg", BLODE_ICONS_SVG_URL);
 const cli = new URL("source-exact-cli.ts", import.meta.url);
 const tsx = createRequire(import.meta.url).resolve("tsx/cli");
 

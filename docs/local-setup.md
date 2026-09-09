@@ -45,6 +45,6 @@ does not establish a pipeline-wide 10/10 result.
 | Node or dependency error | Use Node.js 24.11 or newer and run `npm ci`. |
 | Missing build | Run `npm run build:local`. |
 | Output already exists | Ask the agent to use a new directory. |
-| Missing references | Use `examples/starter/revision.json`. The starter needs no private dataset or sibling repository. |
+| Missing references | Use `examples/starter/revision.json`. The bundled blode-icons library needs no private dataset or sibling repository. |
 | Agent cannot inspect images or run independent reviewers | Use an agent session with those capabilities. The result remains an unreviewed draft. |
 | `generate:local` asks for a route | Ask the agent to follow `examples/starter/AGENT.md`. The unattended research runner needs separate configuration. |

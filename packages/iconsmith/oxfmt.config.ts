@@ -43,5 +43,6 @@ export default defineConfig({
     "**/bench/*.json",
     "**/bench/*.jsonl",
     "**/CHANGELOG.md",
+    "**/library/blode-icons/**",
   ],
 });

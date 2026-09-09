@@ -8,9 +8,10 @@ import {
   corruptControlSvg,
   generateAiControlPacket,
 } from "./ai-control-packet.js";
+import { BLODE_ICONS_PACKAGE } from "./blode-icons.js";
 
 const repo = path.resolve(import.meta.dirname, "../../..");
-const blode = path.resolve(repo, "../blode-icons/packages/blode-icons-react");
+const blode = BLODE_ICONS_PACKAGE;
 const libraryUnavailable = [
   "icons-svg",
   "icons-data/_cohorts.json",

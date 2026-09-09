@@ -30,8 +30,8 @@ reviews and repairs using the included references. Use your own agent account
 with subagent and image-viewing support. Unresolved defects leave the result as a
 draft. The pipeline is not yet qualified as 10/10.
 
-The [four starter references](examples/starter/README.md) are included under MIT.
-No private dataset or sibling repository is needed.
+The default style is [blode-icons](examples/starter/README.md): the house library
+is bundled under MIT. No private dataset or sibling repository is needed.
 
 See [local setup](docs/local-setup.md) for the output files and troubleshooting.
 

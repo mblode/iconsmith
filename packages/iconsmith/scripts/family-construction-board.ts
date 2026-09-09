@@ -15,6 +15,7 @@ import {
 } from "../src/pipeline/style.js";
 import { SPEC } from "../src/tools/canvas.js";
 import type { Finish } from "../src/types.js";
+import { BLODE_ICONS_PACKAGE } from "./blode-icons.js";
 import { CONSTRUCTION_CLASSES } from "./family-construction-coverage.js";
 import type { ConstructionClass } from "./family-construction-coverage.js";
 import {
@@ -549,11 +550,6 @@ if (process.argv[1]?.endsWith("family-construction-board.ts")) {
       "Usage: family-construction-board.ts <new-output-directory> [blode-icons-package]"
     );
   }
-  const library =
-    process.argv[3] ??
-    path.join(
-      process.env.HOME ?? "",
-      "Code/mblode/blode-icons/packages/blode-icons-react"
-    );
+  const library = process.argv[3] ?? BLODE_ICONS_PACKAGE;
   await buildConstructionBoard({ library, out });
 }

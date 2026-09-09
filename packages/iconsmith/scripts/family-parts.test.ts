@@ -15,6 +15,7 @@ import {
 } from "../src/pipeline/style.js";
 import { SPEC } from "../src/tools/canvas.js";
 import { run as runDsl } from "../src/tools/dsl.js";
+import { BLODE_ICONS_SVG_URL } from "./blode-icons.js";
 import {
   admitFamilyParts,
   createFamilySourceExactResolver,
@@ -351,11 +352,7 @@ test("outlined family keeps filled source boundaries and mixed solid details rep
   ).toBe(artifact.svg);
 });
 
-const houseSourceUrl = (file: string) =>
-  new URL(
-    `../../../../blode-icons/packages/blode-icons-react/icons-svg/${file}`,
-    import.meta.url
-  );
+const houseSourceUrl = (file: string) => new URL(file, BLODE_ICONS_SVG_URL);
 
 test.skipIf(!existsSync(houseSourceUrl("branch-simple.svg")))(
   "source-exact binds an admitted profiled source and exact replay to one registry",

@@ -1,0 +1,13 @@
+{
+  "icon": "map-pin",
+  "category": "Location",
+  "tags": [
+    "location",
+    "marker",
+    "place",
+    "destination",
+    "gps",
+    "navigation",
+    "spot"
+  ]
+}

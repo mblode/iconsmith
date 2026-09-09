@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import { expect, test } from "vitest";
 
 import { styleHash } from "../src/pipeline/style.js";
+import { BLODE_ICONS_SVG_URL } from "./blode-icons.js";
 import {
   resolveSourceFeatureAdmissionProfile,
   SOURCE_FEATURE_ADMISSION_PROFILE,
@@ -12,11 +13,7 @@ import {
 } from "./source-feature-admission-profile.js";
 import type { SourceFeatureAdmissionProfile } from "./source-feature-admission-profile.js";
 
-const houseSourceUrl = (file: string) =>
-  new URL(
-    `../../../../blode-icons/packages/blode-icons-react/icons-svg/${file}`,
-    import.meta.url
-  );
+const houseSourceUrl = (file: string) => new URL(file, BLODE_ICONS_SVG_URL);
 const sourceFileByName = new Map([
   ["bell", "bell-filled.svg"],
   ["bike", "bike-filled.svg"],
