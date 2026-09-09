@@ -632,16 +632,13 @@ export const runNativeContainerCommand = async (
           )
         ),
       ]
-    : [
-        invocation.command,
-        ...invocation.args.map((argument) =>
-          containerPathFor(
-            hostCwd,
-            argument,
-            config.stateMounts.map(({ containerPath }) => containerPath)
-          )
-        ),
-      ];
+    : invocation.args.map((argument) =>
+        containerPathFor(
+          hostCwd,
+          argument,
+          config.stateMounts.map(({ containerPath }) => containerPath)
+        )
+      );
   const result = await runContainerProcess({
     args: [command, ...commandArgs],
     beforeStart: async (identity) => {

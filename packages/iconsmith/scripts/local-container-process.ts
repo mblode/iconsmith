@@ -496,15 +496,20 @@ export const runContainerProcess = async (options: {
     };
   }
   const cleanupIdentity = containerId;
-  for (const [phase, args] of [
-    ["kill", ["container", "kill", cleanupIdentity]],
-    ["remove", ["container", "rm", "--force", cleanupIdentity]],
+  for (const [phase, args, remainingPhases] of [
+    ["kill", ["container", "kill", cleanupIdentity], 3],
+    ["remove", ["container", "rm", "--force", cleanupIdentity], 2],
   ] as const) {
     try {
       // Cleanup attempts are independent so one daemon error cannot skip the
       // remaining removal and accounting checks.
+      const now = Date.now();
+      // A hung control command must leave time for removal and the final
+      // absence query. Share remaining time without extending the caller's clock.
+      const deadlineAt =
+        now + Math.floor((options.deadlineAt - now) / remainingPhases);
       // oxlint-disable-next-line eslint/no-await-in-loop
-      await options.execute({ args, deadlineAt: options.deadlineAt, phase });
+      await options.execute({ args, deadlineAt, phase });
     } catch (error) {
       cleanupErrors.push(String(error));
     }

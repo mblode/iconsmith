@@ -951,3 +951,44 @@ it.each([
     }
   }
 );
+
+it("reserves removal and absence time when each cleanup command hangs", async () => {
+  let now = Date.now();
+  const clock = vi.spyOn(Date, "now").mockImplementation(() => now);
+  const deadlines: number[] = [];
+  try {
+    const execute = scripted((request) => {
+      if (request.phase === "create" || request.phase === "resolve-identity") {
+        return result({ stdout: ID });
+      }
+      if (request.phase === "start") {
+        now = request.deadlineAt;
+        return result({ code: null, killed: true });
+      }
+      if (request.phase === "kill" || request.phase === "remove") {
+        expect(request.deadlineAt).toBeGreaterThan(now);
+        deadlines.push(request.deadlineAt);
+        now = request.deadlineAt;
+        return result({ code: null, killed: true });
+      }
+      if (request.phase === "verify-absent") {
+        expect(request.deadlineAt).toBeGreaterThan(now);
+        deadlines.push(request.deadlineAt);
+      }
+      return result();
+    });
+    const configured = containerOptions(execute, ["review"]);
+    const outcome = await runContainerProcess(configured);
+    expect(deadlines).toHaveLength(3);
+    expect(deadlines[0]).toBeLessThan(deadlines[1] as number);
+    expect(deadlines[1]).toBeLessThan(deadlines[2] as number);
+    expect(deadlines[2]).toBe(configured.deadlineAt);
+    expect(outcome).toMatchObject({
+      artifactEligible: false,
+      containerAbsent: true,
+      status: "workload-failed",
+    });
+  } finally {
+    clock.mockRestore();
+  }
+});

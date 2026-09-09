@@ -177,6 +177,11 @@ it("runs one exact command with the original deadline and declared mounts", asyn
           path.join(cwd, "schema.json"),
         ])
       );
+      expect(request.args.slice(request.args.indexOf(IMAGE) + 1)).toEqual([
+        "/opt/codex",
+        "--output-schema",
+        path.join(cwd, "schema.json"),
+      ]);
       return processResult({ stdout: ID });
     }
     if (request.phase === "resolve-identity") {
@@ -241,7 +246,7 @@ it("runs one exact command with the original deadline and declared mounts", asyn
     );
     expect(observeStop).toHaveBeenCalled();
     expect(Math.max(...deadlines)).toBe(deadlineAt);
-    expect(Math.min(...deadlines)).toBe(deadlineAt - 5000);
+    expect(deadlines).toContain(deadlineAt - 5000);
   } finally {
     rmSync(cwd, { force: true, recursive: true });
   }
