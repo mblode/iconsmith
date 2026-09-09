@@ -384,6 +384,12 @@ it.each([
       readTrace: scenario === "missing-inspection" ? () => "" : fixtureTrace,
       review: (request) => {
         expect(Object.keys(request.images)).not.toContain("composition.png");
+        expect(
+          request.questions.find(({ id }) => id === "family")?.prompt
+        ).toContain("own enclosing circle or host");
+        expect(
+          request.questions.find(({ id }) => id === "optics")?.prompt
+        ).toContain("shaft-to-head tangent transition");
         const meaning = request.questions.find(
           (question) => question.id === "meaning"
         );

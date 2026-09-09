@@ -117,7 +117,13 @@ try {
       { cols: finishes.length, size: 16 }
     )
   );
+  const issues = [...findings, ...pairIssues];
+  let structuralStatus = issues.length ? "findings-require-review" : "passed";
+  if (issues.some((issue) => issue.severity === "error")) {
+    structuralStatus = "failed";
+  }
   const report = {
+    assessment: "structural-only",
     craftApproved: false,
     exactReplay: true,
     findings,
@@ -127,7 +133,9 @@ try {
     pairIssues,
     preview16: style.spec.size === 16 ? "native" : "downsample",
     snapshot,
+    structuralStatus,
     style: style.key,
+    visualReview: "required",
   };
   save("checks.json", JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
@@ -138,10 +146,13 @@ try {
   }
 } catch (error) {
   const failure = {
+    assessment: "structural-only",
     craftApproved: false,
     error: String(error),
     exactReplay: false,
     snapshot,
+    structuralStatus: "failed",
+    visualReview: "required",
   };
   save("checks.json", JSON.stringify(failure, null, 2));
   writeFileSync(

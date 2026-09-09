@@ -18,6 +18,100 @@ import { DEFAULT_POLICY } from "../src/pipeline/policy.js";
 import { createStyleRevision, STYLE_COMPILER } from "../src/pipeline/style.js";
 import { SPEC } from "../src/tools/canvas.js";
 
+test("help works outside the checkout without agent credentials or output creation", () => {
+  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-generate-help-"));
+  try {
+    const result = spawnSync(
+      process.execPath,
+      [
+        "--import",
+        import.meta.resolve("tsx"),
+        path.resolve(import.meta.dirname, "local-generate.ts"),
+        "--help",
+      ],
+      {
+        cwd: root,
+        encoding: "utf-8",
+        env: { HOME: root, PATH: "", TMPDIR: root },
+      }
+    );
+    expect(result.status, result.stderr).toBe(0);
+    expect(result.stdout).toContain("--codex <executable>");
+    expect(result.stdout).toContain("--model <id>");
+    expect(result.stdout).toContain("subscription logins");
+    expect(result.stdout).toContain("no API-key fallback");
+    expect(existsSync(path.join(root, "request.json"))).toBe(false);
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+test("requires an account-selected model before login or output creation", () => {
+  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-generate-model-"));
+  const out = path.join(root, "out");
+  try {
+    const result = spawnSync(
+      process.execPath,
+      [
+        "--import",
+        "tsx",
+        path.resolve(import.meta.dirname, "local-generate.ts"),
+        "square-check",
+        out,
+        "--revision",
+        path.join(root, "revision.json"),
+        "--master",
+        "native24",
+        "--meanings",
+        path.join(root, "meanings.json"),
+      ],
+      { encoding: "utf-8" }
+    );
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain("--model is required");
+    expect(existsSync(out)).toBe(false);
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+test("a parent-bound request cannot create a fresh deadline", () => {
+  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-generate-clock-"));
+  const out = path.join(root, "out");
+  try {
+    const result = spawnSync(
+      process.execPath,
+      [
+        "--import",
+        "tsx",
+        path.resolve(import.meta.dirname, "local-generate.ts"),
+        "square-check",
+        out,
+        "--revision",
+        path.join(root, "revision.json"),
+        "--master",
+        "24",
+        "--meanings",
+        path.join(root, "meanings.json"),
+        "--model",
+        "account-model",
+        "--request-id",
+        "parent-request",
+        "--tooling-hash",
+        "a".repeat(64),
+      ],
+      { encoding: "utf-8" }
+    );
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain(
+      "A parent-issued --deadline-at is required"
+    );
+    expect(existsSync(out)).toBe(false);
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
 const digest = (bytes: string) =>
   createHash("sha256").update(bytes).digest("hex");
 

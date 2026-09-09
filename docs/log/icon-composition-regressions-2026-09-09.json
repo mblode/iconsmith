@@ -1,0 +1,135 @@
+{
+  "date": "2026-09-09",
+  "status": "implemented; integrated verification blocked by free-disk guard",
+  "team": [
+    "alignment",
+    "arrowhead",
+    "delivery_review"
+  ],
+  "focusedTests": {
+    "passed": 134,
+    "failed": 0
+  },
+  "integratedTests": {
+    "passed": 2315,
+    "failed": 47,
+    "failedFiles": 3,
+    "cause": "Native call evidence filesystem below 2 GiB free-disk floor",
+    "receipt": ".staging/composition-regressions-20260909/receipt.json",
+    "sourceStableDuringRun": true
+  },
+  "separateChecks": {
+    "typecheck": "passed",
+    "build": "passed",
+    "check": "passed",
+    "diff": "passed"
+  },
+  "limitations": [
+    "Diagnostics are narrowly scoped warnings, not general aesthetic gates.",
+    "Revised artwork has author inspection only; no independent qualification or user approval.",
+    "Revised backup retains existing whole-icon centring warning."
+  ],
+  "resolvedToolingFailures": [
+    "Initial formatter ran from root without package-local configuration.",
+    "Full check found fixture JSON formatting; corrected. JSON-only ultracite returned no lint targets after formatting; full check passed."
+  ],
+  "providerCalls": 0,
+  "committed": false,
+  "cliResults": {
+    "database-backup-rejected": {
+      "assessment": "structural-only",
+      "craftApproved": false,
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "Content centre is (13.00, 12.00); the house spec is (12, 12) within 0.25. Shift by (-1.00, 0.00) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "\"e4\" has a 1.50-unit arrowhead depth below its 2.00-unit stroke width, with its tip directly on curved endpoint \"e3\". This compact curved junction matches the rejected database-backup construction; inspect the arrowhead at native size and consider more head depth or a tangent shaft extension. This warning does not assess other arrow constructions.",
+          "rule": "arrowhead-quality",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "nativeSize": 24,
+      "paints": [
+        "outlined"
+      ],
+      "pairChecked": false,
+      "pairIssues": [],
+      "preview16": "downsample",
+      "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/composition-cli-20260909/database-backup-rejected/check-9gcUaB",
+      "structuralStatus": "findings-require-review",
+      "style": "a4976facdde838dfd81c2e36ea2869359baccf148c03938d7763513b84070bf1",
+      "visualReview": "required"
+    },
+    "database-backup-revised": {
+      "assessment": "structural-only",
+      "craftApproved": false,
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "Content centre is (13.00, 12.00); the house spec is (12, 12) within 0.25. Shift by (-1.00, 0.00) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "nativeSize": 24,
+      "paints": [
+        "outlined"
+      ],
+      "pairChecked": false,
+      "pairIssues": [],
+      "preview16": "downsample",
+      "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/composition-cli-20260909/database-backup-revised/check-b0rdBv",
+      "structuralStatus": "findings-require-review",
+      "style": "a4976facdde838dfd81c2e36ea2869359baccf148c03938d7763513b84070bf1",
+      "visualReview": "required"
+    },
+    "search-check-rejected": {
+      "assessment": "structural-only",
+      "craftApproved": false,
+      "exactReplay": true,
+      "findings": [
+        {
+          "message": "e1 subpath 1 tick bounds centre is offset (-0.75, 0.00) units from e0 subpath 2 circular enclosure centre (11.00, 11.00), beyond the 0.50-unit quarter-stroke allowance. Inspect local optical balance at native size; whole-icon centring does not establish mark alignment.",
+          "rule": "enclosure-alignment",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "nativeSize": 24,
+      "paints": [
+        "outlined"
+      ],
+      "pairChecked": false,
+      "pairIssues": [],
+      "preview16": "downsample",
+      "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/composition-cli-20260909/search-check-rejected/check-1zNQ08",
+      "structuralStatus": "findings-require-review",
+      "style": "a4976facdde838dfd81c2e36ea2869359baccf148c03938d7763513b84070bf1",
+      "visualReview": "required"
+    },
+    "search-check-revised": {
+      "assessment": "structural-only",
+      "craftApproved": false,
+      "exactReplay": true,
+      "findings": [],
+      "nativeSize": 24,
+      "paints": [
+        "outlined"
+      ],
+      "pairChecked": false,
+      "pairIssues": [],
+      "preview16": "downsample",
+      "snapshot": "/Users/mblode/Code/mblode/iconsmith/.staging/composition-cli-20260909/search-check-revised/check-aEoyNL",
+      "structuralStatus": "passed",
+      "style": "a4976facdde838dfd81c2e36ea2869359baccf148c03938d7763513b84070bf1",
+      "visualReview": "required"
+    }
+  }
+}

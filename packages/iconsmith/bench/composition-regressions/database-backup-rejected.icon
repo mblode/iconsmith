@@ -1,0 +1,7 @@
+icon database-backup
+finish outlined
+part server-1-outlined-0 at 5,3 scale 1
+circle 17,17 r8
+trim
+arc 17,17 r4 three-quarter from right
+line 15.5,11.5 17,13 15.5,14.5

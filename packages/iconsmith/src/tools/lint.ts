@@ -36,11 +36,13 @@ import { bbox, parsePath, polylineDistance } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
 import type { BooleanDrawOp, Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
+import { arrowheadQualityIssues } from "./arrowhead-quality.js";
 import { resolveFilledPaint, SPEC } from "./canvas.js";
 import type { FilledPaintElement, Spec } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
 import { verdict } from "./cohort.js";
 import { cuts } from "./cut.js";
+import { enclosureAlignmentIssues } from "./enclosure-alignment.js";
 import { needsStrokeBounds } from "./spec.js";
 import { expandStroke } from "./stroke.js";
 
@@ -805,7 +807,9 @@ export const lint = (
     ),
     ...holeIssues(els, finish),
     ...cutIssues(els),
-    ...offAxisIssues(els, spec, finish)
+    ...offAxisIssues(els, spec, finish),
+    ...enclosureAlignmentIssues(canvas),
+    ...arrowheadQualityIssues(canvas)
   );
 
   if (els.length > spec.maxElements) {
@@ -993,6 +997,9 @@ export const review = (
     "cut",
     "off-axis",
     "density",
+    ...["enclosure-alignment", "arrowhead-quality"].filter((rule) =>
+      issues.some((issue) => issue.rule === rule)
+    ),
   ];
   const checks: Check[] = [];
   for (const rule of rules) {

@@ -8,18 +8,19 @@ The canonical command requires a pinned style and master. Codex authors the
 programs through its native ChatGPT subscription; Claude reviews the rendered
 images through its native subscription. Both logins are checked before generation.
 Inherited API keys and provider overrides are removed; there is no API fallback.
-The author and reviewer request high reasoning. The author defaults explicitly to
-`gpt-6-astra`; `--model` and `--codex` explicitly select another model and installed
-binary without changing account settings. The CLI prefers the ChatGPT app bundle
-when installed, otherwise the `codex` executable on PATH. The old global binary
-on this machine cannot run Astra; the app-bundled 0.153.4 binary has been exercised. Actual reviewer model identity is
-retained in the review receipt, and native process outputs are retained per attempt.
+The author and reviewer request high reasoning. Pass `--model` with a model
+available to your Codex account; this command does not assume access to a
+particular model. The author uses `codex` on PATH by default; `--codex` selects
+another installed executable without changing account settings. Actual reviewer
+model identity and native process outputs are retained in the review receipts.
+The Codex executable must support the restricted permission profile exercised
+by preflight; an incompatible CLI fails before authoring, without broader access.
 
 Run from the repository root after building the engine:
 
 ```sh
 npm run build --workspace iconsmith
-node --import tsx packages/iconsmith/scripts/local-generate.ts bookmark-check .staging/new-bookmark --revision path/to/revision.json --master large --meanings path/to/meanings.json --brief path/to/design-brief.md
+node --import tsx packages/iconsmith/scripts/local-generate.ts bookmark-check .staging/new-bookmark --revision path/to/revision.json --master large --model YOUR_CODEX_MODEL --meanings path/to/meanings.json --brief path/to/design-brief.md
 ```
 
 Use a new output directory. Omit `--finish` for both paints, or choose `--finish
@@ -216,7 +217,7 @@ Canonical author startup also performs an offline context preflight. It disables
 A generated composition can optionally seed the local author:
 
 ```sh
-node --import tsx packages/iconsmith/scripts/local-generate.ts jellyfish .staging/new-jellyfish --revision path/to/revision.json --master large --meanings path/to/meanings.json --sketch path/to/composition.png --sketch-source "Model, run ID, and provenance"
+node --import tsx packages/iconsmith/scripts/local-generate.ts jellyfish .staging/new-jellyfish --revision path/to/revision.json --master large --model YOUR_CODEX_MODEL --meanings path/to/meanings.json --sketch path/to/composition.png --sketch-source "Model, run ID, and provenance"
 ```
 
 The sketch must be a decodable, single PNG of at most 4096px per side. It is copied

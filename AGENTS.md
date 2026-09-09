@@ -28,8 +28,16 @@ npm run check      # lint + the layering check
 npm run fix
 npm run check:dead    # Knip unused files, exports and dependencies
 npm run check:foundry # cheap root configuration guards
+npm run check:public  # relocated starter/CLI smoke; build first
 npm run verify       # serialized integrated checks with immutable evidence
 ```
+
+## Public starter
+
+`examples/starter` ships original MIT reference artwork, a current pinned style
+revision and concept alternatives for the documented agent quickstart. It is
+independent of the private measurement corpus below. Keep the starter portable:
+no sibling checkout, author home paths or ignored staging artifacts.
 
 ## Gotchas
 

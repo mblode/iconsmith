@@ -2722,3 +2722,20 @@ Run 34325713380 passed the repaired missing-source, cleanup-injection and two th
 Source commit 7b4efb1 passed GitHub CI run 34326365545: 2,516 engine tests passed, zero failed and 34 explicitly skipped; test/typecheck/build/check/diff stages passed with stable source hashes. Serial CI concurrency resolved the rotating five-second failures without changing test deadlines or assertions. The CI Gitleaks scan found no leaks across 247 commits; the earlier local scan separately included all 19 PR heads. Missing private-corpus measurements remain unavailable, and this engineering result supplies no independent foundry qualification.
 
 Applied the owner's visibility instruction: mblode/iconsmith is public. Anonymous GitHub API returned HTTP200 with private:false; anonymous raw SECURITY.md returned HTTP200 and matched committed bytes exactly. The six earlier action-link comment edits remain verified. Canonical in-progress work was preserved throughout; its owner is integrating publication commits and this documentation result into the separately requested all-changes commit. No history rewrite, provider calls or new provider spend. [Final receipt](log/publication-result-2026-09-09.json).
+
+
+## User-requested Blode/Lucide gap icons — 2026-09-09
+
+Generated ten outlined additions in the current task with constrained DSL and admitted Blode contours. Compared 1,818 live Lucide names against 2,221 local Blode entries, aliases and semantic alternatives. All ten replay exactly; zero structural errors or gap warnings. Four alignment warnings retain source/parent positioning. Author inspected enlarged and16px downsample previews; no independent review or qualification claimed. No new provider dispatch or API spend. Standalone deliverables and provenance: `docs/log/user-blode-lucide-gaps-2026-09-09.json`.
+
+User visual revision: database-backup arrowhead widened with a tangent extension and increased parent clearance; search-check shifted0.75units right to center in the actual magnifier ring. Both replay exactly with no gap warnings; board and ZIP updated. Author inspection only.
+
+
+## Composition feedback regressions — 2026-09-09
+
+Three parallel agents added narrowly scoped enclosure/tick and curved-arrowhead warnings, structural-only checker status, and explicit local-composition reviewer questions. Root integrated shared lint/review and replayed four preserved user-feedback fixtures: both originals warn, both revisions clear the corresponding new warning. All replay exactly. 134 focused tests passed. Full integrated test attempt: 2,315 pass, 47 failures in three native-call files from the 2 GiB disk floor; stable source hashes, failure retained. Typecheck/build/check/diff pass separately after fixture formatting correction. Revised artwork remains author-inspected only; no qualification or provider dispatch. [Receipt](log/icon-composition-regressions-2026-09-09.json).
+
+
+## Public clone starter and agent setup — 2026-09-09
+
+User requested merge and out-of-box agents/references. Three parallel owners supplied original MIT starter artwork/revision/meanings, portable PATH agent setup and explicit account model, and relocated smoke with clean-checkout CI coverage. Fixed standalone generation requiring an undocumented parent deadline while preserving parent-bound deadline checks. Source stable; focused onboarding tests and typecheck/build/check/public smoke pass. Native Codex0.150.1 read/network probe passes with standard Node24.15.0 under existing policy. Homebrew Node26.7.0 fails dynamic loader reads; exact file/directory admission experiments also failed and were removed, not shipped. Four failed probes retained under .staging/public-cli-runtime-* and .staging/public-runtime-final-*. Standard Node24 success: .staging/public-runtime-node24-original-zFXCfV. No provider calls or visual qualification. Existing local disk-floor full-test failure retained; remote clean CI required before closure.

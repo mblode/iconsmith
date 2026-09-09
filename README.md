@@ -47,12 +47,34 @@ npm run --silent iconsmith -- --output json draw examples/square-check.icon
 
 ## AI generation
 
+The clone includes an [original MIT starter reference family](examples/starter/README.md),
+its pinned revision, and example meanings. No private corpus or sibling repository
+is needed for this example.
+
+Use the standard Node 24 distribution for the tested agent runtime (see [setup](docs/local-setup.md#tested-native-runtime)). Install [Codex CLI](https://help.openai.com/en/articles/11096431) and
+[Claude Code](https://code.claude.com/docs/en/quickstart), then sign in to your
+ChatGPT and Claude subscriptions. The generator uses `codex` and `claude` on PATH.
+Generation consumes your subscription usage; credentials are not included.
+
 ```bash
-npm run generate:local -- --help
+npm install -g @openai/codex
+codex login
+claude auth login
+npm run generate:local -- square-check ./starter-run \
+  --revision examples/starter/revision.json --master 24 \
+  --meanings examples/starter/meanings.json --finish outlined \
+  --model YOUR_CODEX_MODEL
 ```
 
-The local foundry requires a pinned style revision, a selected optical master, reference inputs, and native coding-agent subscriptions. Generation consumes subscription usage. Start with [local setup](docs/local-setup.md), then use [the foundry guide](docs/local-foundry.md) for generation and review.
+Replace `YOUR_CODEX_MODEL` with a model available to your account. Use a new output
+directory for each run. The command checks subscription authentication and actual
+sandbox permissions before authoring; unsupported runtimes fail without falling
+back to broader access. The starter demonstrates the workflow and is not a
+qualified production icon family.
 
+See [local setup](docs/local-setup.md) for prerequisites and
+[the foundry guide](docs/local-foundry.md) for custom references and review.
+`npm run generate:local -- --help` works without authentication.
 Structural checks and positive AI reviews do not establish professional drawing quality. Inspect the exported icons at their intended size.
 
 ## More commands

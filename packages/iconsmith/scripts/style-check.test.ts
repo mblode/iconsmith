@@ -62,6 +62,14 @@ it.each([16, 20, 24] as const)(
       const report = JSON.parse(
         readFileSync(path.join(out, "checks.json"), "utf-8")
       );
+      expect(report).toMatchObject({
+        assessment: "structural-only",
+        craftApproved: false,
+        visualReview: "required",
+      });
+      expect(["passed", "findings-require-review"]).toContain(
+        report.structuralStatus
+      );
       expect(report.nativeSize).toBe(size);
       expect(report.pairChecked).toBe(true);
       expect(report.paints).toEqual(["outlined", "filled"]);
@@ -129,6 +137,11 @@ it.each([16, 20, 24] as const)(
       const singleReport = JSON.parse(
         readFileSync(path.join(single, "checks.json"), "utf-8")
       );
+      expect(singleReport).toMatchObject({
+        assessment: "structural-only",
+        craftApproved: false,
+        visualReview: "required",
+      });
       expect(singleReport.pairChecked).toBe(false);
       expect(singleReport.paints).toEqual(["outlined"]);
       expect(singleReport.exactReplay).toBe(true);
@@ -152,8 +165,13 @@ it.each([16, 20, 24] as const)(
       expect(failed.status).not.toBe(0);
       expect(
         JSON.parse(readFileSync(path.join(out, "checks.json"), "utf-8"))
-          .exactReplay
-      ).toBe(false);
+      ).toMatchObject({
+        assessment: "structural-only",
+        craftApproved: false,
+        exactReplay: false,
+        structuralStatus: "failed",
+        visualReview: "required",
+      });
       expect(existsSync(path.join(out, "native.png"))).toBe(false);
       expect(existsSync(path.join(out, "outlined.svg"))).toBe(false);
       expect(existsSync(path.join(out, "filled.proof.png"))).toBe(false);

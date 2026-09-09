@@ -22,29 +22,46 @@ existing SVG. When piping output, use `npm run --silent iconsmith -- ...` or inv
 npm run generate:local -- --help
 ```
 
-This is a separate workflow from the offline example. It needs:
+The clone includes `examples/starter/revision.json`, its `24` master, four
+original MIT reference drawings, and `examples/starter/meanings.json`. These files
+need no private corpus or sibling checkout. To try generation:
 
-- A style revision JSON accepted by `createStyleRevision` in
-  `packages/iconsmith/src/pipeline/style.ts`. It pins the compiler identity,
-  masters, policy, references and admitted parts. Preserve the revision supplied
-  with a run rather than editing its hash or updating an old compiler identifier.
-- A master name that exists in that revision, such as `large` or `16`.
-- A JSON array of 3–12 distinct plausible concept labels, including the exact
-  requested concept. Freeze the alternatives before generating.
-- Reference artwork you are permitted to use. The private corpus and existing
-  foundry staging files are not distributed. Source admission and reference
-  provenance rules still apply to your inputs.
-- At least 2 GiB free on the evidence filesystem for contained native calls.
-- Native ChatGPT and Claude subscription logins for the default route, with a
-  Codex executable supporting the restricted runtime. The runner checks login
-  and permissions before authoring. It has no API fallback. Advanced contained
-  routes have their own pinned runtime manifests and prerequisites.
+1. Install [Codex CLI](https://help.openai.com/en/articles/11096431) with
+   `npm install -g @openai/codex` and run `codex login` with your ChatGPT account.
+2. Install [Claude Code](https://code.claude.com/docs/en/quickstart) for your
+   operating system and run `claude auth login` with your Claude subscription.
+3. Check `codex login status` and `claude auth status`. This route requires native
+   subscription authentication; API-key or cloud-provider authentication is not
+   a fallback. Credentials and subscriptions cannot be distributed in a clone.
+4. Run the example, choosing a model available to your Codex account:
 
-The full command, input semantics, output receipts and advanced routes are in
-[the local foundry guide](local-foundry.md). Its `path/to/...` arguments identify
-inputs you must supply; they are not files bundled with a fresh clone. The offline
-example demonstrates the compiler only and is not a qualified reference family.
+```bash
+npm run generate:local -- square-check ./starter-run \
+  --revision examples/starter/revision.json --master 24 \
+  --meanings examples/starter/meanings.json --finish outlined \
+  --model YOUR_CODEX_MODEL
+```
 
+The author executable defaults to `codex` on PATH; `--codex /path/to/codex`
+selects another installation. There is no macOS app-bundle dependency. The
+restricted runtime needs Codex's `exec --ignore-user-config` and `sandbox -P`
+permission-profile support. Before authoring, the runtime checks that the packet
+is readable and writable while outside files, symlinks and network access are
+actually denied. Unsupported runtimes fail this check; they never fall back to
+broader permissions. Keep at least 2 GiB free on the evidence filesystem.
+
+Standalone runs freeze their deadline once at startup, with a twenty-minute
+maximum. Parent-bound campaigns must supply their original `--deadline-at`; child
+startup does not renew it. Each run requires a new output directory whose parent
+already exists.
+
+For your own family, supply a revision accepted by `createStyleRevision`, a master
+name declared in it, and 3–12 distinct plausible meanings including the concept.
+Use reference artwork you are permitted to use; preserve its provenance. The
+starter is an illustrative, unvalidated family, not a production quality claim.
+The private evaluation corpus remains unavailable. See
+[the local foundry guide](local-foundry.md) for custom references and advanced
+contained routes.
 A completed run retains programs, SVGs, proofs, attempts and review receipts.
 `delivery.json` describes delivery, and `request.json` records the terminal status.
 A structurally delivered, reviewer-clear result exits zero. Review uncertainty or
@@ -82,3 +99,7 @@ standalone research and maintenance commands that are invoked directly rather
 than imported. Keep these explicit; new helper modules must have real consumers.
 Entry exports are checked too. `mkfifo` is a system binary used by the container
 runtime tests, so it is the sole binary exception.
+
+### Tested native runtime
+
+Use the standard Node 24 distribution (for example `nvm install 24` and `nvm use 24`) for agent generation. The native read/network boundary probe passed with Node 24.15.0 and Codex CLI 0.150.1. Homebrew Node 26.7.0 failed because its separately installed shared libraries were blocked; that combination is not supported by the tested restricted runtime. The checker fails before author dispatch rather than widening file access. Offline drawing is unaffected.

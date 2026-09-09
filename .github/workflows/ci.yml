@@ -53,6 +53,9 @@ jobs:
       - name: Verify
         run: npm run verify -- --allow-missing-corpus --out .staging/ci-verification
 
+      - name: Public onboarding smoke (no credentials or corpus)
+        run: npm run check:public
+
       - name: Show verification evidence
         if: always()
         run: |

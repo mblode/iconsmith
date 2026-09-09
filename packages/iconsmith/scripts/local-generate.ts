@@ -1,13 +1,7 @@
 /** Canonical local foundry: pinned style, native author, independent review. */
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-  writeSync,
-} from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, writeSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 
@@ -84,9 +78,10 @@ Required:
 Options:
   --finish outlined|filled  Omit to generate both paints
   --brief <file>            Design guidance in Markdown
-  --codex <executable>      Author CLI (defaults to ChatGPT app bundle, then PATH)
-  --model <id>              Author model (default: gpt-6-astra)
+  --codex <executable>      Author CLI (default: codex on PATH)
+  --model <id>              Required author model available to your account
   --max-wall-ms <number>    Total time budget (default: 1200000)
+  --deadline-at <epoch-ms>  Original deadline; required for parent-bound runs
   --library <directory>    Retrieve references from your SVG library
   --library-set <name>     Required with --library
   --exclude <concept>      Repeat to exclude retrieval subjects
@@ -101,12 +96,8 @@ provenance and review limitations. A review-clear result is not craft approval.\
   );
   process.exit(0);
 }
-const authorCommand =
-  values.codex ??
-  (existsSync("/Applications/ChatGPT.app/Contents/Resources/codex")
-    ? "/Applications/ChatGPT.app/Contents/Resources/codex"
-    : "codex");
-const authorModel = values.model ?? "gpt-6-astra";
+const authorCommand = values.codex ?? "codex";
+const authorModel = values.model?.trim();
 const [concept, destination] = positionals;
 if (
   positionals.length !== 2 ||
@@ -168,10 +159,16 @@ if (
     "Diagnostic finalization requires its plan/hash, campaign, family, two slots, shared packet, native route and request id"
   );
 }
+const requestStartedAt = Date.now();
+const parentBound = Boolean(values["request-id"] || values["native-route"]);
 const { deadlineAt, maxWallMs, startedAt } = readParentRequestClock({
-  deadlineAt: values["deadline-at"],
+  deadlineAt:
+    values["deadline-at"] ??
+    (parentBound
+      ? undefined
+      : String(requestStartedAt + Number(values["max-wall-ms"]))),
   maxWallMs: values["max-wall-ms"],
-  now: Date.now(),
+  now: requestStartedAt,
 });
 const stageTimings: Record<string, number> = {};
 const env = subscriptionEnv(process.env);
@@ -194,6 +191,11 @@ if (
 ) {
   throw new Error(
     "Native development route cannot inherit legacy runtime identity or claim qualification"
+  );
+}
+if (!values["native-route"] && !authorModel) {
+  throw new Error(
+    "--model is required: select a model available to your Codex account. Native routes pin models in their manifest."
   );
 }
 const nativeManifest = values["native-route"]
@@ -399,8 +401,7 @@ try {
       "exec",
       "--ignore-user-config",
       "--json",
-      "--model",
-      authorModel,
+      ...(authorModel ? ["--model", authorModel] : []),
       "-c",
       'model_reasoning_effort="high"',
       "--skip-git-repo-check",

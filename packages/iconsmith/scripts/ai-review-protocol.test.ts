@@ -128,6 +128,16 @@ test("seals free description before hidden-key adjudication and continues craft 
             expect(JSON.stringify(questions)).toContain(
               "Recognition and synonym adjudication are sealed; do not revise them"
             );
+            const craftPrompt = questions.find(
+              ({ id }) => id === "s001-craft"
+            )?.prompt;
+            expect(craftPrompt).toContain("own enclosing circle or host");
+            expect(craftPrompt).toContain(
+              "shaft-to-head tangent transition at native size"
+            );
+            expect(craftPrompt).toContain(
+              "do not infer a defect from asymmetry alone"
+            );
             expect(JSON.stringify(questions)).not.toContain("mismatch");
             expect(JSON.stringify(questions)).not.toContain(
               "The sealed description differs"
@@ -684,6 +694,15 @@ test("passes exact frozen recognition questions and draft craft anchors before c
           );
           const { craftScale } = DRAFT_ACCEPTANCE_CONTRACT.calibration;
           const craftQuestion = questions.find(({ id }) => id === "s001-craft");
+          expect(craftQuestion?.prompt).toContain(
+            "own enclosing circle or host"
+          );
+          expect(craftQuestion?.prompt).toContain(
+            "shaft-to-head tangent transition at native size"
+          );
+          expect(craftQuestion?.prompt).toContain(
+            "do not infer a defect from asymmetry alone"
+          );
           expect(craftQuestion?.choices).toEqual(
             Array.from(
               { length: craftScale.maximum - craftScale.minimum + 1 },

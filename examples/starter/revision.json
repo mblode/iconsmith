@@ -1,0 +1,104 @@
+{
+  "calibration": "unvalidated",
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "id": "iconsmith-original-starter-v1",
+  "masters": {
+    "24": {
+      "canvas": 24,
+      "clearance": 2,
+      "dots": {
+        "floating": 3,
+        "more": 2.5,
+        "node": 4,
+        "terminal": 2
+      },
+      "fillRadiusTiers": [0.5, 1, 1.5, 2, 3, 4],
+      "grid": 0.25,
+      "keylines": {
+        "circle": [20, 20],
+        "landscape": [20, 18],
+        "portrait": [18, 20],
+        "square": [18, 18],
+        "tall": [16, 20],
+        "wide": [20, 16]
+      },
+      "maxElements": 8,
+      "minFeature": 1.5,
+      "minGap": 1,
+      "radius": 3,
+      "radiusTiers": [0.5, 1, 2, 3],
+      "size": 24,
+      "stroke": 2
+    }
+  },
+  "parts": [],
+  "policy": {
+    "sections": [
+      {
+        "id": "starter",
+        "heading": "Original starter family",
+        "when": "always"
+      }
+    ],
+    "principles": [
+      {
+        "id": "starter.geometry",
+        "section": "starter",
+        "enabled": true,
+        "provenance": "inferred",
+        "text": "Use the constrained DSL and selected spec. Match these original illustrative references: clear 2-unit outlined strokes, round terminals and simple interior details. Keep each mark optically balanced within its host. Inspect native proofs; structural checks do not establish craft approval."
+      }
+    ]
+  },
+  "references": [
+    {
+      "master": "24",
+      "name": "folder",
+      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M4 8L4 19L20 19L20 8L12 8L10 6L4 6L4 8\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "provenance": {
+        "date": "2026-09-09",
+        "icon": "folder",
+        "licenses": ["MIT"],
+        "origin": "original",
+        "version": "1"
+      }
+    },
+    {
+      "master": "24",
+      "name": "clock",
+      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12 4C16.4184 4 20 7.5816 20 12C20 16.4184 16.4184 20 12 20C7.5816 20 4 16.4184 4 12C4 7.5816 7.5816 4 12 4Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M12 7L12 12L15 15\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "provenance": {
+        "date": "2026-09-09",
+        "icon": "clock",
+        "licenses": ["MIT"],
+        "origin": "original",
+        "version": "1"
+      }
+    },
+    {
+      "master": "24",
+      "name": "arrow-up-right",
+      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M5 19L19 5\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M10 5L19 5L19 14\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "provenance": {
+        "date": "2026-09-09",
+        "icon": "arrow-up-right",
+        "licenses": ["MIT"],
+        "origin": "original",
+        "version": "1"
+      }
+    },
+    {
+      "master": "24",
+      "name": "calendar",
+      "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M7 5L17 5C18.6569 5 20 6.3431 20 8L20 17C20 18.6569 18.6569 20 17 20L7 20C5.3431 20 4 18.6569 4 17L4 8C4 6.3431 5.3431 5 7 5Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M4 10L20 10\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M8 3L8 7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M16 3L16 7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M8 14L10 14\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M14 14L16 14\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+      "provenance": {
+        "date": "2026-09-09",
+        "icon": "calendar",
+        "licenses": ["MIT"],
+        "origin": "original",
+        "version": "1"
+      }
+    }
+  ],
+  "rubric": "Illustrative original starter family, not a calibrated professional reference set. Compare stroke weight, clear silhouettes and interior mark balance at native 24px and downsampled 16px. Report unresolved defects; do not infer quality from structural validity."
+}

@@ -19,7 +19,8 @@
     "prepare": "lefthook install || true",
     "check:foundry": "node --check scripts/verify.mjs && node --check scripts/verify.test.mjs && node packages/iconsmith/scripts/check-foundry-config.ts",
     "verify": "node scripts/verify.mjs",
-    "check:dead": "knip"
+    "check:dead": "knip",
+    "check:public": "node scripts/public-smoke.mjs"
   },
   "devDependencies": {
     "knip": "6.35.0",

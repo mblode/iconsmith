@@ -401,7 +401,7 @@ export const runAiReviewProtocol = async (options: {
           (_, index) => String(index + craftScale.minimum)
         ),
         id: `${row.id}-craft`,
-        prompt: `${context}Rate construction craft from ${craftScale.minimum} to ${craftScale.maximum} against the anchors: contour continuity, junctions, optical balance, spacing and deliberate detail. A 9 means ${craftScale.nine}. A 10 means ${craftScale.ten}. Identify any concrete defect.`,
+        prompt: `${context}Rate construction craft from ${craftScale.minimum} to ${craftScale.maximum} against the anchors: contour continuity, junctions, optical balance, spacing and deliberate detail. A 9 means ${craftScale.nine}. A 10 means ${craftScale.ten}. Inspect marks relative to their own enclosing circle or host, not only the whole icon: judge optical placement and surrounding clearance. Where arrows are present, inspect head opening, arm balance, directional legibility and the shaft-to-head tangent transition at native size. Intentional asymmetry is allowed; do not infer a defect from asymmetry alone. Identify any concrete defect with its visible location, or state that none is observed.`,
       },
       {
         choices: ["yes", "no", "uncertain"],
@@ -757,7 +757,7 @@ export const runProspectiveAiReviewProtocol = async (options: {
           (_, index) => String(index + craftScale.minimum)
         ),
         id: `${row.id}-craft`,
-        prompt: `${context}Rate construction craft from ${craftScale.minimum} to ${craftScale.maximum} against the anchors: contour continuity, junctions, optical balance, spacing and deliberate detail. A 9 means ${craftScale.nine}. A 10 means ${craftScale.ten}. Identify any concrete defect.`,
+        prompt: `${context}Rate construction craft from ${craftScale.minimum} to ${craftScale.maximum} against the anchors: contour continuity, junctions, optical balance, spacing and deliberate detail. A 9 means ${craftScale.nine}. A 10 means ${craftScale.ten}. Inspect marks relative to their own enclosing circle or host, not only the whole icon: judge optical placement and surrounding clearance. Where arrows are present, inspect head opening, arm balance, directional legibility and the shaft-to-head tangent transition at native size. Intentional asymmetry is allowed; do not infer a defect from asymmetry alone. Identify any concrete defect with its visible location, or state that none is observed.`,
       },
       {
         choices: ["yes", "no", "uncertain"],
