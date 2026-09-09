@@ -1,0 +1,65 @@
+[
+  {
+    "id": "E01",
+    "arm": "api-tool-loop",
+    "intendedConcept": "clipboard-plus",
+    "freeRecognition": "Clipboard with a plus: add an item or create a task.",
+    "semanticStatus": "correct",
+    "reason": "The blind reading identifies both the clipboard object and the add action.",
+    "usable": true
+  },
+  {
+    "id": "E02",
+    "arm": "api-tool-loop",
+    "intendedConcept": "clipboard-clock",
+    "freeRecognition": "Clipboard containing a clock: a scheduled task or task history; the precise action is not explicit.",
+    "semanticStatus": "correct",
+    "reason": "The blind reading identifies the clipboard and clock, and relates them to scheduling or task history, consistent with the clock modifier.",
+    "usable": false
+  },
+  {
+    "id": "E03",
+    "arm": "api-tool-loop",
+    "intendedConcept": "file-diff",
+    "freeRecognition": "Folded document with a plus above a horizontal line: create or add a document, although the line can also read as a minus.",
+    "semanticStatus": "incorrect",
+    "reason": "The blind reading identifies a document but interprets the action as create/add, not a file difference or comparison. Recognizing a possible minus does not establish the intended action.",
+    "usable": false
+  },
+  {
+    "id": "E04",
+    "arm": "api-tool-loop",
+    "intendedConcept": "search-check",
+    "freeRecognition": "Magnifying glass with a check: verify a search result or inspect something successfully.",
+    "semanticStatus": "correct",
+    "reason": "The blind reading identifies the magnifying-glass search object and successful verification action.",
+    "usable": true
+  },
+  {
+    "id": "E05",
+    "arm": "api-tool-loop",
+    "intendedConcept": "clock-plus",
+    "freeRecognition": "Clock with a plus beside it: add time or create a timed reminder.",
+    "semanticStatus": "correct",
+    "reason": "The blind reading identifies the clock and adding time or a timed reminder.",
+    "usable": false
+  },
+  {
+    "id": "E06",
+    "arm": "api-tool-loop",
+    "intendedConcept": "copy-check",
+    "freeRecognition": "Overlapping cards with a check on the front: confirm or select multiple items.",
+    "semanticStatus": "uncertain",
+    "reason": "The blind reading identifies overlapping cards and confirmation, but says select multiple items rather than copy or duplication; the copy object/action interpretation was not established.",
+    "usable": false
+  },
+  {
+    "id": "E07",
+    "arm": "api-tool-loop",
+    "intendedConcept": "copy-x",
+    "freeRecognition": "Overlapping cards with an X on the front: remove or reject multiple items.",
+    "semanticStatus": "uncertain",
+    "reason": "The blind reading identifies overlapping cards and removal/rejection, but does not establish copying or a rejected copy; a multiple-item removal interpretation remains plausible.",
+    "usable": false
+  }
+]

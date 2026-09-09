@@ -1,0 +1,137 @@
+[
+  {
+    "id": "D01",
+    "freeRecognition": "Database refresh or reload",
+    "craftScore": 6,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Database cylinder has an angular hexagonal top and squared layer transitions that weaken cylinder recognition."
+    ],
+    "observations": {
+      "arrowhead": "Recognizable right-pointing refresh arrowhead; somewhat bulky relative to the arc.",
+      "interiorMarkAlignment": "No interior mark.",
+      "legibility": "Refresh reads; database becomes a stack or container at small sizes.",
+      "counters": "Top aperture is narrow; layer openings remain visible."
+    }
+  },
+  {
+    "id": "D02",
+    "freeRecognition": "Add clipboard or new task",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Plus sits cleanly outside the clipboard and feels balanced.",
+      "legibility": "Clear at 24 and 16 pixels.",
+      "counters": "Clip aperture stays distinct; clipboard interior is open."
+    }
+  },
+  {
+    "id": "D03",
+    "freeRecognition": "Add filter",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Plus is separate and clear; funnel aligns left rather than centrally under the bars.",
+      "legibility": "Filter is recognizable, but the disconnected bars and short funnel feel like assembled components.",
+      "counters": "Triangular funnel opening gets very small at 16 pixels."
+    }
+  },
+  {
+    "id": "D04",
+    "freeRecognition": "Add time or add schedule",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Clock hands occupy the face convincingly; plus has adequate separation.",
+      "legibility": "Strong clock and plus recognition at all shown sizes.",
+      "counters": "Clock interior stays open."
+    }
+  },
+  {
+    "id": "D05",
+    "freeRecognition": "Document calculator or calculation sheet",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Plus and smaller marks form a fairly balanced grid, though the folded corner crowds the top right.",
+      "legibility": "Document clear; arithmetic or checklist details need a moment at 16 pixels.",
+      "counters": "Fold aperture is tight; gaps between interior marks remain present."
+    }
+  },
+  {
+    "id": "D06",
+    "freeRecognition": "Approved copy or checked overlapping cards",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Checkmark feels centered within the foreground card with convincing clearances.",
+      "legibility": "Both the overlapping cards and check remain clear at 16 pixels.",
+      "counters": "Foreground interior and exposed rear interior remain distinguishable."
+    }
+  },
+  {
+    "id": "D07",
+    "freeRecognition": "Bidirectional diagonal transfer across two stacked objects, possibly disabled transfer",
+    "craftScore": 5,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Diagonal stroke collides with multiple horizontal strokes, producing a dense central knot.",
+      "Action is ambiguous between opposing arrows and a cancellation slash."
+    ],
+    "observations": {
+      "arrowhead": "Endpoint arrowheads exist but merge with surrounding geometry; the upper left especially resembles a hooked corner.",
+      "interiorMarkAlignment": "Short internal bars and diagonal crossings compete rather than form a clear hierarchy.",
+      "legibility": "Hard to decode enlarged and substantially muddier at 24 and 16 pixels.",
+      "counters": "Numerous narrow interrupted counters collapse into visual noise."
+    }
+  },
+  {
+    "id": "D08",
+    "freeRecognition": "Verified search or inspect success",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Checkmark sits comfortably within lens, with balanced visual weight.",
+      "legibility": "Magnifier and check read immediately at all shown sizes.",
+      "counters": "Open space around check remains sufficient."
+    }
+  },
+  {
+    "id": "D09",
+    "freeRecognition": "Clipboard with clock, scheduled task",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Clock hands are tightly packed into small badge; clipboard clip aligns correctly.",
+      "legibility": "Clipboard clear; clock badge reads less cleanly at 16 pixels.",
+      "counters": "Clock interior is crowded by thick hands; a slightly lighter or larger interior would help."
+    }
+  },
+  {
+    "id": "D10",
+    "freeRecognition": "Rejected copy or remove overlapping card",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "X is centered and evenly spaced inside foreground card.",
+      "legibility": "Overlap and X are readily distinguishable down to 16 pixels.",
+      "counters": "Foreground interior has sufficient space around X."
+    }
+  }
+]

@@ -143,8 +143,7 @@ export const houseAt = (root: string): HouseSource => {
   };
 };
 
-/** Product default is the sparse gate. `--analog`, `--harness` and
- *  `--program` opt out. */
+/** AI authoring is the default; cheaper or experimental routes are explicit. */
 export const unkeyedOf = (opts: NewOptions): Unkeyed => {
   if (opts.analog) {
     return "analog";
@@ -155,7 +154,7 @@ export const unkeyedOf = (opts: NewOptions): Unkeyed => {
   if (opts.harness !== undefined && opts.harness !== false) {
     return "harness";
   }
-  return "mixture";
+  return opts.mixture ? "mixture" : "agent";
 };
 
 /** `parts.json` next to the command, or under the corpus, if nobody passed one. */
@@ -211,7 +210,7 @@ const drawNew = async (name: string, opts: NewOptions) => {
     {
       ask: opts.look ? gatewayAsk : undefined,
       finish: opts.finish === "filled" ? "filled" : "outlined",
-      forceAgent: Boolean(opts.agent),
+      forceAgent: Boolean(opts.agent) || unkeyedOf(opts) === "agent",
       harnessCommand:
         typeof opts.harness === "string" && opts.harness.length > 0
           ? opts.harness
@@ -246,16 +245,23 @@ const reportNew = (
       );
     }
   }
+  if (!result.clean) {
+    process.exitCode = 1;
+  }
   if (json) {
     process.stdout.write(
       `${JSON.stringify({
+        assessment: "structural-only",
         brief: result.brief ?? null,
         clean: result.clean,
+        craftApproved: false,
         icon: result.doc.icon,
         issues: result.issues,
+        status: "draft",
         steps: result.steps,
         svg: result.svg,
         trace: result.trace,
+        visualReview: "required",
         written: opts.out ?? null,
       })}\n`
     );
@@ -275,8 +281,8 @@ const reportNew = (
   }
   process.stderr.write(
     result.clean
-      ? `  ${label("clean", "green")} — no lint errors\n`
-      : `  ${label("off-spec", "red")} — see above\n`
+      ? `  ${label("draft", "yellow")} — no lint errors; semantic and visual review required\n`
+      : `  ${label("off-spec draft", "red")} — see above; semantic and visual review required\n`
   );
   if (opts.out) {
     process.stderr.write(`  wrote ${opts.out}\n`);
@@ -289,19 +295,16 @@ const reportNew = (
 /**
  * `iconsmith new "<name>"` — describe an icon, get one drawn to the house spec.
  *
- * Host DRAW first for a house file or a MARKS key. A filled house file is
- * compiled as filled (`--finish filled`); adapting the outline is only the
- * fallback when that file is missing. An unkeyed name goes through the
- * sparse mixture: cheap host arms, then the gateway / OpenRouter agent.
- * `--analog` is the lab path. `--harness` is a coding-agent CLI.
- * `--agent` forces the tool-calling loop even when a house file exists.
- * `--mixture` is the default and is kept so older scripts still parse.
+ * Defaults to AI authoring, including names with an existing host construction.
+ * Explicit --mixture, --analog, --program and --harness retain their existing
+ * routing. Every result is an unreviewed draft; lint cannot approve semantics
+ * or craft. Missing AI credentials fail without a host fallback.
  * The model never emits a coordinate on any of those paths.
  */
 export const registerNewCommand = (program: Command): void => {
   program
     .command("new")
-    .description("describe an icon; draw it to the house spec")
+    .description("describe an icon; author an unreviewed AI draft")
     .argument("<name>", "icon name, kebab-case (e.g. folder-clock)")
     .option(
       "-t, --tags <tag...>",
@@ -316,13 +319,10 @@ export const registerNewCommand = (program: Command): void => {
       "--agent",
       "hire the tool-calling loop even when a house file exists"
     )
-    .option(
-      "--analog",
-      "host constructions / kin replay; default for a new glyph is to hire an agent"
-    )
+    .option("--analog", "opt into host constructions / kin replay")
     .option(
       "--mixture",
-      "sparse expert routing (default): cheap host arms first, agent if they fail"
+      "opt into sparse expert routing: cheap host arms first, agent if they fail"
     )
     .option(
       "--program",

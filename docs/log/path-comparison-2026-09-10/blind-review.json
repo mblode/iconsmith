@@ -1,0 +1,298 @@
+[
+  {
+    "id": "C01",
+    "freeRecognition": "Three stacked outlined bars; menu or list, no explicit action.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Bars and slots appear evenly aligned and spaced. No arrowhead. No collisions. The three-row silhouette survives native sizes, though slots narrow at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C02",
+    "freeRecognition": "Clipboard with a clock badge; timed task or schedule, exact action uncertain.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": ["Clock badge crowds the lower-right clipboard boundary."],
+    "observations": "Badge is low and right; clipboard is intentionally open around it but nearby terminals feel crowded. No arrowhead. Clock hands remain recognizable at 24 px and become a dense spot at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C03",
+    "freeRecognition": "Two overlapping sheets or squares with an X on the front; cancel or remove a copy.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": ["Rear frame ends look conspicuously detached near the front frame."],
+    "observations": "X is well centered in front panel. No arrowhead. No direct collision, but overlap reads as broken framing at enlargement. Native silhouette and X remain clear.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C04",
+    "freeRecognition": "Clipboard containing a clock; scheduled task or timing.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Clock fills the clipboard interior with tight lower and side clearance.",
+      "Clock hands have cramped interior spacing."
+    ],
+    "observations": "Clock looks low within the body and optically heavy. No arrowhead. Interior elements nearly merge at small size; clipboard and clock are still recognizable at 24 px, less clearly at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C05",
+    "freeRecognition": "Checkmark; confirm or complete.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Check is optically balanced with a long rising arm and clean joint. No arrowhead or collisions. Native 24 px and 16 px recognition is immediate.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C06",
+    "freeRecognition": "Clock with plus; add time or schedule.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Hands align naturally within the circular field. Plus has a clean reserved opening and enough separation. No arrowhead or collisions. Both clock and plus read at native sizes.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C07",
+    "freeRecognition": "Checkmark; confirm or complete.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Balanced arms and rounded joint. No arrowhead or collisions. Clear at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C08",
+    "freeRecognition": "Three stacked outlined bars; list or menu, no explicit action.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Even bar lengths, interior slots and vertical spacing. No arrowhead or collisions. The menu silhouette remains legible at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C09",
+    "freeRecognition": "Document with folded corner, plus and short line; add a document or medical document.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Plus and footer line crowd the document interior.",
+      "Fold is visually heavy relative to the available interior."
+    ],
+    "observations": "Plus and line are centered but have tight clearance. No arrowhead. Fold junction forms a dense corner. Native document is clear; the interior details compress at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C10",
+    "freeRecognition": "Clipboard with plus; add a task or medical clipboard.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Plus sits comfortably in the body; open clip balances the top. No arrowhead. No problematic collisions. Clipboard and plus remain distinct at native sizes.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C11",
+    "freeRecognition": "Rounded square with central dot; button or single die face, exact meaning uncertain.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Dot is centered with generous equal-looking clearance. No arrowhead or collisions. Square and dot remain distinct at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C12",
+    "freeRecognition": "Panel or list with circular return arrow; refresh or restore, object uncertain.",
+    "craftScore": 5,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Arrowhead collapses into a rounded multi-lobed bump.",
+      "Refresh loop and panel are poorly integrated."
+    ],
+    "observations": "Panel interior line is clear, but lower-right loop is crowded and its direction ambiguous. Arrowhead does not read crisply even enlarged. At native size the action becomes an indistinct hook.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C13",
+    "freeRecognition": "Folded document with plus and line; add a document or medical document.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Plus is visibly left of the footer line and document body center.",
+      "Fold is heavy and interior balance is uneven."
+    ],
+    "observations": "Plus sits high-left while lower line centers differently. No arrowhead. No direct overlap, but small-size interior is crowded. Document reads at 24 px; precise action is weaker at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C14",
+    "freeRecognition": "Panel or container with curved arrow; refresh or restore, exact object uncertain.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Arrowhead is blunt and crowds the panel's open side.",
+      "Curved arrow has an awkwardly heavy junction."
+    ],
+    "observations": "Panel interior is spare and arrow occupies the lower-right field. Direction can be inferred enlarged but arrowhead softens at 16 px. Small separating gaps feel pinched.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C15",
+    "freeRecognition": "Overlapping squares with checkmark; confirmed copy or completed items.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Check is comfortably contained and optically balanced in front square. No arrowhead. Frame overlap is coherent without crowded interiors. Both layers and check read at native sizes.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C16",
+    "freeRecognition": "Magnifying glass with checkmark; verified search or check results.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Check is balanced within circular lens; handle joins cleanly. No arrowhead or interior collisions. Lens, check and handle remain recognizable at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C17",
+    "freeRecognition": "Two server or storage rows crossed out; disable storage or unavailable server.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Rows break into several disconnected fragments around the slash.",
+      "Lower-right fragment reads as a stray hook."
+    ],
+    "observations": "Slash dominates the center; remaining interior indicators are unevenly exposed. No arrowhead. Native disabled symbol is clear, but underlying object loses coherence at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C18",
+    "freeRecognition": "Clock with plus; add time or schedule.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": ["Plus crowds the lower-right clock terminals."],
+    "observations": "Clock hands are centered sensibly, but gap above and left of the plus is tight. No arrowhead. No actual overlap; at 16 px separation becomes weak.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C19",
+    "freeRecognition": "Magnifying glass with checkmark; verified search.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Check sits comfortably within lens; handle balance is good. No arrowhead or collisions. Legible at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C20",
+    "freeRecognition": "Three text-list lines with plus; add a list item.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Lines share a clean left edge; plus occupies clear lower-right space. No arrowhead or collisions. List and addition remain readable at native sizes.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C21",
+    "freeRecognition": "Clock showing roughly three o'clock; time.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Hands sit naturally within the ring with ample clearance. No arrowhead or collisions. Clear clock at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C22",
+    "freeRecognition": "Two overlapping squares with checkmark; approve or complete copies.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Checkmark is shifted upward within the front panel.",
+      "Rear frame's exposed endpoints look more detached than a natural overlap."
+    ],
+    "observations": "Check has more space below than above and right arm approaches the top-right corner. No arrowhead. No direct collision. Native meaning remains recognizable.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C23",
+    "freeRecognition": "Clipboard with plus badge; add a task.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": ["Plus is close to the clipboard's open-side terminals."],
+    "observations": "Body and badge balance reasonably but lower-right opening looks cut away around the plus. No arrowhead. Solid clip becomes heavy at 16 px; plus remains readable.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C24",
+    "freeRecognition": "Plus sign; add.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Arms are balanced around the center with consistent rounded caps. No arrowhead or collisions. Immediately legible at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C25",
+    "freeRecognition": "Rounded square with center dot; single die face or button, exact meaning uncertain.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Dot looks centered, with comfortable interior space. No arrowhead or collisions. Clear at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C26",
+    "freeRecognition": "Two server or storage rows crossed out; disable server or storage.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Diagonal slash merges heavily with top-left and bottom-right frame corners.",
+      "Top interior indicator intersects the slash."
+    ],
+    "observations": "Rows remain coherent but black junctions dominate. No arrowhead. Native slash reads, while row interiors become congested at 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C27",
+    "freeRecognition": "Rounded square with central dot; button or one on a die, exact meaning uncertain.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Dot is centered with even-looking clearances. No arrowhead or collisions. Strong native legibility.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C28",
+    "freeRecognition": "Descending centered lines with plus; add filter or list, exact object uncertain.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Centered shrinking lines suggest a filter while the plus suggests list addition, making recognition ambiguous."
+    ],
+    "observations": "Lines align around a central axis; plus is offset below-right with sufficient clearance. No arrowhead or collisions. Basic strokes read at native sizes, but object identity stays uncertain.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C29",
+    "freeRecognition": "Overlapping squares with X; cancel or remove copy.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "X is centered within the front frame and rear outline has a coherent overlap. No arrowhead or crowded junctions. Both overlap and X remain clear at 24 px and 16 px.",
+    "reviewType": "uncalibrated development review; not qualification"
+  },
+  {
+    "id": "C30",
+    "freeRecognition": "Plus sign; add.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Balanced horizontal and vertical arms with consistent caps. No arrowhead or collisions. Native 24 px and 16 px forms are clear.",
+    "reviewType": "uncalibrated development review; not qualification"
+  }
+]

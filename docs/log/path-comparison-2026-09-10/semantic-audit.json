@@ -1,0 +1,419 @@
+{
+  "reviewType": "uncalibrated development review; not quality qualification",
+  "method": "Post-key semantic audit of preserved blind free recognition. Requires object and requested modifier. No original recognition or craft judgments changed.",
+  "usableRule": "semanticStatus == correct AND shipUnchanged AND no criticalDefects",
+  "perId": [
+    {
+      "id": "C01",
+      "arm": "host-analog",
+      "intendedConcept": "database-backup",
+      "freeRecognition": "Three stacked outlined bars; menu or list, no explicit action.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized menu/list bars, with neither a database nor backup action.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C02",
+      "arm": "ai-single",
+      "intendedConcept": "clipboard-clock",
+      "freeRecognition": "Clipboard with a clock badge; timed task or schedule, exact action uncertain.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": ["Clock badge crowds the lower-right clipboard boundary."],
+      "usable": false
+    },
+    {
+      "id": "C03",
+      "arm": "ai-single",
+      "intendedConcept": "copy-x",
+      "freeRecognition": "Two overlapping sheets or squares with an X on the front; cancel or remove a copy.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": ["Rear frame ends look conspicuously detached near the front frame."],
+      "usable": false
+    },
+    {
+      "id": "C04",
+      "arm": "ai-alternative",
+      "intendedConcept": "clipboard-clock",
+      "freeRecognition": "Clipboard containing a clock; scheduled task or timing.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 7,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Clock fills the clipboard interior with tight lower and side clearance.",
+        "Clock hands have cramped interior spacing."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C05",
+      "arm": "host-analog",
+      "intendedConcept": "search-check",
+      "freeRecognition": "Checkmark; confirm or complete.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized only a checkmark; search object is absent.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C06",
+      "arm": "ai-alternative",
+      "intendedConcept": "clock-plus",
+      "freeRecognition": "Clock with plus; add time or schedule.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": true
+    },
+    {
+      "id": "C07",
+      "arm": "host-analog",
+      "intendedConcept": "copy-check",
+      "freeRecognition": "Checkmark; confirm or complete.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized only a checkmark; copy object is absent.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C08",
+      "arm": "host-analog",
+      "intendedConcept": "server-off",
+      "freeRecognition": "Three stacked outlined bars; list or menu, no explicit action.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized menu/list bars; neither server identity nor off modifier was recognized.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C09",
+      "arm": "ai-alternative",
+      "intendedConcept": "file-diff",
+      "freeRecognition": "Document with folded corner, plus and short line; add a document or medical document.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized a document and addition or medical mark, but the short line was not recognized as removal or change; file-diff fails.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Plus and footer line crowd the document interior.",
+        "Fold is visually heavy relative to the available interior."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C10",
+      "arm": "ai-alternative",
+      "intendedConcept": "clipboard-plus",
+      "freeRecognition": "Clipboard with plus; add a task or medical clipboard.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": true
+    },
+    {
+      "id": "C11",
+      "arm": "host-analog",
+      "intendedConcept": "copy-x",
+      "freeRecognition": "Rounded square with central dot; button or single die face, exact meaning uncertain.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized a button or die face; neither copy nor X modifier was recognized.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C12",
+      "arm": "ai-single",
+      "intendedConcept": "database-backup",
+      "freeRecognition": "Panel or list with circular return arrow; refresh or restore, object uncertain.",
+      "semanticStatus": "uncertain",
+      "reason": "Return/restore action was recognized, but database identity was uncertain and backup was not clearly identified.",
+      "craftScore": 5,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Arrowhead collapses into a rounded multi-lobed bump.",
+        "Refresh loop and panel are poorly integrated."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C13",
+      "arm": "ai-single",
+      "intendedConcept": "file-diff",
+      "freeRecognition": "Folded document with plus and line; add a document or medical document.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized a document and addition or medical mark, but no removal or change; file-diff fails.",
+      "craftScore": 7,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Plus is visibly left of the footer line and document body center.",
+        "Fold is heavy and interior balance is uneven."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C14",
+      "arm": "ai-alternative",
+      "intendedConcept": "database-backup",
+      "freeRecognition": "Panel or container with curved arrow; refresh or restore, exact object uncertain.",
+      "semanticStatus": "uncertain",
+      "reason": "Curved restore/refresh action was recognized, but database identity and backup remained uncertain.",
+      "craftScore": 7,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Arrowhead is blunt and crowds the panel's open side.",
+        "Curved arrow has an awkwardly heavy junction."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C15",
+      "arm": "ai-alternative",
+      "intendedConcept": "copy-check",
+      "freeRecognition": "Overlapping squares with checkmark; confirmed copy or completed items.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": true
+    },
+    {
+      "id": "C16",
+      "arm": "ai-single",
+      "intendedConcept": "search-check",
+      "freeRecognition": "Magnifying glass with checkmark; verified search or check results.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": true
+    },
+    {
+      "id": "C17",
+      "arm": "ai-alternative",
+      "intendedConcept": "server-off",
+      "freeRecognition": "Two server or storage rows crossed out; disable storage or unavailable server.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 7,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Rows break into several disconnected fragments around the slash.",
+        "Lower-right fragment reads as a stray hook."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C18",
+      "arm": "ai-single",
+      "intendedConcept": "clock-plus",
+      "freeRecognition": "Clock with plus; add time or schedule.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": ["Plus crowds the lower-right clock terminals."],
+      "usable": false
+    },
+    {
+      "id": "C19",
+      "arm": "ai-alternative",
+      "intendedConcept": "search-check",
+      "freeRecognition": "Magnifying glass with checkmark; verified search.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": true
+    },
+    {
+      "id": "C20",
+      "arm": "ai-alternative",
+      "intendedConcept": "list-filter-plus",
+      "freeRecognition": "Three text-list lines with plus; add a list item.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized list addition but no filter meaning; requested filter modifier is missing.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C21",
+      "arm": "host-analog",
+      "intendedConcept": "clipboard-clock",
+      "freeRecognition": "Clock showing roughly three o'clock; time.",
+      "semanticStatus": "incorrect",
+      "reason": "Clock recognized, but clipboard object is absent.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C22",
+      "arm": "ai-single",
+      "intendedConcept": "copy-check",
+      "freeRecognition": "Two overlapping squares with checkmark; approve or complete copies.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Checkmark is shifted upward within the front panel.",
+        "Rear frame's exposed endpoints look more detached than a natural overlap."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C23",
+      "arm": "ai-single",
+      "intendedConcept": "clipboard-plus",
+      "freeRecognition": "Clipboard with plus badge; add a task.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": ["Plus is close to the clipboard's open-side terminals."],
+      "usable": false
+    },
+    {
+      "id": "C24",
+      "arm": "host-analog",
+      "intendedConcept": "clipboard-plus",
+      "freeRecognition": "Plus sign; add.",
+      "semanticStatus": "incorrect",
+      "reason": "Addition recognized, but clipboard object is absent.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C25",
+      "arm": "host-analog",
+      "intendedConcept": "file-diff",
+      "freeRecognition": "Rounded square with center dot; single die face or button, exact meaning uncertain.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized button or die face; neither file identity nor addition/removal/change was recognized.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C26",
+      "arm": "ai-single",
+      "intendedConcept": "server-off",
+      "freeRecognition": "Two server or storage rows crossed out; disable server or storage.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 7,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Diagonal slash merges heavily with top-left and bottom-right frame corners.",
+        "Top interior indicator intersects the slash."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C27",
+      "arm": "host-analog",
+      "intendedConcept": "clock-plus",
+      "freeRecognition": "Rounded square with central dot; button or one on a die, exact meaning uncertain.",
+      "semanticStatus": "incorrect",
+      "reason": "Recognized button or die face; neither clock nor plus was recognized.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    },
+    {
+      "id": "C28",
+      "arm": "ai-single",
+      "intendedConcept": "list-filter-plus",
+      "freeRecognition": "Descending centered lines with plus; add filter or list, exact object uncertain.",
+      "semanticStatus": "uncertain",
+      "reason": "Add filter was one possible reading, but the preserved recognition explicitly leaves filter versus list uncertain.",
+      "craftScore": 8,
+      "shipUnchanged": false,
+      "criticalDefects": [
+        "Centered shrinking lines suggest a filter while the plus suggests list addition, making recognition ambiguous."
+      ],
+      "usable": false
+    },
+    {
+      "id": "C29",
+      "arm": "ai-alternative",
+      "intendedConcept": "copy-x",
+      "freeRecognition": "Overlapping squares with X; cancel or remove copy.",
+      "semanticStatus": "correct",
+      "reason": "Preserved free recognition identifies both the requested object and its modifier.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": true
+    },
+    {
+      "id": "C30",
+      "arm": "host-analog",
+      "intendedConcept": "list-filter-plus",
+      "freeRecognition": "Plus sign; add.",
+      "semanticStatus": "incorrect",
+      "reason": "Addition recognized, but list/filter object is absent.",
+      "craftScore": 9,
+      "shipUnchanged": true,
+      "criticalDefects": [],
+      "usable": false
+    }
+  ],
+  "perArm": [
+    {
+      "arm": "host-analog",
+      "requested": 10,
+      "semanticCorrect": 0,
+      "semanticUncertain": 0,
+      "semanticIncorrect": 10,
+      "usable": 0
+    },
+    {
+      "arm": "ai-single",
+      "requested": 10,
+      "semanticCorrect": 7,
+      "semanticUncertain": 2,
+      "semanticIncorrect": 1,
+      "usable": 1
+    },
+    {
+      "arm": "ai-alternative",
+      "requested": 10,
+      "semanticCorrect": 7,
+      "semanticUncertain": 1,
+      "semanticIncorrect": 2,
+      "usable": 5
+    }
+  ]
+}

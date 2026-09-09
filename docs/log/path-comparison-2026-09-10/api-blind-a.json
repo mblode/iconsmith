@@ -1,0 +1,67 @@
+[
+  {
+    "id": "E01",
+    "freeRecognition": "Clipboard with a plus: add an item or create a task.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "The plus is centered within the usable clipboard interior and has generous surrounding space. The hollow clip is distinct from the body, with balanced side gaps. At native 24px and downsampled 16px, both clip and plus remain recognizable; the small clip counter is the first detail to weaken. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  },
+  {
+    "id": "E02",
+    "freeRecognition": "Clipboard containing a clock: a scheduled task or task history; the precise action is not explicit.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "The clock is centered in the clipboard body, but its thick ring and hands make the interior appreciably denser than the other samples. The top clip becomes a solid heavy block at enlargement. The clock remains identifiable at 24px, while the hand shape and white interior narrow at 16px. Refine the clock's internal breathing room and clip weight. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  },
+  {
+    "id": "E03",
+    "freeRecognition": "Folded document with a plus above a horizontal line: create or add a document, although the line can also read as a minus.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The internal plus and short line read as a plus/minus pair, making the intended document action ambiguous."
+    ],
+    "observations": "The plus and line are horizontally aligned, but the line sits close to the document bottom and gives the lower interior a cramped rhythm. The folded corner has a small triangular counter that becomes much less distinct at 16px. At 24px the document silhouette is clear, while the internal marks compete as separate symbols rather than one obvious action. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  },
+  {
+    "id": "E04",
+    "freeRecognition": "Magnifying glass with a check: verify a search result or inspect something successfully.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "The check is readily recognizable and optically balanced within the lens, with enough separation from the surrounding ring. The lens-to-handle junction is clean and the handle has a consistent rounded finish. Native 24px and 16px versions preserve the check, circular host, and diagonal handle distinctly. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  },
+  {
+    "id": "E05",
+    "freeRecognition": "Clock with a plus beside it: add time or create a timed reminder.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "Clock and plus have clear independent silhouettes, and the hands are well spaced within the ring. The large detached plus pulls the overall visual balance strongly toward the lower right. Its gap from the clock is clear at enlargement and native size but feels tight in the 16px composite. A slightly quieter plus would improve the relationship between host and action. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  },
+  {
+    "id": "E06",
+    "freeRecognition": "Overlapping cards with a check on the front: confirm or select multiple items.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "The foreground check is balanced and leaves healthy gaps to its rounded-square host. The rear card is reduced to an open corner whose long exposed top stroke and lack of visible lower continuation make it somewhat bracket-like. The overlapping-card reading survives at 24px and 16px, though the rear fragment carries less object information at the smaller size. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  },
+  {
+    "id": "E07",
+    "freeRecognition": "Overlapping cards with an X on the front: remove or reject multiple items.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "The X is centered within the front card with consistent diagonal arms, but is heavier and more interior-filling than the check sample. The rear card's short curved ends approach the front card closely, producing small, busy gaps at the upper right and lower left. At 24px the X is clear; at 16px its central join darkens substantially and the overlap gaps become less comfortable. No arrowhead is present.",
+    "reviewStatus": "Development, uncalibrated, not qualification"
+  }
+]

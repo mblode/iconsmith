@@ -1,0 +1,82 @@
+[
+  {
+    "id": "D01",
+    "arm": "ai-repaired",
+    "intendedConcept": "database-backup",
+    "semanticStatus": "uncertain",
+    "reason": "Database object was recognized, but refresh does not establish the intended backup action.",
+    "usable": false
+  },
+  {
+    "id": "D02",
+    "arm": "ai-repaired",
+    "intendedConcept": "clipboard-plus",
+    "semanticStatus": "correct",
+    "reason": "Clipboard and addition were both recognized.",
+    "usable": true
+  },
+  {
+    "id": "D03",
+    "arm": "ai-repaired",
+    "intendedConcept": "list-filter-plus",
+    "semanticStatus": "correct",
+    "reason": "Filter, list lines, and addition were explicitly recognized.",
+    "usable": false
+  },
+  {
+    "id": "D04",
+    "arm": "ai-repaired",
+    "intendedConcept": "clock-plus",
+    "semanticStatus": "correct",
+    "reason": "Time or scheduling with addition was recognized; clock object was confirmed in observations.",
+    "usable": true
+  },
+  {
+    "id": "D05",
+    "arm": "ai-repaired",
+    "intendedConcept": "file-diff",
+    "semanticStatus": "incorrect",
+    "reason": "Document was recognized, but calculations or medical/add-document interpretations did not identify differences or addition and removal.",
+    "usable": false
+  },
+  {
+    "id": "D06",
+    "arm": "ai-repaired",
+    "intendedConcept": "copy-check",
+    "semanticStatus": "correct",
+    "reason": "Copy and approval/check were both recognized.",
+    "usable": true
+  },
+  {
+    "id": "D07",
+    "arm": "ai-repaired",
+    "intendedConcept": "server-off",
+    "semanticStatus": "incorrect",
+    "reason": "Recognition suggested transfer or resize of stacked units, not a server being off.",
+    "usable": false
+  },
+  {
+    "id": "D08",
+    "arm": "ai-repaired",
+    "intendedConcept": "search-check",
+    "semanticStatus": "correct",
+    "reason": "Search and verification/check were both recognized.",
+    "usable": true
+  },
+  {
+    "id": "D09",
+    "arm": "ai-repaired",
+    "intendedConcept": "clipboard-clock",
+    "semanticStatus": "correct",
+    "reason": "Clipboard and clock/scheduling were both recognized.",
+    "usable": false
+  },
+  {
+    "id": "D10",
+    "arm": "ai-repaired",
+    "intendedConcept": "copy-x",
+    "semanticStatus": "correct",
+    "reason": "Copy and removal/rejection X were both recognized.",
+    "usable": true
+  }
+]

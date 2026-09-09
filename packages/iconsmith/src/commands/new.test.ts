@@ -40,8 +40,8 @@ describe("houseAt", () => {
 });
 
 describe("unkeyedOf", () => {
-  it("defaults to the mixture; analog and harness opt out", () => {
-    expect(unkeyedOf({})).toBe("mixture");
+  it("defaults to AI; mixture, analog and harness opt out", () => {
+    expect(unkeyedOf({})).toBe("agent");
     expect(unkeyedOf({ mixture: true })).toBe("mixture");
     expect(unkeyedOf({ analog: true })).toBe("analog");
     expect(unkeyedOf({ harness: "codex" })).toBe("harness");

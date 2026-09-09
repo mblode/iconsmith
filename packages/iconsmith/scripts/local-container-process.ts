@@ -525,9 +525,18 @@ export const runContainerProcess = async (options: {
       deadlineAt: options.deadlineAt,
       phase: "verify-absent",
     });
-    containerAbsent = listed.code === 0 && listed.stdout.trim() === "";
-    if (!containerAbsent) {
-      cleanupErrors.push("Docker still reports the captured container id");
+    containerAbsent =
+      listed.code === 0 && !listed.killed && listed.stdout.trim() === "";
+    if (listed.code !== 0 || listed.killed) {
+      cleanupErrors.push(
+        `Docker absence query did not complete successfully (exit=${String(listed.code)}, killed=${listed.killed}); container presence is unknown`
+      );
+    } else if (!containerAbsent) {
+      cleanupErrors.push(
+        listed.stdout.trim().split(/\s+/u).includes(containerId)
+          ? "Docker still reports the captured container id"
+          : "Docker absence query returned unexpected output; container presence is unknown"
+      );
     }
   } catch (error) {
     cleanupErrors.push(String(error));

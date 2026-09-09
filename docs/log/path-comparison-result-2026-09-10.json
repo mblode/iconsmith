@@ -1,0 +1,86 @@
+{
+  "qualification": false,
+  "report": "path-comparison-2026-09-10/comparison.md",
+  "api": {
+    "requested": 20,
+    "attempted": 16,
+    "knownUsd": 1.591246,
+    "unknownReservationUsd": 10,
+    "unstarted": 4
+  },
+  "native": {
+    "requested": 10,
+    "attempted": 1,
+    "validOutputs": 0,
+    "unstarted": 9,
+    "containment": "unproven",
+    "accounting": "unknown"
+  },
+  "verification": {
+    "status": "passed",
+    "engineTests": 2377,
+    "sourceSha256": "c145c2366a545130b09fe5e021b331aa748eb362ee33d42819fd2ba139514452"
+  },
+  "results": [
+    {
+      "arm": "host-analog",
+      "requested": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 0,
+      "usableBoth": 0,
+      "firstReviewerUsable": 0,
+      "secondReviewerUsable": 0,
+      "medianCraftFirst": 9.0
+    },
+    {
+      "arm": "ai-single",
+      "requested": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 7,
+      "usableBoth": 0,
+      "firstReviewerUsable": 1,
+      "secondReviewerUsable": 2,
+      "medianCraftFirst": 8.0
+    },
+    {
+      "arm": "ai-alternative",
+      "requested": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 7,
+      "usableBoth": 5,
+      "firstReviewerUsable": 5,
+      "secondReviewerUsable": 5,
+      "medianCraftFirst": 9.0
+    },
+    {
+      "arm": "ai-repaired",
+      "requested": 10,
+      "attempted": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 7,
+      "usableBoth": 5
+    },
+    {
+      "arm": "api-tool-loop",
+      "requested": 10,
+      "attempted": 8,
+      "validPrograms": 7,
+      "reviewers": 2,
+      "semanticBoth": 4,
+      "usableBoth": 2
+    },
+    {
+      "arm": "api-js-builder",
+      "requested": 10,
+      "attempted": 8,
+      "validPrograms": 0,
+      "reviewers": 0,
+      "semanticBoth": 0,
+      "usableBoth": 0
+    }
+  ]
+}

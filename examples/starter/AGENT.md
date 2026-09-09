@@ -1,45 +1,90 @@
-# Draw a starter icon
+# Create and independently review an icon
 
-Create one outlined `square-check` icon as a reviewable draft, using only this
-repository and the bundled original starter family. This is a user-directed
-agent task, not an independently reviewed foundry run.
+Create one outlined `square-check` icon using the bundled original starter family.
+Use parallel AI authors and independent AI reviewers. Spend effort on competing
+candidates and repairs; do not stop at the first structurally valid drawing.
+This is the default agent workflow. It does not yet have a qualified 10/10 score.
 
-1. Read `packages/iconsmith/SKILL.md` for the DSL syntax and
-   `examples/starter/revision.json` for the selected style. The revision's `24`
-   master and original reference drawings override generic house defaults in
-   the skill. The included reference SVGs and `.icon` programs are in
-   `examples/starter/references/`; inspect them to understand the family.
-   No private corpus, sibling repository or external icon pack is needed.
-2. Use a fresh output directory named `starter-draft` at the repository root.
-   If it exists, choose a new name and substitute it consistently below. Write
-   `outlined.icon` in that directory. Start it with `icon square-check` and
-   `finish outlined`. Use only the constrained DSL; never write raw SVG path
-   coordinates, modify the compiler, or rewrite the pinned revision to make
-   checks pass. Do not copy `examples/square-check.icon` as your submission.
-3. Compile, replay, lint and render the actual program with the pinned checker:
+## 1. Pin the request
 
-   ```bash
-   node --import tsx packages/iconsmith/scripts/style-check.ts examples/starter/revision.json 24 starter-draft outlined
-   ```
+Read `packages/iconsmith/SKILL.md`, `examples/starter/revision.json` and the
+reference drawings in `examples/starter/references/`. The revision's `24` master
+and original references override generic house defaults. No private corpus,
+sibling repository or external icon pack is needed.
 
-   The checker writes `outlined.svg`, `outlined.artifact.json`, `checks.json`,
-   `outlined.proof.png`, `outlined.native.png`, and immutable `check-*`
-   snapshots. Fix compilation errors and inspect every finding. Explain any
-   remaining warnings with visible evidence rather than dismissing them because
-   they have warning severity. Rerun the same command after every program edit.
-4. Open the final `outlined.proof.png` and `outlined.native.png` using your image
-   viewing tool. Inspect native pixels and enlarged contours, including the
-   check's optical placement inside its own square, surrounding clearance,
-   corner consistency and readable check arms. Whole-icon centering is not
-   enough. If you cannot inspect images, state that visual review is incomplete;
-   do not infer visual quality from a successful command or image metadata.
-5. Write a concise `review.md` inside the output directory describing what you
-   inspected, remaining defects or uncertainty, and any warnings. Link the SVG,
-   proof and report in your response. Call the result a draft pending user review.
-   Preserve `craftApproved: false`: exact replay and structural checks do not
-   grant independent visual approval or production qualification.
+Record the intended object, action and native size before drawing. Create a fresh
+`starter-draft` directory; choose another name if it exists. Preserve every
+candidate, review and revision beneath it. Never overwrite an earlier attempt.
 
-For a different concept, replace `square-check` in the request and program with
-the user's chosen concept. Keep the same pinned family unless the user provides
-another revision. Do not dispatch another agent or paid reviewer as part of this
-brief unless the user explicitly requests it.
+## 2. Draw competing candidates
+
+Dispatch at least two authors in parallel with the same request and pinned
+references. Give each a separate candidate directory. Neither author sees the
+other's draft. Each writes `outlined.icon`, beginning with `icon square-check`
+and `finish outlined`. Use only the constrained DSL. Do not write raw SVG paths,
+modify the compiler or change the revision to make checks pass. Do not copy
+`examples/square-check.icon` as a submission.
+
+Compile each candidate with the real checker, substituting its directory:
+
+```bash
+node --import tsx packages/iconsmith/scripts/style-check.ts examples/starter/revision.json 24 starter-draft/candidate-a outlined
+```
+
+The checker writes the SVG, artifact, findings, enlarged proof, native pixels and
+immutable snapshots. Resolve compilation errors and inspect every warning. Open
+both `outlined.proof.png` and `outlined.native.png`; command success and image
+metadata are not visual inspection. Authors can revise their own drafts before
+review, retaining previous versions.
+
+## 3. Review without author influence
+
+Use two fresh reviewer contexts that did not author the candidates. Present
+anonymously labelled images in shuffled order. Exclude author reasoning, route,
+model, cost, prior scores and preferred candidate. Reviewers first describe the
+object and action without seeing the requested concept. Preserve that response,
+then compare it with the frozen request. A clean checkmark fails a request for a
+magnifying glass containing a checkmark.
+
+Have both reviewers inspect enlarged contours and actual native pixels on light
+and dark backgrounds. Check interior mark placement within its own host,
+clearance, arrow direction and arrowhead shape, coherent silhouettes, counter
+openings, stroke consistency and fit with the pinned references. A resized 24px
+master is not an independently designed native 16px master.
+
+Record each review in `reviews/`: candidate identity, inspected artifact hashes,
+free recognition, meaning match, craft score, ship-unchanged decision, specific
+visible defects and uncertainty. Use 9–10 for ready without edits, 7–8 for
+recognizable drawings needing refinement, and 6 or below for substantial repair.
+Do not count author self-review as independent approval. Treat any critical
+finding or recognition conflict as a rejection, even if the average score is high.
+
+## 4. Repair and select
+
+Send localized defects to the author and retain each repaired candidate as a new
+version. Rerun the checker and have both reviewers inspect the new images. Allow
+up to three repair rounds per candidate; if a candidate still fails, report it
+as unresolved instead of looping indefinitely or lowering the standard.
+
+Select only among candidates with exact replay, no structural errors, both
+reviewers recognizing the requested meaning, both scoring at least 9, both
+willing to ship unchanged, and no unresolved critical finding or uncertainty.
+Resolve warnings with visible evidence. Rank eligible candidates by their lower
+reviewer score, then family fit; cost and speed do not break quality ties.
+If none qualify, deliver the retained drafts and specific blocker, not an
+approved icon. Missing independent reviewers or image inspection also leaves
+review incomplete. Do not silently replace them with the author's self-review.
+
+## 5. Deliver the evidence
+
+Copy the selected SVG, program and exact proofs to `selected/` only after the
+checks above pass. Write `review.md` with a task checklist, requested and
+completed candidates, reviews, repairs, remaining warnings, selection and links.
+Call this an independently reviewed development result. Keep the compiler's
+`craftApproved: false` field intact: this workflow has not passed the sealed
+critic and population gates in `docs/plans/generation-quality-10.md`, so neither
+local scores nor a successful export authorize a pipeline-wide 10/10 claim.
+
+For another icon, replace `square-check` with the user's concept. Keep the pinned
+family unless the user supplies another revision. Use the user's agent account;
+do not silently switch to an API provider if that account or its tools fail.

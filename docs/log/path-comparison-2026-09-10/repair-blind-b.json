@@ -1,0 +1,138 @@
+[
+  {
+    "id": "D01",
+    "freeRecognition": "Stacked database or storage cylinder with refresh arrow",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Angular top counter and interrupted stack make the storage object less immediate at small size."
+    ],
+    "observations": {
+      "arrowhead": "Recognizable clockwise arrow with a strong head.",
+      "interiorMarkAlignment": "Refresh mark sits naturally beside the lower storage body.",
+      "legibility": "Refresh reads first; the left object is less certain at 16px.",
+      "counters": "Top counter is narrow and angular; stacked openings are uneven in apparent width."
+    }
+  },
+  {
+    "id": "D02",
+    "freeRecognition": "Add clipboard or create task",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Plus is balanced in the lower-right opening.",
+      "legibility": "Clipboard and plus remain distinct at both small sizes.",
+      "counters": "Clip opening and body negative space stay open."
+    }
+  },
+  {
+    "id": "D03",
+    "freeRecognition": "Add filter, with horizontal list lines above",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable; funnel mouth could momentarily read as a downward marker.",
+      "interiorMarkAlignment": "Plus is clear; funnel sits left of the top lines center, producing a slightly fragmented composition.",
+      "legibility": "Filter action is readable, but the tiny funnel stem and top rules compete at 16px.",
+      "counters": "Funnel triangular counter is tight at the smallest size."
+    }
+  },
+  {
+    "id": "D04",
+    "freeRecognition": "Add time or schedule",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Clock hands are centered; plus occupies the broken circle coherently.",
+      "legibility": "Clear clock plus at 24px and 16px.",
+      "counters": "Clock interior remains open."
+    }
+  },
+  {
+    "id": "D05",
+    "freeRecognition": "Document with calculations, medical form, or add-document details",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Interior plus and dash rows form a consistent grid.",
+      "legibility": "Document reads clearly; precise action is ambiguous and the interior becomes busy at 16px.",
+      "counters": "Folded corner has little interior air; the remaining document space is adequate."
+    }
+  },
+  {
+    "id": "D06",
+    "freeRecognition": "Overlapping squares with check, select or approve copy",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Check is optically well placed within the foreground square.",
+      "legibility": "Two layers and check are recognizable at both small sizes.",
+      "counters": "Foreground counter stays open around the check; rear square is sufficiently exposed."
+    }
+  },
+  {
+    "id": "D07",
+    "freeRecognition": "Two stacked units with a diagonal two-ended arrow; possibly transfer or resize",
+    "craftScore": 5,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Object and action are not reliably identifiable.",
+      "Diagonal stroke intersects multiple interior rules, creating a dense central knot.",
+      "Corner arrowheads merge with the surrounding container edges."
+    ],
+    "observations": {
+      "arrowhead": "Two corner arrowheads are visible enlarged but lose separation from nearby horizontal and vertical strokes when reduced.",
+      "interiorMarkAlignment": "Central diagonal overwhelms both stacked interiors.",
+      "legibility": "Poor at 24px and 16px; reads as a crossed-out stack or tangle.",
+      "counters": "Several thin internal gaps compete and visually close at small size."
+    }
+  },
+  {
+    "id": "D08",
+    "freeRecognition": "Search with check, verified search",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Check is optically centered in the lens.",
+      "legibility": "Lens, handle, and check remain distinct at 16px.",
+      "counters": "Generous lens counter supports the interior mark."
+    }
+  },
+  {
+    "id": "D09",
+    "freeRecognition": "Clipboard with clock, scheduled task",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "Clock badge sits coherently beside the clipboard, but its hands are heavy for the available space.",
+      "legibility": "Clipboard is clear; the small clock looks somewhat like a filled wedge at 16px.",
+      "counters": "Clock counter is cramped around the elbow of its hands."
+    }
+  },
+  {
+    "id": "D10",
+    "freeRecognition": "Overlapping squares with X, remove or reject copy",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": {
+      "arrowhead": "Not applicable.",
+      "interiorMarkAlignment": "X is centered in the foreground square.",
+      "legibility": "Layers and rejection mark remain readable at 24px and 16px.",
+      "counters": "Adequate clear space surrounds the X."
+    }
+  }
+]

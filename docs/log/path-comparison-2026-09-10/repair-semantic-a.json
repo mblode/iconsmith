@@ -1,0 +1,82 @@
+[
+  {
+    "id": "D01",
+    "arm": "ai-repaired",
+    "intendedConcept": "database-backup",
+    "semanticStatus": "incorrect",
+    "reason": "Database object recognized, but refresh/reload action does not identify backup.",
+    "usable": false
+  },
+  {
+    "id": "D02",
+    "arm": "ai-repaired",
+    "intendedConcept": "clipboard-plus",
+    "semanticStatus": "correct",
+    "reason": "Clipboard and addition recognized.",
+    "usable": true
+  },
+  {
+    "id": "D03",
+    "arm": "ai-repaired",
+    "intendedConcept": "list-filter-plus",
+    "semanticStatus": "correct",
+    "reason": "Filter object and addition recognized; satisfies filter/list and addition requirement.",
+    "usable": false
+  },
+  {
+    "id": "D04",
+    "arm": "ai-repaired",
+    "intendedConcept": "clock-plus",
+    "semanticStatus": "correct",
+    "reason": "Time/clock and addition recognized.",
+    "usable": true
+  },
+  {
+    "id": "D05",
+    "arm": "ai-repaired",
+    "intendedConcept": "file-diff",
+    "semanticStatus": "incorrect",
+    "reason": "Document recognized, but calculation is not file changes or addition/removal of content.",
+    "usable": false
+  },
+  {
+    "id": "D06",
+    "arm": "ai-repaired",
+    "intendedConcept": "copy-check",
+    "semanticStatus": "correct",
+    "reason": "Copy and approval/check recognized.",
+    "usable": true
+  },
+  {
+    "id": "D07",
+    "arm": "ai-repaired",
+    "intendedConcept": "server-off",
+    "semanticStatus": "incorrect",
+    "reason": "Server object not recognized; primary action read as diagonal transfer, with only possible disabling.",
+    "usable": false
+  },
+  {
+    "id": "D08",
+    "arm": "ai-repaired",
+    "intendedConcept": "search-check",
+    "semanticStatus": "correct",
+    "reason": "Search and verification/check recognized.",
+    "usable": true
+  },
+  {
+    "id": "D09",
+    "arm": "ai-repaired",
+    "intendedConcept": "clipboard-clock",
+    "semanticStatus": "correct",
+    "reason": "Clipboard and scheduling/clock recognized.",
+    "usable": false
+  },
+  {
+    "id": "D10",
+    "arm": "ai-repaired",
+    "intendedConcept": "copy-x",
+    "semanticStatus": "correct",
+    "reason": "Copy and rejection/removal recognized.",
+    "usable": true
+  }
+]

@@ -449,3 +449,14 @@ D544 completed ten distinct24px concept requests /20slots:18 retained SVGs acros
 
 
 D545 delivered four existing-DSL repairs and replayed all20 cohort SVGs with loaded Sharp0.35.4. Root enlarged/native visual judgment8/10, explicitly provisional and non-independent. Centering/tight-gap warnings remain in output validation. Independent calls stopped before dispatch: scoped controls87pass/10fail, including9 local-process quiescence failures with ps ETIMEDOUT and1 style-check timeout. Broad attempts current/aligned/serial remain failed/interrupted; no fresh engineering closure. No reservation created, no native/API calls or new spend. Repaired outputs `output/ten-icons-repaired-2026-09-09/index.html`; durable receipt `docs/log/wave-go-repairs-result-2026-09-09.json`; unchanged budget `docs/log/api-budget-after-d545-2026-09-09.json`. No checklist gate promoted.
+
+### Path comparison and default policy — 10 September 2026
+
+The user's new cost-independent quality priority supersedes the historical $50
+cap for the separately reserved development comparison. Old liabilities remain
+unchanged. Cost and latency cannot justify accepting a wrong meaning, unresolved
+critical defect or missing independent review. The CLI now defaults to AI drafts;
+the public agent brief adds competing authors, independent review and repair.
+These changes do not establish 10/10 or tick any qualification gate above. The
+matched ten-concept starter comparison is development evidence, with its full
+requested denominator retained. See the foundry log and new comparison receipts.

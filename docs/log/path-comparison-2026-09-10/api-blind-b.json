@@ -1,0 +1,67 @@
+[
+  {
+    "id": "E01",
+    "freeRecognition": "Clipboard with a plus sign; add a record or medical checklist.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "The plus is centered in the available clipboard interior, with balanced surrounding space. Top clip and shoulder gaps are distinct at enlargement and remain legible at 24px and 16px. Rounded stroke ends are consistent. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  },
+  {
+    "id": "E02",
+    "freeRecognition": "Clipboard with a clock; scheduled or time-tracked work.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "Clock is centered inside the host and reads correctly, but its ring and broad hands make the interior dense. Filled clip is disproportionately heavy compared with the open clip in E01. At 16px the clock details become a compact dark cluster, though the time motif survives. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  },
+  {
+    "id": "E03",
+    "freeRecognition": "Folded document with plus and minus marks; adjust values or a document calculation.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The action is ambiguous: the lower horizontal stroke can read as a minus sign or document text beneath an add symbol."
+    ],
+    "observations": "Folded page silhouette is clear. The plus and lower bar are individually legible at 24px but pack tightly at 16px. Lower interior is visually heavier than the upper blank area. Fold triangle is a small aperture at native size. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  },
+  {
+    "id": "E04",
+    "freeRecognition": "Magnifying glass with a check; verify a search result or inspect and approve.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Check is balanced within the lens and retains ample separation from its ring. Handle attachment reads naturally and the check remains recognizable at 24px and 16px. The rising check stroke approaches the ring more closely than the left stroke but does not merge. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  },
+  {
+    "id": "E05",
+    "freeRecognition": "Clock with an external plus; add time or create a timed event.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "observations": "Clock hands read clearly and the plus is visibly separate from the host. The diagonal gap stays open in the small samples. Overall composition is weighted toward the upper-left clock with the lower-right plus providing a clear action badge. At 16px both elements remain distinct. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  },
+  {
+    "id": "E06",
+    "freeRecognition": "Overlapping squares with a check; approve a copy or select multiple items.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "Foreground check has balanced interior placement and remains clear at 24px and 16px. Rear shape is only a detached upper-left corner, making the overlapping-copy metaphor slightly less immediate than a fuller rear sheet. Gap between rear corner and foreground host stays readable. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  },
+  {
+    "id": "E07",
+    "freeRecognition": "Overlapping squares with an X; reject or remove a copy.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "observations": "X is centered and clearly recognizable, but fills the foreground square more heavily than the check in E06. Four corner pockets retain white space at 24px and narrow at 16px. Rear sheet endpoints curve toward the foreground, giving a fuller rear outline than E06 and an inconsistent pair construction. No arrowhead is present.",
+    "reviewStatus": "development_uncalibrated_not_qualification"
+  }
+]

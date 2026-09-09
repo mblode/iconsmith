@@ -1,0 +1,66 @@
+{
+  "qualification": false,
+  "scope": "Exposed ten-concept starter24 outlined development comparison; scores uncalibrated; no general path superiority established.",
+  "rows": [
+    {
+      "arm": "host-analog",
+      "requested": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 0,
+      "usableBoth": 0,
+      "firstReviewerUsable": 0,
+      "secondReviewerUsable": 0,
+      "medianCraftFirst": 9.0
+    },
+    {
+      "arm": "ai-single",
+      "requested": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 7,
+      "usableBoth": 0,
+      "firstReviewerUsable": 1,
+      "secondReviewerUsable": 2,
+      "medianCraftFirst": 8.0
+    },
+    {
+      "arm": "ai-alternative",
+      "requested": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 7,
+      "usableBoth": 5,
+      "firstReviewerUsable": 5,
+      "secondReviewerUsable": 5,
+      "medianCraftFirst": 9.0
+    },
+    {
+      "arm": "ai-repaired",
+      "requested": 10,
+      "attempted": 10,
+      "validPrograms": 10,
+      "reviewers": 2,
+      "semanticBoth": 7,
+      "usableBoth": 5
+    },
+    {
+      "arm": "api-tool-loop",
+      "requested": 10,
+      "attempted": 8,
+      "validPrograms": 7,
+      "reviewers": 2,
+      "semanticBoth": 4,
+      "usableBoth": 2
+    },
+    {
+      "arm": "api-js-builder",
+      "requested": 10,
+      "attempted": 8,
+      "validPrograms": 0,
+      "reviewers": 0,
+      "semanticBoth": 0,
+      "usableBoth": 0
+    }
+  ]
+}

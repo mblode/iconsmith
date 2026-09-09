@@ -1,0 +1,274 @@
+[
+  {
+    "id": "C01",
+    "freeRecognize": "Three stacked slots or rows; list/menu",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Even spacing and consistent rounded outer shape. Thin slot counters compress at 16px; action remains generic."
+  },
+  {
+    "id": "C02",
+    "freeRecognize": "Clipboard with clock; scheduled or timed task",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": ["Clock hands crowd the upper-right interior."],
+    "nativeLightDarkLegible": true,
+    "observations": "Clock badge is recognisable but its hand junction approaches the rim, making a dark mass. Clipboard-to-badge cutout is clean."
+  },
+  {
+    "id": "C03",
+    "freeRecognize": "Overlapping cards with cross; reject or remove copies",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Cross is clear with open counters. It sits slightly left within the foreground card; rear-card gaps are generous."
+  },
+  {
+    "id": "C04",
+    "freeRecognize": "Clipboard containing clock; timed task",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": ["Clock hands merge visually with the upper-right rim."],
+    "nativeLightDarkLegible": true,
+    "observations": "Inset clock is crowded and heavy within the board. Tab counter stays open at native size but narrows at 16px."
+  },
+  {
+    "id": "C05",
+    "freeRecognize": "Checkmark; confirm or complete",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Clean balanced check with decisive angle, consistent round terminals, and good legibility at both small sizes."
+  },
+  {
+    "id": "C06",
+    "freeRecognize": "Clock with plus; add time or schedule",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Clock and plus have clear separation. Hand junction is readable, outer opening accommodates plus, and overall shape remains balanced."
+  },
+  {
+    "id": "C07",
+    "freeRecognize": "Checkmark; confirm or complete",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Clear check silhouette, balanced arms, clean inner angle, and consistent terminals on both backgrounds."
+  },
+  {
+    "id": "C08",
+    "freeRecognize": "Three stacked slots or rows; list/menu",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Even row spacing and regular geometry. Narrow horizontal counters lose openness in the smallest rendering."
+  },
+  {
+    "id": "C09",
+    "freeRecognize": "Folded document with plus and line; add document",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Plus is readable and centrally placed. Fold creates a dense upper-right corner; line below plus is close but separated."
+  },
+  {
+    "id": "C10",
+    "freeRecognize": "Clipboard with plus; add task",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Plus is well centred in the board body. Clip and body counters are open, with clear silhouette at native size."
+  },
+  {
+    "id": "C11",
+    "freeRecognize": "Square with central dot; single pip or selection marker",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Dot is optically centred with even surrounding space. Corners and stroke are consistent, and dot survives small sizes."
+  },
+  {
+    "id": "C12",
+    "freeRecognize": "List or document with curved arrow; refresh or redo",
+    "craftScore": 5,
+    "shipUnchanged": false,
+    "criticalDefects": ["Curved-arrow head is an indistinct cluster of rounded bumps."],
+    "nativeLightDarkLegible": false,
+    "observations": "Arrowhead lacks a decisive point and reads like three lobes. List silhouette is clear, but action is ambiguous at native and reduced sizes."
+  },
+  {
+    "id": "C13",
+    "freeRecognize": "Folded document with plus and line; add document",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": ["Plus is visibly displaced to the left of the body centre."],
+    "nativeLightDarkLegible": true,
+    "observations": "Small plus looks undersized relative to document and baseline. Fold is clear but dense; internal spacing feels uneven."
+  },
+  {
+    "id": "C14",
+    "freeRecognize": "Container or document with curved arrow; restore or redo",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": ["Arrowhead is blunt and merges heavily into the curved shaft."],
+    "nativeLightDarkLegible": true,
+    "observations": "Return arrow is recognisable but head and shaft make a crowded inner turn. Outer object reads ambiguously as bin or document."
+  },
+  {
+    "id": "C15",
+    "freeRecognize": "Overlapping cards with check; approve or complete copies",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Foreground check sits comfortably within its counter. Overlap is clear and rear-card exposure is balanced; small sizes remain legible."
+  },
+  {
+    "id": "C16",
+    "freeRecognize": "Magnifying glass with check; verified search",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Check is readable but slightly low-left within lens. Lens and handle meet cleanly, and negative spaces remain open."
+  },
+  {
+    "id": "C17",
+    "freeRecognize": "Two stacked server or storage units crossed out; disable storage",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Cutaway gaps around diagonal slash keep silhouette clean. Some very short remaining right-hand segments become dots at small size."
+  },
+  {
+    "id": "C18",
+    "freeRecognize": "Clock with plus; add time or schedule",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Plus is separate from clock rim and hand counter is generous. Slight right-side opening supports clear badge recognition."
+  },
+  {
+    "id": "C19",
+    "freeRecognize": "Magnifying glass with check; verified search",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Check feels optically centred inside lens with balanced counters. Handle joins cleanly and native light/dark readability is strong."
+  },
+  {
+    "id": "C20",
+    "freeRecognize": "Text list with plus; add list item",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Left alignment makes rows unmistakable, plus is cleanly separated, and decreasing line lengths create balanced open space."
+  },
+  {
+    "id": "C21",
+    "freeRecognize": "Clock; time",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Hands have a clear right-angle shape, generous rim clearance, and balanced positioning. Circle remains regular in both backgrounds."
+  },
+  {
+    "id": "C22",
+    "freeRecognize": "Overlapping cards with check; approve or complete copies",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": ["Check sits too far left in the foreground card."],
+    "nativeLightDarkLegible": true,
+    "observations": "Left arm approaches card edge while right-side whitespace is greater. Rear-card gap is clean but foreground symbol placement needs refinement."
+  },
+  {
+    "id": "C23",
+    "freeRecognize": "Clipboard with plus badge; add task",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Plus is clear but its left arm extends into board interior, making attachment feel uneven. Clipboard cutout and tab remain readable."
+  },
+  {
+    "id": "C24",
+    "freeRecognize": "Plus; add",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Equal balanced arms, consistent stroke and rounded ends. Clean at native and reduced sizes on both backgrounds."
+  },
+  {
+    "id": "C25",
+    "freeRecognize": "Square with central dot; single pip or selection marker",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Dot looks centred, frame counter is even, and both elements are clear at small sizes."
+  },
+  {
+    "id": "C26",
+    "freeRecognize": "Two stacked server or storage units crossed out; disable storage",
+    "craftScore": 6,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Slash runs through inner indicators and frame corners, producing dense intersections."
+    ],
+    "nativeLightDarkLegible": true,
+    "observations": "Heavy knots at top-left and bottom-right obscure individual server shapes. Interior indicators partially merge into slash, especially at 16px."
+  },
+  {
+    "id": "C27",
+    "freeRecognize": "Square with central dot; single pip or selection marker",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Even frame and central dot; clear counters and regular rounded-square silhouette at native size."
+  },
+  {
+    "id": "C28",
+    "freeRecognize": "Filter with plus; add filter",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Centred decreasing bars read as a filter. Plus has comfortable separation from lowest bar, and small-size shape remains crisp."
+  },
+  {
+    "id": "C29",
+    "freeRecognize": "Overlapping cards with cross; reject or remove copies",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Cross is optically centred within foreground card, corners have clear space, and overlap reads cleanly at native size."
+  },
+  {
+    "id": "C30",
+    "freeRecognize": "Plus; add",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "nativeLightDarkLegible": true,
+    "observations": "Balanced crossing and arms with uniform rounded terminals. Clear silhouette at both small sizes."
+  }
+]

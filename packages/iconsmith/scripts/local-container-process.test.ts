@@ -911,3 +911,43 @@ it("requires immutable images and real mount paths", async () => {
     rmSync(cwd, { force: true, recursive: true });
   }
 });
+
+it.each([
+  ["timeout", { code: null, killed: true }, "did not complete successfully"],
+  ["daemon error", { code: 1 }, "did not complete successfully"],
+  [
+    "killed wrapper",
+    { code: 0, killed: true },
+    "did not complete successfully",
+  ],
+  [
+    "observed identity",
+    { stdout: ID },
+    "still reports the captured container id",
+  ],
+  ["unexpected output", { stdout: "unexpected" }, "returned unexpected output"],
+] as const)(
+  "retains unknown containment with accurate %s absence diagnostics",
+  async (_name, listing, message) => {
+    const execute = scripted((request) => {
+      if (request.phase === "create" || request.phase === "resolve-identity") {
+        return result({ stdout: ID });
+      }
+      return request.phase === "verify-absent" ? result(listing) : result();
+    });
+    const outcome = await runContainerProcess(
+      containerOptions(execute, ["review"])
+    );
+    expect(outcome).toMatchObject({
+      artifactEligible: false,
+      containerAbsent: false,
+      status: "containment-unproven",
+    });
+    expect(outcome.reason).toContain(message);
+    if (message !== "still reports the captured container id") {
+      expect(outcome.reason).not.toContain(
+        "still reports the captured container id"
+      );
+    }
+  }
+);

@@ -1,0 +1,59 @@
+{
+  "createdAt": "2026-09-09T16:25:40.625Z",
+  "authorization": "Root dispatch only; user-authorized new API experiment. Separate from historical foundry budget.",
+  "maxExperimentUsd": 100,
+  "model": "anthropic/claude-opus-5",
+  "metadataRatesUsdPerMillion": {
+    "input": 5,
+    "output": 25
+  },
+  "concepts": [
+    "clipboard-clock",
+    "clipboard-plus",
+    "copy-check",
+    "copy-x",
+    "file-diff",
+    "search-check",
+    "clock-plus",
+    "server-off",
+    "database-backup",
+    "list-filter-plus"
+  ],
+  "arms": [
+    "tool-loop",
+    "js-builder"
+  ],
+  "toolLoop": {
+    "entry": "generate",
+    "forceAgent": true,
+    "maxUsd": 5,
+    "maxSteps": 24,
+    "maxOutputTokens": 16384,
+    "maxRetries": 0,
+    "abortMs": 300000,
+    "referenceCapability": "selected style includes bundled reference images"
+  },
+  "jsBuilder": {
+    "entry": "programArm",
+    "ask": "Existing injectable ask calls generateText with maxOutputTokens16384 and maxRetries0; records gateway cost using existing tracker.",
+    "callsPerConcept": 1,
+    "maxOutputTokens": 16384,
+    "abortMs": 300000,
+    "referenceCapability": "UNMATCHED: programArm consumes spec/policy but does not consume selected style reference images; no patch applied."
+  },
+  "reservation": {
+    "toolLoopUsd": 10,
+    "jsBuilderUsd": 1,
+    "note": "Per-dispatch reserve includes observed threshold overshoot room; stop further dispatch on unknown cost or reserve overrun. maxUsd is observed spend, not a hard server-side charge cap."
+  },
+  "retryPolicy": "No external retries; pilot1concept per arm concurrently, inspect receipts before remaining. Failures remain in denominator.",
+  "revisionSha256": "d70ce2c328993cd3765cc18d8bf24d3ba4b93bc79f7351fe10b181003700d757",
+  "styleKey": "94a051333af4b1dd93bd4e205cd760f05a7834336ebbb488a91c412f3de2820f",
+  "scriptSha256": "d59eafad9233bf446f100db478ca0b38c32bd05b1c1c8b77cdc87da92e577cec",
+  "sourceHashes": {
+    "generate": "2be649f21f4e3ae05a167e3bc8ba1b4bfbbbdeac9b78c0b60373057936965473",
+    "program": "f04a5b47784d4761d412fe7e6d5a48aa3a8c0c96999e2890f08356ff8813526f",
+    "gateway": "979566f15a7f1999f4a7e595a42867a56f0d4279215fed15bdf804f0a4d77d5b"
+  },
+  "authority": "User request: Compare all paths and rank them; 10/10 pipeline as default no matter cost. This explicitly supersedes the historical $50 campaign cap for this separate bounded comparison. Historical charges and reservations remain unchanged."
+}

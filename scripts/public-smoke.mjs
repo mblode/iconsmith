@@ -96,7 +96,7 @@ try {
     `${engine}/scripts/style-check.ts`,
     "examples/starter/revision.json",
     "24",
-    "starter-draft",
+    "starter-draft/candidate-a",
     "outlined",
   ];
   const packet = readFileSync(path.join(relocated, "examples/starter/AGENT.md"), "utf-8");
@@ -106,8 +106,8 @@ try {
   );
   assert.doesNotMatch(packet, /\/Users\/|\/home\/|\.staging\//u);
   assert.match(packet, /craftApproved: false/u);
-  const checkDirectory = path.join(relocated, "starter-draft");
-  mkdirSync(checkDirectory);
+  const checkDirectory = path.join(relocated, "starter-draft/candidate-a");
+  mkdirSync(checkDirectory, { recursive: true });
   cpSync(path.join(relocated, example), path.join(checkDirectory, "outlined.icon"));
   execute(["--import", pathToFileURL(require.resolve("tsx")).href, ...checkerArgs]);
   const checked = JSON.parse(readFileSync(path.join(checkDirectory, "checks.json"), "utf-8"));

@@ -1,0 +1,271 @@
+{
+  "reviewType": "Uncalibrated development review; not qualification",
+  "items": [
+    {
+      "id": "C01",
+      "arm": "host-analog",
+      "intendedConcept": "database-backup",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised list/menu, with neither database nor backup action.",
+      "usable": false
+    },
+    {
+      "id": "C02",
+      "arm": "ai-single",
+      "intendedConcept": "clipboard-clock",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C03",
+      "arm": "ai-single",
+      "intendedConcept": "copy-x",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C04",
+      "arm": "ai-alternative",
+      "intendedConcept": "clipboard-clock",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C05",
+      "arm": "host-analog",
+      "intendedConcept": "search-check",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised completion check only; search object is absent.",
+      "usable": false
+    },
+    {
+      "id": "C06",
+      "arm": "ai-alternative",
+      "intendedConcept": "clock-plus",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": true
+    },
+    {
+      "id": "C07",
+      "arm": "host-analog",
+      "intendedConcept": "copy-check",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised completion check only; copy object is absent.",
+      "usable": false
+    },
+    {
+      "id": "C08",
+      "arm": "host-analog",
+      "intendedConcept": "server-off",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised list/menu; neither server object nor off modifier was recognised.",
+      "usable": false
+    },
+    {
+      "id": "C09",
+      "arm": "ai-alternative",
+      "intendedConcept": "file-diff",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised document addition; the line was not recognised as removal or change, so diff meaning was not recovered.",
+      "usable": false
+    },
+    {
+      "id": "C10",
+      "arm": "ai-alternative",
+      "intendedConcept": "clipboard-plus",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": true
+    },
+    {
+      "id": "C11",
+      "arm": "host-analog",
+      "intendedConcept": "copy-x",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised single pip or selection marker, with neither copies nor rejection.",
+      "usable": false
+    },
+    {
+      "id": "C12",
+      "arm": "ai-single",
+      "intendedConcept": "database-backup",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised list/document and refresh/redo, not database backup; both intended object and precise action were missed.",
+      "usable": false
+    },
+    {
+      "id": "C13",
+      "arm": "ai-single",
+      "intendedConcept": "file-diff",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised document addition; the line was not recognised as removal or change, so diff meaning was not recovered.",
+      "usable": false
+    },
+    {
+      "id": "C14",
+      "arm": "ai-alternative",
+      "intendedConcept": "database-backup",
+      "semanticStatus": "incorrect",
+      "reason": "Object remained container/document, with restore/redo; database and backup were not recovered.",
+      "usable": false
+    },
+    {
+      "id": "C15",
+      "arm": "ai-alternative",
+      "intendedConcept": "copy-check",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": true
+    },
+    {
+      "id": "C16",
+      "arm": "ai-single",
+      "intendedConcept": "search-check",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C17",
+      "arm": "ai-alternative",
+      "intendedConcept": "server-off",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C18",
+      "arm": "ai-single",
+      "intendedConcept": "clock-plus",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": true
+    },
+    {
+      "id": "C19",
+      "arm": "ai-alternative",
+      "intendedConcept": "search-check",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": true
+    },
+    {
+      "id": "C20",
+      "arm": "ai-alternative",
+      "intendedConcept": "list-filter-plus",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised text list and addition, but no filter action; add-list-item differs from add-filter.",
+      "usable": false
+    },
+    {
+      "id": "C21",
+      "arm": "host-analog",
+      "intendedConcept": "clipboard-clock",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised clock only; clipboard object was absent.",
+      "usable": false
+    },
+    {
+      "id": "C22",
+      "arm": "ai-single",
+      "intendedConcept": "copy-check",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C23",
+      "arm": "ai-single",
+      "intendedConcept": "clipboard-plus",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C24",
+      "arm": "host-analog",
+      "intendedConcept": "clipboard-plus",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised addition only; clipboard object was absent.",
+      "usable": false
+    },
+    {
+      "id": "C25",
+      "arm": "host-analog",
+      "intendedConcept": "file-diff",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised single pip or selection marker, with neither document nor diff meaning.",
+      "usable": false
+    },
+    {
+      "id": "C26",
+      "arm": "ai-single",
+      "intendedConcept": "server-off",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": false
+    },
+    {
+      "id": "C27",
+      "arm": "host-analog",
+      "intendedConcept": "clock-plus",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised single pip or selection marker, with neither clock nor addition.",
+      "usable": false
+    },
+    {
+      "id": "C28",
+      "arm": "ai-single",
+      "intendedConcept": "list-filter-plus",
+      "semanticStatus": "correct",
+      "reason": "Recognised filter and add-filter action; the decreasing-bar filter/list symbol and addition were both recovered.",
+      "usable": true
+    },
+    {
+      "id": "C29",
+      "arm": "ai-alternative",
+      "intendedConcept": "copy-x",
+      "semanticStatus": "correct",
+      "reason": "Free recognition includes both the intended object and its modifier/action.",
+      "usable": true
+    },
+    {
+      "id": "C30",
+      "arm": "host-analog",
+      "intendedConcept": "list-filter-plus",
+      "semanticStatus": "incorrect",
+      "reason": "Recognised addition only; list/filter object was absent.",
+      "usable": false
+    }
+  ],
+  "perArmSummary": [
+    {
+      "arm": "host-analog",
+      "denominator": 10,
+      "correct": 0,
+      "incorrect": 10,
+      "uncertain": 0,
+      "usable": 0
+    },
+    {
+      "arm": "ai-single",
+      "denominator": 10,
+      "correct": 8,
+      "incorrect": 2,
+      "uncertain": 0,
+      "usable": 2
+    },
+    {
+      "arm": "ai-alternative",
+      "denominator": 10,
+      "correct": 7,
+      "incorrect": 3,
+      "uncertain": 0,
+      "usable": 5
+    }
+  ]
+}

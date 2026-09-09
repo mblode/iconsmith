@@ -4,7 +4,7 @@
 
 **Draw SVG icons with coding agents and repeatable geometry**
 
-Ask your agent for an icon. It uses the included references and exports an SVG.
+Ask your agent for an icon. It draws alternatives, reviews them and exports an SVG.
 
 </div>
 
@@ -25,9 +25,10 @@ Open this folder in Codex or Claude Code and send:
 
 > Read examples/starter/AGENT.md and execute its drawing task.
 
-The [brief](examples/starter/AGENT.md) includes the references and commands to draw,
-check, and preview an icon. Use your own agent account. Inspect the result at its
-intended size before using it.
+The [brief](examples/starter/AGENT.md) runs parallel AI authors, independent visual
+reviews and repairs using the included references. Use your own agent account
+with subagent and image-viewing support. Unresolved defects leave the result as a
+draft. The pipeline is not yet qualified as 10/10.
 
 The [four starter references](examples/starter/README.md) are included under MIT.
 No private dataset or sibling repository is needed.

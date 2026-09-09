@@ -1,0 +1,65 @@
+[
+  {
+    "id": "E01",
+    "arm": "api-tool-loop",
+    "intendedConcept": "clipboard-plus",
+    "freeRecognition": "Clipboard with a plus sign; add a record or medical checklist.",
+    "semanticStatus": "correct",
+    "reason": "Blind recognition identified both the clipboard and addition action.",
+    "usable": true
+  },
+  {
+    "id": "E02",
+    "arm": "api-tool-loop",
+    "intendedConcept": "clipboard-clock",
+    "freeRecognition": "Clipboard with a clock; scheduled or time-tracked work.",
+    "semanticStatus": "correct",
+    "reason": "Blind recognition identified both the clipboard and scheduling/time modifier.",
+    "usable": false
+  },
+  {
+    "id": "E03",
+    "arm": "api-tool-loop",
+    "intendedConcept": "file-diff",
+    "freeRecognition": "Folded document with plus and minus marks; adjust values or a document calculation.",
+    "semanticStatus": "uncertain",
+    "reason": "Blind recognition identified the document and plus/minus marks, but interpreted the action as calculation or adjustment rather than file comparison; the intended diff action is not established.",
+    "usable": false
+  },
+  {
+    "id": "E04",
+    "arm": "api-tool-loop",
+    "intendedConcept": "search-check",
+    "freeRecognition": "Magnifying glass with a check; verify a search result or inspect and approve.",
+    "semanticStatus": "correct",
+    "reason": "Blind recognition identified both search/inspection and verification.",
+    "usable": true
+  },
+  {
+    "id": "E05",
+    "arm": "api-tool-loop",
+    "intendedConcept": "clock-plus",
+    "freeRecognition": "Clock with an external plus; add time or create a timed event.",
+    "semanticStatus": "correct",
+    "reason": "Blind recognition identified both the clock and addition action.",
+    "usable": true
+  },
+  {
+    "id": "E06",
+    "arm": "api-tool-loop",
+    "intendedConcept": "copy-check",
+    "freeRecognition": "Overlapping squares with a check; approve a copy or select multiple items.",
+    "semanticStatus": "correct",
+    "reason": "Blind recognition included both a copy and approval action, despite an alternative selection interpretation.",
+    "usable": false
+  },
+  {
+    "id": "E07",
+    "arm": "api-tool-loop",
+    "intendedConcept": "copy-x",
+    "freeRecognition": "Overlapping squares with an X; reject or remove a copy.",
+    "semanticStatus": "correct",
+    "reason": "Blind recognition identified both a copy and rejection/removal action.",
+    "usable": false
+  }
+]

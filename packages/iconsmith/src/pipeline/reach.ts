@@ -3,7 +3,7 @@
  * a coding agent (`unkeyed: "agent"` / `"harness"`), or taken from `glyphs.ts`
  * where the house has a construction and the caller asks for it
  * (`unkeyed: "glyph"`). Analog replay is the lab path. `iconsmith new`
- * defaults to `unkeyed: "mixture"` — cheap host arms, then the agent.
+ * defaults to forced AI authoring; cheaper routes require explicit flags.
  *
  * Keyed compile scored 0.999 on `pull-request`; N=5 agent redraws of the same
  * file scored 0.58–0.79. `forceAgent` skips host DRAW entirely.
