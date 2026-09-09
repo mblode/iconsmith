@@ -213,3 +213,7 @@ D525 Quiver: valid credentials and a200 model listing do not establish a funded 
 - Runtime admission of paid reference artwork and existing MIT distribution do not establish redistribution permission. Review historical asset bundles and font binaries separately from ignored corpus files.
 - A public clone lacks private cached inventory and sibling source artwork. Skip only exact-data measurements when inputs are absent; run portable controls and verify the measurements still execute with real data. Never manufacture a substitute corpus.
 - Audit snapshots need an explicit cwd before verifier startup. Stop only verified audit-owned workers before removing their stale lock. A narrowed single-worker pass does not erase an earlier default-worker full-suite failure. See the public-readiness receipt for retained attempts.
+
+### CI verification evidence — 2026-09-09
+
+A verifier that retains immutable stage logs only on an ephemeral Actions runner can fail without exposing the cause. Public-readiness run 34323499722 reported only failed-stage and a runner-local path. CI now uses a known output directory and always prints its stage logs and receipt, including on failure; the verifier's pass/fail behavior is unchanged. Do not infer the failed test from an earlier local run.

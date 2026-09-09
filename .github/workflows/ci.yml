@@ -51,4 +51,18 @@ jobs:
       # CI has no private corpus. The receipt records measurements unavailable.
       # Local foundry verification requires the corpus by default.
       - name: Verify
-        run: npm run verify -- --allow-missing-corpus
+        run: npm run verify -- --allow-missing-corpus --out .staging/ci-verification
+
+      - name: Show verification evidence
+        if: always()
+        run: |
+          for log in .staging/ci-verification/*.log; do
+            if [ -f "$log" ]; then
+              printf '::group::%s\n' "$log"
+              cat "$log"
+              printf '::endgroup::\n'
+            fi
+          done
+          if [ -f .staging/ci-verification/receipt.json ]; then
+            cat .staging/ci-verification/receipt.json
+          fi
