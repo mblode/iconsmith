@@ -1,0 +1,37 @@
+{
+  "id": "D342",
+  "status": "development-source-scope-reviewed",
+  "artifactsVerified": 252,
+  "proposalSha256": "d672073abdc3e2a5230a5840bf4a222c4905257a2b44b7705268869baaa0b9de",
+  "concepts": 31,
+  "slots": 124,
+  "sourcePresentSlots": 122,
+  "missingSourceSlots": [
+    "cloud-dots/16/filled",
+    "cloud-dots/24/filled"
+  ],
+  "rootBoardsInspected": [
+    "folder",
+    "cloud",
+    "shield"
+  ],
+  "observations": [
+    "Folder add uses plus signs; delete uses X; cloud disconnected uses X, distinct from diagonal off slashes.",
+    "Shield-access has an exclamation-like mark; shield-safe-search has a person-like form distinct from the shield-search magnifier.",
+    "Cloud-simple-download and cloud-transfer maintain outline-like source treatment in both paints.",
+    "Folder-open and folder-open-front differ in opening construction; folder-link variants show different chain arrangements."
+  ],
+  "presentationBoundary": "Folder board was resized by the viewing tool; root observations concern source semantics and composition, not native craft/legibility. Native dimensions and inversion are host-verified in sealed packet.",
+  "combinedWithD339": {
+    "concepts": 71,
+    "slots": 284,
+    "sourcePresentSlots": 282,
+    "resolverScopesComplete": 8
+  },
+  "aliases": "unresolved",
+  "derivatives": "unresolved",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualIncrementUsd": 0,
+  "nativeCallsCumulative": 79
+}

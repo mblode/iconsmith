@@ -1,0 +1,16 @@
+{
+  "decision": "D408",
+  "date": "2026-09-09",
+  "receipt": ".staging/wave-ca-bicycle-failure-diagnosis-2026-09-09/receipt.json",
+  "receiptSha256": "73e2fa46ba29ae9321660fff9016934ef2f97792b4d780d426cfd9076be1b74b",
+  "manifestSha256": "8f32bdcf6e317dea0385180d4a701b25d831a7b8c2b6a2d3e00491f7c4147238",
+  "rootVerifiedArtifactCount": 107,
+  "rootViewedBoard": ".staging/wave-ca-bicycle-failure-diagnosis-2026-09-09/comparison-board.png",
+  "finding": "False wide keyline plus unavailable cohort repair. Existing DSL can describe retained native geometry without false declaration.",
+  "hostErrorsAfter": 0,
+  "exactReplay": true,
+  "nativePixelsImproved": false,
+  "originalRequestRescued": false,
+  "qualification": false,
+  "providerCalls": 0
+}

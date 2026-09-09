@@ -1,0 +1,33 @@
+{
+  "id": "D506",
+  "kind": "e2e-qualification-prerequisite-mini-v3-capability-intent",
+  "requestId": "wave-fl-mini-v3-2026-09-09",
+  "requestedModel": "gpt-5.4-mini",
+  "reviewProfile": "mini-inline-images-no-tools-v3",
+  "maxNativeCalls": 1,
+  "apiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null,
+  "automaticRetry": false,
+  "startedAt": 1788912045804,
+  "deadlineAt": 1788912345804,
+  "stageMaxMs": 175000,
+  "runnerSha256": "00c5cd7bee0bdb3d5f60566514d613d0576c0c076e526d4eb8912ce4f9d4294e",
+  "sourceFreezeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fl-e2e-qualification-preflight-2026-09-09/source-freeze.json",
+  "sourceFreezeSha256": "651ee547fdb371f46ecdde3a7799d7ff84152af375eca223945c7b9396026e19",
+  "inputsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fl-e2e-qualification-preflight-2026-09-09/inputs.json",
+  "inputsSha256": "ff741223cb42b45f448009c0273b6daff9e82350c452f841d62497f5f5e443cd",
+  "routeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fl-e2e-qualification-preflight-2026-09-09/native-route.json",
+  "routeSha256": "13c08309b468d2971bdb122a0b8c130743ee8c14f1dcee85e6e022c502e6ce86",
+  "changedVariable": "D362 v3 disables goals; last D353 v2 rejected get_goal tools. Current D505 adapters and source freeze apply. This is not a matched quality comparison.",
+  "qualificationEligible": false,
+  "population": "Four previously exposed development presentations from D353; never fresh qualification stimuli",
+  "quota": {
+    "weeklyUsedPercent": 7,
+    "resetsAt": 1789511735,
+    "resetRedeemed": false
+  },
+  "diskAvailableBytes": 2604290048,
+  "budgetLedger": "docs/log/api-budget-after-d505-offline-2026-09-09.json",
+  "priorFailure": "D353",
+  "stopFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fl-e2e-qualification-preflight-2026-09-09/STOP"
+}

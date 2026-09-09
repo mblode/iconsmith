@@ -1,15 +1,21 @@
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
 import { expect, test } from "vitest";
 
+import { DEFAULT_POLICY } from "../src/pipeline/policy.js";
+import { STYLE_COMPILER } from "../src/pipeline/style.js";
+import { specAt } from "../src/tools/canvas.js";
 import {
   createCampaignManifest,
+  createReliabilityReplayManifest,
+  prepareDevelopmentCampaignInputs,
   loadCorpusRecords,
   reportCampaign,
   writeCampaignManifest,
 } from "./campaign-manifest.js";
+import { DEVELOPMENT_FAMILIES } from "./quality-population.js";
 
 const corpus = {
   sources: [{ id: "blode-icons", records: 2, treeHash: "a".repeat(64) }],
@@ -169,4 +175,177 @@ test("an untouched campaign has unknown cost for every missing request", () => {
     requests: 0,
     unknownCost: 4,
   });
+});
+
+const preparationFixture = () => {
+  const root = mkdtempSync(path.join(tmpdir(), "development-prep-"));
+  const revision = {
+    calibration: "unvalidated",
+    compiler: STYLE_COMPILER,
+    id: "input-test",
+    masters: { "16": specAt({ size: 16 }), "24": specAt({ size: 24 }) },
+    parts: [],
+    policy: DEFAULT_POLICY,
+    references: ["16", "24"].map((master) => ({
+      master,
+      name: "house-control",
+      provenance: {
+        date: "2026-09-08",
+        icon: "control",
+        origin: "literal",
+        set: "blode-icons",
+      },
+      svg: '<svg viewBox="0 0 24 24"><path d="M4 4H20V20H4Z"/></svg>',
+    })),
+    rubric: "Development test rubric",
+  };
+  const meanings = Object.fromEntries(
+    DEVELOPMENT_FAMILIES.map(({ concept }) => [
+      concept,
+      [concept, "alternative-one", "alternative-two"],
+    ])
+  );
+  const options = {
+    baseRevisionFile: path.join(root, "revision.json"),
+    corpusManifestFile: path.join(root, "corpus.json"),
+    meaningsFile: path.join(root, "meanings.json"),
+    out: path.join(root, "out"),
+  };
+  writeFileSync(options.baseRevisionFile, JSON.stringify(revision));
+  writeFileSync(options.corpusManifestFile, JSON.stringify(corpus));
+  writeFileSync(options.meaningsFile, JSON.stringify(meanings));
+  return { meanings, options, revision, root };
+};
+
+test("prepares all development slots through canonical inputs without overwriting", () => {
+  const f = preparationFixture();
+  try {
+    const result = prepareDevelopmentCampaignInputs(f.options);
+    expect(result).toMatchObject({
+      outputSlots: 80,
+      pairRequests: 40,
+      providerCalls: 0,
+      qualified: false,
+    });
+    expect(result.artifacts).toHaveLength(22);
+    expect(
+      JSON.parse(
+        readFileSync(path.join(f.options.out, "base-revision.json"), "utf-8")
+      )
+    ).toEqual(f.revision);
+    expect(() => prepareDevelopmentCampaignInputs(f.options)).toThrow();
+  } finally {
+    rmSync(f.root, { force: true, recursive: true });
+  }
+});
+
+test.each(["missing-meaning", "wrong-master", "stale-compiler"])(
+  "refuses %s before creating an input bundle",
+  (failure) => {
+    const f = preparationFixture();
+    try {
+      if (failure === "missing-meaning") {
+        delete f.meanings["cloud-upload"];
+        writeFileSync(f.options.meaningsFile, JSON.stringify(f.meanings));
+      }
+      if (failure === "wrong-master") {
+        f.revision.masters["16"] = specAt({ size: 24 });
+        writeFileSync(f.options.baseRevisionFile, JSON.stringify(f.revision));
+      }
+      if (failure === "stale-compiler") {
+        writeFileSync(
+          f.options.baseRevisionFile,
+          JSON.stringify({ ...f.revision, compiler: "stale" })
+        );
+      }
+      expect(() => prepareDevelopmentCampaignInputs(f.options)).toThrow();
+      expect(() =>
+        readFileSync(path.join(f.options.out, "manifest.json"))
+      ).toThrow();
+    } finally {
+      rmSync(f.root, { force: true, recursive: true });
+    }
+  }
+);
+
+test("freezes a declared development order without losing or reusing slots", () => {
+  const original = createCampaignManifest("development", corpus, []);
+  const order = [
+    "folder-lock",
+    ...DEVELOPMENT_FAMILIES.map(({ concept }) => concept).filter(
+      (concept) => concept !== "folder-lock"
+    ),
+  ];
+  const reordered = createCampaignManifest("development", corpus, [], order);
+  expect(
+    reordered.manifest.slots.slice(0, 4).map(({ concept }) => concept)
+  ).toEqual(Array.from({ length: 4 }, () => "folder-lock"));
+  expect(
+    reordered.manifest.slots.map(({ slotId }) => slotId).toSorted()
+  ).toEqual(original.manifest.slots.map(({ slotId }) => slotId).toSorted());
+  expect(reordered.hash).not.toBe(original.hash);
+  expect(createCampaignManifest("development", corpus, [], order)).toEqual(
+    reordered
+  );
+  expect(() =>
+    createCampaignManifest("development", corpus, [], order.slice(1))
+  ).toThrow("every frozen concept");
+  expect(() =>
+    createCampaignManifest(
+      "development",
+      corpus,
+      [],
+      [order[0], ...order.slice(0, -1)]
+    )
+  ).toThrow("every frozen concept");
+  expect(() =>
+    createCampaignManifest("catalog", corpus, records, order)
+  ).toThrow("every frozen concept");
+});
+
+test("development preparation carries a complete declared order into the hashed manifest", () => {
+  const f = preparationFixture();
+  try {
+    const order = DEVELOPMENT_FAMILIES.map(
+      ({ concept }) => concept
+    ).toReversed();
+    prepareDevelopmentCampaignInputs({ ...f.options, conceptOrder: order });
+    const actual = JSON.parse(
+      readFileSync(path.join(f.options.out, "manifest.json"), "utf-8")
+    );
+    expect(actual).toEqual(
+      createCampaignManifest("development", corpus, [], order)
+    );
+  } finally {
+    rmSync(f.root, { force: true, recursive: true });
+  }
+});
+
+test("reliability replay preserves twelve requested slots in centralized accounting", () => {
+  const frozen = createReliabilityReplayManifest(corpus);
+  expect(frozen.resources).toMatchObject({
+    maximumDeadlineHours: 2,
+    outputSlots: 12,
+    pairRequests: 6,
+  });
+  expect(
+    frozen.manifest.requests.filter(({ role }) => role === "failure")
+  ).toHaveLength(4);
+  expect(
+    frozen.manifest.requests.filter(({ role }) => role === "control")
+  ).toHaveLength(2);
+  expect(frozen.manifest.concepts).toHaveLength(5);
+  const report = reportCampaign(frozen, []);
+  expect(report).toMatchObject({
+    coverageComplete: false,
+    expected: 12,
+    missing: 12,
+    missingRequests: 6,
+    observed: 0,
+    qualified: false,
+    unknownCost: 6,
+  });
+  expect(frozen.manifest.slots.map(({ slotId }) => slotId)).toContain(
+    "hammer/hammer-check/16/filled"
+  );
 });

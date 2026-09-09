@@ -1,0 +1,45 @@
+{
+  "id": "D466",
+  "status": "reserved-before-one-dispatch",
+  "observedAt": "2026-09-08T20:13:39.394119+00:00",
+  "scope": "Exact-image capability and immediate metadata only; not critic qualification",
+  "maximumInferenceRequests": 1,
+  "maximumMetadataLookups": 1,
+  "reservationUsd": 0.788352,
+  "originalDurationMs": 120000,
+  "metadataReserveMs": 15000,
+  "parentSettlementReserveMs": 5000,
+  "concurrency": 1,
+  "automaticRetry": false,
+  "nativeWeeklyUsedPercent": 91,
+  "resetRedeemed": false,
+  "freeDiskBytes": 2524725248,
+  "files": [
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/bootstrap.mjs",
+      "sha256": "a04697a0f79db780d2933fda416bb66ce24e95f7518600d8f101da66a6afc575"
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/parent-config.json",
+      "sha256": "879ef4ef1cf4e0f8b84a61c4711eed5d157cc52546ffd11e4c659f9e652c27ec"
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/launch-manifest.json",
+      "sha256": "8438261a50ccd5d230f1d76e0fef6d3959b89e7bba2abf399113b17843634caa"
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/loader-identity.json",
+      "sha256": "c104a9938b6aeecdff3319bbf1d0bf4f82afabb3b5e927e21a1d1a278132685d"
+    },
+    {
+      "path": ".staging/wave-ds-api-stop-runner-audit-2026-09-09/parent-v3.mts",
+      "sha256": "d085e70465e6985e157fa0945470e80223c9bec63a25561c377f189aa23c30b9"
+    },
+    {
+      "path": "docs/log/api-budget-d466-reserved-2026-09-09.json",
+      "sha256": "e16c58514001163c80295f044e7514b66cca290d7e60322944c9067a36734a37"
+    }
+  ],
+  "solMediumFollowupsAfterD450": 20,
+  "subscriptionDollarAllocation": "unknown"
+}

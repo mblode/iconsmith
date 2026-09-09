@@ -1,0 +1,33 @@
+{
+  "id": "D365",
+  "kind": "outer-refusal-integrity-v2-root-integration",
+  "patch": ".staging/wave-bn-outer-refusal-integrity-2026-09-08/v2/outer-refusal-integrity-v2.patch",
+  "patchSha256": "a5a7aa1be4ba3c1728ebe85582cc129e720a8e479f9d33ff241781d711b3dc20",
+  "agentReceipt": ".staging/wave-bn-outer-refusal-integrity-2026-09-08/v2/receipt.json",
+  "agentReceiptSha256": "b354ef7b945f811d5e518091b51daad07b32d4e0b2b76feb71a9d840d0c4fd15",
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.ts",
+      "baseSha256": "3ac66ac56771c67f840eec18918c97adb6a8878d4208365ba678c30c9af2c4ea",
+      "resultSha256": "f8fdc490f4a2e1c4bac5882e85d293e69a703d86800178ae5de8814c2ec58ea7"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "baseSha256": "e577c3ea3a89a088e886626f5bddc0ba959997eb9558800d387f2f809a5f2d38",
+      "resultSha256": "bf5c98b87ff1b3d4f77dc0eaa989e55fb1ea0a9995647a58fa9cf9cc1008d3a6"
+    }
+  ],
+  "rootTests": 55,
+  "rootTestFiles": 1,
+  "skipped": 0,
+  "rootTestLog": ".staging/wave-bp-refusal-root-tests.log",
+  "rootTestLogSha256": "a3a37604b4f150e24cc55192c99acc7ccc9010a2fe6a9bb76c2f7f5386bad90f",
+  "behavior": [
+    "Outer-refusal receipts bind any retained invalid child output to its canonical path and SHA-256 and reread those bytes before resume accounting.",
+    "A null retained-output binding remains valid only while the exact expected child output is absent, or while the parent settlement is explicitly non-quiescent.",
+    "Parent settlements use an exact schema. Quiescent true requires quiescenceScope process-group-and-observed-descendants. Quiescent false permits the field to be absent or exactly that value and rejects any other value.",
+    "The actual quiescent:false runOwnedProcess shape is retained as an outer refusal, does not hash unsettled output, blocks further dispatch, and blocks resume."
+  ],
+  "providerCalls": 0,
+  "qualified": false
+}

@@ -1,0 +1,69 @@
+{
+  "id": "D304",
+  "status": "full-engineering-verification-pass",
+  "qualified": false,
+  "tests": 2184,
+  "files": 170,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 29772,
+      "log": ".staging/wave-ao-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1281,
+      "log": ".staging/wave-ao-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5261,
+      "log": ".staging/wave-ao-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1410,
+      "log": ".staging/wave-ao-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 54,
+      "log": ".staging/wave-ao-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceFreeze": ".staging/wave-ao-integration-2026-09-08/source-after.json",
+  "apiActualUsd": 0,
+  "nativeCalls": 0
+}

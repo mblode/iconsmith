@@ -1,0 +1,41 @@
+{
+  "version": 26,
+  "qualified": false,
+  "html": {
+    "path": "docs/log/development-evidence-index-v26-2026-09-09.html",
+    "sha256": "943fcfdc81f33a95dde2c67c9bf26e763293e1079df75fadc13ac750904b385d",
+    "bytes": 2151
+  },
+  "previousIndex": {
+    "path": "docs/log/development-evidence-index-v25-2026-09-09.html",
+    "sha256": "d6c44416a7e08b5b68540c044af255431ba560408f56b5480a7767c46b04d764",
+    "bytes": 1624
+  },
+  "images": [
+    {
+      "path": "docs/log/source-exact-replay-bell-24-light-2026-09-09.png",
+      "sha256": "e5c865c5827a23c0449f74e491838a058450cf34cce502364e946bdf3250cc3d",
+      "bytes": 388
+    },
+    {
+      "path": "docs/log/source-exact-replay-bell-24-dark-2026-09-09.png",
+      "sha256": "1b90647136ae4f508e53d95a0a4dbdbb925ebe437b800fbb25f4efd0ab6c1d33",
+      "bytes": 398
+    },
+    {
+      "path": "docs/log/source-exact-replay-shield-24-light-2026-09-09.png",
+      "sha256": "ad2ff16e162bd507038081a4e6653c3e4d1b9dd7485c766a5135d9685e47543c",
+      "bytes": 329
+    },
+    {
+      "path": "docs/log/source-exact-replay-shield-24-dark-2026-09-09.png",
+      "sha256": "59aa52ca370805a749338797b2285659e11125bf14def8a284f582e50a94831a",
+      "bytes": 336
+    }
+  ],
+  "receipt": {
+    "path": "docs/log/wave-dt-source-origin-replay-root-2026-09-09.json",
+    "sha256": "0f65736f40e68a5ccc102381afc10e173b61e5d0a27192e307b4bcf36a7ac995",
+    "bytes": 1426
+  }
+}

@@ -59,7 +59,7 @@ const JSON_INDENT = 2;
 
 /** How an icon is drawn: in strokes, or as filled contours (an expanded stroke
  *  or a filled brand glyph). */
-export type IconStyle = "expanded" | "stroked";
+type IconStyle = "expanded" | "stroked";
 
 /** Which style the vocabulary is taken from. `auto` prefers stroked icons and
  *  falls back to expanded ones when the set has no stroked icon at all. */
@@ -84,13 +84,13 @@ export interface ExtractOptions {
 
 /** How many of the directory's icons are drawn each way, and which of them the
  *  vocabulary was actually taken from. */
-export interface StyleSplit {
+interface StyleSplit {
   expanded: number;
   stroked: number;
   used: StyleSelection;
 }
 
-export interface ExtractSummary {
+interface ExtractSummary {
   /** Subpaths considered, before clustering. */
   candidates: number;
   /** Percentage of icons touched by the top N parts, keyed by N. */
@@ -295,11 +295,7 @@ const toPart = (members: Member[], id: string): Part => {
 };
 
 /** Percentage of the set's icons that the first `n` parts between them cover. */
-export const coverage = (
-  parts: Part[],
-  n: number,
-  totalIcons: number
-): number => {
+const coverage = (parts: Part[], n: number, totalIcons: number): number => {
   if (totalIcons === 0) {
     return 0;
   }

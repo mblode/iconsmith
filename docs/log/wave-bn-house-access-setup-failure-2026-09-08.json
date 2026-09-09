@@ -1,0 +1,191 @@
+{
+  "id": "D356",
+  "kind": "house-access-replay-setup-failure",
+  "root": ".staging/wave-bk-same-container-house-replay-live-2026-09-08",
+  "outer": {
+    "code": 7,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "finishedAt": 1788868082800,
+    "deadlineAt": 1788868679568,
+    "sourceStable": true,
+    "drift": []
+  },
+  "failure": "Same-container access probe plan is invalid",
+  "diagnosis": "prepareContainedCodexContext inherits reviewer access probe but changes auxiliary probe cwd; ACK parent mismatch rejects before runContainerProcess",
+  "nativeSettledCumulative": 80,
+  "newSettledCalls": 0,
+  "newAmbiguousIntents": 1,
+  "newConfirmedProviderStarts": 0,
+  "remainingPlannedCallsUnstarted": 2,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocation": "unknown; intent retained unresolved",
+  "stopSentinel": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/STOP",
+  "automaticRedispatchAllowed": false,
+  "artifacts": [
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/intent.json",
+      "sha256": "ac08b89a567b9166178efbbc64d63bd90500b5ba562974a6099cca4a9cbab900"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/outer-result.json",
+      "sha256": "249b74b292862cd438848712108fe95c5c4748d916130dd0c447cd0da22fc50c"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/STOP",
+      "sha256": "07e817815466bbf31b3ded03893be7e7b0dc381d269f987056b72ac0077e16a5"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/stderr.txt",
+      "sha256": "5e2f6b9802442ad666ba768b1fce178c03315d8d4d775379454967b24f4dd540"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-control/pre-dispatch-access-policy.json",
+      "sha256": "ae1bf9944342db93f070c561974b6375846cad3e5380fdaa828f55eedd53380b"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-control/launch.json",
+      "sha256": "470f7bb61716a7ba1d5a0b9f5ce5f0eb5f05e7839664f39a3fe9952391d7a339"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-control/forbidden-control-sentinel",
+      "sha256": "05ac633a939ef75aa14b5ad1b1bcaddfbfaad89831a07d5d0b2ebab9dbb34355"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/intent.json",
+      "sha256": "80e7c9cef82717d0b051b94638c62a496f7f25bf65a5f789ebdc7e07cec5b943"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-56ceed0843b5.png",
+      "sha256": "b1f09fd9cf12b89e62233a64a0a14fcd74fe01404d9073cc4a4f85f1055b4021"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-56c072571b21.png",
+      "sha256": "1f500babbd875c96ad91b735634dd2129df7396615f0bd2910093cd8da864ec3"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-0833b6ea9bce.png",
+      "sha256": "2adb9a805bef032085a87a0c944997dd0a6b62932dd18a92825338ea431f6f8d"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-bca4ef6932bc.png",
+      "sha256": "d93e148981d376c339be4a61b62be0929b691e63924bd8a763b5465a2bd75c8f"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-0efd0a5b30c7.png",
+      "sha256": "f6fbae023f9dcedaf59e47f6f42f1b448080169f66373a5de5f087872c886d32"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-5ef431e15db5.png",
+      "sha256": "0b6225934661c32a1a428c99295d918836370554dba19703288ad1b811c35a37"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-r-5d18abac8b7a.png",
+      "sha256": "2adb9a805bef032085a87a0c944997dd0a6b62932dd18a92825338ea431f6f8d"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-a4f23a9b858a.png",
+      "sha256": "fb1fe728e29e6f3d385c300b23f589d25b3f2ae4438c275d8ca69e8e1e53dc54"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-r-a425f38a64a8.png",
+      "sha256": "4ca8e5cd6b808dd56dd297e1cf14ea4f475f2998e501360b0c1fe34374135541"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-991b5fd9e837.png",
+      "sha256": "85a42f56accc46e2b728c7c941f23ca5f77b5225c1914bed6d54f44238399987"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-be7fa0f25c77.png",
+      "sha256": "23949aec23cf8b7491ed6a9c701b053d47fffda59ecb8621f32839af7d5bb2b8"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-f4cbddb409ad.png",
+      "sha256": "106d3ca9b8729ec539e3b94daa0f8deae92a235db16674392ee9c0b558decca8"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-9d2f29b8a563.png",
+      "sha256": "45feae62f3c35f8f74774efe2f34723cc2395aa1dc99fd5ffa3542ed8b76e346"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-3e336c9d7cf4.png",
+      "sha256": "62308666549e2ec5e181bf38973b0b6de5ca14664525d0d83d0b3561144d21a2"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-r-a9d9206cbc1b.png",
+      "sha256": "45feae62f3c35f8f74774efe2f34723cc2395aa1dc99fd5ffa3542ed8b76e346"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/schema.json",
+      "sha256": "ecf507bf0f24578d3cc331f1abd2c6831fff30419d2b3aaeadabe8943a4e0123"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-r-7ec08f4fce66.png",
+      "sha256": "4311474127ff988641a7d270d082fddc4c32f6245357c73f46c14863e335348c"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-da1b9f4c0883.png",
+      "sha256": "7147609755c2719dba819ea007ce1c84397d8d9afc58789472cc6a50d5027943"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-0a12bf45d35b.png",
+      "sha256": "4311474127ff988641a7d270d082fddc4c32f6245357c73f46c14863e335348c"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-668804a853da.png",
+      "sha256": "4ca8e5cd6b808dd56dd297e1cf14ea4f475f2998e501360b0c1fe34374135541"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-runtime/recognizer-recognition/bg-1fb7e4642950.png",
+      "sha256": "ef78ad25d468cbc2d64d5f1590886837447438ab70847c5d45e7bcf6f93da8d2"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/author-recognizer/result.json",
+      "sha256": "17b4a01876c0a2bb0090e685e55d04e5eb06bca42eace4823777b7189e24c5db"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/author-recognizer/recognition-terminal.json",
+      "sha256": "af6137bde0abe28dc2700dac2fba47e3dd3268d3ee2854dc83a50226b434d0a5"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/author-recognizer/recognition-error.json",
+      "sha256": "6d288da5fb363212b61b08d0863b43e535f95a332543b432c10ceae017f183a2"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/author-recognizer/protocol.json",
+      "sha256": "a62fd726dd5b4da47be2668ff4c106dd21617f6920cb501c04ddbca6739a1848"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/author-recognizer/terminal.json",
+      "sha256": "5fc9bdfdf1d1af6dc08feb43f17b5e8d4a79af2170b6af37eb52a0de724e3fa7"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review/author-recognizer/recognition-questions.json",
+      "sha256": "015cd2aa311b12a40ea08393517faadc858d9277a56c0c5030228cc0e7774de9"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-control/calls/dispatches.json",
+      "sha256": "be7f3fcedfb480a9b9cf24bea42361683277225adc895e72f78da0101a72f494"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-control/calls/64bfbaa5-1082-4991-9c48-13325e4d75af.intent.json",
+      "sha256": "551c11fbbbb716cef453cf90c80e7fc681463723883ac43479e0f9e1174f4dca"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-house-replay-live-2026-09-08/review.native-control/calls/reservation.json",
+      "sha256": "2ffdbd9f8fe6bb1f52860fc647be1456c11206d8db5eef7ef61ea283c1f98219"
+    }
+  ],
+  "qualified": false,
+  "runtimeAccessRestrictionVerified": false,
+  "limitations": [
+    "No native call terminal exists; do not manufacture settled accounting",
+    "No actual same-container access evidence",
+    "Outer host quiescence is limited to process group and observed descendants"
+  ]
+}

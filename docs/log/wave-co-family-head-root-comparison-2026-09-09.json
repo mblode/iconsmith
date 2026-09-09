@@ -1,0 +1,32 @@
+{
+  "id": "D442",
+  "kind": "exposed-family-head-development-comparison",
+  "qualified": false,
+  "frozenBeforeRendering": true,
+  "freeze": {
+    "path": ".staging/wave-co-family-head-comparisons-2026-09-09/freeze.json",
+    "sha256": "fbdf396f77506cbf13089a3e24d9e67d23ce390c82f410e9428c51f697ea82e4"
+  },
+  "manifest": {
+    "path": ".staging/wave-co-family-head-comparisons-2026-09-09/manifest.json",
+    "sha256": "84696d011647cc12c75581653f89d6bf2fd79eb0fc3793c7187f744b49c407cd"
+  },
+  "rootObservations": {
+    "path": ".staging/wave-co-family-head-comparisons-2026-09-09/root-observations-sealed.json",
+    "sha256": "df71884c23a7d4f97599e2b177655bdbf694d9798be0937595c8e404a0fe83c5"
+  },
+  "relationships": 44,
+  "uniqueConceptsPresented": 80,
+  "boards": 9,
+  "rootRelationshipProposals": 35,
+  "rootUnresolvedRelationships": 9,
+  "independentReviewPending": true,
+  "observedProblems": [
+    "Proposed head fork has branching-graph outline but dining-utensil filled source; both exact source files verified. It is unsuitable as a paint-consistent family reference until independently adjudicated.",
+    "Proposed head circle is an open curled stroke in both paints, not the closed circle implied by related catalog labels.",
+    "Voice head filled source is absent."
+  ],
+  "boundary": "This exposed source inspection does not establish blind semantic keys, close-derivative equivalence, native16 optics or visual qualification. None of the44 mappings is ingested by this receipt.",
+  "providerCalls": 0,
+  "costChangeUsd": 0
+}

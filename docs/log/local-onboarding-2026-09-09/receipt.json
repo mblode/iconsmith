@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-09",
+  "scope": "Local onboarding, offline CLI and dead internal code",
+  "existingWork": "Preserved pre-existing foundry, qualification and web changes; no commits or provider calls.",
+  "changes": [
+    "Root build:local, iconsmith and generate:local scripts",
+    "Runnable offline square-check example and consumer README",
+    "Local setup and evaluation notes",
+    "Generator help exits before login or generation",
+    "CLI rejects unknown output formats and respects TERM=dumb",
+    "draw JSON output now writes explicit output files, including --doc",
+    "Corrected root, engine and agent execution instructions"
+  ],
+  "deadCode": {
+    "removed": [
+      "dumpParts",
+      "TREATMENT_SIDECAR_NOTE",
+      "inkBox",
+      "NO_ALIASES",
+      "pathsOverlap",
+      "formatCensus (and its share formatter)",
+      "scorePlain"
+    ],
+    "evidence": "No identifier consumers across tracked and untracked non-ignored TS/JS sources in apps, packages and scripts; none is re-exported from the public package entry. Typecheck and scoped tests pass. Historical experiment programs remain."
+  },
+  "verification": {
+    "freshInstall": "npm ci --no-audit --no-fund succeeded in a temporary copy with workspace manifests and lockfile. Missing .git caused the existing best-effort hook installer to report a diagnostic. npm reported install-script approval warnings. Subsequent engine build and real quickstart passed. Temporary copy removed after verification.",
+    "offline": "help/version, example draw, lint, stdin, invalid-file and invalid-format exits pass with isolated HOME/cwd and without corpus or provider credentials. npm piped JSON parses and matches written SVG.",
+    "focusedTests": "99 passed in 9 files, including 3 new JSON export regressions.",
+    "typecheck": "Engine and script TypeScript checks passed.",
+    "lint": "Scoped Ultracite, root JSON formatting, root foundry config and layering checks passed. Engine AGENTS formatting passed; its Markdown-only lint invocation returns no-files-to-lint.",
+    "studio": "Started the documented web command. Browser shows Studio composer at localhost:3210/iconsmith/studio. Eve discovery completed, with existing optional-directory/Paper jsdom warnings. Generation not invoked.",
+    "viewer": "Documented CLI viewer started at port 4317 and returned HTTP 200.",
+    "fullSuiteFirst": "2570 passed, 47 failed, 2617 collected in 184 files; no skips. Failures in three native-runtime suites arose from actual free disk below the required 2 GiB.",
+    "diskRetry": "Removed only the disposable dependency install; free disk returned to 2.6 GiB. All 96 tests in the three affected files passed. Complete rerun pending."
+  },
+  "audits": {
+    "agents": {
+      "root": {
+        "before": 10,
+        "after": 11,
+        "outOf": 12,
+        "linesBefore": 122,
+        "linesAfter": 123
+      },
+      "engine": {
+        "before": 10,
+        "after": 11,
+        "outOf": 12,
+        "linesBefore": 170,
+        "linesAfter": 170
+      },
+      "agent": {
+        "before": 10,
+        "after": 11,
+        "outOf": 12,
+        "linesBefore": 62,
+        "linesAfter": 64
+      },
+      "pointers": "All five existing CLAUDE.md pointers resolve."
+    },
+    "readme": {
+      "passed": 32,
+      "applicable": 32,
+      "notApplicable": [
+        3,
+        20,
+        22,
+        30
+      ],
+      "lines": 84,
+      "render": "marked renders H1 and Quickstart H2; Markdown fence, em-dash, placeholder and disallowed-heading checks empty; local links resolve. House profile footer overrides generic image-hosting rule."
+    }
+  },
+  "costs": {
+    "apiCalls": 0,
+    "nativeGenerationCalls": 0,
+    "apiUsd": 0,
+    "newReservations": 0
+  },
+  "limitations": [
+    "AI generation requires supplied revision/reference inputs and compatible subscriptions/runtimes; no live generation or critic qualification was attempted.",
+    "No registry packaging, npm publishing or production deployment."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "D383",
+  "scope": "Current canonical execution dependency inventory",
+  "agentReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bv-runtime-canonical-gap-audit-2026-09-08/receipt.json",
+  "agentReceiptSha256": "6410d45809e2f9ada838efb4830bc44c1d23bbe0e66c5238a5e50cae625dd281",
+  "auditJsonSha256": "0a2d914b4be9995b9438affdd6fae7ae318eec50f72b977c716c0ac32eb7e5d9",
+  "canonicalGenerationAndReviewBehavior": true,
+  "stagingTypescriptImportedByCanonicalEntryPoints": false,
+  "remainingCandidate": "Generic full source closure verification, wave intent binding and outer campaign settlement; root experiment launcher currently provides this",
+  "requiresFurtherPromotionDecision": true,
+  "canonicalSourceChanged": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

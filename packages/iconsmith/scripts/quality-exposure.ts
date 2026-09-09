@@ -26,13 +26,8 @@ export interface ExposureIdentity {
   clusterHash: string;
   libraryHash: string;
 }
-export type ExposureInputKind =
-  | "anchor"
-  | "cache"
-  | "candidate"
-  | "packet"
-  | "part";
-export interface ExposureLineage {
+type ExposureInputKind = "anchor" | "cache" | "candidate" | "packet" | "part";
+interface ExposureLineage {
   artifactHash: string;
   clusterId: string | null;
   semanticFamily: string | null;
@@ -54,7 +49,7 @@ export interface ExposureLedger {
   receiptHash: string;
   version: 1;
 }
-export interface NovelFamily {
+interface NovelFamily {
   aliases: readonly string[];
   clusterIds: readonly string[];
   family: string;

@@ -1,0 +1,56 @@
+{
+  "kind": "compiler22-integration-regression-failed",
+  "qualified": false,
+  "engineeringFreezePassed": false,
+  "date": "2026-09-08",
+  "admission": {
+    "admitted": 3887,
+    "compiler": "iconsmith-constrained-22-grouped-source",
+    "generationQualified": false,
+    "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "kind": "family-source-admission-audit",
+    "master": "24",
+    "refused": 470,
+    "revisionHash": "66cf9850fdcda12da15fef716c3fd8a434c086ef0e23d496eedc8724376a1071",
+    "revisionSha256": "187b080966ba2bdb9e5e9141241c9311f0f92e7b4c7774da5c368f2eb4693013",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "sourceIdentityVerified": true,
+    "total": 4357
+  },
+  "replay": {
+    "exactReplay": 4357,
+    "failures": 0,
+    "generationQualified": false,
+    "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "kind": "admitted-source-reconstruction",
+    "rasterDifferenceThreshold": 0.01,
+    "rasterDifferences": 1007,
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "sourceIdentityVerified": true,
+    "total": 4357
+  },
+  "sourceStable": true,
+  "transitions": {
+    "source-admitted->refused": 74,
+    "refused->refused": 56,
+    "refused->source-admitted": 40
+  },
+  "assemblyAliases": 1321,
+  "requiredCorrection": "Preserve valid indexed components and validate grouped aliases separately; investigate all 74 supported-source regressions before any provider dispatch.",
+  "artifacts": {
+    ".staging/wave-z-source-regression-compiler22-2026-09-08/comparison.json": "b294a96a74dc99372b2e89a645642a083c558e5bb4966a08bd49d8c091a37895",
+    ".staging/wave-z-source-regression-compiler22-2026-09-08/admission/admission-results.json": "5600bce455fb4be99feeb18c706b7812c80559b291a7c54553a615a1f8340438",
+    ".staging/wave-z-source-regression-compiler22-2026-09-08/replay/results.json": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c",
+    ".staging/wave-z-source-regression-compiler22-2026-09-08/source-before.json": "99b038d42c2d71c694d0abd1cf40075f11b79c6ff17f03413848217e338890ac",
+    ".staging/wave-z-source-regression-compiler22-2026-09-08/revision22.json": "187b080966ba2bdb9e5e9141241c9311f0f92e7b4c7774da5c368f2eb4693013"
+  },
+  "scopedTests": {
+    "tests": 87,
+    "files": 3,
+    "skipped": 0,
+    "correction": "Four newly added real-source tests initially skipped because isolated relative source path was over-deep; canonical path corrected, all87 rerun pass."
+  },
+  "newProviderCalls": 0,
+  "newApiActual": 0,
+  "newApiReservation": 0
+}

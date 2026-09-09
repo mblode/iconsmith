@@ -49,7 +49,7 @@ import { ANGLE_TOLERANCE, AXES } from "./canvas.js";
  * constant because the exemption question is live, not because the exemption is
  * on — see `allowIsometric`, which defaults to off and says why.
  */
-export const ISOMETRIC_AXES = [30, 150] as const;
+const ISOMETRIC_AXES = [30, 150] as const;
 
 /** Degrees either side of 30/150 counted as isometric when the exemption is on. */
 export const ISOMETRIC_TOLERANCE = 3;

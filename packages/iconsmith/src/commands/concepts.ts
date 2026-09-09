@@ -162,7 +162,7 @@ const loadInputs = async (store: string): Promise<StoreInput> => {
   };
 };
 
-export interface ConceptsReport {
+interface ConceptsReport {
   conflicts: ConceptConflict[];
   coverage: ProposalReport["coverage"];
   gaps: GapEntry[];
@@ -170,7 +170,7 @@ export interface ConceptsReport {
   vocabulary: { names: number; words: number };
 }
 
-export interface ConceptsProposal extends ConceptsReport {
+interface ConceptsProposal extends ConceptsReport {
   bySource: ProposalReport["bySource"];
   dryRun: boolean;
   files: string[];
@@ -375,7 +375,7 @@ interface ConceptsFile {
   description?: string;
 }
 
-export interface ApplyReport {
+interface ApplyReport {
   added: number;
   /** Concepts the reviewed file points at a different icon than the live file.
    *  Reported and applied — a review that changed an answer meant to. */

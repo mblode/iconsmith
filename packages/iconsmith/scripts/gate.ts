@@ -213,7 +213,7 @@ const compare = (
   usable: current >= baseline - tolerance,
 });
 
-export interface CosineGateReport {
+interface CosineGateReport {
   builtAt: string;
   /** The battery's own shape, checked against the baseline's. A run whose
    *  families have a different size is not the experiment the baseline
@@ -261,7 +261,7 @@ const verdictFor = (
   return `PASS: pooled AUC ${f(pooled.current)} against a baseline of ${f(pooled.baseline)} (${pooled.delta >= 0 ? "+" : ""}${f(pooled.delta)}), no perturbation down more than ${PERTURBATION_TOLERANCE}. The scorer still separates a broken drawing from an intact one as well as it did when the benchmark was calibrated. It says nothing about whether the scorer is *good* — the baseline it is held to has an inverted gradient on translation and cannot see a dot two tiers too large.`;
 };
 
-export const cosineGate = async (args: {
+const cosineGate = async (args: {
   baseline: string;
   corpus: string;
 }): Promise<CosineGateReport> => {
@@ -567,10 +567,7 @@ if (process.argv[1]?.endsWith("gate.ts")) {
 
 export {
   BASELINE_SHA,
-  calibrate,
   compare,
-  dirtyGuarded,
-  GATE_PROCEDURE,
   GUARDED,
   iconsIn,
   loadBaseline,

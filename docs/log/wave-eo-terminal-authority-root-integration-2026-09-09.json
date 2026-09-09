@@ -1,0 +1,43 @@
+{
+  "receipt": ".staging/wave-ea-terminal-authority-proposal-2026-09-09/receipt-v2.json",
+  "files": [
+    {
+      "baseSha256": "f8fdc490f4a2e1c4bac5882e85d293e69a703d86800178ae5de8814c2ec58ea7",
+      "file": "packages/iconsmith/scripts/local-campaign.ts",
+      "resultSha256": "038cf87deac429d5dce190c0098eeb05f8263b3983383c268500341d4a184aba"
+    },
+    {
+      "baseSha256": "bf5c98b87ff1b3d4f77dc0eaa989e55fb1ea0a9995647a58fa9cf9cc1008d3a6",
+      "file": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "resultSha256": "a81e0af1d99972b5eda85759080486da46797691b2548fd2592699fed85eadcb"
+    }
+  ],
+  "patch": {
+    "appliesToCurrentCanonical": true,
+    "file": ".staging/wave-ea-terminal-authority-proposal-2026-09-09/terminal-authority-v2.patch",
+    "sha256": "122546ecf1357355b300a0f94b32301e7d4a1e1e7f930cfd9b439c31f71e80c2"
+  },
+  "status": "implemented-scoped-verified-not-qualified",
+  "id": "D478",
+  "observedAt": "2026-09-08T20:47:55.717612+00:00",
+  "focusedTests": {
+    "passed": 70,
+    "files": 1,
+    "skipped": 0,
+    "log": ".staging/wave-eo-terminal-authority-root-integration-2026-09-09/scoped-test.log",
+    "sha256": "5118897da09e3ac2272ae9758bd9370bb04d92bc8e19fd357f9ffc329dae822c"
+  },
+  "limitations": [
+    "Caller must independently establish frozen plan authority",
+    "Author inspection provenance remains open",
+    "Full integrated validation pending material batch",
+    "No visual qualification"
+  ],
+  "cost": {
+    "providerCalls": 0,
+    "reservationUsd": 0,
+    "ledger": "docs/log/api-budget-after-d466-2026-09-09.json",
+    "solMediumFollowupsAfterD450": 25,
+    "nativeDollarCost": "unknown"
+  }
+}

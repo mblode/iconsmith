@@ -1,0 +1,15 @@
+{
+  "version": 9,
+  "qualified": false,
+  "previousIndex": "development-evidence-index-v8-2026-09-08.html",
+  "htmlSha256": "e29d166b4887baeb8895452772a56633ab458de486da6383c6f93221b055eef9",
+  "addedArtifactHashes": {
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.png": "2515643050a9deef52a1399d233afb967796d5150b2d85bc6af46c314f52735e",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.png": "bd049f7f6e5261a5ce9448c2f2de3180210b1bd128b068e0bc0add0772d97955",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.proof.png": "f629ab636d28f6f060f7f0d40bd7ab4d3b5bd4b9e4879f64ccb0330120259d62",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.proof.png": "bd15b374e81d166ecf4d11e93afc5e40f93a793e3bb07c2a92544d67c0e8d8c3"
+  },
+  "nativeCallsAtCreation": 78,
+  "apiIncrementUsd": 0,
+  "receipt": "wave-bf-folder-lock-results-2026-09-08.json"
+}

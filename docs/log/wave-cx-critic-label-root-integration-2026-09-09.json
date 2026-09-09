@@ -1,0 +1,76 @@
+{
+  "id": "D455",
+  "observedAt": "2026-09-08T18:49:34.360561+00:00",
+  "scope": "exact-critic-label-and-recognition-binding",
+  "patch": {
+    "path": ".staging/wave-cx-critic-label-binding-2026-09-09/critic-label-binding-v2.patch",
+    "sha256": "d4376797c9687cd16e5e19166e6ec0d7980075a21cd1a8fc9d34d984b0825459"
+  },
+  "agentReceipt": {
+    "path": ".staging/wave-cx-critic-label-binding-2026-09-09/receipt-v2.json",
+    "sha256": "875cdd35b5d294bee22ff3262801f43604aa6f576b3383995de0c8ddf925987f"
+  },
+  "rootVerifiedBaseAndResultHashes": [
+    {
+      "file": "packages/iconsmith/scripts/acceptance-critic-evidence.ts",
+      "baseSha256": "7ced163a99ad0bca1ad86325ca5005a9d48aecbc5fea396f8d386c3721f2037a",
+      "resultSha256": "7ced163a99ad0bca1ad86325ca5005a9d48aecbc5fea396f8d386c3721f2037a",
+      "changed": false
+    },
+    {
+      "file": "packages/iconsmith/scripts/ai-qualification-provenance.ts",
+      "baseSha256": "3d7396bed1da202ff481aad349ad0d21ec23291c6422ad6659d4adb6407aaafe",
+      "resultSha256": "4417463d264282f6aadcf3d7a559bf414398808c071ebf74b9a3bdf3a6a54c55",
+      "changed": true
+    },
+    {
+      "file": "packages/iconsmith/scripts/ai-qualification-provenance.test.ts",
+      "baseSha256": "3fd038dd3d6b89b09cf342c308a00b5924040fa9483c36a9b945c1d3e23597c0",
+      "resultSha256": "7a0406809f20d52881d542255b8cb75f10d9ad0642b4e1a5045b867f1e8d42f2",
+      "changed": true
+    },
+    {
+      "file": "packages/iconsmith/src/eval/foundry-gate.ts",
+      "baseSha256": "80dc5b011362404ccf0f4e275647f4042ffafde8c5b43fb31d81832ddddfd34d",
+      "resultSha256": "c5e7a7029bfe0fb07daca6325e94fd6ce94066952a98d69486dc3818a7bee185",
+      "changed": true
+    },
+    {
+      "file": "packages/iconsmith/src/eval/foundry-gate.test.ts",
+      "baseSha256": "828a8f384bc2179d17230a7af5231fd207309b7d6fcb499d1a562ef8685a34dc",
+      "resultSha256": "64ff0fd5488fe85c6b4a5b96e88f9c73cc06a3325976e9dbd4d34e824efaa974",
+      "changed": true
+    },
+    {
+      "file": "packages/iconsmith/src/eval/acceptance-contract.ts",
+      "baseSha256": "c325599820ab0198da510fe2c513ca1ccc0775c61160fa9197b39de4084c9a98",
+      "resultSha256": "8c3808ccd1584143d1d30aa6503016366880ccfbeaaf03fecb0d2e6fe63ad5ff",
+      "changed": true
+    },
+    {
+      "file": "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "baseSha256": "ae7b2e686d3756a8964ce7d911f99002704e93bef0e9fe222d938596851ae3f6",
+      "resultSha256": "f4398a6deedb12227cc45291d39614e99b617f2b23cf69a44154198645a3aa80",
+      "changed": true
+    }
+  ],
+  "rootVerification": {
+    "tests": 131,
+    "files": 3,
+    "skipped": 0,
+    "log": ".staging/wave-db-provenance-integration-2026-09-09/cx-focused.log",
+    "sha256": "ff8555d642968a23362cf6e1083a0f9175bc87c54aa8ec3236c7fb7b07923df8",
+    "integrated": "pending CY integration"
+  },
+  "limitations": [
+    "No production authority can be issued because prospective generation author journals are not yet verified; authorEvidenceVerified remains false.",
+    "The synonym key and blind instrument are byte-bound inside the post-settlement manifest but are not yet tied to an externally frozen dispatch manifest or proven inaccessible to the recognizer. This remains fail closed for production.",
+    "Missing, failed and timed-out requested catalog outputs still need denominator-aware handling without requiring critic rows for absent artifacts; the current two-reviewer-per-output report policy remains open.",
+    "The current native instrument emits one joint native judgment. Mixed report light/dark claims are rejected, but independent per-surface critic judgments require a future instrument revision.",
+    "Repair and generalization computed evidence remain unavailable; the acceptance contract remains draft-unqualified.",
+    "No provider calls, shared docs changes or qualification claims were made."
+  ],
+  "providerExperimentCalls": 0,
+  "newApiCostUsd": 0,
+  "qualified": false
+}

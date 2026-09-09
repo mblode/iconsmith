@@ -1,0 +1,56 @@
+{
+  "id": "D371",
+  "kind": "evaluator-mount-projection-root-integration",
+  "agentReceipt": ".staging/wave-br-evaluator-mount-projection-2026-09-08/receipt.json",
+  "agentReceiptSha256": "5a559aa651e5a327e8d85109cfdff6e4988e9b21a0425d652a133c95d547a968",
+  "patch": {
+    "file": "patch/evaluator-mount-projection.patch",
+    "sha256": "f9b36381d5954f15b381e37aac7d629f6fb5061d041e3347903b23912b33264d"
+  },
+  "tests": 26,
+  "testFiles": 1,
+  "skipped": 0,
+  "testLog": ".staging/wave-br-evaluator-mount-projection-2026-09-08/root-tests.log",
+  "testLogSha256": "b1e884dcd671c2de9712ae219837126219f9c7c058977a3a70e4cf7dfe6a8406",
+  "rootReplay": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/root-access-audit.json",
+  "rootReplaySha256": "02ded69c91e839e337f5b8d29f2d4eee84a110053db5484bc8c9145d292fdd73",
+  "actualIdentityDiagnostic": {
+    "actualIdentityDiagnostic": {
+      "accessTraceVerified": true,
+      "mountReachabilityVerified": true,
+      "productionEligible": false,
+      "sameContainerAccessVerified": true,
+      "stageCount": 3
+    },
+    "actualRoster": [
+      {
+        "role": "recognition",
+        "baseModelLineage": "gpt-6-astra",
+        "model": "gpt-6-astra",
+        "provider": "openai-codex"
+      },
+      {
+        "role": "adjudication",
+        "baseModelLineage": "gpt-5.6-sol",
+        "model": "gpt-5.6-sol",
+        "provider": "openai-codex"
+      },
+      {
+        "role": "craft",
+        "baseModelLineage": "gpt-6-astra",
+        "model": "gpt-6-astra",
+        "provider": "openai-codex"
+      }
+    ],
+    "intendedRosterMatched": false,
+    "intendedRosterFailure": "Error: Collector stage is missing: 01-adjudicator-adjudication",
+    "journalSha256": "7cc431795299112639f1b6800ff02f2f01a170a45d68347f5b3626395f466621",
+    "originalAttachmentBindingsMatched": true,
+    "qualificationContribution": 0
+  },
+  "historicalIntentCorrected": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualificationContribution": 0,
+  "fullIntegrationPending": true
+}

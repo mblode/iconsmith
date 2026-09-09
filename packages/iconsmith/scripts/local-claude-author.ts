@@ -1,21 +1,24 @@
 /** Runnable native-Claude adapters for the opt-in structured-author contender. */
-import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { z } from "zod";
 
 import { subscriptionEnv } from "../src/pipeline/harness.js";
-import { runOwnedProcess } from "./local-process.js";
+import {
+  runNativeContainerCommand,
+  validateNativeCliContainerConfig,
+} from "./local-container-runtime.js";
+import type { NativeCliContainerConfig } from "./local-container-runtime.js";
+import type { NativeCallContainerFactory } from "./local-native-call-factory.js";
 import { reviewImages } from "./local-review.js";
 import {
   runStructuredAuthor,
   STRUCTURED_AUTHOR_MODEL,
 } from "./local-structured-author.js";
 import type { StructuredAuthorOptions } from "./local-structured-author.js";
-import { executableIdentity, resolveExecutable } from "./runtime-identity.js";
 
 const responseSchema = z
   .object({
@@ -102,44 +105,23 @@ export const claudeStructuredArgs = (
 ];
 
 interface PreflightIdentity {
-  authMethod: "claude.ai";
+  authMethod: "claude.ai" | "unverified";
   cliVersion: string;
   executable: string;
   executableSha256: string;
-  loggedIn: true;
+  loggedIn: boolean;
 }
 
-const nativePreflight = (
-  env: NodeJS.ProcessEnv,
-  deadlineAt: number
+const containerIdentity = (
+  container: NativeCliContainerConfig
 ): PreflightIdentity => {
-  const command = resolveExecutable("claude", env.PATH);
-  const timeout = () => Math.max(1, Math.min(10_000, deadlineAt - Date.now()));
-  const auth = spawnSync(command, ["auth", "status"], {
-    encoding: "utf-8",
-    env,
-    timeout: timeout(),
-  });
-  let authJson: unknown = null;
-  try {
-    authJson = auth.status === 0 ? JSON.parse(auth.stdout) : null;
-  } catch {
-    authJson = null;
-  }
-  const parsed = z
-    .object({ authMethod: z.literal("claude.ai"), loggedIn: z.literal(true) })
-    .safeParse(authJson);
-  const executable = executableIdentity(command, env);
-  if (Date.now() >= deadlineAt || !parsed.success || !executable.version) {
-    throw new Error(
-      "Native Claude subscription login and CLI identity are required"
-    );
-  }
+  validateNativeCliContainerConfig(container);
   return {
-    ...parsed.data,
-    cliVersion: executable.version,
-    executable: executable.executable,
-    executableSha256: executable.sha256,
+    authMethod: "unverified",
+    cliVersion: container.nativeCliVersion,
+    executable: container.nativeCommand,
+    executableSha256: container.nativeExecutableSha256,
+    loggedIn: false,
   };
 };
 
@@ -175,32 +157,41 @@ export const claudeStreamInput = (
   return `${JSON.stringify({ message: { content, role: "user" }, type: "user" })}\n`;
 };
 
-const invokeNativeClaude = async (options: StructuredInvocation) => {
+const invokeNativeClaude = async (
+  options: StructuredInvocation,
+  container: NativeCliContainerConfig
+) => {
   const remaining = options.deadlineAt - Date.now();
   if (remaining <= 0) {
     throw new Error("Claude author deadline exhausted");
   }
   const inputPath = path.join(options.out, ".claude-input.jsonl");
+  const bridgePath = path.join(options.out, ".claude-stream-bridge.mjs");
   writeFileSync(inputPath, claudeStreamInput(options.prompt, options.images));
+  copyFileSync(
+    fileURLToPath(new URL("local-claude-stream-bridge.ts", import.meta.url)),
+    bridgePath
+  );
   let result;
   try {
-    result = await runOwnedProcess({
+    if (!container.nodeCommand) {
+      throw new Error("Claude container config requires nodeCommand");
+    }
+    result = await runNativeContainerCommand(container, {
       args: [
-        fileURLToPath(
-          new URL("local-claude-stream-bridge.ts", import.meta.url)
-        ),
+        bridgePath,
         inputPath,
-        options.command,
+        container.nativeCommand,
         ...claudeStructuredArgs(options.schema, options.effort),
       ],
-      command: process.execPath,
+      command: container.nodeCommand,
       cwd: options.out,
-      env: options.env,
+      deadlineAt: options.deadlineAt,
       maxBuffer: 12 * 1024 * 1024,
-      timeoutMs: remaining,
     });
   } finally {
     unlinkSync(inputPath);
+    unlinkSync(bridgePath);
   }
   writeFileSync(
     path.join(options.out, "process.json"),
@@ -239,6 +230,8 @@ const invokeNativeClaude = async (options: StructuredInvocation) => {
 type SelfReview = typeof reviewImages;
 
 export interface NativeClaudeAuthorAdapterOptions {
+  container?: NativeCliContainerConfig;
+  containerFactory?: NativeCallContainerFactory;
   concept: string;
   deadlineAt: number;
   env?: NodeJS.ProcessEnv;
@@ -249,6 +242,8 @@ export interface NativeClaudeAuthorAdapterOptions {
   preflight?: (env: NodeJS.ProcessEnv, deadlineAt: number) => PreflightIdentity;
   referenceImages: Readonly<Record<string, Uint8Array>>;
   review?: SelfReview;
+  /** Provider-writable call directories, kept outside out receipt paths. */
+  runtimeRoot?: string;
 }
 
 export const nativeClaudeAuthorAdapters = (
@@ -259,10 +254,23 @@ export const nativeClaudeAuthorAdapters = (
   if (!options.concept.trim()) {
     throw new Error("Native structured author requires an intended concept");
   }
-  const identity = (options.preflight ?? nativePreflight)(
-    env,
-    options.deadlineAt
-  );
+  if (
+    (!options.invoke || !options.review) &&
+    (!options.container || !options.containerFactory)
+  ) {
+    throw new Error(
+      "Native Claude author requires a call-scoped container factory"
+    );
+  }
+  if (options.containerFactory && !options.runtimeRoot) {
+    throw new Error(
+      "Native Claude author factory requires a separate runtime root"
+    );
+  }
+  const identity = options.preflight
+    ? options.preflight(env, options.deadlineAt)
+    : containerIdentity(options.container as NativeCliContainerConfig);
+  Object.assign(env, options.container?.environment);
   const referenceHashes = Object.fromEntries(
     Object.entries(options.referenceImages).map(([name, image]) => [
       name,
@@ -309,26 +317,51 @@ export const nativeClaudeAuthorAdapters = (
     );
     identityWritten = true;
   };
-  const invoke = options.invoke ?? invokeNativeClaude;
   const review = options.review ?? reviewImages;
   let stage = 0;
   const stageOut = (name: string, create = true) => {
     writeIdentity();
-    const directory = path.join(
+    const ordinal = stage;
+    const out = path.join(
       options.out,
-      `${String(stage).padStart(2, "0")}-${name}`
+      `${String(ordinal).padStart(2, "0")}-${name}`
+    );
+    const runtimeCwd = path.join(
+      options.runtimeRoot ?? options.out,
+      `${String(ordinal).padStart(2, "0")}-${name}`
     );
     stage += 1;
     if (create) {
-      mkdirSync(directory);
+      mkdirSync(out);
     }
-    return directory;
+    return { name, ordinal, out, runtimeCwd };
+  };
+  const invoke = (
+    request: StructuredInvocation,
+    call: { name: string; ordinal: number; out: string; runtimeCwd: string }
+  ) => {
+    if (options.invoke) {
+      return options.invoke(request);
+    }
+    if (!options.containerFactory) {
+      throw new Error(
+        "Native Claude author requires a call-scoped container factory"
+      );
+    }
+    const { config } = options.containerFactory.create({
+      cwd: call.runtimeCwd,
+      deadlineAt: options.deadlineAt,
+      ordinal: call.ordinal,
+      stageKind: call.name,
+    });
+    return invokeNativeClaude({ ...request, out: call.runtimeCwd }, config);
   };
   return {
     construct: (
       request: Parameters<StructuredAuthorOptions["construct"]>[0]
     ) => {
-      const out = stageOut(request.stage);
+      const call = stageOut(request.stage);
+      const { out } = call;
       const constructionDeadlineAt = request.deadlineAt;
       if (Date.now() >= constructionDeadlineAt) {
         throw new Error(
@@ -351,19 +384,23 @@ export const nativeClaudeAuthorAdapters = (
           2
         )
       );
-      return invoke({
-        command: identity.executable,
-        deadlineAt: constructionDeadlineAt,
-        effort,
-        env,
-        images: options.referenceImages,
-        out,
-        prompt,
-        schema: constructionJsonSchema,
-      });
+      return invoke(
+        {
+          command: identity.executable,
+          deadlineAt: constructionDeadlineAt,
+          effort,
+          env,
+          images: options.referenceImages,
+          out,
+          prompt,
+          schema: constructionJsonSchema,
+        },
+        call
+      );
     },
     finalize: (request: Parameters<StructuredAuthorOptions["finalize"]>[0]) => {
-      const out = stageOut("finalize");
+      const call = stageOut("finalize");
+      const { out } = call;
       const prompt = `Write the final author review only. You cannot change or return geometry. Report representation uncertainty separately from visible defects. Inspection: ${JSON.stringify(request.inspection)}. Program hashes: ${JSON.stringify(request.programHashes)}.`;
       writeFileSync(
         path.join(out, "request.json"),
@@ -378,15 +415,18 @@ export const nativeClaudeAuthorAdapters = (
           2
         )
       );
-      return invoke({
-        command: identity.executable,
-        deadlineAt: request.deadlineAt,
-        effort,
-        env,
-        out,
-        prompt,
-        schema: finalReviewJsonSchema,
-      });
+      return invoke(
+        {
+          command: identity.executable,
+          deadlineAt: request.deadlineAt,
+          effort,
+          env,
+          out,
+          prompt,
+          schema: finalReviewJsonSchema,
+        },
+        call
+      );
     },
     inspect: async (
       request: Parameters<StructuredAuthorOptions["inspect"]>[0]
@@ -400,10 +440,20 @@ export const nativeClaudeAuthorAdapters = (
           proof ? [[`${finish}-proof.png`, proof]] : []
         ),
       ]);
+      const call = stageOut("author-self-review", false);
       const result = await review({
         deadlineAt: request.deadlineAt,
         images,
-        out: stageOut("author-self-review", false),
+        nativeCall: options.containerFactory
+          ? {
+              containerFactory: options.containerFactory,
+              ordinal: call.ordinal,
+              parentDeadlineAt: options.deadlineAt,
+              runtimeCwd: call.runtimeCwd,
+              stageKind: call.name,
+            }
+          : undefined,
+        out: call.out,
         questions: Object.keys(request.proofs).map((finish) => ({
           choices: ["pass", "fail", "uncertain"],
           id: `author-self-review-${finish}`,

@@ -1,0 +1,258 @@
+{
+  "id": "D505",
+  "kind": "architecture-hardening-and-semantic-trace-integrated-verification",
+  "observedAt": "2026-09-08T23:50:03.404997+00:00",
+  "baseline": "D499",
+  "scope": [
+    "D502 shared semantic trace parser used by two native adapters and downstream replay",
+    "D503 canonical serialized verification runner, CI/hook wiring, root configuration guards",
+    "D504 F01-F49 enforcement audit; F10 corpus preflight and F21 disk admission now implemented"
+  ],
+  "tests": {
+    "workspace": 2548,
+    "workspaceFiles": 182,
+    "runner": 10,
+    "total": 2558,
+    "skipped": 0
+  },
+  "integrated": {
+    "schema": "iconsmith-verification-v1",
+    "status": "passed",
+    "startedAt": "2026-09-08T23:47:38.975Z",
+    "finishedAt": "2026-09-08T23:48:35.848Z",
+    "durationMs": 56873,
+    "repositoryRoot": "/Users/mblode/Code/mblode/iconsmith",
+    "outputDirectory": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2",
+    "lock": {
+      "path": ".staging/.verify.lock",
+      "token": "ad579141-fb1c-46dd-9823-37cb5f69c672"
+    },
+    "corpus": {
+      "available": true,
+      "missingAllowed": false,
+      "requirements": [
+        {
+          "path": "packages/iconsmith/corpus/corpus.json",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/.corpus/icons.jsonl",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2",
+          "kind": "directory"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/pull-request.svg",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/plus-large.svg",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-filled-radius-3-stroke-2/bell.svg",
+          "kind": "file"
+        }
+      ],
+      "missing": [],
+      "measurementsAvailable": true
+    },
+    "source": {
+      "stable": true,
+      "before": {
+        "aggregateSha256": "76d8ea8612b8ab146b4f5bafd0d077121c64b9379031351afde126ec08914060",
+        "manifestPath": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/source-before.json",
+        "manifestSha256": "651ee547fdb371f46ecdde3a7799d7ff84152af375eca223945c7b9396026e19"
+      },
+      "after": {
+        "aggregateSha256": "76d8ea8612b8ab146b4f5bafd0d077121c64b9379031351afde126ec08914060",
+        "manifestPath": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/source-after.json",
+        "manifestSha256": "651ee547fdb371f46ecdde3a7799d7ff84152af375eca223945c7b9396026e19"
+      }
+    },
+    "stages": [
+      {
+        "id": "test",
+        "command": [
+          "npm",
+          "run",
+          "test"
+        ],
+        "startedAt": "2026-09-08T23:47:39.172Z",
+        "finishedAt": "2026-09-08T23:48:26.976Z",
+        "durationMs": 47804,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/01-test.log",
+          "bytes": 59763,
+          "sha256": "5eada1aced1b2b406af926ba7587029dd580866709f3c8f1cac5d83085bbd428"
+        }
+      },
+      {
+        "id": "typecheck",
+        "command": [
+          "npm",
+          "run",
+          "typecheck"
+        ],
+        "startedAt": "2026-09-08T23:48:26.977Z",
+        "finishedAt": "2026-09-08T23:48:28.415Z",
+        "durationMs": 1438,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/02-typecheck.log",
+          "bytes": 3197,
+          "sha256": "90c89ad8a006d10a027c85a5556a69b641fdb0f4965913970cc14c7f2f077489"
+        }
+      },
+      {
+        "id": "build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "startedAt": "2026-09-08T23:48:28.416Z",
+        "finishedAt": "2026-09-08T23:48:33.910Z",
+        "durationMs": 5494,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/03-build.log",
+          "bytes": 4814,
+          "sha256": "f736afbc5d7f85edee98b3a45def588eb1327a2917280e2da7fd8d6428bea878"
+        }
+      },
+      {
+        "id": "check",
+        "command": [
+          "npm",
+          "run",
+          "check"
+        ],
+        "startedAt": "2026-09-08T23:48:33.911Z",
+        "finishedAt": "2026-09-08T23:48:35.642Z",
+        "durationMs": 1731,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/04-check.log",
+          "bytes": 4923,
+          "sha256": "e79155d55615daf6ef058c56318f95e4a6aeac95e6743797642030d29e8d2055"
+        }
+      },
+      {
+        "id": "diff",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "startedAt": "2026-09-08T23:48:35.642Z",
+        "finishedAt": "2026-09-08T23:48:35.728Z",
+        "durationMs": 86,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/05-diff.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ]
+  },
+  "sourceClosure": {
+    "fileCount": 683,
+    "aggregateSha256": "76d8ea8612b8ab146b4f5bafd0d077121c64b9379031351afde126ec08914060",
+    "beforeAfterMatch": true,
+    "scope": "bounded tracked and untracked source/config including package Markdown; excludes historical docs, corpus, caches and build outputs"
+  },
+  "enforcementProbes": [
+    "six independently mutated configuration controls fail, restoring each passes",
+    "nonexistent focused test path exits1",
+    "runner10tests: overlap, output collision, stage and setup errors, drift, corpus absence, log failure settlement",
+    "native boundary28tests including low/unknown disk refusal before intent and at launch",
+    "shared trace79focused tests including self-consistently forged trace refusal"
+  ],
+  "retainedFailures": [
+    ".staging/wave-fk-architecture-hardening-2026-09-09/initial-cwd-failure.txt",
+    ".staging/wave-fk-architecture-hardening-2026-09-09/guard-format.log",
+    ".staging/wave-fk-architecture-hardening-2026-09-09/guard-cli.log",
+    ".staging/wave-fk-architecture-hardening-2026-09-09/root-format.log",
+    ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-1/receipt.json"
+  ],
+  "corrections": [
+    "TypeScript historical JSON parser API unavailable; declared already-installed jsonc-parser3.3.1 explicitly",
+    "F22 label correction changed formatting; first integrated test/typecheck/build passed then lint failed; fresh attempt2 passes",
+    "Worker inline runner hashes were corrected to its immutable receipt; root uses actual source hashes"
+  ],
+  "recipeValidation": {
+    "source": "fresh-context recipe_check worker report",
+    "focusedTests": 38,
+    "configurationGuard": "passed",
+    "help": "passed",
+    "corpusPredicates": "all6present",
+    "fullRunByWorker": false,
+    "rootFullRun": ".staging/wave-fk-architecture-hardening-2026-09-09/integrated-attempt-2/receipt.json"
+  },
+  "performance": {
+    "observedIntegratedMs": 56873,
+    "runnerUnitTestsMsApprox": 120,
+    "configGuardMsApprox": 150,
+    "removed": "duplicate CI boundary invocation and repeated ad hoc runner construction",
+    "claim": "verification overhead/concurrency controls measured; no claim of faster model inference or universally fixed slowness"
+  },
+  "netSimplicity": {
+    "newFiles": [
+      "scripts/verify.mjs",
+      "scripts/verify.test.mjs",
+      "packages/iconsmith/scripts/check-foundry-config.ts",
+      "packages/iconsmith/scripts/check-foundry-config.test.ts",
+      "packages/iconsmith/scripts/local-native-trace.ts",
+      "packages/iconsmith/scripts/local-native-trace.test.ts"
+    ],
+    "newSurfaces": [
+      "one canonical verification command",
+      "one root configuration guard",
+      "one shared native trace validator"
+    ],
+    "replaces": [
+      "per-wave ad hoc verification runner assembly",
+      "duplicated native trace validation across adapters and replay",
+      "duplicated CI command list and boundary pass"
+    ],
+    "newDependencies": [
+      "jsonc-parser3.3.1 explicitly declared; already installed transitively"
+    ]
+  },
+  "boundary": {
+    "authorEvidenceVerified": false,
+    "qualificationEligible": false,
+    "visuallyQualifiedPhases": 0,
+    "productionFreeze": false,
+    "open": [
+      "current frozen live slice/salvage/reliability replay",
+      "production author/critic authority",
+      "canonical raster adapter and model-backed final DSL evidence",
+      "quarantined Claude credential rotation confirmation",
+      "operator and visual experiment gates in D504"
+    ]
+  },
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null
+}

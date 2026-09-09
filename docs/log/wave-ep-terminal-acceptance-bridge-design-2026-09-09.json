@@ -1,0 +1,21 @@
+{
+  "id": "D479",
+  "kind": "terminal-acceptance-bridge-design",
+  "observedAt": "2026-09-08T20:49:26.264779+00:00",
+  "status": "design-only",
+  "design": ".staging/wave-ep-terminal-acceptance-bridge-design-2026-09-09/design.md",
+  "designSha256": "f392a732a17d4f8af8d9a4401f95044a6bc55d0df3d7099b7be04ca92b4eefbb",
+  "sourceSnapshots": {
+    "packages/iconsmith/src/eval/acceptance-contract.ts": "e7b81ee304740969695b3764c7bec7818abb8f7931f618beec730806b1e05bf8",
+    "packages/iconsmith/scripts/local-campaign.ts": "038cf87deac429d5dce190c0098eeb05f8263b3983383c268500341d4a184aba",
+    "packages/iconsmith/scripts/acceptance-critic-evidence.ts": "7ced163a99ad0bca1ad86325ca5005a9d48aecbc5fea396f8d386c3721f2037a"
+  },
+  "providerCalls": 0,
+  "reservationUsd": 0,
+  "limitations": [
+    "No implementation or qualification",
+    "EL retains acceptance source ownership until seal"
+  ],
+  "solMediumFollowupsAfterD450": 26,
+  "nativeDollarCost": "unknown"
+}

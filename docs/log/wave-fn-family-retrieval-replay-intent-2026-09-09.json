@@ -1,0 +1,36 @@
+{
+  "id": "D511",
+  "kind": "shared-family-render-replay-correction-intent",
+  "observedAt": "2026-09-09T01:08:33.027180+00:00",
+  "baseline": "D510",
+  "finding": "Pre-dispatch current-route preparation found that local-generate replaces the frozen base revision with retrieval/revision.json. D510 correctly rejects those retrieved artifacts because it only reconstructs the restricted base revision. Its positive tests established direct DSL render binding, not retrieval-route completion.",
+  "correction": "Reuse applyFamilyReferencePacket with the exact plan-frozen packet before constructing the author restricted master revision. Bind packet bytes and concept, detect async mutations, and revalidate at live capability consumption. Keep automatic retrieval selection authority and source-exact registries separate.",
+  "ownership": {
+    "runtime": [
+      "local-render-evidence.ts",
+      "local-render-evidence.test.ts"
+    ],
+    "root": [
+      "local-campaign.ts/test",
+      "shared receipts and integration"
+    ]
+  },
+  "maxProviderCalls": 0,
+  "newApiReservationUsd": 0,
+  "qualificationGranted": false,
+  "plannedValidation": "Real admitted family-packet render regression, scoped checks, then fresh sequential integrated verification; no live generation until fresh freeze/reservation.",
+  "supplement": {
+    "reason": "Batch newly verified API capability authority footguns before integrated freeze",
+    "owner": "evaluation",
+    "files": [
+      "api-image-capability.ts",
+      "api-image-capability.test.ts"
+    ],
+    "fixes": [
+      "Seal actual serialized request against frozen no-tools image contract",
+      "Revalidate input image identity before terminal acceptance"
+    ],
+    "providerCalls": 0,
+    "lineageEligibility": "No new claim; upstream model revision remains undisclosed"
+  }
+}

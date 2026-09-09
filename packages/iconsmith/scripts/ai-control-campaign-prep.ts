@@ -93,7 +93,7 @@ export const candidateSheet = async (
     .toBuffer();
 };
 
-export const prepareAiControlCampaign = async (options: {
+const prepareAiControlCampaign = async (options: {
   key: string;
   library: string;
   out: string;

@@ -1,0 +1,54 @@
+{
+  "id": "D416",
+  "recordedAt": 1788879749455,
+  "status": "independently-inspected-source-development",
+  "qualified": false,
+  "concepts": 40,
+  "requestedSlots": 160,
+  "availableSlots": 158,
+  "missingSlots": [
+    "amazon/16/filled",
+    "amazon/24/filled"
+  ],
+  "native24Requested": 80,
+  "resampled16Requested": 80,
+  "independent16OpticalMasters": 0,
+  "rootVerifiedArtifacts": 417,
+  "reconciliation": {
+    "broadAgreement": 38,
+    "agentFactualCorrections": [
+      "amp paint sources exact identical; meaning remains unresolved",
+      "animation has three motion marks"
+    ],
+    "airplayVideo": "filled exact identity; outlined storage and24raster differ; semantic aliases unresolved"
+  },
+  "canonicalOverlayIntegrated": false,
+  "providerCallsForCensus": 0,
+  "apiIncrementUsd": 0,
+  "evidence": [
+    {
+      "path": ".staging/wave-ce-census-next40-2026-09-09/receipt-v2.json",
+      "sha256": "351afb403923d7f59c7dc6e5cea18462060a536bfe77cddbc10d026f20382c6f"
+    },
+    {
+      "path": ".staging/wave-ce-census-next40-2026-09-09/reconciliation.json",
+      "sha256": "3af061ae8a6fe0197b5fd284fdceb8a6277f3ca514609f5a21803a3ba0bdc833"
+    },
+    {
+      "path": ".staging/wave-ce-census-next40-2026-09-09/artifact-hashes-v2.json",
+      "sha256": "23a4c39189d6db160ef4e315d16de5d321cb0b0dba54296590f3a35cf2804839"
+    },
+    {
+      "path": ".staging/wave-ce-root-census-review-2026-09-09/observations.json",
+      "sha256": "d71fc34c417016c4df4346469e25edaa945e94b5998dcade2ea299a1dde7715f"
+    },
+    {
+      "path": "docs/log/development-evidence-index-v18-2026-09-09.html",
+      "sha256": "51151e4f9ba96c805a7a6c68f6797b5c793d2779c0c29d0eea4bd6a868bafff2"
+    },
+    {
+      "path": "docs/log/execution-task-status-2026-09-09-v6.json",
+      "sha256": "e0be91870b076cc78a82dd00e83a1c632f1d9f1958f932e2564bf23b2f972292"
+    }
+  ]
+}

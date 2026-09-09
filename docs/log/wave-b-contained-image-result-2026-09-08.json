@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "status": "ineligible-precondition-failure",
+  "qualified": false,
+  "reason": "Root launched after one prerequisite test failed; stopped without retry.",
+  "observedResult": {
+    "result": {
+      "answers": null,
+      "evidenceHashes": {
+        "stimulus.png": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+      },
+      "imageInspection": null,
+      "instrumentQualified": false,
+      "model": null,
+      "provider": "openai-codex",
+      "reason": "Error: Codex reviewer process incomplete",
+      "status": "incomplete"
+    },
+    "routeHash": "243068a35c242b5eb8e220a03c19e2ed6e75b8b45a620560a6b87f4a6463cb22",
+    "drift": [],
+    "elapsedMs": 242469,
+    "deadlineExceeded": false,
+    "containerAbsent": true,
+    "capabilityVerified": false,
+    "qualified": false,
+    "providerDispatchIntents": 1,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "failureEvidence": [
+    "TLS invalid peer certificate UnknownIssuer",
+    "Missing codex-code-mode-host companion",
+    "No completed answer or emitted model identity"
+  ],
+  "settlement": {
+    "ownershipLabelVerified": true,
+    "rootStoppedExactOwnedContainer": true,
+    "containerAbsent": true,
+    "artifactEligible": false
+  },
+  "accounting": {
+    "nativeLaunches": 1,
+    "completedInferenceResponses": 0,
+    "nativeServerCharge": "unknown",
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "historicalApiActualUsd": 13.06220785,
+    "outstandingReservedOrUnknownUsd": 11.37126575,
+    "remainingAtMostUsd": 25.5665264
+  },
+  "artifacts": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/manifest.json",
+      "sha256": "1ec45d9554bca83da27df178028959543cc895a33c97a66c3a6ef4c59f1d66b4"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/terminal.json",
+      "sha256": "d25c0c685eb1a4f905e670da784c483fa632b9c7cc88e3a72558f94506bdca76"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/container-settlement.json",
+      "sha256": "40507cd27873726003c1cef3ccaa6451e71c2c2ed9f65544e518a746252f3a03"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/container-identity.json",
+      "sha256": "4916cf5725cd01c26b322fa83c74ff6e71ff26d4915a53bdb4cc8078a20ebcad"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/calls/c198e276-28f5-4bf0-b3de-a56e92b71a97.intent.json",
+      "sha256": "832bff28b0ca56229da4f5e83873223040d45c6a03ea962069056352b295cc6a"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/calls/c198e276-28f5-4bf0-b3de-a56e92b71a97.started.json",
+      "sha256": "5b30b176a7f5bbab97ad6f32ed035d4823f0f6b7ad1739cd36cc8189246d8da5"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/calls/c198e276-28f5-4bf0-b3de-a56e92b71a97.terminal.json",
+      "sha256": "774af79ac4af11dc59b68e83fb92441ea273832b8dfa65406e0b6768a6b4eca0"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/calls/dispatches.json",
+      "sha256": "890b6805a165d72e4f60555c661e028b5fb87eb55ccd0f5339cc7aeb37c8a19b"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/calls/reservation.json",
+      "sha256": "b3bc88bf10504e066fee33a7e5e6c8bb73b5be11879c563239a4796919d79723"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/contained-image-smoke-v1/calls/stopped.json",
+      "sha256": "e507daeeaf6667d284cd298294f437d45147710e7212dd98fdadc3206fbc156e"
+    }
+  ]
+}

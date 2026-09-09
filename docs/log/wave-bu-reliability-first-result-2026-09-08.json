@@ -1,0 +1,130 @@
+{
+  "id": "D384",
+  "requestId": "0629168d9c9defc3d115dde3917e12c16294a61cfee5668fe9fc99f105e8bf03",
+  "status": "delivered",
+  "qualityStatus": "review-clear",
+  "elapsedMs": 380852,
+  "issuedAt": 1788872569109,
+  "deadlineAt": 1788873769109,
+  "parentCompletedAt": 1788872950679,
+  "outerResult": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "finishedAt": 1788872952813,
+    "sourceStable": true,
+    "drift": []
+  },
+  "artifactsVerified": 125,
+  "copiedArtifactsVerified": 46,
+  "rootVerifierCorrections": [
+    "Selected evidence paths are relative to selectedAttempt, not export root.",
+    "Export delivery.json is a distinct final route receipt and is hashed separately, not compared as a byte copy."
+  ],
+  "exportReceiptSha256": "97c41f20522b498be621cd7e42ce24bed1f356e5a78b5a191d85eb126ec129d0",
+  "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/folder-lock-16/attempt-1",
+  "reviews": [
+    {
+      "model": "gpt-5.5",
+      "status": "complete",
+      "answers": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "pass",
+        "family": "pass"
+      }
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "status": "complete",
+      "answers": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "pass",
+        "family": "pass"
+      }
+    }
+  ],
+  "nativeCalls": [
+    {
+      "callId": "395b0362-86f2-45f7-b2d7-ad546be23d54",
+      "stage": "10-retrieval-discovery",
+      "dispatchedAt": 1788872570754,
+      "settledAt": 1788872601621,
+      "outcome": "complete",
+      "containment": "container-absent"
+    },
+    {
+      "callId": "60d4e822-d892-4354-878b-2d27d275ca06",
+      "stage": "11-retrieval-selection",
+      "dispatchedAt": 1788872601838,
+      "settledAt": 1788872648616,
+      "outcome": "complete",
+      "containment": "container-absent"
+    },
+    {
+      "callId": "e8931bde-283e-4a8b-b6b9-a9cecf13a12e",
+      "stage": "00-construct",
+      "dispatchedAt": 1788872649366,
+      "settledAt": 1788872771044,
+      "outcome": "complete",
+      "containment": "container-absent"
+    },
+    {
+      "callId": "ecc4555b-92c2-4bcd-a7d6-63e7bd257062",
+      "stage": "01-author-self-review",
+      "dispatchedAt": 1788872771385,
+      "settledAt": 1788872822694,
+      "outcome": "complete",
+      "containment": "container-absent"
+    },
+    {
+      "callId": "e4e8a045-7c7b-4150-8d07-7b67a720a5c5",
+      "stage": "02-finalize",
+      "dispatchedAt": 1788872823060,
+      "settledAt": 1788872849538,
+      "outcome": "complete",
+      "containment": "container-absent"
+    },
+    {
+      "callId": "2cc49b45-caec-4281-b801-c6455afef75b",
+      "stage": "06-reviewer-reviewer-0",
+      "dispatchedAt": 1788872849552,
+      "settledAt": 1788872889889,
+      "outcome": "complete",
+      "containment": "container-absent"
+    },
+    {
+      "callId": "f77db1db-8741-4de2-bde7-645b2d34326c",
+      "stage": "08-reviewer-reviewer-1",
+      "dispatchedAt": 1788872889914,
+      "settledAt": 1788872949540,
+      "outcome": "complete",
+      "containment": "container-absent"
+    }
+  ],
+  "containerAbsenceReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bu-root-reliability-first-live-2026-09-08/root-container-absence.json",
+  "containerAbsenceReceiptSha256": "42fa10512c9b8fac4b63c1d4d0b6dc199e86704aa2d1d66d1223ce9a2291a5a5",
+  "nativeSettledCumulative": 91,
+  "priorUnresolvedIntents": 1,
+  "unusedReservationCallsReleased": 5,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "quotaRemainingPercentObserved": 35,
+  "instrumentQualified": false,
+  "craftApproved": false,
+  "catalogOrNovelQualificationContribution": 0,
+  "remainingReplayRequests": 5,
+  "remainingReplaySlots": 10,
+  "proofs": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.png",
+      "sha256": "ad7711b8c02358c100e5af95440e7fa3510dc2cc2b9e1d44d41e305d9be0f031"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.png",
+      "sha256": "28cb73ff470cd5365c83fbf96b92a1912033e11e83aec7fc32a7c4523ec25a2c"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "status": "development-fixtures-unqualified",
+  "artifacts": [
+    {
+      "path": ".staging/wave-l-modifier-fixtures-2026-09-08/receipt-v2.json",
+      "sha256": "ff909957f63d6524800467e2af1800fa565cf81100e20f7e688954e50d46d55f"
+    },
+    {
+      "path": ".staging/wave-l-modifier-fixtures-2026-09-08/artifact-manifest.json",
+      "sha256": "48677e0a6e0ff6fd4b3f2b0b23542f62caf843ebe137ddab4b6993d959fc51a7"
+    },
+    {
+      "path": ".staging/wave-l-modifier-fixtures-2026-09-08/verification.json",
+      "sha256": "a49a7c3c3d631bba53abf9bfa2e3fc9e7bdb1ffe2a0d6eb4fbc4519235e87c30"
+    },
+    {
+      "path": ".staging/wave-l-modifier-fixtures-2026-09-08/comparison-board.png",
+      "sha256": "8c4ada566cada8ffa7e2de5242ec11cbc22612ef6cd7aeee564afd9a846c00c9"
+    }
+  ],
+  "requestedOutputs": 12,
+  "families": 3,
+  "masters": [
+    16,
+    24
+  ],
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "surfaces": [
+    "light",
+    "dark"
+  ],
+  "rootImageInspection": {
+    "board": ".staging/wave-l-modifier-fixtures-2026-09-08/comparison-board.png",
+    "presentation": "actual native pixels enlarged nearest-neighbour 4x; root displayed whole board",
+    "observations": [
+      "Filled pause bars are visible in bell at both masters",
+      "Filled card check emerges but remains small and indistinct at16",
+      "Filled folder lock becomes visible with retained broad host body; small clearances remain uncertain"
+    ],
+    "independentQualificationVote": false
+  },
+  "remaining": [
+    "credit-card-check16 threshold-fragile modifier",
+    "folder-lock threshold-unstable topology both sizes",
+    "qualified native/cross-master inspection"
+  ],
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "providerCalls": 0,
+  "qualified": false
+}

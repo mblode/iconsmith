@@ -1,0 +1,28 @@
+{
+  "id": "D322",
+  "kind": "root-verified-family-disposition-inventory",
+  "sourceReceipt": {
+    "path": ".staging/wave-az-family-semantic-dispositions-2026-09-08/receipt.json",
+    "sha256": "70b690d8cd9781e31eced14cc27a97a72410f2c23cb0f5b05958b799540323de"
+  },
+  "artifactIndex": {
+    "path": ".staging/wave-az-family-semantic-dispositions-2026-09-08/artifact-hashes.json",
+    "sha256": "440c3e4dba4621b99a58f86c522a23aa6284ac5a02bc07b7814dbcd8f1acc9a0"
+  },
+  "verifiedFiles": 8,
+  "catalogConcepts": 2221,
+  "requestedOutputSlots": 8884,
+  "semanticFamilyRows": 1587,
+  "semanticValidatedFamilyRows": 0,
+  "unresolvedDerivativeRows": 2221,
+  "unresolvedAliasAssignments": 4397,
+  "sourceAdmissionSlots": {
+    "admitted": 7922,
+    "refused": 792,
+    "missing": 170
+  },
+  "nextGap": "git family combines git and git-fork canonical heads; content-bound review needed",
+  "providerCalls": 0,
+  "apiIncrement": 0,
+  "qualified": false
+}

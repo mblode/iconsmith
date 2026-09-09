@@ -1,0 +1,13 @@
+{
+  "id": "D301",
+  "status": "isolated-verified-not-integrated",
+  "receipt": ".staging/wave-ad-evaluation-collector-access-2026-09-08/receipt.json",
+  "receiptSha256": "cb3a194aaf647a19fb1ac67579ce59407eaab26cee5937f50dbccca3aef9ddb8",
+  "patchSha256": "2491be1b4be38e8a270c785173b6df2f6e2aa1ae361827c240e5519d2b0f066e",
+  "tests": 17,
+  "productionEligible": false,
+  "canonicalEdits": 0,
+  "providerCalls": 0,
+  "integrationDeferred": "Current live campaign source freeze",
+  "remaining": "Actual collector capture and replay; trusted wrapper binding; no sealed qualification"
+}

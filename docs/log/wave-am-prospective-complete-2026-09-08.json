@@ -1,0 +1,43 @@
+{
+  "id": "D298",
+  "status": "complete-development-diagnostic",
+  "outerElapsedMs": 182647,
+  "providerCalls": 3,
+  "cumulativeNativeCalls": 37,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "uniqueHouseArtifacts": 4,
+  "presentationRepeats": 1,
+  "recognitionMatches": 5,
+  "craftChoices": {
+    "s-877d9980-critical": "no",
+    "s-877d9980-craft": "10",
+    "s-877d9980-ship": "yes",
+    "s-00030e0e-critical": "no",
+    "s-00030e0e-craft": "10",
+    "s-00030e0e-ship": "yes",
+    "s-3d810044-critical": "no",
+    "s-3d810044-craft": "10",
+    "s-3d810044-ship": "yes",
+    "s-3fbc8a0c-critical": "no",
+    "s-3fbc8a0c-craft": "10",
+    "s-3fbc8a0c-ship": "yes",
+    "s-68f0b4c3-critical": "no",
+    "s-68f0b4c3-craft": "10",
+    "s-68f0b4c3-ship": "yes"
+  },
+  "sourceStable": true,
+  "containersAbsent": 9,
+  "productionSealEligible": false,
+  "qualified": false,
+  "result": ".staging/wave-am-prospective-live-2026-09-08/review/author-recognizer/result.json",
+  "resultSha256": "4a5f655b64317411ce647b35fb943f7633f03e172e05453af068cfe322e5de82",
+  "containerAudit": ".staging/wave-am-prospective-live-2026-09-08/root-container-audit.json",
+  "limits": [
+    "Exposed development controls only",
+    "Key lacks two independent exact-image semantic validations",
+    "Runtime access restriction not yet collector-verified",
+    "No generated critic precision/recall denominators"
+  ]
+}

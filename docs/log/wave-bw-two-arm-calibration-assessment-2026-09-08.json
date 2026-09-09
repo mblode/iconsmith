@@ -1,0 +1,56 @@
+{
+  "id": "D392",
+  "receipt": {
+    "path": ".staging/wave-bw-astra-calibration-audit-2026-09-08/receipt.json",
+    "sha256": "28c2bc6b2340fc78bbed80296468045639afd6be3b0f9716a1037645a2bc67b7"
+  },
+  "rootHashChecks": 24,
+  "frozenV1Outcome": {
+    "exitCode": 1,
+    "resultWritten": false,
+    "classification": "structural-refusal-before-instrument-scoring",
+    "reason": "v1 directly compares path-bearing prepared attachment rows with path-free collector name/hash rows"
+  },
+  "additiveV2": {
+    "sourcePathsHashedBeforeProjection": true,
+    "collectorProjection": "ordered name and sha256",
+    "astra": {
+      "craftAtLeastNine": "6/6",
+      "categorical": "30/30",
+      "relations": "8/8",
+      "craftDeltas": [
+        0
+      ]
+    },
+    "sol": {
+      "craftAtLeastNine": "6/6",
+      "categorical": "30/30",
+      "relations": "8/8",
+      "craftDeltas": [
+        0
+      ]
+    },
+    "combined": {
+      "craftAtLeastNine": "12/12",
+      "categorical": "60/60",
+      "relations": "16/16"
+    },
+    "counterexamples": {
+      "wrongHash": "rejected",
+      "wrongPath": "rejected",
+      "wrongOrder": "rejected"
+    },
+    "qualified": false,
+    "productionEligible": false,
+    "sealedQualificationContribution": 0
+  },
+  "limits": [
+    "Both arms use only two unique artifact byte identities with repeated presentations and are exposed development calibration.",
+    "This does not establish critic qualification, a sealed natural population, a four-lineage roster, or production access eligibility.",
+    "Root independently verifies host-level container absence."
+  ],
+  "nativeSettledCumulative": 97,
+  "priorUnresolvedNativeIntents": 1,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocationUsd": null
+}

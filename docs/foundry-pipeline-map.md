@@ -1,5 +1,7 @@
 # Iconsmith: from house generator to icon foundry
 
+> Surface update, 9 September 2026: the website, Studio, Eve service, shared Studio contract, and browser viewer were removed at the user’s request. References to them below are historical; use the root README and `docs/local-setup.md` for current local commands.
+
 > Historical discovery map. Execution order and acceptance rules are superseded by the [audited plan](plans/reference-guided-foundry.md) and [first-principles audit](plans/reference-guided-foundry.audit.md).
 Research and code inspection: 5 September 2026. This is a current-state map and proposed architecture, not an implemented migration. Source inspection establishes behavior in this checkout; no paid generation or production acceptance run was performed.
 

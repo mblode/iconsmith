@@ -1,0 +1,64 @@
+{
+  "version": 19,
+  "qualified": false,
+  "htmlSha256": "9bd52efdc1f7cc02940d0042e0bd8717f42eae3c7e9a3458332c30ebbad838e8",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v18-2026-09-09.html",
+  "previousIndexSha256": "51151e4f9ba96c805a7a6c68f6797b5c793d2779c0c29d0eea4bd6a868bafff2",
+  "images": [
+    {
+      "label": "Folder-lock component isolation: existing clearance cuts recover the lock; native16 counter robustness remains unresolved",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-minimal-reproduction-v2-2026-09-09/board.png",
+      "sha256": "9f1994d13b063509e0063a86163c929fac3919d640122257ca5aba0773c6ff20"
+    },
+    {
+      "label": "CG source construction board 1/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-01.png",
+      "sha256": "df4d3d00a55607c8ee2c032838d3d9c214d55f8e2778494d5b961bb4c5e4b0f3"
+    },
+    {
+      "label": "CG source construction board 2/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-02.png",
+      "sha256": "9a04a7c71b275a464de88e3879156f798da9703b94112e1b8d3ca8992bf5c38b"
+    },
+    {
+      "label": "CG source construction board 3/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-03.png",
+      "sha256": "1f796aad7506423e3b35ceb6d523dee8d1773e55b829deab1fbbcdc9c2bd4814"
+    },
+    {
+      "label": "CG source construction board 4/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-04.png",
+      "sha256": "311bac4d639aed1d97268c199a2fabbab62929c800851d006d17137d5a5db2ee"
+    },
+    {
+      "label": "CG source construction board 5/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-05.png",
+      "sha256": "872c764e491bd2b7e4f777fb65b24fa2526c3ecc53f2ce889403a46544c23d56"
+    },
+    {
+      "label": "CG source construction board 6/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-06.png",
+      "sha256": "a280a2fea5cbe5761f9a18c53ee36539d04781dba3d9377c9ae0d4f5be170484"
+    },
+    {
+      "label": "CG source construction board 7/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-07.png",
+      "sha256": "f0202b72cbb04fa9b0b794fa80826107414c4d8ac9a4b98c01ef32babeab454a"
+    },
+    {
+      "label": "CG source construction board 8/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-08.png",
+      "sha256": "62b1b573065b7c33f47ae2f797b1b59f90fd19934d5db3c9ad35c7574fb1e56b"
+    },
+    {
+      "label": "CG source construction board 9/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-09.png",
+      "sha256": "000798620bcc1fb863256db9415e82ce0418efd6f21133a5e48ffe9f0f59bced"
+    },
+    {
+      "label": "CG source construction board 10/10; 16 is resampled24, not an optical master",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/boards/census-10.png",
+      "sha256": "4ac52f0a5c4e1284f88a722648cfa9a8dce682b28587546ea0e16a7355a2929b"
+    }
+  ]
+}

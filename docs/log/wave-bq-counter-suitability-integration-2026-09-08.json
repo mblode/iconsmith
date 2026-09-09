@@ -1,0 +1,41 @@
+{
+  "id": "D369",
+  "kind": "declared-counter-suitability-root-integration",
+  "agentReceipt": ".staging/wave-bq-local-feature-audit-2026-09-08/receipt.json",
+  "agentReceiptSha256": "2519a1bca715699650d6a70f9ccf8f3fee2871a9715822531a1cf0c0c007917a",
+  "patch": {
+    "path": "patch/local-counter-suitability.patch",
+    "sha256": "8cef96eaf5e01ca0a268c58aeb04ecde4919210dc1948759e92e4889589f874f",
+    "base": {
+      "family-parts.ts": "11e693331dcb31fc085519c25d2da31ca22def2bebf9f4f29a793704299b4c27",
+      "family-parts.test.ts": "04b28166e39964ccd441e32236939bd17a224030579ddd93ee1ea2f950cb78aa"
+    },
+    "result": {
+      "family-parts.ts": "440f65a3a839609b791add2197649f649ed389823df12638da4d88fb8f47bd96",
+      "family-parts.test.ts": "0ad9634fb1443d85d97a48b813783281ab3f7c19ac3b0e45c7185a3bf61d4949"
+    },
+    "behavior": "Explicit counter contracts can pass only when source-counter-stable; absent and threshold-limited source counters remain uncertain. Non-counter regions and aggregate admission are unchanged."
+  },
+  "artifactsVerified": 83,
+  "artifactManifest": ".staging/wave-bq-local-feature-audit-2026-09-08/artifact-manifest.json",
+  "artifactManifestSha256": "e8b432f0597f1894ea5668054337f0f4d9089ad6642860ce52e7a7f010b0d375",
+  "rootTests": 26,
+  "testFiles": 1,
+  "skipped": 0,
+  "testLog": ".staging/wave-bq-counter-root-tests.log",
+  "testLogSha256": "1285e5a47d6a5aa2c41cae80cfe20e394ca134602cd7db1e487317d7eae9fab8",
+  "rootBoardInspection": {
+    "file": ".staging/wave-bq-local-feature-audit-2026-09-08/board.png",
+    "sha256": "8ba6dfa93d0b903cddb99dd33754e4ac46f069e6b52db2ab568f0f5c0fa91412",
+    "observations": [
+      "Bell16 lower opening unresolved; bell24 opening visible",
+      "Keyframe source is solid; no invented counter contract",
+      "Light-only nearest-neighbor enlargement is diagnostic, not full native acceptance"
+    ]
+  },
+  "compilerChanged": false,
+  "productionAdmissionChanged": false,
+  "independentOpticalMasters": false,
+  "providerCalls": 0,
+  "qualified": false
+}

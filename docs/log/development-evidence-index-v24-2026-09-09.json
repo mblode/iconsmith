@@ -1,0 +1,26 @@
+{
+  "version": 24,
+  "qualified": false,
+  "html": {
+    "path": "docs/log/development-evidence-index-v24-2026-09-09.html",
+    "sha256": "3f85a05c124e8ec93020fb5a9b970e6b570c2ac2bc49fbdd80c61be096abeeaf",
+    "bytes": 703
+  },
+  "previousIndex": {
+    "path": "docs/log/development-evidence-index-v23-2026-09-09.html",
+    "sha256": "87551f3f27dc48444d0f168b0844647cc85cd705ad070af63c3e47d0991f0f9e",
+    "bytes": 4722
+  },
+  "images": [
+    {
+      "path": "docs/log/bell-counter-diagnostic-native24-2026-09-09.png",
+      "sha256": "ab4964a0f1d5a487ba9682966c123bab52343916c83adef7864ea7bef09cf954",
+      "bytes": 25370
+    }
+  ],
+  "receipt": {
+    "path": "docs/log/wave-cz-bell-counter-root-diagnosis-2026-09-09.json",
+    "sha256": "52338bcd2e7d8e488220065e31f1f4ff5434b829919e930e0b137bcd1971c019",
+    "bytes": 2277
+  }
+}

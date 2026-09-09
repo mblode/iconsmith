@@ -1,5 +1,7 @@
 # Audit: can Iconsmith become an automated icon foundry?
 
+> Surface update, 9 September 2026: the website, Studio, Eve service, shared Studio contract, and browser viewer were removed at the user’s request. References to them below are historical; use the root README and `docs/local-setup.md` for current local commands.
+
 5 September 2026. Research and planning only. No generation benchmarks were run. This audit changes the [execution plan](reference-guided-foundry.md); it is not evidence that the proposed system already achieves the target quality.
 
 ## Verdict

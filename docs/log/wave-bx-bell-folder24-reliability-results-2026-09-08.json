@@ -1,0 +1,45 @@
+{
+  "decision": "D401",
+  "date": "2026-09-08",
+  "rows": [
+    {
+      "request": "bell-pause-24",
+      "requestId": "e59123b5db36311c6896fe2d151c4a578ac267f3b7436ce5d01754d55f351fd9",
+      "parentReceipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/e59123b5db36311c6896fe2d151c4a578ac267f3b7436ce5d01754d55f351fd9.json",
+      "parentReceiptSha256": "f4d3242347cffdfa901803e807f4c747f1870e062a5c138a4105ec95e7cc53b2",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "elapsedMs": 289696,
+      "parentEndToEndMs": 290484,
+      "originalDeadlineAt": 1788876080615,
+      "parentCompletedAt": 1788875171099,
+      "selectedArtifactHashesVerified": 125,
+      "independentAbsenceFiles": [
+        "bell-pause-24-root-absence.json",
+        "bell-pause-24-context-root-absence.json"
+      ],
+      "independentAbsentCount": 21
+    },
+    {
+      "request": "folder-lock-24",
+      "requestId": "7a4a652c0876110d9eed69049209455fc5919e3d69fb6aef0783faecc26b6a9e",
+      "parentReceipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/7a4a652c0876110d9eed69049209455fc5919e3d69fb6aef0783faecc26b6a9e.json",
+      "parentReceiptSha256": "9c1c5aa12ea03c888703d80a46288b4d1ce2c2755f300e8f04cc7c244981094f",
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "elapsedMs": 473658,
+      "parentEndToEndMs": 474450,
+      "originalDeadlineAt": 1788876372768,
+      "parentCompletedAt": 1788875647218,
+      "selectedArtifactHashesVerified": 150,
+      "independentAbsenceFiles": [
+        "folder-lock-24-root-absence.json"
+      ],
+      "independentAbsentCount": 27
+    }
+  ],
+  "productionQualified": false,
+  "apiIncrementUsd": 0,
+  "nativeDollarCost": "unknown",
+  "D394StillActive": true
+}

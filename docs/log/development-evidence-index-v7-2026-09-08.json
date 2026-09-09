@@ -1,0 +1,14 @@
+{
+  "kind": "development-evidence-index",
+  "version": 7,
+  "qualified": false,
+  "htmlSha256": "7ea339d86f2a43ef9d53eeda58b8011777ac8121c8484a668b814fc9a8fe1ae1",
+  "receipts": [
+    "wave-aw-folder-lock-results-2026-09-08.json",
+    "wave-az-interrupted-salvage-results-2026-09-08.json",
+    "wave-ay-construction-board-verification-2026-09-08.json"
+  ],
+  "nativeCallsAtCreation": 63,
+  "nativeDollarCost": "unknown",
+  "apiIncrement": 0
+}

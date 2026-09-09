@@ -1,0 +1,277 @@
+{
+  "id": "D323",
+  "containers": [
+    {
+      "containerId": "4604928d97c4315255384200facada8a23bf4aeae145a42bdf4f0a7bd649f5c9",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/reviewer-1/09-reviewer-reviewer-1-clarification/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "ffe982230146610ff3e162b6a4c18df54fbbb5f2129c1da2f376f92e30a3b6cc",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/reviewer-1/08-reviewer-reviewer-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "0b3f1e42d029e49a80307b5816fe9c3f204bc2897df24fff3675252287aa27a6",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/reviewer-0/07-reviewer-reviewer-0-clarification/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "9a720584cfe08f3545873a726fb9139a9bc5c8de40224b5a8bbb078b76d370d8",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/reviewer-0/06-reviewer-reviewer-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "c8fe321cd81f4c339e5fa6a56fa7a3f23ea178a092ac54459d8868f9ae3518ce",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/author/01-author-self-review/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "e773b5ab6c955e2499dea7aa0ef3ad32f4173da23d43349ee7af909a9b82c8f5",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/author/02-finalize/container-settlement.json",
+      "artifactEligible": false,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "a425d47f2c0ead2ac59f951b934e6af54b0f1b49087e959ada6296b47c409037",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/native-control/author/00-construct/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "08cedc33fcfe62e0acffd1423ba8d8c354f2dcf53c7e52bac1135eacbe77ad01",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-1/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "5f5f1f43a08a613cf76f246f62522e0f1649bf2a8095cc30801740edf21c4204",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-1/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "9b42486f905caa6d4416ea6a8d7ac8ee28e0b650d0aed504a44031a6568d3ea3",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-2/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "ca84fd604bb64b84add00b7ea74402f9ab05dab492d16539b312dc378f794833",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-2/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "3188367968d081cb43ad15c73eb6dd5965fc072f90d12a75f974bb0c001659c6",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/author/00-construct/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "0af0d24c6cd7bce95c087082d1aa5832ee4ce2758a9213936acdaeef63f83346",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/author/00-construct/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "91b3e441639416abe03f22a89891d4bc08939f3cbe90739421da02208c6456c6",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/author/02-finalize/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "455a1dd6fe59f7597bd32c15ffa402f4e4fe954525e5fef09ab7c83b51e62bae",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/author/02-finalize/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "1d36cec0acb9e0446eaa454b026ceed535efe8db7fe17deb6bc7939094a0c4de",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/author/01-author-self-review/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "5bafc4713a4af581afc5f41d3054d7d309c0f848bebd916a0871463f5509c469",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/author/01-author-self-review/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "b287dbc6a91d8369e294212f198a739fd2e46ebb192b296a475d2f5169d45142",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-1-clarification/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "a875448ff711ce2eb48f57da5b47769fb647a8e6ce9696cae8d1ac53939cec9b",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-1-clarification/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "fea85ebf212f144a3da48705a9be06fae40ee655e8297c768a07aa90c76279b5",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-2-clarification/context-preflight/probe-1/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    },
+    {
+      "containerId": "11b8c0e31919e341af7ce2e0db280a75ae0a4f8f6aae86105aea2e0b1e4c4690",
+      "path": ".staging/wave-az-interrupted-live-2026-09-08.native-runtime/attempt-1/reviewer-2-clarification/context-preflight/probe-0/container-settlement.json",
+      "artifactEligible": true,
+      "recordedAbsent": true,
+      "independentlyAbsent": true
+    }
+  ],
+  "nativeCalls": 7,
+  "cumulativeNativeCalls": 63,
+  "apiIncrement": 0,
+  "nativeDollarCost": "unknown",
+  "sourceStable": true,
+  "parentEligible": true,
+  "productionSealEligible": false,
+  "deliveryStatus": "delivered",
+  "qualityStatus": "review-uncertain",
+  "completionProvenance": "host-validated-after-contained-finalization-interruption",
+  "deadlineExceeded": false,
+  "elapsedMs": 435382,
+  "interruption": {
+    "inspectionHash": "32ae2ee25adc0604f337dfc74d14faa28734bb6454197f8771bf2cd2b72d122e",
+    "kind": "structured-finalization-interruption",
+    "programHashes": {
+      "outlined": "03c10c98e486bc9723c002c73469b55c20ebc06d543d01b267ed1ae43cb331ab",
+      "filled": "47d85d51c9840b3566e0fa04519b142f61fc6a5fa262c8f4e12b5da4e1fb5fec"
+    },
+    "settlement": {
+      "accounting": "settled",
+      "callId": "359c0c30-3ccd-44b6-9cdf-8d405c40be0f",
+      "containerAbsent": true,
+      "containerId": "e773b5ab6c955e2499dea7aa0ef3ad32f4173da23d43349ee7af909a9b82c8f5",
+      "containment": "container-absent",
+      "containmentScope": "docker-private-pid-namespace",
+      "deadlineAt": 1788861838150,
+      "deadlineExceeded": false,
+      "evidenceFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-az-interrupted-live-2026-09-08/native-control/author/02-finalize/container-settlement.json",
+      "evidenceHash": "916c85421bed1fba4fab80bf05ff76d11c7cb06670c4b91df835049bb4f97d49",
+      "intentHash": "e4d37244626b74f459ad6e0dedcc3f2f1488bf5a16de9373386971e89925d2e1",
+      "killed": false,
+      "kind": "verified-contained-finalization-interruption",
+      "outcome": "failed",
+      "processCode": 137,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "quiescent": true,
+      "settledAt": 1788860854777,
+      "stage": "02-finalize"
+    },
+    "stageDeadlineAt": 1788860918288
+  },
+  "reviews": [
+    {
+      "model": "gpt-5.5",
+      "status": "complete",
+      "answers": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "pass",
+        "family": "pass"
+      }
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "status": "complete",
+      "answers": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "uncertain",
+        "family": "pass"
+      }
+    }
+  ],
+  "qualified": false,
+  "artifactBindings": [
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/delivery.json",
+      "sha256": "14557c47542114c42162a2504eea21119f3914e362f806d2c4e81d0c63132f10"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/independent-reviews.json",
+      "sha256": "633ac5ad21755c94aa229baa78c4726b0712f2b61030ee0963e7a972a9ad1ab9"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/author-review.json",
+      "sha256": "1354668707c443991216af33420bc814e94ba12aa348eb0cef16e1a85be955ed"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/checks.json",
+      "sha256": "b815d81993a997fb5ff6989fe7bb5fb651d4756c4d785c725059805541e6291f"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/structured-author.json",
+      "sha256": "58f10fea40df0353c9f0bb50ff3bb903142d2c5fb10ba48d0e0fe72aa97092d8"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/outlined.icon",
+      "sha256": "03c10c98e486bc9723c002c73469b55c20ebc06d543d01b267ed1ae43cb331ab"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/filled.icon",
+      "sha256": "47d85d51c9840b3566e0fa04519b142f61fc6a5fa262c8f4e12b5da4e1fb5fec"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/outlined.svg",
+      "sha256": "20630d48c83c9c9e1bb41c2dbc920a7d3a442bf039ecef93e9e3f08d9da1f8f3"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/filled.svg",
+      "sha256": "04fe5760e1cc7df6b8d756ea7c0a797524483127369f52206daa0f79eb5202fa"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/outlined.proof.png",
+      "sha256": "21a1882ee30a22913b4711d7eff543a9637d75660b7d414d172f645c5a1f0f91"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/filled.proof.png",
+      "sha256": "a0ee7488fdc0688f34012c6b50a4258307440878e08135070bd2281787036b0f"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/outlined.native.png",
+      "sha256": "d8984af37cf1046eb1bb14c34306c5cb07c5c302d2acc30f14b97ba5f8479fa7"
+    },
+    {
+      "path": ".staging/wave-az-interrupted-live-2026-09-08/filled.native.png",
+      "sha256": "71d4336a4b22828feba958c4e3117a5ca3ea1824d32541f1482f6d699271b785"
+    }
+  ],
+  "settlementBinding": {
+    "path": ".staging/wave-az-interruption-dispatch-2026-09-08/root-settlement-audit.json",
+    "sha256": "087793d62065ac4296c80aed516bf32655754b886fd0309897a7708eebd375f0"
+  },
+  "visualAcceptance": false,
+  "mechanismVerified": true
+}

@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "status": "engineering-evidence-visual-failure",
+  "originalReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-folder-lock-optical-2026-09-08/receipt.json",
+  "originalReceiptSha256": "3448b23f64a61f8de22b8663518e71f3ab525a262122a1fe956ba28152437ed6",
+  "board": "docs/log/wave-c-folder-lock-optical-2026-09-08.png",
+  "boardSha256": "8e93a521a5f5f59b6f849a32aa4ee70463ebef7de5a2c1671641d788c5fea216",
+  "rootImageInspection": "Both masters preserve a folder but show stacked cutouts; no independently clear padlock silhouette. Recognition gate remains open.",
+  "evidence": {
+    "board": {
+      "file": "native-4x-board.png",
+      "sha256": "8e93a521a5f5f59b6f849a32aa4ee70463ebef7de5a2c1671641d788c5fea216"
+    },
+    "candidateLimit": {
+      "actualPerMaster": {
+        "16": 2,
+        "24": 2
+      },
+      "maximum": 2
+    },
+    "compiler": "iconsmith-constrained-21",
+    "distinctMasterIdentity": {
+      "icon": true,
+      "svg": true
+    },
+    "observations": {
+      "localBoardInspection": "Candidate A and farther-projecting candidate B both retain the folder silhouette outside the modifier zone. B exposes more modifier ink, but both still read locally as a stacked-counter badge rather than an independently clear padlock; this is a retained recognition failure, not a visual pass.",
+      "topology": "Hole counts are raw 64/128/192 antialias-threshold observations; they are not a forced two-hole gate."
+    },
+    "outputs": [
+      {
+        "applicationHash": "bddaa4cf7aebb2bf92b788765a2ac7458f1bd1993cb70936ddffaa28ab3bf426",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 13.5,
+            "y0": 9.5,
+            "x1": 24,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 3,
+              "threshold": 64
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 5,
+              "threshold": 128
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 5,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "16-a-projecting.icon",
+        "iconSha256": "94388d825d7f146e087f01dbc66f9f956b7b86833646da5317526680271444ce",
+        "id": "16-a-projecting",
+        "master": 16,
+        "native": [
+          {
+            "file": "16-a-projecting.light.png",
+            "sha256": "dfa9752fa88415f15179ad5637e789a8375b48e23d8567603e259691a6795a33",
+            "surface": "light"
+          },
+          {
+            "file": "16-a-projecting.dark.png",
+            "sha256": "105c5a25fdeea14374f5f9521f736a4da728cb40f4a27a60848bcd8bbcba694e",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "b5ddda1d418c6612dd9e65453adf69c739ddf87f0afde97ff56b64fb58aba83d",
+        "retained": true,
+        "styleHash": "e75ee28ce90e6717b2d5d80791d2b90e13f5f6a27eff0e6c3b7248596f59bf2d",
+        "svgFile": "16-a-projecting.svg",
+        "svgSha256": "798c9688ec2b982556762810ba283ba0037711cb5e57d9b6514ef89032e8c9d0",
+        "topologyByThreshold": [
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 64
+          },
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 128
+          },
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 192
+          }
+        ]
+      },
+      {
+        "applicationHash": "bddaa4cf7aebb2bf92b788765a2ac7458f1bd1993cb70936ddffaa28ab3bf426",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 13.5,
+            "y0": 9.5,
+            "x1": 24,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 10,
+              "threshold": 64
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 9,
+              "threshold": 128
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 7,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "16-b-farther-projecting.icon",
+        "iconSha256": "b17e9b71d1866c04bc58939020ed95b0c214178b9336be7e547b6f3ac17db12e",
+        "id": "16-b-farther-projecting",
+        "master": 16,
+        "native": [
+          {
+            "file": "16-b-farther-projecting.light.png",
+            "sha256": "11692f72e6df89f42f8626fd7bac78e3287b14b34b08c0cb79c3a2cfb645da5b",
+            "surface": "light"
+          },
+          {
+            "file": "16-b-farther-projecting.dark.png",
+            "sha256": "315239257bfbd431af96f2856b10073b1db6ced6701ae6cc9117444c811f1d55",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "b5ddda1d418c6612dd9e65453adf69c739ddf87f0afde97ff56b64fb58aba83d",
+        "retained": true,
+        "styleHash": "e75ee28ce90e6717b2d5d80791d2b90e13f5f6a27eff0e6c3b7248596f59bf2d",
+        "svgFile": "16-b-farther-projecting.svg",
+        "svgSha256": "1e93813457ba9b75571c0f85d9f60520e910111ad5f5c7117a7b01cd13a67fb0",
+        "topologyByThreshold": [
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 64
+          },
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 128
+          },
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 192
+          }
+        ]
+      },
+      {
+        "applicationHash": "3787ee0752af72ce90e78c085b96129357be201356f711dd5b3aeb9cabc1590d",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 13.5,
+            "y0": 9.5,
+            "x1": 24,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 6,
+              "threshold": 64
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 5,
+              "threshold": 128
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 0,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "24-a-projecting.icon",
+        "iconSha256": "4932da9d1e94e70263230a9ac641f562559a0e0e857fadc5db2b8bf4a7930ddc",
+        "id": "24-a-projecting",
+        "master": 24,
+        "native": [
+          {
+            "file": "24-a-projecting.light.png",
+            "sha256": "2e1caa0f266d8133a0989b4a3a2bd28b3d433614af2b6e1cf7adb5b4f798192d",
+            "surface": "light"
+          },
+          {
+            "file": "24-a-projecting.dark.png",
+            "sha256": "a83f5e82a614f2b3525814d8d472df7868aa55fd640daa510fcf7778840bdb5f",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "b5ddda1d418c6612dd9e65453adf69c739ddf87f0afde97ff56b64fb58aba83d",
+        "retained": true,
+        "styleHash": "aebb068e58d623715f3737902515279fc2dc74390adac7447e356f4cebd4485d",
+        "svgFile": "24-a-projecting.svg",
+        "svgSha256": "b1d6322601d064675a82eac07a0fb000b317a7702eb984161caab779938cd962",
+        "topologyByThreshold": [
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 64
+          },
+          {
+            "holes": 2,
+            "inkComponents": 1,
+            "threshold": 128
+          },
+          {
+            "holes": 2,
+            "inkComponents": 1,
+            "threshold": 192
+          }
+        ]
+      },
+      {
+        "applicationHash": "3787ee0752af72ce90e78c085b96129357be201356f711dd5b3aeb9cabc1590d",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 13.5,
+            "y0": 9.5,
+            "x1": 24,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 11,
+              "threshold": 64
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 11,
+              "threshold": 128
+            },
+            {
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 0,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "24-b-farther-projecting.icon",
+        "iconSha256": "b66e36bd970e1b0aefbc3eb811a58c3b05f49707096dc32e02cbf29211cd8256",
+        "id": "24-b-farther-projecting",
+        "master": 24,
+        "native": [
+          {
+            "file": "24-b-farther-projecting.light.png",
+            "sha256": "341b940add674fbdacfb614ccf8766aab68adf3102cc4e92314218376f2eb90a",
+            "surface": "light"
+          },
+          {
+            "file": "24-b-farther-projecting.dark.png",
+            "sha256": "e9e6dcb2b5a0dcc3b887d73d10ee532fb1f64ba4dcbccc83806b2ca6a988c57a",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "b5ddda1d418c6612dd9e65453adf69c739ddf87f0afde97ff56b64fb58aba83d",
+        "retained": true,
+        "styleHash": "aebb068e58d623715f3737902515279fc2dc74390adac7447e356f4cebd4485d",
+        "svgFile": "24-b-farther-projecting.svg",
+        "svgSha256": "911b8d0a182b97853a016af1b6ab0e1cbefc6916f3275c70d8ced2165085916f",
+        "topologyByThreshold": [
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 64
+          },
+          {
+            "holes": 2,
+            "inkComponents": 1,
+            "threshold": 128
+          },
+          {
+            "holes": 2,
+            "inkComponents": 1,
+            "threshold": 192
+          }
+        ]
+      }
+    ],
+    "packet": {
+      "file": "family-packet.json",
+      "packetHash": "b5ddda1d418c6612dd9e65453adf69c739ddf87f0afde97ff56b64fb58aba83d",
+      "sha256": "539a3b560ed42ac466ab06271efff12760df4ad95440b74504f7ceae3f6a08f1"
+    },
+    "qualification": "development-only existing-DSL composition; exact replay, source admission, projection pixels and topology diagnostics do not visually qualify either master",
+    "referenceGuidance": {
+      "copiedFile": "reference-folder-shield-filled.svg",
+      "file": "folder-shield-filled.svg",
+      "note": "The first painted shape is the lower-right shield modifier. Its exact house bounds guide placement; the second shape is a purpose-redrawn folder host, so this experiment only asserts preservation outside the declared modifier zone.",
+      "paintedShapeBounds": [
+        {
+          "height": 9.499775000000007,
+          "width": 7.9999999999999964,
+          "x": 14.5,
+          "y": 11.250499999999999
+        },
+        {
+          "height": 17,
+          "width": 20,
+          "x": 2,
+          "y": 3
+        }
+      ],
+      "sha256": "e69fa0874bc13fdd3d7d8f7c5c435aa7005a6f13203065282eef9b93b17a1168"
+    },
+    "sourceIdentities": [
+      {
+        "file": "folder-1-filled.svg",
+        "sha256": "9736fa601b94168b4c4839077a8c0cbe3e1bfc3b2768cc32955bfbb82392859f"
+      },
+      {
+        "file": "lock-filled.svg",
+        "sha256": "5fad76d8ada04c3116d21b1818df4c0c60b85c44ff5ffe0cd2249635074f76cf"
+      },
+      {
+        "file": "folder-shield-filled.svg",
+        "sha256": "e69fa0874bc13fdd3d7d8f7c5c435aa7005a6f13203065282eef9b93b17a1168"
+      }
+    ],
+    "version": 1,
+    "receiptSha256": "73dcb7062d98ea9210af1afeec0a5cbd41cbd6b8b6d2f5948bfcd369c8f57a82"
+  },
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeProviderCalls": 0
+}

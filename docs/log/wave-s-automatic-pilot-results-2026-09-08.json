@@ -1,0 +1,56 @@
+{
+  "schema": "iconsmith.wave-s.automatic-pilot-results.v1",
+  "qualified": false,
+  "status": "outer-refusal",
+  "validDeliveredPairs": 0,
+  "requestedPairsDispatched": 1,
+  "requestedSlotsDispatched": 2,
+  "manifestPairs": 40,
+  "manifestSlots": 80,
+  "remainingPairsUnstarted": 39,
+  "nativeCalls": 7,
+  "cumulativeNativeCalls": 31,
+  "apiNewActualUsd": 0,
+  "apiNewReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "nativeContainersAbsent": 21,
+  "outerQuiescenceProven": false,
+  "childQualityStatus": "review-incomplete",
+  "independentReviewStates": {
+    "gpt-5.5": "incomplete",
+    "gpt-5.6-sol": "complete-pass-diagnostic-only"
+  },
+  "failureReasons": [
+    "Outer process quiescence-unproven after kill EPERM; artifacts ineligible.",
+    "Cross-master reporting compared outer-refusal terminal against child terminal and threw identity mismatch."
+  ],
+  "sourceStable": true,
+  "artifactEligibility": "quarantined; native container absence does not rescue outer unproven settlement",
+  "evidence": {
+    "intent.json": {
+      "path": ".staging/wave-s-automatic-pilot-live-2026-09-08/intent.json",
+      "sha256": "cb6e82beaa4060b31dd29a8a62ee45bd0f561b82f0beae219b75be09cb938cf9"
+    },
+    "outer-result.json": {
+      "path": ".staging/wave-s-automatic-pilot-live-2026-09-08/outer-result.json",
+      "sha256": "c9cbf89097b259a409a3392e4e820954d0528837b7c1d225ee2cbf885a6b4e8f"
+    },
+    "root-settlement-audit.json": {
+      "path": ".staging/wave-s-automatic-pilot-live-2026-09-08/root-settlement-audit.json",
+      "sha256": "c0ac95995342c158e945bc416e6e012f36bba17c8e327487b5565e8666375f73"
+    },
+    "stderr.log": {
+      "path": ".staging/wave-s-automatic-pilot-live-2026-09-08/stderr.log",
+      "sha256": "961b68817b6e5d96171eb9a4839aba4bc6373c1095c463823cf6caff53f1d377"
+    }
+  },
+  "outerReceipt": {
+    "path": ".staging/wave-s-automatic-pilot-live-2026-09-08/campaign/receipts/91543ea6aa5f19d9771a22efef16f1e1364755f4157c45d33f6088b2118eade8.json",
+    "sha256": "0f6970eab6583505e6d892f527237b1dbe4d099360f201c5e06baa66c8c5f383"
+  },
+  "rootViewedDiagnosticProofs": [
+    "campaign/requests/cloud-upload-16/attempt-1/structured-author/outlined.proof.png",
+    "campaign/requests/cloud-upload-16/attempt-1/structured-author/filled.proof.png"
+  ],
+  "providerDispatchStopped": true
+}

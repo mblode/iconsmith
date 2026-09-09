@@ -1,0 +1,25 @@
+{
+  "schema": "iconsmith.wave-o.root-evidence.v1",
+  "date": "2026-09-08",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "artifacts": [
+    {
+      "path": ".staging/wave-o-cloud-upload-cutout-2026-09-08/receipt.json",
+      "sha256": "ea5f9088f569a3728ab5bc2c752d7232259da191e0eba07f6d625f010110ca07"
+    },
+    {
+      "path": ".staging/wave-o-cloud-upload-cutout-2026-09-08/comparison-board.png",
+      "sha256": "5e92415609ff35c244f6252a767101b8ec070d3e0ad69afc8822e0d664dcbce1"
+    }
+  ],
+  "slots": 2,
+  "finding": "Filled-only rectangle clearance retains outer cloud but reads as doorway; modifier narrow at16.",
+  "rootImageInspection": true,
+  "limits": [
+    "Development observation only, no independent qualified review.",
+    "Raster threshold topology and replay do not establish recognition or craft."
+  ]
+}

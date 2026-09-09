@@ -1,0 +1,45 @@
+{
+  "id": "D393",
+  "status": "settled-two-arm-calibration-audit-pending",
+  "outer": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "finishedAt": 1788874009508,
+    "deadlineAt": 1788874401151,
+    "sourceStable": true,
+    "drift": []
+  },
+  "rootContainerAbsence": {
+    "path": ".staging/wave-bw-root-calibration-sol-2026-09-08/root-container-absence.json",
+    "sha256": "8b5f17dcbb6088ced746e67ded30ffe06508bcf33abe41033a1ed9912e0a650c",
+    "count": 9,
+    "allAbsent": true
+  },
+  "calls": [
+    {
+      "path": ".staging/wave-bu-calibration-live-sol-2026-09-08/review.native-control/calls/269e534c-473b-449a-98a2-27f90806613a.terminal.json",
+      "sha256": "4daae4bd52b8a5b9933d40806bf57ddac65c034a1536bbf659bae99f21d6d713",
+      "outcome": "complete",
+      "settledAt": 1788873847680
+    },
+    {
+      "path": ".staging/wave-bu-calibration-live-sol-2026-09-08/review.native-control/calls/a421de6c-a0d2-43c9-b022-bba0c8842615.terminal.json",
+      "sha256": "9fedcce7d6b876f1b9bdedf4d0a2698a64ec32d9045e0cf5586c76d03083f2d2",
+      "outcome": "complete",
+      "settledAt": 1788873881808
+    },
+    {
+      "path": ".staging/wave-bu-calibration-live-sol-2026-09-08/review.native-control/calls/d868d580-4168-479b-bc78-a635662bc235.terminal.json",
+      "sha256": "2e72c0d8e69d5f9dc63ce05e45b8deb0615850f5df6df18fa55886e505b2ee7e",
+      "outcome": "complete",
+      "settledAt": 1788874008062
+    }
+  ],
+  "nativeSettledCumulative": 97,
+  "priorUnresolvedNativeIntents": 1,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "qualificationContribution": 0
+}

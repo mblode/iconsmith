@@ -1,0 +1,84 @@
+{
+  "id": "D351",
+  "kind": "integrated-verification",
+  "tests": 2272,
+  "testFiles": 171,
+  "skipped": 0,
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 32847,
+      "log": ".staging/wave-bm-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1273,
+      "log": ".staging/wave-bm-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5369,
+      "log": ".staging/wave-bm-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1304,
+      "log": ".staging/wave-bm-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 72,
+      "log": ".staging/wave-bm-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceFreeze": {
+    "file": ".staging/wave-bm-integration-2026-09-08/source-after.json",
+    "sha256": "e6b1be3b29a6cc9db7a4ffbb75e91a03127a2f42ecff2afb15a3c64159297fe3"
+  },
+  "included": [
+    "Reliability replay engineering",
+    "Runtime actual-read v3",
+    "Collector same-container v3",
+    "Mini explicit no-tools profile v2",
+    "Library descriptor and consumed-byte verification support"
+  ],
+  "limitations": [
+    "Parent library-hash argument wiring pending isolated patch.",
+    "Atomic writes and active STOP cancellation pending.",
+    "No visual or sealed critic qualification."
+  ],
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

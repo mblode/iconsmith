@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-07T23:49:51.713324+00:00",
+  "decision": "D226",
+  "status": "linux-executable-compatibility-demonstrated",
+  "qualified": false,
+  "packages": [
+    {
+      "package": "@openai/codex@0.154.0-alpha.3-linux-arm64",
+      "archive": ".staging/wave-b-root-2026-09-08/openai-codex-0.154.0-alpha.3-linux-arm64.tgz",
+      "archiveSha256": "520a56c7a24a0294f18d534aafafcc5b2c95a8f85a958cafec62333c8b909f22",
+      "registryIntegrityVerified": true,
+      "binary": ".staging/wave-b-root-2026-09-08/codex/package/vendor/aarch64-unknown-linux-musl/bin/codex",
+      "binarySha256": "4d079b49d5c8fd69ef7c70f3254aaaf3fbe83c930fbb514df1a2d1e5d0c48b22",
+      "versionProbe": {
+        "artifactEligible": true,
+        "containerAbsent": true,
+        "containerId": "91ccfa54aa871f5ee0982fee0a878ab24272e430bea9b31432aeedb095d4eed5",
+        "containmentScope": "docker-private-pid-namespace",
+        "process": {
+          "code": 0,
+          "killed": false,
+          "quiescenceScope": "process-group-and-observed-descendants",
+          "quiescent": true,
+          "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)\n",
+          "stdout": "codex-cli 0.154.0-alpha.3\n"
+        },
+        "status": "complete"
+      }
+    },
+    {
+      "package": "@anthropic-ai/claude-code-linux-arm64@2.1.263",
+      "archive": ".staging/wave-b-root-2026-09-08/anthropic-ai-claude-code-linux-arm64-2.1.263.tgz",
+      "archiveSha256": "64238be6b64968b17ce006fe15fb6e3a96b89ceeaa231fee4610cb34a521c44c",
+      "registryIntegrityVerified": true,
+      "binary": ".staging/wave-b-root-2026-09-08/claude/package/claude",
+      "binarySha256": "7d25d7c8ae6c6e009cc7dae4e817f674179fd31fb7761bcd56fee4c2902b4c03",
+      "versionProbe": {
+        "artifactEligible": true,
+        "containerAbsent": true,
+        "containerId": "679577d569cf8e4c85073f4bb8fa5eb8f3f18b7ccdd90158ba539540873c1a7e",
+        "containmentScope": "docker-private-pid-namespace",
+        "process": {
+          "code": 0,
+          "killed": false,
+          "quiescenceScope": "process-group-and-observed-descendants",
+          "quiescent": true,
+          "stderr": "",
+          "stdout": "2.1.263 (Claude Code)\n"
+        },
+        "status": "complete"
+      }
+    }
+  ],
+  "codexAuthenticationStatus": {
+    "artifactEligible": true,
+    "containerAbsent": true,
+    "containerId": "f70858c9fe0fabaeafc89fff4536cf3a564e26eac958237def64134fe12de9ab",
+    "containmentScope": "docker-private-pid-namespace",
+    "process": {
+      "code": 0,
+      "killed": false,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "quiescent": true
+    },
+    "status": "complete",
+    "loggedInWithChatGPT": true,
+    "recognizedStatus": true,
+    "newApiReservationUsd": 0,
+    "providerInferenceCalls": 0
+  },
+  "boundaries": [
+    "Local authentication status reads available subscription state; it does not verify server acceptance, emitted model, quota or inference billing.",
+    "No Linux native generation, image inspection or review was dispatched.",
+    "No Claude Linux subscription state verified.",
+    "Version probes demonstrate container cleanup, not detached writer adversarial coverage."
+  ],
+  "providerInferenceCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionCostUsd": null
+}

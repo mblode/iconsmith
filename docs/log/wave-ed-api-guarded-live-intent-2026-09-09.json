@@ -1,0 +1,65 @@
+{
+  "authorizedForExecution": true,
+  "automaticRetry": false,
+  "budgetReservationRecorded": true,
+  "deadlineAt": 1788898554502,
+  "experimentId": "D466",
+  "kind": "iconsmith-api-capability-v2-root-intent-v1",
+  "launchManifestSha256": "8438261a50ccd5d230f1d76e0fef6d3959b89e7bba2abf399113b17843634caa",
+  "maximumInferenceRequests": 1,
+  "maximumMetadataLookups": 1,
+  "reservationUsd": 0.788352,
+  "runnerSha256": "ec1b3de629d50014c91f7bb979fb60ae58815aab7cfdf6598f1029db2d610521",
+  "runtime": {
+    "executableModules": [
+      {
+        "file": "node_modules/ai/dist/index.js",
+        "sha256": "e3d4618c3b3862694c26415ba207259172b68d82baeccbfb272856cf859d67d8",
+        "specifier": "ai"
+      },
+      {
+        "file": "node_modules/@ai-sdk/gateway/dist/index.js",
+        "sha256": "17f3ef5176795eaaf88e2d36d809d29e4e8c73a514b6b087fbb6276b6372f6bc",
+        "specifier": "@ai-sdk/gateway"
+      },
+      {
+        "file": "node_modules/@ai-sdk/provider-utils/dist/index.js",
+        "sha256": "eb28d74679151f946635a23ae083ae62c2abe385b63b9fd9b1c5cffeff5389de",
+        "specifier": "@ai-sdk/provider-utils"
+      }
+    ],
+    "nodeExecutable": {
+      "path": "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+      "sha256": "f5f9b9db4d95f5e0340982685f083de654c21eef9d9122cab5321081ccaa2601"
+    },
+    "sdkSourceFiles": [
+      {
+        "file": "node_modules/@ai-sdk/gateway/src/gateway-generation-info.ts",
+        "sha256": "af9d77a6b0c9cda77d798a4e3f4ea931ef823ba1c672d637532a4eac2468f802"
+      },
+      {
+        "file": "node_modules/@ai-sdk/provider-utils/src/get-from-api.ts",
+        "sha256": "0c7492796dffa4276d120a57140e6afce5d934742669a686d860b1825cd57084"
+      }
+    ]
+  },
+  "startedAt": 1788898434502,
+  "stopSentinel": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ed-api-guarded-live-v2-2026-09-09/STOP",
+  "parentLauncherSha256": "d085e70465e6985e157fa0945470e80223c9bec63a25561c377f189aa23c30b9",
+  "preparationIntentSha256": "ad290a39acf4bf4d8f554bfaaef433efe27c2dc5e9ca76a9c7367a06b2bc5b36",
+  "reservationLedger": {
+    "file": "docs/log/api-budget-d466-reserved-2026-09-09.json",
+    "sha256": "e16c58514001163c80295f044e7514b66cca290d7e60322944c9067a36734a37"
+  },
+  "actualDispatch": {
+    "executable": "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+    "args": [
+      "--import",
+      "tsx",
+      "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dv-api-stop-preparation-v4-2026-09-09/run.template.mts"
+    ],
+    "cwd": "/Users/mblode/Code/mblode/iconsmith",
+    "concurrency": 1
+  },
+  "containmentClaim": "owned runner process group and observed descendants only"
+}

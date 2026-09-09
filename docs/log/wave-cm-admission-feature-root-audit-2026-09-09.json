@@ -1,0 +1,60 @@
+{
+  "id": "D440",
+  "kind": "root-verified-admission-feature-audit",
+  "observedAt": "2026-09-08T16:51:12.350550+00:00",
+  "report": ".staging/wave-cm-admission-feature-plan-2026-09-09/report.json",
+  "reportSha256": "0d41fffbd5007f76f7bfdd1eef7f452becd31b871abe27f6cf7f18bf9a490078",
+  "verifiedBindings": [
+    {
+      "path": "packages/iconsmith/scripts/family-parts.ts",
+      "sha256": "94f2cb001fdf2369bd8bedaea5e31f975e3739efcd7ce672efb2ca6c107f9708",
+      "matches": true
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.test.ts",
+      "sha256": "716762a36814f0de7f327a3d4b0a792df9fedea21f1dc4b14f9fc18d4699770a",
+      "matches": true
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-reference-packet.ts",
+      "sha256": "a18a6e250b8b07ddc4a31c2c050aac28309405c0f5fa14cd252aafbd8ff0c785",
+      "matches": true
+    },
+    {
+      "path": "packages/iconsmith/scripts/library-replay.ts",
+      "sha256": "94b7bca537882edd50533d74b40a50811d664a32462c3a35ff7379507ee1b0f8",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-ag-local-feature-calibration-2026-09-08/receipt.json",
+      "sha256": "65c5f7a34b0240c31890b026927a8fb7babea1660053bca5928a2c93efb36fa2",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-ah-assembly-region-calibration-2026-09-08/receipt.json",
+      "sha256": "a066ee136de5148ae1d6f5203b775a981d4edd885bcbd002254462702c6c6184",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-af-assembly-only-topology-audit-2026-09-08/receipt.json",
+      "sha256": "d7643d90de6e0466d23e249d375cf718c8cc9b4045493962fd838c757ea5328d",
+      "matches": true
+    },
+    {
+      "path": "docs/log/wave-ax-final-compiler24-verification-2026-09-08.json",
+      "sha256": "69d562ae9150929be20f5e63c5114b654daa3a966a1729bda936a3395711fb07",
+      "matches": true
+    }
+  ],
+  "decision": "Prepare an exact-source calibrated profile at normal representation admission. Do not promote the development-only API itself or apply a blanket topology refusal.",
+  "implemented": false,
+  "qualified": false,
+  "planTask": "P2.4a",
+  "remaining": [
+    "Implement normal admission with versioned exact-source regions and explicit unmeasured/uncertain outcomes.",
+    "Calibrate and revalidate exact clean and injected controls.",
+    "Run full source audit and inspect changed dispositions."
+  ],
+  "providerCalls": 0,
+  "costChangeUsd": 0
+}

@@ -1,0 +1,37 @@
+{
+  "source": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/cli-evidence/replay.svg",
+  "sourceSha256": "b7dcad8e214728402c8a0ac4ef744b7bded519c3d412ecee1deceef6a1fb5178",
+  "status": "isolated-reconstruction-diagnostic-not-qualified",
+  "master": 24,
+  "paint": "outlined",
+  "images": [
+    {
+      "surface": "light",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-er-source-exact-root-proof-2026-09-09/branch-simple-outlined24-light.png",
+      "sha256": "d69c8f7ce17cae3ced2a650fecd6dd04dbf088ff9254f613bc3f274c23146b9c",
+      "width": 24,
+      "height": 24
+    },
+    {
+      "surface": "dark",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-er-source-exact-root-proof-2026-09-09/branch-simple-outlined24-dark.png",
+      "sha256": "98a6212f86283afb0167c793e875ac3201bc9f7042cf9021fee5c674231041d0",
+      "width": 24,
+      "height": 24
+    }
+  ],
+  "id": "D481",
+  "kind": "isolated-source-exact-native-proof",
+  "observedAt": "2026-09-08T20:58:00.461869+00:00",
+  "rootInspected": true,
+  "independentCraftQualified": false,
+  "compilerCanonical": 24,
+  "providerCalls": 0,
+  "reservationUsd": 0,
+  "limitations": [
+    "EG isolated reconstruction only",
+    "No native16 sibling",
+    "No independent recognition/craft panel",
+    "No compiler promotion or full source regression"
+  ]
+}

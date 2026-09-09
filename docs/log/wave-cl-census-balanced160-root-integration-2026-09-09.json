@@ -1,0 +1,33 @@
+{
+  "id": "D441",
+  "kind": "root-verified-census-additive-ingestion",
+  "qualified": false,
+  "receipt": ".staging/wave-cl-census-balanced160-2026-09-09/approved-ingest-receipt.json",
+  "receiptSha256": "9231b4f01e983e110eebff8f232ffe8c4f7295b3208e7560ca07f33eeda30e89",
+  "artifactManifest": ".staging/wave-cl-census-balanced160-2026-09-09/approved-ingest-artifact-hashes.json",
+  "artifactManifestSha256": "2bcb9028c42262516b233ee6400ee0a3226a8f6b689e88a410889e23a400bb3a",
+  "verifiedArtifactCount": 9,
+  "priorMappedSlotsVerifiedUnchanged": 1052,
+  "denominators": {
+    "catalogConcepts": 2221,
+    "sourceFiles": 4357,
+    "slots": 8884,
+    "mappedDevelopmentConcepts": 379,
+    "mappedSlots": 1516,
+    "mappedMissingSourceSlots": 28,
+    "inspectedButMappingUnresolvedConcepts": 44,
+    "totalInspectedConcepts": 423,
+    "uninspectedConcepts": 1798,
+    "unmappedConceptsIncludingInspectedUnresolved": 1842
+  },
+  "labelClarification": "The overlay field untouchedConcepts=1842 means unmapped: it includes44 inspected unresolved concepts. Truly uninspected concepts=1798. Original fields and receipts preserved.",
+  "limitations": [
+    "Names exposed; no blind recognition qualification.",
+    "No alias/derivative closure.",
+    "16px source resampling is not an optical master.",
+    "Four catalog-family labels differ from prior approved head identity; prior approved identity is retained and catalog alternatives remain unapproved."
+  ],
+  "imageIndex": "docs/log/development-evidence-index-v22-2026-09-09.html",
+  "providerCalls": 0,
+  "costChangeUsd": 0
+}

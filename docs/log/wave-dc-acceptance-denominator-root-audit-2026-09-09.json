@@ -1,0 +1,31 @@
+{
+  "id": "D453",
+  "observedAt": "2026-09-08T18:26:19.389227+00:00",
+  "kind": "root-confirmed-acceptance-denominator-audit",
+  "agentReceipt": {
+    "path": ".staging/wave-dc-acceptance-denominator-audit-2026-09-09/receipt.json",
+    "sha256": "31b0879668e5dbe08dd6916b2d3660a4b061557374746d3b3b3504a5951ac12f"
+  },
+  "manifest": {
+    "path": ".staging/wave-dc-acceptance-denominator-audit-2026-09-09/artifact-manifest.json",
+    "sha256": "2a82d7755ca1142f419e30a7af1ebffe9010d7f5ccb05efe6114a0a94dc8118d"
+  },
+  "findings": {
+    "path": ".staging/wave-dc-acceptance-denominator-audit-2026-09-09/findings.json",
+    "sha256": "de595228ee98e438ef23b25ab572a46badc225db37b74dce334d4467dc592d70"
+  },
+  "rootTest": {
+    "path": ".staging/wave-da-request-slot-integrity-2026-09-09/acceptance-dc-root-test.log",
+    "sha256": "557e6352d9e481937ce16ee1709d11bd9c617df136f6c029a43bf7ebe4f1f000"
+  },
+  "rootVerification": "Current acceptance contract hash matches audit; root read and confirmed unconditional labels/artifact/two-reviewer/native/parity requirements.61 tests pass,0skip; existing tests do not cover honest failed/quarantined row shapes.",
+  "openFindings": [
+    "DC1 artifactless failed/refused/timedout/uninspected rows cannot validate despite retained requested denominators",
+    "DC2 critical/recognition disagreement cannot encode valid uncertain quarantine",
+    "DC3 full catalog critic and separate probability audit require distinct populations/rosters"
+  ],
+  "materialFalsePassFound": false,
+  "qualified": false,
+  "providerCalls": 0,
+  "newCostUsd": 0
+}

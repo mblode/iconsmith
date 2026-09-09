@@ -1,0 +1,106 @@
+{
+  "id": "D465",
+  "kind": "file-type-safe-api-preparation",
+  "observedAt": "2026-09-08T19:36:22.967108+00:00",
+  "status": "offline-passed-parent-correction-pending",
+  "fix": "Reject nonregular paths before reading; O_NOFOLLOW|O_NONBLOCK open, same-inode/device/nlink fstat, hash and parse same fd bytes, finally close.",
+  "validation": {
+    "normal": {
+      "deadlineAt": 1788896264652,
+      "experimentId": "offline-preparation-validation-only",
+      "kind": "iconsmith-api-capability-v2-preparation-validation-v1",
+      "manifestSha256": "bff2ab116e464836eddafa2b652fb79e2014e8ba65e2fd8e31949c404a79d6ba",
+      "outputCreated": false,
+      "providerCalls": 0,
+      "rootIntentSha256": "ad290a39acf4bf4d8f554bfaaef433efe27c2dc5e9ca76a9c7367a06b2bc5b36",
+      "runnerSha256": "ec1b3de629d50014c91f7bb979fb60ae58815aab7cfdf6598f1029db2d610521",
+      "startedAt": 1788896144652,
+      "manifestFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dv-api-stop-preparation-v4-2026-09-09/offline-validation/launch-manifest.json",
+      "rootIntentFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dv-api-stop-preparation-v4-2026-09-09/offline-validation/preparation-intent.json"
+    },
+    "negative": {
+      "kind": "zero-call-negative-preparation-fixtures",
+      "refusals": [
+        {
+          "scenario": "stop-present",
+          "status": 7,
+          "expectedReason": "STOP sentinel prevents dispatch",
+          "outputCreated": false,
+          "providerCalls": 0,
+          "manifestSha256": "049fe4f6f67d7fb08998fa7ba9e6339dcf4936dd25fc96be4740f2e7c515245f",
+          "intentSha256": "782c7148496603de1dc7f5eefe76fd93e500f15b0bc4ca48fd8a9c56dba04227",
+          "stderrSha256": "ce779d151041d303b9336c62a44c21fc229afe9f8a309d5e42a2492e1a4d5b2e"
+        },
+        {
+          "scenario": "stop-binding-mismatch",
+          "status": 7,
+          "expectedReason": "Root intent is not bound to this launch",
+          "outputCreated": false,
+          "providerCalls": 0,
+          "manifestSha256": "9b43e63685aa5a16575058ab0b3e5766451afcbb6c40bcfe2ec9aa62ad9577e3",
+          "intentSha256": "e5e3519d0308b35e2070d0d2a7a78e7259fe4f9d8cf45222569d173a023a8627",
+          "stderrSha256": "d1efba941f21ef5291d1e9f149b4d9bdbd852c85ac2bae4d03ff25475d0ea074"
+        },
+        {
+          "scenario": "stop-path-mismatch",
+          "status": 7,
+          "expectedReason": "STOP sentinel must be in the canonical root-owned dispatch directory",
+          "outputCreated": false,
+          "providerCalls": 0,
+          "manifestSha256": "40cdd58993adf6e621dbca902e9463d34e1b7360f4cf2c8255a010ffd7902593",
+          "intentSha256": "5f6358d05c4f0135f78320e4060634c1f61aefbd2497599f13feb53c969a18f6",
+          "stderrSha256": "fafa26f113262987c80e86c1538eaf0396e24325a0e4b721522730806ff2942d"
+        },
+        {
+          "scenario": "manifest-byte-drift",
+          "status": 7,
+          "expectedReason": "Launch manifest drifted",
+          "outputCreated": false,
+          "providerCalls": 0,
+          "manifestSha256": "d41d13f57827259c1df176ccebda876b22013e22db3534616658b3e1e513baeb",
+          "intentSha256": "d204f5d0dc9ce7abc730b2839fd338e7fc8aa905ed1b139b685b19cd2f17ce69",
+          "stderrSha256": "4a5ca6d58a59b7a3acf4295f75d92d882fe69d9375b0212d674ce5ae582a813c"
+        },
+        {
+          "scenario": "fifo-manifest",
+          "status": 7,
+          "expectedReason": "Launch manifest drifted",
+          "outputCreated": false,
+          "providerCalls": 0,
+          "manifestSha256": null,
+          "intentSha256": "66bedb88d119812ab75b1dad6de6c30290f5acd04130a33ae39d5e9602cd70c9",
+          "stderrSha256": "1f5158ab6bb84391ce5c3ef24b8b3f7b5d1e7dfe94cc9d00243e30e9318996ec"
+        }
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": ".staging/wave-dv-api-stop-preparation-v4-2026-09-09/run.template.mts",
+      "sha256": "ec1b3de629d50014c91f7bb979fb60ae58815aab7cfdf6598f1029db2d610521"
+    },
+    {
+      "path": ".staging/wave-dv-api-stop-preparation-v4-2026-09-09/validate-preparation.mts",
+      "sha256": "a65389551136bc2529432282bd7b704ad84a206c17c7180dd9b1e18cef65a16f"
+    },
+    {
+      "path": ".staging/wave-dv-api-stop-preparation-v4-2026-09-09/provider-source-freeze.json",
+      "sha256": "4d95adfe49827ba6c07132d1ff03d22eee46797a2a3fc4d29e51b1fc3b36b065"
+    },
+    {
+      "path": ".staging/wave-dv-api-stop-preparation-v4-2026-09-09/production-tooling-identity.json",
+      "sha256": "ee4aebc33d1ed0b1676b1cedc1c73f8f70807c917bec4f965c46db5f4baf57a8"
+    },
+    {
+      "path": ".staging/wave-dv-api-stop-preparation-v4-2026-09-09/offline-validation/validation-result.json",
+      "sha256": "fc432941d8f43dfa601c539cb2efca3458daae8cd28763b42593bcd1a43a986e"
+    },
+    {
+      "path": ".staging/wave-dv-api-stop-preparation-v4-2026-09-09/offline-validation/negative-validation-results.json",
+      "sha256": "5d139fe2df6b224ecc960a9b8c1563a15e201f1f75bcc202dd72202e52f83d2c"
+    }
+  ],
+  "providerCalls": 0,
+  "newApiReservation": false,
+  "qualified": false
+}

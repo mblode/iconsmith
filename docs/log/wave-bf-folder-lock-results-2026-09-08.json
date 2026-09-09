@@ -1,0 +1,208 @@
+{
+  "id": "D333",
+  "kind": "folder-lock-complete-development-slice",
+  "requests": [
+    {
+      "request": "folder-lock-16",
+      "deliveryStatus": "delivered",
+      "runSummary": {
+        "deadlineAt": 1788863897682,
+        "startedAt": "2026-09-08T10:18:17.682Z"
+      },
+      "nativeCalls": 7,
+      "reviews": [
+        {
+          "model": "gpt-5.5",
+          "status": "complete",
+          "answers": {
+            "meaning": "pass",
+            "style": "pass",
+            "optics": "pass",
+            "family": "pass"
+          }
+        },
+        {
+          "model": "gpt-5.6-sol",
+          "status": "complete",
+          "answers": {
+            "meaning": "pass",
+            "style": "pass",
+            "optics": "pass",
+            "family": "pass"
+          }
+        }
+      ],
+      "artifacts": {
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/author-images.json": "48551b2a7d5b2d42355f39f304a9c3742f235d3057b284963af3260f7678ec1b",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/author-review.json": "1354668707c443991216af33420bc814e94ba12aa348eb0cef16e1a85be955ed",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/author-uncertainty-routing.json": "5ce1a43bf32a98312b91662a34c98bd381faf98b905f0c84c918398bef559341",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/checks.json": "dfef1ee5fe1cd28b62d6e4cb641dc69879b8d4172169b29da6ec64e5c319d462",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/construction-evidence.json": "f429ad00d2a43d12cb13c888fcad36ca4658a0f9d0dcacd579c6b088d4326c64",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/delivery.json": "8df1e6995d56c05d0eeb67856e71606efb48c8d494bcbb9c7d6799f021631926",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.artifact.json": "e7f5d0cb76ddc38482f2f13a2a5b078cf7c90b2f18b88a4e5c5f629e6aa9711b",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.icon": "07e1c135aa4594446ceadbd9f8c313e5e957134c681dcfd3057ae3d69c9bde0c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.native.png": "188d094eb15bf07103f3669a01e607f09d7ac5d485b53751953cf88fe2b1c3fe",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.pixels.json": "7fe143788605851fe3c2fded79bf4911c5973ef8cf2a276a25810caf53fe2e5e",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.png": "7f657a834e19072494e0676373440525bf1c9dde8c5c1b6055533eb2338fb52a",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.json": "46703b0f974f71e492983e61b0ab6d331d190cc776048f3b72da1962bce5d9b9",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.png": "bd049f7f6e5261a5ce9448c2f2de3180210b1bd128b068e0bc0add0772d97955",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.retina.png": "9a0d26b75a4d2404220ffbd5f58f425cac8803c1c1c6363a28daa378db290958",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.svg": "afec222a05cfd03cef2867edd78745f839aacefeb5eaea888ca2d41327533343",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/independent-reviews.json": "18f74fd4db68b2049e6a2972144a8a97bf5bd5b6a19c8faa684b86808773ad14",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/meaning-observation-1.json": "b049ebba83a119ccbbbbbf024d4f2666094ffc1436e11c45eb032444a509d769",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/meaning-observation-2.json": "5181d54e834d37551ee624c7477e09f22f4bc82ad5217f6e72c9e1068e9d775e",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/native-astra-author.json": "4636a5ff939cc2b9626b42bc02fc473332bdc481925efa63801e0813e8bf1f61",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/native.png": "78dbd27b61e8e97dabe20f9482641daecdfe659c8d282574ac39e1e2901681eb",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.artifact.json": "5810e3809f103dd4b4a499d3ea762ede622a9eda98008b018ae3cdb832413290",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.icon": "0e3302fd900f8ad62049012dc7de439f3150875826b5e66c5d652d7859c8fda6",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.native.png": "43904380080818ae44526f57251cfec0b73639362dc3e594d8f5512863438ae4",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.pixels.json": "dce66fb000d0d112243c8e05e6a3db8eb5d2aaab109157ceae9dea4a75e38c23",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.png": "2f5eeca3ea5e8d6b776c43f393df4bb5c2792eab7bd01d85d0ad190820d1bbfc",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.json": "46703b0f974f71e492983e61b0ab6d331d190cc776048f3b72da1962bce5d9b9",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.png": "2515643050a9deef52a1399d233afb967796d5150b2d85bc6af46c314f52735e",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.retina.png": "33f79804ad8e2e0fb1a0ecb8268a367c277c424178f2e55e7912421395594491",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.svg": "ff4c308cce2374dd06be3dc0b1c3c2886c5e8d070a50e94360248f0eff1d1902",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/parts-names.json": "4631e760b6b98119c703ec9bbcfe7ed35a9696c2c0e79496b28932c21f84ca7c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/preview-16.png": "78dbd27b61e8e97dabe20f9482641daecdfe659c8d282574ac39e1e2901681eb",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/recognition-choices.json": "f174edc943960c6a7786a20516896ecfef6962acef6907336acb0711de230a6c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/reference-0-proof.png": "7d02c17729ef05534ddc24618e43ee6788b71357253fd6f65f56130a43e69792",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/reference-1-proof.png": "750160a1f7727eaa67db5a1c6eca66b808996f03aeb599ffb118b322b96fee60",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/reference-2-proof.png": "87a1d4c857c560fd7264515d042331ac1133a6cfb4d680db1027b127c67c2466",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/reference-3-proof.png": "01cf19a71dc262044f62a4b73938336d2823dcb51511ee107203e3b87b03fb89",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/reference-order.json": "e746948a6a99358b8bcaf3743254fed885dc23b3260215c1122f281aca1f9600",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/reference-proofs.json": "fdc4b695cb9eecccd759ddd45507acf155dd125d8ef3b48f353313ae150d4e19",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/references.png": "af7e1677ab34a2117a518f73f16a7cc9a49dcdb2f999da04d38c863cbf6351fe",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/request.json": "a48aecea2c9cee8f223ff8f881c0a31215f29ad71bfc715fd31b33ecdd9a6eda",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/revision.json": "14f01a111d78442ade878687db54d346f249ebc9a8d9f46bd1ff206c62f5099c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/run.json": "829d311916875c8ac24efe86e848bc60f45a9dffc9cd3aeece53701b43eb3037",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/runtime-identity.json": "f538ba1c980a3e34c5eec6298d48798abb059b1c4b5136d87460a03c6adfa278",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/semantic-plan.json": "24d4548ccceb6c5516668b7e39fda6e21a36f9a9917fbbac2589a8dd076db932",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/spec.json": "117c0cb7ff421a78f4f701684da133d186c88a15a39fbdfe5438990152dba720",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/structured-author.json": "0139f33f6d9b965ba3cee007eb5478dcd521450a2d892c0c2573d69d2ceb84dc"
+      },
+      "deliveryMetrics": {
+        "elapsedMs": 411979,
+        "deadlineExceeded": false,
+        "qualityStatus": "review-clear",
+        "craftApproved": false,
+        "instrumentQualified": false
+      }
+    },
+    {
+      "request": "folder-lock-24",
+      "deliveryStatus": "delivered",
+      "runSummary": {
+        "deadlineAt": 1788864313407,
+        "startedAt": "2026-09-08T10:25:13.407Z"
+      },
+      "nativeCalls": 7,
+      "reviews": [
+        {
+          "model": "gpt-5.5",
+          "status": "complete",
+          "answers": {
+            "meaning": "pass",
+            "style": "pass",
+            "optics": "pass",
+            "family": "pass"
+          }
+        },
+        {
+          "model": "gpt-5.6-sol",
+          "status": "complete",
+          "answers": {
+            "meaning": "pass",
+            "style": "pass",
+            "optics": "pass",
+            "family": "pass"
+          }
+        }
+      ],
+      "artifacts": {
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/author-images.json": "6399c8a485c0e28395bb860cb80c616222a2a2f6f44b9d5b5249ce632d841ebd",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/author-review.json": "1354668707c443991216af33420bc814e94ba12aa348eb0cef16e1a85be955ed",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/author-uncertainty-routing.json": "5ce1a43bf32a98312b91662a34c98bd381faf98b905f0c84c918398bef559341",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/checks.json": "b72098fd74532ea0d8e5dbfe2a6da324cc42859b9afd34321fae49368d3707fd",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/construction-evidence.json": "16d66155e3e0e5aeb80c51c0cf953885ce8b948b8b0f3594f62d254d697f94ef",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/delivery.json": "a577255563158748d3a2420e3ba7db221217caecfa726b95cd5a82651c4df602",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.artifact.json": "a4b5c33561144fdd503c98421ca0271cdceca915f71e74990dac779f26d46e64",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.icon": "181ced79bc020395334468e87f04b9491b6f00386ecd939f24d3cb17899f0200",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.native.png": "d1b6f8113dd66ed83a3b955ddc8c40d87b19b98fa1f074e6b93734fc31cae707",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.pixels.json": "19c476780aadc009f2418bfede2325b67fe4a59d16b51f50cd681ec5d0988a01",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.png": "5f28c906a1270e41269aea0cd2a299161858fdb8c4ae942b73d9ce94492e0848",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.proof.json": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.proof.png": "bd15b374e81d166ecf4d11e93afc5e40f93a793e3bb07c2a92544d67c0e8d8c3",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.retina.png": "3904c1235e3fe284872f751b737579a20aa702667faa9b12cb29599225890b8f",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/filled.svg": "8a805697329dbdc7190089b35d3d1640f9bc8033a55bb1bd5a0e79e1a4673a3a",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/independent-reviews.json": "608d6c4831de24ec08697fa90b986737a3e482cee9605b9de47f116a7194fc15",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/meaning-observation-1.json": "058351e8c9ce480cbb2ce1b7d5f221784fa6aa053d98a16951eb2be3c103022f",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/meaning-observation-2.json": "c1c5e670e0af0836b53d1699649cb14b9335adc9eebc661a8ed2408550dfcef7",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/native-astra-author.json": "93f554dafe62b661df61758f308d62d2897d4bf0b91c0b95ba9fd964f1824426",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/native.png": "4b052caf8329233eb6aeed44c1339648d7ff6057e37a9b3f07c2cd5a3d7f3822",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.artifact.json": "fa8be8f9bde3e559e256bec6e4b5fb130ec0291ded9285a97740f4ecb1b626bd",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.icon": "c4eeadb3a6c29a588d3b41a7eef1d20505d8f0cf44c9d1708b075ef6483119c8",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.native.png": "50175d7fa9241bc3f464fc1dab10c179cedc1d20a4b3043008b9e256e358e644",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.pixels.json": "38dd56268c0b1225ff04f0a740204b75e1557eae44b4940c811e859805b9628d",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.png": "11eff8a95979734af809422527e47e895e660406dfec1e86c9354a7b030b2aae",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.proof.json": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.proof.png": "f629ab636d28f6f060f7f0d40bd7ab4d3b5bd4b9e4879f64ccb0330120259d62",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.retina.png": "f1bc2227a1cad3dfe9cec9ddfed2cc9faa858fbc39fc2b0f48c95eab82a8b5d4",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/outlined.svg": "864ff1cc6809f1906fd677e94b9b065c5fc86701b0fbe3d6b4d083dbe112dd7d",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/parts-names.json": "4631e760b6b98119c703ec9bbcfe7ed35a9696c2c0e79496b28932c21f84ca7c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/preview-16.png": "70b7e81d876b9bad710a1a90453a753dd92f1b3e99be1309b12e4fa2fcee6023",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/recognition-choices.json": "b4ea6abaea5da43fd5673b7fa9b6e774617df23d7416bbe9f7428b389fe5b4d7",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/reference-0-proof.png": "3b91d0274ab7e83a3706110ac25f18270684327bf18ac352292d50e9f77d0d04",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/reference-1-proof.png": "8c2c2742285ee204de04e6c532b4301eb48473a1e9b03779c550c295ae0174a6",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/reference-2-proof.png": "75b26c7a148052565f4d12d28b22e8320243c0789cfc28914dba3c452e9bd45b",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/reference-3-proof.png": "8c3c4f3d01855d148c831ac906e9d051a2702ac1bcdac372284988914669c2cf",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/reference-order.json": "e746948a6a99358b8bcaf3743254fed885dc23b3260215c1122f281aca1f9600",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/reference-proofs.json": "0c9406feaf435d5fb991daa75d2e57c641e7ba71fa7d8815c32e93a2eb4d492c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/references.png": "af7e1677ab34a2117a518f73f16a7cc9a49dcdb2f999da04d38c863cbf6351fe",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/request.json": "ec2e72086478ba045e897a1f7927fe94bdff9e3281650cd2529e6117d272804c",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/revision.json": "228acbb932ef188cc1818e377b0685e6ee0bf6881bc0e13d665dcf299c58d5cd",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/run.json": "135d1067ae1c2220e8e1cdb1c636fa0d4920f3f88658519d2d7b665b5029e34a",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/runtime-identity.json": "f538ba1c980a3e34c5eec6298d48798abb059b1c4b5136d87460a03c6adfa278",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/semantic-plan.json": "24d4548ccceb6c5516668b7e39fda6e21a36f9a9917fbbac2589a8dd076db932",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/spec.json": "67ddfb9840979cc2dd5ebbdc91e1f5fbe967f17a99fe08147615687a0f6559e1",
+        "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-24/structured-author.json": "caff8c8e72b4a5807ff3d74a93f93d38c22f49e1974d45fca34850e582e56437"
+      },
+      "deliveryMetrics": {
+        "elapsedMs": 466300,
+        "deadlineExceeded": false,
+        "qualityStatus": "review-clear",
+        "craftApproved": false,
+        "instrumentQualified": false
+      }
+    }
+  ],
+  "allNativeAndContextContainersIndependentlyAbsent": true,
+  "containerCount": 42,
+  "audit": {
+    "file": ".staging/wave-bf-folder-lock-live-2026-09-08/root-postflight.json",
+    "sha256": "b1c66c5540343c7fc9458d02b6dc9b7f4715f30d6ba45457bfaff2ea9b221593"
+  },
+  "originalFreezeStable": true,
+  "stopLatched": true,
+  "nativeCalls": 14,
+  "nativeCallsCumulative": 78,
+  "apiIncrementUsd": 0,
+  "nativeDollarCostUsd": null,
+  "requestedWaveSlots": 4,
+  "developmentDeliveredSlots": 4,
+  "qualifiedAcceptedSlots": 0,
+  "campaignSlotCounts": {
+    "pending-independent-review": 4,
+    "pending": 76
+  },
+  "rootVisualInspection": "All four final proof boards inspected after settlement; lower-right padlock identity and folder layout retained across paints and sizes. No calibrated score or qualified cross-master verdict. Filled upper-right terminal differs between masters.",
+  "masterProgramBytesIdentical": {
+    "outlined": false,
+    "filled": false
+  },
+  "auditRunnerCorrections": [
+    "v1 expected generic inspect No such object but invoked container inspect which reports No such container; failed closed before receipt",
+    "v2 handled native settlement envelope but not direct context probe envelope; failed closed before receipt",
+    "v3 handled both actual schemas and independently verified all42 containers absent"
+  ],
+  "qualified": false
+}

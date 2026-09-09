@@ -1,0 +1,43 @@
+{
+  "input": {
+    "directory": ".staging/wave-b-geometry-2026-09-08",
+    "manifestSha256": "2d8aa86899d11c3fba9e8525c840a9fa1af62aa1deacfee2637e7738746b6480"
+  },
+  "presentation": {
+    "actual": {
+      "file": "native-actual-size.png",
+      "sha256": "b52992aeb09c31005ce0c9629b3f03615b01fd3eec978f41a72e146a36cb3acd",
+      "scale": 1
+    },
+    "enlarged": {
+      "file": "native-uniform-4x.png",
+      "kernel": "nearest",
+      "sha256": "0f6c23f1928fef901a26824faa4c6e241782cb242e0c6c989a78df0c605792e9",
+      "scale": 4
+    }
+  },
+  "diagnostics": {
+    "observedFilledFailures": [
+      "folder-lock",
+      "bell-pause",
+      "hammer-check",
+      "credit-card-check"
+    ],
+    "observedFilledLimitation": "jellyfish tentacles survive, but the cloud-derived rim remains a solid host shape",
+    "refusedSources": [
+      {
+        "admission": "refused at outlined 16px source fidelity",
+        "name": "eye-open",
+        "sha256": "c3f1a21ab91ab1b262e13a7d4eb5db625798fdeea37dffc20892e6bb6bcfc66e"
+      },
+      {
+        "admission": "refused at outlined 16px source fidelity",
+        "name": "shield-check",
+        "sha256": "dbf9442cef9e25d02f921439ada3286f499c7107c971be1cb5b165e38e48decb"
+      }
+    ]
+  },
+  "qualification": "development evidence only; class taxonomy is provisional and no visual family gate is closed",
+  "version": 2,
+  "receiptSha256": "5c16f8389e6f3e85b7f63af52f800ab9d03663bd787e99bdcf3f62f55149ea31"
+}

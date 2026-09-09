@@ -29,7 +29,7 @@ import type { Concept } from "./prompt.js";
 import { compileArm } from "./reconstruct.js";
 import { splicePair, splicePaths } from "./splice.js";
 
-export type ReachKind = "agent" | "analog" | "compile" | "glyph" | "mark";
+type ReachKind = "agent" | "analog" | "compile" | "glyph" | "mark";
 
 export interface ReachPlan {
   readonly badge?: string;
@@ -191,7 +191,7 @@ const adaptFilledFrom = (
       keyline: program.keyline,
     }),
     // The parked house-local subpaths only. Downstream (`tournament.ts`,
-    // `commands/view.ts`) re-adds the vocabulary itself as `[...parts,
+    // the former browser viewer) re-adds the vocabulary itself as `[...parts,
     // ...result.extras]`, so folding it in here would double-count it.
     extras: drawn.extras ?? [],
     issues,

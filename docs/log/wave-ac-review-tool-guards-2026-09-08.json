@@ -1,0 +1,71 @@
+{
+  "kind": "sealed-text-tool-category-guards",
+  "sourceHashes": {
+    "packages/iconsmith/scripts/local-review.ts": "9fab52d1b9eba07c061ef3724d25ebc94134894acabb0e64af6a44e875ca2098",
+    "packages/iconsmith/scripts/local-review.test.ts": "a04517aaa39b9ac22f2dd4c095194aeb3041b1e38852b643924e808024356956",
+    "packages/iconsmith/scripts/local-codex-review.ts": "ccb1f6e4b217dc57f18dcc20b43452810eec4952978a34099837bf53c429a587",
+    "packages/iconsmith/scripts/local-codex-review.test.ts": "bc565639ffd3aaf987b4256e638368bf630be1a7650074e101c5a99f5da06893"
+  },
+  "checks": [
+    {
+      "name": "tests",
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "iconsmith",
+        "--",
+        "vitest",
+        "run",
+        "scripts/local-review.test.ts",
+        "scripts/local-codex-review.test.ts"
+      ],
+      "exitCode": 0,
+      "log": ".staging/wave-ac-review-tool-guards-2026-09-08/tests.log",
+      "sha256": "dbd6e4dcb7485341e6f05858c995f4711e6fab538982cf1e65b611491fe983e6"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck",
+        "-w",
+        "iconsmith"
+      ],
+      "exitCode": 0,
+      "log": ".staging/wave-ac-review-tool-guards-2026-09-08/typecheck.log",
+      "sha256": "0c26de291af5215b52e0f5673b93037a8623b5bf847e33936c67372dd9a12836"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "iconsmith",
+        "--",
+        "ultracite",
+        "check",
+        "scripts/local-review.ts",
+        "scripts/local-review.test.ts",
+        "scripts/local-codex-review.ts",
+        "scripts/local-codex-review.test.ts"
+      ],
+      "exitCode": 0,
+      "log": ".staging/wave-ac-review-tool-guards-2026-09-08/lint.log",
+      "sha256": "d95be479e353163518169c45c9f22a10f5f2b367600ca01c96068f4fadc8f23d"
+    }
+  ],
+  "tests": 50,
+  "testFiles": 2,
+  "behavior": [
+    "Codex rejects all response types ending _call or _call_output, including web_search_call.",
+    "Claude sealed-text rejects server_tool_use and unknown content types in addition to images and foreign tool results."
+  ],
+  "qualified": false,
+  "providerCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "cumulativeNativeAdapterCalls": 31
+}

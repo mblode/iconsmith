@@ -1,0 +1,11 @@
+{
+  "id": "D491",
+  "reservationUsd": 1,
+  "maximumCalls": 1,
+  "timeoutSeconds": 180,
+  "automaticRetry": false,
+  "model": "gpt-image-2.5-sunburst",
+  "correction": "Set background transparent explicitly; all other request fields retained",
+  "requestPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fb-images25-api-transparent-2026-09-09/request.json",
+  "requestSha256": "b9dcf8e1c0ad3a26535d2d8abb8128fd92fe0663522808a4e706d7dbab5e28e0"
+}

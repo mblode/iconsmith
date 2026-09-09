@@ -1,0 +1,40 @@
+{
+  "status": "development-only-unqualified",
+  "index": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v3-2026-09-08.html",
+  "indexSha256": "63430edef840eddb488f2a0b3f0db78d6856affe6e3509aa3160199065a48182",
+  "priorIndexSha256": "015fde1507d28a17b659e242c81f0627a2706cdce20f200fe84f78cde857c5e2",
+  "images": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ag-local-feature-calibration-2026-09-08/calibration-board.png",
+      "sha256": "140614f36c2ede542a9bb92d8f815d749ff07804c0cbc9e1fd137eeaf7d32637",
+      "label": "Local feature calibration \u2014 development only; bell24 uncertain"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-af-assembly-only-topology-audit-2026-09-08/audible-detail.png",
+      "sha256": "0372496336b0079d27346af50728fd2964e80112727024632e5c01fb39051bde",
+      "label": "Audible \u2014 source fidelity uncertainty at16"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-af-assembly-only-topology-audit-2026-09-08/named-rows-1.png",
+      "sha256": "080ed5968f75b0d8a13b4389417faabc0fc1b3c14cba6aeefd0c1faec10bdd2c",
+      "label": "Complete new-assembly topology population, board1 \u2014 no visual qualification"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-af-assembly-only-topology-audit-2026-09-08/named-rows-2.png",
+      "sha256": "4f3ebd01160a95edad337c77fb66d5edf1ca18d9211700c7cc85219196e1a646",
+      "label": "Complete new-assembly topology population, board2 \u2014 no visual qualification"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-af-assembly-only-topology-audit-2026-09-08/named-rows-3.png",
+      "sha256": "59abfdf6bee4f20ba49ed4f249beac14c8915332fbff3c83f7efb8f58efcfcdd",
+      "label": "Complete new-assembly topology population, board3 \u2014 no visual qualification"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-af-assembly-only-topology-audit-2026-09-08/named-rows-4.png",
+      "sha256": "46a4288ad87458edb30e820dbb186c8adebf7064eb4b1664fdcf90f03fb354ce",
+      "label": "Complete new-assembly topology population, board4 \u2014 no visual qualification"
+    }
+  ],
+  "catalogExecuted": false,
+  "novelExecuted": false
+}

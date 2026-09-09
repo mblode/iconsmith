@@ -1,3 +1,8 @@
+import type { Finish, IconDoc, Keyline, Part } from "../types.js";
+import { ARC_FROM, ARC_SWEEP, Canvas, SPEC } from "./canvas.js";
+import type { ArcFrom, ArcSweep, Spec } from "./canvas.js";
+import type { Cohort, CohortTarget } from "./cohort.js";
+import { COHORT_TOLERANCE, canonicalExtent, findCohort } from "./cohort.js";
 /**
  * The icon language.
  *
@@ -81,11 +86,8 @@
  * flicker `cohort-align` exists to catch (437 findings across 186 families in
  * blode-icons, 371 of them ≥1px). The keyline still governs `part ... fill`.
  */
-import type { Finish, IconDoc, Keyline, Part } from "../types.js";
-import { ARC_FROM, ARC_SWEEP, Canvas, SPEC } from "./canvas.js";
-import type { ArcFrom, ArcSweep, Spec } from "./canvas.js";
-import type { Cohort, CohortTarget } from "./cohort.js";
-import { COHORT_TOLERANCE, canonicalExtent, findCohort } from "./cohort.js";
+import { isIssuedSourceExactResolver } from "./source-exact.js";
+import type { SourceExactResolver } from "./source-exact.js";
 
 const CENTRE = SPEC.canvas / 2;
 
@@ -142,6 +144,7 @@ const OPS = [
   "center",
   "fit",
   "cohort",
+  "source-exact",
 ];
 
 const FINISHES: Finish[] = ["filled", "outlined"];
@@ -645,13 +648,21 @@ export interface RunOptions {
   cohorts?: Cohort[];
   /** Stroke, family radius, optical size. Defaults to the house 24/2/3 cut. */
   spec?: Spec;
+  /** Host-issued exact-source authority. Programs carry only its opaque id. */
+  sourceExact?: SourceExactResolver;
 }
 
-const defaults = ({ cohorts = [], spec = SPEC }: RunOptions = {}): {
+const defaults = ({
+  cohorts = [],
+  spec = SPEC,
+  sourceExact,
+}: RunOptions = {}): {
   cohorts: Cohort[];
   spec: Spec;
+  sourceExact?: SourceExactResolver;
 } => ({
   cohorts,
+  sourceExact,
   spec,
 });
 
@@ -659,12 +670,13 @@ const defaults = ({ cohorts = [], spec = SPEC }: RunOptions = {}): {
  * @param src   program text
  * @param parts vocabulary; a part is addressable by id or by name
  */
+// oxlint-disable-next-line eslint/complexity -- one interpreter owns validation and execution for every constrained operation
 export const run = (
   src: string,
   parts: Part[] = [],
   options: RunOptions = {}
 ): RunResult => {
-  const { cohorts, spec } = defaults(options);
+  const { cohorts, spec, sourceExact } = defaults(options);
   const byName = new Map<string, Part>();
   for (const p of parts) {
     byName.set(p.id, p);
@@ -691,6 +703,38 @@ export const run = (
     .filter(([, text]) => text.length > 0);
   const lines = numbered.map(([, text]) => text);
   const finish = scanFinish(lines);
+  const tokens = numbered.map(([n, text]) => [n, text.split(/\s+/u)] as const);
+  const sourceExactLines = tokens.filter(
+    ([, words]) => words[0]?.toLowerCase() === "source-exact"
+  );
+  if (sourceExactLines.length > 0) {
+    const allowed = new Set(["icon", "finish", "source-exact"]);
+    const icons = tokens.filter(
+      ([, words]) => words[0]?.toLowerCase() === "icon"
+    );
+    const finishes = tokens.filter(
+      ([, words]) => words[0]?.toLowerCase() === "finish"
+    );
+    if (
+      !isIssuedSourceExactResolver(sourceExact) ||
+      sourceExactLines.length !== 1 ||
+      icons.length !== 1 ||
+      finishes.length !== 1 ||
+      tokens.some(([, words]) => !allowed.has(words[0]?.toLowerCase() ?? "")) ||
+      tokens.some(([, words]) => words.length !== 2) ||
+      icons[0]?.[1][1] !== sourceExact.icon
+    ) {
+      return {
+        canvas: new Canvas(parts, { finish, spec }),
+        errors: [
+          "source-exact programs require one matching icon, one finish, one opaque binding, and no other operations",
+        ],
+        finish,
+        icon: icons[0]?.[1][1] ?? null,
+        keyline: null,
+      };
+    }
+  }
   const canvas = new Canvas(parts, { finish, spec });
   const layout: Layout = { cohort: false };
 
@@ -713,6 +757,11 @@ export const run = (
         finishOp(t, finish);
       } else if (op === "part") {
         placePart(canvas, byName, t, keyline);
+      } else if (op === "source-exact") {
+        if (!sourceExact) {
+          throw new Error("source-exact resolver unavailable");
+        }
+        sourceExact.place(t[1], canvas, finish);
       } else if (op === "center" || op === "centre") {
         recentre(canvas);
       } else if (op === "fit" || op === "cohort") {

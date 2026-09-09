@@ -86,7 +86,7 @@ export interface HarnessRun {
 /** Stdout then stderr. Codex `--json` is a JSONL stream on stdout; a crash
  *  dumps the session on stderr. Both are the thinking; dropping either is how
  *  a sample looks rogue with no record of why. */
-export const joinLog = (run: HarnessRun): string => {
+const joinLog = (run: HarnessRun): string => {
   const out = run.stdout.trim();
   const err = run.stderr.trim();
   if (out && err) {
@@ -126,7 +126,7 @@ export class HarnessError extends Error {
 
 /** Long enough for an agent to read a skill, draw, lint and fix; short enough
  *  that a wedged CLI cannot hold a benchmark open overnight. */
-export const DEFAULT_TIMEOUT_MS = 10 * 60 * 1000;
+const DEFAULT_TIMEOUT_MS = 10 * 60 * 1000;
 
 /** The file the agent is told to write, relative to the scratch directory. */
 const PROGRAM_FILE = "icon.icon";
@@ -151,13 +151,9 @@ const SKILL_FILE = "SKILL.md";
 /**
  * The packaged skill as a JavaScript string.
  *
- * `SKILL.md` lives at the package root for agents and humans. Eve's Studio
- * bundle does not: it compiles this module into a snapshot where
- * `import.meta.url` no longer sits beside that file, and Vercel file tracing
- * cannot see a path built from a loop variable. `skill.json` is the same
- * document imported as JSON so tsdown inlines it into `dist/index.js`. A
- * bundled runtime then writes it into scratch instead of throwing
- * "SKILL.md was not found beside this build".
+ * `SKILL.md` lives at the package root for agents and humans. The JSON copy
+ * is bundled into the CLI so isolated runtimes can stage the same instructions
+ * even when the source Markdown is unavailable beside the executable.
  *
  * `skill.test.ts` asserts this text equals the package-root file.
  */
@@ -329,8 +325,8 @@ export const harnessBrief = (
   ];
   if (ctx.finish === "filled") {
     lines.push(
-      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is illegal.",
-      "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
+      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; open `line` and `arc` strokes expand through the host.",
+      "Occupy the same visual extent the outline would — preserve structural openings and identifying details; do not flood the bbox.",
       "Compose the named object from listed parts and primitives. A frame with a centre dot is not the concept."
     );
   } else {

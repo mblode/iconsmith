@@ -1,0 +1,28 @@
+{
+  "id": "D396",
+  "status": "development-candidates-not-accepted",
+  "receipt": {
+    "path": ".staging/wave-bx-refused-family-construction-2026-09-08/receipt.json",
+    "sha256": "268a5f6f7fc5a4cae451e3c007f6ff5331b79fb5993dce2551993183fb0728c0"
+  },
+  "rootVerifiedArtifactCount": 118,
+  "rootViewedBoard": {
+    "path": ".staging/wave-bx-refused-family-construction-2026-09-08/enlarged-board.png",
+    "sha256": "caacd9a5d9f9adec7c3159ee49de8b8444c8bf125f1c7d6cb12b424d9ce0c18c"
+  },
+  "counts": {
+    "families": 2,
+    "cases": 8,
+    "exactReplays": 8,
+    "providerCalls": 0
+  },
+  "failures": [
+    "All eight candidates have keyline host-check errors",
+    "Numbers counter contour is boxier than source",
+    "Package top-band subdivision is omitted",
+    "Native16 topology threshold-sensitive"
+  ],
+  "nextStep": "Two bounded existing-DSL correction rounds; preserve failed candidates",
+  "providerCalls": 0,
+  "qualified": false
+}

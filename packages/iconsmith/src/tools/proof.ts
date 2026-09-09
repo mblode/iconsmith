@@ -5,6 +5,27 @@ import sharp from "sharp";
 
 import { png } from "./render.js";
 
+export const OPTICAL_PROOF_PRESENTATION_VERSION =
+  "native-unscaled-and-enlarged-v2";
+export const OPTICAL_PROOF_PRESENTATION_PROTOCOL_HASH = createHash("sha256")
+  .update(
+    JSON.stringify({
+      column: "tile+32",
+      columns: [
+        "enlarged-vector",
+        "native-1x-nearest-8x",
+        "retina-2x-nearest-4x",
+        "native-1x-unscaled",
+      ],
+      offset: { left: 16, top: 44 },
+      row: "tile+88",
+      surfaces: ["black-on-white", "exact-monochrome-inversion"],
+      tile: "nativeSize*8",
+      version: OPTICAL_PROOF_PRESENTATION_VERSION,
+    })
+  )
+  .digest("hex");
+
 /** Exact samples from encoded image bytes, in local zero-based pixel coordinates. */
 export const rasterSamples = async (input: Uint8Array) => {
   const { data, info } = await sharp(input)
@@ -32,7 +53,8 @@ export const opticalProof = async (svg: string, nativeSize: number) => {
   const tile = nativeSize * 8;
   const column = tile + 32;
   const row = tile + 88;
-  const width = column * 3;
+  const columns = 4;
+  const width = column * columns;
   const height = row * 2;
   const native = await png(svg, nativeSize);
   const retina = await png(svg, nativeSize * 2);
@@ -45,11 +67,12 @@ export const opticalProof = async (svg: string, nativeSize: number) => {
       sharp(input).resize(tile, tile, { kernel: "nearest" }).png().toBuffer()
     )
   );
-  const images = [vector, ...enlarged];
+  const images = [vector, ...enlarged, native];
   const titles = [
     "Enlarged vector",
     `${nativeSize}px / 1x: pixels enlarged 8x`,
     `${nativeSize}px / 2x: pixels enlarged 4x`,
+    `Native 1x: actual ${nativeSize}px`,
   ];
   const labels = [0, 1].flatMap((surface) => {
     const color = surface ? "white" : "black";
@@ -81,8 +104,8 @@ export const opticalProof = async (svg: string, nativeSize: number) => {
     .composite(
       [...images, ...dark].map((input, index) => ({
         input,
-        left: (index % 3) * column + 16,
-        top: Math.floor(index / 3) * row + 44,
+        left: (index % columns) * column + 16,
+        top: Math.floor(index / columns) * row + 44,
       }))
     )
     .png()
@@ -91,8 +114,17 @@ export const opticalProof = async (svg: string, nativeSize: number) => {
     metadata: {
       coordinateSpace: "24x24 SVG viewport",
       deviceScales: [1, 2],
+      nativeCell: {
+        darkTop: row + 44,
+        height: nativeSize,
+        left: 3 * column + 16,
+        lightTop: 44,
+        width: nativeSize,
+      },
       nativeSize,
       opticalMasterClaim: false,
+      presentationProtocolHash: OPTICAL_PROOF_PRESENTATION_PROTOCOL_HASH,
+      presentationVersion: OPTICAL_PROOF_PRESENTATION_VERSION,
       surfaces: ["black-on-white", "white-on-black monochrome inversion"],
     },
     native,

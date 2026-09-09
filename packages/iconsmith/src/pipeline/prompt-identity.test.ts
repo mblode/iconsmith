@@ -17,7 +17,7 @@ import { systemPrompt } from "./prompt.js";
  * around one.
  */
 const BASELINE = fs.readFileSync(
-  path.join(import.meta.dirname, "prompt.baseline.txt"),
+  path.join(import.meta.dirname, "prompt.wave-a-2026-09-08.txt"),
   "utf-8"
 );
 

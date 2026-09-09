@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T02:10:54.159919+00:00",
+  "status": "engineering-verified-visual-unqualified",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "sourceClosure": {
+    "path": ".staging/wave-e-integration-2026-09-08/source-hashes.json",
+    "sha256": "38e7b9ac62a01f25a77049cf11812b588a335638cb98f87c1df06c1eb3688401",
+    "unchangedDuringVerification": true
+  },
+  "checks": [
+    {
+      "command": "npm run test",
+      "exitCode": 0,
+      "log": ".staging/wave-e-integration-2026-09-08/test.log",
+      "sha256": "b8da82986fdd94d113d7cd171a8f0959494db0f9fda38b7c61197f1501ddc20e"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": ".staging/wave-e-integration-2026-09-08/typecheck.log",
+      "sha256": "8acdaec2cd8a998f8c6fd632ce66accec383774013beefbcfff71da1ee08bdc8"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": ".staging/wave-e-integration-2026-09-08/build.log",
+      "sha256": "05846b9bae247c9d3c41b7970be179f3f4ccefa4be85557640a58771f4afb0c4"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": ".staging/wave-e-integration-2026-09-08/check.log",
+      "sha256": "ff484ccbda5dd675e7c77aa064df0d2f1a9088ab6383fa7a2af30fa5d6f67d40"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "log": ".staging/wave-e-integration-2026-09-08/diff-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "tests": {
+    "passed": 1937,
+    "files": 165,
+    "skipped": 0
+  },
+  "corrections": [
+    "D241 admission caps are now passed to construct/repair, inspection, finalization and independent review callbacks; late callback return is rejected even while the original parent deadline remains. Earlier D241 receipt remains immutable.",
+    "Owned asynchronous outer generator settles before reading artifacts. Exclusive prelaunch start identity blocks concurrent/ambiguous resume. Unknown settlement stops dispatch without hashing child artifacts.",
+    "Original parent deadline validation applies to all live and saved normal terminal statuses, including rehashed late incomplete receipts."
+  ],
+  "focusedRootTests": {
+    "passed": 89,
+    "files": 4
+  },
+  "runtimeReceipt": "docs/log/wave-e-runtime-integration-2026-09-08.json",
+  "apiActualAddedUsd": 0,
+  "apiReservationsAddedUsd": 0,
+  "nativeProviderCallsAdded": 0,
+  "nativeEngineeringAndSubagentUsageUsd": null,
+  "costReceipt": "docs/log/wave-e-cost-reconciliation-2026-09-08.json",
+  "limits": [
+    "No phase visually qualified.",
+    "P1.6 full reserve consolidation, P1.7 interrupted salvage and P1.8 canonical native route wiring remain open.",
+    "The legacy injected author callback still lacks a post-return stage cap check; canonical legacy native execution fails closed.",
+    "P0.3 actual report integration and computed evidence gates remain incomplete.",
+    "Owned outer process tracking does not establish native descendant containment; provider calls require the verified container boundary."
+  ]
+}

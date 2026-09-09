@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T01:07:11.851746+00:00",
+  "kind": "bounded-native-capability-only",
+  "status": "intent",
+  "priorAttemptsPreserved": [
+    "docs/log/wave-b-contained-image-result-2026-09-08.json",
+    "docs/log/wave-c-contained-image-result-2026-09-08.json"
+  ],
+  "prerequisite": "docs/log/wave-c-integration-2026-09-08.json",
+  "prerequisiteSha256": "e73d03ed76bf3a4b71656fe0aa8ac284059192fe68461c803cf3f4efc95d3b58",
+  "script": ".staging/wave-d-root-2026-09-08/contained-image-smoke.ts",
+  "scriptSha256": "a6d7327b8aaedf7b03a9cb110074d3a80be87686cbe2ed64b6404d20b9a1d240",
+  "maxNativeInferenceCalls": 1,
+  "maxOfflineContextProbes": 4,
+  "offlineProbeNetwork": "none",
+  "offlineProbeAuth": "absent",
+  "originalDeadlineMs": 300000,
+  "concurrency": 1,
+  "model": "gpt-6-astra",
+  "effort": "high",
+  "billing": "native-subscription",
+  "nativeQuota": {
+    "usedPercent": 38,
+    "windowDurationMins": 10080,
+    "resetsAt": 1789385571
+  },
+  "apiReservationUsd": 0,
+  "apiActualUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "stopRule": "Any failed precondition, ambiguous dispatch, containment failure or actual context violation stops this attempt; no automatic retry.",
+  "acceptanceScope": "Exact-image structured answer and actual context/model/runtime capability only, never critic or visual qualification"
+}

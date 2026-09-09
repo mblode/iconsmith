@@ -1,0 +1,5 @@
+icon square-check
+keyline square
+rect 4,4 16x16 r3
+line 8,12 11,15 16,10
+fit

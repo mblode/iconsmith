@@ -2,7 +2,7 @@
 
 Standing instructions for the **harness** campaign. A human (or this agent) writes this file; `scripts/research.ts` reads demo output and cannot write this file. Steering happens here.
 
-`scripts/loop.ts` is a different campaign: it only mutates `src/pipeline/policy.default.json`, refuses a dirty tree, and spends a full benchmark. Do not run it to fix what you saw in `iconsmith view`. This file is the control surface for that visual / reach problem.
+`scripts/loop.ts` is a different campaign: it only mutates `src/pipeline/policy.default.json`, refuses a dirty tree, and spends a full benchmark. Do not run it to fix findings in exported SVGs and proof PNGs. This file is the control surface for that visual / reach problem.
 
 ## What “perfect” means
 

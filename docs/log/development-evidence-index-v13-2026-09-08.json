@@ -1,0 +1,17 @@
+{
+  "version": 13,
+  "qualified": false,
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v12-2026-09-08.html",
+  "previousIndexSha256": "6e87b1d754acd82a734392dbfcdc72f756ac81c21b332182b6285de6678cd01d",
+  "htmlSha256": "a438c1a3943902c17bd75dd8de4fe820049dcdc8d886fd22aa21b16e70f6821d",
+  "nativeSettledAtCreation": 83,
+  "ambiguousNativeIntents": 1,
+  "apiIncrementUsd": 0,
+  "addedImages": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bq-local-feature-audit-2026-09-08/board.png",
+      "sha256": "8ba6dfa93d0b903cddb99dd33754e4ac46f069e6b52db2ab568f0f5c0fa91412",
+      "scope": "resampled-source diagnostic, light-only, not independent optical masters"
+    }
+  ]
+}

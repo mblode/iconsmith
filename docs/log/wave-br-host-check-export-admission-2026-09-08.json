@@ -1,0 +1,30 @@
+{
+  "id": "D373",
+  "kind": "host-check-and-export-admission-root-integration",
+  "receipts": [
+    {
+      "path": ".staging/wave-bq-p1.6-local-admission-2026-09-08/receipt.json",
+      "sha256": "008df9b58905fca135641519fe53a745b1977e1bef4f18cc4b3271f448b60f50"
+    },
+    {
+      "path": ".staging/wave-bq-p1.6-local-admission-2026-09-08/receipt-v2.json",
+      "sha256": "1d0f156722983a7bbefb6c48f891f7868cd687461d7d14cc22bfe20eecbc7931"
+    }
+  ],
+  "rootTestLog": ".staging/wave-bq-p1.6-local-admission-2026-09-08/root-tests-v2.log",
+  "rootTestLogSha256": "acd702feda769ff05bb8649e607bff11e54a4415d85e125b36e948e36d93041f",
+  "tests": 75,
+  "files": 2,
+  "skipped": 0,
+  "composedSourceSha256": "705ad38d77ccaff1e38faa95eb8882a088bb2b777736d6a4ee3158524080097b",
+  "behavior": [
+    "Host checks require at least5000ms and reject late callbacks",
+    "Artifact export requires full frozen10000ms reserve before copy",
+    "Existing root delivery receipt refuses export",
+    "Post-publication guard removes newly written late delivery receipt; copied diagnostic bytes remain ineligible"
+  ],
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualificationContribution": 0,
+  "fullIntegrationPending": true
+}

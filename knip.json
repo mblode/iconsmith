@@ -1,0 +1,37 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreBinaries": ["mkfifo"],
+  "includeEntryExports": true,
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/verify.mjs", "scripts/verify.test.mjs"],
+      "project": ["scripts/**/*.mjs"]
+    },
+    "packages/iconsmith": {
+      "entry": [
+        "scripts/agent-twin-eval.ts",
+        "scripts/analog-lab.ts",
+        "scripts/architect-lab.ts",
+        "scripts/calibrate.ts",
+        "scripts/extract-central-metadata.ts",
+        "scripts/family-cloud-upload-experiment.ts",
+        "scripts/family-folder-lock-occlusion-experiment.ts",
+        "scripts/family-folder-lock-optical-experiment.ts",
+        "scripts/family-folder-lock-repair.ts",
+        "scripts/judge-gate.ts",
+        "scripts/library-audit-cli.ts",
+        "scripts/library-replay-cli.ts",
+        "scripts/quality-audit.ts",
+        "scripts/review-proof.ts",
+        "scripts/score-staged.ts",
+        "scripts/select-lab.ts",
+        "scripts/stress-registration.ts",
+        "scripts/style-generate.ts",
+        "scripts/style-lab.ts",
+        "scripts/twin-language.ts",
+        "scripts/vocabulary-sheet.ts"
+      ],
+      "project": ["src/**/*.ts", "scripts/**/*.ts", "*.config.ts"]
+    }
+  }
+}

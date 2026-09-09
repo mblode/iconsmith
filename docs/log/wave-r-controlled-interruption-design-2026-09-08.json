@@ -1,0 +1,11 @@
+{
+  "schema": "iconsmith.diagnostic-design-reference.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "receipt": {
+    "path": ".staging/wave-r-runtime-diagnostic-design-2026-09-08/diagnostic-finalization-observer-design-v1.json",
+    "sha256": "2f5c7cf8fb39c476feefdece4e253522359b0f882a9b0b89d0688b29442a6527"
+  },
+  "status": "implementation-pending-live-source-release"
+}

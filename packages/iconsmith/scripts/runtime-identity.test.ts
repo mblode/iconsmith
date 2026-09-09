@@ -12,6 +12,9 @@ import path from "node:path";
 import { expect, test } from "vitest";
 
 import {
+  captureLaunchDescriptor,
+  executeLaunchDescriptor,
+  verifyLaunchDescriptor,
   captureRuntimeIdentity,
   executableIdentity,
   resolveExecutable,
@@ -70,6 +73,129 @@ test("freezes the execution PATH and probes versions under that same environment
     expect(() =>
       verifyRuntimeIdentity(frozen, { ...executionEnv, PATH: changedBin })
     ).toThrow("runtime changed");
+  } finally {
+    rmSync(dir, { force: true, recursive: true });
+  }
+});
+
+// Canonical launch regression coverage is kept with executable freeze checks.
+
+test("launch binds the complete library population before dispatch", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "iconsmith-library-launch-"));
+  try {
+    const library = path.join(dir, "library");
+    mkdirSync(library);
+    const source = path.join(library, "heart.svg");
+    const original = "<svg/>";
+    writeFileSync(source, original);
+    const input = {
+      args: ["--library", library],
+      command: process.execPath,
+      concurrency: 1,
+      cwd: dir,
+      deadlineAt: Date.now() + 60_000,
+      identity: {
+        configHash: "a".repeat(64),
+        effort: "high",
+        model: "test-model",
+        routeHash: "b".repeat(64),
+      },
+      sourceFiles: [source],
+      sourceTrees: [library],
+    };
+    const launch = captureLaunchDescriptor(input);
+    expect(verifyLaunchDescriptor(launch).sourceTrees[0]?.files).toHaveLength(
+      1
+    );
+    let dispatched = false;
+    const refuses = () => {
+      expect(() =>
+        executeLaunchDescriptor(launch, () => {
+          dispatched = true;
+        })
+      ).toThrow();
+      expect(dispatched).toBe(false);
+    };
+    writeFileSync(source, "<svg>changed</svg>");
+    refuses();
+    writeFileSync(source, original);
+    const added = path.join(library, "new.svg");
+    writeFileSync(added, original);
+    refuses();
+    rmSync(added);
+    const linked = path.join(library, "linked.svg");
+    symlinkSync(source, linked);
+    refuses();
+    rmSync(linked);
+    rmSync(source);
+    refuses();
+  } finally {
+    rmSync(dir, { force: true, recursive: true });
+  }
+});
+
+test("launch dispatch uses frozen argv and rejects copied metadata, expired deadlines and source drift", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "iconsmith-launch-"));
+  try {
+    const source = path.join(dir, "entry.mjs");
+    writeFileSync(source, "export const version = 1;");
+    const input = {
+      args: [source, "--manifest", "current.json"],
+      command: process.execPath,
+      concurrency: 1,
+      cwd: dir,
+      deadlineAt: Date.now() + 60_000,
+      identity: {
+        configHash: "a".repeat(64),
+        effort: "high",
+        model: "test-exact-model",
+        routeHash: "b".repeat(64),
+      },
+      sourceFiles: [source],
+    };
+    const launch = captureLaunchDescriptor(input);
+    expect(
+      executeLaunchDescriptor(launch, (descriptor) => descriptor.args)
+    ).toEqual(input.args);
+    expect(() =>
+      verifyLaunchDescriptor({
+        ...launch,
+        descriptor: {
+          ...launch.descriptor,
+          args: [source, "--manifest", "old.json"],
+        },
+      })
+    ).toThrow("hash mismatch");
+    expect(() =>
+      verifyLaunchDescriptor({
+        ...launch,
+        descriptor: { ...launch.descriptor, concurrency: 2 },
+      })
+    ).toThrow("hash mismatch");
+    expect(() =>
+      captureLaunchDescriptor({ ...input, deadlineAt: Date.now() - 1 })
+    ).toThrow("bounded identity");
+    const alias = path.join(dir, "entry-alias.mjs");
+    const replacement = path.join(dir, "replacement.mjs");
+    writeFileSync(replacement, "export const version = 1;");
+    symlinkSync(source, alias);
+    const aliasedLaunch = captureLaunchDescriptor({
+      ...input,
+      sourceFiles: [alias],
+    });
+    rmSync(alias);
+    symlinkSync(replacement, alias);
+    expect(() => verifyLaunchDescriptor(aliasedLaunch)).toThrow(
+      "source closure changed"
+    );
+    writeFileSync(source, "export const version = 2;");
+    let dispatched = false;
+    expect(() =>
+      executeLaunchDescriptor(launch, () => {
+        dispatched = true;
+      })
+    ).toThrow("source closure changed");
+    expect(dispatched).toBe(false);
   } finally {
     rmSync(dir, { force: true, recursive: true });
   }

@@ -29,7 +29,7 @@ import type { Concept } from "./prompt.js";
 /** A small text model with vision. The judgement is "which of these two has
  *  the element count and arrangement of the set beside it", which does not
  *  need a frontier model and would not be improved by one. */
-export const CRITIQUE_MODEL = "google/gemini-3.1-flash-lite";
+const CRITIQUE_MODEL = "google/gemini-3.1-flash-lite";
 
 export interface Verdict {
   cost?: ApiCost;

@@ -1,0 +1,26 @@
+{
+  "id": "D335",
+  "kind": "forecast-telemetry-implementation",
+  "sourceHashes": {
+    "packages/iconsmith/scripts/campaign-forecast.ts": "343117c257ec6708e63cb612180ae6fe26638be7d06cda20c879f7c897fe41b0",
+    "packages/iconsmith/scripts/campaign-forecast.test.ts": "644dafcb1405b014b6c79dd70e5b7e0e0a78cff597e1a8d6ff7bad4c6c5531a2"
+  },
+  "checks": {
+    "forecastAndManifestTestsPassed": 15,
+    "files": 2,
+    "skipped": 0,
+    "scopedUltraciteExitCode": 0
+  },
+  "requires": [
+    "complete frozen cohort",
+    "matching pair timing/cost and telemetry",
+    "exhaustive nonoverlapping stage times reconciling elapsedMs",
+    "native call/disk/concurrency observations",
+    "explicit null unknown token counts",
+    "cold/warm/none retrieval observations"
+  ],
+  "measuredForecastProduced": false,
+  "fullIntegration": "pending combined wave",
+  "providerCalls": 0,
+  "qualified": false
+}

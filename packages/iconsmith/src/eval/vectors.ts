@@ -24,7 +24,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 
 /** The JSON index written beside every `.f32` this module reads. */
-export interface EmbeddingIndex {
+interface EmbeddingIndex {
   /** Row order. `ids[i]` is the identity in row `i`. */
   ids: string[];
   /** Rows are L2-normalised at write time, so `cosine` is a dot product and a
@@ -127,18 +127,3 @@ export const dot = (a: Float32Array, b: Float32Array): number => {
   }
   return sum;
 };
-
-/**
- * Embed an SVG that has no row in any sidecar — a freshly generated icon.
- *
- * There is deliberately no in-process implementation. The runtime is not a
- * dependency, so a treatment vector arrives the same way the corpus vectors do:
- * `scripts/embed.py` is pointed at a directory of candidate SVGs and writes a
- * sidecar the eval then loads. A caller with no sidecar for its candidates gets
- * `null` treatments and a panel that says so.
- */
-export const TREATMENT_SIDECAR_NOTE =
-  "Treatment vectors come from the same batch stage as the corpus vectors: run " +
-  "`scripts/embed.py --svg-dir <candidates> --out <dir>/<name>` and pass the " +
-  "result in. There is no in-process embedder, because that would put a model " +
-  "runtime in `dependencies`.";

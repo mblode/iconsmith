@@ -1,0 +1,81 @@
+{
+  "experimentId": "D436",
+  "kind": "api-raw-sdk-usage-retention-integration",
+  "recordedAt": "2026-09-08T16:36:07.017164+00:00",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiReservationUsd": 0,
+  "sourceClosureFiles": 773,
+  "productionFiles": 556,
+  "productionToolingHash": "878e19d2dbcf7a2ca1501d215356ea56946377b7ef522b2a1208d348fcfaed0d",
+  "changes": [
+    "Persist raw SDK usage alongside normalized accounting so total cached input and split completion/reasoning assertions remain independently replayable."
+  ],
+  "verification": {
+    "scopedTests": 31,
+    "allTests": 2381,
+    "testFiles": 175,
+    "skipped": 0,
+    "test": 0,
+    "typecheck": 0,
+    "build": 0,
+    "check": 0,
+    "diffCheck": 0,
+    "preservedFailures": [
+      "Initial lint rejected utf8 spelling in new assertion; changed to utf-8; check-v2 passed. Full tests preceded this spelling-only test correction."
+    ]
+  },
+  "sources": [
+    {
+      "file": "packages/iconsmith/scripts/api-image-capability.ts",
+      "sha256": "3bb69ae3aac2cbf23654f9c89a8cc87312aa7db28ecbec8b6ef5aaa4e62e0266"
+    },
+    {
+      "file": "packages/iconsmith/scripts/api-image-capability.test.ts",
+      "sha256": "08889b11184623af005291ec9bfec940eaa45c9d8f45c41ad087dc9e3bf70b5d"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/build.log",
+      "sha256": "1a4615bdef81b7add3066f65d71e363249397d8daa73ad76bcdab5ad4323fee2"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/check-v2.log",
+      "sha256": "80b0756348b878cfc51ccfa3b2b4b06bb5f3fb75ada400a205851199c166f68e"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/check.log",
+      "sha256": "af681c0fc109bbfabbfa3e228a7d138a848c8a645cc0f7b1c50d365e38fbd0e9"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/scoped.log",
+      "sha256": "d4c61edf0e0b3c7a6e4fad8d792053d6567539b514d1883c1c533dc02b8cab0f"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/test.log",
+      "sha256": "8a662e0e7651dd1e843bbef3f4ba956ed3c7446d824543a1222da9e556fa4e31"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/typecheck.log",
+      "sha256": "deed24f89f99b6e61aa2f1e173cfb8fec9cb8bb40d0ad94c16beed36c29c699d"
+    },
+    {
+      "file": ".staging/wave-cl-api-raw-usage-integration-2026-09-09/production-tooling-identity.json",
+      "sha256": "70a8959d0c52f9c21f90ed33ba09e74bdf117c4e567714d036a3b79b87c527e6"
+    }
+  ],
+  "costs": {
+    "apiActualUsd": 13.06324435,
+    "reservedOrUnknownUsd": 11.37126575,
+    "nativeSettled": 136,
+    "nativeUnresolvedHistoricalIntents": 1
+  },
+  "limitations": [
+    "No new live call or visual gate; D425 remains a refused historical attempt."
+  ]
+}

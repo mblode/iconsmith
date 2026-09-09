@@ -1,0 +1,17 @@
+{
+  "experimentId": "D421",
+  "kind": "artifact-preservation-correction-audit",
+  "observedAt": "2026-09-08T15:18:37.578001+00:00",
+  "incident": "During v2 preparation, paths bound by receipt-v1 were overwritten in place before the immutability conflict was noticed.",
+  "originalIntervalImmutable": false,
+  "restoredBytesVerified": true,
+  "verifiedArtifactCount": 7,
+  "correctionReceipt": ".staging/wave-cb-api-capability-boundary-v2-2026-09-09/artifact-preservation-correction-v1.json",
+  "correctionSha256": "2c29397b03767648d4c9511b958229a94b6d8099185d65a7891e427ba214c7d2",
+  "v2Snapshot": ".staging/wave-cb-api-capability-boundary-v2-2026-09-09",
+  "apiCalls": 0,
+  "apiSpendUsd": 0,
+  "nativeCalls": 0,
+  "qualified": false,
+  "disposition": "Preserve disclosed interruption of v1 immutability; consume v2 only from additive directory. V3 transport provenance review remains pending."
+}

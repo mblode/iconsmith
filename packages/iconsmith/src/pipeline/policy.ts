@@ -30,13 +30,6 @@ import { z } from "zod";
 import raw from "./policy.default.json" with { type: "json" };
 
 /** Where a principle came from. The reason the whole file exists. */
-export type Provenance =
-  /** A number measured off the corpus. `evidence` carries it. */
-  | "measured"
-  /** A rule taken from a published design guide (Lucide, Cursor). */
-  | "published"
-  /** Someone's reasoning. Defensible, unmeasured, and the first to cut. */
-  | "inferred";
 
 /** Which run conditions a section is written for. */
 export type Condition = "always" | "cohort" | "keyline" | "proposal";
@@ -44,7 +37,7 @@ export type Condition = "always" | "cohort" | "keyline" | "proposal";
 /** The separator placed *before* a principle, within its section. `tight` is a
  *  single newline — one item of a run of bullets or numbered steps. `loose`,
  *  the default, is a blank line: a new paragraph. */
-export type Gap = "loose" | "tight";
+type Gap = "loose" | "tight";
 
 /**
  * The capacity cap. Headroom over the house policy — 55 principles, 9 sections,
@@ -102,7 +95,6 @@ const policySchema = z
   })
   .strict();
 
-export type Section = z.infer<typeof sectionSchema>;
 export type Principle = z.infer<typeof principleSchema>;
 export type Policy = z.infer<typeof policySchema>;
 

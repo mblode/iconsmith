@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "kind": "wave-a-engineering-integration",
+  "createdAt": "2026-09-07T22:42:30.915103+00:00",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "status": "engineering-progress-unqualified",
+  "aiAssessedTenOfTen": false,
+  "phaseExitsClosed": [],
+  "validation": {
+    "tests": 1852,
+    "files": 159,
+    "skipped": 0,
+    "typecheck": "pass",
+    "build": "pass",
+    "check": "pass",
+    "diffCheck": "pass",
+    "logs": {
+      ".staging/wave-a-root-2026-09-08/baseline-build.log": "aa6ac3ccf33cdf2ac43eb1c1f9376492bd585efc39a65de232b7651ea4b794dd",
+      ".staging/wave-a-root-2026-09-08/baseline-check.log": "e60c044b1363558ca6ee656b5aca45136d5b3009586dbffbe6d08300546ee70c",
+      ".staging/wave-a-root-2026-09-08/baseline-test.log": "0d8166047f2fbbbd8b9b9d12bbf8b5a77d843746b43044a5fb161e2739565098",
+      ".staging/wave-a-root-2026-09-08/baseline-typecheck.log": "710c325199a5be0a2124720415b970e58200db00dbc77ae3b718bb024bbef2fe",
+      ".staging/wave-a-root-2026-09-08/integration-build-v1.log": "d77c066e18e95984323e40b2bc181cb4e3b547881df6346cfc3d9546c98e5f92",
+      ".staging/wave-a-root-2026-09-08/integration-check-v1.log": "2e1dabc696986671af513635b466e2cbb9734c9a000fb6d5d8535b35559ddd3b",
+      ".staging/wave-a-root-2026-09-08/integration-test-v1.log": "d209e0c495d17b12fc676bcb7821041c0032ceb6a65b235359aa0d7297fa8e18",
+      ".staging/wave-a-root-2026-09-08/integration-test-v2.log": "5ee5ec097166353967a14b3a6ef16ae240758676e9ba21fa09dc34254b518585",
+      ".staging/wave-a-root-2026-09-08/integration-typecheck-v1.log": "f7505cf7c77de877c49da9eb476725b709a1ee802354d19b97cb71036bdfcbad",
+      ".staging/wave-a-root-2026-09-08/launch-check-v2.log": "bb4c87866560aa23fd7f9de7db1b88d053ebf647c164fe443addf11579908864",
+      ".staging/wave-a-root-2026-09-08/launch-format.log": "8c228302573342cb62365040e3885361baf84464fc79d179f4c65d4d87c1a323",
+      ".staging/wave-a-root-2026-09-08/launch-tests-v2.log": "88e2229269ba3f91a8d29f2635f049cc291c879b1a2baa3504553934a4afea0b",
+      ".staging/wave-a-root-2026-09-08/launch-tests.log": "b0509cd1676946698cc3bf3890081bfd3e0a1397bbe8ae8ab0419240bfad13fa",
+      ".staging/wave-a-root-2026-09-08/policy-regression-v2.log": "7e827bb2c00fabd98cc3e6c7e6e1a8aa08051846a226f0807795e97ed9acdc50",
+      ".staging/wave-a-root-2026-09-08/policy-regression-v3.log": "8ea76c76a103a45a51cff9af716a53af449ceea97148914705cbb10b73dad64c",
+      ".staging/wave-a-root-2026-09-08/prompt-format-v2.log": "040d8a1e9852ff20e1a35eb1883b4156fb49899e8485ca9bb66429986b1db044",
+      ".staging/wave-a-root-2026-09-08/prompt-format.log": "f207020c4cb879c0a7e5b11e83aacceee74db453e0bfe7f23d2fa926791ee387",
+      ".staging/wave-a-root-2026-09-08/prompt-tests-v1.log": "e6736dc8e830e365dec8e811559375a117e7f084c190a8dae39b932e996ab797",
+      ".staging/wave-a-root-2026-09-08/prompt-tests-v2.log": "096d724ec414efffdd50821469d6a62ed7c122cf6d7d509abe7d34450147d3e8",
+      ".staging/wave-a-root-2026-09-08/prompt-tests-v3.log": "ee75c0462d0a5f4f1491f07900305e2572903aa430f5ded285f6cb4883eaab25",
+      ".staging/wave-a-root-2026-09-08/root-check-v1.log": "e1f36a9fc3a13a680ccaaf9d6c851e64dadf4a8dfbfca17b87740d0ca3973351",
+      ".staging/wave-a-root-2026-09-08/wave-typecheck-v1.log": "69202a8404f111631bf4676bdd1ed9d73d9016164b25279621464dfb960b531e"
+    }
+  },
+  "implementation": {
+    "authorInstructions": "Actual bundled skill, harness, prompts and tool exposure allow filled open strokes, solid/detail roles and preserved host curves; compiler/visual retries and independent acceptance are distinct.",
+    "runtime": "Parent deadline and settlement reserve, canonical intended-vs-stored launch, abnormal/late delivery refusal, complete receipt-envelope integrity, ambiguous child-only resume refusal. No nominal 1ms launch.",
+    "evaluation": "Draft acceptance envelope cannot qualify. Critic and two panel lineages exclude natural artifact producers; natural precision/recall and stratum populations gated separately. Production readiness unavailable pending provenance wrapper.",
+    "geometry": "Explicit metadata routing dispositions and diagnostic-only native topology. No new compiler geometry operations."
+  },
+  "sourceAdmission": {
+    "population": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "transitions": 0,
+    "scope": "Full source admission comparison; not a fresh full replay/raster audit",
+    "rejectedThresholdExperimentRegressions": 501
+  },
+  "classification": {
+    "canonicalRows": 1587,
+    "metadataUnresolved": 1190,
+    "newVisualClassifications": 0,
+    "note": "Matches historical expanded-alias v2 inputs; historical1243 and provisional1212 use different inputs."
+  },
+  "geometryEvidence": {
+    "durableReceipt": {
+      "path": "docs/log/wave-a-geometry-2026-09-08.json",
+      "sha256": "d5ce60f88179cd9197a5ddb6d590e1efa800cbe385e61e49a6a96d13f61fd188"
+    },
+    "artifactBase": ".staging/wave-a-geometry-2026-09-08",
+    "board": {
+      "path": "docs/log/wave-a-source-inspection-2026-09-08.png",
+      "sha256": "c94b32584ddbc8a8b0f90aa016e7d4a6de8c3eea8ff33aa47484e9f7d52b0ae1",
+      "scope": "Seven source-only cases, native16/24 light/dark and8x enlarged native16. Not generated eight-class evidence."
+    }
+  },
+  "retainedFailures": [
+    "Provisional mandatory topology gate caused501 prior-admitted refusals; rejected.",
+    "Geometry receipt-v2 manually transcribed wrong sourceHash; preserved as ineligible, v3 generated from actual bytes.",
+    "Initial runtime implementation had delivery, copied-launch, resume and receipt acceptance holes; audited and corrected before any live call.",
+    "First integrated suite failed policy text headroom9033>=9000; shortened new guidance without changing limit.",
+    "Scoped wording assertion failed after shortening; aligned with actual instruction and reran.",
+    "Initial root test used nonexistent canvas.document; corrected to actual elements.",
+    "Initial lint rejected non-null execute assertion; guarded explicitly."
+  ],
+  "nativeContainment": {
+    "dockerAvailable": true,
+    "linuxExecutablePackagesAvailable": true,
+    "authenticatedContainedRouteVerified": false,
+    "decision": "Use existing Docker private PID boundary as integration target. Host Mach-O binaries cannot be mounted and executed as Linux binaries. Linux subscription authentication and all author/reviewer injection remain unverified.",
+    "newProviderCalls": 0,
+    "liveProbeRepeated": false,
+    "historicalProbe": "docs/log/container-containment-probe-v4-2026-09-07.json"
+  },
+  "agentIdentity": "Evaluation and Geometry configured Sol with partial-history forks. Initial Runtime full-history fork made override identity unverified; replaced by correctly configured Sol audit/repair. Not visual review evidence.",
+  "cost": {
+    "newApiSpendUsd": 0,
+    "newApiReservationsUsd": 0,
+    "newGenerationReviewCalls": 0,
+    "currentRoundActualUsd": 13.06220785,
+    "reservedOrUnknownUsd": 11.37126575,
+    "remainingMaximumUsd": 25.5665264,
+    "nativeEngineeringUsageUsd": null,
+    "providerBalanceVerified": false
+  },
+  "openGates": [
+    "P0 contract calibration/freeze and complete staging-helper census",
+    "P1 authenticated containment, safe salvage, native campaign route, provider-boundary stop/budget and full artifact-tree accounting, live folder-lock slice",
+    "P2 independent image/source classification, calibrated local feature truth, eight-class generation and optical board",
+    "P3 four suitable independent model lineages for naturally authored qualification, semantic validation, calibration and fresh sealed panel",
+    "P4-P8 route comparison, repair qualification, catalog, novel batches and final audit unexecuted"
+  ],
+  "nextBoundedWork": "Integrate and verify the authenticated native process boundary before a frozen folder-lock16/24 live slice; independently calibrate topology and house controls. No provider dispatch authorized by this receipt.",
+  "sourceFiles": {
+    "packages/iconsmith/SKILL.md": "0bbca8e22f89bd8d9d9ef0fa758eceea30c422de5fc8f96be0f0d28e7876fafd",
+    "packages/iconsmith/scripts/ai-qualification.test.ts": "9dc5b749663a3e99682e5428efa807aec4ec798e7c7dc86ab7f697f9fd6e55c5",
+    "packages/iconsmith/scripts/ai-qualification.ts": "06989ccb777acc13293319d131f5d0ea7aea7ac8a0c63e16be02758573f784c2",
+    "packages/iconsmith/scripts/family-construction-coverage.test.ts": "c786171a8e1fe209ecad4ce5675d55c42db1698c3c9401141d0f734685799124",
+    "packages/iconsmith/scripts/family-construction-coverage.ts": "4a3153974b3e2e5b3360fc15130a6e66b7e32f97eccb79ea460a3a10a293390c",
+    "packages/iconsmith/scripts/family-parts.test.ts": "b567ee113167db293a08c07063d7cd1f2ed0ff96a25e322966e961a1dcd273e1",
+    "packages/iconsmith/scripts/family-parts.ts": "cf6f63ec5145edddd9c606171e9e18ca9bbb352ebeafb3ed170257a17c4ac7d4",
+    "packages/iconsmith/scripts/local-campaign.test.ts": "4201f2bcf08a21d09339601174f29c8ec092c5c4745d218289bef92a85a09d67",
+    "packages/iconsmith/scripts/local-campaign.ts": "fde105bdeb23584a9db781c9a9462fb181179bd6dd22835f5d8cd8dc0e1e3bc8",
+    "packages/iconsmith/scripts/local-generate.ts": "daa9a25b84fc2a873412f28d6670340e13328643e3e8ea44a4768039f36be67f",
+    "packages/iconsmith/scripts/runtime-identity.test.ts": "a60f29c5bc18c7f08824e06837d3c506dda82d7c1fe0086202ec408213d2541f",
+    "packages/iconsmith/scripts/runtime-identity.ts": "9bb871a61ab93a8f629f8c46346b77e57a92d01bc04409013a8df181d46dc1d5",
+    "packages/iconsmith/src/eval/acceptance-contract.test.ts": "438e485898c6a39da2e4362cdb7851f0aa016181c28943e17c6c0aa6676a5949",
+    "packages/iconsmith/src/eval/acceptance-contract.ts": "6ee900e0bc1479307ff710abdeb5a98e60d6e19677fbd3444753fd3c5de53c69",
+    "packages/iconsmith/src/eval/foundry-gate.test.ts": "feccdcd090a2969a47ce2fc044fed0e5b31bcdd25972f05e21a8155a85f2dd84",
+    "packages/iconsmith/src/eval/foundry-gate.ts": "bf6d68029b6792ee4cd06872289a7bbb283eb63481157383a1b5bff978c7b34b",
+    "packages/iconsmith/src/pipeline/harness.ts": "7711700daa8ced6ecf6f5f00a495da0ed910d991e15e27a800e28daa752c4a8b",
+    "packages/iconsmith/src/pipeline/policy.default.json": "63102767cc7821f22534bc6957271dd0c146ae7a92f6457f570b5a10375b9917",
+    "packages/iconsmith/src/pipeline/prompt-identity.test.ts": "9979ac02c5813d28019c84fdf8f8843e6a928c08e42b7748f5ff406bd362ea1a",
+    "packages/iconsmith/src/pipeline/prompt.test.ts": "e949fa072f20a6dd8f7a96de3ae5ac62ec7157bb938212c77119f3bad978cdd7",
+    "packages/iconsmith/src/pipeline/prompt.ts": "c1c131bff194e7b605edbe18fb793ffa7e179e016e51dcab3a89283da75430b1",
+    "packages/iconsmith/src/pipeline/prompt.wave-a-2026-09-08.txt": "aa19215b872439d9ed92ac951dae741b3dc70d1a2e7670f8748a3e3860ccc859",
+    "packages/iconsmith/src/pipeline/skill.json": "e99f4cfae8685e8b7008633620f79904655b7d604d45c0e758d066e59a1eeffb",
+    "packages/iconsmith/src/pipeline/skill.test.ts": "62055991023f8b18a73e76c91f212f3c1872d5d7519cf3e5e73c102d089f18a5",
+    "packages/iconsmith/src/pipeline/tools.ts": "5fb8c153e660e5cf3480dc800742a8695f10d3766b660849708b40ec85b518c0"
+  },
+  "historicalPreservation": {
+    "promptBaseline": "51b9a434c263b655d899927c3942b62a84cb14c81e29c1e85db231a43ef37278",
+    "previousPlan": "cfe0a5ac1bdaa2bcdd29dddf8710d59d3b7c1ff50ed10583cbbe553bc4a89fe0",
+    "bothVerifiedAgainstBaselineGitBytes": true
+  },
+  "sourceClosureSha256": "3288ef51bd1c2bb188e6e9c883b92bed005dc3d8e1c1205b4e79d2ff37fc97fd"
+}

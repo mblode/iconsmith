@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "status": "incomplete-contained-timeout",
+  "recordedAt": "2026-09-08T01:17:14.546807+00:00",
+  "intent": "docs/log/wave-d-contained-image-intent-2026-09-08.json",
+  "terminal": {
+    "result": {
+      "answers": null,
+      "evidenceHashes": {
+        "stimulus.png": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+      },
+      "imageInspection": null,
+      "instrumentQualified": false,
+      "model": null,
+      "provider": "openai-codex",
+      "reason": "Error: Codex reviewer process incomplete",
+      "status": "incomplete"
+    },
+    "routeHash": "baf66d03928a883eec4f79b7c4f3efca7f194a92bc90f9fec0bdb2adb96176b9",
+    "drift": [],
+    "elapsedMs": 284124,
+    "deadlineExceeded": false,
+    "containerAbsent": true,
+    "capabilityVerified": false,
+    "qualified": false,
+    "providerDispatchIntents": 1,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "offlineContext": {
+    "argsSha256": "7d405f30c85607a8dc860c845502211da70c8c2eaa1162d2d77e587058f584b9",
+    "codexHomeIdentitySha256": "bc8e34311f2fa0f333d9852d0c89039da4396f28611de79705ccfa6ff49e9642",
+    "disabledSkills": 5,
+    "globalConfigurationEdited": false,
+    "network": "none",
+    "probes": [
+      {
+        "containerIdentitySha256": "1fd5486a49565880511d9c4a7fa9ddc057479c321ea89bc6a6cfaa8b3bc22a89",
+        "containerSettlementSha256": "87fac25a7a084ecd2c48c1ec80602a3055aacd01de8a018d12972e2f2b931f04",
+        "discoveredSkills": 5,
+        "promptSha256": "d922c9eb75de2c346e36e819e8dee390c5879cb5caf3071c3b50b56e79296dc6",
+        "textCharacters": 9667
+      },
+      {
+        "containerIdentitySha256": "87f850d2ea38e66ed83801b417faaf30ec2ae6937679415c9692cbfc665b69d5",
+        "containerSettlementSha256": "5787cb7351157c39bc901bfe6317bf0e03221d6b8d0c8a1f845d219caeb7acdc",
+        "discoveredSkills": 0,
+        "promptSha256": "510b83a8a357bfcc332ade4ecd6bca3a604dfd6e6ba3ff9b99b3d92a3015f875",
+        "textCharacters": 7105
+      }
+    ],
+    "scope": "Offline unauthenticated context serialization; actual native trace remains authoritative"
+  },
+  "actualTraceObservations": {
+    "emittedModels": [
+      "gpt-6-astra"
+    ],
+    "ambientSkillsTagPresent": false,
+    "ambientRecommendedPluginsTagPresent": false,
+    "finalAnswerPresent": false,
+    "traceRows": 12
+  },
+  "settlement": {
+    "intentHash": "e6c0209e7ee5b991d2fcb97ebb298fb97427894673afae047e5ca3223f9ec9f0",
+    "deadlineAt": 1788829948646,
+    "container": {
+      "artifactEligible": false,
+      "containerAbsent": true,
+      "containerId": "42fb354dd14d95dbb935bc4ab61429544132d14e4882d53a1e9904d05c83d6b8",
+      "containmentScope": "docker-private-pid-namespace",
+      "process": {
+        "code": null,
+        "killed": true,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "Reading additional input from stdin...\n",
+        "stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a07e8e-7ee4-7862-8988-f2e7ebbf74e6\"}\n{\"type\":\"turn.started\"}\n"
+      },
+      "status": "workload-failed"
+    }
+  },
+  "rootObservationCorrection": "Root sampled elapsed wall time after deadline and initially reported an unsettled call. Terminal had already been committed at284124ms and container removed by canonical runner. Subsequent Docker inspect returned no such object; no manual stop occurred. STOP was written after completion.",
+  "qualification": false,
+  "artifactHashes": [
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/manifest.json",
+      "sha256": "96ea6838d3ee45b40abdea63102180c0cce950efa46b3cf116e59e50949956e2"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/terminal.json",
+      "sha256": "b6d0c4dafc79f3b235af9cd6a517d9557637270b16d65b2a6e2a806e6688ae94"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/container-identity.json",
+      "sha256": "5d3811468c983ec77738a66c6bdd0be3e8bf9482fa4924ac51fa38803b8f4fc5"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/container-settlement.json",
+      "sha256": "73826fa25d911d0b064bebfc225bea7d1a03bc9210bbbddc0583e9454e419564"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/review/context-preflight.json",
+      "sha256": "ab7d04c6891c963337949bf69d27fbab0029d22b127008e1ccdb99dee27d0b34"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/state/sessions/2026/09/08/rollout-2026-09-08T01-07-42-01a07e8e-7ee4-7862-8988-f2e7ebbf74e6.jsonl",
+      "sha256": "df9004b6e92c2de6e3d2780e6d8c128f30c3fc3bd6a689b3ee2709c914bb412f"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-1/container-identity.json",
+      "sha256": "87f850d2ea38e66ed83801b417faaf30ec2ae6937679415c9692cbfc665b69d5"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-0/container-identity.json",
+      "sha256": "1fd5486a49565880511d9c4a7fa9ddc057479c321ea89bc6a6cfaa8b3bc22a89"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-1/container-settlement.json",
+      "sha256": "5787cb7351157c39bc901bfe6317bf0e03221d6b8d0c8a1f845d219caeb7acdc"
+    },
+    {
+      "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-0/container-settlement.json",
+      "sha256": "87fac25a7a084ecd2c48c1ec80602a3055aacd01de8a018d12972e2f2b931f04"
+    }
+  ],
+  "costs": {
+    "newApiActualUsd": 0,
+    "newApiReservationsUsd": 0,
+    "nativeExperimentLaunchesCumulative": 3,
+    "nativeCompletedResponsesCumulative": 1,
+    "nativeDollarAllocationUsd": null
+  }
+}

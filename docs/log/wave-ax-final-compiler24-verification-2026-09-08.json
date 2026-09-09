@@ -1,0 +1,107 @@
+{
+  "id": "D316",
+  "status": "final-compiler24-validation-passed",
+  "testCount": 2220,
+  "testFiles": 170,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 32153,
+      "log": ".staging/wave-ax-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1360,
+      "log": ".staging/wave-ax-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 6593,
+      "log": ".staging/wave-ax-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1455,
+      "log": ".staging/wave-ax-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 64,
+      "log": ".staging/wave-ax-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceFreeze": ".staging/wave-ax-integration-2026-09-08/source-after.json",
+  "sourceFreezeSha256": "b58fe72b46fc5e5d435e26185861f5da0be314277e62cc00b2f84a3b93614f0c",
+  "sourceRegression": {
+    "summary": {
+      "admitted": 3961,
+      "compiler": "iconsmith-constrained-24-filled-paint-resolution",
+      "generationQualified": false,
+      "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+      "kind": "family-source-admission-audit",
+      "master": "24",
+      "refused": 396,
+      "revisionHash": "5dbad96874950cf8637a227da1edac763a78ae48459ae8d50b8b3d548efdc017",
+      "revisionSha256": "d9da5d85ad58a219ae735d3da7fe98119e8b8882450f2bca6f0f8ec8d4374530",
+      "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+      "sourceIdentityVerified": true,
+      "total": 4357
+    },
+    "regressions": [],
+    "improved": [],
+    "changedRows": [],
+    "replaySummary": {
+      "exactReplay": 4357,
+      "failures": 0,
+      "generationQualified": false,
+      "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+      "kind": "admitted-source-reconstruction",
+      "rasterDifferenceThreshold": 0.01,
+      "rasterDifferences": 1007,
+      "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+      "sourceIdentityVerified": true,
+      "total": 4357
+    },
+    "replayRowsIdenticalToCompiler23": true,
+    "sourceStable": true,
+    "qualified": false
+  },
+  "metadataGuardPatchSha256": "24fcf8ac621edc4b017ccded8e34e99aec099b346869779ffc3a4b522bb2c406",
+  "scope": "Reject impossible assembly child knockout metadata; valid source geometry/compiler identity unchanged. Full population rerun on exact guard revision.",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 47,
+  "qualified": false
+}

@@ -1,0 +1,53 @@
+{
+  "id": "D418",
+  "recordedAt": 1788879888389,
+  "status": "observer-contract-mismatch-safe-cancellation",
+  "qualifiesAuthenticatedStop": false,
+  "failure": "Observer used SHA256(raw intent file bytes); canonical start/terminal bind SHA256(JSON.stringify(parsed intent)). Observer failed before checking upstream marker, wrote STOP and safely cancelled the one started call.",
+  "intentFileHash": "ec2013bb4aa102bcbd50e62277b05baff95f4d9545f435763f5ea0b12d07127d",
+  "canonicalIntentHash": "c27b394d2c346f2d6acd452e22177b9e777e9dd875db09f62b51d46b897c572c",
+  "counts": {
+    "intents": 1,
+    "started": 1,
+    "terminal": 1,
+    "cancelled": 1,
+    "unstartedAllowancesReleased": 11
+  },
+  "nativeSettledCumulative": 135,
+  "olderUnresolvedNativeIntents": 1,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocation": "unknown",
+  "rootVerifiedContainersAbsent": 3,
+  "originalExternalIntentUnchanged": true,
+  "postflightAudit": "pending independent stable-tree/resume audit",
+  "evidence": [
+    {
+      "path": "docs/log/wave-ce-authenticated-stop-intent-2026-09-09.json",
+      "sha256": "916477ea680dd402a739a211fc0795eec657e3d3b55e72a775753dce686a11a6"
+    },
+    {
+      "path": ".staging/wave-ce-authenticated-stop-root-live-2026-09-09/observation-result.json",
+      "sha256": "9339badaf10f91b0746741f5fb164f3a8f9e633269fe4c8b3e4b14f91b3a551c"
+    },
+    {
+      "path": ".staging/wave-ce-authenticated-stop-root-live-2026-09-09/parent-settlement.json",
+      "sha256": "199784c8f14a4eb2034f25f049d696a95c9f62c3430148015f507ad04d21cb64"
+    },
+    {
+      "path": ".staging/wave-ce-authenticated-stop-root-live-2026-09-09/root-independent-absence.json",
+      "sha256": "3eba858adf8227dbb7b20b82de5e527c9e0723ed01f747539b84f132b10baba2"
+    },
+    {
+      "path": ".staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/088b6412-1f04-4c08-96b7-fb5ebaf1299b.intent.json",
+      "sha256": "ec2013bb4aa102bcbd50e62277b05baff95f4d9545f435763f5ea0b12d07127d"
+    },
+    {
+      "path": ".staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/088b6412-1f04-4c08-96b7-fb5ebaf1299b.started.json",
+      "sha256": "7c9452dc6d46c0d25099bab9c2de5ce9e3786250bea15ab8806a756faf3ed53c"
+    },
+    {
+      "path": ".staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/088b6412-1f04-4c08-96b7-fb5ebaf1299b.terminal.json",
+      "sha256": "a647aa807e0f2920d39b69cb71e1c20f288eefb2cb73864fd0adca923c2d19db"
+    }
+  ]
+}

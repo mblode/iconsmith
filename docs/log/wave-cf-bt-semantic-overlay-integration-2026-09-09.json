@@ -1,0 +1,49 @@
+{
+  "experimentId": "D424",
+  "kind": "root-verified-bt-development-semantic-overlay",
+  "qualified": false,
+  "sourceReceipt": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/receipt-v3.json",
+  "sourceReceiptSha256": "9e571cb6e25b6e96c14d150489c418c8e8e1f04422cc66a8713f847a616e0f77",
+  "rootVerifiedArtifacts": 27,
+  "rootAdjudication": {
+    "path": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/root-bt-adjudication.json",
+    "sha256": "5a9c02bdc07b82ea5a81e50b9a26ed873cf7bcdb1c149513079b862e6c480434",
+    "mappingCanonicalSha256": "d4ea202b76d41b65b7215abd97123002b34117135cbb653fa95188571feac0cb",
+    "approvedScope": "BT 16-concept/13-family family-and-head development mapping from current exposed rereview only"
+  },
+  "result": {
+    "envelope": {
+      "path": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/bt-review-envelope.json",
+      "sha256": "b22417cb52bec517e8d192fac78093596c7c462b2e9712b86ea0ff941da2d109"
+    },
+    "overlay": {
+      "path": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/overlay-v2-183.json",
+      "sha256": "371e64e964d3be3a6211c2d6d21e9dfc5c3d486cfc0bf1fd1da6f4607bff3f0b",
+      "semanticHash": "e4979fafbb3b674902de2a9b0ce684b3b7a298a9d1778bbe82a0c4acd5a3286c"
+    },
+    "summary": {
+      "reviewedConcepts": 183,
+      "reviewedSlots": 732,
+      "reviewedSlotsWithMissingSource": 10,
+      "untouchedConcepts": 2038,
+      "untouchedSlots": 8152
+    }
+  },
+  "denominators": {
+    "catalogConcepts": 2221,
+    "inventorySourceFiles": 4357,
+    "requestSlots": 8884,
+    "retainedReviewedConcepts": 167,
+    "addedReviewedConcepts": 16,
+    "addedRequestSlots": 64,
+    "addedMissingSourceSlots": 0
+  },
+  "unknowns": {
+    "aliases": "all BT concepts unresolved-unknown-aliases",
+    "derivatives": "all BT concepts unresolved",
+    "recognitionKeys": "not approved",
+    "formFlowerLobeCount": "agent source assertion retained separately; root did not independently corroborate exact lobe count"
+  },
+  "apiSpendUsd": 0,
+  "nativeCalls": 0
+}

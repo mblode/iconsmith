@@ -66,15 +66,13 @@ const axis = (t: [number, number] | null, name: string): string =>
     ? `- ${name} spans ${t[0].toFixed(2)}..${t[1].toFixed(2)}.`
     : `- ${name} has no agreed extent in this family; centre it.`;
 
-/** The outlined house sentence. Kept verbatim so the default prompt
- *  identity baseline does not move when a filled run substitutes another. */
-export const OUTLINED_PAINT_RULE =
-  "Every shape you\n  place is an outline; a filled twin is that stroke expanded, never a fill on a path.";
+/** Paint construction rules shared by generated author prompts. */
+const OUTLINED_PAINT_RULE =
+  "Outlined bodies use centerlines; explicit solid modifiers and named detail roles are allowed when supported by the house family. Author the filled counterpart from its body, structural counters and modifier polarity; it is not always mechanical outline expansion.";
 
-/** This run is the solid variant. The outlined sentence would tell the
- *  model to draw strokes on a canvas that has no `line` tool. */
+/** Filled authoring retains explicit open-stroke and counter semantics. */
 export const FILLED_PAINT_RULE =
-  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and `line` is not a tool. Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox. A ring is `circle` then `hole` immediately after; a plus is an evenodd compound or two bars, not lines; a clock is a disc with hands cut out; a check is a badge with a cutout; a heart is one evenodd compound of lobes, not a disc. Do not volunteer a star from diamonds.";
+  "This run is the solid variant: a shape is its silhouette, interior canvas is `hole`, and open `line` and `arc` strokes expand through the host. Occupy the same visual extent the outline would — preserve structural openings and identifying details; do not flood the bbox. A ring is `circle` then `hole` immediately after; a plus is an evenodd compound or unioned expanded lines; a clock is a disc with hands cut out; a check is a badge with a cutout; a heart is one evenodd compound of lobes, not a disc. Do not volunteer a star from diamonds.";
 
 export interface PromptOptions {
   /** The family the icon joins, when it joins one; enables the `cohort` op. */
@@ -185,8 +183,8 @@ export const conceptPrompt = (
     lines.push(finish === "filled" ? "Paint: filled." : "Paint: outlined.");
   } else if (finish === "filled") {
     lines.push(
-      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; `line` is not available.",
-      "Occupy the same visual extent the outline would — expand the stroke, do not flood the bbox.",
+      "Paint: filled. A shape is its silhouette; interior canvas is `hole`; open `line` and `arc` strokes expand through the host.",
+      "Occupy the same visual extent the outline would — preserve structural openings and identifying details; do not flood the bbox.",
       "Compose the named object from `listParts` and primitives. A frame with a centre dot is not the concept."
     );
   } else {

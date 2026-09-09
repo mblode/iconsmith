@@ -1,0 +1,66 @@
+{
+  "id": "D349",
+  "kind": "same-container-runtime-root-integration",
+  "status": "implemented-focused-tests-passed",
+  "qualified": false,
+  "actualSameReviewerAccessVerified": false,
+  "acceptedForbiddenObservation": "missing",
+  "rejectedForbiddenObservations": [
+    "read-failed",
+    "readable",
+    "unsupported-type"
+  ],
+  "correction": "Any nonzero bounded read is uncertain and rejected; no inferred permission denial.",
+  "files": [
+    {
+      "file": "packages/iconsmith/scripts/local-container-runtime.ts",
+      "sha256": "43db35b3db4cc5d9d4da68bb1d779b3b05bdacf07abb069ed1b5f8ce495ea502"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-container-runtime.test.ts",
+      "sha256": "06734dc1fb9208988478cd8598af9269fde0fb7db59a0a44efd290d63c6a1fb1"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-native-call-factory.ts",
+      "sha256": "ef7b52b76e9ce16158f0908bbbb012eb0f5672874c6103cb670ceeeab67b259b"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-native-call-factory.test.ts",
+      "sha256": "8fe5e6f2f255ae43046396b03a76ed42c85805ba79ff8c4a03b66f700ec8d8fd"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-codex-review.ts",
+      "sha256": "370ce48603d531d2af398c34cb2b7839a3571b0d7f55707c7450e7148040b841"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-codex-review.test.ts",
+      "sha256": "b5d883e73f14107788dc8e49ca3ba0f1c64fba857c581404a6dce7306a284a84"
+    }
+  ],
+  "evidence": [
+    {
+      "file": ".staging/wave-bf-same-container-runtime-2026-09-08/runtime-access-final-v1.patch",
+      "sha256": "923dacd50fda502a507086bd61523e122242849cb21ba2056038a283305eab3b"
+    },
+    {
+      "file": ".staging/wave-bg-same-container-runtime-v2-2026-09-08/runtime-access-open-read-v2.patch",
+      "sha256": "2d12e8dd0731ba7f22d936af36a721f5e96e3c2b3f8cb32903e903124ee15bdc"
+    },
+    {
+      "file": ".staging/wave-bk-same-container-runtime-v3-2026-09-08/runtime-access-read-failure-v3.patch",
+      "sha256": "b5cb34491af949ef641cf80a6a7f0a74a6b5a721e008bfaf64370202c92ee070"
+    },
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/root-runtime-tests.log",
+      "sha256": "07f33a039eeca2ee5a12212e7a6a9902fc316f9117369e0173a25f03ecf116bf"
+    }
+  ],
+  "verification": {
+    "focusedTests": 54,
+    "files": 3,
+    "failed": 0,
+    "fullIntegration": "pending collector and remaining material runtime changes"
+  },
+  "providerCalls": 0,
+  "apiIncrementUsd": 0
+}

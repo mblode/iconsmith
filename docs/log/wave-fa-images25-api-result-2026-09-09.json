@@ -1,0 +1,31 @@
+{
+  "httpStatus": 200,
+  "requestId": "req_530781808eb741db991adf81eea2bdc8",
+  "elapsedMs": 32308,
+  "responseSha256": "5f04fefb6e8e12322aa5bdb01595f70e64b537c4cc64ef6c168c672521ae594e",
+  "dispatchCount": 1,
+  "automaticRetry": false,
+  "error": null,
+  "usage": {
+    "input_tokens": 331,
+    "input_tokens_details": {
+      "image_tokens": 0,
+      "text_tokens": 331
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2087
+  },
+  "returnedModel": null,
+  "imageCount": 1,
+  "id": "D490",
+  "ratedCostUsd": 0.054335,
+  "chargeBasis": "Response usage times published rates; not provider invoice",
+  "transparent": false,
+  "failure": "Opaque baked checkerboard; request omitted explicit background setting",
+  "artifacts": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fa-images25-api-2026-09-09",
+  "qualified": false
+}

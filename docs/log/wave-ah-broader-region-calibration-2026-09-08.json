@@ -1,0 +1,17 @@
+{
+  "id": "D300",
+  "receipt": ".staging/wave-ah-assembly-region-calibration-2026-09-08/receipt.json",
+  "receiptSha256": "a066ee136de5148ae1d6f5203b775a981d4edd885bcbd002254462702c6c6184",
+  "manifestSha256": "bd733e09b386f2caf432d323130b71d6ba44801f6d752230759ae4a5631648d3",
+  "artifactsVerified": 1089,
+  "sourceCount": 20,
+  "nativeCases": 40,
+  "clean": 20,
+  "uncertain": 20,
+  "detectedFailure": 0,
+  "productionAdoption": false,
+  "qualified": false,
+  "providerCalls": 0,
+  "apiCost": 0,
+  "interpretation": "The unchanged local rule exposes uncertainty hidden by aggregate similarity. It does not establish20critical defects or justify a blanket gate."
+}

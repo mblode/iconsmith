@@ -1,0 +1,44 @@
+{
+  "id": "D470",
+  "createdAt": "2026-09-08T20:00:50.244138+00:00",
+  "status": "offline-parent-integration-refused-before-reservation",
+  "finding": "Strict production membership checks encounter the existing packages/iconsmith/CLAUDE.md symlink to AGENTS.md. No general symlink relaxation is authorized. A frozen explicit alias binding is required.",
+  "priorAgentTests": "8 passed; standalone NodeNext passed; insufficient for actual repository inventory",
+  "files": [
+    {
+      "path": ".staging/wave-ds-api-stop-runner-audit-2026-09-09/parent-v2.mts",
+      "sha256": "c8c0dc21388c7334c4db9baa3516e21ead457ebfac9ff2347543a85c3219c295"
+    },
+    {
+      "path": ".staging/wave-ds-api-stop-runner-audit-2026-09-09/parent-v2.test.mts",
+      "sha256": "d6254a18afd4c340b3757b250bd5ac846b3160541b663ab81e147ddd7f87feec"
+    },
+    {
+      "path": ".staging/wave-ds-api-stop-runner-audit-2026-09-09/parent-v2-receipt.json",
+      "sha256": "4431aaa0d2c807b8f60dfaf3074dadf5b97502289db35f99093f7c0f84e0eb76"
+    },
+    {
+      "path": ".staging/wave-eb-api-guarded-live-2026-09-09/bootstrap.mjs",
+      "sha256": "b9d0b1809251c5e3ec3cd863ac4d6df45abcab65eef7240ffc32b8494b7a7ba1"
+    },
+    {
+      "path": ".staging/wave-eb-api-guarded-live-2026-09-09/parent-config.json",
+      "sha256": "08330c03f8b9287f5baec088539ca675a665e46613457fe62aca0926d2231ace"
+    },
+    {
+      "path": ".staging/wave-eb-api-guarded-live-2026-09-09/loader-identity.json",
+      "sha256": "c104a9938b6aeecdff3319bbf1d0bf4f82afabb3b5e927e21a1d1a278132685d"
+    },
+    {
+      "path": ".staging/wave-eb-api-guarded-live-2026-09-09/zero-call-preflight/parent-fallback-terminal.json",
+      "sha256": "d3a3dbbc62c12d2b8f83e9109e1f3368e8d793ffe2e06062e2c56269f7f9197b"
+    }
+  ],
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "ledger": "docs/log/api-budget-after-d445-2026-09-09.json",
+  "prospectiveD466": "not dispatched; proposed ledger in staging is not a reservation",
+  "solMediumFollowupsAfterD450": 19,
+  "nativeDollarAllocation": "unknown",
+  "canonicalChanges": false
+}

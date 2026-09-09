@@ -1,0 +1,24 @@
+{
+  "id": "D288",
+  "sourceReceipt": {
+    "path": ".staging/wave-ab-assembly-adversarial-compiler23-2026-09-08/receipt.json",
+    "sha256": "60bfb7c382a0c2bd6182bd2b30970f4891b15302c1444d1bf4c91212b2f45fd2"
+  },
+  "engineering": {
+    "defaultAssemblyKnockoutRemoval": "pass: root, continuation and dependent knockout removed; zero remain",
+    "namedContinuationKnockoutRemoval": "pass: knockout appended after both children; removal via continuation resolves root and removes all three",
+    "legacyInterleavedTransform": "pass: healed to root/continuation/knockout order; semantic IDs preserved; removal clears group",
+    "privateChildBypass": "pass: Canvas, DSL, compileStyle and runtime tool refuse direct placement; rankParts/searchParts expose only owner alias",
+    "canonicalOwnedTests": "4 files; 100 passed; 0 skipped"
+  },
+  "nativeSample": {
+    "population": "2 purposive examples from 40 compiler23 assembly-only admissions",
+    "audible": "assembly admitted but native16 local topology mismatches source at all 3 thresholds despite aggregate error below 1%; native24 topology matches",
+    "claw": "actual mixed fill/stroke outlined assembly; 3 separate paths; aggregate and threshold topology exact at native16/24"
+  },
+  "rootInspection": "Viewed exact source-comparison board. Audible16 differences remain a local raster-topology concern; threshold counts alone do not establish a critical visual defect. Claw compares exactly. Neither source is visually qualified.",
+  "followup": "Inspect all 40 newly admitted assembly alternatives at16/24 and retain threshold-specific local evidence before calibrated admission policy changes.",
+  "qualified": false,
+  "newProviderCalls": 0,
+  "newApiActual": 0
+}

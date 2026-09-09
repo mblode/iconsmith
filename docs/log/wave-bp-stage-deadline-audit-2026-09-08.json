@@ -1,0 +1,17 @@
+{
+  "id": "D364",
+  "kind": "production-stage-deadline-audit",
+  "audit": ".staging/wave-bp-deadline-contract-audit-2026-09-08/audit.md",
+  "auditSha256": "2ef59874a9643e89aaaad2c5033bccc1b43137cb3f4f18f66385d271ea3ab5b4",
+  "agentReceiptSha256": "270dbc42c7aae2dd74fdcd7e4e933d2012956291c089fac896d447202e3d85e3",
+  "tests": 238,
+  "testFiles": 11,
+  "providerCalls": 0,
+  "findings": [
+    "Original parent deadline preserved, but retrieval subdeadline renewed at configure-time instead of original request start",
+    "Stage reserve arithmetic split across modules",
+    "Checker may launch nominal 1ms",
+    "Export lacks explicit admission and timing"
+  ],
+  "P1.6": "open; isolated fixes assigned"
+}

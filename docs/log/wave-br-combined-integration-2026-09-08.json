@@ -1,0 +1,95 @@
+{
+  "id": "D374",
+  "kind": "combined-integration-after-deadline-and-access-corrections",
+  "tests": 2319,
+  "testFiles": 174,
+  "skipped": 0,
+  "initialResults": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 34869,
+      "log": ".staging/wave-br-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1413,
+      "log": ".staging/wave-br-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5299,
+      "log": ".staging/wave-br-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 1,
+      "elapsedMs": 1012,
+      "log": ".staging/wave-br-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 61,
+      "log": ".staging/wave-br-integration-2026-09-08/diff.log"
+    }
+  ],
+  "correction": {
+    "failure": "3 sort-keys lint errors in root model-intent guard",
+    "changedFiles": [
+      "packages/iconsmith/scripts/quality-campaign.test.ts",
+      "packages/iconsmith/scripts/quality-campaign.ts"
+    ],
+    "behaviorChanged": false,
+    "checkRerunPassed": true,
+    "focusedTests": 26,
+    "focusedTestFiles": 1
+  },
+  "sourceBeforeCosmeticStable": true,
+  "finalSourceFile": ".staging/wave-br-integration-2026-09-08/source-final.json",
+  "finalSourceSha256": "47f55a4f2890109d66cc4fabb6d94719c4f73cbd9cd92192ed555548c0e30fbd",
+  "logs": {
+    "test.log": "5992e73f424843c8bd021313341d6587f4ed9060f25b98eaecf735bb7a35cac2",
+    "typecheck.log": "c0642d96377ff367dcc9b0f47ec76536a5222b7d150eceb5cde226488a03c607",
+    "build.log": "797a76b42116b539e4bec0572f303e7314d37e906334452eb3045ddcd49cee7e",
+    "check.log": "3d964d4b2d48114dd6a2783fd71bc95f92b6f0ecefc3447b32a82916177e851b",
+    "check-v2.log": "5a74ed1af71ed20238168b4959c975cde6b6d8c68043c9315f8f01bcffb779b8",
+    "quality-tests-v2.log": "bcca434b3cab97799b4a6f9be3bd97e2ff1c360a038dd75f35a027a98d237219",
+    "diff.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "sourceEligibleForBoundedDevelopment": true,
+  "criticQualified": false,
+  "phaseExitQualified": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeSettled": 83,
+  "nativeUnresolvedPriorIntents": 1,
+  "observedAt": "2026-09-08T12:43:26.325323+00:00"
+}

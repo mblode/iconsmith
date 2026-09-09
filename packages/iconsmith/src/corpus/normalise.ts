@@ -33,7 +33,7 @@ import type { CorpusShape } from "./load.js";
 import { parseIconSvg } from "./load.js";
 
 /** The grid every measurement in this project is expressed in. */
-export const GRID = 24;
+const GRID = 24;
 
 const ROOT = /<svg\b(?<attrs>[^>]*)>/iu;
 const ELEMENT =

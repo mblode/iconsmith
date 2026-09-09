@@ -12,10 +12,14 @@ import { setTimeout as delay } from "node:timers/promises";
 
 import { expect, it, vi } from "vitest";
 
-import { runAiReviewCampaign } from "./ai-review-campaign.js";
+import {
+  runAiReviewCampaign,
+  runProspectiveAiReviewCampaign,
+} from "./ai-review-campaign.js";
 import type {
   AiReviewCampaignInput,
   AiReviewRoute,
+  ProspectiveAiReviewRoute,
 } from "./ai-review-campaign.js";
 
 const fixture = () => {
@@ -28,6 +32,7 @@ const fixture = () => {
   writeFileSync(tooling, "tooling");
   const input: AiReviewCampaignInput = {
     packetId: "packet-1",
+    recognitionOrderSeed: "campaign-order-seed",
     stimuli: [
       {
         concept: "bell-pause",
@@ -102,6 +107,8 @@ it("freezes a packet without invoking reviewers by default", async () => {
       JSON.parse(readFileSync(path.join(data.cwd, "out/intent.json"), "utf-8"))
     ).toMatchObject({
       qualified: false,
+      recognitionOrderSeed: "campaign-order-seed",
+      recognitionOrderVersion: "seeded-balanced-v1",
       routes: [
         { command: "/pinned/codex", model: "gpt-6-astra" },
         { command: "/pinned/claude", model: "claude-opus-5" },
@@ -114,6 +121,168 @@ it("freezes a packet without invoking reviewers by default", async () => {
     expect(frozen).not.toContain('"concept":');
     expect(frozen).not.toContain("candidate.png");
     expect(frozen).not.toContain("anchor.png");
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("freezes prospective public identities without serializing target names or synonyms", async () => {
+  const data = fixture();
+  try {
+    const never = vi.fn();
+    const routes: ProspectiveAiReviewRoute[] = [
+      {
+        adjudicator: {
+          baseModelLineage: "claude",
+          command: "/pinned/claude",
+          id: "claude-adjudicator",
+          invoke: never,
+          model: "claude-opus",
+        },
+        baseModelLineage: "gpt",
+        command: "/pinned/codex",
+        id: "codex",
+        invoke: never,
+        model: "gpt-astra",
+      },
+    ];
+    const result = await runProspectiveAiReviewCampaign({
+      input: data.input,
+      originalDeadlineAt: Date.now() + 30_000,
+      out: path.join(data.cwd, "prospective"),
+      perReviewerMaxMs: 20_000,
+      routes,
+      synonymKey: [
+        {
+          id: "s001",
+          meaningProvenanceHash: "c".repeat(64),
+          synonyms: ["bell pause", "paused notification"],
+          target: "bell-pause",
+        },
+      ],
+      toolingFiles: [data.tooling],
+    });
+    expect(result.status).toBe("dry-run");
+    expect(never).not.toHaveBeenCalled();
+    const intent = readFileSync(
+      path.join(data.cwd, "prospective/intent.json"),
+      "utf-8"
+    );
+    expect(intent).not.toContain("bell-pause");
+    expect(intent).not.toContain("bell pause");
+    expect(intent).not.toContain("paused notification");
+    expect(intent).not.toContain("candidate.png");
+    expect(intent).toContain('"protocolVersion": "free-description-v1"');
+    expect(intent).toContain('"runtimeAccessRestrictionVerified": false');
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("durably seals a prospective protocol rejection without resetting its original deadline", async () => {
+  const data = fixture();
+  const out = path.join(data.cwd, "prospective-error");
+  const originalDeadlineAt = Date.now() + 30_000;
+  try {
+    const never = vi.fn();
+    const result = await runProspectiveAiReviewCampaign({
+      execute: true,
+      input: data.input,
+      originalDeadlineAt,
+      out,
+      perReviewerMaxMs: 20_000,
+      routes: [
+        {
+          adjudicator: {
+            baseModelLineage: "claude",
+            command: "/pinned/claude",
+            id: "claude-adjudicator",
+            invoke: never,
+            model: "claude-opus",
+          },
+          baseModelLineage: "gpt",
+          command: "/pinned/codex",
+          id: "codex",
+          invoke: never,
+          model: "gpt-astra",
+        },
+      ],
+      synonymKey: [
+        {
+          id: "s001",
+          meaningProvenanceHash: "e".repeat(64),
+          synonyms: ["s001 symbol"],
+          target: "s001-shape",
+        },
+      ],
+      toolingFiles: [data.tooling],
+    });
+    expect(never).not.toHaveBeenCalled();
+    expect(result.outcomes).toEqual([
+      expect.objectContaining({
+        deadlineAt: expect.any(Number),
+        productionSealEligible: false,
+        qualified: false,
+        status: "errored",
+      }),
+    ]);
+    const terminal = JSON.parse(
+      readFileSync(path.join(out, "codex/terminal.json"), "utf-8")
+    );
+    expect(terminal.deadlineAt).toBeLessThanOrEqual(originalDeadlineAt);
+    expect(terminal.reason).toContain("opaque IDs");
+    expect(terminal.artifactTreeHash).toMatch(/^[a-f0-9]{64}$/u);
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("binds exact dispatched recognition choices and refuses seed drift", async () => {
+  const data = fixture();
+  try {
+    let frozenChoices: readonly string[] = [];
+    const codex = complete("gpt-6-astra");
+    codex.mockImplementationOnce((request) => {
+      const intent = JSON.parse(
+        readFileSync(path.join(data.cwd, "out/intent.json"), "utf-8")
+      );
+      frozenChoices = intent.packet[0].recognitionChoices;
+      expect(request.questions[0]?.choices).toEqual(frozenChoices);
+      return complete("gpt-6-astra")(request);
+    });
+    const configured = options(data, [
+      route("codex", "gpt-6-astra", codex),
+      route("claude", "claude-opus-5", complete("claude-opus-5")),
+    ]);
+    await runAiReviewCampaign({ ...configured, execute: true });
+    expect(frozenChoices).toContain("bell-pause");
+    expect(frozenChoices).toContain("uncertain");
+
+    await expect(
+      runAiReviewCampaign({
+        ...configured,
+        input: { ...data.input, recognitionOrderSeed: "changed-seed" },
+      })
+    ).rejects.toThrow("intent changed");
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("rejects legacy campaigns with the prior recognition identity", async () => {
+  const data = fixture();
+  try {
+    const out = path.join(data.cwd, "out");
+    mkdirSync(out);
+    writeFileSync(path.join(out, "intent.json"), '{"legacy":true}\n');
+    await expect(
+      runAiReviewCampaign(
+        options(data, [
+          route("codex", "gpt-6-astra"),
+          route("claude", "claude-opus-5"),
+        ])
+      )
+    ).rejects.toThrow("intent changed");
   } finally {
     rmSync(data.cwd, { force: true, recursive: true });
   }
@@ -309,6 +478,18 @@ it("refuses changed packet bytes and ambiguous partial reviewer directories", as
       "intent changed"
     );
     writeFileSync(data.image, "candidate");
+    await expect(
+      runAiReviewCampaign({
+        ...configured,
+        input: {
+          ...data.input,
+          stimuli: data.input.stimuli.map((row) => ({
+            ...row,
+            concept: "bell-play",
+          })),
+        },
+      })
+    ).rejects.toThrow("intent changed");
     mkdirSync(path.join(data.cwd, "out/codex"));
     await expect(
       runAiReviewCampaign({ ...configured, execute: true })
@@ -415,8 +596,137 @@ it("records every route as unstarted when the stop sentinel already exists", asy
     ]);
     expect(
       JSON.parse(readFileSync(path.join(data.cwd, "out/stop.json"), "utf-8"))
-    ).toMatchObject({ intentHash: result.intentHash, stopFile });
+    ).toMatchObject({
+      intentHash: result.intentHash,
+      stopFile,
+    });
   } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("binds one parent deadline and clamps every reviewer terminal to it", async () => {
+  const data = fixture();
+  try {
+    const originalDeadlineAt = Date.now() + 20_000;
+    const result = await runAiReviewCampaign({
+      ...options(data, [
+        route("codex", "gpt-6-astra", complete("gpt-6-astra")),
+        route("claude", "claude-opus-5", complete("claude-opus-5")),
+      ]),
+      execute: true,
+      originalDeadlineAt,
+      perReviewerMaxMs: 30_000,
+    });
+    expect(result.outcomes).toEqual([
+      expect.objectContaining({ deadlineAt: originalDeadlineAt }),
+      expect.objectContaining({ deadlineAt: originalDeadlineAt }),
+    ]);
+    expect(
+      JSON.parse(readFileSync(path.join(data.cwd, "out/intent.json"), "utf-8"))
+    ).toMatchObject({ originalDeadlineAt });
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("rejects a saved terminal beyond its frozen parent deadline", async () => {
+  const data = fixture();
+  try {
+    const originalDeadlineAt = Date.now() + 20_000;
+    const configured = {
+      ...options(data, [
+        route("codex", "gpt-6-astra", complete("gpt-6-astra")),
+        route("claude", "claude-opus-5", complete("claude-opus-5")),
+      ]),
+      originalDeadlineAt,
+      perReviewerMaxMs: 30_000,
+    };
+    await runAiReviewCampaign({ ...configured, execute: true });
+    const terminalFile = path.join(data.cwd, "out/codex/terminal.json");
+    const terminal = JSON.parse(readFileSync(terminalFile, "utf-8"));
+    writeFileSync(
+      terminalFile,
+      `${JSON.stringify({ ...terminal, deadlineAt: originalDeadlineAt + 1 })}\n`
+    );
+    await expect(
+      runAiReviewCampaign({ ...configured, execute: true })
+    ).rejects.toThrow("terminal does not match intent");
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("records unstarted routes after the frozen parent deadline expires", async () => {
+  const data = fixture();
+  try {
+    const codex = complete("gpt-6-astra");
+    const claude = complete("claude-opus-5");
+    const originalDeadlineAt = Date.now() + 4000;
+    const result = await runAiReviewCampaign({
+      ...options(data, [
+        route("codex", "gpt-6-astra", codex),
+        route("claude", "claude-opus-5", claude),
+      ]),
+      execute: true,
+      originalDeadlineAt,
+    });
+    expect(codex).not.toHaveBeenCalled();
+    expect(claude).not.toHaveBeenCalled();
+    expect(result.outcomes).toEqual([
+      expect.objectContaining({
+        deadlineAt: originalDeadlineAt,
+        reason: "campaign-original-deadline-expired",
+        routeId: "codex",
+        status: "unstarted",
+      }),
+      expect.objectContaining({
+        deadlineAt: originalDeadlineAt,
+        reason: "campaign-original-deadline-expired",
+        routeId: "claude",
+        status: "unstarted",
+      }),
+    ]);
+  } finally {
+    rmSync(data.cwd, { force: true, recursive: true });
+  }
+});
+
+it("does not reset the frozen parent deadline when a dry-run resumes", async () => {
+  vi.useFakeTimers();
+  vi.setSystemTime(1000);
+  const data = fixture();
+  try {
+    const codex = complete("gpt-6-astra");
+    const claude = complete("claude-opus-5");
+    const configured = {
+      ...options(data, [
+        route("codex", "gpt-6-astra", codex),
+        route("claude", "claude-opus-5", claude),
+      ]),
+      originalDeadlineAt: 10_000,
+    };
+    await runAiReviewCampaign(configured);
+    vi.setSystemTime(6000);
+    const result = await runAiReviewCampaign({ ...configured, execute: true });
+    expect(result.outcomes).toEqual([
+      expect.objectContaining({
+        deadlineAt: 10_000,
+        reason: "campaign-original-deadline-expired",
+        routeId: "codex",
+        status: "unstarted",
+      }),
+      expect.objectContaining({
+        deadlineAt: 10_000,
+        reason: "campaign-original-deadline-expired",
+        routeId: "claude",
+        status: "unstarted",
+      }),
+    ]);
+    expect(codex).not.toHaveBeenCalled();
+    expect(claude).not.toHaveBeenCalled();
+  } finally {
+    vi.useRealTimers();
     rmSync(data.cwd, { force: true, recursive: true });
   }
 });

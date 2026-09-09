@@ -98,7 +98,7 @@ export const BASELINE_PACKS: readonly BaselinePack[] = [
 /** One drawing in the index. Names its pack and style, and nothing else: no
  *  source text until asked for, because 23,731 files is more than any caller
  *  wants at once. */
-export interface BaselineEntry {
+interface BaselineEntry {
   icon: string;
   pack: string;
   style: string;

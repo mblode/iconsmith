@@ -1,0 +1,397 @@
+{
+  "httpStatus": 200,
+  "requestId": "req_01f0562e94a44265a5c0b247e1f9a802",
+  "elapsedMs": 27018,
+  "responseSha256": "18339a65c332e74c6990e022542508f3895f52bd87e84b92e827994302b49746",
+  "dispatchCount": 1,
+  "automaticRetry": false,
+  "error": null,
+  "usage": {
+    "input_tokens": 331,
+    "input_tokens_details": {
+      "image_tokens": 0,
+      "text_tokens": 331
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2087
+  },
+  "background": "transparent",
+  "returnedModel": null,
+  "imageCount": 1,
+  "id": "D492",
+  "requestedModel": "gpt-image-2.5-sunburst",
+  "identityBoundary": "Exact requested ID accepted by direct OpenAI generation endpoint; response does not echo model or underlying snapshot.",
+  "ratedCostUsd": 0.054335,
+  "totalTwoAttemptRatedCostUsd": 0.10867,
+  "costBasis": "Reported response tokens times published rates, not invoice",
+  "transparent": true,
+  "nativeTest": {
+    "sourceDimensions": {
+      "width": 1024,
+      "height": 1024
+    },
+    "requestedDimensions": {
+      "width": 1024,
+      "height": 1024
+    },
+    "dimensionsMatch": true,
+    "hasAlpha": true,
+    "alphaRange": {
+      "min": 0,
+      "max": 254,
+      "sum": 50837395,
+      "squaresSum": 12760576145,
+      "mean": 48.48231792449951,
+      "stdev": 99.09040288918425,
+      "minX": 0,
+      "minY": 48,
+      "maxX": 273,
+      "maxY": 192
+    },
+    "darkMethod": "white foreground using original alpha over #111; polarity diagnostic only",
+    "records": [
+      {
+        "name": "outlined16",
+        "size": 16,
+        "paint": "outlined",
+        "crop": {
+          "left": 0,
+          "top": 0,
+          "width": 512,
+          "height": 512
+        },
+        "method": "fixed quadrant crop; Lanczos3 to native; no auto-fit or repair",
+        "diagnostics": [
+          {
+            "alphaThreshold": 64,
+            "foregroundComponents": 1,
+            "foregroundPixels": 46,
+            "enclosedBackgroundComponents": [
+              24
+            ]
+          },
+          {
+            "alphaThreshold": 128,
+            "foregroundComponents": 5,
+            "foregroundPixels": 23,
+            "enclosedBackgroundComponents": []
+          },
+          {
+            "alphaThreshold": 192,
+            "foregroundComponents": 2,
+            "foregroundPixels": 2,
+            "enclosedBackgroundComponents": []
+          }
+        ]
+      },
+      {
+        "name": "filled16",
+        "size": 16,
+        "paint": "filled",
+        "crop": {
+          "left": 512,
+          "top": 0,
+          "width": 512,
+          "height": 512
+        },
+        "method": "fixed quadrant crop; Lanczos3 to native; no auto-fit or repair",
+        "diagnostics": [
+          {
+            "alphaThreshold": 64,
+            "foregroundComponents": 1,
+            "foregroundPixels": 67,
+            "enclosedBackgroundComponents": []
+          },
+          {
+            "alphaThreshold": 128,
+            "foregroundComponents": 1,
+            "foregroundPixels": 58,
+            "enclosedBackgroundComponents": [
+              1
+            ]
+          },
+          {
+            "alphaThreshold": 192,
+            "foregroundComponents": 2,
+            "foregroundPixels": 39,
+            "enclosedBackgroundComponents": []
+          }
+        ]
+      },
+      {
+        "name": "outlined24",
+        "size": 24,
+        "paint": "outlined",
+        "crop": {
+          "left": 0,
+          "top": 512,
+          "width": 512,
+          "height": 512
+        },
+        "method": "fixed quadrant crop; Lanczos3 to native; no auto-fit or repair",
+        "diagnostics": [
+          {
+            "alphaThreshold": 64,
+            "foregroundComponents": 1,
+            "foregroundPixels": 109,
+            "enclosedBackgroundComponents": [
+              96,
+              3,
+              5,
+              6
+            ]
+          },
+          {
+            "alphaThreshold": 128,
+            "foregroundComponents": 1,
+            "foregroundPixels": 86,
+            "enclosedBackgroundComponents": [
+              5,
+              19
+            ]
+          },
+          {
+            "alphaThreshold": 192,
+            "foregroundComponents": 5,
+            "foregroundPixels": 48,
+            "enclosedBackgroundComponents": []
+          }
+        ]
+      },
+      {
+        "name": "filled24",
+        "size": 24,
+        "paint": "filled",
+        "crop": {
+          "left": 512,
+          "top": 512,
+          "width": 512,
+          "height": 512
+        },
+        "method": "fixed quadrant crop; Lanczos3 to native; no auto-fit or repair",
+        "diagnostics": [
+          {
+            "alphaThreshold": 64,
+            "foregroundComponents": 1,
+            "foregroundPixels": 219,
+            "enclosedBackgroundComponents": [
+              2,
+              1,
+              1
+            ]
+          },
+          {
+            "alphaThreshold": 128,
+            "foregroundComponents": 1,
+            "foregroundPixels": 183,
+            "enclosedBackgroundComponents": [
+              1,
+              4,
+              1,
+              4
+            ]
+          },
+          {
+            "alphaThreshold": 192,
+            "foregroundComponents": 1,
+            "foregroundPixels": 162,
+            "enclosedBackgroundComponents": [
+              5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "independentDevelopmentReview": {
+    "reviewer": "gpt-5.6-sol",
+    "effort": "medium",
+    "agent": "/root/api_image_review",
+    "protocol": "Fresh context; only native/light/dark/enlargement board, target withheld. Uncalibrated development review.",
+    "input": "output/imagegen/api-review-2026-09-09/panel.png",
+    "ratings": [
+      {
+        "slot": "outlined16",
+        "craft": 4,
+        "shipUnchanged": false,
+        "meaning": "Probably folder with padlock; badge ambiguous, could read as image/mountain",
+        "legibility": "poor",
+        "defects": [
+          "Dense noisy badge, unclear shackle/body",
+          "Badge obscures folder corner",
+          "Soft uneven antialiasing"
+        ]
+      },
+      {
+        "slot": "filled16",
+        "craft": 4.5,
+        "shipUnchanged": false,
+        "meaning": "Folder with uncertain small padlock/security badge",
+        "legibility": "marginal",
+        "defects": [
+          "Badge merges into folder; keyhole lost",
+          "Lumpy diagonal overlap",
+          "Insufficient tab/badge separation"
+        ]
+      },
+      {
+        "slot": "outlined24",
+        "craft": 6.5,
+        "shipUnchanged": false,
+        "meaning": "Folder with padlock",
+        "legibility": "good",
+        "defects": [
+          "Oversized lock dominates folder",
+          "Crowded overlap, uneven stroke density",
+          "Dark rendering softer"
+        ]
+      },
+      {
+        "slot": "filled24",
+        "craft": 7,
+        "shipUnchanged": false,
+        "meaning": "Filled folder with padlock",
+        "legibility": "good",
+        "defects": [
+          "Lock too large and heavy",
+          "Crowded thick junction",
+          "Weak light-surface separation"
+        ]
+      }
+    ],
+    "craftMedian": 5.5,
+    "shipCount": 0,
+    "requestedCount": 4,
+    "limitation": "Reviewer observations concern visible pixels, not inferred source geometry; not qualified AI instrument."
+  },
+  "qualified": false,
+  "editableDsl": false,
+  "limitations": [
+    "Native crops are downsample diagnostics, not verified independent optical masters",
+    "One exposed family, no house parity comparison",
+    "First opaque failed attempt retained as D490"
+  ],
+  "ledger": "docs/log/api-budget-after-d492-2026-09-09.json",
+  "artifacts": [
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/dispatch-intent.json",
+      "sha256": "cf676caa63391e4cf192e559bf68d94d810c5d8da77076c15dd3490ca07a9aad"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled16-dark-8x.png",
+      "sha256": "1dbf1b000dabb86f00c1a9435623e7852ee7bd7860488f20fca248decc2ab187"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled16-dark.png",
+      "sha256": "1f7f9d6fc8846aeadae6df32305004f3be837f704cb2bb56430ff2b1b90827d9"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled16-light-8x.png",
+      "sha256": "e9371eab82834e2b2ebe04e3fe3a834daadad571e8cd70859e8cdb27f9674b34"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled16-light.png",
+      "sha256": "af25a0717f7c855b9db60dec23a70eecb97ff034aafee9a43220a63d5e36b81b"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled16.png",
+      "sha256": "e8bb1809e476ab6fdde37415ceb50a4aea78ff86be78880739291ec8a3e077eb"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled24-dark-8x.png",
+      "sha256": "f1a86459cad7ed7e62d93d6a5d15a1bc1550d29d2e58148cbd0812de53e7aa65"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled24-dark.png",
+      "sha256": "f5219c77dedb2fedb14c5c9e364bc1c7b878547d032f123086deb5efc49352e7"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled24-light-8x.png",
+      "sha256": "d13f2cbdc91c956c9f994df0bd0a7001af24201bc233cdc6641a1d06ec9b7a89"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled24-light.png",
+      "sha256": "8d70811579add3751102e075044f6eeb40d81ad1c4dd2090898558ca11154894"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/filled24.png",
+      "sha256": "4bfc25e666be5d63bc9f725fade046ca29f5b5133803ceacbc041ecb6e1cfd5f"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/independent-review.json",
+      "sha256": "5b98cef1707dbb70d1802bf3966ac6265938d836d41881d4e4a6b44c8fd5d68b"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/native-diagnostic-board.png",
+      "sha256": "707bcd255035fc2465ed02f6ce318497cc5a05b878ff5276fbd8611d05c51602"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/native-tests.json",
+      "sha256": "fcec93c8dbcfbad22d0ab960ff31bc0f40f6eff29104876d90359ff387008057"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/original.png",
+      "sha256": "fbab76f26480b93114a7524573268b1e96224b5bd4aa2db78c39455df8377b26"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined16-dark-8x.png",
+      "sha256": "b73f6c2aae27ef9a34e40ab54b283974c2a133c3b61d022d1596785e895715c4"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined16-dark.png",
+      "sha256": "4ba0758dc4709674d1a16a0e5e5023fa00ccb356ab052d003ef0f6b6e8009741"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined16-light-8x.png",
+      "sha256": "b6dfc3c5efd304ede09f216e4ee2309057dbc13a9cf64744b475b21fe8b9408e"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined16-light.png",
+      "sha256": "f8855dfbe6226c4d0517221404b9f0d6bdfb1f858bb1568032bb498617db464e"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined16.png",
+      "sha256": "0a26808acffa90e53263aa640535fa28cb93a7cefd22383f45fe07052d332596"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined24-dark-8x.png",
+      "sha256": "1b41da0e502356c9d7fba3d54747079565ca82dfba1377fb9d61135de3c09e44"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined24-dark.png",
+      "sha256": "26b668943c1f441c1b89c05b127bc2882905e9277cc682de9adc06b29f3657b9"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined24-light-8x.png",
+      "sha256": "a563ae19a6a2e7eaf3f82ffdee56ef2b52c23614c6d38be57ccf0d5b3e74133a"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined24-light.png",
+      "sha256": "ba784389a04467c836a46877863fb5465102c2adb33a7b4e62b154780f973756"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/outlined24.png",
+      "sha256": "9bf68e1f1b64d8c64e1ce6331b61394f24b40ed38ce1697a9873468d401602a0"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/request.json",
+      "sha256": "b9dcf8e1c0ad3a26535d2d8abb8128fd92fe0663522808a4e706d7dbab5e28e0"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/response.json",
+      "sha256": "18339a65c332e74c6990e022542508f3895f52bd87e84b92e827994302b49746"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/result.json",
+      "sha256": "e2911aa08f3bf82bf3901ba24862343d96b3dda18fa19a43a52a78c65f007de1"
+    },
+    {
+      "path": ".staging/wave-fb-images25-api-transparent-2026-09-09/test-native.cjs",
+      "sha256": "cf6356ecabc740ba8b5f60ce5c673cef001e378919b662fdfad900587b4f3344"
+    }
+  ]
+}

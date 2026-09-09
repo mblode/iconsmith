@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T01:24:00.159442+00:00",
+  "status": "exact-image-model-capability-verified",
+  "intent": "docs/log/wave-e-gpt55-image-intent-2026-09-08.json",
+  "terminal": {
+    "result": {
+      "answers": {
+        "recognition": {
+          "choice": "heart",
+          "evidence": "In stimulus.png, the central black silhouette has two rounded upper lobes with an inward notch between them and tapers to a lower point, matching a heart shape. No visible wheels, frame, clapper, or bell dome are present.",
+          "treatment": "The symbol is readable as a heart."
+        }
+      },
+      "evidenceHashes": {
+        "stimulus.png": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+      },
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "stimulus.png": {
+            "exposed": true,
+            "sha256": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+          }
+        },
+        "traceSha256": "c43428ad51ef74086bd4cc44b73fe363a92fa6917d64ef10514a86a21e5c1699",
+        "visualJudgmentValidated": false
+      },
+      "instrumentQualified": false,
+      "model": "gpt-5.5",
+      "provider": "openai-codex",
+      "status": "complete"
+    },
+    "routeHash": "983fe58a4c99f030e4dffc589aa3eab3265d56ec88f31520a72d7a123970dda6",
+    "drift": [],
+    "elapsedMs": 84476,
+    "deadlineExceeded": false,
+    "containerAbsent": true,
+    "capabilityVerified": true,
+    "qualified": false,
+    "providerDispatchIntents": 1,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "actualTraceObservations": {
+    "ambientSkillsTagPresent": false,
+    "ambientRecommendedPluginsTagPresent": false,
+    "usage": [
+      {
+        "total_token_usage": {
+          "input_tokens": 7251,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 172,
+          "reasoning_output_tokens": 86,
+          "total_tokens": 7423
+        },
+        "last_token_usage": {
+          "input_tokens": 7251,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 172,
+          "reasoning_output_tokens": 86,
+          "total_tokens": 7423
+        },
+        "model_context_window": 258400
+      }
+    ]
+  },
+  "settlement": {
+    "intentHash": "6ed06b824989ff22717c774f54063ec975137e79f2e862520c10b7cb5ac047c8",
+    "deadlineAt": 1788830691572,
+    "container": {
+      "artifactEligible": true,
+      "containerAbsent": true,
+      "containerId": "b002886cc67c436789a8af9f063ca9497d09a3ab7bbc47874fdcb1c20699163a",
+      "containmentScope": "docker-private-pid-namespace",
+      "process": {
+        "code": 0,
+        "killed": false,
+        "quiescenceScope": "process-group-and-observed-descendants",
+        "quiescent": true,
+        "stderr": "Reading additional input from stdin...\n2026-09-08T01:20:10.330999Z ERROR codex_models_manager::manager: failed to refresh available models: timeout waiting for child process to exit\n2026-09-08T01:20:10.340657Z ERROR codex_models_manager::manager: failed to refresh available models: timeout waiting for child process to exit\n2026-09-08T01:20:40.377765Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when Client(HttpRequest(HttpRequest(\"http/request failed: error sending request for url (https://chatgpt.com/backend-api/ps/mcp)\")))\n2026-09-08T01:20:56.554930Z ERROR codex_models_manager::manager: failed to refresh available models: timeout waiting for child process to exit\n2026-09-08T01:21:10.396569Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when Client(HttpRequest(HttpRequest(\"http/request failed: error sending request for url (https://chatgpt.com/backend-api/ps/mcp)\")))\n",
+        "stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a07e99-e665-7212-a745-fd4fb5c23a58\"}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"agent_message\",\"text\":\"{\\\"answers\\\":{\\\"recognition\\\":{\\\"choice\\\":\\\"heart\\\",\\\"evidence\\\":\\\"In stimulus.png, the central black silhouette has two rounded upper lobes with an inward notch between them and tapers to a lower point, matching a heart shape. No visible wheels, frame, clapper, or bell dome are present.\\\",\\\"treatment\\\":\\\"The symbol is readable as a heart.\\\"}}}\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":7251,\"cached_input_tokens\":0,\"cache_write_input_tokens\":0,\"output_tokens\":172,\"reasoning_output_tokens\":86}}\n"
+      },
+      "status": "complete"
+    }
+  },
+  "artifactHashes": [
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/manifest.json",
+      "sha256": "f2e868bade0225764717a4c86717ced4063dbf718803bdddcd00a82de99a3553"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/terminal.json",
+      "sha256": "ccabdbce4cd9b82c6be3938e9e5019af739e3b0f33bfbe9680209f4ef1c4dbc8"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/container-identity.json",
+      "sha256": "cad627e8e3d29c51832772c71924f32469b55dfa4129e8f11a4e2679d16e6d4e"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/container-settlement.json",
+      "sha256": "7300c915124287ef0960bbae98fa800a60625b34daf3affe9ae30f6b9350c738"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/review/context-preflight.json",
+      "sha256": "af806b7afafb8f6d239f5a64d6696e3069979aaf549f56dfe556fbdb2a82adbe"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/state/sessions/2026/09/08/rollout-2026-09-08T01-20-10-01a07e99-e665-7212-a745-fd4fb5c23a58.jsonl",
+      "sha256": "c43428ad51ef74086bd4cc44b73fe363a92fa6917d64ef10514a86a21e5c1699"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-1/container-identity.json",
+      "sha256": "54099926eaf415f3b60be05611344a271ae5c72230606dd83a43ab0d5a6d2b9e"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-0/container-identity.json",
+      "sha256": "73a898ff32f5fee877983189981f93fe22f2094363875929bf8561a814484072"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-1/container-settlement.json",
+      "sha256": "af4769370e31202ec06318b6c7bee68fc7e2a3a2475a4108de06bbb776b8828b"
+    },
+    {
+      "path": ".staging/wave-e-root-2026-09-08/contained-image-smoke-v1/review/context-preflight/probe-0/container-settlement.json",
+      "sha256": "49752c150a77f51b9ef9f94ef60b113e01053ee8262ce58ca988d3257f88dc9d"
+    }
+  ],
+  "costs": {
+    "apiActualUsd": 0,
+    "apiReservationsUsd": 0,
+    "nativeExperimentLaunchesCumulative": 4,
+    "nativeCompletedResponsesCumulative": 2,
+    "nativeDollarAllocationUsd": null
+  },
+  "limits": [
+    "Single exposed exact-image capability stimulus, not independent recognition accuracy or craft",
+    "Author pipeline and sealed critic/panel campaign still unqualified",
+    "Other candidate model capability does not inherit this receipt"
+  ]
+}

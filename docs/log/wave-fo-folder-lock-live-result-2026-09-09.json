@@ -1,0 +1,136 @@
+{
+  "id": "D514",
+  "kind": "current-route-folder-lock-live-result",
+  "intent": "D513",
+  "observedAt": "2026-09-09T01:44:08.443879+00:00",
+  "status": "partial-development-delivery-not-qualified",
+  "sourceClosure": "D512",
+  "sourceAfterLive": {
+    "stable": true,
+    "fileCount": 685,
+    "aggregateSha256": "69da830cdda4711b2942a8c33b168dfe4dec8f9ccec7d1ec6615cc6bd723b267"
+  },
+  "scheduledSlice": {
+    "requests": 2,
+    "slots": 4,
+    "deliveredPairs": 1,
+    "retainedIncompletePairs": 1,
+    "rows": [
+      {
+        "slotIds": [
+          "folder/folder-lock/16/outlined",
+          "folder/folder-lock/16/filled"
+        ],
+        "requestId": "1caf7d8dfa24d75565a50fa70f2a87034bc34b36781df067af690dc05a8573d0",
+        "status": "delivered",
+        "qualityStatus": "review-clear",
+        "elapsedMs": 248269,
+        "deadlineExceeded": false,
+        "parentQuiescent": true,
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-16/attempt-1"
+      },
+      {
+        "slotIds": [
+          "folder/folder-lock/24/outlined",
+          "folder/folder-lock/24/filled"
+        ],
+        "requestId": "61523e207778471c383f9f9197b3a8eadfd1d868d83ff1bef31f5b6f8a9b93bc",
+        "status": "incomplete",
+        "qualityStatus": "not-reviewed",
+        "elapsedMs": 306737,
+        "deadlineExceeded": false,
+        "parentQuiescent": true,
+        "selectedAttempt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-24/attempt-1"
+      }
+    ]
+  },
+  "fullFrozenPopulation": {
+    "requests": 40,
+    "slots": 80,
+    "terminalStates": {
+      "delivered": 1,
+      "incomplete": 1,
+      "unstarted": 38
+    },
+    "allTerminalVerifiersPassed": true,
+    "authorEvidenceVerifiedPairs": 2
+  },
+  "terminalReplayEvidence": ".staging/wave-fn-p1-preparation-2026-09-09/terminal-verification.json",
+  "nativeCalls": {
+    "reserved": 20,
+    "started": 10,
+    "settled": 10,
+    "containersAbsent": 10,
+    "unusedReservationReleased": 10,
+    "dollarAllocation": null,
+    "apiSpendUsd": 0,
+    "receipts": [
+      {
+        "sha256": "eb5705f71070acdf4a9876faa7ea1ebf9d0dc0ad92a32f2127f259c17b4ee9da",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-24/native-control/calls/cfc8d1c0-f57d-42d1-85a1-21672d389ce9.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "cb9052e568c71463a89507da076daa3f38658869947543634cbdb3dcf7bfe423",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-24/native-control/calls/18a968d7-6f8d-448c-ac2d-bd4266e50a05.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "55c7ee607ff5d1def22b7b85b6c03a13fa5441d420a5a1dfea1783eb2d5b857e",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-24/native-control/calls/bd4fd7ab-5526-4e5c-aac2-2d4544759579.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "e85813852702e34d6abbc1ed2d7fea4f41db954826574a85b96394d84acea3a3",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-24/native-control/calls/f43d9920-6b13-4292-af5a-1e08ae610957.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "ceb8a95f2c124f18d7ce94c6e2eabde284375100005daa8ac3878bb7c3d9451a",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-24/native-control/calls/1be02800-38f7-405b-8152-3b0f65ac7f8d.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "87b443bc7572883b5ba58977d3309cb13d5995aa509e960edee92c3449057704",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/b30df9f7-01de-4d9d-9b7f-88dd5fc90de6.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "7337ac6078418af59a08fc6083b4d09d00c4220847a5b8beb818176a8d9c7993",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/f3216b92-515e-4a41-9b69-8d3361d85f0a.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "f2dfea1cf44b0e90aef4927cba0347a7bd8a442f67e2b6a34ae001bffffa8e59",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/01925845-bf62-4e8d-82a6-d10bcbf28a94.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "1b3b4396e57ab0d34f9f8ff1c54b979283630c447158a159f0cd8f728bb2be61",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/74bf3a85-4f22-4be6-bc60-66b600df13ee.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      },
+      {
+        "sha256": "70dd900bc338f65ec8898f079c6a123fb0ab60d589197e88d0445deac73a4eaf",
+        "file": ".staging/wave-fn-folder-lock-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/379ca06a-30a2-4d0a-a911-74ad219b669d.terminal.json",
+        "accounting": "settled",
+        "containment": "container-absent"
+      }
+    ]
+  },
+  "visualBoundary": "16px outlined/filled passed meaning/style/optics/family under GPT-5.5 and Sol development review; instruments not qualified. 24px repaired the filled folder tip but unchanged outlined key mark was rejected as cramped on follow-up inspection. No independent 24px approval.",
+  "retainedFailure": "24px attempt-1 structured-author stages, original/check artifacts and repaired outputs retained; no retry or suppression.",
+  "additionalOfflineEvidence": ".staging/wave-fo-api-sdk-serialization-audit-2026-09-09/receipt.md",
+  "qualificationGranted": false,
+  "score": null,
+  "primaryChecklistPromotions": 0
+}

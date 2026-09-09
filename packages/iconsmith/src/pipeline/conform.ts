@@ -455,7 +455,7 @@ const oracleFit = (
   }));
 };
 
-export interface ConformScore {
+interface ConformScore {
   /** Path data reproduced exactly (within a hundredth of a pixel). */
   exact: boolean;
   /** Error if nothing is done at all: the source against the target. */

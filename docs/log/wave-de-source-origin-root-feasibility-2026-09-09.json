@@ -1,0 +1,57 @@
+{
+  "id": "D460",
+  "kind": "root-source-origin-feasibility-audit",
+  "date": "2026-09-09",
+  "status": "development-only-replay-gap-retained",
+  "receipt": {
+    "path": ".staging/wave-de-source-origin-feasibility-2026-09-09/receipt.json",
+    "sha256": "0c0bd22a014bf2b107ce4bb123b488a7b9e0940e8bd8e963a5b36805b2caecad"
+  },
+  "manifest": {
+    "path": ".staging/wave-de-source-origin-feasibility-2026-09-09/manifest.json",
+    "sha256": "667cfd07bf86753b3008997c4d1a8ccb1d92af2ae45616f4a2e7cf9e6e5d5125",
+    "verifiedFiles": 78
+  },
+  "canonicalOwnedFilesUnchanged": true,
+  "patchIntegrated": false,
+  "observations": {
+    "families": [
+      "bell",
+      "shield",
+      "heart",
+      "cloud"
+    ],
+    "hostOriginRasterError": 0,
+    "nativeSize": 24,
+    "size16": "resampled24-not-independent-optical-master",
+    "replayFailure": [
+      "bell",
+      "shield"
+    ],
+    "sourceRegressionRequiredBeforeIntegration": 4357
+  },
+  "boards": [
+    {
+      "path": "docs/log/source-origin-feasibility-native24-4x-light-2026-09-09.png",
+      "sha256": "09f0dc9b474ae432fe5596f38623a2368fd793d61a87b98b30fe3e81851b3c5a"
+    },
+    {
+      "path": "docs/log/source-origin-feasibility-native24-4x-dark-2026-09-09.png",
+      "sha256": "76fab3449c96eda25bef0697240878ec3a14cae96e937bda5e7fe6a5fbce03f9"
+    },
+    {
+      "path": "docs/log/source-origin-feasibility-resampled16-6x-light-2026-09-09.png",
+      "sha256": "ee32c59154836d37afe458bf9f3f81217059d7fc4dd1b616b4f132635632d4a1"
+    },
+    {
+      "path": "docs/log/source-origin-feasibility-resampled16-6x-dark-2026-09-09.png",
+      "sha256": "00018aa65e68a556f538d8f03b8f3c95b5530dc17c0e6731751af572d4b50ccb"
+    }
+  ],
+  "rootVisualInspection": "Native24 light enlargement inspected; no independent AI acceptance or optical qualification claimed.",
+  "cost": {
+    "providerCalls": 0,
+    "apiReservationCreated": false
+  },
+  "remaining": "Coordinate-free source authority must survive exact compiler replay; aggregate topology cannot detect local antialias/support drift."
+}

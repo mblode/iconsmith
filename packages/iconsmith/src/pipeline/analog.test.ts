@@ -10,7 +10,6 @@ import type { Part } from "../types.js";
 import {
   analogArm,
   analogConstructions,
-  ANALOG_ALIASES,
   ANALOG_KINS,
   ANALOG_MODIFIERS,
   contentTokens,
@@ -720,7 +719,7 @@ describe("analog families", () => {
   });
 
   it("resolves analog aliases offline without a parts extract", () => {
-    expect(ANALOG_ALIASES.plantain).toBe("banana");
+    expect(ANALOG_KINS.plantain).toBe("banana");
     expect(ANALOG_KINS.mail).toBe("envelope");
     expect(analogConstructions("plantain", [], "plantain", false)[0]?.id).toBe(
       "banana"

@@ -1,6 +1,6 @@
 import { styleText } from "node:util";
 
-import { Command } from "commander";
+import { Command, Option } from "commander";
 
 import { registerAuditCommands } from "./commands/audit.js";
 import { registerConceptsCommand } from "./commands/concepts.js";
@@ -12,11 +12,13 @@ import { registerImproveCommand } from "./commands/improve.js";
 import { registerLintCommand } from "./commands/lint.js";
 import { registerNewCommand } from "./commands/new.js";
 import { registerPartsCommand } from "./commands/parts.js";
-import { registerViewCommand } from "./commands/view.js";
 
 // stdout carries data only; stderr carries logs, progress, and human hints.
 const isInteractive =
-  Boolean(process.stdout.isTTY) && !process.env.NO_COLOR && !process.env.CI;
+  Boolean(process.stdout.isTTY) &&
+  !process.env.NO_COLOR &&
+  !process.env.CI &&
+  process.env.TERM !== "dumb";
 
 const program = new Command();
 
@@ -26,7 +28,17 @@ program
     "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec."
   )
   .version("0.0.1")
-  .option("--output <format>", "output format: text or json", "text");
+  .addOption(
+    new Option("--output <format>", "output format")
+      .choices(["text", "json"])
+      .default("text")
+  )
+  .addHelpText(
+    "after",
+    "\nFrom the repository root, after npm run build:local:\n" +
+      "  npm run iconsmith -- draw examples/square-check.icon -o square-check.svg\n" +
+      "\nFor pinned-style AI generation: npm run generate:local -- --help\n"
+  );
 
 registerPartsCommand(program);
 registerDrawCommand(program);
@@ -38,7 +50,6 @@ registerImproveCommand(program);
 registerAuditCommands(program);
 registerCorpusCommands(program);
 registerConceptsCommand(program);
-registerViewCommand(program);
 
 try {
   await program.parseAsync();

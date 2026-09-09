@@ -1,0 +1,56 @@
+{
+  "kind": "root-current-production-packet-replay",
+  "decisionId": "D433",
+  "qualified": false,
+  "audit": {
+    "path": ".staging/wave-ci-production-packet-replay-2026-09-09/audit.json",
+    "sha256": "3f8ced0e6b9f5855b426c8c304f5a9c8c459d861cd4919ff4b182b1f96ab401a"
+  },
+  "verifiedHistoricalAndPacketFileBindings": 46,
+  "rootViewedBoards": [
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ci-production-packet-replay-2026-09-09/folder-lock-16/valid-packet/review-packet/folder-lock-16-candidate.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ci-production-packet-replay-2026-09-09/folder-lock-24/valid-packet/review-packet/folder-lock-24-candidate.png"
+  ],
+  "findings": {
+    "historicalSourceHashesStable": true,
+    "negativeCopiesRefused": {
+      "16": {
+        "mutated-attachment": "Error: Family proof is missing or mutated",
+        "swapped-metadata": "Error: Review proof has the wrong native master metadata",
+        "wrong-master": "Error: Review proof has the wrong native master metadata"
+      },
+      "24": {
+        "mutated-attachment": "Error: Family proof is missing or mutated",
+        "swapped-metadata": "Error: Review proof has the wrong native master metadata",
+        "wrong-master": "Error: Review proof has the wrong native master metadata"
+      }
+    },
+    "providerCalls": 0,
+    "retroactiveDeliveryOrQualification": false,
+    "validPacketsAdmitted": [
+      {
+        "anchorCount": 6,
+        "candidate": {
+          "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ci-production-packet-replay-2026-09-09/folder-lock-16/valid-packet/review-packet/folder-lock-16-candidate.png",
+          "sha256": "b8cbaeb476e14b0a66115e316111313437f0550efd1f0cc0a6943937b76f8c72"
+        },
+        "inputHash": "ab056c4e68d7027cf2d9ded47e533a244d7eaa3569e3acdbc01f693acd700453",
+        "nativeSize": 16
+      },
+      {
+        "anchorCount": 6,
+        "candidate": {
+          "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ci-production-packet-replay-2026-09-09/folder-lock-24/valid-packet/review-packet/folder-lock-24-candidate.png",
+          "sha256": "f68242c28667bd8401fa4bd87a4340dd988da9cbb2a27ee28e3fbcdc331acb7f"
+        },
+        "inputHash": "09df6085414deecf0bc592356e61cb3d186b7dea9dd50a81abbf9e692c5b1b37",
+        "nativeSize": 24
+      }
+    ]
+  },
+  "limitations": [
+    "This replay does not alter, qualify, or retroactively review the historical deliveries.",
+    "The inspection bridge restates final structured inspection and terminal proof hashes; it is not independent visual evidence."
+  ],
+  "providerCalls": 0
+}

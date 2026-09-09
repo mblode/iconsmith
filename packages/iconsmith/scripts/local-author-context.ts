@@ -1,10 +1,17 @@
 /** Invocation-only context isolation; never edits user configuration. */
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { z } from "zod";
+
+import {
+  runNativeContainerCommand,
+  validateCodexContainerAssets,
+  validateHostVisibleContainerState,
+} from "./local-container-runtime.js";
+import type { NativeCliContainerConfig } from "./local-container-runtime.js";
 
 const promptSchema = z.array(
   z
@@ -22,6 +29,8 @@ const promptText = (raw: string) =>
     .map((block) => block.text ?? "")
     .join("\n");
 const digest = (value: string) =>
+  createHash("sha256").update(value).digest("hex");
+const digestBytes = (value: Uint8Array) =>
   createHash("sha256").update(value).digest("hex");
 
 export const discoveredSkillPaths = (text: string) => {
@@ -121,6 +130,178 @@ export const prepareAuthorContext = (
             probes,
             scope:
               "Offline context serialization; actual native trace remains authoritative",
+          },
+          null,
+          2
+        )
+      );
+      return { args, receiptName };
+    }
+    const newPaths = paths.filter((file) => !disabled.has(file));
+    if (!newPaths.length) {
+      throw new Error(
+        "Native context still contains ambient capabilities after disabling discovered skills"
+      );
+    }
+    for (const file of newPaths) {
+      disabled.add(file);
+    }
+  }
+  throw new Error(
+    "Native skill context did not converge within four preflight probes"
+  );
+};
+
+/** Serialize context without authentication or networking before a real call. */
+export const prepareContainedCodexContext = async (options: {
+  container: NativeCliContainerConfig;
+  deadlineAt: number;
+  out: string;
+}) => {
+  validateCodexContainerAssets(options.container);
+  validateHostVisibleContainerState(options.container, "CODEX_HOME");
+  if (
+    !Number.isFinite(options.deadlineAt) ||
+    Date.now() >= options.deadlineAt
+  ) {
+    throw new Error("Contained context preflight deadline exhausted");
+  }
+  const codexHome = options.container.environment?.CODEX_HOME;
+  if (!codexHome) {
+    throw new Error("Contained context preflight requires CODEX_HOME identity");
+  }
+  const root = path.join(options.out, "context-preflight");
+  mkdirSync(root);
+  const base = [
+    "--disable",
+    "plugins",
+    "--disable",
+    "memories",
+    "--disable",
+    "skill_search",
+    "-c",
+    "project_doc_max_bytes=0",
+    "-c",
+    "skills.max_context_tokens=10000",
+  ];
+  const disabled = new Set<string>();
+  const probes: {
+    containerIdentitySha256: string;
+    containerSettlementSha256: string;
+    discoveredSkills: number;
+    promptSha256: string;
+    textCharacters: number;
+  }[] = [];
+  const assetPaths = new Set([
+    options.container.nativeCommand,
+    options.container.codexAssets?.certificateBundle.containerPath,
+    options.container.codexAssets?.codeModeHost.containerPath,
+  ]);
+  const assetMounts = options.container.stateMounts.filter(
+    ({ containerPath }) => assetPaths.has(containerPath)
+  );
+  if (assetMounts.length !== 3) {
+    throw new Error("Contained context preflight requires exact Codex assets");
+  }
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    if (Date.now() >= options.deadlineAt) {
+      throw new Error("Contained context preflight deadline exhausted");
+    }
+    const probe = path.join(root, `probe-${attempt}`);
+    const state = path.join(probe, "state");
+    const cwd = path.join(probe, "work");
+    mkdirSync(probe);
+    mkdirSync(state);
+    mkdirSync(cwd);
+    const identityFile = path.join(probe, "container-identity.json");
+    const settlementFile = path.join(probe, "container-settlement.json");
+    const config = `skills.config=[${[...disabled].map((file) => `{path=${JSON.stringify(file)},enabled=false}`).join(",")}]`;
+    const args = [...base, "-c", config];
+    // Each probe discovers the paths disabled by the next sequential probe.
+    // eslint-disable-next-line no-await-in-loop
+    const result = await runNativeContainerCommand(
+      {
+        ...options.container,
+        beforeStart: undefined,
+        diagnosticFinalizationObserver: undefined,
+        environment: { CODEX_HOME: codexHome, HOME: codexHome },
+        namePrefix: "iconsmith-codex-context",
+        network: "none",
+        observeStop: undefined,
+        persistAccessBinding: undefined,
+        persistIdentity: (identity) =>
+          writeFileSync(identityFile, JSON.stringify(identity, null, 2), {
+            flag: "wx",
+          }),
+        persistSettlement: (settlement) =>
+          writeFileSync(settlementFile, JSON.stringify(settlement, null, 2), {
+            flag: "wx",
+          }),
+        // The review-only handshake is bound to the authenticated call cwd.
+        // This auxiliary no-network probe owns a different cwd and identity.
+        sameContainerAccessProbe: undefined,
+        stateMounts: [
+          ...assetMounts,
+          { containerPath: codexHome, hostPath: state, readOnly: false },
+        ],
+      },
+      {
+        args: [
+          "debug",
+          "prompt-input",
+          ...args,
+          "--",
+          "Inspect only the supplied drawing packet.",
+        ],
+        command: options.container.nativeCommand,
+        cwd,
+        deadlineAt: options.deadlineAt,
+        maxBuffer: 8 * 1024 * 1024,
+      }
+    );
+    if (result.code !== 0 || result.killed) {
+      throw new Error(`Contained context preflight failed: ${result.stderr}`);
+    }
+    const text = promptText(result.stdout);
+    const paths = discoveredSkillPaths(text);
+    if (
+      paths.some((file) => {
+        const relative = path.relative(codexHome, file);
+        return (
+          relative === ".." ||
+          relative.startsWith(`..${path.sep}`) ||
+          path.isAbsolute(relative)
+        );
+      })
+    ) {
+      throw new Error(
+        "Contained context skill path does not map into provider CODEX_HOME"
+      );
+    }
+    probes.push({
+      containerIdentitySha256: digestBytes(readFileSync(identityFile)),
+      containerSettlementSha256: digestBytes(readFileSync(settlementFile)),
+      discoveredSkills: paths.length,
+      promptSha256: digest(result.stdout),
+      textCharacters: text.length,
+    });
+    if (
+      !text.includes("<skills_instructions>") &&
+      !text.includes("<recommended_plugins>")
+    ) {
+      const receiptName = "context-preflight.json";
+      writeFileSync(
+        path.join(options.out, receiptName),
+        JSON.stringify(
+          {
+            argsSha256: digest(JSON.stringify(args)),
+            codexHomeIdentitySha256: digest(codexHome),
+            disabledSkills: disabled.size,
+            globalConfigurationEdited: false,
+            network: "none",
+            probes,
+            scope:
+              "Offline unauthenticated context serialization; actual native trace remains authoritative",
           },
           null,
           2

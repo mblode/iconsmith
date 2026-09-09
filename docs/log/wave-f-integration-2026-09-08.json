@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T02:42:33.890361+00:00",
+  "status": "engineering-verified-visual-unqualified",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "sourceClosure": {
+    "path": ".staging/wave-f-integration-2026-09-08/source-hashes-final.json",
+    "sha256": "ae5d7e46bc3892e3ee19fc168105b2b48e6afb65fcb61677a8f6d3a184828e16",
+    "originalSnapshot": ".staging/wave-f-integration-2026-09-08/source-hashes.json",
+    "onlyPostTestChange": "Formatting packages/iconsmith/scripts/library-replay.test.ts; seven tests rerun.",
+    "unchangedSinceFinalSnapshot": true
+  },
+  "checks": [
+    {
+      "command": "npm run test",
+      "exitCode": 0,
+      "log": ".staging/wave-f-integration-2026-09-08/test.log",
+      "sha256": "47ee241c323de5f0f523915f319e36c82979d4b102584970fd09ac634d2950d9"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": ".staging/wave-f-integration-2026-09-08/typecheck.log",
+      "sha256": "10842dc90d03c7dce371fc67a23cab01a7fdb293738a2124fe11f56c26f1cd97"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": ".staging/wave-f-integration-2026-09-08/build.log",
+      "sha256": "f417fc61e89c555eb8314bfc5daf6d26fca6abba2602a079a167c5021fdf5d66"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": ".staging/wave-f-integration-2026-09-08/check-v2.log",
+      "sha256": "a9ff4e7bc1d9b751b5ba427839dbac66bf2496404a2ed720a208d48caf116d78"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "log": ".staging/wave-f-integration-2026-09-08/diff-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "vitest library-replay after formatting",
+      "exitCode": 0,
+      "log": ".staging/wave-f-integration-2026-09-08/replay-test-after-format.log",
+      "sha256": "57116985e31123522296383f328588e0098c2f0b6a7b73269f9525e06a910cd2"
+    }
+  ],
+  "retainedFailedCheck": {
+    "path": ".staging/wave-f-integration-2026-09-08/check.log",
+    "sha256": "671040b8f109ba2d6fda009560b2e29dc57bc5bd0a4df821a2a1d4d9a9dcd880",
+    "exitCode": 1,
+    "reason": "Replay test formatting; corrected by scoped formatter."
+  },
+  "tests": {
+    "passed": 1964,
+    "files": 165,
+    "skipped": 0,
+    "corpusGatedCount": 13
+  },
+  "receipts": [
+    "docs/log/wave-f-local-feature-2026-09-08.json",
+    "docs/log/wave-f-acceptance-report-2026-09-08.json",
+    "docs/log/wave-f-reviewer-runtime-2026-09-08.json",
+    "docs/log/wave-f-source-regression-2026-09-08.json"
+  ],
+  "apiActualAddedUsd": 0,
+  "apiReservationsAddedUsd": 0,
+  "nativeProviderCallsAdded": 0,
+  "nativeEngineeringAndSubagentUsageUsd": null,
+  "ledger": {
+    "path": ".staging/foundry-round-1/budget.json",
+    "sha256": "c7639a8abeb6b932bf99bced0c5baa1651d796045b639553565e23e0e3c9341f",
+    "unchanged": true,
+    "actualUsd": 13.06220785,
+    "reservedOrUnknownUsd": 11.37126575,
+    "remainingMaximumUsd": 25.5665264
+  },
+  "limits": [
+    "No phase visually qualified.",
+    "Canonical native campaign composer, full deadline allocation and interrupted salvage remain open.",
+    "Acceptance contract remains draft and cannot qualify production.",
+    "Full replay does not establish admission or native craft parity."
+  ]
+}

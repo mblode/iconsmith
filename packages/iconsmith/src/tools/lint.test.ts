@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { Canvas, SPEC } from "./canvas.js";
+import { Canvas, resolveFilledPaint, SPEC } from "./canvas.js";
 import { run } from "./dsl.js";
 import { format, lint, review } from "./lint.js";
 import type { LintElement } from "./lint.js";
@@ -360,6 +360,233 @@ describe("lint over a real canvas", () => {
     const c = new Canvas();
     c.rect({ h: 16, r: 0, w: 16, x: 4, y: 4 });
     expect(lint(c)).toEqual([]);
+  });
+
+  it("measures the AL filled folder recipe from resolved ink, not its cutters", () => {
+    const drawing = run(`icon folder-lock
+keyline landscape
+finish filled
+rect 2,3 20x17 r2
+hole circle 6,15 r5
+hole rect 0,13 12x10 r4
+rect 2,15 8x6 r2`);
+    const painted = drawing.canvas.bbox();
+    expect(painted).toMatchObject({
+      h: 18,
+      w: 20,
+      x0: 2,
+      x1: 22,
+      y1: 21,
+    });
+    expect(painted?.y0).toBeCloseTo(3);
+    const issues = lint(drawing.canvas, { keyline: "landscape" });
+    expect(rules(issues)).not.toContain("centred");
+    expect(rules(issues)).not.toContain("keyline");
+    const documentTarget = {
+      elements: drawing.canvas.elements,
+      finish: "filled" as const,
+      spec: drawing.canvas.spec,
+    };
+    expect(lint(documentTarget, { keyline: "landscape" })).toEqual(issues);
+    const checks = review(drawing.canvas, { keyline: "landscape" });
+    expect(review(documentTarget, { keyline: "landscape" })).toEqual(checks);
+    expect(checks.find((check) => check.rule === "keyline")).toMatchObject({
+      message: expect.stringContaining("20.0×18.0"),
+      status: "pass",
+    });
+  });
+
+  it("uses the surviving contour when a cutter crosses a visible boundary", () => {
+    const drawing = run(`icon clipped-card
+finish filled
+rect 2,3 20x18 r0
+hole rect 0,0 6x24 r0`);
+    expect(drawing.canvas.bbox()).toMatchObject({ x0: 6, x1: 22 });
+    const centred = lint(drawing.canvas).find(
+      (issue) => issue.rule === "centred"
+    );
+    expect(centred?.message).toContain("(14.00, 12.00)");
+    expect(
+      review(drawing.canvas).find((check) => check.rule === "keyline")
+    ).toHaveProperty("message", expect.stringContaining("16.0×18.0"));
+  });
+
+  it("applies one assembly knockout to every separately rendered child", () => {
+    const assembly = {
+      id: "source-assembly",
+      length: 2,
+      rootElementId: "child-0",
+    };
+    const target = {
+      elements: [
+        {
+          assembly: { ...assembly, index: 0 },
+          d: "M2 3H10V21H2Z",
+          id: "child-0",
+        },
+        {
+          assembly: { ...assembly, index: 1 },
+          d: "M14 3H22V21H14Z",
+          id: "child-1",
+        },
+        {
+          d: "M0 0H6V24H0Z",
+          id: "cut",
+          op: "knockout" as const,
+        },
+      ],
+      finish: "filled" as const,
+    };
+    const centred = lint(target).find((issue) => issue.rule === "centred");
+    expect(centred?.message).toContain("(14.00, 12.00)");
+    expect(
+      review(target).find((check) => check.rule === "keyline")
+    ).toHaveProperty("message", expect.stringContaining("16.0×18.0"));
+  });
+
+  it.each([
+    {
+      assembly: {
+        id: "source-assembly",
+        index: 1,
+        length: 2,
+        rootElementId: "child-0",
+      },
+      label: "missing root",
+    },
+    {
+      assembly: {
+        id: "source-assembly",
+        index: 0,
+        length: 0,
+        rootElementId: "child-0",
+      },
+      label: "zero length",
+    },
+    {
+      assembly: {
+        id: "source-assembly",
+        index: 0,
+        length: 2,
+        rootElementId: "wrong",
+      },
+      label: "root mismatch",
+    },
+  ])("fails closed for $label assembly metadata", ({ assembly }) => {
+    const issues = lint({
+      elements: [
+        {
+          assembly,
+          d: "M4 4H20V20H4Z",
+          id: "child-0",
+          kind: "part",
+        },
+      ],
+      finish: "filled",
+    });
+    expect(issues).toStrictEqual([
+      {
+        message: expect.stringContaining("Invalid filled assembly"),
+        rule: "substance",
+        severity: "error",
+      },
+    ]);
+  });
+
+  it("fails closed when an assembly child identity is inconsistent", () => {
+    const root = {
+      id: "source-assembly",
+      length: 2,
+      rootElementId: "child-0",
+    };
+    const issues = lint({
+      elements: [
+        {
+          assembly: { ...root, index: 0 },
+          d: "M2 3H10V21H2Z",
+          id: "child-0",
+          kind: "part",
+        },
+        {
+          assembly: { ...root, id: "forged", index: 1 },
+          d: "M14 3H22V21H14Z",
+          id: "child-1",
+          kind: "part",
+        },
+      ],
+      finish: "filled",
+    });
+    expect(issues).toStrictEqual([
+      {
+        message: expect.stringContaining("Invalid filled assembly child"),
+        rule: "substance",
+        severity: "error",
+      },
+    ]);
+  });
+
+  it.each([
+    { marker: { op: "knockout" as const }, name: "op knockout" },
+    { marker: { hole: true }, name: "hole flag" },
+  ])("fails closed when an assembly child carries a $name", ({ marker }) => {
+    const root = {
+      id: "source-assembly",
+      length: 2,
+      rootElementId: "child-0",
+    };
+    const elements = [
+      {
+        assembly: { ...root, index: 0 },
+        d: "M2 3H10V21H2Z",
+        id: "child-0",
+        kind: "part",
+      },
+      {
+        ...marker,
+        assembly: { ...root, index: 1 },
+        d: "M14 3H22V21H14Z",
+        id: "child-1",
+        kind: "part",
+      },
+    ];
+
+    expect(() => resolveFilledPaint(elements)).toThrow(
+      "Invalid filled assembly child child-1"
+    );
+    expect(lint({ elements, finish: "filled" })).toStrictEqual([
+      {
+        message: expect.stringContaining("Invalid filled assembly child"),
+        rule: "substance",
+        severity: "error",
+      },
+    ]);
+  });
+
+  it("does not report bleed from an exterior cutter and rejects empty ink", () => {
+    const safe = run(`icon safe-cut
+finish filled
+rect 2,3 20x18 r0
+hole rect -4,8 4x8 r0`);
+    expect(rules(lint(safe.canvas))).not.toContain("bleed");
+
+    const empty = run(`icon empty-cut
+finish filled
+rect 8,8 8x8 r0
+hole rect 0,0 24x24 r0`);
+    expect(lint(empty.canvas)).toEqual([
+      {
+        message: "Canvas has no painted geometry.",
+        rule: "empty",
+        severity: "error",
+      },
+    ]);
+    expect(review(empty.canvas)).toEqual([
+      {
+        message: "Canvas has no painted geometry.",
+        rule: "empty",
+        status: "error",
+      },
+    ]);
   });
 });
 

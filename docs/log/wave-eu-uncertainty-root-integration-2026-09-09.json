@@ -1,0 +1,43 @@
+{
+  "patches": [
+    {
+      "file": "el.patch",
+      "sha256": "d7eb8a08b3cab9a79f26e3b2be9b7138fb3de8420d17c822b501b78178fe354f",
+      "applyCheckAgainstCanonical": true
+    },
+    {
+      "file": "el-v2.patch",
+      "sha256": "c11269854af8ac63ed48a649833b9d2b2d8231353c7b5685c7fd9f1cef536079",
+      "applyOrder": "after el.patch",
+      "applyCheckAgainstExactV1Result": true,
+      "applyCheckLogSha256": "2bb852b47addb471887eb6564c8c076314bb53a00df045d1e19d912ddc9b8427"
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-el-independent-audit-uncertainty-2026-09-09/receipt-v1.json",
+      "sha256": "8f0729e6d135696b678bea77693a42eec5c880ac0072a210c66efbdcba0f40c2"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-el-independent-audit-uncertainty-2026-09-09/receipt-v2.json",
+      "sha256": "28aed895a86ed8a02da4958e941c3e6f37879dda59ec53ba18ca624d22b76b8f"
+    }
+  ],
+  "after": {
+    "packages/iconsmith/src/eval/acceptance-contract.ts": "096958ed44ab4585c220080f3df6ca0b6e1ebb8f6527e0758a8383c661f9121a",
+    "packages/iconsmith/src/eval/acceptance-contract.test.ts": "ee8ec19359069a6f975d033276854a5c631585bc224bda426394d2a0270acd06",
+    "packages/iconsmith/src/eval/family-clustered-uncertainty.ts": "ac7a1de49b18f699faccc6c894fb9953b165da50b97b6a89d87c965e1b4caded",
+    "packages/iconsmith/src/eval/family-clustered-uncertainty.test.ts": "d0e20ee21a0eb81136a66b11138bb6c8134004d6fe66549ec51b3c4f50a35992",
+    "packages/iconsmith/scripts/quality-population.ts": "2944a0075517167838c330ac6e4cb1ce127ad3d028bfc77058e1e74c45e9edec"
+  },
+  "providerCalls": 0,
+  "id": "D484",
+  "status": "integrated-scoped-validation-passed",
+  "tests": {
+    "passed": 123,
+    "files": 3,
+    "skipped": 0,
+    "logSha256": "9dc6f39ae6d4e04ca305c56aa0622c92d4ac735056b053b471941c1b5612b017"
+  },
+  "qualification": false
+}

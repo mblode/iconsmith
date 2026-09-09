@@ -1,0 +1,52 @@
+{
+  "id": "D413",
+  "recordedAt": 1788878340318,
+  "intent": "D412",
+  "status": "inconclusive-terminal-before-authenticated-observation",
+  "parentCode": 0,
+  "parentQuiescent": true,
+  "nativeCalls": 1,
+  "callOutcome": "complete",
+  "nativeAccounting": "settled",
+  "containersAbsent": 3,
+  "nativeSettledCumulative": 134,
+  "olderUnresolvedNativeIntents": 1,
+  "releasedUnusedReservation": 11,
+  "apiIncrementUsd": 0,
+  "nativeDollarCost": "unknown",
+  "qualified": false,
+  "evidence": [
+    {
+      "path": ".staging/wave-cd-authenticated-stop-root-live-2026-09-09/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-root-live-2026-09-09/parent-settlement.json",
+      "sha256": "199784c8f14a4eb2034f25f049d696a95c9f62c3430148015f507ad04d21cb64"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-root-live-2026-09-09/launch.json",
+      "sha256": "348fbfca8aacb49d0f9650751554174cdfbb862e5e75633e0e819dd8f21d1f18"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-root-live-2026-09-09/stdout.json",
+      "sha256": "bf6f90216e35d71b3778b251e7a20fd8081d2090744d8e0d2ad58627869fac39"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-root-live-2026-09-09/observation-result.json",
+      "sha256": "fb5b1fffc14481eac65279813dd9040b979152944b7b3a6d82dd5873fbab36a3"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-root-live-2026-09-09/root-independent-absence.json",
+      "sha256": "cd5a1c8951a5d91e7b9a7c1d71743aeeb8c04833d6ca15af50613368b2eafab2"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls/0a33c1ff-2aa0-4429-871a-f8d91bfdeb51.terminal.json",
+      "sha256": "0f67e89307a1bd455b4c2115197252c609bb1d8112f785f16430df2caf4addd9"
+    },
+    {
+      "path": ".staging/wave-cd-authenticated-stop-live-2026-09-09/campaign/receipts/a6c59d76fa8420d60d570e56b7a894ceaf9ed0f7704395ec1ff3ba9d815f91eb.json",
+      "sha256": "523b9d40da6e5c56035b8c39b7577e96f51f4e275c77ef121bc9651b89398a31"
+    }
+  ]
+}

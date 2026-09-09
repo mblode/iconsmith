@@ -1,0 +1,37 @@
+{
+  "kind": "wave-w-compiler21-admission-baseline-v1",
+  "date": "2026-09-08",
+  "providerCalls": 0,
+  "apiActual": 0,
+  "apiReservation": 0,
+  "qualified": false,
+  "results": {
+    "path": ".staging/wave-w-source-admission-2026-09-08/compiler21/admission-results.json",
+    "sha256": "99282bfa36a8b9500c10e1796dc4e6c84ce878a0f17e226bbfd4921f5b10cc6d"
+  },
+  "comparison": {
+    "path": ".staging/wave-w-source-admission-2026-09-08/compiler21-comparison.json",
+    "sha256": "a44b29067b9649571d6e6c9a71a04af91c26ef0ae361bf11d6d91390692d06f6"
+  },
+  "source": {
+    "path": ".staging/wave-w-source-admission-2026-09-08/compiler21-source.json",
+    "sha256": "9d459f4e3b1be4b48fc3e8dda7d6d1f0e456875e5ff4ab249cc3bc143dfdb095"
+  },
+  "summary": {
+    "total": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "unchangedHistoricalRows": 4357,
+    "sourceIdentityVerified": true
+  },
+  "implementation": {
+    "admissionCli": "packages/iconsmith/scripts/library-replay-cli.ts admit",
+    "testsPassed": 10,
+    "typecheck": true,
+    "limitations": [
+      "24px master with explicit quarter-grid; admission also checks16/24raster.",
+      "Not a new generation or independent visual qualification.",
+      "Compiler22 audit remains pending."
+    ]
+  }
+}

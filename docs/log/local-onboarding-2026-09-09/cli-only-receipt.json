@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-09",
+  "supersedes": "receipt.json describes the earlier local onboarding phase before the user explicitly requested removal of all web UI, website and Studio.",
+  "scope": "CLI-only local setup and Knip-driven dead code removal",
+  "removedSurfaces": [
+    "apps/web",
+    "apps/agent",
+    "packages/contract",
+    "vercel.json",
+    "CLI browser viewer and its tests",
+    "unused package API barrel and static spec entry"
+  ],
+  "removedTrackedSurfaceFiles": 166,
+  "removedTrackedSurfaceLines": 22625,
+  "deadCode": {
+    "knipVersion": "6.35.0",
+    "unusedExportsRemoved": 258,
+    "unusedTypeExportsRemoved": 132,
+    "subsequentUnusedDeclarationsRemoved": 20,
+    "duplicateAliasRemoved": "ANALOG_ALIASES; callers use ANALOG_KINS",
+    "earlierInternalDeclarationsRemoved": 7,
+    "finalKnipIssues": 0,
+    "configuration": "No ignored files or exports. Explicit standalone CLI/research entry points; entry exports checked. mkfifo is an OS binary, the only binary exception."
+  },
+  "dependencies": {
+    "removedLockfileRecords": 180,
+    "remainingWorkspace": "packages/iconsmith",
+    "added": "Pinned Knip, explicit root tsx and engine @ai-sdk/provider dependency; removed app dependency graphs."
+  },
+  "localSetup": "README offline example and local setup guide verified; generation help exits before authentication. No package publication or global executable.",
+  "verification": {
+    "freshInstall": "Fresh temporary source copy: npm ci, build:local, draw, lint and generation help passed without provider keys or private corpus. Temporary copy removed afterward.",
+    "checks": "Root check (foundry, Knip, formatting, lint and layering), typecheck, build, root formatting and scoped whitespace checks passed.",
+    "fullTests": "2550 engine tests passed in 183 files; 10 root verification tests passed; zero skipped. Both skill snapshot failures resolved. Final root npm test exited zero.",
+    "removedViewer": "Built CLI rejects view as unknown command.",
+    "previousOnboardingTests": "The pre-removal full suite retry passed; its earlier disk guard failures were resolved by deleting only the disposable install.",
+    "removedUi": "No TSX, JSX, HTML or CSS source files remain under apps, packages or scripts. Removed app directories and browser view source are absent."
+  },
+  "preservation": "Existing edits to the removed apps were archived in /tmp/iconsmith-removed-web-source.tar.gz before deletion. Other pre-existing foundry work and historical evidence retained. No commits or pushes.",
+  "costs": {
+    "apiCalls": 0,
+    "nativeGenerationCalls": 0,
+    "apiUsd": 0
+  },
+  "limitations": [
+    "Live model generation not invoked; pinned style/reference inputs and compatible native subscriptions remain required.",
+    "No deployment or public website removal was requested or performed; changes are local repository changes."
+  ]
+}

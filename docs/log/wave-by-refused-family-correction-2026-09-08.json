@@ -1,0 +1,28 @@
+{
+  "decision": "D399",
+  "date": "2026-09-08",
+  "title": "Eight constrained corrections pass host checks",
+  "receipt": ".staging/wave-by-refused-family-correction-2026-09-08/receipt.json",
+  "sha256": "3e70b0ffa25e9b0fdad3e073ac1df47946c17c4fcc4a3710657e537b91304c82",
+  "rootVerifiedArtifactCount": 64,
+  "counts": {
+    "families": 2,
+    "cases": 8,
+    "exactReplays": 8,
+    "mandatoryHostCheckPasses": 8,
+    "providerCalls": 0
+  },
+  "board": ".staging/wave-by-refused-family-correction-2026-09-08/enlarged-board.png",
+  "qualification": false,
+  "limits": [
+    "Both historically and currently refused families have editable constrained alternatives for both paints and native masters.",
+    "This demonstrates DSL constructibility, not source reconstruction fidelity, family craft, semantic equivalence, or generation qualification.",
+    "Numbers use a rounded ring/counter and upright construction; threed-package uses a six-sided host and explicit seams. Both simplify source curves.",
+    "Round 1 removed every error-severity host finding but retained avoidable centring and gap warnings; round 2 fixes those without changing the constrained representation.",
+    "The outlined package retains declared off-axis warnings because its source-bound six-sided projection uses non-house diagonal angles.",
+    "Every candidate has zero error-severity host findings. Warnings remain visible and are not promoted to acceptance.",
+    "Each native-16 candidate is compiled from an explicitly selected 16 master program. Its comparison source is the canonical 24-unit source resampled to 16px, not an independent source optical master.",
+    "Only the outlined numbers pair uses distinct coordinate geometry across 16 and 24. The other native-16 programs are separately master-bound renders of the same coordinate bodies and are labeled as such rather than claimed as independent optical constructions."
+  ],
+  "apiIncrementUsd": 0
+}

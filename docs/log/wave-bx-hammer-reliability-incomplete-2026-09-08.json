@@ -1,0 +1,50 @@
+{
+  "id": "D397",
+  "requestId": "c13cd8fb01fcabf503ed782086051ffffbe2cb7bafc79d8fd74769c62ece358f",
+  "status": "incomplete",
+  "qualityStatus": "review-incomplete",
+  "childExitCode": 1,
+  "receipt": {
+    "path": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/c13cd8fb01fcabf503ed782086051ffffbe2cb7bafc79d8fd74769c62ece358f.json",
+    "sha256": "3c67dc8c3ddc8fbac921fefd843cf84f00b8e1c13707c0d18b1cb1107927416c"
+  },
+  "selectedArtifactHashesVerified": 131,
+  "containerAbsence": {
+    "path": ".staging/wave-bx-root-reliability-resume-live-2026-09-08/hammer-check-16-root-absence.json",
+    "sha256": "81d8082b672225e2f771c541f90b72a856cb2935b2cba67d77749c36991a1a94",
+    "count": 27,
+    "allAbsent": true
+  },
+  "originalDeadlineAt": 1788875571665,
+  "parentEndToEndMs": 507317,
+  "terminalElapsedMs": 506495,
+  "stageTimings": {
+    "preflight": 1628,
+    "retrieval": 84100,
+    "generation": 420360
+  },
+  "reviews": [
+    {
+      "model": "gpt-5.5",
+      "status": "complete",
+      "choices": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "uncertain",
+        "family": "pass"
+      },
+      "reason": null
+    },
+    {
+      "model": null,
+      "status": "incomplete",
+      "choices": {},
+      "reason": "Error: Codex reviewer process incomplete"
+    }
+  ],
+  "nativeCallsSettledThisRequest": 9,
+  "qualification": false,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "correction": "Initial root update read author-side delivery.json and its generation-only420347ms. Canonical parent correctly records incomplete, exit1, and507317ms end-to-end. Author files do not establish successful delivery."
+}

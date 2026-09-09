@@ -1,0 +1,156 @@
+{
+  "id": "D450",
+  "observedAt": "2026-09-08T18:02:37.079640+00:00",
+  "kind": "root-verified-full-source-regression",
+  "agentReceipt": {
+    "path": ".staging/wave-cv-source-profile-regression-2026-09-09/receipt.json",
+    "sha256": "5e36a555723b0e9749aeaff3435e703b4682d69e8d3111dafb9c9e65ac85913c",
+    "bytes": 5946
+  },
+  "artifacts": [
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/preflight.json",
+      "sha256": "eeea84f89e16d9c16c78b2dd8f1033fb237c75c07a31719f76a48bcd50b0cf3e",
+      "bytes": 3891
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/postflight.json",
+      "sha256": "5e83d1b33da214f0721d23d0b1c742519e50391ad4f19695db66224c953309f3",
+      "bytes": 1703
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/comparison.json",
+      "sha256": "1d38adf1e6f81d8b46af45e86f03a31bcffc975160f124443f7e0cea2a9f3b1d",
+      "bytes": 11738
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/admission-process.json",
+      "sha256": "b9eacb541387a781b2b732181fc1d8bdd7fda09af4efe6a95e452eedeb94923c",
+      "bytes": 724
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/admission.stdout",
+      "sha256": "79374ffdf6731217f4e19fc4e4d99dc9f4367b1533752b33ab2e6820d19c3fbd",
+      "bytes": 598
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/admission.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/admission/admission-results.json",
+      "sha256": "0216e45e893075c9a74838376f1c721913b81f7a8a36eac17e78ba221d67d240",
+      "bytes": 3612590
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/replay-process.json",
+      "sha256": "50f699224e96a681473b0d7acf56d0e3bd8d6d1b923a1c8d74db905c3a23eb01",
+      "bytes": 510
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/replay.stdout",
+      "sha256": "eafe601bb0c9136a67302a1032a485fc269caa62a4b17bb763bbeff9c0293248",
+      "bytes": 409
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/replay.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".staging/wave-cv-source-profile-regression-2026-09-09/replay/results.json",
+      "sha256": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c",
+      "bytes": 1380345
+    }
+  ],
+  "result": {
+    "admitted": 3960,
+    "refused": 397,
+    "total": 4357,
+    "sourceIdentityVerified": true,
+    "exactReplay": 4357,
+    "rasterDifferences": 1007,
+    "replayFailures": 0,
+    "replayRowsChangedFromD316": 0,
+    "admissionStatusDeltasFromD316": 1,
+    "rowsChangedIgnoringLocalFeatureAnnotations": 2
+  },
+  "policy": {
+    "sourceAdmissionQuarantines": [
+      {
+        "file": "bell-filled.svg",
+        "before": "source-admitted",
+        "after": "refused",
+        "reason": "Error: bell: indexed local feature uncertain at 16px, 24px"
+      }
+    ],
+    "unexpectedSourceAdmissionRegressions": [],
+    "newAdmissions": [],
+    "profiledRepresentations": [
+      {
+        "file": "bell-filled.svg",
+        "indexed": "uncertain -> representation refused",
+        "assembly": "profile-refused; remains not-applicable",
+        "source": "refused"
+      },
+      {
+        "file": "bike-filled.svg",
+        "indexed": "pass; remains admitted",
+        "assembly": "profile-refused; remains not-applicable",
+        "source": "source-admitted"
+      },
+      {
+        "file": "branch-simple.svg",
+        "indexed": "pass; remains admitted",
+        "assembly": "profile-refused; remains refused",
+        "source": "source-admitted"
+      },
+      {
+        "file": "color-palette-filled.svg",
+        "indexed": "pass; remains admitted",
+        "assembly": "profile-refused; remains not-applicable",
+        "source": "source-admitted"
+      },
+      {
+        "file": "keyframe-filled.svg",
+        "indexed": "pass; remains admitted",
+        "assembly": "profile-refused; remains not-applicable",
+        "source": "source-admitted"
+      },
+      {
+        "file": "strawberry.svg",
+        "indexed": "profile-refused; remains refused",
+        "assembly": "pass; remains admitted",
+        "source": "source-admitted"
+      },
+      {
+        "file": "zoom-in-filled.svg",
+        "indexed": "pass; remains admitted",
+        "assembly": "profile-refused; remains not-applicable",
+        "source": "source-admitted"
+      }
+    ],
+    "failedSources": [],
+    "interpretation": "The single 3961-to-3960 admission delta is the intended Bell local-feature uncertainty quarantine. The six other profiled sources retain an independently passing representation. Exact replay and raster-difference results are unchanged from D316."
+  },
+  "verification": "Root verified every receipt artifact hash and independently compared full source membership and replay bytes against D316. Relevant source/profile/CLI/compiler bytes unchanged during audit.",
+  "engineeringVerification": {
+    "path": "docs/log/wave-cw-offline-integration-2026-09-09.json",
+    "sha256": "95e660065aff7feff5a6f4adebcc635210632c4c6f794bde74e441cbd990c057",
+    "bytes": 5291
+  },
+  "providerCalls": 0,
+  "newCostUsd": 0,
+  "ledger": {
+    "path": "docs/log/api-budget-after-d445-2026-09-09.json",
+    "sha256": "452fb53d51810bde8d7bb85ff5899c988683d57420b501274ed07f58896de9f6",
+    "bytes": 7486
+  },
+  "qualified": false,
+  "limitations": [
+    "Bell admission is deliberately withdrawn; do not claim zero admission status regressions.",
+    "Seven exact master24 representations have fixed local-feature profiles; their16px views are resampled24, not independent optical masters.",
+    "No newly admitted sources, generated output or independent visual qualification. P2.12 and phase exit remain open."
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate-roster-not-qualified",
+  "originalReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-d-evaluation-roster-2026-09-08/roster-audit.json",
+  "originalReceiptSha256": "05e726f11900d27d0aab781163d78e016dfee6465f52535a63dab7e94f0601ca",
+  "evidence": {
+    "kind": "iconsmith-p3.6-read-only-model-roster-audit",
+    "version": 1,
+    "createdAt": "2026-09-08T01:06:49.005Z",
+    "scope": {
+      "providerCallsPerformed": 0,
+      "sourceEditsPerformed": 0,
+      "sharedDocsEdited": false,
+      "candidateIdentityCount": 4,
+      "authority": "Read-only audit. Root remains sole provider dispatcher and production evidence owner."
+    },
+    "conclusion": {
+      "productionQualified": false,
+      "fourLineageCandidateRosterIdentified": true,
+      "executableFourLineageRosterVerified": false,
+      "reason": "Four officially named base release lineages can fill the author, critic and two-panel roles, but the fourth identity gpt-5.5 has no local emitted-model receipt, and no hardened contained full roster campaign has run. Advertised availability and a models cache are not execution evidence."
+    },
+    "lineagePolicy": {
+      "rule": "Use the official primary-provider exact model identifier and its declared release family, then require the runtime trace to emit that exact identifier. Provider equality alone does not collapse distinct documented base release lineages; marketing labels or a local availability cache alone do not establish an executed lineage.",
+      "trustedSealBoundary": "The root-owned collector, dispatch journal, separate contained contexts and withheld artifact access are the prospective seal authority. No external signing service or weights attestation is required by this threat model.",
+      "prohibitedInference": "Do not count requested model strings, marketing names, local cache entries or caller-supplied baseModelLineage fields without an exact emitted-model receipt bound to the campaign terminal."
+    },
+    "candidates": [
+      {
+        "role": "author",
+        "exactModelId": "gpt-6-astra",
+        "declaredBaseModelLineage": "openai-gpt-6",
+        "provider": "OpenAI via Codex native subscription",
+        "officialStatus": "Official OpenAI model page names GPT-6 Astra and exact ID gpt-6-astra; image input is supported.",
+        "adapter": {
+          "path": "packages/iconsmith/scripts/local-astra-author.ts",
+          "sha256": "315f76242f03d784fe834f2225ea9a017a515634543aa915fc0819b0751a1212",
+          "identityCheck": "validateAstraStructuredTrace requires exactly gpt-6-astra in turn_context"
+        },
+        "localExecutionEvidence": {
+          "status": "emitted-model-observed",
+          "path": ".staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native-terminal.json",
+          "sha256": "1b6d7ff968cba4803e4229cc983f59eef29274695d5b25ff7936898a7275488b",
+          "observedModel": "gpt-6-astra",
+          "boundary": "Development author run; not a sealed qualification campaign and current hardened containment still requires a fresh successful run."
+        },
+        "independenceConstraint": "May author the roster, but must not serve as critic or panel reviewer for its own outputs."
+      },
+      {
+        "role": "critic",
+        "exactModelId": "claude-opus-5",
+        "declaredBaseModelLineage": "anthropic-claude-opus-5",
+        "provider": "Anthropic via Claude native subscription",
+        "officialStatus": "Anthropic primary documentation lists claude-opus-5 as active.",
+        "adapter": {
+          "path": "packages/iconsmith/scripts/local-review.ts",
+          "sha256": "58b3f8602c84ecf1cd5f0b5bdbf979f1ed79282d4cb4213a14d05c5e91329242",
+          "identityCheck": "Native review pins claude-opus-5 and rejects a different emitted model."
+        },
+        "localExecutionEvidence": {
+          "status": "emitted-review-model-observed",
+          "path": ".staging/native-author-bicycle-counter-a157-2026-09-08/review-bicycle-16/campaign/claude/terminal.json",
+          "sha256": "090ec28bf6c48f9ecea2f7cd89edfd01ee7ace0b7c94e73ca39db49f1b47702a",
+          "observedModel": "claude-opus-5",
+          "boundary": "Completed development review; qualified=false and not evidence of a sealed, calibrated critic or current contained execution."
+        }
+      },
+      {
+        "role": "panel-a",
+        "exactModelId": "gpt-5.6-sol",
+        "declaredBaseModelLineage": "openai-gpt-5.6",
+        "provider": "OpenAI via Codex native subscription",
+        "officialStatus": "OpenAI primary model catalog names GPT-5.6 Sol and exact ID gpt-5.6-sol; latest OpenAI models support image input.",
+        "adapter": {
+          "path": "packages/iconsmith/scripts/local-codex-review.ts",
+          "sha256": "c45474aac9e0baf894040195ab3f0c38a10eba6314ee83588fb8b93437f48b99",
+          "identityCheck": "Generic Codex review accepts a pinned model and rejects a turn_context model mismatch."
+        },
+        "localExecutionEvidence": {
+          "status": "emitted-model-and-exact-attachment-observed",
+          "path": ".staging/sol-exact-attachment-feasibility-2026-09-08/terminal.json",
+          "sha256": "29a860f6fbdcb2d18372e525564735bea1d9e5ab993fd08d1c843146291075c5",
+          "intentPath": ".staging/sol-exact-attachment-feasibility-2026-09-08/intent.json",
+          "intentSha256": "5c83c1ee50fb8c58ced13b57f9f59aaff98e74284312a8594dfff93439841a04",
+          "observedModel": "gpt-5.6-sol",
+          "boundary": "Development feasibility only, explicitly qualified=false and exposed input; it predates the hardened contained reviewer path."
+        }
+      },
+      {
+        "role": "panel-b",
+        "exactModelId": "gpt-5.5",
+        "declaredBaseModelLineage": "openai-gpt-5.5",
+        "provider": "OpenAI via Codex native subscription",
+        "officialStatus": "Official OpenAI model page names GPT-5.5 and exact ID gpt-5.5; image input and structured outputs are supported.",
+        "adapter": {
+          "path": "packages/iconsmith/scripts/local-codex-review.ts",
+          "sha256": "c45474aac9e0baf894040195ab3f0c38a10eba6314ee83588fb8b93437f48b99",
+          "identityCheck": "The adapter can request any non-empty pinned model and validates exact turn_context equality."
+        },
+        "localAvailabilityEvidence": {
+          "status": "advertised-only",
+          "path": ".staging/wave-c-root-2026-09-08/contained-image-smoke-v1/state/models_cache.json",
+          "sha256": "b0038752dee84aca7f61f54b1dfe891c08abb264966669556ab15260e797c8ff",
+          "advertisedSlug": "gpt-5.5",
+          "boundary": "Cache presence is not an emitted-model receipt and does not prove the installed route can inspect the exact attachments."
+        },
+        "localExecutionEvidence": {
+          "status": "missing",
+          "searchFinding": "No local JSON or JSONL receipt was found with model or actualModel equal to gpt-5.5."
+        }
+      }
+    ],
+    "proposedCombination": {
+      "author": "gpt-6-astra",
+      "critic": "claude-opus-5",
+      "panelA": "gpt-5.6-sol",
+      "panelB": "gpt-5.5",
+      "distinctDeclaredLineageCount": 4,
+      "status": "candidate-only-unverified",
+      "rationale": "This is the smallest roster from current exact adapters and primary-provider model identities that avoids author-reviewer overlap and gives critic plus panels three different declared base release lineages."
+    },
+    "smallestNextCapabilityCheck": {
+      "prerequisite": "First make the existing offline contained Codex context pass its strict catalog/exposure validator; the latest contained smoke completed its process but returned incomplete because an unrelated skill/plugin catalog was present.",
+      "dispatchOwner": "root",
+      "maxProviderCalls": 1,
+      "model": "gpt-5.5",
+      "adapter": "packages/iconsmith/scripts/local-codex-review.ts",
+      "input": "One already exposed development PNG with one deterministic recognition question; no qualification population.",
+      "requiredBindings": [
+        "pre-recorded native reservation and call intent",
+        "current route hash and container identity",
+        "exact attachment byte hash",
+        "read-only contained working directory",
+        "original deadline and one-shot start journal",
+        "terminal result hash and settlement",
+        "turn_context emitted model exactly gpt-5.5",
+        "initial attachment inspection evidence for the exact PNG"
+      ],
+      "passCondition": "A complete fail-closed terminal records exact emitted gpt-5.5, exact attachment inspection and valid settlement inside the original deadline.",
+      "failCondition": "Missing/wrong emitted model, host execution, unrelated ambient catalog, changed attachment, incomplete output, invalid settlement or deadline breach.",
+      "limitation": "Passing this check makes the fourth adapter/model combination feasible; it does not calibrate a reviewer, seal a population or qualify production."
+    },
+    "observedContainmentEvidence": {
+      "latestPath": ".staging/wave-c-root-2026-09-08/contained-image-smoke-v1/terminal.json",
+      "outcome": "incomplete",
+      "elapsedMs": 16395,
+      "reportedReason": "Native author received an unrelated skill or plugin catalog",
+      "implication": "The generic contained Codex review route is not yet capability-verified for any candidate under the hardened context."
+    },
+    "openGaps": [
+      "No emitted gpt-5.5 exact-image receipt exists locally.",
+      "The hardened contained Codex exact-image route has not completed successfully; the latest smoke failed strict ambient catalog validation.",
+      "Existing Astra, Claude and Sol receipts are development evidence, not a four-role sealed campaign with independent access and root-owned seals.",
+      "Current acceptance directSuccess accounting at the audited snapshot does not gate success labels by terminalState. Only terminalState=accepted may enter required direct success numerators; rejected, uninspected, unresolved and missing rows may retain raw diagnostic labels but count as failures. Root reported this narrow correction is being applied before integration."
+    ],
+    "officialPrimarySources": [
+      {
+        "url": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+        "checkedAt": "2026-09-08",
+        "supports": [
+          "exact model identity gpt-6-astra",
+          "GPT-6 Astra name",
+          "image input"
+        ]
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/models",
+        "checkedAt": "2026-09-08",
+        "supports": [
+          "exact gpt-5.6-sol identity",
+          "GPT-5.6 release-family naming",
+          "image input support for latest models"
+        ]
+      },
+      {
+        "url": "https://developers.openai.com/api/docs/models/gpt-5.5",
+        "checkedAt": "2026-09-08",
+        "supports": [
+          "exact gpt-5.5 identity",
+          "GPT-5.5 release-family naming",
+          "image input",
+          "structured outputs"
+        ]
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+        "checkedAt": "2026-09-08",
+        "supports": [
+          "claude-opus-5 exact API name",
+          "active status"
+        ]
+      }
+    ],
+    "implementationSnapshot": {
+      "aiQualification": {
+        "path": "packages/iconsmith/scripts/ai-qualification.ts",
+        "sha256": "ccbdda57d30a2040ff0b5e0c09e7be34df483dee303e07e3ce79d5c7e50560cb",
+        "rule": "one critic lineage plus two distinct panel lineages, with panels distinct from critic; author/repair lineage exclusion is separately required by qualification inputs"
+      },
+      "note": "Source files are concurrently integrated by root. These hashes identify the read-only audit snapshot and are not a freeze claim."
+    }
+  },
+  "scope": "Read-only documentation and historical emitted identity audit. New contained runtime checks, blinding and lineage seals remain required."
+}

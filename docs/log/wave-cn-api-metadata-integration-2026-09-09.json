@@ -1,0 +1,66 @@
+{
+  "kind": "iconsmith-api-metadata-diagnostics-root-integration-v1",
+  "decision": "D443",
+  "date": "2026-09-09",
+  "patch": {
+    "path": ".staging/wave-cn-api-metadata-diagnostics-2026-09-09/api-metadata-diagnostics.patch",
+    "sha256": "4ac24ee4070a87e5bd4e421caabe99593e9436fb39088fc5f95eed04a98b52fa"
+  },
+  "agentReceipt": {
+    "path": ".staging/wave-cn-api-metadata-diagnostics-2026-09-09/receipt.json",
+    "sha256": "4f835032d98ec98cb20a41c36d184ca3a1cc87587660e39a3ff9bb4d3bea2d70"
+  },
+  "integratedFiles": [
+    {
+      "path": "packages/iconsmith/scripts/api-image-capability.ts",
+      "sha256": "8d98949fb207269c9500ce243abcdd6e3e728a554ec49ea399bbb89968ae89aa"
+    },
+    {
+      "path": "packages/iconsmith/scripts/api-image-capability.test.ts",
+      "sha256": "092db0a32fa4f787d490a2d4f5bd40be6e99a4da39f6dcc0a6d602a6f362ac3e"
+    }
+  ],
+  "validation": {
+    "focusedTests": 36,
+    "totalTests": 2386,
+    "testFiles": 175,
+    "skipped": 0,
+    "typecheck": "passed",
+    "build": "passed",
+    "check": "passed"
+  },
+  "logs": [
+    {
+      "path": ".staging/wave-cn-api-metadata-integration-2026-09-09/build.log",
+      "sha256": "b395012a0ba85bb2bb83c27a65ed55c678f2ac518af15fa010c37d2750fead16"
+    },
+    {
+      "path": ".staging/wave-cn-api-metadata-integration-2026-09-09/check.log",
+      "sha256": "87401acd3caa7dd84ee6d65d7acf454f10970bd4cdb3e36109ebc6118c3952af"
+    },
+    {
+      "path": ".staging/wave-cn-api-metadata-integration-2026-09-09/test.log",
+      "sha256": "16e4d305f2b90ffc61527f441e1bf2e6139fc31b1c98d8c5d35a878d39ac55fc"
+    },
+    {
+      "path": ".staging/wave-cn-api-metadata-integration-2026-09-09/typecheck.log",
+      "sha256": "473c2c5d6ba2c21f971c73ed3ed65f316cfdd59c8876fb1dfbe8f91a8f831de3"
+    }
+  ],
+  "providerCalls": 0,
+  "metadataCalls": 0,
+  "apiActualUsd": 13.06432585,
+  "reservedUnknownUsd": 11.37126575,
+  "policy": {
+    "metadataMaxCalls": 1,
+    "metadataReserveMs": 15000,
+    "maxResponseBytes": 65536,
+    "metadataRetry": false,
+    "inferenceRetry": false
+  },
+  "limitations": [
+    "D437 original metadata HTTP status remains unknown; D439 later HTTP200 cannot rescue the refused terminal or prove a retry policy.",
+    "No capability, visual quality or critic qualification gate is closed.",
+    "New provider dispatch requires a fresh tooling freeze and intent."
+  ]
+}

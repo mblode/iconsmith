@@ -1,0 +1,16 @@
+{
+  "version": 14,
+  "qualified": false,
+  "htmlSha256": "3f574b648c9cc13a1b116efbabfc4c9a9c78c580a5236e9dfe04c41717778b59",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v13-2026-09-08.html",
+  "previousIndexSha256": "a438c1a3943902c17bd75dd8de4fe820049dcdc8d886fd22aa21b16e70f6821d",
+  "addedImages": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-native-region-binding-2026-09-08/board-v3.png",
+      "sha256": "24994c033d609b7ab4fb768e11205166665fac4d5ab9481237d7a4152e96bbaf"
+    }
+  ],
+  "nativeSettledAtCreation": 84,
+  "ambiguousNativeIntents": 1,
+  "apiIncrementUsd": 0
+}

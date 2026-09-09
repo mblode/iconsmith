@@ -1,0 +1,71 @@
+{
+  "id": "D296",
+  "sourceFreeze": ".staging/wave-am-integration-2026-09-08/source-after.json",
+  "sourceFreezeSha256": "5dd8e6f6e5bd5042ef18f157431d9837bd2853e0ce6480d82c811d663fa53dc6",
+  "sourceStable": true,
+  "tests": 2169,
+  "testFiles": 170,
+  "skipped": 0,
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 29686,
+      "log": ".staging/wave-am-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1317,
+      "log": ".staging/wave-am-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5208,
+      "log": ".staging/wave-am-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1242,
+      "log": ".staging/wave-am-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 63,
+      "log": ".staging/wave-am-integration-2026-09-08/diff.log"
+    }
+  ],
+  "patch": ".staging/wave-ai-prospective-journal-order-2026-09-08/quality-campaign-v2.patch",
+  "patchSha256": "2fa41195e6a956483aa09a4a6791b0f8e16fce6180fe8af43c253390e5b97f43",
+  "liveValidation": false,
+  "qualified": false,
+  "providerCalls": 0
+}

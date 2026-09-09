@@ -1,0 +1,41 @@
+{
+  "id": "D339",
+  "status": "root-reviewed-development-source-board",
+  "proposalSha256": "9c18e14c9c47f9e1e5aec16ad49261d3dc936604fda7737054b9faf4bebd289c",
+  "artifactManifestSha256": "c38a4baf312c1cd6b1c0c0bf7f060ae6e988ba6b0f31f33374f691fc46fd75db",
+  "rootVerifiedArtifactCount": 333,
+  "conceptCount": 40,
+  "slotCount": 160,
+  "boardsInspected": [
+    "folder",
+    "cloud",
+    "bell",
+    "camera",
+    "shield",
+    "hammer",
+    "bicycle",
+    "scissors"
+  ],
+  "independentReviewIdentity": "gpt-6-astra/root; session identity, not qualified provider instrument",
+  "observations": [
+    "Folder tab/layer variants and shield/restricted/upload modifiers are visibly distinct; nearby sources do not substitute for folder-lock.",
+    "Cloud-simple-upload retains outline-like source treatment in both paints; cloud-upload filled uses a solid body with an arrow counter. Paint topology cannot be inferred solely from paint name.",
+    "Bell sources include clappers, ringing arcs, slashes, checks and snooze marks; none establishes a pause composition.",
+    "Camera source variants have camera bodies, but camera-auto replaces the lens with A and camera-off replaces it with an X. The proposal statement that all nine retain a lens counter is overbroad and is not adopted.",
+    "Hammer and hammer-2 differ as mallet and claw-hammer silhouettes; filled sources deliberately separate handle and head. No broken-bridge conclusion follows from disconnected components alone.",
+    "Bike shows two wheels, frame, saddle and handlebars in both paints; bicycle is an appropriate source-bound semantic alias for this source.",
+    "Scissors-1 uses a shorter broader jaw construction than scissors-2; both retain two handle counters.",
+    "Shield-check variants preserve a check inside differently proportioned host contours."
+  ],
+  "adjudications": {
+    "bicycleToBike": "confirmed for the inspected source identity only; no uninspected aliases or derivatives inferred",
+    "otherAliases": "unresolved",
+    "derivativeClusters": "not independently closed",
+    "morphology": "development observations only; no full-catalog qualification"
+  },
+  "scopeBoundary": "40 exact concepts; folder/cloud/shield partial with31 remainder concepts untouched. This receipt is not an ingestion envelope.",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualIncrementUsd": 0,
+  "nativeCallsCumulative": 79
+}

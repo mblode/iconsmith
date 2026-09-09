@@ -1,0 +1,209 @@
+{
+  "id": "D518",
+  "kind": "canonical-salvage-hook-engineering-integration",
+  "date": "2026-09-09",
+  "qualification": false,
+  "e2eScoreOutOf10": null,
+  "status": "engineering-passed-live-evidence-open",
+  "verification": {
+    "schema": "iconsmith-verification-v1",
+    "status": "passed",
+    "startedAt": "2026-09-09T02:26:40.032Z",
+    "finishedAt": "2026-09-09T02:27:37.198Z",
+    "durationMs": 57166,
+    "repositoryRoot": "/Users/mblode/Code/mblode/iconsmith",
+    "outputDirectory": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fq-integrated-2026-09-09/attempt-1",
+    "lock": {
+      "path": ".staging/.verify.lock",
+      "token": "a3bde5dd-bcd7-4fce-96a0-4aa0ae7d597c"
+    },
+    "corpus": {
+      "available": true,
+      "missingAllowed": false,
+      "requirements": [
+        {
+          "path": "packages/iconsmith/corpus/corpus.json",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/.corpus/icons.jsonl",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2",
+          "kind": "directory"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/pull-request.svg",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/plus-large.svg",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-filled-radius-3-stroke-2/bell.svg",
+          "kind": "file"
+        }
+      ],
+      "missing": [],
+      "measurementsAvailable": true
+    },
+    "source": {
+      "stable": true,
+      "before": {
+        "aggregateSha256": "5b9dadd240bf49fc4e4607288aba8169ed4ab6db1dbdd7d351ed209b7839087b",
+        "manifestPath": ".staging/wave-fq-integrated-2026-09-09/attempt-1/source-before.json",
+        "manifestSha256": "6cd570f506a7b075f61742ada89d2d22ca46b82f3b3143d622eab84a0a674f1b"
+      },
+      "after": {
+        "aggregateSha256": "5b9dadd240bf49fc4e4607288aba8169ed4ab6db1dbdd7d351ed209b7839087b",
+        "manifestPath": ".staging/wave-fq-integrated-2026-09-09/attempt-1/source-after.json",
+        "manifestSha256": "6cd570f506a7b075f61742ada89d2d22ca46b82f3b3143d622eab84a0a674f1b"
+      }
+    },
+    "stages": [
+      {
+        "id": "test",
+        "command": [
+          "npm",
+          "run",
+          "test"
+        ],
+        "startedAt": "2026-09-09T02:26:40.164Z",
+        "finishedAt": "2026-09-09T02:27:28.668Z",
+        "durationMs": 48504,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fq-integrated-2026-09-09/attempt-1/01-test.log",
+          "bytes": 60456,
+          "sha256": "1ecfd44f4d31367c050e3fbbd749f951861ba0ac8e7216799976aed138569df7"
+        }
+      },
+      {
+        "id": "typecheck",
+        "command": [
+          "npm",
+          "run",
+          "typecheck"
+        ],
+        "startedAt": "2026-09-09T02:27:28.669Z",
+        "finishedAt": "2026-09-09T02:27:30.003Z",
+        "durationMs": 1334,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fq-integrated-2026-09-09/attempt-1/02-typecheck.log",
+          "bytes": 3197,
+          "sha256": "f3f367a331979f03622190fccebf9ac204765ff0b3ae94f94101072c6bf03149"
+        }
+      },
+      {
+        "id": "build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "startedAt": "2026-09-09T02:27:30.003Z",
+        "finishedAt": "2026-09-09T02:27:35.386Z",
+        "durationMs": 5383,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fq-integrated-2026-09-09/attempt-1/03-build.log",
+          "bytes": 4814,
+          "sha256": "37ed384cd3bae30e86fa19099a2ec45cd0a0f08e175e60667ad6ad0d76669f44"
+        }
+      },
+      {
+        "id": "check",
+        "command": [
+          "npm",
+          "run",
+          "check"
+        ],
+        "startedAt": "2026-09-09T02:27:35.386Z",
+        "finishedAt": "2026-09-09T02:27:37.042Z",
+        "durationMs": 1656,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fq-integrated-2026-09-09/attempt-1/04-check.log",
+          "bytes": 4924,
+          "sha256": "df96f9d4008160f2d1543821e666fe303658a874737ee14d4672966a46e92453"
+        }
+      },
+      {
+        "id": "diff",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "startedAt": "2026-09-09T02:27:37.043Z",
+        "finishedAt": "2026-09-09T02:27:37.107Z",
+        "durationMs": 64,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fq-integrated-2026-09-09/attempt-1/05-diff.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ]
+  },
+  "verificationReceiptSha256": "49d604df6fd9c6682ec587d24c10f0439e99f74f5e787e5233447b92eb0188e7",
+  "workspaceTests": {
+    "passed": 2589,
+    "files": 183,
+    "skipped": 0
+  },
+  "scopedEvidence": {
+    "runtime": ".staging/wave-fp-salvage-preparation-2026-09-09/canonical-hook/result.json",
+    "evaluation": ".staging/wave-fr-trigger-settlement-linkage-2026-09-09/result-receipt.json",
+    "evaluationRawLogs": "Only worker tool output retained; integrated logs independently retained above.",
+    "campaign": ".staging/wave-fq-campaign-tests-4.log",
+    "styleRoute": ".staging/wave-fq-style-fixture-tests.log"
+  },
+  "changes": [
+    "Canonical campaign diagnostic binds static plan identities before allocation and reserves capability once at its canonical path.",
+    "Private capability mint and descriptor revalidation prevent copied-plan, transplantation and mutated-descriptor bypasses.",
+    "Interrupted recovery joins the capability-owned trigger to settled container output; recursive replay verifies descriptor, trigger, identity, original clock and exact terminal bytes.",
+    "Normal generation omits diagnostic flags and remains subject to existing review gates."
+  ],
+  "retainedFailures": [
+    "Initial campaign fixture used noncanonical macOS temporary path; fixed fixture using realpath without weakening guard.",
+    "Scoped lint exposed complexity and ordering; extracted helpers and applied scoped fixes.",
+    "Initial 68 passing evaluation tests did not exercise the new recursive interrupted branch; final fixture now uses the real capability-issued full chain and rejects mutations.",
+    "Worker package-cwd workspace selection typo failed; corrected package command passed."
+  ],
+  "providerCalls": 0,
+  "apiSpendUsd": 0,
+  "nativeSubscriptionDollarAllocation": null,
+  "latestLiveEvidence": "D514, earlier source identity: 16px review-clear; 24px rejected visible defects.",
+  "remaining": [
+    "Fresh frozen canonical controlled interrupted salvage",
+    "Current-source slice and six-request reliability evidence",
+    "Eligible four-lineage roster and sealed independent AI critic qualification",
+    "Population and unseen-family gates in sole authoritative plan"
+  ],
+  "checklistPromotions": [],
+  "runnerTests": {
+    "passed": 10,
+    "skipped": 0
+  },
+  "totalTestsPassed": 2599
+}

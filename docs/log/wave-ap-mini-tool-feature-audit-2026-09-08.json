@@ -1,0 +1,18 @@
+{
+  "id": "D317",
+  "status": "offline-model-tool-feature-diagnostic",
+  "receipt": ".staging/wave-ap-fourth-lineage-no-tool-audit-2026-09-08/owned-offline-probe-receipt-v1.json",
+  "sha256": "d469752b57d2d85c91110aacb1dbc33be7fd371c18720685ad0ba6c0585b7a31",
+  "finding": "CLI disable view_image removes the observed offending tool and preserves one inline input_image. Other tool classes are not disabled; zero emitted tool calls remains an acceptance check.",
+  "rootContainerAbsence": {
+    "containerId": "c03c3a97af3c494d8b409787c9abdfb5c5b1ef48d94b8769bd2a019dfa454eb9",
+    "inspectStdout": "[]",
+    "inspectStderr": "no such object with exact ID",
+    "absent": true
+  },
+  "nativeProviderCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 47,
+  "qualified": false,
+  "priorProbe": "D306 remains failed; original offline foreground probe lacked exact ID settlement evidence, superseded only for offline capability by owned repeat."
+}

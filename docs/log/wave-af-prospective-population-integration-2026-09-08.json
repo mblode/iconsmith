@@ -1,0 +1,53 @@
+{
+  "id": "D286",
+  "observedAt": "2026-09-08T07:35:06.289155+00:00",
+  "changes": [
+    "Canonical contained prospective CLI: fresh-only recognition, sealed-text independent synonym adjudication, craft; maximum three shared-boundary calls and original deadline.",
+    "CLI binds complete development concept order.",
+    "Qualification diagnostic binds natural family, concept, requested slot, source lineage and producer bytes; requires 80 distinct families and 20 per paint/size.",
+    "Failed candidates with artifacts remain eligible. P3 rejects exposed artifacts/stimuli, not merely exposed families."
+  ],
+  "verification": {
+    "allPatchBaseAndResultHashesVerified": true,
+    "reviewProtocolTests": {
+      "passed": 49,
+      "files": 3
+    },
+    "qualificationTests": {
+      "passed": 40,
+      "files": 2
+    }
+  },
+  "limits": [
+    "No stage resume or live contained prospective evidence yet.",
+    "Raw emitted model identity remains exact; unsupported suffix mismatches refuse.",
+    "Population envelope remains self-declared; native collector and verified access journal are still missing.",
+    "No production qualification or phase exit."
+  ],
+  "artifacts": [
+    {
+      "path": ".staging/wave-t-prospective-contained-wrapper-2026-09-08/receipt-v1.json",
+      "sha256": "e502161091e92beba0c48d0c176122189cf8c636552c20a11f2d415234e4c280"
+    },
+    {
+      "path": ".staging/wave-t-prospective-contained-wrapper-2026-09-08/prospective-contained-quality-campaign.patch",
+      "sha256": "1bcdab92893a05d129a9b60725b245fab5e43d71803667c3ed64b10d31d305b5"
+    },
+    {
+      "path": ".staging/wave-ab-evaluation-qualification-provenance-2026-09-08/receipt.json",
+      "sha256": "47182edd9f918496df3c5d2895b7954e88957aaed5670c4bac3c99a2715b7a66"
+    },
+    {
+      "path": ".staging/wave-ab-evaluation-qualification-provenance-2026-09-08/qualification-population-provenance.patch",
+      "sha256": "c0b12ae095a036c3023867576d0644d52751995cfb2bf72f256a727a66a8842a"
+    },
+    {
+      "path": ".staging/wave-aa-evaluation-population-readiness-2026-09-08/correction-p3-v2.json",
+      "sha256": "2ceb34592d82b1adc3c710844b5e832718e2e9665b3b54f7462828b5a8eebc32"
+    }
+  ],
+  "newProviderCalls": 0,
+  "newApiActual": 0,
+  "newApiReservation": 0,
+  "qualified": false
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-08T05:07:28.776682+00:00",
+  "task": "P4.6",
+  "status": "ineligible-current-local-adapter-roster",
+  "qualified": false,
+  "imageGenerationSurface": "Conversation image generation tool available, but no identity-bound repository adapter with known reservation/cost contract",
+  "vectorizationExecutables": {
+    "potrace": null,
+    "vtracer": null,
+    "imagetracer": null,
+    "svg-trace": null
+  },
+  "dependencyMatches": [
+    {
+      "path": "package.json",
+      "matchedNames": []
+    },
+    {
+      "path": "packages/iconsmith/package.json",
+      "matchedNames": []
+    },
+    {
+      "path": "package-lock.json",
+      "matchedNames": []
+    }
+  ],
+  "constrainedEditableDslConversionAdapter": null,
+  "sourceSearch": "Only raster-vectorizer name occurrence in scripts/src is pipeline import rejection in check-boundaries.ts; no converter implementation found.",
+  "evidence": [
+    {
+      "path": "package.json",
+      "sha256": "ffeec9c0f4256db3e2f14030a31c455fc516b0d4faa9d0195855d28033e1c8d1"
+    },
+    {
+      "path": "packages/iconsmith/package.json",
+      "sha256": "2ce7977feea126f3d2a6589e0786121331e12e1cd1336984cdfe7ff62a60259d"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "383ccb9db5fda98dd93d49aa097015d0fc67f15f3af0341484e052b17ac3d15f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/check-boundaries.ts",
+      "sha256": "3ce80feec6c74d472cdf1e47a5d73d41c8ce3451a1e0fd36bd8f13fbe42fe131"
+    }
+  ],
+  "reason": "No installed vectorization-to-constrained-DSL adapter, verified editable replay path, or bounded image-call accounting. No raster generation is dispatched without the conversion and reservation prerequisites.",
+  "scope": "Current local executable/dependency/canonical-source inventory; not a claim that such adapters cannot be built or obtained. Reopen only with a concrete bounded adapter.",
+  "newProviderCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0
+}

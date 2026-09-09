@@ -3,7 +3,7 @@
  *
  * `scripts/loop.ts` is the policy loop: Wilcoxon, a noise floor, 190 icons,
  * one file it may write. This is the loop for what you look at in
- * `iconsmith view` — two concepts, best-of-N through an external agent.
+ * exported proof images — two concepts, best-of-N through an external agent.
  *
  * It refuses to call N=1 a finding. That is the same two-stage rule as
  * `program.md`: the screen is "not obviously broken"; the decision is N≥5
@@ -29,11 +29,11 @@ import { pick } from "../src/pipeline/pick.js";
 import type { RankedSample } from "../src/pipeline/pick.js";
 
 /** Same band `view.ts` uses: a single pair is not decidable to three places. */
-export const AT_BASELINE = 0.02;
+const AT_BASELINE = 0.02;
 /** Above this, disbelieve the drawing before believing the pipeline. */
 export const SUSPICIOUS = 0.95;
 
-export interface DemoSample extends RankedSample {
+interface DemoSample extends RankedSample {
   clean: boolean;
   /** `compile` is keyed reconstruction; `analog` is unkeyed replay of a
    *  neighbor; `mark` is a host twin. All three are deterministic, so N=1
@@ -49,7 +49,7 @@ export interface DemoConcept {
   samples: DemoSample[];
 }
 
-export type Stage = "screen" | "decide";
+type Stage = "screen" | "decide";
 
 export interface ConceptVerdict {
   arrived: boolean;

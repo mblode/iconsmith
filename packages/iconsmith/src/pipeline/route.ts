@@ -62,7 +62,6 @@
  */
 import { inspect, measureIcon } from "../eval/blindspot.js";
 import { registeredSimilarity } from "../tools/registration.js";
-import { similarity } from "../tools/render.js";
 import type { Issue, Part } from "../types.js";
 import { analogArm } from "./analog.js";
 import type { Proposal } from "./compose.js";
@@ -112,14 +111,14 @@ export interface Brief {
 }
 
 /** BRIEF's output plus PROPOSE's, which is what SELECT gets to choose from. */
-export interface Proposed {
+interface Proposed {
   readonly brief: Brief;
   readonly composition: Proposal | null;
 }
 
 /** What the drawer is allowed to see: the corpus it may compare against, the
  *  vocabulary it may place from, and the marks the search already found. */
-export interface Selection {
+interface Selection {
   readonly parts: readonly Part[];
   readonly references: readonly Reference[];
   readonly shortlist: readonly PartHint[];
@@ -203,7 +202,7 @@ const assertPlainIds = (hints: readonly PartHint[]): void => {
 // the module that defines the stages. The search itself lives in `search.ts`
 // because `listParts` runs the same one — see that file's header.
 export type { PartHint } from "./search.js";
-export { DEFAULT_SHORTLIST, searchParts } from "./search.js";
+export { searchParts } from "./search.js";
 
 // --- stages -----------------------------------------------------------------
 
@@ -214,13 +213,13 @@ export { DEFAULT_SHORTLIST, searchParts } from "./search.js";
  * `conceptPrompt`. It is a stage rather than nothing so that the metaphor
  * table and the concept closure have somewhere to be measured against it.
  */
-export const briefAsGiven: Stage<Concept, Brief> = {
+const briefAsGiven: Stage<Concept, Brief> = {
   name: "as-given",
   run: (concept) => Promise.resolve({ concept, note: null }),
 };
 
 /** PROPOSE: nothing. The drawer starts cold, which is the control. */
-export const proposeNothing: Stage<Brief, Proposal | null> = {
+const proposeNothing: Stage<Brief, Proposal | null> = {
   name: "none",
   run: () => Promise.resolve(null),
 };
@@ -258,7 +257,7 @@ export const proposeFromRaster = (
 
 /** SELECT: whatever the caller handed in, unchanged. The corpus and the
  *  vocabulary reach the drawer exactly as `generate` receives them today. */
-export const selectAsGiven: Stage<Proposed, Selection> = {
+const selectAsGiven: Stage<Proposed, Selection> = {
   name: "as-given",
   run: (_input, ctx) =>
     Promise.resolve({
@@ -289,7 +288,7 @@ export const selectAsGiven: Stage<Proposed, Selection> = {
  * to none, so the failure mode is "this route did not help", never "this route
  * took the parts away".
  */
-export const selectPartFirst = (
+const selectPartFirst = (
   limit = DEFAULT_SHORTLIST
 ): Stage<Proposed, Selection> => ({
   name: "part-first",
@@ -355,7 +354,7 @@ export const drawWith = (
 });
 
 /** DRAW: the built-in tool-calling loop. */
-export const drawInLoop = drawWith("tool-loop", generate);
+const drawInLoop = drawWith("tool-loop", generate);
 
 /**
  * DRAW: keyed reconstruction.
@@ -365,7 +364,7 @@ export const drawInLoop = drawWith("tool-loop", generate);
  * emit. Callers that have no path data must not use this stage — the arm
  * throws rather than inventing.
  */
-export const drawCompile = drawWith("compile", compileArm());
+const drawCompile = drawWith("compile", compileArm());
 
 /**
  * DRAW: host twins from `MARKS` / `twin.ts`.
@@ -373,7 +372,7 @@ export const drawCompile = drawWith("compile", compileArm());
  * There is no model on this path. 0 `part` ops is the construction, not a leak.
  * The slug is a MARKS key (`plus`, `plus-filled`); anything else throws.
  */
-export const drawMark = drawWith("mark", markArm());
+const drawMark = drawWith("mark", markArm());
 
 /**
  * DRAW: unkeyed host constructions (replay a Central kin, else `stack` /
@@ -382,7 +381,7 @@ export const drawMark = drawWith("mark", markArm());
  * There is no model on this path. Cosine against a house file must stay null:
  * these are new objects, not reconstructions.
  */
-export const drawAnalog = drawWith("analog", analogArm());
+const drawAnalog = drawWith("analog", analogArm());
 
 /**
  * CHECK: the lint the drawer already ran.
@@ -392,7 +391,7 @@ export const drawAnalog = drawWith("analog", analogArm());
  * the DSL refused. Re-linting here would need the elements back out of an SVG,
  * which is a worse measurement of the same thing.
  */
-export const checkLint: Stage<GenerateResult, readonly Issue[]> = {
+const checkLint: Stage<GenerateResult, readonly Issue[]> = {
   name: "lint",
   run: (drawn) => Promise.resolve(drawn.issues),
 };
@@ -432,16 +431,9 @@ export const checkStructural: Stage<GenerateResult, readonly Issue[]> = {
  * and takes the best, which is what stopped a correct drawing one unit off
  * centre scoring below a wrong one in the right place.
  */
-export const scoreRegistered: Stage<Scoring, number> = {
+const scoreRegistered: Stage<Scoring, number> = {
   name: "registered",
   run: ({ svg, target }) => registeredSimilarity(svg, target),
-};
-
-/** SCORE: rendered cosine at fixed position — the scale the 0.737 baseline was
- *  measured on, kept so a route can be read against that number directly. */
-export const scorePlain: Stage<Scoring, number> = {
-  name: "plain",
-  run: ({ svg, target }) => similarity(svg, target),
 };
 
 // --- routes -----------------------------------------------------------------
@@ -505,10 +497,10 @@ export const analog: Route = {
 };
 
 /** DRAW: sparse expert gate. Cheap host arms first; agent if they fail. */
-export const drawMixture = drawWith("mixture", mixtureArm());
+const drawMixture = drawWith("mixture", mixtureArm());
 
 /** `direct` with one variable changed: DRAW is the mixture gate. */
-export const mixture: Route = {
+const mixture: Route = {
   ...direct,
   description:
     "DRAW routes to compile / mark / analog / glyph / agent from evidence " +

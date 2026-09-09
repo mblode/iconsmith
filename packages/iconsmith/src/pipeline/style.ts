@@ -4,9 +4,10 @@ import { createHash } from "node:crypto";
 
 import { z } from "zod";
 
-import { bbox, parsePath } from "../geometry/path.js";
+import { bbox, parsePath, translate } from "../geometry/path.js";
 import type { Spec } from "../tools/canvas.js";
 import { run } from "../tools/dsl.js";
+import type { SourceExactResolver } from "../tools/source-exact.js";
 import type { Finish, Part } from "../types.js";
 import { asReference } from "./licence.js";
 import type { Reference } from "./licence.js";
@@ -15,7 +16,7 @@ import type { Policy } from "./policy.js";
 
 /** Bump when the compiler's interpretation changes. Stored SVGs remain the
  * authoritative artifact; replay additionally checks their exact bytes. */
-export const STYLE_COMPILER = "iconsmith-constrained-21";
+export const STYLE_COMPILER = "iconsmith-constrained-25-source-exact";
 
 const positive = z.number().finite().positive();
 const pair = z.tuple([positive, positive]);
@@ -84,6 +85,44 @@ const partSchema = z
     name: z.string().min(1).optional(),
     nodes: z.number().int().nonnegative(),
     sizeRange: z.tuple([z.number(), z.number()]),
+    sourceAssembly: z
+      .object({
+        children: z
+          .array(
+            z
+              .object({
+                partHash: z.string().regex(/^[a-f0-9]{64}$/u),
+                partId: z.string().min(1),
+                semantics: z.discriminatedUnion("kind", [
+                  z
+                    .object({
+                      fillRule: z.enum(["nonzero", "evenodd"]),
+                      kind: z.literal("fill"),
+                    })
+                    .strict(),
+                  z
+                    .object({
+                      cap: z.enum(["butt", "round", "square"]),
+                      join: z.enum(["bevel", "miter", "round"]),
+                      kind: z.literal("stroke"),
+                      strokeWidth: positive,
+                    })
+                    .strict(),
+                ]),
+                x: z.number().finite(),
+                y: z.number().finite(),
+              })
+              .strict()
+          )
+          .min(2)
+          .max(64),
+        finish: z.enum(["filled", "outlined"]),
+        sourceHash: z.string().regex(/^[a-f0-9]{64}$/u),
+        viewBox: z.literal("0 0 24 24"),
+      })
+      .strict()
+      .optional(),
+    sourceAssemblyOnly: z.string().min(1).optional(),
     sourceFillRule: z.enum(["nonzero", "evenodd"]).optional(),
     turns: z.tuple([z.number(), z.number(), z.number(), z.number()]).optional(),
     w: z.number().finite().nonnegative(),
@@ -149,6 +188,128 @@ const freeze = <T>(value: T): T => {
   return value;
 };
 
+type RevisionDefinition = z.infer<typeof revisionSchema>;
+const sameExtent = (left: number, right: number) =>
+  Math.abs(left - right) <= 1e-9;
+
+// Assembly validation deliberately evaluates all identity, paint, graph and
+// bounds invariants together so no parsed revision can bypass a later phase.
+// eslint-disable-next-line complexity
+const validateSourceAssemblies = (definition: RevisionDefinition): void => {
+  for (const master of Object.keys(definition.masters)) {
+    const spec = definition.masters[master];
+    const masterParts = definition.parts
+      .filter((entry) => entry.master === master)
+      .map(({ part }) => part);
+    const byId = new Map(masterParts.map((part) => [part.id, part]));
+    const assemblies = masterParts.flatMap((part) =>
+      part.sourceAssembly ? [[part, part.sourceAssembly] as const] : []
+    );
+    for (const [part, assembly] of assemblies) {
+      if (part.sourceAssemblyOnly) {
+        throw new Error(
+          `Source assembly ${part.id} cannot itself be a private dependency`
+        );
+      }
+      if (part.sourceFillRule) {
+        throw new Error(
+          `Source assembly ${part.id} cannot also carry source fill paint`
+        );
+      }
+      if (
+        assembly.finish === "filled" &&
+        new Set(assembly.children.map(({ semantics }) => semantics.kind)).size >
+          1
+      ) {
+        throw new Error(
+          `Filled source assembly ${part.id} mixes fill and stroke paint`
+        );
+      }
+      let nodes = 0;
+      const childGeometry = [];
+      for (const child of assembly.children) {
+        if (child.partId === part.id) {
+          throw new Error(`Source assembly cycle: ${part.id}`);
+        }
+        const target = byId.get(child.partId);
+        if (!target) {
+          throw new Error(
+            `Source assembly ${part.id} has missing child ${child.partId}`
+          );
+        }
+        if (target.sourceAssembly) {
+          throw new Error(
+            `Source assembly ${part.id} exceeds maximum depth 1 at ${child.partId}`
+          );
+        }
+        if (
+          target.sourceAssemblyOnly &&
+          target.sourceAssemblyOnly !== part.id
+        ) {
+          throw new Error(
+            `Source assembly ${part.id} cannot use private child ${child.partId} from ${target.sourceAssemblyOnly}`
+          );
+        }
+        if (styleHash(target) !== child.partHash) {
+          throw new Error(
+            `Source assembly ${part.id} child identity drift: ${child.partId}`
+          );
+        }
+        const expected = target.sourceFillRule
+          ? { fillRule: target.sourceFillRule, kind: "fill" as const }
+          : {
+              cap: spec.strokeCap ?? "round",
+              join: spec.strokeJoin ?? "round",
+              kind: "stroke" as const,
+              strokeWidth: spec.stroke,
+            };
+        if (canonical(expected) !== canonical(child.semantics)) {
+          throw new Error(
+            `Source assembly ${part.id} child paint drift: ${child.partId}`
+          );
+        }
+        nodes += target.nodes;
+        childGeometry.push(
+          ...parsePath(target.d).map((shape) =>
+            translate(shape, child.x, child.y)
+          )
+        );
+      }
+      if (nodes > 4096) {
+        throw new Error(`Source assembly ${part.id} exceeds 4096 child nodes`);
+      }
+      const childBounds = bbox(childGeometry);
+      if (
+        part.w > 24 ||
+        part.h > 24 ||
+        !sameExtent(childBounds.x0, 0) ||
+        !sameExtent(childBounds.y0, 0) ||
+        !sameExtent(childBounds.w, part.w) ||
+        !sameExtent(childBounds.h, part.h)
+      ) {
+        throw new Error(
+          `Source assembly ${part.id} children drift outside its source-bound extent`
+        );
+      }
+    }
+    for (const part of masterParts) {
+      if (!part.sourceAssemblyOnly) {
+        continue;
+      }
+      const owner = byId.get(part.sourceAssemblyOnly);
+      if (
+        !owner?.sourceAssembly?.children.some(
+          ({ partId }) => partId === part.id
+        )
+      ) {
+        throw new Error(
+          `Private source child ${part.id} has missing assembly ${part.sourceAssemblyOnly}`
+        );
+      }
+    }
+  }
+};
+
 export interface StyleRevision {
   readonly hash: string;
   readonly definition: z.infer<typeof revisionSchema> & { policy: Policy };
@@ -178,7 +339,9 @@ export const createStyleRevision = (input: unknown): StyleRevision => {
     } catch (error) {
       throw new Error(
         `Invalid geometry for style part ${part.id}: ${String(error)}`,
-        { cause: error }
+        {
+          cause: error,
+        }
       );
     }
     for (const name of new Set([part.id, ...(part.name ? [part.name] : [])])) {
@@ -189,6 +352,7 @@ export const createStyleRevision = (input: unknown): StyleRevision => {
       names.add(key);
     }
   }
+  validateSourceAssemblies(definition);
   for (const ref of definition.references) {
     if (!Object.hasOwn(definition.masters, ref.master)) {
       throw new Error(`Unknown reference master: ${ref.master}`);
@@ -272,14 +436,19 @@ export interface StyleArtifact {
   program: string;
   svg: string;
   svgHash: string;
+  sourceExactRegistryHash?: string;
 }
 
 export const compileStyle = (
   selection: StyleSelection,
-  program: string
+  program: string,
+  options: { sourceExact?: SourceExactResolver } = {}
 ): StyleArtifact => {
   assertStyle(selection);
-  const result = run(program, [...selection.parts], { spec: selection.spec });
+  const result = run(program, [...selection.parts], {
+    sourceExact: options.sourceExact,
+    spec: selection.spec,
+  });
   if (result.errors.length || result.canvas.elements.length === 0) {
     throw new Error(
       `Style program did not compile: ${result.errors.join("; ") || "empty drawing"}`
@@ -294,6 +463,9 @@ export const compileStyle = (
     style: selection.revision.hash,
     svg,
     svgHash: styleHash(svg),
+    ...(options.sourceExact
+      ? { sourceExactRegistryHash: options.sourceExact.registryHash }
+      : {}),
   };
 };
 
@@ -301,7 +473,8 @@ export const compileStyle = (
  * display the stored SVG after verifying svgHash. */
 export const replayStyle = (
   selection: StyleSelection,
-  artifact: StyleArtifact
+  artifact: StyleArtifact,
+  options: { sourceExact?: SourceExactResolver } = {}
 ): string => {
   assertStyle(selection);
   if (
@@ -311,7 +484,10 @@ export const replayStyle = (
   ) {
     throw new Error("Replay unavailable for this compiler/style/master");
   }
-  const replay = compileStyle(selection, artifact.program);
+  if (artifact.sourceExactRegistryHash !== options.sourceExact?.registryHash) {
+    throw new Error("Replay unavailable for this source-exact registry");
+  }
+  const replay = compileStyle(selection, artifact.program, options);
   if (
     replay.svg !== artifact.svg ||
     replay.svgHash !== artifact.svgHash ||

@@ -1,0 +1,132 @@
+{
+  "id": "D394",
+  "scope": "Remaining five exposed development reliability requests; no visual qualification",
+  "recordedAt": 1788874369643,
+  "argv": [
+    "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+    "--import",
+    "tsx",
+    "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/local-campaign.ts",
+    "--manifest",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/manifest.json",
+    "--revision",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-aw-native24-inputs-2026-09-08/base-revision.json",
+    "--library",
+    "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+    "--meanings",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/meanings",
+    "--out",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign",
+    "--generator",
+    "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/local-generate.ts",
+    "--max-requests",
+    "5",
+    "--runtime",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-root-2026-09-08/native-route.json",
+    "--native-route-hash",
+    "2175af6376bda9956dc451c2bcb82a151d69afb35f13868402a78964892aa31b",
+    "--concurrency",
+    "1",
+    "--execute"
+  ],
+  "argvFileSha256": "8e898f240cce4e4b678abbad5c35b3d3b11a630ab600720fa0b19503733ab878",
+  "dryRunSha256": "11c780cc92ee48be025b94034c553df14c11d0a61557008b2631d34dbc53d147",
+  "sourceFreezeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-integration-2026-09-08/provider-source-freeze.json",
+  "sourceFreezeSha256": "c9b67c58721c81dc1ee29ae7f2a1a5e18d96905e0ec393e2612dcbd201a9612b",
+  "runnerSha256": "f278c780cc307aa0143760cb05127260d502de754b7b29321d03e9fd5f7c1fa1",
+  "requests": [
+    {
+      "concept": "hammer-check",
+      "destination": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/hammer-check-16",
+      "family": "hammer",
+      "familyPacket": null,
+      "master": 16,
+      "maxWallMs": 1200000,
+      "meaningsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/meanings/hammer-check.json",
+      "meaningsHash": "1c8f8ddcd9bfe396251e4073b842d77cd816283573e07dca63b505ff0afc1b0b",
+      "requestId": "c13cd8fb01fcabf503ed782086051ffffbe2cb7bafc79d8fd74769c62ece358f",
+      "slotIds": [
+        "hammer/hammer-check/16/outlined",
+        "hammer/hammer-check/16/filled"
+      ]
+    },
+    {
+      "concept": "bell-pause",
+      "destination": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/bell-pause-24",
+      "family": "bell",
+      "familyPacket": null,
+      "master": 24,
+      "maxWallMs": 1200000,
+      "meaningsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/meanings/bell-pause.json",
+      "meaningsHash": "4025be45135ed4314ab5a448ef93df52a2b771db3e9e05e88142511ded824bb4",
+      "requestId": "e59123b5db36311c6896fe2d151c4a578ac267f3b7436ce5d01754d55f351fd9",
+      "slotIds": [
+        "bell/bell-pause/24/outlined",
+        "bell/bell-pause/24/filled"
+      ]
+    },
+    {
+      "concept": "folder-lock",
+      "destination": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/folder-lock-24",
+      "family": "folder",
+      "familyPacket": null,
+      "master": 24,
+      "maxWallMs": 1200000,
+      "meaningsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/meanings/folder-lock.json",
+      "meaningsHash": "ef9bc002d41335d75f258b69e413c7c4f673b4422375f8f41fe5224d9c415532",
+      "requestId": "7a4a652c0876110d9eed69049209455fc5919e3d69fb6aef0783faecc26b6a9e",
+      "slotIds": [
+        "folder/folder-lock/24/outlined",
+        "folder/folder-lock/24/filled"
+      ]
+    },
+    {
+      "concept": "cloud-upload",
+      "destination": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/cloud-upload-24",
+      "family": "cloud",
+      "familyPacket": null,
+      "master": 24,
+      "maxWallMs": 1200000,
+      "meaningsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/meanings/cloud-upload.json",
+      "meaningsHash": "48d1bfa6bd267cb777f97b1f1512b5a580efc32bc480016e5f720612303a013e",
+      "requestId": "cdc92a045b3d8dd0a0ff6a74862519547e2d77f8938466eebbc5b1e127564335",
+      "slotIds": [
+        "cloud/cloud-upload/24/outlined",
+        "cloud/cloud-upload/24/filled"
+      ]
+    },
+    {
+      "concept": "bicycle",
+      "destination": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/bicycle-16",
+      "family": "bicycle",
+      "familyPacket": null,
+      "master": 16,
+      "maxWallMs": 1200000,
+      "meaningsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bs-reliability-preparation-2026-09-08/meanings/bicycle.json",
+      "meaningsHash": "0462c1d08453a007554df575a31d61f1da0e40e02bbddffbc2e18428cf1345fd",
+      "requestId": "6084d06834b9b2a55008b2cac37a1ea3e0125f6baf6f8f3d2cb2f32bd961721d",
+      "slotIds": [
+        "bicycle/bicycle/16/outlined",
+        "bicycle/bicycle/16/filled"
+      ]
+    }
+  ],
+  "toolingHash": "7275ed47de618034a31e792d1f3dc8d232f6f6bf1af950a0bc11625f322e1ac7",
+  "maximumNativeCalls": 60,
+  "maximumRequests": 5,
+  "concurrency": 1,
+  "requestDeadlineAuthority": "Canonical local-campaign durable parent-issued issuedAt + 1200000ms, passed unchanged to local-generate",
+  "rootWatchdogMs": 6300000,
+  "apiReservationUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "nativeCallsBefore": 97,
+  "priorUnresolvedIntents": 1,
+  "quota": {
+    "usedPercent": 66,
+    "remainingPercent": 34,
+    "resetsAt": 1789435341,
+    "resetRedeemed": false
+  },
+  "stopFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/STOP",
+  "automaticFallback": false
+}

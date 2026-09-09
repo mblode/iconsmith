@@ -1,0 +1,13 @@
+
+> test
+> vitest run --maxWorkers=4 scripts/native-call-boundary.test.ts scripts/local-native-call-factory.test.ts scripts/local-structured-author.test.ts
+
+
+ RUN  v4.1.11 /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+
+
+ Test Files  3 passed (3)
+      Tests  96 passed (96)
+   Start at  13:53:47
+   Duration  1.48s (transform 388ms, setup 0ms, import 656ms, tests 2.08s, environment 0ms)
+

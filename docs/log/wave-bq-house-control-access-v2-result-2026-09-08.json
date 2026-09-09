@@ -1,0 +1,127 @@
+{
+  "id": "D368",
+  "kind": "house-control-access-v2-result",
+  "status": "complete-development-run-with-launch-intent-mismatch",
+  "intendedRoster": [
+    "gpt-6-astra",
+    "gpt-5.5",
+    "gpt-6-astra"
+  ],
+  "actualRoster": [
+    "gpt-6-astra",
+    "gpt-5.6-sol",
+    "gpt-6-astra"
+  ],
+  "cause": "reviewer-1 selects zero-based second reviewer Sol; written root intent incorrectly named GPT-5.5",
+  "intendedExperimentPassed": false,
+  "elapsedMs": 403723,
+  "originalDeadlineAt": 1788870337817,
+  "deadlineExceeded": false,
+  "sourceStable": true,
+  "containersIndependentlyAbsent": 9,
+  "presentations": 20,
+  "uniqueArtifacts": 16,
+  "repeats": [
+    {
+      "artifactSha256": "4311474127ff988641a7d270d082fddc4c32f6245357c73f46c14863e335348c",
+      "ids": [
+        "bg-0a12bf45d35b",
+        "bg-r-7ec08f4fce66"
+      ],
+      "scores": [
+        9,
+        9
+      ],
+      "delta": 0,
+      "categoricalConsistent": true
+    },
+    {
+      "artifactSha256": "4ca8e5cd6b808dd56dd297e1cf14ea4f475f2998e501360b0c1fe34374135541",
+      "ids": [
+        "bg-r-a425f38a64a8",
+        "bg-668804a853da"
+      ],
+      "scores": [
+        10,
+        10
+      ],
+      "delta": 0,
+      "categoricalConsistent": true
+    },
+    {
+      "artifactSha256": "45feae62f3c35f8f74774efe2f34723cc2395aa1dc99fd5ffa3542ed8b76e346",
+      "ids": [
+        "bg-r-a9d9206cbc1b",
+        "bg-9d2f29b8a563"
+      ],
+      "scores": [
+        9,
+        9
+      ],
+      "delta": 0,
+      "categoricalConsistent": true
+    },
+    {
+      "artifactSha256": "2adb9a805bef032085a87a0c944997dd0a6b62932dd18a92825338ea431f6f8d",
+      "ids": [
+        "bg-0833b6ea9bce",
+        "bg-r-5d18abac8b7a"
+      ],
+      "scores": [
+        10,
+        10
+      ],
+      "delta": 0,
+      "categoricalConsistent": true
+    }
+  ],
+  "craftMedianAcrossUniqueArtifacts": 9.0,
+  "recognitionMatches": 20,
+  "shipUnchanged": 20,
+  "criticalDefects": 0,
+  "nativeLegible": 20,
+  "familyFit": 20,
+  "rawSameContainerObservations": "3 stage receipts: executable readable and16 forbidden aliases missing each",
+  "canonicalAccessValidator": {
+    "passed": false,
+    "reason": "Collector mount reachability mismatch:00-recognizer-recognition",
+    "diagnosis": "Hash-bearing descriptor mount metadata suspected incompatible with identity-only create/inspect mount comparison; isolated correction assigned"
+  },
+  "qualified": false,
+  "qualificationContribution": 0,
+  "nativeCallsThisRun": 3,
+  "nativeSettledCumulative": 83,
+  "priorAmbiguousIntents": 1,
+  "apiIncrementUsd": 0,
+  "nativeDollarCost": "unknown",
+  "artifacts": [
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/intent.json",
+      "sha256": "512aad82f6383620d5720af52d7af329c575b88477813442c8f487f0fc7bc4b2"
+    },
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/outer-result.json",
+      "sha256": "4a0c436a10b2211c672a9019709584f798c799b8f8e7b79f69579942f47aa08a"
+    },
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/root-container-absence.json",
+      "sha256": "0901c9f6bc52c73f763d1924a096c85426d4ade05966b7c223088715c66c52d2"
+    },
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/review.native-control/collector-access-journal.json",
+      "sha256": "7cc431795299112639f1b6800ff02f2f01a170a45d68347f5b3626395f466621"
+    },
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/review/author-recognizer/result.json",
+      "sha256": "b07fcaf1c75aba3cef9d2862ed55d681093c248276b7ab490369799bd9c8db26"
+    },
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/review/author-recognizer/adjudication.json",
+      "sha256": "cee986b726d1f87ef1313ce5fb1b2ae3b0cca766a07b983643e153cb8a29b1d8"
+    },
+    {
+      "file": ".staging/wave-bo-same-container-house-replay-v2-live-2026-09-08/STOP",
+      "sha256": "6c5b250f9d1bd35fdf2fb9a5f326dd0e271c314ba5e4de2677b5c7758439d62a"
+    }
+  ]
+}

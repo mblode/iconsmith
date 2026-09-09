@@ -16,6 +16,7 @@ import {
   createStyleRevision,
   replayStyle,
   selectStyle,
+  styleHash,
   styleParts,
 } from "./style.js";
 import { createTools } from "./tools.js";
@@ -37,6 +38,18 @@ const definition = () => ({
 const selected = () => selectStyle(createStyleRevision(definition()), "small");
 const program = (finish = "outlined") =>
   `icon container\nfinish ${finish}\nrect 4,4 16x16 r1`;
+const privateSourceChild = (id: string, y: number): Part => ({
+  closed: false,
+  d: `M0 ${y}H2`,
+  h: 0,
+  icons: ["private-source"],
+  id,
+  instances: 1,
+  nodes: 1,
+  sizeRange: [2, 2],
+  sourceAssemblyOnly: "private-source-assembly",
+  w: 2,
+});
 const drawing = (style = selected(), finish = "outlined"): GenerateResult => {
   const half = style.spec.stroke / 2;
   const source =
@@ -572,3 +585,190 @@ it.each(["MNaN NaNLNaN NaN", " ", "M0 0L1e309 0"])(
     ).toThrow("Invalid geometry for style part");
   }
 );
+
+it.each([
+  ["stroke width", { strokeWidth: 2 }],
+  ["stroke cap", { cap: "butt" as const }],
+  ["stroke join", { join: "bevel" as const }],
+])(
+  "rejects a source assembly child whose %s differs from its master",
+  (_, drift) => {
+    const child: Part = {
+      closed: false,
+      d: "M0 0H4V4",
+      h: 4,
+      icons: ["assembly"],
+      id: "assembly-child",
+      instances: 1,
+      nodes: 2,
+      sizeRange: [4, 4],
+      w: 4,
+    };
+    const sibling = { ...child, d: "M0 0V4", id: "assembly-sibling", w: 0 };
+    const semantics = {
+      cap: "round" as const,
+      join: "round" as const,
+      kind: "stroke" as const,
+      strokeWidth: 1.5,
+      ...drift,
+    };
+    const assembly: Part = {
+      ...child,
+      d: "M0 0H4V4M0 0V4",
+      id: "assembly",
+      nodes: 3,
+      sourceAssembly: {
+        children: [child, sibling].map((part) => ({
+          partHash: styleHash(part),
+          partId: part.id,
+          semantics,
+          x: 0,
+          y: 0,
+        })),
+        finish: "outlined",
+        sourceHash: "0".repeat(64),
+        viewBox: "0 0 24 24",
+      },
+    };
+    expect(() =>
+      createStyleRevision({
+        ...definition(),
+        parts: [child, sibling, assembly].map((part) => ({
+          master: "small",
+          part,
+          provenance: { date: "2026-09-08", origin: "original" },
+        })),
+      })
+    ).toThrow("child paint drift");
+  }
+);
+
+it("binds private source children to one existing owning assembly", () => {
+  const children = [
+    privateSourceChild("private-a", 0),
+    privateSourceChild("private-b", 1),
+  ];
+  const assembly: Part = {
+    closed: false,
+    d: children.map(({ d }) => d).join(""),
+    h: 1,
+    icons: ["private-source"],
+    id: "private-source-assembly",
+    instances: 1,
+    nodes: 2,
+    sizeRange: [2, 2],
+    sourceAssembly: {
+      children: children.map((part) => ({
+        partHash: styleHash(part),
+        partId: part.id,
+        semantics: {
+          cap: "round",
+          join: "round",
+          kind: "stroke",
+          strokeWidth: 1.5,
+        },
+        x: 0,
+        y: 0,
+      })),
+      finish: "outlined",
+      sourceHash: "0".repeat(64),
+      viewBox: "0 0 24 24",
+    },
+    w: 2,
+  };
+  const entries = [...children, assembly].map((part) => ({
+    master: "small",
+    part,
+    provenance: { date: "2026-09-08", origin: "original" as const },
+  }));
+  expect(() =>
+    createStyleRevision({ ...definition(), parts: entries })
+  ).not.toThrow();
+
+  const missing = structuredClone(entries);
+  missing.pop();
+  expect(() =>
+    createStyleRevision({ ...definition(), parts: missing })
+  ).toThrow("missing assembly");
+
+  const forged = structuredClone(entries);
+  forged[2].part.sourceAssemblyOnly = "private-source-assembly";
+  expect(() => createStyleRevision({ ...definition(), parts: forged })).toThrow(
+    "cannot itself be a private dependency"
+  );
+
+  const foreign = structuredClone(entries);
+  foreign[0].part.sourceAssemblyOnly = "foreign-assembly";
+  expect(() =>
+    createStyleRevision({ ...definition(), parts: foreign })
+  ).toThrow("private child");
+});
+
+it("rejects caller-supplied mixed fill and stroke children in a filled assembly", () => {
+  const fill: Part = {
+    closed: true,
+    d: "M0 0H1V1H0Z",
+    h: 1,
+    icons: ["mixed"],
+    id: "mixed-fill",
+    instances: 1,
+    nodes: 4,
+    sizeRange: [1, 1],
+    sourceFillRule: "nonzero",
+    w: 1,
+  };
+  const stroke: Part = {
+    closed: false,
+    d: "M1 0V1",
+    h: 1,
+    icons: ["mixed"],
+    id: "mixed-stroke",
+    instances: 1,
+    nodes: 1,
+    sizeRange: [1, 1],
+    w: 0,
+  };
+  const assembly: Part = {
+    ...fill,
+    d: `${fill.d}${stroke.d}`,
+    id: "mixed-assembly",
+    nodes: 5,
+    sourceAssembly: {
+      children: [
+        {
+          partHash: styleHash(fill),
+          partId: fill.id,
+          semantics: { fillRule: "nonzero", kind: "fill" },
+          x: 0,
+          y: 0,
+        },
+        {
+          partHash: styleHash(stroke),
+          partId: stroke.id,
+          semantics: {
+            cap: "round",
+            join: "round",
+            kind: "stroke",
+            strokeWidth: 1.5,
+          },
+          x: 0,
+          y: 0,
+        },
+      ],
+      finish: "filled",
+      sourceHash: "1".repeat(64),
+      viewBox: "0 0 24 24",
+    },
+    sourceFillRule: undefined,
+  };
+  expect(() =>
+    createStyleRevision({
+      ...definition(),
+      parts: [fill, stroke, assembly].map((part) => ({
+        master: "small",
+        part,
+        provenance: { date: "2026-09-08", origin: "original" as const },
+      })),
+    })
+  ).toThrow("mixes fill and stroke paint");
+});

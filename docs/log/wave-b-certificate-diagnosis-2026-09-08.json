@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "offline-container-certificate-diagnosis",
+  "providerCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "result": {
+    "artifactEligible": true,
+    "containerAbsent": true,
+    "containerId": "72e25ee1de24495333ac16eb600825f4d171fc0b1a6b1c455c94cdc34e70e29a",
+    "containmentScope": "docker-private-pid-namespace",
+    "process": {
+      "code": 0,
+      "killed": false,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "quiescent": true,
+      "stderr": "",
+      "stdout": "/etc/ssl/certs/ca-certificates.crt absent\n/etc/ssl/cert.pem absent\n"
+    },
+    "status": "complete"
+  },
+  "evidence": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-root-2026-09-08/certificate-preflight-result.json",
+    "sha256": "af67430c774eabdd176f5a5b43c522b226824fb02c17cb8133b80ec483d4afbc"
+  },
+  "nextRuntimeRequirements": [
+    "Hash-bound read-only trusted certificate bundle",
+    "Hash-bound read-only version-matched Codex companion",
+    "Original deadline and call boundary",
+    "Fresh validated route identity before any further inference"
+  ]
+}

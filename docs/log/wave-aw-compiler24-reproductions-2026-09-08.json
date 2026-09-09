@@ -1,0 +1,27 @@
+{
+  "id": "D315",
+  "status": "offline-reproduction-confirmed",
+  "folder24": {
+    "sameSvg": true,
+    "currentHash": "62cc5948aed563f8745804733835614308d18b828c277ebb6ff5a00c0d380445",
+    "previousHash": "62cc5948aed563f8745804733835614308d18b828c277ebb6ff5a00c0d380445",
+    "lint": [],
+    "bboxAfterLint": {
+      "h": 18,
+      "w": 20,
+      "x0": 2,
+      "x1": 22,
+      "y0": 2.999999999999999,
+      "y1": 21
+    }
+  },
+  "folder24Scope": "Recompile exposed failed program under new compiler24 identity; exact same SVG and no lint issues. Original AL deadline and failure remain unchanged.",
+  "assemblyRenders": ".staging/wave-av-compiler24-root-probe-2026-09-08/render-receipt-v2.json",
+  "assemblyRendersSha256": "140ea593cf04feefeba4dbdd1a1b3e2fd5fb7c77d5bd5d24b062fade7d834be7",
+  "rootVisualInspection": "Corrected24px dark4x image viewed; native16 images are raster diagnostics of24px source, not optical-master qualification.",
+  "failedPresentation": "First render-receipt.json dark tiles were white because png() already flattened on white. Retained immutable; corrected v2 uses transparent SVG rasterization then surface flattening.",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 47,
+  "qualified": false
+}

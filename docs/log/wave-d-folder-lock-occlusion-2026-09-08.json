@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "status": "development-improvement-visual-unqualified",
+  "originalReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-d-folder-lock-occlusion-2026-09-08/receipt.json",
+  "originalReceiptSha256": "6dba3eb8ced6549eb034c6cd333c3efc2a9ce0c1250e231d244f98f429974e91",
+  "board": "docs/log/wave-d-folder-lock-occlusion-2026-09-08.png",
+  "boardSha256": "b762c6be8d4e23028276c5a0d5edff2806a4d0d20684674ee502cf1518d4d5d4",
+  "rootImageInspection": "Padlock silhouette, shackle and body counter are now visible; folder ledge and inward shoulder remain awkward, native16 crowded. No independent instrument or visual pass.",
+  "evidence": {
+    "board": {
+      "file": "native-4x-board.png",
+      "sha256": "b762c6be8d4e23028276c5a0d5edff2806a4d0d20684674ee502cf1518d4d5d4"
+    },
+    "candidateLimit": {
+      "actualPerMaster": {
+        "16": 1,
+        "24": 1
+      },
+      "maximum": 1
+    },
+    "compiler": "iconsmith-constrained-21",
+    "distinctMasterIdentity": {
+      "icon": true,
+      "svg": true
+    },
+    "observations": {
+      "localBoardInspection": "Both native light/dark rows now expose a recognizable lock silhouette with visible shackle and body counter. The bounded host cutter leaves a long horizontal folder ledge above the lock and a square inward shoulder; the 16px relationship is crowded. These are retained optical limitations, not a visual pass.",
+      "topology": "Hole counts are raw 64/128/192 antialias-threshold observations; they are not a forced two-hole gate.",
+      "visualLimitations": [
+        "The clearance is a rounded rectangle rather than the purpose-redrawn curved host termination used by folder-shield-filled.svg.",
+        "The 16px topology changes from two holes to one at the 192 threshold and splits into three ink components there.",
+        "The 24px topology reports one, two, then one hole across thresholds 64, 128 and 192."
+      ]
+    },
+    "operationOrder": {
+      "assertion": "Each program places the folder, attaches a bounded hole cutter to that current host group, then adds the admitted lock as a separate later group. There is no union, so the host cutter does not subtract from the lock.",
+      "existingDslOnly": true,
+      "outputPaintedGroups": [
+        {
+          "id": "16-a-host-clearance",
+          "paintedPathCount": 2
+        },
+        {
+          "id": "24-a-host-clearance",
+          "paintedPathCount": 2
+        }
+      ]
+    },
+    "outputs": [
+      {
+        "applicationHash": "0d0568194bc50026ca8308598e20c313c1753d7bc2e240ce2026500a29ce4abb",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 13.5,
+            "y0": 9.5,
+            "x1": 24,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "clearedHostInk": 14,
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 10,
+              "threshold": 64
+            },
+            {
+              "clearedHostInk": 19,
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 9,
+              "threshold": 128
+            },
+            {
+              "clearedHostInk": 24,
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 7,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "16-a-host-clearance.icon",
+        "iconSha256": "25d21ce8fdfea70a5fca75b9c501fe457fe7135b96ff13ab6298a2142dcbede6",
+        "id": "16-a-host-clearance",
+        "master": 16,
+        "native": [
+          {
+            "file": "16-a-host-clearance.light.png",
+            "sha256": "42c917de1dbb0a1b328e2c06637ee327e522eb73f955200396ca34c8f364cc4d",
+            "surface": "light"
+          },
+          {
+            "file": "16-a-host-clearance.dark.png",
+            "sha256": "276800612bc7ce1369af197ef29e38fbd8e5798afa3994636e5aefa01027494e",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "564bf41e33a84aafc7906c24c1129b689d15f79329862d5b41b08193ffa2a27a",
+        "retained": true,
+        "styleHash": "9efc3629c78ea4ecc824471a04f6dbbffde3a36f4670f6975d91e8ad3e5610c6",
+        "svgFile": "16-a-host-clearance.svg",
+        "svgSha256": "3715cbdf2b2a9751817a1b92f6465d23a0ec9eea782c2f3edba1a6e9ef009c13",
+        "topologyByThreshold": [
+          {
+            "holes": 2,
+            "inkComponents": 1,
+            "threshold": 64
+          },
+          {
+            "holes": 2,
+            "inkComponents": 2,
+            "threshold": 128
+          },
+          {
+            "holes": 1,
+            "inkComponents": 3,
+            "threshold": 192
+          }
+        ]
+      },
+      {
+        "applicationHash": "5d3fa04ccd856aaf2b2ccee05c8371fd49f871d4afb4124b2c21f9ec0071cba5",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 13.5,
+            "y0": 9.5,
+            "x1": 24,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "clearedHostInk": 29,
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 12,
+              "threshold": 64
+            },
+            {
+              "clearedHostInk": 35,
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 11,
+              "threshold": 128
+            },
+            {
+              "clearedHostInk": 58,
+              "hostDifferenceOutsideModifierZone": 0,
+              "projectingInk": 0,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "24-a-host-clearance.icon",
+        "iconSha256": "e2b6a45c26dff24aeb3702dd718ab8c14f3a80e8ee2216392e32d760695efdc5",
+        "id": "24-a-host-clearance",
+        "master": 24,
+        "native": [
+          {
+            "file": "24-a-host-clearance.light.png",
+            "sha256": "cdf5351b0c735952e12a0447db5ef887ba5a5b6ee481cd61cf7f1d8d545bebb8",
+            "surface": "light"
+          },
+          {
+            "file": "24-a-host-clearance.dark.png",
+            "sha256": "9d7947d23474bab7746fcec357e9a784b8e19c5a414a1cdc941803f4a12fa1b4",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "564bf41e33a84aafc7906c24c1129b689d15f79329862d5b41b08193ffa2a27a",
+        "retained": true,
+        "styleHash": "2e74b15cf0ad05ee2c3a8ad03bc6f4962b72855739ce66cddb20bfd87c1206bc",
+        "svgFile": "24-a-host-clearance.svg",
+        "svgSha256": "d05d7e7a6213b9b7fabaeea6e018eb528770d3e5fdb02ec668348a2c61a563c6",
+        "topologyByThreshold": [
+          {
+            "holes": 1,
+            "inkComponents": 1,
+            "threshold": 64
+          },
+          {
+            "holes": 2,
+            "inkComponents": 2,
+            "threshold": 128
+          },
+          {
+            "holes": 1,
+            "inkComponents": 3,
+            "threshold": 192
+          }
+        ]
+      }
+    ],
+    "packet": {
+      "file": "family-packet.json",
+      "packetHash": "564bf41e33a84aafc7906c24c1129b689d15f79329862d5b41b08193ffa2a27a",
+      "sha256": "c206917a48e45ae1a53d749e72f5e404a73a18d9b20a59b7567b166afe0adefe"
+    },
+    "qualification": "development-only existing-DSL composition; exact replay, source admission, projection pixels and topology diagnostics do not visually qualify either master",
+    "referenceGuidance": {
+      "copiedFile": "reference-folder-shield-filled.svg",
+      "file": "folder-shield-filled.svg",
+      "note": "The first painted shape is the lower-right shield modifier. Its exact house bounds guide placement; the second shape is a purpose-redrawn folder host, so this experiment only asserts preservation outside the declared modifier zone.",
+      "paintedShapeBounds": [
+        {
+          "height": 9.499775000000007,
+          "width": 7.9999999999999964,
+          "x": 14.5,
+          "y": 11.250499999999999
+        },
+        {
+          "height": 17,
+          "width": 20,
+          "x": 2,
+          "y": 3
+        }
+      ],
+      "sha256": "e69fa0874bc13fdd3d7d8f7c5c435aa7005a6f13203065282eef9b93b17a1168"
+    },
+    "sourceAvailability": {
+      "exactFolderLockFilled": "absent",
+      "inspectedExpectedPath": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/folder-lock-filled.svg"
+    },
+    "sourceIdentities": [
+      {
+        "file": "folder-1-filled.svg",
+        "sha256": "9736fa601b94168b4c4839077a8c0cbe3e1bfc3b2768cc32955bfbb82392859f"
+      },
+      {
+        "file": "lock-filled.svg",
+        "sha256": "5fad76d8ada04c3116d21b1818df4c0c60b85c44ff5ffe0cd2249635074f76cf"
+      },
+      {
+        "file": "folder-shield-filled.svg",
+        "sha256": "e69fa0874bc13fdd3d7d8f7c5c435aa7005a6f13203065282eef9b93b17a1168"
+      }
+    ],
+    "version": 1,
+    "receiptSha256": "3e19374c63bfda522cbc90d4f732b380826ab828406400077bfe516b7200b534"
+  },
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeProviderCalls": 0
+}

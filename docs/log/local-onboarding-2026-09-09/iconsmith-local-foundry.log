@@ -1,0 +1,5 @@
+
+> check:foundry
+> node --check scripts/verify.mjs && node --check scripts/verify.test.mjs && node packages/iconsmith/scripts/check-foundry-config.ts
+
+Foundry configuration guards passed (private corpus presence not asserted).

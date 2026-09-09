@@ -1,0 +1,78 @@
+{
+  "id": "D366",
+  "kind": "combined-runtime-evaluator-integration",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "tests": 2307,
+  "testFiles": 174,
+  "skipped": 0,
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 35382,
+      "log": ".staging/wave-bp-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1411,
+      "log": ".staging/wave-bp-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5430,
+      "log": ".staging/wave-bp-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1438,
+      "log": ".staging/wave-bp-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 65,
+      "log": ".staging/wave-bp-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceClosure": ".staging/wave-bp-integration-2026-09-08/source-after.json",
+  "sourceClosureSha256": "4e8b94befabec65de1de4f21bc0896d3b573de88db08bd49c71424fbf5c46327",
+  "includedReceipts": [
+    "D358",
+    "D360",
+    "D361",
+    "D362",
+    "D363",
+    "D365"
+  ],
+  "providerCalls": 0,
+  "qualified": false
+}

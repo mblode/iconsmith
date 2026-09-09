@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T02:40:33.252622+00:00",
+  "providerCallsAdded": 0,
+  "apiActualAddedUsd": 0,
+  "apiReservationsAddedUsd": 0,
+  "visuallyQualified": false,
+  "status": "engineering-verified-campaign-integration-open",
+  "evidence": [
+    {
+      "path": ".staging/wave-e-runtime-2026-09-08/reviewer-call-factory-integration-receipt.json",
+      "sha256": "3b74329b12c1cf5dd80c9fcf112b0fa68bae9496e7053ea5c06d4ae2895f0119"
+    },
+    {
+      "path": ".staging/wave-e-runtime-2026-09-08/author-self-review-factory-migration-receipt.json",
+      "sha256": "a213e7fec4e98f35dda98359cdd789243eddbd50bf4d0ee506b1e41a71bcf256"
+    }
+  ],
+  "changes": [
+    "Factory-owned reviewer call intents retain parent deadline and stage cap.",
+    "Author inspection uses reviewer factory with disjoint runtime and evidence directories.",
+    "Root rejects late legacy author return and equal factory boundary/evidence directories."
+  ],
+  "limits": [
+    "Canonical campaign composer, full stage allocation and interrupted salvage remain open."
+  ]
+}

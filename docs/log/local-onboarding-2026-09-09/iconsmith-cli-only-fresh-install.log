@@ -1,0 +1,89 @@
+
+['npm', 'ci']
+
+> prepare
+> lefthook install || true
+
+│  > git rev-parse --path-format=absolute --show-toplevel --git-path hooks --git-path info --git-dir
+│    fatal: not a git repository (or any of the parent directories): .git                           
+│                                                                                                   
+exit status 128
+
+added 203 packages, and audited 205 packages in 5s
+
+79 packages are looking for funding
+  run `npm fund` for details
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+npm warn install-scripts 3 packages have install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+npm warn install-scripts   fsevents@2.3.3 (install: (install scripts present))
+npm warn install-scripts   lefthook@2.1.10 (postinstall: node postinstall.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+
+['npm', 'run', 'build:local']
+
+> build:local
+> npm run build --workspace iconsmith
+
+
+> build
+> tsdown
+
+ℹ tsdown v0.22.14 powered by rolldown v1.2.4
+ℹ config file: /private/var/folders/1j/q0mm10dn5yd717n6spdcypjc0000gn/T/iconsmith-cli-only-o7w_uiwf/packages/iconsmith/tsdown.config.ts 
+ℹ entry: src/cli.ts
+ℹ target: node24
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Granting execute permission to dist/cli.js
+ℹ dist/cli.js      905.69 kB │ gzip: 293.65 kB
+ℹ dist/cli.js.map    1.83 MB
+ℹ 2 files, total: 2.73 MB
+✔ Build complete in 77ms
+
+['npm', 'run', 'iconsmith', '--', 'draw', 'examples/square-check.icon', '-o', 'square-check.svg']
+
+> iconsmith
+> node packages/iconsmith/dist/cli.js draw examples/square-check.icon -o square-check.svg
+
+wrote square-check.svg
+
+['npm', 'run', 'iconsmith', '--', 'lint', 'square-check.svg']
+
+> iconsmith
+> node packages/iconsmith/dist/cli.js lint square-check.svg
+
+1 file(s): 0 error(s), 0 warning(s), 0 cohort split(s)
+
+['npm', 'run', '--silent', 'generate:local', '--', '--help']
+Usage: npm run generate:local -- <concept> <new-output-directory> [options]
+
+Required:
+  --revision <file>       Pinned style revision JSON
+  --master <name>         Master declared in that revision
+  --meanings <file>       JSON array of 3–12 plausible labels, including the concept
+
+Options:
+  --finish outlined|filled  Omit to generate both paints
+  --brief <file>            Design guidance in Markdown
+  --codex <executable>      Author CLI (defaults to ChatGPT app bundle, then PATH)
+  --model <id>              Author model (default: gpt-6-astra)
+  --max-wall-ms <number>    Total time budget (default: 1200000)
+  --library <directory>    Retrieve references from your SVG library
+  --library-set <name>     Required with --library
+  --exclude <concept>      Repeat to exclude retrieval subjects
+  -h, --help               Show help without authentication or generation
+
+Build first with npm run build:local. The default route requires native
+ChatGPT and Claude subscription logins and a compatible restricted runtime.
+Generation consumes subscription usage; no API-key fallback is used.
+Use a new output directory whose parent already exists.
+See docs/local-foundry.md for revision setup, advanced contained routes,
+provenance and review limitations. A review-clear result is not craft approval.

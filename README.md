@@ -1,115 +1,72 @@
 <div align="center">
 
-# [Iconsmith](https://blode.co/iconsmith)
+# Iconsmith
 
-**Icon generation that cannot drift, because the model never emits a coordinate**
+**Draw SVG icons with constrained primitives, pinned styles, and repeatable geometry**
 
-Describe an icon in chat or at a terminal, and a constrained drawing API puts every node on the grid.
+Run an icon program locally, inspect its output, or generate candidates with a coding agent.
 
 </div>
 
-## Local foundry
-
-The Studio and agent pipeline run locally. See [the local foundry guide](docs/local-foundry.md).
-
 ## Install
 
-Not on npm yet. The CLI runs from a clone:
+Use Node.js 24.11 or newer and npm. Iconsmith runs from this repository and is not published to npm.
 
 ```bash
 git clone https://github.com/mblode/iconsmith.git
 cd iconsmith
-npm install && npm run build
+npm ci
+npm run build:local
 ```
-
-Node 24.11 or newer. The package ships no `bin`, so every `iconsmith` below is `node packages/iconsmith/dist/cli.js` from the repo root — alias it if you use it often.
 
 ## Quickstart
 
-Draw an icon. No model, no API key, no corpus: a concept the routing table already knows goes to a host construction instead of a generation.
+Draw the included square-check program. No API key, subscription, or private corpus is required.
 
 ```bash
-iconsmith new database -o database.svg
+npm run iconsmith -- draw examples/square-check.icon -o square-check.svg
 ```
 
-```
-analog trays database
+Open `square-check.svg` in a browser. The command refuses to replace an existing file; add `--force` when you want to replace it.
 
-  8 step(s): mixture/pack-inventory/analog → construct → icon → keyline → finish → rect → rect → rect → fit
-  clean — no lint errors
-  wrote database.svg
-```
+Edit [the example](examples/square-check.icon) and run it again. `rect`, `line`, `circle`, `arc`, and named parts use the engine's grid and radius rules. The host computes curve geometry and retains an editable program.
 
-The SVG goes to stdout without `-o`. Every step above is a primitive call, so the three trays land at y=3, y=10.5 and y=18 every time.
-
-## The language
-
-A program names shapes and where they go. It never names a number the library did not choose. Save one as `square-check.icon` and run `iconsmith draw square-check.icon`.
-
-```
-icon square-check
-keyline square
-rect 4,4 16x16 r3
-line 8,12 11,15 16,10
-fit
-```
-
-- **Primitives:** `rect`, `circle`, `arc`, `diamond`, `line`, `dot`, `hole`, and `part` for a named shape lifted out of a real set.
-- **Quantised:** every node lands on a 0.25 grid, corner radii snap to the measured tiers (0.5, 1, 2, 3), and a part turns only in named quarter-turns, never by an angle.
-- **No arithmetic:** `fit`, `center`, `fill` and `cohort` do the scaling and centring, because those are the sums a model gets wrong.
-- **Two escapes, both asked for by name:** `raw` for verbatim path data, and `off-axis` for a segment more than 6° from an axis.
-
-An undeclared diagonal is refused rather than drawn:
+## Inspect and export
 
 ```bash
-printf 'icon send\nkeyline circle\nline 4,20 20,12 4,4 7,12 4,20\nfit\n' | iconsmith draw -
+npm run iconsmith -- lint square-check.svg
 ```
 
-```
-line 3 (line 4,20 20,12 4,4 7,12 4,20): line segment 1 (4,20 → 20,12) runs at
-153.43°, 18.43° off the nearest axis (135°). Off-axis edges are legitimate —
-29.3% of stroked icons in the set have one, on rational slopes between two grid
-points — but they are asked for, not arrived at: pass `offAxis: true`
-(`off-axis` in the DSL) if that is the shape, or move an endpoint onto the axis.
+For scripts, suppress npm's banner so stdout contains only the result:
+
+```bash
+npm run --silent iconsmith -- --output json draw examples/square-check.icon
 ```
 
-Add `off-axis` to the end of that `line` and the paper plane draws, with a warning that says there is nothing to fix.
+`draw -` reads a program from stdin. Without `-o`, text mode writes SVG to stdout. `--doc` emits the editable document instead. Errors and lint findings can produce a nonzero exit; inspect them before using the output.
 
-## Commands
+## AI generation
 
-| Command | What it does |
-| --- | --- |
-| `new <name>` | describe an icon; draw it to the house spec |
-| `draw <file>` | run a DSL program and emit SVG (`-` reads stdin) |
-| `lint [files...]` | check SVG icons against the house spec |
-| `parts <dir>` | cluster the subpaths of an icon set into a named vocabulary |
-| `view [dir]` | serve a directory of icons as a page, on the grid |
-| `eval` | score generated icons against the real ones they reconstruct |
-| `conform` | transform icons between corpus variants and score the result |
-| `improve` | A/B two experts on a concept class; keep updates the routing table |
+```bash
+npm run generate:local -- --help
+```
 
-`corpus`, `concepts`, `bench`, `modifiers`, `elements` and `repair` are in `iconsmith --help`. `--output json` makes any command's stdout machine-readable.
+The local foundry requires a pinned style revision, a selected optical master, reference inputs, and native coding-agent subscriptions. Generation consumes subscription usage. Start with [local setup](docs/local-setup.md), then use [the foundry guide](docs/local-foundry.md) for generation and review.
 
-## Reading an eval
+Structural checks and positive AI reviews do not establish professional drawing quality. Inspect the exported icons at their intended size.
 
-`iconsmith eval` reports four numbers, never one.
+## More commands
 
-|  |  |
-| --- | --- |
-| **floor** | 0.482, a random icon from the set scored against the target: what no information looks like |
-| **baseline** | 0.737, the measured median rendered cosine between two mature icon sets drawing the same concept |
-| **treatment** | what the pipeline scored |
-| **ceiling** | 1.0, the target against itself |
+```bash
+npm run iconsmith -- --help
+npm run iconsmith -- new --help
+```
 
-Baseline is the target, not ceiling. Anything above 0.95 is flagged as suspect: two professional sets drawing the same concept only reach 0.737, so a near-perfect score means the answer leaked into the prompt.
+- **Host constructions:** `new` can draw supported concepts without a model; other routes need their documented credentials or coding-agent CLI.
+- **Parts:** extract a vocabulary from a directory of SVGs with `parts`.
+- **Evaluation:** `eval`, `conform`, and corpus analysis require additional datasets. The private reference corpus is not included or downloadable with this repository.
 
-The house spec is measured the same way. Against its strict reading, the house set passes 33.8% of the time and the best third-party stroke pack 22.3%. A spec every set already satisfies is not a spec.
-
-## Notes
-
-- **Generation needs a Vercel AI Gateway credential:** `AI_GATEWAY_API_KEY` or `VERCEL_OIDC_TOKEN`, or `OPENROUTER_API_KEY` with an OpenRouter model id. A provider key such as `ANTHROPIC_API_KEY` is not a substitute. The analog and glyph arms need neither.
-- **The corpus is not shipped.** 2,085 symbols drawn 30 ways, plus third-party packs the licence gate exists to keep out of a generation. Point `--corpus <dir>` at your own set.
-- **The library is exported too:** `import { generate, parseIconSvg, png, runPairTournament } from "iconsmith";`
+The [local setup guide](docs/local-setup.md) covers prerequisites and troubleshooting. See [the evaluation notes](docs/evaluation-notes.md) for interpreting scores.
 
 ## License
 

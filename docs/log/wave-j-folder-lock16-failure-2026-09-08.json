@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T04:02:02.821139+00:00",
+  "status": "failed-development-request",
+  "qualified": false,
+  "requestId": "wave-h-folder-lock-native16-v1",
+  "nativeSize": 16,
+  "requestedOutputs": 2,
+  "acceptedOutputs": 0,
+  "completeValidPairs": 0,
+  "elapsedMs": 331312,
+  "deadlineExceeded": false,
+  "sourceDrift": [],
+  "failure": "Author inspection rejected remaining folder shoulder/body after one bounded visual repair; independent review not started.",
+  "nativeCalls": {
+    "started": 5,
+    "settledContainerAbsent": 5,
+    "independentReviewStarted": 0,
+    "dollarCostUsd": null
+  },
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "authorJudgmentIsIndependentAcceptance": false,
+  "rootVisualObservation": "Both final proofs show the folder reduced to a narrow left remnant beside the lock.",
+  "artifactAudit": "Detailed independent lifecycle and identity audit pending; these are failure artifacts only.",
+  "artifacts": [
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/intent.json",
+      "sha256": "8d356ac8ee2f15cdb93200177ea99bbcb427170c6420b38e63c68acff1d0ba3c"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/launch.json",
+      "sha256": "a59b3488c4df994a913e1b2115a7d871711e616f94bea495c913bca8a211615a"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/outer-result.json",
+      "sha256": "d366b708de0b9550c22ace37ceb85c8a9112b0bb3e65b7e8d7d2a496674c4d15"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/run.json",
+      "sha256": "c60953fecafea499c723e6a961c2bc4a21e584fef0ed3d00b083c14ddd5f4699"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/outlined.icon",
+      "sha256": "9333da793ddddad3bb600d3bfc5c2015a88d62d9c79c6a45f28989a999330022"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/filled.icon",
+      "sha256": "2ad56ea0785020f27912da528837e17507c1063015220d17d324519232d2ac53"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/outlined.proof.png",
+      "sha256": "da640b1df0d5495b9944f641de94ab80b1f9a88f2dc27759df287460550390f0"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/filled.proof.png",
+      "sha256": "77622e0b1eceb391a5a9c84c134b48e970fa266e5d19698e926cebcb3893ebc6"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/checks.json",
+      "sha256": "a1c749c88447310b9b6fa3ecba58aec80218e8af2a5fbe4f51d7a50957a9fd46"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native16/result/structured-author.json",
+      "sha256": "bd81601ceb5c493b72bbf7f2bc42ebe4760607ac099d41134c79068272bcca80"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "D477",
+  "kind": "terminal-authority-root-counterexample",
+  "observedAt": "2026-09-08T20:39:15.602459+00:00",
+  "status": "refused-integration-pending-correction",
+  "files": [
+    {
+      "snapshot": ".staging/wave-em-terminal-authority-root-review-2026-09-09/local-campaign.ts",
+      "sha256": "ce5e2501b335785ae082fb8ae2e54fdc9d54ad1b6dc5d058813df236e74ff858"
+    },
+    {
+      "snapshot": ".staging/wave-em-terminal-authority-root-review-2026-09-09/local-campaign.test.ts",
+      "sha256": "28d35224392a6848c6dbc96c990c2b402abbabec2ca4225db32fe1cefe10edd6"
+    }
+  ],
+  "observed": "EA v1 selected-empty outer refusal retains invalid child bytes yet emits disposition not-produced. Root reproduced the exact test assertion; this is not proof of production absence.",
+  "probe": {
+    "passed": 1,
+    "skippedByNameFilter": 67,
+    "log": ".staging/wave-em-terminal-authority-root-review-2026-09-09/retained-child-probe-v2.log",
+    "sha256": "4c5e5de935d4abb36af7d2ab016aa3e336ca2c9e35bf904dce0c6c2267dea0d6"
+  },
+  "failedFirstLaunch": {
+    "exitCode": 127,
+    "reason": "Root npm exec had no root vitest binary; corrected with workspace exec. No test ran on first launch.",
+    "log": ".staging/wave-em-terminal-authority-root-review-2026-09-09/retained-child-probe.log"
+  },
+  "requiredCorrection": [
+    "Use production-unknown for dispatched requests without verified selected artifacts",
+    "Reject unstarted when unexplained destination content exists",
+    "State caller-trusted plan identity boundary explicitly"
+  ],
+  "canonicalChanges": 0,
+  "providerCalls": 0,
+  "reservationUsd": 0,
+  "solMediumFollowupsAfterD450": 24
+}

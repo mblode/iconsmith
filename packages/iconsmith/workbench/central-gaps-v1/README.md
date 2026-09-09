@@ -1,5 +1,7 @@
 # Central gaps campaign
 
+> Surface update, 9 September 2026: the website, Studio, Eve service, shared Studio contract, and browser viewer were removed at the user’s request. References to them below are historical; use the root README and `docs/local-setup.md` for current local commands.
+
 This campaign turns missing Central concepts into a durable icon-production workflow. It borrows the useful separation from Cursor's icon project without copying its Figma files or visual rules:
 
 - Explorations keeps immutable attempts, candidate renders, programs, audits, cost records, and the Eve session that produced them.

@@ -1,0 +1,76 @@
+{
+  "id": "D456",
+  "observedAt": "2026-09-08T18:51:58.240008+00:00",
+  "scope": "synthetic-offline-DC4-counterexample",
+  "artifacts": [
+    {
+      "path": ".staging/wave-dg-panel-coverage-counterexample-2026-09-09/probe.mts",
+      "sha256": "06666c764d12564519bae3ba2a2abd462f315fd4902af415c527da90595c7c43"
+    },
+    {
+      "path": ".staging/wave-dg-panel-coverage-counterexample-2026-09-09/results.json",
+      "sha256": "e4fbc83390aea8b25abb4f9753aa3517afcfdf44e1c0a5cafa0af7db6219b5fc"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "sha256": "cd95b17b42e8820c979dfbeeca2c8dd0311b7c896607809dc1109fc1ef548704"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.test.ts",
+      "sha256": "eda5b29cc26bd880cc8d89381313a88956b6351c2c352ee156ab47a745255cf1"
+    }
+  ],
+  "observations": [
+    {
+      "explicitUnresolved": 0,
+      "stimuli": 102,
+      "canonical": 100,
+      "criticRows": 102,
+      "panelRows": 204,
+      "approvalPrecision": 1,
+      "criticalRecall": 1,
+      "decisionCoverage": 1,
+      "populationReady": true,
+      "qualified": true,
+      "unresolvedPanelLabels": 0,
+      "missingPredictions": 0,
+      "presentationConsistency": true
+    },
+    {
+      "explicitUnresolved": 20,
+      "stimuli": 102,
+      "canonical": 100,
+      "criticRows": 102,
+      "panelRows": 204,
+      "approvalPrecision": 1,
+      "criticalRecall": 1,
+      "decisionCoverage": 0.8,
+      "populationReady": false,
+      "qualified": false,
+      "unresolvedPanelLabels": 20,
+      "missingPredictions": 0,
+      "presentationConsistency": true
+    },
+    {
+      "explicitUnresolved": 21,
+      "stimuli": 102,
+      "canonical": 100,
+      "criticRows": 102,
+      "panelRows": 204,
+      "approvalPrecision": 1,
+      "criticalRecall": 1,
+      "decisionCoverage": 0.79,
+      "populationReady": false,
+      "qualified": false,
+      "unresolvedPanelLabels": 21,
+      "missingPredictions": 0,
+      "presentationConsistency": true
+    }
+  ],
+  "finding": "All frozen rows retained and controls consistent: 80/100 decisive outcomes with perfect measured precision/recall still refuse because populationReady requires zero unresolved panel labels. 79/100 also refuses correctly.",
+  "canonicalEdits": false,
+  "actualAiReviewEvidence": false,
+  "providerCalls": 0,
+  "newApiCostUsd": 0,
+  "qualified": false
+}

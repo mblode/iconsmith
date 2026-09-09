@@ -1,0 +1,43 @@
+{
+  "id": "D334",
+  "kind": "offline-semantic-ingestion-and-control-refresh",
+  "artifactHashes": {
+    ".staging/wave-bg-git-census-overlay-2026-09-08/receipt.json": "ef50eff6b80920d73585f3079e97d03802ade1fb31c8eb60407bc05109ca5319",
+    ".staging/wave-bg-git-census-overlay-2026-09-08/overlay.json": "138909600181965edcf9bd482287ed4cc8939c6de13031768a9b9f5fe67509de",
+    ".staging/wave-bg-git-census-overlay-2026-09-08/review-envelope.json": "9189564ac3dcbe9fdc52617a7742a32536353181661d4014f97bb9e53616ebae",
+    ".staging/wave-bg-git-census-overlay-2026-09-08/run.mts": "59475a36781bdadd797025e142429af46a909a4902f0d2229773c902309e83a7",
+    ".staging/wave-bd-semantic-disposition-ingestion-2026-09-08/correction-01.json": "f2e776995ccd342cab8c9ac3fd5a9508e79eadc872d4fc3a43789a348fe03d5f",
+    ".staging/wave-bg-house-control-refresh-2026-09-08/manifest.json": "d07b45766aebc24dc605b9c909406adb4ba8a2d0e7f9f08122a4e26164b6cab8",
+    ".staging/wave-bg-house-control-refresh-2026-09-08/receipt.json": "091a370850215a4c2cdc5413f0c55f9d725aa7018a362e5577538cfeab278ef4"
+  },
+  "canonicalPatchesApplied": [
+    "semantic-disposition-ingestion",
+    "mini-inline-review-profile-v1"
+  ],
+  "focusedTests": {
+    "files": 4,
+    "passed": 76,
+    "skipped": 0,
+    "exitCode": 0
+  },
+  "integratedChecks": "pending combined access-boundary patch",
+  "semanticCensus": {
+    "totalConcepts": 2221,
+    "reviewedConcepts": 5,
+    "reviewedSlots": 20,
+    "reviewedMissingSourceSlots": 2,
+    "untouchedConcepts": 2216,
+    "untouchedSlots": 8864
+  },
+  "rootVerifiedControlManifestEntries": 87,
+  "rootViewedControlProofs": [
+    "heart outlined16",
+    "hammer outlined16",
+    "shield outlined16",
+    "car outlined16"
+  ],
+  "controlCalibration": "unexecuted; exposed development only; original ratings not reused",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

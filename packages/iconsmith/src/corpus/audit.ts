@@ -312,5 +312,3 @@ export const freeformShare = (curves: CurveAudit[]): number => {
     ? 0
     : shaped.filter((c) => c.cls === "freeform").length / shaped.length;
 };
-
-export { ANGLE_TOLERANCE, ARC_TOLERANCE, MIN_EDGE, SPUR_AREA };

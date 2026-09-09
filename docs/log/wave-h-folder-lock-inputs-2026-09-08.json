@@ -1,0 +1,271 @@
+{
+  "baseRevision": {
+    "compiler": "iconsmith-constrained-21",
+    "masters": {
+      "16": {
+        "size": 16
+      },
+      "24": {
+        "size": 24
+      }
+    },
+    "revisionHash": "849a90b998af31b52342ef1c026e105bff73c2890c00d62881c63f36ba27ad97"
+  },
+  "concept": "folder-lock",
+  "corpus": {
+    "donorEvidence": [
+      {
+        "corpusPath": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/folder-1.svg",
+        "corpusSha256": "6450535f78690344ef6978cade8d48ce317eb930f6fb95b49075d0e4a21ee054",
+        "finish": "outlined",
+        "libraryIcon": "folder-1.svg",
+        "librarySha256": "752cc992e96f2ed5daca58a16f56d091482813f975bbc694512f59becf89834a",
+        "name": "folder-1",
+        "statement": "Both are real source bytes. Formatting and numeric precision differ, so byte identity is not claimed."
+      },
+      {
+        "corpusPath": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/lock.svg",
+        "corpusSha256": "71ebadf901225b8c7cf13f4d1ced2c1378c4b647d73843e7a4f8f055ede8b582",
+        "finish": "outlined",
+        "libraryIcon": "lock.svg",
+        "librarySha256": "f37cf1d22278b7e39cb13fa9620e5449d6b2c305bf7899cc5335621c9759c901",
+        "name": "lock",
+        "statement": "Both are real source bytes. Formatting and numeric precision differ, so byte identity is not claimed."
+      },
+      {
+        "corpusPath": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-filled-radius-3-stroke-2/folder-1.svg",
+        "corpusSha256": "9d5e9fd472811e4638000f40211c4410a91799d056a102b4ca4d1a5b8608b594",
+        "finish": "filled",
+        "libraryIcon": "folder-1-filled.svg",
+        "librarySha256": "9736fa601b94168b4c4839077a8c0cbe3e1bfc3b2768cc32955bfbb82392859f",
+        "name": "folder-1",
+        "statement": "Both are real source bytes. Formatting and numeric precision differ, so byte identity is not claimed."
+      },
+      {
+        "corpusPath": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-filled-radius-3-stroke-2/lock.svg",
+        "corpusSha256": "f16dde3808d70c6d8826c5258c0a36f3e8449b4a029db29f9a647348709351de",
+        "finish": "filled",
+        "libraryIcon": "lock-filled.svg",
+        "librarySha256": "5fad76d8ada04c3116d21b1818df4c0c60b85c44ff5ffe0cd2249635074f76cf",
+        "name": "lock",
+        "statement": "Both are real source bytes. Formatting and numeric precision differ, so byte identity is not claimed."
+      }
+    ],
+    "root": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus",
+    "targetFolderLockFileCount": 0,
+    "targetStatus": "missing-source"
+  },
+  "createdAt": "2026-09-08",
+  "exposure": {
+    "classification": "exposed-family composition",
+    "novel": false,
+    "qualificationClaimed": false,
+    "statement": "Folder and lock donor identities are exposed through references and requested source-part admission. This is development composition evidence only."
+  },
+  "inventory": {
+    "aliasHash": "fd7741c591e3cdba84cde345a4f21b4a79dfb564f56ddc1f364799297d218e55",
+    "aliasSources": [
+      "central (2086 icons)",
+      "blode-icons (2203 concepts)"
+    ],
+    "aliases": [],
+    "candidateCount": 4357,
+    "catalogFamilyIdentity": "87631283e9cce23e143bb42b738762e763543c2da029f97839e6a174e898411a",
+    "catalogFamilyStatus": "catalog-metadata",
+    "excludedTargetSources": [],
+    "library": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg",
+    "librarySet": "blode-icons",
+    "sourceCount": 4357,
+    "sourceHash": "640507ce56c58a5ae40f1718f0bad8fa011680d3c04909837cf3cb128cb946cf",
+    "targetSourceCount": 0,
+    "targetSourceStatus": "missing-from-library"
+  },
+  "meanings": [
+    "folder-lock",
+    "folder-shield",
+    "folder-key"
+  ],
+  "packetHashes": {
+    "combined": "146acb064bf305d8fe18b466fd75da3e5d73461775e97bafd2e39f0ab7f0973e",
+    "filled": "ee089ef2ab9174ccc295d07c332a0169739dcd9987a66a22bf0ebea4ee181c8d",
+    "outlined": "bfadac7bda74704f88fff293bbc7cb72f20531dddd0c202bfdd84b4a2bb3bcbc"
+  },
+  "preparationBoundary": {
+    "hiddenProviderReviewAssertion": "The four per-paint and two combined canonical retrieveLocalStyle validations used callbacks that throw if invoked. Every shared-family-packet validation completed with zero callback calls.",
+    "providerCalls": 0,
+    "reviewCallbackCalls": 0
+  },
+  "preparationFailures": [
+    {
+      "assetsWritten": false,
+      "stage": "temporary driver transform",
+      "status": "top-level-await CJS mismatch"
+    },
+    {
+      "assetsWritten": false,
+      "stage": "incorrect target-source expectation",
+      "status": "corrected after actual inventory showed folder-lock absent"
+    },
+    {
+      "assetsWritten": true,
+      "preserved": true,
+      "stage": "optional corpus raster comparison",
+      "status": "sharp ESM import-shape mismatch; no raster-equivalence claim retained"
+    }
+  ],
+  "status": "prepared-development-inputs",
+  "validations": [
+    {
+      "admissions": [
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "lock"
+        },
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "lock"
+        }
+      ],
+      "applicationHash": "bed11175254d202f5dafa88d4ce4f8436bcd36e2a91a5d6f4b35152a9fe32d75",
+      "finish": "both",
+      "master": "16",
+      "masterSpecHash": "92cfac88ddd4e9053c471271b936db1c2e4bc8fcd03b49f70882511077718123",
+      "packetHash": "146acb064bf305d8fe18b466fd75da3e5d73461775e97bafd2e39f0ab7f0973e",
+      "revisionHash": "f09fd42a7e4fef92dac7bdafd9d7e7596dcc620eb9322e5ffeec73a29d8fb39b",
+      "retrievalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-inputs-2026-09-08/validation/16-combined"
+    },
+    {
+      "admissions": [
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "lock"
+        }
+      ],
+      "applicationHash": "fd34408613c9c83780190f9a8ded17f945c0b1318910d0ed8145915f06ed9b75",
+      "finish": "outlined",
+      "master": "16",
+      "masterSpecHash": "92cfac88ddd4e9053c471271b936db1c2e4bc8fcd03b49f70882511077718123",
+      "packetHash": "bfadac7bda74704f88fff293bbc7cb72f20531dddd0c202bfdd84b4a2bb3bcbc",
+      "revisionHash": "2c60bed1693778651afb22fd3c82206e9455928117e51b62efdcfcf71e96c827",
+      "retrievalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-inputs-2026-09-08/validation/16-outlined"
+    },
+    {
+      "admissions": [
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "lock"
+        }
+      ],
+      "applicationHash": "483f30d2913abe3afe5aabbf7e7729feae246cf7bc1c6230a435a47fbb307116",
+      "finish": "filled",
+      "master": "16",
+      "masterSpecHash": "92cfac88ddd4e9053c471271b936db1c2e4bc8fcd03b49f70882511077718123",
+      "packetHash": "ee089ef2ab9174ccc295d07c332a0169739dcd9987a66a22bf0ebea4ee181c8d",
+      "revisionHash": "6cd2a43c5a5117b66192622c757d1596d626aa1785724f02c53e3f32bd6e7d41",
+      "retrievalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-inputs-2026-09-08/validation/16-filled"
+    },
+    {
+      "admissions": [
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "lock"
+        },
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "lock"
+        }
+      ],
+      "applicationHash": "9ece9897b4c671528486924403461849ddf78be1c12c017140a85d771c270d38",
+      "finish": "both",
+      "master": "24",
+      "masterSpecHash": "d7c74e0a07a001b438b38a1f7d43851a0f9385f48019408510a0a4d9d564e6cf",
+      "packetHash": "146acb064bf305d8fe18b466fd75da3e5d73461775e97bafd2e39f0ab7f0973e",
+      "revisionHash": "7200c6331868810034d26c00b11c6688bc8bfcea7a84862c45e85e0ad665dc86",
+      "retrievalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-inputs-2026-09-08/validation/24-combined"
+    },
+    {
+      "admissions": [
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "outlined",
+          "name": "lock"
+        }
+      ],
+      "applicationHash": "26d8f8cf4cbd0d97a9bf64039c5d3382478e95cb6e30aa96a38e5168e6acf123",
+      "finish": "outlined",
+      "master": "24",
+      "masterSpecHash": "d7c74e0a07a001b438b38a1f7d43851a0f9385f48019408510a0a4d9d564e6cf",
+      "packetHash": "bfadac7bda74704f88fff293bbc7cb72f20531dddd0c202bfdd84b4a2bb3bcbc",
+      "revisionHash": "3a57798d56f5cb97de0bbd201b3c6aaed39c85f1d5c93acc7afffe056b87ac7b",
+      "retrievalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-inputs-2026-09-08/validation/24-outlined"
+    },
+    {
+      "admissions": [
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "folder-1"
+        },
+        {
+          "admission": "admitted",
+          "finish": "filled",
+          "name": "lock"
+        }
+      ],
+      "applicationHash": "ee55a085af9d6fb0767864c517e3a087204f48d96938842087e3b187e7f599dd",
+      "finish": "filled",
+      "master": "24",
+      "masterSpecHash": "d7c74e0a07a001b438b38a1f7d43851a0f9385f48019408510a0a4d9d564e6cf",
+      "packetHash": "ee089ef2ab9174ccc295d07c332a0169739dcd9987a66a22bf0ebea4ee181c8d",
+      "revisionHash": "1743583863dabc1af97746037e8d4e5d2cce32a0800b30a19471fa6f03137763",
+      "retrievalPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-inputs-2026-09-08/validation/24-filled"
+    }
+  ],
+  "originalReceipt": {
+    "path": ".staging/wave-h-folder-lock-inputs-2026-09-08/receipt.json",
+    "sha256": "f2c987d603c8b3542d9976020db782afce500c7d3a80ecc78b212ca586827064"
+  },
+  "actualNativeDispatch": ".staging/wave-h-folder-lock-live-2026-09-08/native16/launch.json",
+  "preparedCommandsAreNotDispatchEvidence": true
+}

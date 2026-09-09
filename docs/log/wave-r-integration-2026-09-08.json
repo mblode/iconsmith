@@ -1,0 +1,86 @@
+{
+  "schema": "iconsmith.wave-r.integration.v1",
+  "qualified": false,
+  "freeze": {
+    "path": ".staging/wave-r-integration-2026-09-08/freeze.json",
+    "sha256": "85793b3eb03ec2874b67f184d3b5e9aaf93230d8bced983b9569ca53293ae3dc"
+  },
+  "tests": {
+    "passed": 2071,
+    "total": 2071,
+    "files": 169,
+    "skipped": 0
+  },
+  "validation": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 28141,
+      "log": ".staging/wave-r-integration-2026-09-08/test.log",
+      "logSha256": "d36c1043c06814326ea4272bc0b7a45e8d39b49cbbeeee0fd9d35f1582b46949"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1320,
+      "log": ".staging/wave-r-integration-2026-09-08/typecheck.log",
+      "logSha256": "ed1aab8031d662073574df3251c376a6f13186188b37c508c7f68454207883f5"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5161,
+      "log": ".staging/wave-r-integration-2026-09-08/build.log",
+      "logSha256": "8b7345e7af779b630c11cadb97ab81381b5075b0fe8072f932e6120d34510ca1"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1380,
+      "log": ".staging/wave-r-integration-2026-09-08/check.log",
+      "logSha256": "13388c08f70d6139c7c630e7da1facba2d3a87f0dfbcfe57707816987a0f099a"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 57,
+      "log": ".staging/wave-r-integration-2026-09-08/diff.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "changes": [
+    "Canonical contained native quality-campaign review with parent deadline and strict idempotent resume.",
+    "Existing numerical score anchors now appear in actual reviewer prompt.",
+    "Strict all-status and outer-refusal native accounting, STOP latching, unique regular files and failed-call settlement.",
+    "Canonical per-reviewer calibration report binds repeat lineage, native image bytes, semantic keys and original deadline."
+  ],
+  "sourceStable": true,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0
+}

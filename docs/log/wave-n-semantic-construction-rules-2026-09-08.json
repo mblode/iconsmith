@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-08T05:03:33.065077+00:00",
+  "status": "experimental-construction-guidance-proposal",
+  "qualified": false,
+  "families": [
+    "folder-lock",
+    "bell-pause",
+    "credit-card-check"
+  ],
+  "records": 12,
+  "files": [
+    {
+      "path": ".staging/wave-n-semantic-construction-rules-2026-09-08/receipt.json",
+      "sha256": "04b3bfdd35a9e873ef04bbf2dea5a44d6a4b893f9ae534e8e098cc017adc2b9f"
+    },
+    {
+      "path": ".staging/wave-n-semantic-construction-rules-2026-09-08/construction-rules.json",
+      "sha256": "b9393752c7ab8c2a05f40a29130f45ed9b89b549ad80a662b676a0ee6fc140f3"
+    },
+    {
+      "path": ".staging/wave-n-semantic-construction-rules-2026-09-08/integration-proposal.json",
+      "sha256": "dd3177c0d26cf948806e435492f5a26246c9eb8b10fbbff317aacd0e39df5459"
+    },
+    {
+      "path": ".staging/wave-n-semantic-construction-rules-2026-09-08/verification.json",
+      "sha256": "ead8807c03ebfcb4cd96b63c432beb995bd7bd36409a66923576677b53c5727b"
+    }
+  ],
+  "limits": [
+    "No calibrated placement ranges or visual acceptance",
+    "No source edits or promotion into production author guidance",
+    "Source measurements and retained experimental operands remain separate"
+  ],
+  "newProviderCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0
+}

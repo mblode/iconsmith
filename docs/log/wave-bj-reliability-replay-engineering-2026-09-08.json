@@ -1,0 +1,45 @@
+{
+  "id": "D340",
+  "status": "engineering-verified-live-unexecuted",
+  "scopedTests": 60,
+  "scopedTestFiles": 2,
+  "typecheckExitCode": 0,
+  "lintExitCode": 0,
+  "requests": 6,
+  "slots": 12,
+  "historicalPopulationIntentSha256": "432075265e1c5baa6ec7c8ffc56ae487b9cb93b70f8bf8ce26d8431658c82080",
+  "automaticRetrievalMaximumNativeCallsPerRequest": 12,
+  "waveMaximumNativeCalls": 72,
+  "qualified": false,
+  "providerCalls": 0,
+  "artifacts": [
+    {
+      "path": "packages/iconsmith/scripts/campaign-manifest.ts",
+      "sha256": "f59db8ed216d57e689b749acdca92a9ec19989a33e8e7511d932781a4a274f2b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-manifest.test.ts",
+      "sha256": "0046491af6bb802d7ef8ed1bbdb4bc4137c5d3e0505b8525ca2683708174fed7"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.ts",
+      "sha256": "ca796b0e058065e4a96293e55e5802f9ae747d5d9118b4c02a41e0f5e8d0f97d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "sha256": "d2051e86aebc70a5966d580a6248f4333a3745e4c1011a70a31837006aa7967c"
+    },
+    {
+      "path": ".staging/wave-bj-reliability-replay-engineering-2026-09-08/scoped-tests.log",
+      "sha256": "eef6f32ef0359d198fe6f195726ee5fec2db2a1f55851e533c0ea5bf729799ae"
+    },
+    {
+      "path": ".staging/wave-bj-reliability-replay-preparation-2026-09-08/manifest.json",
+      "sha256": "e62107eca468e558c6c68d663a214f244c72260dafb437147920422f4af624b6"
+    },
+    {
+      "path": ".staging/wave-bj-reliability-replay-preparation-2026-09-08/dry-run.stdout.json",
+      "sha256": "d97a68e7f1ba2dbfad08ac7d750bdda541bd88805b47bedc9fd3018c361b6e9d"
+    }
+  ]
+}

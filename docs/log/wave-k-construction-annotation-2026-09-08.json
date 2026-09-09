@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "task": "P2.2/P2.13 independent construction development annotation",
+  "status": "inspected-unqualified",
+  "qualified": false,
+  "counts": {
+    "families": 16,
+    "constructionClasses": 8,
+    "outputs": 64,
+    "nativeSurfaces": 128,
+    "sourceFiles": 38,
+    "primaryClassAgreements": 7,
+    "primaryClassDisagreements": 9
+  },
+  "evidence": [
+    {
+      "path": ".staging/wave-k-construction-annotations-2026-09-08/blind-review-disagreement-receipt.json",
+      "sha256": "5bc2ed8da9cea1bbc43ac86cb89728b5d310396c7a3d270f8536170892302440"
+    },
+    {
+      "path": ".staging/wave-k-construction-annotations-2026-09-08/artifact-manifest-v2.json",
+      "sha256": "82f8166cff027081a2e20f1a8f4cf297457ebb850068570694072cf786d3bf30"
+    },
+    {
+      "path": ".staging/wave-k-construction-annotations-2026-09-08/root-blind-observations.json",
+      "sha256": "b792fbfe8313298600f530aff19f93879d5f0f65ca5e996e7242b39ca69c2d6c"
+    }
+  ],
+  "reviewerLineages": [
+    "gpt-5.6-sol",
+    "gpt-6-astra"
+  ],
+  "boundary": "Separate AI annotation with root observations sealed before host mapping; shared project context; no craft or qualification votes",
+  "findings": [
+    "Nine class disagreements remain unresolved because primary-stressor versus host-silhouette rules differ",
+    "Bell-pause, credit-card-check and folder-lock filled modifier collisions are composed-image failures, not source reconstruction failures",
+    "Camera blind recognition was ambiguous; revealed mapping does not retroactively count as successful recognition"
+  ],
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0
+}

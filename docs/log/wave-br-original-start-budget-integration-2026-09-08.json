@@ -1,0 +1,62 @@
+{
+  "id": "D372",
+  "kind": "original-parent-start-budget-root-integration",
+  "agentReceipt": ".staging/wave-bq-original-start-budget-2026-09-08/receipt-v2.json",
+  "agentReceiptSha256": "68f315cbad911e4817029955515364602b535168e1be6750823530ee48fe7d25",
+  "patches": [
+    {
+      "file": "original-start-budget-v2.patch",
+      "sha256": "c2195b312092fceb570c6830dee9e85ebb82385aed56658b71c1e052c0af1e6f",
+      "role": "aggregate budget/config/generate/tests patch against canonical bases"
+    },
+    {
+      "file": "local-style-run-started-at-supplement-v1.patch",
+      "sha256": "1c65c89b268e158a0f8ea04c1cb6a5e6b3e84489597420c8ea074e61c4ff47f2",
+      "role": "one-hunk supplement compatible with Evaluation local-style-run patch"
+    }
+  ],
+  "files": {
+    "review-budget.ts": {
+      "baseSha256": "65d66e0caa84414555d7412ef888dea3c8ec813112e3bd20ebd59c62c9acaa34",
+      "resultSha256": "357a714897e35ed3dbcc78649bb1fc8255664a11412dec0001d7fcd0ff53740b"
+    },
+    "review-budget.test.ts": {
+      "baseSha256": "e1b09785ed915a09f3515d2baefda6135972c9c3db90d3b1f7f6d50d0aefc7a5",
+      "resultSha256": "f4c3e4ea33135fa9ab185667dc511837ebe5cdf03792ea7a2844bcb201f848a0"
+    },
+    "local-native-config.ts": {
+      "baseSha256": "e241dab6bdf40fc91ec416954bd48499d7b9f55a6db40cd7d2817350ebddef4e",
+      "resultSha256": "fe67b805169eabb2770f3a10c6b2d6f29072b93a997df8e523d731683635b313"
+    },
+    "local-native-config.test.ts": {
+      "baseSha256": "27127296b07ce7fe4187fdad145a864dcf79cfc645ad70b8f5d430b1ae87199e",
+      "resultSha256": "479189d03abaf62af8411f04083320cbf7a6edfee8967b98541ff1c6da861d34"
+    },
+    "local-generate.ts": {
+      "baseSha256": "667b72183c0f35ab6b0f7f01e88d752140acf36e44c12283e1619d9e0eaab5df",
+      "resultSha256": "78a5921fdd6053a61ad31e811408acb8b1c21c198bda50f62735809f05606955"
+    },
+    "local-generate.test.ts": {
+      "baseSha256": "f2c5abdc73c0465939e7960714f595f5a34fb2e5856e3a4ae7088c08d1fcf617",
+      "resultSha256": "5df24930af4a9402681928fadef6575b535d535e594daeefc667e6f20ea6b3d9"
+    },
+    "local-native-route.test.ts": {
+      "baseSha256": "86a3604ad2e5990c715fa8b807d29e1153a49e10729ab07e359569e95fc65c38",
+      "resultSha256": "75712d411d6d4313ef48b5f18a4753187af7a05bc76a91b689cdb2824adad692"
+    },
+    "local-style-run.ts": {
+      "baseSha256": "110d59342f33829cdc0b8312dfbc431b00ee078eebe9f5fc06d9d1409faa7f4f",
+      "resultSha256": "deac05f557cebd3be76428fa1ecc206ff649bba26a108f2d41a0ee6f7a6d6871"
+    }
+  },
+  "tests": 95,
+  "testFiles": 5,
+  "skipped": 0,
+  "testLog": ".staging/wave-bq-original-start-budget-2026-09-08/root-tests-v2.log",
+  "testLogSha256": "b60a68fb0f32313d26c4d99a99bda5999caef5079cec9e9145caac227d7151c1",
+  "behavior": "Mandatory parent startedAt anchors retrieval cutoff; current time only admits or refuses. Reentry cannot renew schedule. All helper callers explicit.",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualificationContribution": 0,
+  "fullIntegrationPending": true
+}

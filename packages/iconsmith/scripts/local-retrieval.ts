@@ -66,17 +66,48 @@ export const libraryCandidates = (
   );
 };
 
+const verifyConsumedLibrary = (
+  sources: readonly FamilySource[],
+  library: string,
+  expectedHash: string | undefined
+) => {
+  const consumedHash = hash(
+    sources
+      .map(
+        ({ name, finish, svg }) =>
+          `${path.basename(library)}/${name}${finish === "filled" ? "-filled" : ""}.svg\0${hash(svg)}`
+      )
+      .toSorted()
+      .join("\n")
+  );
+  if (expectedHash !== undefined && consumedHash !== expectedHash) {
+    throw new Error(
+      "Retrieval source bytes differ from the parent-frozen library"
+    );
+  }
+  return consumedHash;
+};
+
+export type LocalRetrievalReview = (
+  options: Pick<
+    Parameters<typeof reviewImages>[0],
+    "deadlineAt" | "images" | "out" | "questions"
+  >
+) => Promise<Pick<Awaited<ReturnType<typeof reviewImages>>, "answers">>;
+
 export const retrieveLocalStyle = async (options: {
   revision: StyleRevision;
   master: string;
   concept: string;
   library: string;
+  /** Parent-frozen inventory; checked against the exact bytes used below. */
+  expectedLibraryTreeHash?: string;
   set: string;
   out: string;
   deadlineAt?: number;
   exclusions?: readonly string[];
   familyPacket?: FamilyReferencePacket;
-  review?: typeof reviewImages;
+  review?: LocalRetrievalReview;
 }) => {
   const assertTime = () => {
     if (Date.now() >= (options.deadlineAt ?? Infinity)) {
@@ -130,6 +161,11 @@ export const retrieveLocalStyle = async (options: {
   if (!sources.length) {
     throw new Error("Retrieval library contains no supported SVG filenames");
   }
+  const consumedLibraryTreeHash = verifyConsumedLibrary(
+    sources,
+    options.library,
+    options.expectedLibraryTreeHash
+  );
   const { aliases, from } = await loadAliases();
   const catalog = loadCatalogFamilies(
     options.library,
@@ -173,6 +209,7 @@ export const retrieveLocalStyle = async (options: {
     catalogFamilyIdentity: catalog.identity,
     catalogFamilyStatus: catalog.status,
     concept,
+    consumedLibraryTreeHash,
     exclusions: options.exclusions ?? [],
     names,
     sourceCount: sources.length,

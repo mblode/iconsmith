@@ -43,7 +43,7 @@ import { png } from "./render.js";
 /** The optical shapes, as visual extents in canvas units. Re-exported from the
  *  spec rather than restated, so an audit can never measure against a different
  *  set of keylines than the linter enforces. */
-export const KEYLINES = SPEC.keylines;
+const KEYLINES = SPEC.keylines;
 
 /** Raster grid for the ink measurements. Every corpus icon is a 24-unit
  *  viewBox, so one grid means one scale and areas are comparable. */
@@ -280,7 +280,7 @@ export const measureKeyline = async (
 };
 
 /** Conformance bands, in units of deviation from the nearest keyline. */
-export const CONFORMANCE = {
+const CONFORMANCE = {
   /** A refit away — the same shape, slightly the wrong size. */
   near: 1.5,
   /** Far enough that it is a different extent, not a mis-sized keyline. */

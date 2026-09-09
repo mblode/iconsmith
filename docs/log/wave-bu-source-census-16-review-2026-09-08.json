@@ -1,0 +1,30 @@
+{
+  "id": "D380",
+  "scope": "Sixteen additional source construction development proposals",
+  "agentReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-census-16-development-2026-09-08/receipt.json",
+  "agentReceiptSha256": "487114ebd17cb3f5dbde2a6b239ae998e3b0b3e08494dc3984e7ac5972a096ad",
+  "rootVerifiedArtifactCount": 168,
+  "artifactMismatches": [],
+  "rootViewedBoards": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-census-16-development-2026-09-08/boards/census-1.png",
+      "sha256": "b68df93d9309b3e91a110bd7dc8a90ae8f483f8823cf6b674fbadfa78fea59f0"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-census-16-development-2026-09-08/boards/census-2.png",
+      "sha256": "e369c4541d51dd089fab69ba794d9e035f09ce75104986d433d6b3eefc8bea3b"
+    }
+  ],
+  "counts": {
+    "concepts": 16,
+    "slots": 64,
+    "sourceFiles": 32,
+    "surfaceRasters": 128
+  },
+  "independentReviewQualified": false,
+  "native16MasterClaim": false,
+  "aliasAndCrossFamilyDerivatives": "unresolved",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

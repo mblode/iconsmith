@@ -1,0 +1,50 @@
+{
+  "kind": "root-production-review-packet-integration-v1",
+  "decisionId": "D431",
+  "observedAt": "2026-09-08T15:55:41.280682+00:00",
+  "qualified": false,
+  "patch": {
+    "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-production-author-review-packet-v1-2026-09-09/production-author-review-packet.patch",
+    "gitApplyCheck": true,
+    "sha256": "062030e95c90f90d5fd929f6ce3863a92084f7903ffd401eeabe631b2b9a1769"
+  },
+  "agentReceipt": {
+    "path": ".staging/wave-ch-production-author-review-packet-v1-2026-09-09/receipt.json",
+    "sha256": "fcafcd30314ba9f8795f57b5f6b5a1cdec3eff396b59710969795cb40107f848"
+  },
+  "baseHashesVerified": true,
+  "resultHashesVerified": true,
+  "resultSha256": {
+    "scripts/author-review-packet.test.ts": "18a71cb96d6e2355513c9c9bf9194f8f1acc46b4dd08f615d23a35f475ba0c0b",
+    "scripts/author-review-packet.ts": "05e90ca93e18929ec220a53c5399c9ab0899867311e7aabb12bec511ca5ced54",
+    "scripts/local-style-run.test.ts": "9aec843c3b44bde87f9e216392b96ed5cc57e13ad6ad5edacd0c425d3c8df46b",
+    "scripts/local-style-run.ts": "0b67d5d30042f1460b4f8ab17fe07ff99a84f12545e7a67b0da987c142c1d0f0"
+  },
+  "rootVerification": {
+    "command": "npm exec -w iconsmith -- vitest run scripts/author-review-packet.test.ts scripts/local-style-run.test.ts",
+    "files": 2,
+    "passed": 61,
+    "failed": 0,
+    "durationSeconds": 11.73
+  },
+  "integratedVerification": "pending combined implementation wave",
+  "productionDispatch": "no new provider dispatch before a fresh source freeze",
+  "behavior": [
+    "Actual native independent-review requests receive one terminal-bound candidate board followed by frozen family proofs in exact reference order.",
+    "Candidate and family proofs retain the current light/dark, 1x/2x, native-cell presentation protocol and native16/native24 metadata validation.",
+    "Default admission requires complete clear author evidence; delivered-with-uncertainty is admitted only for an exact provenance-bound evidence-only representation uncertainty set with no observed defects.",
+    "Malformed or absent inspection and author uncertainty arrays fail closed."
+  ],
+  "limitations": [
+    "No live provider or visual-quality evidence was produced.",
+    "The packet receipt remains development-review preparation only and qualified=false.",
+    "This does not close P2.12; newly admitted compiler alternatives still require independent native-fidelity evidence.",
+    "The host inspection bridge binds the structured terminal inspection and proof hashes; it does not create a new independent inspection."
+  ],
+  "costs": {
+    "providerCalls": 0,
+    "nativeSettledCumulative": 136,
+    "olderUnresolvedNativeIntents": 1,
+    "apiIncrementUsd": 0
+  }
+}

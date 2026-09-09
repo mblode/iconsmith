@@ -1,0 +1,77 @@
+{
+  "experimentId": "D420",
+  "kind": "authenticated-stop-and-p1-engineering-closure",
+  "qualified": false,
+  "p1EngineeringExit": true,
+  "p1_9bComplete": true,
+  "sourceReceipt": ".staging/wave-cf-stop-postflight-v6-2026-09-09/receipt.json",
+  "sourceReceiptSha256": "9ae313041ade59656fe88f174064c52baef93f20e09d2710c5410247c690cef1",
+  "rootVerifiedArtifacts": 28,
+  "underlyingCanonicalLifecycle": "pass-engineering-lifecycle",
+  "runnerFailurePreserved": {
+    "line": 313,
+    "finding": "The runner checked settlementEvidence.container.quiescent, but the canonical envelope stores quiescence at settlementEvidence.container.process.quiescent. The failure occurred after correct canonical settlement and does not indicate a race or containment failure.",
+    "liveRetryRequired": false
+  },
+  "observedLifecycle": {
+    "observationOutcome": "triggered",
+    "campaignStopSha256": "7a77d4604223be0ec7c575b7133eebfc7e64065e54baae7983ad76469f11a719",
+    "nativeStopObservedAt": 1788880563532,
+    "terminalSettledAt": 1788880564883,
+    "terminal": {
+      "outcome": "cancelled",
+      "accounting": "settled",
+      "containment": "container-absent",
+      "deadlineExceeded": false
+    },
+    "container": {
+      "containerId": "27d4e37d556c19fa4e1c4ebd8ab7bc4eaee494e3d0e74736e6d65a57a4c18e1e",
+      "containerAbsent": true,
+      "cancelledByStop": true,
+      "containmentScope": "docker-private-pid-namespace",
+      "processCode": 137,
+      "processKilled": true,
+      "processQuiescent": true
+    },
+    "rootIndependentAbsence": {
+      "containers": 3,
+      "allAbsent": true,
+      "externalIntentUnchanged": true
+    }
+  },
+  "postSettlement": {
+    "observationMs": 2700,
+    "requestTreeEntries": 29,
+    "requestTreeStable": true,
+    "journalEntries": 6,
+    "journalStableAcrossReadOnlyResume": true,
+    "resumeExitCode": 0,
+    "resumeScheduledRequestIds": [],
+    "sourceClosureFiles": 635,
+    "sourceDriftCount": 0,
+    "productionFiles": 555,
+    "productionToolingHash": "eb55533905e9bc2e1bef0547347082cbd9145543a1eb752a00bd6abeffe532fc",
+    "productionIdentityStable": true
+  },
+  "dependencyAudit": ".staging/wave-cf-p1-exit-audit-2026-09-09/receipt.json",
+  "dependencyAuditSha256": "b678093fe69558ac242929448fb7004ee589be2e0f26fd30c801ef52f64f8b15",
+  "nativeAccounting": {
+    "newSettledCalls": 1,
+    "settledCumulative": 136,
+    "olderUnresolvedIntents": 1,
+    "unusedReservationReleased": 11,
+    "newOutstandingReservation": 0,
+    "dollarAllocation": "unknown"
+  },
+  "apiAccounting": {
+    "incrementUsd": 0,
+    "actualUsd": 13.06220785,
+    "reservedOrUnknownUsd": 11.37126575,
+    "capUsd": 50
+  },
+  "limitations": [
+    "P1 closure is engineering reliability only.",
+    "No visual qualification, selected production route, or 95% delivery claim.",
+    "D415 prompts changed after earlier slice; earlier images remain exposed development evidence under their recorded route."
+  ]
+}

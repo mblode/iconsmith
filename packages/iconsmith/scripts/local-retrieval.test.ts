@@ -83,6 +83,7 @@ it("pins visually selected references and admits parts while retaining native fi
   const { DEFAULT_POLICY } = await import("../src/pipeline/policy.js");
   const { SPEC } = await import("../src/tools/canvas.js");
   const { retrieveLocalStyle } = await import("./local-retrieval.js");
+  const { corpusTreeHash } = await import("./local-campaign.js");
   const root = mkdtempSync(path.join(tmpdir(), "iconsmith-retrieve-"));
   const library = path.join(root, "library");
   mkdirSync(library);
@@ -110,8 +111,10 @@ it("pins visually selected references and admits parts while retaining native fi
     rubric: "test",
   });
   try {
+    const expectedLibraryTreeHash = corpusTreeHash(library);
     const result = await retrieveLocalStyle({
       concept: "package-lock",
+      expectedLibraryTreeHash,
       library,
       master: "24",
       out: path.join(root, "retrieval"),
@@ -171,6 +174,25 @@ it("pins visually selected references and admits parts while retaining native fi
     expect(
       readFileSync(path.join(root, "reused/family-packet-proofs.json"), "utf-8")
     ).toContain('"nativeSize": 24');
+    let staleReviewCalls = 0;
+    writeFileSync(path.join(library, "box-filled.svg"), `${svg}\n`);
+    await expect(
+      retrieveLocalStyle({
+        concept: "package-lock",
+        expectedLibraryTreeHash,
+        library,
+        master: "24",
+        out: path.join(root, "stale-library"),
+        review: () => {
+          staleReviewCalls += 1;
+          return Promise.resolve({ answers: {} });
+        },
+        revision,
+        set: "blode-icons",
+      })
+    ).rejects.toThrow("parent-frozen library");
+    expect(staleReviewCalls).toBe(0);
+    writeFileSync(path.join(library, "box-filled.svg"), svg);
     await expect(
       retrieveLocalStyle({
         concept: "package-lock",

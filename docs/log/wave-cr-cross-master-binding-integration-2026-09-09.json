@@ -1,0 +1,130 @@
+{
+  "kind": "cross-master-native-svg-binding-root-integration-v1",
+  "decision": "D444",
+  "date": "2026-09-09",
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/cross-master-review.ts",
+      "sha256": "9e4d92a12b8bd6d61796526f10a24c88fd265cdf5d8eb4570bd9d956af8f660a"
+    },
+    {
+      "path": "packages/iconsmith/scripts/cross-master-review.test.ts",
+      "sha256": "61e65cc3a28d3ce6e800d0c881244a7753a20d8903ed473f5d6b725304584ccc"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-evidence.test.ts",
+      "sha256": "2018922153f19cf645be21b73115742fa49151f2ce1c68c8aed2374a543d4cab"
+    }
+  ],
+  "evidenceVersion": "native-svg-pixel-binding-v2",
+  "verification": {
+    "scopedTests": 18,
+    "totalTests": 2390,
+    "testFiles": 175,
+    "skipped": 0,
+    "typecheck": "passed",
+    "build": "passed",
+    "check": "passed",
+    "diffCheck": "passed"
+  },
+  "logs": [
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/build.log",
+      "sha256": "d6e75c58d7db91710a43a9893da90a78aec88c6fe8d93b8798e4619d304ebbd8"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/campaign-fixture-format.log",
+      "sha256": "0adbe932e9c4db846a9da1fb80dfee23d14810ff477017fd009b25b36bddb72c"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/canonical-format.log",
+      "sha256": "040d8a1e9852ff20e1a35eb1883b4156fb49899e8485ca9bb66429986b1db044"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/canonical-lint-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/canonical-lint.log",
+      "sha256": "f07522924a1b77e00737320181e582fd24249a087ec84f555f74c1396e0f456d"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/canonical-test-v2.log",
+      "sha256": "f53b55d121d018dcd1d49a87adfc736d40dc3e009d06bbf5805686d953c95ee7"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/canonical-test.log",
+      "sha256": "8488bfc437a643fffda70a12cef475415e46ec422c9861b252e7b61114c3d078"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/check.log",
+      "sha256": "ddcfd6de9b80b7c3e0c21e6ba08903b43ee0dabc81186ed1ddd4167e0a1bc17e"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/format-v2.log",
+      "sha256": "28b40859dad64c1d4ddb6d28cab92d3fd6cc3ec1daf5da0bb10f4e8ab9aa9f28"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/format.log",
+      "sha256": "3ccf14cb40810d5cc341b411e963bae9c15392c5e700947a2cfc1cb5b834122a"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/full-test-v2.log",
+      "sha256": "a269c739bad5eb0bbac2c71f5e971a501bc5fbd2f953099cdcaa1e810823e1dc"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/full-test.log",
+      "sha256": "ca11c11b636fd79970d074083348165bbd2c6b9314fa9e1b8975c55db487db4c"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/lint.log",
+      "sha256": "199555da75a83fe0949c501d1cac91995db05712c9befa4b61a7ae062738439c"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/scoped-v3.log",
+      "sha256": "7f9039f17ad958b6d675efa86ec7aea44f5d4db88a8d6364d1027426518d2b82"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/test.log",
+      "sha256": "25a4dba33010139913a5de54419a0c71045edf1a6626f0bccf53f6290c37f4a5"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/typecheck-v2.log",
+      "sha256": "eac8a78592bb9257cd85e5cea5709381ac1e5e4768dfcfebb24aa32b2c57dde7"
+    },
+    {
+      "path": ".staging/wave-cr-cross-master-binding-2026-09-09/typecheck.log",
+      "sha256": "53cc13091e145c14db70b807c7db8f3a29b2e6e622f26e280b9506b1317f041e"
+    }
+  ],
+  "actualArtifactReplay": {
+    "path": ".staging/wave-cr-cross-master-binding-2026-09-09/live-artifact-replay.json",
+    "sha256": "40fa0737de1ec61010a18d87b19af332a08afbb086f3094c37faa5e407416ae8",
+    "outputs": 4,
+    "exactNativeSvgRendering": true,
+    "receiptReplay": true,
+    "historicalBytesUnchanged": true,
+    "complete": false,
+    "issues": [
+      "outlined: missing modifier sibling evidence",
+      "filled: missing modifier sibling evidence"
+    ]
+  },
+  "failuresPreserved": [
+    "Initial full run:2389 passed/1 failed; campaign fixture rendered transparent raw SVG instead of canonical white-background png. Corrected fixture to use existing canonical png renderer.",
+    "Initial isolated runner/config discovery and ignored-staging lint failures retained; canonical scoped lint and final integration checks pass."
+  ],
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "limitations": [
+    "Exact pixel binding proves rendered evidence identity, not correct optical geometry or family fit.",
+    "SVG viewport remains independent from native raster size; no invented 16x16 viewport rule.",
+    "Historical receipts are unchanged and retain their old protocol; fresh receipts required by current reader.",
+    "The existing review.png montage is a magnified diagnostic, not a compliant native acceptance presentation. Native proof boards remain separately retained.",
+    "Modifier masks and full cross-master acceptance remain outstanding."
+  ]
+}

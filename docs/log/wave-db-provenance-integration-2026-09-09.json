@@ -1,0 +1,117 @@
+{
+  "id": "D457",
+  "observedAt": "2026-09-08T18:55:09.735936+00:00",
+  "scope": "CY-v3-CX-v2-offline-integration",
+  "artifacts": [
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/author-trace-seals-v3.patch",
+      "sha256": "6a00b72744ca81287a52d30d6b7dd8304a0d82b38b8566a485aeb9eb59d9cb4d"
+    },
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/receipt-v3.json",
+      "sha256": "4b14104eeb79ae92ccd0ac8beea619b252e014a68844eb89d265425279c8ae2c"
+    },
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/validation-history-v3.json",
+      "sha256": "2217f4f4874077d8466adaadee048b091d1c23f15adcfae6a722d753563ab006"
+    },
+    {
+      "path": ".staging/wave-cx-critic-label-binding-2026-09-09/critic-label-binding-v2.patch",
+      "sha256": "d4376797c9687cd16e5e19166e6ec0d7980075a21cd1a8fc9d34d984b0825459"
+    },
+    {
+      "path": ".staging/wave-cx-critic-label-binding-2026-09-09/receipt-v2.json",
+      "sha256": "875cdd35b5d294bee22ff3262801f43604aa6f576b3383995de0c8ddf925987f"
+    },
+    {
+      "path": ".staging/wave-dd-author-trace-independent-audit-2026-09-09/revision-scope-correction.json",
+      "sha256": "f161b876659f7a04fb3d8e2626decdb6910c3d49df68b2d5f35a7615f895205b"
+    }
+  ],
+  "verification": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 39046,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-db-provenance-integration-2026-09-09/test.log",
+      "sha256": "af374bd9336ff565984873af043a74585aa8f3ac1be93e8292096057314d2812"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1323,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-db-provenance-integration-2026-09-09/typecheck.log",
+      "sha256": "6e62e8c8d2953dc1c2b5c87bdbca476a51e7f9afaf80f7025d77951d9fd9b4bf"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5262,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-db-provenance-integration-2026-09-09/build.log",
+      "sha256": "3cfb2f3f6e765a7cd171acde102c89b5b715e0e02375099cdbdb9517f17c6c33"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1319,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-db-provenance-integration-2026-09-09/check.log",
+      "sha256": "b2c49c3697eadf605ac639a768480f27c3ad141ef555af28c85e823e6cfd5fde"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 66,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-db-provenance-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "testCanary": {
+    "tests": 2430,
+    "files": 176,
+    "skipped": 0
+  },
+  "verificationSourceFreeze": {
+    "beforeSha256": "a988075e5457a257c7aa9b761677f86a9fb0f815a9e5a506aee03da22e5ecebe",
+    "afterSha256": "72078e4c5dd9974b2fcf72b6f2b220b6b79ac7ea42199808861c972725270aed",
+    "memberCount": 395,
+    "sourceSetSha256": "eecb238d57fa7ea671ddf999a3f728ba392f2743f85f7fced4c02d5b278456bc",
+    "changedMembers": [],
+    "scope": "scripts/src and named package/tooling configs; not a production dispatch freeze"
+  },
+  "limitations": [
+    "No live call under the new author seals.",
+    "Author contributor replay and externally frozen recognition/access proof remain unresolved; production authority stays false.",
+    "Honest terminal evidence, audit denominators and explicit unresolved-panel coverage remain open.",
+    "No visual phase qualification."
+  ],
+  "providerExperimentCalls": 0,
+  "newApiCostUsd": 0,
+  "apiLedger": "docs/log/api-budget-after-d445-2026-09-09.json",
+  "nativeOrchestration": "Codex capacity consumed separately; token and dollar allocation unavailable",
+  "qualified": false
+}

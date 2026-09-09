@@ -1,0 +1,37 @@
+{
+  "id": "D362",
+  "kind": "mini-goal-disabled-profile-v3-engineering",
+  "profile": "mini-inline-images-no-tools-v3",
+  "disabledFeatures": [
+    "shell_tool",
+    "unified_exec",
+    "view_image",
+    "sleep_tool",
+    "goals"
+  ],
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/local-native-call-factory.ts",
+      "sha256": "3c13f43fc7f269e84a911588eaba99715e6a9cf53041afd3d59d2d51683f043c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-native-call-factory.test.ts",
+      "sha256": "1e7278330cbeb2b3280e09b50826c743309d032bf5731a84aace830f1a8ce620"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-native-config.test.ts",
+      "sha256": "27127296b07ce7fe4187fdad145a864dcf79cfc645ad70b8f5d430b1ae87199e"
+    }
+  ],
+  "tests": 69,
+  "testFiles": 3,
+  "skipped": 0,
+  "scopedLint": "passed",
+  "testLog": ".staging/wave-bp-mini-v3-root-tests.log",
+  "priorFailure": "D353",
+  "featureInventory": ".staging/wave-bj-cli-feature-inventory-2026-09-08/stdout.txt",
+  "featureInventorySha256": "bbe9e7ea8a370df5e5cfd758dc6bffeb3d23e16b07dfb95f341a50d81e107e88",
+  "providerCalls": 0,
+  "liveCapability": "unverified",
+  "qualified": false
+}

@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import {
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -22,7 +23,35 @@ import {
   STYLE_COMPILER,
 } from "../src/pipeline/style.js";
 import { specAt } from "../src/tools/spec.js";
-import { runLocalStyle } from "./local-style-run.js";
+import type { NativeCallContainerFactory } from "./local-native-call-factory.js";
+import { createNativeStyleRouteForTest } from "./local-native-route.js";
+import type {
+  NativeStyleReviewRequest,
+  NativeStyleReviewResult,
+} from "./local-native-route.js";
+import {
+  normalizeLocalGenerationTerminal,
+  runLocalStyle,
+} from "./local-style-run.js";
+
+it("normalizes a delivered but uncleared author result to an incomplete terminal", () => {
+  expect(
+    normalizeLocalGenerationTerminal(
+      {
+        completionProvenance: "structured-native-author-complete",
+        qualityStatus: "representation-blocked",
+        status: "delivered",
+      },
+      false
+    )
+  ).toEqual({
+    authorOriginalCompletionProvenance: "structured-native-author-complete",
+    authorOriginalStatus: "delivered",
+    completionProvenance: "structured-native-author-complete",
+    qualityStatus: "representation-blocked",
+    status: "incomplete",
+  });
+});
 
 // Synthetic provider trace for integration fixtures, not real image-view evidence.
 const fixtureTrace = (_stdout: string, cwd: string) =>
@@ -74,6 +103,11 @@ const writesReview = (scenario: string, interrupted: boolean) =>
   scenario !== "missing-review" &&
   (!interrupted || scenario === "interrupted-with-review");
 
+const lateAuthorClock = (scenario: string) =>
+  scenario === "author-stage-late"
+    ? vi.spyOn(Date, "now").mockReturnValue(1_000_000)
+    : undefined;
+
 it.each([
   "delivered",
   "selected-master",
@@ -87,6 +121,7 @@ it.each([
   "repeated-interruption",
   "missing-inspection",
   "author-failed",
+  "author-stage-late",
   "altered-input",
   "altered-image",
   "altered-reference-proof",
@@ -98,6 +133,7 @@ it.each([
   const root = mkdtempSync(path.join(tmpdir(), "iconsmith-delivery-"));
   const out = path.join(root, "run");
   mkdirSync(out);
+  const clock = lateAuthorClock(scenario);
   const compositionPath = path.join(root, "sketch.png");
   const hasComposition = scenario.includes("composition");
   if (hasComposition) {
@@ -315,6 +351,7 @@ it.each([
           writeFileSync(path.join(cwd, "spec.json"), "{}");
         }
         const code = scenario === "author-failed" ? 1 : 0;
+        clock?.mockReturnValue(1_300_001);
         return Promise.resolve({
           code: interrupted ? null : code,
           killed: false,
@@ -435,6 +472,11 @@ it.each([
       ).toBe(staged.hash);
     }
     expect(result.craftApproved).toBe(false);
+    if (scenario === "author-stage-late") {
+      expect(result.authorStageDeadlineExceeded).toBe(true);
+      expect(result.qualityStatus).toBe("not-reviewed");
+      expect(result.deadlineExceeded).toBe(false);
+    }
     expect(result.reviewContentValidated).toBe(false);
     expect(result.missing).toEqual(
       ["missing-review", "repeated-interruption"].includes(scenario)
@@ -473,6 +515,7 @@ it.each([
     }
     expect(result.checkExitCode).toBe(expectedCheckExitCode);
   } finally {
+    clock?.mockRestore();
     rmSync(root, { force: true, recursive: true });
   }
 });
@@ -657,6 +700,761 @@ it("refuses missing, duplicate or invalid confusion plans before invoking an aut
     );
   } finally {
     rmSync(out, { force: true, recursive: true });
+  }
+});
+
+it.each(["missing", "invalid"])(
+  "refuses %s contained review configuration before author invocation",
+  async (scenario) => {
+    const root = mkdtempSync(
+      path.join(tmpdir(), "iconsmith-review-preflight-")
+    );
+    const out = path.join(root, "out");
+    mkdirSync(out);
+    const revisionPath = path.join(root, "revision.json");
+    writeFileSync(
+      revisionPath,
+      JSON.stringify({
+        calibration: "unvalidated",
+        compiler: STYLE_COMPILER,
+        id: "review-preflight-fixture",
+        masters: { native: specAt() },
+        parts: [],
+        policy: DEFAULT_POLICY,
+        references: [],
+        rubric: "Fixture only",
+      })
+    );
+    const invoke = vi.fn();
+    const reviewerContainer =
+      scenario === "invalid"
+        ? {
+            dockerCommand: "docker",
+            environment: {},
+            image: `reviewer@sha256:${"a".repeat(64)}`,
+            namePrefix: "iconsmith-review",
+            nativeCliVersion: "fixture",
+            nativeCommand: "/usr/local/bin/claude",
+            nativeExecutableHostPath: revisionPath,
+            nativeExecutableSha256: createHash("sha256")
+              .update(readFileSync(revisionPath))
+              .digest("hex"),
+            persistIdentity: vi.fn(),
+            persistSettlement: vi.fn(),
+            stateMounts: [
+              {
+                containerPath: "/usr/local/bin/claude",
+                hostPath: revisionPath,
+                readOnly: true,
+              },
+            ],
+          }
+        : undefined;
+    try {
+      const result = await runLocalStyle({
+        args: () => [],
+        command: "must-not-run",
+        concept: "ring",
+        env: {},
+        invoke,
+        master: "native",
+        meanings: ["ring", "disc", "square"],
+        out,
+        readTrace: fixtureTrace,
+        reviewerContainer,
+        revisionPath,
+      });
+      expect(invoke).not.toHaveBeenCalled();
+      expect(result).toMatchObject({
+        status: "incomplete",
+        stoppedReason: "author-incomplete",
+      });
+      expect(
+        JSON.parse(
+          readFileSync(path.join(out, "attempt-1", "author.json"), "utf-8")
+        ).stderr
+      ).toMatch(
+        scenario === "missing"
+          ? /valid contained reviewer/u
+          : /absolute Docker client/u
+      );
+    } finally {
+      rmSync(root, { force: true, recursive: true });
+    }
+  }
+);
+
+it("refuses the uncontained real author route before provider invocation", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-author-preflight-"));
+  const out = path.join(root, "out");
+  mkdirSync(out);
+  const revisionPath = path.join(root, "revision.json");
+  writeFileSync(
+    revisionPath,
+    JSON.stringify({
+      calibration: "unvalidated",
+      compiler: STYLE_COMPILER,
+      id: "author-preflight-fixture",
+      masters: { native: specAt() },
+      parts: [],
+      policy: DEFAULT_POLICY,
+      references: [],
+      rubric: "Fixture only",
+    })
+  );
+  const review = vi.fn();
+  try {
+    const result = await runLocalStyle({
+      args: () => [],
+      command: "must-not-run",
+      concept: "ring",
+      env: {},
+      master: "native",
+      meanings: ["ring", "disc", "square"],
+      out,
+      readTrace: fixtureTrace,
+      review,
+      revisionPath,
+    });
+    expect(review).not.toHaveBeenCalled();
+    expect(result).toMatchObject({
+      status: "incomplete",
+      stoppedReason: "author-incomplete",
+    });
+    expect(
+      JSON.parse(
+        readFileSync(path.join(out, "attempt-1", "author.json"), "utf-8")
+      ).stderr
+    ).toMatch(/author host execution is disabled/u);
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+it.each([
+  { failedClarification: false, interrupted: false, mode: "ordinary" },
+  { failedClarification: false, interrupted: true, mode: "interrupted" },
+  {
+    failedClarification: true,
+    interrupted: false,
+    mode: "failed clarification",
+  },
+])(
+  "routes the exact AL16 author evidence uncertainty through both independent clarifications: $mode",
+  async ({ failedClarification, interrupted }) => {
+    const root = mkdtempSync(path.join(tmpdir(), "iconsmith-native-route-"));
+    const out = path.join(root, "evidence");
+    const runtimeRoot = path.join(root, "runtime");
+    mkdirSync(out);
+    mkdirSync(runtimeRoot);
+    const revisionPath = path.join(root, "revision.json");
+    writeFileSync(
+      revisionPath,
+      JSON.stringify({
+        calibration: "unvalidated",
+        compiler: STYLE_COMPILER,
+        id: "native-route-fixture",
+        masters: { native: specAt() },
+        parts: [],
+        policy: DEFAULT_POLICY,
+        references: [
+          {
+            master: "native",
+            name: "ring-anchor",
+            provenance: { date: "2026-09-06", origin: "original" },
+            svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>',
+          },
+        ],
+        rubric: "Fixture only",
+      })
+    );
+    const reviewRequests: {
+      choices: readonly string[];
+      deadlineAt: number;
+      imageEntries: readonly { name: string; sha256: string }[];
+      ordinal: number;
+      out: string;
+      parentDeadlineAt: number;
+      prompts: readonly string[];
+      runtimeCwd: string;
+    }[] = [];
+    const unusedFactory = {} as NativeCallContainerFactory;
+    const reviewer = (id: string, lineage: string, model: string) => ({
+      containerFactory: unusedFactory,
+      id,
+      lineage,
+      model,
+      run: vi.fn((request: NativeStyleReviewRequest) => {
+        reviewRequests.push({
+          choices:
+            request.questions.find((question) => question.id === "meaning")
+              ?.choices ?? [],
+          deadlineAt: request.deadlineAt,
+          imageEntries: Object.entries(request.images).map(([name, bytes]) => ({
+            name,
+            sha256: createHash("sha256").update(bytes).digest("hex"),
+          })),
+          ordinal: request.nativeCall.ordinal,
+          out: request.out,
+          parentDeadlineAt: request.nativeCall.parentDeadlineAt,
+          prompts: request.questions.map((question) => question.prompt),
+          runtimeCwd: request.nativeCall.runtimeCwd,
+        });
+        if (
+          failedClarification &&
+          [7, 9].includes(request.nativeCall.ordinal)
+        ) {
+          return Promise.resolve({
+            answers: null,
+            evidenceHashes: { [`${id}.png`]: "a".repeat(64) },
+            model,
+            reason: "Clarification fixture did not complete.",
+            status: "incomplete" as const,
+          } satisfies NativeStyleReviewResult);
+        }
+        return Promise.resolve({
+          answers: Object.fromEntries(
+            request.questions.map((question) => [
+              question.id,
+              {
+                choice: question.id === "meaning" ? "ring" : "pass",
+                evidence: `${id} inspected the supplied pixels.`,
+                treatment: "",
+              },
+            ])
+          ),
+          evidenceHashes: { [`${id}.png`]: "a".repeat(64) },
+          model,
+          status: "complete" as const,
+        } satisfies NativeStyleReviewResult);
+      }),
+    });
+    const authorCalls: { completionDeadlineAt: number; deadlineAt: number }[] =
+      [];
+    let nativePrompt = "";
+    const route = createNativeStyleRouteForTest({
+      author: {
+        id: "astra-author",
+        lineage: "astra",
+        run: async (request) => {
+          nativePrompt = request.prompt;
+          authorCalls.push({
+            completionDeadlineAt: request.completionDeadlineAt,
+            deadlineAt: request.deadlineAt,
+          });
+          mkdirSync(request.out);
+          writeFileSync(
+            path.join(request.out, "outlined.icon"),
+            "icon ring\nfinish outlined\ncircle 12,12 r9"
+          );
+          writeFileSync(
+            path.join(request.out, "filled.icon"),
+            "icon ring\nfinish filled\ncircle 12,12 r10\nhole circle 12,12 r8"
+          );
+          const checked = await request.check(request.out);
+          const programHashes = Object.fromEntries(
+            request.finishes.map((finish) => [
+              finish,
+              createHash("sha256")
+                .update(readFileSync(path.join(request.out, `${finish}.icon`)))
+                .digest("hex"),
+            ])
+          );
+          const proofHashes = Object.fromEntries(
+            request.finishes.map((finish) => [
+              finish,
+              createHash("sha256")
+                .update(checked.proofs[finish] ?? new Uint8Array())
+                .digest("hex"),
+            ])
+          );
+          writeFileSync(
+            path.join(request.out, "author-review.json"),
+            JSON.stringify({
+              unresolved: [
+                {
+                  description:
+                    "Outlined: lock recognition remains uncertain in both 16px/1x panels because the shackle opening is difficult to resolve, compared with anchor-reference-5-proof.png.",
+                  id: "outlined-lock-recognition",
+                  kind: "representation",
+                },
+                {
+                  description:
+                    "Filled: lock recognition remains uncertain in both 16px/1x panels because the badge's shackle opening is difficult to distinguish; anchor-reference-4-proof.png provides clearer lock recognition.",
+                  id: "filled-lock-recognition",
+                  kind: "representation",
+                },
+              ],
+            })
+          );
+          writeFileSync(path.join(request.out, "review.md"), "Fixture review.");
+          const structuredResult = {
+            completionDeadlineAt: request.completionDeadlineAt,
+            completionProvenance: interrupted
+              ? "host-validated-after-contained-finalization-interruption"
+              : "structured-finalization-complete",
+            deadlineAt: request.deadlineAt,
+            ...(interrupted
+              ? {
+                  finalizationInterruption: {
+                    inspectionHash: "b".repeat(64),
+                    kind: "structured-finalization-interruption" as const,
+                    programHashes,
+                    settlement: {
+                      accounting: "settled" as const,
+                      callId: "final-call",
+                      containerAbsent: true as const,
+                      containerId: "c".repeat(64),
+                      containment: "container-absent" as const,
+                      containmentScope: "docker-private-pid-namespace" as const,
+                      deadlineAt: request.deadlineAt,
+                      deadlineExceeded: false as const,
+                      // Injected route control only; real trigger authority is tested by the native factory and collector replay.
+                      diagnosticTrigger: {
+                        descriptorFile: path.join(
+                          root,
+                          "diagnostic-descriptor.json"
+                        ),
+                        descriptorSha256: "f".repeat(64),
+                        file: path.join(root, "diagnostic-trigger.json"),
+                        sha256: "a".repeat(64),
+                        terminalLineSha256: "b".repeat(64),
+                      },
+                      evidenceFile: path.join(
+                        root,
+                        "container-settlement.json"
+                      ),
+                      evidenceHash: "d".repeat(64),
+                      intentHash: "e".repeat(64),
+                      killed: true as const,
+                      kind: "verified-contained-finalization-interruption" as const,
+                      outcome: "failed" as const,
+                      processCode: null,
+                      quiescenceScope:
+                        "process-group-and-observed-descendants" as const,
+                      quiescent: true as const,
+                      settledAt: Date.now(),
+                      stage: "04-finalize",
+                    },
+                    stageDeadlineAt: request.completionDeadlineAt,
+                  },
+                }
+              : {}),
+            mechanism: "experimental-injected-adapters",
+            model: "fixture-astra",
+            programHashes,
+            proofHashes,
+            repairBudget: {
+              compiler: { requested: 1, used: 0 },
+              totalRetrySlots: 3,
+              totalRetrySlotsUsed: 0,
+              visual: { requested: 1, used: 0 },
+            },
+            stages: [
+              {
+                attempt: 0,
+                inspection: {
+                  defects: [],
+                  inspectionEvidence:
+                    "The lower-right lock shackle is difficult to resolve at 16px.",
+                  uncertainties: [
+                    {
+                      description:
+                        "Native outlined lock recognition remains uncertain.",
+                      finish: "outlined",
+                    },
+                    {
+                      description:
+                        "Native filled lock recognition remains uncertain.",
+                      finish: "filled",
+                    },
+                  ],
+                },
+                programHashes,
+                proofHashes,
+                status: "inspected",
+              },
+            ],
+            status: "delivered-with-uncertainty" as const,
+          };
+          writeFileSync(
+            path.join(request.out, "structured-author.json"),
+            JSON.stringify(structuredResult, null, 2)
+          );
+          return structuredResult;
+        },
+      },
+      reviewers: [
+        reviewer("reviewer-one", "claude", "claude-opus-5"),
+        reviewer("reviewer-two", "gpt-5-5", "gpt-5.5"),
+      ],
+      runtimeRoot,
+    });
+    try {
+      const deadlineAt = Date.now() + 1_200_000;
+      const result = await runLocalStyle({
+        args: () => [],
+        command: "must-not-run",
+        concept: "ring",
+        deadlineAt,
+        env: {},
+        master: "native",
+        maxWallMs: 1_200_000,
+        meanings: ["ring", "disc", "square"],
+        nativeRoute: route,
+        out,
+        revisionPath,
+      });
+      expect(authorCalls).toHaveLength(1);
+      expect(authorCalls[0]).toMatchObject({ deadlineAt });
+      expect(authorCalls[0]?.completionDeadlineAt).toBeLessThan(deadlineAt);
+      expect(nativePrompt).toContain("BUNDLED ICONSMITH GUIDANCE");
+      expect(nativePrompt).toContain("SELECTED SPEC");
+      expect(nativePrompt).toContain("ADMITTED PARTS");
+      expect(nativePrompt).toContain("REFERENCE ORDER");
+      expect(nativePrompt).toContain("LAYOUT CONTEXT");
+      expect(nativePrompt).toContain(
+        "No cohort measurements are supplied to the host checker"
+      );
+      expect(nativePrompt).toContain("Do not emit `cohort`");
+      expect(nativePrompt).toContain(
+        "A `keyline` declaration asserts that the rendered visual extent matches that named width and height on both axes"
+      );
+      expect(nativePrompt).toContain(
+        "Removing an incompatible declaration changes the claim, not the native footprint"
+      );
+      expect(nativePrompt).toContain("The host writes programs, compiles them");
+      expect(nativePrompt).not.toMatch(
+        /Read SKILL\.md|checker\.mjs|view_image|Run the real checker|Up to four revisions|Only write here/u
+      );
+      expect(reviewRequests).toHaveLength(4);
+      expect(reviewRequests.map((request) => request.ordinal)).toEqual([
+        6, 7, 8, 9,
+      ]);
+      expect(reviewRequests[0]?.imageEntries.map(({ name }) => name)).toEqual([
+        expect.stringMatching(/^candidate-[a-f0-9]{24}\.png$/u),
+        "anchor-01.png",
+      ]);
+      expect(
+        reviewRequests.every(
+          (request) =>
+            JSON.stringify(request.imageEntries) ===
+            JSON.stringify(reviewRequests[0]?.imageEntries)
+        )
+      ).toBe(true);
+      const packetInput = JSON.parse(
+        readFileSync(
+          path.join(
+            out,
+            "attempt-1",
+            "author-review-packet",
+            "campaign-input.host.json"
+          ),
+          "utf-8"
+        )
+      );
+      expect(packetInput.stimuli[0].familyReferences).toHaveLength(1);
+      expect(
+        JSON.parse(
+          readFileSync(
+            path.join(out, "attempt-1", "author-review-packet", "receipt.json"),
+            "utf-8"
+          )
+        ).authorEvidence
+      ).toMatchObject({
+        mode: "evidence-only-uncertainty",
+        uncertaintyCount: 4,
+      });
+      expect(reviewRequests[0]?.choices).toEqual(reviewRequests[1]?.choices);
+      expect(reviewRequests[0]?.choices).toContain("uncertain");
+      expect(reviewRequests[0]?.choices).toEqual(
+        expect.arrayContaining(["ring", "disc", "square"])
+      );
+      expect(
+        reviewRequests.every(
+          (request) =>
+            request.parentDeadlineAt === deadlineAt &&
+            request.deadlineAt < deadlineAt &&
+            request.runtimeCwd.startsWith(runtimeRoot) &&
+            request.out.startsWith(path.join(out, "attempt-1"))
+        )
+      ).toBe(true);
+      expect(
+        new Set(reviewRequests.map((request) => request.runtimeCwd)).size
+      ).toBe(4);
+      expect(result).toMatchObject({
+        completionProvenance: interrupted
+          ? "host-validated-after-contained-finalization-interruption"
+          : "structured-native-author-complete",
+        craftApproved: false,
+        qualityStatus: failedClarification
+          ? "review-incomplete"
+          : "review-clear",
+        stoppedReason: failedClarification
+          ? "review-incomplete"
+          : "review-clear",
+      });
+      expect(result.reviews).toHaveLength(2);
+      expect(reviewRequests[0]?.prompts.join(" ")).not.toContain(
+        "Native outlined lock recognition remains uncertain"
+      );
+      expect(reviewRequests[2]?.prompts.join(" ")).not.toContain(
+        "Native outlined lock recognition remains uncertain"
+      );
+      expect(reviewRequests[1]?.prompts.join(" ")).toContain(
+        "Native outlined lock recognition remains uncertain"
+      );
+      expect(reviewRequests[1]?.prompts.join(" ")).toContain(
+        '"source":"structured-inspection"'
+      );
+      expect(result.nativeRoute).toMatchObject({
+        export: {
+          completedAt: expect.any(Number),
+          deadlineAt: expect.any(Number),
+          startedAt: expect.any(Number),
+        },
+        externalReviewRedraws: 0,
+        reviewers: [{ id: "reviewer-one" }, { id: "reviewer-two" }],
+      });
+      const exportTiming = result.nativeRoute?.export;
+      if (
+        exportTiming?.deadlineAt === undefined ||
+        exportTiming.startedAt === undefined
+      ) {
+        throw new Error("Native export timing was not recorded");
+      }
+      expect(exportTiming.deadlineAt - exportTiming.startedAt).toBe(10_000);
+      expect(
+        JSON.parse(
+          readFileSync(
+            path.join(out, "attempt-1", "author-uncertainty-routing.json"),
+            "utf-8"
+          )
+        )
+      ).toMatchObject({
+        independentClarificationRequired: true,
+        uncertainties: expect.arrayContaining([
+          expect.objectContaining({ id: "outlined-lock-recognition" }),
+          expect.objectContaining({ finish: "outlined" }),
+        ]),
+      });
+      const recognitionReceipt = JSON.parse(
+        readFileSync(
+          path.join(out, "attempt-1", "recognition-choices.json"),
+          "utf-8"
+        )
+      );
+      expect(recognitionReceipt).not.toHaveProperty("targetMeaning");
+      expect(recognitionReceipt).not.toHaveProperty("choices");
+      const meaningObservations = [1, 2].map((index) =>
+        JSON.parse(
+          readFileSync(
+            path.join(out, "attempt-1", `meaning-observation-${index}.json`),
+            "utf-8"
+          )
+        )
+      );
+      expect(
+        meaningObservations.map((observation) => observation.choices)
+      ).toEqual([reviewRequests[1]?.choices, reviewRequests[3]?.choices]);
+      expect(
+        meaningObservations.every(
+          (observation) =>
+            observation.orderedChoicesHash ===
+            recognitionReceipt.orderedChoicesHash
+        )
+      ).toBe(true);
+    } finally {
+      rmSync(root, { force: true, recursive: true });
+    }
+  }
+);
+
+it("refuses an inadmissible native host check before launching the checker or exporting artifacts", async () => {
+  vi.useFakeTimers();
+  vi.setSystemTime(1_000_000);
+  const root = mkdtempSync(path.join(tmpdir(), "iconsmith-check-admission-"));
+  const out = path.join(root, "evidence");
+  const runtimeRoot = path.join(root, "runtime");
+  mkdirSync(out);
+  mkdirSync(runtimeRoot);
+  const revisionPath = path.join(root, "revision.json");
+  writeFileSync(
+    revisionPath,
+    JSON.stringify({
+      calibration: "unvalidated",
+      compiler: STYLE_COMPILER,
+      id: "check-admission-fixture",
+      masters: { native: specAt() },
+      parts: [],
+      policy: DEFAULT_POLICY,
+      references: [],
+      rubric: "Fixture only",
+    })
+  );
+  const unusedFactory = {} as NativeCallContainerFactory;
+  const reviewer = (id: string, lineage: string) => ({
+    containerFactory: unusedFactory,
+    id,
+    lineage,
+    model: `${id}-model`,
+    run: vi.fn(),
+  });
+  const reviewers = [
+    reviewer("reviewer-one", "claude"),
+    reviewer("reviewer-two", "gpt-5-5"),
+  ] as const;
+  const deadlineAt = 2_200_000;
+  const route = createNativeStyleRouteForTest({
+    author: {
+      id: "astra-author",
+      lineage: "astra",
+      run: async (request) => {
+        mkdirSync(request.out);
+        vi.setSystemTime(request.completionDeadlineAt - 1);
+        await request.check(request.out);
+        throw new Error("Checker admission unexpectedly returned");
+      },
+    },
+    reviewers,
+    runtimeRoot,
+  });
+  try {
+    await expect(
+      runLocalStyle({
+        args: () => [],
+        command: "must-not-run",
+        concept: "ring",
+        deadlineAt,
+        env: {},
+        master: "native",
+        maxWallMs: 1_200_000,
+        meanings: ["ring", "disc", "square"],
+        nativeRoute: route,
+        out,
+        revisionPath,
+      })
+    ).rejects.toThrow("Insufficient deadline reserve for host-check");
+    expect(reviewers.every(({ run }) => run.mock.calls.length === 0)).toBe(
+      true
+    );
+    expect(existsSync(path.join(out, "outlined.icon"))).toBe(false);
+    expect(existsSync(path.join(out, "delivery.json"))).toBe(false);
+
+    vi.setSystemTime(1_000_000);
+    const exportOut = path.join(root, "export-evidence");
+    mkdirSync(exportOut);
+    const exportRoute = createNativeStyleRouteForTest({
+      author: {
+        id: "astra-author",
+        lineage: "astra",
+        run: (request) => {
+          mkdirSync(request.out);
+          writeFileSync(path.join(request.out, "candidate-marker"), "exact");
+          vi.setSystemTime(request.deadlineAt - 6000);
+          return Promise.resolve({} as never);
+        },
+      },
+      reviewers,
+      runtimeRoot,
+    });
+    await expect(
+      runLocalStyle({
+        args: () => [],
+        command: "must-not-run",
+        concept: "ring",
+        deadlineAt,
+        env: {},
+        master: "native",
+        maxWallMs: 1_200_000,
+        meanings: ["ring", "disc", "square"],
+        nativeRoute: exportRoute,
+        out: exportOut,
+        revisionPath,
+      })
+    ).rejects.toThrow("Insufficient deadline reserve for artifact-export");
+    expect(
+      readFileSync(
+        path.join(exportOut, "attempt-1", "candidate-marker"),
+        "utf-8"
+      )
+    ).toBe("exact");
+    expect(existsSync(path.join(exportOut, "candidate-marker"))).toBe(false);
+    expect(existsSync(path.join(exportOut, "delivery.json"))).toBe(false);
+
+    vi.setSystemTime(1_000_000);
+    const latePublicationOut = path.join(root, "late-publication-evidence");
+    mkdirSync(latePublicationOut);
+    let publicationClock: ReturnType<typeof vi.spyOn> | undefined;
+    const latePublicationRoute = createNativeStyleRouteForTest({
+      author: {
+        id: "astra-author",
+        lineage: "astra",
+        run: (request) => {
+          mkdirSync(request.out);
+          writeFileSync(path.join(request.out, "candidate-marker"), "exact");
+          let calls = 0;
+          publicationClock = vi.spyOn(Date, "now").mockImplementation(() => {
+            calls += 1;
+            return calls >= 8
+              ? request.deadlineAt
+              : request.deadlineAt - 10_000;
+          });
+          return Promise.resolve({} as never);
+        },
+      },
+      reviewers,
+      runtimeRoot,
+    });
+    await expect(
+      runLocalStyle({
+        args: () => [],
+        command: "must-not-run",
+        concept: "ring",
+        deadlineAt,
+        env: {},
+        master: "native",
+        maxWallMs: 1_200_000,
+        meanings: ["ring", "disc", "square"],
+        nativeRoute: latePublicationRoute,
+        out: latePublicationOut,
+        revisionPath,
+      })
+    ).rejects.toThrow("Delivery publication returned after its stage deadline");
+    publicationClock?.mockRestore();
+    expect(
+      readFileSync(path.join(latePublicationOut, "candidate-marker"), "utf-8")
+    ).toBe("exact");
+    expect(existsSync(path.join(latePublicationOut, "delivery.json"))).toBe(
+      false
+    );
+
+    vi.setSystemTime(1_000_000);
+    const staleOut = path.join(root, "stale-evidence");
+    mkdirSync(staleOut);
+    writeFileSync(path.join(staleOut, "delivery.json"), "stale");
+    await expect(
+      runLocalStyle({
+        args: () => [],
+        command: "must-not-run",
+        concept: "ring",
+        deadlineAt,
+        env: {},
+        master: "native",
+        maxWallMs: 1_200_000,
+        meanings: ["ring", "disc", "square"],
+        nativeRoute: exportRoute,
+        out: staleOut,
+        revisionPath,
+      })
+    ).rejects.toThrow("Native artifact export requires a fresh delivery path");
+    expect(readFileSync(path.join(staleOut, "delivery.json"), "utf-8")).toBe(
+      "stale"
+    );
+    expect(existsSync(path.join(staleOut, "candidate-marker"))).toBe(false);
+  } finally {
+    vi.useRealTimers();
+    rmSync(root, { force: true, recursive: true });
   }
 });
 

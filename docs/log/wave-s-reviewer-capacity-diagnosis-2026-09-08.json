@@ -1,0 +1,14 @@
+{
+  "kind": "wave-s-reviewer-capacity-diagnosis-v1",
+  "date": "2026-09-08",
+  "source": ".staging/wave-s-automatic-pilot-live-2026-09-08/campaign/requests/cloud-upload-16/attempt-1/independent-review-reviewer-0/process.json",
+  "sha256": "33927b9ccc4c393a8e9d7b7ac1c664b02dcebdb880a1c6a2109cfd0c2a0cc6df",
+  "observedError": "Selected model is at capacity. Please try a different model.",
+  "requestedModel": "gpt-5.5",
+  "emittedModel": null,
+  "exitCode": 1,
+  "quiescent": true,
+  "disposition": "incomplete-no-acceptance-no-fallback",
+  "providerCalls": 0,
+  "historicalAttemptUnchanged": true
+}

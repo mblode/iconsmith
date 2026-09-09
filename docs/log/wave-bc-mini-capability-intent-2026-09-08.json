@@ -1,0 +1,42 @@
+{
+  "id": "D326",
+  "requestId": "wave-bc-mini-image-capability-2026-09-08",
+  "purpose": "One fresh bounded exact-image capability diagnostic after feature removal; no automatic fallback or production qualification",
+  "maxNativeCalls": 1,
+  "concurrency": 1,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "startedAt": 1788862278428,
+  "deadlineAt": 1788862398428,
+  "runnerSha256": "5130991421e292df87ea97708fb94b3ce139e7f3f8df3f6283760558af43ee5b",
+  "routeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-root-2026-09-08/native-route.json",
+  "routeSha256": "2175af6376bda9956dc451c2bcb82a151d69afb35f13868402a78964892aa31b",
+  "imageFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/proofs-v2/heart-24-light.png",
+  "imageSha256": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93",
+  "model": "gpt-5.4-mini",
+  "effort": "high",
+  "qualified": false,
+  "claudeSelected": false,
+  "requestedModel": "gpt-5.4-mini",
+  "sourceFreezeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bc-proof-render-2026-09-08/source-verified-v2.json",
+  "sourceFreezeSha256": "c605055db330677f416c2571b1f815739b8b75f40b597466e7caa8f0b13d655d",
+  "quota": {
+    "usedPercent": 47,
+    "remainingPercent": 53,
+    "resetsAt": 1789435341
+  },
+  "stopFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bc-mini-capability-2026-09-08/STOP",
+  "productionRosterUnchanged": true,
+  "diagnosticDisabledFeatures": [
+    "view_image"
+  ],
+  "stageKind": "diagnostic-mini-image-capability",
+  "transportProfileModel": "gpt-5.5",
+  "transportNote": "Verified model-independent Codex container transport is reused; requested and actual adapter model must both be gpt-5.4-mini. Production actor roster remains unchanged.",
+  "priorAttempt": "D306",
+  "command": [
+    "node",
+    "node_modules/tsx/dist/cli.mjs",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bc-mini-capability-2026-09-08/run.mts"
+  ]
+}

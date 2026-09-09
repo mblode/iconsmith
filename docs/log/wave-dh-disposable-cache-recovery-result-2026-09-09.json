@@ -1,0 +1,11 @@
+{
+  "id": "D458",
+  "observedAt": "2026-09-08T18:57:44.562362+00:00",
+  "intentSha256": "2b29035e26e4db54f67991bc5fa5442f9e7dee9921e832270e8df7aa7de51951",
+  "filesRemoved": 142,
+  "bytesRemoved": 809049475,
+  "afterAvailableBytes": 2773856256,
+  "minimumBytes": 2147483648,
+  "providerCalls": 0,
+  "apiCostUsd": 0
+}

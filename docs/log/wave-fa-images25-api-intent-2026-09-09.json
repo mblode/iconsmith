@@ -1,0 +1,13 @@
+{
+  "id": "D489",
+  "endpoint": "https://api.openai.com/v1/images/generations",
+  "requestedModel": "gpt-image-2.5-sunburst",
+  "maximumCalls": 1,
+  "automaticRetry": false,
+  "timeoutSeconds": 180,
+  "reservationUsd": 1,
+  "requestPath": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fa-images25-api-2026-09-09/request.json",
+  "requestSha256": "99d0f090f54718cd49b7b36dad5be28e0d4d35afc269c22da026cb65a17ab749",
+  "pricingSource": "https://developers.openai.com/api/docs/pricing#image-generation",
+  "scope": "User authorized direct API image test. One high-quality 1024px sheet, no input images. Preserve unknown charges. No alternate model dispatch."
+}

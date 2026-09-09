@@ -1,0 +1,21 @@
+{
+  "id": "D485",
+  "kind": "images25-development-intent",
+  "createdAt": "2026-09-08T21:14:48.480955+00:00",
+  "route": "built-in image_gen",
+  "requestedMarketingFamily": "ChatGPT Images 2.5",
+  "exactEmittedModel": "not-yet-observed",
+  "maximumCalls": 1,
+  "apiReservationUsd": 0,
+  "subscriptionAllocationUsd": null,
+  "population": "exposed folder-lock raster diagnostic, four master-paint quadrants",
+  "qualificationEligible": false,
+  "tests": [
+    "alpha transparency",
+    "four-slot native16/native24 downsample diagnostics",
+    "light/dark legibility",
+    "counter survival",
+    "editable constrained DSL feasibility"
+  ],
+  "stopRule": "One generation only; preserve failure and model uncertainty. No silent API fallback."
+}

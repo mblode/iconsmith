@@ -1,0 +1,17 @@
+{
+  "id": "D503",
+  "observedAt": "2026-09-08T23:33:40.427225+00:00",
+  "kind": "architecture-hardening-intent",
+  "userRequest": "ensure all foot guns and slowness is fixed",
+  "mode": "Harden",
+  "scope": [
+    "classify all F01-F49 without promoting evidence gates",
+    "canonical serialized verification runner",
+    "enforced configuration invariants and no empty test passes",
+    "CI and hook wiring"
+  ],
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null,
+  "qualificationEligible": false
+}

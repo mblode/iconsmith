@@ -1,0 +1,116 @@
+
+> test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.11 /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+
+fatal: ambiguous argument 'refs/heads/iconsmith/loop': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+keep	873bf55a5b2f	alpha; correctAndClean 10 → 11
+keep	ca1ba54968fd	alpha; correctAndClean 10 → 11
+discard	beta; floor held but no advance metric improved
+discard	alpha; floor held but no advance metric improved
+discard	beta; floor held but no advance metric improved
+crash	tamper: loop wrote autoresearch.md
+idle	playbook exhausted
+idle	playbook exhausted
+idle	playbook exhausted
+discard	in-process propose; floor held but no advance metric improved
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: source SVG sha256 mismatch
+    at pinnedText (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:88:11)
+    at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:124:21)
+    at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: branch-simple: source-exact requires a pinned source-feature profile
+    at createFamilySourceExactResolver (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/family-parts.ts:432:11)
+    at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:141:26)
+    at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: branch-simple: source-exact requires a pinned source-feature profile
+    at createFamilySourceExactResolver (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/family-parts.ts:432:11)
+    at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:141:26)
+    at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: source-exact bundle identity differs from host authority
+    at replaySourceExactBundle (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:201:11)
+    at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:65:15)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: source-exact bundle identity differs from host authority
+    at replaySourceExactBundle (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:201:11)
+    at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:65:15)
+
+Node.js v24.17.0
+marks only — skipping vocabulary extract
+plus-filled: filled plus…
+plus: outlined plus…
+marks only — skipping vocabulary extract
+plus-filled: filled plus…
+plus: outlined plus…
+marks only — skipping vocabulary extract
+measuring fixture: 2 file(s)
+plus: outlined plus…
+plus-filled: filled plus…
+marks only — skipping vocabulary extract
+measuring fixture: 2 file(s)
+flag: outlined flag…
+flag-filled: filled flag…
+measuring fixture: 3 file(s)
+marks only — skipping vocabulary extract
+box: hub of circle nodes as box…
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+box islands: auto(0) diversity 0.00
+box sample 2/2 [auto]…
+measuring fixture: 2 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+
+ Test Files  184 passed (184)
+      Tests  2617 passed (2617)
+   Start at  13:54:52
+   Duration  48.94s (transform 1.85s, setup 0ms, import 11.85s, tests 169.72s, environment 8ms)
+

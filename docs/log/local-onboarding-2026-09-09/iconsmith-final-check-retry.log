@@ -1,0 +1,40 @@
+
+> check
+> npm run check:foundry && npm run check:dead && turbo check
+
+
+> check:foundry
+> node --check scripts/verify.mjs && node --check scripts/verify.test.mjs && node packages/iconsmith/scripts/check-foundry-config.ts
+
+Foundry configuration guards passed (private corpus presence not asserted).
+
+> check:dead
+> knip
+
+• turbo 2.10.11
+
+   • Packages in scope: iconsmith
+   • Running check in 1 packages
+   • Remote caching disabled
+
+iconsmith:check: cache miss, executing 5f135c7817cb65ff
+iconsmith:check: 
+iconsmith:check: > check
+iconsmith:check: > ultracite check && npm run check:boundaries
+iconsmith:check: 
+iconsmith:check: Checking formatting...
+iconsmith:check: 
+iconsmith:check: All matched files use the correct format.
+iconsmith:check: Finished in 417ms on 420 files using 14 threads.
+iconsmith:check: Found 0 warnings and 0 errors.
+iconsmith:check: Finished in 123ms on 397 files with 417 rules using 14 threads.
+iconsmith:check: 
+iconsmith:check: > check:boundaries
+iconsmith:check: > node scripts/check-boundaries.ts
+iconsmith:check: 
+iconsmith:check: boundaries ok — geometry ← parts ← tools ← pipeline ← commands
+
+ Tasks:    1 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    1.907s 
+

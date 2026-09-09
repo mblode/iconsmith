@@ -8,6 +8,122 @@ const validHash = (value: unknown): value is string =>
 const fileHash = (file: string) =>
   createHash("sha256").update(readFileSync(file)).digest("hex");
 
+export const AI_REVIEW_FREE_RECOGNITION_VERSION =
+  "free-description-v1" as const;
+
+export interface SynonymKeyRow {
+  id: string;
+  meaningProvenanceHash: string;
+  synonyms: readonly string[];
+  target: string;
+}
+
+export interface FreeRecognitionEvidence {
+  description: string | null;
+  evidenceHash: string;
+  id: string;
+}
+
+export interface SynonymAdjudicationEvidence {
+  adjudicatorBaseModelLineage: string;
+  adjudicatorModel: string;
+  decision: "match" | "mismatch" | "uncertain";
+  evidence: string;
+  id: string;
+  keyHash: string;
+  recognitionEvidenceHash: string;
+  recognizerBaseModelLineage: string;
+}
+
+/** Freeze a prospective synonym instrument. This is an identity seal, not
+ * evidence that the instrument was inaccessible to a reviewer at runtime. */
+export const freezeSynonymKey = (rows: readonly SynonymKeyRow[]) => {
+  if (
+    !rows.length ||
+    new Set(rows.map(({ id }) => id)).size !== rows.length ||
+    rows.some(
+      ({ id, meaningProvenanceHash, synonyms, target }) =>
+        !/^[a-z0-9-]+$/u.test(id) ||
+        !validHash(meaningProvenanceHash) ||
+        !target.trim() ||
+        synonyms.length === 0 ||
+        synonyms.some((value) => !value.trim()) ||
+        new Set(synonyms.map((value) => value.trim().toLowerCase())).size !==
+          synonyms.length
+    )
+  ) {
+    throw new Error("Invalid prospective synonym key");
+  }
+  const frozen = rows.map((row) => ({
+    id: row.id,
+    meaningProvenanceHash: row.meaningProvenanceHash,
+    synonyms: [...row.synonyms],
+    target: row.target,
+  }));
+  return {
+    hash: createHash("sha256").update(JSON.stringify(frozen)).digest("hex"),
+    rows: frozen,
+  };
+};
+
+/** Validate the collector-bound linkage and actual emitted identities for a
+ * prospective adjudication. Runtime target/key confinement is deliberately
+ * outside this diagnostic validator, so it never produces a production seal. */
+export const validateSynonymAdjudication = (input: {
+  adjudications: readonly SynonymAdjudicationEvidence[];
+  keyHash: string;
+  recognitions: readonly FreeRecognitionEvidence[];
+}) => {
+  if (!validHash(input.keyHash)) {
+    throw new Error("Invalid synonym key hash");
+  }
+  const recognitions = new Map(input.recognitions.map((row) => [row.id, row]));
+  const adjudications = new Map(
+    input.adjudications.map((row) => [row.id, row])
+  );
+  if (
+    recognitions.size !== input.recognitions.length ||
+    adjudications.size !== input.adjudications.length ||
+    recognitions.size !== adjudications.size
+  ) {
+    throw new Error("Recognition and adjudication rows must pair exactly");
+  }
+  const rows = input.recognitions.map((recognition) => {
+    const adjudication = adjudications.get(recognition.id);
+    if (
+      !/^[a-z0-9-]+$/u.test(recognition.id) ||
+      !validHash(recognition.evidenceHash) ||
+      (recognition.description !== null && !recognition.description.trim()) ||
+      !adjudication ||
+      adjudication.keyHash !== input.keyHash ||
+      adjudication.recognitionEvidenceHash !== recognition.evidenceHash ||
+      !adjudication.adjudicatorModel.trim() ||
+      !adjudication.adjudicatorBaseModelLineage.trim() ||
+      !adjudication.recognizerBaseModelLineage.trim() ||
+      adjudication.adjudicatorBaseModelLineage ===
+        adjudication.recognizerBaseModelLineage ||
+      !adjudication.evidence.trim() ||
+      !["match", "mismatch", "uncertain"].includes(adjudication.decision)
+    ) {
+      throw new Error(
+        `Invalid synonym adjudication linkage: ${recognition.id}`
+      );
+    }
+    return {
+      decision:
+        recognition.description === null ? "unknown" : adjudication.decision,
+      id: recognition.id,
+      recognitionSuccess:
+        recognition.description !== null && adjudication.decision === "match",
+    };
+  });
+  return {
+    productionSealEligible: false as const,
+    rows,
+    runtimeAccessRestrictionVerified: false as const,
+  };
+};
+
 export interface PopulationStimulus {
   evidenceHash: string;
   family?: string;

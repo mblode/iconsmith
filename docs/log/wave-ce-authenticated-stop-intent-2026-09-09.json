@@ -1,0 +1,53 @@
+{
+  "kind": "iconsmith-authenticated-shared-stop-intent-v5",
+  "experimentId": "D417",
+  "recordedAt": 1788879519865,
+  "executeCommandSha256": "f88e78424800310dd32bfbb47f871881546eafd18289cd7664bcc6505f954cf8",
+  "runnerSha256": "fbffcbd0cbdbc2ae23351ddd47d83f5ad7534c4a0f00b3b44bbd6fe666b69299",
+  "observerCoreSha256": "b65297b6a568d738b58a417ba02f50eb41e90f630b87485bb7c2c584539a5702",
+  "prestartObserverSha256": "98813cb9f9836ad761a50b5d15586346ada70498d4e59bb2c0663178a80f6172",
+  "productionIdentitySha256": "1ebde3d4a93406188a0b5a4a97f60844a36441ba57c81f91a75f00ec33e00c01",
+  "productionIdentityGuardSha256": "39a2f72bcb26b2f729bde1f429fe7859c73d04cb2b790886bcf35de5cf5c492e",
+  "sourceFreezeSha256": "1fc649eb9ef94578473e387aa325d349e85f7d997e4801627079ab5607d1b94d",
+  "nativeRouteSha256": "2175af6376bda9956dc451c2bcb82a151d69afb35f13868402a78964892aa31b",
+  "expectedRequestId": "1097c7af12dbaf923369dbfdaa04f46e71425d7c581ea2e70e65808147d97d4c",
+  "expectedStage": "10-retrieval-discovery",
+  "expectedModel": "gpt-6-astra",
+  "expectedToolingHash": "eb55533905e9bc2e1bef0547347082cbd9145543a1eb752a00bd6abeffe532fc",
+  "expectedToolingFileCount": 555,
+  "observationLocation": {
+    "location": {
+      "callsDirectory": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/calls",
+      "campaignOut": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign",
+      "containerIdentityFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/retrieval/10-retrieval-discovery/container-identity.json",
+      "evidenceRoot": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16/native-control/retrieval/10-retrieval-discovery",
+      "kind": "authenticated-stop-observation-location-v1",
+      "requestId": "1097c7af12dbaf923369dbfdaa04f46e71425d7c581ea2e70e65808147d97d4c",
+      "requestRoot": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16",
+      "runtimeRoot": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16.native-runtime/retrieval-0",
+      "sessionsRoot": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-authenticated-stop-live-2026-09-09/campaign/requests/folder-lock-16.native-runtime/retrieval-0/native-state/sessions",
+      "stage": "10-retrieval-discovery"
+    },
+    "locationSha256": "49898af71e04c4c30790327e74c73182eb97540224217680e4187d1df234442f"
+  },
+  "maximumNativeCalls": 12,
+  "observedTargetCalls": 1,
+  "automaticRetry": false,
+  "rootReservation": {
+    "maximumNativeCalls": 12,
+    "targetCalls": 1,
+    "nativeSettledBefore": 134,
+    "olderUnresolvedIntents": 1,
+    "apiReservationUsd": 0,
+    "nativeDollarAllocation": "unknown",
+    "automaticRetry": false,
+    "quota": {
+      "usedPercent": 73,
+      "remainingPercent": 27,
+      "resetsAt": 1789435341,
+      "resetCreditUsed": false
+    },
+    "minimumFreeBytes": 2147483648,
+    "observedFreeBytes": 2482327552
+  }
+}

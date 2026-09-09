@@ -60,6 +60,30 @@ export interface Part {
   sizeRange: [number, number];
   /** Host-admitted source ink, fixed by the pinned dependency, never a DSL paint override. */
   sourceFillRule?: "nonzero" | "evenodd";
+  /** This child is an implementation dependency of one admitted source
+   * assembly and cannot be placed as an independently admitted part. */
+  sourceAssemblyOnly?: string;
+  /** Ordered source-backed children placed as separate paint elements. The
+   *  hashes bind an assembly to the exact admitted child records it names. */
+  sourceAssembly?: {
+    children: {
+      partHash: string;
+      partId: string;
+      semantics:
+        | { fillRule: "nonzero" | "evenodd"; kind: "fill" }
+        | {
+            cap: "butt" | "round" | "square";
+            join: "bevel" | "miter" | "round";
+            kind: "stroke";
+            strokeWidth: number;
+          };
+      x: number;
+      y: number;
+    }[];
+    finish: Finish;
+    sourceHash: string;
+    viewBox: "0 0 24 24";
+  };
   /** How many instances the set draws at each clockwise quarter-turn of `d` —
    *  index 1 is 90° clockwise, 2 is upside down, 3 is 90° anticlockwise. It is
    *  evidence, not permission: a placement may use any turn, but this is the
@@ -200,7 +224,7 @@ export interface Provenance {
   version?: string;
 }
 
-export type Severity = "error" | "warn";
+type Severity = "error" | "warn";
 
 export interface Issue {
   /**

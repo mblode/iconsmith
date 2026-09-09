@@ -51,8 +51,8 @@ test("the cohort brief appears only when a family has been measured", () => {
 test("a filled run tells the model this canvas is solid, not outlined", () => {
   const outlined = systemPrompt();
   const filled = systemPrompt({ finish: "filled" });
-  expect(outlined).toContain("Every shape you");
-  expect(outlined).toContain("place is an outline");
+  expect(outlined).toContain("Outlined bodies use centerlines");
+  expect(outlined).toContain("explicit solid modifiers");
   expect(outlined).not.toContain("This run is the solid variant");
   expect(filled).toContain(FILLED_PAINT_RULE);
   expect(filled).toContain("immediately after");

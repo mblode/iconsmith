@@ -1,0 +1,34 @@
+{
+  "id": "D303",
+  "status": "implemented-scoped-verified",
+  "qualified": false,
+  "patches": [
+    [
+      ".staging/wave-ai-source-bound-regions-2026-09-08/source-bound-regions.patch",
+      "43441ea4e246d5f473bbaadd2b53ab50e0ac16d0c99fd485e19963b061687957"
+    ],
+    [
+      ".staging/wave-an-container-collector-2026-09-08/container-collector.patch",
+      "fd058464c0e2ec9e534d98c1d12b6030ad1556775b4c288bb61cfd6964a95923"
+    ],
+    [
+      ".staging/wave-ad-evaluation-collector-access-2026-09-08/collector-access-validator.patch",
+      "2491be1b4be38e8a270c785173b6df2f6e2aa1ae361827c240e5519d2b0f066e"
+    ]
+  ],
+  "scopedVerification": {
+    "command": "npm exec -w iconsmith -- vitest run scripts/family-parts.test.ts scripts/local-container-process.test.ts scripts/local-native-call-factory.test.ts scripts/ai-qualification-provenance.test.ts",
+    "tests": 67,
+    "files": 4,
+    "skipped": 0,
+    "exitCode": 0
+  },
+  "limitations": [
+    "Full integration verification follows remaining bounded patches",
+    "Region rule remains development-only; normal admission/compiler unchanged",
+    "Collector evidence not production seal: raw trace/fsync/actual replay pending",
+    "No prior native receipt upgraded"
+  ],
+  "apiActualUsd": 0,
+  "nativeCalls": 0
+}

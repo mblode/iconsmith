@@ -1,0 +1,13 @@
+{
+  "version": 11,
+  "qualified": false,
+  "previousIndex": "development-evidence-index-v10-2026-09-08.html",
+  "htmlSha256": "5da73753f328e912d70c308fb5e35ee38c361e3cbb6f810e46f38b7a4cff4adb",
+  "addedArtifactHashes": {
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bk-organic-detail-semantic-review-2026-09-08/boards/dots.png": "844b3fdbd85fcf7cd7494c4870b27e8ff9ecfe3b57f1c508f677d968bb5e86c0",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bk-organic-detail-semantic-review-2026-09-08/boards/organic-and-container.png": "3e68e2ce3c1bd169ffad7600478726b74bd43d7d2fdea1f9ef313f7b9d4e4aea",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bk-organic-detail-semantic-review-2026-09-08/boards/sparkles-and-stars.png": "23a5da25b3bedb95c8e90c7e3f762c91ddd4d2f5de2763e53ac6b86b494eeaa3"
+  },
+  "nativeCallsAtCreation": 79,
+  "apiIncrementUsd": 0
+}

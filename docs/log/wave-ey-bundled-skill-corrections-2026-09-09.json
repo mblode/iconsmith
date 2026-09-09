@@ -1,0 +1,80 @@
+{
+  "id": "D487",
+  "kind": "compiler25-bundled-skill-integration-corrections",
+  "failures": [
+    {
+      "directory": ".staging/wave-ev-compiler25-acceptance-inspection-verification-2026-09-09",
+      "results": [
+        {
+          "name": "test",
+          "command": [
+            "npm",
+            "run",
+            "test"
+          ],
+          "exitCode": 1,
+          "elapsedMs": 1587,
+          "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ev-compiler25-acceptance-inspection-verification-2026-09-09/test.log",
+          "sha256": "1ed9dfe75a7b4178e142a5d53b50baebf696756a22f462a3a55f9879a14f19a0"
+        }
+      ]
+    },
+    {
+      "directory": ".staging/wave-ex-compiler25-uncertainty-verification-2026-09-09",
+      "results": [
+        {
+          "name": "test",
+          "command": [
+            "npm",
+            "run",
+            "test"
+          ],
+          "exitCode": 1,
+          "elapsedMs": 44894,
+          "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ex-compiler25-uncertainty-verification-2026-09-09/test.log",
+          "sha256": "95d9c569c596f54f07a863ceb83ed9e81b4a13810d9e2d33e5569b1e85fda219"
+        }
+      ]
+    },
+    {
+      "directory": ".staging/wave-ey-compiler25-uncertainty-verification-2026-09-09",
+      "results": [
+        {
+          "name": "test",
+          "command": [
+            "npm",
+            "run",
+            "test"
+          ],
+          "exitCode": 1,
+          "elapsedMs": 45923,
+          "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ey-compiler25-uncertainty-verification-2026-09-09/test.log",
+          "sha256": "f75c0d31271f2dd75106a82b9136ba90703440430637280074c8e921ac5e8620"
+        }
+      ]
+    }
+  ],
+  "causes": [
+    "Served web skill omitted source-exact op",
+    "Package skill omitted source-exact op",
+    "Bundled JSON skill was stale after package prose correction"
+  ],
+  "correction": "Document host-only reconstruction and synchronize bundled skill exactly; no raw paths or ordinary-author resolver enabled.",
+  "files": [
+    {
+      "path": "apps/web/lib/agent-skills.ts",
+      "sha256": "f776adeaabb253d29f3e36a4a1fe0f06ed63cec0b10c61477b49d4b913ff6a3f"
+    },
+    {
+      "path": "packages/iconsmith/SKILL.md",
+      "sha256": "b4cd7c4cf4291c6b1709c21c65d076cd500c1bb64dba0c59d88c0ef99695b10f"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/skill.json",
+      "sha256": "5954001565067d6f07322848955ad1af286f8bf3244b8757a50e9ac91ae877fa"
+    }
+  ],
+  "verification": "Fresh integrated verification pending in wave-ez",
+  "apiCalls": 0,
+  "qualified": false
+}

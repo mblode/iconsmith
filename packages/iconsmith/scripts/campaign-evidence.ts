@@ -54,6 +54,45 @@ export const collectCampaignEvidence = (
   }[] = [];
   const receipts: { requestId: string; hash: string | null }[] = [];
   for (const request of requests) {
+    const receiptFile = receiptsDirectory
+      ? path.join(receiptsDirectory, `${request.requestId}.json`)
+      : null;
+    const receiptBytes =
+      receiptFile && existsSync(receiptFile) ? readFileSync(receiptFile) : null;
+    const campaignReceipt = receiptBytes
+      ? JSON.parse(receiptBytes.toString())
+      : null;
+    // An outer refusal owns the terminal state. Its child may be malformed,
+    // incomplete, or still claim delivery; none of those bytes are eligible.
+    if (campaignReceipt?.outerRefusal === true) {
+      const { integrityHash, ...boundReceipt } = campaignReceipt;
+      if (
+        integrityHash !== digest(canonical(boundReceipt)) ||
+        campaignReceipt.requestId !== request.requestId ||
+        campaignReceipt.terminal?.requestId !== request.requestId ||
+        campaignReceipt.terminal?.status !== "refused" ||
+        campaignReceipt.terminal?.qualityStatus !== "outer-refusal" ||
+        campaignReceipt.aiQualified !== false ||
+        !Array.isArray(campaignReceipt.artifacts) ||
+        campaignReceipt.artifacts.length !== 0
+      ) {
+        throw new Error("Cross-master outer refusal identity mismatch");
+      }
+      receipts.push({
+        hash: digest(receiptBytes ?? ""),
+        requestId: request.requestId,
+      });
+      for (const finish of ["outlined", "filled"]) {
+        missing.push({
+          concept: request.concept,
+          finish,
+          nativeSize: request.master,
+          reason: "outer-refusal",
+          requestId: request.requestId,
+        });
+      }
+      continue;
+    }
     const file = path.join(request.destination, "request.json");
     const bytes = existsSync(file) ? readFileSync(file) : null;
     receipts.push({
@@ -72,20 +111,15 @@ export const collectCampaignEvidence = (
       throw new Error("Cross-master request identity mismatch");
     }
     if (terminal && receiptsDirectory) {
-      const receiptFile = path.join(
-        receiptsDirectory,
-        `${request.requestId}.json`
-      );
-      if (!existsSync(receiptFile)) {
+      if (!campaignReceipt) {
         throw new Error(
           "Cross-master terminal lacks validated campaign receipt"
         );
       }
-      const receipt = JSON.parse(readFileSync(receiptFile, "utf-8"));
       if (
-        receipt.requestId !== request.requestId ||
-        receipt.requestFileHash !== digest(bytes ?? "") ||
-        canonical(receipt.terminal) !== canonical(terminal)
+        campaignReceipt.requestId !== request.requestId ||
+        campaignReceipt.requestFileHash !== digest(bytes ?? "") ||
+        canonical(campaignReceipt.terminal) !== canonical(terminal)
       ) {
         throw new Error("Cross-master campaign receipt identity mismatch");
       }
@@ -122,19 +156,14 @@ export const collectCampaignEvidence = (
         }
       }
       if (terminal.status === "delivered" && receiptsDirectory) {
-        const receipt = JSON.parse(
-          readFileSync(
-            path.join(receiptsDirectory, `${request.requestId}.json`),
-            "utf-8"
-          )
-        );
         const hashes = new Map(
-          (Array.isArray(receipt.artifacts) ? receipt.artifacts : []).map(
-            (artifact: { name?: unknown; sha256?: unknown }) => [
-              artifact.name,
-              artifact.sha256,
-            ]
-          )
+          (Array.isArray(campaignReceipt.artifacts)
+            ? campaignReceipt.artifacts
+            : []
+          ).map((artifact: { name?: unknown; sha256?: unknown }) => [
+            artifact.name,
+            artifact.sha256,
+          ])
         );
         for (const finish of ["outlined", "filled"] as const) {
           const artifact = path.join(selectedReal, `${finish}.svg`);

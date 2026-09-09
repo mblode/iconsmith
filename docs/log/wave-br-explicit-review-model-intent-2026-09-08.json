@@ -1,0 +1,28 @@
+{
+  "id": "D370",
+  "kind": "prospective-review-explicit-model-intent-guard",
+  "baseSha256": {
+    "packages/iconsmith/scripts/quality-campaign.ts": "e3c93cd335c1cf2a2b847b427804c37bf2bb3de3c95eb6b8fdeeafb6163e6323",
+    "packages/iconsmith/scripts/quality-campaign.test.ts": "9d7ea16b13617cfe92fa32b8c02d5697149ec6c93697bb79f6e0dff2d1b2a6df"
+  },
+  "resultSha256": {
+    "packages/iconsmith/scripts/quality-campaign.ts": "a356223d411287475bc189533c317a5b5a0940087cca3142ed814e528ae327d4",
+    "packages/iconsmith/scripts/quality-campaign.test.ts": "4d26d67670b135367d989fe04deb6fbe2dc277a02b2ca7a2eea33c9f5b39e451"
+  },
+  "behavior": "Both selected slots must match explicit expected model identities before output, factory or provider-boundary creation; CLI requires both expected model flags.",
+  "tests": 26,
+  "testFiles": 1,
+  "skipped": 0,
+  "testLog": ".staging/wave-br-roster-intent-2026-09-08/tests-v2.log",
+  "testLogSha256": "9deb7d7e729f1e5b4cd78bdc9a9e1d90183092feea52ab223843b01f9bb293e9",
+  "retainedInitialFailure": "tests.log: two new assertions lacked existsSync import; corrected before passing rerun",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeSettled": 83,
+  "nativeUnresolvedPriorIntents": 1,
+  "qualificationContribution": 0,
+  "limitations": [
+    "Does not retroactively correct D367/D368 experiment intent",
+    "Full combined validation pending"
+  ]
+}

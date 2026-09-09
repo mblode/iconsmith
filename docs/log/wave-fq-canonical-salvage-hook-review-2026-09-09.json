@@ -1,0 +1,25 @@
+{
+  "id": "D517-review",
+  "observedAt": "2026-09-09T02:04:22.734395+00:00",
+  "status": "freeze-held-for-authority-corrections",
+  "providerCalls": 0,
+  "findings": [
+    "Public capability mint bypasses closed canonical plan",
+    "Trigger receipt not joined into verified interrupted settlement",
+    "Descriptor file not revalidated at observer/kill",
+    "Plan can be rebound or reissued until expiry",
+    "Bound plan can be transplanted into different configured route context"
+  ],
+  "ownership": {
+    "runtime": "diagnostic/config/generate modules and tests; private mint, immutable descriptor, durable issuance and config identity",
+    "evaluation": "local-native-call-factory.ts/test; exact trigger-to-settlement evidence",
+    "root": "campaign and shared records"
+  },
+  "rootValidation": {
+    "tests": 83,
+    "files": 1,
+    "passed": true,
+    "log": ".staging/wave-fq-campaign-tests-3.log"
+  },
+  "qualificationGranted": false
+}

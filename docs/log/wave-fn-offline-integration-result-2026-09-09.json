@@ -1,0 +1,77 @@
+{
+  "id": "D512",
+  "kind": "family-replay-and-api-capability-offline-integration-result",
+  "intent": "D511",
+  "observedAt": "2026-09-09T01:25:59.756502+00:00",
+  "status": "engineering-verified-not-visually-qualified",
+  "changes": [
+    "Apply exact plan-frozen family packet before author master restriction and deterministic SVG/proof replay; bind concept, file SHA and packet hash, including synchronous capability consumption.",
+    "Seal SDK serialized HTTP body against closed prompt/schema/inline PNG/provider-options contract; refuse drift and terminal input file mutation. No stronger upstream model identity claim."
+  ],
+  "integrated": {
+    "receipt": ".staging/wave-fn-integrated-2026-09-09/attempt-1/receipt.json",
+    "sha256": "4edf656aa4c3e078575a34b11ccff3c1d15ceb2f8c6fd832a08b4cc56b288700",
+    "status": "passed",
+    "workspaceTests": 2565,
+    "workspaceFiles": 183,
+    "runnerTests": 10,
+    "totalTests": 2575,
+    "skipped": 0,
+    "durationMs": 57433,
+    "source": {
+      "stable": true,
+      "before": {
+        "aggregateSha256": "69da830cdda4711b2942a8c33b168dfe4dec8f9ccec7d1ec6615cc6bd723b267",
+        "manifestPath": ".staging/wave-fn-integrated-2026-09-09/attempt-1/source-before.json",
+        "manifestSha256": "0433c4331c2a9131a9d43db8f21c806c3fdd0684905b7a5a43a0b92db59e7019"
+      },
+      "after": {
+        "aggregateSha256": "69da830cdda4711b2942a8c33b168dfe4dec8f9ccec7d1ec6615cc6bd723b267",
+        "manifestPath": ".staging/wave-fn-integrated-2026-09-09/attempt-1/source-after.json",
+        "manifestSha256": "0433c4331c2a9131a9d43db8f21c806c3fdd0684905b7a5a43a0b92db59e7019"
+      }
+    },
+    "stages": [
+      {
+        "id": "test",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "typecheck",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "build",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "check",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "diff",
+        "exitCode": 0,
+        "passed": true
+      }
+    ]
+  },
+  "focused": ".staging/wave-fn-worker-scoped.json",
+  "retainedFailures": [
+    ".staging/wave-fn-scoped-failure.json",
+    "worker initial lint and house-set fixture failures retained in tool output"
+  ],
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "qualificationGranted": false,
+  "score": null,
+  "remaining": [
+    "Current frozen live slice/salvage/reliability replay",
+    "Automatic retrieval selected-packet authority and source-exact separate registry authority",
+    "Fourth eligible lineage and sealed critic qualification; upstream API revision remains undisclosed",
+    "Full frozen generation/repair/unseen-family populations"
+  ]
+}

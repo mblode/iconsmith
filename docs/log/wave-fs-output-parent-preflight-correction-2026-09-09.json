@@ -1,0 +1,11 @@
+{
+  "id": "D519-preflight-correction",
+  "failure": "Missing output parent caused ENOENT at local-campaign.ts:1860, before dispatch loop.",
+  "retainedProcessResult": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/process-result.json",
+  "retainedStderr": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/live.stderr",
+  "providerCalls": 0,
+  "issuanceFiles": 0,
+  "changedVariable": "Created fresh output parent; source, plan, deadline policy and provider reservation unchanged.",
+  "nextAttemptOutputPrefix": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/attempt-2",
+  "observedAtMs": 1788921243719
+}

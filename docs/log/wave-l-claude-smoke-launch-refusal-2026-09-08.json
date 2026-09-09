@@ -1,0 +1,12 @@
+{
+  "status": "pre-dispatch-refused",
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "cause": "Duplicated credential hash in staging launcher had 65 characters; canonical route hash has 64. Validator refused before creating a call boundary.",
+  "previous": ".staging/wave-k-claude-image-smoke-prep-2026-09-08",
+  "outerResultSha256": "966fc1e094aa5cd1eda4047ac1a394d3c57d58393898001fa2c7bb0e67c91d43",
+  "next": ".staging/wave-l-claude-image-smoke-v2-2026-09-08",
+  "nextRunnerSha256": "9c9e8f1ffa5c9a01a714d75a19393a03caeef528f6a51817f5d2819cfee0b292",
+  "qualified": false
+}

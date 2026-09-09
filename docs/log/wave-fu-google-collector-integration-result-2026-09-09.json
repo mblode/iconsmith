@@ -1,0 +1,84 @@
+{
+  "id": "D522",
+  "date": "2026-09-09",
+  "status": "engineering-passed-not-visually-qualified",
+  "intent": "D521",
+  "verification": {
+    "receipt": ".staging/wave-fu-integrated-2026-09-09/attempt-1/receipt.json",
+    "receiptSha256": "dba6c70f8f25d9b193c3b33504dce2bc3d90a317952341fd138af653d0190388",
+    "durationMs": 62218,
+    "iconsmithTests": 2614,
+    "iconsmithTestFiles": 183,
+    "skips": 0,
+    "runnerTests": 10,
+    "sourceFileCount": 685,
+    "source": {
+      "stable": true,
+      "before": {
+        "aggregateSha256": "5e86b6af096e76331e804b697852df81d9d793bc958144be101e67b73fc2d2cb",
+        "manifestPath": ".staging/wave-fu-integrated-2026-09-09/attempt-1/source-before.json",
+        "manifestSha256": "2b2b80b23389f324d697937f788f5fb5ba77ea4a39edafa29dac04d5ef90cb31"
+      },
+      "after": {
+        "aggregateSha256": "5e86b6af096e76331e804b697852df81d9d793bc958144be101e67b73fc2d2cb",
+        "manifestPath": ".staging/wave-fu-integrated-2026-09-09/attempt-1/source-after.json",
+        "manifestSha256": "2b2b80b23389f324d697937f788f5fb5ba77ea4a39edafa29dac04d5ef90cb31"
+      }
+    },
+    "stages": [
+      {
+        "id": "test",
+        "passed": true
+      },
+      {
+        "id": "typecheck",
+        "passed": true
+      },
+      {
+        "id": "build",
+        "passed": true
+      },
+      {
+        "id": "check",
+        "passed": true
+      },
+      {
+        "id": "diff",
+        "passed": true
+      }
+    ]
+  },
+  "changes": [
+    "Single-use Google collector stage with inherited parent deadline and sealed request, answer, usage and attachment evidence.",
+    "Private cohort assembly accepts verified stages inside their live callbacks and revalidates exact files and original attachments at finalization.",
+    "Canonical campaign journal preserves capability for evaluation; hybrid foundry provenance retains all existing authority requirements."
+  ],
+  "focusedTests": {
+    "runtime": 58,
+    "evaluation": 51,
+    "root": 61
+  },
+  "retainedEvidence": [
+    ".staging/wave-fu-google-collector-runtime-2026-09-09",
+    ".staging/wave-fu-google-collector-evaluation-2026-09-09",
+    ".staging/wave-fu-google-collector-root-2026-09-09"
+  ],
+  "qualification": {
+    "scoreOutOf10": null,
+    "qualified": false,
+    "primaryTasksPromoted": 0,
+    "boundaries": [
+      "102-stage mocked cohort tests establish orchestration only.",
+      "No fresh installed Google collector request or sealed qualifying cohort.",
+      "D466 immediate generation metadata 404 has no verified remedy; no paid retry.",
+      "D520 live salvage belongs to D518 source, not this changed route.",
+      "Critic calibration, current frozen reliability, catalog and unseen-family evidence remain open."
+    ]
+  },
+  "cost": {
+    "newProviderCalls": 0,
+    "apiSpendUsd": 0,
+    "newReservation": null,
+    "nativeSubscriptionDollarAllocation": null
+  }
+}

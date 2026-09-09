@@ -1,0 +1,11 @@
+{
+  "supersedesPassClaimOnly": "docs/log/wave-bc-presentation-runtime-integration-2026-09-08.json",
+  "originalSha256": "cdc829ba574b335b5974736fb661954da35dae8e56bb8ff37916192e9d8851ed",
+  "correction": "Root prematurely wrote prose saying check/diff passed. Actual check-v3 returned1 because concurrent unfinished family-construction-coverage overlay appeared in canonical source. Diff was not run. The receipt check field preserves exit1. No provider dispatched and no phase gate promoted. Source freeze is provisional, not eligible for dispatch.",
+  "testsBeforeConcurrentChanges": {
+    "total": 2235,
+    "files": 171,
+    "skipped": 0
+  },
+  "requiredNext": "Settle all canonical edits and run fresh integration verification."
+}

@@ -1,0 +1,121 @@
+{
+  "id": "D520",
+  "kind": "canonical-controlled-salvage-live-result",
+  "observedAtMs": 1788921729810,
+  "intent": "D519",
+  "sourceClosure": "D518",
+  "sourceAfterLive": {
+    "stable": true,
+    "fileCount": 685,
+    "aggregateSha256": "5b9dadd240bf49fc4e4607288aba8169ed4ab6db1dbdd7d351ed209b7839087b"
+  },
+  "qualification": false,
+  "e2eScoreOutOf10": null,
+  "status": "contained-recovery-verified-quality-uncertain",
+  "elapsedMs": 339318,
+  "deadlineExceeded": false,
+  "parentQuiescent": true,
+  "terminalStatus": "incomplete",
+  "qualityStatus": "review-uncertain",
+  "completionProvenance": "host-validated-after-contained-finalization-interruption",
+  "finalizationInterruption": {
+    "inspectionHash": "cbaa3ccf50fa3ea9543088096585000d1d733f26a3ca0dffbf99ad9e1f02ff18",
+    "kind": "structured-finalization-interruption",
+    "programHashes": {
+      "outlined": "d72ca45b0b19bafa9dd7f8cbb2e3b27d88d7affdb43fd6a4c2b173c30540ad71",
+      "filled": "4dbe2772c0f34e83e7bc522bf055d84dc6f1886f1c6cea84001fa9f09007ea94"
+    },
+    "settlement": {
+      "accounting": "settled",
+      "callId": "3e757f25-0672-435d-941b-459b96efc3da",
+      "containerAbsent": true,
+      "containerId": "b581d48d8f6b647ec5731c45360800da0a87e69c5a1a2ee292b1d95ac9a58ce7",
+      "containment": "container-absent",
+      "containmentScope": "docker-private-pid-namespace",
+      "deadlineAt": 1788922445230,
+      "deadlineExceeded": false,
+      "diagnosticTrigger": {
+        "descriptorFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fs-canonical-salvage-live-2026-09-09/campaign/requests/folder-lock-16/native-control/finalization-interruption-descriptor.json",
+        "descriptorSha256": "1de9ce78c563b613c543f83faa2c33516320ca9224ae1fb26f1c0944e2eb0f5e",
+        "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fs-canonical-salvage-live-2026-09-09/campaign/requests/folder-lock-16/native-control/author/02-finalize/diagnostic-trigger.json",
+        "sha256": "35f17e1b313d097b3fb7029403810095488fc4dfa31374eb4ece6c2d735df152",
+        "terminalLineSha256": "3269f7f27b9b37af46218a0ad478084cfbd196143218a86b105b64e1eb0adb05"
+      },
+      "evidenceFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fs-canonical-salvage-live-2026-09-09/campaign/requests/folder-lock-16/native-control/author/02-finalize/container-settlement.json",
+      "evidenceHash": "9897234f8a7b7d8c2d08d3467f6ef2b92b70b6c92e03889ca2784e971f624398",
+      "intentHash": "de03504449393faad0fb86f5fbe80536a0f1a09c02a097815b9b54a2f50b14b1",
+      "killed": false,
+      "kind": "verified-contained-finalization-interruption",
+      "outcome": "failed",
+      "processCode": 137,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "quiescent": true,
+      "settledAt": 1788921390612,
+      "stage": "02-finalize"
+    },
+    "stageDeadlineAt": 1788921457456
+  },
+  "population": {
+    "requestedPairs": 40,
+    "requestedSlots": 80,
+    "verifiedTerminalRecords": 40,
+    "statuses": {
+      "incomplete": 1,
+      "unstarted": 39
+    }
+  },
+  "selectedAuthorEvidenceVerified": true,
+  "independentReviews": [
+    {
+      "model": "gpt-5.5",
+      "choices": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "uncertain",
+        "family": "pass"
+      }
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "choices": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "uncertain",
+        "family": "pass"
+      }
+    }
+  ],
+  "nativeCalls": {
+    "started": 7,
+    "settled": 7,
+    "accounting": {
+      "settled": 7
+    },
+    "containment": {
+      "container-absent": 7
+    },
+    "reservationCeiling": 10,
+    "unusedReleased": 3,
+    "subscriptionDollarAllocation": null
+  },
+  "apiCalls": 0,
+  "apiSpendUsd": 0,
+  "evidence": {
+    "terminalVerification": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/terminal-verification.json",
+    "terminalVerificationSha256": "72a123fd82aa41e2a1b672f6018463ab4769f9a73e7ee8f625793103e677900d",
+    "command": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/command.json",
+    "liveStdout": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/attempt-2.stdout",
+    "liveStderr": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/attempt-2.stderr",
+    "processResult": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/attempt-2-result.json",
+    "campaign": ".staging/wave-fs-canonical-salvage-live-2026-09-09/campaign",
+    "reviews": ".staging/wave-fs-canonical-salvage-live-2026-09-09/campaign/requests/folder-lock-16/attempt-1/independent-reviews.json"
+  },
+  "retainedFailure": "Initial missing output parent failed before any dispatch; D519 preflight correction retains original attempt. No provider retry.",
+  "interpretation": [
+    "Canonical deliberate finalization interruption reached recursive verified recovery and independent AI review within original clock.",
+    "Both AI reviewers retained native optics uncertainty after bounded clarification; missing approval remains incomplete, not delivered.",
+    "Full frozen population retains 39 unstarted pairs. This is current-source mechanism evidence, not qualified craft or complete P1 closure."
+  ],
+  "nextOfflineProposal": ".staging/wave-ft-google-critic-collector-integration-proposal-2026-09-09/proposal.md",
+  "checklistPromotions": []
+}

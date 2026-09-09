@@ -1,0 +1,31 @@
+{
+  "schema": "iconsmith.wave-u.campaign-refusal-reporting-fix.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/campaign-evidence.ts",
+      "sha256": "74d9052e4476106f007bc95dd5a08e2642a9e057c65b3a4017573aae767e172c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-evidence.test.ts",
+      "sha256": "cfd6cbe083928b8e82956726b34fc141dfad94b92573ac06924653882dc24084"
+    }
+  ],
+  "tests": {
+    "command": "npm exec -w iconsmith -- vitest run scripts/campaign-evidence.test.ts",
+    "passed": 7,
+    "files": 1
+  },
+  "lint": "scoped ultracite check passes after no-shadow and key-order fixes",
+  "actualFailureReplay": {
+    "path": ".staging/wave-u-root-campaign-evidence-fix-2026-09-08/actual-refusal-replay.json",
+    "sha256": "9cabd0cd67d1230db680e9b5c7c3cbd510a9b07bdc8de73a94b3b9f1acbd06e1",
+    "evidence": 0,
+    "missing": 80,
+    "outerRefusal": 2,
+    "notRun": 78
+  },
+  "scope": "Outer refusal terminal wins before any child parsing or artifact export. Integrity and request identity are checked; refusal preserves missing slots. No change to artifact eligibility or parent settlement.",
+  "integration": "pending runtime and isolated agent patches"
+}

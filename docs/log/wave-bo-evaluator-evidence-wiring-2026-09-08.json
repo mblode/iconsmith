@@ -1,0 +1,24 @@
+{
+  "id": "D361",
+  "kind": "canonical-evaluator-evidence-wiring",
+  "patch": {
+    "file": ".staging/wave-bo-acceptance-wiring-2026-09-08/acceptance-wiring.patch",
+    "sha256": "d62d100d19b7d8a954bd82d0764ddaef5c0019ff4eaee1ccab8bf51a83fb2559"
+  },
+  "receipt": {
+    "file": ".staging/wave-bo-acceptance-wiring-2026-09-08/receipt.json",
+    "sha256": "98f293d8ac41dbaf387dc3b4779cb9f134b2c3ebfd97f74b090f54c3dff5b9f3"
+  },
+  "rootTests": 66,
+  "testFiles": 4,
+  "skipped": 0,
+  "rootLog": ".staging/wave-bo-evaluator-root-tests.log",
+  "scope": "Actual evaluate and CLI pass hash-verified acceptance input to existing report validator",
+  "qualification": false,
+  "limitations": [
+    "Contract remains draft",
+    "Calibration and sealed population gates remain open",
+    "Explicit calibration:null still suppresses MetricReport as before"
+  ],
+  "providerCalls": 0
+}

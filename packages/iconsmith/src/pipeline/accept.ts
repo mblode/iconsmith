@@ -68,7 +68,7 @@ export interface Verdictish {
  * The union keeps a judge that needs none of that plain: it may still return
  * `V` directly.
  */
-export type Judge<V extends Verdictish> = (
+type Judge<V extends Verdictish> = (
   champion: readonly IconScore[],
   variant: readonly IconScore[],
   noiseFloor: number
@@ -77,7 +77,7 @@ export type Judge<V extends Verdictish> = (
 /** Outcome of the gate, named so a caller cannot mistake a screen-out for a
  *  measured loss. `screened-out` means the candidate never reached the
  *  selection slice, so nothing was measured about it at all. */
-export type Stage = "accepted" | "rejected" | "screened-out";
+type Stage = "accepted" | "rejected" | "screened-out";
 
 export interface StagedVerdict<V extends Verdictish> {
   accepted: boolean;

@@ -1,0 +1,70 @@
+{
+  "id": "D390",
+  "scope": "P3.8 metadata-only population audit",
+  "receipt": {
+    "path": ".staging/wave-bv-critic-population-gap-audit-2026-09-08/receipt.json",
+    "sha256": "7f5ad77556b10eaa1cc998e21a41efbedfcbc22699b0dd4cbbf3d732adf5b1bf"
+  },
+  "rootHashVerification": [
+    {
+      "path": "docs/plans/generation-quality-10.md",
+      "matches": true
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "matches": true
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.ts",
+      "matches": true
+    },
+    {
+      "path": "docs/log/fresh-critic-population-preparation-refusal-2026-09-07.json",
+      "matches": true
+    },
+    {
+      "path": "docs/log/fresh-critic-v6-control-coverage-audit-2026-09-08.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-aa-evaluation-population-readiness-2026-09-08/receipt.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-ab-evaluation-qualification-provenance-2026-09-08/receipt.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-t-evaluation-qualification-audit-2026-09-08/receipt.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/fresh-critic-complete-catalog-2026-09-07/receipt.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/fresh-critic-prospective-seal-v2-2026-09-07/receipt.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/fresh-critic-exposure-ledger-2026-09-07/receipt.json",
+      "matches": true
+    },
+    {
+      "path": ".staging/wave-bv-critic-population-gap-audit-2026-09-08/audit.json",
+      "matches": true
+    }
+  ],
+  "result": {
+    "populationReady": false,
+    "sealedQualificationContribution": 0,
+    "freshNaturalDistinctFamiliesStillRequired": 80,
+    "freshCanonicalIndependentStimuliStillRequired": 100,
+    "freshNaturalPerStratumStillRequired": 20,
+    "confirmedCriticalStillRequired": 20,
+    "criticPredictedApprovalsStillRequired": 20,
+    "fourDistinctBaseLineageRosterReady": false
+  },
+  "providerCalls": 0,
+  "qualified": false
+}

@@ -1,0 +1,53 @@
+{
+  "id": "D223",
+  "date": "2026-09-08",
+  "authority": "planning-only",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "authoritativePlan": "docs/plans/generation-quality-10.md",
+  "phases": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8"
+  ],
+  "openCheckboxes": 98,
+  "completedCheckboxes": 1,
+  "reviews": [
+    "GPT-5.6 Sol Runtime audit",
+    "GPT-5.6 Sol Geometry audit",
+    "GPT-5.6 Sol Evaluation audit",
+    "GPT-5.6 Sol bounded adversarial evaluation review",
+    "Root source and artifact validation"
+  ],
+  "validation": {
+    "localMarkdownLinks": "pass",
+    "listedTestPaths": "exist",
+    "historicalPlanByteExactAgainstBaseline": true,
+    "diffCheck": "pass",
+    "newImplementationTestsRun": false
+  },
+  "hashes": {
+    "docs/plans/generation-quality-10.md": "c7b9c0ef76773dfb06d4cefca1aa4874c0ca94ce3ceb92eddc86c69086d15056",
+    "docs/plans/generation-quality-10.notes.md": "2c8782b75108c949b43176cd8be6299cd4930224bfb396c4281a0708f2d13d13",
+    "docs/plans/generation-quality-10.history-2026-09-08.md": "cfe0a5ac1bdaa2bcdd29dddf8710d59d3b7c1ff50ed10583cbbe553bc4a89fe0"
+  },
+  "newGenerationOrEvaluationExperimentCalls": 0,
+  "newPaidApiReservationsUsd": 0,
+  "newExperimentApiActualUsd": 0,
+  "planningToolAndSubagentDollarCost": null,
+  "lastRecordedApiActualUsd": 13.06220785,
+  "lastRecordedReservedOrUnknownUsd": 11.37126575,
+  "apiCapUsd": 50,
+  "qualified": false,
+  "implementationChanges": false,
+  "limits": [
+    "Existing implementation validation is prior V28 evidence, not a new test run.",
+    "AI-only agreement cannot establish human preference.",
+    "Independent model roster, complete exposure census, pipeline experiments and all visual qualification gates remain unproven."
+  ]
+}

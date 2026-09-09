@@ -930,7 +930,7 @@ export const airplane = (slug: string, finish: Finish = "outlined"): string =>
  * Net-new hanging lantern: handle, body, flame. No house file. Both
  * paints share the same masses so pairing stays clean.
  */
-export const lantern = (slug: string, finish: Finish = "outlined"): string =>
+const lantern = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "tall", [
     "arc 12,5 r5 half from left",
     mass(finish, 4, 7, 16, 13, 2),
@@ -941,7 +941,7 @@ export const lantern = (slug: string, finish: Finish = "outlined"): string =>
  * Net-new otter: head, body, tail. No house file. Two-point tail so
  * filled paint is a bar, not a closed polyline.
  */
-export const otter = (slug: string, finish: Finish = "outlined"): string =>
+const otter = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, null, [
     mass(finish, 2, 6, 8, 8, 4),
     mass(finish, 7, 6, 12, 10, 3),
@@ -959,10 +959,7 @@ export const otter = (slug: string, finish: Finish = "outlined"): string =>
  * from the raw `13,12`, and the filled twin came apart at that joint.
  * `adaptProgram` splits the chain the stroked paint actually drew.
  */
-export const paperplane = (
-  slug: string,
-  finish: Finish = "outlined"
-): string => {
+const paperplane = (slug: string, finish: Finish = "outlined"): string => {
   const outlined = iconProgram(slug, "outlined", "wide", [
     "line 4,12 20,6 13,12 20,18 4,12 off-axis",
   ]);
@@ -979,7 +976,7 @@ export const paperplane = (
  * either. Wide 20×16: the tray is wider than it is tall, and squashing
  * it into a square is the toy look. Four elements, one dominant floor.
  */
-export const inbox = (slug: string, finish: Finish = "outlined"): string =>
+const inbox = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     vbar(finish, 3, 9, 10),
     vbar(finish, 21, 9, 10),
@@ -996,7 +993,7 @@ export const inbox = (slug: string, finish: Finish = "outlined"): string =>
  * filled paints the solid blocks a scanner's finders are and outlined
  * leaves them as rings. Square 18×18.
  */
-export const qrcode = (slug: string, finish: Finish = "outlined"): string =>
+const qrcode = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
     mass(finish, 4, 4, 6, 6, 1),
     mass(finish, 14, 4, 6, 6, 1),
@@ -1016,7 +1013,7 @@ export const qrcode = (slug: string, finish: Finish = "outlined"): string =>
  * rather than sitting as a camera-like inner slab; filled knocks the
  * same slot so the case cannot ship uncut. Landscape 20×18.
  */
-export const briefcase = (slug: string, finish: Finish = "outlined"): string =>
+const briefcase = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "landscape", [
     mass(finish, 3, 8, 18, 12, 2),
     finish === "filled" ? "hole rect 8,11 8x2" : hbar(finish, 3, 12, 18),
@@ -1033,7 +1030,7 @@ export const briefcase = (slug: string, finish: Finish = "outlined"): string =>
  * Δr=3 so the ink gap is exactly minGap. Recurring elements stay the
  * same across the set.
  */
-export const wifi = (slug: string, finish: Finish = "outlined"): string =>
+const wifi = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "wide", [
     ...fan(finish, 12, 14, [9, 6, 3]),
     "dot 12,19 terminal",
@@ -1049,7 +1046,7 @@ export const wifi = (slug: string, finish: Finish = "outlined"): string =>
  * drawing is analog's own without becoming a second dialect. Square
  * rather than landscape: the subject is as tall as it is wide.
  */
-export const umbrella = (slug: string, finish: Finish = "outlined"): string =>
+const umbrella = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "square", [
     ...fan(finish, 12, 12, [8]),
     vbar(finish, 12, 12, 6),
@@ -1069,10 +1066,7 @@ export const umbrella = (slug: string, finish: Finish = "outlined"): string =>
  * ridge's filled edge sits at r=2. Circle 20×20, Δr=3 so the ink
  * between ridges is exactly minGap. Four marks.
  */
-export const fingerprint = (
-  slug: string,
-  finish: Finish = "outlined"
-): string =>
+const fingerprint = (slug: string, finish: Finish = "outlined"): string =>
   iconProgram(slug, finish, "circle", [
     "arc 12,12 r9 three-quarter from left",
     "arc 12,12 r6 three-quarter from left",
@@ -1372,10 +1366,6 @@ export const ANALOG_KINS: Readonly<Record<string, AnalogFamilyId>> = {
   yacht: "sailboat",
 };
 
-/** Synonym → family token. Same table as {@link ANALOG_KINS}. */
-export const ANALOG_ALIASES: Readonly<Record<string, AnalogFamilyId>> =
-  ANALOG_KINS;
-
 /**
  * Icon-set noise, not a concept. `mail-icon` is mail; the composer strips
  * these so a new compound does not need a new kin row.
@@ -1535,71 +1525,70 @@ const isHubName = (...parts: readonly string[]): boolean => {
 };
 
 /** Names that are a pile of rims, not a tree. Whole tokens, not `data`. */
-export const STACK_HINT =
+const STACK_HINT =
   /\b(?:beaker|cylinder|database|drum|server|storage|trays?)\b/iu;
 /** Names that are a connected tree. `org-chart` hits `org`. */
 export const HUB_HINT = /\b(?:graph|hierarchy|network|org|sitemap|tree)\b/iu;
 export const TOWER_HINT = /\b(?:lighthouse|beacon|tower|minaret|obelisk)\b/iu;
-export const PEAK_HINT = /\b(?:mountain|peak|pyramid|summit)\b/iu;
-export const VOLCANO_HINT = /\b(?:volcano|eruption)\b/iu;
-export const TUBE_HINT = /\b(?:telescope|spyglass|binoculars)\b/iu;
+const PEAK_HINT = /\b(?:mountain|peak|pyramid|summit)\b/iu;
+const VOLCANO_HINT = /\b(?:volcano|eruption)\b/iu;
+const TUBE_HINT = /\b(?:telescope|spyglass|binoculars)\b/iu;
 export const PLANT_HINT = /\b(?:cactus|succulent|aloe|saguaro)\b/iu;
 export const HORN_HINT = /\b(?:unicorn|narwhal)\b/iu;
-export const MUSHROOM_HINT = /\b(?:mushroom|toadstool|fungi)\b/iu;
-export const HOURGLASS_HINT = /\b(?:hourglass|sandglass)\b/iu;
-export const SAILBOAT_HINT = /\b(?:sailboat|yacht|skiff)\b/iu;
-export const BANANA_HINT = /\b(?:bananas?|plantain)\b/iu;
-export const KIWI_HINT = /\b(?:kiwi|kiwifruit)\b/iu;
-export const STAPLER_HINT = /\b(?:staplers?|staple-gun)\b/iu;
-export const ENVELOPE_HINT = /\b(?:envelopes?|mails?|letters?|e-?mails?)\b/iu;
-export const BELL_HINT = /\b(?:bells?|notification)\b/iu;
-export const MOON_HINT = /\b(?:moons?|crescent)\b/iu;
-export const SUN_HINT = /\b(?:suns?)\b/iu;
-export const CLOUD_HINT = /\b(?:clouds?)\b/iu;
-export const HEART_HINT = /\b(?:hearts?)\b/iu;
-export const HOME_HINT = /\bhomes?\b/iu;
-export const PIN_HINT = /\b(?:pins?|map-pin|location|pushpin|marker)\b/iu;
-export const FLAG_HINT = /\b(?:flags?)\b/iu;
-export const KEY_HINT = /\b(?:keys?)\b/iu;
-export const BOOK_HINT = /\b(?:books?)\b/iu;
-export const CAMERA_HINT = /\b(?:cameras?)\b/iu;
-export const PENCIL_HINT = /\b(?:pencils?)\b/iu;
-export const SHIELD_HINT = /\b(?:shields?)\b/iu;
-export const FLASK_HINT = /\b(?:flasks?)\b/iu;
-export const LEAF_HINT = /\b(?:leaf|leaves)\b/iu;
-export const APPLE_HINT = /\b(?:apples?)\b/iu;
-export const ROCKET_HINT = /\b(?:rockets?)\b/iu;
-export const TENT_HINT = /\b(?:tents?)\b/iu;
-export const FISH_HINT = /\b(?:fish(?:es)?)\b/iu;
-export const CAR_HINT = /\b(?:cars?)\b/iu;
-export const TROPHY_HINT = /\b(?:troph(?:y|ies))\b/iu;
-export const HAMMER_HINT = /\b(?:hammers?)\b/iu;
-export const LADDER_HINT = /\b(?:ladders?)\b/iu;
-export const MAGNET_HINT = /\b(?:magnets?)\b/iu;
-export const ANCHOR_HINT = /\b(?:anchors?)\b/iu;
-export const WINE_HINT =
-  /\b(?:wines?|goblets?|wine-glass|champagne|glasses)\b/iu;
-export const FLOWER_HINT = /\b(?:flowers?)\b/iu;
-export const PLUS_HINT = /\b(?:plus)\b/iu;
-export const CLOCK_HINT = /\b(?:clocks?)\b/iu;
-export const ZAP_HINT = /\b(?:zaps?|lightning)\b/iu;
-export const PAUSE_HINT = /\b(?:pause|pauses)\b/iu;
-export const PLAY_HINT = /\b(?:play|plays)\b/iu;
-export const CHEVRON_HINT = /\b(?:chevrons?)\b/iu;
-export const ARROW_HINT = /\b(?:arrows?)\b/iu;
-export const BOOKMARK_HINT = /\b(?:bookmarks?)\b/iu;
-export const SHARE_HINT = /\b(?:shares?)\b/iu;
-export const AIRDROP_HINT = /\b(?:airdrops?)\b/iu;
-export const PAPER_PLANE_HINT = /\bpaper[- ]?planes?\b/iu;
-export const LANTERN_HINT = /\b(?:lanterns?)\b/iu;
-export const OTTER_HINT = /\b(?:otters?)\b/iu;
-export const AIRPLANE_HINT = /\b(?:airplanes?|aeroplanes?|planes?)\b/iu;
-export const INBOX_HINT = /\binbox(?:es)?\b/iu;
-export const QR_HINT = /\bqr[- ]?codes?\b/iu;
-export const BRIEFCASE_HINT = /\bbriefcases?\b/iu;
-export const WIFI_HINT = /\bwi[- ]?fi\b/iu;
-export const UMBRELLA_HINT = /\b(?:umbrellas?|parasols?)\b/iu;
-export const FINGERPRINT_HINT = /\bfinger[- ]?prints?\b/iu;
+const MUSHROOM_HINT = /\b(?:mushroom|toadstool|fungi)\b/iu;
+const HOURGLASS_HINT = /\b(?:hourglass|sandglass)\b/iu;
+const SAILBOAT_HINT = /\b(?:sailboat|yacht|skiff)\b/iu;
+const BANANA_HINT = /\b(?:bananas?|plantain)\b/iu;
+const KIWI_HINT = /\b(?:kiwi|kiwifruit)\b/iu;
+const STAPLER_HINT = /\b(?:staplers?|staple-gun)\b/iu;
+const ENVELOPE_HINT = /\b(?:envelopes?|mails?|letters?|e-?mails?)\b/iu;
+const BELL_HINT = /\b(?:bells?|notification)\b/iu;
+const MOON_HINT = /\b(?:moons?|crescent)\b/iu;
+const SUN_HINT = /\b(?:suns?)\b/iu;
+const CLOUD_HINT = /\b(?:clouds?)\b/iu;
+const HEART_HINT = /\b(?:hearts?)\b/iu;
+const HOME_HINT = /\bhomes?\b/iu;
+const PIN_HINT = /\b(?:pins?|map-pin|location|pushpin|marker)\b/iu;
+const FLAG_HINT = /\b(?:flags?)\b/iu;
+const KEY_HINT = /\b(?:keys?)\b/iu;
+const BOOK_HINT = /\b(?:books?)\b/iu;
+const CAMERA_HINT = /\b(?:cameras?)\b/iu;
+const PENCIL_HINT = /\b(?:pencils?)\b/iu;
+const SHIELD_HINT = /\b(?:shields?)\b/iu;
+const FLASK_HINT = /\b(?:flasks?)\b/iu;
+const LEAF_HINT = /\b(?:leaf|leaves)\b/iu;
+const APPLE_HINT = /\b(?:apples?)\b/iu;
+const ROCKET_HINT = /\b(?:rockets?)\b/iu;
+const TENT_HINT = /\b(?:tents?)\b/iu;
+const FISH_HINT = /\b(?:fish(?:es)?)\b/iu;
+const CAR_HINT = /\b(?:cars?)\b/iu;
+const TROPHY_HINT = /\b(?:troph(?:y|ies))\b/iu;
+const HAMMER_HINT = /\b(?:hammers?)\b/iu;
+const LADDER_HINT = /\b(?:ladders?)\b/iu;
+const MAGNET_HINT = /\b(?:magnets?)\b/iu;
+const ANCHOR_HINT = /\b(?:anchors?)\b/iu;
+const WINE_HINT = /\b(?:wines?|goblets?|wine-glass|champagne|glasses)\b/iu;
+const FLOWER_HINT = /\b(?:flowers?)\b/iu;
+const PLUS_HINT = /\b(?:plus)\b/iu;
+const CLOCK_HINT = /\b(?:clocks?)\b/iu;
+const ZAP_HINT = /\b(?:zaps?|lightning)\b/iu;
+const PAUSE_HINT = /\b(?:pause|pauses)\b/iu;
+const PLAY_HINT = /\b(?:play|plays)\b/iu;
+const CHEVRON_HINT = /\b(?:chevrons?)\b/iu;
+const ARROW_HINT = /\b(?:arrows?)\b/iu;
+const BOOKMARK_HINT = /\b(?:bookmarks?)\b/iu;
+const SHARE_HINT = /\b(?:shares?)\b/iu;
+const AIRDROP_HINT = /\b(?:airdrops?)\b/iu;
+const PAPER_PLANE_HINT = /\bpaper[- ]?planes?\b/iu;
+const LANTERN_HINT = /\b(?:lanterns?)\b/iu;
+const OTTER_HINT = /\b(?:otters?)\b/iu;
+const AIRPLANE_HINT = /\b(?:airplanes?|aeroplanes?|planes?)\b/iu;
+const INBOX_HINT = /\binbox(?:es)?\b/iu;
+const QR_HINT = /\bqr[- ]?codes?\b/iu;
+const BRIEFCASE_HINT = /\bbriefcases?\b/iu;
+const WIFI_HINT = /\bwi[- ]?fi\b/iu;
+const UMBRELLA_HINT = /\b(?:umbrellas?|parasols?)\b/iu;
+const FINGERPRINT_HINT = /\bfinger[- ]?prints?\b/iu;
 
 const FAMILY_HINTS: readonly { hint: RegExp; id: AnalogFamilyId }[] = [
   { hint: TOWER_HINT, id: "tower" },

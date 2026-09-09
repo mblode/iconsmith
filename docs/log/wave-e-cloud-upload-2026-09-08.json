@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 1,
+  "status": "development-only",
+  "sourceReceipt": {
+    "path": ".staging/wave-e-cloud-upload-2026-09-08-v2/receipt.json",
+    "sha256": "77d4311847f630f957e933357a23accebc5bba6301105b1a8ae2e54d2a99f534"
+  },
+  "evidence": {
+    "baseline": {
+      "disposition": "Retained rejected experiment baseline: exact direct source reconstruction, but its open negative arrow is weak at native 16px. Rejection is for this optical experiment, not source fidelity.",
+      "masterIdentity": {
+        "iconIdentical": true,
+        "svgIdentical": true
+      },
+      "outputs": [
+        {
+          "exactSourceReconstruction": true,
+          "files": [
+            {
+              "file": "baseline/cloud-upload-filled-16.icon",
+              "sha256": "31ebe7048f2d5098ad4775617f6d60e87361daa9cf66ce3e30cbd71d01d19357"
+            },
+            {
+              "file": "baseline/cloud-upload-filled-16.svg",
+              "sha256": "70ae4c192c867cabb3ba628d830abea5ca0af2571fefc3103b25040529a770ee"
+            },
+            {
+              "file": "baseline/cloud-upload-filled-16.light.png",
+              "sha256": "cd48b64de018b0107cdd21a2d3364003fd5f40467111234bd715654bc4989a97"
+            },
+            {
+              "file": "baseline/cloud-upload-filled-16.dark.png",
+              "sha256": "1acd7545f401420e0415891925b6c4eec64fd2c0f61fd7b5bb59e0f216af3ecd"
+            }
+          ],
+          "iconFile": "baseline/cloud-upload-filled-16.icon",
+          "master": 16,
+          "sourceFidelity": {
+            "actualTopology": [
+              {
+                "holes": 1,
+                "inkComponents": 1,
+                "threshold": 64
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 128
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 192
+              }
+            ],
+            "aggregateError": 0,
+            "expectedTopology": [
+              {
+                "holes": 1,
+                "inkComponents": 1,
+                "threshold": 64
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 128
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 192
+              }
+            ],
+            "size": 16,
+            "status": "match"
+          },
+          "svgFile": "baseline/cloud-upload-filled-16.svg"
+        },
+        {
+          "exactSourceReconstruction": true,
+          "files": [
+            {
+              "file": "baseline/cloud-upload-filled-24.icon",
+              "sha256": "31ebe7048f2d5098ad4775617f6d60e87361daa9cf66ce3e30cbd71d01d19357"
+            },
+            {
+              "file": "baseline/cloud-upload-filled-24.svg",
+              "sha256": "70ae4c192c867cabb3ba628d830abea5ca0af2571fefc3103b25040529a770ee"
+            },
+            {
+              "file": "baseline/cloud-upload-filled-24.light.png",
+              "sha256": "137e78ed461e52df5a17e346b8bbd12752e9b39b805aabe1a9cae05b7054b728"
+            },
+            {
+              "file": "baseline/cloud-upload-filled-24.dark.png",
+              "sha256": "2e1dcc67b71fbc3ef121f97f8784ae54b42755bfe3807489fc6d7b7161a4c6fa"
+            }
+          ],
+          "iconFile": "baseline/cloud-upload-filled-24.icon",
+          "master": 24,
+          "sourceFidelity": {
+            "actualTopology": [
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 64
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 128
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 192
+              }
+            ],
+            "aggregateError": 0,
+            "expectedTopology": [
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 64
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 128
+              },
+              {
+                "holes": 0,
+                "inkComponents": 1,
+                "threshold": 192
+              }
+            ],
+            "size": 24,
+            "status": "match"
+          },
+          "svgFile": "baseline/cloud-upload-filled-24.svg"
+        }
+      ],
+      "source": {
+        "file": "cloud-upload-filled.svg",
+        "sha256": "6bf20fbb200e0e690608a6eb3c0bed03562d3d802070a1841804fd707e1fd29d"
+      }
+    },
+    "board": {
+      "file": "native-4x-board.png",
+      "sha256": "03436e7f7d4a8243e7cbae8923623ddf368e326fc462abf248b4e2da31623e37"
+    },
+    "candidateLimit": {
+      "actualPerMaster": {
+        "16": 1,
+        "24": 1
+      },
+      "maximum": 1
+    },
+    "compiler": "iconsmith-constrained-21",
+    "diagnosis": {
+      "cause": "The baseline is an exact single-contour source replay with no union and the correct cloud-upload reference. Its arrow is an open negative cut reaching the lower exterior, so native-size antialiasing and opening width govern recognition; closed-hole topology is not a semantic arrow test.",
+      "excluded": [
+        "union drift",
+        "source admission mismatch",
+        "reference choice mismatch"
+      ],
+      "mechanism": "The candidate repeats the folder-lock mechanism in a second family: subtract a bounded rounded clearance region from the host before adding an admitted modifier as a separate later painted group.",
+      "modifierZoneInterpretation": "The declared modifier zone measures the nominal arrow and clearance area, but it excludes part of the filled cutter stroke expansion and Boolean-intersection antialias fringe. The 24px result records 2 and 3 differing pixels outside that box at thresholds 128 and 192. Those values are real raster evidence and prevent a claim that the outer host contour is unchanged; zero at threshold 64 only means no difference was detected outside this analysis box at that threshold."
+    },
+    "distinctMasterIdentity": {
+      "icon": true,
+      "svg": true
+    },
+    "observations": {
+      "localBoardInspection": "The 24px candidate has a clearly separated positive arrow. At 16px the arrow remains identifiable but its head crowds the cloud roof and its shaft is weak at the strict threshold. In both masters the large clearance turns the solid host into a narrow open cloud band; the 16px band is especially uneven. Retain as development evidence for operation order, not an admission or visual pass.",
+      "topology": "Ink-component and hole counts are raw 64/128/192 antialias-threshold observations. The separate positive arrow may be its own component; counts do not visually qualify it.",
+      "visualLimitations": [
+        "The 16px arrowhead nearly touches the cloud roof and the shaft falls from 24 modifier pixels at threshold 64 to 6 at threshold 192.",
+        "The rounded polygon cutter removes enough mass that both candidates read as an open band rather than the original solid-cloud silhouette.",
+        "Boolean intersection antialiasing changes up to three native pixels outside the declared modifier zone at the stricter thresholds.",
+        "The 16px raw topology reports five holes at threshold 64 and none at 128 or 192; this instability is diagnostic and is not treated as semantic counter evidence."
+      ]
+    },
+    "operationOrder": {
+      "assertion": "Each program places the admitted cloud, subtracts a closed rounded existing-DSL cutter from that host, then places the admitted arrow as a separate final group. There is no union after arrow placement.",
+      "existingDslOnly": true,
+      "paintedPathCounts": [
+        {
+          "id": "16-a-host-clearance",
+          "paintedPathCount": 2
+        },
+        {
+          "id": "24-a-host-clearance",
+          "paintedPathCount": 2
+        }
+      ]
+    },
+    "outputs": [
+      {
+        "applicationHash": "daa19074ecd68546a81a3780e878e6dc072cbb494f4b111761cb4c143238969a",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 6.5,
+            "x1": 17.5,
+            "y0": 8.5,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "clearedHostInk": 51,
+              "hostDifferenceOutsideModifierZone": 1,
+              "modifierInkPixels": 24,
+              "threshold": 64
+            },
+            {
+              "clearedHostInk": 50,
+              "hostDifferenceOutsideModifierZone": 1,
+              "modifierInkPixels": 12,
+              "threshold": 128
+            },
+            {
+              "clearedHostInk": 50,
+              "hostDifferenceOutsideModifierZone": 3,
+              "modifierInkPixels": 6,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "16-a-host-clearance.icon",
+        "iconSha256": "dbc928933f9eafa9b656e9ddedd5041e7c33005b29da23c60da5581b59ee8449",
+        "id": "16-a-host-clearance",
+        "master": 16,
+        "native": [
+          {
+            "file": "16-a-host-clearance.light.png",
+            "sha256": "426fa72b7702375114d29dde0f158457c3b9633990b0570b1af8adbc00b9c5a0",
+            "surface": "light"
+          },
+          {
+            "file": "16-a-host-clearance.dark.png",
+            "sha256": "7d3342e626e6a408505ee4da722bab87b5799afdd6aba661e7a9e7353acb40dc",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "21f24a9e32afde5979250d50d85be5f8d9fc469afd2a8eb5cc28d3f003254c20",
+        "retained": true,
+        "styleHash": "0a48196367d29878ebaa6df078d913cf3c47d82dc23b0d27af77cc7ce9e3acac",
+        "svgFile": "16-a-host-clearance.svg",
+        "svgSha256": "1e0880df5c85c169edec66acade72d31e0ca27f17d73948df12b38838e2ea895",
+        "topologyByThreshold": [
+          {
+            "holes": 5,
+            "inkComponents": 2,
+            "threshold": 64
+          },
+          {
+            "holes": 0,
+            "inkComponents": 2,
+            "threshold": 128
+          },
+          {
+            "holes": 0,
+            "inkComponents": 2,
+            "threshold": 192
+          }
+        ]
+      },
+      {
+        "applicationHash": "4d894427b8d97eff7e355ccad5e99387274d249bfb32c88713b0558dd3f693f2",
+        "compiler": "iconsmith-constrained-21",
+        "exactReplay": true,
+        "geometry": {
+          "modifierZone": {
+            "x0": 6.5,
+            "x1": 17.5,
+            "y0": 8.5,
+            "y1": 24
+          },
+          "thresholds": [
+            {
+              "clearedHostInk": 100,
+              "hostDifferenceOutsideModifierZone": 0,
+              "modifierInkPixels": 30,
+              "threshold": 64
+            },
+            {
+              "clearedHostInk": 102,
+              "hostDifferenceOutsideModifierZone": 2,
+              "modifierInkPixels": 26,
+              "threshold": 128
+            },
+            {
+              "clearedHostInk": 109,
+              "hostDifferenceOutsideModifierZone": 3,
+              "modifierInkPixels": 8,
+              "threshold": 192
+            }
+          ]
+        },
+        "iconFile": "24-a-host-clearance.icon",
+        "iconSha256": "392e2c9f6b8200b19f499b82aa01252882c561a636950e209f28ba09dfcce245",
+        "id": "24-a-host-clearance",
+        "master": 24,
+        "native": [
+          {
+            "file": "24-a-host-clearance.light.png",
+            "sha256": "4df6b4013fa04472b177eb5297a64c77c6659369e00ec61b6b4a1ceb7ee0988c",
+            "surface": "light"
+          },
+          {
+            "file": "24-a-host-clearance.dark.png",
+            "sha256": "3553186423bfd6cd9ef113dd0bbff4c547db02c3ce81e27eaf377724dfc5b4a2",
+            "surface": "dark"
+          }
+        ],
+        "packetHash": "21f24a9e32afde5979250d50d85be5f8d9fc469afd2a8eb5cc28d3f003254c20",
+        "retained": true,
+        "styleHash": "1c78ec59df6f4cad77550283316b81bf9c34525d923b988c95beebc9f13ac347",
+        "svgFile": "24-a-host-clearance.svg",
+        "svgSha256": "dad0f56bf8720ac9b2d8a6dc54546570cd8daba2b41ccb563f582257c2c057bc",
+        "topologyByThreshold": [
+          {
+            "holes": 0,
+            "inkComponents": 2,
+            "threshold": 64
+          },
+          {
+            "holes": 0,
+            "inkComponents": 2,
+            "threshold": 128
+          },
+          {
+            "holes": 0,
+            "inkComponents": 2,
+            "threshold": 192
+          }
+        ]
+      }
+    ],
+    "packet": {
+      "file": "family-packet.json",
+      "packetHash": "21f24a9e32afde5979250d50d85be5f8d9fc469afd2a8eb5cc28d3f003254c20",
+      "sha256": "7f41649af1734ed8d92c34c8f11af4c514a7f70653dfcab1bb4549d9aa6c652e"
+    },
+    "qualification": "development-only existing-DSL composition; source admission, exact replay, native pixel diagnostics and distinct master bytes do not visually qualify either master",
+    "referenceGuidance": {
+      "copiedFile": "reference-cloud-simple-upload-filled.svg",
+      "file": "cloud-simple-upload-filled.svg",
+      "note": "The house reference uses an open cloud band and a separate positive upload arrow. Its exact arrow bounds guide placement; this experiment preserves the solid cloud source and approximates the surrounding opening with a compiler-generated rounded cutter.",
+      "paintedShapeBounds": [
+        {
+          "height": 15.58419065627524,
+          "width": 22,
+          "x": 1,
+          "y": 4
+        },
+        {
+          "height": 7.999974999999997,
+          "width": 6.999949999999997,
+          "x": 8.500025000000003,
+          "y": 13.000025000000003
+        }
+      ],
+      "sha256": "1983beeaa268ad949a604a5c59dbf63c9a25e230f61f82095ff563d6736dae1f"
+    },
+    "sourceIdentities": [
+      {
+        "file": "cloud-filled.svg",
+        "sha256": "703304c7a48a2796e5997a047272af64b2777c1a62320b065a0f2737016642a7"
+      },
+      {
+        "file": "arrow-up-filled.svg",
+        "sha256": "8c43255885f37a41270e1ee0642fbd31382a65d7a2f19e9c8510779a49348492"
+      },
+      {
+        "file": "cloud-simple-upload-filled.svg",
+        "sha256": "1983beeaa268ad949a604a5c59dbf63c9a25e230f61f82095ff563d6736dae1f"
+      }
+    ],
+    "version": 2,
+    "receiptSha256": "67126d6424b5703f8eb226ff8f788e5509acbcc790b487e5731e69abbae434ad"
+  },
+  "rootInspection": "Viewed actual v2 light/dark NN4x board. Positive arrow separated at24;16 crowded; cloud band uneven. Native24 outside-zone fringe differences0/2/3 retained. No visual approval.",
+  "board": "docs/log/wave-e-cloud-upload-2026-09-08.png",
+  "qualified": false,
+  "newApiSpendUsd": 0
+}

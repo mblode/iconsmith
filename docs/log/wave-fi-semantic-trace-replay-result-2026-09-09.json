@@ -1,0 +1,112 @@
+{
+  "kind": "wave-fi-native-trace-semantic-replay-v1",
+  "recordedAt": "2026-09-08T23:31:04Z",
+  "changedVariable": "semantic parsing of previously hash-only retained native trace bytes",
+  "paidProviderCalls": 0,
+  "implementation": {
+    "sharedParser": "packages/iconsmith/scripts/local-native-trace.ts",
+    "reusedBy": [
+      "local-astra-author.validateAstraStructuredTrace",
+      "local-codex-review.validateCodexReviewEvidence",
+      "local-structured-author.replayStructuredAuthorEvidence"
+    ],
+    "semanticBindings": [
+      "one exact emitted model and session when expected",
+      "one user attachment message with exact PNG multiplicity and order",
+      "zero image attachments for sealed text",
+      "no ambient catalogs",
+      "no tool call or tool output response items",
+      "well-formed response item, message and content shapes",
+      "one unambiguous terminal assistant output_text equal to settled stdout",
+      "explicit images or sealed-text receipt evidence mode"
+    ],
+    "authorEvidenceVerified": false,
+    "authority": "structural replay only"
+  },
+  "retainedTraceCompatibility": {
+    "finding": "Retained native traces can contain developer messages and an initial text-only user message before the sole image-bearing user message. The parser therefore binds the sole image-bearing user message, rather than assuming the first user message carries attachments.",
+    "settledStdoutComparison": "The checked wave-az assistant output_text exactly matched the sole settled stdout agent_message (1025 bytes).",
+    "evidence": [
+      {
+        "file": ".staging/wave-az-interrupted-live-2026-09-08/native-control/author/01-author-self-review/adapter-trace.jsonl",
+        "sha256": "e45373c67dbabe7cffd318eedc45bc8c3c81b6bfada9c4379fa15b272a8f7c78"
+      },
+      {
+        "file": ".staging/wave-az-interrupted-live-2026-09-08/native-control/author/01-author-self-review/container-settlement.json",
+        "sha256": "357fef2bc1581f521f269d647b3a2c26335eefb00aefd13c3af56cecbeea71f4"
+      },
+      {
+        "file": ".staging/wave-h-folder-lock-live-2026-09-08/native24/result.native-runtime/attempt-1/author/00-construct/native-state/sessions/2026/09/08/rollout-2026-09-08T04-01-47-01a07f2d-deeb-75e2-bb54-4adba818d36b.jsonl",
+        "sha256": "4ec301ca542aff0478714b9923604e707212db1e1fdbec57478713d871f715ba"
+      },
+      {
+        "file": ".staging/wave-h-folder-lock-live-2026-09-08/native24/result.native-runtime/attempt-1/author/04-finalize/native-state/sessions/2026/09/08/rollout-2026-09-08T04-06-19-01a07f32-0364-7031-b812-4a630a7167ab.jsonl",
+        "sha256": "0593390dd2a340d748d652abfce0aa5d7383b2d59d6792e6a3dad341c6491f72"
+      }
+    ]
+  },
+  "sourceFiles": [
+    {
+      "file": "packages/iconsmith/scripts/local-native-trace.ts",
+      "sha256": "abeb8d61593b82d0e45093ff4207a7eb8a58f4bd0760b2374cdcb252ea813eee"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-native-trace.test.ts",
+      "sha256": "f98e014188211a5319e186d7c7ac196e290a4093183b439fca36be543cacb1c3"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-astra-author.ts",
+      "sha256": "a93900a4cdf02bf5d5c491caa61cf0e1c07a7a0aec3b8d2df12d8b9c00eb5a6f"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-astra-author.test.ts",
+      "sha256": "3a8e675bbacc2a6e292632df5fee1d86fa4c656e86d75ff99c39b73e9e3fcdd9"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-codex-review.ts",
+      "sha256": "a1b407f69ca43026115b72a0f68f509620a4285f0babc02f4196bbc121872687"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-codex-review.test.ts",
+      "sha256": "e2331c6ce3ab74377eed66fb9b418ac9855c7ad1b4dbc55b66c87e25d7c0a169"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-structured-author.ts",
+      "sha256": "246b9850b8cf66bf34c89535de8eef3b87b6b09ff5a441a088833425d9dd752f"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-structured-author.test.ts",
+      "sha256": "a1d7ff757358e542a865ae4f1a3106c8f595d2741c35b4085407600785ce5c7e"
+    }
+  ],
+  "verification": [
+    {
+      "command": "npx vitest run scripts/local-native-trace.test.ts scripts/local-astra-author.test.ts scripts/local-codex-review.test.ts scripts/local-structured-author.test.ts",
+      "result": "pass",
+      "testFiles": 4,
+      "tests": 79,
+      "log": ".staging/wave-fi-trace-replay-2026-09-09/focused-tests.log",
+      "logSha256": "8c06e01b65b4680a670a82d2802ae1015d07b1612d3f1ea95c343a55465d690e"
+    },
+    {
+      "command": "npx ultracite check scripts/local-native-trace.ts scripts/local-native-trace.test.ts scripts/local-astra-author.ts scripts/local-astra-author.test.ts scripts/local-codex-review.ts scripts/local-codex-review.test.ts scripts/local-structured-author.ts scripts/local-structured-author.test.ts",
+      "result": "pass",
+      "files": 8,
+      "log": ".staging/wave-fi-trace-replay-2026-09-09/scoped-lint.log",
+      "logSha256": "b34b27552eb499b2dfe8a42b9543b2feac47a4dbfc2a1a3a5a11fe4fe61cba11"
+    },
+    {
+      "command": "npx tsc -p tsconfig.scripts.json --pretty false",
+      "result": "pass",
+      "log": ".staging/wave-fi-trace-replay-2026-09-09/scripts-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limits": [
+    "This closes the retained trace semantic replay gap for the supported Codex JSONL shape; it does not establish production author authority.",
+    "No campaign, plan, log or ledger file was edited by this owner.",
+    "No integrated full suite or live provider request was run by this owner."
+  ],
+  "id": "D502",
+  "integratedVerification": "pending combined hardening wave"
+}

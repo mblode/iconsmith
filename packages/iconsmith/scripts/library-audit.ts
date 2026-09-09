@@ -8,7 +8,7 @@ import { parseIconSvg } from "../src/corpus/load.js";
 import { png, sheet } from "../src/tools/render.js";
 
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
-export const inspectLibraryIcon = (file: string, svg: string) => {
+const inspectLibraryIcon = (file: string, svg: string) => {
   const finish = file.endsWith("-filled.svg") ? "filled" : "outlined";
   const concept = file.replace(/(?:-filled)?\.svg$/u, "");
   const identity = { concept, file, finish, sha256: hash(svg) };

@@ -1,0 +1,144 @@
+{
+  "id": "D473",
+  "kind": "current-route-evidence-dependency-revalidation",
+  "observedAt": "2026-09-08T20:25:34.364802+00:00",
+  "historicalReceipt": "docs/log/wave-cf-authenticated-stop-p1-closure-2026-09-09.json",
+  "sourceFreeze": ".staging/wave-cd-root-integration-2026-09-09/provider-source-freeze.json",
+  "sourceFreezeSha256": "1fc649eb9ef94578473e387aa325d349e85f7d997e4801627079ab5607d1b94d",
+  "historicalFiles": 635,
+  "changedRecordedFiles": [
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.test.ts",
+      "recordedSha256": "b6ab17ce5e0db369167f131c2b6e314c70189c6a763c01567f1fc74458e0ab62",
+      "currentSha256": "7a0406809f20d52881d542255b8cb75f10d9ad0642b4e1a5045b867f1e8d42f2"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.ts",
+      "recordedSha256": "4fc19a31d9b1b50d06d314ae519dfa660f0b87e4f6a1ad2ee9433f02e1f3f9fa",
+      "currentSha256": "4417463d264282f6aadcf3d7a559bf414398808c071ebf74b9a3bdf3a6a54c55"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.test.ts",
+      "recordedSha256": "eda5b29cc26bd880cc8d89381313a88956b6351c2c352ee156ab47a745255cf1",
+      "currentSha256": "6f23ecaaf560209b3e3ccf75b88ba54c0ab6c0399e161c35902e58d8320c116e"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "recordedSha256": "cd95b17b42e8820c979dfbeeca2c8dd0311b7c896607809dc1109fc1ef548704",
+      "currentSha256": "45026208ea31d79fb3050521120c7a9e5f1ddf48f4e5fbe542f3edec82cd29f8"
+    },
+    {
+      "path": "packages/iconsmith/scripts/author-review-packet.test.ts",
+      "recordedSha256": "da2075f8c519583a8d1330f464bde1a5f98931b21e60a5a02082b626fecbdaa1",
+      "currentSha256": "18a71cb96d6e2355513c9c9bf9194f8f1acc46b4dd08f615d23a35f475ba0c0b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/author-review-packet.ts",
+      "recordedSha256": "2d5ec895cfef9e9dcfbc9c8c15e1ed636204ff9904eb5cb150aa4547da65f12c",
+      "currentSha256": "05e90ca93e18929ec220a53c5399c9ab0899867311e7aabb12bec511ca5ced54"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-evidence.test.ts",
+      "recordedSha256": "cfd6cbe083928b8e82956726b34fc141dfad94b92573ac06924653882dc24084",
+      "currentSha256": "2018922153f19cf645be21b73115742fa49151f2ce1c68c8aed2374a543d4cab"
+    },
+    {
+      "path": "packages/iconsmith/scripts/cross-master-review.test.ts",
+      "recordedSha256": "20b35dcf4b0b570474868b909aa0f17725a5e4505b62a73c9c8d26f5052cf989",
+      "currentSha256": "61e65cc3a28d3ce6e800d0c881244a7753a20d8903ed473f5d6b725304584ccc"
+    },
+    {
+      "path": "packages/iconsmith/scripts/cross-master-review.ts",
+      "recordedSha256": "c03e31e18cf36609aaf5897a68188468c643b6498bacd099bfd7f65ff7da3c72",
+      "currentSha256": "9e4d92a12b8bd6d61796526f10a24c88fd265cdf5d8eb4570bd9d956af8f660a"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.test.ts",
+      "recordedSha256": "716762a36814f0de7f327a3d4b0a792df9fedea21f1dc4b14f9fc18d4699770a",
+      "currentSha256": "94bb5c996e24eef0762d9cb431dda9bc39308d4c11eca263367f068725df82e1"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.ts",
+      "recordedSha256": "94f2cb001fdf2369bd8bedaea5e31f975e3739efcd7ce672efb2ca6c107f9708",
+      "currentSha256": "3532823d13e49318cda6dccd84b99d7fc0f885291ab8869eb8064bd312a8dc42"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-reference-packet.test.ts",
+      "recordedSha256": "275b1f5b25d77af03f4ce92f9e11eaa3f55599fe2cbdd7acfa10d9dc982db3b6",
+      "currentSha256": "5004987c8d1a13b823b90ffa1a4dbd308a3c06468acba25b325968081b929619"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.test.ts",
+      "recordedSha256": "c8cc6f6932f36f44f9aeedcd7ff66a517dbd6d304168dfb07329c1c5a2455846",
+      "currentSha256": "a0d5609d1365e24d5c67856d7f216df25704c79b0f802268f1b72ffab05bac0f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.ts",
+      "recordedSha256": "cd228c849cadddf454deab9b423e5a3fa0b5719f6c3ae1aff9061b4f220dc93a",
+      "currentSha256": "c63bd3463955e151fbfae4b7e3fa0304fbdc7bb77b7715eac01ce8b9a481aa8c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-native-call-factory.test.ts",
+      "recordedSha256": "1e7278330cbeb2b3280e09b50826c743309d032bf5731a84aace830f1a8ce620",
+      "currentSha256": "f71c90e46e16a02c8c3e007d79ccc2adc1c1c40bdf9af8ddeba2d0c00de676a8"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-native-call-factory.ts",
+      "recordedSha256": "3c13f43fc7f269e84a911588eaba99715e6a9cf53041afd3d59d2d51683f043c",
+      "currentSha256": "32bc7275b25fca9c133ea4718061584ab89b40ae638d2042b77e06b10d6bec09"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-structured-author.test.ts",
+      "recordedSha256": "26e96b2a8145c481b46cd55f6695f26ae662423eec089c7700017ada8eb5f285",
+      "currentSha256": "0e3e873095b1c8f18f7850bfc9727a7972e3189189b732c1d1dfc2e170dcd183"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-structured-author.ts",
+      "recordedSha256": "3f60986ea328565c835a2b91640930f24ba688ea61de3046bed64990aaacaa92",
+      "currentSha256": "403fa3d561e6d141d43a7af0194a010f337470517264933db2a02a3d3c60886d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.test.ts",
+      "recordedSha256": "db6f4149ce05e5f4aa4422f1633a1e77d5710367ff2ed513158a9e7525a67929",
+      "currentSha256": "9aec843c3b44bde87f9e216392b96ed5cc57e13ad6ad5edacd0c425d3c8df46b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.ts",
+      "recordedSha256": "a408201c75669c47e3958f0e3ed651a28088163127ec01296064df09a226b4f0",
+      "currentSha256": "0b67d5d30042f1460b4f8ab17fe07ff99a84f12545e7a67b0da987c142c1d0f0"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "recordedSha256": "61048b77458e6c5fdf642533e5ebcaf0e892953c3c434490a9ead867a941efaa",
+      "currentSha256": "99d1ac764c87a6edcfae005747d6ae1ad96e2d9a533e74a77ad2748ef6db5d70"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.ts",
+      "recordedSha256": "0bcc4bc572331daf0dc9713928c2861cc47c8e3e32fd1d0d9bbd8f6121733c60",
+      "currentSha256": "67424b6cea3a306d0db390ca99f6b67f6768afc4c057f5cbe945a804a09d71e9"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.test.ts",
+      "recordedSha256": "fb6de2f6b41107142eb1b07a0da4d97a6ae726d74ae774eaa9eb23048771c01d",
+      "currentSha256": "cfce85fea9e891aa56235dda9a607dd6ce8bdb8e286a19ffbcb3f890a5e3db53"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.ts",
+      "recordedSha256": "f287514431a2e1d2b59e2d1d32cc9425f992c27cb05d32f33c65fa6dd29789d9",
+      "currentSha256": "ad2cf17a51209b8fbc06f868784407951e4b29ed3368031c3e236d8864f8c5d7"
+    }
+  ],
+  "scope": "Recorded paths only; added files are not counted in this drift comparison. Changes were intentional integrated work, not mutation of historical artifacts.",
+  "reopened": [
+    "P1.5 current-route complete state machine",
+    "P1.7 current-route interrupted salvage",
+    "P1.10 current-route six-request replay",
+    "P1 exit"
+  ],
+  "preserved": "Historical D323/D333/D402/D420 observed outcomes and unchanged containment mechanism evidence remain valid under their recorded identities. No historical receipt was edited.",
+  "reason": "Collector/adapters/lifecycle and review evidence changed after the recorded live route. D471 additionally identifies missing collector authority for inspection. Current-route live closure requires a new freeze and affected demonstrations.",
+  "qualification": false,
+  "providerCalls": 0,
+  "reservationUsd": 0,
+  "ledger": "docs/log/api-budget-after-d466-2026-09-09.json"
+}

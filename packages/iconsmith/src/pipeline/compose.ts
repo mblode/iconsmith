@@ -73,7 +73,7 @@ const PART_FLOOR = 0.62;
 const MAX_PARTS = 6;
 
 /** Where a block sits, in ninths. */
-export type Cell =
+type Cell =
   | "bottom-left"
   | "bottom-right"
   | "bottom"
@@ -85,10 +85,10 @@ export type Cell =
   | "top";
 
 /** How big a block is relative to the largest one in the proposal. */
-export type SizeBand = "dominant" | "large" | "medium" | "small" | "tiny";
+type SizeBand = "dominant" | "large" | "medium" | "small" | "tiny";
 
 /** A block's silhouette, to one word. */
-export type ShapeWord = "square" | "tall" | "wide";
+type ShapeWord = "square" | "tall" | "wide";
 
 /** One thing in the proposed composition. Three words, and nothing else. */
 export interface ProposalBlock {

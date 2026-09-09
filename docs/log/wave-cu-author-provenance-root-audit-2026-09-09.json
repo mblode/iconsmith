@@ -1,0 +1,26 @@
+{
+  "id": "D448",
+  "observedAt": "2026-09-08T17:47:16.142198+00:00",
+  "status": "author-provenance-gap-confirmed",
+  "providerCalls": 0,
+  "qualified": false,
+  "verifiedExplicitFileBindings": 14,
+  "audit": {
+    "path": ".staging/wave-cu-author-journal-seam-2026-09-09/audit.json",
+    "sha256": "480110b7dadf19cde28c8be0a3735c50a5477cbdad81fc6885058496a7c4afc1"
+  },
+  "agentReceipt": {
+    "path": ".staging/wave-cu-author-journal-seam-2026-09-09/receipt.json",
+    "sha256": "26d6330b920405a9fa6e2e466b74bda4ea9d3abccdcb81a2088912182541aeb3"
+  },
+  "timestampBoundary": "Agent receipt declares a date-normalized midnight timestamp; root observedAt is the actual audit observation, not the historical execution time.",
+  "findings": [
+    "D405 selected program and SVG bytes, dispatch identity and settlements are retained.",
+    "Construct and finalize traces were checked in memory but lack collector-owned sealed emitted model/session/structured response receipts.",
+    "Self-review trace alone cannot establish contributing author lineage.",
+    "Historical provider-writable traces cannot be promoted retroactively into sealed author evidence."
+  ],
+  "nextImplementation": "Seal prospective contributing construct/repair adapter traces through existing collector boundary; derive per-slot author lineage and recursively verify resumed provenance.",
+  "productionAuthorityGranted": false,
+  "costLedger": "docs/log/api-budget-after-d445-2026-09-09.json"
+}

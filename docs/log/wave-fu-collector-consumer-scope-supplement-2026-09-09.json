@@ -1,0 +1,18 @@
+{
+  "id": "D521-supplement",
+  "reason": "Hybrid API/native collector returns an explicit v2 provenance kind; downstream foundry-gate previously accepted only native v1.",
+  "rootAdditionalFiles": [
+    "packages/iconsmith/src/eval/foundry-gate.ts",
+    "packages/iconsmith/src/eval/foundry-gate.test.ts"
+  ],
+  "constraint": "Preserve live computed qualification and separately bound production review requirements; accepting the verified v2 transport kind does not authorize a serialized receipt or qualify a score.",
+  "providerCalls": 0,
+  "qualification": false,
+  "integrationFindings": [
+    "Root must not consume the single-use capability merely to write its journal; the provenance collector is the sole verifier.",
+    "Original API bridge tests validate one mocked stage, not a complete hybrid qualification row; full-row controls are required before engineering closure.",
+    "Capabilities expire at callback exit, so ordinary sequential population collection needs a provenance-owned process-local assembly capability with incremental live verification and final byte revalidation. Nested callbacks are not an acceptable collection recipe.",
+    "The collector parent clock must not inherit the noun probe fixed two-minute original-clock constraint; bounded stages must preserve the campaign original deadline."
+  ],
+  "status": "implementation-and-focused-verification-in-progress"
+}

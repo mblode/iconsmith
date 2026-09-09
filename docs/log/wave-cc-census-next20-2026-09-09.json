@@ -1,0 +1,59 @@
+{
+  "id": "D414",
+  "recordedAt": 1788878565419,
+  "status": "20-source-bound-development-classifications-reviewed",
+  "concepts": 20,
+  "slots": 80,
+  "missingCounterparts": 0,
+  "independentNative16Masters": 0,
+  "resampled16Slots": 40,
+  "source24Slots": 40,
+  "qualification": false,
+  "providerCalls": 0,
+  "rootCorrections": [
+    {
+      "concept": "agent-network",
+      "originalRootClaim": "five nodes",
+      "corrected": "four circle nodes plus connector path; central crossing was not a fifth node",
+      "evidence": "exact source4circle/1path hashad08440e\u2026"
+    },
+    {
+      "concept": "airdrop-2",
+      "originalRootClaim": "distinct lower silhouette",
+      "corrected": "both paints byte-identical toairdrop; keepcatalogslots, semantic alias unresolved"
+    }
+  ],
+  "sourceSupport": {
+    "admission": {
+      "admitted": 76,
+      "explicitly-refused": 4
+    },
+    "reconstruction": {
+      "blocked-raster-difference": 15,
+      "verified-within-raster-threshold": 65
+    },
+    "meaning": "Source support reports current canonical admission/reconstruction diagnostics only; it is not generation or visual qualification."
+  },
+  "artifacts": [
+    {
+      "path": ".staging/wave-cc-census-next20-2026-09-09/receipt.json",
+      "sha256": "a68ba08eed10fe748ed97fe09ea86a85679d49e327f60c847bc7a2d604024a62"
+    },
+    {
+      "path": ".staging/wave-cc-census-next20-2026-09-09/proposal.json",
+      "sha256": "8c865a31fa51f5476bae981bbe08613eb05965626a59b3e96339ec820fd34e18"
+    },
+    {
+      "path": ".staging/wave-cc-census-next20-2026-09-09/reconciliation.json",
+      "sha256": "bff79f240830f2755515d8df4bf49cb8901ed34210f070643187429f8160587e"
+    },
+    {
+      "path": ".staging/wave-cc-census-next20-2026-09-09/artifact-hashes.json",
+      "sha256": "c70efc715334a8184309c8aa331f0c2b365ed3115c4f47d799c3b6eb94854013"
+    },
+    {
+      "path": ".staging/wave-cc-root-census-review-2026-09-09/observations.json",
+      "sha256": "fe823ee829ad97ca8d907fe1bd6779b26f21c37d8f5918266f249f3887406f99"
+    }
+  ]
+}

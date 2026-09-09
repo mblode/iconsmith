@@ -74,6 +74,38 @@ describe("buildReport", () => {
     expect(r.style?.reach).toBeCloseTo((0.52 - 0.4) / (0.5 - 0.4));
     expect(r.semantic?.reach).toBeCloseTo((0.21 - 0.02) / (0.2 - 0.02));
     expect(r.conformance.strict.ceiling).toBe(0.338);
+    expect(r.acceptance).toEqual({
+      contractVersion: null,
+      envelopeValid: false,
+      evidencePresent: false,
+      qualification: false,
+      reasons: ["Acceptance evidence was not supplied"],
+    });
+  });
+
+  it("validates supplied acceptance evidence in the existing report", () => {
+    const r = buildReport(
+      calibration(),
+      treatments,
+      { disqualified: 0, n: 30 },
+      passingGate,
+      {
+        contractVersion: "wrong-version",
+        expectedSlots: [],
+        gates: [],
+        outputs: [],
+        uncertainty: { method: "", resamplingCount: 0, seed: "" },
+      }
+    );
+    expect(r.acceptance).toMatchObject({
+      contractVersion: "wrong-version",
+      envelopeValid: false,
+      evidencePresent: true,
+      qualification: false,
+    });
+    expect(r.acceptance.reasons).toContain(
+      "Acceptance contract or expected-slot identity is invalid"
+    );
   });
 
   it("never puts a conformance ceiling at 1", () => {
@@ -184,6 +216,8 @@ describe("formatMetrics", () => {
     expect(text).toContain("GATE, never averaged");
     expect(text).toContain("phosphor");
     expect(text).toContain("3 disqualified");
+    expect(text).toContain("acceptance — UNQUALIFIED (no evidence)");
+    expect(text).toContain("Acceptance evidence was not supplied");
   });
 
   it("prints the reason a metric is missing instead of dropping the row", () => {

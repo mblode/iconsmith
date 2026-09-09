@@ -1,0 +1,28 @@
+{
+  "id": "D382",
+  "scope": "Root independent catalog cardinality and missing-source reconciliation",
+  "concepts": 2221,
+  "uniqueSlots": 8884,
+  "slotsPerConcept": 4,
+  "sourceFiles": 4357,
+  "sourcePresentSlots": 8714,
+  "missingSourceSlots": 170,
+  "missingPaintCounterparts": 85,
+  "reviewedMissingSourceSlots": 8,
+  "bindingsVerified": [
+    {
+      "name": "overlay",
+      "path": ".staging/wave-bl-semantic-census-overlay-2026-09-08/overlay.json",
+      "sha256": "6dd2adcdfbd2b19f174da639b3dad9ddb0dba403a1b7d15888bdf905d2c43963"
+    },
+    {
+      "name": "conceptInventory",
+      "path": ".staging/wave-az-family-semantic-dispositions-2026-09-08/concept-dispositions.json",
+      "sha256": "40366f1ef398546c79750c4dbf72c956fe4057d21a5519777d7223c00098b2f3"
+    }
+  ],
+  "inputSha256": "f661a2dc8ab8caea1264df5abe7b46538f59bd5c8757382a7a5ec8c3c3f62134",
+  "qualified": false,
+  "noGenerationCompletionClaim": true,
+  "providerCalls": 0
+}

@@ -1,0 +1,69 @@
+{
+  "experimentId": "D423",
+  "kind": "api-capability-boundary-integration",
+  "recordedAt": "2026-09-08T15:26:58.428971+00:00",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiReservationUsd": 0,
+  "sourceClosureFiles": 637,
+  "productionFiles": 556,
+  "productionToolingHash": "f470a04de3b0190b94fba678c833be198f0e349a398fc4029721ddad7365f428",
+  "patch": ".staging/wave-cb-api-capability-boundary-v3-2026-09-09/api-capability-boundary-v3.patch",
+  "patchSha256": "bd031e3ad7fdd5372f77af657cde42a616d1bb2f7a5c635e76e12ef852c473e0",
+  "packagingCorrection": ".staging/wave-cg-api-integration-2026-09-09/patch-path-correction.json",
+  "verification": {
+    "scopedTests": 14,
+    "allTests": 2346,
+    "testFiles": 175,
+    "skipped": 0,
+    "test": 0,
+    "typecheck": 0,
+    "build": 0,
+    "check": 0,
+    "diffCheck": 0,
+    "initialScopedFailure": "Patch b/b prefix created files outside canonical package; retained no-tests log, moved exact bytes to intended paths."
+  },
+  "artifacts": [
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/build.log",
+      "sha256": "639bf15d34de5972cc8dc2c4f26a3ad5bd9ea6c7a17bc09b7fcabfbad0324104"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/check.log",
+      "sha256": "57e36584e11a12446c741b6b453eec86c955b2cba48a3ebd044eb540510a8909"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/patch-path-correction.json",
+      "sha256": "b9f38fbc85bc7488ae897dfbe9ae76835408cdbc01bdfbed11a5e2194c821c35"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/production-tooling-identity.json",
+      "sha256": "b013ab9c58ebcfa2f82d1954ea763d558d1e952572fba334cc94a4ae04f1e2d4"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/scoped-v2.log",
+      "sha256": "c9e9fc987a5733963956fe033988c9d23d3253583a91f47a3a9ca427d7d9a6ea"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/scoped.log",
+      "sha256": "dbf653d17314a7f6091e607f265bbbe4a39a20e9e341496c2db3378cc9e4d382"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/test.log",
+      "sha256": "194418b880496bd861afd74f4c54d8b22e737ec5f53a62f953a6e98cda8b338f"
+    },
+    {
+      "file": ".staging/wave-cg-api-integration-2026-09-09/typecheck.log",
+      "sha256": "7e56cbd99b602a26476bec7f4e193e4d0cdc1bbe85d62bb669a6b9b026af23e2"
+    }
+  ],
+  "limitations": [
+    "Single client request capability only; not independent critic qualification.",
+    "Model identity must come from Gateway routing, SDK response model may be fallback.",
+    "Raw response and charge retained; unknown charges cannot trigger retry."
+  ]
+}

@@ -122,7 +122,7 @@ export interface NamedShape {
 /** Mean normalised point distance below which a part answers to a name. The
  *  clusterer's own default: a name should reach exactly the cluster its
  *  reference drawing would have joined, and no further. */
-export const NAME_THRESHOLD = 0.06;
+const NAME_THRESHOLD = 0.06;
 
 export const VOCABULARY: NamedShape[] = [
   {

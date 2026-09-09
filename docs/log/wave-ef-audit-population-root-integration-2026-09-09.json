@@ -1,0 +1,104 @@
+{
+  "id": "D472",
+  "kind": "independent-audit-population-root-integration",
+  "observedAt": "2026-09-08T20:22:08.388210+00:00",
+  "status": "engineering-verified-not-visually-qualified",
+  "contract": "draft-v13",
+  "tests": {
+    "passed": 2486,
+    "files": 176,
+    "skipped": 0,
+    "scopedPassed": 133
+  },
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 40393,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ef-audit-population-root-integration-2026-09-09/test.log",
+      "sha256": "7a5dbff4953cca0a41859001211d10e80d4a1095879e8874a9fb44fcf6be3af3"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1283,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ef-audit-population-root-integration-2026-09-09/typecheck.log",
+      "sha256": "d418434eacf81d88dc3daf5acd8682ec325a387de25cf7d8df319889efb97975"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 4765,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ef-audit-population-root-integration-2026-09-09/build.log",
+      "sha256": "5af06154d3146ba1b56c06a23e8c9aedf172bf0af165378a5254622198f799fd"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1387,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ef-audit-population-root-integration-2026-09-09/check.log",
+      "sha256": "920ab99b00a6ad22c5692850f2776623e0adb67bc027c79ff68294b7606427a5"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 56,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ef-audit-population-root-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceFreeze": {
+    "count": 395,
+    "beforeAfterIdentical": true,
+    "setSha256": "4866088d257398e3dc0891ca6b7df67ce5e10fcee31747182ce542718b5baf2e",
+    "directory": ".staging/wave-ef-audit-population-root-integration-2026-09-09"
+  },
+  "integrates": [
+    "DR v1 audit separation",
+    "DR v2 fail-closed malformed inputs",
+    "DZ v1 independent catalog and novel populations"
+  ],
+  "files": {
+    "packages/iconsmith/src/eval/acceptance-contract.ts": "67424b6cea3a306d0db390ca99f6b67f6768afc4c057f5cbe945a804a09d71e9",
+    "packages/iconsmith/src/eval/acceptance-contract.test.ts": "99d1ac764c87a6edcfae005747d6ae1ad96e2d9a533e74a77ad2748ef6db5d70"
+  },
+  "remaining": [
+    "Trusted terminal and recursive author inspection authority",
+    "Independent audit computed metrics and collector provenance",
+    "Construction engineering freeze",
+    "Sealed critic and visual qualification"
+  ],
+  "cost": {
+    "newProviderCalls": 0,
+    "newApiReservations": 0,
+    "ledger": "docs/log/api-budget-after-d466-2026-09-09.json",
+    "solMediumFollowupDispatchesAfterD450": 21,
+    "nativeDollarCost": "unknown",
+    "resetRedeemed": false
+  }
+}

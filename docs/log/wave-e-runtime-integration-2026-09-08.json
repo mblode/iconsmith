@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "status": "engineering-verified-visual-unqualified",
+  "runtimeReceipt": ".staging/wave-d-runtime-2026-09-08/native-call-factory-integration-receipt.json",
+  "runtimeReceiptSha256": "b8981f1347b00bc770c3bb38b1e259793d178e23d19e89df6a307d813d374716",
+  "sourceSha256": {
+    "packages/iconsmith/scripts/local-native-call-factory.ts": "a32358cc82dbe9a785223aa2315f570a121eb041801d01573298238f57781cbf",
+    "packages/iconsmith/scripts/local-native-call-factory.test.ts": "36fb77e42e5ec554efe41d15619d95205cf15fb9a20d8c8ca60e764547196789",
+    "packages/iconsmith/scripts/local-astra-author.ts": "9c9d39186a793574616010846809cbc195d4b478df82f1532a95fc5be76969be",
+    "packages/iconsmith/scripts/local-astra-author.test.ts": "62ba574c35ec67401c807f0de67f03d72ba5bdc490cafc5a3642fbc77e0da8ff",
+    "packages/iconsmith/scripts/local-claude-author.ts": "dc6293daa8c80679b57da8a2658590329d4c79ff60382e4dd3fb61be4b178020",
+    "packages/iconsmith/scripts/local-claude-author.test.ts": "8be4c91cac5ebd3be09f09954c39f581d10f7fa4daba631108721aa94703fdb7"
+  },
+  "verification": [
+    {
+      "command": "npm exec -w iconsmith -- vitest run scripts/local-native-call-factory.test.ts scripts/local-astra-author.test.ts scripts/local-claude-author.test.ts scripts/local-structured-author.test.ts scripts/native-call-boundary.test.ts",
+      "result": "5 files passed, 51 tests passed"
+    },
+    {
+      "command": "npx tsc -p packages/iconsmith/tsconfig.scripts.json --noEmit",
+      "result": "passed"
+    },
+    {
+      "command": "npx ultracite check scripts/local-native-call-factory.ts scripts/local-native-call-factory.test.ts scripts/local-astra-author.ts scripts/local-astra-author.test.ts scripts/local-claude-author.ts scripts/local-claude-author.test.ts",
+      "cwd": "packages/iconsmith",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check -- <owned files>",
+      "result": "passed"
+    }
+  ],
+  "providerCalls": 0,
+  "limits": [
+    "No provider call was made for this implementation receipt.",
+    "No local campaign or structured route composer creates this factory yet.",
+    "P1.4, P1.7, and P1.8 remain open.",
+    "A static container config without a call-scoped factory fails closed for real native invocation."
+  ]
+}

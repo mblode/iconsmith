@@ -1,0 +1,208 @@
+{
+  "id": "D508",
+  "kind": "e2e-prerequisite-docker-diagnostic-integrated-result",
+  "observedAt": "2026-09-09T00:08:35.532987+00:00",
+  "qualificationGranted": false,
+  "pipelineScoreOutOf10": null,
+  "status": "engineering-passed-qualification-blocked",
+  "tests": {
+    "workspace": 2549,
+    "workspaceFiles": 182,
+    "runner": 10,
+    "total": 2559,
+    "skipped": 0
+  },
+  "integrated": {
+    "schema": "iconsmith-verification-v1",
+    "status": "passed",
+    "startedAt": "2026-09-09T00:06:31.514Z",
+    "finishedAt": "2026-09-09T00:07:28.770Z",
+    "durationMs": 57256,
+    "repositoryRoot": "/Users/mblode/Code/mblode/iconsmith",
+    "outputDirectory": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1",
+    "lock": {
+      "path": ".staging/.verify.lock",
+      "token": "e8c6a205-4e89-4249-92d0-7e16a029712d"
+    },
+    "corpus": {
+      "available": true,
+      "missingAllowed": false,
+      "requirements": [
+        {
+          "path": "packages/iconsmith/corpus/corpus.json",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/.corpus/icons.jsonl",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2",
+          "kind": "directory"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/pull-request.svg",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/plus-large.svg",
+          "kind": "file"
+        },
+        {
+          "path": "packages/iconsmith/corpus/round-filled-radius-3-stroke-2/bell.svg",
+          "kind": "file"
+        }
+      ],
+      "missing": [],
+      "measurementsAvailable": true
+    },
+    "source": {
+      "stable": true,
+      "before": {
+        "aggregateSha256": "07fc4fb3d2049efc1d8e7418919ba5033411f19182c900257d1f1be9312a05f9",
+        "manifestPath": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/source-before.json",
+        "manifestSha256": "38d53150a1494e5d1f5fb77c0cb5f50da9710090da1da9b47a161894712d7e6d"
+      },
+      "after": {
+        "aggregateSha256": "07fc4fb3d2049efc1d8e7418919ba5033411f19182c900257d1f1be9312a05f9",
+        "manifestPath": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/source-after.json",
+        "manifestSha256": "38d53150a1494e5d1f5fb77c0cb5f50da9710090da1da9b47a161894712d7e6d"
+      }
+    },
+    "stages": [
+      {
+        "id": "test",
+        "command": [
+          "npm",
+          "run",
+          "test"
+        ],
+        "startedAt": "2026-09-09T00:06:31.657Z",
+        "finishedAt": "2026-09-09T00:07:20.077Z",
+        "durationMs": 48420,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/01-test.log",
+          "bytes": 60444,
+          "sha256": "db27d59c64a9f77170e743683a7af29059e4209d42a0e35c32b9e4e9f318d8fa"
+        }
+      },
+      {
+        "id": "typecheck",
+        "command": [
+          "npm",
+          "run",
+          "typecheck"
+        ],
+        "startedAt": "2026-09-09T00:07:20.077Z",
+        "finishedAt": "2026-09-09T00:07:21.481Z",
+        "durationMs": 1404,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/02-typecheck.log",
+          "bytes": 3197,
+          "sha256": "afc719d5dd1feadfeef6d0a3224cc4e6ae7b819346798b95a98d57d416a7e2b5"
+        }
+      },
+      {
+        "id": "build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "startedAt": "2026-09-09T00:07:21.481Z",
+        "finishedAt": "2026-09-09T00:07:26.986Z",
+        "durationMs": 5505,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/03-build.log",
+          "bytes": 4814,
+          "sha256": "7956e7c26ba2569f691824920f27f60373fa542427d8b923b913f9fea42bce5d"
+        }
+      },
+      {
+        "id": "check",
+        "command": [
+          "npm",
+          "run",
+          "check"
+        ],
+        "startedAt": "2026-09-09T00:07:26.986Z",
+        "finishedAt": "2026-09-09T00:07:28.588Z",
+        "durationMs": 1602,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/04-check.log",
+          "bytes": 4923,
+          "sha256": "eb1b2f0c7b79c36df4bc938cc56ef1d969c6e5df78bfd0957f8126104c8ad911"
+        }
+      },
+      {
+        "id": "diff",
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "startedAt": "2026-09-09T00:07:28.589Z",
+        "finishedAt": "2026-09-09T00:07:28.669Z",
+        "durationMs": 80,
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "passed": true,
+        "log": {
+          "path": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/integrated-attempt-1/05-diff.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ]
+  },
+  "sourceFileCount": 683,
+  "changes": [
+    "Docker inspect nonzero/killed result checked before parsing; preserve phase/exit/hashed stream diagnostics without raw stderr",
+    "Regression reproduces actual unavailable-daemon empty-stdout failure without claiming identity, process or absence",
+    "Root corpus canary updated; stale package test command corrected"
+  ],
+  "currentRuntime": "OrbStack running; post-recovery owned-container inventory empty; failed original receipt remains unproven",
+  "qualificationBlockers": [
+    "Parent-derived production author/acceptance authority bridge is still missing; structural replay/live slice alone does not establish it",
+    "Four-lineage critic roster remains unqualified; D376 already refused Mini v3 MCP tool use",
+    "Sealed natural-generated critic calibration and current-route80-slot novel population not available"
+  ],
+  "historyCorrection": {
+    "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/history-correction.json",
+    "sha256": "9b57a61b42205db9a61113a082062ace216e4586e6bff5e43193b15dd260eb86"
+  },
+  "failedAttempt": {
+    "intent": "D506",
+    "assessment": "D507",
+    "terminalOutcome": "failed",
+    "containment": "unproven",
+    "accounting": "unknown",
+    "acceptedAnswers": null,
+    "startedReceiptPresent": false,
+    "automaticRetry": false
+  },
+  "cost": {
+    "apiIncrementUsd": 0,
+    "apiReservationUsd": 0,
+    "nativeAllocationUsd": null,
+    "resetRedeemed": false
+  },
+  "primaryChecklistPromotions": 0
+}

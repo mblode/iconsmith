@@ -1,0 +1,110 @@
+{
+  "id": "D507",
+  "kind": "e2e-score-qualification-assessment",
+  "observedAt": "2026-09-09T00:05:17.710560+00:00",
+  "status": "not-qualified",
+  "pipelineScoreOutOf10": null,
+  "craftMedianOutOf10": null,
+  "qualificationGranted": false,
+  "reason": "The contract defines population craft medians and conjunctive qualification gates, not a weighted pipeline score. No eligible current-route population has passed the required critic, author, route and evidence gates.",
+  "authoritativePlan": "docs/plans/generation-quality-10.md",
+  "contract": "draft-v17",
+  "sourceBaseline": {
+    "receipt": "D505",
+    "fileCount": 683,
+    "aggregateSha256": "76d8ea8612b8ab146b4f5bafd0d077121c64b9379031351afde126ec08914060",
+    "freshPreAttemptMatch": true
+  },
+  "rubric": {
+    "outputCraft": "median independent ratings",
+    "populationCraft": "median across output craft ratings; preserve every requested slot and report missing coverage",
+    "smallestNovelBatch": {
+      "families": 20,
+      "requestedSlots": 80,
+      "sizes": [
+        16,
+        24
+      ],
+      "paints": [
+        "outlined",
+        "filled"
+      ]
+    },
+    "criticPrerequisite": {
+      "sealedStimuliMinimum": 100,
+      "naturalGeneratedMinimum": 80,
+      "confirmedCriticalGeneratedMinimum": 20,
+      "predictedGeneratedApprovalMinimum": 20,
+      "independentEvaluationLineages": 3,
+      "excludeProducerLineages": true,
+      "precisionMinimum": 0.95,
+      "criticalRecallMinimum": 0.9,
+      "decisionCoverageMinimum": 0.8
+    },
+    "fullQualification": "Every plan section3 gate, both novel batches, catalog/audit, repair, delivery, geometry and qualified review; one craft median alone is insufficient."
+  },
+  "blockingEvidence": [
+    "Production author authority remains unverified after structural/semantic replay",
+    "Current route explicitly rejects qualification claims",
+    "No frozen eligible four-lineage critic/panel roster and sealed natural-generated calibration",
+    "No qualifying current-route native16/24 both-paint population"
+  ],
+  "developmentScoresExcluded": [
+    "D492 single-reviewer raster crop diagnostic",
+    "D486 model-unverified raster diagnostic",
+    "A157 exposed-anchor reconstruction"
+  ],
+  "attempt": {
+    "intent": "D506",
+    "status": "failed-context-preflight",
+    "acceptedAnswers": null,
+    "acceptedModel": null,
+    "startedReceiptPresent": false,
+    "nativeTerminalOutcome": "failed",
+    "nativeAccounting": "unknown",
+    "nativeContainment": "unproven",
+    "providerInferenceConfirmed": false,
+    "cause": "Docker daemon unavailable; empty failed inspect output was parsed as JSON, masking the daemon error",
+    "recovery": "OrbStack started; subsequent owned-container inventory succeeded and was empty. Does not replace the original failed settlement.",
+    "automaticRetry": false,
+    "stopLatched": true
+  },
+  "nextPlanDependency": "Close P1 current-route authority/live evidence and P3 independent critic qualification before sealing a novel80-slot population. Mini v3 capability remains untested by an actual model response.",
+  "cost": {
+    "newApiReservationUsd": 0,
+    "newApiActualUsd": 0,
+    "nativeSubscriptionAllocationUsd": null,
+    "unresolvedNativeAttempts": 1,
+    "resetRedeemed": false
+  },
+  "evidence": [
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/intent.json",
+      "sha256": "b9f02bfcee352b98f44f19b9828838b4a45ffab15d3d09b32d45839b7c302a57"
+    },
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/runtime-preflight.json",
+      "sha256": "38e89b5d7585c6c49f243e3569bb6e3170b76f4780ce0bd962a532dc4d8d08cf"
+    },
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/execution.log",
+      "sha256": "029081c19e8d9360ac6c59a1ac15f6f66360911128af6ce3966c45c2462f548a"
+    },
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/failure-diagnostic.json",
+      "sha256": "ce19e99e64cc0571b3fe5225ecc357e8aba4425e78438cb9d4d27204088da446"
+    },
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/root-failure-settlement.json",
+      "sha256": "5a0070c60f677641764a8d4c7e04171a089cbf6d3a04f89d2de324c4e3b2ec34"
+    },
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/root-failure-settlement-v2.json",
+      "sha256": "77fd98176f8e59dc3f0291b19f23a0d0c334a3882bbde618095979d700d5dc2a"
+    },
+    {
+      "file": ".staging/wave-fl-e2e-qualification-preflight-2026-09-09/post-recovery-owned-containers.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

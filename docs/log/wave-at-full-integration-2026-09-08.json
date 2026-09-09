@@ -1,0 +1,72 @@
+{
+  "id": "D310",
+  "status": "engineering-checks-passed-known-geometry-gap",
+  "testCount": 2204,
+  "testFiles": 170,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 31510,
+      "log": ".staging/wave-at-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1479,
+      "log": ".staging/wave-at-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5826,
+      "log": ".staging/wave-at-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1431,
+      "log": ".staging/wave-at-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 45,
+      "log": ".staging/wave-at-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceFreeze": ".staging/wave-at-integration-2026-09-08/source-after.json",
+  "sourceFreezeSha256": "e898a1829398267cdcb9143f2e50d48420d82c54683b434445a93a2e0dd6801b",
+  "providerCalls": 0,
+  "nativeCallsCumulative": 47,
+  "apiIncrementUsd": 0,
+  "qualified": false,
+  "providerDispatch": "paused pending admitted-assembly knockout renderer correction and complete source regression"
+}

@@ -78,7 +78,7 @@ export const BENCH_SCHEMA_VERSION = 2;
  * the population is now 73% multi-mark. No reweighting knob is needed; the
  * axis was the bug.
  */
-export type ElementBand = "1-2" | "3-4" | "5+";
+type ElementBand = "1-2" | "3-4" | "5+";
 
 /**
  * Which of the three roles an entry plays. See the header.
@@ -94,20 +94,20 @@ export const SPLITS: readonly Split[] = ["feedback", "selection", "sealed"];
 /** Tag richness. 25 blode icons carry no tags, 695 carry 1–3, 1,501 carry 4+.
  *  Tags are most of what the model is told, so a tagless icon is a different
  *  task, not a harder instance of the same one. */
-export type TagBand = "0" | "1-3" | "4+";
+type TagBand = "0" | "1-3" | "4+";
 /** Whether the slug has swap-compatible siblings. 1,026 cohort labels cover
  *  the set; 692 are singletons and 334 labels cover the remaining 1,529 icons.
  *  A cohort member has a house-standard skeleton to inherit and a singleton
  *  does not, which is a difficulty axis and also decides how much the concept
  *  closure removes. */
-export type CohortStatus = "family" | "singleton";
-export type ConceptStatus = "blessed" | "none";
+type CohortStatus = "family" | "singleton";
+type ConceptStatus = "blessed" | "none";
 /** `Conformance` restated rather than imported: `tools/keyline.ts` owns the
  *  measurement, and this is a committed file's field, which must not change
  *  meaning because a lower layer widened a union. */
-export type KeylineBand = "near" | "off" | "on";
+type KeylineBand = "near" | "off" | "on";
 
-export interface Strata {
+interface Strata {
   category: string;
   cohort: CohortStatus;
   concept: ConceptStatus;

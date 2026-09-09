@@ -1,0 +1,40 @@
+{
+  "id": "D309",
+  "status": "implemented-scoped-verified-full-check-pending",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 47,
+  "changes": [
+    "AL16 author native evidence uncertainties reach independent review, then focused bounded clarification without redraw; a failed clarification replaces earlier approval. Initial review receives no author focus.",
+    "Non-review-clear generator terminals are incomplete and preserve original author status/provenance. Compiler feedback identifies actual failing paint.",
+    "Canonical campaign --family-packets requires complete20-concept packet coverage, binds one exact packet to both masters and launch identity, caps fixed-route calls at10, refuses missing/tampered/symlink/wrong-concept inputs and in-flight mutation. Automatic route remains explicit default."
+  ],
+  "validation": {
+    "uncertaintyTests": 77,
+    "uncertaintyFiles": 3,
+    "campaignTests": 47,
+    "campaignFiles": 1,
+    "skipped": 0,
+    "initialCampaignTestFailure": "Test used state/unstarted instead of actual ledger status/pending; corrected schema assertion; implementation refusal already passed.",
+    "initialLintInvocationFailure": "Wrong config filename; corrected to oxlint.config.ts; scoped fixes applied."
+  },
+  "files": {
+    "local-astra-author.ts": "cd228c849cadddf454deab9b423e5a3fa0b5719f6c3ae1aff9061b4f220dc93a",
+    "local-astra-author.test.ts": "ac93057b264e4c6615a671117e6bdb94382a9688dcfb5279637ba06e10ca55b3",
+    "local-structured-author.ts": "476b50c56ea9790738f17afaf930bf1e1d409e33e794960b8c5803062dcfdd5d",
+    "local-structured-author.test.ts": "237ca4ba4d7af2d686cbfd3cd5f706239836461e1b8080f46f50b2e1c3cf6cef",
+    "local-style-run.ts": "110d59342f33829cdc0b8312dfbc431b00ee078eebe9f5fc06d9d1409faa7f4f",
+    "local-style-run.test.ts": "aa380e1504d79e61d6db735243e0ef3dfbaa3034833e0aba953bba15d5c5f556",
+    "local-generate.ts": "d06cb1dac594d0d277ebba36f1a3846312e6e5e56891900108f1e0b3cacefc9e",
+    "local-campaign.ts": "233de1436310efadb57ef9f3658720d6dd48d97bca146ebf1d498fa54f7efd01",
+    "local-campaign.test.ts": "6f7acce648b44e0bee0e1c5ce4ba78c7c2673f691b4495499e9c9a58ac02dcf1"
+  },
+  "preparedPackets": ".staging/wave-as-shared-packet-preparation-2026-09-08/receipt.json",
+  "preparationLimits": "20packets inventory-verified offline; only folder-lock selected for two-request slice. Other18 remain unexecuted reference-only development preparation and are not route-selection evidence.",
+  "remaining": [
+    "Actual fixed-packet live slice",
+    "Painted-bounds renderer consistency",
+    "Live interrupted salvage",
+    "Qualified independent critic"
+  ]
+}

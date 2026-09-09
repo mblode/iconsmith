@@ -1,0 +1,53 @@
+{
+  "id": "D308",
+  "status": "implemented-scoped-verified",
+  "patches": [
+    {
+      "patch": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ao-codex-trace-collector-2026-09-08/wave-ao-codex-trace-collector.patch",
+      "sha256": "d7a650320b2f357c9a8a88d7739ac4a2ff42171b0c812670d453f423c44c7ab7",
+      "resultHashes": {
+        "packages/iconsmith/scripts/local-container-process.ts": "bba7cab9718db56aa41bdac5812fa0d6a0e2b73d95209e56efd406c36bb6d9d9",
+        "packages/iconsmith/scripts/local-container-process.test.ts": "97bd5afb9f06c4f9a7082d007d2a33936c67aca1c3796a2b0b3e324654584cfc",
+        "packages/iconsmith/scripts/local-native-call-factory.ts": "75f04b26e99b75bff9da06ca6a04793ed5a2e87472c72d6e93579001702d169e",
+        "packages/iconsmith/scripts/local-native-call-factory.test.ts": "d8ffcf4609b5015fd694490aec6024b2b30757e4ae77be888196a92b37898f9a",
+        "packages/iconsmith/scripts/local-codex-review.ts": "d256681d38344edbc1331dc4993d2ceae19d75f8963309cd90f761f9e625f0c0",
+        "packages/iconsmith/scripts/local-codex-review.test.ts": "084f0ef37d80249cc24e33a88f580383bdc0a47d20b0f03dcdd1c6634b295ac7",
+        "packages/iconsmith/scripts/ai-qualification-provenance.ts": "0536a9bcbbb56701dae52e95747f39b916701699276e057208459ec651def8ab",
+        "packages/iconsmith/scripts/ai-qualification-provenance.test.ts": "c34be0930ba5cdd86a933977fd95b05c3329a6558aa857789b84c635e0951c5d"
+      }
+    },
+    {
+      "patch": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-am-cross-master-layout-evidence-2026-09-08/cross-master-review.patch",
+      "sha256": "283bd590dc3a113b7e6d97fc24be83db4a820efc417e6c4738a66dc350215d01",
+      "resultHashes": {
+        "packages/iconsmith/scripts/cross-master-review.ts": "c03e31e18cf36609aaf5897a68188468c643b6498bacd099bfd7f65ff7da3c72",
+        "packages/iconsmith/scripts/cross-master-review.test.ts": "20b35dcf4b0b570474868b909aa0f17725a5e4505b62a73c9c8d26f5052cf989"
+      }
+    }
+  ],
+  "validation": {
+    "tests": 61,
+    "files": 4,
+    "skipped": 0,
+    "fullIntegration": "pending combined wave"
+  },
+  "behavior": [
+    "Collector fsync-seals validated exact Codex trace; zero-attachment sealed-text supported; private PID mode and order-independent mount multiplicity enforced.",
+    "Cross-master unknown modifier evidence or any reported issue prevents complete; explicit no-modifier declaration is hash-bound."
+  ],
+  "correction": {
+    "artifactSvgHash": "f4acfa8fb00b6de035c83f871e5571b104c8c721432e0aed84572cbdd27e6320",
+    "rawSvgByteHash": "62cc5948aed563f8745804733835614308d18b828c277ebb6ff5a00c0d380445",
+    "explanation": "Different valid hash domains: canonical JSON string versus raw SVG bytes. No stale artifact hash defect.",
+    "agentAppendOnlyCorrection": ".staging/wave-am-cross-master-layout-evidence-2026-09-08/al-diagnosis-correction.json"
+  },
+  "providerCalls": 0,
+  "nativeCallsCumulative": 47,
+  "apiIncrementUsd": 0,
+  "productionEligible": false,
+  "open": [
+    "Canonical collector stage journal and live replay",
+    "Source-bound modifier masks and independent cross-master review",
+    "Runtime uncertainty and lint corrections"
+  ]
+}

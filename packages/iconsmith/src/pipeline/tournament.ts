@@ -51,7 +51,7 @@ import type { StyleSelection } from "./style.js";
  * `AUDIT_MODEL` through the 90% sanity gate it has never taken, then re-derive
  * this from the measured distribution and write it to `bench/` like the rest.
  */
-export const TOURNAMENT_MINIMUM = 8;
+const TOURNAMENT_MINIMUM = 8;
 
 /**
  * Look at a paint the structural gate has already refused.
@@ -78,7 +78,7 @@ const auditVetoed = process.env.ICONSMITH_AUDIT_VETOED === "1";
  * `index` and `total` are what let a reader place themselves: "arm 3 of 8" is
  * a position, where a spinner is only a promise that something is happening.
  */
-export interface TournamentProgress {
+interface TournamentProgress {
   /** Present on `settled`. */
   readonly accepted?: boolean;
   readonly candidateId: string;
@@ -100,7 +100,7 @@ export interface TournamentProgress {
   readonly total: number;
 }
 
-export type TournamentProgressListener = (event: TournamentProgress) => void;
+type TournamentProgressListener = (event: TournamentProgress) => void;
 
 export interface PairCandidate {
   /** Stable machine id recorded in the Studio transcript. */
@@ -148,9 +148,9 @@ const rankSchema = z.object({
 
 /** Ranking ten already-rendered rows is a coarse selection task. The stronger
  * audit model still independently accepts or rejects both winner paints. */
-export const PAIR_RANK_MODEL = "google/gemini-3.1-flash-lite";
+const PAIR_RANK_MODEL = "google/gemini-3.1-flash-lite";
 
-export const gatewayPairRankAsk: PairRankAsk = async ({
+const gatewayPairRankAsk: PairRankAsk = async ({
   abortSignal,
   concept,
   ids,
@@ -284,7 +284,7 @@ export const rankPairCandidates = async ({
   }
 };
 
-export interface TournamentPaint {
+interface TournamentPaint {
   /** Explicit revision acceptance does not use part count as provenance. */
   styleEligible?: boolean;
   accepted: boolean;
@@ -307,7 +307,7 @@ export interface TournamentPaint {
   selfReview: AuditResult | null;
 }
 
-export interface TournamentRun {
+interface TournamentRun {
   /** Checks on the two delivered paints together, under the selected spec. */
   pairIssues?: Issue[];
   /** All original generation and review bills, including replaced twins. */

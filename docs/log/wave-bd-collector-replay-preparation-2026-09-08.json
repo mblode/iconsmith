@@ -1,0 +1,16 @@
+{
+  "id": "D331",
+  "kind": "collector-replay-preparation-audit",
+  "receipt": {
+    "path": ".staging/wave-bd-collector-v3-replay-prep-2026-09-08/receipt.json",
+    "sha256": "da86b4de1cef57d0e94616bd1dd84734918534d6f22660aa1f4c573f71fb0d90"
+  },
+  "artifactHashesVerified": 3,
+  "providerCalls": 0,
+  "executionSelected": false,
+  "reason": "Prepared exact3-call replay validates collector configuration but not same-container denied reads; design remains incomplete for closing runtime access. Retained exposed packet cannot be sealed qualification data.",
+  "next": "Design actual same-container access probe and regenerate calibration presentation where needed.",
+  "nativeCallsBeforeActiveD330": 64,
+  "activeWave": "D330; reconcile after settlement",
+  "apiIncrement": 0
+}

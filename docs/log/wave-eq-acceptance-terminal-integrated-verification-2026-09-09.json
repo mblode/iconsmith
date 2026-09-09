@@ -1,0 +1,91 @@
+{
+  "id": "D480",
+  "kind": "acceptance-terminal-integrated-verification",
+  "observedAt": "2026-09-08T20:53:43.338948+00:00",
+  "tests": {
+    "passed": 2510,
+    "files": 176,
+    "skipped": 0
+  },
+  "verification": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 44363,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/test.log",
+      "sha256": "519d75518e419fe5ba717bac06979fca04b149a57dff3f86fd9f45ebdc8dc2b8"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1415,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/typecheck.log",
+      "sha256": "5ab6ae359b2687f051e444c63125594891284f71c3e579059e1a06e322cc6d93"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 4684,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/build.log",
+      "sha256": "31d537e9093fd641d8892a3e8519516f1b24559aac639c0ee7a2f6c2aa3cabe2"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1438,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/check.log",
+      "sha256": "24d3b137ccf9076758eb2cac2e17e2571c12321327723a5740393d2221a655c4"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 55,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceFreeze": {
+    "files": 395,
+    "setSha256": "6ce2753461094dd89ec0fba7446a9aed9452ecd47260dc84977319af02808e94",
+    "unchanged": true,
+    "before": ".staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/source-freeze-before.json",
+    "after": ".staging/wave-eq-acceptance-terminal-integrated-verification-2026-09-09/source-freeze-after.json"
+  },
+  "integrated": [
+    "D476 draft-v15 independent metrics",
+    "D478 terminal evidence v2"
+  ],
+  "qualified": false,
+  "compiler": "24",
+  "providerCalls": 0,
+  "reservationUsd": 0,
+  "ledger": "docs/log/api-budget-after-d466-2026-09-09.json",
+  "nativeWeeklyUsedPercent": 94,
+  "solMediumFollowupsAfterD450": 26,
+  "nativeDollarCost": "unknown"
+}

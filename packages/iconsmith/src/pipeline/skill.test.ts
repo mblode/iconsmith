@@ -34,7 +34,9 @@ import { describe, expect, it } from "vitest";
 import { SPEC } from "../tools/canvas.js";
 import { run, TURNS } from "../tools/dsl.js";
 import { lint } from "../tools/lint.js";
-import { packagedSkillText, skillPath } from "./harness.js";
+import { harnessBrief, packagedSkillText, skillPath } from "./harness.js";
+import { conceptPrompt, systemPrompt } from "./prompt.js";
+import { createTools } from "./tools.js";
 
 const SKILL = readFileSync(skillPath(), "utf-8");
 
@@ -196,5 +198,70 @@ describe("SKILL.md's frontmatter is a skill's frontmatter", () => {
     const front = match?.groups?.body ?? "";
     expect(front).toMatch(/^name: [a-z][a-z0-9-]*$/mu);
     expect(front).toMatch(/^description: \S/mu);
+  });
+});
+
+describe("active author instructions match current construction capabilities", () => {
+  it("does not restore obsolete paint or grid restrictions in bundled or generated instructions", () => {
+    const briefs = [
+      SKILL,
+      packagedSkillText,
+      systemPrompt(),
+      systemPrompt({ finish: "filled" }),
+      conceptPrompt({ name: "folder-lock" }, "filled", {
+        allowHouseConstruction: false,
+      }),
+      harnessBrief(
+        { name: "folder-lock" },
+        {
+          file: "/tmp/example.icon",
+          finish: "filled",
+          hints: [],
+          keyline: null,
+          parts: null,
+          skill: skillPath(),
+        }
+      ),
+    ];
+    for (const brief of briefs) {
+      expect(brief).not.toMatch(
+        /line` is (?:illegal|not available|not a tool)/u
+      );
+      expect(brief).not.toMatch(/every (?:node|coordinate) (?:to|lands on)/u);
+      expect(brief).not.toContain("Filled is the outline expanded");
+      expect(brief).not.toContain("outlined paint refuse `solid`");
+    }
+    expect(packagedSkillText).toContain(
+      "Compiler correction and named visual repair have separate bounded allowances"
+    );
+    expect(packagedSkillText).toContain(
+      "independent AI review determines acceptance"
+    );
+    expect(systemPrompt()).toContain("explicit solid modifiers");
+    expect(systemPrompt()).toContain(
+      "Preserve host curves, Boolean intersections and stroke envelopes"
+    );
+  });
+
+  it("offers the filled line tool its prompt promises and compiles an open stroke", async () => {
+    const { tools, canvas } = createTools({ finish: "filled" });
+    expect(tools.line).toBeDefined();
+    if (!tools.line.execute) {
+      throw new Error("Filled line executor is absent");
+    }
+    await tools.line.execute(
+      {
+        points: [
+          [6, 12],
+          [18, 12],
+        ],
+      },
+      { messages: [], toolCallId: "filled-line-contract" }
+    );
+    expect(canvas.elements).toHaveLength(1);
+    expect(run("finish filled\nline 6,12 18,12").errors).toEqual([]);
+    expect(
+      run("finish outlined\nline 7,6 17,12 7,18 7,6 r0 solid off-axis").errors
+    ).toEqual([]);
   });
 });

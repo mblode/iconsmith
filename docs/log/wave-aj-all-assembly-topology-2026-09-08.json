@@ -1,0 +1,21 @@
+{
+  "schema": "iconsmith.root-source-topology-review.v1",
+  "decision": "development-evidence-only",
+  "receipt": ".staging/wave-af-assembly-only-topology-audit-2026-09-08/receipt.json",
+  "receiptSha256": "d7643d90de6e0466d23e249d375cf718c8cc9b4045493962fd838c757ea5328d",
+  "manifestSha256": "33f5732b0db1806edfa4393691bf372f4a8b3789b0d94af7288dce4a6177c862",
+  "artifactsVerified": 890,
+  "sources": 40,
+  "nativeCases": 80,
+  "topologyConsistent": 68,
+  "antialiasUncertain": 12,
+  "uncertainSources": 10,
+  "qualified": false,
+  "limits": [
+    "Persistent XOR rule is uncalibrated; zero cases satisfying it does not establish zero critical defects.",
+    "Same source compiled at both raster sizes does not establish independent optical masters."
+  ],
+  "rootImageInspection": "audible-detail.png viewed; sparse edge discrepancies and central feature retained; no independent craft qualification",
+  "providerCalls": 0,
+  "apiCost": 0
+}

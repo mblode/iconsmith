@@ -1,0 +1,17 @@
+{
+  "id": "D517-supplement",
+  "providerCalls": 0,
+  "reason": "Recursive campaign replay must consume the same interruption trigger as child settlement",
+  "evaluationAdditionalFiles": [
+    "local-structured-author.ts",
+    "local-structured-author.test.ts"
+  ],
+  "rootAdditionalFile": "local-style-run.test.ts (typed injected fixture only)",
+  "rootStyleFixtureValidation": {
+    "tests": 39,
+    "passed": true,
+    "log": ".staging/wave-fq-style-fixture-tests.log"
+  },
+  "planIdentityCorrection": "Required canonical planFile in static plan closes copied-plan issuance bypass without circular hash",
+  "aiOnlyWordingCorrection": ".staging/wave-fo-folder-lock24-key-clearance-2026-09-09/receipt.md#wording-correction"
+}

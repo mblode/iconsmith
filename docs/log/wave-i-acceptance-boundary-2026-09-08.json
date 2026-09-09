@@ -1,0 +1,53 @@
+{
+  "schema": "iconsmith-evaluation-wave-i-receipt-v1",
+  "createdAt": "2026-09-08T13:44:30+10:00",
+  "scope": "fail-closed acceptance evidence boundary",
+  "files": {
+    "packages/iconsmith/src/eval/acceptance-contract.ts": {
+      "sha256": "ac14c366fcfcbd07070b220d499c5a54497a6db955b16e844ee9397f2832a7d8"
+    },
+    "packages/iconsmith/src/eval/acceptance-contract.test.ts": {
+      "sha256": "45207101903f61c1c0fbf3375d73a4eefa44596630ebbf824aacb3183c803b4a"
+    }
+  },
+  "catalogCensus": {
+    "source": "docs/log/quality-catalog-campaign-manifest-2026-09-07.json",
+    "use": "slot identity census only",
+    "concepts": 2221,
+    "slots": 8884,
+    "canonicalSlotCensusSha256": "34565504c59e0c69f6a05ce6e8357055f121fc83c49e80a4d41d17c2c44e473a"
+  },
+  "checks": [
+    {
+      "command": "npx vitest run src/eval/acceptance-contract.test.ts",
+      "cwd": "packages/iconsmith",
+      "result": "41 passed"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "cwd": "packages/iconsmith",
+      "result": "passed"
+    },
+    {
+      "command": "npx ultracite check src/eval/acceptance-contract.ts src/eval/acceptance-contract.test.ts",
+      "cwd": "packages/iconsmith",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check -- packages/iconsmith/src/eval/acceptance-contract.ts packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "cwd": ".",
+      "result": "passed"
+    }
+  ],
+  "limitations": [
+    "critic, repair, and generalization gates remain unsupported and explicitly invalidate the envelope until canonical computed sealed receipts are represented",
+    "catalog census binding does not reuse the older campaign runtime or deadline assumptions",
+    "contract calibration remains proposed-unvalidated and qualification remains false"
+  ],
+  "providerCalls": 0,
+  "originalReceipt": {
+    "path": ".staging/wave-i-evaluation-2026-09-08/receipt.json",
+    "sha256": "011d28d05e5f723c6c9bacb65a3063b5db6e76bff7b49f0e57d1a13b5390ea9e"
+  },
+  "integratedReceipt": "docs/log/wave-h-integration-2026-09-08.json"
+}

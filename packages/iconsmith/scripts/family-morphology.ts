@@ -47,7 +47,7 @@ export const classifyFamily = (
   return "symbolic";
 };
 
-export interface SourceMorphology {
+interface SourceMorphology {
   paintedAspect: "landscape" | "portrait" | "square";
   closedContours: number;
   finish: FamilySource["finish"];

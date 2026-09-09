@@ -130,7 +130,7 @@ const cleanRate = (s: readonly IconScore[]): number =>
  * makes the same split: `keep | discard | crash`, with crashes counted as
  * failures rather than scored.
  */
-export type Status = "crash" | "discard" | "keep";
+type Status = "crash" | "discard" | "keep";
 
 export interface Verdict {
   accepted: boolean;
@@ -151,7 +151,7 @@ export interface Verdict {
  * it is exactly the win an optimiser finds first. The rule below treats a
  * missing panel as a reason to refuse, never as a pass.
  */
-export interface StructuralArms {
+interface StructuralArms {
   champion: StructuralReport;
   variant: StructuralReport;
 }
@@ -333,7 +333,7 @@ const NULL_SHA = "0".repeat(40);
 const bullets = (paths: readonly string[]): string =>
   paths.map((p) => `  ${p}`).join("\n");
 
-export class RatchetError extends Error {
+class RatchetError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "RatchetError";

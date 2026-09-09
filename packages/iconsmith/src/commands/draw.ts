@@ -65,12 +65,14 @@ export const registerDrawCommand = (program: Command): void => {
         });
 
         const body = opts.doc ? JSON.stringify(doc, null, 2) : svg;
+        if (opts.out) {
+          writeFileSync(opts.out, `${body}\n`);
+        }
         if (json) {
           process.stdout.write(
             `${JSON.stringify({ doc, errors: result.errors, issues, svg })}\n`
           );
         } else if (opts.out) {
-          writeFileSync(opts.out, `${body}\n`);
           process.stderr.write(`wrote ${opts.out}\n`);
           if (issues.length > 0) {
             process.stderr.write(`${format(issues)}\n`);

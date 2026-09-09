@@ -1,0 +1,48 @@
+{
+  "id": "D321",
+  "purpose": "Separate controlled finalized-author interruption diagnostic",
+  "intent": {
+    "kind": "astra-contained-finalization-interruption-root-intent",
+    "schemaVersion": 2,
+    "execute": true,
+    "createdAt": 1788860638150,
+    "deadlineAt": 1788861838150,
+    "maxWallMs": 1200000,
+    "maxCalls": 10,
+    "out": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-az-interrupted-live-2026-09-08",
+    "parentControl": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-az-interrupted-live-2026-09-08.parent-control",
+    "preparationFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-aw-interrupted-preparation-2026-09-08/preparation.json",
+    "preparationSha256": "d9552514a7fa8edede038ae36334a7caebb918b8a70e01b94dfeff17b4c1cb0e",
+    "requestId": "714c57fa91ea22c770607327016adf263a47196a16d5645b5538e3412eab19c4"
+  },
+  "intentSha256": "9edcfb7277ac6130dda55a17fd5acb0c7362521636cb6566f92ef5f0a23a3e78",
+  "command": [
+    "node",
+    "--import",
+    "tsx",
+    ".staging/wave-at-interrupted-salvage-runner-v2-2026-09-08/run.mts",
+    "execute",
+    "--preparation",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-aw-interrupted-preparation-2026-09-08/preparation.json",
+    "--preparation-sha256",
+    "d9552514a7fa8edede038ae36334a7caebb918b8a70e01b94dfeff17b4c1cb0e",
+    "--intent",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-az-interruption-dispatch-2026-09-08/intent.json",
+    "--intent-sha256",
+    "9edcfb7277ac6130dda55a17fd5acb0c7362521636cb6566f92ef5f0a23a3e78",
+    "--execute"
+  ],
+  "maxNativeCalls": 10,
+  "apiReservationUsd": 0,
+  "nativeDollarCost": "unknown",
+  "quotaObservation": {
+    "usedPercent": 46,
+    "remainingPercent": 54,
+    "windowDurationMins": 10080,
+    "resetsAt": 1789435341
+  },
+  "previousNativeCalls": 56,
+  "noClaude": true,
+  "noFallback": true,
+  "qualified": false
+}

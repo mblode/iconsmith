@@ -1,5 +1,7 @@
 # Reference-guided icon foundry
 
+> Surface update, 9 September 2026: the website, Studio, Eve service, shared Studio contract, and browser viewer were removed at the user’s request. References to them below are historical; use the root README and `docs/local-setup.md` for current local commands.
+
 Decisions, past attempts and reconciled spend: [foundry log](../foundry-log.md).
 
 Authoritative execution plan, 5 September 2026. Execution is underway; see the [implementation and paid-run evidence](reference-guided-foundry.notes.md). The current authorized ceiling is $50. Read with the [first-principles audit and experiment protocol](reference-guided-foundry.audit.md) and [research and Glyphs decision](reference-guided-foundry.research.md). Supersedes the sequencing in [the earlier pipeline map](../foundry-pipeline-map.md).

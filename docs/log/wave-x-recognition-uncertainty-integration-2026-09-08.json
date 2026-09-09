@@ -1,0 +1,34 @@
+{
+  "kind": "root-prospective-recognition-and-uncertainty-integration",
+  "date": "2026-09-08",
+  "qualified": false,
+  "providerCalls": 0,
+  "newApiActual": 0,
+  "newApiReservation": 0,
+  "cumulativeNativeAdapterCalls": 31,
+  "nativeDollars": null,
+  "files": {
+    "packages/iconsmith/scripts/ai-review-protocol.ts": "9db33c885a5c6b7c5b106d5647021b66e479fe74eee06d255151c27008c1ea5e",
+    "packages/iconsmith/scripts/ai-review-protocol.test.ts": "6b2ab94d68f61f947db57684fdb5acff0b60b4e5179bbe8527c62b75771e6f07",
+    "packages/iconsmith/scripts/ai-review-campaign.ts": "cb0df6c9587ef74e24e7ef3fec4ca1eca91061ce5cd2c4c07cf1490383a48615",
+    "packages/iconsmith/scripts/ai-review-campaign.test.ts": "4f8486137ab96baa6d35695910517cd8fc228538591b5cbcf81a9e184ede7ad2",
+    "packages/iconsmith/scripts/quality-labels.ts": "61d06aa56b1594ed843a7fd3a148b1b3b8e2e2167491b2fd60eb12028b44264d",
+    "packages/iconsmith/scripts/quality-labels.test.ts": "b20029e3f3557962f7f59eeec03828ac4ca0dee7d1678859c4caa46fa6e5d1f5",
+    "packages/iconsmith/scripts/quality-population.ts": "82cb6ee4fde9ff0e19d3a73d84d1d0f7597982549068a40f294cdc4938a22490",
+    "packages/iconsmith/scripts/quality-population.test.ts": "2e7817517df39035ac66f1c95a264c9271320c6c543fc77ceae11e900e7d9feb"
+  },
+  "verification": {
+    "tests": 44,
+    "files": 4,
+    "skipped": 0,
+    "scriptsTypecheck": "passed",
+    "populationScopedLint": "passed"
+  },
+  "evidence": ".staging/wave-v-free-recognition-patch-2026-09-08-v1/receipt.json",
+  "limitations": [
+    "Prospective recognition is diagnostic only; canonical confined native collector and CLI integration remain open.",
+    "Descriptive percentile intervals resample entire families within one declared population/stratum; no unequal-probability pooling or qualification claim.",
+    "All requested slots remain counted; absent or unresolved observations are never successes.",
+    "No live evidence or phase exit follows from this implementation."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "status": "development-classification-reconciliation",
+  "qualified": false,
+  "artifacts": [
+    {
+      "path": ".staging/wave-m-classification-dispositions-2026-09-08/primary-host-rule.json",
+      "sha256": "74b494753f2ff0fcbec8796a658e0e6d27e34b98fc9f49bfdd0274dd77a77a92"
+    },
+    {
+      "path": ".staging/wave-m-classification-dispositions-2026-09-08/wave-k-reconciled-proposal.json",
+      "sha256": "45708f8dbe3907a6808b3d669deca331a386bd4799c6d4b0bd979ebff9d958ae"
+    },
+    {
+      "path": ".staging/wave-m-classification-dispositions-2026-09-08/census-concept-dispositions.json",
+      "sha256": "b48e3f44e479607d9d28cc504fc32b26384e4cfdd4e8b095bc37a7f8168f0c84"
+    },
+    {
+      "path": ".staging/wave-m-classification-dispositions-2026-09-08/census-slot-dispositions.json",
+      "sha256": "7c9fa4b2b057dfe4bab01ec42f3a36f09196c4307314d647e755f9c66e660dd0"
+    },
+    {
+      "path": ".staging/wave-m-classification-dispositions-2026-09-08/receipt.json",
+      "sha256": "bd74741fa196f39391ce6a56357f04ccf2395dceb58869c243f20a11d1a43533"
+    },
+    {
+      "path": ".staging/wave-m-classification-dispositions-2026-09-08/verification.json",
+      "sha256": "5b2468e56ef2813621d4a6a90e450a76643890e66aa73063ca8e846033c9b30c"
+    }
+  ],
+  "rootAdjudication": {
+    "shieldCheck": "Accept container under explicit host-construction definition; retain original blind symbol observation",
+    "scope": "Development annotation reconciliation only; no additional independent vote or recognition success"
+  },
+  "population": {
+    "concepts": 2221,
+    "slots": 8884,
+    "exactHashInspectedSlots": 46,
+    "compositionComponentSlotsNotTransferred": 42,
+    "missingSourceSlots": 170,
+    "uninspectedSlots": 8626,
+    "fullyClassifiedConcepts": 11,
+    "partiallyClassifiedConcepts": 1,
+    "unresolvedConcepts": 2209
+  },
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "providerCalls": 0
+}

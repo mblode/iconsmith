@@ -1,0 +1,146 @@
+{
+  "kind": "folder-lock-filled-repair-addendum",
+  "version": 1,
+  "createdAt": "2026-09-08",
+  "providerCalls": 0,
+  "parent": {
+    "receipt": ".staging/wave-b-folder-lock-filled-repair-2026-09-08/receipt.json",
+    "sha256": "08b1dcb6173414277f818864b0d64378b6fcb904116accb08578d9f6b6a3fa86"
+  },
+  "sourceEvidence": {
+    "folder": {
+      "file": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/folder-1-filled.svg",
+      "sha256": "9736fa601b94168b4c4839077a8c0cbe3e1bfc3b2768cc32955bfbb82392859f",
+      "paintedBounds": [
+        2,
+        3,
+        22,
+        20
+      ]
+    },
+    "lock": {
+      "file": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/lock-filled.svg",
+      "sha256": "5fad76d8ada04c3116d21b1818df4c0c60b85c44ff5ffe0cd2249635074f76cf",
+      "paintedBounds": [
+        4,
+        2,
+        20,
+        22
+      ],
+      "sourceCounters": {
+        "shackleApprox": [
+          9,
+          4,
+          15,
+          9
+        ],
+        "keySlotApprox": [
+          11,
+          13,
+          13,
+          18
+        ]
+      }
+    },
+    "placedLock": {
+      "program": "part lock-filled-0 at 14,11.5 scale 0.42",
+      "derivedPaintedBounds": [
+        14,
+        11.5,
+        20.72,
+        19.9
+      ],
+      "disposition": "fully contained within the folder painted bounds at this lower-right location; union exposes no independent outer lock contour"
+    }
+  },
+  "artifactIdentity": {
+    "icon": {
+      "master16Sha256": "3c5adc80f19f86f9ac38bcb27fed83e4e7f07b738af90540d2871b5b26f95507",
+      "master24Sha256": "3c5adc80f19f86f9ac38bcb27fed83e4e7f07b738af90540d2871b5b26f95507",
+      "identical": true
+    },
+    "svg": {
+      "master16Sha256": "ef9c7c4d57a826a565ae0592eecb80eb76be2a293ae1107bb34263f69957b20c",
+      "master24Sha256": "ef9c7c4d57a826a565ae0592eecb80eb76be2a293ae1107bb34263f69957b20c",
+      "identical": true
+    },
+    "limitation": "The 16px and 24px files are separately rastered native proofs of one geometry. They are not independent optical-master constructions."
+  },
+  "nativeInspection": {
+    "master16": {
+      "holesByInkThreshold": {
+        "64": {
+          "count": 2,
+          "sizes": [
+            4,
+            1
+          ]
+        },
+        "128": {
+          "count": 1,
+          "sizes": [
+            8
+          ]
+        },
+        "192": {
+          "count": 0,
+          "sizes": []
+        }
+      },
+      "finding": "counter topology is threshold-unstable and disappears at the strict threshold; actual-size recognition rests on a few counter pixels"
+    },
+    "master24": {
+      "holesByInkThreshold": {
+        "64": {
+          "count": 2,
+          "sizes": [
+            9,
+            2
+          ]
+        },
+        "128": {
+          "count": 2,
+          "sizes": [
+            11,
+            7
+          ]
+        },
+        "192": {
+          "count": 1,
+          "sizes": [
+            23
+          ]
+        }
+      },
+      "finding": "two counters survive low and middle thresholds but merge at the strict threshold"
+    },
+    "remainingIssues": [
+      "The lock contributes no visible outer contour because its placed bounds are entirely inside the solid folder host.",
+      "The two Boolean rect holes approximate the source shackle and key-slot counters; they do not preserve the source counter curves.",
+      "At 16px the two-counter hierarchy is not robust across antialias thresholds, so the mark can read as apertures in a folder rather than a lock."
+    ]
+  },
+  "proposedReadOnlyExperiment": {
+    "scope": "one offline candidate pair using existing DSL only",
+    "master16": "Use a distinct program with a slightly larger lock part and lower/right placement so its body projects beyond the folder edge, then use correspondingly enlarged semantic shackle and key-slot holes.",
+    "master24": "Keep a smaller lock than the 16px program but move it far enough right/down to expose a measurable outer shoulder before applying the two holes.",
+    "requiredEvidence": [
+      "different .icon and SVG byte hashes across masters",
+      "exact replay for each master",
+      "native light/dark PNGs",
+      "named guard for exterior modifier projection plus two stable counter components at declared thresholds"
+    ],
+    "status": "proposal only; not authored or executed"
+  },
+  "codeIdentity": {
+    "family-parts.ts": "f21364023675fcfda15133f9c65146e10cd983762a36137468802b6e2c31b506",
+    "family-parts.test.ts": "5ae159baf8fe606b911cc095b591887047c1aae078139e1562b41d2971a1ab0b",
+    "family-construction-board.ts": "eeecceba6017e08ccc7f14c430dd899b624459e99579a5a79850ed0adf73cf00",
+    "family-construction-board.test.ts": "a287c529e7730d5514740ffff70e66fb71685a432feb052416df46f102b9b094",
+    "family-construction-native-sheet.ts": "258c084f5eb1f595635e99eacfe48299692469e664dda2cbf06026272101620c",
+    "family-construction-native-sheet.test.ts": "87e2ebafa5a949472255ceccc0c1633ee02acfd4a39cc9a187a9ffed316b5334",
+    "family-folder-lock-repair.ts": "2fb2187eaa6a090c821bcc6bc27aabf057e8b572cd2529a72e89458f81e61842"
+  },
+  "qualification": "development diagnostic only; no recognition, visual, family, class, or optical-master gate is closed",
+  "receiptSha256": "5e8068981f7b6d841ffe4e3f5d3c3b207116f7c4f4b0abf5be8d602394acce81"
+}

@@ -1,0 +1,697 @@
+
+> test
+> node --test scripts/verify.test.mjs && turbo test
+
+✔ runs injected stages sequentially and records immutable evidence (8.020125ms)
+✔ refuses an overlapping run without stealing its lock (0.993917ms)
+✔ stops after a failed stage, records it, and releases its lock (3.126625ms)
+✔ refuses to overwrite an output directory and cleans up its lock (1.796209ms)
+✔ rejects source drift after all stages and records both freezes (3.416083ms)
+✔ records a thrown stage failure and releases its lock (2.455625ms)
+✔ refuses unavailable corpus locally and labels an explicit cloud allowance (4.531875ms)
+✔ documents the fixed CLI and corpus boundary in help (46.825292ms)
+✔ terminates a running stage before rejecting a log failure (2.757584ms)
+✔ records a setup failure after output creation and releases its lock (1.683292ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 125.072708
+• turbo 2.10.11
+
+   • Packages in scope: iconsmith
+   • Running test in 1 packages
+   • Remote caching disabled
+
+iconsmith:test: cache bypass, force executing 692be0f9ebbe642f
+iconsmith:test: 
+iconsmith:test: > test
+iconsmith:test: > vitest run --maxWorkers=4
+iconsmith:test: 
+iconsmith:test: 
+iconsmith:test:  RUN  v4.1.11 /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+iconsmith:test: 
+iconsmith:test:  ✓ scripts/local-process.test.ts (19 tests) 12945ms
+iconsmith:test:    ✓ aborts a hung observer and refuses to claim quiescence  436ms
+iconsmith:test:    ✓ tracks a detached TERM-ignoring descendant before it can write  5106ms
+iconsmith:test:    ✓ kills the owner when process inspection fails after it is stopped  1222ms
+iconsmith:test:    ✓ does not describe an already-reparented double fork as whole-tree quiescence  738ms
+iconsmith:test:    ✓ freezes the owner before teardown can spawn a detached writer  2131ms
+iconsmith:test:    ✓ reaps an observed delayed writer even when its owner exits normally  711ms
+iconsmith:test:    ✓ treats a descendant disappearing during signalling as absent  583ms
+iconsmith:test:    ✓ continues cleanup after a non-ESRCH process-group signal failure  356ms
+iconsmith:test:  ✓ scripts/local-style-run.test.ts (39 tests) 13500ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: delivered  1167ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: selected-master  403ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: composition  323ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: missing-review  332ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: interrupted-finalization  624ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: interrupted-finalization-mutated  633ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: interrupted-with-review  312ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: repeated-interruption  918ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: author-stage-late  331ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: malformed-review  305ms
+iconsmith:test:    ✓ requires checked artifacts and honest delivery: duplicate-limitations  308ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: repair  674ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: repeat  743ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: regression  653ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: repair-failed  692ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: uncertain  307ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: author-veto  668ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: wrong-meaning  694ms
+iconsmith:test:    ✓ preserves the best valid candidate through bounded review: representation  309ms
+iconsmith:test:    ✓ routes the exact AL16 author evidence uncertainty through both independent clarifications: 'ordinary'  529ms
+iconsmith:test:    ✓ routes the exact AL16 author evidence uncertainty through both independent clarifications: 'interrupted'  554ms
+iconsmith:test:    ✓ routes the exact AL16 author evidence uncertainty through both independent clarifications: 'failed clarification'  540ms
+iconsmith:test:  ✓ scripts/ai-qualification-provenance.test.ts (51 tests) 9812ms
+iconsmith:test:    ✓ rejects copied family identities, requested-slot substitution and missing producer lineage  332ms
+iconsmith:test:    ✓ rejects an unsealed panel receipt and copied evaluator lineage  353ms
+iconsmith:test:    ✓ confines evidence files and requires one complete identity per panel receipt  400ms
+iconsmith:test:    ✓ finalizes a full hybrid row set after sequential API callbacks revoke  391ms
+iconsmith:test:    ✓ rejects duplicate, unlinked and cross-qualification API assembly stages  625ms
+iconsmith:test:    ✓ rejects post-append API evidence, attachment and lineage changes  1733ms
+iconsmith:test:    ✓ rejects answer-only mutation and prompt or attachment substitutions  429ms
+iconsmith:test:    ✓ rejects post-settlement artifact attachment and row-order substitutions  376ms
+iconsmith:test:    ✓ rejects answer-only tampering, missing stages and lineage substitutions  316ms
+iconsmith:test:    ✓ rejects missing or substituted production recognition linkage  635ms
+iconsmith:test:  ✓ src/pipeline/reconstruct.test.ts (18 tests) 8543ms
+iconsmith:test:      ✓ replays pull-request from house parts instead of asking a model  4157ms
+iconsmith:test:      ✓ does not scale a small star medoid up to the house star  4372ms
+iconsmith:test: keep	db77cb4f7396	alpha; correctAndClean 10 → 11
+iconsmith:test: keep	b8d662e7b7a7	alpha; correctAndClean 10 → 11
+iconsmith:test: discard	beta; floor held but no advance metric improved
+iconsmith:test: discard	alpha; floor held but no advance metric improved
+iconsmith:test: discard	beta; floor held but no advance metric improved
+iconsmith:test: crash	tamper: loop wrote autoresearch.md
+iconsmith:test: idle	playbook exhausted
+iconsmith:test: idle	playbook exhausted
+iconsmith:test: idle	playbook exhausted
+iconsmith:test: fatal: ambiguous argument 'refs/heads/iconsmith/loop': unknown revision or path not in the working tree.
+iconsmith:test: Use '--' to separate paths from revisions, like this:
+iconsmith:test: 'git <command> [<revision>...] -- [<file>...]'
+iconsmith:test: discard	in-process propose; floor held but no advance metric improved
+iconsmith:test:  ✓ scripts/autoresearch.test.ts (15 tests) 5553ms
+iconsmith:test:      ✓ never writes autoresearch.md  787ms
+iconsmith:test:      ✓ keeps an advance on the experiment branch and discards a flat remasure  1404ms
+iconsmith:test:      ✓ stops after --rounds even when the playbook has more items  955ms
+iconsmith:test:      ✓ crashes and reverts when an edit touches a frozen path  501ms
+iconsmith:test:      ✓ idles an exhausted playbook in process and does not write NEXT.md  667ms
+iconsmith:test:      ✓ stays on the current branch when --branch is omitted  433ms
+iconsmith:test:      ✓ applies one deps.propose edit per round without a spawn brief  522ms
+iconsmith:test:  ✓ scripts/loop.test.ts (32 tests) 8638ms
+iconsmith:test:      ✓ commits the winning policy to the experiment branch and nothing else  830ms
+iconsmith:test:      ✓ leaves the checked-out branch where it was  972ms
+iconsmith:test:      ✓ carries the scorecard into the commit message  827ms
+iconsmith:test:      ✓ stacks a second keep on the first, so the tip is the champion  1174ms
+iconsmith:test:      ✓ reads the champion back from the branch tip  742ms
+iconsmith:test:      ✓ refuses over an uncommitted edit rather than recording a win against source that is in no commit  424ms
+iconsmith:test:      ✓ refuses a policy identical to the champion rather than logging a no-op keep  1003ms
+iconsmith:test:      ✓ refuses to advance a branch that moved under the run  802ms
+iconsmith:test:      ✓ sees a frozen path that drifted on the experiment branch  1157ms
+iconsmith:test:      ✓ lets one run hold the lock at a time  375ms
+iconsmith:test:  ✓ scripts/api-image-capability.test.ts (58 tests) 4137ms
+iconsmith:test:  ✓ src/parts/vocabulary.test.ts (6 tests) 4257ms
+iconsmith:test:      ✓ lands every name on a part of the real extraction, one name each  4052ms
+iconsmith:test:  ✓ scripts/quality-campaign.test.ts (34 tests) 3234ms
+iconsmith:test:  ✓ src/eval/acceptance-contract.test.ts (120 tests) 37425ms
+iconsmith:test:      ✓ validates separate 100-family catalog and 20-family novel selections  836ms
+iconsmith:test:      ✓ fails closed for malformed independent slot and review rows  778ms
+iconsmith:test:      ✓ fails closed for a null production critic row without throwing  452ms
+iconsmith:test:      ✓ computes the 19-of-20 threshold per novel paint and master stratum  805ms
+iconsmith:test:      ✓ computes the 95-of-100 catalog ship threshold from the requested stratum  997ms
+iconsmith:test:      ✓ retains missing and unresolved rows in requested metric denominators  452ms
+iconsmith:test:      ✓ suppresses every success numerator when independent evidence is invalid  432ms
+iconsmith:test:      ✓ does not let an aggregate rate hide a failing independent stratum  635ms
+iconsmith:test:      ✓ computes identical independent metrics regardless of row or reviewer order  441ms
+iconsmith:test:      ✓ fails closed instead of throwing when a gate omits its population routing  518ms
+iconsmith:test:      ✓ fails closed for malformed gate population routing: undefined  474ms
+iconsmith:test:      ✓ fails closed for malformed gate population routing: null  441ms
+iconsmith:test:      ✓ fails closed for malformed gate population routing: catalog-probability-audit  435ms
+iconsmith:test:      ✓ fails closed when critic identity and production population are both malformed  449ms
+iconsmith:test:      ✓ fails closed for null population rows and malformed gate scopes  447ms
+iconsmith:test:      ✓ rejects malformed review population purpose and hash fields  525ms
+iconsmith:test:      ✓ rejects a wrong but valid selected hash and an escaped capability  374ms
+iconsmith:test:      ✓ quarantines any critical allegation even when reviewers disagree  468ms
+iconsmith:test:      ✓ does not graft a qualified critic onto a different route or population manifest identity  310ms
+iconsmith:test:      ✓ ignores a fully self-consistent serialized critic receipt embedded in the report  311ms
+iconsmith:test:      ✓ binds catalog evidence to the frozen exact 8884-slot census  319ms
+iconsmith:test:      ✓ rejects an author and reviewer that share an artifact lineage  305ms
+iconsmith:test:      ✓ rejects reviewer provenance for another artifact or an unbound reviewer  341ms
+iconsmith:test:      ✓ rejects an output whose identity differs from its expected slot  378ms
+iconsmith:test:      ✓ rejects duplicate family-paint-size identities in a novel batch  396ms
+iconsmith:test:      ✓ keeps catalog aliases as distinct slots with explicit reuse  301ms
+iconsmith:test:      ✓ rejects a gate denominator that dilutes its expected stratum  330ms
+iconsmith:test:      ✓ rejects a passing boolean when successes contradict output evidence  320ms
+iconsmith:test:      ✓ rejects copied reviewer identities and result evidence  355ms
+iconsmith:test:      ✓ rejects duplicated or missing paired-reviewer craft evidence  523ms
+iconsmith:test:      ✓ rejects an extra unregistered gate toString/catalog/outlined-16  300ms
+iconsmith:test:      ✓ rejects an accepted output that the blind reviewer did not recognize  319ms
+iconsmith:test:      ✓ returns a refusal for malformed author identity  328ms
+iconsmith:test:      ✓ keeps observed craft and parity medians independent of missing-row order  375ms
+iconsmith:test:      ✓ keeps any-critical disagreement quarantined and rejects a same-row ship conflict  470ms
+iconsmith:test:  ✓ src/pipeline/bench.test.ts (33 tests) 2686ms
+iconsmith:test:      ✓ holds for every entry in the committed benchmark  1339ms
+iconsmith:test:      ✓ is a subset of what the corpus says today  701ms
+iconsmith:test:      ✓ excludes a workable share of the set, not most of it  382ms
+iconsmith:test:  ✓ scripts/ai-control-packet.test.ts (3 tests) 2676ms
+iconsmith:test:    ✓ builds blinded packets from actual canonical library sources  1960ms
+iconsmith:test:    ✓ builds independent qualification controls across paint and native-size strata  708ms
+iconsmith:test:  ✓ scripts/style-check.test.ts (3 tests) 2426ms
+iconsmith:test:    ✓ renders the selected 16px master at its native size  832ms
+iconsmith:test:    ✓ renders the selected 20px master at its native size  815ms
+iconsmith:test:    ✓ renders the selected 24px master at its native size  778ms
+iconsmith:test: /Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+iconsmith:test: process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+iconsmith:test:                                            ^
+iconsmith:test: 
+iconsmith:test: Error: source SVG sha256 mismatch
+iconsmith:test:     at pinnedText (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:88:11)
+iconsmith:test:     at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:124:21)
+iconsmith:test:     at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+iconsmith:test: 
+iconsmith:test: Node.js v24.17.0
+iconsmith:test: /Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+iconsmith:test: process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+iconsmith:test:                                            ^
+iconsmith:test: 
+iconsmith:test: Error: branch-simple: source-exact requires a pinned source-feature profile
+iconsmith:test:     at createFamilySourceExactResolver (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/family-parts.ts:432:11)
+iconsmith:test:     at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:141:26)
+iconsmith:test:     at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+iconsmith:test: 
+iconsmith:test: Node.js v24.17.0
+iconsmith:test:  ✓ scripts/runtime-identity.test.ts (5 tests) 2082ms
+iconsmith:test:    ✓ freezes resolved executable bytes and rejects changed binaries even at the same version  544ms
+iconsmith:test:    ✓ freezes the execution PATH and probes versions under that same environment  954ms
+iconsmith:test:    ✓ launch binds the complete library population before dispatch  318ms
+iconsmith:test: /Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+iconsmith:test: process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+iconsmith:test:                                            ^
+iconsmith:test: 
+iconsmith:test: Error: branch-simple: source-exact requires a pinned source-feature profile
+iconsmith:test:     at createFamilySourceExactResolver (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/family-parts.ts:432:11)
+iconsmith:test:     at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:141:26)
+iconsmith:test:     at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+iconsmith:test: 
+iconsmith:test: Node.js v24.17.0
+iconsmith:test: /Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+iconsmith:test: process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+iconsmith:test:                                            ^
+iconsmith:test: 
+iconsmith:test: Error: source-exact bundle identity differs from host authority
+iconsmith:test:     at replaySourceExactBundle (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:201:11)
+iconsmith:test:     at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:65:15)
+iconsmith:test: 
+iconsmith:test: Node.js v24.17.0
+iconsmith:test:  ✓ scripts/durable-json.test.ts (8 tests) 1855ms
+iconsmith:test:    ✓ process interruption at before-exclusive-install exposes only an absent, prior or complete final  398ms
+iconsmith:test:    ✓ process interruption at after-exclusive-install exposes only an absent, prior or complete final  505ms
+iconsmith:test:    ✓ process interruption at before-replace-install exposes only an absent, prior or complete final  441ms
+iconsmith:test:    ✓ process interruption at after-replace-install exposes only an absent, prior or complete final  449ms
+iconsmith:test: /Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+iconsmith:test: process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+iconsmith:test:                                            ^
+iconsmith:test: 
+iconsmith:test: Error: source-exact bundle identity differs from host authority
+iconsmith:test:     at replaySourceExactBundle (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:201:11)
+iconsmith:test:     at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:65:15)
+iconsmith:test: 
+iconsmith:test: Node.js v24.17.0
+iconsmith:test:  ✓ scripts/source-exact-host.test.ts (1 test) 2166ms
+iconsmith:test:    ✓ fresh CLI processes compile and exactly replay one host-admitted source  2166ms
+iconsmith:test:  ✓ src/pipeline/analog.test.ts (53 tests) 1050ms
+iconsmith:test:      ✓ draws held-out names that are not in the house or glyph set  403ms
+iconsmith:test:  ✓ scripts/quality-benchmark.test.ts (5 tests) 1715ms
+iconsmith:test:    ✓ blind audit batches contain at most twenty genuine native stimuli  1134ms
+iconsmith:test:  ✓ scripts/local-generate.test.ts (4 tests) 1581ms
+iconsmith:test:    ✓ parent-issued retrieval refuses missing or invalid library hash (undefined)  344ms
+iconsmith:test:    ✓ passes the parent start through the real native CLI path without renewing retrieval  689ms
+iconsmith:test:  ✓ scripts/campaign-manifest.test.ts (12 tests) 823ms
+iconsmith:test:    ✓ writes exact manifests from the current corpus inventory  790ms
+iconsmith:test:  ✓ src/tools/proof.test.ts (6 tests) 1110ms
+iconsmith:test:    ✓ retains actual 20px samples at both device scales on both surfaces  324ms
+iconsmith:test:    ✓ retains actual 24px samples at both device scales on both surfaces  422ms
+iconsmith:test:  ✓ scripts/local-container-process.test.ts (20 tests) 1212ms
+iconsmith:test:    ✓ preserves an argv0-sensitive command alias when invoking Docker  644ms
+iconsmith:test:  ✓ scripts/local-campaign.test.ts (83 tests) 43824ms
+iconsmith:test:    ✓ a latched campaign stop leaves subsequent requests unstarted after resume  744ms
+iconsmith:test:    ✓ a latched request stop leaves subsequent requests unstarted after resume  605ms
+iconsmith:test:    ✓ refuses resume after selected program.dsl changes without redispatch  477ms
+iconsmith:test:    ✓ refuses resume after selected proofs/native-dark.png changes without redispatch  466ms
+iconsmith:test:    ✓ refuses resume after selected reviews/panel.json changes without redispatch  472ms
+iconsmith:test:    ✓ quarantines linked selected review evidence (symlink)  468ms
+iconsmith:test:    ✓ quarantines linked selected review evidence (hardlink)  483ms
+iconsmith:test:    ✓ dry-run freezes all 40 pair requests and bounds the scheduled batch  965ms
+iconsmith:test:    ✓ executes only the bounded batch and skips only hash-validated terminals  906ms
+iconsmith:test:    ✓ records a missing child terminal as an identity-bound outer refusal  442ms
+iconsmith:test:    ✓ binds retained invalid child bytes by canonical path and hash on resume  520ms
+iconsmith:test:    ✓ rejects a child output added after a no-output refusal  475ms
+iconsmith:test:    ✓ does not seal an outer refusal with unscoped parent settlement  479ms
+iconsmith:test:    ✓ rejects outer refusal with missing quiescence scope  1376ms
+iconsmith:test:    ✓ rejects outer refusal with wrong quiescence scope  550ms
+iconsmith:test:    ✓ rejects outer refusal with unknown field  1049ms
+iconsmith:test:    ✓ rejects outer refusal with unsettled parent retaining child bytes  538ms
+iconsmith:test:    ✓ quarantines a delivered receipt from a 'signaled' child  510ms
+iconsmith:test:    ✓ quarantines a delivered receipt from a 'nonzero' child  543ms
+iconsmith:test:    ✓ quarantines a delivered receipt from a 'errored' child  547ms
+iconsmith:test:    ✓ quarantines delivery completed after the parent deadline  545ms
+iconsmith:test:    ✓ rejects a rehashed launch descriptor that differs from current dispatch  570ms
+iconsmith:test:    ✓ accepts a native incomplete terminal only after strict call settlement  670ms
+iconsmith:test:    ✓ issues a process-local terminal capability and revalidates retained produced evidence  1049ms
+iconsmith:test:    ✓ reports honest unstarted selected evidence absence  358ms
+iconsmith:test:    ✓ keeps rejected child bytes separate from selected evidence  575ms
+iconsmith:test:    ✓ revalidation refuses selected-tree tampering after capability issuance  617ms
+iconsmith:test:    ✓ revalidation refuses selected-symlink tampering after capability issuance  560ms
+iconsmith:test:    ✓ revalidation refuses missing-paint tampering after capability issuance  562ms
+iconsmith:test:    ✓ revalidation refuses unknown-accounting tampering after capability issuance  588ms
+iconsmith:test:    ✓ revalidation refuses late-parent tampering after capability issuance  568ms
+iconsmith:test:    ✓ revalidation refuses wrong-deadline tampering after capability issuance  603ms
+iconsmith:test:    ✓ revalidation refuses wrong-route tampering after capability issuance  659ms
+iconsmith:test:    ✓ revalidation refuses duplicate-slot-alias tampering after capability issuance  677ms
+iconsmith:test:    ✓ refuses an orphaned directory at an otherwise unstarted request path  310ms
+iconsmith:test:    ✓ refuses rejected child evidence relabeled as a delivered terminal  606ms
+iconsmith:test:    ✓ refuses wrong plan, request, and unsafe receipt-root identities  516ms
+iconsmith:test:    ✓ accepts a native early failure with an empty settled call journal  548ms
+iconsmith:test:    ✓ quarantines native incomplete output with missing-terminal  550ms
+iconsmith:test:    ✓ quarantines native incomplete output with unknown-settlement  501ms
+iconsmith:test:    ✓ quarantines native incomplete output with tampered-evidence  516ms
+iconsmith:test:    ✓ quarantines native incomplete output with reservation-substitution  499ms
+iconsmith:test:    ✓ quarantines native incomplete output with orphan-start  499ms
+iconsmith:test:    ✓ quarantines native incomplete output with duplicate-stage  495ms
+iconsmith:test:    ✓ quarantines native incomplete output with wrong-container-image  535ms
+iconsmith:test:    ✓ resumes a malformed native child only after all calls settled  534ms
+iconsmith:test:    ✓ binds a pre-native zero-call refusal before allowing resume  556ms
+iconsmith:test:    ✓ rejects changed pre-native zero-call evidence on resume  612ms
+iconsmith:test:    ✓ resume rejects changed evidence from a native incomplete attempt  620ms
+iconsmith:test:    ✓ terminal capability rejects collector subtree mutation: change  587ms
+iconsmith:test:    ✓ terminal capability rejects collector subtree mutation: delete  749ms
+iconsmith:test:    ✓ terminal capability rejects collector subtree mutation: add  515ms
+iconsmith:test:    ✓ terminal capability rejects collector subtree mutation: symlink  569ms
+iconsmith:test:    ✓ campaign retains and refuses a fabricated collector-sealed author claim  566ms
+iconsmith:test:    ✓ refuses before spawn when only the parent settlement reserve remains  576ms
+iconsmith:test:    ✓ rejects copied terminal output without echoed invocation identity  311ms
+iconsmith:test:    ✓ awaits owned generator settlement and records the parent deadline cap  518ms
+iconsmith:test:    ✓ unsettled outer generator forbids artifact hashing, further dispatch and resume  557ms
+iconsmith:test:    ✓ concurrent resume cannot start an active request before its output directory exists  472ms
+iconsmith:test:    ✓ late incomplete child output becomes an outer deadline refusal  510ms
+iconsmith:test:    ✓ resume rejects a rehashed incomplete receipt settled after its deadline  586ms
+iconsmith:test:    ✓ full launch closure binds indirect source and quarantines post-dispatch drift  496ms
+iconsmith:test:    ✓ freezes one shared packet across both masters and bounds ten native calls  316ms
+iconsmith:test:    ✓ refuses tampered shared packet before any dispatch  315ms
+iconsmith:test:    ✓ dispatches the exact shared packet and refuses bytes changed in flight  754ms
+iconsmith:test:    ✓ binds a replayed author leaf to the live parent capability without granting approval  713ms
+iconsmith:test:    ✓ diagnostic campaign freezes one target and binds child arguments and launch bytes  518ms
+iconsmith:test:    ✓ diagnostic campaign refuses rehashed campaignHash mismatch before dispatch  333ms
+iconsmith:test:    ✓ diagnostic campaign refuses rehashed revisionHash mismatch before dispatch  316ms
+iconsmith:test:    ✓ diagnostic campaign refuses rehashed routeHash mismatch before dispatch  311ms
+iconsmith:test:    ✓ expired diagnostic can be read for replay but cannot dispatch  370ms
+iconsmith:test:    ✓ diagnostic hook is absent from an unselected child and normal plan  684ms
+iconsmith:test:    ✓ diagnostic expiry beyond original request clock refuses before launch intent  373ms
+iconsmith:test:  ✓ scripts/local-native-config.test.ts (24 tests) 738ms
+iconsmith:test:  ✓ scripts/local-native-call-factory.test.ts (30 tests) 615ms
+iconsmith:test:  ✓ src/pipeline/program.test.ts (29 tests) 652ms
+iconsmith:test:  ✓ scripts/local-render-evidence.test.ts (7 tests) 1202ms
+iconsmith:test:  ✓ scripts/local-container-runtime.test.ts (8 tests) 554ms
+iconsmith:test:    ✓ gates one native exec on exact controls, sealed observation and ACK  527ms
+iconsmith:test:  ✓ src/tools/boolean.test.ts (16 tests) 504ms
+iconsmith:test:  ✓ scripts/local-retrieval.test.ts (4 tests) 524ms
+iconsmith:test:    ✓ pins visually selected references and admits parts while retaining native fidelity refusals  521ms
+iconsmith:test:  ✓ src/eval/conformance.test.ts (15 tests) 397ms
+iconsmith:test:      ✓ shows the house spec is non-trivial: the house set beats every third-party pack on the strict rate  387ms
+iconsmith:test:  ✓ scripts/ai-review-protocol.test.ts (17 tests) 713ms
+iconsmith:test:  ✓ scripts/local-native-interruption-diagnostic.test.ts (16 tests) 495ms
+iconsmith:test:  ✓ scripts/family-parts.test.ts (33 tests) 506ms
+iconsmith:test:  ✓ scripts/ai-control-campaign-prep.test.ts (1 test) 464ms
+iconsmith:test:    ✓ keeps mixed-size native and enlarged evidence fully visible and unscaled  463ms
+iconsmith:test:  ✓ src/corpus/measure.test.ts (23 tests) 355ms
+iconsmith:test:  ✓ src/pipeline/pipeline.test.ts (40 tests) 297ms
+iconsmith:test:  ✓ scripts/local-structured-author.test.ts (38 tests) 868ms
+iconsmith:test:    ✓ retains factory-sealed construct authors while separating the finalizer  733ms
+iconsmith:test:  ✓ scripts/author-review-packet.test.ts (22 tests) 455ms
+iconsmith:test:  ✓ scripts/cross-master-review.test.ts (11 tests) 518ms
+iconsmith:test:  ❯ src/pipeline/harness.test.ts (38 tests | 1 failed) 253ms
+iconsmith:test:      ✓ returns the drawn icon in the shape the built-in generator returns 19ms
+iconsmith:test:      ✓ passes the owning turn's cancellation signal to the harness 8ms
+iconsmith:test:      ✓ reports no cost, because an external harness bills elsewhere 7ms
+iconsmith:test:      ✓ names the concept, its senses, the keyline and the program path in the brief 3ms
+iconsmith:test:      ✓ passes the family's measured extent through, and asks for cohort over fit 5ms
+iconsmith:test:      ✓ pairs the other paint so a filled disc is not a quiet twin 3ms
+iconsmith:test:      ✓ names the filled paint so the skill is not the only place that says so 2ms
+iconsmith:test:      ✓ lets the caller spell the command line however their agent does 4ms
+iconsmith:test:      ✓ cleans up the scratch directory, unless asked to keep it 8ms
+iconsmith:test:      ✓ throws when the agent exits non-zero, keeping the scratch to look at 3ms
+iconsmith:test:      ✓ keeps the session log on the error, so a lost sample is still inspectable 3ms
+iconsmith:test:      ✓ says so when the agent was killed rather than exiting 2ms
+iconsmith:test:      ✓ says so when the agent wrote no program 2ms
+iconsmith:test:      ✓ carries a refused op as a lint error rather than as a failed run 7ms
+iconsmith:test:      ✓ reports a cohort nobody measured, rather than inventing an extent 7ms
+iconsmith:test:      ✓ aligns onto a cohort the caller measured 4ms
+iconsmith:test:      ✓ cannot smuggle path data in through the program 2ms
+iconsmith:test:      ✓ quantises what does get through, rather than taking it verbatim 7ms
+iconsmith:test:      ✓ writes the parts file and names it in the brief 2ms
+iconsmith:test:      ✓ omits unnamed parts that did not match the concept 2ms
+iconsmith:test:      ✓ ships an unnamed part that search hit, and names its id in the brief 2ms
+iconsmith:test:      ✓ drops a search hit whose provenance is a different word 3ms
+iconsmith:test:      ✓ still places a part the file omitted, because the program is checked against the full list 3ms
+iconsmith:test:      ✓ says so when there is no vocabulary, rather than leaving the skill to promise one 3ms
+iconsmith:test:      ✓ treats unmatched unnamed parts as no vocabulary 3ms
+iconsmith:test:      × stages the packaged skill when the caller does not pass a path 5ms
+iconsmith:test:      ✓ copies a real skill into the scratch directory, because the sandbox cannot read outside it 5ms
+iconsmith:test:      ✓ puts iconsmith on PATH in the scratch directory when the CLI is built 7ms
+iconsmith:test:      ✓ uses native sign-in by default without inherited provider credentials 6ms
+iconsmith:test:      ✓ points Claude Code at the AI Gateway without touching ~/.claude 5ms
+iconsmith:test:      ✓ gives Codex a scratch CODEX_HOME aimed at the gateway 4ms
+iconsmith:test:      ✓ skips the host audit when no ask is injected 7ms
+iconsmith:test:      ✓ writes a preview and an audit after a passing look 11ms
+iconsmith:test:      ✓ re-spawns once when the first look is not ok 16ms
+iconsmith:test:      ✓ spends the configured repair budget until the visual audit passes 35ms
+iconsmith:test:      ✓ keeps the drawing when the audit throws 12ms
+iconsmith:test:      ✓ keeps the drawing when a repair spawn fails, and says so in the log 14ms
+iconsmith:test:      ✓ still fails when the repair is cancelled rather than refused 9ms
+iconsmith:test:  ✓ src/pipeline/tournament.test.ts (37 tests) 282ms
+iconsmith:test:  ✓ src/pipeline/eval-errors.test.ts (7 tests) 306ms
+iconsmith:test:  ✓ scripts/local-container-access-probe.test.ts (3 tests) 336ms
+iconsmith:test:  ✓ scripts/family-construction-native-sheet.test.ts (1 test) 229ms
+iconsmith:test:  ✓ scripts/ai-review-campaign.test.ts (19 tests) 217ms
+iconsmith:test: marks only — skipping vocabulary extract
+iconsmith:test: plus: outlined plus…
+iconsmith:test: plus-filled: filled plus…
+iconsmith:test: marks only — skipping vocabulary extract
+iconsmith:test: plus: outlined plus…
+iconsmith:test: plus-filled: filled plus…
+iconsmith:test: marks only — skipping vocabulary extract
+iconsmith:test: plus: outlined plus…
+iconsmith:test: plus-filled: filled plus…
+iconsmith:test: marks only — skipping vocabulary extract
+iconsmith:test: flag: outlined flag…
+iconsmith:test: flag-filled: filled flag…
+iconsmith:test: marks only — skipping vocabulary extract
+iconsmith:test: box: hub of circle nodes as box…
+iconsmith:test: box islands: auto(0) diversity 0.00
+iconsmith:test: box sample 2/2 [auto]…
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test:  ✓ src/pipeline/detail-style.test.ts (11 tests) 171ms
+iconsmith:test:  ✓ scripts/demo.test.ts (6 tests) 142ms
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 3 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test:  ✓ src/pipeline/glyphs.test.ts (14 tests) 201ms
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 3 file(s)
+iconsmith:test: measuring fixture: 3 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 1 file(s)
+iconsmith:test: measuring fixture: 1 file(s)
+iconsmith:test: measuring fixture: 1 file(s)
+iconsmith:test: measuring fixture: 3 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 1 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 1 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test: measuring fixture: 2 file(s)
+iconsmith:test:  ✓ src/corpus/build.test.ts (20 tests) 233ms
+iconsmith:test:  ✓ scripts/native-call-boundary.test.ts (28 tests) 109ms
+iconsmith:test:  ✓ scripts/local-review.test.ts (30 tests) 117ms
+iconsmith:test:  ✓ src/pipeline/terminate.test.ts (9 tests) 126ms
+iconsmith:test:  ✓ scripts/ai-review-assessment.test.ts (7 tests) 69ms
+iconsmith:test:  ✓ src/pipeline/style.test.ts (25 tests) 97ms
+iconsmith:test:  ✓ src/eval/blindspot.test.ts (25 tests) 92ms
+iconsmith:test:  ✓ src/pipeline/recipe.test.ts (5 tests) 72ms
+iconsmith:test:  ✓ scripts/local-codex-review.test.ts (31 tests) 76ms
+iconsmith:test:  ✓ src/tools/stroke.test.ts (8 tests) 66ms
+iconsmith:test:  ✓ src/tools/canvas.test.ts (52 tests) 56ms
+iconsmith:test:  ✓ src/tools/lint.test.ts (55 tests) 61ms
+iconsmith:test:  ✓ src/pipeline/marks.test.ts (10 tests) 66ms
+iconsmith:test:  ✓ scripts/family-reference-packet.test.ts (4 tests) 59ms
+iconsmith:test:  ✓ src/tools/boolean-native-matrix.test.ts (6 tests) 54ms
+iconsmith:test:  ✓ src/tools/registration.test.ts (10 tests) 64ms
+iconsmith:test:  ✓ scripts/local-astra-author.test.ts (9 tests) 58ms
+iconsmith:test:  ✓ scripts/library-replay.test.ts (10 tests) 67ms
+iconsmith:test:  ✓ scripts/reach-lab.test.ts (11 tests) 50ms
+iconsmith:test:  ✓ src/pipeline/pair.test.ts (8 tests) 48ms
+iconsmith:test:  ✓ src/tools/legibility.test.ts (13 tests) 51ms
+iconsmith:test:  ✓ src/tools/boolean-round.test.ts (10 tests) 60ms
+iconsmith:test:  ✓ scripts/campaign-evidence.test.ts (7 tests) 44ms
+iconsmith:test:  ✓ src/tools/fill.test.ts (28 tests) 47ms
+iconsmith:test:  ✓ src/pipeline/compose.test.ts (7 tests) 47ms
+iconsmith:test:  ✓ scripts/raster-proposal-feasibility.test.ts (5 tests) 45ms
+iconsmith:test:  ✓ src/pipeline/sharp-style.test.ts (4 tests) 41ms
+iconsmith:test:  ✓ src/pipeline/repair.test.ts (33 tests) 50ms
+iconsmith:test:  ✓ src/tools/twin.test.ts (32 tests) 37ms
+iconsmith:test:  ❯ src/pipeline/skill.test.ts (22 tests | 1 failed) 41ms
+iconsmith:test:      ✓ lists every op, and no op the parser does not have 2ms
+iconsmith:test:      ✓ lists every keyline, with the extent the spec measures 1ms
+iconsmith:test:      ✓ lists every dot role at the diameter the spec measures 0ms
+iconsmith:test:      ✓ names the three quarter-turns, and only those 0ms
+iconsmith:test:      ✓ quotes the spec's numbers rather than remembered ones 0ms
+iconsmith:test:      ✓ has some 0ms
+iconsmith:test:      ✓ example 0 runs and lints clean 3ms
+iconsmith:test:      ✓ example 1 runs and lints clean 0ms
+iconsmith:test:      ✓ example 2 runs and lints clean 1ms
+iconsmith:test:      ✓ example 3 runs and lints clean 17ms
+iconsmith:test:      ✓ example 4 runs and lints clean 0ms
+iconsmith:test:      ✓ example 5 runs and lints clean 1ms
+iconsmith:test:      ✓ example 6 runs and lints clean 1ms
+iconsmith:test:      ✓ example 7 runs and lints clean 0ms
+iconsmith:test:      ✓ example 8 runs and lints clean 1ms
+iconsmith:test:      ✓ example 9 runs and lints clean 1ms
+iconsmith:test:      ✓ example 10 runs and lints clean 1ms
+iconsmith:test:      ✓ teaches house heart lobes and holds out a star 0ms
+iconsmith:test:      × is the same document the harness inlines for a bundled runtime 3ms
+iconsmith:test:      ✓ opens with name and description 0ms
+iconsmith:test:      ✓ does not restore obsolete paint or grid restrictions in bundled or generated instructions 1ms
+iconsmith:test:      ✓ offers the filled line tool its prompt promises and compiles an open stroke 6ms
+iconsmith:test:  ✓ src/pipeline/reach.test.ts (20 tests) 35ms
+iconsmith:test:  ✓ scripts/acceptance-critic-evidence.test.ts (2 tests) 33ms
+iconsmith:test:  ✓ scripts/local-parameter-search.test.ts (9 tests) 26ms
+iconsmith:test:  ✓ src/pipeline/square-style.test.ts (4 tests) 33ms
+iconsmith:test:  ✓ src/pipeline/model-harness.test.ts (12 tests) 27ms
+iconsmith:test:  ✓ src/pipeline/route.test.ts (33 tests) 31ms
+iconsmith:test:  ✓ src/corpus/census.test.ts (8 tests) 26ms
+iconsmith:test:  ✓ scripts/ai-qualification.test.ts (36 tests) 25ms
+iconsmith:test:  ✓ src/tools/expanded-stroke-boolean.test.ts (1 test) 25ms
+iconsmith:test:  ✓ src/tools/nonzero-hole.test.ts (3 tests) 28ms
+iconsmith:test:  ✓ src/tools/mixed-paint.test.ts (4 tests) 22ms
+iconsmith:test:  ✓ scripts/stress-cosine.test.ts (26 tests) 27ms
+iconsmith:test:  ✓ src/tools/dsl.test.ts (44 tests) 23ms
+iconsmith:test:  ✓ src/corpus/record.test.ts (13 tests) 23ms
+iconsmith:test:  ✓ scripts/quality-population.test.ts (4 tests) 20ms
+iconsmith:test:  ✓ src/tools/render.test.ts (5 tests) 27ms
+iconsmith:test:  ✓ src/pipeline/propose.test.ts (12 tests) 20ms
+iconsmith:test:  ✓ src/eval/family-clustered-uncertainty.test.ts (6 tests) 21ms
+iconsmith:test:  ✓ src/pipeline/mixture.test.ts (13 tests) 21ms
+iconsmith:test:  ✓ src/pipeline/audit.test.ts (15 tests) 35ms
+iconsmith:test:  ✓ scripts/library-audit.test.ts (1 test) 24ms
+iconsmith:test:  ✓ src/tools/miter-stroke.test.ts (3 tests) 19ms
+iconsmith:test:  ✓ src/tools/keyline.test.ts (11 tests) 25ms
+iconsmith:test:  ✓ src/eval/foundry-gate.test.ts (27 tests) 17ms
+iconsmith:test:  ✓ scripts/family-construction-coverage.test.ts (13 tests) 18ms
+iconsmith:test:  ✓ src/tools/diagonal-width.test.ts (6 tests) 17ms
+iconsmith:test:  ✓ src/tools/boolean-feature.test.ts (3 tests) 17ms
+iconsmith:test:  ✓ scripts/local-author-context.test.ts (6 tests) 18ms
+iconsmith:test:  ✓ src/pipeline/openrouter.test.ts (9 tests) 22ms
+iconsmith:test:  ✓ src/tools/square-cap.test.ts (5 tests) 17ms
+iconsmith:test:  ✓ src/tools/axial-width.test.ts (5 tests) 14ms
+iconsmith:test:  ✓ src/parts/shape.test.ts (33 tests) 13ms
+iconsmith:test:  ✓ src/tools/cohort.test.ts (10 tests) 13ms
+iconsmith:test:  ✓ scripts/check-foundry-config.test.ts (1 test) 9ms
+iconsmith:test:  ✓ src/pipeline/modifiers.test.ts (16 tests) 14ms
+iconsmith:test:  ✓ scripts/catalog-families.test.ts (1 test) 10ms
+iconsmith:test:  ✓ src/parts/extract.test.ts (15 tests) 10ms
+iconsmith:test:  ✓ src/pipeline/mark.test.ts (3 tests) 11ms
+iconsmith:test:  ✓ scripts/local-recognition-choices.test.ts (5 tests) 11ms
+iconsmith:test:  ✓ scripts/gate.test.ts (13 tests) 10ms
+iconsmith:test:  ✓ scripts/quality-exposure.test.ts (4 tests) 10ms
+iconsmith:test:  ✓ src/corpus/baselines.test.ts (5 tests) 9ms
+iconsmith:test:  ✓ scripts/local-claude-author.test.ts (4 tests) 10ms
+iconsmith:test:  ✓ src/tools/rounded-line.test.ts (9 tests) 9ms
+iconsmith:test:  ✓ src/pipeline/coverage.test.ts (4 tests) 8ms
+iconsmith:test:  ✓ scripts/campaign-forecast.test.ts (4 tests) 9ms
+iconsmith:test:  ✓ scripts/local-composition.test.ts (2 tests) 9ms
+iconsmith:test:  ✓ src/commands/draw.test.ts (3 tests) 11ms
+iconsmith:test:  ✓ src/pipeline/prompt.test.ts (5 tests) 8ms
+iconsmith:test:  ✓ src/commands/improve.test.ts (4 tests) 9ms
+iconsmith:test:  ✓ src/pipeline/policy.test.ts (15 tests) 7ms
+iconsmith:test:  ✓ src/corpus/sources.test.ts (8 tests) 9ms
+iconsmith:test:  ✓ scripts/local-runtime.test.ts (7 tests) 6ms
+iconsmith:test:  ✓ scripts/mixture-lab.test.ts (2 tests) 9ms
+iconsmith:test:  ✓ scripts/review-budget.test.ts (27 tests) 8ms
+iconsmith:test:  ✓ scripts/source-feature-admission-profile.test.ts (4 tests) 7ms
+iconsmith:test:  ✓ src/pipeline/direction.test.ts (16 tests) 7ms
+iconsmith:test:  ✓ scripts/quality-labels.test.ts (8 tests) 5ms
+iconsmith:test:  ✓ src/corpus/audit.test.ts (17 tests) 6ms
+iconsmith:test:  ✓ scripts/measure-filled.test.ts (14 tests) 6ms
+iconsmith:test:  ✓ src/corpus/aliases.test.ts (5 tests) 7ms
+iconsmith:test:  ✓ src/commands/eval-acceptance.test.ts (5 tests) 5ms
+iconsmith:test:  ✓ src/geometry/path.test.ts (25 tests) 6ms
+iconsmith:test:  ✓ src/corpus/concepts.test.ts (27 tests) 5ms
+iconsmith:test:  ✓ src/pipeline/conform.test.ts (17 tests) 6ms
+iconsmith:test:  ✓ src/pipeline/select.test.ts (10 tests) 6ms
+iconsmith:test:  ✓ src/tools/angle.test.ts (12 tests) 6ms
+iconsmith:test:  ✓ src/tools/cut.test.ts (11 tests) 7ms
+iconsmith:test:  ✓ scripts/review-construction.test.ts (5 tests) 4ms
+iconsmith:test:  ✓ src/eval/report.test.ts (10 tests) 5ms
+iconsmith:test:  ✓ src/corpus/normalise.test.ts (8 tests) 4ms
+iconsmith:test:  ✓ src/corpus/load-errors.test.ts (3 tests) 5ms
+iconsmith:test:  ✓ src/tools/element-ids.test.ts (5 tests) 4ms
+iconsmith:test:  ✓ src/pipeline/filled-twin.test.ts (3 tests) 21ms
+iconsmith:test:  ✓ scripts/local-author-evidence.test.ts (3 tests) 4ms
+iconsmith:test:  ✓ src/commands/new.test.ts (4 tests) 16ms
+iconsmith:test:  ✓ src/eval/vectors.test.ts (5 tests) 18ms
+iconsmith:test:  ✓ src/corpus/load.test.ts (7 tests) 5ms
+iconsmith:test:  ✓ scripts/research.test.ts (16 tests) 5ms
+iconsmith:test:  ✓ scripts/family-morphology.test.ts (3 tests) 3ms
+iconsmith:test:  ✓ src/pipeline/accept.test.ts (7 tests) 3ms
+iconsmith:test:  ✓ src/pipeline/experiment.test.ts (9 tests) 5ms
+iconsmith:test:  ✓ src/pipeline/gateway.test.ts (4 tests) 3ms
+iconsmith:test:  ✓ scripts/family-construction-board.test.ts (2 tests) 3ms
+iconsmith:test:  ✓ scripts/local-native-trace.test.ts (2 tests) 3ms
+iconsmith:test:  ✓ src/commands/read.test.ts (4 tests) 3ms
+iconsmith:test:  ✓ src/eval/panel.test.ts (10 tests) 3ms
+iconsmith:test:  ✓ src/pipeline/licence.test.ts (9 tests) 3ms
+iconsmith:test:  ✓ scripts/noise-floor.test.ts (5 tests) 2ms
+iconsmith:test:  ✓ scripts/local-native-route.test.ts (5 tests) 3ms
+iconsmith:test:  ✓ src/pipeline/splice.test.ts (3 tests) 3ms
+iconsmith:test:  ✓ src/pipeline/search.test.ts (5 tests) 2ms
+iconsmith:test:  ✓ src/tools/slash.test.ts (7 tests) 3ms
+iconsmith:test:  ✓ src/tools/spec.test.ts (4 tests) 2ms
+iconsmith:test:  ✓ src/pipeline/thinking.test.ts (5 tests) 3ms
+iconsmith:test:  ✓ src/eval/semantic.test.ts (8 tests) 2ms
+iconsmith:test:  ✓ src/pipeline/prompt-identity.test.ts (6 tests) 2ms
+iconsmith:test:  ✓ src/pipeline/cache.test.ts (5 tests) 2ms
+iconsmith:test:  ✓ src/eval/judge.test.ts (9 tests) 2ms
+iconsmith:test:  ✓ src/eval/separation.test.ts (6 tests) 2ms
+iconsmith:test:  ✓ src/pipeline/kind.test.ts (3 tests) 2ms
+iconsmith:test:  ✓ src/pipeline/pick.test.ts (2 tests) 2ms
+iconsmith:test:  ✓ src/eval/style.test.ts (3 tests) 2ms
+iconsmith:test:  ✓ src/pipeline/cost.test.ts (3 tests) 1ms
+iconsmith:test: 
+iconsmith:test: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+iconsmith:test: 
+iconsmith:test:  FAIL  src/pipeline/harness.test.ts > harnessArm and the vocabulary > stages the packaged skill when the caller does not pass a path
+iconsmith:test: AssertionError: expected '---\nname: iconsmith\ndescription: Dr…' to be '---\nname: iconsmith\ndescription: Dr…' // Object.is equality
+iconsmith:test: 
+iconsmith:test: - Expected
+iconsmith:test: + Received
+iconsmith:test: 
+iconsmith:test: @@ -9,22 +9,25 @@
+iconsmith:test: 
+iconsmith:test:   This is not a style guide you can drift away from. Off-spec geometry is unrepresentable in this language: there is no op that takes path data.
+iconsmith:test: 
+iconsmith:test:   ## The loop
+iconsmith:test: 
+iconsmith:test: + From the repository root, run `npm ci` and `npm run build:local` first.
+iconsmith:test: + The commands below use the local build; no global executable is installed.
+iconsmith:test: +
+iconsmith:test:   1. Read the concept. Decide what object to draw — the object noun, not the intent. `search` is a magnifying glass.
+iconsmith:test:   2. Pick a keyline (below) and write a `.icon` program.
+iconsmith:test:   3. `iconsmith draw icon.icon > icon.svg` — parse errors go to stderr and the exit code is non-zero. Fix them before going on.
+iconsmith:test:   4. `iconsmith lint icon.svg --keyline <name>` — fix every `error`. Warnings are a prompt to check a choice was made, not a rule.
+iconsmith:test:   5. Look at the SVG rendered at 16px. Lint checks the spec, not the drawing: a centred rectangle of the right size lints perfectly and is an icon of nothing. Record your inspection; independent AI review determines acceptance under the frozen rubric.
+iconsmith:test:   6. Finalize the exact inspected artifacts for independent review. Compiler correction and named visual repair have separate bounded allowances under the original deadline. Missing paperwork requests finalization only; uncertain evidence requests clarification only. A clean render alone is not acceptance.
+iconsmith:test: 
+iconsmith:test:   ```bash
+iconsmith:test: - npx iconsmith draw cloud-check.icon > cloud-check.svg
+iconsmith:test: - npx iconsmith lint cloud-check.svg --keyline wide
+iconsmith:test: - npx iconsmith --output json lint cloud-check.svg   # machine-readable
+iconsmith:test: - npx iconsmith new database -o database.svg
+iconsmith:test: + npm run --silent iconsmith -- draw cloud-check.icon > cloud-check.svg
+iconsmith:test: + npm run --silent iconsmith -- lint cloud-check.svg --keyline wide
+iconsmith:test: + npm run --silent iconsmith -- --output json lint cloud-check.svg   # machine-readable
+iconsmith:test: + npm run --silent iconsmith -- new database -o database.svg
+iconsmith:test:   ```
+iconsmith:test: 
+iconsmith:test:   `iconsmith new` is the product path: cheap host experts (compile / mark / analog) first, the gateway or OpenRouter agent only if they fail. Third-party packs (Lucide, Heroicons, Tabler, Remix) contribute _names_ for inventory, never drawings. `iconsmith improve --control analog --treatment agent --class pack-inventory --concepts …` is the A/B that updates that routing table. Do not paste Lucide path data into a program.
+iconsmith:test: 
+iconsmith:test:   `draw` writes SVG on stdout and diagnostics on stderr, so the redirect above always produces a valid file. Both commands exit non-zero on an error and 0 on warnings alone. Every command takes `--output json`; the default text output is for humans.
+iconsmith:test: 
+iconsmith:test:  ❯ src/pipeline/harness.test.ts:579:20
+iconsmith:test:     577|       },
+iconsmith:test:     578|     })({ name: "x" }, {});
+iconsmith:test:     579|     expect(staged).toBe(packagedSkillText);
+iconsmith:test:        |                    ^
+iconsmith:test:     580|   });
+iconsmith:test:     581|
+iconsmith:test: 
+iconsmith:test: ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+iconsmith:test: 
+iconsmith:test:  FAIL  src/pipeline/skill.test.ts > SKILL.md's frontmatter is a skill's frontmatter > is the same document the harness inlines for a bundled runtime
+iconsmith:test: AssertionError: expected '---\nname: iconsmith\ndescription: Dr…' to be '---\nname: iconsmith\ndescription: Dr…' // Object.is equality
+iconsmith:test: 
+iconsmith:test: - Expected
+iconsmith:test: + Received
+iconsmith:test: 
+iconsmith:test: @@ -9,25 +9,22 @@
+iconsmith:test: 
+iconsmith:test:   This is not a style guide you can drift away from. Off-spec geometry is unrepresentable in this language: there is no op that takes path data.
+iconsmith:test: 
+iconsmith:test:   ## The loop
+iconsmith:test: 
+iconsmith:test: - From the repository root, run `npm ci` and `npm run build:local` first.
+iconsmith:test: - The commands below use the local build; no global executable is installed.
+iconsmith:test: -
+iconsmith:test:   1. Read the concept. Decide what object to draw — the object noun, not the intent. `search` is a magnifying glass.
+iconsmith:test:   2. Pick a keyline (below) and write a `.icon` program.
+iconsmith:test:   3. `iconsmith draw icon.icon > icon.svg` — parse errors go to stderr and the exit code is non-zero. Fix them before going on.
+iconsmith:test:   4. `iconsmith lint icon.svg --keyline <name>` — fix every `error`. Warnings are a prompt to check a choice was made, not a rule.
+iconsmith:test:   5. Look at the SVG rendered at 16px. Lint checks the spec, not the drawing: a centred rectangle of the right size lints perfectly and is an icon of nothing. Record your inspection; independent AI review determines acceptance under the frozen rubric.
+iconsmith:test:   6. Finalize the exact inspected artifacts for independent review. Compiler correction and named visual repair have separate bounded allowances under the original deadline. Missing paperwork requests finalization only; uncertain evidence requests clarification only. A clean render alone is not acceptance.
+iconsmith:test: 
+iconsmith:test:   ```bash
+iconsmith:test: - npm run --silent iconsmith -- draw cloud-check.icon > cloud-check.svg
+iconsmith:test: - npm run --silent iconsmith -- lint cloud-check.svg --keyline wide
+iconsmith:test: - npm run --silent iconsmith -- --output json lint cloud-check.svg   # machine-readable
+iconsmith:test: - npm run --silent iconsmith -- new database -o database.svg
+iconsmith:test: + npx iconsmith draw cloud-check.icon > cloud-check.svg
+iconsmith:test: + npx iconsmith lint cloud-check.svg --keyline wide
+iconsmith:test: + npx iconsmith --output json lint cloud-check.svg   # machine-readable
+iconsmith:test: + npx iconsmith new database -o database.svg
+iconsmith:test:   ```
+iconsmith:test: 
+iconsmith:test:   `iconsmith new` is the product path: cheap host experts (compile / mark / analog) first, the gateway or OpenRouter agent only if they fail. Third-party packs (Lucide, Heroicons, Tabler, Remix) contribute _names_ for inventory, never drawings. `iconsmith improve --control analog --treatment agent --class pack-inventory --concepts …` is the A/B that updates that routing table. Do not paste Lucide path data into a program.
+iconsmith:test: 
+iconsmith:test:   `draw` writes SVG on stdout and diagnostics on stderr, so the redirect above always produces a valid file. Both commands exit non-zero on an error and 0 on warnings alone. Every command takes `--output json`; the default text output is for humans.
+iconsmith:test: 
+iconsmith:test:  ❯ src/pipeline/skill.test.ts:192:31
+iconsmith:test:     190| describe("SKILL.md's frontmatter is a skill's frontmatter", () => {
+iconsmith:test:     191|   it("is the same document the harness inlines for a bundled runtime",…
+iconsmith:test:     192|     expect(packagedSkillText).toBe(SKILL);
+iconsmith:test:        |                               ^
+iconsmith:test:     193|   });
+iconsmith:test:     194|
+iconsmith:test: 
+iconsmith:test: ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+iconsmith:test: 
+iconsmith:test: 
+iconsmith:test:  Test Files  2 failed | 181 passed (183)
+iconsmith:test:       Tests  2 failed | 2548 passed (2550)
+iconsmith:test:    Start at  14:04:27
+iconsmith:test:    Duration  55.04s (transform 2.56s, setup 0ms, import 15.94s, tests 188.54s, environment 10ms)
+iconsmith:test: 
+iconsmith:test: npm error Lifecycle script `test` failed with error:
+iconsmith:test: npm error code 1
+iconsmith:test: npm error path /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+iconsmith:test: npm error workspace iconsmith
+iconsmith:test: npm error location /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+iconsmith:test: npm error command failed
+iconsmith:test: npm error command sh -c vitest run --maxWorkers=4
+iconsmith#test:  ERROR  command (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith) /opt/homebrew/bin/npm run test exited (1)
+
+ Tasks:    0 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    55.728s 
+Failed:    iconsmith#test
+
+ ERROR  run failed: command  exited (1)

@@ -1,0 +1,35 @@
+{
+  "id": "D509",
+  "kind": "ai-only-runtime-and-authority-repair-intent",
+  "observedAt": "2026-09-09T00:38:02.143184+00:00",
+  "userObjective": "Fix remaining E2E qualification blockers with100%AI automation",
+  "baseline": "D508",
+  "ownership": {
+    "root": [
+      "local-campaign.ts",
+      "local-campaign.test.ts",
+      "shared plan/log/ledger/integration"
+    ],
+    "runtime": [
+      "local-codex-review.ts/test",
+      "local-native-call-factory.ts/test"
+    ],
+    "evaluation": [
+      "acceptance-contract.ts/test",
+      "acceptance-critic-evidence.ts/test"
+    ],
+    "isolation": "read-only pinned CLI/runtime investigation"
+  },
+  "constraints": [
+    "No direct flag promotion or self-declared authority",
+    "Production critic qualification separate from author inspection evidence",
+    "No repeated Mini v3 call without verified fix for D376 MCPtool violation",
+    "Preserve D506 unknown accounting and STOP",
+    "No corpus/evidence deletion or relocation",
+    "No human ratings required"
+  ],
+  "maxProviderCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null,
+  "plannedValidation": "Scoped failure regressions, then one source-stable integrated runner; no visual qualification from engineering results"
+}

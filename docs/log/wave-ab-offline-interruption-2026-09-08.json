@@ -1,0 +1,102 @@
+{
+  "kind": "offline-real-container-finalization-interruption-probe",
+  "fixtureOnly": true,
+  "qualified": false,
+  "providerCalls": 0,
+  "costs": {
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "cumulativeNativeAdapterCalls": 31,
+    "nativeDollarAllocation": "unknown"
+  },
+  "artifacts": {
+    ".staging/wave-ab-offline-interruption-2026-09-08/intent.json": "fb6b1d5bb892f11a814da2c70f416b94a6d3e8663b164a92950e27163774bb88",
+    ".staging/wave-ab-offline-interruption-2026-09-08/result.json": "8b548e05f124f593db8666f2b6d922a232f46eaa62570eb67a5d41d9d1fd7ab1",
+    ".staging/wave-ab-offline-interruption-2026-09-08/trigger.json": "9a6030f8b77092f4faf0ad60a34dc53df020a66bebb53c60a42b7ba98d8d9f9c",
+    ".staging/wave-ab-offline-interruption-2026-09-08/identity.json": "8921899c59368eda89d476b4a0bb9660381fb5f1f83ea6ee6923e2dd0228d78a",
+    ".staging/wave-ab-offline-interruption-2026-09-08/probe.mts": "5a43c26ffd41c156f50fe8280ff572d79f3c885625b1d3afa7e916ec13dac1b6",
+    ".staging/wave-ab-offline-interruption-2026-09-08/descriptor.json": "2269a34fb0af575f38aca4b7ad519593043decc16b24b046f6228fa2b1b1fc3b",
+    ".staging/wave-ab-offline-interruption-2026-09-08/work/probe.sh": "c2e61d5389215dcaca16b31689467c0db803828300ff2ae6e07f0ea546860169",
+    ".staging/wave-ab-offline-interruption-2026-09-08/work/writes.log": "43f5dcc33769adcce449be579567a8292af10f031f723d953ccef6302f65103e"
+  },
+  "containerId": "8a30e99fa5e94f5ebfecda28c5e4f927dd6dbdb47f02e5f18517726e332ff707",
+  "result": {
+    "artifactEligible": false,
+    "containerAbsent": true,
+    "containerId": "8a30e99fa5e94f5ebfecda28c5e4f927dd6dbdb47f02e5f18517726e332ff707",
+    "containmentScope": "docker-private-pid-namespace",
+    "process": {
+      "code": 137,
+      "killed": false,
+      "quiescenceScope": "process-group-and-observed-descendants",
+      "quiescent": true,
+      "stderr": "",
+      "stdout": "{\"item\": {\"text\": \"{\\\"reviewMarkdown\\\": \\\"Offline fixture inspected \\\\u2014 not a model review\\\", \\\"unresolved\\\": []}\", \"type\": \"agent_message\"}, \"type\": \"item.completed\"}\n"
+    },
+    "status": "workload-failed"
+  },
+  "triggerHash": "9a6030f8b77092f4faf0ad60a34dc53df020a66bebb53c60a42b7ba98d8d9f9c",
+  "phases": [
+    {
+      "phase": "create",
+      "startedAt": 1788851406774,
+      "settledAt": 1788851407620,
+      "code": 0,
+      "quiescent": true
+    },
+    {
+      "phase": "resolve-identity",
+      "startedAt": 1788851407620,
+      "settledAt": 1788851407836,
+      "code": 0,
+      "quiescent": true
+    },
+    {
+      "phase": "diagnostic-kill",
+      "startedAt": 1788851408434,
+      "settledAt": 1788851409000,
+      "code": 0,
+      "quiescent": true
+    },
+    {
+      "phase": "start",
+      "startedAt": 1788851407837,
+      "settledAt": 1788851409165,
+      "code": 137,
+      "quiescent": true
+    },
+    {
+      "phase": "kill",
+      "startedAt": 1788851409165,
+      "settledAt": 1788851409386,
+      "code": 1,
+      "quiescent": true
+    },
+    {
+      "phase": "remove",
+      "startedAt": 1788851409386,
+      "settledAt": 1788851409639,
+      "code": 0,
+      "quiescent": true
+    },
+    {
+      "phase": "verify-absent",
+      "startedAt": 1788851409639,
+      "settledAt": 1788851409852,
+      "code": 0,
+      "quiescent": true
+    }
+  ],
+  "settledAt": 1788851409852,
+  "independentAbsenceCheckAt": 1788851467537,
+  "independentAbsent": true,
+  "noPostSettlementWrites": true,
+  "postSettlementObservationMs": 57685,
+  "writesSha256": "43f5dcc33769adcce449be579567a8292af10f031f723d953ccef6302f65103e",
+  "limitations": [
+    "Fixture event, not a native author finalization.",
+    "Fixture binding hashes do not represent inspected icon programs.",
+    "Workload intentionally fails with137; no artifact salvage or visual qualification claimed.",
+    "A live request still needs actual inspection, finalization, independent review and exact export within its original deadline."
+  ]
+}

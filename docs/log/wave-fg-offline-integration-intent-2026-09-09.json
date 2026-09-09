@@ -1,0 +1,33 @@
+{
+  "id": "D494",
+  "kind": "offline-integration-intent",
+  "observedAt": "2026-09-08T22:37:20.982356+00:00",
+  "head": "bedec8a175c5fb8d4586549988d2e69e14d6cb5c",
+  "sourceManifestFiles": 401,
+  "D488SourceDriftAtResume": [],
+  "nativeWeeklyUsedPercent": 0,
+  "diskAvailableKiB": 3083656,
+  "diskFloorGiB": 2,
+  "workers": [
+    {
+      "owner": "runtime",
+      "model": "gpt-5.6-sol",
+      "effort": "medium"
+    },
+    {
+      "owner": "evaluation",
+      "model": "gpt-5.6-sol",
+      "effort": "medium"
+    },
+    {
+      "owner": "image-fixture",
+      "model": "gpt-5.6-sol",
+      "effort": "medium"
+    }
+  ],
+  "newApiReservationUsd": 0,
+  "newPaidProviderCalls": 0,
+  "nativeSubscriptionAllocationUsd": null,
+  "scope": "EN integration, D479 bridge, offline raster feasibility. Root campaign integration and sequential verification. No phase qualification or paid dispatch authorized by this receipt.",
+  "priorLedger": "docs/log/api-budget-after-d492-2026-09-09.json"
+}

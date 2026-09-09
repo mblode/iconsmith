@@ -1,0 +1,25 @@
+{
+  "schema": "iconsmith.aggregate-adversarial-root-reference.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "receipt": {
+    "path": ".staging/wave-q3-aggregate-adversarial-audit-2026-09-08/receipt.json",
+    "sha256": "da589ea6f523025e8cea7a28b8953a4f38ca96fcc0a8c0f7b8fc151b862e029e"
+  },
+  "manifest": {
+    "path": ".staging/wave-q3-aggregate-adversarial-audit-2026-09-08/artifact-hashes.json",
+    "sha256": "fdaa79e50bf8824bccd3d498d5dfb39d3def272faad77f7b08b95a3a3b649445"
+  },
+  "rootVerifiedFiles": 82,
+  "decision": "Do not promote concatenated aggregate. Preserve ordered child elements and effective semantics in a grouped admitted assembly.",
+  "findings": [
+    "Duplicate outlined elements change alpha coverage when concatenated.",
+    "Duplicate evenodd elements can cancel all ink.",
+    "Arrow-up overlaps differ even below aggregate raster tolerance."
+  ],
+  "fullSourceCensus": {
+    "path": ".staging/wave-q3-aggregate-adversarial-audit-2026-09-08/source-census.json",
+    "sha256": "8886f91141f34d3d280448c672da14b2e48561c93843dab4db0e6b1f5d2bb17c"
+  }
+}

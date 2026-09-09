@@ -1,0 +1,29 @@
+{
+  "kind": "canonical-full-source-launch-binding",
+  "date": "2026-09-08",
+  "files": {
+    "packages/iconsmith/scripts/local-campaign.ts": "a4cf212d86eadadfc0f89570ab3e675261bd6cf40c7441a1bc0008673517139a",
+    "packages/iconsmith/scripts/local-campaign.test.ts": "94da6f52597ac13f157903915513071cba3e75d4fe986c1c1ca5197855b118b9"
+  },
+  "verification": {
+    "tests": 41,
+    "files": 1,
+    "skipped": 0,
+    "scriptsTypecheck": "passed",
+    "scopedLint": "passed"
+  },
+  "behavior": [
+    "Descriptor binds every recorded production source and package lock in addition to request inputs.",
+    "Pre-dispatch source identity must match the plan.",
+    "After child settlement, changed, absent or unreadable source causes outer refusal and stops further request dispatch."
+  ],
+  "limitations": [
+    "Checks do not prove absence of transient change restored between snapshots.",
+    "Provider-by-provider source closure enforcement is not established by this receipt.",
+    "No live campaign or visual qualification."
+  ],
+  "newProviderCalls": 0,
+  "newApiActual": 0,
+  "newApiReservation": 0,
+  "qualified": false
+}

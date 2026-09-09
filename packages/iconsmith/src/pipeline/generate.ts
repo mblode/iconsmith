@@ -42,17 +42,13 @@ import type { ToolState } from "./tools.js";
 
 export {
   DEFAULT_MODEL,
-  DEFAULT_OPENROUTER_MODEL,
   MissingApiKeyError,
   OPENROUTER_INKLING,
   gatewayModelId,
-  openrouterModelId,
   resolveModel,
-  usesOpenRouter,
 } from "./gateway.js";
 
 export type { Concept } from "./prompt.js";
-export type { Reference } from "./licence.js";
 
 /**
  * Anthropic bills a cached prefix read at a tenth of a fresh read. This loop is
@@ -252,7 +248,7 @@ export interface GenerateOptions {
  * report. Absent means "not measured", never "free" — the eval report says so
  * rather than summing zeros into a dollar figure.
  */
-export interface GenerateCost {
+interface GenerateCost {
   /**
    * The SDK's own reason, and it does not distinguish this loop's exits: a step
    * that made tool calls reports `tool-calls` whether the run then hit the step
@@ -320,7 +316,7 @@ const IDLE_LIMIT = 2;
 
 /** Why the loop stopped. Four states, because "it ended" has been standing in
  *  for four different things, three of which are not success. */
-export type Outcome =
+type Outcome =
   /** The step cap cut a run off mid-work. It leaves a drawing with no errors
    *  in it, but one nothing confirmed. */
   | "budget"

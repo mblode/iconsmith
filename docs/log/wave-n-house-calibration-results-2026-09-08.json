@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-08T05:14:29.099205+00:00",
+  "status": "development-calibration-failed-absolute-anchor",
+  "qualified": false,
+  "nativeCalls": 4,
+  "elapsedMs": 316209,
+  "sourceStable": true,
+  "originalDeadlineAt": 1788844804816,
+  "settledAt": 1788844161026,
+  "population": {
+    "semanticFamilies": 1,
+    "presentations": 8,
+    "independentSamplesNotIncreasedByRepeats": true,
+    "scope": "exposed A157 bicycle house controls, both paints, native16"
+  },
+  "reviewers": [
+    {
+      "model": "gpt-6-astra",
+      "scores": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "allCategoricalControlsPass": true,
+      "matchedControlsPass": true,
+      "absoluteAnchorPass": true
+    },
+    {
+      "model": "claude-opus-5",
+      "scores": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "allCategoricalControlsPass": true,
+      "matchedControlsPass": true,
+      "absoluteAnchorPass": false
+    }
+  ],
+  "diagnosis": "Actual canonical craft prompt asked for 1-10 but did not transmit pre-existing draft numerical anchors. Both models approve unchanged/no critical issue, while Claude scores8 and Astra9. Preserve raw ratings; no score offset, reviewer suppression or geometry redraw.",
+  "followup": "Transmit the existing draft9/10 definitions in actual prompt, test prompt content, then use fresh exposed development controls. This opened packet remains development and cannot become a fresh sealed population.",
+  "evidence": [
+    {
+      "path": ".staging/wave-l-house-calibration-dispatch-prep-2026-09-08/intent.json",
+      "sha256": "5850dcfb21b65b68fafe9be7c8588fbd848e16e18b750eb42821070b28beb838"
+    },
+    {
+      "path": ".staging/wave-l-house-calibration-dispatch-prep-2026-09-08/outer-result.json",
+      "sha256": "016cb9e11bcf889b84852408b455d92a4918ef433658cb950887ab3930e5ea8d"
+    },
+    {
+      "path": ".staging/wave-l-house-calibration-dispatch-prep-2026-09-08/execution/analysis.json",
+      "sha256": "847ce8cfc3aa9a68159106f06d3324b991b1a625eef70bd75d56df877ca87464"
+    },
+    {
+      "path": ".staging/wave-l-house-calibration-dispatch-prep-2026-09-08/execution/dispatch-result.json",
+      "sha256": "8cdc89d5738d28e99a1e70fe8f98d1a69075ed82c3326fec9a1638d52347bbca"
+    },
+    {
+      "path": ".staging/wave-l-house-calibration-dispatch-prep-2026-09-08/execution/root-settlement-audit.json",
+      "sha256": "0b9e8e9d0f48f6a9dde3a9187ee0ad78652b4d65fe322aa82b0d784cf77be2e9"
+    }
+  ],
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0,
+  "cumulativeExecutionNativeLaunches": 20,
+  "nativeDollarAllocationUsd": null,
+  "limits": [
+    "Astra self-lineage on A157 cannot supply independent acceptance",
+    "Claude auxiliary model usage remains explicit in raw native logs",
+    "No critic, construction or production-route visual qualification"
+  ]
+}

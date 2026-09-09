@@ -1,0 +1,79 @@
+{
+  "id": "D302",
+  "status": "failed-development-slice",
+  "qualified": false,
+  "intent": ".staging/wave-al-folder-lock-live-2026-09-08/intent.json",
+  "outerResult": {
+    "exitCode": 0,
+    "elapsedMs": 483611,
+    "sourceStable": true,
+    "settlementAudit": "pending",
+    "qualified": false
+  },
+  "requestedPairs": 2,
+  "requestedOutputSlots": 4,
+  "acceptedOutputs": 0,
+  "validDeliveredPairs": 0,
+  "slotStates": {
+    "refused": 2,
+    "delivery-incomplete": 2
+  },
+  "fullManifestSlots": 80,
+  "unstartedSlots": 76,
+  "nativeCalls": 9,
+  "nativeCallsSettled": 9,
+  "nativeCallsThisExecutionTotal": 46,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "containersAuditedAbsent": 27,
+  "containerAudit": ".staging/wave-al-folder-lock-live-2026-09-08/root-all-container-audit.json",
+  "requestTerminals": [
+    {
+      "actualUsd": null,
+      "deadlineAt": 1788856210484,
+      "deadlineExceeded": false,
+      "elapsedMs": 253473,
+      "maxWallMs": 1200000,
+      "qualityStatus": "outer-refusal",
+      "requestId": "63fd77803ca0299ab1fdd17624d368bd6856fe6b9df3c8f6815886a23ae77773",
+      "route": "automatic-retrieval",
+      "runtimeHash": "2175af6376bda9956dc451c2bcb82a151d69afb35f13868402a78964892aa31b",
+      "status": "refused",
+      "toolingHash": "0639fbce0bc056154f9bf3b31685ec2038a8dddfcc9ac034925524be24780618"
+    },
+    {
+      "actualUsd": null,
+      "deadlineAt": 1788856464485,
+      "deadlineExceeded": false,
+      "elapsedMs": 225402,
+      "error": "Error: No host-valid program survived compiler repair",
+      "master": "24",
+      "maxWallMs": 1200000,
+      "nativeSize": 24,
+      "qualityStatus": "not-reviewed",
+      "requestId": "b06bc216c8e413fe92e344e5f19148807f0386387030b251817dca8859db3863",
+      "route": "automatic-retrieval",
+      "runtimeHash": "2175af6376bda9956dc451c2bcb82a151d69afb35f13868402a78964892aa31b",
+      "stageTimings": {
+        "preflight": 1168,
+        "retrieval": 83719,
+        "generation": 140515
+      },
+      "status": "incomplete",
+      "toolingHash": "0639fbce0bc056154f9bf3b31685ec2038a8dddfcc9ac034925524be24780618"
+    }
+  ],
+  "failures": [
+    "16px author native shackle uncertainty mislabeled representation; child delivered label with exit1 refused by parent",
+    "24px filled keyline error persists after one compiler correction: extent22x20 against20x18 +/-1",
+    "Root provisional actual-image cross-master observation:16 lower-right lock vs24 lower-left; neither output accepted"
+  ],
+  "independentReviews": 0,
+  "visualRepairs": 0,
+  "compilerRepairs": 1,
+  "auditSetupFailure": "First root audit expected nested container key on preflight receipt; corrected to support actual top-level receipt, no provider call",
+  "historicalArtifactsPreserved": true,
+  "evidenceOnlyNotVisualQualification": true,
+  "diagnosis": ".staging/wave-an-author-uncertainty-diagnosis-2026-09-08/diagnosis.json"
+}

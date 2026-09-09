@@ -19,7 +19,7 @@ import type { PackRates } from "./conformance.js";
 import type { GateResult } from "./judge.js";
 import type { Separation } from "./separation.js";
 
-export interface StyleCalibration {
+interface StyleCalibration {
   baseline: number;
   baselineN: number;
   ceiling: number;
@@ -33,7 +33,7 @@ export interface StyleCalibration {
   separation: Separation;
 }
 
-export interface SemanticCalibration {
+interface SemanticCalibration {
   /** Concepts in the bank the ranks are taken over. */
   bank: number;
   /** A third-party icon of the same concept, asked the same question — the
@@ -53,7 +53,7 @@ export interface SemanticCalibration {
   separation: Separation;
 }
 
-export interface ConformanceCalibrationFile {
+interface ConformanceCalibrationFile {
   baseline: { gate: number; set: string; strict: number };
   ceiling: { gate: number; n: number; set: string; strict: number };
   excluded: { reason: string; set: string }[];
@@ -71,7 +71,7 @@ export interface Unmeasured {
 /** Every sanity-gate run the judge has been put through, passes and failures
  *  alike. A file holding only the model that passed would read as "the judge
  *  works" and hide that the cheap model does not. */
-export interface JudgeCalibration {
+interface JudgeCalibration {
   procedure: string;
   runs: {
     gate: GateResult;
@@ -105,7 +105,7 @@ export const isMeasured = <T>(v: T | Unmeasured): v is T =>
  * floor — makes every previously reported reach incomparable, and that gets a
  * `v2` beside this one rather than a quiet overwrite.
  */
-export const DEFAULT_CALIBRATION = "bench/calibration.v1.json";
+const DEFAULT_CALIBRATION = "bench/calibration.v1.json";
 
 /** Null when the file is absent — the degradation path on a fresh clone that
  *  has never run the calibration. */

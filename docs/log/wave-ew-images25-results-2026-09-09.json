@@ -1,0 +1,248 @@
+{
+  "id": "D486",
+  "kind": "images25-access-and-raster-development-result",
+  "observedAt": "2026-09-08T21:21:13.851443+00:00",
+  "requestedModels": [
+    "gpt-image-2.5-flare",
+    "gpt-image-2.5-sunburst"
+  ],
+  "apiPreflight": [
+    {
+      "requested": "gpt-image-2.5-flare",
+      "status": 404,
+      "code": "model_not_found",
+      "type": "invalid_request_error"
+    },
+    {
+      "requested": "gpt-image-2.5-sunburst",
+      "status": 404,
+      "code": "model_not_found",
+      "type": "invalid_request_error"
+    }
+  ],
+  "exactImages25TestCompleted": false,
+  "builtInDiagnostic": {
+    "calls": 1,
+    "exactEmittedModel": null,
+    "metadataObservation": "Embedded provenance names gpt-image/version2.0; this does not establish a Flare or Sunburst identity.",
+    "outputWidth": 1254,
+    "outputHeight": 1254,
+    "requestedWidth": 1024,
+    "requestedHeight": 1024,
+    "realAlpha": true,
+    "fourSlotsRetained": true,
+    "review": {
+      "reviewer": "gpt-5.6-sol",
+      "effort": "medium",
+      "agent": "/root/image_raster_review",
+      "inputOnly": "/Users/mblode/Code/mblode/iconsmith/output/imagegen/review-2026-09-09/panel.png",
+      "inputSha256": "949bad69e6f9c05078e599ad225bc9ba27b238d4d7812476c7ee35b468584810",
+      "protocol": "fresh-context development raster reviewer; target and generation prompt withheld; four-row native/enlargement board visible",
+      "qualifiedInstrument": false,
+      "rows": [
+        {
+          "row": "outlined16",
+          "depictedMeaning": "Folder with a padlock; protected or locked folder.",
+          "craft": 4,
+          "shipUnchanged": false,
+          "nativeLight": "Weak. The folder is barely recognizable and the lock reads as a small attached mark.",
+          "nativeDark": "Weak. The same concept is recoverable, but the overlapping forms remain cramped.",
+          "defects": [
+            "The lock occupies too much of the folder at this size.",
+            "Its shackle merges with the folder edge, weakening the lock silhouette.",
+            "The combined native icon can resemble a folder with an arbitrary badge."
+          ]
+        },
+        {
+          "row": "filled16",
+          "depictedMeaning": "Folder with a padlock; protected or locked folder.",
+          "craft": 5,
+          "shipUnchanged": false,
+          "nativeLight": "Fair. The filled folder is immediate, but the lock is crowded and only partly distinct.",
+          "nativeDark": "Fair. Strong folder contrast helps, while the lock interior and shackle remain compressed.",
+          "defects": [
+            "The folder and lock form a dense joined mass.",
+            "The shackle has little separation from the folder.",
+            "The tiny lock can read as a generic circular badge."
+          ]
+        },
+        {
+          "row": "outlined24",
+          "depictedMeaning": "Folder with a padlock; protected or locked folder.",
+          "craft": 7,
+          "shipUnchanged": true,
+          "nativeLight": "Good. Both folder and padlock are recognizable at native size.",
+          "nativeDark": "Good. The meaning survives clearly with comparable balance.",
+          "defects": [
+            "The lock still crowds the folder corner.",
+            "The shackle-to-folder overlap creates a visually busy junction.",
+            "The lock feels slightly dominant relative to the folder."
+          ]
+        },
+        {
+          "row": "filled24",
+          "depictedMeaning": "Folder with a padlock; protected or locked folder.",
+          "craft": 7,
+          "shipUnchanged": true,
+          "nativeLight": "Good. The folder reads instantly and the lock is identifiable.",
+          "nativeDark": "Good. Strong contrast preserves both parts of the symbol.",
+          "defects": [
+            "The lock overlaps a large portion of the folder.",
+            "The shackle boundary is somewhat absorbed into the filled folder.",
+            "The lock body is visually heavy, especially on the light surface."
+          ]
+        }
+      ],
+      "limitation": "Pixel appearance was not used to infer source geometry."
+    },
+    "developmentCraftMedian": 6,
+    "shipUnchanged": {
+      "successes": 2,
+      "requested": 4
+    },
+    "meaningRecognizedInBoard": {
+      "successes": 4,
+      "requested": 4
+    }
+  },
+  "editableConstrainedDsl": {
+    "produced": false,
+    "reason": "No constrained raster-to-DSL adapter was found in canonical scripts/src. A raster PNG or raw traced SVG cannot satisfy editable DSL/replay requirements."
+  },
+  "qualification": false,
+  "costs": {
+    "apiGenerationCalls": 0,
+    "apiMetadataGets": 2,
+    "newApiReservationUsd": 0,
+    "newKnownApiSpendUsd": 0,
+    "builtInImageSubscriptionCalls": 1,
+    "solMediumReviewCalls": 1,
+    "subscriptionDollarAllocation": null,
+    "ledger": "api-budget-after-d466-2026-09-09.json"
+  },
+  "limitations": [
+    "One exposed-family sheet is not an independent sample of four families.",
+    "The reviewer saw all four rows; recognition is target-withheld development recognition, not a sealed qualification result.",
+    "Native proofs are fixed-quadrant downsample diagnostics, not verified independent native optical masters.",
+    "Alpha-threshold component counts are sensitivity diagnostics, not geometric defect ground truth.",
+    "No house references were provided, so house parity is unmeasured."
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled16-light.png",
+      "sha256": "7856bd718938299d67074e563385d4320f1d2788e427cedad512be3e51657a1c"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled24-light-8x.png",
+      "sha256": "2301a7c7d8a2f9fa686dfd2e26d968fc50d417e84772bda6a7bbf97b29419772"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled24.png",
+      "sha256": "0e0296973339be5db8997d27343548a8bb17e9e7b558e5debd24ddcf051d4188"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined24.png",
+      "sha256": "24af4696165b9cfa692c38c760ec222cf2fdf402a778be4507734be1e0730ef3"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled16-dark.png",
+      "sha256": "8b3742e60d4994ef45f66f17d5dd3ed50b0e7f9228e50afab0e963b8798f8839"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/api-model-preflight.json",
+      "sha256": "70492a262c9c689b65f61dad2c493e8d982dda2cea16babdf83220b8c0f8abd8"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/native-tests.json",
+      "sha256": "8f3bcb5ace864fd43b83a41e903d80ae929fcdb273bf7fd6671a23fcc91220cd"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/original.png",
+      "sha256": "af02c95063387c70df482bd0005ef0917f68ff172dd698c7832b7f70e8705f65"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled24-dark.png",
+      "sha256": "1d673cc279a3ed96d87cdc900added0f2a7e3eaa7c53850d4838eeb68b34c80b"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled24-light.png",
+      "sha256": "a1339c182e243005257e06873a302cc7bfd5c0b836239b66e42c466daab05125"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/prompt.txt",
+      "sha256": "e0a1d1741f54c3281fc3e18f07288c378268c8d3be1df6037d1fef3decb2f671"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined24-light-8x.png",
+      "sha256": "bfbcceed067b0f1314995a925ec89c866e3aa4f71e24d3bc197bee455d5e1887"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined24-dark-8x.png",
+      "sha256": "301995bb220f19c7ae85ac3d7cead4f501c44cc732e64dbbe90031baa3fa3cbb"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined16-dark-8x.png",
+      "sha256": "6f498fc30237a12c28f9ed96a1fc5e1058e1708ddbd26499bdbdc9c6c0e5bf29"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined16-dark.png",
+      "sha256": "ea63c89dbb47fbea67ce6aa887ce56ceb2e6c216c4b3ac86401c22d1fc90034d"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/independent-development-review.json",
+      "sha256": "596eba4293d67ea2272a285381432da15976455f742bf1e28386e48c46c29ba7"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/native-diagnostic-board.png",
+      "sha256": "949bad69e6f9c05078e599ad225bc9ba27b238d4d7812476c7ee35b468584810"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/native-footprints.json",
+      "sha256": "90be60ed66709dcc0a8c49580ab012267a3acae66066d241f3424b28e69f00c9"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined16-light-8x.png",
+      "sha256": "eea64b4c4fb8f7d0ce050293822d6db77941d474c186034b7326e2a8985a1662"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined24-light.png",
+      "sha256": "23590a8b86b49a9de78f45cf6213625f74d9447b3b0bf5b2546f97db931a8371"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled24-dark-8x.png",
+      "sha256": "24cbab513a429c14ad548ea006f4a99f063866c8aa1b2350c8046c4289e7b735"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled16-light-8x.png",
+      "sha256": "4053837cfc8116028e378176059c6e14454c9e88d98710f9fb239381ad99f40b"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined16-light.png",
+      "sha256": "b7522d52bbe16fb264457d0f7e53e1e23a2a141e3d1b99f412921b29a032557a"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined16.png",
+      "sha256": "6ab45252c191afe0a1edd01ed8cba5193816ceeb6c7276e75d9e4c157aff9148"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled16-dark-8x.png",
+      "sha256": "62560ac0ec2e90ea7784ea6c96ece2a8244e545ec19d864c0ea501af3bcce7c0"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/outlined24-dark.png",
+      "sha256": "11839207ad96588c593b05eeaa64ae0bb964350d74060c3d50295042e473ee79"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/test-native.cjs",
+      "sha256": "8667a0bb1bdcdb273ecf65cdb4223f828ddb224cb1b9cb73a0b494d69c922aa7"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/filled16.png",
+      "sha256": "31d91fa2c589271b2a249e0db8526b3f9fca778fe79174a7ee71e5b834dbfc1d"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ew-images25-folder-lock-2026-09-09/sheet-white.png",
+      "sha256": "defdab95d02a8de3b407c33a9e8df02331b7fb94be7543296420374725030ec5"
+    }
+  ]
+}

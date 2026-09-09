@@ -1,0 +1,35 @@
+{
+  "version": 17,
+  "qualified": false,
+  "htmlSha256": "95ac4ca7a00d10c4976828b92f058df96cd10bae719db2c1179c61c4b727bc81",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v16-2026-09-08.html",
+  "previousIndexSha256": "15b53ed246b4acf9e3b9b1821ba9d975e032d93251b2060e9724b46c9991d9b2",
+  "images": [
+    {
+      "label": "Cloud-upload24 outlined: development reviews clear; visually unqualified",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/cloud-upload-24/attempt-1/outlined.proof.png",
+      "sha256": "6940c041a345a5770f49e348069e70c62e15a04dbf27cce3066a2ee2e5bfd89e"
+    },
+    {
+      "label": "Cloud-upload24 filled: development reviews clear; visually unqualified",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/cloud-upload-24/attempt-1/filled.proof.png",
+      "sha256": "f8aeade5f57efd2d6bea3d468f01338416c522a3e4a928ea7a9345e79c385a18"
+    },
+    {
+      "label": "Bicycle16: retained failure and offline declaration correction; identical native pixels, no repair credit",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ca-bicycle-failure-diagnosis-2026-09-09/comparison-board.png",
+      "sha256": "4c6a569a9c47d2850d1bbe5b8fea4a9d3e3cc95240b42547237b2deb8eade9be"
+    },
+    {
+      "label": "Folder-lock16/24: independently compiled masters; modifier placement review remains unresolved",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bz-folder-cross-master-prep-2026-09-08/presentation-v2/paired-native-proof-board-v2.png",
+      "sha256": "7701479749fc2040973d17e60273a5e790140ab332cecd5c8ed890af09faad7c"
+    }
+  ],
+  "missingQualifiedSlots": [
+    "hammer-check16/outlined",
+    "hammer-check16/filled",
+    "bicycle16/outlined",
+    "bicycle16/filled"
+  ]
+}

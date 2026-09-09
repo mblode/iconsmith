@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "sourceReceipt": {
+    "path": ".staging/wave-d-evaluation-blind-protocol-2026-09-08/blind-recognition-order-receipt.json",
+    "sha256": "2dee733c90cee0fb33eea95b4958ea996d2c1e3846eb07e0ddb75bb5430c6741"
+  },
+  "evidence": {
+    "kind": "iconsmith-blind-recognition-order-receipt",
+    "version": 1,
+    "createdAt": "2026-09-08T01:52:32.069Z",
+    "authority": "fixture-backed engineering evidence only",
+    "productionQualified": false,
+    "providerCalls": 0,
+    "costUsd": 0,
+    "scope": {
+      "packages/iconsmith/scripts/ai-review-protocol.ts": "60f7ddfc746347758ecde19e71ae35d6c87d02ada938a8c8902f162a17bf1cb8",
+      "packages/iconsmith/scripts/ai-review-protocol.test.ts": "3a899f711b0e784a55e70f05617cd05ac0c7f9d9be7a7acb35f1844d39531b4c",
+      "packages/iconsmith/scripts/ai-review-campaign.ts": "4f8a313674c14b3c155cd08069bc773dc67cbc6e2fda7d7e1eeb6652b4ef6c55",
+      "packages/iconsmith/scripts/ai-review-campaign.test.ts": "54eb22d2a59a3f28f295912abbae310fdcea5e33f76ea1a01913c4ea72b1a32d"
+    },
+    "implementation": [
+      "Deterministic seeded recognition-choice ordering is balanced across target positions within equal-sized choice strata.",
+      "Distractor order depends on seed and immutable row identity, not caller meanings order.",
+      "The campaign intent binds seed, algorithm version, exact ordered choices, and a hash of actual recognition questions.",
+      "Protocol dispatch verifies the frozen question hash and persists the exact questions before recognition.",
+      "Recognition receipt is sealed before concept-aware craft context is written or dispatched.",
+      "Prior campaign intents fail closed as changed identity; no frozen artifact is rewritten."
+    ],
+    "verification": {
+      "scopedLint": "pass: ultracite check on four owned files",
+      "scopedTests": "pass: 37/37 in ai-review-protocol, ai-review-campaign, ai-review-assessment, author-review-packet",
+      "diffCheck": "pass",
+      "workspaceTypecheck": "blocked by concurrent out-of-scope errors: local-astra-author.ts(310,24) and local-claude-author.ts(335,24), TS18048 containerFactory possibly undefined"
+    },
+    "testedInvariants": [
+      "target-position balance across packet rows",
+      "same-seed reproducibility and changed-seed identity drift",
+      "caller meanings order and packet row order do not expose target position",
+      "actual dispatched questions equal frozen order",
+      "target is absent from recognition prompt text",
+      "concept-aware craft starts only after recognition and sealed-context receipts exist"
+    ],
+    "remainingDependency": "No live sealed reviewer campaign was run; reviewer qualification and production acceptance remain false."
+  },
+  "rootVerification": "All four source hashes match; full integration pending",
+  "qualified": false
+}

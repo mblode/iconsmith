@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "task": "P1.2 Claude offline authentication preflight",
+  "status": "verified-offline-auth-only",
+  "qualified": false,
+  "evidence": {
+    "path": ".staging/wave-k-claude-auth-v2-2026-09-08/auth-result.json",
+    "sha256": "b8ae0f70f7ee170ea636f1dac469d8b843f540eca50ede0a56bdca224f740f57"
+  },
+  "observations": {
+    "artifactEligible": true,
+    "containerAbsent": true,
+    "containerId": "085b5d0e3ca9a433d3ccd7e0bed62b9dfff0e137c831f06e1c275353f2fb5e80",
+    "containmentScope": "docker-private-pid-namespace",
+    "process": {
+      "code": 0,
+      "killed": false,
+      "quiescent": true,
+      "stdoutHash": "e04156d373505ff47dd27a4b7e4fcd7340086590c38a477746aa1c1372d4ee35",
+      "stderrHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "status": "complete",
+    "auth": {
+      "loggedIn": true,
+      "authMethod": "claude.ai",
+      "apiProvider": "firstParty",
+      "subscriptionType": "max"
+    },
+    "elapsedMs": 1348,
+    "credentialUnchanged": true,
+    "providerInferenceCalls": 0,
+    "network": "none",
+    "qualified": false
+  },
+  "limitations": [
+    "No server roundtrip or model/image capability established",
+    "Read-only unexpired credential copy cannot refresh",
+    "Stale-account initial failure retained separately"
+  ],
+  "providerInferenceCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null
+}

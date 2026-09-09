@@ -1,0 +1,96 @@
+{
+  "id": "D311",
+  "status": "confirmed-critical-renderer-defect",
+  "compiler": "iconsmith-constrained-23-source-representations",
+  "evidence": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/evidence.json",
+  "artifacts": [
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/audit.mts",
+      "sha256": "3c1d6d83f337731bbcbf5008b50f8545ff9276c4269b8b2e1f2df8db82500042"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/base-16-4x.png",
+      "sha256": "7b39520599cee63b8cf278b287ed104d76c5ece7c37773a89d042a08faba0471"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/base-16.png",
+      "sha256": "c10923e9ef1dc12bc6b3df65a336ec584298b3afc40c76350eabd13c89abbc50"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/base-24-4x.png",
+      "sha256": "724025bbdab6038fcaf2553131e99aa01c329a2a222cc483f3b5d9b2393aa696"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/base-24.png",
+      "sha256": "dd20848c7eaa328dbd30d27c9ca04cbe619a0614dc3e128a6aaa41814c20df39"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/base.icon",
+      "sha256": "ea994e8fa410a6775daaec3bcb85a78f4474f7e4813b847751ed8325ddd6fc28"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/base.svg",
+      "sha256": "6a2c639be526f48aca8717895a80fedb72dea5d86affb1a8a661900cbd4b9c39"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/evidence.json",
+      "sha256": "60e1fbc0268ebb2b9234e8f2d179344d0861466cc67f03928e0e95524acf140e"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/expected-subtraction-16-4x.png",
+      "sha256": "4c21f927a985d9c436abda770a9bcdc85d52f818d0d1e982f198057cd217f934"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/expected-subtraction-16.png",
+      "sha256": "db51e8793629391bfd0a1235b5eaefc137a083a31f7375fe375a661a6619930d"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/expected-subtraction-24-4x.png",
+      "sha256": "f5b0eb52e30ef1cfed8da767514b83d5c0ec008c936a217ef8836989499cb921"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/expected-subtraction-24.png",
+      "sha256": "533a8f4aeedc413902e7134fa0ea9049bb74ce18fd291fabf940c9ebc21fd604"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/expected-subtraction.svg",
+      "sha256": "edddd9a1a9fbaf71176ef59032158d164704632385d7a7155b734b86e0a03684"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/external-knockout.icon",
+      "sha256": "6145b31f6f1f6fde74795647c5a15bd7a61633dfc6b1d8e7c146a7f8a15f8e60"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/renderer-16-4x.png",
+      "sha256": "38d881212c534004e5273b30f2bb7081ad51fa0453f312141b1769bd2a70c142"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/renderer-16.png",
+      "sha256": "cd823783fa2710e434ebe393467820b85da43db52039b6d8155f733f332aca18"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/renderer-24-4x.png",
+      "sha256": "846e362e3f27c9ee0cd98bdb4f4ee4cb8e70d73ced3d727333a5b9b9e5b3ea09"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/renderer-24.png",
+      "sha256": "3b1b61c639cfc1a5105147cc0c80e76a0b03cf3820f26e3bec4195c7b9be3f67"
+    },
+    {
+      "path": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/renderer.svg",
+      "sha256": "7bb0f769fa608cc60a4651495adc9aaf6c8f5938bb32d47478b8eab33ec5c888"
+    }
+  ],
+  "finding": "An external knockout on the admitted columns-3-filled assembly is painted as positive geometry. Actual rendered extent is 18 by 24; independently constructed per-child subtraction remains 18 by 18.",
+  "rootVisualInspection": [
+    "renderer-24-4x.png",
+    "expected-subtraction-24-4x.png"
+  ],
+  "expectedImageScope": "Diagnostic subtraction reference, not an accepted output or independent AI review.",
+  "decision": "Do not apply the proposed lint-only patch. Correct shared paint resolution in a new compiler revision, then run the complete source regression and targeted assembly fixtures before provider dispatch.",
+  "providerDispatch": "paused",
+  "providerCalls": 0,
+  "nativeCallsCumulative": 47,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

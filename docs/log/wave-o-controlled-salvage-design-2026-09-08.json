@@ -1,0 +1,11 @@
+{
+  "schema": "iconsmith.controlled-salvage-design.root-evidence.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "receipt": {
+    "path": ".staging/wave-o-controlled-salvage-preflight-2026-09-08/controlled-finalization-interruption-probe-design-v1.json",
+    "sha256": "5ec3ec5d87e6567ba8e149a8f3e8dc5daa3bc6835fe3e0b1e96bafb4adbaa25b"
+  },
+  "finding": "Deterministic live interruption needs an identity-bound stdout observer before settlement; a trace watcher alone has a host-buffer race. P1.7 remains open."
+}

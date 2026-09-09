@@ -1,0 +1,25 @@
+{
+  "id": "D358",
+  "kind": "atomic-crash-and-acceptance-scope-regressions",
+  "atomic": {
+    "patch": ".staging/wave-bm-atomic-runtime-patch-2026-09-08/interruption-tests-v2/atomic-interruption-tests-v2.patch",
+    "sha256": "55a0c6d705007851a8ad8618c980de725a80c4558777efe69641a5519c1bab97",
+    "tests": 58,
+    "files": 3,
+    "log": ".staging/wave-bn-atomic-root-tests.log"
+  },
+  "acceptanceScope": {
+    "tests": 44,
+    "files": 1,
+    "log": ".staging/wave-bo-acceptance-scope-tests.log",
+    "cases": [
+      "unregistered scope",
+      "unregistered dimension",
+      "prototype property dimension"
+    ]
+  },
+  "scopedLint": "passed",
+  "fullIntegration": "pending combined implementation wave",
+  "providerCalls": 0,
+  "qualified": false
+}

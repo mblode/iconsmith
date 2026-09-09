@@ -1,0 +1,47 @@
+{
+  "id": "D346",
+  "kind": "actual-source-semantic-census-overlay",
+  "qualified": false,
+  "summary": {
+    "reviewedConcepts": 107,
+    "reviewedSlots": 428,
+    "reviewedSlotsWithMissingSource": 8,
+    "untouchedConcepts": 2114,
+    "untouchedSlots": 8456
+  },
+  "artifacts": [
+    {
+      "file": ".staging/wave-bl-semantic-census-overlay-2026-09-08/combined-proposal.json",
+      "sha256": "66b9acc4d0729c94d65b6913b28d90d41faa31e09038746f0917100d084794e6"
+    },
+    {
+      "file": ".staging/wave-bl-semantic-census-overlay-2026-09-08/independent-root-review.json",
+      "sha256": "3dd200a0c25d3fddaae4cb57dfc45ff018075266c5832d8b64f6ada5c8f8ce49"
+    },
+    {
+      "file": ".staging/wave-bl-semantic-census-overlay-2026-09-08/overlay.json",
+      "sha256": "6dd2adcdfbd2b19f174da639b3dad9ddb0dba403a1b7d15888bdf905d2c43963"
+    },
+    {
+      "file": ".staging/wave-bl-semantic-census-overlay-2026-09-08/receipt.json",
+      "sha256": "93d9e0f2ce43a2256a0565c0a232fa9f52fd60de11096ff6d05fb259e312dceb"
+    },
+    {
+      "file": ".staging/wave-bl-semantic-census-overlay-2026-09-08/review-envelope.json",
+      "sha256": "c85f35c74b1c8a8b29e0e7257e8b98067df17a804d1c4f40f106a91b52a4dac5"
+    },
+    {
+      "file": ".staging/wave-bl-semantic-census-overlay-2026-09-08/run.mts",
+      "sha256": "9461c2a7b8cdc1f8b15749397728c38aa3e13269d2329ae80ac4328d57fd25c1"
+    }
+  ],
+  "limitations": [
+    "Only scoped semantic family dispositions are reviewed.",
+    "Aliases and derivatives remain unresolved for this new 31-concept scope.",
+    "Missing paint slots remain missing; no visual or novel-family qualification."
+  ],
+  "nativeCallsThisExperiment": 0,
+  "nativeCallsCumulative": 79,
+  "apiIncrementUsd": 0,
+  "nativeDollarCost": "unknown"
+}

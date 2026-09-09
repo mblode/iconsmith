@@ -1,0 +1,21 @@
+{
+  "id": "D295",
+  "status": "development-calibration-only",
+  "receipt": ".staging/wave-ag-local-feature-calibration-2026-09-08/receipt.json",
+  "receiptSha256": "65c5f7a34b0240c31890b026927a8fb7babea1660053bca5928a2c93efb36fa2",
+  "manifestSha256": "cdfc6e135c9e9beac6e43ec8af6a7a6fcc0ccb21af692de1d0abce1586b943b4",
+  "artifactsVerified": 190,
+  "cleanPass": 13,
+  "cleanUncertain": 1,
+  "injectedDetected": 6,
+  "rootImageInspection": "Exact calibration board viewed; removed palette counter, branch interruption and keyframe contour damage visible.",
+  "qualification": false,
+  "productionAdoption": false,
+  "providerCalls": 0,
+  "apiCost": 0,
+  "limits": [
+    "Bell16 source fidelity cannot establish counter suitability",
+    "Bell24 remains uncertain",
+    "Three injected defect classes do not establish general sensitivity"
+  ]
+}

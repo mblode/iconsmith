@@ -1,0 +1,80 @@
+{
+  "id": "D493",
+  "kind": "read-only-source-and-session-audit-with-documentation-handover",
+  "observedAt": "2026-09-08T21:52:55.882993+00:00",
+  "head": "bedec8a175c5fb8d4586549988d2e69e14d6cb5c",
+  "handover": {
+    "path": "docs/plans/iconsmith-handover-2026-09-09.md",
+    "sha256": "15452195c145b9f67a257e41fb13ca6c208aa4fd798afd835bb984be692f580e"
+  },
+  "verification": {
+    "sourceManifestFiles": 401,
+    "sourceDrift": [],
+    "additionalD488SkillDrift": [],
+    "ENBaseDrift": [],
+    "lastFullTestReceipt": "D488",
+    "fullSuiteRerun": false,
+    "reason": "Documentation-only audit; source hashes checked."
+  },
+  "auditScope": {
+    "history": "Foundry log and execution notes through D492, authoritative plan, research history, scoped ccs results for current and former project; not a verbatim recovery of unavailable transcripts.",
+    "historyArtifacts": [
+      ".staging/wave-fc-session-handover-audit-2026-09-09/icon-forge-raster-history.json",
+      ".staging/wave-fc-session-handover-audit-2026-09-09/iconsmith-image-history.json"
+    ],
+    "primaryPlanTasksChecked": 15,
+    "primaryPlanTasksTotal": 84,
+    "corpusSvgFiles": 62550,
+    "workers": {
+      "runtime": {
+        "agent": "handover_runtime_audit",
+        "ENIntegrated": false,
+        "ENBaseFiles": 8,
+        "ENBaseDrift": [],
+        "remaining": [
+          "author inspection collector sealing",
+          "recursive root/campaign evidence consumption",
+          "current frozen live slice and salvage/reliability replay"
+        ]
+      },
+      "image": {
+        "agent": "handover_image_audit",
+        "studioUsesImageGeneration": true,
+        "models": [
+          "google/gemini-3.1-flash-lite-image",
+          "google/gemini-3-pro-image"
+        ],
+        "semanticAdapterExists": true,
+        "sunburstAdapterInvoked": false,
+        "recommendation": "Retain existing defaults pending matched final editable-output evidence."
+      },
+      "evaluation": {
+        "agent": "handover_eval_audit",
+        "contract": "draft16 working-tree integration, untracked, unqualified",
+        "terminalBridge": "D479 design-only; D478 prerequisite integrated",
+        "producerLineageExclusionImplemented": true,
+        "sealedPopulationReady": false
+      }
+    }
+  },
+  "corrections": [
+    "Studio already calls image generation for composition proposals.",
+    "A constrained semantic raster adapter exists; Sunburst experiment did not invoke it.",
+    "Model GET404 did not establish generation unavailability; Sunburst POST succeeded.",
+    "P3.6 producer/evaluator lineage exclusion is implemented; real roster and qualification remain open."
+  ],
+  "costs": {
+    "newPaidProviderCalls": 0,
+    "newApiReservationUsd": 0,
+    "auditSubagents": 3,
+    "subagentModel": "gpt-5.6-sol",
+    "subagentEffort": "medium",
+    "nativeDollarAllocation": null,
+    "ledger": "docs/log/api-budget-after-d492-2026-09-09.json",
+    "actualUsageRatedUsd": 13.1740211,
+    "reservedUnknownUsd": 11.37126575,
+    "remainingCapUsd": 25.45471315
+  },
+  "visualQualification": false,
+  "planCheckboxesChanged": false
+}

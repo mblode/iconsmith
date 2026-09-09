@@ -1,0 +1,82 @@
+{
+  "id": "D525",
+  "date": "2026-09-09",
+  "intent": "D524",
+  "status": "blocked-insufficient-api-credits",
+  "authentication": {
+    "httpStatus": 200,
+    "durationSeconds": 0.48728084564208984,
+    "endpoint": "GET /v1/models",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-Request-Id": "2e002b20-b317-4410-b1d1-3ba2b579fc84"
+    },
+    "generationCalls": 0,
+    "retried": false
+  },
+  "generation": {
+    "id": "blode-icons-outlined-bell24",
+    "httpStatus": 402,
+    "durationSeconds": 2.478355884552002,
+    "headers": {},
+    "credits": null,
+    "responseSha256": "2394ce79a1b46525041778af674618a28081bd1d813dc087175e63aa56ae540e",
+    "retried": false,
+    "errorCode": "insufficient_credits"
+  },
+  "requestedSlots": 4,
+  "dispatchedSlots": 1,
+  "rejectedSlots": 1,
+  "unstartedSlots": 3,
+  "producedSvgCount": 0,
+  "retryCount": 0,
+  "scoreOutOf10": null,
+  "qualified": false,
+  "evidenceDirectory": ".staging/wave-fw-quiver-access-2026-09-09",
+  "billing": {
+    "reservedUsd": 0.8,
+    "reservedCredits": 80,
+    "releasedReservationUsd": 0.8,
+    "reportedDebitedCredits": null,
+    "generationSpendUsd": 0,
+    "basis": "HTTP402 insufficient_credits rejects generation before output; response has no credit debit field. No invoice reconciliation claimed."
+  },
+  "exposure": {
+    "dispatchedReferenceHashes": [
+      {
+        "name": "heart",
+        "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/heart.svg",
+        "sourceSha256": "ca547b2dac3f9c5c34c991ebefae07f75f57c8624a286a2a37f3b36cb9bd6d5a",
+        "inputSha256": "894b0ffdbb4a0497c469bcb225a8593bc61fe98975332367002162e670a38d90"
+      },
+      {
+        "name": "cloud",
+        "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/cloud.svg",
+        "sourceSha256": "6c2c160b6130e56882ee8b6c28c40ba57f90e0580baa4c72bf568b618a80e25a",
+        "inputSha256": "e07630b840b80b408bdcd26f7ed4e1dff9b9dddf0eb9eea271d659f6c033620d"
+      },
+      {
+        "name": "lock",
+        "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/lock.svg",
+        "sourceSha256": "f37cf1d22278b7e39cb13fa9620e5449d6b2c305bf7899cc5335621c9759c901",
+        "inputSha256": "ecca882301c3c77d0308527fbb8125336d9d57793f34d0c0fad60d625ebfc73e"
+      },
+      {
+        "name": "camera-1",
+        "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/camera-1.svg",
+        "sourceSha256": "ae7abdab44e270bf1bfaf3601a2c66e9a7c4a96cacc8b753803987d1dab6a84f",
+        "inputSha256": "acafd25f0868ddcf3a4257c4d26287ffbc1158aa558eb0c73e4618c8092fba96"
+      }
+    ],
+    "exactTargetExposed": false,
+    "destination": "https://api.quiver.ai/v1/svgs/generations",
+    "otherSlotReferencesSent": false
+  },
+  "credentialHandling": "Supplied credential used through non-echoing stdin; retained in process memory only; omitted from scripts, request bodies and evidence. Process exited.",
+  "nextAction": "Add API credits in Quiver; app subscription credits are separate. Do not auto-purchase or retry. After funding, record a fresh intent/reservation and output directory.",
+  "officialSources": [
+    "https://quiver.ai/pricing",
+    "https://docs.quiver.ai/api-reference/create-svgs/generatesvg"
+  ],
+  "primaryTasksPromoted": 0
+}

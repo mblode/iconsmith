@@ -1,0 +1,63 @@
+{
+  "id": "D376",
+  "kind": "mini-v3-capability-failure",
+  "intentFile": ".staging/wave-bq-mini-profile-development-v3-2026-09-08/intent.json",
+  "intentSha256": "1f44b64a52656658f9479214c0b8f2be6f74af9e368ef71d8ba4ca00b53737ae",
+  "requestedModel": "gpt-5.4-mini",
+  "emittedContextModels": [
+    "gpt-5.4-mini"
+  ],
+  "profile": "mini-inline-images-no-tools-v3",
+  "result": {
+    "result": {
+      "answers": null,
+      "baseModelLineage": null,
+      "evidenceHashes": {
+        "stimulus-1.png": "45feae62f3c35f8f74774efe2f34723cc2395aa1dc99fd5ffa3542ed8b76e346",
+        "stimulus-2.png": "0b6225934661c32a1a428c99295d918836370554dba19703288ad1b811c35a37",
+        "stimulus-3.png": "ef78ad25d468cbc2d64d5f1590886837447438ab70847c5d45e7bcf6f93da8d2",
+        "stimulus-4.png": "7147609755c2719dba819ea007ce1c84397d8d9afc58789472cc6a50d5027943"
+      },
+      "evidenceMode": "images",
+      "imageInspection": null,
+      "instrumentQualified": false,
+      "model": null,
+      "provider": "openai-codex",
+      "reason": "Error: Codex reviewer used a tool during sealed image review",
+      "status": "incomplete"
+    },
+    "sourceStable": true,
+    "deadlineExceeded": false,
+    "qualified": false,
+    "apiActualUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "outerSettlement": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "finishedAt": 1788871539580,
+    "deadlineAt": 1788871635117,
+    "sourceStable": true,
+    "drift": []
+  },
+  "elapsedMs": 84463,
+  "toolViolation": {
+    "type": "mcp_tool_call",
+    "tool": "read_mcp_resource",
+    "status": "failed"
+  },
+  "acceptedAnswers": 0,
+  "containerAbsenceFile": ".staging/wave-bq-mini-profile-development-v3-2026-09-08/root-container-absence.json",
+  "containerAbsenceSha256": "f070b87401659171f3b568bd73d46d18b7d19ff3e27bf29cc602081e390f64c8",
+  "containersConfirmedAbsent": 3,
+  "nativeIncrement": 1,
+  "nativeSettledCumulative": 84,
+  "nativeUnresolvedPriorIntents": 1,
+  "apiIncrementUsd": 0,
+  "nativeDollarCostUsd": null,
+  "eligibleForCriticRoster": false,
+  "qualificationContribution": 0,
+  "nextStep": "Archive v3 failure; no automatic repetition or permissive tool-policy change"
+}

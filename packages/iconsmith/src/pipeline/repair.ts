@@ -70,16 +70,16 @@ const NEAR_CLOSED_GAP = 0.05;
 /** Shapes smaller than this have no meaningful open/closed distinction. */
 const MIN_SHAPE_EXTENT = 1;
 /** Below this two renders are the same picture. */
-export const INERT = 0.9995;
+const INERT = 0.9995;
 
-export type FixKind =
+type FixKind =
   | "close-gap"
   | "denoise-stroke"
   | "remove-spur"
   | "snap-stroke"
   | "unify-caps";
 
-export interface Fix {
+interface Fix {
   /** What it became. */
   after: string;
   /** What it was. */
@@ -92,14 +92,14 @@ export interface Fix {
 }
 
 /** A correction that can be applied on its own, so it can be proved on its own. */
-export interface Proposal {
+interface Proposal {
   apply: (shapes: CorpusShape[]) => CorpusShape[];
   /** Contour index for removals, so they can be applied back-to-front. */
   contour: number;
   fix: Fix;
 }
 
-export interface Review {
+interface Review {
   /** What a human has to decide. */
   question: string;
   shape: number;
@@ -205,7 +205,7 @@ export interface RepairResult {
 }
 
 /** Rebuild an icon's markup from its shapes. */
-export const toSVG = (shapes: CorpusShape[]): string => {
+const toSVG = (shapes: CorpusShape[]): string => {
   const body = shapes
     .map((s) =>
       s.strokeWidth === 0
@@ -224,7 +224,7 @@ export const toSVG = (shapes: CorpusShape[]): string => {
  * — which is the entire claim being made about this fix.
  */
 /** Close one contour by appending `Z`, leaving every coordinate untouched. */
-export const closeContour = (d: string, index: number): string => {
+const closeContour = (d: string, index: number): string => {
   const chunks = d.split(/(?=[Mm])/u).filter((c) => c.trim().length > 0);
   if (chunks.length !== parsePath(d).length || index >= chunks.length) {
     return d;
@@ -252,7 +252,7 @@ export const dropContour = (d: string, index: number): string => {
  * visible sliver should lose the three, not have all four rejected because the
  * bundle moved the render.
  */
-export const proposeFixes = (icon: CorpusIcon): Proposal[] => {
+const proposeFixes = (icon: CorpusIcon): Proposal[] => {
   const proposals: Proposal[] = [];
   const house = houseStroke(icon);
 
@@ -382,7 +382,7 @@ export const proposeFixes = (icon: CorpusIcon): Proposal[] => {
  * wrong geometry the moment an icon has two of them — and icons with eight are
  * common.
  */
-export const applyAll = (
+const applyAll = (
   shapes: CorpusShape[],
   proposals: Proposal[]
 ): CorpusShape[] => {

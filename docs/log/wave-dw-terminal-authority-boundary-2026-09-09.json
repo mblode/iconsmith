@@ -1,0 +1,32 @@
+{
+  "id": "D469",
+  "kind": "terminal-authority-implementation-boundary",
+  "observedAt": "2026-09-08T19:50:29.310573+00:00",
+  "status": "design-only-not-implemented",
+  "files": [
+    {
+      "path": ".staging/wave-dw-terminal-authority-design-2026-09-09/design.md",
+      "sha256": "9a679ae0d3e94155c36369f6a764ccb7add538742307ea1400171e544f3cb072"
+    },
+    {
+      "path": ".staging/wave-dw-terminal-authority-design-2026-09-09/source-manifest.json",
+      "sha256": "71e2238e7c3309c0f2aa0234d9f929a44bee904b64e0a0e5ac5576d90fa47b2b"
+    }
+  ],
+  "decision": "Reuse strict canonical campaign receipt/intent/artifact/settlement/accounting validation; expose computed process-local capability separate from untrusted report. Distinguish no selected output from retained rejected artifacts.",
+  "requiredTests": [
+    "wrong request/deadline/route",
+    "late or unsettled parent",
+    "unknown accounting",
+    "symlink/candidate-tree escape",
+    "forged serialized capability",
+    "honest unstarted request"
+  ],
+  "authority": "No new terminal, author or visual qualification authority issued.",
+  "cost": {
+    "providerCalls": 0,
+    "apiReservationCreated": false,
+    "orchestrationFollowupsAfterD450": 18,
+    "nativeDollars": "unknown"
+  }
+}

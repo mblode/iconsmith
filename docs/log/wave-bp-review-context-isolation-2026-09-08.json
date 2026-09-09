@@ -1,0 +1,31 @@
+{
+  "id": "D363",
+  "kind": "review-context-hook-isolation-integration",
+  "patch": ".staging/wave-bo-context-access-probe-isolation-2026-09-08/context-call-hooks-v1.patch",
+  "patchSha256": "2e1ac50bb8ca3b865ed0d6b8f7dcd0965a1ebf2d45f1bb09babe7f20f64584f6",
+  "agentReceipt": ".staging/wave-bo-context-access-probe-isolation-2026-09-08/receipt-v1.json",
+  "agentReceiptSha256": "c02e310222311915acbdd32ac403c25c71737351d7e41b7f9497a070949802ca",
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/local-author-context.ts",
+      "baseSha256": "1d9f8103f4946e48c3df9efcca831342b60a590dddc92b00b4e725e7f9e66965",
+      "resultSha256": "001b35cd36eddae3ce7fa146328e1a05268c586f2c07e995d6712d32ba81fe35"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-author-context.test.ts",
+      "baseSha256": "9678df38244166e31c5dd5f91b7aa03b6fb1cc277b33d3ea177ac935fe7238af",
+      "resultSha256": "8522ee989414d4fd2207560fe9b8d9009eeb681abf583e448028ee5e9e91b48f"
+    }
+  ],
+  "rootVerification": {
+    "tests": 35,
+    "files": 2,
+    "skipped": 0,
+    "log": ".staging/wave-bp-context-root-tests.log",
+    "logSha256": "f12ceff4752521ce509426d6073c5c4945f2cc822ea00c97518f7e31218f8489"
+  },
+  "providerCalls": 0,
+  "historicalAmbiguousIntent": "D356 remains unresolved; no redispatch",
+  "liveAccessVerified": false,
+  "qualified": false
+}

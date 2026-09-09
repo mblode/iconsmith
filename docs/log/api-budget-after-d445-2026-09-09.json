@@ -1,0 +1,286 @@
+{
+  "ceilingUsd": 50,
+  "reservedUsd": 11.37126575,
+  "runs": [
+    {
+      "id": "folder-lock-01",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.30503875
+    },
+    {
+      "id": "folder-lock-02",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.2293775
+    },
+    {
+      "id": "instrument-weight",
+      "reservationUsd": 10,
+      "state": "complete",
+      "actualUsd": 0.5360916
+    },
+    {
+      "id": "folder-lock-03",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.14643875
+    },
+    {
+      "id": "folder-lock-04",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.4009665
+    },
+    {
+      "id": "camera-thin",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.12789124999999998
+    },
+    {
+      "id": "camera-heavy",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.18304225
+    },
+    {
+      "id": "folder-lock-components",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.464283
+    },
+    {
+      "id": "folder-lock-components-02",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.8288172500000001
+    },
+    {
+      "id": "folder-lock-components-replay",
+      "reservationUsd": 0.25,
+      "state": "complete",
+      "actualUsd": 0.0305745
+    },
+    {
+      "id": "folder-lock-components-replay-02",
+      "reservationUsd": 0.25,
+      "state": "complete",
+      "actualUsd": 0.029787
+    },
+    {
+      "id": "folder-lock-companion-01",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.50104475
+    },
+    {
+      "id": "folder-lock-round-clearance",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.15121575
+    },
+    {
+      "id": "folder-lock-round-body",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 1.792056
+    },
+    {
+      "id": "folder-lock-boolean-source",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 1.4383655000000002
+    },
+    {
+      "id": "folder-lock-visual-review",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.907821
+    },
+    {
+      "id": "folder-lock-trim",
+      "reservationUsd": 6,
+      "state": "complete",
+      "actualUsd": 0.8539760000000001
+    },
+    {
+      "id": "folder-lock-retained-fill",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.36568174999999997
+    },
+    {
+      "id": "folder-lock-program-repair",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.23141974999999998
+    },
+    {
+      "id": "folder-lock-program-repair-02",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.37847525
+    },
+    {
+      "id": "folder-lock-counter-repair",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.25679
+    },
+    {
+      "id": "folder-lock-astra-repair",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.49989549999999994
+    },
+    {
+      "id": "strategy-screen-gemini-grok",
+      "reservationUsd": 4,
+      "state": "cost-unresolved",
+      "actualUsd": 0.03801525,
+      "outstandingReservationUsd": 3.96198475,
+      "members": [
+        {
+          "arm": "gemini",
+          "state": "complete",
+          "actualUsd": 0.03801525,
+          "generationId": "gen_01M1TW4XVH29XXRTFKQ1PF3NMG",
+          "finishReason": "length",
+          "elapsedMs": 64764
+        },
+        {
+          "arm": "grok",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        }
+      ]
+    },
+    {
+      "id": "strategy-screen-provider-fallback",
+      "reservationUsd": 6,
+      "state": "complete",
+      "actualUsd": 0.774424,
+      "outstandingReservationUsd": 0,
+      "members": [
+        {
+          "arm": "fableapi",
+          "state": "complete",
+          "actualUsd": 0.51112,
+          "generationId": "gen_01M1TW7M3W37XBZH640BR2VHSY",
+          "finishReason": "length",
+          "elapsedMs": 137369
+        },
+        {
+          "arm": "nanoapi",
+          "state": "complete",
+          "actualUsd": 0.148304,
+          "generationId": "gen_01M1TW7N0GXJN5RPG3YJEH2HHG",
+          "finishReason": "stop",
+          "elapsedMs": 42135
+        },
+        {
+          "arm": "seedreamapi",
+          "state": "complete",
+          "actualUsd": 0.035,
+          "generationId": "gen_01M1TW7P7BMS13YW5MB1JCJSE3",
+          "elapsedMs": 64690
+        },
+        {
+          "arm": "recraftapi",
+          "state": "complete",
+          "actualUsd": 0.08,
+          "generationId": "gen_01M1TW7Q78MKRJ58WWQPDBJ3P6",
+          "elapsedMs": 14769
+        }
+      ]
+    },
+    {
+      "id": "strategy-screen-output-budget-correction",
+      "reservationUsd": 5,
+      "state": "cost-unresolved",
+      "actualUsd": 0.121599,
+      "outstandingReservationUsd": 4.878401,
+      "members": [
+        {
+          "arm": "gemini2",
+          "state": "complete",
+          "actualUsd": 0.121599,
+          "generationId": "gen_01M1TWEAJ6903STWKG3NV6MHN4",
+          "finishReason": "stop",
+          "elapsedMs": 190476
+        },
+        {
+          "arm": "grok2",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        },
+        {
+          "arm": "fableapi2",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        }
+      ]
+    },
+    {
+      "id": "strategy-screen-streaming",
+      "reservationUsd": 4,
+      "state": "cost-unresolved",
+      "actualUsd": 1.46912,
+      "outstandingReservationUsd": 2.53088,
+      "members": [
+        {
+          "arm": "fablestream",
+          "state": "complete",
+          "actualUsd": 1.46912,
+          "generationId": "gen_01M1TWWQ7BBXESF1BT2TZ4T0NX",
+          "finishReason": "stop",
+          "elapsedMs": 378086
+        },
+        {
+          "arm": "grokstream",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        }
+      ]
+    },
+    {
+      "id": "D425-gemini-image-capability",
+      "reservationUsd": 0.788352,
+      "state": "complete-capability-refused",
+      "actualUsd": 0.0010365,
+      "generationId": "gen_01M20T4P3RTXH1FSA0VRHKF2GC",
+      "receipt": "docs/log/wave-cg-api-capability-result-2026-09-09.json"
+    },
+    {
+      "id": "D437-gemini-image-capability-v2",
+      "reservationUsd": 0.788352,
+      "state": "complete-capability-refused",
+      "actualUsd": 0.0010815,
+      "outstandingReservationUsd": 0,
+      "automaticRetry": false,
+      "maximumInferenceRequests": 1,
+      "maximumMetadataLookups": 1,
+      "generationId": "gen_01M20YC080BN3H0JE0F71C03R9",
+      "receipt": "docs/log/wave-cl-api-v2-live-result-2026-09-09.json",
+      "chargeEvidence": "Gateway inference response cost, generation-info unavailable"
+    },
+    {
+      "id": "D445-gemini-image-capability-diagnostics",
+      "reservationUsd": 0.788352,
+      "state": "preflight-refused-no-dispatch",
+      "actualUsd": 0,
+      "outstandingReservationUsd": 0,
+      "automaticRetry": false,
+      "maximumInferenceRequests": 1,
+      "maximumMetadataLookups": 1,
+      "releasedReservationUsd": 0.788352,
+      "receipt": "docs/log/wave-ct-api-disk-preflight-refusal-2026-09-09.json"
+    }
+  ],
+  "actualUsd": 13.06432585,
+  "supersedesLedger": {
+    "file": "docs/log/api-budget-d445-reserved-2026-09-09.json",
+    "sha256": "dc70b431d1f126def8d730612e8b2144cc5f20529c98a008fe207ff0250b56f4"
+  }
+}

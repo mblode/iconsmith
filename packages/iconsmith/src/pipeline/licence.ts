@@ -38,7 +38,7 @@ declare const house: unique symbol;
  * `Licensed<ReferenceIcon>` is usable wherever a `ReferenceIcon` is; the
  * implication does not run the other way, which is the whole point.
  */
-export type Licensed<T> = T & { readonly [house]: true };
+type Licensed<T> = T & { readonly [house]: true };
 
 /** An icon offered to a model to work *from*: the shape `pipeline/tools.ts`
  *  already passes as a neighbour. Only ever handled as `Reference`. */

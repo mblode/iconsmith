@@ -1,0 +1,33 @@
+{
+  "schema": "iconsmith.wave-r.calibration-report-implementation.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/ai-review-assessment.ts",
+      "sha256": "21104659093a3707a2a2e8bd43e86039ca92237c21665d4cc9f72a973502d2a5"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-review-assessment.test.ts",
+      "sha256": "90d16ace483d008e041788a9c2914389fd2425e796b9a18833b70ac0c0dcba40"
+    }
+  ],
+  "checks": {
+    "focusedTests": {
+      "passed": 7,
+      "files": 1
+    },
+    "scopedLint": true,
+    "fullTypecheck": "awaits concurrent evaluation edits; only in-flight quality-campaign errors observed"
+  },
+  "behavior": [
+    "Optional hash-bound development condition key uses canonical terminal reader.",
+    "Per-reviewer absolute anchors retain raw scores; no cross-reviewer averaging rescues failure.",
+    "Repeated bytes cannot inflate canonical artifact denominator.",
+    "Ordered reference multiplicity and proposed semantic keys bind to frozen packet.",
+    "Missing evidence fails controls; qualified remains false.",
+    "Original parent deadline is checked again when canonical terminal evidence is read."
+  ]
+}

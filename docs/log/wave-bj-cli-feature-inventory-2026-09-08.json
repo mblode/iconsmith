@@ -1,0 +1,30 @@
+{
+  "id": "D341",
+  "status": "offline-supported-feature-inventory",
+  "providerCalls": 0,
+  "apiActualIncrementUsd": 0,
+  "network": "none",
+  "credentialsMounted": false,
+  "containerAbsent": true,
+  "features": {
+    "shell_tool": "stable true",
+    "unified_exec": "stable true",
+    "view_image": "stable true",
+    "sleep_tool": "stable true"
+  },
+  "boundary": "No feature toggle capability or provider behavior demonstrated; initial case-sensitive absence match failed closed and was corrected in separate audit.",
+  "artifacts": [
+    {
+      "path": ".staging/wave-bj-cli-feature-inventory-2026-09-08/receipt.json",
+      "sha256": "3b7dcc557818b744bd53c100e8ff3fe4d808080e78475b8dabe573d92c03bd65"
+    },
+    {
+      "path": ".staging/wave-bj-cli-feature-inventory-2026-09-08/stdout.txt",
+      "sha256": "bbe9e7ea8a370df5e5cfd758dc6bffeb3d23e16b07dfb95f341a50d81e107e88"
+    },
+    {
+      "path": ".staging/wave-bj-cli-feature-inventory-2026-09-08/root-settlement-correction.json",
+      "sha256": "a67fc64d7ecc78219af2297efb2d00804d364a42f7f85d9e10df000d2b81fb36"
+    }
+  ]
+}

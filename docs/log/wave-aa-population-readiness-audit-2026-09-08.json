@@ -1,0 +1,56 @@
+{
+  "kind": "root-reviewed-population-readiness-audit",
+  "agentReceipt": {
+    "path": ".staging/wave-aa-evaluation-population-readiness-2026-09-08/receipt.json",
+    "sha256": "1c70a09b1b23de76dcec33bf7440122cd12b997e00db1038d75e515120a52685"
+  },
+  "observedDevelopmentInventory": {
+    "finalPaintPairRootsInspected": 115,
+    "receiptBoundNaturalRowsBeforePairDeduplication": 9,
+    "uniqueReceiptBoundNaturalPaintPairs": 8,
+    "distinctSemanticFamilies": 6,
+    "families": [
+      "bell",
+      "bicycle",
+      "cloud",
+      "folder",
+      "jellyfish",
+      "scissors"
+    ],
+    "uniqueArtifactBytesByStratum": {
+      "16/outlined": 7,
+      "16/filled": 6,
+      "24/outlined": 1,
+      "24/filled": 1
+    },
+    "interpretation": "These counts describe already opened development history only. Repeated pair bytes and repeated individual artifact bytes are excluded from the corresponding unique counts. The inventory does not infer review outcomes, author identity, semantic family, or native size where receipts do not establish them."
+  },
+  "sealedQualificationContribution": {
+    "naturalCandidates": 0,
+    "confirmedCriticalDefects": 0,
+    "predictedApprovals": 0,
+    "reason": "Every inventoried artifact is exposed development history. Existing statuses and development reviews are not prospective sealed independent judgments and cannot be relabeled."
+  },
+  "freshPopulationStillRequired": {
+    "canonicalIndependentStimuliMinimum": 100,
+    "naturalDistinctFamilyCandidatesMinimum": 80,
+    "naturalCandidatesPerPaintSizeStratumMinimum": 20,
+    "confirmedCriticalGeneratedDefectsMinimum": 20,
+    "confirmedCriticalGeneratedDefectsPerStratumMinimum": 5,
+    "predictedGeneratedApprovalsMinimum": 20,
+    "predictedGeneratedApprovalsPerStratumMinimum": 5,
+    "additionalIndependentCanonicalStimuliBeyondNaturalMinimum": 20,
+    "repeats": "extra and non-canonical; they cannot increase independent-stimulus or natural-population denominators",
+    "judgments": "must be produced prospectively by the sealed critic and panels; missing judgments remain unresolved and cannot be counted as critical defects or approvals",
+    "sampling": "freeze the family and stratum census before outcomes; if minima do not emerge, use only a predeclared expansion rule rather than outcome-selected replacement"
+  },
+  "rootCorrections": [
+    "Qualification population must retain failed generated candidates; an accepted-results-only projection would censor critical failures.",
+    "P3 requires fresh sealed stimulus/artifact evidence, not whole-family novelty. Fresh artifacts in exposed families may qualify for P3; whole-family/derivative exclusions apply to P7.",
+    "Original audit is preserved; its accepted-only and whole-family-exclusion suggestions must not become implementation requirements."
+  ],
+  "qualified": false,
+  "providerCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0
+}

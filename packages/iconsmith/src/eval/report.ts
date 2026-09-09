@@ -1,3 +1,5 @@
+import type { AcceptanceReport } from "./acceptance-contract.js";
+import { validateAcceptanceReport } from "./acceptance-contract.js";
 /**
  * The metric panel, assembled and printed.
  *
@@ -44,6 +46,15 @@ export interface PanelTreatments {
 }
 
 export interface MetricReport {
+  /** The section-3 acceptance envelope is reported beside the legacy metric
+   * panel. Its absence is an explicit unqualified result. */
+  acceptance: {
+    contractVersion: string | null;
+    envelopeValid: boolean;
+    evidencePresent: boolean;
+    qualification: false;
+    reasons: readonly string[];
+  };
   /** The scales every reading above was taken against, carried with the report
    *  so a formatter, a JSON consumer or a reader six months from now has the
    *  floor beside the number rather than in another file. */
@@ -76,7 +87,7 @@ export interface MetricReport {
  *
  * √(7 × 7) = 7, so the baseline is 7 on the combined scale too.
  */
-export const JUDGE_SCALE = { baseline: 7, ceiling: 10, floor: 0 } as const;
+const JUDGE_SCALE = { baseline: 7, ceiling: 10, floor: 0 } as const;
 
 /**
  * The judge gate for a given model, out of the calibration's run log.
@@ -85,15 +96,6 @@ export const JUDGE_SCALE = { baseline: 7, ceiling: 10, floor: 0 } as const;
  * corpus the two land either side of the 90% bar — so the run is selected by
  * model rather than "the most recent" or "any that passed".
  */
-export const judgeGateFor = (
-  calibration: Calibration,
-  model: string
-): GateResult | null => {
-  if (!isMeasured(calibration.judge)) {
-    return null;
-  }
-  return calibration.judge.runs.find((r) => r.model === model)?.gate ?? null;
-};
 
 /** The separation verdict for a metric, for printing beside its panel. */
 const separationLine = (s: Separation): string => `    ${s.verdict}`;
@@ -110,7 +112,8 @@ export const buildReport = (
   calibration: Calibration,
   treatments: PanelTreatments,
   counts: { disqualified: number; n: number },
-  judgeGate: GateResult | null
+  judgeGate: GateResult | null,
+  acceptanceEvidence?: AcceptanceReport
 ): MetricReport => {
   const unavailable: string[] = [];
   const conf = calibration.conformance;
@@ -178,7 +181,22 @@ export const buildReport = (
     );
   }
 
+  const acceptance = acceptanceEvidence
+    ? {
+        contractVersion: acceptanceEvidence.contractVersion,
+        evidencePresent: true,
+        ...validateAcceptanceReport(acceptanceEvidence),
+      }
+    : {
+        contractVersion: null,
+        envelopeValid: false,
+        evidencePresent: false,
+        qualification: false as const,
+        reasons: ["Acceptance evidence was not supplied"],
+      };
+
   return {
+    acceptance,
     calibration,
     conformance: {
       gate: read(
@@ -216,6 +234,8 @@ export const formatMetrics = (report: MetricReport): string => {
   const lines: string[] = [
     `metric panel — ${report.n} scored, ${report.disqualified} disqualified by the conformance gate`,
     `  calibrated ${calibration.builtAt.slice(0, 10)} over ${calibration.records} records`,
+    `  acceptance — ${report.acceptance.qualification ? "qualified" : "UNQUALIFIED"}${report.acceptance.contractVersion ? ` (${report.acceptance.contractVersion})` : " (no evidence)"}`,
+    ...report.acceptance.reasons.map((reason) => `    ${reason}`),
     "",
     "  conformance — a GATE, never averaged into a score",
     ...formatPanel(

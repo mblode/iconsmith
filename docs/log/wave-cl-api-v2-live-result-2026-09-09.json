@@ -1,0 +1,88 @@
+{
+  "experimentId": "D438",
+  "kind": "D437-api-v2-capability-refused",
+  "recordedAt": "2026-09-08T16:43:24.622775+00:00",
+  "qualified": false,
+  "accepted": false,
+  "inferenceAttempts": 1,
+  "metadataLookupAttempts": 1,
+  "reason": "Invalid error response format: Gateway request failed",
+  "observation": {
+    "description": "heart",
+    "unknown": false,
+    "finishReason": "stop",
+    "warnings": [],
+    "inputTokens": 1112,
+    "outputTokens": 66,
+    "textTokens": 9,
+    "reasoningTokens": 57,
+    "generationId": "gen_01M20YC080BN3H0JE0F71C03R9",
+    "provider": "google",
+    "upstreamRevision": "undisclosed"
+  },
+  "chargeUsd": 0.0010815,
+  "chargeEvidence": "Gateway response cost field, not successful generation-info lookup",
+  "reservationReleasedUsd": 0.7872705,
+  "apiActualUsd": 13.06432585,
+  "reservedOrUnknownUsd": 11.37126575,
+  "nativeSettled": 136,
+  "nativeUnresolvedHistoricalIntents": 1,
+  "artifacts": [
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/evidence/attempt.json",
+      "sha256": "a03da9ec6ca5aad0c807a3b8976a51a1d037758d4d7a0f20d9308b151abf1180"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/evidence/intent.json",
+      "sha256": "261f09d96b10a2ff00e19bcf12335d49b05f1c187fab45f1b08efb7730bebcf1"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/evidence/metadata-attempt.json",
+      "sha256": "15dfff4c14c7273fad2515dafe4ed70f9f727674aee163569b68d13fb43e9735"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/evidence/result.json",
+      "sha256": "7878e54b8b53dfc0861dbd84c1c9ad288fde5f52208e50210c79aadfeaaa6c91"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/evidence/terminal.json",
+      "sha256": "e7319e80680ab3f00eeee089ae7dd000a931679b06392388f73a3d95c5652180"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/launch.json",
+      "sha256": "ea8ec9a055643b8232bd1b4815bb5698875f0fd3aa0624e7faf5bc5a17eec6f2"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/attempt/runner-result.json",
+      "sha256": "e7319e80680ab3f00eeee089ae7dd000a931679b06392388f73a3d95c5652180"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/dispatch.mts",
+      "sha256": "c39eb24e0a1741d4c0950117faceb98dbe1e75948b202280b871a8ec33789507"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/launch-manifest.json",
+      "sha256": "8c1703a18e7961b1dcc24e61957ab894dc84fe4516cb9983fdc89335a9b755d7"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/parent-terminal.json",
+      "sha256": "dd25d464e9f117d940085872b597318569ca4765aa2d3ab10e89c5c0d56fe6bf"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-cl-api-v2-live-2026-09-09/stdout.log",
+      "sha256": "15dea32a6996b3001e6d62d4083a0a24d58aaa2a1116691827223bec6b92561f"
+    },
+    {
+      "file": "docs/log/api-budget-after-d437-2026-09-09.json",
+      "sha256": "4eecaf96d1d1c9f47e2ee397ccfec67c24f39ad6582793d9af7dcbbe21591465"
+    }
+  ],
+  "limitations": [
+    "Correct semantic response is insufficient; required metadata lookup failed and terminal stays refused.",
+    "No automatic redispatch or critic qualification. Post-settlement diagnostics cannot rescue original terminal."
+  ]
+}

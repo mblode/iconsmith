@@ -1,0 +1,12 @@
+{
+  "id": "D520-audit",
+  "qualification": false,
+  "audit": "Independent runtime read-only review found no new authority gap in retained interruption chain.",
+  "killSemantics": "Diagnostic Docker container kill succeeded and is bound by the trigger. Settlement killed:false refers to the host attach-wrapper supervisor; it exited with container code137 and signal null, without supervisor timeout or signal. Do not rewrite this field to true.",
+  "bindingsVerified": [
+    "trigger to descriptor, call, container, intent, stage, original clock, inspection, programs, schema and terminal line",
+    "failed settled container-absent quiescent settlement to native terminal",
+    "interrupted structured-author contributor and completion lineage"
+  ],
+  "evidenceAuthority": "Root recursive terminal replay is retained in D520; worker read-only findings do not confer qualification."
+}

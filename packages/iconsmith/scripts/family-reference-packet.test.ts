@@ -1,3 +1,6 @@
+import { existsSync } from "node:fs";
+import { readFile } from "node:fs/promises";
+
 import { expect, test } from "vitest";
 
 import { DEFAULT_POLICY } from "../src/pipeline/policy.js";
@@ -56,6 +59,11 @@ const packet = () =>
       },
     ],
   });
+const houseSourceUrl = (file: string) =>
+  new URL(
+    `../../../../blode-icons/packages/blode-icons-react/icons-svg/${file}`,
+    import.meta.url
+  );
 
 test("reuses one source choice while admitting independently per master", async () => {
   const shared = packet();
@@ -196,3 +204,40 @@ test("keeps a target admission refusal explicit and reference-only", async () =>
   expect(selectStyle(applied.revision, "16").references).toHaveLength(1);
   expect(selectStyle(applied.revision, "16").parts).toHaveLength(0);
 });
+
+test.skipIf(!existsSync(houseSourceUrl("bell-filled.svg")))(
+  "applies fixed local-feature evidence through the packet admission path",
+  async () => {
+    const bell: FamilySource = {
+      finish: "filled",
+      name: "bell",
+      provenance: source.provenance,
+      svg: await readFile(houseSourceUrl("bell-filled.svg"), "utf-8"),
+    };
+    const shared = createFamilyReferencePacket({
+      concept: "bell",
+      excludedFamilies: [],
+      excludedSourceHashes: [],
+      librarySet: "blode-icons",
+      librarySourceHash: "d".repeat(64),
+      sources: [
+        {
+          admissionRequested: true,
+          intent: {
+            evidence: "source-observed bell body and lower opening",
+            polarity: "body",
+            treatment: "preserve source-bound lower counter evidence",
+          },
+          source: bell,
+        },
+      ],
+    });
+
+    const applied = await applyFamilyReferencePacket(revision(), "24", shared);
+    expect(applied.admissions[0].admission).toContain(
+      "local feature uncertain at 16px, 24px"
+    );
+    expect(selectStyle(applied.revision, "24").parts).toHaveLength(0);
+    expect(selectStyle(applied.revision, "24").references).toHaveLength(1);
+  }
+);

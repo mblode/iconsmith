@@ -1,0 +1,20 @@
+{
+  "schema": "iconsmith.native-capability-recheck.v1",
+  "id": "D294",
+  "intent": ".staging/wave-ak-gpt55-capability-2026-09-08/intent.json",
+  "result": ".staging/wave-ak-gpt55-capability-2026-09-08/execution/result.json",
+  "settlementAudit": ".staging/wave-ak-gpt55-capability-2026-09-08/root-container-audit-v2.json",
+  "model": "gpt-5.5",
+  "effort": "high",
+  "status": "complete",
+  "exactImageChoice": "heart",
+  "nativeCalls": 1,
+  "cumulativeNativeCalls": 34,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "qualified": false,
+  "allContainersAbsent": true,
+  "sourceStable": true,
+  "auditCorrection": "v1 absence detector assumed nonzero exit and uppercase error; OrbStack emits exit0 with empty JSON array and lowercase no-such-object. v1 preserved; v2 binds exact container id and empty result."
+}

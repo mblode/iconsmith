@@ -1,0 +1,106 @@
+{
+  "id": "D462",
+  "kind": "integrated-evidence-and-stop-boundary-verification",
+  "observedAt": "2026-09-08T19:30:11.560761+00:00",
+  "status": "engineering-verified-not-visually-qualified",
+  "tests": {
+    "passed": 2460,
+    "files": 176,
+    "skipped": 0
+  },
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 38817,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dq-evidence-stop-integration-2026-09-09/test.log",
+      "sha256": "f7296ef140a73a61bcb24fe4f9242ec72c8159ce7ed846c9ab57adff529acc70"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1318,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dq-evidence-stop-integration-2026-09-09/typecheck.log",
+      "sha256": "a0c8f9f6b97aa57358cb2345a3f29301b0d35627d850f2de83222f0debbc2a81"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5185,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dq-evidence-stop-integration-2026-09-09/build.log",
+      "sha256": "a8546ad6a9f3eb5e5df24c84f4d531107e23a6721a2ed40de507feb7b3f77d9f"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1405,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dq-evidence-stop-integration-2026-09-09/check.log",
+      "sha256": "104403c24acb110ac61dd1d2ff414158c1baf9a41c9cb548634eb49826680afc"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 63,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dq-evidence-stop-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceFreeze": {
+    "count": 395,
+    "beforeAfterIdentical": true,
+    "setSha256": "26745ca5db42fb4fa52fab71b390be4d00475b88bbc38e207f8165771eaedefb",
+    "directory": ".staging/wave-dq-evidence-stop-integration-2026-09-09"
+  },
+  "integrates": [
+    "D461 draft-v11 honest evidence and panel coverage",
+    "DJ v3 API STOP boundary"
+  ],
+  "stopBoundary": {
+    "patchSha256": "e1e99fb3c62af2658e32cc667d1189d884613d221a99adf1e0088d8f4ad1fefb",
+    "focusedTests": 45,
+    "routeIdentity": "gateway-routing-generation-info-and-stop-v3",
+    "correctedDuringReview": [
+      "metadata GET has its own active STOP monitor",
+      "monitor allocation is inside guaranteed cleanup boundary"
+    ]
+  },
+  "remaining": [
+    "trusted terminal-path and recursive author evidence",
+    "independent catalog probability-audit population separation",
+    "construction engineering freeze",
+    "sealed actual AI critic and visual qualification"
+  ],
+  "cost": {
+    "newProviderCalls": 0,
+    "newApiReservations": 0,
+    "ledger": "docs/log/api-budget-after-d445-2026-09-09.json",
+    "solMediumFollowupDispatchesAfterD450": 15,
+    "nativeDollarCost": "unknown",
+    "resetRedeemed": false
+  }
+}

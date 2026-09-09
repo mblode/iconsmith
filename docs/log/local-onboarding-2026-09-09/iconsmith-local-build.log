@@ -1,0 +1,40 @@
+
+> build:local
+> npm run build --workspace iconsmith
+
+
+> build
+> tsdown
+
+ℹ tsdown v0.22.14 powered by rolldown v1.2.4
+ℹ config file: /Users/mblode/Code/mblode/iconsmith/packages/iconsmith/tsdown.config.ts 
+ℹ entry: src/cli.ts
+ℹ target: node24
+ℹ tsconfig: tsconfig.json
+ℹ entry: src/index.ts, src/spec.ts
+ℹ target: node24
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 13 files
+
+ WARN  TypeScript 7.0 does not yet have a stable API and is experimental. Some options will be unavailable.
+
+ℹ Emit types with typescript@7.0.2
+ℹ Granting execute permission to dist/cli.js
+ℹ dist/cli.js      947.75 kB │ gzip: 307.61 kB
+ℹ dist/cli.js.map    1.91 MB
+ℹ dist/cli.d.ts      0.01 kB │ gzip:   0.03 kB
+ℹ 3 files, total: 2.86 MB
+✔ Build complete in 461ms
+ℹ dist/index.js                563.79 kB │ gzip: 187.89 kB
+ℹ dist/spec.js                   0.07 kB │ gzip:   0.08 kB
+ℹ dist/index.js.map              1.02 MB
+ℹ dist/spec-B_BqtWXu.js.map     15.76 kB │ gzip:   6.58 kB
+ℹ dist/index.d.ts.map            5.80 kB │ gzip:   1.80 kB
+ℹ dist/spec-B_BqtWXu.js          3.76 kB │ gzip:   1.78 kB
+ℹ dist/spec-WMV0HQMR.d.ts.map    1.03 kB │ gzip:   0.39 kB
+ℹ dist/index.d.ts               70.36 kB │ gzip:  18.61 kB
+ℹ dist/spec.d.ts                 0.06 kB │ gzip:   0.07 kB
+ℹ dist/spec-WMV0HQMR.d.ts        9.45 kB │ gzip:   3.85 kB
+ℹ 10 files, total: 1.69 MB
+✔ Build complete in 480ms

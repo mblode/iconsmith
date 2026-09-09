@@ -1,0 +1,29 @@
+{
+  "id": "D467",
+  "kind": "source-origin-serialized-replay-feasibility",
+  "status": "diagnostic-only-not-admission-or-compiler-promotion",
+  "observedAt": "2026-09-08T19:39:50.186342+00:00",
+  "manifestFilesVerified": 22,
+  "receipt": {
+    "path": ".staging/wave-dt-source-origin-replay-design-2026-09-09/receipt.json",
+    "sha256": "b58838657f412adbf6526a419d12b21bb82bc0e387fbc7da99ad12d973862032"
+  },
+  "designSha256": "be4e6c95395561720e57c23744b54d50bcb599233c5b51288822a7d7a6d3907e",
+  "observations": [
+    "Bell and Shield filled native24 serialized exact-source binding replay yields exact SVG and zero source aggregate error",
+    "Seven forged or invalid instructions refuse",
+    "Bell re-extracted part styleHash changes due roughly3e-15 derived-width drift; original source part hash remains required"
+  ],
+  "criticalBoundary": "Bell remains refused by current local-counter admission. Extraction and perfect source fidelity must not authorize a production source-exact registry entry. DX will test canonical admission enforcement before further implementation.",
+  "limitations": [
+    "two filled single-part cases only",
+    "16 is resampled24 not optical master",
+    "no canonical opcode, compiler change, composition benefit or visual qualification"
+  ],
+  "cost": {
+    "providerCalls": 0,
+    "newReservations": 0,
+    "solMediumFollowupsAfterD450": 16,
+    "subscriptionDollars": "unknown"
+  }
+}

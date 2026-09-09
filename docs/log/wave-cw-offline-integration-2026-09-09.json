@@ -1,0 +1,109 @@
+{
+  "id": "D449",
+  "observedAt": "2026-09-08T17:55:19.359287+00:00",
+  "status": "offline-integration-verified-with-explicit-open-qualification-seams",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "agentModel": "gpt-5.6-sol",
+  "agentEffort": "medium",
+  "patches": [
+    {
+      "path": ".staging/wave-ck-qualified-critic-consumption-2026-09-09/qualified-critic-consumption-v1.patch",
+      "sha256": "9dfc813adb8179646641b5b05a5b347bcb83009b97fe76312428cccb98365165"
+    },
+    {
+      "path": ".staging/wave-ck-qualified-critic-consumption-2026-09-09/qualified-critic-consumption-v2.patch",
+      "sha256": "200b3dbeac56c9020f29de87b9e4c8470350b637bd72a44249cba64890d1138e"
+    },
+    {
+      "path": ".staging/wave-ck-qualified-critic-consumption-2026-09-09/qualified-critic-consumption-v3.patch",
+      "sha256": "29d3edfab12c5fce3a7b2a4957ce4acaac7bfa4a06e8cdd3c9ec580785c52c18"
+    },
+    {
+      "path": ".staging/wave-ck-qualified-critic-consumption-2026-09-09/qualified-critic-consumption-v4.patch",
+      "sha256": "afa6f18ec2ca90b29975a38d2bc19eea254f557504ce629eabf4b0807eb2edc9"
+    },
+    {
+      "path": ".staging/wave-cp-source-feature-admission-2026-09-09/compiler24-source-feature-profile.patch",
+      "sha256": "63e9cbd752cc534dd7e84bb6c8a5af0ec0da85119d0ac4f6e8d9ae9414f71c31"
+    },
+    {
+      "path": ".staging/wave-cp-source-feature-admission-2026-09-09/v2-runtime-freeze/runtime-freeze-v2.patch",
+      "sha256": "6df75cdd492708f7bf09dd95164b30118db52a3301cec2b3411cb21112adde74"
+    },
+    {
+      "path": ".staging/wave-cp-source-feature-admission-2026-09-09/v3-source-namespace/source-namespace-v3.patch",
+      "sha256": "aeecb6c16707f9052128c9a300036ae02d1f30fd2d77232b39c8cc747ec23c79"
+    }
+  ],
+  "verification": {
+    "fullTests": {
+      "passed": 2417,
+      "files": 176,
+      "skipped": 0,
+      "log": {
+        "path": ".staging/wave-cw-offline-integration-2026-09-09/test.log",
+        "sha256": "d1b60d137f5715f976a64fad6f0e2371af546070d77a5ee74118416f43f1df51"
+      }
+    },
+    "postTestTypeOnlyCorrection": {
+      "file": "packages/iconsmith/scripts/source-feature-admission-profile.test.ts",
+      "focusedPassed": 4,
+      "change": "Replace readonly observations.pop() malformed fixture with slice assignment; runtime semantics unchanged."
+    },
+    "typecheck": "pass-both-configurations",
+    "build": "pass",
+    "lint": "pass",
+    "diff": "pass"
+  },
+  "results": [
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/initial-scoped-results.json",
+      "sha256": "fef0cbc6b7f66d2002c44a6a7d201fd0d2d34bdc6771cc8e6eaa9cefc6a2dc45"
+    },
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/results.json",
+      "sha256": "d1f8beee4f8872339e8db447f00bdc5fa6897e44911d4794a97da167c2fb54fe"
+    },
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/results-corrected.json",
+      "sha256": "0fd0158127ad2b0ace821a40316f3e45b8a78f517e0538f4168eeb48c437585e"
+    },
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/results-final.json",
+      "sha256": "66d737fb7aaaea722d380415e72085006c337642c33dad92af0811cf2eaa2910"
+    },
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/source-before.json",
+      "sha256": "a440e85ed08a3d42044218247b167c7f67a4125f5f4e3c8907088478d2247309"
+    },
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/source-after.json",
+      "sha256": "bd51e4af9cabb008cbd6c65bcdd7baccf233527fdf98a6508c39e4398bb727c8"
+    },
+    {
+      "path": ".staging/wave-cw-offline-integration-2026-09-09/source-comparison.json",
+      "sha256": "33d4967170ea46266460602577da28da6864c8377c37bca405fed5ce1208f2e1"
+    }
+  ],
+  "changes": [
+    "Fixed immutable source-feature registry consumed by normal source admission, scoped to source set/origin/name/hash/master/paint/representation.",
+    "Local fail or uncertain refuses profiled representation even below aggregate 1%; unprofiled alternatives cannot bypass intended profile.",
+    "Corrected Central Bell fixture provenance without changing its source bytes; omitted unverified license assertion.",
+    "Collector qualification/review evidence can be consumed only during synchronous trusted verification scope; serialized/copy/async/retained mutable input cannot inherit authority."
+  ],
+  "retainedFailures": [
+    "Initial CPv1/v2 real-corpus Bell namespace collision:37pass1fail.",
+    "Integrated test suite passed; scripts typecheck then found readonly fixture pop().",
+    "After type correction, lint found one formatting issue; corrected only that test file."
+  ],
+  "limitations": [
+    "Seven profiled master24 representations only;16px profile observations are resampled24 sources, not native16 optical masters.",
+    "Bell counter remains uncertain and refused; no claim of solved representation.",
+    "authorEvidenceVerified remains false; canonical filesystem wrapper cannot grant production authority.",
+    "Exact raw report-label equality, recognition provenance and replacement of overstrict all-review>=9/approval guard with frozen aggregate thresholds remain open.",
+    "No sealed100-stimulus critic qualification or visual gate passes."
+  ],
+  "costLedger": "docs/log/api-budget-after-d445-2026-09-09.json"
+}

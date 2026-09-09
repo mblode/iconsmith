@@ -62,7 +62,7 @@ export const RECORD_SCHEMA_VERSION = 1;
  */
 export type Usage = "analysis-only" | "conditioning";
 
-export interface RecordProvenance {
+interface RecordProvenance {
   /** Where the set comes from — a homepage or a package name.
    *
    *  Deliberately *not* called `origin`. `Provenance["origin"]` in `types.ts`

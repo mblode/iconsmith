@@ -25,7 +25,7 @@ import type {
 } from "@ai-sdk/provider";
 
 export const OPENROUTER_URL = "https://openrouter.ai/api/v1";
-export const OPENROUTER_PREFIX = "openrouter/";
+const OPENROUTER_PREFIX = "openrouter/";
 /** Thinking Machines Inkling on OpenRouter's free tier. */
 export const DEFAULT_OPENROUTER_MODEL = "thinkingmachines/inkling:free";
 /**
@@ -54,7 +54,7 @@ export const openrouterMaxTokens = (requested?: number): number => {
   return Math.min(Math.floor(requested), DEFAULT_OPENROUTER_MAX_TOKENS);
 };
 
-export type FetchLike = (
+type FetchLike = (
   input: string,
   init?: {
     body?: string;
@@ -76,15 +76,15 @@ export interface OpenRouterModelOptions {
 }
 
 /** New OpenRouter accounts are 10 rpm on Inkling; each generate step is one POST. */
-export const OPENROUTER_RETRY_429 = 8;
-export const OPENROUTER_RETRY_WAIT_MS = 7000;
+const OPENROUTER_RETRY_429 = 8;
+const OPENROUTER_RETRY_WAIT_MS = 7000;
 
 export const isRetryableOpenRouter = (
   status: number,
   message: string
 ): boolean => status === 429 || (status === 402 && /in-flight/iu.test(message));
 
-export const retryAfterMs = (response: Response, attempt: number): number => {
+const retryAfterMs = (response: Response, attempt: number): number => {
   const raw = response.headers.get("retry-after");
   const seconds = raw === null ? Number.NaN : Number(raw);
   if (Number.isFinite(seconds) && seconds >= 0) {
@@ -454,7 +454,7 @@ const errorText = async (response: Response): Promise<string> => {
  * That is a ceiling, not a dead key. Below this many tokens there is
  * nothing useful to retry with.
  */
-export const MIN_OPENROUTER_MAX_TOKENS = 16;
+const MIN_OPENROUTER_MAX_TOKENS = 16;
 
 /** Parse the affordable reservation from a 402, or null if it is not one. */
 export const affordableMaxTokens = (message: string): number | null => {

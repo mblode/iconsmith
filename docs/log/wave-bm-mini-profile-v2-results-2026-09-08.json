@@ -1,0 +1,51 @@
+{
+  "id": "D353",
+  "kind": "mini-profile-v2-capability-result",
+  "status": "incomplete",
+  "qualified": false,
+  "acceptedModel": null,
+  "observedTraceModel": "gpt-5.4-mini",
+  "acceptedAnswers": null,
+  "reason": "Error: Codex reviewer used a tool during sealed image review",
+  "sourceStable": true,
+  "deadlineExceeded": false,
+  "containersAbsent": 3,
+  "toolNames": [
+    "get_goal",
+    "get_goal"
+  ],
+  "nativeCallsThisExperiment": 1,
+  "nativeCallsCumulative": 80,
+  "apiIncrementUsd": 0,
+  "nativeDollarCost": "unknown",
+  "artifacts": [
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/intent.json",
+      "sha256": "0dcd1ede979b10f2cfc15c3b5d08e0b03eb2819f1e09a1e8800fcfbf57688587"
+    },
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/execution/result.json",
+      "sha256": "ac76bb66ce5e3332f87f85535fbef4be2d67802fa0d266a2608826a8a939cd80"
+    },
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/root-settlement-audit.json",
+      "sha256": "3b7edf6367ceb3c45c6bf3015502418965fede509cddc85eb630be211415b291"
+    },
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/tool-refusal-diagnostic.json",
+      "sha256": "2b63d4ce007663e991022754cec97b6bf40f6d078b360587f55a9f761e150006"
+    },
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/native-route.json",
+      "sha256": "d15d8017cc03bdaa187b5a3a9ae59df922600a9adc724b1293f049d3f1dd49a1"
+    },
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/inputs.json",
+      "sha256": "ff741223cb42b45f448009c0273b6daff9e82350c452f841d62497f5f5e443cd"
+    },
+    {
+      "file": ".staging/wave-bm-mini-profile-development-v2-2026-09-08/run.mts",
+      "sha256": "f28d569efbba9337bf5c9f355d7f43092e4bcf412ecdd649651ef46c4dbc0b56"
+    }
+  ]
+}

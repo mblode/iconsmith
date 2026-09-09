@@ -262,3 +262,37 @@ describe("a thrown generation across replicates", () => {
     expect(formatSpread(report)).toContain("4 generation(s) errored");
   });
 });
+
+describe("acceptance evidence through the evaluator", () => {
+  it("retains and validates supplied evidence in the actual metric report", async () => {
+    const model = new MockLanguageModelV4({
+      doGenerate: () => {
+        throw new Error("the eval must not reach a real model");
+      },
+    });
+    const result = await evaluate({
+      acceptanceEvidence: {
+        contractVersion: "wrong-version",
+        expectedSlots: [],
+        gates: [],
+        outputs: [],
+        uncertainty: { method: "", resamplingCount: 0, seed: "" },
+      },
+      benchmark: bench("square"),
+      generate: generator([]),
+      icons: SET,
+      model,
+      provenance,
+    });
+
+    expect(result.metrics?.acceptance).toMatchObject({
+      contractVersion: "wrong-version",
+      envelopeValid: false,
+      evidencePresent: true,
+      qualification: false,
+    });
+    expect(result.metrics?.acceptance.reasons).toContain(
+      "Acceptance contract or expected-slot identity is invalid"
+    );
+  });
+});

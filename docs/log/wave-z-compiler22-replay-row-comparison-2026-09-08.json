@@ -1,0 +1,21 @@
+{
+  "kind": "exact-row-replay-comparison",
+  "old": {
+    "path": ".staging/house-source-regression-compiler21-2026-09-07/replay/results.json",
+    "sha256": "74ca9e57a73d01ac0c8afb045adb3db3a26da80d7e5c0d58b9b8e363423e0f25"
+  },
+  "new": {
+    "path": ".staging/wave-z-source-regression-compiler22-2026-09-08/replay/results.json",
+    "sha256": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c"
+  },
+  "count": 4357,
+  "ignoredFields": [
+    "sourceVerified (new explicit current source hash verification)"
+  ],
+  "allCurrentSourcesVerified": true,
+  "changedCount": 0,
+  "changes": [],
+  "admissionRegressionResolved": false,
+  "qualified": false,
+  "newProviderCalls": 0
+}

@@ -1,0 +1,53 @@
+{
+  "status": "development-only-unqualified",
+  "index": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v2-2026-09-08.html",
+  "indexSha256": "015fde1507d28a17b659e242c81f0627a2706cdce20f200fe84f78cde857c5e2",
+  "priorIndex": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-2026-09-08.html",
+    "sha256": "92057b0ed85dd5e0b4b8f000737b1208fb627f692269a37de057ca347e1e7d00"
+  },
+  "images": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-live-2026-09-08/native16/result/outlined.proof.png",
+      "sha256": "da640b1df0d5495b9944f641de94ab80b1f9a88f2dc27759df287460550390f0"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-live-2026-09-08/native16/result/filled.proof.png",
+      "sha256": "77622e0b1eceb391a5a9c84c134b48e970fa266e5d19698e926cebcb3893ebc6"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-live-2026-09-08/native24/result/outlined.proof.png",
+      "sha256": "76b0b602c030e909ed37124fa10566ab695f1d186941991489e27874909a9843"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-live-2026-09-08/native24/result/filled.proof.png",
+      "sha256": "e4ae4073adddfd80f12148a9c738ed24cfd3ae8c8e3020f3d6789950a2b17013"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-l-modifier-fixtures-2026-09-08/comparison-board.png",
+      "sha256": "8c4ada566cada8ffa7e2de5242ec11cbc22612ef6cd7aeee564afd9a846c00c9"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-s-automatic-pilot-live-2026-09-08/campaign/requests/cloud-upload-16/attempt-1/structured-author/outlined.proof.png",
+      "sha256": "1fce89f3f0cf4a81ee78dcbdd98c615e3b373cf203021947d9e444c624a8d6a0"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-s-automatic-pilot-live-2026-09-08/campaign/requests/cloud-upload-16/attempt-1/structured-author/filled.proof.png",
+      "sha256": "673d2efb3c552800ed42b9c62421475cc96546419dd2943515300b6ee439f5ef"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-s-evaluation-calibration-audit-2026-09-08/presentation-contact-sheet.png",
+      "sha256": "7d11a2ae05521d263c3cc760f848e3dce2257bc0b9b69eaf16f67219d66430fa"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-q-cloud-arrow-optical-2026-09-08/comparison-board.png",
+      "sha256": "5048b7f2c99124f0ef64c97e6ce63d5a38c0f7717b315d5bab7f9aca7f41a33c"
+    }
+  ],
+  "requestedLiveOutputs": 6,
+  "acceptedLiveOutputs": 0,
+  "catalogDispatched": 0,
+  "novelDispatched": 0,
+  "calibrationCanonicalHouseImages": 16,
+  "calibrationExtraPresentations": 4
+}

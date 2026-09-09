@@ -1,0 +1,81 @@
+{
+  "id": "D377",
+  "kind": "native-master-region-binding-and-full-integration",
+  "agentReceipt": ".staging/wave-bs-native-region-binding-2026-09-08/receipt.json",
+  "agentReceiptSha256": "7a576177f6c7a41f4d654b96f2a57d400efe6441786cb100e48efc797c3faacc",
+  "patch": {
+    "file": "patch/native-region-binding.patch",
+    "sha256": "c6af62f3b2045d194bc021bfdb279b78b6984959f4b02158b88d093d0475e190"
+  },
+  "tests": 2320,
+  "testFiles": 174,
+  "skipped": 0,
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 34213,
+      "log": ".staging/wave-bs-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1351,
+      "log": ".staging/wave-bs-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5519,
+      "log": ".staging/wave-bs-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1338,
+      "log": ".staging/wave-bs-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 66,
+      "log": ".staging/wave-bs-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceFreezeFile": ".staging/wave-bs-integration-2026-09-08/source-after.json",
+  "sourceFreezeSha256": "826b07abae45587f7e7cd1bb2f6a225a1d5810ccaf3c842b62777d596802eee8",
+  "behavior": "Native-master local evidence must match authoritative selected spec.size;24-master raster16 must be explicitly resampled-source.",
+  "compilerChanged": false,
+  "normalAdmissionChanged": false,
+  "opticalMastersQualified": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeSettled": 84,
+  "nativePriorUnresolved": 1
+}

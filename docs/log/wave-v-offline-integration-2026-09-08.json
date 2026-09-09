@@ -1,0 +1,70 @@
+{
+  "kind": "wave-v-offline-integration-v1",
+  "date": "2026-09-08",
+  "providerCalls": 0,
+  "apiActual": 0,
+  "apiReservation": 0,
+  "nativeCumulative": 31,
+  "qualified": false,
+  "ownershipCorrection": {
+    "path": ".staging/wave-s-outer-eperm-audit-2026-09-08/outer-eperm-ownership-audit-and-fix-v2.json",
+    "sha256": "9884872993014cb4ff0c5805b1c351f6ea895d2c2285bdc016292a3f6651666f"
+  },
+  "rootOwnershipProbe": {
+    "path": ".staging/wave-v-root-ownership-churn-2026-09-08/result.json",
+    "sha256": "bfba9b136becaf26fb7b2f9e303cdaa8d7471700e2904b7450e754345de7e65f"
+  },
+  "inputPreparation": {
+    "path": ".staging/wave-v-canonical-preparation-2026-09-08/inputs/prep.json",
+    "sha256": "6c0705b87acd32550cc0488037192aa2ee3b3c6a5a051624d99c56b597e28a18"
+  },
+  "observations": [
+    "160 short-lived child process offline probe exits0, quiescent within documented process-group/observed-descendant scope.",
+    "22/22 canonical prepared files equal supplied historical definitions byte-for-byte; original artifacts untouched.",
+    "Intentional duplicate attachments preserved; vacuous reversal cannot count as reversed-order control.",
+    "Historical pilot remains quarantined; no claims of free recognition or production qualification."
+  ],
+  "checks": {
+    "reviewOwnershipReportingTests": 56,
+    "reviewOwnershipReportingFiles": 4,
+    "preparationAndCliTests": 14,
+    "preparationAndCliFiles": 2,
+    "typecheck": true,
+    "scopedLint": true,
+    "fullIntegrationPending": true
+  },
+  "sourceFiles": [
+    {
+      "path": "packages/iconsmith/scripts/local-process.ts",
+      "sha256": "9ac4c2ca8e1338059aedac5c11e1841134fdbd51463c3cc10de78631d9bb2132"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-process.test.ts",
+      "sha256": "8f971bf1b4f2e481673ec2eb0f26e70114ae5c1094f5ad854d5c2ec967a1206e"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "sha256": "78dafa296fe1b404568b82a1610d5f7740f11729fcbe9d34aaf774cbddfabc63"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.test.ts",
+      "sha256": "eda5b29cc26bd880cc8d89381313a88956b6351c2c352ee156ab47a745255cf1"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-manifest.ts",
+      "sha256": "a2a9c3ef50b1e4a78c8ac56798aced91453eca06cd3e7105e52b6682b5641764"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-manifest.test.ts",
+      "sha256": "06aa04a9bcfca42d251d1a55f467a0e51eace422887baff70d28532bf2912ba3"
+    },
+    {
+      "path": "packages/iconsmith/scripts/quality-campaign.ts",
+      "sha256": "61532df4c5e414fc10f23379b602053781f01781ef67c9a977b55ae5193b273b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/quality-campaign.test.ts",
+      "sha256": "ac46aed39a19f37fc6e67b47382d53d42269bc1ba74d94e56e4d2eb3840a1635"
+    }
+  ]
+}

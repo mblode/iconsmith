@@ -1,0 +1,51 @@
+{
+  "id": "D452",
+  "observedAt": "2026-09-08T18:19:03.220131+00:00",
+  "kind": "root-verified-bell-counter-diagnosis",
+  "agentReceipt": {
+    "path": ".staging/wave-cz-bell-counter-diagnosis-2026-09-09/receipt.json",
+    "sha256": "a50f3eb95a85a85d92d30961a3f804cc821d06e56382a9d17304817b5ca09544",
+    "bytes": 2178
+  },
+  "manifest": {
+    "path": ".staging/wave-cz-bell-counter-diagnosis-2026-09-09/artifact-manifest.json",
+    "sha256": "4b95d61d3ed9a02f107eea113e4f4258d60f412530507de99479fab711f454ec",
+    "bytes": 4254
+  },
+  "evidence": {
+    "path": ".staging/wave-cz-bell-counter-diagnosis-2026-09-09/evidence.json",
+    "sha256": "531bab31586a27a9c82079c750173fb0cca0b04491f92e3b96f525e03f66df69",
+    "bytes": 42994
+  },
+  "report": {
+    "path": ".staging/wave-cz-bell-counter-diagnosis-2026-09-09/report.md",
+    "sha256": "2d2ef5e2e1a40f5cffb15cd18429a953ec79db724699c554292f3c7a13d8a0da",
+    "bytes": 5347
+  },
+  "board": {
+    "path": "docs/log/bell-counter-diagnostic-native24-2026-09-09.png",
+    "sha256": "ab4964a0f1d5a487ba9682966c123bab52343916c83adef7864ea7bef09cf954",
+    "bytes": 25370
+  },
+  "rootVerification": {
+    "artifactHashesVerified": 26,
+    "candidateSvgExactlyEqualsBaseline": true,
+    "canvasAndDslSourceHashesVerified": true,
+    "boardInspected": true
+  },
+  "result": {
+    "native24Topology": "source and reconstruction each have one ink component and one hole at thresholds 64, 128, and 192",
+    "counter": "uncertain at threshold 128: source clear mask 1111, reconstruction 0111; thresholds 64 and 192 match",
+    "body": "local masks match at every threshold; nonlocal peak-clearance differs at threshold 192",
+    "candidate": "failed; source-derived internal x translation is normalized away and SVG is byte-identical to baseline",
+    "disposition": "retain Bell as uncertain/refused; do not relax thresholds or infer native16 from resampled24"
+  },
+  "qualified": false,
+  "providerCalls": 0,
+  "newCostUsd": 0,
+  "limitations": [
+    "Native24 diagnostic only; no independent native16 master.",
+    "Initial malformed program separators and ineffective correction retained.",
+    "Source-origin-preserving representation requires calibrated cross-family design and new compiler revision/audit; not implemented."
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "decision": "D402",
+  "date": "2026-09-09",
+  "waveIdentityDate": "2026-09-08",
+  "rows": [
+    {
+      "request": "folder-lock-16",
+      "slots": 2,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "error": null,
+      "parentEndToEndMs": 381570,
+      "issuedAt": 1788872569109,
+      "deadlineAt": 1788873769109,
+      "completedAt": 1788872950679,
+      "stageTimings": {
+        "preflight": 1455,
+        "retrieval": 78393,
+        "generation": 300607
+      },
+      "nativeCalls": 7,
+      "nativeFailedCalls": 0,
+      "receipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/0629168d9c9defc3d115dde3917e12c16294a61cfee5668fe9fc99f105e8bf03.json",
+      "sha256": "c30f0b420949b842a05003535334c5705354831ee173fbce91272514dee4fe0e"
+    },
+    {
+      "request": "hammer-check-16",
+      "slots": 2,
+      "status": "incomplete",
+      "qualityStatus": "review-incomplete",
+      "error": null,
+      "parentEndToEndMs": 507317,
+      "issuedAt": 1788874371665,
+      "deadlineAt": 1788875571665,
+      "completedAt": 1788874878982,
+      "stageTimings": {
+        "preflight": 1628,
+        "retrieval": 84100,
+        "generation": 420360
+      },
+      "nativeCalls": 9,
+      "nativeFailedCalls": 1,
+      "receipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/c13cd8fb01fcabf503ed782086051ffffbe2cb7bafc79d8fd74769c62ece358f.json",
+      "sha256": "3c67dc8c3ddc8fbac921fefd843cf84f00b8e1c13707c0d18b1cb1107927416c"
+    },
+    {
+      "request": "bell-pause-24",
+      "slots": 2,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "error": null,
+      "parentEndToEndMs": 290484,
+      "issuedAt": 1788874880615,
+      "deadlineAt": 1788876080615,
+      "completedAt": 1788875171099,
+      "stageTimings": {
+        "preflight": 1677,
+        "retrieval": 79168,
+        "generation": 208437
+      },
+      "nativeCalls": 7,
+      "nativeFailedCalls": 0,
+      "receipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/e59123b5db36311c6896fe2d151c4a578ac267f3b7436ce5d01754d55f351fd9.json",
+      "sha256": "f4d3242347cffdfa901803e807f4c747f1870e062a5c138a4105ec95e7cc53b2"
+    },
+    {
+      "request": "folder-lock-24",
+      "slots": 2,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "error": null,
+      "parentEndToEndMs": 474450,
+      "issuedAt": 1788875172768,
+      "deadlineAt": 1788876372768,
+      "completedAt": 1788875647218,
+      "stageTimings": {
+        "preflight": 1539,
+        "retrieval": 74084,
+        "generation": 397627
+      },
+      "nativeCalls": 9,
+      "nativeFailedCalls": 0,
+      "receipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/7a4a652c0876110d9eed69049209455fc5919e3d69fb6aef0783faecc26b6a9e.json",
+      "sha256": "9c1c5aa12ea03c888703d80a46288b4d1ce2c2755f300e8f04cc7c244981094f"
+    },
+    {
+      "request": "cloud-upload-24",
+      "slots": 2,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "error": null,
+      "parentEndToEndMs": 273799,
+      "issuedAt": 1788875648830,
+      "deadlineAt": 1788876848830,
+      "completedAt": 1788875922629,
+      "stageTimings": {
+        "preflight": 1561,
+        "retrieval": 78613,
+        "generation": 192567
+      },
+      "nativeCalls": 7,
+      "nativeFailedCalls": 0,
+      "receipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/cdc92a045b3d8dd0a0ff6a74862519547e2d77f8938466eebbc5b1e127564335.json",
+      "sha256": "601bac10db4fe642e3468b2c9c3f92605ac8fd527a44e08a685dc830ec6b1028"
+    },
+    {
+      "request": "bicycle-16",
+      "slots": 2,
+      "status": "incomplete",
+      "qualityStatus": "not-reviewed",
+      "error": "Error: No host-valid program survived compiler repair",
+      "parentEndToEndMs": 154346,
+      "issuedAt": 1788875924216,
+      "deadlineAt": 1788877124216,
+      "completedAt": 1788876078562,
+      "stageTimings": {
+        "preflight": 1606,
+        "retrieval": 71102,
+        "generation": 81269
+      },
+      "nativeCalls": 4,
+      "nativeFailedCalls": 0,
+      "receipt": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign/receipts/6084d06834b9b2a55008b2cac37a1ea3e0125f6baf6f8f3d2cb2f32bd961721d.json",
+      "sha256": "d29d86eff3559c8073de3e50b8df12d17a65bf58cad449677474e4c6de7bbca1"
+    }
+  ],
+  "counts": {
+    "requests": 6,
+    "requestedSlots": 12,
+    "deliveredPairs": 4,
+    "incompletePairs": 2,
+    "reviewClearSlots": 8,
+    "incompleteSlots": 4,
+    "acceptedQualifiedSlots": 0
+  },
+  "native": {
+    "D394Reserved": 60,
+    "D394Settled": 36,
+    "D394UnusedReleased": 24,
+    "cumulativeSettled": 133,
+    "priorUnresolved": 1,
+    "dollarCost": "unknown"
+  },
+  "apiIncrementUsd": 0,
+  "sourceStable": true,
+  "sourceFreeze": "D377",
+  "qualification": false,
+  "claim": "Current-route reliability replay, not 95 percent delivery qualification"
+}

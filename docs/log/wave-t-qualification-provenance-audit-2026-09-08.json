@@ -1,0 +1,12 @@
+{
+  "schema": "iconsmith.qualification-audit-reference.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "receipt": {
+    "path": ".staging/wave-t-evaluation-qualification-audit-2026-09-08/receipt.json",
+    "sha256": "0d7bf6958dc1cc74308a253ed0bd41772caca0eed4eb845bde6275806ede9158"
+  },
+  "productionReady": false,
+  "scope": "46tests plus observed substituted-control metric acceptance; production guard remains closed"
+}

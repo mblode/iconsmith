@@ -5,8 +5,10 @@ import path from "node:path";
 import { expect, test } from "vitest";
 
 import {
+  freezeSynonymKey,
   freezeQualificationReceipt,
   ingestHumanLabels,
+  validateSynonymAdjudication,
   validatePopulationSeparation,
   validateQualificationReceipt,
 } from "./quality-labels.js";
@@ -161,4 +163,95 @@ test("persists and validates the exact sealed instrument and roster files", () =
   } finally {
     rmSync(root, { force: true, recursive: true });
   }
+});
+
+test("binds free descriptions to an independent emitted-lineage adjudication", () => {
+  const key = freezeSynonymKey([
+    {
+      id: "s001",
+      meaningProvenanceHash: "3".repeat(64),
+      synonyms: ["heart", "love symbol"],
+      target: "heart",
+    },
+  ]);
+  const recognition = {
+    description: "a heart outline",
+    evidenceHash: "4".repeat(64),
+    id: "s001",
+  };
+  const adjudication = {
+    adjudicatorBaseModelLineage: "claude",
+    adjudicatorModel: "claude-opus",
+    decision: "match" as const,
+    evidence: "Description names an accepted synonym",
+    id: "s001",
+    keyHash: key.hash,
+    recognitionEvidenceHash: recognition.evidenceHash,
+    recognizerBaseModelLineage: "gpt",
+  };
+  expect(
+    validateSynonymAdjudication({
+      adjudications: [adjudication],
+      keyHash: key.hash,
+      recognitions: [recognition],
+    })
+  ).toEqual({
+    productionSealEligible: false,
+    rows: [{ decision: "match", id: "s001", recognitionSuccess: true }],
+    runtimeAccessRestrictionVerified: false,
+  });
+  expect(() =>
+    validateSynonymAdjudication({
+      adjudications: [{ ...adjudication, adjudicatorBaseModelLineage: "gpt" }],
+      keyHash: key.hash,
+      recognitions: [recognition],
+    })
+  ).toThrow("linkage");
+  expect(() =>
+    validateSynonymAdjudication({
+      adjudications: [
+        { ...adjudication, recognitionEvidenceHash: "5".repeat(64) },
+      ],
+      keyHash: key.hash,
+      recognitions: [recognition],
+    })
+  ).toThrow("linkage");
+});
+
+test("preserves unknown and mismatch rows in the recognition denominator", () => {
+  const keyHash = "6".repeat(64);
+  const recognitions = [
+    { description: null, evidenceHash: "7".repeat(64), id: "s001" },
+    { description: "a square", evidenceHash: "8".repeat(64), id: "s002" },
+  ];
+  const common = {
+    adjudicatorBaseModelLineage: "claude",
+    adjudicatorModel: "claude-opus",
+    evidence: "Compared sealed text to key",
+    keyHash,
+    recognizerBaseModelLineage: "gpt",
+  };
+  expect(
+    validateSynonymAdjudication({
+      adjudications: [
+        {
+          ...common,
+          decision: "uncertain",
+          id: "s001",
+          recognitionEvidenceHash: "7".repeat(64),
+        },
+        {
+          ...common,
+          decision: "mismatch",
+          id: "s002",
+          recognitionEvidenceHash: "8".repeat(64),
+        },
+      ],
+      keyHash,
+      recognitions,
+    }).rows
+  ).toEqual([
+    { decision: "unknown", id: "s001", recognitionSuccess: false },
+    { decision: "mismatch", id: "s002", recognitionSuccess: false },
+  ]);
 });

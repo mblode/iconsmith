@@ -1,0 +1,34 @@
+{
+  "experimentId": "D439",
+  "kind": "post-settlement-generation-metadata-diagnostic",
+  "recordedAt": "2026-09-08T16:46:12.257947+00:00",
+  "inferenceRequests": 0,
+  "metadataRequests": 1,
+  "apiReservationUsd": 0,
+  "qualified": false,
+  "observation": "One later GET succeeded with HTTP200 and agrees with D437 reported route, charge and usage. Original failed GET status was not retained; delayed availability is plausible but not established.",
+  "generationId": "gen_01M20YC080BN3H0JE0F71C03R9",
+  "chargeConfirmedUsd": 0.0010815,
+  "historicalTerminalRemains": "refused",
+  "artifacts": [
+    {
+      "file": ".staging/wave-cm-api-metadata-diagnostic-2026-09-09/generation-info.json",
+      "sha256": "2fc1a283fd15d08b753df5e95c99a25e8c17d92284174b5d0eeff4004aa10ed3"
+    },
+    {
+      "file": ".staging/wave-cm-api-metadata-diagnostic-2026-09-09/intent.json",
+      "sha256": "4d3f5172dc4a83cb772c65e3f87d736a6fc50d76998ebd3ef7a1cef680a37a86"
+    },
+    {
+      "file": ".staging/wave-cm-api-metadata-diagnostic-2026-09-09/read.mts",
+      "sha256": "34a7713e06434d19303024cc8246806ad6104216152d294f030cb4e59038255f"
+    },
+    {
+      "file": ".staging/wave-cm-api-metadata-diagnostic-2026-09-09/result.json",
+      "sha256": "45b8b84b3aa0ae6984d030938164f5082be39b1a8e4371bcc11de50f5cb2704a"
+    }
+  ],
+  "apiActualUsd": 13.06432585,
+  "reservedOrUnknownUsd": 11.37126575,
+  "nextGap": "Retain sanitized metadata HTTP status and diagnose bounded readiness policy before any fresh inference."
+}

@@ -1,0 +1,62 @@
+{
+  "kind": "wave-a-baseline-and-cost-reconciliation",
+  "date": "2026-09-08",
+  "commit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "initialDrift": "Only pre-existing planning documentation changes; code matched baseline before execution.",
+  "validation": {
+    "tests": 1830,
+    "testFiles": 158,
+    "skipped": 0,
+    "typecheck": "pass",
+    "build": "pass",
+    "check": "pass",
+    "turboCache": "test uncached; other unchanged tasks may reuse valid cache"
+  },
+  "inventory": {
+    "path": ".staging/house-source-regression-compiler21-2026-09-07/audit/inventory.json",
+    "sha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "files": 4357,
+    "changedOrMissing": [],
+    "unexpected": [],
+    "missing": []
+  },
+  "corpus": {
+    "path": "packages/iconsmith/corpus",
+    "present": true,
+    "svgFiles": 62550
+  },
+  "cost": {
+    "ledger": ".staging/foundry-round-1/budget.json",
+    "ledgerSha256": "c7639a8abeb6b932bf99bced0c5baa1651d796045b639553565e23e0e3c9341f",
+    "apiCapUsd": 50,
+    "receiptActualUsd": 13.06220785,
+    "reservedOrUnknownUsd": 11.37126575,
+    "remainingMaximumUsd": 25.5665264,
+    "ledgerTotalsMatch": true,
+    "unknownRuns": [
+      "strategy-screen-gemini-grok",
+      "strategy-screen-output-budget-correction",
+      "strategy-screen-streaming"
+    ],
+    "historicalCampaigns": "Excluded; no historical spend merged into current round.",
+    "providerBalanceVerified": false,
+    "newApiSpendUsd": 0,
+    "newApiReservationsUsd": 0,
+    "nativeExperimentCalls": 0,
+    "nativePlanningUsageUsd": null
+  },
+  "qualification": false,
+  "nextWave": {
+    "mode": "offline implementation and local probes",
+    "providerDispatchEnabled": false,
+    "apiReservationUsd": 0,
+    "reason": "Canonical launch/containment and independently qualified roster remain open."
+  },
+  "logs": {
+    "baseline-build.log": "aa6ac3ccf33cdf2ac43eb1c1f9376492bd585efc39a65de232b7651ea4b794dd",
+    "baseline-test.log": "0d8166047f2fbbbd8b9b9d12bbf8b5a77d843746b43044a5fb161e2739565098",
+    "baseline-check.log": "e60c044b1363558ca6ee656b5aca45136d5b3009586dbffbe6d08300546ee70c",
+    "baseline-typecheck.log": "710c325199a5be0a2124720415b970e58200db00dbc77ae3b718bb024bbef2fe"
+  }
+}

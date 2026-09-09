@@ -244,8 +244,3 @@ export const registerPartsCommand = (program: Command): void => {
       }
     );
 };
-
-/** Exposed so the eval command can persist a vocabulary without re-deriving it. */
-export const dumpParts = (file: string, data: unknown): void => {
-  writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
-};

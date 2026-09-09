@@ -1,9 +1,16 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 
-import { expect, it } from "vitest";
+import { expect, it, vi } from "vitest";
 
 import { png } from "../src/tools/render.js";
 import { reviewImages, reviewStageTimeoutMs } from "./local-review.js";
@@ -243,3 +250,281 @@ it("rejects invalid effort before creating a review or invoking a provider", asy
     rmSync(root, { force: true, recursive: true });
   }
 });
+
+it("returns incomplete without invoking a host fallback", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "review-no-container-"));
+  try {
+    const source = await png(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="8"/></svg>',
+      24
+    );
+    const result = await reviewImages({
+      images: { "candidate.png": source },
+      out: path.join(root, "review"),
+      questions: [
+        { choices: ["yes", "no"], id: "visible", prompt: "Visible?" },
+      ],
+    });
+    expect(result).toMatchObject({
+      reason: expect.stringContaining("explicit diagnostic container"),
+      status: "incomplete",
+    });
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+it("allocates a unique Claude review runtime while keeping receipts separate", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "review-factory-"));
+  const out = path.join(root, "receipts", "review");
+  mkdirSync(path.dirname(out));
+  const runtimeCwd = path.join(root, "runtime", "reviewer-claude");
+  mkdirSync(path.dirname(runtimeCwd));
+  const parentDeadlineAt = Date.now() + 30_000;
+  const config = { marker: "call-scoped" } as never;
+  const create = vi.fn((request: { cwd: string; deadlineAt: number }) => {
+    mkdirSync(request.cwd);
+    return {
+      config,
+      scope: {
+        cwd: request.cwd,
+        deadlineAt: request.deadlineAt,
+        intent: {} as never,
+        stateDirectory: path.join(request.cwd, "native-state"),
+      },
+    };
+  });
+  try {
+    const source = await png(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="8"/></svg>',
+      24
+    );
+    await reviewImages({
+      deadlineAt: parentDeadlineAt - 5000,
+      images: { "candidate.png": source },
+      invokeContained: (request, received) => {
+        expect(received).toBe(config);
+        expect(request.cwd).toBe(runtimeCwd);
+        return Promise.resolve({
+          code: null,
+          killed: false,
+          stderr: "diagnostic",
+          stdout: "",
+        });
+      },
+      maxStageMs: 1000,
+      nativeCall: {
+        containerFactory: { create } as never,
+        ordinal: 6,
+        parentDeadlineAt,
+        runtimeCwd,
+        stageKind: "reviewer-claude",
+      },
+      out,
+      questions: [
+        { choices: ["yes", "no"], id: "visible", prompt: "Visible?" },
+      ],
+    });
+    expect(create).toHaveBeenCalledWith({
+      cwd: runtimeCwd,
+      deadlineAt: parentDeadlineAt,
+      ordinal: 6,
+      stageKind: "reviewer-claude",
+    });
+    expect(existsSync(path.join(out, "process.json"))).toBe(true);
+    expect(existsSync(path.join(runtimeCwd, "candidate.png"))).toBe(true);
+    expect(existsSync(path.join(out, "candidate.png"))).toBe(false);
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+it("rejects a reusable static Claude container outside diagnostics", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "review-static-"));
+  try {
+    const source = await png(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="8"/></svg>',
+      24
+    );
+    await expect(
+      reviewImages({
+        container: {} as never,
+        images: { "candidate.png": source },
+        out: path.join(root, "review"),
+        questions: [
+          { choices: ["yes", "no"], id: "visible", prompt: "Visible?" },
+        ],
+      })
+    ).rejects.toThrow("Static Claude container config cannot run a review");
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+it("rejects overlapping Claude runtime and receipt paths before reservation", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "review-overlap-"));
+  const create = vi.fn();
+  try {
+    const source = await png(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="8"/></svg>',
+      24
+    );
+    await expect(
+      reviewImages({
+        deadlineAt: Date.now() + 5000,
+        images: { "candidate.png": source },
+        nativeCall: {
+          containerFactory: { create } as never,
+          ordinal: 6,
+          parentDeadlineAt: Date.now() + 10_000,
+          runtimeCwd: path.join(root, "review", "runtime"),
+          stageKind: "reviewer-claude",
+        },
+        out: path.join(root, "review"),
+        questions: [
+          { choices: ["yes", "no"], id: "visible", prompt: "Visible?" },
+        ],
+      })
+    ).rejects.toThrow("receipts must stay outside");
+    expect(create).not.toHaveBeenCalled();
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
+});
+
+it.each([
+  "complete",
+  "output-result",
+  "foreign-result",
+  "nested-image",
+  "server-tool",
+  "read",
+  "image",
+  "wrong-model",
+])(
+  "sealed text Claude review rejects image and file access: %s",
+  async (scenario) => {
+    const root = mkdtempSync(path.join(tmpdir(), "claude-text-review-"));
+    try {
+      const result = await reviewImages({
+        evidenceMode: "sealed-text",
+        images: {},
+        invoke: ({ prompt }) => {
+          expect(prompt).toContain("Do not read files");
+          expect(prompt).not.toContain("Host-measured");
+          const extras: Record<string, unknown> = {
+            read: {
+              id: "read-1",
+              input: { file_path: "key.json" },
+              name: "Read",
+              type: "tool_use",
+            },
+            "server-tool": {
+              id: "server-1",
+              name: "web_search",
+              type: "server_tool_use",
+            },
+          };
+          const extra = extras[scenario] ?? {
+            source: { data: "AA==", type: "base64" },
+            type: "image",
+          };
+          return Promise.resolve({
+            code: 0,
+            killed: false,
+            stderr: "",
+            stdout: [
+              {
+                model:
+                  scenario === "wrong-model" ? "other" : "claude-opus-5[1m]",
+                subtype: "init",
+                type: "system",
+              },
+              ...(["read", "image", "server-tool"].includes(scenario)
+                ? [{ message: { content: [extra] }, type: "assistant" }]
+                : []),
+              ...(["output-result", "foreign-result", "nested-image"].includes(
+                scenario
+              )
+                ? [
+                    {
+                      message: {
+                        content: [
+                          {
+                            id: "output-1",
+                            input: {},
+                            name: "StructuredOutput",
+                            type: "tool_use",
+                          },
+                        ],
+                      },
+                      type: "assistant",
+                    },
+                    {
+                      message: {
+                        content: [
+                          {
+                            content:
+                              scenario === "nested-image"
+                                ? [
+                                    {
+                                      source: { data: "AA==", type: "base64" },
+                                      type: "image",
+                                    },
+                                  ]
+                                : [{ text: "Accepted", type: "text" }],
+                            tool_use_id:
+                              scenario === "foreign-result"
+                                ? "other"
+                                : "output-1",
+                            type: "tool_result",
+                          },
+                        ],
+                      },
+                      type: "user",
+                    },
+                  ]
+                : []),
+              {
+                is_error: false,
+                structured_output: {
+                  answers: {
+                    s001: {
+                      choice: "match",
+                      evidence: "Same meaning.",
+                      treatment: "",
+                    },
+                  },
+                },
+                subtype: "success",
+                type: "result",
+              },
+            ]
+              .map((event) => JSON.stringify(event))
+              .join("\n"),
+          });
+        },
+        out: path.join(root, "out"),
+        questions: [
+          {
+            choices: ["match", "uncertain"],
+            id: "s001",
+            prompt: "Sealed description: heart. Target: heart.",
+          },
+        ],
+      });
+      expect(result.status).toBe(
+        ["complete", "output-result"].includes(scenario)
+          ? "complete"
+          : "incomplete"
+      );
+      expect(result.baseModelLineage).toBe(
+        ["complete", "output-result"].includes(scenario)
+          ? "claude-opus-5"
+          : null
+      );
+    } finally {
+      rmSync(root, { force: true, recursive: true });
+    }
+  }
+);

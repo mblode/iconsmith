@@ -1,0 +1,155 @@
+{
+  "id": "D466",
+  "status": "capability-refused-metadata-http-404",
+  "observedAt": "2026-09-08T20:15:22.551233+00:00",
+  "recognition": {
+    "description": "heart",
+    "unknown": false
+  },
+  "responseModelId": "google/gemini-3.7-flash",
+  "finalProvider": "google",
+  "inferenceAttempts": 1,
+  "metadataLookupAttempts": 1,
+  "metadataHttpStatus": 404,
+  "costUsd": 0.00102525,
+  "releasedReservationUsd": 0.78732675,
+  "originalDeadlineAt": 1788898554502,
+  "rootCompletedAt": 1788898438099,
+  "elapsedMs": 3625,
+  "settlement": {
+    "kind": "iconsmith-api-capability-v2-parent-terminal-v2",
+    "experimentId": "D466",
+    "status": 0,
+    "killed": false,
+    "startedAt": 1788898434502,
+    "deadlineAt": 1788898554502,
+    "settledAt": 1788898438047,
+    "withinOriginalDeadline": true,
+    "quiescent": true,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "containmentLimitation": "Does not prove a descendant that detached between host samples.",
+    "outerState": "settled-child-result-requires-review",
+    "intentSha256": "79482bd22a4aaaa8809139810a6e2581c7f289b37dc6c3cbb170285c9d406294",
+    "stdoutSha256": "326cf345e0df4c0fa61c5ea4f85c25859650e809596976a712a6a298994c4305",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "automaticRetry": false
+  },
+  "sourceFilesReverified": 777,
+  "productionRowsReverified": 558,
+  "artifacts": [
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/evidence/attempt.json",
+      "sha256": "c92767f0ec85ef7d8534b27b5c06f5f223bdf0fdb516824c9ae14216694dc23e",
+      "bytes": 176
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/evidence/intent.json",
+      "sha256": "29bbd7df7625de0f2e059484aafc43c8b14fc05be250e19cbd85f95f67df74bf",
+      "bytes": 1352
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/evidence/metadata-attempt.json",
+      "sha256": "59ee22c7dc7521b90427d00a7f3006fda0979f3ef2d1f798bf47708fcca62093",
+      "bytes": 429
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/evidence/metadata-failure.json",
+      "sha256": "231eb0527f4f6fc6d97e685fcb5af8eb4f1757118dcb4d13dd6a9b67ba8faaee",
+      "bytes": 572
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/evidence/result.json",
+      "sha256": "6d9cdf814ebc5d3596d1f86b01841885d8233d0c265de618dcd573652f44033c",
+      "bytes": 9972
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/evidence/terminal.json",
+      "sha256": "0e67dd146ab51d2daf592d467b9af6bb926222bf2b56352280b2121fbfcce15d",
+      "bytes": 771
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/launch.json",
+      "sha256": "4618cd8551c85aecbfa1803e475436710159be23ac0faa78e3a1a26d8d023f1a",
+      "bytes": 644
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/attempt/runner-result.json",
+      "sha256": "0e67dd146ab51d2daf592d467b9af6bb926222bf2b56352280b2121fbfcce15d",
+      "bytes": 771
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/bootstrap.mjs",
+      "sha256": "a04697a0f79db780d2933fda416bb66ce24e95f7518600d8f101da66a6afc575",
+      "bytes": 2560
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/bootstrap.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/bootstrap.stdout",
+      "sha256": "18409eba5763019e581bf052671cf681b4b7b2fd1b81fb6fa83dc1858d60fa3e",
+      "bytes": 786
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/launch-manifest.json",
+      "sha256": "8438261a50ccd5d230f1d76e0fef6d3959b89e7bba2abf399113b17843634caa",
+      "bytes": 1722
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/loader-identity.json",
+      "sha256": "c104a9938b6aeecdff3319bbf1d0bf4f82afabb3b5e927e21a1d1a278132685d",
+      "bytes": 9230
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/parent-config.json",
+      "sha256": "879ef4ef1cf4e0f8b84a61c4711eed5d157cc52546ffd11e4c659f9e652c27ec",
+      "bytes": 3095
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/parent-publication.json",
+      "sha256": "48853d47e6c75e2e28537d4166214a8103f2ada119564e23d8512d8bddea9937",
+      "bytes": 277
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/parent-terminal.json",
+      "sha256": "049eefb60a9f0f3bb044c1a8ac63df8b8930dda4ebb5c5c2cda66a63a13b4919",
+      "bytes": 767
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/proposed-reservation-ledger.json",
+      "sha256": "e16c58514001163c80295f044e7514b66cca290d7e60322944c9067a36734a37",
+      "bytes": 7813
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/root-outer-observation.json",
+      "sha256": "1e08e812b0cf2403a147835195014d2436984d822eb2bf07c909629a00059816",
+      "bytes": 238
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/stdout.log",
+      "sha256": "326cf345e0df4c0fa61c5ea4f85c25859650e809596976a712a6a298994c4305",
+      "bytes": 706
+    },
+    {
+      "path": ".staging/wave-ed-api-guarded-live-v2-2026-09-09/zero-call-preflight/parent-fallback-terminal.json",
+      "sha256": "01f2c582b49968c088ae1e8f0ab61ea91576431e61d37cc52ac25abb7460e1e3",
+      "bytes": 399
+    },
+    {
+      "path": "docs/log/wave-ed-api-guarded-live-intent-2026-09-09.json",
+      "sha256": "79482bd22a4aaaa8809139810a6e2581c7f289b37dc6c3cbb170285c9d406294",
+      "bytes": 2684
+    }
+  ],
+  "qualified": false,
+  "automaticRetry": false,
+  "scope": "Known image recognized, exact route/cost recorded; required immediate generation metadata failed. No critic/visual qualification or late rescue.",
+  "ledger": "docs/log/api-budget-after-d466-2026-09-09.json"
+}

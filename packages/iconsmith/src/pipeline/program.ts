@@ -657,7 +657,7 @@ export const runProgram = async (
  * that is the point. Two rules carry the weight: every call is awaited, and
  * there is nothing here that takes path data.
  */
-export const CALLING_CONVENTION = [
+const CALLING_CONVENTION = [
   "# How you draw",
   "",
   "You write a JavaScript program that builds the icon by calling the host",
@@ -708,7 +708,7 @@ export const CALLING_CONVENTION = [
   "Return only the JavaScript program. No prose, no Markdown fence.",
 ].join("\n");
 
-export interface ProgramAskRequest {
+interface ProgramAskRequest {
   abortSignal?: AbortSignal;
   prompt: string;
   system: string;

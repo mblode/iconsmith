@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import type { RoleAssignment } from "../src/corpus/concepts.js";
+import { reportFamilyClusteredStatistic } from "../src/eval/family-clustered-uncertainty.js";
 import {
   FAMILY_CLASSES,
   classifyFamily,
@@ -40,7 +41,7 @@ export interface CatalogPopulationRecord {
 const digest = (value: string) =>
   createHash("sha256").update(value).digest("hex");
 
-/** Deterministic development sample for human review. Morphology is derived
+/** Deterministic development sample for independent AI review. Morphology is derived
  * from catalog names and aliases; it is not presented as geometry evidence. */
 export const createCatalogAuditSample = (
   records: readonly CatalogPopulationRecord[],
@@ -127,4 +128,115 @@ export const createCatalogAuditSample = (
     slots,
   };
   return { hash: digest(JSON.stringify(body)), manifest: body };
+};
+
+export interface RequestedRateSlot {
+  familyId: string;
+  slotId: string;
+}
+
+/** Descriptive uncertainty for one frozen population/stratum. All requested
+ * slots stay in the denominator. Call separately for supplemental audits and
+ * sampling strata; this function does not pool unequal-probability samples. */
+const validResamplingCount = (count: number) =>
+  Number.isInteger(count) && count >= 1000 && count <= 100_000;
+
+export const reportFamilyClusteredRate = (options: {
+  observations: readonly { slotId: string; success: boolean | null }[];
+  populationId: string;
+  requestedSlots: readonly RequestedRateSlot[];
+  resamplingCount: number;
+  samplingScope:
+    | "census"
+    | "self-weighting-probability-stratum"
+    | "supplemental";
+  seed: string;
+}) => {
+  const { populationId, resamplingCount, samplingScope, seed } = options;
+  const slots = [...options.requestedSlots].toSorted((a, b) =>
+    a.slotId.localeCompare(b.slotId, "en")
+  );
+  if (
+    !populationId.trim() ||
+    !seed.trim() ||
+    !validResamplingCount(resamplingCount) ||
+    slots.length === 0 ||
+    slots.some((row) => !row.slotId.trim() || !row.familyId.trim()) ||
+    new Set(slots.map((row) => row.slotId)).size !== slots.length ||
+    !["census", "self-weighting-probability-stratum", "supplemental"].includes(
+      samplingScope
+    )
+  ) {
+    throw new Error("Invalid frozen rate population or resampling contract");
+  }
+  const requested = new Set(slots.map((row) => row.slotId));
+  const observations = new Map<string, boolean | null>();
+  for (const row of options.observations) {
+    if (
+      !requested.has(row.slotId) ||
+      observations.has(row.slotId) ||
+      !(row.success === true || row.success === false || row.success === null)
+    ) {
+      throw new Error("Duplicate, unknown or invalid rate observation");
+    }
+    observations.set(row.slotId, row.success);
+  }
+  const families = new Map<string, { requested: number; successes: number }>();
+  for (const slot of slots) {
+    const cluster = families.get(slot.familyId) ?? {
+      requested: 0,
+      successes: 0,
+    };
+    cluster.requested += 1;
+    cluster.successes += observations.get(slot.slotId) === true ? 1 : 0;
+    families.set(slot.familyId, cluster);
+  }
+  const clusters = [...families].toSorted(([a], [b]) =>
+    a.localeCompare(b, "en")
+  );
+  const diagnostic = reportFamilyClusteredStatistic({
+    clusters: clusters.map(([familyId, row]) => ({ familyId, rows: [row] })),
+    evidenceValid: true,
+    minimumFamilyCount: 1,
+    populationId,
+    resamplingCount,
+    seed,
+    statistic: (rows) => {
+      const denominator = rows.reduce((sum, row) => sum + row.requested, 0);
+      return rows.reduce((sum, row) => sum + row.successes, 0) / denominator;
+    },
+  });
+  if (!diagnostic.available) {
+    throw new Error("Invalid family-clustered rate evidence");
+  }
+  const successes = clusters.reduce((sum, [, row]) => sum + row.successes, 0);
+  const body = {
+    empiricalRate: successes / slots.length,
+    familyCount: clusters.length,
+    interval: {
+      level: diagnostic.interval.confidenceLevel,
+      lower: diagnostic.interval.lower,
+      method: diagnostic.interval.method,
+      scope: "descriptive-not-an-acceptance-lower-bound" as const,
+      singleFamilyDegenerate: clusters.length === 1,
+      upper: diagnostic.interval.upper,
+    },
+    missing: slots.length - observations.size,
+    observationsHash: digest(
+      JSON.stringify(
+        [...observations].toSorted(([a], [b]) => a.localeCompare(b, "en"))
+      )
+    ),
+    populationId,
+    qualificationEligible: false,
+    requested: slots.length,
+    requestedSlotsHash: digest(JSON.stringify(slots)),
+    resamplingCount,
+    samplingScope,
+    seed,
+    successes,
+    unresolved: [...observations.values()].filter((value) => value === null)
+      .length,
+  };
+  return { ...body, hash: digest(JSON.stringify(body)) };
 };

@@ -1,0 +1,24 @@
+{
+  "decision": "D400",
+  "date": "2026-09-08",
+  "status": "verified-patch-awaiting-integration",
+  "inputs": {
+    ".staging/wave-bx-acceptance-contract-gap-2026-09-08/receipt.json": "1e793eba2584d89c9b3f2633207f0e85568265fa605a02b2df7bc8504bdb84f7",
+    ".staging/wave-bx-acceptance-contract-gap-2026-09-08/native-artifact-binding-v1.patch": "c8fc54888710ab76df8d1677a377b289e40fdee99157cdcdca379b05fafb6cff"
+  },
+  "finding": "Native light/dark observations accept any valid SHA256, permitting another artifact to supply legibility evidence.",
+  "patch": "Require native observation artifact identity to match the requested output identity.",
+  "agentVerification": {
+    "before": {
+      "pass": 44,
+      "fail": 3
+    },
+    "after": {
+      "pass": 47,
+      "fail": 0
+    }
+  },
+  "canonicalChanged": false,
+  "qualification": false,
+  "apiIncrementUsd": 0
+}

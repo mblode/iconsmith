@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "status": "failed-development-request",
+  "qualified": false,
+  "requestId": "wave-h-folder-lock-native24-v1",
+  "requestedOutputs": 2,
+  "acceptedOutputs": 0,
+  "completeValidPairs": 0,
+  "nativeSize": 24,
+  "elapsedMs": 303711,
+  "deadlineExceeded": false,
+  "sourceDrift": [],
+  "nativeCalls": {
+    "started": 5,
+    "settlementReceiptsContainerAbsent": 5,
+    "independentReviewsStarted": 0,
+    "dollarCostUsd": null
+  },
+  "failure": "After the one filled visual repair, outlined keyhole clearance remained rejected. No independent acceptance was run.",
+  "authorApprovedFilledIsIndependentAcceptance": false,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "independentSettlementAudit": "pending",
+  "artifacts": [
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/intent.json",
+      "sha256": "5ff5c3cd18a34a81978b613c64141420c389ae072f29ac3643eca01acee02370"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/launch.json",
+      "sha256": "384ff6ce964cbcef32557b8f05f339492fe905aeae0c304d98ce540a1997ebf8"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/stdout.txt",
+      "sha256": "a45c0a599da736065536459e85e4d75a715f08a60bc9d381d291eb5b5169abb1"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/outer-result.json",
+      "sha256": "dce7242522be76d22db875a6444a3fb8fa31af82d120f3a370b3c45959eb47c6"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/result/outlined.icon",
+      "sha256": "0527b84be9e807cabc474abf2b46d0616a52af2ac0b4a0a9313ddf8743695c0d"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/result/filled.icon",
+      "sha256": "7350b21b5fe07b5f81168cc7f80004c9d2d71b48520917091254b220792f51e3"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/result/outlined.proof.png",
+      "sha256": "76b0b602c030e909ed37124fa10566ab695f1d186941991489e27874909a9843"
+    },
+    {
+      "path": ".staging/wave-h-folder-lock-live-2026-09-08/native24/result/filled.proof.png",
+      "sha256": "e4ae4073adddfd80f12148a9c738ed24cfd3ae8c8e3020f3d6789950a2b17013"
+    }
+  ]
+}

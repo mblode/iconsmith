@@ -861,15 +861,9 @@ export const createTools = (options: ToolsOptions = {}) => {
   if (!proposal) {
     Reflect.deleteProperty(tools, "proposal");
   }
-  // Same doctrine, applied to the finish. A stroked icon has no solid to cut,
-  // and in a filled one an open polyline encloses no area and so paints
-  // nothing at all — both calls are refused by the canvas, and a tool that can
-  // only refuse costs a step to learn what the tool set could have said for
-  // free. `line`'s absence is also the strongest hint available that a filled
-  // shape is drawn as the region it covers, not as the strokes it would have.
-  if (finish === "filled") {
-    Reflect.deleteProperty(tools, "line");
-  } else {
+  // Open filled lines have host stroke expansion; outlined paint has no
+  // ordinary solid parent for legacy holes.
+  if (finish !== "filled") {
     Reflect.deleteProperty(tools, "hole");
   }
   if (hostLocked) {
@@ -900,5 +894,3 @@ export const createTools = (options: ToolsOptions = {}) => {
 
   return { canvas, state, tools };
 };
-
-export type CanvasTools = ReturnType<typeof createTools>["tools"];

@@ -1,0 +1,23 @@
+{
+  "id": "D381",
+  "scope": "Complete current catalog disposition accounting, unresolved semantics retained",
+  "inputs": {
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bu-full-census-dispositions-2026-09-08/receipt.json": "2509ea9a5cdef2f25f787fb85f9635bdbd2624edadbcb6ab7803e0494b37cbda",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bu-full-census-dispositions-2026-09-08/concept-dispositions.json": "02b1938588f208af5411a6373c5750e125723b00fef0f47072715f65fb95a388",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bu-full-census-dispositions-2026-09-08/slot-dispositions.json": "f661a2dc8ab8caea1264df5abe7b46538f59bd5c8757382a7a5ec8c3c3f62134",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bu-full-census-dispositions-2026-09-08/verification.json": "7e271caf223e5004b770aa50956fbac7db6b78308bd653995e7053f591eaa52c"
+  },
+  "counts": {
+    "concepts": 2221,
+    "slots": 8884,
+    "reviewedConcepts": 107,
+    "reviewedSlots": 428,
+    "reviewedSlotsMissingSource": 8,
+    "unresolvedNotAiReviewedConcepts": 2114,
+    "unresolvedNotAiReviewedSlots": 8456
+  },
+  "qualified": false,
+  "newSixteenConceptProposals": "Separate D380 evidence; not silently merged into preserved107concept overlay",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0
+}

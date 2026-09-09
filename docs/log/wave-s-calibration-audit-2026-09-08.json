@@ -1,0 +1,11 @@
+{
+  "schema": "iconsmith.wave-s.calibration-audit-reference.v1",
+  "qualified": false,
+  "receipt": {
+    "path": ".staging/wave-s-evaluation-calibration-audit-2026-09-08/receipt.json",
+    "sha256": "4e1cb7684388877e989264a89083e240b89d10f8346a082ba2e99d6a942a5407"
+  },
+  "finding": "No material blocker to development calibration. Independent native crop, hash, presentation and assessor audit passed. Sealed population minima, proof schema enforcement and critic qualification remain open.",
+  "sourceEdits": 0,
+  "providerCalls": 0
+}

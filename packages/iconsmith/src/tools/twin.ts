@@ -24,8 +24,6 @@ import { lint } from "./lint.js";
 import type { LintTarget } from "./lint.js";
 
 /** The house stroke, and half of it. Prefer the spec argument on each helper. */
-export const BAR = SPEC.stroke;
-export const HALF = BAR / 2;
 
 const paint = (spec: Spec): { bar: number; half: number } => ({
   bar: spec.stroke,
@@ -79,7 +77,7 @@ export const visualSize = (canvas: Sized): { h: number; w: number } | null => {
  * measurement from this per-axis one; reproducing it over the same corpus
  * gives 94.3%, which is what says the numbers above were measured right.
  */
-export const EXTENT_TOL = 0.5;
+const EXTENT_TOL = 0.5;
 
 /**
  * True when both visual sizes exist and each axis differs by at most `tol`
@@ -722,10 +720,7 @@ const isHole = (e: { hole?: boolean; op?: string }): boolean =>
  * have other marks and stay quiet. A cloud of overlapping discs is not
  * a ring: only one hoop against one disc is the restamp.
  */
-export const restampIssues = (
-  outlined: TwinPaint,
-  filled: TwinPaint
-): Issue[] => {
+const restampIssues = (outlined: TwinPaint, filled: TwinPaint): Issue[] => {
   const hoops = outlined.elements.filter(
     (e) => e.kind === "circle" && !isHole(e)
   );

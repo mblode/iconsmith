@@ -1,0 +1,13 @@
+
+> test
+> vitest run --maxWorkers=4 src/commands/draw.test.ts src/commands/read.test.ts src/pipeline/direction.test.ts src/pipeline/route.test.ts src/tools/boolean.test.ts src/tools/legibility.test.ts src/corpus/aliases.test.ts src/eval/vectors.test.ts scripts/local-generate.test.ts
+
+
+ RUN  v4.1.11 /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+
+
+ Test Files  9 passed (9)
+      Tests  99 passed (99)
+   Start at  13:49:44
+   Duration  1.73s (transform 462ms, setup 0ms, import 889ms, tests 2.14s, environment 0ms)
+

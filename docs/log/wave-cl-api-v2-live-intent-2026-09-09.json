@@ -1,0 +1,68 @@
+{
+  "authorizedForExecution": true,
+  "automaticRetry": false,
+  "budgetReservationRecorded": true,
+  "deadlineAt": 1788885848807,
+  "experimentId": "D437",
+  "kind": "iconsmith-api-capability-v2-root-intent-v1",
+  "launchManifestSha256": "8c1703a18e7961b1dcc24e61957ab894dc84fe4516cb9983fdc89335a9b755d7",
+  "maximumInferenceRequests": 1,
+  "maximumMetadataLookups": 1,
+  "reservationUsd": 0.788352,
+  "runnerSha256": "962130f1ec3b40808ed2f87216022b8d929c783004a6c4f0bf30b3ebd8ea3314",
+  "runtime": {
+    "executableModules": [
+      {
+        "file": "node_modules/ai/dist/index.js",
+        "sha256": "e3d4618c3b3862694c26415ba207259172b68d82baeccbfb272856cf859d67d8",
+        "specifier": "ai"
+      },
+      {
+        "file": "node_modules/@ai-sdk/gateway/dist/index.js",
+        "sha256": "17f3ef5176795eaaf88e2d36d809d29e4e8c73a514b6b087fbb6276b6372f6bc",
+        "specifier": "@ai-sdk/gateway"
+      },
+      {
+        "file": "node_modules/@ai-sdk/provider-utils/dist/index.js",
+        "sha256": "eb28d74679151f946635a23ae083ae62c2abe385b63b9fd9b1c5cffeff5389de",
+        "specifier": "@ai-sdk/provider-utils"
+      }
+    ],
+    "nodeExecutable": {
+      "path": "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+      "sha256": "f5f9b9db4d95f5e0340982685f083de654c21eef9d9122cab5321081ccaa2601"
+    },
+    "sdkSourceFiles": [
+      {
+        "file": "node_modules/@ai-sdk/gateway/src/gateway-generation-info.ts",
+        "sha256": "af9d77a6b0c9cda77d798a4e3f4ea931ef823ba1c672d637532a4eac2468f802"
+      },
+      {
+        "file": "node_modules/@ai-sdk/provider-utils/src/get-from-api.ts",
+        "sha256": "0c7492796dffa4276d120a57140e6afce5d934742669a686d860b1825cd57084"
+      }
+    ]
+  },
+  "startedAt": 1788885728807,
+  "parentLauncherSha256": "c39eb24e0a1741d4c0950117faceb98dbe1e75948b202280b871a8ec33789507",
+  "reservationLedger": {
+    "file": "docs/log/api-budget-d437-reserved-2026-09-09.json",
+    "sha256": "8e3771918c0eb7bde2f0c4e788cd278fa4b60a47a88fc530998945360c85c7c2"
+  },
+  "nativeQuota": {
+    "weeklyUsedPercent": 80,
+    "resetRedeemed": false
+  },
+  "freeDiskBytes": 2553282560,
+  "actualDispatch": {
+    "executable": "/Users/mblode/.local/share/fnm/node-versions/v24.17.0/installation/bin/node",
+    "args": [
+      "--import",
+      "tsx",
+      "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-api-v2-preparation-v2-2026-09-09/run.template.mts"
+    ],
+    "cwd": "/Users/mblode/Code/mblode/iconsmith",
+    "concurrency": 1
+  },
+  "scope": "Exact-image capability only, not critic qualification"
+}

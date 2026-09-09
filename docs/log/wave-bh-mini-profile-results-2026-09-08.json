@@ -1,0 +1,44 @@
+{
+  "id": "D338",
+  "status": "failed-development-review",
+  "intent": "docs/log/wave-bh-mini-profile-intent-2026-09-08.json",
+  "reason": "Two exec_command calls violated the sealed image review tool prohibition; no answers accepted.",
+  "actualTraceModel": "gpt-5.4-mini",
+  "acceptedModel": null,
+  "acceptedAnswers": null,
+  "sourceStable": true,
+  "originalDeadlineMet": true,
+  "containersVerifiedAbsent": 3,
+  "nativeCalls": 1,
+  "nativeCallsCumulative": 79,
+  "apiActualIncrementUsd": 0,
+  "nativeDollarCostUsd": null,
+  "qualified": false,
+  "artifacts": [
+    {
+      "path": ".staging/wave-bh-mini-profile-development-2026-09-08/execution/result.json",
+      "sha256": "ac76bb66ce5e3332f87f85535fbef4be2d67802fa0d266a2608826a8a939cd80"
+    },
+    {
+      "path": ".staging/wave-bh-mini-profile-development-2026-09-08/root-settlement-audit.json",
+      "sha256": "37c6b5ab426fcadc6035e1088f1a088cf0fc960ac0b1b047eb70e5f196c16933"
+    },
+    {
+      "path": ".staging/wave-bh-mini-profile-development-2026-09-08/tool-refusal-diagnostic.json",
+      "sha256": "695d53141eab36bee10b15fe818c22c5114911c6281e283d7cad56882b9e3da4"
+    },
+    {
+      "path": ".staging/wave-bh-mini-profile-development-2026-09-08/native-route.json",
+      "sha256": "7b18b332f53e576383ad84e6c6ae33a994fcde58b5b7a86e65223c66f5082839"
+    },
+    {
+      "path": ".staging/wave-bh-mini-profile-development-2026-09-08/inputs.json",
+      "sha256": "ff741223cb42b45f448009c0273b6daff9e82350c452f841d62497f5f5e443cd"
+    },
+    {
+      "path": ".staging/wave-bh-mini-profile-development-2026-09-08/run.mts",
+      "sha256": "b6cbb025f7371283bfe5c82d0822f26ce095cc4e401f8166b3099e27f795e1f8"
+    }
+  ],
+  "boundary": "D327 one-image diagnostic success remains historical evidence; this explicit profile failed. No fallback or automatic retry."
+}

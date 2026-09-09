@@ -25,8 +25,8 @@ import type { CounterpartClass, DrawKind, MarkTwin } from "./kind.js";
  * The visual judge.
  *
  * **The previous line here claimed "Acceptance remains independent of the
- * generation model." On the Studio path that was false.**
- * `apps/web/lib/studio/generate.ts` sets both `IMAGE_AGENT_MODEL` and
+ * generation model." On the removed Studio path that was false.**
+ * The former Studio orchestrator set both `IMAGE_AGENT_MODEL` and
  * `GATEWAY_AGENT_MODEL` to this same string, so two of the four arms are
  * judged by their own model. `tournament.ts` is careful that an arm must not
  * review its own drawing — "a witness, not a judge" — and says nothing about
@@ -40,14 +40,14 @@ import type { CounterpartClass, DrawKind, MarkTwin } from "./kind.js";
  * gate has already failed one model at 83%, and a judge that cannot tell a
  * shipped icon from an unrelated one is noise wearing a number.
  */
-export const AUDIT_MODEL =
+const AUDIT_MODEL =
   process.env.ICONSMITH_AUDIT_MODEL ?? "google/gemini-3.7-flash";
 export const PREVIEW_FILE = "PREVIEW.png";
 export const AUDIT_FILE = "AUDIT.json";
 /** Same size `eval/judge-model.ts` uses: eyes, not the 48px cosine raster. */
-export const AUDIT_PX = 192;
+const AUDIT_PX = 192;
 /** Design size. A stroke that survives here is an icon; 192px can merge it. */
-export const ICON_PX = 24;
+const ICON_PX = 24;
 /** SC/PQ at or above this is a screen pass. */
 export const LOOK_SCREEN = 6;
 
@@ -88,7 +88,7 @@ PQ — perceptual quality. Is it a competent icon, ignoring what it depicts?
 
 Score the two independently. A beautiful drawing of the wrong thing scores high PQ and low SC; a clear concept drawn badly scores the reverse. Do not average them yourself.`;
 
-export type AuditKind =
+type AuditKind =
   | "belong"
   | "empty"
   | "finish"
@@ -236,7 +236,7 @@ export const sanitizeFinding = (finding: AuditFinding): AuditFinding => {
 const classOf = (twin?: MarkTwin): CounterpartClass | undefined => twin?.class;
 
 /** Outlined is not "must show a hole". Bars and dots *are* the stroke. */
-export const HOLE_RULE =
+const HOLE_RULE =
   "Outlined finish: a bar, line, or dot may be solid — the stroke is the " +
   "subject. Only closed masses (rings, frames, tiles, bodies) must show " +
   "canvas inside. Do not fail a minus or a node for lacking a hole. Do not " +
@@ -289,7 +289,7 @@ export const lookBrief = ({
   return `${head} ${HOLE_RULE}`;
 };
 
-export const judged = (
+const judged = (
   raw: Omit<AuditResult, "ok" | "scorable" | "stage"> &
     Partial<Pick<AuditResult, "scorable">>,
   kind: DrawKind = "analog"
@@ -329,8 +329,8 @@ export const writeAudit = (dir: string, result: AuditResult): void => {
   );
 };
 
-export const previewName = (stem: string): string => `${stem}.preview.png`;
-export const auditName = (stem: string): string => `${stem}.audit.json`;
+const previewName = (stem: string): string => `${stem}.preview.png`;
+const auditName = (stem: string): string => `${stem}.audit.json`;
 
 export const persistLook = async (
   dir: string,

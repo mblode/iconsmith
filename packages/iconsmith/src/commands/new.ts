@@ -176,7 +176,7 @@ export const resolveParts = (
   return [];
 };
 
-export const resolveInventory = async (
+const resolveInventory = async (
   opts: Pick<NewOptions, "inventory" | "packsRoot">
 ): Promise<PackIndex> => {
   let extra: PackIndex = new Map();

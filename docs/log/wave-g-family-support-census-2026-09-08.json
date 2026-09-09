@@ -1,0 +1,68 @@
+{
+  "kind": "family-source-support-census",
+  "date": "2026-09-08",
+  "evidenceOnly": true,
+  "generationQualified": false,
+  "visualQualified": false,
+  "sourceIdentity": {
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "catalogMetadataIdentity": "87631283e9cce23e143bb42b738762e763543c2da029f97839e6a174e898411a",
+    "inventorySha256": "ef2132599a45eae8610abb1bd4d5505bafc6a9f0c9c7009ee97515642a10b0dc",
+    "admissionSha256": "f50a2db0924797d3fb2e4a76418423aaacecb5299c04918d0a06aaf4ef22fb5a",
+    "replaySha256": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c"
+  },
+  "implementationIdentity": {
+    "sourceSha256": "d0c022f6fb5d7188b032fac87f9d5695a2599c662ca465b11bd8e015f6f5c5c3",
+    "testSha256": "5248fcccf6ad9bd72ef398b6b4015772ccd04b218b3549dbef20e5ae77ecc29a"
+  },
+  "output": {
+    "census": ".staging/wave-g-family-support-2026-09-08/census.json",
+    "censusSha256": "768cc81f12eae50922aec3477fc7863663b9e90323b8d7e8b2e7e88ff0bd492d",
+    "reportHash": "692c68907aea9b9a3a26ddeb335c07ac3812b57950309c4e931e26fe5e7fa4c1"
+  },
+  "denominators": {
+    "catalogConcepts": 2221,
+    "inventoryFiles": 4357,
+    "requestSlots": 8884,
+    "familyRows": 1587,
+    "familyPaintMasterRows": 6348
+  },
+  "dispositions": {
+    "admittedSlots": 7842,
+    "admittedSourceFiles": 3921,
+    "missingCatalogRoleConcepts": 0,
+    "missingSourcePaints": 85,
+    "missingSourceSlots": 170,
+    "reconstructionCounts": {
+      "blocked-missing-source": 170,
+      "blocked-raster-difference": 1947,
+      "verified-within-raster-threshold": 6767
+    },
+    "refusedSlots": 872,
+    "refusedSourceFiles": 436,
+    "unresolvedGenerationSlots": 8884,
+    "unresolvedMorphologySlots": 8884,
+    "familyAvailabilityCounts": {
+      "complete": 6182,
+      "partial": 26,
+      "none": 140
+    },
+    "allRefusedPresentFamilyPaintMasters": 616
+  },
+  "observations": [
+    "Every catalog filename concept has outlined and filled rows at native 16 and 24 masters.",
+    "Missing source, canonical admission refusal, raster-threshold reconstruction, morphology classification and generation capability are independent dispositions.",
+    "Source-present refused rows remain reference-only; generation capability remains unknown-not-demonstrated because this census contains no construction attempt.",
+    "Morphology remains unresolved-no-source-image-classification; filename and catalog role metadata are not used as visual classification evidence.",
+    "allRefusedPresentFamilyPaintMasters counts source-present aggregates with no admitted source and does not claim generation is blocked."
+  ],
+  "rootClarification": {
+    "compiledSourceRasterFidelitySlots": 6767,
+    "notAdmissionOrVisualQualification": true,
+    "admittedAndWithinRasterThresholdSlots": 6650,
+    "refusedButWithinRasterThresholdSlots": 117,
+    "basis": "Independent Geometry read-only cross-tab; all refused slots remain reference-only",
+    "originalReceipt": ".staging/wave-g-family-support-2026-09-08/receipt.json",
+    "originalReceiptSha256": "8ca6d4e3f042ba1f22f0367780d6ad5966b0e540518ee568b51c6c28f1554df8"
+  }
+}

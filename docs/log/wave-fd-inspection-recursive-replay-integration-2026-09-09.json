@@ -1,0 +1,58 @@
+{
+  "id": "D496",
+  "observedAt": "2026-09-08T22:56:48.412502+00:00",
+  "kind": "offline-inspection-collector-and-recursive-replay-integration",
+  "enPatchSha256": "4360542298cc6cebdc84732231fd75af0a66e4ccaf23c3c0ee62d6dabc47ec1f",
+  "initialBasesMatched": 8,
+  "scope": "EN integrated plus original lifecycle bytes and recursive settlement/stdout/attachment/answer mapping/contributor/finalizer replay; root binds selected programs/proofs, original request/deadline and full native-control evidence tree.",
+  "sourceHashes": [
+    {
+      "file": "packages/iconsmith/scripts/local-native-call-factory.ts",
+      "sha256": "52f2a24f5430d274009ff8619904a8bc11d98612a8b2937524eec3e89b036353"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-native-call-factory.test.ts",
+      "sha256": "a91bc91754fc7df0fc04cffbc7817ac5d0f43a3270dbd64a61fab2a23f83dbdb"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-codex-review.ts",
+      "sha256": "1e7ad0eae428d735e892df4133dca9216221bd0ef25c292f0e487dd4a0c3538f"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-codex-review.test.ts",
+      "sha256": "e2331c6ce3ab74377eed66fb9b418ac9855c7ad1b4dbc55b66c87e25d7c0a169"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-astra-author.ts",
+      "sha256": "8b23c1d9250da5d76a42a089a362e6cbe47868d2f6e7dfd88359b4e36012ff0f"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-astra-author.test.ts",
+      "sha256": "cf562e2c532a27673b7e90256e59a3397a7b8b583b8e5f1fc1ec67269e0f459b"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-structured-author.ts",
+      "sha256": "10c8be74fb8f620a834d16ce69eed8110d3f8976472236af8b5a3b916b9b5cae"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-structured-author.test.ts",
+      "sha256": "1eda1ba74f025fc0ed59875569f312408c69b36d8586ae254a4f5ff62ee30c5d"
+    }
+  ],
+  "verification": {
+    "focusedTests": 103,
+    "files": 4,
+    "scopedLint": "passed",
+    "scriptsTypecheck": "passed",
+    "rootIntegrated": "running"
+  },
+  "evidenceDirectory": ".staging/wave-fd-runtime-2026-09-09",
+  "structuralReplayOnly": true,
+  "authorEvidenceVerified": false,
+  "qualificationGranted": false,
+  "sealedClaudeInspectionSupported": false,
+  "remaining": "Current route live slice, controlled salvage, six-request reliability replay, and production authority remain open.",
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null
+}

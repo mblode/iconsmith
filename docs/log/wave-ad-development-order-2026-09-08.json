@@ -1,0 +1,65 @@
+{
+  "kind": "frozen-development-order-preparation",
+  "sourceHashes": {
+    "packages/iconsmith/scripts/campaign-manifest.ts": "570a6e1682bffc78d48efc51bdaa992542fa191e98e171e75d1c072dfc8f2b94",
+    "packages/iconsmith/scripts/campaign-manifest.test.ts": "93d2707470edeb2f40e91a2511b34a7ef8296dcb104c4504845e221d65f786de"
+  },
+  "behavior": [
+    "Optional declared development order must be a complete permutation of all20concepts.",
+    "Order is bound in the manifest hash and retains every80outputslot; default output bytes are unchanged.",
+    "Catalog order overrides are refused.",
+    "No runtime per-case selection or provider dispatch is introduced."
+  ],
+  "checks": [
+    {
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "iconsmith",
+        "--",
+        "vitest",
+        "run",
+        "scripts/campaign-manifest.test.ts",
+        "scripts/local-campaign.test.ts"
+      ],
+      "exitCode": 0,
+      "log": ".staging/wave-ad-next-wave-preparation-2026-09-08/tests.log",
+      "sha256": "5dc0ca2cb2b2fd805312e836cc9e02f5283274cdeb0b9444e2c912905197f80d"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck",
+        "-w",
+        "iconsmith"
+      ],
+      "exitCode": 0,
+      "log": ".staging/wave-ad-next-wave-preparation-2026-09-08/typecheck.log",
+      "sha256": "0c26de291af5215b52e0f5673b93037a8623b5bf847e33936c67372dd9a12836"
+    },
+    {
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "iconsmith",
+        "--",
+        "ultracite",
+        "check",
+        "scripts/campaign-manifest.ts",
+        "scripts/campaign-manifest.test.ts"
+      ],
+      "exitCode": 0,
+      "log": ".staging/wave-ad-next-wave-preparation-2026-09-08/lint.log",
+      "sha256": "f79578c90aa7048d8af3de039bb0c20ba4ede7749b3305c64c86d871bb9cd543"
+    }
+  ],
+  "tests": 52,
+  "testFiles": 2,
+  "qualified": false,
+  "providerCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0
+}

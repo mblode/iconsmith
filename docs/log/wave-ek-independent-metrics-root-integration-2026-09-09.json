@@ -1,0 +1,45 @@
+{
+  "id": "D476",
+  "kind": "independent-audit-metrics-root-integration",
+  "observedAt": "2026-09-08T20:36:37.044912+00:00",
+  "status": "implemented-scoped-verified-not-qualified",
+  "contract": "draft-v15",
+  "focusedTests": {
+    "passed": 142,
+    "files": 3,
+    "skipped": 0,
+    "log": ".staging/wave-ek-independent-metrics-root-integration-2026-09-09/scoped-test.log",
+    "sha256": "13caf5b6ce13ca7f8e38788474a57d46868d7e83f67c3a4856d5a8e92523409e"
+  },
+  "files": {
+    "acceptance-contract.ts": "e7b81ee304740969695b3764c7bec7818abb8f7931f618beec730806b1e05bf8",
+    "acceptance-contract.test.ts": "31b3bbc02b8507d1e67f37234c6ee08cd0d13a55aa74399df9a593e52c7e920e"
+  },
+  "integrated": [
+    "EEv1",
+    "EEv2"
+  ],
+  "reviewCorrections": [
+    "Agreed critical rejection is resolved but never success",
+    "Critical disagreement is unresolved and quarantined",
+    "Invalid evidence success numerators all zero"
+  ],
+  "metrics": [
+    "Requested-denominator counts/rates by purpose and paint/master",
+    "Median of per-output independent craft medians",
+    "Gate pass contradiction checks"
+  ],
+  "limitations": [
+    "Untrusted serialized diagnostics are not collector authority",
+    "Intervals and parity remain unavailable",
+    "Current full integrated verification pending next material batch",
+    "No visual qualification"
+  ],
+  "cost": {
+    "providerCalls": 0,
+    "reservationUsd": 0,
+    "ledger": "docs/log/api-budget-after-d466-2026-09-09.json",
+    "solMediumFollowupsAfterD450": 23,
+    "nativeDollarCost": "unknown"
+  }
+}

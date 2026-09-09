@@ -1,0 +1,23 @@
+{
+  "decision": "D398",
+  "date": "2026-09-08",
+  "title": "Timeout settlement and failure receipt closure",
+  "audit": ".staging/wave-by-runtime-closure-audit-2026-09-08/p1.9a-d397-addendum.json",
+  "sha256": "e7860ca71c22c3e8fec6f2b581d1f1612aca296736c7d2f00428b7bca0b009e3",
+  "evidence": [
+    "D377",
+    "D397",
+    "D323",
+    "D365"
+  ],
+  "closed": [
+    "P1.4",
+    "P1.9a"
+  ],
+  "limits": [
+    "2660 ms bounded stability observation",
+    "Shared STOP proof remains separate P1.9b work"
+  ],
+  "providerCalls": 0,
+  "apiIncrementUsd": 0
+}

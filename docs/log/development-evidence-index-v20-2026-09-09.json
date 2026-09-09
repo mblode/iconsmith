@@ -1,0 +1,14 @@
+{
+  "version": 20,
+  "qualified": false,
+  "htmlSha256": "0792efcbb6842c7f9b23a082414c14eabb7bebbd7c03f32f471cad889750d4c8",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v19-2026-09-09.html",
+  "previousIndexSha256": "9bd52efdc1f7cc02940d0042e0bd8717f42eae3c7e9a3458332c30ebbad838e8",
+  "images": [
+    {
+      "label": "Bounded folder-lock16 counter placement; independent bottom-clipping allegation disproved and corrected. Counter and host separation remain unqualified.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-counter-optics-2026-09-09/board.png",
+      "sha256": "7fea43c64f6c1deea40c73309ab962fcea25152181f71e01d160ff8075ada25a"
+    }
+  ]
+}

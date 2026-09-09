@@ -24,17 +24,7 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Lint
-        run: npm run check
-
-      - name: Boundaries
-        run: npm run check:boundaries
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Test
-        run: npm run test
-
-      - name: Build
-        run: npm run build
+      # CI has no private corpus. The receipt records measurements unavailable.
+      # Local foundry verification requires the corpus by default.
+      - name: Verify
+        run: npm run verify -- --allow-missing-corpus

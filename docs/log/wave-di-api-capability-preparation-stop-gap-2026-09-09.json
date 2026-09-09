@@ -1,0 +1,36 @@
+{
+  "id": "D459",
+  "observedAt": "2026-09-08T19:00:30.775676+00:00",
+  "scope": "offline-capability-preparation-only",
+  "sourceFiles": 777,
+  "productionFiles": 558,
+  "artifacts": [
+    {
+      "path": ".staging/wave-di-api-capability-diagnostics-2026-09-09/provider-source-freeze.json",
+      "sha256": "5d240bdc9b735da638760aa972d6048d9a28644e86969edacaf3d3154aff852b"
+    },
+    {
+      "path": ".staging/wave-di-api-capability-diagnostics-2026-09-09/production-tooling-identity.json",
+      "sha256": "08c5c6023c827dbc6cc53757ffad15bb8382178bf200fce09d6ec97ead7012b9"
+    },
+    {
+      "path": ".staging/wave-di-api-capability-diagnostics-2026-09-09/offline-validation/validation-result.json",
+      "sha256": "1213c0145975b752c08f53afee6840c0bbff055af9c515eb54a24a4f9be1624e"
+    },
+    {
+      "path": ".staging/wave-di-api-capability-diagnostics-2026-09-09/offline-validation/preparation-intent.json",
+      "sha256": "246677a6958c6beec57968bd7126bbf3e52f3ebf3ce63cbc4e61585bcd13b4ea"
+    },
+    {
+      "path": "packages/iconsmith/scripts/api-image-capability.ts",
+      "sha256": "8d98949fb207269c9500ce243abcdd6e3e728a554ec49ea399bbb89968ae89aa"
+    }
+  ],
+  "preparationValidation": "passed; no output directory or calls",
+  "dispatchDisposition": "withheld before reservation: API capability lacks latched STOP between inference and metadata GET",
+  "nextTask": "DJ isolated stop-boundary implementation; new freeze required afterward",
+  "providerCalls": 0,
+  "reservationUsd": 0,
+  "actualUsd": 0,
+  "qualified": false
+}

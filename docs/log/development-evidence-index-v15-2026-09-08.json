@@ -1,0 +1,37 @@
+{
+  "version": 15,
+  "qualified": false,
+  "htmlSha256": "fa6e834f3688ba952204412c930eea71a241eb96eee673b8fdf9ade70a015925",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v14-2026-09-08.html",
+  "previousIndexSha256": "3f574b648c9cc13a1b116efbabfc4c9a9c78c580a5236e9dfe04c41717778b59",
+  "images": [
+    {
+      "label": "Automatic-retrieval folder-lock16 outlined \u2014 development delivery",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.png",
+      "sha256": "ad7711b8c02358c100e5af95440e7fa3510dc2cc2b9e1d44d41e305d9be0f031"
+    },
+    {
+      "label": "Automatic-retrieval folder-lock16 filled \u2014 development delivery",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-reliability-replay-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.png",
+      "sha256": "28cb73ff470cd5365c83fbf96b92a1912033e11e83aec7fc32a7c4523ec25a2c"
+    },
+    {
+      "label": "Cloud modifier diagnosis \u2014 failures retained",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bv-folder-cloud-gap-audit-2026-09-08/comparison-board.png",
+      "sha256": "0b84c1cd155943db5a50c23289cbddb3eb30aa8903b47e547ec074f50235152f"
+    },
+    {
+      "label": "Sixteen-concept source census board1 \u2014 development proposals",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-census-16-development-2026-09-08/boards/census-1.png",
+      "sha256": "b68df93d9309b3e91a110bd7dc8a90ae8f483f8823cf6b674fbadfa78fea59f0"
+    },
+    {
+      "label": "Sixteen-concept source census board2 \u2014 development proposals",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bt-census-16-development-2026-09-08/boards/census-2.png",
+      "sha256": "e369c4541d51dd089fab69ba794d9e035f09ce75104986d433d6b3eefc8bea3b"
+    }
+  ],
+  "nativeSettledAtCreation": 91,
+  "nativeCallsReservedInFlightMaximum": 3,
+  "priorUnresolvedIntents": 1
+}

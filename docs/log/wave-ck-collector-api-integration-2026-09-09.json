@@ -1,0 +1,136 @@
+{
+  "experimentId": "D434",
+  "kind": "collector-and-api-observable-identity-integration",
+  "recordedAt": "2026-09-08T16:20:47.396119+00:00",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiReservationUsd": 0,
+  "sourceClosureFiles": 773,
+  "sourceClosureScope": "All extant non-symlink Git tracked or unignored files under apps/packages plus root package manifests and turbo config; expanded from prior 637-file extension-filtered scope. Private ignored corpus unchanged.",
+  "productionFiles": 556,
+  "productionToolingHash": "6c6c963b0dbe825108ae72e109f9da1791a7e5f23d2479079402584d4c862d43",
+  "changes": [
+    "D431 production author-review image packet integration",
+    "Collector v1-v3 derived sealed predictions/panel answers with lineage and journal bindings; categorical contradictions fail closed; no live qualifying population",
+    "API v2 one inference plus one server generation metadata GET under original deadline, exact observable route/charge/token dimensions, preserved failed terminal bindings; upstream revision undisclosed",
+    "Real Gateway SDK GET/AbortSignal/no-retry and positive cached input total tests"
+  ],
+  "verification": {
+    "scopedTests": 128,
+    "allTests": 2381,
+    "testFiles": 175,
+    "skipped": 0,
+    "test": 0,
+    "typecheck": 0,
+    "build": 0,
+    "check": 0,
+    "diffCheck": 0,
+    "postCorrectionCollectorTests": 36,
+    "preservedFailures": [
+      "Staged collector test called reverse on readonly array; root changed to toReversed. Initial root copied-array reverse was then rejected by lint.",
+      "Latest API guard needed scoped formatting; check-v2 retained, check-v3 passes.",
+      "Initial plain Node freeze helper failed resolving .js source imports; node --import tsx succeeds."
+    ]
+  },
+  "sources": [
+    {
+      "file": "packages/iconsmith/scripts/api-image-capability.ts",
+      "sha256": "e5d3517eea1345264e2975b31ec8064d1186bfd30d783d1756e7e28e6159b97b"
+    },
+    {
+      "file": "packages/iconsmith/scripts/api-image-capability.test.ts",
+      "sha256": "89134367cbe4d3e244e12cca34153e01bf9bca5ea6882c263436242e17bd4fd1"
+    },
+    {
+      "file": "packages/iconsmith/scripts/ai-qualification-provenance.ts",
+      "sha256": "03031705ad6129ca382bcde42af87c87576e958094c0c2ed7891b9bd35605bcb"
+    },
+    {
+      "file": "packages/iconsmith/scripts/ai-qualification-provenance.test.ts",
+      "sha256": "802b05c157363f82de9028aae52808b3ba4acb3069e68bcca08c416d56993b96"
+    },
+    {
+      "file": "packages/iconsmith/scripts/author-review-packet.ts",
+      "sha256": "05e90ca93e18929ec220a53c5399c9ab0899867311e7aabb12bec511ca5ced54"
+    },
+    {
+      "file": "packages/iconsmith/scripts/author-review-packet.test.ts",
+      "sha256": "18a71cb96d6e2355513c9c9bf9194f8f1acc46b4dd08f615d23a35f475ba0c0b"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-style-run.ts",
+      "sha256": "0b67d5d30042f1460b4f8ab17fe07ff99a84f12545e7a67b0da987c142c1d0f0"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-style-run.test.ts",
+      "sha256": "9aec843c3b44bde87f9e216392b96ed5cc57e13ad6ad5edacd0c425d3c8df46b"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/build.log",
+      "sha256": "6b3477ad1b187957d34a9ccdf78803cd389f96fe6aff93d5f1984486a7518eb1"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/check-v2.log",
+      "sha256": "17e3e6efad5c5f597543fbfce5de51c1564916a4c6c384318d5f12c0248da768"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/check-v3.log",
+      "sha256": "dfc3b726bb246c57ad24e57783da925a2773c91dc03812ac923caa2c831bcee8"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/check.log",
+      "sha256": "972a6677305ce240435758299a6a7d66c16d45421c979686307e8dc86f0459ab"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/collector-format-correction.log",
+      "sha256": "c27fbe1ee61fd3fdf21ff07edf290f63b87e8e0e43c6438827b1cdcc715691dd"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/scoped.log",
+      "sha256": "e8d1f9aef6f23cd789084e15a51d8111d49cd9d17b2495bac53d034b62e1b50f"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/test.log",
+      "sha256": "28423631054ce051e12dca91cae9488497a2e069823a1f75909a765a14f9ac75"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/typecheck.log",
+      "sha256": "31ffdd5bdedf81317508d3b967cca11aa2dcbef9b870b66f2515065d91f83673"
+    },
+    {
+      "file": ".staging/wave-ck-combined-integration-2026-09-09/production-tooling-identity.json",
+      "sha256": "7f30a1bac4acb1e90d87c9dd44561b4a4968bdf221a6891f2bd67b5c9484be0c"
+    }
+  ],
+  "collectorPatches": [
+    {
+      "file": ".staging/wave-ch-critic-collector-qualification-2026-09-09/critic-collector-qualification-v1.patch",
+      "sha256": "ae97b062b1bcdc0abbc11deebef4c9cb4aee968a3bbb5aaf6fe311647ff0d05e"
+    },
+    {
+      "file": ".staging/wave-ch-critic-collector-qualification-2026-09-09/critic-collector-qualification-v2.patch",
+      "sha256": "d6f0604f197793beebc5c92857f9a295e3f81cc7614aec8821ee697d9caca3d2"
+    },
+    {
+      "file": ".staging/wave-ch-critic-collector-qualification-2026-09-09/critic-collector-qualification-v3.patch",
+      "sha256": "dd7a34079905d7afa426948dfa90862cbef8ca3a1e2eb79ff222fe9d48482af3"
+    }
+  ],
+  "limitations": [
+    "Production critic consumption still fail-closed pending separate trusted computed-evidence integration.",
+    "No critic qualification, house parity, repair qualification or visual gate closed.",
+    "D425 original refusal and charge remain immutable; API v2 requires a fresh bounded capability check."
+  ],
+  "costs": {
+    "apiActualUsd": 13.06324435,
+    "reservedOrUnknownUsd": 11.37126575,
+    "nativeSettled": 136,
+    "nativeUnresolvedHistoricalIntents": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "failed-candidate-contained-and-accounted",
+  "qualified": false,
+  "audit": {
+    "path": ".staging/wave-j-runtime-audit-2026-09-08/native16-runtime-audit.json",
+    "sha256": "89921701102dc9f9013b747f73394b263bd84b8a73071b7d84b9f8a261c41536"
+  },
+  "nativeProviderCalls": 5,
+  "settledCalls": 5,
+  "offlineContainerProbes": 10,
+  "all15ContainersAbsent": true,
+  "acceptedOutputs": 0,
+  "requestedOutputs": 2,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "scope": "Independent Sol runtime audit verifies dispatch/start/terminal links, original deadlines and actual Docker absence. No independent visual approval was attempted."
+}

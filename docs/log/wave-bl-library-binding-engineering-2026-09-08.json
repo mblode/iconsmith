@@ -1,0 +1,67 @@
+{
+  "id": "D350",
+  "kind": "library-dispatch-and-consumed-source-binding",
+  "status": "partial-engineering-implemented",
+  "qualified": false,
+  "implementation": [
+    "Launch descriptor schema2 binds complete source trees and revalidates additions, deletions, mutations and symlinks before executor.",
+    "Retrieval supports expectedLibraryTreeHash verified from actual in-memory SVG bytes before any reviewer."
+  ],
+  "remaining": [
+    "Agent wiring parent hash through campaign arguments and local-generate.",
+    "Integrated verification and fresh current-route live execution."
+  ],
+  "files": [
+    {
+      "file": "packages/iconsmith/scripts/runtime-identity.ts",
+      "sha256": "482ed75dd691a589fa63df04be16b012cfd3f2181d001824b8df1a3a531dc938"
+    },
+    {
+      "file": "packages/iconsmith/scripts/runtime-identity.test.ts",
+      "sha256": "df3bbfd90543be1a9521d30eedd4d005fcf64524a615c1001bd859e2fa877331"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-retrieval.ts",
+      "sha256": "187d46be4345ad804c84c259e0d05a9de499ba16e5e9858a2881d5e4b16e7284"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-retrieval.test.ts",
+      "sha256": "c66c787925d97ba5203c9d3420b4cf3eacee8aa2f3bf06112abe9cd9bc0f2c78"
+    },
+    {
+      "file": "packages/iconsmith/scripts/local-campaign.ts",
+      "sha256": "fee631816435c3acafac7ba1ddfc705b5697a312b8cfd8baa2f7d696637598c3"
+    }
+  ],
+  "evidence": [
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/root-launch-tests.log",
+      "sha256": "0946859a949fdca177e1b09e36ee42ca9f368ec245db7dac4e435ba9703b4621"
+    },
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/root-source-binding-tests-v2.log",
+      "sha256": "6ea525e7b99a47aed6344fe7fb7b9bb3d62a32b803efe496e88a41cdb05ee817"
+    },
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/root-source-binding-typecheck-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/root-launch-lint-v2.log",
+      "sha256": "ac1ee00543ebd5ea9b82815745ce85deb7ff88a79364b9f06d1ef818f6925ab0"
+    },
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/root-retrieval-format-v2.log",
+      "sha256": "6d6326ebe438e0b1b227081208793181c6df9c0f33c3f41abfcc512d4c5b7aed"
+    }
+  ],
+  "tests": {
+    "launchCampaign": 53,
+    "sourceBinding": 9,
+    "countsOverlap": true,
+    "typecheck": "pass",
+    "scopedLint": "pass after two corrected lint failures retained"
+  },
+  "providerCalls": 0,
+  "apiIncrementUsd": 0
+}

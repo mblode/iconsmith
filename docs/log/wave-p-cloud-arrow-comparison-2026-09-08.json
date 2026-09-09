@@ -1,0 +1,25 @@
+{
+  "schema": "iconsmith.wave-p.root-evidence.v1",
+  "date": "2026-09-08",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "artifacts": [
+    {
+      "path": ".staging/wave-p-cloud-arrow-comparison-2026-09-08/receipt.json",
+      "sha256": "7126be754dcb4be78f0b6bd89bae504bbb7e96e1228bfc54ca56f41fb9cbaaa5"
+    },
+    {
+      "path": ".staging/wave-p-cloud-arrow-comparison-2026-09-08/comparison-board.png",
+      "sha256": "9dcb0a51f5a5e2d9e1e51b253b7682668a10d7df6db5c517665e7341e3a7a171"
+    }
+  ],
+  "slots": 4,
+  "finding": "Existing admitted-part subtraction supports arrow cutter; no kernel gap. Direct cut is narrow at16; outlined positive arrow lacks readable shaft. Four paint/master slots retained.",
+  "rootImageInspection": true,
+  "limits": [
+    "Development observation only, no independent qualified review.",
+    "Raster threshold topology and replay do not establish recognition or craft."
+  ]
+}

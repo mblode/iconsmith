@@ -1,0 +1,34 @@
+{
+  "id": "D348",
+  "kind": "independent-runtime-gate-audit",
+  "auditor": "gpt-5.6-sol/geometry_next",
+  "verdict": "P1.1 P1.4 P1.9 P1.9a P1.9b remain open",
+  "findings": [
+    "Library omitted from dispatch descriptor; root correction underway.",
+    "Direct non-atomic outer and child writes; isolated correction underway.",
+    "Invalid-child bytes and parent settlement need strict outer-refusal resume binding.",
+    "STOP is not active cancellation of an in-flight provider container.",
+    "No exact-current live evidence for these closures."
+  ],
+  "artifacts": [
+    {
+      "file": ".staging/wave-bl-runtime-gate-audit-2026-09-08/audit.md",
+      "sha256": "bee157556c45c7915c148db9fdebe664574780180c2932a9fdf6199a43ec1421"
+    },
+    {
+      "file": ".staging/wave-bl-runtime-gate-audit-2026-09-08/live-evidence-validation.json",
+      "sha256": "7f882ee31e2f65c1e1803fd1859cc17e5862c172f1c34ba052ba1aa12c039872"
+    },
+    {
+      "file": ".staging/wave-bl-runtime-gate-audit-2026-09-08/manifest.json",
+      "sha256": "8fead2ffd092d2ee58f50139fa793d2b7501e5c0a9559aaa357e648ba914e5d2"
+    },
+    {
+      "file": ".staging/wave-bl-runtime-gate-audit-2026-09-08/receipt.json",
+      "sha256": "038a4224f10d539199a7f2f1252bb1cfb202ba185880b2a32fc1ff1c58c1ad87"
+    }
+  ],
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

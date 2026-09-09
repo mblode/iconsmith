@@ -69,14 +69,14 @@ const MODIFIERS = new Set([
   "x",
 ]);
 
-export interface ElementInstance {
+interface ElementInstance {
   box: Box;
   icon: string;
   /** Fingerprint distance from the cluster's canonical drawing. */
   distance: number;
 }
 
-export interface RecurringElement {
+interface RecurringElement {
   /** True when the element is drawn at one size everywhere. This is the
    *  article's claim — "it's the same folder" — and the one a split of which is
    *  a defect under any reading. */
@@ -342,5 +342,3 @@ export const census = (
 
 /** Re-exported so a caller reporting a split can quote how far the minority
  *  sits from the convention without reaching past this module. */
-export { drift } from "../tools/cohort.js";
-export { MIN_ICONS, THRESHOLD };

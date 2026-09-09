@@ -332,5 +332,3 @@ const main = async (): Promise<void> => {
 if (process.argv[1]?.endsWith("stress-registration.ts")) {
   await main();
 }
-
-export { analyse, run };

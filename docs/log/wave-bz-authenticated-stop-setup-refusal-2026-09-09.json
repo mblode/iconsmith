@@ -1,0 +1,31 @@
+{
+  "decision": "D407",
+  "date": "2026-09-09",
+  "intent": "D404",
+  "status": "setup-refused-before-dispatch",
+  "parentSettlement": {
+    "code": 7,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true
+  },
+  "rootRunnerExit": 1,
+  "artifactHashes": {
+    "stderr.log": "4233872d727e430f9332d5302c34bdf7ab67e3c903ff1577fb54ead886665c6b",
+    "parent-settlement.json": "7c3205873fb0ae68ce577199cd4cdfe91e22537e9ac2fcc388ec7b1048f4afaf",
+    "launch.json": "f3c0e2f1d0b24c8482fe5ca107fbdd6264e61f100d971b14b0891fa4e418bd6e",
+    "stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observation-result.json": "a32ff65a161c6cd0b75e03a2dcd30ff27268576439fa47eebf6c14b5f48deab2"
+  },
+  "cause": "Missing parent of nonrecursive canonical campaign output mkdir. Observer waited then attempted missing STOP/calls paths; all failures preserved.",
+  "native": {
+    "intents": 0,
+    "started": 0,
+    "terminal": 0,
+    "reservationReleased": 12,
+    "cumulativeSettled": 133,
+    "priorUnresolved": 1
+  },
+  "apiIncrementUsd": 0,
+  "qualifyingCancellationEvidence": false
+}

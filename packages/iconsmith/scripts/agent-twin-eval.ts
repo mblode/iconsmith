@@ -71,7 +71,7 @@ const list = (
         .map((s) => s.trim())
         .filter((s) => s !== "");
 
-export interface PaintRow {
+interface PaintRow {
   clean: boolean;
   cosine: number | null;
   dsl: boolean;
@@ -86,7 +86,7 @@ export interface PaintRow {
   trace: string[];
 }
 
-export interface AgentTwinRow {
+interface AgentTwinRow {
   analog: { filled: PaintRow; outlined: PaintRow };
   compile: { filled: PaintRow | null; outlined: PaintRow | null };
   house: boolean;
@@ -281,7 +281,7 @@ const evalOne = async (
   };
 };
 
-export const evaluateAgentTwins = async (options: {
+const evaluateAgentTwins = async (options: {
   house: string;
   maxSteps?: number;
   model: string;

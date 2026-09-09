@@ -1,0 +1,57 @@
+{
+  "kind": "wave-a-staging-helper-inventory",
+  "date": "2026-09-08",
+  "scope": "Execution-critical known candidates; complete staging census remains open",
+  "helpers": [
+    {
+      "path": ".staging/native-author-bicycle-counter-a157-2026-09-08/run.mts",
+      "present": true,
+      "sha256": "9807d5a9af143edc2a814058edaffa88c63b607231b6bf142e71f29bfe1297ce",
+      "disposition": "historical-staging-only; not promoted"
+    },
+    {
+      "path": ".staging/native-author-bicycle-counter-a157-2026-09-08/manifest.json",
+      "present": true,
+      "sha256": "6e370145681afaa3dfe17dd7635928c4b22d4760498a49e992da4cf2079b1512",
+      "disposition": "historical-staging-only; not promoted"
+    },
+    {
+      "path": ".staging/a156-review-guard-2026-09-08/guard.ts",
+      "present": true,
+      "sha256": "59ac8d86b1cbda2b3e6f814b008dc7c2d7a6751a879555b97adc8c3f792ffb89",
+      "disposition": "historical-staging-only; not promoted"
+    },
+    {
+      "path": ".staging/a156-review-guard-2026-09-08/guard.test.ts",
+      "present": true,
+      "sha256": "3562381790bc1db71010ac6348d09ade0b6fe966978003a856c105c445e0f982",
+      "disposition": "historical-staging-only; not promoted"
+    },
+    {
+      "path": ".staging/claude-inline-review-transport-v2-2026-09-08/adapter.ts",
+      "present": true,
+      "sha256": "8d66cdfcba704736bfb7f3d5eb258265d1a04f782312d514a2bd515010fb4b29",
+      "disposition": "historical-staging-only; not promoted"
+    },
+    {
+      "path": ".staging/claude-inline-review-transport-v2-2026-09-08/adapter.test.ts",
+      "present": true,
+      "sha256": "d0b6efa155216fb1f69fca3035b1b64b24dae2411b7e6e348b0d1b6a0e7afe60",
+      "disposition": "historical-staging-only; not promoted"
+    },
+    {
+      "path": ".staging/claude-inline-review-transport-v2-2026-09-08/bridge.ts",
+      "present": true,
+      "sha256": "c5539c5a0a81c1903eb786f67c9322edee4e94e151d1ba6ba50a446d87528730",
+      "disposition": "historical-staging-only; not promoted"
+    }
+  ],
+  "decisions": [
+    "Canonical descriptor capture/validation now lives in runtime-identity.ts; A157 runner itself is not promoted or reused.",
+    "A155 inline reviewer transport remains an optional unqualified route; no default switch.",
+    "Strict review-dispatch guard remains a required integration candidate pending canonical original-deadline/source-closure/contained-review route.",
+    "Historical manifest and run bytes remain untouched."
+  ],
+  "providerCalls": 0,
+  "qualified": false
+}

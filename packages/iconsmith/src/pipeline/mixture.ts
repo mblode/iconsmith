@@ -134,7 +134,7 @@ const policySchema = z
   })
   .strict();
 
-export class MixtureError extends Error {
+class MixtureError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "MixtureError";

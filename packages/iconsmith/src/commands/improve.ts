@@ -207,10 +207,7 @@ const writePolicy = (
   );
 };
 
-export const reportImprove = (
-  report: ExperimentReport,
-  json: boolean
-): void => {
+const reportImprove = (report: ExperimentReport, json: boolean): void => {
   if (json) {
     process.stdout.write(`${JSON.stringify(report)}\n`);
     return;

@@ -1,0 +1,20 @@
+{
+  "id": "D515",
+  "kind": "post-live-offline-salvage-and-optical-correction-preparation",
+  "observedAt": "2026-09-09T01:46:58.760822+00:00",
+  "baseline": "D512 source / D514 live result",
+  "scope": [
+    "Existing-DSL optical key-mark fixture for retained 24px defect without compiler/kernel edits",
+    "Current controlled-salvage runner using canonical parent capability; separate proposed hook only if unavoidable"
+  ],
+  "owners": {
+    "runtime": "fresh staging salvage preparation; no shared source edits",
+    "image_fixture": "fresh staging optical reproduction/proofs; no shared source edits",
+    "root": "shared docs, integration, next dispatch decisions"
+  },
+  "maxProviderCalls": 0,
+  "newApiReservationUsd": 0,
+  "sourceFrozen": true,
+  "qualificationGranted": false,
+  "retention": "Preserve original live attempt, uncertainty and rejection; do not enlarge repair allowance merely to force this sample"
+}

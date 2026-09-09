@@ -1,0 +1,17 @@
+{
+  "decision": "D406",
+  "date": "2026-09-09",
+  "status": "staged-awaiting-integration-and-input-hardening",
+  "receipt": ".staging/wave-by-acceptance-provenance-2026-09-08/receipt.json",
+  "receiptSha256": "85252b33aa430729762c17aa2278f25d22d9d2d57268fbcc1007c3bc8bbeba03",
+  "patchSha256": "963b81626c5f685880fe2efac26b936411c6fb8ff286ecc4bad2692fd13350f9",
+  "agentFocusedTests": 52,
+  "rootReview": [
+    "Native artifactHash is exact presentation PNG bytes; sourceArtifactHash separately binds candidate output. Supersedes D400 ambiguous hash-equality wording.",
+    "Reviewer rows bind ratings and decisions to unique reviewer/lineage/receipt identities; anonymous craft cannot inflate medians.",
+    "Missing/nonarray craftRatings can throw in v1 sameRatings; bounded staging correction requested before integration."
+  ],
+  "canonicalChanged": false,
+  "qualification": false,
+  "providerCalls": 0
+}

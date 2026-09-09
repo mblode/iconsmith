@@ -1,0 +1,114 @@
+{
+  "schema": "iconsmith.wave-r.house-calibration-results.v1",
+  "qualified": false,
+  "developmentCalibrationPassed": true,
+  "canonicalArtifacts": 16,
+  "families": 4,
+  "paintSizeStrata": 4,
+  "extraPresentations": 4,
+  "reviewers": [
+    {
+      "model": "gpt-6-astra",
+      "canonicalCount": 16,
+      "craftScores": [
+        9,
+        9,
+        10,
+        10,
+        9,
+        9,
+        10,
+        9,
+        9,
+        9,
+        10,
+        10,
+        9,
+        9,
+        10,
+        10
+      ],
+      "medianCraft": 9.0,
+      "absoluteAnchorPass": true,
+      "matchedControlsPass": true,
+      "repeatCraftDeltas": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "model": "claude-opus-5",
+      "canonicalCount": 16,
+      "craftScores": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "medianCraft": 10.0,
+      "absoluteAnchorPass": true,
+      "matchedControlsPass": true,
+      "repeatCraftDeltas": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "observations": "Both independently recognized all16canonical house images; every craft>=9, critical=no, ship/family/native=yes. All matched controls category-stable. No score offsets or changed thresholds.",
+  "artifacts": {
+    "intent.json": {
+      "path": ".staging/wave-r-house-calibration-live-2026-09-08/intent.json",
+      "sha256": "3fc826ae938d97199dd6e2e1703bd6e31ee0da83467375f5362d7c086537daa8"
+    },
+    "outer-result.json": {
+      "path": ".staging/wave-r-house-calibration-live-2026-09-08/outer-result.json",
+      "sha256": "fdff802aadabb48f97c5739b50be9dabbed3c02df10fb25cc3eff49fb5ae49a4"
+    },
+    "assessment.json": {
+      "path": ".staging/wave-r-house-calibration-live-2026-09-08/assessment.json",
+      "sha256": "c766fbccd1b56ac67057e2bd7b984ff34732402737dc3ecfa4c0bceb9a975603"
+    },
+    "boundary-audit.json": {
+      "path": ".staging/wave-r-house-calibration-live-2026-09-08/boundary-audit.json",
+      "sha256": "8c7c66fd9f50bbf929c5f4f6a9fc11ca49ec9f5e58c91764b342228d988b4fd7"
+    },
+    "root-container-audit.json": {
+      "path": ".staging/wave-r-house-calibration-live-2026-09-08/root-container-audit.json",
+      "sha256": "d32b6dfe9ee3011b82883402c0e18c1c1eb0d7525ca1828595734718d53cfc05"
+    }
+  },
+  "sourceFreeze": {
+    "path": ".staging/wave-r-integration-2026-09-08/freeze.json",
+    "sha256": "85793b3eb03ec2874b67f184d3b5e9aaf93230d8bced983b9569ca53293ae3dc"
+  },
+  "nativeCalls": 4,
+  "cumulativeNativeCalls": 24,
+  "apiNewActualUsd": 0,
+  "apiNewReservationUsd": 0,
+  "apiLedgerSha256": "c7639a8abeb6b932bf99bced0c5baa1651d796045b639553565e23e0e3c9341f",
+  "apiActualUsd": 13.06220785,
+  "apiReservedUnknownUsd": 11.37126575,
+  "nativeDollarCostUsd": null,
+  "limitations": [
+    "Development positives from four exposed source families; no generated-negative sensitivity evidence or sealed qualification.",
+    "Native16 and24 rasterizations of source artwork, not newly generated independent optical masters.",
+    "Prior bicycle9/8 failure preserved; new actual prompts transmit original numerical anchors.",
+    "Root container audit initially used case-sensitive matcher; corrected read-only repeat verifies all4recorded workload containers absent."
+  ]
+}

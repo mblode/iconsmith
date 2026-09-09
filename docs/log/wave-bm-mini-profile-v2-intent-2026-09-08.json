@@ -1,0 +1,29 @@
+{
+  "id": "D352",
+  "requestId": "D352-mini-explicit-profile-v2-development",
+  "requestedModel": "gpt-5.4-mini",
+  "reviewProfile": "mini-inline-images-no-tools-v2",
+  "sourceFreezeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bm-integration-2026-09-08/source-after.json",
+  "sourceFreezeSha256": "e6b1be3b29a6cc9db7a4ffbb75e91a03127a2f42ecff2afb15a3c64159297fe3",
+  "runnerSha256": "f28d569efbba9337bf5c9f355d7f43092e4bcf412ecdd649651ef46c4dbc0b56",
+  "routeFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bm-mini-profile-development-v2-2026-09-08/native-route.json",
+  "routeSha256": "d15d8017cc03bdaa187b5a3a9ae59df922600a9adc724b1293f049d3f1dd49a1",
+  "inputsFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bm-mini-profile-development-v2-2026-09-08/inputs.json",
+  "inputsSha256": "ff741223cb42b45f448009c0273b6daff9e82350c452f841d62497f5f5e443cd",
+  "deadlineAt": 1788867554716,
+  "maxNativeCalls": 1,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "nativeCallsBefore": 79,
+  "quota": {
+    "usedPercent": 56,
+    "remainingPercent": 44,
+    "resetAt": 1789435341,
+    "resetCreditRedeemed": false
+  },
+  "concurrency": 1,
+  "noFallback": true,
+  "qualified": false,
+  "population": "four exposed house outlined16 development controls; no rating reuse; not sealed",
+  "stopFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bm-mini-profile-development-v2-2026-09-08/STOP"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "D475",
+  "kind": "source-exact-proposal-root-review",
+  "observedAt": "2026-09-08T20:30:01.216560+00:00",
+  "status": "refused-integration-pending-correction",
+  "reviewedPatch": ".staging/wave-dy-source-exact-canonical-proposal-2026-09-09/source-exact-v2-minimal.patch",
+  "patchSha256": "74198ad896d80c4601b86280d65fba0466d522dee1e3dbba2b49e9315be02b2c",
+  "observedFailure": {
+    "command": "node .staging/wave-dy-source-exact-canonical-proposal-2026-09-09/workspace/packages/iconsmith/scripts/check-boundaries.ts",
+    "exitCode": 1,
+    "log": ".staging/wave-ej-source-exact-root-review-2026-09-09/layering.log",
+    "logSha256": "02f59495c968357fe301c22b05d34fb59b0647c4a8d40f07d9b2d25ba1d89207",
+    "finding": "tools/dsl imports higher pipeline/source-exact layer"
+  },
+  "additionalSourceReviewFinding": "Resolver identity records native master/spec but consumption checks only part object and finish. EG must test and reject spec/master substitution. This source-review concern is not yet an executed reproduction.",
+  "next": "EG lower-layer authority, exact consumption binding and actual repo-local fresh-process CLI replay",
+  "canonicalCompiler": "iconsmith-constrained-24-filled-paint-resolution",
+  "canonicalSourceEdits": 0,
+  "providerCalls": 0,
+  "reservationUsd": 0
+}

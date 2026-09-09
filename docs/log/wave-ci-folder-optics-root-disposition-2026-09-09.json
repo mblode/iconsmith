@@ -1,0 +1,55 @@
+{
+  "kind": "independent-folder-optics-root-disposition",
+  "decisionId": "D432",
+  "qualified": false,
+  "bindings": [
+    {
+      "path": ".staging/wave-ci-folder-optical-independent-audit-2026-09-09/receipt.json",
+      "sha256": "7adb101a7be6054736849ac12d6c4dc3792b8e698247246fc11ca09b969298ec"
+    },
+    {
+      "path": ".staging/wave-ci-folder-optical-independent-audit-2026-09-09/observations.json",
+      "sha256": "04b2ad54e85878a4cad91b7cd76a59864f28eb509d8862e71b32995e9af2273e"
+    },
+    {
+      "path": ".staging/wave-ci-folder-optical-independent-audit-2026-09-09/measurements.json",
+      "sha256": "78e23daa20acd5676525925b6328048ab2d42dcba0913e95ce1870a9d576b674"
+    },
+    {
+      "path": ".staging/wave-ci-folder-optical-independent-audit-2026-09-09/artifact-hashes.json",
+      "sha256": "5942c5b43178a1d3d17cf3fcb34c1ce7e97d1a2a566102983c09373fd72e1c67"
+    },
+    {
+      "path": ".staging/wave-ci-folder-optical-independent-audit-2026-09-09/bottom-edge-clarification.json",
+      "sha256": "80be598a6cf6d8de842a5f3ab109a41d54ca3edc80051d71b2279d9431a3c695"
+    }
+  ],
+  "rootNativePixelChecks": [
+    {
+      "surface": "light",
+      "width": 16,
+      "height": 16,
+      "bottomRows": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "identical": true
+    },
+    {
+      "surface": "dark",
+      "width": 16,
+      "height": 16,
+      "bottomRows": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "identical": true
+    }
+  ],
+  "disposition": "Root queried the alleged new bottom clipping because changes were above the edge. Exact bottom-region bytes disprove the allegation; independent reviewer formally corrected it. Preserve original and clarification. Both bounded variants expose more shackle; host separation and threshold stability remain unresolved. No repair success or adoption.",
+  "providerCalls": 0
+}

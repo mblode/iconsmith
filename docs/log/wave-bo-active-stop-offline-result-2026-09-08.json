@@ -1,0 +1,22 @@
+{
+  "id": "D360",
+  "kind": "actual-offline-stop-result",
+  "result": {
+    "file": ".staging/wave-bo-active-stop-offline-2026-09-08/result.json",
+    "sha256": "197ded78797112c40f8529307a7c845401173f26087e6621a1f307136e151627"
+  },
+  "containerId": "d351e104dd60e7ade6c7b380389ca8513c5ed05cad693f02f2ab934a310a13ba",
+  "independentlyAbsent": true,
+  "cancelledByStop": true,
+  "noPostSettlementWrites": true,
+  "observationMs": 1203,
+  "sourceStable": true,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false,
+  "scope": "Actual Docker workload cancellation only; no authenticated model or candidate salvage",
+  "remaining": [
+    "Current native-route STOP demonstration",
+    "Complete strict failure resume and lifecycle gate audit"
+  ]
+}

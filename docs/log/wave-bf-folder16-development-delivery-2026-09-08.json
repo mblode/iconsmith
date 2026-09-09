@@ -1,0 +1,61 @@
+{
+  "id": "D332",
+  "kind": "completed-first-request-live-slice",
+  "request": "folder-lock-16",
+  "status": "delivered",
+  "qualityStatus": "review-clear",
+  "elapsedMs": 411979,
+  "deadlineExceeded": false,
+  "craftApproved": false,
+  "instrumentQualified": false,
+  "reviews": [
+    {
+      "model": "gpt-5.5",
+      "status": "complete",
+      "answers": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "pass",
+        "family": "pass"
+      }
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "status": "complete",
+      "answers": {
+        "meaning": "pass",
+        "style": "pass",
+        "optics": "pass",
+        "family": "pass"
+      }
+    }
+  ],
+  "audit": {
+    "file": ".staging/wave-bf-folder-lock-live-2026-09-08/root-folder16-settlement-audit.json",
+    "sha256": "66fc6557302869de4ce4baa82a3ea977dde1ea2e67613d81f122c11a7fc1b2ce"
+  },
+  "artifactHashes": {
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/delivery.json": "8df1e6995d56c05d0eeb67856e71606efb48c8d494bcbb9c7d6799f021631926",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/run.json": "829d311916875c8ac24efe86e848bc60f45a9dffc9cd3aeece53701b43eb3037",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/checks.json": "dfef1ee5fe1cd28b62d6e4cb641dc69879b8d4172169b29da6ec64e5c319d462",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/structured-author.json": "0139f33f6d9b965ba3cee007eb5478dcd521450a2d892c0c2573d69d2ceb84dc",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/author-review.json": "1354668707c443991216af33420bc814e94ba12aa348eb0cef16e1a85be955ed",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/independent-reviews.json": "18f74fd4db68b2049e6a2972144a8a97bf5bd5b6a19c8faa684b86808773ad14",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.icon": "0e3302fd900f8ad62049012dc7de439f3150875826b5e66c5d652d7859c8fda6",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.icon": "07e1c135aa4594446ceadbd9f8c313e5e957134c681dcfd3057ae3d69c9bde0c",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.svg": "ff4c308cce2374dd06be3dc0b1c3c2886c5e8d070a50e94360248f0eff1d1902",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.svg": "afec222a05cfd03cef2867edd78745f839aacefeb5eaea888ca2d41327533343",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.png": "2515643050a9deef52a1399d233afb967796d5150b2d85bc6af46c314f52735e",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.png": "bd049f7f6e5261a5ce9448c2f2de3180210b1bd128b068e0bc0add0772d97955",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/outlined.proof.json": "46703b0f974f71e492983e61b0ab6d331d190cc776048f3b72da1962bce5d9b9",
+    ".staging/wave-bf-folder-lock-live-2026-09-08/campaign/requests/folder-lock-16/filled.proof.json": "46703b0f974f71e492983e61b0ab6d331d190cc776048f3b72da1962bce5d9b9"
+  },
+  "rootInspectedBothProofBoardsAfterSettlement": true,
+  "nativeCallsSettledThisRequest": 7,
+  "nativeCallsSettledCumulativeBeforeActive24Request": 71,
+  "apiIncrement": 0,
+  "nativeDollarCost": null,
+  "entireWaveComplete": false,
+  "otherRequest": "folder-lock-24 is active; costs and slots remain pending",
+  "qualified": false
+}

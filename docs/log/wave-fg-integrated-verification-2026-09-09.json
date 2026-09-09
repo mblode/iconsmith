@@ -1,0 +1,142 @@
+{
+  "id": "D499",
+  "observedAt": "2026-09-08T23:01:10.535497+00:00",
+  "kind": "offline-runtime-acceptance-raster-integrated-engineering-verification",
+  "head": "bedec8a175c5fb8d4586549988d2e69e14d6cb5c",
+  "scope": [
+    "D495 draft17 terminal-to-acceptance bridge",
+    "D496 EN collector plus structural recursive replay and root campaign binding",
+    "D497 offline raster feasibility diagnostic",
+    "D498 retained first integrated failure and exact-byte test correction"
+  ],
+  "tests": {
+    "total": 2542,
+    "files": 180,
+    "passed": 2542,
+    "failed": 0,
+    "skipped": 0
+  },
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 47542,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fg-root-integration-2026-09-09/attempt-2/test.log",
+      "sha256": "ca6e3b55bdcad9ed39a3ea6fd54e1a86f48297093aad02fadbe2cf542ce758ad"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1505,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fg-root-integration-2026-09-09/attempt-2/typecheck.log",
+      "sha256": "570368b244319816e290052a1e415aff2b2dc22f7394fdc4cc666cce75621ee7"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 6218,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fg-root-integration-2026-09-09/attempt-2/build.log",
+      "sha256": "44040c1d4ddb0543c2eb2b995723abcf94df7a744b98f12873086e1dbf16bbab"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1381,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fg-root-integration-2026-09-09/attempt-2/check.log",
+      "sha256": "5b3dbebe19d655df8820ba8bfe629eb7e0d685dfb86ff6bf93ae64251f7c3efe"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 70,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fg-root-integration-2026-09-09/attempt-2/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceClosure": {
+    "files": 404,
+    "beforeAfterMatch": true,
+    "setSha256": "9ef6cbd890232e80ba98d73ef0ca07474605c1d6e3a7efee86fb9165f03e2b15",
+    "before": ".staging/wave-fg-root-integration-2026-09-09/attempt-2/source-freeze-before.json",
+    "after": ".staging/wave-fg-root-integration-2026-09-09/attempt-2/source-freeze-after.json",
+    "deltaFromD488": {
+      "changed": [
+        "packages/iconsmith/scripts/acceptance-critic-evidence.ts",
+        "packages/iconsmith/scripts/local-astra-author.test.ts",
+        "packages/iconsmith/scripts/local-astra-author.ts",
+        "packages/iconsmith/scripts/local-campaign.test.ts",
+        "packages/iconsmith/scripts/local-campaign.ts",
+        "packages/iconsmith/scripts/local-claude-author.test.ts",
+        "packages/iconsmith/scripts/local-codex-review.test.ts",
+        "packages/iconsmith/scripts/local-codex-review.ts",
+        "packages/iconsmith/scripts/local-native-call-factory.test.ts",
+        "packages/iconsmith/scripts/local-native-call-factory.ts",
+        "packages/iconsmith/scripts/local-structured-author.test.ts",
+        "packages/iconsmith/scripts/local-structured-author.ts",
+        "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+        "packages/iconsmith/src/eval/acceptance-contract.ts"
+      ],
+      "added": [
+        "packages/iconsmith/scripts/acceptance-critic-evidence.test.ts",
+        "packages/iconsmith/scripts/raster-proposal-feasibility.test.ts",
+        "packages/iconsmith/scripts/raster-proposal-feasibility.ts"
+      ],
+      "removed": []
+    }
+  },
+  "priorFailedAttempt": {
+    "receipt": "D498",
+    "directory": ".staging/wave-fg-root-integration-2026-09-09"
+  },
+  "primaryNumberedTasks": {
+    "checked": 15,
+    "total": 84,
+    "promotedThisWave": 0
+  },
+  "engineeringOnly": true,
+  "productionRouteFrozen": false,
+  "authorEvidenceVerified": false,
+  "visualQualificationGranted": false,
+  "remaining": [
+    "Semantically reparse raw trace event authority and qualify collector/instrument boundaries; structural replay alone is insufficient.",
+    "Freeze current full route before folder-lock16/24 slice, controlled interrupted salvage and six-request reliability replay inside original deadlines.",
+    "Keep Claude quarantined pending credential rotation confirmation; sealed Claude inspection is unsupported.",
+    "Implement bounded canonical raster provider/licence/deadline/budget adapter and measure useful model-backed proposal preservation through final constrained DSL before paid model tournament.",
+    "Finish frozen acceptance/roster/population gates in sole authoritative plan."
+  ],
+  "diskAvailableKiB": 2426924,
+  "diskFloorGiB": 2,
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeWorkers": 3,
+  "nativeSubscriptionAllocationUsd": null,
+  "budgetLedger": "docs/log/api-budget-after-d499-offline-2026-09-09.json",
+  "privateEvidencePreserved": true,
+  "unrelatedWorkPreserved": true,
+  "commitsOrPublishing": false
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T00:38:46.433636+00:00",
+  "status": "intent-not-dispatched",
+  "id": "D229",
+  "scope": "Corrected contained exact-image capability; no visual qualification",
+  "maximumNativeLaunches": 1,
+  "concurrency": 1,
+  "deadlineMs": 300000,
+  "model": "gpt-6-astra",
+  "effort": "high",
+  "prerequisite": "All Wave B integration checks passed, code closure unchanged; trusted CA and executable companion validated before intent/start",
+  "priorAttempt": "D227 preserved ineligible; this is a new runtime revision, not resume",
+  "script": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke.ts",
+    "sha256": "1743b6376dc6b827f83dee279f112e21b00799922b8c1652107b3e65eb4ca298"
+  },
+  "usageObservation": {
+    "usedPercent": 34,
+    "windowDurationMins": 10080,
+    "resetsAt": 1789385571
+  },
+  "newApiReservationUsd": 0,
+  "newApiActualUsd": 0,
+  "nativeDollarCostUsd": null,
+  "stopRule": "No automatic retry; any failure or source drift leaves capability open."
+}

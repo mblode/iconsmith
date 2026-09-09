@@ -1,0 +1,63 @@
+{
+  "experimentId": "D435",
+  "kind": "organic-native-development-root-review",
+  "recordedAt": "2026-09-08T16:22:14.046100+00:00",
+  "qualified": false,
+  "providerCalls": 0,
+  "slots": 8,
+  "rootRehashedArtifacts": 55,
+  "artifactManifest": {
+    "file": ".staging/wave-ck-organic-native-programs-2026-09-09/artifact-hashes.json",
+    "sha256": "0bd10c6c6c284467c8ef5aee6018d967ccc78d266b7746a2cda424c1d362d8c4"
+  },
+  "evidence": [
+    {
+      "file": ".staging/wave-ck-organic-native-programs-2026-09-09/receipt.json",
+      "sha256": "a153a6e5132799a8a004502889b813eac40d041bbd4dbeacaadf49f5465ebbd1"
+    },
+    {
+      "file": ".staging/wave-ck-organic-native-programs-2026-09-09/manifest.json",
+      "sha256": "ffbd9358e6d2c6402a3249aa3e56236934b30d86ee2bad4a539c10421149815b"
+    },
+    {
+      "file": ".staging/wave-ck-organic-native-programs-2026-09-09/native-unscaled-board.png",
+      "sha256": "7c2124c6561e19357765758d1aa599e29515c47bcf299c51193de0a8eed096aa"
+    },
+    {
+      "file": ".staging/wave-ck-organic-native-programs-2026-09-09/native-enlarged-nn4-board.png",
+      "sha256": "d8dddb7954a326e7d1b6f7c177a9dcda3f0e60fbd0573fd9bfb9aac0afceb846"
+    },
+    {
+      "file": ".staging/wave-ck-organic-native-programs-2026-09-09/optical-decision-clarification.json",
+      "sha256": "d6741ead6590bd9a70b9db7cd0a25f6d1b4507583116de425be98711524c8b1b"
+    },
+    {
+      "file": ".staging/wave-ck-organic-native-programs-2026-09-09/optical-decision-clarification-receipt.json",
+      "sha256": "c79d75ada1d6462737ab62b3862d99818097424ed158491018392fa657923980"
+    }
+  ],
+  "engineering": "Eight selected constrained DSL programs have distinct master geometry, exact replay/native dimensions and zero blocking lint errors. Rejected initial filled trim candidates retained.",
+  "rootImageObservations": {
+    "protocol": "Root AI viewed exact unscaled and NN4 boards after concept labels and agent observations were exposed; development evidence, not blind recognition or sealed qualification.",
+    "heart": "Identifiable heart silhouette in all four slots; outlined body interior visibly open, filled body solid. Native16 footprint smaller relative to canvas than native24.",
+    "jellyfish": "Dome and hanging straight bars visible in both paints. Rigid rhythm permits umbrella or brush reading; narrow native16 gaps and differing 3/4 counts need independent semantic/cross-master evaluation."
+  },
+  "clarification": "Agent confirms smaller heart and reduced tentacle count were unmeasured heuristics. These are distinct development candidates, not calibrated optical masters or automatically coherent families.",
+  "constructionRulesCorrection": [
+    {
+      "file": ".staging/wave-cj-construction-rules-draft-2026-09-09/construction-rules.md",
+      "sha256": "2799731c5c4a32929390598090c6c613146d1591c5c0be0d9d2ec0434d483d84"
+    },
+    {
+      "file": ".staging/wave-cj-construction-rules-draft-2026-09-09/paint-semantics-correction.json",
+      "sha256": "5e63e537c68f154857329250c68118d7f1ca86af24681f9f59938466e5807076"
+    },
+    {
+      "file": ".staging/wave-cj-construction-rules-draft-2026-09-09/paint-semantics-correction-receipt.json",
+      "sha256": "f1897512715e6b5ca62d174ca31235be4ec1533cfc74f23022b718ef81af09ee"
+    }
+  ],
+  "disposition": "Retain eight actual programs for construction development. P2.3/P2.8/P2.9/P2.13 and engineering/visual exits remain open; no new acceptance or repair success.",
+  "apiIncrementUsd": 0,
+  "nativeCallsIncrement": 0
+}

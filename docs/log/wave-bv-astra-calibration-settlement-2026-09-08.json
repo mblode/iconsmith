@@ -1,0 +1,45 @@
+{
+  "id": "D388",
+  "status": "settled-independent-calibration-audit-pending",
+  "qualificationContribution": 0,
+  "outer": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "finishedAt": 1788873433804,
+    "deadlineAt": 1788873841917,
+    "sourceStable": true,
+    "drift": []
+  },
+  "rootContainerAbsence": {
+    "path": ".staging/wave-bv-root-calibration-astra-2026-09-08/root-container-absence.json",
+    "sha256": "509d8fdc19dc37686b478e9a49045d1163e6abf9ab75e41293e002c6ae85ae1d",
+    "count": 9,
+    "allAbsent": true
+  },
+  "calls": [
+    {
+      "path": ".staging/wave-bu-calibration-live-astra-2026-09-08/review.native-control/calls/ccf7cb94-face-40a4-ba90-830d8584506b.terminal.json",
+      "sha256": "97e613e574a43b2f23b948c949c79c6f7243e7e539d499946deab776fb2910e6",
+      "outcome": "complete"
+    },
+    {
+      "path": ".staging/wave-bu-calibration-live-astra-2026-09-08/review.native-control/calls/fda1e4b9-48ef-48c0-a779-2ff3eadeaee2.terminal.json",
+      "sha256": "ffe09ff8f93d0d93c9908196246d0f1b2ccf85b366d937cc18f8d2841d9ba6fe",
+      "outcome": "complete"
+    },
+    {
+      "path": ".staging/wave-bu-calibration-live-astra-2026-09-08/review.native-control/calls/5d4e9ef7-390a-483f-9a05-9d7ca2a000fd.terminal.json",
+      "sha256": "c885d8c07a29f203c3d5e7aae588e543b3693cc0c347628576f32559c2866b48",
+      "outcome": "complete"
+    }
+  ],
+  "nativeSettledCumulative": 94,
+  "priorUnresolvedNativeIntents": 1,
+  "apiIncrementUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "corrections": [
+    "Initial root absence parser assumed wrapped settlement schema; it stopped without mutation on flat context-probe schema. Corrected parser independently verified all nine IDs."
+  ]
+}

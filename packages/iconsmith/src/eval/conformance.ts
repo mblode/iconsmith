@@ -129,7 +129,7 @@ export const PACK_VARIANTS: Record<string, PackVariant> = {
 };
 
 /** The house set, whose own pass rate is the ceiling. */
-export const HOUSE_SET = "blode-icons";
+const HOUSE_SET = "blode-icons";
 
 export interface PackRates {
   /** No error-severity issue. */

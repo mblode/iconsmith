@@ -1,0 +1,36 @@
+{
+  "id": "D411",
+  "recordedAt": 1788877700370,
+  "status": "prepared-not-integrated",
+  "apiCandidate": "google/gemini-3.7-flash",
+  "apiAdapterEligible": false,
+  "apiReason": "Current gateway discards exact returned identity, reveals concept, lacks frozen attachment/request/pre-call cost boundary; no dispatch authorized by this receipt.",
+  "authorGuidance": "No cohort when absent; optional keyline asserts both rendered extent axes, removing declaration has no pixel improvement credit.",
+  "focusedGuidanceTests": 47,
+  "canonicalMutation": false,
+  "providerCalls": 0,
+  "apiReservedUsd": 0,
+  "qualified": false,
+  "evidence": [
+    {
+      "path": ".staging/wave-ca-fourth-lineage-api-feasibility-2026-09-09/receipt.json",
+      "sha256": "560fa5b1264fb9be79d1a2b9e470ee13321265f6a11086f7d5b75a67e5d7045c"
+    },
+    {
+      "path": ".staging/wave-ca-fourth-lineage-api-feasibility-2026-09-09/feasibility.json",
+      "sha256": "dbbce4b29e422826614d095ab6d8f33137a44efb0d2ee3f65243f83b8f6be4ad"
+    },
+    {
+      "path": ".staging/wave-ca-fourth-lineage-api-feasibility-2026-09-09/capability-probe-manifest.json",
+      "sha256": "b0c798b71741bb04cab076baf4ce4dcad99b6e1a988f2b2f84162629ef517826"
+    },
+    {
+      "path": ".staging/wave-cb-author-constraint-guidance-2026-09-09/receipt.json",
+      "sha256": "75b163a7c90c132c765245dab5092904848916dd22585f17b93fa978b75f3d9b"
+    },
+    {
+      "path": ".staging/wave-cb-author-constraint-guidance-2026-09-09/patch/author-constraint-guidance.patch",
+      "sha256": "f8c1fe79c94cbcf4e6fa98532c0383440d7c6b5037641114db1c47e0afeaf81b"
+    }
+  ]
+}

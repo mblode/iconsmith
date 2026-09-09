@@ -1,0 +1,58 @@
+{
+  "id": "D447",
+  "status": "additive-development-census-verified",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "agentModel": "gpt-5.6-sol",
+  "agentEffort": "medium",
+  "manifestBindingsVerified": 25,
+  "evidence": [
+    {
+      "path": ".staging/wave-cs-head-census-ingest-2026-09-09/receipt.json",
+      "sha256": "16e30cec2002083d56ff4b891c56bb93cb785a4937eef68842e8ed02b840a025"
+    },
+    {
+      "path": ".staging/wave-cs-head-census-ingest-2026-09-09/manifest.json",
+      "sha256": "63a68b55ea0e7d925b99dc7a73a6227d4c9b2f63f4f8a39b714ac79af5000d06"
+    },
+    {
+      "path": ".staging/wave-cs-head-census-ingest-2026-09-09/overlay-444.json",
+      "sha256": "46184d5e3ea5ad3add074acdbc8713289cc6a197702fdfd905ddae5aba60ef3f"
+    },
+    {
+      "path": ".staging/wave-cs-head-census-ingest-2026-09-09/root-independent-replay.mts",
+      "sha256": "d7c29c31a4aa59c84f20a6a1f999b8177d5af3170f6d6e5ef156c4f6c0c915d7"
+    },
+    {
+      "path": ".staging/wave-cs-head-census-ingest-2026-09-09/root-independent-replay.json",
+      "sha256": "e8a83c03e2f40907569c319535a805fe23d8b3d4bd8b861b1b436e11c2efb82a"
+    }
+  ],
+  "accounting": {
+    "schema": "iconsmith.semantic-census-accounting.v1",
+    "candidateConceptsNewlyMapped": 35,
+    "headConceptsNewlyInspectedAndMapped": 30,
+    "priorMappedConceptsPreserved": 379,
+    "mappedConcepts": 444,
+    "mappedSlots": 1776,
+    "inspectedUnresolvedConcepts": 9,
+    "inspectedUnresolvedSlots": 36,
+    "totalInspectedConcepts": 453,
+    "trulyUninspectedConcepts": 1768,
+    "trulyUninspectedSlots": 7072,
+    "catalogConcepts": 2221,
+    "requestSlots": 8884,
+    "sourceFiles": 4357,
+    "qualification": false
+  },
+  "preservedPriorConcepts": 379,
+  "preservedPriorSlots": 1516,
+  "limitations": [
+    "Names-exposed broad family membership only; no alias or derivative approvals.",
+    "Thirty additional self-head concepts are supported by the same exact root and independent Sol image observations; they are distinct catalog requests.",
+    "Nine inspected unresolved relationships remain unreviewed in the semantic overlay.",
+    "No recognition, construction-class, native16 optical or visual qualification."
+  ],
+  "costLedger": "docs/log/api-budget-after-d445-2026-09-09.json"
+}

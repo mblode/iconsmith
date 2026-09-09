@@ -1,0 +1,23 @@
+{
+  "id": "D517",
+  "kind": "canonical-controlled-finalization-hook-offline-intent",
+  "observedAt": "2026-09-09T01:51:52.645627+00:00",
+  "baseline": "D512 source/D514 live",
+  "scope": "Bind an opt-in static diagnostic plan through canonical campaign launch to existing single-use finalizer interruption. Actual parent deadline/request/reservation bound after launch; unchanged terminal authority.",
+  "ownership": {
+    "runtime": [
+      "local-native-interruption-diagnostic.ts/test",
+      "local-native-config.ts/test",
+      "local-generate.ts/test"
+    ],
+    "root": [
+      "local-campaign.ts/test",
+      "shared docs and integration"
+    ]
+  },
+  "circularityCorrection": "Select target by concept/master plus frozen static identities; derived requestId and actual parent deadline are bound after launch, not self-referential plan fields.",
+  "maxProviderCalls": 0,
+  "newApiReservationUsd": 0,
+  "plannedValidation": "Focused negative binding/ownership/resume controls then one fresh sequential source-stable integration; no live salvage until frozen intent and reservation",
+  "qualificationGranted": false
+}

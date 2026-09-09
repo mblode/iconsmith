@@ -1,0 +1,84 @@
+{
+  "id": "D336",
+  "kind": "integrated-offline-wave-verification",
+  "testCount": 2258,
+  "testFiles": 171,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 31227,
+      "log": ".staging/wave-bg-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1300,
+      "log": ".staging/wave-bg-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5116,
+      "log": ".staging/wave-bg-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1340,
+      "log": ".staging/wave-bg-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 55,
+      "log": ".staging/wave-bg-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "artifactHashes": {
+    ".staging/wave-bg-integration-2026-09-08/stable.json": "677279606ba0acbd1645af9a575e0e8e077cd05dbffcf459b11bb92725eefc45",
+    ".staging/wave-bg-integration-2026-09-08/source-before.json": "2fdf695a308d7e85b7c5a6cc49c0fb0f9bd8094ea6418ec0597f5b4b6e35558b",
+    ".staging/wave-bg-integration-2026-09-08/source-after.json": "2fdf695a308d7e85b7c5a6cc49c0fb0f9bd8094ea6418ec0597f5b4b6e35558b",
+    ".staging/wave-bg-integration-2026-09-08/test.log": "38d37cc04aa5cb8a21ea16354e43d54d5bd5dd66dd9cbb17ee1ffb6e6dd919ab",
+    ".staging/wave-bg-integration-2026-09-08/results.json": "bec24de73c18940b06911e3f139b6eb35bb90ae27fb0b48786c161aef6f92cb7",
+    ".staging/wave-bg-integration-2026-09-08/typecheck.log": "2a1aba9dd0d4bffcc9a070228be989c2ff2ff239108d33088cd685cff450dffb",
+    ".staging/wave-bg-integration-2026-09-08/check.log": "6db63237d86a0be63a05deb8444689a21dbcfa5724cffcc9e541cd8c7c9bbc07",
+    ".staging/wave-bg-integration-2026-09-08/diff.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".staging/wave-bg-integration-2026-09-08/build.log": "96ea2fe9f416595a52e8d0eb4de6dd3e3c0bc26c95afbb089186debe2fbf3006"
+  },
+  "changes": [
+    "Mini inline review profile",
+    "source-bound semantic disposition ingestion",
+    "request forecast telemetry"
+  ],
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 78,
+  "qualified": false
+}

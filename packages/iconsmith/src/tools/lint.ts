@@ -36,8 +36,8 @@ import { bbox, parsePath, polylineDistance } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
 import type { BooleanDrawOp, Box, Finish, Issue, Keyline } from "../types.js";
 import { iconEdgeAngles, offAxisEdges } from "./angle.js";
-import { SPEC } from "./canvas.js";
-import type { Spec } from "./canvas.js";
+import { resolveFilledPaint, SPEC } from "./canvas.js";
+import type { FilledPaintElement, Spec } from "./canvas.js";
 import type { CohortView } from "./cohort.js";
 import { verdict } from "./cohort.js";
 import { cuts } from "./cut.js";
@@ -45,8 +45,16 @@ import { needsStrokeBounds } from "./spec.js";
 import { expandStroke } from "./stroke.js";
 
 /** The shape lint needs from a canvas: drawn path data with a name to blame. */
-export interface LintElement {
+export interface LintElement extends FilledPaintElement {
+  /** Ordered admitted-source child metadata retained by a live Canvas. */
+  assembly?: {
+    id: string;
+    index: number;
+    length: number;
+    rootElementId: string;
+  };
   d: string;
+  fillRule?: "evenodd" | "nonzero";
   id: string;
   /**
    * The program asked for this geometry off 0/45/90 by name.
@@ -695,23 +703,30 @@ const paintedMeasurement = (els: LintElement[], spec: Spec): boolean =>
   needsStrokeBounds(spec) || els.some((e) => e.strokeWidth !== undefined);
 
 /** Miter bounds come from the actual stroke, not a half-width padding guess. */
-const extentBox = (elements: LintElement[], finish: Finish, spec: Spec): Box =>
-  bbox(
-    elements.flatMap((e) =>
-      parsePath(
-        finish === "outlined" &&
-          paintedMeasurement(elements, spec) &&
-          e.strokeWidth !== 0
-          ? expandStroke(e.d, e.strokeWidth ?? spec.stroke, {
-              cap: spec.strokeCap ?? "round",
-              join: spec.strokeJoin ?? "round",
-            })
-          : e.d
-      )
-    )
-  );
+/** Bounds of the ink that ships, after filled knockouts are resolved. */
+const extentBox = (
+  elements: LintElement[],
+  finish: Finish,
+  spec: Spec
+): Box | null => {
+  const paths =
+    finish === "filled"
+      ? resolveFilledPaint(elements).flatMap(({ d }) => parsePath(d))
+      : elements.flatMap((e) =>
+          parsePath(
+            paintedMeasurement(elements, spec) && e.strokeWidth !== 0
+              ? expandStroke(e.d, e.strokeWidth ?? spec.stroke, {
+                  cap: spec.strokeCap ?? "round",
+                  join: spec.strokeJoin ?? "round",
+                })
+              : e.d
+          )
+        );
+  return paths.length > 0 ? bbox(paths) : null;
+};
 
 /** Everything the house spec has to say about a drawing. */
+// eslint-disable-next-line complexity -- resolved filled ink adds one explicit empty state.
 export const lint = (
   canvas: LintTarget,
   { cohort = null, keyline = null }: LintOptions = {}
@@ -723,7 +738,27 @@ export const lint = (
 
   const finish = canvas.finish ?? "outlined";
   const spec = canvas.spec ?? SPEC;
-  const b = extentBox(els, finish, spec);
+  let b: Box | null;
+  try {
+    b = extentBox(els, finish, spec);
+  } catch (error) {
+    return [
+      {
+        message: `Invalid filled paint structure: ${error instanceof Error ? error.message : String(error)}`,
+        rule: "substance",
+        severity: "error",
+      },
+    ];
+  }
+  if (!b) {
+    return [
+      {
+        message: "Canvas has no painted geometry.",
+        rule: "empty",
+        severity: "error",
+      },
+    ];
+  }
   const sharp = finish === "outlined" && paintedMeasurement(els, spec);
   // Visual extent includes half the ink on each side — the distinction that
   // invalidated the previous revision's keyline measurements, and the one
@@ -794,7 +829,7 @@ export const lint = (
  * distinction the fourth state was introduced to protect is the reason it is
  * not needed.
  */
-export type CheckStatus = "error" | "pass" | "warn";
+type CheckStatus = "error" | "pass" | "warn";
 
 /** One house-spec question, including the ones that passed. `lint` returns
  *  only failures; the viewer needs the rest of the chain so a clean card
@@ -921,6 +956,13 @@ export const review = (
   const finish = canvas.finish ?? "outlined";
   const spec = canvas.spec ?? SPEC;
   const b = extentBox(canvas.elements, finish, spec);
+  if (!b) {
+    return issues.map((issue) => ({
+      message: issue.message,
+      rule: issue.rule,
+      status: issue.severity,
+    }));
+  }
   const ink =
     finish === "filled" || paintedMeasurement(canvas.elements, spec)
       ? 0

@@ -1,0 +1,5 @@
+
+> check:boundaries
+> node scripts/check-boundaries.ts
+
+boundaries ok — geometry ← parts ← tools ← pipeline ← commands

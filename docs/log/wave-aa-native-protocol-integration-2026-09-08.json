@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "kind": "native-review-and-interruption-offline-integration",
+  "createdAt": "2026-09-08T07:07:28.124139+00:00",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "sourceHashes": {
+    "packages/iconsmith/scripts/local-process.ts": "691e725be2564bf75dc8d8891bcf1acce6eb8f128212eefb7419aa554b4d1b8f",
+    "packages/iconsmith/scripts/local-process.test.ts": "12711496b710096fb937c179c49d2031d90290cfc091b003034b506d5730243a",
+    "packages/iconsmith/scripts/local-container-process.ts": "74df1641db4d97ca1907fa5dac0e3165bca4f9c177485801834d943af81a4b5a",
+    "packages/iconsmith/scripts/local-container-process.test.ts": "0c7764f2e0a95a7587232fa5ecb5186992c94d71147bee0b5dc03246e6c3a26c",
+    "packages/iconsmith/scripts/local-container-runtime.ts": "ce4fbfcdff191a5596a79ead683c27d90c04b88bf9ea45ca63262f8f774a3e35",
+    "packages/iconsmith/scripts/local-container-runtime.test.ts": "3d2a651c6c74c434b9558c02952360133caa4f62c4d8a2872d7fa7c6a6d8df17",
+    "packages/iconsmith/scripts/local-native-call-factory.ts": "bd19e5ebc3da42f6b9c2a9f7140671992da7f36bbc89344591972664bcd376bc",
+    "packages/iconsmith/scripts/local-native-call-factory.test.ts": "230917237f98c072d275efbcbb136de979b0d7228404ed2df7b479e39b613005",
+    "packages/iconsmith/scripts/local-native-interruption-diagnostic.ts": "f587096628e0bc8d13f1b96900c47e10158e330e7ebc9c50477188b0ca92974c",
+    "packages/iconsmith/scripts/local-native-interruption-diagnostic.test.ts": "8927b717fc3df6d02685be4f8d3eb3c6c74e5c6d5b530711f2fe7fe281fe046c",
+    "packages/iconsmith/scripts/local-astra-author.ts": "9ba5c65dcde788253d468b9bfeacf791eda1d7e59b47ea4bf433919955ddf1f9",
+    "packages/iconsmith/scripts/local-astra-author.test.ts": "fa0917b7357d817009c53137a40f289a5c6b2ae23953226f42f37ac7ee03f40a",
+    "packages/iconsmith/scripts/ai-review-protocol.ts": "e9a88170e23366ecf1f5ea620ac74ef452f3d4f9dca80401297bffa82c2b9c0e",
+    "packages/iconsmith/scripts/ai-review-protocol.test.ts": "a9741123dda76ee62c95d6f8876a466f14eba6e774bfd6526390ead722687aee",
+    "packages/iconsmith/scripts/ai-review-campaign.ts": "cb7560a4f3aa0b6622fc79adc4017c8793b50f058f85b291f5db0af78dddb0ac",
+    "packages/iconsmith/scripts/ai-review-campaign.test.ts": "4fef7a09f52d5d20373823bbba95287fa61386989eaba6480d99601097f86b45",
+    "packages/iconsmith/scripts/local-review.ts": "ccd4e6de139c93fb86e52e065ce463104dcf7869bbbb261e0208cb2ad3450d07",
+    "packages/iconsmith/scripts/local-review.test.ts": "4e7a60bc4cae4139156aff1d25028bd617c540cd748ecfebf275d12196a33aee",
+    "packages/iconsmith/scripts/local-codex-review.ts": "b762d665b64c527008894e411ba7f1a321328099db630c23e2447f3abed62119",
+    "packages/iconsmith/scripts/local-codex-review.test.ts": "22642be486bfd431a96b9ca646f44beffc85c690003dca1783892f0b66451f18"
+  },
+  "checks": [
+    {
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "iconsmith",
+        "--",
+        "vitest",
+        "run",
+        "scripts/local-process.test.ts",
+        "scripts/local-container-process.test.ts",
+        "scripts/local-container-runtime.test.ts",
+        "scripts/local-native-call-factory.test.ts",
+        "scripts/local-native-interruption-diagnostic.test.ts",
+        "scripts/local-astra-author.test.ts",
+        "scripts/ai-review-protocol.test.ts",
+        "scripts/ai-review-campaign.test.ts",
+        "scripts/local-review.test.ts",
+        "scripts/local-codex-review.test.ts"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 13200,
+      "log": ".staging/wave-aa-native-protocol-integration-2026-09-08/check-0.log",
+      "logSha256": "9ecf651369e04486541b46909a20ab8e33663a0c5641b00a7d3f67b687898438"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck",
+        "-w",
+        "iconsmith"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1074,
+      "log": ".staging/wave-aa-native-protocol-integration-2026-09-08/check-1.log",
+      "logSha256": "0c26de291af5215b52e0f5673b93037a8623b5bf847e33936c67372dd9a12836"
+    },
+    {
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "iconsmith",
+        "--",
+        "ultracite",
+        "check",
+        "scripts/local-process.ts",
+        "scripts/local-process.test.ts",
+        "scripts/local-container-process.ts",
+        "scripts/local-container-process.test.ts",
+        "scripts/local-container-runtime.ts",
+        "scripts/local-container-runtime.test.ts",
+        "scripts/local-native-call-factory.ts",
+        "scripts/local-native-call-factory.test.ts",
+        "scripts/local-native-interruption-diagnostic.ts",
+        "scripts/local-native-interruption-diagnostic.test.ts",
+        "scripts/local-astra-author.ts",
+        "scripts/local-astra-author.test.ts",
+        "scripts/ai-review-protocol.ts",
+        "scripts/ai-review-protocol.test.ts",
+        "scripts/ai-review-campaign.ts",
+        "scripts/ai-review-campaign.test.ts",
+        "scripts/local-review.ts",
+        "scripts/local-review.test.ts",
+        "scripts/local-codex-review.ts",
+        "scripts/local-codex-review.test.ts"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 637,
+      "log": ".staging/wave-aa-native-protocol-integration-2026-09-08/check-2.log",
+      "logSha256": "e067add6a90f985805a8729a6f86893647e49ffbd9d17d1903a5c0b548205163"
+    }
+  ],
+  "verification": "145 tests in10files, both workspace TypeScript configurations and20file scoped lint pass",
+  "behavior": [
+    "Prospective recognition/adjudication/craft terminals fsync file and directory before next stage; rejected invokes remain terminal failures.",
+    "Craft receives five canonical rubric questions without adjudication outcome or rationale.",
+    "Explicit sealed-text native mode requires zero images and no file/tool access; permits only matched text-only StructuredOutput results. Default image mode still requires images.",
+    "Complete native adapter receipts expose verified emitted model lineage; missing or wrong model stays incomplete.",
+    "Opaque diagnostic finalize observer preserves split UTF8, bounds queued output, drains within original deadline, and aborts owned trigger effects before settlement.",
+    "Root additionally prevents starting queued callbacks after abort and retains quiescence-unproven code for unsettled observer."
+  ],
+  "limitations": [
+    "No new provider calls or live controlled interruption.",
+    "Prospective campaign still lacks native dispatch integration and production provenance; production eligibility remains false.",
+    "Compiler22 has74supported-source regressions pending correction; P2 engineering freeze failed.",
+    "Process-table observer remains limited to owned observed processes; verified container boundary remains required."
+  ],
+  "costs": {
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "newNativeAdapterCalls": 0,
+    "cumulativeNativeAdapterCalls": 31,
+    "nativeDollarAllocation": "unknown"
+  },
+  "qualified": false,
+  "phaseExitCompleted": false
+}

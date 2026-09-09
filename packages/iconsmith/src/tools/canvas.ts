@@ -225,7 +225,52 @@ const offAxisMessage = (
  * and because `hole()` is the only thing that ever writes it. Absent means
  * `add`, so an element written before this existed still means what it meant.
  */
-export type Op = "add" | "knockout";
+type Op = "add" | "knockout";
+
+/** Host-issued authority for exact source-frame reconstruction. It is not
+ * serializable into a Part or an author DSL program. */
+export interface SourceOriginGrant {
+  readonly part: Part;
+  readonly sourceHash: string;
+  readonly x: number;
+  readonly y: number;
+}
+
+const sourceOriginGrants = new WeakSet<object>();
+
+export const issueSourceOriginGrant = (
+  part: Part,
+  binding: { sourceHash: string; x: number; y: number }
+): SourceOriginGrant => {
+  if (!/^[a-f0-9]{64}$/u.test(binding.sourceHash)) {
+    throw new Error("Source-origin grant requires an exact sha256 source hash");
+  }
+  if (![binding.x, binding.y, part.w, part.h].every(Number.isFinite)) {
+    throw new Error("Source-origin grant geometry must be finite");
+  }
+  if (
+    binding.x < 0 ||
+    binding.y < 0 ||
+    (part.w <= 0 && part.h <= 0) ||
+    binding.x + part.w > SPEC.canvas ||
+    binding.y + part.h > SPEC.canvas
+  ) {
+    throw new Error("Source-origin grant must fit the 24-unit source viewBox");
+  }
+  if (part.sourceAssembly || part.sourceAssemblyOnly) {
+    throw new Error(
+      "Source-origin grants bind independently admitted indexed parts only"
+    );
+  }
+  const grant = Object.freeze({
+    part,
+    sourceHash: binding.sourceHash,
+    x: binding.x,
+    y: binding.y,
+  });
+  sourceOriginGrants.add(grant);
+  return grant;
+};
 
 export type Element = {
   /** Derived from a solid modifier recipe; zero means this element is already ink. */
@@ -281,6 +326,12 @@ export type Element = {
       points: [number, number][];
     }
   | {
+      assembly?: {
+        id: string;
+        index: number;
+        length: number;
+        rootElementId: string;
+      };
       d: string;
       /** Set only when the part was actually reflected, so the document records
        *  the geometry rather than how it was requested. */
@@ -305,6 +356,177 @@ export type Element = {
       y: number;
     }
 );
+
+export interface FilledPaintElement {
+  assembly?: {
+    id: string;
+    index: number;
+    length: number;
+    rootElementId: string;
+  };
+  d: string;
+  fillRule?: "nonzero" | "evenodd";
+  hole?: boolean;
+  id: string;
+  op?: Op;
+}
+
+export interface ResolvedFilledPaint<
+  T extends FilledPaintElement,
+> extends BooleanOperand {
+  element: T;
+}
+
+const filledPaintHole = (element: FilledPaintElement): boolean =>
+  element.op === "knockout" || element.hole === true;
+
+const subtractFilledHoles = <T extends FilledPaintElement>(
+  solid: T,
+  holes: readonly FilledPaintElement[]
+): ResolvedFilledPaint<T> => {
+  const base: BooleanOperand = {
+    d: solid.d,
+    fillRule: solid.fillRule ?? "evenodd",
+  };
+  if (holes.length === 0) {
+    return { ...base, element: solid };
+  }
+  const [firstHole, ...remainingHoles] = holes;
+  let cutter: BooleanOperand = {
+    d: firstHole.d,
+    fillRule: firstHole.fillRule ?? "evenodd",
+  };
+  for (const hole of remainingHoles) {
+    cutter = {
+      d: combinePaths("union", cutter, {
+        d: hole.d,
+        fillRule: hole.fillRule ?? "evenodd",
+      }),
+      fillRule: "nonzero",
+    };
+  }
+  return {
+    d: combinePaths("subtract", base, cutter, { allowEmpty: true }),
+    element: solid,
+    fillRule: "nonzero",
+  };
+};
+
+/** Resolve the ink that a filled canvas actually ships. Source assemblies keep
+ * one SVG path per admitted child, while every knockout attached to the root is
+ * subtracted from every child. Lint consumes this same result so house bounds
+ * cannot drift from the renderer. */
+export const resolveFilledPaint = <T extends FilledPaintElement>(
+  elements: readonly T[]
+): ResolvedFilledPaint<T>[] => {
+  const resolved: ResolvedFilledPaint<T>[] = [];
+  for (let index = 0; index < elements.length; index += 1) {
+    const element = elements[index];
+    if (filledPaintHole(element)) {
+      throw new Error(`Filled knockout ${element.id} has no preceding solid`);
+    }
+    const { assembly } = element;
+    if (!assembly) {
+      const holes: T[] = [];
+      while (
+        index + 1 < elements.length &&
+        filledPaintHole(elements[index + 1])
+      ) {
+        holes.push(elements[index + 1]);
+        index += 1;
+      }
+      resolved.push(subtractFilledHoles(element, holes));
+      continue;
+    }
+    if (
+      assembly.index !== 0 ||
+      !Number.isInteger(assembly.length) ||
+      assembly.length < 2 ||
+      assembly.rootElementId !== element.id ||
+      index + assembly.length > elements.length
+    ) {
+      throw new Error(`Invalid filled assembly metadata on ${element.id}`);
+    }
+    const children = elements.slice(index, index + assembly.length);
+    for (const [childIndex, child] of children.entries()) {
+      const childAssembly = child.assembly;
+      if (
+        filledPaintHole(child) ||
+        !childAssembly ||
+        childAssembly.id !== assembly.id ||
+        childAssembly.index !== childIndex ||
+        childAssembly.length !== assembly.length ||
+        childAssembly.rootElementId !== assembly.rootElementId
+      ) {
+        throw new Error(`Invalid filled assembly child ${child.id}`);
+      }
+    }
+    index += assembly.length - 1;
+    const holes: T[] = [];
+    while (
+      index + 1 < elements.length &&
+      filledPaintHole(elements[index + 1])
+    ) {
+      holes.push(elements[index + 1]);
+      index += 1;
+    }
+    resolved.push(
+      ...children.map((child) => subtractFilledHoles(child, holes))
+    );
+  }
+  return resolved;
+};
+
+type PartElement = Extract<Element, { kind: "part" }>;
+const isAssemblyContinuation = (element: Element): boolean =>
+  element.kind === "part" &&
+  Boolean(element.assembly && element.assembly.index > 0);
+const partReferenceId = (element: PartElement): string =>
+  element.assembly ? element.assembly.id : element.partId;
+const restoreElementIds = (next: Element[], sourceIds: string[]): void => {
+  if (next.length !== sourceIds.length) {
+    throw new Error("Transform changed the number of drawing elements");
+  }
+  const idRemap = new Map<string, string>();
+  for (const [index, element] of next.entries()) {
+    const sourceId = sourceIds[index];
+    idRemap.set(element.id, sourceId);
+    element.id = sourceId;
+  }
+  for (const element of next) {
+    if (element.kind === "part" && element.assembly) {
+      const rootElementId = idRemap.get(element.assembly.rootElementId);
+      if (!rootElementId) {
+        throw new Error("Source assembly root identity was lost in transform");
+      }
+      element.assembly.rootElementId = rootElementId;
+    }
+  }
+};
+
+const transformedSourceIds = (
+  source: readonly Element[],
+  element: Element,
+  emitted: number
+): string[] => {
+  if (element.kind !== "part" || !element.assembly) {
+    return [element.id];
+  }
+  const children = source
+    .filter(
+      (candidate): candidate is PartElement =>
+        candidate.kind === "part" &&
+        candidate.assembly?.rootElementId === element.assembly?.rootElementId
+    )
+    .toSorted(
+      (left, right) =>
+        (left.assembly?.index ?? 0) - (right.assembly?.index ?? 0)
+    );
+  if (emitted !== children.length) {
+    throw new Error("Transform changed source assembly membership");
+  }
+  return children.map(({ id }) => id);
+};
 
 const rectPath = (
   x: number,
@@ -350,7 +572,7 @@ const atCircle = (
  * both `half from left`, one of them flipped. Quarters only: a free sweep
  * is an angle, and an angle is a coordinate.
  */
-export const arcPath = (
+const arcPath = (
   cx: number,
   cy: number,
   r: number,
@@ -674,7 +896,7 @@ export class Canvas {
     radius?: number
   ): string {
     this.#checkCompositionFinish(operation);
-    const groups = this.#groups();
+    const groups = this.#compositionGroups();
     const left = leftId
       ? groups.find((g) => g[0].id === leftId)
       : groups.at(-2);
@@ -755,7 +977,7 @@ export class Canvas {
         [...this.parts.values()],
         this.spec
       );
-      const groups = c.#groups();
+      const groups = c.#compositionGroups();
       if (groups.length !== 1) {
         throw new Error("A Boolean operand must be one solid group");
       }
@@ -936,6 +1158,21 @@ export class Canvas {
 
   /** Index of the solid a hole is to be cut from, by id or by recency. */
   #solidFor(id?: string): number {
+    const rootIndex = (index: number): number => {
+      const element = this.elements[index];
+      const rootElementId =
+        element.kind === "part" ? element.assembly?.rootElementId : undefined;
+      if (!rootElementId) {
+        return index;
+      }
+      const root = this.elements.findIndex(
+        (candidate) => candidate.id === rootElementId
+      );
+      if (root === -1) {
+        throw new Error("Source assembly has no root element");
+      }
+      return root;
+    };
     if (id === undefined) {
       const last = this.elements.findLastIndex((e) => e.op !== "knockout");
       if (last === -1) {
@@ -944,7 +1181,7 @@ export class Canvas {
             "knock the hole out of it"
         );
       }
-      return last;
+      return rootIndex(last);
     }
     const i = this.elements.findIndex((e) => e.id === id);
     if (i === -1) {
@@ -956,28 +1193,54 @@ export class Canvas {
           "cut both out of the shape they sit in instead"
       );
     }
-    return i;
+    return rootIndex(i);
   }
 
   /** One past the last element belonging to the solid at `i`: itself, plus the
    *  run of knockouts already cut from it. */
   #groupEnd(i: number): number {
-    let end = i + 1;
+    const element = this.elements[i];
+    let end =
+      element.kind === "part" && element.assembly
+        ? i + element.assembly.length
+        : i + 1;
     while (end < this.elements.length && this.elements[end].op === "knockout") {
       end += 1;
     }
     return end;
   }
 
-  /** A cut only removes ink. Union cutters with their own fill rules before
-   * subtracting; parity would restore ink wherever two cutters overlap.
-   * Shared by final SVG and nested Boolean operands. Recipes stay editable. */
+  /** Resolve one Boolean operand. A cut only removes ink: union cutters with
+   * their own fill rules before subtracting, because parity would restore ink
+   * wherever two cutters overlap. */
   static #filledGroup(group: Element[]): BooleanOperand {
-    const [solid, ...holes] = group;
-    const base = {
-      d: solid.d,
-      fillRule: solid.fillRule ?? ("evenodd" as const),
+    const [solid] = group;
+    const assemblyLength =
+      solid.kind === "part" && solid.assembly ? solid.assembly.length : 1;
+    const positives = group.slice(0, assemblyLength);
+    const holes = group.slice(assemblyLength);
+    let base: BooleanOperand = {
+      d: positives[0].d,
+      fillRule: positives[0].fillRule ?? "evenodd",
     };
+    if (positives[0].strokeWidth === undefined) {
+      for (const positive of positives.slice(1)) {
+        base = {
+          d: `${base.d}${positive.d}`,
+          fillRule: "nonzero",
+        };
+      }
+    } else {
+      for (const positive of positives.slice(1)) {
+        base = {
+          d: combinePaths("union", base, {
+            d: positive.d,
+            fillRule: positive.fillRule ?? "evenodd",
+          }),
+          fillRule: "nonzero",
+        };
+      }
+    }
     if (holes.length === 0) {
       return base;
     }
@@ -994,14 +1257,23 @@ export class Canvas {
     };
   }
 
-  /** The elements as they serialise: each solid followed by its holes. */
-  #groups(): Element[][] {
+  /** Boolean operands treat an admitted source assembly as one ordered group.
+   * Normal SVG serialization deliberately keeps the children separate. */
+  #compositionGroups(): Element[][] {
     const out: Element[][] = [];
-    for (const e of this.elements) {
-      if (e.op === "knockout" && out.length > 0) {
-        out.at(-1)?.push(e);
+    for (let i = 0; i < this.elements.length; i += 1) {
+      const element = this.elements[i];
+      if (
+        element.kind === "part" &&
+        element.assembly &&
+        element.assembly.index === 0
+      ) {
+        out.push(this.elements.slice(i, i + element.assembly.length));
+        i += element.assembly.length - 1;
+      } else if (element.op === "knockout" && out.length > 0) {
+        out.at(-1)?.push(element);
       } else {
-        out.push([e]);
+        out.push([element]);
       }
     }
     return out;
@@ -1335,7 +1607,97 @@ export class Canvas {
         `unknown part ${id} — call listParts to see the vocabulary`
       );
     }
+    if (p.sourceAssemblyOnly) {
+      throw new Error(
+        `Source child ${id} is private to assembly ${p.sourceAssemblyOnly}; place the assembly instead`
+      );
+    }
     const preserve = this.spec.partGeometry !== "grid";
+    if (p.sourceAssembly) {
+      const assembly = p.sourceAssembly;
+      if (assembly.finish !== this.finish) {
+        throw new Error(
+          `Source assembly ${id} is ${assembly.finish}, not ${this.finish}`
+        );
+      }
+      const px = preserve ? q(x, this.spec.grid) : x;
+      const py = preserve ? q(y, this.spec.grid) : y;
+      const t = quarterTurn(turn);
+      const children = assembly.children.map((child) => {
+        const target = this.parts.get(child.partId);
+        if (!target || target.sourceAssembly) {
+          throw new Error(
+            `Source assembly ${id} has unavailable direct child ${child.partId}`
+          );
+        }
+        if (child.semantics.kind === "fill") {
+          if (target.sourceFillRule !== child.semantics.fillRule) {
+            throw new Error(
+              `Source assembly ${id} child paint drift: ${child.partId}`
+            );
+          }
+        } else if (
+          target.sourceFillRule ||
+          child.semantics.strokeWidth !== this.spec.stroke ||
+          child.semantics.cap !== (this.spec.strokeCap ?? "round") ||
+          child.semantics.join !== (this.spec.strokeJoin ?? "round")
+        ) {
+          throw new Error(
+            `Source assembly ${id} child stroke semantics do not match this master: ${child.partId}`
+          );
+        }
+        return {
+          child,
+          paths: parsePath(target.d).map((sp) =>
+            translate(sp, child.x, child.y)
+          ),
+          target,
+        };
+      });
+      const oriented = children.map(({ child, paths, target }) => ({
+        child,
+        paths: paths.map((sp) => rotateQuarter(flip ? mirrorX(sp) : sp, t)),
+        target,
+      }));
+      const groupBox = bbox(oriented.flatMap(({ paths }) => paths));
+      const drawings = oriented.map(({ child, paths }) => ({
+        child,
+        d: serialise(
+          paths.map((sp) =>
+            translate(scale(sp, k), px - groupBox.x0 * k, py - groupBox.y0 * k)
+          ),
+          preserve ? undefined : { grid: this.spec.grid }
+        ),
+        ...(child.semantics.kind === "fill"
+          ? { fillRule: child.semantics.fillRule, strokeWidth: 0 }
+          : {}),
+      }));
+      let rootElementId = "";
+      for (const [index, drawing] of drawings.entries()) {
+        const existingRoot = rootElementId;
+        const elementId = this.#push((elId) => ({
+          ...drawing,
+          assembly: {
+            id,
+            index,
+            length: drawings.length,
+            rootElementId: index === 0 ? elId : existingRoot,
+          },
+          ...(flip ? { flip: true as const } : {}),
+          id: elId,
+          kind: "part" as const,
+          partId: drawing.child.partId,
+          scale: k,
+          turn: t,
+          x: px,
+          y: py,
+        }));
+        if (index === 0) {
+          rootElementId = elementId;
+        }
+      }
+      return rootElementId;
+    }
     if (p.sourceFillRule && !p.closed) {
       throw new Error("Source-filled parts must have closed contours");
     }
@@ -1393,6 +1755,52 @@ export class Canvas {
     );
   }
 
+  /** Exact source-frame replay for an admitted indexed part. */
+  sourcePart(grant: SourceOriginGrant): string {
+    if (!sourceOriginGrants.has(grant)) {
+      throw new Error("Source-origin placement requires a host-issued grant");
+    }
+    const part = this.parts.get(grant.part.id);
+    if (part !== grant.part) {
+      throw new Error(
+        "Source-origin grant does not bind this Canvas part identity"
+      );
+    }
+    if (this.spec.partGeometry !== "source") {
+      throw new Error("Source-origin placement requires source part geometry");
+    }
+    if (part.sourceFillRule && !part.closed) {
+      throw new Error("Source-filled parts must have closed contours");
+    }
+    const centerline = serialise(
+      parsePath(part.d).map((subpath) => translate(subpath, grant.x, grant.y))
+    );
+    const expanded = this.finish === "filled" && !part.closed;
+    const drawing = expanded
+      ? {
+          centerline,
+          d: expandStroke(centerline, this.spec.stroke, strokeStyle(this.spec)),
+          fillRule: "nonzero" as const,
+          strokeWidth: 0,
+        }
+      : {
+          d: centerline,
+          ...(part.sourceFillRule
+            ? { fillRule: part.sourceFillRule, strokeWidth: 0 }
+            : {}),
+        };
+    return this.#push((id) => ({
+      ...drawing,
+      id,
+      kind: "part",
+      partId: part.id,
+      scale: 1,
+      turn: 0,
+      x: grant.x,
+      y: grant.y,
+    }));
+  }
+
   raw(d: string, fillRule?: "nonzero" | "evenodd"): string {
     return this.#push((id) => ({
       d,
@@ -1431,7 +1839,9 @@ export class Canvas {
       finish: this.finish,
       spec: this.spec,
     });
-    for (const e of src) {
+    const sourceIds: string[] = [];
+    for (const e of src.filter((element) => !isAssemblyContinuation(element))) {
+      const start = next.elements.length;
       // A knockout re-emits through the same builder as the solid it borrows
       // from, and lands back at the end of the run — which, replaying in
       // order, is exactly where it started. That is why the hole's tie to its
@@ -1503,7 +1913,7 @@ export class Canvas {
         // be carried through — dropping it would silently un-mirror the part.
         next.part({
           flip: e.flip,
-          id: e.partId,
+          id: partReferenceId(e),
           scale: e.scale * k,
           turn: e.turn,
           x: e.x * k + tx,
@@ -1515,15 +1925,16 @@ export class Canvas {
         );
         next.raw(serialise(moved, { grid: next.spec.grid }), e.fillRule);
       }
+      sourceIds.push(
+        ...transformedSourceIds(src, e, next.elements.length - start)
+      );
     }
     // Re-emitting mints fresh ids, but a fit is not a redraw: the handles the
     // model is holding must still name the same shapes afterwards. The
     // elements come back in order, one per source element, so the original ids
     // go back on. The counter never has to be rewound: the ids that were spent
     // were minted on the scratch canvas, which is thrown away with them.
-    for (const [i, e] of next.elements.entries()) {
-      e.id = src[i].id;
-    }
+    restoreElementIds(next.elements, sourceIds);
     this.elements = next.elements;
     // The whole transform is one mutation, and an identity transform is none.
     // `fit` returns the identity when the drawing is already fitted, and
@@ -1545,11 +1956,22 @@ export class Canvas {
    * shape. The returned `removed` names everything that went.
    */
   remove(id: string): { remaining: number; removed: string[] } {
-    const i = this.elements.findIndex((e) => e.id === id);
+    let i = this.elements.findIndex((e) => e.id === id);
     if (i === -1) {
       throw new Error(`no element ${id}`);
     }
-    const end = this.elements[i].op === "knockout" ? i + 1 : this.#groupEnd(i);
+    const selected = this.elements[i];
+    const assembly = selected.kind === "part" ? selected.assembly : undefined;
+    if (assembly) {
+      i = this.elements.findIndex((e) => e.id === assembly.rootElementId);
+      if (i === -1) {
+        throw new Error(`Source assembly ${assembly.id} has no root element`);
+      }
+    }
+    let end = this.#groupEnd(i);
+    if (!assembly && this.elements[i].op === "knockout") {
+      end = i + 1;
+    }
     const gone = this.elements.splice(i, end - i).map((e) => e.id);
     this.#version += 1;
     this.log.push(`remove ${gone.join(", ")}`);
@@ -1568,9 +1990,7 @@ export class Canvas {
     }
     const paths =
       this.finish === "filled"
-        ? this.#groups().flatMap((group) =>
-            parsePath(Canvas.#filledGroup(group).d)
-          )
+        ? resolveFilledPaint(this.elements).flatMap(({ d }) => parsePath(d))
         : this.elements.flatMap((e) => parsePath(e.d));
     return paths.length ? bbox(paths) : null;
   }
@@ -1637,10 +2057,9 @@ export class Canvas {
     if (this.finish !== "filled") {
       return this.bbox();
     }
-    const solids = this.#groups().flatMap((group) => {
-      const { d } = Canvas.#filledGroup(group);
-      return d ? [{ ...group[0], d }] : [];
-    });
+    const solids = resolveFilledPaint(this.elements).flatMap(
+      ({ d, element }) => (d ? [{ ...element, d }] : [])
+    );
     if (!solids.length) {
       return null;
     }
@@ -1714,8 +2133,9 @@ export class Canvas {
    *
    * Outlined: the skeleton, stroked, one `<path>` per element, unchanged.
    *
-   * Filled: one path per solid, with its cutters unioned and subtracted.
-   * SVG output and subsequent Boolean composition resolve the same geometry.
+   * Filled: one path per solid, with its cutters unioned and subtracted. Every
+   * child of an admitted source assembly stays separately rendered and receives
+   * the root's cutters.
    *
    * `stroke` is ignored under a filled finish rather than refused: `render`
    * and the eval harness pass the house width to everything they draw, and a
@@ -1726,11 +2146,11 @@ export class Canvas {
     const { canvas: size } = this.spec;
     const paths =
       this.finish === "filled"
-        ? this.#groups()
-            .map((g) => {
-              const { d, fillRule } = Canvas.#filledGroup(g);
-              return `<path d="${d}" fill="currentColor" fill-rule="${fillRule}" clip-rule="${fillRule}"/>`;
-            })
+        ? resolveFilledPaint(this.elements)
+            .map(
+              ({ d, fillRule }) =>
+                `<path d="${d}" fill="currentColor" fill-rule="${fillRule}" clip-rule="${fillRule}"/>`
+            )
             .join("\n")
         : this.elements
             .map((e) =>
@@ -1751,8 +2171,11 @@ export class Canvas {
     icon = null,
     keyline = null,
   }: { icon?: string | null; keyline?: Keyline | null } = {}): IconDoc {
+    const serialisedElements = this.elements.filter(
+      (element) => !isAssemblyContinuation(element)
+    );
     const doc: IconDoc = {
-      draw: this.elements.map((e): DrawOp => {
+      draw: serialisedElements.map((e): DrawOp => {
         // `knockout` is written only when it is true, like `offAxis` and
         // `flip`: the key appears with the geometry it describes, so a diff
         // showing it shows a shape that changed from ink to absence.
@@ -1808,7 +2231,7 @@ export class Canvas {
         }
         if (e.kind === "part") {
           const op = {
-            id: e.partId,
+            id: partReferenceId(e),
             op: "part" as const,
             scale: e.scale,
             turn: e.turn,
@@ -1912,17 +2335,29 @@ export class Canvas {
     x: number;
     y: number;
   }[] {
-    return this.elements.map((e) => {
-      const b = bbox(parsePath(e.d));
-      const shape = {
-        h: +b.h.toFixed(2),
-        id: e.id,
-        kind: e.kind,
-        w: +b.w.toFixed(2),
-        x: +b.x0.toFixed(2),
-        y: +b.y0.toFixed(2),
-      };
-      return e.op === "knockout" ? { ...shape, hole: true as const } : shape;
-    });
+    return this.elements
+      .filter((e) => !isAssemblyContinuation(e))
+      .map((e) => {
+        const paths =
+          e.kind === "part" && e.assembly
+            ? this.elements
+                .filter(
+                  (child) =>
+                    child.kind === "part" &&
+                    child.assembly?.rootElementId === e.assembly?.rootElementId
+                )
+                .flatMap((child) => parsePath(child.d))
+            : parsePath(e.d);
+        const b = bbox(paths);
+        const shape = {
+          h: +b.h.toFixed(2),
+          id: e.id,
+          kind: e.kind,
+          w: +b.w.toFixed(2),
+          x: +b.x0.toFixed(2),
+          y: +b.y0.toFixed(2),
+        };
+        return e.op === "knockout" ? { ...shape, hole: true as const } : shape;
+      });
   }
 }

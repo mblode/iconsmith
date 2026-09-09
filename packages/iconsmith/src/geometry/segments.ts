@@ -10,9 +10,9 @@
 import type { Subpath } from "../types.js";
 
 /** Below this a run is a join artefact, not a diagonal anyone drew. */
-export const MIN_DIAGONAL_LENGTH = 1.5;
+const MIN_DIAGONAL_LENGTH = 1.5;
 /** Degrees off horizontal or vertical before a run counts as diagonal. */
-export const MIN_OFF_AXIS = 15;
+const MIN_OFF_AXIS = 15;
 
 export type Direction = "balanced" | "falling" | "none" | "rising";
 

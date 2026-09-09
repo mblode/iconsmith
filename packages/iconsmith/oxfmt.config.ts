@@ -30,9 +30,8 @@ import ultracite from "ultracite/oxfmt";
  * `CHANGELOG.md` is the same case again, and it left `npm run check` red on
  * `main`: changesets writes it during `changeset version`, oxfmt disagrees with
  * what it writes, and no hook globs markdown — so every release re-broke the
- * check on a file nobody edits. `apps/web/oxfmt.config.ts` already ignores all
- * markdown for the same reason; this narrows to the generated one rather than
- * giving up on prose, since `README.md` here IS hand-written.
+ * check on a file nobody edits. Ignore the generated changelog while retaining
+ * formatting for hand-written prose.
  */
 export default defineConfig({
   ...ultracite,

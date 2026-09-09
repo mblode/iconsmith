@@ -1,0 +1,78 @@
+{
+  "id": "D287",
+  "observedAt": "2026-09-08T07:36:05.410738+00:00",
+  "verification": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 29317,
+      "log": ".staging/wave-af-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1274,
+      "log": ".staging/wave-af-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5853,
+      "log": ".staging/wave-af-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1331,
+      "log": ".staging/wave-af-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 62,
+      "log": ".staging/wave-af-integration-2026-09-08/diff.log"
+    }
+  ],
+  "testCanary": {
+    "passed": 2166,
+    "files": 170,
+    "skipped": 0
+  },
+  "sourceStable": true,
+  "sourceIdentity": {
+    "path": ".staging/wave-af-integration-2026-09-08/source-after.json",
+    "sha256": "12decaf0f257aa761d0f0e65a1b11bdb4832f0ab775f9d37f99517cecf32de78"
+  },
+  "scope": "Engineering integration freeze only; no phase visual qualification",
+  "costs": {
+    "newProviderCalls": 0,
+    "newApiActual": 0,
+    "newApiReservation": 0
+  },
+  "qualified": false
+}

@@ -34,7 +34,7 @@ import { evaluateTwins } from "./twin-eval.js";
 
 export const HOLD_OUT_UNKNOWN = ["star", "compass", "quokka", "xyzzy"] as const;
 
-export const DEFAULT_PROBED = [
+const DEFAULT_PROBED = [
   "home",
   "house",
   "cactus",
@@ -52,11 +52,10 @@ export const DEFAULT_PROBED = [
   "sailboat",
 ] as const;
 
-export const DEFAULT_BRANCH = "iconsmith/autoresearch";
-export const DEFAULT_ROUNDS = 1;
-export const OVERNIGHT_ROUNDS = 50;
+const DEFAULT_ROUNDS = 1;
+const OVERNIGHT_ROUNDS = 50;
 /** One change plus its neighbour test. A fourth path is a dump. */
-export const MAX_TOUCHED = 3;
+const MAX_TOUCHED = 3;
 
 const WORKSPACE = path.join(import.meta.dirname, "..");
 const STANDING_NAME = "autoresearch.md";
@@ -74,9 +73,9 @@ const FENCE = (name: string): RegExp =>
 const PLAYBOOK_ITEM =
   /^(?<n>\d+)\.\s+\*\*(?<id>[a-z0-9-]+)\*\*\s+[—-]\s+(?<text>.+)$/gmu;
 
-export type Status = "crash" | "discard" | "idle" | "keep";
+type Status = "crash" | "discard" | "idle" | "keep";
 
-export interface PlaybookItem {
+interface PlaybookItem {
   id: string;
   n: number;
   text: string;
@@ -111,7 +110,7 @@ export interface Decision {
   status: Status;
 }
 
-export interface ApplyResult {
+interface ApplyResult {
   description: string;
   kind: "applied" | "skip";
 }
@@ -168,7 +167,7 @@ const linesOf = (body: string): string[] =>
     .map((line) => line.replace(/#.*$/u, "").trim())
     .filter(Boolean);
 
-export const parseFence = (text: string, name: string): string[] => {
+const parseFence = (text: string, name: string): string[] => {
   const out: string[] = [];
   for (const m of text.matchAll(FENCE(name))) {
     out.push(...linesOf(m.groups?.body ?? ""));
@@ -176,7 +175,7 @@ export const parseFence = (text: string, name: string): string[] => {
   return out;
 };
 
-export const parsePlaybook = (text: string): PlaybookItem[] => {
+const parsePlaybook = (text: string): PlaybookItem[] => {
   const items: PlaybookItem[] = [];
   for (const m of text.matchAll(PLAYBOOK_ITEM)) {
     items.push({
@@ -249,7 +248,7 @@ export const pathMatches = (rel: string, pattern: string): boolean => {
   return false;
 };
 
-export const isDeniedPath = (rel: string): boolean => {
+const isDeniedPath = (rel: string): boolean => {
   const norm = rel.replaceAll("\\", "/").replace(/^\.\//u, "");
   return DENIED_PREFIXES.some(
     (prefix) => norm === prefix.slice(0, -1) || norm.startsWith(prefix)
@@ -291,7 +290,7 @@ export const dirtyPaths = (cwd: string): string[] => {
     .map((row) => row.path);
 };
 
-export const assertClean = (cwd: string): void => {
+const assertClean = (cwd: string): void => {
   const dirty = dirtyPaths(cwd);
   if (dirty.length > 0) {
     throw new AutoresearchError(
@@ -312,7 +311,7 @@ const touchedAgainst = (cwd: string, base: string): string[] =>
     .map((line) => line.trim())
     .filter(Boolean);
 
-export const assertEditableOnly = (
+const assertEditableOnly = (
   touched: readonly string[],
   standing: Standing
 ): void => {
@@ -346,11 +345,11 @@ export const assertEditableOnly = (
   }
 };
 
-export const restoreTree = (cwd: string, base = "HEAD"): void => {
+const restoreTree = (cwd: string, base = "HEAD"): void => {
   spawnSync("git", ["reset", "--hard", base], { cwd, encoding: "utf-8" });
 };
 
-export const metricOf = (board: Scoreboard): string => {
+const metricOf = (board: Scoreboard): string => {
   const twin =
     "skipped" in board.twinEval
       ? "twin=skip"
@@ -449,10 +448,10 @@ const isUnknown = (name: string): boolean =>
 const recipeDraws = (id: string): boolean =>
   analogConstructions(id, [], id, false)[0]?.id === id;
 
-export const recipeHolesOf = (): number =>
+const recipeHolesOf = (): number =>
   PAINT_RECIPES.filter((recipe) => !recipeDraws(recipe.id)).length;
 
-export const leftoverOf = (standing: Standing, board: Scoreboard): string => {
+const leftoverOf = (standing: Standing, board: Scoreboard): string => {
   const holes = PAINT_RECIPES.filter((recipe) => !recipeDraws(recipe.id)).map(
     (recipe) => recipe.id
   );
@@ -529,7 +528,7 @@ const runTypecheck = (root: string): boolean => {
   );
 };
 
-export const measureScoreboard = async (
+const measureScoreboard = async (
   root: string,
   standing: Standing,
   options: { floor?: "analog" | "full"; house?: string } = {}
@@ -616,7 +615,7 @@ const workspaceFile = (root: string, rel: string): string => {
   return path.join(root, rel.replace(/^packages\/iconsmith\//u, ""));
 };
 
-export const totalTextLimit = (root: string): number | null => {
+const totalTextLimit = (root: string): number | null => {
   const file = workspaceFile(root, "packages/iconsmith/src/pipeline/policy.ts");
   if (!existsSync(file)) {
     return null;
@@ -776,7 +775,7 @@ const checkmarkDirty = async (): Promise<boolean> => {
   return false;
 };
 
-export const playbookDone = async (item: PlaybookItem): Promise<boolean> => {
+const playbookDone = async (item: PlaybookItem): Promise<boolean> => {
   switch (item.id) {
     case "recipe-drawings": {
       return recipeHolesOf() === 0;
@@ -810,10 +809,7 @@ export const playbookDone = async (item: PlaybookItem): Promise<boolean> => {
   }
 };
 
-export const applyPlaybook = (
-  item: PlaybookItem,
-  root: string
-): ApplyResult => {
+const applyPlaybook = (item: PlaybookItem, root: string): ApplyResult => {
   switch (item.id) {
     case "recipe-drawings":
     case "cactus-gap":
@@ -948,7 +944,7 @@ const resultsPath = (root: string): string =>
     ? path.join(root, "packages/iconsmith", RESULTS_REL)
     : path.join(root, RESULTS_REL);
 
-export const appendLedger = (
+const appendLedger = (
   file: string,
   row: RoundRecord,
   standingSha: string
@@ -1294,7 +1290,7 @@ const refuse = (message: string): never => {
   process.exit(2);
 };
 
-export const main = async (argv = process.argv.slice(2)): Promise<void> => {
+const main = async (argv = process.argv.slice(2)): Promise<void> => {
   const { values } = parseArgs({
     args: argv,
     options: {

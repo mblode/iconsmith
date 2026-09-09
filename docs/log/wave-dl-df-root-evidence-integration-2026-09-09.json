@@ -1,0 +1,88 @@
+{
+  "id": "D461",
+  "kind": "root-honest-evidence-and-panel-coverage-integration",
+  "date": "2026-09-09",
+  "status": "scoped-engineering-verified-not-qualified",
+  "contractVersion": "iconsmith-ai-only-10-draft-v11",
+  "agentPatch": {
+    "path": ".staging/wave-df-honest-terminal-evidence-2026-09-09/honest-terminal-evidence-v1.patch",
+    "sha256": "9f1cc424d4bf2efb34429064cf4c5f3ee301148c4055f0c1dafcf465f79bd8ee"
+  },
+  "independentAudits": [
+    {
+      "path": ".staging/wave-dk-df-independent-audit-2026-09-09/receipt.json",
+      "sha256": "fcafc917705649daf581d6b3a1cc8c8130fb632251802b2782a55c1f6de0810a"
+    },
+    {
+      "path": ".staging/wave-dm-panel-coverage-audit-2026-09-09/receipt.json",
+      "sha256": "eee3115cbb2487d15a446b946610160d8417b495fd1863b966d2b524377f6f78"
+    }
+  ],
+  "rootPatch": {
+    "path": ".staging/wave-do-honest-evidence-root-integration-2026-09-09/root-corrections.patch",
+    "sha256": "dbd82267a6ccfccdac9d6f8d85508bf1d138234402dc2cfb64875f902720dee2"
+  },
+  "source": [
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.ts",
+      "sha256": "a13c8155f6f520f99a83d827bc04949c66670f099858eef7ce774d677e73bfd6"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "sha256": "fa3f318d00775f884214faf99f1fa602bfed202dda22a168d7c1e37ea4942c16"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "sha256": "45026208ea31d79fb3050521120c7a9e5f1ddf48f4e5fbe542f3edec82cd29f8"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.test.ts",
+      "sha256": "6f23ecaaf560209b3e3ccf75b88ba54c0ab6c0399e161c35902e58d8320c116e"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.ts",
+      "sha256": "ad2cf17a51209b8fbc06f868784407951e4b29ed3368031c3e236d8864f8c5d7"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.test.ts",
+      "sha256": "cfce85fea9e891aa56235dda9a607dd6ce8bdb8e286a19ffbcb3f890a5e3db53"
+    }
+  ],
+  "verification": {
+    "focusedTests": 138,
+    "files": 3,
+    "skipped": 0,
+    "log": {
+      "path": ".staging/wave-do-honest-evidence-root-integration-2026-09-09/focused.log",
+      "sha256": "2ed8e1c41f05a145af51fd0f7e524177dc57c0a71f1b3a60e2fae6fde629b62c"
+    },
+    "initialLintFailure": "Adopted audit regression fixture needed destructuring and explicit reviewer guards; fixed. Initial output retained in tool transcript only.",
+    "integrationPending": true
+  },
+  "fixed": [
+    "Explicit no-output and uninspected dispositions retain every requested slot; fabricated empty-field values refuse.",
+    "Any critical reviewer allegation quarantines; same-reviewer critical+ship contradiction refuses.",
+    "Malformed scalar author identity returns refusal instead of TypeError.",
+    "Observed craft/parity medians ignore absent ratings; requested success denominators retain absent outputs and median is row-order invariant.",
+    "Critic/panel roster must be complete including controls; explicit unresolved panel rows reduce scoreable coverage. 20/100 unresolved may pass80%;21/100 fails. Precision/recall thresholds unchanged.",
+    "Foundry receipt validates missingPanelRows, count bounds and coverage coherence; old shape cannot issue authority."
+  ],
+  "remaining": [
+    "not-produced artifact absence still needs trusted terminal receipt/path binding",
+    "DC3 independent catalog probability audit separation",
+    "recursive author evidence and external blind-key/access verification",
+    "actual sealed calibration and qualification"
+  ],
+  "authority": {
+    "authorEvidenceVerified": false,
+    "visualQualification": false,
+    "syntheticFixturesAreActualAiEvidence": false
+  },
+  "cost": {
+    "providerCalls": 0,
+    "apiReservationCreated": false,
+    "nativeSubscriptionDollarCost": "unknown",
+    "codexWeeklyUsedPercent": 88,
+    "resetRedeemed": false
+  }
+}

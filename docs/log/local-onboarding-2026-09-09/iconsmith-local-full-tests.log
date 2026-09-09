@@ -1,0 +1,861 @@
+
+> test
+> vitest run --maxWorkers=4
+
+
+ RUN  v4.1.11 /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+
+keep	7cd1624a1211	alpha; correctAndClean 10 → 11
+keep	5e32fcd36661	alpha; correctAndClean 10 → 11
+discard	beta; floor held but no advance metric improved
+fatal: ambiguous argument 'refs/heads/iconsmith/loop': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+discard	alpha; floor held but no advance metric improved
+discard	beta; floor held but no advance metric improved
+crash	tamper: loop wrote autoresearch.md
+idle	playbook exhausted
+idle	playbook exhausted
+idle	playbook exhausted
+discard	in-process propose; floor held but no advance metric improved
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: source SVG sha256 mismatch
+    at pinnedText (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:88:11)
+    at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:124:21)
+    at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: branch-simple: source-exact requires a pinned source-feature profile
+    at createFamilySourceExactResolver (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/family-parts.ts:432:11)
+    at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:141:26)
+    at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: branch-simple: source-exact requires a pinned source-feature profile
+    at createFamilySourceExactResolver (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/family-parts.ts:432:11)
+    at loadSourceExactHostContext (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:141:26)
+    at <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:36:25)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: source-exact bundle identity differs from host authority
+    at replaySourceExactBundle (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:201:11)
+    at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:65:15)
+
+Node.js v24.17.0
+/Users/mblode/Code/mblode/iconsmith/node_modules/pathkit-wasm/bin/pathkit.js:19
+process.on("uncaughtException",function(b){throw b;}),process.on("unhandledRejection",function(b){throw b;}),f.inspect=function(){return"[Emscripten Module object]"};else if(ea||q)q?v=self.location.href:"undefined"!==typeof document&&document.currentScript&&(v=document.currentScript.src),_scriptDir&&(v=_scriptDir),0!==v.indexOf("blob:")?v=v.substr(0,v.replace(/[?#].*/,"").lastIndexOf("/")+1):v="",fa=b=>{var a=new XMLHttpRequest;a.open("GET",b,!1);a.send(null);return a.responseText},q&&(ia=b=>{var a=
+                                           ^
+
+Error: source-exact bundle identity differs from host authority
+    at replaySourceExactBundle (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-host.ts:201:11)
+    at async <anonymous> (/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/scripts/source-exact-cli.ts:65:15)
+
+Node.js v24.17.0
+ ❯ scripts/local-native-call-factory.test.ts (30 tests | 25 failed) 145ms
+   × allocates one exact finalization observer only 34ms
+   × creates a unique state and externally persisted settlement per call 3ms
+   × settles an actively stopped call as cancelled and blocks later calls 2ms
+   × records preparation failure without claiming start, absence, or settled accounting 2ms
+   × binds one same-container observation to the exact settled call 3ms
+   × persists sanitized Docker control evidence and an explicit missing-trace descriptor 3ms
+   × binds only the diagnostic view-image removal into the container descriptor 2ms
+   × binds the frozen inline-only review profile into container and trace evidence 2ms
+   × fsync-seals exact validated Codex trace bytes and their collector receipt 2ms
+   × seals author output only after exact terminal settlement and issues authority 4ms
+   × seals inspection answers only for the allocated lifecycle and settled stdout 2ms
+   × refuses inspection trace sealing after request disagreement 3ms
+   × refuses inspection trace sealing after stdout disagreement 3ms
+   × refuses author trace sealing after stdout disagreement 2ms
+   × refuses author trace sealing after settlement disagreement 2ms
+   × refuses author trace sealing after terminal disagreement 3ms
+   × refuses invalid or rewritten adapter trace evidence 2ms
+   × returns only a trigger-bound failed, quiescent, container-absent settlement 15ms
+   × refuses interrupted recovery after unknown-settlement 3ms
+   × refuses interrupted recovery after evidence-tamper 3ms
+   × refuses interrupted recovery after its capability-owned trigger is deleted 16ms
+   × refuses interrupted recovery after its capability-owned trigger is mutated 15ms
+   × refuses interrupted recovery without the diagnostic observer hook 3ms
+   × refuses deadline resets and repeated call directories 2ms
+   × requires the declared provider home to be the fresh writable state 5ms
+ ❯ scripts/local-structured-author.test.ts (38 tests | 1 failed) 123ms
+   × retains factory-sealed construct authors while separating the finalizer 41ms
+marks only — skipping vocabulary extract
+plus: outlined plus…
+plus-filled: filled plus…
+marks only — skipping vocabulary extract
+plus: outlined plus…
+plus-filled: filled plus…
+marks only — skipping vocabulary extract
+plus: outlined plus…
+plus-filled: filled plus…
+marks only — skipping vocabulary extract
+flag: outlined flag…
+flag-filled: filled flag…
+marks only — skipping vocabulary extract
+box: hub of circle nodes as box…
+box islands: auto(0) diversity 0.00
+box sample 2/2 [auto]…
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 3 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 1 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+measuring fixture: 2 file(s)
+ ❯ scripts/native-call-boundary.test.ts (28 tests | 21 failed) 53ms
+   × latches the frozen campaign STOP observed at start 3ms
+   × latches the frozen campaign STOP observed at settle 2ms
+   × records intent before a call and blocks crashes before terminal settlement 2ms
+   × STOP is shared across stages and remains latched after sentinel removal 2ms
+   × actively observes one started call and never unlatches a removed STOP 2ms
+   × max calls counts failed settled attempts and never resets on resume 2ms
+   × unknown charge or unproven containment prevents later calls 1ms
+   × concurrent resume contention is fail closed; copied settlement does not consume intent 1ms
+   × late settlement preserves original deadline and cannot turn time back 1ms
+   × a settled provider stage cannot be silently dispatched a second time 1ms
+   × deleted intent cannot restore consumed call capacity 2ms
+   × a three-field fabricated terminal cannot release the next call 2ms
+   × STOP between intent and workload start prevents dispatch and latches 1ms
+   × an intent absent from the reservation journal cannot start 1ms
+   × deleting the start marker cannot permit a second workload start 2ms
+   × complete settlement requires journal-bound start evidence 1ms
+   × strict reopen retains settled calls and original deadline without redispatch 1ms
+   × strict reopen refuses in-flight, orphan, tampered and contended accounting 1ms
+   × rejects hard-linked evidence and a boundary below a symlinked ancestor 1ms
+   × latches STOP before an in-flight journal makes reopen fail 1ms
+   × accepts factory-shaped failed settlement only with proven quiescence 2ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 47 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > allocates one exact finalization observer only
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:235:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > creates a unique state and externally persisted settlement per call
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:257:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > settles an actively stopped call as cancelled and blocks later calls
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:360:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > records preparation failure without claiming start, absence, or settled accounting
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:420:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > binds one same-container observation to the exact settled call
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:490:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > persists sanitized Docker control evidence and an explicit missing-trace descriptor
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:618:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > binds only the diagnostic view-image removal into the container descriptor
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:720:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > binds the frozen inline-only review profile into container and trace evidence
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:801:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > fsync-seals exact validated Codex trace bytes and their collector receipt
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:880:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > seals author output only after exact terminal settlement and issues authority
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:950:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > seals inspection answers only for the allocated lifecycle and settled stdout
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1004:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses inspection trace sealing after request disagreement
+ FAIL  scripts/local-native-call-factory.test.ts > refuses inspection trace sealing after stdout disagreement
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1054:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses author trace sealing after stdout disagreement
+ FAIL  scripts/local-native-call-factory.test.ts > refuses author trace sealing after settlement disagreement
+ FAIL  scripts/local-native-call-factory.test.ts > refuses author trace sealing after terminal disagreement
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1103:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses invalid or rewritten adapter trace evidence
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1159:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > returns only a trigger-bound failed, quiescent, container-absent settlement
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1196:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses interrupted recovery after unknown-settlement
+ FAIL  scripts/local-native-call-factory.test.ts > refuses interrupted recovery after evidence-tamper
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1293:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses interrupted recovery after its capability-owned trigger is deleted
+ FAIL  scripts/local-native-call-factory.test.ts > refuses interrupted recovery after its capability-owned trigger is mutated
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1341:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses interrupted recovery without the diagnostic observer hook
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1408:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > refuses deadline resets and repeated call directories
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ scripts/local-native-call-factory.test.ts:1450:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/47]⎯
+
+ FAIL  scripts/local-native-call-factory.test.ts > requires the declared provider home to be the fresh writable state
+AssertionError: expected [Function] to throw error including 'fresh call state directory' but got 'Native call requires at least 2 GiB f…'
+
+Expected: "fresh call state directory"
+Received: "Native call requires at least 2 GiB free on its evidence filesystem"
+
+ ❯ scripts/local-native-call-factory.test.ts:1561:5
+    1559|       stageKind: "construct",
+    1560|     })
+    1561|   ).toThrow("fresh call state directory");
+       |     ^
+    1562| });
+    1563|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/47]⎯
+
+ FAIL  scripts/local-structured-author.test.ts > retains factory-sealed construct authors while separating the finalizer
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ Object.create scripts/local-native-call-factory.ts:423:22
+ ❯ seal scripts/local-structured-author.test.ts:359:32
+ ❯ Object.construct scripts/local-structured-author.test.ts:624:32
+ ❯ runStructuredAuthor scripts/local-structured-author.ts:1603:25
+ ❯ scripts/local-structured-author.test.ts:615:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > latches the frozen campaign STOP observed at start
+ FAIL  scripts/native-call-boundary.test.ts > latches the frozen campaign STOP observed at settle
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:238:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > records intent before a call and blocks crashes before terminal settlement
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:265:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > STOP is shared across stages and remains latched after sentinel removal
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:284:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > actively observes one started call and never unlatches a removed STOP
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:295:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > max calls counts failed settled attempts and never resets on resume
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:311:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > unknown charge or unproven containment prevents later calls
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:328:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > concurrent resume contention is fail closed; copied settlement does not consume intent
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:357:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > late settlement preserves original deadline and cannot turn time back
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:366:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > a settled provider stage cannot be silently dispatched a second time
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:378:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > deleted intent cannot restore consumed call capacity
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:385:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > a three-field fabricated terminal cannot release the next call
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:395:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > STOP between intent and workload start prevents dispatch and latches
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:412:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > an intent absent from the reservation journal cannot start
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:425:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > deleting the start marker cannot permit a second workload start
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:443:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > complete settlement requires journal-bound start evidence
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:453:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > strict reopen retains settled calls and original deadline without redispatch
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:468:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > strict reopen refuses in-flight, orphan, tampered and contended accounting
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:481:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > rejects hard-linked evidence and a boundary below a symlinked ancestor
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:552:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > latches STOP before an in-flight journal makes reopen fail
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:586:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/47]⎯
+
+ FAIL  scripts/native-call-boundary.test.ts > accepts factory-shaped failed settlement only with proven quiescence
+Error: Native call requires at least 2 GiB free on its evidence filesystem
+ ❯ availableDiskBytes scripts/native-call-boundary.ts:57:11
+     55|     bytes > BigInt(Number.MAX_SAFE_INTEGER)
+     56|   ) {
+     57|     throw new Error(
+       |           ^
+     58|       "Native call requires at least 2 GiB free on its evidence filesy…
+     59|     );
+ ❯ scripts/native-call-boundary.ts:614:45
+ ❯ withLock scripts/native-call-boundary.ts:150:12
+ ❯ Module.reserveNativeCall scripts/native-call-boundary.ts:582:3
+ ❯ scripts/native-call-boundary.test.ts:600:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/47]⎯
+
+
+ Test Files  3 failed | 181 passed (184)
+      Tests  47 failed | 2570 passed (2617)
+   Start at  13:51:47
+   Duration  51.13s (transform 1.89s, setup 0ms, import 11.96s, tests 178.16s, environment 8ms)
+
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+npm error workspace iconsmith
+npm error location /Users/mblode/Code/mblode/iconsmith/packages/iconsmith
+npm error command failed
+npm error command sh -c vitest run --maxWorkers=4

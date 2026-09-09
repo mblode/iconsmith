@@ -1,0 +1,31 @@
+{
+  "id": "D430",
+  "scope": "Root independently inspected and reconciled80 source concepts; approved corrected56family mapping through canonical semantic ingestion",
+  "receipt": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-census-balanced80-2026-09-09/receipt-v3.json",
+    "sha256": "de050ea1660db6586dba135cc61866b7cc34ff12a82bbd652dd3f2acab32734e"
+  },
+  "rootVerifiedArtifacts": 820,
+  "artifactManifestSha256": "ea16a5125c4f6eb30d259653a1a8054ba39f07b1193025e8f6b126e2f87a3c1b",
+  "rootObservationsSha256": "708886c431b9c6b700fa898f1aea654d797d3a51010fdcc4a9fd6e7da2bde411",
+  "mappingSha256": "62098945f5e94f1e2a3610db5036d15879cddf3b979ce7d1e6261ed9bceaa5cd",
+  "corrections": [
+    "Preserve exact square-grid-maginfying-glass catalog spelling despite normalized root label.",
+    "Pencil-sparkle meaning unresolved and singleton; delivery-bike and mountain-bike separate; pushpin separate from location-pin family.",
+    "Retain original conflicting observations; no inferred aliases, derivatives, semantic answer keys or native16 optical approval."
+  ],
+  "population": {
+    "catalogConcepts": 2221,
+    "sourceFiles": 4357,
+    "requestedSlots": 8884,
+    "reviewedConcepts": 263,
+    "reviewedSlots": 1052,
+    "reviewedMissingSlots": 14,
+    "untouchedConcepts": 1958,
+    "untouchedSlots": 7832
+  },
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false,
+  "evidenceIndex": "docs/log/development-evidence-index-v19-2026-09-09.html"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "D306",
+  "status": "ineligible-current-sealed-review-protocol",
+  "qualified": false,
+  "requestedModel": "gpt-5.4-mini",
+  "observedTraceModel": "gpt-5.4-mini",
+  "result": {
+    "result": {
+      "answers": null,
+      "baseModelLineage": null,
+      "evidenceHashes": {
+        "stimulus.png": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+      },
+      "evidenceMode": "images",
+      "imageInspection": null,
+      "instrumentQualified": false,
+      "model": null,
+      "provider": "openai-codex",
+      "reason": "Error: Codex reviewer used a tool during sealed image review",
+      "status": "incomplete"
+    },
+    "sourceStable": true,
+    "deadlineExceeded": false,
+    "qualified": false,
+    "apiActualUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "outerResult": {
+    "exitCode": 0,
+    "elapsedMs": 35581,
+    "qualified": false
+  },
+  "toolViolation": {
+    "type": "function_call",
+    "name": "view_image"
+  },
+  "containerAudit": ".staging/wave-ap-fourth-lineage-capability-preparation-2026-09-08/root-container-audit.json",
+  "nativeCalls": 1,
+  "nativeCallsSettled": 1,
+  "nativeCallsThisExecutionTotal": 47,
+  "apiActualUsd": 0,
+  "nativeDollarCostUsd": null,
+  "productionRosterChanged": false,
+  "noRetry": true,
+  "fourthIndependentRosterGate": "open; Claude quarantined,mini rejected current no-tool protocol",
+  "terminal": {
+    "accounting": "settled",
+    "containment": "container-absent",
+    "evidenceFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ap-fourth-lineage-capability-preparation-2026-09-08/execution/evidence/00-recognition/container-settlement.json",
+    "evidenceHash": "51e0cc56d81b42504db63ba533418b133150847f22858137134a70cdc2fdce2f",
+    "outcome": "complete",
+    "deadlineExceeded": false,
+    "intentHash": "827ace9ecc0605852083a659c995c74f826afa0a79262ce1fbd600e668c57b05",
+    "settledAt": 1788856402410
+  }
+}

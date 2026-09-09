@@ -4,6 +4,10 @@ import path from "node:path";
 
 import sharp from "sharp";
 
+import { png } from "../src/tools/render.js";
+
+const CROSS_MASTER_EVIDENCE_VERSION = "native-svg-pixel-binding-v2";
+
 const digest = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
 const validHash = (value: string) => /^[a-f0-9]{64}$/u.test(value);
@@ -15,6 +19,8 @@ export interface CrossMasterEvidence {
   nativeImageFile: string;
   nativeImageSha256: string;
   nativeSize: 16 | 24;
+  /** Declare when a semantic modifier is expected, or explicitly rule it out. */
+  modifierEvidence?: "present" | "not-applicable";
   /** Optional host-produced mask isolating the semantic modifier. */
   modifierMaskFile?: string;
   modifierMaskSha256?: string;
@@ -24,6 +30,7 @@ export interface CrossMasterEvidence {
 
 interface MeasuredEvidence extends CrossMasterEvidence {
   modifier: null | { centroid: { x: number; y: number }; pixels: number };
+  modifierExpectation: "not-applicable" | "present" | "unknown";
   paintedMass: number;
 }
 
@@ -70,6 +77,46 @@ const pixelDifference = async (left: string, right: string, size: number) => {
   return difference / (a.length * 255);
 };
 
+const verifyNativeRendering = async (
+  native: Buffer,
+  svg: Buffer,
+  nativeSize: number
+) => {
+  if (nativeSize !== 16 && nativeSize !== 24) {
+    throw new Error("Cross-master evidence requires native16 or native24");
+  }
+  const { data: nativePixels, info: nativeInfo } = await sharp(native)
+    .toColourspace("srgb")
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  if (nativeInfo.width !== nativeSize || nativeInfo.height !== nativeSize) {
+    throw new Error("Native evidence dimensions do not match its master");
+  }
+  const renderedPixels = await sharp(
+    await png(svg.toString("utf-8"), nativeSize)
+  )
+    .toColourspace("srgb")
+    .ensureAlpha()
+    .raw()
+    .toBuffer();
+  if (!nativePixels.equals(renderedPixels)) {
+    throw new Error("Native evidence does not match the bound SVG rendering");
+  }
+  let paintedMass = 0;
+  for (let offset = 0; offset < nativePixels.length; offset += 4) {
+    const luminance =
+      nativePixels[offset] * 0.2126 +
+      nativePixels[offset + 1] * 0.7152 +
+      nativePixels[offset + 2] * 0.0722;
+    paintedMass += (nativePixels[offset + 3] / 255) * (1 - luminance / 255);
+  }
+  if (paintedMass === 0) {
+    throw new Error("Native evidence contains no painted pixels");
+  }
+  return paintedMass;
+};
+
 const verifyAndMeasure = async (
   row: CrossMasterEvidence
 ): Promise<MeasuredEvidence> => {
@@ -86,32 +133,15 @@ const verifyAndMeasure = async (
   ) {
     throw new Error("Cross-master evidence hash mismatch");
   }
-  const { data: nativePixels, info: nativeInfo } = await sharp(native)
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-  if (
-    nativeInfo.width !== row.nativeSize ||
-    nativeInfo.height !== row.nativeSize
-  ) {
-    throw new Error("Native evidence dimensions do not match its master");
-  }
-  let paintedMass = 0;
-  for (let offset = 0; offset < nativePixels.length; offset += 4) {
-    const luminance =
-      nativePixels[offset] * 0.2126 +
-      nativePixels[offset + 1] * 0.7152 +
-      nativePixels[offset + 2] * 0.0722;
-    paintedMass += (nativePixels[offset + 3] / 255) * (1 - luminance / 255);
-  }
-  if (paintedMass === 0) {
-    throw new Error("Native evidence contains no painted pixels");
-  }
+  const paintedMass = await verifyNativeRendering(native, svg, row.nativeSize);
   const hasMask = row.modifierMaskFile !== undefined;
   if (hasMask !== (row.modifierMaskSha256 !== undefined)) {
     throw new Error(
       "Modifier evidence file and hash must be supplied together"
     );
+  }
+  if (row.modifierEvidence === "not-applicable" && hasMask) {
+    throw new Error("No-modifier evidence cannot include a modifier mask");
   }
   let modifier = null;
   if (row.modifierMaskFile && row.modifierMaskSha256) {
@@ -124,7 +154,13 @@ const verifyAndMeasure = async (
     }
     modifier = await measureMask(row.modifierMaskFile, row.nativeSize);
   }
-  return { ...row, modifier, paintedMass };
+  return {
+    ...row,
+    modifier,
+    modifierExpectation:
+      row.modifierEvidence ?? (hasMask ? "present" : "unknown"),
+    paintedMass,
+  };
 };
 
 // Sibling, modifier and paint checks remain together so one receipt owns the denominator.
@@ -159,7 +195,20 @@ export const reviewCrossMasterEvidence = async (
         issues.push(`${key}/${finish}: missing 16/24 sibling`);
         continue;
       }
-      if ((small.modifier === null) !== (large.modifier === null)) {
+      const expectationMismatch =
+        small.modifierExpectation !== large.modifierExpectation;
+      if (expectationMismatch) {
+        issues.push(`${key}/${finish}: modifier applicability mismatch`);
+      }
+      const modifierExpected =
+        small.modifierExpectation === "present" &&
+        large.modifierExpectation === "present";
+      const modifierUnknown =
+        small.modifierExpectation === "unknown" ||
+        large.modifierExpectation === "unknown";
+      if (modifierUnknown) {
+        issues.push(`${key}/${finish}: unknown modifier evidence`);
+      } else if (modifierExpected && (!small.modifier || !large.modifier)) {
         issues.push(`${key}/${finish}: missing modifier sibling evidence`);
       }
       const shiftPxAt24 =
@@ -173,9 +222,14 @@ export const reviewCrossMasterEvidence = async (
         issues.push(`${key}/${finish}: shifted modifier evidence`);
       }
       let modifierAssessment = "aligned";
-      if (!small.modifier && !large.modifier) {
+      if (
+        small.modifierExpectation === "not-applicable" &&
+        large.modifierExpectation === "not-applicable"
+      ) {
+        modifierAssessment = "not-applicable";
+      } else if (modifierUnknown) {
         modifierAssessment = "unknown";
-      } else if (!small.modifier || !large.modifier) {
+      } else if (expectationMismatch || !small.modifier || !large.modifier) {
         modifierAssessment = "missing-sibling";
       } else if ((shiftPxAt24 ?? 0) > 1) {
         modifierAssessment = "shifted";
@@ -217,6 +271,7 @@ export const reviewCrossMasterEvidence = async (
   const memberHashes = rows
     .map((row) => ({
       id: `${row.family}/${row.concept}/${row.finish}/${row.nativeSize}`,
+      modifierEvidence: row.modifierEvidence ?? null,
       modifierMaskSha256: row.modifierMaskSha256 ?? null,
       nativeImageSha256: row.nativeImageSha256,
       svgSha256: row.svgSha256,
@@ -225,13 +280,14 @@ export const reviewCrossMasterEvidence = async (
   const body = {
     comparisons,
     evidence: rows,
+    evidenceVersion: CROSS_MASTER_EVIDENCE_VERSION,
     issues,
     memberHash: digest(JSON.stringify(memberHashes)),
     memberHashes,
     status: "pending-independent-review" as const,
   };
   return {
-    complete: issues.every((issue) => !issue.includes("missing")),
+    complete: issues.length === 0,
     hash: digest(JSON.stringify(body)),
     receipt: body,
     // Automated measurements locate missing/shifted evidence but never approve
@@ -245,6 +301,7 @@ export const readCrossMasterReview = async (receiptFile: string) => {
     ReturnType<typeof reviewCrossMasterEvidence>
   >;
   if (
+    frozen.receipt.evidenceVersion !== CROSS_MASTER_EVIDENCE_VERSION ||
     frozen.receipt.status !== "pending-independent-review" ||
     digest(JSON.stringify(frozen.receipt)) !== frozen.hash
   ) {

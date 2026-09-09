@@ -1,0 +1,52 @@
+{
+  "id": "D523",
+  "date": "2026-09-09",
+  "kind": "house-svg-benchmark-preparation",
+  "status": "references-rendered-candidate-validation-blocked",
+  "sources": 32,
+  "renders": 64,
+  "concepts": [
+    "heart",
+    "bell",
+    "cloud",
+    "lock",
+    "folder-1",
+    "camera-1",
+    "scissors-1",
+    "settings-gear-1"
+  ],
+  "manifest": ".staging/wave-fv-house-svg-benchmark-2026-09-09/manifest.json",
+  "manifestSha256": "f3f53e00c039ded38dcd4d9ef14fe92436e37a2a59f9bda8a992d15583d7b47f",
+  "board": ".staging/wave-fv-house-svg-benchmark-2026-09-09/reference-board.png",
+  "protocol": ".staging/wave-fv-house-svg-benchmark-2026-09-09/comparison.md",
+  "observations": [
+    "All selected source viewBoxes are 0 0 24 24.",
+    "Blode bell and cloud differ visibly from matching Central concepts.",
+    "16px references are scaled originals, not independent optical masters."
+  ],
+  "candidateCount": 0,
+  "scoreOutOf10": null,
+  "qualified": false,
+  "blocker": "Quiver browser shows sign-in; no authenticated generation access established.",
+  "historySearch": {
+    "tool": "ccs",
+    "query": "quiver",
+    "projects": [
+      "/Users/mblode/Code/mblode/iconsmith",
+      "/Users/mblode/Code/mblode/icon-forge"
+    ],
+    "result": "Current project returns current user query only; former project NO_RESULTS. Research history has no Quiver hit."
+  },
+  "retainedFootguns": [
+    "Initial licence path guessed under src/corpus; corrected to src/pipeline/licence.ts.",
+    "Same concept name does not establish equal source geometry.",
+    "No candidate generation or house parity may be inferred from reference rendering."
+  ],
+  "cost": {
+    "providerGenerationCalls": 0,
+    "apiSpendUsd": 0,
+    "newReservation": null,
+    "priorLedger": "docs/log/api-budget-after-d522-2026-09-09.json"
+  },
+  "primaryTasksPromoted": 0
+}

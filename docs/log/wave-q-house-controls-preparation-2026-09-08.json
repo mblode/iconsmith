@@ -1,0 +1,34 @@
+{
+  "schema": "iconsmith.wave-q.house-controls-preparation.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "canonicalArtifacts": 16,
+  "semanticFamilies": 4,
+  "presentationRepeats": 4,
+  "paintSizeStrata": 4,
+  "exactNativeCompositeVerified": true,
+  "sourceOpticalMasterClaim": false,
+  "artifacts": [
+    {
+      "path": ".staging/wave-q-house-controls-2026-09-08/manifest.json",
+      "sha256": "11be5aea57d3881cef665942d8287a050c17b70b8cde049832abfc81a509c140"
+    },
+    {
+      "path": ".staging/wave-q-house-controls-2026-09-08/campaign-input.host.json",
+      "sha256": "67233e770137b53c8968618e36ef4e1ce61085e19d73e9862ae6d56ea43bfc7c"
+    },
+    {
+      "path": ".staging/wave-q-house-controls-2026-09-08/condition-key.development-only.json",
+      "sha256": "f779671312101a74f7884059d025ead02fb416bc51fdaef78a0d358bf0f1031f"
+    }
+  ],
+  "limits": [
+    "Development-only calibration for transmission of existing numerical score anchors.",
+    "No prior model reviews of this packet; sources are project-exposed house controls, not unseen families.",
+    "Semantic keys remain proposed until independent blind recognition.",
+    "16/24 are native raster presentations of house source art, not generation optical masters.",
+    "No qualification or absolute-score pass inferred from preparation."
+  ]
+}

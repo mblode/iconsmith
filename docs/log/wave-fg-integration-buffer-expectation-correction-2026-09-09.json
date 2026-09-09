@@ -1,0 +1,22 @@
+{
+  "id": "D498",
+  "observedAt": "2026-09-08T22:58:36.872216+00:00",
+  "kind": "integrated-verification-failure-and-correction",
+  "firstAttempt": ".staging/wave-fg-root-integration-2026-09-09",
+  "tests": {
+    "total": 2542,
+    "files": 180,
+    "passed": 2541,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failure": "local-claude-author exact-proof test expected Buffer; EN copies proof bytes into Uint8Array per declared byte contract. Actual bytes matched.",
+  "correction": "Changed only test expected proof representation to Uint8Array.from(Buffer.from(\"png\")); retained exact byte equality. No Claude adapter behavior or provider invocation changed.",
+  "focusedTestLog": ".staging/wave-fg-root-integration-2026-09-09/claude-test-correction.log",
+  "focusedLintLog": ".staging/wave-fg-root-integration-2026-09-09/claude-test-lint.log",
+  "retryDirectory": ".staging/wave-fg-root-integration-2026-09-09/attempt-2",
+  "sourceDriftDuringFirstAttempt": false,
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "claudeQuarantineUnchanged": true
+}

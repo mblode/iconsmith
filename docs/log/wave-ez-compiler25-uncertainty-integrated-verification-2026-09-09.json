@@ -1,0 +1,86 @@
+{
+  "id": "D488",
+  "kind": "compiler25-and-acceptance-draft16-integrated-verification",
+  "tests": 2522,
+  "testFiles": 178,
+  "skipped": 0,
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 44392,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ez-compiler25-uncertainty-verification-2026-09-09/test.log",
+      "sha256": "7173e03b00f0021985d4419d896400dd2eb3c0bd74cecf0735f7fcce40f290cf"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1381,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ez-compiler25-uncertainty-verification-2026-09-09/typecheck.log",
+      "sha256": "aa1b392bcef26a701e221518fd5fe32fdc32b8214f8a05993b73c2d260b4131b"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5293,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ez-compiler25-uncertainty-verification-2026-09-09/build.log",
+      "sha256": "5701b709e69b1de1b9f964aec463a2f262c9d71d610067c2d588423f103c1e8a"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1362,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ez-compiler25-uncertainty-verification-2026-09-09/check.log",
+      "sha256": "a806f08b6a9fbb7febd438cebd2bfbc8bf94aced847414d5b9a76db27ee99c67"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 56,
+      "log": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ez-compiler25-uncertainty-verification-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceFiles": 401,
+  "sourceFreezeSha256": "97f97fcbb1ef7c7ebc621480b2b5bf4958c2b4b920e31f474871c27929a80a62",
+  "sourceUnchanged": true,
+  "additionalSkillFiles": [
+    {
+      "path": "apps/web/lib/agent-skills.ts",
+      "sha256": "f776adeaabb253d29f3e36a4a1fe0f06ed63cec0b10c61477b49d4b913ff6a3f"
+    },
+    {
+      "path": "packages/iconsmith/SKILL.md",
+      "sha256": "b4cd7c4cf4291c6b1709c21c65d076cd500c1bb64dba0c59d88c0ef99695b10f"
+    }
+  ],
+  "corrections": "D487 preserves three failed attempts and bundled-skill corrections.",
+  "scope": "Compiler25 and EL v1/v2 integrated. EN inspection collector remains an unintegrated proposal. Engineering verification only.",
+  "visualQualification": false,
+  "newApiCalls": 0
+}

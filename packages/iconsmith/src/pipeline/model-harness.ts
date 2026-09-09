@@ -24,14 +24,14 @@ const PROGRAM_FILE = "icon.icon";
 const REJECTED_FILE = "REJECTED.txt";
 const SKILL_FILE = "SKILL.md";
 
-export interface GatewayHarnessRequest {
+interface GatewayHarnessRequest {
   abortSignal?: AbortSignal;
   preview: Buffer | null;
   prompt: string;
   system: string;
 }
 
-export type GatewayHarnessAsk = (request: GatewayHarnessRequest) => Promise<{
+type GatewayHarnessAsk = (request: GatewayHarnessRequest) => Promise<{
   cost?: ApiCost;
   /** Why the model stopped. `"length"` is the one value the caller cannot
    *  infer from the text: a completion cut at the output-token limit and a

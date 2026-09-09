@@ -39,16 +39,15 @@ import { referenceSet } from "./references.js";
 /** Ideation. Cheapest model that takes reference images and returns an image;
  *  the arm generates more than one sketch, so per-image price is what matters
  *  and quality per sketch is the critique's problem. */
-export const IDEATION_MODEL = "google/gemini-3.1-flash-lite-image";
+const IDEATION_MODEL = "google/gemini-3.1-flash-lite-image";
 /** The good one, for a single reference sketch when a run wants one. */
-export const QUALITY_MODEL = "google/gemini-3-pro-image";
 
 /**
  * USD per generated image, from the Vercel AI Gateway's own model listing,
  * read 2026-08-19. Text tokens on these calls are cents per thousand sketches
  * and are not counted; the image is the bill.
  */
-export const IMAGE_RATES: Record<string, number> = {
+const IMAGE_RATES: Record<string, number> = {
   "google/gemini-2.5-flash-image": 0.039,
   "google/gemini-3-pro-image": 0.1344,
   "google/gemini-3.1-flash-image": 0.067,
@@ -62,7 +61,7 @@ export const IMAGE_RATES: Record<string, number> = {
  *  been shown to be worth its price. */
 const DEFAULT_IDEAS = 2;
 
-export class ProposalError extends Error {
+class ProposalError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "ProposalError";

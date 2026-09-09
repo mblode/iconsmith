@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-08T04:58:57.129786+00:00",
+  "status": "installed-adapter-capability-verified",
+  "qualified": false,
+  "task": "P1.2",
+  "models": [
+    "gpt-6-astra",
+    "gpt-5.5",
+    "gpt-5.6-sol",
+    "claude-opus-5"
+  ],
+  "evidence": [
+    {
+      "path": "docs/log/a153-alpha-compatibility-results-2026-09-08.json",
+      "sha256": "a7455e9ca9c361a2fd90c1b1179b60c98e66edd2845422c6653afda259b43ccb"
+    },
+    {
+      "path": "docs/log/wave-e-gpt55-image-result-2026-09-08.json",
+      "sha256": "5805dac91b9030268ee6f80ec1649c63d64ffd29f83e9af5bc223a177ed6d74e"
+    },
+    {
+      "path": "docs/log/wave-j-sol-image-capability-2026-09-08.json",
+      "sha256": "eef5b24e2f87ff330e2b6c15f6fa1c39b05446fa14ffe1ae9cdb47f51bc17795"
+    },
+    {
+      "path": "docs/log/wave-l-claude-image-capability-2026-09-08.json",
+      "sha256": "0f9574b61480bd90eeb577e329f30b8f5613ea00436eb588a748f7d14e83b67e"
+    },
+    {
+      "path": ".staging/wave-l-house-calibration-synthetic-verification-2026-09-08/receipt.json",
+      "sha256": "9e3c3b7a6fbc438752a4b2733693213a819b4137e126e6588b599a44af3a5901"
+    }
+  ],
+  "limits": [
+    "Point image capability checks are not full current-campaign proof or calibrated evaluation.",
+    "Astra A153 used the prerelease executable and older process-group containment. Later contained author runs are separate lifecycle evidence.",
+    "Claude also reported auxiliary claude-haiku-4-5 usage of unresolved purpose; four independent evaluator lineages are not established by this receipt."
+  ],
+  "newProviderCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0
+}

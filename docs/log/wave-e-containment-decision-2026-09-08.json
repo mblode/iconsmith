@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "decision": "P1.3 container alternative evidenced",
+  "scope": "Linux private PID namespace; no macOS host ownership claim",
+  "audit": {
+    "schemaVersion": 1,
+    "scope": "Read-only audit of D237 settlement and P1.3 detached-descendant containment evidence; no provider calls or source edits",
+    "d237": {
+      "status": "consistent-incomplete-contained-timeout",
+      "reservation": {
+        "maxCalls": 1,
+        "observedIntentCount": 1,
+        "observedStartedCount": 1,
+        "observedTerminalCount": 1,
+        "accounting": "settled",
+        "outcome": "failed"
+      },
+      "timing": {
+        "originalDeadlineAt": 1788829948646,
+        "intentDispatchedAt": 1788829648941,
+        "providerStartedAt": 1788829662302,
+        "settledAt": 1788829932769,
+        "settledBeforeDeadlineMs": 15877,
+        "terminalElapsedMs": 284124,
+        "deadlineExceeded": false,
+        "stopWrittenAfterTerminal": true
+      },
+      "containment": {
+        "scope": "docker-private-pid-namespace",
+        "capturedContainerId": "42fb354dd14d95dbb935bc4ab61429544132d14e4882d53a1e9904d05c83d6b8",
+        "containerAbsent": true,
+        "workloadCode": null,
+        "workloadKilled": true,
+        "artifactEligible": false
+      },
+      "contextPreflight": {
+        "network": "none",
+        "probeCount": 2,
+        "firstDiscoveredSkills": 5,
+        "finalDiscoveredSkills": 0,
+        "allProbeContainersAbsent": true,
+        "actualTraceAmbientSkillsTagPresent": false,
+        "actualTraceAmbientRecommendedPluginsTagPresent": false,
+        "actualTraceFinalAnswerPresent": false,
+        "actualTraceModel": "gpt-6-astra"
+      },
+      "conclusion": "The call timed out incompletely and produced no acceptable review. The provider start, failure settlement, and exact container removal are durably linked; the late STOP file did not cause settlement."
+    },
+    "p1_3": {
+      "recommendation": "close-container-alternative",
+      "reason": "P1.3 permits closure by running the actual authenticated native route in a verified container boundary. D229 proved a completed authenticated Codex response in the canonical Docker private PID route. D237 exercised the current source closure on the timeout path and proved the captured container absent. D169 independently proved the boundary stops a real setsid background grandchild that becomes detached from its launching shell, with its output hash unchanged after container removal.",
+      "hostBoundaryStillUnproven": true,
+      "testCoverage": {
+        "privatePidModeAndRemoval": "local-container-process.test.ts captures identity, refuses host PID mode, removes, and verifies absence",
+        "doubleFork": "local-container-process.test.ts has a mocked lifecycle regression named accounts for a simulated double fork through container removal",
+        "setsidAndReparenting": "D169 parent.sh runs setsid sh -c 'sh /out/child.sh &' in the background; the inner shell exits while the writer continues until container removal",
+        "betweenSampleDetachment": "No host sampling guarantee is claimed or required by the selected container alternative; namespace destruction owns processes that detach between host samples"
+      }
+    },
+    "separateOpenWork": [
+      "P1.4 requires a post-settlement no-write proof for the actual artifact tree; D237 timed-out artifacts are ineligible and do not close it.",
+      "Safe salvage remains unproven.",
+      "Canonical campaign and multi-stage per-call container composition remain unimplemented."
+    ],
+    "evidence": [
+      {
+        "path": "docs/log/container-containment-probe-v4-2026-09-07.json",
+        "sha256": "68c06fa671f469993ec8b848d38e0981aea5a844712b908d6c3de8d5a18ff3ed"
+      },
+      {
+        "path": "docs/log/container-containment-probe-v4-identity-2026-09-07.json",
+        "sha256": "75637963737dd38df1d2a5a125a15c02e0a1a8ebf69ffab14b73d644549f79bd"
+      },
+      {
+        "path": "docs/log/wave-c-contained-image-result-2026-09-08.json",
+        "sha256": "6995a5edfa5c38cff8cf3fcbdf78d2d676848d4e6333230bb1b12af226371675"
+      },
+      {
+        "path": "docs/log/wave-d-contained-image-result-2026-09-08.json",
+        "sha256": "e912f492264ba3e13edf37fe634853d8eae1b8670aaf7f61341ce5598d5ae661"
+      },
+      {
+        "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/manifest.json",
+        "sha256": "96ea6838d3ee45b40abdea63102180c0cce950efa46b3cf116e59e50949956e2"
+      },
+      {
+        "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/terminal.json",
+        "sha256": "b6d0c4dafc79f3b235af9cd6a517d9557637270b16d65b2a6e2a806e6688ae94"
+      },
+      {
+        "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/container-settlement.json",
+        "sha256": "73826fa25d911d0b064bebfc225bea7d1a03bc9210bbbddc0583e9454e419564"
+      },
+      {
+        "path": ".staging/wave-d-root-2026-09-08/contained-image-smoke-v1/calls/55d49631-db26-4de1-aa80-fef00ab9e534.terminal.json",
+        "sha256": "13b326fabd9eaa5f19ce51a32e20f9a13a2612bf0519e025f301eea53d57b813"
+      }
+    ]
+  },
+  "qualified": false,
+  "open": [
+    "P1.4 actual artifact tree post-settlement no-write proof",
+    "P1.7 safe interrupted salvage",
+    "P1.8 canonical multi-stage campaign integration"
+  ],
+  "newApiSpendUsd": 0
+}

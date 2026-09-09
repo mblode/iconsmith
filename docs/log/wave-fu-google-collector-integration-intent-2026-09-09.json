@@ -1,0 +1,36 @@
+{
+  "id": "D521",
+  "kind": "offline-google-collector-integration-intent",
+  "observedAtMs": 1788923467469,
+  "purpose": "Remove the fourth-lineage critic collector adapter blocker before AI-only score qualification.",
+  "baselineEngineering": "D518",
+  "latestLive": "D520",
+  "proposal": ".staging/wave-ft-google-critic-collector-integration-proposal-2026-09-09/proposal.md",
+  "ownership": {
+    "runtime": [
+      "scripts/api-image-capability.ts",
+      "scripts/api-image-capability.test.ts"
+    ],
+    "evaluation": [
+      "scripts/ai-qualification-provenance.ts",
+      "scripts/ai-qualification-provenance.test.ts"
+    ],
+    "root": [
+      "scripts/quality-campaign.ts",
+      "scripts/quality-campaign.test.ts",
+      "shared plan/log/ledger"
+    ]
+  },
+  "constraints": [
+    "No provider dispatch or new paid reservation in this offline wave",
+    "Native prospective recognition/adjudication/craft is not a prediction/panel qualification run",
+    "Only live byte-revalidating process-local API authority may supply collector evidence",
+    "Current exact source changes invalidate reuse of affected old route evidence",
+    "No promotion from adapter tests to critic or overall qualification"
+  ],
+  "qualification": false,
+  "e2eScoreOutOf10": null,
+  "apiCalls": 0,
+  "apiSpendUsd": 0,
+  "nativeSubscriptionDollarAllocation": null
+}

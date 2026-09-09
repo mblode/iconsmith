@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T02:40:33.263333+00:00",
+  "providerCallsAdded": 0,
+  "apiActualAddedUsd": 0,
+  "apiReservationsAddedUsd": 0,
+  "visuallyQualified": false,
+  "status": "source-identity-and-replay-verified",
+  "result": {
+    "path": ".staging/wave-f-source-regression-2026-09-08/replay-v2/results.json",
+    "sha256": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c"
+  },
+  "summary": {
+    "exactReplay": 4357,
+    "failures": 0,
+    "generationQualified": false,
+    "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "kind": "admitted-source-reconstruction",
+    "rasterDifferenceThreshold": 0.01,
+    "rasterDifferences": 1007,
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "sourceIdentityVerified": true,
+    "total": 4357
+  },
+  "comparison": {
+    "unchanged": 4357,
+    "improved": 0,
+    "regressed": 0,
+    "reference": {
+      "path": ".staging/house-source-regression-compiler21-2026-09-07/replay/results.json",
+      "sha256": "74ca9e57a73d01ac0c8afb045adb3db3a26da80d7e5c0d58b9b8e363423e0f25"
+    }
+  },
+  "inventory": {
+    "path": ".staging/house-source-regression-compiler21-2026-09-07/audit/inventory.json",
+    "sha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb"
+  },
+  "expectedInventoryIdentitySource": {
+    "path": "docs/log/wave-a-baseline-cost-2026-09-08.json",
+    "sha256": "44dcc5c34c5c70c15873fdcf9403a9fb79ddf60605b52a9952ef2d4ced99b4c6"
+  },
+  "sourceFiles": [
+    {
+      "path": "packages/iconsmith/scripts/library-replay.ts",
+      "sha256": "6f6fcc15f56e043c3be28cb74b7e410bef3c0691d6e28e6af1403c3d8b4c20b1"
+    },
+    {
+      "path": "packages/iconsmith/scripts/library-replay-cli.ts",
+      "sha256": "adfeed7fa577fcec829c8da0277c8a78441d4e8fa1abed8bf30b400b73858c58"
+    },
+    {
+      "path": "packages/iconsmith/scripts/library-replay.test.ts",
+      "sha256": "d4b1c3fcd7de6e3a641d2b0abe5b53494922b2a90581fcb4c0d1540bc243c00b"
+    }
+  ],
+  "retainedInsufficientRun": {
+    "result": {
+      "path": ".staging/wave-f-source-regression-2026-09-08/replay/results.json",
+      "sha256": "739f22fbabe3769f4e6eed5700ee64cf0b7c2234e429d4d162d5de9b43508fad"
+    },
+    "limitation": "v1 lacked external inventory pin; v2 requires previously frozen SHA-256."
+  },
+  "limits": [
+    "Admission not rerun this wave.",
+    "Replay does not establish raster fidelity or generation qualification."
+  ]
+}

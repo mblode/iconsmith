@@ -1,0 +1,47 @@
+{
+  "id": "D513",
+  "kind": "current-route-folder-lock-development-dispatch-intent",
+  "observedAt": "2026-09-09T01:29:26.889388+00:00",
+  "sourceClosure": "D512",
+  "sourceRecheck": {
+    "stable": true,
+    "fileCount": 685,
+    "aggregateSha256": "69da830cdda4711b2942a8c33b168dfe4dec8f9ccec7d1ec6615cc6bd723b267"
+  },
+  "planHash": "c012156c793dc63cdf664cd393a8f2993f559e67342b56f5fda590ce8f108b5e",
+  "planFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fn-p1-preparation-2026-09-09/frozen-plan.json",
+  "commandFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fn-p1-preparation-2026-09-09/command.json",
+  "route": {
+    "author": "gpt-6-astra/high",
+    "reviewers": [
+      "gpt-5.5/high",
+      "gpt-5.6-sol/high"
+    ]
+  },
+  "requests": 2,
+  "slots": 4,
+  "concurrency": 1,
+  "maxNativeCallsPerRequest": 10,
+  "maxNativeCalls": 20,
+  "originalDeadlineMsPerRequest": 1200000,
+  "newApiReservationUsd": 0,
+  "billing": "native subscription; dollar allocation unknown",
+  "exposure": "Previously exposed folder-lock development packet; not sealed qualification",
+  "changedVariables": [
+    "D510 canonical settlement for context failures",
+    "D512 frozen family packet compiler/proof replay",
+    "Explicit three-lineage roster excluding retired Mini and quarantined Claude"
+  ],
+  "resourcePreflight": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fn-p1-preparation-2026-09-09/resource-preflight.json",
+  "stopConditions": [
+    "identity/source drift",
+    "ambiguous dispatch/accounting",
+    "unproven containment",
+    "STOP",
+    "critical regression"
+  ],
+  "retries": 0,
+  "qualificationGranted": false,
+  "score": null,
+  "preflightFailures": "Two hand-written symlink hash interpretations failed before dispatch. Canonical snapshotSources reused successfully; no source edits."
+}

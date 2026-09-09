@@ -1,0 +1,27 @@
+{
+  "decision": "D405",
+  "date": "2026-09-09",
+  "closed": [
+    "P1.5",
+    "P1.6",
+    "P1.9",
+    "P1.10"
+  ],
+  "auditReceipt": ".staging/wave-ca-reliability-terminal-audit-2026-09-08/receipt.json",
+  "auditReceiptSha256": "5abf062cf6e54277f241cbd272e9ed9503815fbd197359af3c092f9be33308d7",
+  "checklistMappingSha256": "c47266e5137aafcd30767d7ef37a979195819d885ef4d4b28488f5bb3bd146d1",
+  "finalAccountingSha256": "5839fe7ac23fb0d276f17204654c38d340ce35aab088f337954c2e564e7adefc",
+  "rootEvidence": [
+    "D377",
+    "D397",
+    "D398",
+    "D401",
+    "D402"
+  ],
+  "limits": [
+    "P1.9b authenticated shared STOP remains separate",
+    "4/6 delivered pairs is not 95 percent delivery qualification",
+    "No phase visual qualification"
+  ],
+  "providerCalls": 0
+}

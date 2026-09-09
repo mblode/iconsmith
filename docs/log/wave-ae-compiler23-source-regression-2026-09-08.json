@@ -1,0 +1,79 @@
+{
+  "id": "D285",
+  "observedAt": "2026-09-08T07:33:37.570538+00:00",
+  "compiler": "iconsmith-constrained-23-source-representations",
+  "sourceAudit": {
+    "admitted": 3961,
+    "compiler": "iconsmith-constrained-23-source-representations",
+    "generationQualified": false,
+    "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "kind": "family-source-admission-audit",
+    "master": "24",
+    "refused": 396,
+    "revisionHash": "14f624f9079cffaf690f8e0d2b01b96b25c75efa6dbe398b180bdc64e6002e23",
+    "revisionSha256": "45a0ac6058d038c951b00fb6d910cead9522442e1ac6eb665b548e363d3820f7",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "sourceIdentityVerified": true,
+    "total": 4357
+  },
+  "comparisonToCompiler21": {
+    "supportedRegressions": 0,
+    "newAssemblyAlternatives": 40,
+    "changedRefusalReasons": 0,
+    "assemblySources": 1321,
+    "privateDependencySources": 40,
+    "replayRowsChanged": []
+  },
+  "verification": {
+    "scopedTests": {
+      "files": 5,
+      "passed": 110,
+      "skipped": 0
+    },
+    "scriptsTypecheck": "passed",
+    "auditLint": "passed",
+    "sourceStable": true
+  },
+  "limits": [
+    "New alternatives use private children that cannot be placed independently.",
+    "Aggregate fidelity is not local topology or independent AI native acceptance.",
+    "The failed compiler22 revision and evidence remain immutable.",
+    "P2 engineering and visual phase exits remain open."
+  ],
+  "artifacts": [
+    {
+      "path": ".staging/wave-ae-source-regression-compiler23-2026-09-08/revision23.json",
+      "sha256": "45a0ac6058d038c951b00fb6d910cead9522442e1ac6eb665b548e363d3820f7"
+    },
+    {
+      "path": ".staging/wave-ae-source-regression-compiler23-2026-09-08/admission/admission-results.json",
+      "sha256": "162ab73066dc9d0333a3d906ed30e893c610ce46f6fdac5d1451785e38144df9"
+    },
+    {
+      "path": ".staging/wave-ae-source-regression-compiler23-2026-09-08/replay/results.json",
+      "sha256": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c"
+    },
+    {
+      "path": ".staging/wave-ae-source-regression-compiler23-2026-09-08/comparison.json",
+      "sha256": "36b43fe79dea55a12e09c338ca029bb4060fad5d93f9e455727a00f1cc011856"
+    },
+    {
+      "path": ".staging/wave-ae-source-regression-compiler23-2026-09-08/verification.json",
+      "sha256": "fb7c99f4e3db1419e5c4f614d4bf69f9967179b15f9ade81e30784a69015e814"
+    },
+    {
+      "path": ".staging/wave-aa-assembly-corrections-2026-09-08/compiler23.patch",
+      "sha256": "6afe8aa0f3c8ec5973cc1cffac929b71311c6c8c9d72511c5408cef56dbfc635"
+    },
+    {
+      "path": ".staging/wave-aa-assembly-corrections-2026-09-08/receipt.json",
+      "sha256": "adfa32c4493d6852c8abe14e1f84ea72d3829495e312ff85ebd0691d3af0704e"
+    }
+  ],
+  "costs": {
+    "newApiActual": 0,
+    "newApiReservation": 0,
+    "newNativeCalls": 0
+  },
+  "qualified": false
+}

@@ -1,0 +1,52 @@
+{
+  "id": "D325",
+  "tests": {
+    "total": 2235,
+    "files": 171,
+    "skipped": 0,
+    "log": ".staging/wave-bc-proof-render-2026-09-08/integration-test.log"
+  },
+  "scopedAfterFormat": {
+    "total": 20,
+    "files": 2,
+    "log": ".staging/wave-bc-proof-render-2026-09-08/proof-tests-v2.log"
+  },
+  "typecheck": 0,
+  "build": 0,
+  "check": [
+    {
+      "stage": "check-v3",
+      "exitCode": 1
+    }
+  ],
+  "sourceFreeze": {
+    "path": ".staging/wave-bc-proof-render-2026-09-08/source-after.json",
+    "sha256": "b6b303d5fffc521fa6a5a49037d4326d07267fb755b91c8987392516a5503b44"
+  },
+  "changes": [
+    "actual unscaled native proof cells and version/hash",
+    "strict author-review packet presentation checks (assembler not yet connected to production)",
+    "compiler correction remains available after failed visual repair",
+    "diagnostic-only mini view_image feature flag",
+    "honest offline access probe with not-visible status; errno remains unknown"
+  ],
+  "limits": [
+    "No visual qualification",
+    "Read-only audit found accepted-inspection fallback provenance gap, fix pending before normal generation",
+    "Canonical assembler is not yet wired into production review"
+  ],
+  "failures": [
+    "Initial lint sort keys and await loop corrected, targeted tests rerun",
+    "Verification log creation ENOSPC; disposable cache reclaimed, checks resumed",
+    "Two render command path errors preserved in task output; final v2 rendered successfully"
+  ],
+  "apiIncrement": 0,
+  "nativeCallsCumulative": 63,
+  "nativeDollarCost": null,
+  "artifacts": {
+    ".staging/wave-bc-proof-render-2026-09-08/filled-16-proof-v2.png": "4041a28258cba30ed626f55e43bc008fb720957ca992da0712d1f9c36eccdc52",
+    ".staging/wave-bc-proof-render-2026-09-08/filled-24-proof-v2.png": "426ae113346f45e51fe413bb1f05f41f0dbc56624bf54804b0502d9f1643376b",
+    ".staging/wave-bc-proof-render-2026-09-08/filled-16-metadata-v2.json": "46703b0f974f71e492983e61b0ab6d331d190cc776048f3b72da1962bce5d9b9",
+    ".staging/wave-bc-proof-render-2026-09-08/filled-24-metadata-v2.json": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+  }
+}

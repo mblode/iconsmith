@@ -1,0 +1,14 @@
+{
+  "kind": "development-evidence-index",
+  "version": 8,
+  "qualified": false,
+  "htmlSha256": "7780c818c5a9f14045c7dc3fd1404900e0323b541952c58774ed7164eceefd57",
+  "addedArtifactHashes": {
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bc-proof-render-2026-09-08/filled-16-proof-v2.png": "4041a28258cba30ed626f55e43bc008fb720957ca992da0712d1f9c36eccdc52",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bc-proof-render-2026-09-08/filled-24-proof-v2.png": "426ae113346f45e51fe413bb1f05f41f0dbc56624bf54804b0502d9f1643376b"
+  },
+  "previousIndex": "development-evidence-index-v7-2026-09-08.json",
+  "verificationCorrection": "wave-bc-integration-pass-correction-2026-09-08.json",
+  "nativeCallsAtCreation": 63,
+  "apiIncrement": 0
+}

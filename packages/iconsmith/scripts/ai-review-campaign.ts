@@ -1,8 +1,11 @@
 /** Resumable, evidence-bound orchestration for small AI-only review packets. */
 import { createHash } from "node:crypto";
 import {
+  closeSync,
   existsSync,
+  fsyncSync,
   mkdirSync,
+  openSync,
   readdirSync,
   readFileSync,
   realpathSync,
@@ -11,11 +14,24 @@ import {
 } from "node:fs";
 import path from "node:path";
 
-import { runAiReviewProtocol } from "./ai-review-protocol.js";
+import {
+  AI_REVIEW_FINAL_VALIDATION_RESERVE_MS,
+  AI_REVIEW_RECOGNITION_ORDER_VERSION,
+  buildRecognitionQuestions,
+  recognitionQuestionsHash,
+  runAiReviewProtocol,
+  runProspectiveAiReviewProtocol,
+} from "./ai-review-protocol.js";
 import type {
   AiProtocolStimulus,
+  ProspectiveProtocolReviewer,
   ProtocolReviewer,
 } from "./ai-review-protocol.js";
+import {
+  AI_REVIEW_FREE_RECOGNITION_VERSION,
+  freezeSynonymKey,
+} from "./quality-labels.js";
+import type { SynonymKeyRow } from "./quality-labels.js";
 
 export interface AiReviewRoute {
   command: string;
@@ -23,7 +39,7 @@ export interface AiReviewRoute {
   invoke: ProtocolReviewer;
   model: string;
 }
-export interface AiReviewPacketRow {
+interface AiReviewPacketRow {
   concept: string;
   familyReferences: readonly string[];
   id: string;
@@ -32,7 +48,23 @@ export interface AiReviewPacketRow {
 }
 export interface AiReviewCampaignInput {
   packetId: string;
+  recognitionOrderSeed?: string;
   stimuli: readonly AiReviewPacketRow[];
+}
+
+export interface ProspectiveAiReviewRoute {
+  adjudicator: {
+    baseModelLineage: string;
+    command: string;
+    id: string;
+    invoke: ProspectiveProtocolReviewer;
+    model: string;
+  };
+  baseModelLineage: string;
+  command: string;
+  id: string;
+  invoke: ProspectiveProtocolReviewer;
+  model: string;
 }
 
 class CampaignStoppedError extends Error {
@@ -43,6 +75,25 @@ const sha = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
 const json = (value: unknown) => `${JSON.stringify(value, null, 2)}\n`;
 const readJson = (file: string) => JSON.parse(readFileSync(file, "utf-8"));
+const writeDurableExclusiveJson = (
+  directory: string,
+  name: string,
+  value: unknown
+) => {
+  const descriptor = openSync(path.join(directory, name), "wx", 0o600);
+  try {
+    writeFileSync(descriptor, json(value));
+    fsyncSync(descriptor);
+  } finally {
+    closeSync(descriptor);
+  }
+  const directoryDescriptor = openSync(directory, "r");
+  try {
+    fsyncSync(directoryDescriptor);
+  } finally {
+    closeSync(directoryDescriptor);
+  }
+};
 
 const artifactTreeHash = (directory: string) => {
   const files = (current: string): { file: string; sha256: string }[] =>
@@ -99,7 +150,10 @@ const verifyRouteRuntimeBindings = (
   }
 };
 
-const freezePacket = (input: AiReviewCampaignInput) => {
+const freezePacket = (
+  input: AiReviewCampaignInput,
+  recognitionOrderSeed: string
+) => {
   if (
     !/^[a-z0-9-]+$/u.test(input.packetId) ||
     !input.stimuli.length ||
@@ -120,9 +174,13 @@ const freezePacket = (input: AiReviewCampaignInput) => {
     image: readFileSync(realpathSync(row.image)),
     meanings: [...row.meanings],
   }));
+  const recognitionQuestions = buildRecognitionQuestions(
+    stimuli,
+    recognitionOrderSeed
+  );
   const manifest = input.stimuli.map((row, index) => ({
-    // The campaign root is visible before recognition. Commit to the target
-    // and source bytes without exposing the answer or filename there.
+    // The controller commits to the target, while reviewer containers receive
+    // only their stage image directory and the ordered alternatives.
     conceptSha256: sha(row.concept),
     familyReferences: row.familyReferences.map((_file, anchor) => ({
       sha256: sha(stimuli[index]?.familyReferences[anchor] ?? new Uint8Array()),
@@ -132,8 +190,13 @@ const freezePacket = (input: AiReviewCampaignInput) => {
       sha256: sha(stimuli[index]?.image ?? new Uint8Array()),
     },
     meanings: [...row.meanings],
+    recognitionChoices: recognitionQuestions[index]?.choices,
   }));
-  return { manifest, stimuli };
+  return {
+    manifest,
+    recognitionQuestionsHash: recognitionQuestionsHash(recognitionQuestions),
+    stimuli,
+  };
 };
 
 const validArtifactHash = (value: unknown): value is string =>
@@ -143,9 +206,11 @@ export const readAiReviewTerminal = (options: {
   campaignIntentHash: string;
   directory: string;
   model: string;
+  originalDeadlineAt?: number;
   routeId: string;
 }) => {
-  const { campaignIntentHash, directory, model, routeId } = options;
+  const { campaignIntentHash, directory, model, originalDeadlineAt, routeId } =
+    options;
   const terminalFile = path.join(directory, "terminal.json");
   if (!existsSync(terminalFile)) {
     throw new Error(`Ambiguous partial reviewer directory: ${directory}`);
@@ -166,6 +231,8 @@ export const readAiReviewTerminal = (options: {
     !Number.isFinite(terminal.startedAt) ||
     !Number.isFinite(terminal.deadlineAt) ||
     terminal.deadlineAt <= terminal.startedAt ||
+    (originalDeadlineAt !== undefined &&
+      terminal.deadlineAt > originalDeadlineAt) ||
     !Number.isFinite(terminal.elapsedMs) ||
     terminal.elapsedMs < 0 ||
     !validArtifactHash(terminal.artifactTreeHash) ||
@@ -201,6 +268,7 @@ export const runAiReviewCampaign = async (options: {
   execute?: boolean;
   input: AiReviewCampaignInput;
   maxPackets: number;
+  originalDeadlineAt?: number;
   out: string;
   perReviewerMaxMs: number;
   routes: readonly AiReviewRoute[];
@@ -215,6 +283,8 @@ export const runAiReviewCampaign = async (options: {
     !Number.isFinite(options.perReviewerMaxMs) ||
     options.perReviewerMaxMs <= 0 ||
     options.perReviewerMaxMs > 480_000 ||
+    (options.originalDeadlineAt !== undefined &&
+      !Number.isSafeInteger(options.originalDeadlineAt)) ||
     options.routes.length < 2 ||
     new Set(options.routes.map(({ id }) => id)).size !==
       options.routes.length ||
@@ -229,7 +299,6 @@ export const runAiReviewCampaign = async (options: {
   }
   options.verifyRuntime(options.runtimeIdentity);
   verifyRouteRuntimeBindings(options.routes, options.runtimeIdentity);
-  const packet = freezePacket(options.input);
   if (!options.toolingFiles.length) {
     throw new Error("AI review campaign needs frozen tooling files");
   }
@@ -244,13 +313,23 @@ export const runAiReviewCampaign = async (options: {
   if (options.stopFile && !path.isAbsolute(options.stopFile)) {
     throw new Error("AI review campaign stop file must be absolute");
   }
+  const recognitionOrderSeed =
+    options.input.recognitionOrderSeed ??
+    sha(`iconsmith-ai-review-order\0${options.input.packetId}`);
+  const packet = freezePacket(options.input, recognitionOrderSeed);
   const intent = {
     authority: "AI diagnostic only",
     maxPackets: options.maxPackets,
     packet: packet.manifest,
     packetId: options.input.packetId,
+    ...(options.originalDeadlineAt === undefined
+      ? {}
+      : { originalDeadlineAt: options.originalDeadlineAt }),
     perReviewerMaxMs: options.perReviewerMaxMs,
     qualified: false,
+    recognitionOrderSeed,
+    recognitionOrderVersion: AI_REVIEW_RECOGNITION_ORDER_VERSION,
+    recognitionQuestionsHash: packet.recognitionQuestionsHash,
     routes: options.routes.map(({ command, id, model }) => ({
       command,
       id,
@@ -261,7 +340,7 @@ export const runAiReviewCampaign = async (options: {
     toolingIdentity,
   };
   const intentHash = sha(JSON.stringify(intent));
-  if (existsSync(options.out)) {
+  if (existsSync(path.join(options.out, "intent.json"))) {
     const saved = readFileSync(path.join(options.out, "intent.json"), "utf-8");
     if (sha(JSON.stringify(JSON.parse(saved))) !== intentHash) {
       throw new Error("AI review campaign intent changed on resume");
@@ -318,6 +397,7 @@ export const runAiReviewCampaign = async (options: {
           campaignIntentHash: intentHash,
           directory,
           model: route.model,
+          originalDeadlineAt: options.originalDeadlineAt,
           routeId: route.id,
         }).terminal
       );
@@ -333,9 +413,27 @@ export const runAiReviewCampaign = async (options: {
       });
       continue;
     }
+    if (
+      options.originalDeadlineAt !== undefined &&
+      options.originalDeadlineAt - Date.now() <=
+        AI_REVIEW_FINAL_VALIDATION_RESERVE_MS
+    ) {
+      outcomes.push({
+        deadlineAt: options.originalDeadlineAt,
+        model: route.model,
+        qualified: false,
+        reason: "campaign-original-deadline-expired",
+        routeId: route.id,
+        status: "unstarted" as const,
+      });
+      continue;
+    }
     mkdirSync(dispatchLock, { recursive: false });
     const startedAt = Date.now();
-    const deadlineAt = startedAt + options.perReviewerMaxMs;
+    const deadlineAt = Math.min(
+      startedAt + options.perReviewerMaxMs,
+      options.originalDeadlineAt ?? Number.POSITIVE_INFINITY
+    );
     const verifyDispatchIdentity = () => {
       options.verifyRuntime(options.runtimeIdentity);
       verifyRouteRuntimeBindings(options.routes, options.runtimeIdentity);
@@ -356,6 +454,7 @@ export const runAiReviewCampaign = async (options: {
       // oxlint-disable-next-line eslint/no-await-in-loop
       const result = await runAiReviewProtocol({
         deadlineAt,
+        expectedRecognitionQuestionsHash: packet.recognitionQuestionsHash,
         invoke: async (request) => {
           if (campaignStopped()) {
             throw new CampaignStoppedError(
@@ -374,6 +473,7 @@ export const runAiReviewCampaign = async (options: {
         },
         model: route.model,
         out: directory,
+        recognitionOrderSeed,
         stimuli: packet.stimuli,
       });
       verifyDispatchIdentity();
@@ -415,6 +515,193 @@ export const runAiReviewCampaign = async (options: {
       outcomes.push(terminal);
     } finally {
       rmSync(dispatchLock, { force: true, recursive: true });
+    }
+  }
+  return {
+    intentHash,
+    outcomes,
+    qualified: false,
+    status: "diagnostic" as const,
+  };
+};
+
+/** Fresh-run campaign wrapper for the prospective free-description protocol.
+ * Its intent commits to the hidden key hash and public artifact identities,
+ * while never serializing targets or synonyms before recognition. Runtime
+ * access confinement is not yet canonical evidence, so every outcome remains
+ * diagnostic and production-ineligible. */
+// Freeze, dispatch and settlement checks stay together for the prospective path.
+// oxlint-disable-next-line eslint/complexity
+export const runProspectiveAiReviewCampaign = async (options: {
+  execute?: boolean;
+  input: AiReviewCampaignInput;
+  originalDeadlineAt: number;
+  out: string;
+  perReviewerMaxMs: number;
+  routes: readonly ProspectiveAiReviewRoute[];
+  synonymKey: readonly SynonymKeyRow[];
+  toolingFiles: readonly string[];
+}) => {
+  if (
+    !/^[a-z0-9-]+$/u.test(options.input.packetId) ||
+    !options.input.stimuli.length ||
+    options.input.stimuli.length > 20 ||
+    !Number.isSafeInteger(options.originalDeadlineAt) ||
+    options.originalDeadlineAt <= Date.now() ||
+    !Number.isFinite(options.perReviewerMaxMs) ||
+    options.perReviewerMaxMs <= 0 ||
+    options.perReviewerMaxMs > 480_000 ||
+    !options.routes.length ||
+    new Set(options.routes.map(({ id }) => id)).size !==
+      options.routes.length ||
+    options.routes.some(
+      (route) =>
+        !/^[a-z0-9-]+$/u.test(route.id) ||
+        !/^[a-z0-9-]+$/u.test(route.adjudicator.id) ||
+        !route.command.startsWith("/") ||
+        !route.adjudicator.command.startsWith("/") ||
+        !route.model.trim() ||
+        !route.adjudicator.model.trim() ||
+        !route.baseModelLineage.trim() ||
+        !route.adjudicator.baseModelLineage.trim() ||
+        route.baseModelLineage === route.adjudicator.baseModelLineage
+    ) ||
+    !options.toolingFiles.length
+  ) {
+    throw new Error("Prospective campaign needs bounded independent routes");
+  }
+  const stimuli: AiProtocolStimulus[] = options.input.stimuli.map((row) => ({
+    concept: row.concept,
+    familyReferences: row.familyReferences.map((file) =>
+      readFileSync(realpathSync(file))
+    ),
+    id: row.id,
+    image: readFileSync(realpathSync(row.image)),
+    meanings: [],
+  }));
+  if (
+    new Set(stimuli.map(({ id }) => id)).size !== stimuli.length ||
+    stimuli.some(({ id }) => !/^[a-z0-9-]+$/u.test(id))
+  ) {
+    throw new Error("Prospective campaign needs unique opaque row identities");
+  }
+  const key = freezeSynonymKey(options.synonymKey);
+  if (
+    key.rows.length !== stimuli.length ||
+    key.rows.some((row, index) => row.id !== stimuli[index]?.id)
+  ) {
+    throw new Error("Prospective campaign synonym key population changed");
+  }
+  const toolingIdentity = Object.fromEntries(
+    options.toolingFiles.toSorted().map((file) => {
+      const resolved = realpathSync(file);
+      return [resolved, sha(readFileSync(resolved))];
+    })
+  );
+  const intent = {
+    authority: "AI diagnostic only",
+    originalDeadlineAt: options.originalDeadlineAt,
+    packet: stimuli.map((row) => ({
+      familyReferenceHashes: row.familyReferences.map(sha),
+      id: row.id,
+      imageHash: sha(row.image),
+    })),
+    packetId: options.input.packetId,
+    perReviewerMaxMs: options.perReviewerMaxMs,
+    productionSealEligible: false,
+    protocolVersion: AI_REVIEW_FREE_RECOGNITION_VERSION,
+    routes: options.routes.map((route) => ({
+      adjudicator: {
+        baseModelLineage: route.adjudicator.baseModelLineage,
+        command: route.adjudicator.command,
+        id: route.adjudicator.id,
+        model: route.adjudicator.model,
+      },
+      baseModelLineage: route.baseModelLineage,
+      command: route.command,
+      id: route.id,
+      model: route.model,
+    })),
+    runtimeAccessRestrictionVerified: false,
+    synonymKeyHash: key.hash,
+    toolingIdentity,
+  };
+  const intentHash = sha(JSON.stringify(intent));
+  if (existsSync(options.out)) {
+    throw new Error("Prospective campaigns are fresh-run only");
+  }
+  mkdirSync(options.out, { recursive: false });
+  writeDurableExclusiveJson(options.out, "intent.json", intent);
+  if (options.execute !== true) {
+    return { intentHash, qualified: false, status: "dry-run" as const };
+  }
+  const outcomes = [];
+  for (const route of options.routes) {
+    const startedAt = Date.now();
+    const deadlineAt = Math.min(
+      options.originalDeadlineAt,
+      startedAt + options.perReviewerMaxMs
+    );
+    const directory = path.join(options.out, route.id);
+    if (deadlineAt - startedAt <= AI_REVIEW_FINAL_VALIDATION_RESERVE_MS) {
+      outcomes.push({
+        model: route.model,
+        qualified: false,
+        reason: "campaign-original-deadline-expired",
+        routeId: route.id,
+        status: "unstarted" as const,
+      });
+      continue;
+    }
+    try {
+      // oxlint-disable-next-line eslint/no-await-in-loop
+      const result = await runProspectiveAiReviewProtocol({
+        adjudicator: route.adjudicator,
+        deadlineAt,
+        expectedSynonymKeyHash: key.hash,
+        out: directory,
+        recognizer: route,
+        stimuli,
+        synonymKey: key.rows,
+      });
+      const terminal = {
+        artifactTreeHash: artifactTreeHash(directory),
+        deadlineAt,
+        elapsedMs: Date.now() - startedAt,
+        intentHash: sha(
+          JSON.stringify({ campaignIntentHash: intentHash, route: route.id })
+        ),
+        model: route.model,
+        productionSealEligible: false,
+        qualified: false,
+        resultHash: sha(JSON.stringify(result)),
+        routeId: route.id,
+        startedAt,
+        status: result.status,
+      };
+      writeDurableExclusiveJson(directory, "terminal.json", terminal);
+      outcomes.push(terminal);
+    } catch (error) {
+      if (!existsSync(directory)) {
+        mkdirSync(directory, { recursive: false });
+      }
+      const terminal = {
+        artifactTreeHash: artifactTreeHash(directory),
+        deadlineAt,
+        elapsedMs: Date.now() - startedAt,
+        intentHash: sha(
+          JSON.stringify({ campaignIntentHash: intentHash, route: route.id })
+        ),
+        model: route.model,
+        productionSealEligible: false,
+        qualified: false,
+        reason: String(error),
+        routeId: route.id,
+        startedAt,
+        status: "errored" as const,
+      };
+      writeDurableExclusiveJson(directory, "terminal.json", terminal);
+      outcomes.push(terminal);
     }
   }
   return {

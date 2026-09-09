@@ -10,32 +10,6 @@ export interface BooleanOperand {
   fillRule?: "evenodd" | "nonzero";
 }
 
-/** Positive filled overlap, excluding tangent contact and overlapping bboxes.
- * Used for diagnostics only; this does not change the submitted geometry. */
-export const pathsOverlap = (left: string, right: string): boolean => {
-  if ([left, right].some((d) => parsePath(d).some((p) => !p.closed))) {
-    return false;
-  }
-  const scope = new paper.PaperScope();
-  scope.setup(new scope.Size(24, 24));
-  try {
-    const make = (d: string) =>
-      new scope.CompoundPath({
-        fillRule: "evenodd",
-        insert: false,
-        pathData: d,
-      });
-    const intersection = make(left).intersect(make(right), { insert: false });
-    return (
-      (intersection instanceof scope.Path ||
-        intersection instanceof scope.CompoundPath) &&
-      Math.abs(intersection.area) > 1e-6
-    );
-  } finally {
-    scope.project.remove();
-  }
-};
-
 /** Keep cubic curves and computed intersections; do not flatten or grid-snap
  * the result. Inputs have already passed through the constrained builders. */
 export const combinePaths = (

@@ -1,0 +1,39 @@
+{
+  "id": "D495",
+  "observedAt": "2026-09-08T22:55:17.099301+00:00",
+  "kind": "offline-terminal-acceptance-bridge-integration",
+  "design": "D479",
+  "contract": "iconsmith-ai-only-10-draft-v17",
+  "scope": "Process-local campaign-terminal consumption preserves both requested slots, null unavailable evidence, production-unknown and unstarted, exact request-intent and selected SVG hashes, and full critic-coverage denominators.",
+  "verification": {
+    "workerReported": "194 scoped tests in3files, scoped lint/core tsc/diff pass",
+    "rootIntegrated": "pending; concurrent scripts type errors retained in worker transcript"
+  },
+  "evidence": [
+    ".staging/wave-fe-acceptance-bridge-2026-09-09/result.md",
+    ".staging/wave-fe-acceptance-bridge-2026-09-09/verification.md"
+  ],
+  "sourceHashes": [
+    {
+      "file": "packages/iconsmith/src/eval/acceptance-contract.ts",
+      "sha256": "105d7ac9dce9ebd09c8e5b3461065461e88409a51ac1dfbcf229ecc8d9f465b3"
+    },
+    {
+      "file": "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "sha256": "b02226bf8cb5749035ceba881e54f44f5e7e3cf6780b6819bf4bb20668176bbb"
+    },
+    {
+      "file": "packages/iconsmith/scripts/acceptance-critic-evidence.ts",
+      "sha256": "93dc87cfbaac9686c6815c5b20146c58ab5af00edf3fc34a9464c55b9ac3a56e"
+    },
+    {
+      "file": "packages/iconsmith/scripts/acceptance-critic-evidence.test.ts",
+      "sha256": "e17e21056858864c274c15e3365acf0f4c6d1f727d782269e766b451ce982542"
+    }
+  ],
+  "authorEvidenceVerified": false,
+  "qualificationGranted": false,
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null
+}

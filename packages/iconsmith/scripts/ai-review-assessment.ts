@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
+import { DRAFT_ACCEPTANCE_CONTRACT } from "../src/eval/acceptance-contract.js";
 import { readAiReviewTerminal } from "./ai-review-campaign.js";
 
 const sha = (value: string) => createHash("sha256").update(value).digest("hex");
@@ -46,7 +47,8 @@ const readReview = (
   intentHash: string,
   route: FrozenRoute,
   stimulus: FrozenStimulus,
-  packet: readonly FrozenStimulus[]
+  packet: readonly FrozenStimulus[],
+  originalDeadlineAt?: number
 ) => {
   const directory = path.join(campaign, route.id);
   if (!existsSync(directory)) {
@@ -57,6 +59,7 @@ const readReview = (
       campaignIntentHash: intentHash,
       directory,
       model: route.model,
+      originalDeadlineAt,
       routeId: route.id,
     });
     if (terminal.status !== "complete" || result?.status !== "complete") {
@@ -168,12 +171,183 @@ const readReview = (
   }
 };
 
-export const assessAiReviewCampaign = (campaign: string) => {
+export interface AiCalibrationAssessmentOptions {
+  conditionKeyFile: string;
+  expectedConditionKeySha256: string;
+}
+interface CalibrationCondition {
+  id: string;
+  canonicalArtifactId: string;
+  concept: string;
+  sheetSha256: string;
+  presentation: "original" | "identical-repeat" | "reference-order-reversed";
+}
+const validateCalibrationConditions = (
+  conditions: readonly CalibrationCondition[],
+  packet: readonly FrozenStimulus[]
+) => {
+  for (const row of conditions) {
+    const stimulus = packet.find((item) => item.id === row.id);
+    const canonical = conditions.find(
+      (item) => item.id === row.canonicalArtifactId
+    );
+    if (
+      !stimulus ||
+      typeof row.concept !== "string" ||
+      sha(row.concept) !== stimulus.conceptSha256 ||
+      row.sheetSha256 !== stimulus.image.sha256 ||
+      !canonical ||
+      canonical.canonicalArtifactId !== canonical.id ||
+      canonical.presentation !== "original" ||
+      canonical.sheetSha256 !== row.sheetSha256 ||
+      canonical.concept !== row.concept ||
+      !["original", "identical-repeat", "reference-order-reversed"].includes(
+        row.presentation
+      ) ||
+      (row.presentation === "original") !== (row.id === row.canonicalArtifactId)
+    ) {
+      throw new Error(
+        "Calibration artifact, semantics or repeat lineage mismatch"
+      );
+    }
+  }
+  for (const row of conditions.filter(
+    (item) => item.presentation !== "original"
+  )) {
+    const original = packet.find((item) => item.id === row.canonicalArtifactId);
+    const repeated = packet.find((item) => item.id === row.id);
+    const refs = original?.familyReferences.map((item) => item.sha256) ?? [];
+    const expected =
+      row.presentation === "reference-order-reversed"
+        ? refs.toReversed()
+        : refs;
+    if (
+      JSON.stringify(expected) !==
+      JSON.stringify(repeated?.familyReferences.map((item) => item.sha256))
+    ) {
+      throw new Error("Calibration ordered reference multiplicity mismatch");
+    }
+  }
+  const canonicalRows = conditions.filter(
+    (row) => row.presentation === "original"
+  );
+  if (
+    new Set(canonicalRows.map((row) => row.sheetSha256)).size !==
+    canonicalRows.length
+  ) {
+    throw new Error(
+      "Repeated bytes cannot supply independent calibration artifacts"
+    );
+  }
+  return canonicalRows;
+};
+const assessCalibration = (
+  options: AiCalibrationAssessmentOptions,
+  packet: readonly FrozenStimulus[],
+  routes: readonly FrozenRoute[],
+  outcomes: readonly { id: string; reviews: ReturnType<typeof readReview>[] }[]
+) => {
+  const bytes = readFileSync(options.conditionKeyFile, "utf-8");
+  if (
+    !/^[a-f0-9]{64}$/u.test(options.expectedConditionKeySha256) ||
+    sha(bytes) !== options.expectedConditionKeySha256
+  ) {
+    throw new Error("Calibration condition key identity drift");
+  }
+  const key = JSON.parse(bytes) as { rows: CalibrationCondition[] };
+  if (
+    !Array.isArray(key.rows) ||
+    key.rows.length !== packet.length ||
+    new Set(key.rows.map((row) => row.id)).size !== packet.length
+  ) {
+    throw new Error("Calibration condition population mismatch");
+  }
+  const canonicalRows = validateCalibrationConditions(key.rows, packet);
+  const thresholds = DRAFT_ACCEPTANCE_CONTRACT.calibration;
+  const reviewers = routes.map((route) => {
+    const rows = key.rows.map((condition) => {
+      const review = outcomes
+        .find((row) => row.id === condition.id)
+        ?.reviews.find((item) => item.route === route.id);
+      const judgment = review?.complete ? review.judgment : null;
+      return {
+        absoluteAnchorPass:
+          judgment !== null &&
+          judgment.craft >= thresholds.absoluteCraftAnchorMinimum &&
+          judgment.critical === "no" &&
+          judgment.ship === "yes" &&
+          judgment.family === "yes" &&
+          judgment.native === "yes" &&
+          judgment.recognition === condition.concept,
+        complete: review?.complete === true,
+        condition,
+        judgment,
+      };
+    });
+    const repeats = rows
+      .filter((row) => row.condition.presentation !== "original")
+      .map((row) => {
+        const original = rows.find(
+          (item) => item.condition.id === row.condition.canonicalArtifactId
+        );
+        const left = original?.judgment;
+        const right = row.judgment;
+        const craftDelta =
+          left && right ? Math.abs(left.craft - right.craft) : null;
+        const categoriesStable = Boolean(
+          left &&
+          right &&
+          (
+            ["critical", "ship", "recognition", "family", "native"] as const
+          ).every((field) => left[field] === right[field])
+        );
+        return {
+          categoriesStable,
+          craftDelta,
+          originalId: row.condition.canonicalArtifactId,
+          passed:
+            craftDelta !== null &&
+            craftDelta <= thresholds.maximumRepeatCraftDelta &&
+            categoriesStable,
+          repeatId: row.condition.id,
+        };
+      });
+    return {
+      absoluteAnchorPass: rows.every((row) => row.absoluteAnchorPass),
+      matchedControlsPass:
+        repeats.length > 0 && repeats.every((row) => row.passed),
+      model: route.model,
+      repeats,
+      routeId: route.id,
+      rows,
+    };
+  });
+  return {
+    canonicalArtifacts: canonicalRows.length,
+    conditionKeySha256: options.expectedConditionKeySha256,
+    passed: reviewers.every(
+      (row) => row.absoluteAnchorPass && row.matchedControlsPass
+    ),
+    presentationRepeats: key.rows.length - canonicalRows.length,
+    qualified: false,
+    reviewers,
+    scope: "development-house-calibration" as const,
+    scoreOffset: null,
+    semanticFamilies: new Set(canonicalRows.map((row) => row.concept)).size,
+    thresholds,
+  };
+};
+
+export const assessAiReviewCampaign = (
+  campaign: string,
+  calibration?: AiCalibrationAssessmentOptions
+) => {
   const resolved = path.resolve(campaign);
   const intentFile = path.join(resolved, "intent.json");
   const intent = readJson(intentFile) as {
     packet?: FrozenStimulus[];
     routes?: FrozenRoute[];
+    originalDeadlineAt?: number;
   };
   const intentHash = sha(JSON.stringify(intent));
   if (!intent.packet?.length || !intent.routes?.length) {
@@ -182,7 +356,14 @@ export const assessAiReviewCampaign = (campaign: string) => {
   const outcomes = intent.packet.map((stimulus) => {
     const reviews =
       intent.routes?.map((route) =>
-        readReview(resolved, intentHash, route, stimulus, intent.packet ?? [])
+        readReview(
+          resolved,
+          intentHash,
+          route,
+          stimulus,
+          intent.packet ?? [],
+          intent.originalDeadlineAt
+        )
       ) ?? [];
     const complete = reviews.filter((review) => review.complete);
     const judgments = complete.map((review) => review.judgment);
@@ -252,6 +433,16 @@ export const assessAiReviewCampaign = (campaign: string) => {
     };
   });
   return {
+    ...(calibration
+      ? {
+          calibration: assessCalibration(
+            calibration,
+            intent.packet,
+            intent.routes,
+            outcomes
+          ),
+        }
+      : {}),
     campaignIntentHash: intentHash,
     instrumentQualified: false,
     outcomes,
@@ -260,8 +451,12 @@ export const assessAiReviewCampaign = (campaign: string) => {
   };
 };
 
-export const writeAiReviewAssessment = (campaign: string, out: string) => {
-  const assessment = assessAiReviewCampaign(campaign);
+export const writeAiReviewAssessment = (
+  campaign: string,
+  out: string,
+  calibration?: AiCalibrationAssessmentOptions
+) => {
+  const assessment = assessAiReviewCampaign(campaign, calibration);
   writeFileSync(out, `${JSON.stringify(assessment, null, 2)}\n`, {
     flag: "wx",
   });

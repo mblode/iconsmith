@@ -251,6 +251,20 @@ test("rejects unblinded, duplicate, or single-reviewer evidence", () => {
   ).toThrow();
 });
 
+test("rejects an author among multiple host-control judges", () => {
+  const authorAmongJudges = reviews();
+  const authoredReview = authorAmongJudges.find(
+    ({ stimulusId }) => stimulusId === "candidate"
+  );
+  if (!authoredReview) {
+    throw new Error("Missing authored review fixture");
+  }
+  authoredReview.reviewer = { model: "author", provider: "provider-a" };
+  expect(() => qualifyAiReviewEnsemble(stimuli, authorAmongJudges)).toThrow(
+    "Author cannot judge authored artifact"
+  );
+});
+
 test("rates candidate against a matched reference on every rubric threshold", () => {
   const candidate = reviews()
     .filter(({ stimulusHash }) => stimulusHash === "3".repeat(64))
@@ -351,7 +365,13 @@ const panelFixture = () => {
       artifactHash: panelHash(index + 1),
       canonical: true,
       craftEvidenceHash: panelHash(index + 201),
+      defectClasses: index < 20 ? ["blocked-counter"] : [],
+      generationKind: "natural-generated",
       id: `canonical-${index}`,
+      nativeSize: index % 2 === 0 ? 16 : 24,
+      orderedAttachmentHashes: [panelHash(index + 1), panelHash(index + 3001)],
+      paint: index % 4 < 2 ? "outlined" : "filled",
+      producerLineages: ["author-lineage"],
       recognitionEvidenceHash: panelHash(index + 401),
       sealed: true as const,
     })
@@ -369,13 +389,19 @@ const panelFixture = () => {
       ...canonical[21],
       canonical: false,
       id: "reversed-control",
+      orderedAttachmentHashes:
+        canonical[21]?.orderedAttachmentHashes.toReversed() ?? [],
       presentationOf: canonical[21]?.id,
       presentationOfArtifactHash: canonical[21]?.artifactHash,
       presentationOrder: "reversed",
     },
   ];
   const all = [...canonical, ...controls];
-  const critic = { model: "critic", provider: "critic-provider" };
+  const critic = {
+    baseModelLineage: "critic-lineage",
+    model: "critic",
+    provider: "critic-provider",
+  };
   const predictions: AiCriticPrediction[] = all.map((stimulus, index) => ({
     artifactHash: stimulus.artifactHash,
     critic,
@@ -387,8 +413,16 @@ const panelFixture = () => {
   const panelReviews: IndependentAiPanelReview[] = all.flatMap(
     (stimulus, index) =>
       [
-        { model: "panel-a", provider: "provider-a" },
-        { model: "panel-b", provider: "provider-b" },
+        {
+          baseModelLineage: "panel-lineage-a",
+          model: "panel-a",
+          provider: "provider-a",
+        },
+        {
+          baseModelLineage: "panel-lineage-b",
+          model: "panel-b",
+          provider: "provider-b",
+        },
       ].map((reviewer) => ({
         artifactHash: stimulus.artifactHash,
         craftEvidenceHash: stimulus.craftEvidenceHash,
@@ -463,7 +497,7 @@ test("rejects too-small, unsealed, leaked, same-reviewer, and duplicate evidence
       fixture.predictions,
       fixture.panelReviews
     )
-  ).toThrow("distinct from critic");
+  ).toThrow("base-model lineages");
   fixture = make();
   fixture.predictions.push({ ...fixture.predictions[0] });
   expect(() =>
@@ -492,6 +526,57 @@ test("rejects duplicate canonical artifacts while permitting exact-byte presenta
       fixture.panelReviews
     )
   ).toThrow("duplicate");
+});
+
+test("binds identical and reversed controls to exact ordered attachments", () => {
+  let fixture = panelFixture();
+  const identical = fixture.stimuli.find(
+    ({ id }) => id === "identical-control"
+  );
+  if (!identical) {
+    throw new Error("Missing identical control");
+  }
+  identical.artifactHash = panelHash(9001);
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("Presentation control");
+
+  fixture = panelFixture();
+  const reversed = fixture.stimuli.find(({ id }) => id === "reversed-control");
+  if (!reversed) {
+    throw new Error("Missing reversed control");
+  }
+  reversed.orderedAttachmentHashes = [
+    ...(fixture.stimuli[21]?.orderedAttachmentHashes ?? []),
+  ];
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("Presentation control");
+
+  fixture = panelFixture();
+  fixture.stimuli[21].orderedAttachmentHashes = [panelHash(22), panelHash(22)];
+  const vacuousReverse = fixture.stimuli.find(
+    ({ id }) => id === "reversed-control"
+  );
+  if (!vacuousReverse) {
+    throw new Error("Missing reverse control");
+  }
+  vacuousReverse.orderedAttachmentHashes = [panelHash(22), panelHash(22)];
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("Presentation control");
 });
 
 test.each([
@@ -605,7 +690,7 @@ test("rejects contradictory panel semantics and invalid thresholds", () => {
       fixture.predictions,
       fixture.panelReviews
     )
-  ).toThrow("distinct from critic");
+  ).toThrow("base-model lineages");
   fixture = panelFixture();
   fixture.panelReviews[0].decision = "uncertain";
   expect(() =>
@@ -614,7 +699,7 @@ test("rejects contradictory panel semantics and invalid thresholds", () => {
       fixture.predictions,
       fixture.panelReviews
     )
-  ).toThrow("distinct from critic");
+  ).toThrow("base-model lineages");
   fixture = panelFixture();
   expect(() =>
     qualifyCriticAgainstIndependentAiPanel(
@@ -643,3 +728,271 @@ test("requires actual critic decisions on presentation controls", () => {
   expect(result.presentationConsistency).toBe(false);
   expect(result.qualified).toBe(false);
 });
+
+test("requires explicit independent lineages beyond provider and model aliases", () => {
+  let fixture = panelFixture();
+  for (const review of fixture.panelReviews) {
+    review.reviewer.baseModelLineage = "shared-panel-lineage";
+  }
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("base-model lineages");
+
+  fixture = panelFixture();
+  fixture.predictions[0].critic.baseModelLineage = undefined;
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("base-model lineages");
+});
+
+test("excludes every author and repairer lineage for each artifact", () => {
+  const fixture = panelFixture();
+  fixture.stimuli[0].producerLineages = ["author-lineage", "panel-lineage-a"];
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("Author or repairer lineage overlaps");
+});
+
+test("requires natural generated producers and balanced qualification strata", () => {
+  let fixture = panelFixture();
+  fixture.stimuli[0].producerLineages = [];
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow("Author or repairer lineage overlaps");
+
+  fixture = panelFixture();
+  for (const stimulus of fixture.stimuli) {
+    stimulus.paint = "outlined";
+    stimulus.nativeSize = 16;
+  }
+  expect(
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toMatchObject({ populationReady: false, qualified: false });
+});
+
+test("does not let source positives or injected defects dilute generated failures", () => {
+  const fixture = panelFixture();
+  for (let index = 0; index < 20; index += 1) {
+    fixture.stimuli[index].generationKind = "objective-injected";
+  }
+  for (let index = 20; index < 40; index += 1) {
+    for (const review of fixture.panelReviews.filter(
+      ({ stimulusId }) => stimulusId === `canonical-${index}`
+    )) {
+      review.critical = true;
+      review.decision = "reject";
+    }
+  }
+  for (const review of fixture.panelReviews.filter(({ stimulusId }) =>
+    ["identical-control", "reversed-control"].includes(stimulusId)
+  )) {
+    review.critical = true;
+    review.decision = "reject";
+  }
+  const appendControls = (
+    count: number,
+    generationKind: "objective-injected" | "source-control",
+    critical: boolean,
+    offset: number
+  ) => {
+    for (let index = 0; index < count; index += 1) {
+      const id = `${generationKind}-${index}`;
+      const stimulus: AiPanelQualificationStimulus = {
+        artifactHash: panelHash(offset + index),
+        canonical: true,
+        craftEvidenceHash: panelHash(offset + 1000 + index),
+        defectClasses: critical ? ["objective-corruption"] : [],
+        generationKind,
+        id,
+        nativeSize: index % 2 === 0 ? 16 : 24,
+        orderedAttachmentHashes: [
+          panelHash(offset + index),
+          panelHash(offset + 3000 + index),
+        ],
+        paint: index % 4 < 2 ? "outlined" : "filled",
+        producerLineages: [],
+        recognitionEvidenceHash: panelHash(offset + 2000 + index),
+        sealed: true,
+      };
+      fixture.stimuli.push(stimulus);
+      fixture.predictions.push({
+        artifactHash: stimulus.artifactHash,
+        critic: fixture.predictions[0].critic,
+        decision: critical ? "reject" : "approve",
+        sealed: true,
+        sealedAt: 1,
+        stimulusId: id,
+      });
+      for (const reviewer of [
+        fixture.panelReviews[0].reviewer,
+        fixture.panelReviews[1].reviewer,
+      ]) {
+        fixture.panelReviews.push({
+          artifactHash: stimulus.artifactHash,
+          craftEvidenceHash: stimulus.craftEvidenceHash,
+          critical,
+          decision: critical ? "reject" : "approve",
+          panelEvidenceAvailableAt: 2,
+          recognitionEvidenceHash: stimulus.recognitionEvidenceHash,
+          reviewer,
+          stimulusId: id,
+        });
+      }
+    }
+  };
+  appendControls(180, "objective-injected", true, 10_000);
+  appendControls(320, "source-control", false, 20_000);
+  const result = qualifyCriticAgainstIndependentAiPanel(
+    fixture.stimuli,
+    fixture.predictions,
+    fixture.panelReviews
+  );
+  expect(result).toMatchObject({
+    approvalPrecision: 0.95,
+    criticalRecall: 200 / 220,
+    naturalApprovalPrecision: 0.75,
+    naturalCriticalRecall: 0,
+    populationReady: true,
+    qualified: false,
+  });
+});
+
+test("preserves intentional attachment multiplicity without inflating stimuli", () => {
+  const fixture = panelFixture();
+  const control = fixture.stimuli.find(({ id }) => id === "identical-control");
+  const original = fixture.stimuli.find(
+    ({ id }) => id === control?.presentationOf
+  );
+  if (!control || !original) {
+    throw new Error("Missing fixture control");
+  }
+  original.orderedAttachmentHashes = [panelHash(8100), panelHash(8100)];
+  control.orderedAttachmentHashes = [...original.orderedAttachmentHashes];
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).not.toThrow();
+  control.orderedAttachmentHashes = [panelHash(8100)];
+  expect(() =>
+    qualifyCriticAgainstIndependentAiPanel(
+      fixture.stimuli,
+      fixture.predictions,
+      fixture.panelReviews
+    )
+  ).toThrow();
+});
+
+test.each([
+  [20, 0.8, true],
+  [21, 0.79, false],
+] as const)(
+  "retains %i explicit uncertain outcomes at coverage %f",
+  (count, coverage, qualified) => {
+    const fixture = panelFixture();
+    const uncertain = new Set(
+      fixture.stimuli
+        .filter(({ canonical }) => canonical)
+        .slice(-count)
+        .map(({ id }) => id)
+    );
+    for (const prediction of fixture.predictions) {
+      if (uncertain.has(prediction.stimulusId)) {
+        prediction.decision = "uncertain";
+      }
+    }
+    for (const review of fixture.panelReviews) {
+      if (uncertain.has(review.stimulusId)) {
+        review.decision = "uncertain";
+        review.critical = null;
+      }
+    }
+    expect(
+      qualifyCriticAgainstIndependentAiPanel(
+        fixture.stimuli,
+        fixture.predictions,
+        fixture.panelReviews
+      )
+    ).toMatchObject({
+      approvalPrecision: 1,
+      criticalRecall: 1,
+      decisionCoverage: coverage,
+      missingPanelRows: 0,
+      missingPredictions: 0,
+      populationReady: true,
+      qualified,
+      unresolvedPanelLabels: count,
+    });
+  }
+);
+
+test("unresolved panel approvals reduce coverage and remain failed approval predictions", () => {
+  const fixture = panelFixture();
+  for (const review of fixture.panelReviews) {
+    if (review.stimulusId === "canonical-99") {
+      review.decision = "uncertain";
+      review.critical = null;
+    }
+  }
+  const result = qualifyCriticAgainstIndependentAiPanel(
+    fixture.stimuli,
+    fixture.predictions,
+    fixture.panelReviews
+  );
+  expect(result).toMatchObject({
+    approvalPrecision: 79 / 80,
+    approvalPredictionCount: 80,
+    decisionCoverage: 0.99,
+    populationReady: true,
+    unresolvedPanelLabels: 1,
+  });
+  expect(result.perStratum["filled-24"]?.decisionCoverage).toBe(24 / 25);
+});
+
+test.each(["critic", "panel"] as const)(
+  "missing %s evidence is not an explicit uncertain outcome",
+  (missing) => {
+    const fixture = panelFixture();
+    if (missing === "critic") {
+      fixture.predictions = fixture.predictions.filter(
+        ({ stimulusId }) => stimulusId !== "canonical-99"
+      );
+    } else {
+      fixture.panelReviews.pop();
+    }
+    expect(
+      qualifyCriticAgainstIndependentAiPanel(
+        fixture.stimuli,
+        fixture.predictions,
+        fixture.panelReviews
+      )
+    ).toMatchObject({
+      missingPanelRows: missing === "panel" ? 1 : 0,
+      missingPredictions: missing === "critic" ? 1 : 0,
+      populationReady: false,
+      qualified: false,
+    });
+  }
+);

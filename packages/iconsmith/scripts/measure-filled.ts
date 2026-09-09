@@ -44,8 +44,6 @@ import { flatten } from "../src/parts/shape.js";
 import { SPEC } from "../src/tools/canvas.js";
 import type { Box, Subpath } from "../src/types.js";
 
-export { FILLED_VARIANT } from "../src/corpus/load.js";
-
 /** Segments per curve when flattening for containment and area. Coarser than
  *  fingerprinting needs — a hole only has to be located, not matched. */
 const FLATTEN_STEPS = 16;
@@ -112,7 +110,7 @@ export interface FilledElement {
 export type ShapeClass = "disc" | "other" | "rect";
 
 /** One subpath, placed in the nesting tree its element's fill rule implies. */
-export interface SubpathFacts {
+interface SubpathFacts {
   area: number;
   box: Box;
   /** How many other subpaths of the same element contain this one. */

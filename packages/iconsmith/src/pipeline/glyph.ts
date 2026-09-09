@@ -14,7 +14,7 @@ import { glyphFromSlug, GLYPH_WHY, GLYPHS } from "./glyphs.js";
 import type { GenerateLike } from "./harness.js";
 import { pairPrograms } from "./pair.js";
 
-export class GlyphError extends Error {
+class GlyphError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "GlyphError";

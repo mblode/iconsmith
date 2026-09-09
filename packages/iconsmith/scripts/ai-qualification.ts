@@ -7,10 +7,13 @@ export interface AiRubricRating {
   shipUnchanged: boolean | null;
 }
 export interface AiReviewerIdentity {
+  /** Stable base-model family. Provider aliases, effort and sessions do not
+   * create a new independent lineage. */
+  baseModelLineage?: string;
   model: string;
   provider: string;
 }
-export interface AiSemanticLabelValidation {
+interface AiSemanticLabelValidation {
   authority: "independent-ai-semantic-review" | "filename-only";
   meaningProvenanceHash: string;
   recognitionAnswer: string;
@@ -53,7 +56,7 @@ export interface AiRubricThresholds {
   nativeLegibility: number;
   shipUnchanged: number;
 }
-export const DEFAULT_AI_RUBRIC_THRESHOLDS: AiRubricThresholds = {
+const DEFAULT_AI_RUBRIC_THRESHOLDS: AiRubricThresholds = {
   corruptionDefectRecall: 0.9,
   coverage: 0.8,
   craftDelta: -0.5,
@@ -292,8 +295,8 @@ export const qualifyAiReviewEnsemble = (
         stimulus,
       };
     }
-    if (authorId && ![...rowReviewers].some((id) => id !== authorId)) {
-      throw new Error(`Author is the only judge: ${stimulus.id}`);
+    if (authorId && rowReviewers.has(authorId)) {
+      throw new Error(`Author cannot judge authored artifact: ${stimulus.id}`);
     }
     const criticalFlags = rows.filter(
       ({ criticalDefect }) => criticalDefect
@@ -451,13 +454,30 @@ export const qualifyAiReviewEnsemble = (
 export interface AiPanelQualificationStimulus {
   artifactHash: string;
   canonical: boolean;
+  /** Frozen natural-population identity. Legacy diagnostic/control rows may
+   * omit these fields; the provenance wrapper requires them for every
+   * canonical natural-generated row. */
+  conceptId?: string;
   craftEvidenceHash: string;
+  defectClasses: readonly string[];
+  familyId?: string;
+  generationKind: "natural-generated" | "objective-injected" | "source-control";
   id: string;
+  nativeSize: 16 | 24;
+  /** Ordered hashes of the exact images inside the reviewer presentation. */
+  orderedAttachmentHashes: readonly string[];
+  paint: "filled" | "outlined";
   presentationOf?: string;
   presentationOfArtifactHash?: string;
   presentationOrder?: "identical" | "reversed";
+  producerEvidenceHash?: string;
+  /** Every model lineage that authored or repaired this artifact. Empty is
+   * valid only for controls without a model producer. */
+  producerLineages: readonly string[];
   recognitionEvidenceHash: string;
+  requestedSlotId?: string;
   sealed: true;
+  sourceLineageHash?: string;
 }
 
 export interface AiCriticPrediction {
@@ -486,7 +506,7 @@ export interface AiPanelQualificationThresholds {
   decisionCoverage: number;
 }
 
-export const DEFAULT_AI_PANEL_QUALIFICATION_THRESHOLDS: AiPanelQualificationThresholds =
+const DEFAULT_AI_PANEL_QUALIFICATION_THRESHOLDS: AiPanelQualificationThresholds =
   {
     approvalPrecision: 0.95,
     criticalRecall: 0.9,
@@ -518,10 +538,23 @@ export const qualifyCriticAgainstIndependentAiPanel = (
     stimulusById.size !== stimuli.length ||
     canonicalArtifactHashes.size !== canonical.length ||
     stimuli.some(
+      // Runtime schema validation is intentionally centralized here.
+      // eslint-disable-next-line complexity
       (row) =>
         !row.id.trim() ||
         row.sealed !== true ||
         typeof row.canonical !== "boolean" ||
+        !["natural-generated", "objective-injected", "source-control"].includes(
+          row.generationKind
+        ) ||
+        ![16, 24].includes(row.nativeSize) ||
+        !["filled", "outlined"].includes(row.paint) ||
+        !Array.isArray(row.orderedAttachmentHashes) ||
+        row.orderedAttachmentHashes.length < 2 ||
+        row.orderedAttachmentHashes.some((value) => !HASH.test(value)) ||
+        !Array.isArray(row.defectClasses) ||
+        new Set(row.defectClasses).size !== row.defectClasses.length ||
+        row.defectClasses.some((value) => !value.trim()) ||
         ![
           row.artifactHash,
           row.craftEvidenceHash,
@@ -544,9 +577,20 @@ export const qualifyCriticAgainstIndependentAiPanel = (
     ({ canonical: isCanonical }) => !isCanonical
   )) {
     const original = stimulusById.get(control.presentationOf ?? "");
+    const expectedAttachments =
+      control.presentationOrder === "reversed"
+        ? original?.orderedAttachmentHashes.toReversed()
+        : original?.orderedAttachmentHashes;
     if (
       !original?.canonical ||
-      control.presentationOfArtifactHash !== original.artifactHash
+      control.presentationOfArtifactHash !== original.artifactHash ||
+      (control.presentationOrder === "reversed" &&
+        JSON.stringify(expectedAttachments) ===
+          JSON.stringify(original.orderedAttachmentHashes)) ||
+      JSON.stringify(control.orderedAttachmentHashes) !==
+        JSON.stringify(expectedAttachments) ||
+      (control.presentationOrder === "identical" &&
+        control.artifactHash !== original.artifactHash)
     ) {
       throw new Error(
         "Presentation control is not bound to canonical evidence"
@@ -571,11 +615,24 @@ export const qualifyCriticAgainstIndependentAiPanel = (
     throw new Error("One valid sealed critic identity is required");
   }
   const criticId = [...criticIds][0] ?? "";
+  const criticLineages = new Set(
+    predictions.map(({ critic }) => critic.baseModelLineage?.trim())
+  );
   const panelIds = new Set(
     panelReviews.map(({ reviewer }) => reviewerId(reviewer))
   );
+  const panelLineages = new Set(
+    panelReviews.map(({ reviewer }) => reviewer.baseModelLineage?.trim())
+  );
   if (
-    panelIds.size < 2 ||
+    criticLineages.size !== 1 ||
+    criticLineages.has(undefined) ||
+    criticLineages.has("") ||
+    panelIds.size !== 2 ||
+    panelLineages.size !== 2 ||
+    panelLineages.has(undefined) ||
+    panelLineages.has("") ||
+    panelLineages.has([...criticLineages][0]) ||
     panelIds.has(criticId) ||
     panelReviews.some(
       (row) =>
@@ -590,7 +647,24 @@ export const qualifyCriticAgainstIndependentAiPanel = (
     )
   ) {
     throw new Error(
-      "At least two panel identities distinct from critic are required"
+      "Critic and two panel reviewers need three distinct base-model lineages"
+    );
+  }
+  const evaluatorLineages = new Set([...criticLineages, ...panelLineages]);
+  if (
+    stimuli.some(
+      ({ generationKind, producerLineages }) =>
+        !Array.isArray(producerLineages) ||
+        (generationKind === "natural-generated" &&
+          producerLineages.length === 0) ||
+        new Set(producerLineages).size !== producerLineages.length ||
+        producerLineages.some(
+          (lineage) => !lineage.trim() || evaluatorLineages.has(lineage.trim())
+        )
+    )
+  ) {
+    throw new Error(
+      "Author or repairer lineage overlaps the critic or independent panel"
     );
   }
   const predictionByStimulus = new Map<string, AiCriticPrediction>();
@@ -655,6 +729,7 @@ export const qualifyCriticAgainstIndependentAiPanel = (
       criticalFlags.size === 1 &&
       !criticalFlags.has(null);
     return {
+      completePanel,
       criticDecision: prediction?.decision ?? "missing",
       id: stimulus.id,
       panelCritical: panelResolved ? panel[0]?.critical === true : null,
@@ -681,8 +756,9 @@ export const qualifyCriticAgainstIndependentAiPanel = (
         .length / critical.length
     : 0;
   const decisionCoverage =
-    canonicalOutcomes.filter(({ criticDecision }) =>
-      ["approve", "reject"].includes(criticDecision)
+    canonicalOutcomes.filter(
+      ({ criticDecision, panelResolved }) =>
+        panelResolved && ["approve", "reject"].includes(criticDecision)
     ).length / canonicalOutcomes.length;
   const controlOutcomes = outcomes.filter(
     ({ stimulus }) => !stimulus.canonical
@@ -708,14 +784,114 @@ export const qualifyCriticAgainstIndependentAiPanel = (
   const unresolvedPanelLabels = canonicalOutcomes.filter(
     ({ panelResolved }) => !panelResolved
   ).length;
-  const missingPredictions = canonicalOutcomes.filter(
+  const missingPanelRows = outcomes.reduce(
+    (count, { id }) =>
+      count + panelIds.size - (panelByStimulus.get(id)?.length ?? 0),
+    0
+  );
+  const missingPredictions = outcomes.filter(
     ({ criticDecision }) => criticDecision === "missing"
   ).length;
+  const natural = canonicalOutcomes.filter(
+    ({ stimulus }) => stimulus.generationKind === "natural-generated"
+  );
+  const naturalCritical = natural.filter(
+    ({ panelCritical }) => panelCritical === true
+  );
+  const naturalApprovals = natural.filter(
+    ({ criticDecision }) => criticDecision === "approve"
+  );
+  const naturalApprovalPrecision = naturalApprovals.length
+    ? naturalApprovals.filter(
+        ({ panelDecision }) => panelDecision === "approve"
+      ).length / naturalApprovals.length
+    : 0;
+  const naturalCriticalRecall = naturalCritical.length
+    ? naturalCritical.filter(
+        ({ criticDecision }) => criticDecision === "reject"
+      ).length / naturalCritical.length
+    : 0;
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const summarize = (rows: typeof canonicalOutcomes) => {
+    const rowCritical = rows.filter(
+      ({ panelCritical }) => panelCritical === true
+    );
+    const rowApprovals = rows.filter(
+      ({ criticDecision }) => criticDecision === "approve"
+    );
+    return {
+      approvalPrecision: rowApprovals.length
+        ? rowApprovals.filter(
+            ({ panelDecision }) => panelDecision === "approve"
+          ).length / rowApprovals.length
+        : 0,
+      approvalPredictionCount: rowApprovals.length,
+      count: rows.length,
+      criticalCount: rowCritical.length,
+      criticalRecall: rowCritical.length
+        ? rowCritical.filter(
+            ({ criticDecision }) => criticDecision === "reject"
+          ).length / rowCritical.length
+        : 0,
+      decisionCoverage: rows.length
+        ? rows.filter(
+            ({ criticDecision, panelResolved }) =>
+              panelResolved && ["approve", "reject"].includes(criticDecision)
+          ).length / rows.length
+        : 0,
+      unresolvedPanelLabels: rows.filter(({ panelResolved }) => !panelResolved)
+        .length,
+    };
+  };
+  const strata = [
+    ["outlined", 16],
+    ["outlined", 24],
+    ["filled", 16],
+    ["filled", 24],
+  ] as const;
+  const naturalStrataReady = strata.every(([paint, nativeSize]) => {
+    const rows = natural.filter(
+      ({ stimulus }) =>
+        stimulus.paint === paint && stimulus.nativeSize === nativeSize
+    );
+    return (
+      rows.length >= 20 &&
+      rows.filter(({ panelCritical }) => panelCritical === true).length >= 5 &&
+      rows.filter(({ criticDecision }) => criticDecision === "approve")
+        .length >= 5
+    );
+  });
+  const perStratum = Object.fromEntries(
+    strata.map(([paint, nativeSize]) => {
+      const rows = natural.filter(
+        ({ stimulus }) =>
+          stimulus.paint === paint && stimulus.nativeSize === nativeSize
+      );
+      return [`${paint}-${nativeSize}`, summarize(rows)];
+    })
+  );
+  const defectClasses = new Set(
+    natural.flatMap(({ stimulus }) => stimulus.defectClasses)
+  );
+  const perDefectClass = Object.fromEntries(
+    [...defectClasses]
+      .toSorted()
+      .map((defectClass) => [
+        defectClass,
+        summarize(
+          natural.filter(({ stimulus }) =>
+            stimulus.defectClasses.includes(defectClass)
+          )
+        ),
+      ])
+  );
   const populationReady =
     canonical.length >= 100 &&
-    critical.length >= 20 &&
-    approvals.length >= 20 &&
-    unresolvedPanelLabels === 0 &&
+    natural.length >= 80 &&
+    naturalCritical.length >= 20 &&
+    naturalApprovals.length >= 20 &&
+    naturalStrataReady &&
+    missingPanelRows === 0 &&
     missingPredictions === 0 &&
     presentationKinds.has("identical") &&
     presentationKinds.has("reversed") &&
@@ -728,9 +904,15 @@ export const qualifyCriticAgainstIndependentAiPanel = (
     criticalRecall,
     decisionCoverage,
     generalGeneratedCriticQualified: false,
+    missingPanelRows,
     missingPredictions,
+    naturalApprovalPrecision,
+    naturalCriticalRecall,
+    naturalGeneratedCount: natural.length,
     outcomes,
     panelReviewers: [...panelIds].toSorted(),
+    perDefectClass,
+    perStratum,
     populationReady,
     presentationConsistency,
     qualificationScope: "agreement-with-independent-ai-panel" as const,
@@ -738,6 +920,8 @@ export const qualifyCriticAgainstIndependentAiPanel = (
       populationReady &&
       approvalPrecision >= thresholds.approvalPrecision &&
       criticalRecall >= thresholds.criticalRecall &&
+      naturalApprovalPrecision >= thresholds.approvalPrecision &&
+      naturalCriticalRecall >= thresholds.criticalRecall &&
       decisionCoverage >= thresholds.decisionCoverage,
     unresolvedPanelLabels,
   };

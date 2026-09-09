@@ -1,0 +1,36 @@
+{
+  "id": "D428",
+  "scope": "Offline folder-lock host, modifier and clearance isolation",
+  "receipt": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-minimal-reproduction-v2-2026-09-09/receipt.json",
+    "sha256": "7fbc6b1638838614dd0de157af53448ca5750f1cc4b4cf874a77a6fbeaaab648"
+  },
+  "artifactManifest": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-minimal-reproduction-v2-2026-09-09/artifact-hashes.json",
+    "sha256": "24b453fa57b3c2217a32f7299380459de4f139fc15a6e456e283e359bdda5306",
+    "count": 115
+  },
+  "rootObservations": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-minimal-reproduction-v2-2026-09-09/root-observations.json",
+    "sha256": "1c2564190ad0b31d7cd5fce5ca6b09e3d69499f91e160c47554afc8bdf6fd364"
+  },
+  "programs": 16,
+  "exactReplays": 16,
+  "nativeSurfaceImages": 32,
+  "findings": [
+    "Host-only outline preserves the source shoulder and deliberate lower-right interruption. No independent curve snapping or new contour operation is needed for that shape.",
+    "Removing filled clearance causes lock body and shackle to disappear into folder ink. Existing selected cuts restore visible separation at both sizes. This is an occlusion/construction requirement, not an evidenced kernel representation gap.",
+    "The filled24 isolated shackle has one hole at thresholds64/128/192; filled16 loses that hole at64 and retains it at128/192. Local selected-composition shackle masks equal isolated modifier masks, but this does not establish adequate native16 counter robustness.",
+    "Whole-image topology mismatch against modifier-only is expected because full compositions add a folder; it is diagnostic, not a fidelity failure or acceptance score.",
+    "The24 selected composition has2components at64/128 and3at192; the16 composition changes from1component/2holes at64 to2components/1hole at128/192. Threshold sensitivity remains unresolved."
+  ],
+  "initialFailure": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-minimal-reproduction-2026-09-09/failure.json",
+    "reason": "Unadmitted style object refused before rendering; v2 uses canonical createStyleRevision."
+  },
+  "compilerChanged": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "visualQualified": false,
+  "p2_5Closed": false
+}

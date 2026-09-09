@@ -1,0 +1,86 @@
+{
+  "id": "D354",
+  "kind": "atomic-library-integrated-verification",
+  "tests": 2278,
+  "testFiles": 173,
+  "skipped": 0,
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 33107,
+      "log": ".staging/wave-bn-integration-2026-09-08/test.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1295,
+      "log": ".staging/wave-bn-integration-2026-09-08/typecheck.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5302,
+      "log": ".staging/wave-bn-integration-2026-09-08/build.log"
+    },
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 1399,
+      "log": ".staging/wave-bn-integration-2026-09-08/check.log"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 60,
+      "log": ".staging/wave-bn-integration-2026-09-08/diff.log"
+    }
+  ],
+  "sourceStable": true,
+  "sourceFreeze": {
+    "file": ".staging/wave-bn-integration-2026-09-08/source-after.json",
+    "sha256": "c38e6f994d9a11438d6e37d24bae64b488ef6dc5ff9a7d39f9a5df3b4d934506"
+  },
+  "patch": {
+    "file": ".staging/wave-bm-atomic-runtime-patch-2026-09-08/compiler-runtime-atomic.patch",
+    "sha256": "aa454c3cb431eb3b27fb3c06d90896a9d2cb7557924cf0692512476f12efb707"
+  },
+  "implemented": [
+    "Atomic immutable and replace-mode JSON commits",
+    "Parent library hash passed through generator to consumed SVG verification"
+  ],
+  "limitations": [
+    "Crash-window adversarial tests pending",
+    "Active STOP and strict outer-refusal resume validation pending",
+    "No visual qualification"
+  ],
+  "providerCalls": 0,
+  "nativeSettledCumulative": 80,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

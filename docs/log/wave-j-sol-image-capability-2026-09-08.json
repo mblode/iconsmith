@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "status": "exact-image-capability-verified",
+  "qualified": false,
+  "model": "gpt-5.6-sol",
+  "effort": "high",
+  "elapsedMs": 22846,
+  "calls": 1,
+  "containerAbsent": true,
+  "liveDockerInspectConfirmedAbsent": true,
+  "imageHash": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93",
+  "traceHash": "ee2dd99dd96feb1628a243ca8883ff7134ae09d75d7ad5baca03e48d87d5251e",
+  "sourceDrift": [],
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "scope": "Expected structured recognition from exact attached heart image. No calibrated craft, critic precision or sealed qualification claim.",
+  "artifacts": [
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/intent.json",
+      "sha256": "9f3c55d263ad9305d6b06b5b25f6b112647b0b70b5e53ddf3a9104f2d26741b5"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/result.json",
+      "sha256": "0a60c1b21da9d0d53db8a0291eed1b5b20aaccd84da2c867c284aa6555ec1d22"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/control/00-recognition/container-identity.json",
+      "sha256": "39c073a844a986003b18824cf4f147208a2ce73fb81216241bd837456c5729a3"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/control/00-recognition/container-settlement.json",
+      "sha256": "864f20f3635a795fd72c4ec68fc82887fa7b2fb0cd3659527dff5bec43c39420"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/calls/63920fef-6ed5-4e29-85e8-9e3349a28681.intent.json",
+      "sha256": "ab674cd5404c037e9027491983ee67d5b6286517bf11b3b107a0e03702eda097"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/calls/63920fef-6ed5-4e29-85e8-9e3349a28681.started.json",
+      "sha256": "f904f4673232f9e2201341dc69eb06ae0f25f68985aac95b108613362f7efe98"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/calls/63920fef-6ed5-4e29-85e8-9e3349a28681.terminal.json",
+      "sha256": "705695c61877e631609b35329ba37644f5efd2598dac0738213469e0275a99f9"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/calls/dispatches.json",
+      "sha256": "92f397416fbbddebb369c883af34a26ef27bd2805912fd46e6d0b966f8e99fb1"
+    },
+    {
+      "path": ".staging/wave-j-root-2026-09-08/sol-capability-v1/calls/reservation.json",
+      "sha256": "9241b215668b733c53ad169e35afde6383320fa53eb07f67b79bcf1201a87c8a"
+    }
+  ]
+}

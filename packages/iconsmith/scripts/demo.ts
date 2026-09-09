@@ -483,7 +483,7 @@ export const demoArgs = (_brief: string): string[] => [
 
 /** The demo's harness: Codex, gateway vision, one repair. Tests override
  *  `ask` and `spawn` so the path is the same without a network. */
-export const codexArm = (over: HarnessOptions = {}) =>
+const codexArm = (over: HarnessOptions = {}) =>
   harnessArm({
     args: demoArgs,
     ask: gatewayAsk,

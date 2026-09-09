@@ -27,7 +27,7 @@ import { sampleSymbols } from "./load.js";
 const FLATTEN_STEPS = 8;
 /** Circular arc → cubic handle ratio at 90°, for reference; the general form
  *  `(4/3)·tan(θ/4)` is what the radius estimator uses. */
-const K90 = 0.5523;
+
 /** Two handles within this fraction of each other imply a symmetric arc. */
 const HANDLE_TOLERANCE = 0.12;
 /** Turn angles outside this range are not corner arcs worth measuring. */
@@ -483,5 +483,3 @@ export const flaggedBy = (
   ).length;
   return hit / withGaps.length;
 };
-
-export { K90 };

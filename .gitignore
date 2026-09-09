@@ -1,14 +1,6 @@
 node_modules/
 dist/
-.next/
 .turbo/
-.vercel/
-# Anchored to the repo root but wildcarded across apps, so moving an agent
-# between workspaces cannot silently un-ignore 29MB of build output. A bare
-# `.eve/` would match at any depth, which is the fault the corpus gotcha
-# describes; `/apps/.eve/` would match nothing.
-/apps/*/.eve/
-/apps/*/.output/
 *.tsbuildinfo
 .env
 .env.local
@@ -25,7 +17,6 @@ dist/
 # and ~60 MB of it is float sidecars. Committed artifacts come from a later
 # slice and will live somewhere else.
 .corpus/
-next-env.d.ts
 # A 492 KB minified TURBOPACK chunk scraped from centralicons.com for its icon
 # metadata — third-party vendor code wearing a `.json` extension. The slugs it
 # carries are already in `corpus/corpus.json` (2,085) and `.corpus/icons.jsonl`,

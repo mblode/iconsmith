@@ -73,3 +73,33 @@ it.each([16, 20, 24])(
 it("refuses misleading native dimensions", async () => {
   await expect(opticalProof(svg, 16.5)).rejects.toThrow("native size");
 });
+
+it.each([16, 24])(
+  "presents unscaled %ipx cells without resampling",
+  async (size) => {
+    const result = await opticalProof(svg, size);
+    expect(result.metadata.presentationVersion).toBe(
+      "native-unscaled-and-enlarged-v2"
+    );
+    const cell = result.metadata.nativeCell;
+    expect([cell.width, cell.height]).toEqual([size, size]);
+    const expected = await sharp(result.native).removeAlpha().raw().toBuffer();
+    await Promise.all(
+      (
+        [
+          [cell.lightTop, false],
+          [cell.darkTop, true],
+        ] as const
+      ).map(async ([top, dark]) => {
+        const actual = await sharp(result.proof)
+          .extract({ height: size, left: cell.left, top, width: size })
+          .removeAlpha()
+          .raw()
+          .toBuffer();
+        expect(actual).toEqual(
+          dark ? Buffer.from(expected.map((value) => 255 - value)) : expected
+        );
+      })
+    );
+  }
+);

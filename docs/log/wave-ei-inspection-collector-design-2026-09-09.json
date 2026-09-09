@@ -1,0 +1,33 @@
+{
+  "id": "D474",
+  "kind": "inspection-collector-integration-design",
+  "observedAt": "2026-09-08T20:27:14.595534+00:00",
+  "status": "design-reviewed-not-implemented",
+  "finding": "Existing review adapter discards its collector capability; author mapping returns unsealed plain answers. Preserve prompt and reuse collector rather than add inference.",
+  "files": [
+    {
+      "path": "packages/iconsmith/scripts/local-codex-review.ts",
+      "snapshot": ".staging/wave-ei-inspection-collector-design-2026-09-09/local-codex-review.ts",
+      "sha256": "ee564cce0f59930b2ff365aff2e1cf80cfc2b86deee845b7747d3d4b32365381"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.ts",
+      "snapshot": ".staging/wave-ei-inspection-collector-design-2026-09-09/local-astra-author.ts",
+      "sha256": "c63bd3463955e151fbfae4b7e3fa0304fbdc7bb77b7715eac01ce8b9a481aa8c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-native-call-factory.ts",
+      "snapshot": ".staging/wave-ei-inspection-collector-design-2026-09-09/local-native-call-factory.ts",
+      "sha256": "32bc7275b25fca9c133ea4718061584ab89b40ae638d2042b77e06b10d6bec09"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-structured-author.ts",
+      "snapshot": ".staging/wave-ei-inspection-collector-design-2026-09-09/local-structured-author.ts",
+      "sha256": "403fa3d561e6d141d43a7af0194a010f337470517264933db2a02a3d3c60886d"
+    }
+  ],
+  "design": ".staging/wave-ei-inspection-collector-design-2026-09-09/design.md",
+  "designSha256": "0ac9e7a047d6acfc0eb35112dd2c65de66b08a5ac0ddc83d9ebe5526a98c88f7",
+  "providerCalls": 0,
+  "reservationUsd": 0
+}

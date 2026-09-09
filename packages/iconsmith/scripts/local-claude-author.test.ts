@@ -7,6 +7,7 @@ import { expect, it, vi } from "vitest";
 import {
   claudeStructuredArgs,
   claudeStreamInput,
+  nativeClaudeAuthorAdapters,
   constructionJsonSchema,
   runNativeClaudeStructuredAuthor,
 } from "./local-claude-author.js";
@@ -41,6 +42,91 @@ it("pins native structured construction to Claude Opus with no tools", () => {
   expect(Buffer.from(image.source.data, "base64").toString()).toBe(
     "exact-reference"
   );
+});
+
+it("refuses a reusable static container without a call factory", () => {
+  expect(() =>
+    nativeClaudeAuthorAdapters({
+      concept: "ring",
+      container: {} as never,
+      deadlineAt: Date.now() + 10_000,
+      out: "/unused",
+      referenceImages: { "reference.png": Buffer.from("reference") },
+    })
+  ).toThrow("call-scoped container factory");
+});
+
+it("allocates self-review from its own parent-deadline call scope", async () => {
+  const root = mkdtempSync(path.join(tmpdir(), "claude-call-scope-"));
+  const receiptRoot = path.join(root, "receipts");
+  const runtimeRoot = path.join(root, "runtime");
+  mkdirSync(receiptRoot);
+  mkdirSync(runtimeRoot);
+  const deadlineAt = Date.now() + 60_000;
+  const config = { namePrefix: "call-specific" };
+  const containerFactory = {
+    create: vi.fn(() => ({ config, scope: {} })),
+  };
+  const review = vi.fn(() =>
+    Promise.resolve({
+      answers: {
+        "author-self-review-outlined": {
+          choice: "pass",
+          evidence: "Open counter.",
+          treatment: "",
+        },
+      },
+      apiChargeUsd: null,
+      billing: "subscription",
+      craftApproved: false,
+      evidenceHashes: {},
+      instrumentQualified: false,
+      model: STRUCTURED_AUTHOR_MODEL,
+      status: "complete" as const,
+    })
+  );
+  try {
+    const adapters = nativeClaudeAuthorAdapters({
+      concept: "ring",
+      containerFactory: containerFactory as never,
+      deadlineAt,
+      invoke: vi.fn(),
+      out: receiptRoot,
+      preflight: () => ({
+        authMethod: "claude.ai",
+        cliVersion: "test",
+        executable: "/test/claude",
+        executableSha256: "sha",
+        loggedIn: true,
+      }),
+      referenceImages: { "reference.png": Buffer.from("reference") },
+      review: review as never,
+      runtimeRoot,
+    });
+    await adapters.inspect({
+      deadlineAt: deadlineAt - 10_000,
+      model: STRUCTURED_AUTHOR_MODEL,
+      programHashes: { outlined: "program-hash" },
+      proofHashes: { outlined: "proof-hash" },
+      proofs: { outlined: Buffer.from("proof") },
+    });
+    expect(containerFactory.create).not.toHaveBeenCalled();
+    expect(review).toHaveBeenCalledWith(
+      expect.objectContaining({
+        deadlineAt: deadlineAt - 10_000,
+        nativeCall: {
+          containerFactory,
+          ordinal: 0,
+          parentDeadlineAt: deadlineAt,
+          runtimeCwd: path.join(runtimeRoot, "00-author-self-review"),
+          stageKind: "author-self-review",
+        },
+        out: path.join(receiptRoot, "00-author-self-review"),
+      })
+    );
+  } finally {
+    rmSync(root, { force: true, recursive: true });
+  }
 });
 
 it("runs construction, exact-proof self-inspection, and review-only finalization", async () => {
@@ -116,7 +202,7 @@ it("runs construction, exact-proof self-inspection, and review-only finalization
       expect.objectContaining({
         images: expect.objectContaining({
           "anchor-reference.png": Buffer.from("reference"),
-          "outlined-proof.png": Buffer.from("png"),
+          "outlined-proof.png": Uint8Array.from(Buffer.from("png")),
         }),
       })
     );

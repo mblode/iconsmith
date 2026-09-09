@@ -1,0 +1,40 @@
+{
+  "decision": "D378",
+  "kind": "offline-resource-roster-and-evidence-refresh",
+  "inputs": {
+    ".staging/wave-bs-reliability-preparation-2026-09-08/forecast-receipt-v1.json": "7dfb87cf1768644bbd77a8a440442140e68b9074e29d4b2fae633d1a86666b19",
+    ".staging/wave-bt-roster-prep-2026-09-08/receipt.json": "83faf1aee99191b6eaed13800f4a1b5e82966b89c739966072af56cc59ae3c3e",
+    ".staging/wave-bs-native-region-binding-2026-09-08/board-v3.png": "24994c033d609b7ab4fb768e11205166665fac4d5ab9481237d7a4152e96bbaf"
+  },
+  "sourceFreeze": ".staging/wave-bs-integration-2026-09-08/provider-source-freeze.json",
+  "engineeringTests": {
+    "passed": 2320,
+    "files": 174,
+    "skipped": 0
+  },
+  "reliability": {
+    "measuredRequests": 2,
+    "sixRequestPlanningEnvelopeMinutes": [
+      65.386,
+      70.825
+    ],
+    "hardSequentialMinutes": 120,
+    "hardNativeCalls": 72,
+    "firstBatchMaximumCalls": 12,
+    "firstBatchReserved": false,
+    "forecastScope": "Development planning envelope, not catalog forecast"
+  },
+  "roster": {
+    "fourthVerifiedIndependentImageReviewerAvailable": false,
+    "qualification": "open"
+  },
+  "native": {
+    "settled": 84,
+    "priorUnresolvedIntents": 1,
+    "newCalls": 0,
+    "remainingQuotaPercentObserved": 36,
+    "dollarAllocation": null
+  },
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

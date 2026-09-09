@@ -33,7 +33,7 @@ export interface CohortMember {
   name: string;
 }
 
-export type Axis = "x" | "y";
+type Axis = "x" | "y";
 
 /** Members that agree on one axis' extent within tolerance. */
 export interface CohortGroup {
@@ -236,7 +236,7 @@ export const findCohort = (
 
 /** An axis whose members disagree about where the family's edges sit. Swapping
  *  across the groups moves the icon; that is the flicker. */
-export const isSplit = (a: CohortAxis): boolean =>
+const isSplit = (a: CohortAxis): boolean =>
   a.conventional && a.groups.length > 1;
 
 /** Every split axis in a cohort, worst first — the deliverable view. */

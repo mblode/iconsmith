@@ -1,0 +1,102 @@
+[
+  {
+    "file": "src/pipeline/policy.ts",
+    "name": "Provenance",
+    "round": 0
+  },
+  {
+    "file": "src/pipeline/policy.ts",
+    "name": "Section",
+    "round": 0
+  },
+  {
+    "file": "scripts/acceptance-critic-evidence.ts",
+    "name": "validateAcceptanceReportWithCampaignTerminalEvidence",
+    "round": 0
+  },
+  {
+    "file": "scripts/acceptance-critic-evidence.ts",
+    "name": "withCollectorCriticQualification",
+    "round": 0
+  },
+  {
+    "file": "scripts/acceptance-critic-evidence.ts",
+    "name": "validateAcceptanceReportWithCollectorCriticEvidence",
+    "round": 0
+  },
+  {
+    "file": "src/tools/twin.ts",
+    "name": "HALF",
+    "round": 0
+  },
+  {
+    "file": "src/eval/report.ts",
+    "name": "judgeGateFor",
+    "round": 0
+  },
+  {
+    "file": "src/pipeline/tools.ts",
+    "name": "CanvasTools",
+    "round": 0
+  },
+  {
+    "file": "src/corpus/measure.ts",
+    "name": "K90",
+    "round": 0
+  },
+  {
+    "file": "src/pipeline/direction.ts",
+    "name": "census",
+    "round": 0
+  },
+  {
+    "file": "src/pipeline/propose.ts",
+    "name": "QUALITY_MODEL",
+    "round": 0
+  },
+  {
+    "file": "scripts/autoresearch.ts",
+    "name": "DEFAULT_BRANCH",
+    "round": 0
+  },
+  {
+    "file": "scripts/acceptance-critic-evidence.ts",
+    "name": "withCollectorCriticProductionReviews",
+    "round": 1
+  },
+  {
+    "file": "src/tools/twin.ts",
+    "name": "BAR",
+    "round": 1
+  },
+  {
+    "file": "src/pipeline/direction.ts",
+    "name": "DirectionCensus",
+    "round": 1
+  },
+  {
+    "file": "src/pipeline/direction.ts",
+    "name": "familyOf",
+    "round": 1
+  },
+  {
+    "file": "src/pipeline/direction.ts",
+    "name": "count",
+    "round": 1
+  },
+  {
+    "file": "src/pipeline/direction.ts",
+    "name": "CensusOptions",
+    "round": 1
+  },
+  {
+    "file": "src/pipeline/direction.ts",
+    "name": "HOUSE_VARIANT",
+    "round": 1
+  },
+  {
+    "file": "scripts/acceptance-critic-evidence.ts",
+    "name": "BoundFileOption",
+    "round": 2
+  }
+]

@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T00:37:43.533128+00:00",
+  "status": "engineering-verified-visual-unqualified",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "sourceClosure": [
+    {
+      "path": "packages/iconsmith/SKILL.md",
+      "sha256": "0bbca8e22f89bd8d9d9ef0fa758eceea30c422de5fc8f96be0f0d28e7876fafd"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.test.ts",
+      "sha256": "680aef490f6b1ffc3699c8e54b16d250a6ddd7e3e948cb1072b4c3189078d21d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.ts",
+      "sha256": "f357e250dc9662b1ec7a79fbb6a77a5f54ec5d14ab64085de1cd29fd056d6505"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.test.ts",
+      "sha256": "236987c71e9753dc9daa1e72118236d0f074cdfd215f712903aa784ff6dc7608"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "sha256": "ccbdda57d30a2040ff0b5e0c09e7be34df483dee303e07e3ce79d5c7e50560cb"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-board.test.ts",
+      "sha256": "a287c529e7730d5514740ffff70e66fb71685a432feb052416df46f102b9b094"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-board.ts",
+      "sha256": "eeecceba6017e08ccc7f14c430dd899b624459e99579a5a79850ed0adf73cf00"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-coverage.test.ts",
+      "sha256": "c786171a8e1fe209ecad4ce5675d55c42db1698c3c9401141d0f734685799124"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-coverage.ts",
+      "sha256": "4a3153974b3e2e5b3360fc15130a6e66b7e32f97eccb79ea460a3a10a293390c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-native-sheet.test.ts",
+      "sha256": "87e2ebafa5a949472255ceccc0c1633ee02acfd4a39cc9a187a9ffed316b5334"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-native-sheet.ts",
+      "sha256": "258c084f5eb1f595635e99eacfe48299692469e664dda2cbf06026272101620c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-repair.ts",
+      "sha256": "2fb2187eaa6a090c821bcc6bc27aabf057e8b572cd2529a72e89458f81e61842"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.test.ts",
+      "sha256": "5ae159baf8fe606b911cc095b591887047c1aae078139e1562b41d2971a1ab0b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.ts",
+      "sha256": "f21364023675fcfda15133f9c65146e10cd983762a36137468802b6e2c31b506"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.test.ts",
+      "sha256": "b1e865569746c6d2551103e74464c668446a2bf1873276848dcdae6e915c0761"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.ts",
+      "sha256": "b1818c18ea682080518668bc420493346a5fba87b7ae3137e71cb02d31303ea6"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "sha256": "4201f2bcf08a21d09339601174f29c8ec092c5c4745d218289bef92a85a09d67"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.ts",
+      "sha256": "fde105bdeb23584a9db781c9a9462fb181179bd6dd22835f5d8cd8dc0e1e3bc8"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-claude-author.test.ts",
+      "sha256": "3a2de31e0f00b27fe9f5834d159a21ced88948aec23f6a89f7e9fcc1711f474a"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-claude-author.ts",
+      "sha256": "9a02b09c7af8fb5e85bedeaa0d9f127901a7b7c1765e5467071afde6800c9a33"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-codex-review.ts",
+      "sha256": "eeeee3f2911610d7b8b5b570720508479e55d5507aabc5bdb5e49bc88aa77f73"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-process.test.ts",
+      "sha256": "f7479ce107e90478fb17fbfea450e75e90b76699ace1cf2893a901f1f1f15e78"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-process.ts",
+      "sha256": "4a64093a316d81c8782e42af6aaabce7b83045640e9d37b4f75aad9a14303aaf"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-runtime.test.ts",
+      "sha256": "07a59fc3326bc89c8668048994a2886ebd7695869565f883c69a19ca2ff1b675"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-runtime.ts",
+      "sha256": "110a7fe68b7ae12a57c0b314e892ff1df1c1910c15fe1a8d8e3788fa0631933e"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-generate.ts",
+      "sha256": "daa9a25b84fc2a873412f28d6670340e13328643e3e8ea44a4768039f36be67f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-review.test.ts",
+      "sha256": "99bee6c7351a51c5ffa15caf4a039aae573ff2e90edd0d5fca563b39b0727ae2"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-review.ts",
+      "sha256": "58b3f8602c84ecf1cd5f0b5bdbf979f1ed79282d4cb4213a14d05c5e91329242"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.test.ts",
+      "sha256": "5e504d3f089bf6f98280825447688f56f677c218f0e53af272f9168962401411"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.ts",
+      "sha256": "6728486fb3af3177924ca254b6ca7a7f79c4624c6cd6ad88b02e3d0059eaaa3b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/native-call-boundary.test.ts",
+      "sha256": "36e4792cab542dc2755109f3ed11b8af5e68fe07a6448a7b70058b13563097ad"
+    },
+    {
+      "path": "packages/iconsmith/scripts/native-call-boundary.ts",
+      "sha256": "fbe71162b1f7fe5d4ff67dcc75ff1605bafcf726c21d149eb9b85fde48861a07"
+    },
+    {
+      "path": "packages/iconsmith/scripts/runtime-identity.test.ts",
+      "sha256": "a60f29c5bc18c7f08824e06837d3c506dda82d7c1fe0086202ec408213d2541f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/runtime-identity.ts",
+      "sha256": "9bb871a61ab93a8f629f8c46346b77e57a92d01bc04409013a8df181d46dc1d5"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "sha256": "ac2673fda17c33d8965f6c16f5ade95d293e1fab465f42534f7f09bbeef2fd66"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.ts",
+      "sha256": "ccf763c10cb3ca0520e3c22d3467e670bf5623ac3761df2679168aa4a82533a0"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.test.ts",
+      "sha256": "fb6de2f6b41107142eb1b07a0da4d97a6ae726d74ae774eaa9eb23048771c01d"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.ts",
+      "sha256": "f287514431a2e1d2b59e2d1d32cc9425f992c27cb05d32f33c65fa6dd29789d9"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/harness.ts",
+      "sha256": "7711700daa8ced6ecf6f5f00a495da0ed910d991e15e27a800e28daa752c4a8b"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/policy.default.json",
+      "sha256": "63102767cc7821f22534bc6957271dd0c146ae7a92f6457f570b5a10375b9917"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt-identity.test.ts",
+      "sha256": "9979ac02c5813d28019c84fdf8f8843e6a928c08e42b7748f5ff406bd362ea1a"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt.test.ts",
+      "sha256": "e949fa072f20a6dd8f7a96de3ae5ac62ec7157bb938212c77119f3bad978cdd7"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt.ts",
+      "sha256": "c1c131bff194e7b605edbe18fb793ffa7e179e016e51dcab3a89283da75430b1"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt.wave-a-2026-09-08.txt",
+      "sha256": "aa19215b872439d9ed92ac951dae741b3dc70d1a2e7670f8748a3e3860ccc859"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/skill.json",
+      "sha256": "e99f4cfae8685e8b7008633620f79904655b7d604d45c0e758d066e59a1eeffb"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/skill.test.ts",
+      "sha256": "62055991023f8b18a73e76c91f212f3c1872d5d7519cf3e5e73c102d089f18a5"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/tools.ts",
+      "sha256": "5fb8c153e660e5cf3480dc800742a8695f10d3766b660849708b40ec85b518c0"
+    }
+  ],
+  "verification": {
+    "tests": {
+      "passed": 1886,
+      "files": 164,
+      "skipped": 0
+    },
+    "typecheck": true,
+    "build": true,
+    "check": true,
+    "diffCheck": true,
+    "logs": [
+      {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-integration-2026-09-08/build.log",
+        "sha256": "ae36e2a8d7f0df451f3d734f68ed0ac91c083dc60f4970a398956dc271a44279"
+      },
+      {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-integration-2026-09-08/check.log",
+        "sha256": "8375765d16dfec1f25b8f66ffe66dde58d01b26e435fbde0194cf7a3c4c2846a"
+      },
+      {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-integration-2026-09-08/diff-check.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-integration-2026-09-08/test-first.log",
+        "sha256": "c073b6f3f1dc1b0b5fb98ce8a61a840d663862427bf61afe994339ec78a02a5f"
+      },
+      {
+        "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-integration-2026-09-08/typecheck.log",
+        "sha256": "8fde448f0639e363d6fcc1b9749b570968ee07a0739202271a7d712f3021ecb5"
+      }
+    ]
+  },
+  "sourceAdmission": {
+    "total": 4357,
+    "admitted": 3921,
+    "refused": 436,
+    "transitions": 0,
+    "newFullReplayClaim": false
+  },
+  "evidence": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/docs/log/wave-b-contained-image-result-2026-09-08.json",
+      "sha256": "23e91d34cb1efb5e63b61133ab2ad73454cca52ebf8b4c5562f501289d5b16ec"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/docs/log/wave-b-certificate-diagnosis-2026-09-08.json",
+      "sha256": "64653153efcf1373ddfc60b91b9c0e10a4557f586326efb47a17db007ad3dca5"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/docs/log/wave-b-construction-presentation-2026-09-08.json",
+      "sha256": "08008b06630b8dc9d1cae44ace5a47d24876409330f8eae956ef3aaf542e55b4"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/docs/log/wave-b-folder-lock-repair-2026-09-08.json",
+      "sha256": "08b1dcb6173414277f818864b0d64378b6fcb904116accb08578d9f6b6a3fa86"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-evaluation-2026-09-08/contained-review-preflight-receipt.json",
+      "sha256": "3f302cfe4e6eed50653cfa8df2090aba28f744132ac3d1b4905f8216df41f061"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-b-geometry-2026-09-08-source-admission-comparison/results.json",
+      "sha256": "f50a2db0924797d3fb2e4a76418423aaacecb5299c04918d0a06aaf4ef22fb5a"
+    }
+  ],
+  "retainedFailures": [
+    "Argv0 fixture timeout in combined scoped run; bounded allowance fixed, real alias assertion retained",
+    "Root dispatched D227 after prerequisite failure; ineligible attempt stopped and settled",
+    "D227 missing TLS trust bundle and companion",
+    "Filled modifier losses on construction board",
+    "Initial folder-lock16 pixel guard failed; prior bytes preserved"
+  ],
+  "openGates": [
+    "Canonical native campaign integration and complete folder-lock slice",
+    "Safe interrupted salvage under original deadline",
+    "Independent optical masters and visual construction closure",
+    "Calibrated critic and canonical sealed provenance",
+    "Catalog and novel campaigns"
+  ],
+  "cost": {
+    "newNativeExperimentLaunches": 1,
+    "completedNativeResponses": 0,
+    "nativeDollarCostUsd": null,
+    "apiActualUsd": 13.06220785,
+    "outstandingReservedOrUnknownUsd": 11.37126575,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "remainingAtMostUsd": 25.5665264
+  }
+}

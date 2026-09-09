@@ -1,0 +1,20 @@
+{
+  "schema": "iconsmith.wave-q2.root-evidence.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "receipt": {
+    "path": ".staging/wave-q2-whole-source-assembly-2026-09-08/receipt.json",
+    "sha256": "0d11285e4e952ea98e2f56730bfbd990bdd2dd445f0f80bb10ddee4fe3dfde15"
+  },
+  "manifest": {
+    "path": ".staging/wave-q2-whole-source-assembly-2026-09-08/artifact-hashes.json",
+    "sha256": "68af5710b2f1242bddd31cc923528e78d5cf72aed954a32c3b2a3ab4554e7361"
+  },
+  "rootVerifiedFiles": 41,
+  "rootViewed": [
+    "cloud-upload-outlined-16-trim.light.png"
+  ],
+  "observation": "Native outlined cloud-upload includes both arrow head and shaft after existing trim. Source replay/topology evidence does not establish optical craft. Homogeneous whole-source assembly is a guarded admission proposal; heterogeneous semantics remain refused.",
+  "phaseClosure": false
+}

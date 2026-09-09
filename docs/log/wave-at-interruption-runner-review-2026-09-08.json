@@ -1,0 +1,61 @@
+{
+  "id": "D312",
+  "status": "offline-interruption-runner-reviewed-live-unexecuted",
+  "agentReceipt": ".staging/wave-at-interrupted-salvage-runner-v2-2026-09-08/receipt-v1.json",
+  "agentReceiptSha256": "1a507e6e9dc80901d7ba40b685fa903027e29c8c0238ee4cac0fbf09a3bec496",
+  "verifiedArtifacts": {
+    "runner": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-at-interrupted-salvage-runner-v2-2026-09-08/run.mts",
+      "sha256": "6a87ff4f7d2092ab1e9cf84b0ccb40f38ed6b48e74d869c5b67894f5cb4bbe07"
+    },
+    "worker": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-at-interrupted-salvage-runner-v2-2026-09-08/worker.mts",
+      "sha256": "5302c93916c2e04894b3f5916e4ead0e6df295944265e36b9897362d90a51df2"
+    },
+    "preparationBuilder": {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-at-interrupted-salvage-runner-v2-2026-09-08/prepare.mts",
+      "sha256": "12e5c745a83360a4cda22128a787a91050196cca3d068716f6783ac4e1f0cf67"
+    }
+  },
+  "parentOwnership": {
+    "controlDirectory": "exactly <out>.parent-control, outside provider-writable out and runtime sibling",
+    "deadline": "one root-issued absolute deadline; parent timeout consumes remaining time and settlement must precede deadline",
+    "launch": [
+      "launch.json",
+      "started.json"
+    ],
+    "settlement": "settlement.json persisted with full runOwnedProcess result",
+    "eligibility": [
+      "code === 0",
+      "killed === false",
+      "quiescent === true",
+      "settledAt < originalDeadlineAt",
+      "frozen inputs stable",
+      "worker result bound to request, root intent, preparation and deadline"
+    ]
+  },
+  "policy": {
+    "concept": "folder-lock",
+    "master": "16",
+    "maxCalls": 10,
+    "maxWallMs": 1200000,
+    "retrievalCalls": 0,
+    "author": "gpt-6-astra",
+    "reviewers": [
+      "gpt-5.5",
+      "gpt-5.6-sol"
+    ]
+  },
+  "rootReview": "Parent launch and worker receipt bind the same original deadline, frozen source and fixed packet. Eligibility requires a clean, quiescent, on-time outer settlement; inner native interruption remains separately recorded.",
+  "campaignAuditDisposition": {
+    "hardlink": "Packet hashes are checked before and after; no hardlink is used in prepared inputs. Additional preflight hardening remains available.",
+    "symlinkDirectory": "Canonical directory identity is bound; prepared directory is not a symlink.",
+    "extraFiles": "Only manifest-selected packet names are accessible execution inputs; all20 required packets verified. Extras cannot add slots.",
+    "inventory": "Host retrieval checks inventory before provider generation; zero-call reservation is not spend."
+  },
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 47,
+  "qualified": false,
+  "next": "Finalize new preparation only after compiler24 and all source changes are frozen; then reserve a fresh bounded live diagnostic."
+}

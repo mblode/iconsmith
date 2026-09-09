@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T02:40:33.251610+00:00",
+  "providerCallsAdded": 0,
+  "apiActualAddedUsd": 0,
+  "apiReservationsAddedUsd": 0,
+  "visuallyQualified": false,
+  "status": "draft-v3-unqualified",
+  "evidence": [
+    {
+      "path": ".staging/wave-f-evaluation-report-acceptance-2026-09-08/report-acceptance-wiring-receipt.json",
+      "sha256": "76474bdbda7ac65de6bdb2feb3961d8df81ac359a6ad4399e5e9e1684f074d9d"
+    },
+    {
+      "path": ".staging/wave-g-evaluation-acceptance-metrics-2026-09-08/acceptance-metrics-receipt.json",
+      "sha256": "a119982acaee1506517dfb3d05704f767fb764f8217fa3ca6afa1f89acf19ecd"
+    }
+  ],
+  "changes": [
+    "Actual reports fail closed without acceptance evidence.",
+    "Craft medians and complete on-time pair delivery are computed.",
+    "Draft-v3 supersedes earlier contract hashes; original receipts remain immutable."
+  ],
+  "limits": [
+    "P0.3 remains open: calibration, remaining computed gates and trusted population provenance incomplete. Qualification remains false."
+  ]
+}

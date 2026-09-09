@@ -1,0 +1,12 @@
+{
+  "id": "D359",
+  "kind": "active-stop-offline-intent",
+  "script": ".staging/wave-bo-active-stop-live-preparation-2026-09-08/probe.mts",
+  "scriptSha256": "fcf674cef72aa5ea8175e089e9c387b00243efe02310c0c20078174de6c35a18",
+  "output": ".staging/wave-bo-active-stop-offline-2026-09-08",
+  "maximumMs": 45000,
+  "network": "none",
+  "credentialAccess": false,
+  "providerCalls": 0,
+  "qualified": false
+}

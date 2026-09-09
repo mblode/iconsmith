@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T01:06:42.452971+00:00",
+  "status": "engineering-verified-visual-unqualified",
+  "baselineCommit": "1e81fd017105aa84f06e3a17b5828161ace01b09",
+  "sourceClosure": [
+    {
+      "path": "packages/iconsmith/SKILL.md",
+      "sha256": "0bbca8e22f89bd8d9d9ef0fa758eceea30c422de5fc8f96be0f0d28e7876fafd"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.test.ts",
+      "sha256": "680aef490f6b1ffc3699c8e54b16d250a6ddd7e3e948cb1072b4c3189078d21d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification-provenance.ts",
+      "sha256": "f357e250dc9662b1ec7a79fbb6a77a5f54ec5d14ab64085de1cd29fd056d6505"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.test.ts",
+      "sha256": "236987c71e9753dc9daa1e72118236d0f074cdfd215f712903aa784ff6dc7608"
+    },
+    {
+      "path": "packages/iconsmith/scripts/ai-qualification.ts",
+      "sha256": "ccbdda57d30a2040ff0b5e0c09e7be34df483dee303e07e3ce79d5c7e50560cb"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-board.test.ts",
+      "sha256": "a287c529e7730d5514740ffff70e66fb71685a432feb052416df46f102b9b094"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-board.ts",
+      "sha256": "eeecceba6017e08ccc7f14c430dd899b624459e99579a5a79850ed0adf73cf00"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-coverage.test.ts",
+      "sha256": "c786171a8e1fe209ecad4ce5675d55c42db1698c3c9401141d0f734685799124"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-coverage.ts",
+      "sha256": "4a3153974b3e2e5b3360fc15130a6e66b7e32f97eccb79ea460a3a10a293390c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-native-sheet.test.ts",
+      "sha256": "87e2ebafa5a949472255ceccc0c1633ee02acfd4a39cc9a187a9ffed316b5334"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-construction-native-sheet.ts",
+      "sha256": "258c084f5eb1f595635e99eacfe48299692469e664dda2cbf06026272101620c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-occlusion-experiment.ts",
+      "sha256": "9f0da9087458f166e6a7da1b1b95455160443b37860961edd14f6423512abbee"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-optical-experiment.ts",
+      "sha256": "7e711be68130f4670410a7ce58c4db7bc6b66570bbf6e56aeaba1216ac53646d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-repair.ts",
+      "sha256": "2fb2187eaa6a090c821bcc6bc27aabf057e8b572cd2529a72e89458f81e61842"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.test.ts",
+      "sha256": "5ae159baf8fe606b911cc095b591887047c1aae078139e1562b41d2971a1ab0b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-parts.ts",
+      "sha256": "f21364023675fcfda15133f9c65146e10cd983762a36137468802b6e2c31b506"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.test.ts",
+      "sha256": "0ba73aa18f08af1c06f89bcb7d7c0a8ed5093b46546396bc0fcd09fbb4568d53"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-astra-author.ts",
+      "sha256": "315f76242f03d784fe834f2225ea9a017a515634543aa915fc0819b0751a1212"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-author-context.test.ts",
+      "sha256": "9678df38244166e31c5dd5f91b7aa03b6fb1cc277b33d3ea177ac935fe7238af"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-author-context.ts",
+      "sha256": "1d9f8103f4946e48c3df9efcca831342b60a590dddc92b00b4e725e7f9e66965"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "sha256": "ce2a967fe0bd3fa660592925425dbe3430b58e40a0cc7f0cc604985c975d28d4"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.ts",
+      "sha256": "792189598012ba750be17a7312afddd7aaf4e758e24139fa99838a1ddec9d81c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-claude-author.test.ts",
+      "sha256": "3a2de31e0f00b27fe9f5834d159a21ced88948aec23f6a89f7e9fcc1711f474a"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-claude-author.ts",
+      "sha256": "9a02b09c7af8fb5e85bedeaa0d9f127901a7b7c1765e5467071afde6800c9a33"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-codex-review.ts",
+      "sha256": "c45474aac9e0baf894040195ab3f0c38a10eba6314ee83588fb8b93437f48b99"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-process.test.ts",
+      "sha256": "c603b62c7facaebfb3eed4fcc89e203150f04d929e4161e63f402c399af38dbf"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-process.ts",
+      "sha256": "61e70edbf66e813147884804ffc1c86471430df692b831ee099d44ec7976e982"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-runtime.test.ts",
+      "sha256": "07a59fc3326bc89c8668048994a2886ebd7695869565f883c69a19ca2ff1b675"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-container-runtime.ts",
+      "sha256": "f482fcb984f2df46ff037085ec48b48f2d63396f3501a5a1063e528e20bffcd1"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-generate.ts",
+      "sha256": "daa9a25b84fc2a873412f28d6670340e13328643e3e8ea44a4768039f36be67f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-review.test.ts",
+      "sha256": "99bee6c7351a51c5ffa15caf4a039aae573ff2e90edd0d5fca563b39b0727ae2"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-review.ts",
+      "sha256": "58b3f8602c84ecf1cd5f0b5bdbf979f1ed79282d4cb4213a14d05c5e91329242"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.test.ts",
+      "sha256": "5e504d3f089bf6f98280825447688f56f677c218f0e53af272f9168962401411"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.ts",
+      "sha256": "6728486fb3af3177924ca254b6ca7a7f79c4624c6cd6ad88b02e3d0059eaaa3b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/native-call-boundary.test.ts",
+      "sha256": "36e4792cab542dc2755109f3ed11b8af5e68fe07a6448a7b70058b13563097ad"
+    },
+    {
+      "path": "packages/iconsmith/scripts/native-call-boundary.ts",
+      "sha256": "fbe71162b1f7fe5d4ff67dcc75ff1605bafcf726c21d149eb9b85fde48861a07"
+    },
+    {
+      "path": "packages/iconsmith/scripts/runtime-identity.test.ts",
+      "sha256": "a60f29c5bc18c7f08824e06837d3c506dda82d7c1fe0086202ec408213d2541f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/runtime-identity.ts",
+      "sha256": "9bb871a61ab93a8f629f8c46346b77e57a92d01bc04409013a8df181d46dc1d5"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "sha256": "6a9055dd3ae20437f2f311f299b6536b95d7c0289b1abb69de1f93a8d6747f54"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/acceptance-contract.ts",
+      "sha256": "f6dccfa018d8fe104f6aa3f3e768275b8ec7fc891cf263ca5370cb3c153683c3"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.test.ts",
+      "sha256": "fb6de2f6b41107142eb1b07a0da4d97a6ae726d74ae774eaa9eb23048771c01d"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.ts",
+      "sha256": "f287514431a2e1d2b59e2d1d32cc9425f992c27cb05d32f33c65fa6dd29789d9"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/harness.ts",
+      "sha256": "7711700daa8ced6ecf6f5f00a495da0ed910d991e15e27a800e28daa752c4a8b"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/policy.default.json",
+      "sha256": "63102767cc7821f22534bc6957271dd0c146ae7a92f6457f570b5a10375b9917"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt-identity.test.ts",
+      "sha256": "9979ac02c5813d28019c84fdf8f8843e6a928c08e42b7748f5ff406bd362ea1a"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt.test.ts",
+      "sha256": "e949fa072f20a6dd8f7a96de3ae5ac62ec7157bb938212c77119f3bad978cdd7"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt.ts",
+      "sha256": "c1c131bff194e7b605edbe18fb793ffa7e179e016e51dcab3a89283da75430b1"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/prompt.wave-a-2026-09-08.txt",
+      "sha256": "aa19215b872439d9ed92ac951dae741b3dc70d1a2e7670f8748a3e3860ccc859"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/skill.json",
+      "sha256": "e99f4cfae8685e8b7008633620f79904655b7d604d45c0e758d066e59a1eeffb"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/skill.test.ts",
+      "sha256": "62055991023f8b18a73e76c91f212f3c1872d5d7519cf3e5e73c102d089f18a5"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/tools.ts",
+      "sha256": "5fb8c153e660e5cf3480dc800742a8695f10d3766b660849708b40ec85b518c0"
+    }
+  ],
+  "validation": [
+    {
+      "command": "npm run test",
+      "exitCode": 0,
+      "log": ".staging/wave-c-integration-2026-09-08/test.log",
+      "sha256": "6bbdeead7d78ce2928cd78aca81c6d288c00df4e23de0ba06a75578c75f1bb88"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": ".staging/wave-c-integration-2026-09-08/typecheck.log",
+      "sha256": "8cb53823e020bddc5725aaaffe72e85a764ca3efc1080eba78a22eedca49e9fe"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": ".staging/wave-c-integration-2026-09-08/build.log",
+      "sha256": "974e489fcc68f5206513a09365c57bb410a66b94b5cc0fd97cf48c3e2fe7e5f1"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": ".staging/wave-c-integration-2026-09-08/check.log",
+      "sha256": "4bcfac5c1c241c7a46b60952617331cfb367354263401c0b4deead9a9b83c577"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "log": ".staging/wave-c-integration-2026-09-08/diff-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "tests": {
+    "passed": 1909,
+    "files": 164,
+    "skipped": 0
+  },
+  "implemented": [
+    "Offline no-auth no-network contained context serialization with exact skill path mapping and actual trace rejection",
+    "Identity-bound population/concept-size paint pairs and novel cohorts; terminal and delivery denominator integration corrections",
+    "Whole selected evidence-tree integrity on resume",
+    "Distinct native folder-lock masters and existing-DSL host-only occlusion experiment"
+  ],
+  "visualStatus": "Unqualified: no calibrated independent instrument, production route or sealed campaign pass",
+  "evidence": [
+    ".staging/wave-b-runtime-2026-09-08/context-preflight-integration-receipt.json",
+    ".staging/wave-b-evaluation-2026-09-08/acceptance-identity-contract-v2-receipt.json",
+    ".staging/wave-c-root-2026-09-08/selected-evidence-tree-receipt.json",
+    "docs/log/wave-c-folder-lock-optical-2026-09-08.json",
+    "docs/log/wave-d-folder-lock-occlusion-2026-09-08.json"
+  ],
+  "retainedFailures": [
+    "Pairing model initially required4outputs per request; v2 corrected to2paints/master",
+    "Root terminal eligibility and pair-delivery denominators corrected after diagnostic audit; original receipts unchanged",
+    "Wave C folder-lock projection-only recognition failure preserved"
+  ],
+  "costs": {
+    "newApiActualUsd": 0,
+    "newApiReservationsUsd": 0,
+    "apiCapUsd": 50,
+    "historicalApiActualUsd": 13.06220785,
+    "outstandingReservedOrUnknownUsd": 11.37126575,
+    "maximumRemainingUsd": 25.5665264,
+    "nativeExperimentLaunchesBeforeNextIntent": 2,
+    "nativeCompletedResponses": 1,
+    "nativeDollarAllocationUsd": null
+  }
+}

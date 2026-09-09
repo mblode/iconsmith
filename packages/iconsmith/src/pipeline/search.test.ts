@@ -60,4 +60,14 @@ describe("rankParts with aliases", () => {
       rankParts(PARTS, "arrow", 5)
     );
   });
+
+  it("does not offer assembly-only child dependencies for direct placement", () => {
+    const privateChild = {
+      ...part("private-arrow-shaft", ["arrow-up"], "arrow"),
+      sourceAssemblyOnly: "arrow-up-source",
+    };
+    expect(rankParts([...PARTS, privateChild], "arrow", 5)).toEqual([
+      expect.objectContaining({ part: expect.objectContaining({ id: "p0" }) }),
+    ]);
+  });
 });

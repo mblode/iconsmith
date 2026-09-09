@@ -1,0 +1,19 @@
+{
+  "id": "D314",
+  "status": "historical-json-version-unavailable-invalidated",
+  "affectedReceipt": "D311",
+  "missingSha256": "60e1fbc0268ebb2b9234e8f2d179344d0861466cc67f03928e0e95524acf140e",
+  "cause": "Agent expanded working JSON after root recorded its hash, then attempted a reconstruction that did not match. The reconstruction is explicitly unverified; original bytes could not be recovered.",
+  "correctionFile": ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/evidence-lineage-correction-v2.json",
+  "correctionSha256": "9d4c25e9852af3b7ac87951e5a83ce543be58ca49abbab7b91fa331ccf7f2653",
+  "invalidatedScope": [
+    ".staging/wave-as-assembly-knockout-renderer-audit-2026-09-08/evidence.json"
+  ],
+  "preservedScope": "All other D311 program, SVG and PNG artifact hashes independently rechecked and unchanged; provider and budget accounting unaffected.",
+  "replacementEvidence": "D313 independent canonical compiler24 reproduction and complete frozen source regression provide fresh evidence. They do not recreate the missing D311 JSON.",
+  "prevention": "Agents must produce new versioned output paths; root will consume only explicitly frozen evidence.",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "nativeCallsCumulative": 47,
+  "qualified": false
+}

@@ -1,0 +1,118 @@
+{
+  "status": "implemented-scoped-verified-full-audit-pending",
+  "patches": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dy-source-exact-canonical-proposal-2026-09-09/source-exact-v2-minimal.patch",
+      "sha256": "74198ad896d80c4601b86280d65fba0466d522dee1e3dbba2b49e9315be02b2c"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/source-exact-cli-v1.patch",
+      "sha256": "23f9c4e92ae28c52ed3e97750df3463c06668e683017faebf311852bf9191320"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/source-exact-cli-v2.patch",
+      "sha256": "8b637a3f605ccd34d1bd821913f0ff40262eae4488a1580517910ba9a5535214"
+    }
+  ],
+  "before": {
+    "packages/iconsmith/scripts/family-parts.test.ts": "94bb5c996e24eef0762d9cb431dda9bc39308d4c11eca263367f068725df82e1",
+    "packages/iconsmith/scripts/family-parts.ts": "3532823d13e49318cda6dccd84b99d7fc0f885291ab8869eb8064bd312a8dc42",
+    "packages/iconsmith/scripts/source-exact-cli.ts": null,
+    "packages/iconsmith/scripts/source-exact-host.test.ts": null,
+    "packages/iconsmith/scripts/source-exact-host.ts": null,
+    "packages/iconsmith/src/pipeline/source-exact.ts": null,
+    "packages/iconsmith/src/pipeline/style.ts": "f5e6035df8db560c14b1d796e2aeed6823a91651f4ac351d2123fd523b4f1dcc",
+    "packages/iconsmith/src/tools/canvas.ts": "a6f1d991fb99cf2b68cd20572a671b5213ffe37da46728ca0b2ed94878af5dbc",
+    "packages/iconsmith/src/tools/dsl.ts": "657fbc778709dfc3ef5510e6644110163dd187e831bd959039f4d40dd554e158",
+    "packages/iconsmith/src/tools/source-exact.ts": null
+  },
+  "after": {
+    "packages/iconsmith/scripts/family-parts.test.ts": "4a50c83a0047e1ea25c0d18e85d27733a8f9d1905fecb2b0f582ef50d2fc297f",
+    "packages/iconsmith/scripts/family-parts.ts": "6694055e311353e866a53a3cf513f95e62048cf518891161414dcc73c07f0ea8",
+    "packages/iconsmith/scripts/source-exact-cli.ts": "a440109a189cc3d4dab80f084d03a755054c25efe9814b4e128e991d47d77a22",
+    "packages/iconsmith/scripts/source-exact-host.test.ts": "d6acee53deef776d5a4af11e0d22d2f6aab3be6f718f130458aab7c9096113ba",
+    "packages/iconsmith/scripts/source-exact-host.ts": "6ceed8b223601d609d7c830c76825dabe27218eca21cac6d6bef7036b6a445a1",
+    "packages/iconsmith/src/pipeline/source-exact.ts": null,
+    "packages/iconsmith/src/pipeline/style.ts": "8848ede154ee51e86c623d680d3306afe2b6809b01c5d3f8d8980abaa424ad75",
+    "packages/iconsmith/src/tools/canvas.ts": "62f1e424790c513addbd8106f82d2bee014cc0320b7c2fca62ba6ee6a51e3e30",
+    "packages/iconsmith/src/tools/dsl.ts": "f98245575318292f788e88bfd0b3c760d863829169cdb28af3863c7b0103f17b",
+    "packages/iconsmith/src/tools/source-exact.ts": "3fc8d1cb4a8e2a6fc3fde918fea5563c25905fcb90df3321206547b8a1827185"
+  },
+  "providerCalls": 0,
+  "id": "D482",
+  "kind": "source-exact-canonical-integration",
+  "observedAt": "2026-09-08T21:05:02.511033+00:00",
+  "tests": {
+    "passed": 107,
+    "files": 4,
+    "skipped": 0,
+    "log": ".staging/wave-es-source-exact-root-integration-2026-09-09/scoped-tests.log",
+    "sha256": "165563e46c7f0a3eaf003ee2af865cedef3b272d8cfac6ff9f10b0ac17790945"
+  },
+  "cli": {
+    "calls": [
+      {
+        "command": [
+          "node",
+          "--import",
+          "tsx",
+          "packages/iconsmith/scripts/source-exact-cli.ts",
+          "resolve",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/cli-evidence/host-manifest.json",
+          "3cae1d1addbfe7256d9f0e7b408b58829a58b13188c93bb8a4b2ff88df78fceb"
+        ],
+        "exitCode": 0,
+        "elapsedMs": 175
+      },
+      {
+        "command": [
+          "node",
+          "--import",
+          "tsx",
+          "packages/iconsmith/scripts/source-exact-cli.ts",
+          "compile",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/cli-evidence/host-manifest.json",
+          "3cae1d1addbfe7256d9f0e7b408b58829a58b13188c93bb8a4b2ff88df78fceb",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/cli-evidence/branch-simple.icon",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-es-source-exact-root-integration-2026-09-09/bundle.json"
+        ],
+        "exitCode": 0,
+        "elapsedMs": 181
+      },
+      {
+        "command": [
+          "node",
+          "--import",
+          "tsx",
+          "packages/iconsmith/scripts/source-exact-cli.ts",
+          "replay",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-eg-source-exact-cli-integration-2026-09-09/cli-evidence/host-manifest.json",
+          "3cae1d1addbfe7256d9f0e7b408b58829a58b13188c93bb8a4b2ff88df78fceb",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-es-source-exact-root-integration-2026-09-09/bundle.json",
+          "/Users/mblode/Code/mblode/iconsmith/.staging/wave-es-source-exact-root-integration-2026-09-09/replay.svg"
+        ],
+        "exitCode": 0,
+        "elapsedMs": 180
+      }
+    ],
+    "bundleExactAgainstIsolated": true,
+    "svgExactAgainstIsolated": true,
+    "replaySvgSha256": "b7dcad8e214728402c8a0ac4ef744b7bded519c3d412ecee1deceef6a1fb5178"
+  },
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "limitations": [
+    "Reconstruction only; no composition or main runtime authoring route",
+    "Indexed admission only; assembly unsupported",
+    "Bell counter uncertainty remains refused",
+    "Full source regression and integrated verification pending",
+    "No native16 or independent visual qualification",
+    "Caller-frozen source file boundary is not generic process/file containment authority"
+  ],
+  "cost": {
+    "providerCalls": 0,
+    "reservationUsd": 0,
+    "ledger": "docs/log/api-budget-after-d466-2026-09-09.json",
+    "solMediumFollowupsAfterD450": 27,
+    "nativeDollarCost": "unknown"
+  }
+}

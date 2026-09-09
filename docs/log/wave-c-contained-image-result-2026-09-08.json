@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T00:42:03.910004+00:00",
+  "status": "context-isolation-failed",
+  "qualified": false,
+  "terminal": {
+    "result": {
+      "answers": null,
+      "evidenceHashes": {
+        "stimulus.png": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+      },
+      "imageInspection": null,
+      "instrumentQualified": false,
+      "model": null,
+      "provider": "openai-codex",
+      "reason": "Error: Native author received an unrelated skill or plugin catalog",
+      "status": "incomplete"
+    },
+    "routeHash": "833aa519c63f7e86822a6492bb70549233d28f336cea302ac5f7541140e3c778",
+    "drift": [],
+    "elapsedMs": 16395,
+    "deadlineExceeded": false,
+    "containerAbsent": true,
+    "capabilityVerified": false,
+    "qualified": false,
+    "providerDispatchIntents": 1,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "observedModel": "gpt-6-astra",
+  "observedEffort": "high",
+  "rawResponse": [
+    {
+      "answers": {
+        "recognition": {
+          "choice": "heart",
+          "evidence": "stimulus.png, center: the black silhouette has rounded upper lobes, a top cleft, and a tapered bottom point.",
+          "treatment": "Solid black fill on white."
+        }
+      }
+    }
+  ],
+  "usage": [
+    {
+      "input_tokens": 11599,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 170,
+      "reasoning_output_tokens": 106
+    }
+  ],
+  "scope": "Raw capability observations only; strict adapter rejected unrelated system skill catalog.",
+  "container": {
+    "absent": true,
+    "processCode": 0,
+    "artifactEligibleForContainedSettlement": true
+  },
+  "cost": {
+    "nativeLaunches": 1,
+    "completedNativeResponses": 1,
+    "nativeDollarCostUsd": null,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0
+  },
+  "artifacts": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/manifest.json",
+      "sha256": "e827e0d1bcc124507e29794be9e0daab590b90bf5410b55ebc7f642671a0271f"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/terminal.json",
+      "sha256": "fe1fa4939c3444e4e928cbb26ff2f8e9a41ab4e9f47304913222f60b46afcb29"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/container-settlement.json",
+      "sha256": "3c870426dd1e030259c760385daf4e82965a45563d8a30bea9019f7c305f5f93"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/container-identity.json",
+      "sha256": "953a56a2e6d00f3559a972d87595feb3fc10c151a03de39bea1ea1d5f4a21515"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/state/sessions/2026/09/08/rollout-2026-09-08T00-39-10-01a07e74-5f29-7ab2-854c-a88d3970048e.jsonl",
+      "sha256": "d08679e59105f21961a8d5c01fe28fa0721668c3957179b28a6c9a9a3b8881ef"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/calls/11008431-9a47-4fcc-9d63-28d4cca534da.intent.json",
+      "sha256": "5f45654c9e49cc65ba80ac19da8763819228eeb57968a253440ce3ccfaad2f25"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/calls/11008431-9a47-4fcc-9d63-28d4cca534da.started.json",
+      "sha256": "4b6a902fa52a6cb96e57841c7aca4b82b91cff8feb96c2da1eadea82be056fd7"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/calls/11008431-9a47-4fcc-9d63-28d4cca534da.terminal.json",
+      "sha256": "e1eba5de159c187a02d6285ba9b15e3a26ebbb0b244c51e8334b92ae8f0d211c"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/calls/dispatches.json",
+      "sha256": "1e25ae0331f05e1dcac49c71dfb64ec8267e9df20bde5531af52b68f174431e2"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-c-root-2026-09-08/contained-image-smoke-v1/calls/reservation.json",
+      "sha256": "97783f6fccc43914a7529dac46025452e659ee2ef76f6c7b63359f0a5ee876ee"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "D327",
+  "intent": "wave-bc-mini-capability-intent-2026-09-08.json",
+  "result": {
+    "result": {
+      "answers": {
+        "recognition": {
+          "choice": "heart",
+          "evidence": "In stimulus.png, the centered black icon on the white background has two rounded upper lobes and a single pointed bottom, matching a heart silhouette.",
+          "treatment": "Identify as heart."
+        }
+      },
+      "baseModelLineage": null,
+      "evidenceHashes": {
+        "stimulus.png": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+      },
+      "evidenceMode": "images",
+      "imageInspection": {
+        "complete": true,
+        "images": {
+          "stimulus.png": {
+            "exposed": true,
+            "sha256": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+          }
+        },
+        "traceSha256": "f162f0895f1d92bbf44c7c22c244a59dda7782a23f3fb0303c3181f7d1ffca26",
+        "visualJudgmentValidated": false
+      },
+      "instrumentQualified": false,
+      "model": "gpt-5.4-mini",
+      "provider": "openai-codex",
+      "status": "complete"
+    },
+    "sourceStable": true,
+    "deadlineExceeded": false,
+    "qualified": false,
+    "apiActualUsd": 0,
+    "nativeDollarCostUsd": null
+  },
+  "audit": {
+    "file": ".staging/wave-bc-mini-capability-2026-09-08/root-settlement-audit.json",
+    "sha256": "f6edb231b918cd013f726fe845edc5a5d42cbee1d2850b809ad9dc74e339be0b"
+  },
+  "artifacts": {
+    ".staging/wave-bc-mini-capability-2026-09-08/execution/result.json": "b0abe52bc3cf8c7023859b507af93a5a7f7da708f5a4c6cf77623c3df6b71b86",
+    ".staging/wave-bc-mini-capability-2026-09-08/execution/review/request.json": "31e92fe5a7c7557bacde416ecb679a358286189380f38999371880d06be9099e",
+    ".staging/wave-bc-mini-capability-2026-09-08/execution/review/review.json": "d0d51968b79e57ee20daf9f7a7024a2cb984c987ad8e40c8ee02a84b731d4378",
+    ".staging/wave-bc-mini-capability-2026-09-08/execution/review/process.json": "c47cc8888044134bd2e7a48991cfd611cc7ec6190620c81c0b31cf2169766ce7"
+  },
+  "nativeCalls": 1,
+  "nativeCallsCumulative": 64,
+  "apiIncrement": 0,
+  "nativeDollarCost": null,
+  "capability": "Exact model and attached-image structured recognition succeeded with diagnostic view_image feature disabled, no emitted tools accepted.",
+  "rosterAdmission": false,
+  "criticQualified": false,
+  "next": "Add explicit diagnostic-profile identity to frozen roster only after canonical configuration validation, then calibrate independent instrument."
+}

@@ -1,0 +1,24 @@
+Usage: npm run generate:local -- <concept> <new-output-directory> [options]
+
+Required:
+  --revision <file>       Pinned style revision JSON
+  --master <name>         Master declared in that revision
+  --meanings <file>       JSON array of 3–12 plausible labels, including the concept
+
+Options:
+  --finish outlined|filled  Omit to generate both paints
+  --brief <file>            Design guidance in Markdown
+  --codex <executable>      Author CLI (defaults to ChatGPT app bundle, then PATH)
+  --model <id>              Author model (default: gpt-6-astra)
+  --max-wall-ms <number>    Total time budget (default: 1200000)
+  --library <directory>    Retrieve references from your SVG library
+  --library-set <name>     Required with --library
+  --exclude <concept>      Repeat to exclude retrieval subjects
+  -h, --help               Show help without authentication or generation
+
+Build first with npm run build:local. The default route requires native
+ChatGPT and Claude subscription logins and a compatible restricted runtime.
+Generation consumes subscription usage; no API-key fallback is used.
+Use a new output directory whose parent already exists.
+See docs/local-foundry.md for revision setup, advanced contained routes,
+provenance and review limitations. A review-clear result is not craft approval.

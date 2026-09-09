@@ -53,8 +53,6 @@ import path from "node:path";
  *  counting it again would make the widening look bigger than it is. */
 export type SlugAliases = ReadonlyMap<string, readonly string[]>;
 
-export const NO_ALIASES: SlugAliases = new Map();
-
 /** Written by `scripts/extract-central-metadata.ts` into the derived store. */
 const CENTRAL = ".corpus/central-metadata.json";
 /** The blessed map, in the blode-icons checkout beside this one. */

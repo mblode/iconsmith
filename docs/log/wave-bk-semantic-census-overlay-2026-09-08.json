@@ -1,0 +1,54 @@
+{
+  "id": "D344",
+  "status": "actual-census-development-overlay",
+  "summary": {
+    "reviewedConcepts": 76,
+    "reviewedSlots": 304,
+    "reviewedSlotsWithMissingSource": 4,
+    "untouchedConcepts": 2145,
+    "untouchedSlots": 8580
+  },
+  "slotCount": 8884,
+  "newReviewedConcepts": 71,
+  "priorGitConceptsRetained": 5,
+  "reviewedConceptsTotal": 76,
+  "reviewedSlotsTotal": 304,
+  "missingSourceSlotsRetained": 4,
+  "untouchedConcepts": 2145,
+  "untouchedSlots": 8580,
+  "priorGitActualReviewBytesReverified": true,
+  "newSourceBindingRowsVerified": 142,
+  "newPresentSourceFilesVerified": 141,
+  "qualification": false,
+  "aliasBoundary": "Only inspected bike receives bicycle alias; other new aliases and all new derivative links remain unresolved.",
+  "sourceFamilyIdBoundary": "Original resolver IDs are preserved independently from semantic labels.",
+  "providerCalls": 0,
+  "apiActualIncrementUsd": 0,
+  "nativeCallsCumulative": 79,
+  "artifacts": [
+    {
+      "path": ".staging/wave-bk-semantic-census-overlay-2026-09-08/combined-proposal.json",
+      "sha256": "c277759d4e891f58f4e158732600fb309e4b26085b04d0063f2299c6cd44525a"
+    },
+    {
+      "path": ".staging/wave-bk-semantic-census-overlay-2026-09-08/independent-root-review.json",
+      "sha256": "f7a1ed38b25d916acd51bcf418fc76734d66b0a35e03b893eb2c4d7607b95019"
+    },
+    {
+      "path": ".staging/wave-bk-semantic-census-overlay-2026-09-08/overlay.json",
+      "sha256": "f7bf746d450fee9f8029af33195c561c36d14971a4fa9c0d100202c4ad0b87e1"
+    },
+    {
+      "path": ".staging/wave-bk-semantic-census-overlay-2026-09-08/receipt.json",
+      "sha256": "17f76e76e7bd16106317c2ff2ed95629657cc24880274ba8df3a1ff02d68d792"
+    },
+    {
+      "path": ".staging/wave-bk-semantic-census-overlay-2026-09-08/review-envelope.json",
+      "sha256": "ff552e729fc77cb64447ccd6192d4ba470da41433160d3b511722ca214d96225"
+    },
+    {
+      "path": ".staging/wave-bk-semantic-census-overlay-2026-09-08/run.mts",
+      "sha256": "b6e001f0e7901c4f7889f198304072cda395aa4694484789e4f6bb46317d1185"
+    }
+  ]
+}

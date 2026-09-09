@@ -1,0 +1,23 @@
+{
+  "id": "D500",
+  "observedAt": "2026-09-08T23:05:41.879934+00:00",
+  "request": "Log footguns and rat holes; use Claude Code Search; reduce repeated token expenditure.",
+  "log": "docs/foundry-footguns.md",
+  "footgunCount": 49,
+  "logSha256": "ed2ff8c438729ade74f80a0ea4c6faa9118f33c5ce2e307688e82274e86f218b",
+  "searchIndex": "docs/log/wave-fh-footguns-ccs-index-2026-09-09.json",
+  "searchIndexSha256": "a10d990caf1a88dfc697ce66c162e6b9769e886d7ddf14ed069f2ef26dc232ac",
+  "sourceScope": [
+    "fresh ccs claude/codex prompts across iconsmith and icon-forge",
+    "docs/project-research-history.md historical recovered records",
+    "D493 handover and current failure/integration receipts through D499"
+  ],
+  "scopeLimit": "Material recovered failures, not exhaustive inaccessible/compacted history; no new external research validation.",
+  "futureRetrieval": "Root AGENTS requires short startup section and symptom search before repeated experiments.",
+  "missingLocalLinks": [],
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "memoryStoreModified": false,
+  "fullSuiteRerun": false,
+  "reasonNoFullSuite": "Documentation-only after D499 verified source closure."
+}

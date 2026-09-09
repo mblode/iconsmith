@@ -1,0 +1,15 @@
+{
+  "id": "D501",
+  "observedAt": "2026-09-08T23:15:41.652916+00:00",
+  "kind": "offline-semantic-trace-replay-intent",
+  "baseline": "D499",
+  "baselineManifestFiles": 404,
+  "baselineSourceDrift": [],
+  "priorGap": "F24: recursive replay hashes raw trace bytes but does not semantically reparse their model/session/attachment/tool evidence.",
+  "changedVariable": "Reuse existing native validators to semantically reparse retained trace during downstream replay.",
+  "scope": "One runtime owner for parser/replay code; root audits tooling closure and integration. Keep authorEvidenceVerified false.",
+  "worker": "runtime / gpt-5.6-sol / medium",
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null
+}

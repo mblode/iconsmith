@@ -1,0 +1,22 @@
+{
+  "decision": "D403",
+  "date": "2026-09-09",
+  "packetReceipt": ".staging/wave-bz-folder-cross-master-prep-2026-09-08/packet-v2/receipt.json",
+  "receiptSha256": "7b22091c0476aa64af03c394161eac0457a807f3a3022a155c3b556b13231426",
+  "manifestSha256": "e162933807424909f5bae29ea01b81b369ad2f7bd0dae28e3e21e5415d13ca9e",
+  "rootVerifiedFiles": 61,
+  "rootViewedBoard": ".staging/wave-bz-folder-cross-master-prep-2026-09-08/presentation-v2/paired-native-proof-board-v2.png",
+  "findings": {
+    "fourNativeSlotsValid": true,
+    "exactReplay": true,
+    "modifierShift24EquivalentPx": {
+      "outlined": 1.485,
+      "filled": 1.596
+    },
+    "sourceToPrimitiveCorrespondence": "unproven",
+    "crossMasterComplete": false
+  },
+  "interpretation": "Measured shift requires optical/semantic review; it is not by itself a critical defect. Primitive modifiers need verifiable identity evidence, not an invented claim of exact source reconstruction.",
+  "qualification": false,
+  "providerCalls": 0
+}

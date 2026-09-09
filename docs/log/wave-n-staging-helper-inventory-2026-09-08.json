@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-08T05:08:34.800852+00:00",
+  "task": "P0.5",
+  "status": "inventory-complete-required-promotion-open",
+  "qualified": false,
+  "codeLikeFiles": 13235,
+  "authoredHelperCandidates": 368,
+  "dispositions": {
+    "diagnosticOnly": 354,
+    "promotedOrSuperseded": 7,
+    "partialAuthorTransportPromotion": 3,
+    "stillRequired": 4
+  },
+  "required": [
+    "Contained calibration dispatcher",
+    "Canonical calibration analysis",
+    "Outer calibration launch freeze",
+    "Automatic pilot input assembly"
+  ],
+  "evidence": [
+    {
+      "path": ".staging/wave-n-evaluation-p05-staging-inventory-2026-09-08/receipt.json",
+      "sha256": "96ce3086a01e28bb02ab2feb1689c71c13f777fa5edc2c646137644ff521f7d3"
+    },
+    {
+      "path": ".staging/wave-n-evaluation-p05-staging-inventory-2026-09-08/helper-census.json",
+      "sha256": "fe3320e8ac925e7467f93a3e572569729a2b1b7a3adb6827655db423f6e6073f"
+    }
+  ],
+  "newProviderCalls": 0,
+  "newApiActualUsd": 0,
+  "newApiReservationUsd": 0
+}

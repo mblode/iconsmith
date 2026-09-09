@@ -1,0 +1,22 @@
+{
+  "decision": "D227",
+  "status": "intent-not-yet-dispatched",
+  "purpose": "One contained exact-image native Codex capability check after runtime and call-boundary checks pass",
+  "script": ".staging/wave-b-root-2026-09-08/contained-image-smoke.ts",
+  "scriptSha256": "c9a8149d9033725fcdcc0cde6c820f3389cf87aca55cd37be83e5dc22b8c4d6c",
+  "manifestPath": ".staging/wave-b-root-2026-09-08/contained-image-smoke-v1/manifest.json",
+  "maxProviderCalls": 1,
+  "model": "gpt-6-astra",
+  "effort": "high",
+  "runtime": "0.154.0-alpha.3 Linux arm64",
+  "deadlineMs": 300000,
+  "concurrency": 1,
+  "apiReservationUsd": 0,
+  "nativeSubscriptionDollarAllocationUsd": null,
+  "quotaObservation": {
+    "usedPercent": 29,
+    "windowDurationMins": 10080
+  },
+  "retryPolicy": "none; preserve ambiguous or failed attempt",
+  "qualified": false
+}

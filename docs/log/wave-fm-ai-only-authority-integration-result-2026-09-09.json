@@ -1,0 +1,147 @@
+{
+  "id": "D510",
+  "kind": "ai-only-parent-authority-and-runtime-integration-result",
+  "observedAt": "2026-09-09T01:01:16.857163+00:00",
+  "intent": "D509",
+  "status": "engineering-verified-not-visually-qualified",
+  "changes": [
+    "Allocated Codex context preparation exceptions use canonical terminal settlement, retaining unknown accounting and unproven containment.",
+    "Parent terminal evidence carries author provenance only after recursive inspection replay, frozen author identity, exact selected tree, current compiler replay and regenerated optical proofs.",
+    "Acceptance consumes the live capability and exact output-author bindings without granting independent approval; every requested slot and null unavailable evidence remains.",
+    "Mini v3 historical parsing remains but direct dispatch and whole route configuration refuse before allocation/reservation or author cost. No reviewer is removed or replaced implicitly."
+  ],
+  "apiChange": "verifyCampaignTerminalEvidence is async. Verified author provenance requires an explicit revisionFile whose bytes match the frozen plan revisionHash. Synchronous consumption revalidates the tree and revision.",
+  "integrated": {
+    "receipt": ".staging/wave-fm-integrated-2026-09-09/attempt-1/receipt.json",
+    "sha256": "9500fe4cf9e39349e060f9bafad79af0d1657afc4a1f523c35500e690953d1c5",
+    "status": "passed",
+    "workspaceTests": 2558,
+    "workspaceFiles": 183,
+    "runnerTests": 10,
+    "totalTests": 2568,
+    "skipped": 0,
+    "durationMs": 56886,
+    "sourceFiles": 685,
+    "sourceAggregateSha256": "b0b43f8cabcd912b36cd0d83448fbae3bcbf2ff62198e65aa95b72e8bbfad4b4",
+    "sourceManifestSha256": "2a34f49460718d798633dd3ed5fa09d44a1d332d587dcf9ed676e036e083fb5b",
+    "stages": [
+      {
+        "id": "test",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "typecheck",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "build",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "check",
+        "exitCode": 0,
+        "passed": true
+      },
+      {
+        "id": "diff",
+        "exitCode": 0,
+        "passed": true
+      }
+    ]
+  },
+  "sourceDeltaFromD508": {
+    "changed": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "packages/iconsmith/scripts/acceptance-critic-evidence.test.ts",
+      "packages/iconsmith/scripts/local-campaign.test.ts",
+      "packages/iconsmith/scripts/local-campaign.ts",
+      "packages/iconsmith/scripts/local-codex-review.test.ts",
+      "packages/iconsmith/scripts/local-codex-review.ts",
+      "packages/iconsmith/scripts/local-native-call-factory.test.ts",
+      "packages/iconsmith/scripts/local-native-config.test.ts",
+      "packages/iconsmith/scripts/local-native-config.ts",
+      "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+      "packages/iconsmith/src/eval/acceptance-contract.ts"
+    ],
+    "added": [
+      "packages/iconsmith/scripts/local-render-evidence.test.ts",
+      "packages/iconsmith/scripts/local-render-evidence.ts"
+    ],
+    "removed": []
+  },
+  "focused": {
+    "root": {
+      "tests": 129,
+      "files": 3,
+      "log": ".staging/wave-fm-root-focused-final.log"
+    },
+    "runtime": {
+      "tests": 58,
+      "receipt": ".staging/wave-fm-runtime-2026-09-09/receipt.json",
+      "note": "Root subsequently added retired-reviewer dispatch enforcement; integrated result covers final source."
+    },
+    "acceptance": {
+      "tests": 122,
+      "receipt": ".staging/wave-fm-evaluation-2026-09-09/result.md"
+    },
+    "render": {
+      "tests": 3,
+      "files": 1,
+      "note": "Real DSL positive, dishonest rewritten SVG/hash, and incorrect proof rejection."
+    }
+  },
+  "failuresRetained": [
+    ".staging/wave-fm-root-campaign-format.log",
+    ".staging/wave-fm-root-campaign-format-check.log",
+    ".staging/wave-fm-root-campaign-test-2.log",
+    ".staging/wave-fm-root-final-format-1.log",
+    ".staging/wave-fm-root-final-format-2.log",
+    ".staging/wave-fm-runtime-2026-09-09/typecheck.log"
+  ],
+  "failureCorrections": [
+    "Scoped formatter sorted keys then required final formatting; no full suite was rerun for this.",
+    "The first genuine rendering fixture used a macOS /var alias and was correctly refused; test inputs now use canonical paths.",
+    "A root-relative Python edit run from workspace cwd failed before mutation; corrected path used.",
+    "Worker typecheck during concurrent editing failed; final integrated typecheck passed."
+  ],
+  "reviewerIsolation": {
+    "receipt": ".staging/wave-fm-reviewer-isolation-2026-09-09/receipt.md",
+    "probe": ".staging/wave-fm-reviewer-isolation-2026-09-09/probe-summary.json",
+    "profile": "mini-inline-images-no-tools-v3",
+    "status": "retired-for-dispatch",
+    "changedVariableRequired": "Supported and offline-verified empty tool catalog with inline images and structured output; then explicit frozen capability test."
+  },
+  "qualification": {
+    "granted": false,
+    "pipelineScoreOutOf10": null,
+    "primaryTasksChecked": 15,
+    "primaryTasksTotal": 84,
+    "noPhaseVisuallyQualified": true,
+    "remaining": [
+      "Current frozen live P1 slice, interrupted salvage and six-request replay.",
+      "Eligible independent four-lineage critic roster and sealed qualifying population.",
+      "Canonical source-exact resolver replay remains separately refused by new author rendering verifier.",
+      "P2-P8 visual, cohort, catalog and unseen-family gates remain in the sole authoritative plan."
+    ]
+  },
+  "cost": {
+    "newProviderCalls": 0,
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeSubscriptionOrchestrationAllocationUsd": null,
+    "historicalD506Accounting": "unknown",
+    "resetRedeemed": false
+  },
+  "resourceObservation": {
+    "quotaWeeklyUsedPercent": 11,
+    "quotaResetUnixSeconds": 1789511735,
+    "diskAvailableKiB": 3252188,
+    "diskFloorBytes": 2147483648,
+    "dockerInventoryExitCode": 0,
+    "note": "Read-only prerequisite observation; no new provider reservation or dispatch."
+  }
+}

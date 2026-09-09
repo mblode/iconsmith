@@ -75,7 +75,11 @@ const reviewer = (
   ),
   model: id,
 });
-const run = (data: ReturnType<typeof fixture>, routes: AiReviewRoute[]) =>
+const run = (
+  data: ReturnType<typeof fixture>,
+  routes: AiReviewRoute[],
+  repeat = false
+) =>
   runAiReviewCampaign({
     execute: true,
     input: {
@@ -88,6 +92,17 @@ const run = (data: ReturnType<typeof fixture>, routes: AiReviewRoute[]) =>
           image: data.image,
           meanings: ["bell-pause", "bell-play", "bell-off"],
         },
+        ...(repeat
+          ? [
+              {
+                concept: "bell-pause",
+                familyReferences: [data.anchor],
+                id: "s002",
+                image: data.image,
+                meanings: ["bell-pause", "bell-play", "bell-off"],
+              },
+            ]
+          : []),
       ],
     },
     maxPackets: 1,
@@ -199,5 +214,93 @@ test("does not promote low craft, missing terminals or tampered evidence", async
     });
   } finally {
     rmSync(tampered.root, { force: true, recursive: true });
+  }
+});
+
+const calibrationOptions = (data: ReturnType<typeof fixture>) => {
+  const conditionKeyFile = path.join(data.root, "conditions.json");
+  writeFileSync(
+    conditionKeyFile,
+    JSON.stringify({
+      rows: ["s001", "s002"].map((id, index) => ({
+        canonicalArtifactId: "s001",
+        concept: "bell-pause",
+        id,
+        presentation: index ? "identical-repeat" : "original",
+        sheetSha256: digest(readFileSync(data.image)),
+      })),
+    })
+  );
+  return {
+    conditionKeyFile,
+    expectedConditionKeySha256: digest(readFileSync(conditionKeyFile)),
+  };
+};
+test.each(["8", "9"])(
+  "calibration retains individual %s scores without promoting or averaging a failed anchor",
+  async (score) => {
+    const data = fixture();
+    try {
+      await run(
+        data,
+        [
+          reviewer("model-a", "provider-a"),
+          reviewer("model-b", "provider-b", { craft: score }),
+        ],
+        true
+      );
+      const result = assessAiReviewCampaign(data.out, calibrationOptions(data));
+      expect(result.calibration).toMatchObject({
+        canonicalArtifacts: 1,
+        passed: score === "9",
+        presentationRepeats: 1,
+        qualified: false,
+        scoreOffset: null,
+        semanticFamilies: 1,
+      });
+      expect(result.calibration?.reviewers[1]?.rows[0]?.judgment?.craft).toBe(
+        Number(score)
+      );
+      expect(result.qualified).toBe(false);
+    } finally {
+      rmSync(data.root, { force: true, recursive: true });
+    }
+  }
+);
+test("calibration refuses key drift, repeated-byte inflation and missing evidence", async () => {
+  const data = fixture();
+  try {
+    await run(
+      data,
+      [reviewer("model-a", "provider-a"), reviewer("model-b", "provider-b")],
+      true
+    );
+    const options = calibrationOptions(data);
+    expect(() =>
+      assessAiReviewCampaign(data.out, {
+        ...options,
+        expectedConditionKeySha256: "a".repeat(64),
+      })
+    ).toThrow("identity drift");
+    const key = JSON.parse(readFileSync(options.conditionKeyFile, "utf-8"));
+    key.rows[1].canonicalArtifactId = "s002";
+    key.rows[1].presentation = "original";
+    writeFileSync(options.conditionKeyFile, JSON.stringify(key));
+    expect(() =>
+      assessAiReviewCampaign(data.out, {
+        ...options,
+        expectedConditionKeySha256: digest(
+          readFileSync(options.conditionKeyFile)
+        ),
+      })
+    ).toThrow("Repeated bytes");
+    unlinkSync(options.conditionKeyFile);
+    const restored = calibrationOptions(data);
+    unlinkSync(path.join(data.out, "model-b/terminal.json"));
+    expect(assessAiReviewCampaign(data.out, restored).calibration?.passed).toBe(
+      false
+    );
+  } finally {
+    rmSync(data.root, { force: true, recursive: true });
   }
 });

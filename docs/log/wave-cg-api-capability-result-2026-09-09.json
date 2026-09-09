@@ -1,0 +1,85 @@
+{
+  "experimentId": "D426",
+  "kind": "api-capability-result-reconciliation",
+  "qualified": false,
+  "capabilityAcceptedUnderFrozenContract": false,
+  "generationRequests": 1,
+  "readOnlyMetadataRequests": 1,
+  "structuredAnswer": {
+    "description": "heart",
+    "unknown": false
+  },
+  "routeRefusalReason": "API capability returned route identity is invalid",
+  "observedIdentity": {
+    "gatewayCanonicalModel": "google/gemini-3.7-flash",
+    "provider": "google",
+    "generationId": "gen_01M20T4P3RTXH1FSA0VRHKF2GC",
+    "bareUpstreamApiModelId": "not exposed; cannot be verified"
+  },
+  "timing": {
+    "elapsedMs": 2713,
+    "deadlineExceeded": false
+  },
+  "cost": {
+    "actualUsd": 0.0010365,
+    "releasedUnusedReservationUsd": 0.7873155,
+    "apiActualCumulativeUsd": 13.06324435,
+    "reservedOrUnknownUsd": 11.37126575,
+    "committedUsd": 24.4345101,
+    "remainingUnderCapUsd": 25.5654899,
+    "capUsd": 50
+  },
+  "ledgerFile": "docs/log/api-budget-after-d425-2026-09-09.json",
+  "ledgerSha256": "dad4064f76059e79800617d21ea5e2e4d08a8df6ea671443ad79f2112e028dec",
+  "nativeCalls": 0,
+  "nativeSettledCumulative": 136,
+  "olderUnresolvedNativeIntents": 1,
+  "automaticRetry": false,
+  "artifacts": [
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/evidence/attempt.json",
+      "sha256": "64bee4d6330e94fdc071d0326819c2fde85ef871baf40e51065bc04402a259b6"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/evidence/intent.json",
+      "sha256": "71c1da40dc0099ccf0435e6c0d056ffb94a3a164f5e62292f420cd1bce18a224"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/evidence/result.json",
+      "sha256": "d3c61912b379a9c26d93d380a27d67c3c8f3d860ce23e84475d8932e547d2091"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/evidence/terminal.json",
+      "sha256": "a9b3f67057da188fe33d7f66c0feeafd56f651a508ec9bcaa307e37faa1e8985"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/generation-info.json",
+      "sha256": "e367b475426f08191f16d95d2dcfe61cbb5c5cc7c01d9553a88787e220aed8ed"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/launch.json",
+      "sha256": "474cc5b0f9fb9caaf31cff6b4dfa7baee89f3888603612bf2496b3e006524215"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/run.mts",
+      "sha256": "23229f23d00348832ef10a4a60cbdd4a4777a8cc67c5ed0f62634af182bd36ae"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/stdout.json",
+      "sha256": "ab35f551545b6ac772b909185d7dff6652d94637b8d0054a4d7da124b4889d9b"
+    },
+    {
+      "file": ".staging/wave-cg-api-capability-live-2026-09-09/stimulus.png",
+      "sha256": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+    }
+  ],
+  "limitations": [
+    "Original terminal preserved as refused; returned label alone cannot qualify adapter or critic.",
+    "Gateway model/provider attestation is observed; undisclosed upstream API revision is not invented.",
+    "This is exposed capability stimulus, not sealed evaluator qualification."
+  ]
+}

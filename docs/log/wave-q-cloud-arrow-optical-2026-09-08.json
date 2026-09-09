@@ -1,0 +1,32 @@
+{
+  "schema": "iconsmith.wave-q.cloud-optical-root.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "rootImageInspection": true,
+  "outputs": 12,
+  "variantsPerPaintMaster": 3,
+  "retainedPreviousBestBytes": true,
+  "finding": "Filled widening preserves upper/lateral cloud contour. Earlier outlined probe placed only one of two normalized source parts; restoring shaft at measured source offset restores direction. Outlined16 remains crowded and host baseline intersects shaft.",
+  "artifacts": [
+    {
+      "path": ".staging/wave-q-cloud-arrow-optical-2026-09-08/receipt.json",
+      "sha256": "5d72a7eb78c98f87ab0c50dcb15385fd94b9f7db7e6c46e17717df7d9e916768"
+    },
+    {
+      "path": ".staging/wave-q-cloud-arrow-optical-2026-09-08/comparison-board.png",
+      "sha256": "5048b7f2c99124f0ef64c97e6ce63d5a38c0f7717b315d5bab7f9aca7f41a33c"
+    },
+    {
+      "path": ".staging/wave-q-cloud-arrow-optical-2026-09-08/artifact-hashes.json",
+      "sha256": "a8f1f6c0de2c1ac8e79822fe49a6bbb117fd391e9c0387797f368741d9d118b3"
+    }
+  ],
+  "limits": [
+    "No qualified independent review.",
+    "No kernel representation gap established.",
+    "Three rejected local preparation attempts retained beside final staging directory.",
+    "Artifact manifest is named artifact-hashes.json; its exact hash is bound here."
+  ]
+}

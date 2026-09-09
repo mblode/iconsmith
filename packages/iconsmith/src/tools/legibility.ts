@@ -36,7 +36,7 @@
  */
 import sharp from "sharp";
 
-import { bbox, parsePath } from "../geometry/path.js";
+import { parsePath } from "../geometry/path.js";
 import { flatten } from "../parts/shape.js";
 import type { Subpath } from "../types.js";
 import { cosine, png } from "./render.js";
@@ -658,12 +658,3 @@ export const bandSensitivity = (
     }
     return { counts, gapMerge };
   });
-
-/** The bounding box of an icon's ink, for callers that want to report extent
- *  alongside the bands. Kept here so a triage run parses each file once. */
-export const inkBox = (svg: string) =>
-  bbox(
-    [...svg.matchAll(/\sd="(?<data>[^"]+)"/gu)].flatMap((m) =>
-      parsePath(m.groups?.data ?? "")
-    )
-  );

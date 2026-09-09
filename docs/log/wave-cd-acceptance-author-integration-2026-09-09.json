@@ -1,0 +1,80 @@
+{
+  "id": "D415",
+  "recordedAt": 1788878712253,
+  "status": "implemented-and-engineering-verified",
+  "acceptanceContractVersion": "iconsmith-ai-only-10-draft-v6",
+  "changes": [
+    "packages/iconsmith/scripts/local-astra-author.test.ts",
+    "packages/iconsmith/scripts/local-style-run.test.ts",
+    "packages/iconsmith/scripts/local-style-run.ts",
+    "packages/iconsmith/src/eval/acceptance-contract.test.ts",
+    "packages/iconsmith/src/eval/acceptance-contract.ts",
+    "packages/iconsmith/vitest.config.ts"
+  ],
+  "sourceClosureFiles": 635,
+  "tests": {
+    "passed": 2332,
+    "files": 174,
+    "skipped": 0
+  },
+  "scopedTests": 118,
+  "checks": {
+    "test": 0,
+    "typecheck": 0,
+    "build": 0,
+    "check": 0,
+    "diff": 0
+  },
+  "initialScopedFailure": "Archived package .staging mirrored test was collected and failed on its absent copied fixture; original118 scoped tests passed. Added vitest config excludes archived .staging while retaining default excludes. No archived bytes or paths were changed.",
+  "qualification": false,
+  "providerCallsDuringIntegration": 0,
+  "nativeSettled": 134,
+  "olderUnresolvedNativeIntents": 1,
+  "apiIncrementUsd": 0,
+  "evidence": [
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/scoped.log",
+      "sha256": "8e075bcd27d718c1db1a227f6331cff1f513a500f847cc32249efdc08fcc15ef"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/scoped-v2.log",
+      "sha256": "6ed88e57fa05c400105d9eadbec5d0677b62aa65843b4024b8bed04cb0c0c5f6"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/test.log",
+      "sha256": "1da947918dbe15dd99fe4d70fa5806eff2ec6c6582821525f9a0c47aecc910b0"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/typecheck.log",
+      "sha256": "0a0c2b782cf6bcac251710aa4ca14147d660c00e11ac4d66d46423b81c232ab2"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/build.log",
+      "sha256": "e33f6eda42195e24821a1903c9146aafb63278bd1d873050431ef587e927ace4"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/check.log",
+      "sha256": "d95edcbb022b48524c7d26112a06e55500b724049daac512876dc4abe5c84bd6"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/diff.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/integration-plan.json",
+      "sha256": "d50b30580221c3a4f8949447ad3e371eaa7423fc4960e93398bbb85c45cdc453"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/source-before.json",
+      "sha256": "826b07abae45587f7e7cd1bb2f6a225a1d5810ccaf3c842b62777d596802eee8"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/source-after.json",
+      "sha256": "887299f942cf85284e8fca5c0347efaa78d2993eb2525cf7c82fba831bf8b39b"
+    },
+    {
+      "path": ".staging/wave-cd-root-integration-2026-09-09/production-tooling-identity.json",
+      "sha256": "1ebde3d4a93406188a0b5a4a97f60844a36441ba57c81f91a75f00ec33e00c01"
+    }
+  ]
+}

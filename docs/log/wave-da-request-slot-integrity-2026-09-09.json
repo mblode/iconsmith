@@ -1,0 +1,29 @@
+{
+  "id": "D451",
+  "observedAt": "2026-09-08T18:06:11.406795+00:00",
+  "scope": "offline-request-slot-integrity",
+  "finding": "Equal request/review counts previously permitted repeating slot A while omitting reviewed slot B. Requirements now require unique slot identities.",
+  "artifacts": [
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.ts",
+      "sha256": "80dc5b011362404ccf0f4e275647f4042ffafde8c5b43fb31d81832ddddfd34d"
+    },
+    {
+      "path": "packages/iconsmith/src/eval/foundry-gate.test.ts",
+      "sha256": "828a8f384bc2179d17230a7af5231fd207309b7d6fcb499d1a562ef8685a34dc"
+    },
+    {
+      "path": ".staging/wave-da-request-slot-integrity-2026-09-09/test.log",
+      "sha256": "f5af3e90b869e51b4458944a04e9651fea54d962768d601f95b53c0a4796528e"
+    }
+  ],
+  "verification": {
+    "scopedTests": 23,
+    "files": 1,
+    "skipped": 0,
+    "integratedVerification": "pending next material wave"
+  },
+  "providerCalls": 0,
+  "newCostUsd": 0,
+  "qualified": false
+}

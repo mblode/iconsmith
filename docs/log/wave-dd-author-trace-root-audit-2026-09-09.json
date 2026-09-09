@@ -1,0 +1,58 @@
+{
+  "id": "D454",
+  "observedAt": "2026-09-08T18:40:09.549722+00:00",
+  "scope": "independent-author-trace-audit-v2",
+  "finding": "A factory-issued binding can be replayed across author lifecycles because issuance and old bytes do not bind the current request or enforce single consumption.",
+  "auditedRevision": "CY v2 sealed patch f53f0a36af0c5d770a6aa066b426209c505273372faa9549910e8aca6c5dc742",
+  "verifiedBindings": [
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/author-trace-seals-v2.patch",
+      "recordedSha256": "f53f0a36af0c5d770a6aa066b426209c505273372faa9549910e8aca6c5dc742",
+      "currentSha256": "f53f0a36af0c5d770a6aa066b426209c505273372faa9549910e8aca6c5dc742"
+    },
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/receipt-v2.json",
+      "recordedSha256": "da0a25f59552f3e81a2a9fdef28373a4be7fce8f6518b28866362f625a82bf1f",
+      "currentSha256": "da0a25f59552f3e81a2a9fdef28373a4be7fce8f6518b28866362f625a82bf1f"
+    },
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/workspace/packages/iconsmith/scripts/local-structured-author.ts",
+      "recordedSha256": "d789dfc8d9b32a27a61420a1fc3af26b6462b54818f47ae99c35a5c7188a697e",
+      "currentSha256": "d789dfc8d9b32a27a61420a1fc3af26b6462b54818f47ae99c35a5c7188a697e"
+    },
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/workspace/packages/iconsmith/scripts/local-structured-author.test.ts",
+      "recordedSha256": "058e040314cea660d2e13300551862651463ab46ba17db68be9dc7280810b817",
+      "currentSha256": "058e040314cea660d2e13300551862651463ab46ba17db68be9dc7280810b817"
+    },
+    {
+      "path": ".staging/wave-dd-author-trace-independent-audit-2026-09-09/findings.json",
+      "recordedSha256": "350ff5cc94a1f2366269cf92d716d8e6c3d381c4fcb80f13b115861fe1e25c10",
+      "currentSha256": "350ff5cc94a1f2366269cf92d716d8e6c3d381c4fcb80f13b115861fe1e25c10"
+    },
+    {
+      "path": ".staging/wave-dd-author-trace-independent-audit-2026-09-09/report.md",
+      "recordedSha256": "3d0cda23eb93fe1bd7ff5f62c0452cefaa66c8b4eda92862546f57045f2f7901",
+      "currentSha256": "3d0cda23eb93fe1bd7ff5f62c0452cefaa66c8b4eda92862546f57045f2f7901"
+    }
+  ],
+  "mutableWorkspaceDrift": [
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/workspace/packages/iconsmith/scripts/local-native-call-factory.ts",
+      "recordedSha256": "030d465bbc7ed25bddf896057383140adf74214e00b40deed8525e2c7a7d62ac",
+      "currentSha256": "74513c3887bfa4a39b08cef7c86181703cecfc6045538aad7263c8a192365b12"
+    },
+    {
+      "path": ".staging/wave-cy-author-trace-seals-2026-09-09/workspace/packages/iconsmith/scripts/local-astra-author.ts",
+      "recordedSha256": "ab9e9c209e5c2ae0d68125cf1a0575802404c5db6fb7475b16bfbc64c7b2fe9e",
+      "currentSha256": "01093ffa7f98a788706d5942dbc0f9f024bd52dfb918506520f5f1f5473ceb69"
+    }
+  ],
+  "disposition": "CY v1/v2 not applied; runtime preparing v3 request binding and consume-once regressions",
+  "testsRunByAudit": false,
+  "productionAuthorityRemainsFalse": true,
+  "providerExperimentCalls": 0,
+  "apiCostUsd": 0,
+  "orchestrationCost": "unavailable; separate Codex account usage",
+  "qualified": false
+}

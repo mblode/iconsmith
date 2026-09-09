@@ -1,0 +1,18 @@
+{
+  "id": "D387",
+  "scope": "Offline cloud modifier reproduction and folder-lock evidence binding",
+  "agentReceipt": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bv-folder-cloud-gap-audit-2026-09-08/receipt.json",
+  "agentReceiptSha256": "2f6ce42779fc36f689d0f70883d08f0b85046424202ae1eb1783e61c84551417",
+  "rootVerifiedArtifacts": 53,
+  "rootViewedBoard": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bv-folder-cloud-gap-audit-2026-09-08/comparison-board.png",
+  "rootViewedBoardSha256": "0b84c1cd155943db5a50c23289cbddb3eb30aa8903b47e547ec074f50235152f",
+  "programs": 6,
+  "exactReplay": true,
+  "compilerGapDemonstrated": false,
+  "finding": "Historical program selected arrowhead child only. Existing grouped assembly, indexed head/shaft and host trim express complete modifier.",
+  "remaining": "Source-bound packet guidance and live visual closure;16 topology threshold disagreement against distinct exact source retained.",
+  "compilerChanged": false,
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "qualified": false
+}

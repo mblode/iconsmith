@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import {
   accessSync,
   constants,
+  lstatSync,
   readFileSync,
   readdirSync,
   realpathSync,
@@ -124,3 +125,115 @@ export const verifyRuntimeIdentity = (
   }
   return actual;
 };
+
+export interface CanonicalLaunchInput {
+  args: readonly string[];
+  command: string;
+  concurrency: number;
+  cwd: string;
+  deadlineAt: number;
+  identity: {
+    configHash: string;
+    effort: string;
+    model: string;
+    routeHash: string;
+  };
+  sourceFiles: readonly string[];
+  /** Complete directory populations, including added and removed files. */
+  sourceTrees?: readonly string[];
+}
+
+const captureSourceTree = (directory: string) => {
+  const root = path.resolve(directory);
+  const visit = (relative: string): { file: string; sha256: string }[] => {
+    const file = path.join(root, relative);
+    const stat = lstatSync(file);
+    if (stat.isSymbolicLink()) {
+      throw new Error("Launch source trees cannot contain symlinks");
+    }
+    if (stat.isDirectory()) {
+      return readdirSync(file)
+        .toSorted()
+        .flatMap((name) => visit(path.join(relative, name)));
+    }
+    if (!stat.isFile()) {
+      throw new Error("Launch source trees require regular files");
+    }
+    return [{ file: relative, sha256: hash(readFileSync(file)) }];
+  };
+  if (!lstatSync(root).isDirectory()) {
+    throw new Error("Launch source tree must be a directory");
+  }
+  return { directory: root, files: visit(""), realPath: realpathSync(root) };
+};
+
+/** The descriptor is the dispatch input, never a second copied command. */
+export const captureLaunchDescriptor = (input: CanonicalLaunchInput) => {
+  if (
+    !Number.isSafeInteger(input.concurrency) ||
+    input.concurrency < 1 ||
+    !Number.isSafeInteger(input.deadlineAt) ||
+    input.deadlineAt <= Date.now() ||
+    !input.identity.model.trim() ||
+    !input.identity.effort.trim() ||
+    !/^[a-f0-9]{64}$/u.test(input.identity.configHash) ||
+    !/^[a-f0-9]{64}$/u.test(input.identity.routeHash) ||
+    input.args.some((arg) => typeof arg !== "string" || arg.includes("\0")) ||
+    input.sourceFiles.length === 0
+  ) {
+    throw new Error("Launch descriptor needs a complete bounded identity");
+  }
+  const executable = resolveExecutable(input.command);
+  const files = [
+    ...new Set(input.sourceFiles.map((file) => path.resolve(file))),
+  ].toSorted();
+  const descriptor = {
+    args: [...input.args],
+    concurrency: input.concurrency,
+    cwd: realpathSync(input.cwd),
+    deadlineAt: input.deadlineAt,
+    executable,
+    executableSha256: hash(readFileSync(executable)),
+    identity: { ...input.identity },
+    schemaVersion: 2,
+    sourceFiles: files.map((file) => ({
+      file,
+      realPath: realpathSync(file),
+      sha256: hash(readFileSync(file)),
+    })),
+    sourceTrees: [...new Set(input.sourceTrees)]
+      .map((directory) => path.resolve(directory))
+      .toSorted()
+      .map(captureSourceTree),
+  };
+  return { descriptor, hash: hash(JSON.stringify(descriptor)) };
+};
+
+export type CanonicalLaunch = ReturnType<typeof captureLaunchDescriptor>;
+
+export const verifyLaunchDescriptor = (launch: CanonicalLaunch) => {
+  if (hash(JSON.stringify(launch.descriptor)) !== launch.hash) {
+    throw new Error("Launch descriptor hash mismatch");
+  }
+  const current = captureLaunchDescriptor({
+    ...launch.descriptor,
+    command: launch.descriptor.executable,
+    sourceFiles: launch.descriptor.sourceFiles.map(({ file }) => file),
+    sourceTrees: launch.descriptor.sourceTrees.map(
+      ({ directory }) => directory
+    ),
+  });
+  if (current.hash !== launch.hash) {
+    throw new Error(
+      "Launch executable or source closure changed before dispatch"
+    );
+  }
+  return current.descriptor;
+};
+
+/** Only descriptor-owned argv/cwd can reach the executor. The caller supplies
+ * its containment implementation; this helper does not prove settlement. */
+export const executeLaunchDescriptor = <T>(
+  launch: CanonicalLaunch,
+  execute: (descriptor: CanonicalLaunch["descriptor"]) => T
+): T => execute(verifyLaunchDescriptor(launch));

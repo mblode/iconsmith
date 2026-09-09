@@ -1,0 +1,80 @@
+{
+  "version": 18,
+  "qualified": false,
+  "htmlSha256": "51151e4f9ba96c805a7a6c68f6797b5c793d2779c0c29d0eea4bd6a868bafff2",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v17-2026-09-09.html",
+  "previousIndexSha256": "95ac4ca7a00d10c4976828b92f058df96cd10bae719db2c1179c61c4b727bc81",
+  "images": [
+    {
+      "label": "20 source concepts, board 1/4: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cc-census-next20-2026-09-09/boards/census-1.png",
+      "sha256": "2f42c3cd7b2de4b6c7ae37d66e87a9a4e456a819b8399ed4ee41de8a6eaf0043"
+    },
+    {
+      "label": "20 source concepts, board 2/4: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cc-census-next20-2026-09-09/boards/census-2.png",
+      "sha256": "bceaf9bec6638f64dead5f47befc39e028333ee11c934e3ee5c18c27cfda74e9"
+    },
+    {
+      "label": "20 source concepts, board 3/4: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cc-census-next20-2026-09-09/boards/census-3.png",
+      "sha256": "3d84c6ebf13c8b24c7b5b7d5e4828fd7fe39b26f526c6e3ace27d74dc4cbc7de"
+    },
+    {
+      "label": "20 source concepts, board 4/4: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cc-census-next20-2026-09-09/boards/census-4.png",
+      "sha256": "3afc12cfbfaad85b9d0156d7fd0f1be9585677a8671849708c82fdef7226596d"
+    },
+    {
+      "label": "40 source concepts, board 1/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-1.png",
+      "sha256": "d78c4900661a32d11d16e8b3610ca9cc17ff2857db5e116b5a5bfd96c2029222"
+    },
+    {
+      "label": "40 source concepts, board 2/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-2.png",
+      "sha256": "6b0d8d8b701621ea67dad7446cb984695fd74481c9092c099231c7336fe49f41"
+    },
+    {
+      "label": "40 source concepts, board 3/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-3.png",
+      "sha256": "bb79d28f1eff58d8f79e80291c2ab385bf480c91072922e17d94c1aeff4f7e37"
+    },
+    {
+      "label": "40 source concepts, board 4/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-4.png",
+      "sha256": "17cea51c48b7fd81f3d88082ecbab11ced0acd101a820f3b2ac104bf16b7f4ba"
+    },
+    {
+      "label": "40 source concepts, board 5/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-5.png",
+      "sha256": "276f4978009e5f8e8325dcfaa0148023708c70a0a61ee19dce9da076542d95b9"
+    },
+    {
+      "label": "40 source concepts, board 6/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-6.png",
+      "sha256": "a817d34eade0431605c057a9935213ae635d80179d1eb0856ae1f054f1733cea"
+    },
+    {
+      "label": "40 source concepts, board 7/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-7.png",
+      "sha256": "4c22c6a04f06f4aafb4b9db6c4fe2d8937a8886315c2d3c4f84e6fbfaae34572"
+    },
+    {
+      "label": "40 source concepts, board 8/8: source development;16 is resampled24; no visual qualification",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ce-census-next40-2026-09-09/boards/census-8.png",
+      "sha256": "c4587ab3e72ddc8620cbf37e24bbb7eb821e6dc7b87f9711e76136279f1e5a47"
+    }
+  ],
+  "missingSourceSlots": [
+    "amazon/16/filled",
+    "amazon/24/filled"
+  ],
+  "priorMissingQualifiedSlots": [
+    "hammer-check16/outlined",
+    "hammer-check16/filled",
+    "bicycle16/outlined",
+    "bicycle16/filled"
+  ],
+  "reviewBoundary": "Root independent image observations sealed before agent proposal access; semantic names visible, not blinded recognition"
+}

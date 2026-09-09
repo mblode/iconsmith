@@ -1,0 +1,92 @@
+{
+  "id": "D483",
+  "kind": "compiler25-full-source-regression",
+  "observedAt": "2026-09-08T21:09:17.422559+00:00",
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "admission": {
+    "admitted": 3960,
+    "compiler": "iconsmith-constrained-25-source-exact",
+    "generationQualified": false,
+    "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "kind": "family-source-admission-audit",
+    "master": "24",
+    "refused": 397,
+    "revisionHash": "6e941f6fa91c585456ab56add63f905839bc8dcfc33541155f9d77e06e39be03",
+    "revisionSha256": "a57007e6a910f7427d3000bf179f39150a8be956a0a51873db8d574c680a39eb",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "sourceIdentityVerified": true,
+    "total": 4357
+  },
+  "replay": {
+    "exactReplay": 4357,
+    "failures": 0,
+    "generationQualified": false,
+    "inventorySha256": "7d4c16a0384d34b7e340ce39bbd7b48fa740459853ceea3d7f16fb87e471abbb",
+    "kind": "admitted-source-reconstruction",
+    "rasterDifferenceThreshold": 0.01,
+    "rasterDifferences": 1007,
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "sourceIdentityVerified": true,
+    "total": 4357
+  },
+  "comparisonAgainst": "D450",
+  "perFileComparison": {
+    "rows": {
+      "unchanged": 4357,
+      "changed": 0,
+      "added": 0,
+      "removed": 0
+    },
+    "results": {
+      "unchanged": 4357,
+      "changed": 0,
+      "added": 0,
+      "removed": 0
+    }
+  },
+  "overlap": {
+    "refused": 397,
+    "rasterDifferences": 1007,
+    "both": 352,
+    "union": 1052
+  },
+  "sourceClosure": {
+    "count": 399,
+    "setSha256": "33714822775e5fe889e1257bdfd77add6607d126cb68c01b1dfe49aa79252e06",
+    "unchanged": true
+  },
+  "artifacts": [
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-et-compiler25-source-regression-2026-09-09/admission/admission-results.json",
+      "sha256": "2b0c6cc2632cd2b0eef40f07e3137fa8d101d1611ccb77668fd7f694fb61cf83"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-et-compiler25-source-regression-2026-09-09/replay/results.json",
+      "sha256": "aa0e5fbebcf5c959e810c3babb9424004e423f8c394088e7f9eebad3a236483c"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-et-compiler25-source-regression-2026-09-09/revision25.json",
+      "sha256": "a57007e6a910f7427d3000bf179f39150a8be956a0a51873db8d574c680a39eb"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-et-compiler25-source-regression-2026-09-09/process-results.json",
+      "sha256": "f80515ff684eabdc5c264dcf53596bd11d088fd594a9e9c0859392819fdbe41b"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-et-compiler25-source-regression-2026-09-09/source-freeze-before.json",
+      "sha256": "6188d9b9f224a39a1cfbdcff2bffacb28ad686e3800c4b681171002fdcda306e"
+    },
+    {
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-et-compiler25-source-regression-2026-09-09/source-freeze-after.json",
+      "sha256": "0b4bc1b2a89f73ab74ea47d2df8f141d99b2fb1f59eab0cd905393a4f8490817"
+    }
+  ],
+  "providerCalls": 0,
+  "newReservationUsd": 0,
+  "generationQualified": false,
+  "limitations": [
+    "Native24 admission is not independent visual qualification.",
+    "Existing source raster differences and refusals remain.",
+    "Main author-route source-exact wiring remains open."
+  ]
+}

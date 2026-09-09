@@ -1,0 +1,33 @@
+{
+  "kind": "api-capability-outer-preflight-refusal-v1",
+  "experimentId": "D445",
+  "observedAt": "2026-09-08T17:28:02.875381+00:00",
+  "command": "node --import tsx .staging/wave-ct-api-diagnostics-live-2026-09-09/dispatch.mts",
+  "exitCode": 1,
+  "reason": "Disk floor",
+  "minimumFreeBytes": 2147483648,
+  "postRefusalObservedFreeBytes": 2127626240,
+  "exactLaunchFreeBytes": null,
+  "launcherSha256": "275c730f4d895712d9a9d60b8ba0fe808ffc4b320140a54ba167ffef38367dc8",
+  "manifestSha256": "5fab5fbe5e4a2c48eae527dc1e765e9efb044017ffd2ef6cbb22e7541eb2aa55",
+  "dispatchIntentCreated": false,
+  "childStarted": false,
+  "outputDirectoryCreated": false,
+  "inferenceRequests": 0,
+  "metadataRequests": 0,
+  "actualUsd": 0,
+  "automaticRetry": false,
+  "decision": "D446",
+  "refusalFile": ".staging/wave-ct-api-diagnostics-live-2026-09-09/outer-preflight-refusal.json",
+  "refusalSha256": "7bf4b5ab6d2d47fda968418744859c29dc30071c50abee45dd7e639e547db452",
+  "ledger": {
+    "file": "docs/log/api-budget-after-d445-2026-09-09.json",
+    "sha256": "452fb53d51810bde8d7bb85ff5899c988683d57420b501274ed07f58896de9f6",
+    "actualUsd": 13.06432585,
+    "reservedUnknownUsd": 11.37126575,
+    "availableUsd": 25.5644084
+  },
+  "status": "provider-dispatch-paused-disk-floor",
+  "historicalArtifactsDeleted": false,
+  "offlineWorkContinues": true
+}

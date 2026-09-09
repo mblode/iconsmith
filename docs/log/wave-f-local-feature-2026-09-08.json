@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T02:39:59.241620+00:00",
+  "providerCallsAdded": 0,
+  "apiActualAddedUsd": 0,
+  "apiReservationsAddedUsd": 0,
+  "visuallyQualified": false,
+  "status": "report-only-engineering-verified",
+  "evidence": {
+    "path": ".staging/wave-f-local-feature-2026-09-08/receipt.json",
+    "sha256": "75f4f86430209a75dfc024e67af35c0470bc9456b3a6bab529d8235bb43c2808"
+  },
+  "limits": [
+    "Admission unchanged. Threshold uncertainty remains explicit.",
+    "Peak clearance measures widest interior, not minimum bridge width. P2.4a remains open."
+  ]
+}

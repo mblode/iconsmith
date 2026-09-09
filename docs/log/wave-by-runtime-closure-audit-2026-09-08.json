@@ -1,0 +1,40 @@
+{
+  "id": "D395",
+  "receipt": {
+    "path": ".staging/wave-by-runtime-closure-audit-2026-09-08/receipt.json",
+    "sha256": "53d05ee333653a0a0cb79f8d69bf5dcc78aa0026cda8f4d80661574deb956a4a"
+  },
+  "auditSha256": "786e02d287615496dc928c03c02f985994087bff6de4733eeded95e55947790f",
+  "rootReviewedCode": [
+    "packages/iconsmith/scripts/local-campaign.ts:1425",
+    "packages/iconsmith/scripts/local-campaign.ts:1495",
+    "packages/iconsmith/scripts/runtime-identity.ts"
+  ],
+  "decisions": {
+    "P1.1": {
+      "sufficient": true,
+      "checkboxJustified": true
+    },
+    "P1.4": {
+      "sufficient": false,
+      "checkboxJustified": false,
+      "gap": "authenticated current-route shared STOP live demonstration"
+    },
+    "P1.8": {
+      "sufficient": true,
+      "checkboxJustified": true
+    },
+    "P1.9a": {
+      "sufficient": false,
+      "checkboxJustified": false,
+      "gap": "current-freeze strict non-delivered live receipt plus resume validation"
+    }
+  },
+  "pathCorrection": {
+    "historicalAuditTypo": ".staging/wave-bu-reliability-first-live-2026-09-08",
+    "actualRoot": ".staging/wave-bu-root-reliability-first-live-2026-09-08",
+    "actualCampaign": ".staging/wave-bt-reliability-replay-live-2026-09-08/campaign"
+  },
+  "qualificationScope": "Executable integration verified; P4 production route and visual qualification remain open",
+  "providerCalls": 0
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-08T01:18:55.906732+00:00",
+  "status": "intent",
+  "kind": "fourth-evaluation-roster-identity-capability",
+  "prerequisite": "docs/log/wave-c-integration-2026-09-08.json",
+  "prerequisiteSha256": "e73d03ed76bf3a4b71656fe0aa8ac284059192fe68461c803cf3f4efc95d3b58",
+  "contextEvidence": "docs/log/wave-d-contained-image-result-2026-09-08.json",
+  "rosterEvidence": "docs/log/wave-d-evaluation-roster-2026-09-08.json",
+  "script": ".staging/wave-e-root-2026-09-08/contained-image-smoke.ts",
+  "scriptSha256": "4c9eef8b17fe9a1824ea653e3857db57b1b54f6ed0f2ad2ca99aa3f0f8cf7789",
+  "model": "gpt-5.5",
+  "effort": "high",
+  "maxNativeInferenceCalls": 1,
+  "maxOfflineContextProbes": 4,
+  "originalDeadlineMs": 300000,
+  "concurrency": 1,
+  "billing": "native-subscription",
+  "nativeQuota": {
+    "usedPercent": 40,
+    "windowDurationMins": 10080,
+    "resetsAt": 1789385571
+  },
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarAllocationUsd": null,
+  "stopRule": "Fail closed on any precondition/context/model/settlement/answer error; no automatic retry.",
+  "qualificationScope": "Exact image/model capability only; critic calibration, sealing and production qualification remain open."
+}

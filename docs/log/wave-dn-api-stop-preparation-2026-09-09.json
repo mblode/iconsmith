@@ -1,0 +1,98 @@
+{
+  "id": "D463",
+  "kind": "zero-call-api-stop-preparation",
+  "observedAt": "2026-09-08T19:31:59.171815+00:00",
+  "status": "offline-preparation-passed-live-dispatch-pending-independent-audit",
+  "normalPreparation": {
+    "deadlineAt": 1788895955189,
+    "experimentId": "offline-preparation-validation-only",
+    "kind": "iconsmith-api-capability-v2-preparation-validation-v1",
+    "manifestSha256": "77488024d503bc8947925095512b51431eb03ad867c3c360c29f23725376e438",
+    "outputCreated": false,
+    "providerCalls": 0,
+    "rootIntentSha256": "68baa03e2778618ed877d4e5249ec0726efd575b83f683bffd6af8b35b3ab55b",
+    "runnerSha256": "4f0c59ed43b38824ee30f179087b25bdc4ae405619693bfce72b7a30f675f27a",
+    "startedAt": 1788895835189,
+    "manifestFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dn-api-stop-preparation-v3-2026-09-09/offline-validation/launch-manifest.json",
+    "rootIntentFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-dn-api-stop-preparation-v3-2026-09-09/offline-validation/preparation-intent.json"
+  },
+  "negativePreparation": {
+    "kind": "zero-call-negative-preparation-fixtures",
+    "refusals": [
+      {
+        "scenario": "stop-present",
+        "status": 7,
+        "expectedReason": "STOP sentinel prevents dispatch",
+        "outputCreated": false,
+        "providerCalls": 0,
+        "manifestSha256": "a740b0f032dc31e1b0a120667a256ce31655050738a5868840df720ce8fad24b",
+        "intentSha256": "e6f51737f75ba5dbc32dbd9fb4a9880812c734255971c395cbd6a025d2309213",
+        "stderrSha256": "d08a11764252c72b1e2b35901f9566bbdcc2a5ad69c72c197b6902069e549d31"
+      },
+      {
+        "scenario": "stop-binding-mismatch",
+        "status": 7,
+        "expectedReason": "Root intent is not bound to this launch",
+        "outputCreated": false,
+        "providerCalls": 0,
+        "manifestSha256": "8f1030b79a1b61aaaa7953d4c8464eeb8d867244b2d4ea13567c97b52df3b3c1",
+        "intentSha256": "395bacdb34e72a13a979129c0382b41c3d354e93c7492c8c48576e00f2467438",
+        "stderrSha256": "1075f964511394e3a89ea41295456dd5eeb1a0199b1a6f8de9e1337d99060de5"
+      },
+      {
+        "scenario": "stop-path-mismatch",
+        "status": 7,
+        "expectedReason": "STOP sentinel must be in the canonical root-owned dispatch directory",
+        "outputCreated": false,
+        "providerCalls": 0,
+        "manifestSha256": "a90d8268500e8a8bbea3c49a2bbcae2195afb4b85f26812636df3b7bfc030aea",
+        "intentSha256": "8b50d9398ff70337d4d673f2ba2d3007c845268786392f091bf612fe71d690f2",
+        "stderrSha256": "d2194ab1c2c8e527342f060aa478d0bc5f838b2eb63fd297704ff38aec90968a"
+      },
+      {
+        "scenario": "manifest-byte-drift",
+        "status": 7,
+        "expectedReason": "Launch manifest drifted",
+        "outputCreated": false,
+        "providerCalls": 0,
+        "manifestSha256": "864b1abf5c4427955e39db309067925d839e7a7062380e3e1020ce3a684063a4",
+        "intentSha256": "3d6d5e8e4eba758eb5c81c406ce6cd2a890363b7c8e0f836cd4f7c99d1bcb003",
+        "stderrSha256": "953916ca8ad4782a39af976826ddeab91ae52d1ff7b25d8ff94cb8834cca3204"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": ".staging/wave-dn-api-stop-preparation-v3-2026-09-09/run.template.mts",
+      "sha256": "4f0c59ed43b38824ee30f179087b25bdc4ae405619693bfce72b7a30f675f27a"
+    },
+    {
+      "path": ".staging/wave-dn-api-stop-preparation-v3-2026-09-09/validate-preparation.mts",
+      "sha256": "b6cd458267f37a23482cae80b68edcda8ca1264ecebeac4a82d00e58aeea6ffa"
+    },
+    {
+      "path": ".staging/wave-dn-api-stop-preparation-v3-2026-09-09/provider-source-freeze.json",
+      "sha256": "4d95adfe49827ba6c07132d1ff03d22eee46797a2a3fc4d29e51b1fc3b36b065"
+    },
+    {
+      "path": ".staging/wave-dn-api-stop-preparation-v3-2026-09-09/production-tooling-identity.json",
+      "sha256": "ee4aebc33d1ed0b1676b1cedc1c73f8f70807c917bec4f965c46db5f4baf57a8"
+    },
+    {
+      "path": ".staging/wave-dn-api-stop-preparation-v3-2026-09-09/offline-validation/validation-result.json",
+      "sha256": "120819a994f9df3ea7eee61e7b8484c935035e30ab17de3364e2e0bf5003e266"
+    },
+    {
+      "path": ".staging/wave-dn-api-stop-preparation-v3-2026-09-09/offline-validation/negative-validation-results.json",
+      "sha256": "a011123ccbca155ddc9af10d6e8162b849440dd6dc9f00cdc97bd39d73f0bf06"
+    }
+  ],
+  "sourceFiles": 777,
+  "productionFiles": 558,
+  "cost": {
+    "providerCalls": 0,
+    "newReservation": false,
+    "ledger": "docs/log/api-budget-after-d445-2026-09-09.json"
+  },
+  "qualification": false
+}

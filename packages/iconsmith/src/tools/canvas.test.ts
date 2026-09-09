@@ -27,6 +27,132 @@ const PARTS: Part[] = [
   },
 ];
 
+const ASSEMBLY_PARTS: Part[] = [
+  {
+    closed: false,
+    d: "M0 0V4",
+    h: 4,
+    icons: ["assembly"],
+    id: "assembly-child-a",
+    instances: 1,
+    nodes: 1,
+    sizeRange: [4, 4],
+    w: 0,
+  },
+  {
+    closed: false,
+    d: "M0 0H4",
+    h: 0,
+    icons: ["assembly"],
+    id: "assembly-child-b",
+    instances: 1,
+    nodes: 1,
+    sizeRange: [4, 4],
+    w: 4,
+  },
+  {
+    closed: false,
+    d: "M0 0V4M0 4H4",
+    h: 4,
+    icons: ["assembly"],
+    id: "assembly",
+    instances: 1,
+    nodes: 2,
+    sizeRange: [4, 4],
+    sourceAssembly: {
+      children: [
+        {
+          partHash: "0".repeat(64),
+          partId: "assembly-child-a",
+          semantics: {
+            cap: "round",
+            join: "round",
+            kind: "stroke",
+            strokeWidth: 2,
+          },
+          x: 0,
+          y: 0,
+        },
+        {
+          partHash: "1".repeat(64),
+          partId: "assembly-child-b",
+          semantics: {
+            cap: "round",
+            join: "round",
+            kind: "stroke",
+            strokeWidth: 2,
+          },
+          x: 0,
+          y: 4,
+        },
+      ],
+      finish: "outlined",
+      sourceHash: "2".repeat(64),
+      viewBox: "0 0 24 24",
+    },
+    w: 4,
+  },
+];
+
+const FILLED_ASSEMBLY_PARTS: Part[] = [
+  {
+    closed: true,
+    d: "M0 0H6V6H0Z",
+    h: 6,
+    icons: ["filled-assembly"],
+    id: "filled-child-a",
+    instances: 1,
+    nodes: 4,
+    sizeRange: [6, 6],
+    sourceFillRule: "nonzero",
+    w: 6,
+  },
+  {
+    closed: true,
+    d: "M0 0H6V6H0Z",
+    h: 6,
+    icons: ["filled-assembly"],
+    id: "filled-child-b",
+    instances: 1,
+    nodes: 4,
+    sizeRange: [6, 6],
+    sourceFillRule: "nonzero",
+    w: 6,
+  },
+  {
+    closed: true,
+    d: "M0 0H6V6H0ZM8 0H14V6H8Z",
+    h: 6,
+    icons: ["filled-assembly"],
+    id: "filled-assembly",
+    instances: 1,
+    nodes: 8,
+    sizeRange: [14, 14],
+    sourceAssembly: {
+      children: [
+        {
+          partHash: "0".repeat(64),
+          partId: "filled-child-a",
+          semantics: { fillRule: "nonzero", kind: "fill" },
+          x: 0,
+          y: 0,
+        },
+        {
+          partHash: "1".repeat(64),
+          partId: "filled-child-b",
+          semantics: { fillRule: "nonzero", kind: "fill" },
+          x: 8,
+          y: 0,
+        },
+      ],
+      finish: "filled",
+      sourceHash: "2".repeat(64),
+      viewBox: "0 0 24 24",
+    },
+    w: 14,
+  },
+];
+
 /** Every node the path actually passes through. Cubic control handles are
  *  deliberately excluded: a circular arc's handle sits at r×0.5523 from the
  *  node, which is not a grid multiple and cannot be without deforming the arc. */
@@ -70,6 +196,140 @@ test("an off-axis endpoint within tolerance comes out exactly on-axis", () => {
   expect(el.points[1][0] - el.points[0][0]).toBe(
     -(el.points[1][1] - el.points[0][1])
   );
+});
+
+test("a source assembly rotates and scales as one placement while preserving child offsets", () => {
+  const c = new Canvas(ASSEMBLY_PARTS);
+  const root = c.part({ id: "assembly", scale: 2, turn: 1, x: 3, y: 5 });
+  expect(root).toBe("e0");
+  expect(c.elements).toHaveLength(2);
+  expect(c.describe()).toStrictEqual([
+    { h: 8, id: "e0", kind: "part", w: 8, x: 3, y: 5 },
+  ]);
+  expect(c.toJSON().draw).toStrictEqual([
+    { id: "assembly", op: "part", scale: 2, turn: 1, x: 3, y: 5 },
+  ]);
+  expect(c.toSVG().match(/<path /gu)).toHaveLength(2);
+});
+
+test("an assembly-only child cannot be placed outside its owning assembly", () => {
+  const parts = ASSEMBLY_PARTS.map((part) =>
+    part.id === "assembly-child-a"
+      ? { ...part, sourceAssemblyOnly: "assembly" }
+      : part
+  );
+  const c = new Canvas(parts);
+  expect(() => c.part({ id: "assembly-child-a", x: 0, y: 0 })).toThrow(
+    "private to assembly assembly"
+  );
+  expect(c.part({ id: "assembly", x: 0, y: 0 })).toBe("e0");
+});
+
+test("transform remaps an assembly root after an earlier handle gap", () => {
+  const c = new Canvas(ASSEMBLY_PARTS);
+  const gap = c.rect({ h: 2, w: 2, x: 1, y: 1 });
+  c.remove(gap);
+  c.part({ id: "assembly", x: 4, y: 5 });
+  expect(c.elements.map(({ id }) => id)).toStrictEqual(["e1", "e2"]);
+  c.transform(0.5, 2, 3);
+  expect(c.elements.map(({ id }) => id)).toStrictEqual(["e1", "e2"]);
+  expect(c.remove("e2").removed).toStrictEqual(["e1", "e2"]);
+});
+
+test("a filled assembly owns default and named knockouts as one removable group", () => {
+  for (const named of [false, true]) {
+    const c = new Canvas(FILLED_ASSEMBLY_PARTS, { finish: "filled" });
+    const root = c.part({ id: "filled-assembly", x: 2, y: 2 });
+    const continuation = c.elements[1].id;
+    const hole = c.hole({
+      ...(named ? { cutFrom: continuation } : {}),
+      h: 4,
+      r: 0,
+      shape: "rect",
+      w: 6,
+      x: 6,
+      y: 3,
+    });
+    expect(c.elements.map(({ id }) => id)).toStrictEqual([
+      root,
+      continuation,
+      hole,
+    ]);
+    expect(c.toSVG().match(/<path /gu)).toHaveLength(2);
+    expect(c.remove(root)).toStrictEqual({
+      remaining: 0,
+      removed: [root, continuation, hole],
+    });
+  }
+});
+
+test("a filled source assembly subtracts an exterior knockout from every child", () => {
+  const c = new Canvas(FILLED_ASSEMBLY_PARTS, { finish: "filled" });
+  c.part({ id: "filled-assembly", x: 2, y: 2 });
+  const sourceBoundSvg = c.toSVG();
+  expect(sourceBoundSvg).toContain(
+    '<path d="M2 2L8 2L8 8L2 8Z" fill="currentColor" fill-rule="nonzero" clip-rule="nonzero"/>'
+  );
+  expect(sourceBoundSvg).toContain(
+    '<path d="M10 2L16 2L16 8L10 8Z" fill="currentColor" fill-rule="nonzero" clip-rule="nonzero"/>'
+  );
+
+  c.hole({ h: 12, r: 0, shape: "rect", w: 4, x: 7, y: 0 });
+  expect(c.bbox()).toStrictEqual({
+    h: 6,
+    w: 14,
+    x0: 2,
+    x1: 16,
+    y0: 2,
+    y1: 8,
+  });
+  expect(c.toSVG().match(/<path /gu)).toHaveLength(2);
+  expect(c.toSVG()).not.toContain("v12");
+});
+
+test("transform restores semantic ids after a legacy interleaved assembly knockout", () => {
+  const c = new Canvas(FILLED_ASSEMBLY_PARTS, { finish: "filled" });
+  const gap = c.rect({ h: 1, r: 0, w: 1, x: 0, y: 0 });
+  c.remove(gap);
+  const root = c.part({ id: "filled-assembly", x: 2, y: 2 });
+  const continuation = c.elements[1].id;
+  const hole = c.hole({
+    h: 4,
+    r: 0,
+    shape: "rect",
+    w: 6,
+    x: 6,
+    y: 3,
+  });
+  c.elements.splice(1, 2, c.elements[2], c.elements[1]);
+  expect(c.elements.map(({ id }) => id)).toStrictEqual([
+    root,
+    hole,
+    continuation,
+  ]);
+  c.transform(0.75, 1, 2);
+  expect(c.elements.map(({ id }) => id)).toStrictEqual([
+    root,
+    continuation,
+    hole,
+  ]);
+  expect(c.elements[1]).toMatchObject({ id: continuation, kind: "part" });
+  expect(c.elements[2]).toMatchObject({ id: hole, op: "knockout" });
+  expect(c.remove(root).remaining).toBe(0);
+});
+
+test("trim treats an outlined source assembly as one editable left operand", () => {
+  const c = new Canvas(ASSEMBLY_PARTS);
+  const assembly = c.part({ id: "assembly", scale: 3, x: 4, y: 4 });
+  const cutter = c.rect({ h: 6, w: 6, x: 8, y: 8 });
+  c.combine("trim", assembly, cutter);
+  expect(c.elements).toHaveLength(1);
+  expect(c.toJSON().draw[0]).toMatchObject({
+    left: [{ id: "assembly", op: "part" }],
+    op: "boolean",
+    operation: "trim",
+  });
+  expect(c.toSVG()).toContain('stroke="currentColor"');
 });
 
 test("a genuinely diagonal endpoint is refused until it is asked for", () => {

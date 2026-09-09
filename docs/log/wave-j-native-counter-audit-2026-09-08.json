@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "wave-i-counter-admission-audit-2026-09-08",
+  "status": "offline-diagnostic-only",
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "docsEdits": 0,
+  "qualified": false,
+  "operationPromoted": false,
+  "objectiveConclusion": "Aggregate 1% source admission cannot establish local feature survival. Bell-filled proves that narrower false-pass condition at native16; zoom and bicycle cases remain antialias/threshold uncertainty with their named local counters visible or preserved.",
+  "limitations": [
+    "Topology thresholds 64, 128, and 192 are uncalibrated against an exhaustive source-bound local-feature corpus.",
+    "Global hole counts do not identify which hole belongs to a named counter.",
+    "Peak local clearance is not narrow-bridge minimum clearance.",
+    "The saved admission comparison omits exact per-size aggregate errors; only the <=0.01 admitted outcome is recoverable except for the newly rerun A157 source comparison.",
+    "Model image observations are separated from objective measurements and carry no visual qualification."
+  ],
+  "evidence": [
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/admission-comparison-v2/results.json",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/counter-source-topology.json",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/filled-hole-clearance-prototype-v2-2026-09-07/receipt.json",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/native16-source-counter-feasibility-2026-09-07/receipt.json",
+    "/Users/mblode/Code/mblode/iconsmith/docs/log/a141-bell-contour-clarification-v2-2026-09-07.json",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.svg",
+    "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/mountain-bike-filled.svg"
+  ],
+  "inspectedImages": [
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/counter-source-board-16.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/counter-source-board-24.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/proofs-v2/bell-16-light.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/proofs-v2/keyframe-16-light.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/proofs-v2/zoom-in-16-light.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-a-geometry-2026-09-08/proofs-v2/bike-16-light.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/filled-hole-clearance-prototype-v2-2026-09-07/board.png",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/native-author-bicycle-counter-a157-2026-09-08/runs/bicycle-16/astra-native/filled.native.png"
+  ],
+  "artifacts": [
+    {
+      "path": ".staging/wave-i-counter-admission-audit-2026-09-08/artifact-hashes.json",
+      "sha256": "7a52600b0612127936f6e55f71c91285375e9acb13ed9faac52bddea66ad92c3"
+    },
+    {
+      "path": ".staging/wave-i-counter-admission-audit-2026-09-08/evidence-table.json",
+      "sha256": "dad45df15ba9d449ddf61939fe1632e0eefbb1d79df282a52a79c83241759f1e"
+    },
+    {
+      "path": ".staging/wave-i-counter-admission-audit-2026-09-08/receipt.json",
+      "sha256": "663731a7c6cda773ccdd51abf3cddab6347887e18c6d898227fde9ccf8d3bade"
+    }
+  ],
+  "rootInterpretation": "Bell16 native local suitability is not source replay fidelity; no evidence here establishes importer topology loss relative to the same rendered source. Do not refuse exact fidelity as though a source-native limitation were a new compiler regression."
+}

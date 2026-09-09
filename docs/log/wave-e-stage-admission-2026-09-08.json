@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "status": "implemented-focused-tests-pass",
+  "scope": "Shared minimum native-stage admission; no refreshed request deadline and no nominal 1ms provider attempt",
+  "validation": {
+    "command": "npm exec -w iconsmith -- vitest run scripts/review-budget.test.ts scripts/local-structured-author.test.ts scripts/local-style-run.test.ts",
+    "passed": 61,
+    "files": 3,
+    "skipped": 0,
+    "log": ".staging/wave-e-root-budget-2026-09-08/tests.log",
+    "scopedLint": "pass"
+  },
+  "sourceFiles": [
+    {
+      "path": "packages/iconsmith/scripts/review-budget.ts",
+      "sha256": "810b814c759dd1d1b8e17a6f2b40bbea28a235f1b21fe9bfde67cdf9515655ce"
+    },
+    {
+      "path": "packages/iconsmith/scripts/review-budget.test.ts",
+      "sha256": "c85c0e502ef18a0d16f4056f44415c2db7d5729cc8ebc6d936188e098188374b"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-structured-author.ts",
+      "sha256": "481272aefe84e22db2708beca06d83e8566d5c437ffbbd93a358cf6a84a976ac"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-structured-author.test.ts",
+      "sha256": "1b2129e9fea7d8ff0b996adc040e4ed4d4742bb9286e5698762a396a8ed2b7b0"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-style-run.ts",
+      "sha256": "bcf9865a7218a346455608c457ead0d70abe7c29e634fdd5659a1eab5f3bf1d6"
+    }
+  ],
+  "observedFailure": "Existing final-review omission fixture gave 180 seconds despite 240 seconds downstream reserves; corrected to 600 seconds and retained a separate 180-second no-dispatch regression. Initial new tests also required numeric separator formatting.",
+  "open": [
+    "P1.6 full production allocation, shared reserves and maximum call accounting",
+    "P1.8 structured canonical CLI integration",
+    "Full integrated verification after parallel wave"
+  ],
+  "qualified": false,
+  "newApiSpendUsd": 0,
+  "nativeProviderCalls": 0
+}

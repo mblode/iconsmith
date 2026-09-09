@@ -1,0 +1,31 @@
+{
+  "id": "D328",
+  "supersedes": "D325 pass claims and provisional source freeze only",
+  "verification": {
+    "fullTestsBeforeFormattingAndRestoredCensus": {
+      "tests": 2235,
+      "files": 171,
+      "skipped": 0,
+      "log": ".staging/wave-bc-proof-render-2026-09-08/integration-test.log"
+    },
+    "afterProofFormattingTests": {
+      "tests": 20,
+      "files": 2,
+      "log": ".staging/wave-bc-proof-render-2026-09-08/proof-tests-v2.log"
+    },
+    "typecheck": "typecheck-v2.log",
+    "build": "build-v2.log",
+    "check": "check-v4.log",
+    "diff": "diff-v4.log"
+  },
+  "allListedChecksPassed": true,
+  "sourceFreeze": {
+    "file": ".staging/wave-bc-proof-render-2026-09-08/source-verified-v2.json",
+    "sha256": "c605055db330677f416c2571b1f815739b8b75f40b597466e7caa8f0b13d655d"
+  },
+  "scope": "Stable D326 pre-dispatch identity; later integrated AV collector changes require new verification.",
+  "proofProtocolHash": "b1c389bbf85af04869e52b5c9e2d39aec1109ee8665723da67234653862d2f79",
+  "storageRecoveryReceipt": "wave-bc-storage-recovery-2026-09-08.json",
+  "productionQualified": false,
+  "providerCallsForVerification": 0
+}

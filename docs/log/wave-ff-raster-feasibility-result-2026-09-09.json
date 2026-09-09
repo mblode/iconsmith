@@ -1,0 +1,35 @@
+{
+  "id": "D497",
+  "observedAt": "2026-09-08T22:57:17.849592+00:00",
+  "kind": "offline-raster-feasibility-diagnostic",
+  "reader": "compose(image,{model:null})",
+  "result": "D492 outlined24 crop refused: expected two semantic blocks, observed one connected block. No Sunburst DSL admitted.",
+  "hostFixture": "Exact editable DSL/SVG replay only; visually two solid-looking rectangles at24 despite outlined declaration. Not semantic or optical craft proof.",
+  "modelBackedStudioReaderSelectorDrawer": "not exercised; not excluded",
+  "sourceFiles": [
+    "packages/iconsmith/scripts/raster-proposal-feasibility.ts",
+    "packages/iconsmith/scripts/raster-proposal-feasibility.test.ts"
+  ],
+  "focusedTests": 5,
+  "rootIntegrated": "running",
+  "receipts": [
+    {
+      "file": ".staging/wave-ff-raster-feasibility-2026-09-09/receipt.json",
+      "sha256": "c7ebcc65902b82abf30b4d8877369bb83f4dc1d7c0f39b9cdc11cd24a6c7dde1"
+    },
+    {
+      "file": ".staging/wave-ff-raster-feasibility-2026-09-09/receipt-correction-1.json",
+      "sha256": "93a5afcba57f78b34db662389a77ca7efba160b6c7785bc829b72f892a7593ef"
+    },
+    {
+      "file": ".staging/wave-ff-raster-feasibility-2026-09-09/receipt-correction-2.json",
+      "sha256": "ea40e9dca949f0e5f1a4802059e20948f2f49e495942ebf1a8be2c32c4e60316"
+    }
+  ],
+  "qualificationEligible": false,
+  "defaultChanges": false,
+  "providerCalls": 0,
+  "newApiReservationUsd": 0,
+  "nativeSubscriptionAllocationUsd": null,
+  "remaining": "Canonical containment/budget/licence adapter and a useful raster-to-constrained-drawer result before any broad paid comparison."
+}

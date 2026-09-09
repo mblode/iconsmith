@@ -190,7 +190,7 @@ export const anchorOf = ([x, y]: Point): Anchor => {
 };
 
 /** What the smaller mark in an icon turned out to be. */
-export type BadgeKind = "badge" | "overlay";
+type BadgeKind = "badge" | "overlay";
 
 export interface Badge {
   anchor: Anchor;
@@ -464,7 +464,7 @@ export interface AnalyseOptions {
   variant?: string;
 }
 
-export const HOUSE_VARIANT = "round-outlined-radius-3-stroke-2";
+const HOUSE_VARIANT = "round-outlined-radius-3-stroke-2";
 
 /**
  * Measure every badge in the set, group by modifier, derive the spec.

@@ -11,7 +11,237 @@ import { setTimeout as sleep } from "node:timers/promises";
 
 import { expect, it, vi } from "vitest";
 
-import { runOwnedProcess } from "./local-process.js";
+import {
+  ownedSignalTargetsAfterObservationForTest,
+  ownedSignalTargetsAfterSnapshotsForTest,
+  ownedSignalTargetsForTest,
+  runOwnedProcess,
+} from "./local-process.js";
+
+it("delivers complete stdout records in order before settlement", async () => {
+  const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
+  const lines: string[] = [];
+  try {
+    const result = await runOwnedProcess({
+      args: [
+        "-e",
+        `process.stdout.write("one\\npar"); setTimeout(() => process.stdout.write("tial\\ntwo\\n"), 20)`,
+      ],
+      command: process.execPath,
+      cwd,
+      env: process.env,
+      maxBuffer: 1024,
+      onStdoutLine: async (line) => {
+        await sleep(5);
+        lines.push(line);
+      },
+      timeoutMs: 1000,
+    });
+    expect(lines).toEqual(["one", "partial", "two"]);
+    expect(result).toMatchObject({ code: 0, quiescent: true });
+  } finally {
+    rmSync(cwd, { force: true, recursive: true });
+  }
+});
+
+it("decodes a multibyte terminal record split across stdout chunks", async () => {
+  const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
+  const lines: string[] = [];
+  try {
+    const source = `
+      const bytes = Buffer.from("final 💡\\n");
+      process.stdout.write(bytes.subarray(0, 8));
+      setTimeout(() => process.stdout.write(bytes.subarray(8)), 20);
+    `;
+    const result = await runOwnedProcess({
+      args: ["-e", source],
+      command: process.execPath,
+      cwd,
+      env: process.env,
+      maxBuffer: 1024,
+      onStdoutLine: (line) => {
+        lines.push(line);
+      },
+      timeoutMs: 1000,
+    });
+    expect(lines).toEqual(["final 💡"]);
+    expect(result.stdout).toBe("final 💡\n");
+  } finally {
+    rmSync(cwd, { force: true, recursive: true });
+  }
+});
+
+it("drains and delivers a final record without a newline before settlement", async () => {
+  const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
+  const lines: string[] = [];
+  try {
+    const result = await runOwnedProcess({
+      args: ["-e", `process.stdout.write("terminal")`],
+      command: process.execPath,
+      cwd,
+      env: process.env,
+      maxBuffer: 1024,
+      onStdoutLine: (line) => {
+        lines.push(line);
+      },
+      timeoutMs: 1000,
+    });
+    expect(lines).toEqual(["terminal"]);
+    expect(result).toMatchObject({ code: 0, quiescent: true });
+  } finally {
+    rmSync(cwd, { force: true, recursive: true });
+  }
+});
+
+it("aborts a hung observer and refuses to claim quiescence", async () => {
+  const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
+  let lateEffect = false;
+  try {
+    const result = await runOwnedProcess({
+      args: ["-e", `console.log("terminal")`],
+      command: process.execPath,
+      cwd,
+      env: process.env,
+      maxBuffer: 1024,
+      onStdoutLine: async (_line, signal) => {
+        await sleep(300);
+        if (!signal.aborted) {
+          lateEffect = true;
+        }
+      },
+      termGraceMs: 40,
+      timeoutMs: 180,
+    });
+    expect(result).toMatchObject({
+      code: "quiescence-unproven",
+      killed: true,
+      quiescent: false,
+    });
+    await sleep(250);
+    expect(lateEffect).toBe(false);
+  } finally {
+    rmSync(cwd, { force: true, recursive: true });
+  }
+});
+
+it("bounds queued complete stdout records behind a slow observer", async () => {
+  const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
+  try {
+    const result = await runOwnedProcess({
+      args: ["-e", `process.stdout.write("aaa\\nbbb\\nccc\\n")`],
+      command: process.execPath,
+      cwd,
+      env: process.env,
+      maxBuffer: 10,
+      onStdoutLine: async () => {
+        await sleep(20);
+      },
+      timeoutMs: 1000,
+    });
+    expect(result.code).toBe("stdout-observer-failed");
+    expect(result.stderr).toContain("queue exceeded maxBuffer");
+  } finally {
+    rmSync(cwd, { force: true, recursive: true });
+  }
+});
+
+it("turns a stdout observer exception into a settled diagnostic failure", async () => {
+  const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
+  try {
+    const result = await runOwnedProcess({
+      args: ["-e", `console.log("final"); setTimeout(() => {}, 30)`],
+      command: process.execPath,
+      cwd,
+      env: process.env,
+      maxBuffer: 1024,
+      onStdoutLine: () => {
+        throw new Error("trigger fsync failed");
+      },
+      timeoutMs: 1000,
+    });
+    expect(result).toMatchObject({
+      code: "stdout-observer-failed",
+      killed: true,
+      quiescent: true,
+    });
+    expect(result.stderr).toContain("trigger fsync failed");
+  } finally {
+    rmSync(cwd, { force: true, recursive: true });
+  }
+});
+
+it("keeps the same process identity when it changes process group", () => {
+  const identity = {
+    pid: 41,
+    startToken: "Tue Sep 8 15:00:00 2026",
+    uid: 501,
+  };
+  expect(
+    ownedSignalTargetsForTest(
+      [identity],
+      [{ ...identity, pgid: 41, ppid: 1, state: "S" }]
+    )
+  ).toEqual([41]);
+});
+
+it("does not admit a reused process group without a live owned anchor", () => {
+  expect(
+    ownedSignalTargetsAfterObservationForTest(
+      40,
+      [],
+      [
+        {
+          pgid: 40,
+          pid: 900,
+          ppid: 1,
+          startToken: "Tue Sep 8 15:04:00 2026",
+          state: "S",
+          uid: 0,
+        },
+      ]
+    )
+  ).toEqual([]);
+});
+
+it("does not target a reused PID with a different start identity or owner", () => {
+  const observed = [
+    {
+      pgid: 40,
+      pid: 41,
+      startToken: "Tue Sep 8 15:00:00 2026",
+      uid: 501,
+    },
+  ];
+  expect(
+    ownedSignalTargetsForTest(observed, [
+      {
+        pgid: 900,
+        pid: 41,
+        ppid: 1,
+        startToken: "Tue Sep 8 15:04:00 2026",
+        state: "S",
+        uid: 0,
+      },
+    ])
+  ).toEqual([]);
+});
+
+it("never revives an identity after one process-table snapshot proves it absent", () => {
+  const identity = {
+    pgid: 40,
+    pid: 41,
+    startToken: "Tue Sep 8 15:00:00 2026",
+    uid: 501,
+  };
+  const matchingRow = { ...identity, ppid: 1, state: "S" };
+  expect(
+    ownedSignalTargetsAfterSnapshotsForTest(identity, [
+      [matchingRow],
+      [],
+      [matchingRow],
+    ])
+  ).toEqual([]);
+});
 
 it("settles a missing executable without waiting for its timeout", async () => {
   const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
@@ -181,11 +411,11 @@ it("returns stable output once for a normally completed process", async () => {
   }
 });
 
-it("reaps a delayed writer even when its owner exits normally", async () => {
+it("reaps an observed delayed writer even when its owner exits normally", async () => {
   const cwd = mkdtempSync(path.join(tmpdir(), "iconsmith-owned-process-"));
   const marker = path.join(cwd, "orphan.txt");
   try {
-    const source = `require("node:child_process").spawn(process.execPath, ["-e", ${JSON.stringify(`setTimeout(() => require("node:fs").writeFileSync(${JSON.stringify(marker)}, "late"), 150)`)}], { stdio: "ignore" }).unref()`;
+    const source = `require("node:child_process").spawn(process.execPath, ["-e", ${JSON.stringify(`setTimeout(() => require("node:fs").writeFileSync(${JSON.stringify(marker)}, "late"), 150)`)}], { stdio: "ignore" }).unref(); setTimeout(() => {}, 80)`;
     const result = await runOwnedProcess({
       args: ["-e", source],
       command: process.execPath,
@@ -209,7 +439,7 @@ it("treats a descendant disappearing during signalling as absent", async () => {
   let simulatedRace = false;
   const kill = vi.spyOn(process, "kill").mockImplementation((pid, signal) => {
     const result = originalKill(pid, signal);
-    if (!simulatedRace && pid > 0 && signal === "SIGTERM") {
+    if (!simulatedRace && pid > 0 && signal === "SIGSTOP") {
       simulatedRace = true;
       const error = new Error("kill ESRCH") as NodeJS.ErrnoException;
       error.code = "ESRCH";

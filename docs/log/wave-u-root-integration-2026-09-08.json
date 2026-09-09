@@ -1,0 +1,32 @@
+{
+  "kind": "wave-u-root-integration-receipt-v1",
+  "date": "2026-09-08",
+  "qualification": false,
+  "providerCalls": 0,
+  "apiActual": 0,
+  "apiReservation": 0,
+  "cumulativeNativeCalls": 31,
+  "provenancePatch": {
+    "path": ".staging/wave-u-qualification-patch-2026-09-08-v1/receipt.json",
+    "sha256": "6b60f1540810a03e320480366f03723a6c3b9e0bd1c5191952e41a1e17bbae22"
+  },
+  "reportingFix": {
+    "path": "docs/log/wave-u-campaign-refusal-reporting-fix-2026-09-08.json",
+    "sha256": "0721479761103b482443d1049f635f9dbcb793be947da5a2368a9f02ffb435c2"
+  },
+  "verification": {
+    "tests": 42,
+    "files": 3,
+    "failed": 0,
+    "command": "npm exec -w iconsmith -- vitest run scripts/ai-qualification.test.ts scripts/ai-qualification-provenance.test.ts scripts/campaign-evidence.test.ts"
+  },
+  "calibrationContainerAudit": {
+    "path": ".staging/wave-r-house-calibration-live-2026-09-08/root-full-container-audit.json",
+    "sha256": "fa9ae0a580cf3910c8cac553295600e4995e7e4d3fc3d419e704979a7cd6a1ce"
+  },
+  "limitations": [
+    "Production qualification remains false; prospective access and emitted lineage collector required.",
+    "Recognition calibration measures offered-label choice, not free recognition.",
+    "Runtime ownership correction remains under root adversarial review; no provider dispatch."
+  ]
+}

@@ -1,8 +1,10 @@
-import { writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import type { Command } from "commander";
 
+import type { AcceptanceReport } from "../eval/acceptance-contract.js";
 import { extractParts } from "../parts/extract.js";
 import {
   BENCH_SIZE,
@@ -26,7 +28,48 @@ import {
   scored,
 } from "../pipeline/eval.js";
 import type { Part } from "../types.js";
-import { readJson } from "./read.js";
+import { InputError, readJson } from "./read.js";
+
+const SHA256 = /^[a-f0-9]{64}$/u;
+
+/** Read the exact evidence bytes once, verify their caller-frozen identity, then
+ * parse the same bytes. Validation remains owned by the report boundary. */
+export const readAcceptanceEvidence = (
+  file?: string,
+  expectedSha256?: string
+): AcceptanceReport | undefined => {
+  if (file === undefined && expectedSha256 === undefined) {
+    return undefined;
+  }
+  if (file === undefined || expectedSha256 === undefined) {
+    throw new InputError(
+      "--acceptance and --acceptance-sha256 must be supplied together."
+    );
+  }
+  if (!SHA256.test(expectedSha256)) {
+    throw new InputError(
+      "--acceptance-sha256 must be a lowercase 64-character SHA-256 digest."
+    );
+  }
+  let bytes: Buffer;
+  try {
+    bytes = readFileSync(file);
+  } catch (error) {
+    throw new InputError(`Cannot read acceptance evidence "${file}".`, error);
+  }
+  const actualSha256 = createHash("sha256").update(bytes).digest("hex");
+  if (actualSha256 !== expectedSha256) {
+    throw new InputError(`Acceptance evidence SHA-256 mismatch for "${file}".`);
+  }
+  try {
+    return JSON.parse(bytes.toString("utf-8")) as AcceptanceReport;
+  } catch (error) {
+    throw new InputError(
+      `"${file}" is not valid JSON acceptance evidence: ${(error as Error).message}.`,
+      error
+    );
+  }
+};
 
 const loadParts = (file?: string): Part[] => {
   if (!file) {
@@ -169,6 +212,14 @@ export const registerEvalCommand = (program: Command): void => {
       "bench/reconstruction.json"
     )
     .option(
+      "--acceptance <file>",
+      "frozen section-3 acceptance evidence to validate beside the report"
+    )
+    .option(
+      "--acceptance-sha256 <sha256>",
+      "expected SHA-256 of the exact --acceptance file bytes"
+    )
+    .option(
       "--split <name>",
       "which split to run: feedback (per-icon traces may be read), selection (scored only, never shown) or sealed (open once, by a human, at the end)",
       "feedback"
@@ -214,6 +265,8 @@ export const registerEvalCommand = (program: Command): void => {
     )
     .action(
       async (opts: {
+        acceptance?: string;
+        acceptanceSha256?: string;
         bench: string;
         concurrency: number;
         corpus: string;
@@ -230,6 +283,10 @@ export const registerEvalCommand = (program: Command): void => {
         split: Split;
       }) => {
         const json = program.opts().output === "json";
+        const acceptanceEvidence = readAcceptanceEvidence(
+          opts.acceptance,
+          opts.acceptanceSha256
+        );
         const file = loadBenchmark(opts.bench);
         // Union with a freshly measured closure, never a replacement. Concepts
         // are still landing on blode-icons — 113 of 2,221 records carry one —
@@ -269,6 +326,7 @@ export const registerEvalCommand = (program: Command): void => {
         }
 
         const options = {
+          acceptanceEvidence,
           benchmark: entries,
           concurrency: opts.concurrency,
           dir: opts.dir,

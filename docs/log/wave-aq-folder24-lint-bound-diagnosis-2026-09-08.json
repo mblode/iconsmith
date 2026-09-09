@@ -1,0 +1,67 @@
+{
+  "id": "D307",
+  "status": "offline-causal-diagnosis",
+  "qualified": false,
+  "providerCalls": 0,
+  "currentReplay": {
+    "sameSvg": true,
+    "currentHash": "62cc5948aed563f8745804733835614308d18b828c277ebb6ff5a00c0d380445",
+    "previousHash": "62cc5948aed563f8745804733835614308d18b828c277ebb6ff5a00c0d380445",
+    "lint": [
+      {
+        "message": "Content centre is (11.00, 13.00); the house spec is (12, 12) within 0.25. Shift by (1.00, -1.00) unless the icons this one swaps with sit here too.",
+        "rule": "centred",
+        "severity": "warn"
+      },
+      {
+        "message": "Visual extent is 22.0\u00d720.0; keyline \"landscape\" wants 20\u00d718 (\u00b11). Scale by 0.909.",
+        "rule": "keyline",
+        "severity": "error"
+      }
+    ],
+    "bboxAfterLint": {
+      "h": 18,
+      "w": 20,
+      "x0": 2,
+      "x1": 22,
+      "y0": 2.999999999999999,
+      "y1": 21
+    }
+  },
+  "paintedBounds": {
+    "status": "offline-diagnosis",
+    "errors": [],
+    "bbox": {
+      "h": 18,
+      "w": 20,
+      "x0": 2,
+      "x1": 22,
+      "y0": 2.999999999999999,
+      "y1": 21
+    },
+    "qualified": false,
+    "providerCalls": 0
+  },
+  "cause": "lint.extentBox includes filled knockout cutter paths outside actual painted host; Canvas.bbox uses resolved filled groups. Repaired saved SVG equals current compile, so this is not stale checker output.",
+  "correctionTo": "D302 reported observed compiler rejection22x20; actual repaired painted bounds20x18, while linter sees22x20. Historical failed request not rescued.",
+  "setupFailure": ".staging/wave-aq-folder24-transform-diagnosis-2026-09-08/wrong-base-result.json",
+  "artifacts": [
+    {
+      "path": ".staging/wave-aq-folder24-transform-diagnosis-2026-09-08/compiled.json",
+      "sha256": "05a215b9e65c29ccfce8511ad87581a9bd75be8763974bb4e88b283fff52d7c9"
+    },
+    {
+      "path": ".staging/wave-aq-folder24-transform-diagnosis-2026-09-08/result.json",
+      "sha256": "dce7cf21a42d71b5be4be14f1ee59160e245b4eb093a845e0c7e2fb3287cf01e"
+    },
+    {
+      "path": ".staging/wave-aq-folder24-transform-diagnosis-2026-09-08/run.mts",
+      "sha256": "3ba1a757ba30466d1b862d2e853edc69f86919490c9d7388c38609896042e732"
+    },
+    {
+      "path": ".staging/wave-aq-folder24-transform-diagnosis-2026-09-08/wrong-base-result.json",
+      "sha256": "e360d76366efda18a0b1401914f4fe86e713e89cf5f8f5f0c26f0b48c73389c2"
+    }
+  ],
+  "next": "Geometry agent isolated linter/review measurement correction after cross-master guard; no kernel change authorized without further evidence"
+}

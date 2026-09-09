@@ -1,0 +1,29 @@
+{
+  "version": 21,
+  "qualified": false,
+  "htmlSha256": "fbfb1daa746bc1f44fcac1c1a3e8ad5e95be68789a2a0c93c8e93097a455e969",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v20-2026-09-09.html",
+  "previousIndexSha256": "0792efcbb6842c7f9b23a082414c14eabb7bebbd7c03f32f471cad889750d4c8",
+  "images": [
+    {
+      "label": "Organic native candidates: distinct programs, uncalibrated optical choices; jellyfish meaning remains ambiguous.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ck-organic-native-programs-2026-09-09/native-unscaled-board.png",
+      "sha256": "7c2124c6561e19357765758d1aa599e29515c47bcf299c51193de0a8eed096aa"
+    },
+    {
+      "label": "Organic native candidates enlarged 4x without interpolation.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ck-organic-native-programs-2026-09-09/native-enlarged-nn4-board.png",
+      "sha256": "d8dddb7954a326e7d1b6f7c177a9dcda3f0e60fbd0573fd9bfb9aac0afceb846"
+    },
+    {
+      "label": "Actual folder-lock16 delivery through strict current review-packet preparation; no new reviewer approval.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ci-production-packet-replay-2026-09-09/folder-lock-16/valid-packet/review-packet/folder-lock-16-candidate.png",
+      "sha256": "b8cbaeb476e14b0a66115e316111313437f0550efd1f0cc0a6943937b76f8c72"
+    },
+    {
+      "label": "Actual folder-lock24 delivery through strict current review-packet preparation.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ci-production-packet-replay-2026-09-09/folder-lock-24/valid-packet/review-packet/folder-lock-24-candidate.png",
+      "sha256": "f68242c28667bd8401fa4bd87a4340dd988da9cbb2a27ee28e3fbcdc331acb7f"
+    }
+  ]
+}

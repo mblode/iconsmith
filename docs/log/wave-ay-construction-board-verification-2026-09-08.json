@@ -1,0 +1,41 @@
+{
+  "id": "D319",
+  "kind": "compiler24-construction-board-root-verification",
+  "date": "2026-09-08",
+  "compiler": "iconsmith-constrained-24-filled-paint-resolution",
+  "verifiedFiles": 290,
+  "familyCount": 16,
+  "outputSlots": 64,
+  "nativeSurfaceProofs": 128,
+  "allEightClassesHaveTwoFamilies": true,
+  "independentOpticalMasterPairs": 0,
+  "rootImageInspected": true,
+  "limitations": [
+    "eye fixture is eye-closed",
+    "jellyfish is cloud composition",
+    "four filled modifier failures preserved",
+    "32 family-paint pairs share identical program and SVG bytes across sizes",
+    "No qualified independent AI inspection"
+  ],
+  "visuallyQualified": false,
+  "providerCalls": 0,
+  "apiIncrement": 0,
+  "artifacts": [
+    {
+      "path": ".staging/wave-ay-construction-board-compiler24-2026-09-08/construction-board.png",
+      "sha256": "6f8c02ca9259412b87a1a03f4877c0ec1f44c690d194f9147d2eadc7ebc66d45"
+    },
+    {
+      "path": ".staging/wave-ay-construction-board-compiler24-2026-09-08/manifest.json",
+      "sha256": "b7d279286a3fd6c442f08bbf8d6fd6a027ec2068ab6c745ca45eb51113e9e63d"
+    },
+    {
+      "path": ".staging/wave-ay-construction-board-compiler24-2026-09-08/coverage-report.json",
+      "sha256": "fee15c54ef4a02407e78212ce2fcee2b74cd26e9e0df879321fc6993f21676cd"
+    },
+    {
+      "path": ".staging/wave-ay-construction-board-compiler24-2026-09-08/artifact-hashes.json",
+      "sha256": "d1589a51cb109ef31ff80b85a0bc2736e35db18fe9a6c296125fa9067ddb77f5"
+    }
+  ]
+}

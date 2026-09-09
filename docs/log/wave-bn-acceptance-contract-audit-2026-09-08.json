@@ -1,0 +1,19 @@
+{
+  "id": "D357",
+  "kind": "independent-acceptance-contract-audit",
+  "audit": {
+    "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bn-acceptance-contract-audit-2026-09-08/audit.md",
+    "sha256": "6fd98ab02f5b2ecc15f935359119076ed0d1aa96b009fee2046841af38a1a734"
+  },
+  "receipt": {
+    "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bn-acceptance-contract-audit-2026-09-08/receipt.json",
+    "sha256": "9b401d4ed429360c0fc5703a0cd93349dc29e01878169e05ab40eb345f99c009"
+  },
+  "tests": 80,
+  "testFiles": 4,
+  "skipped": 0,
+  "p03Qualified": false,
+  "nextWork": "Wire actual evaluator and CLI evidence path with paired hash verification in isolated Sol task",
+  "providerCalls": 0,
+  "apiIncrementUsd": 0
+}

@@ -1,0 +1,32 @@
+
+> build
+> turbo build
+
+• turbo 2.10.11
+
+   • Packages in scope: iconsmith
+   • Running build in 1 packages
+   • Remote caching disabled
+
+iconsmith:build: cache miss, executing 9e3056d44972ffd7
+iconsmith:build: 
+iconsmith:build: > build
+iconsmith:build: > tsdown
+iconsmith:build: 
+iconsmith:build: ℹ tsdown v0.22.14 powered by rolldown v1.2.4
+iconsmith:build: ℹ config file: /Users/mblode/Code/mblode/iconsmith/packages/iconsmith/tsdown.config.ts 
+iconsmith:build: ℹ entry: src/cli.ts
+iconsmith:build: ℹ target: node24
+iconsmith:build: ℹ tsconfig: tsconfig.json
+iconsmith:build: ℹ Build start
+iconsmith:build: ℹ Cleaning 2 files
+iconsmith:build: ℹ Granting execute permission to dist/cli.js
+iconsmith:build: ℹ dist/cli.js      905.72 kB │ gzip: 293.73 kB
+iconsmith:build: ℹ dist/cli.js.map    1.83 MB
+iconsmith:build: ℹ 2 files, total: 2.73 MB
+iconsmith:build: ✔ Build complete in 143ms
+
+ Tasks:    1 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    713ms 
+

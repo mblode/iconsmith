@@ -1,0 +1,79 @@
+{
+  "id": "D291",
+  "observedAt": "2026-09-08T07:47:25.684302+00:00",
+  "status": "incomplete-run-quarantined",
+  "outer": {
+    "exitCode": 7,
+    "elapsedMs": 76603,
+    "sourceStable": true,
+    "settlementAudit": "pending",
+    "qualified": false
+  },
+  "failure": "Prospective native call journal changed or is unsettled; exact ordering diagnosis pending runtime correction.",
+  "stages": [
+    {
+      "stage": "recognition",
+      "status": "complete",
+      "model": "gpt-6-astra",
+      "baseModelLineage": "gpt-6-astra",
+      "evidenceMode": "images",
+      "receipt": ".staging/wave-ah-prospective-live-2026-09-08/review/author-recognizer/recognition/review.json",
+      "sha256": "e313904873799c14001d142f30e538a1ad5fcf18dbe0cb9560f093d9a5f304ed"
+    },
+    {
+      "stage": "adjudication",
+      "status": "complete",
+      "model": "gpt-5.6-sol",
+      "baseModelLineage": "gpt-5.6-sol",
+      "evidenceMode": "sealed-text",
+      "receipt": ".staging/wave-ah-prospective-live-2026-09-08/review/author-recognizer/adjudication/review.json",
+      "sha256": "2238ae827177e32e1dcccaf5f34cf252bcf9824ef345890a5ce30306142e360b"
+    }
+  ],
+  "requestedPresentations": 5,
+  "independentHouseArtifacts": 4,
+  "adjudicatorMatches": 5,
+  "craftStage": "unstarted",
+  "qualified": false,
+  "allSixContainersIndependentlyAbsent": true,
+  "stopWritten": true,
+  "noResumeOrLateSalvage": true,
+  "costs": {
+    "nativeCallsActual": 2,
+    "nativeCallsReservedMaximum": 3,
+    "remainingUnstartedCalls": 1,
+    "cumulativeNativeAdapterCalls": 33,
+    "nativeDollarCostUsd": null,
+    "newApiActual": 0,
+    "newApiReservation": 0,
+    "apiActualLedger": 13.06220785,
+    "apiReservedOrUnknownLedger": 11.37126575,
+    "apiCap": 50
+  },
+  "artifacts": [
+    {
+      "path": ".staging/wave-ah-prospective-live-2026-09-08/intent.json",
+      "sha256": "f9d5ed5f04b111b120b3b5852d9cfc927acd75bf07fe61303ac2d02ee51f4781"
+    },
+    {
+      "path": ".staging/wave-ah-prospective-live-2026-09-08/outer-result.json",
+      "sha256": "d22b6c05382ad62e01d52cc2440b0b4ac374fb488dbd86c39e9355a606cc8950"
+    },
+    {
+      "path": ".staging/wave-ah-prospective-live-2026-09-08/root-container-audit.json",
+      "sha256": "8b420430dfb9d964de720ddc7a4433673e6a8da355c81dd12a04f69e486efb09"
+    },
+    {
+      "path": ".staging/wave-ah-prospective-live-2026-09-08/review.native-control/calls/reservation.json",
+      "sha256": "d68400fcb097f44ab0956f1984ef0e0b2921a3ec629eb10ce2c4a93d0da1c14c"
+    },
+    {
+      "path": ".staging/wave-ah-prospective-live-2026-09-08/review.native-control/calls/dispatches.json",
+      "sha256": "aa3b6abe90403ad8a02bc8a4ad0656ac394b434534f6abd863d8e4ee9fc1cc0c"
+    },
+    {
+      "path": ".staging/wave-ah-prospective-live-2026-09-08/review/author-recognizer/adjudication-error.json",
+      "sha256": "40c7a1a5b4329681e5b0b25dde84a371c550c6319e1c89262c997680e4b4602a"
+    }
+  ]
+}

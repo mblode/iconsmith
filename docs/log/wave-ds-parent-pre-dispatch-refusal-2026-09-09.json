@@ -1,0 +1,46 @@
+{
+  "id": "D464",
+  "kind": "api-parent-pre-dispatch-audit-refusal",
+  "observedAt": "2026-09-08T19:41:22.878485+00:00",
+  "status": "refused-before-reservation-or-dispatch",
+  "audit": {
+    "path": ".staging/wave-ds-api-stop-runner-audit-2026-09-09/audit-v1.json",
+    "sha256": "01ac8ffd24230318bddd0c24ed09fec118f3a4472a7f6ce783ee988539b1fedb"
+  },
+  "blockers": [
+    {
+      "id": "DS1",
+      "severity": "dispatch-blocking",
+      "finding": "The prospective DU parent starts its 120000ms clock after filesystem, disk, STOP, preparation-intent and ledger reads, so preflight is uncharged and a depleted parent can still spawn with a 1ms timeout."
+    },
+    {
+      "id": "DS2",
+      "severity": "dispatch-blocking",
+      "finding": "The runner statically imports canonical capability and process code before its own source/runtime/production validation. DU verifies only runner and manifest bytes, so canonical code can execute before refusal. The parent must validate the frozen source, production files, runtime modules and preparation-intent hash before importing trusted canonical code or spawning."
+    },
+    {
+      "id": "DS3",
+      "severity": "dispatch-blocking",
+      "finding": "DU reads mutable preparation-intent.json without checking its byte hash, then copies its runtime bindings into authority."
+    },
+    {
+      "id": "DS4",
+      "severity": "dispatch-blocking",
+      "finding": "DU uses spawnSync and unguarded exclusive writes. Publication failure can omit a durable terminal after a charged child. Preexisting paths, all settlement writes and a fallback refusal need explicit handling. Owned process settlement must be recorded through runOwnedProcess; its claim remains limited to its process group and observed descendants."
+    },
+    {
+      "id": "DS5",
+      "severity": "root-postflight",
+      "finding": "A zero exit is only a child result requiring review. Root must independently reconcile canonical terminal/result/metadata-attempt identities, exact charge/usage, reservation release, STOP state and output hashes."
+    }
+  ],
+  "prospectiveLauncher": ".staging/wave-du-api-stop-live-2026-09-09/dispatch.mts",
+  "historicalAttemptImmutable": true,
+  "cost": {
+    "providerCalls": 0,
+    "reservationCreated": false,
+    "actualUsd": 0,
+    "ledger": "docs/log/api-budget-after-d445-2026-09-09.json"
+  },
+  "next": "Correct parent and loader authority, test offline, freeze a new D466 intent only if preconditions pass."
+}

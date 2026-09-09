@@ -1,0 +1,21 @@
+{
+  "version": 10,
+  "qualified": false,
+  "previousIndex": "development-evidence-index-v9-2026-09-08.html",
+  "htmlSha256": "4cfbdc9150ba9f2fd71aba1007b1e3e66debf2d4e2f05615ab0259d9d1ac0c86",
+  "addedArtifactHashes": {
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/folder.png": "a6ee603866b465cfbf8672bf55bdde658bbd087c179cb2e9faab92386e6e5299",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/cloud.png": "19d43a171c0330c7be62f155db955ad932756e156c9ef213831d905d05d8e00c",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/bell.png": "dc4edd32a513ec0113d5d2b0523788994c0e893cc46aa7c55e5bd5b035ba32bc",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/camera.png": "61a7e78d2b79a421389ed4d83a19b9f20b3156d028daf04fdaae8085cc3ab79f",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/shield.png": "eb1e0bc598b70028d6ad2d0ab915bf9847c436bc6c91157a1935a700ea1170a5",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/hammer.png": "16060e42325e2747f24bd07a80ed49080e80aa643cfce2293971b6c8999221ed",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/bicycle.png": "2d7e7968cb047591fb6b8b8d284abc176957a562ae10a31f799d635e2c192e18",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bi-regression-family-semantic-review-2026-09-08/boards/scissors.png": "9eee74148a9b4dfe89aa55f47631aa019cb8d857a039dd4400de961218a43299",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bj-regression-family-remainder-2026-09-08/boards/folder.png": "dfd789d2312d30e0467c004a80218e18d6abe20ee7e12801976103c2478fbea6",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bj-regression-family-remainder-2026-09-08/boards/cloud.png": "bf93cfc44a95cf4de399fcfda57aac2a93e0968fdcc2d9cf1b695e946b5c3dca",
+    "/Users/mblode/Code/mblode/iconsmith/.staging/wave-bj-regression-family-remainder-2026-09-08/boards/shield.png": "5b40890acf3c6c7d1ff48a1bbebab1b897d4056a634f806c3901fbda5ca25ed4"
+  },
+  "nativeCallsAtCreation": 79,
+  "apiIncrementUsd": 0
+}

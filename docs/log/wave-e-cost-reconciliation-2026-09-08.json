@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "status": "receipt-ledger-reconciled",
+  "apiLedger": {
+    "ledger": ".staging/foundry-round-1/budget.json",
+    "ledgerSha256": "c7639a8abeb6b932bf99bced0c5baa1651d796045b639553565e23e0e3c9341f",
+    "apiCapUsd": 50,
+    "receiptActualUsd": 13.06220785,
+    "reservedOrUnknownUsd": 11.37126575,
+    "remainingMaximumUsd": 25.5665264,
+    "ledgerTotalsMatch": true,
+    "unknownRuns": [
+      "strategy-screen-gemini-grok",
+      "strategy-screen-output-budget-correction",
+      "strategy-screen-streaming"
+    ],
+    "historicalCampaigns": "Excluded; no historical spend merged into current round.",
+    "providerBalanceVerified": false,
+    "newApiSpendUsd": 0,
+    "newApiReservationsUsd": 0,
+    "nativeExperimentCalls": 0,
+    "nativePlanningUsageUsd": null
+  },
+  "newApiActualUsd": 0,
+  "newApiReservationsUsd": 0,
+  "nativeExperimentLaunches": 4,
+  "nativeCompletedResponses": 2,
+  "nativeDollarAllocationUsd": null,
+  "nativeEngineeringAndSubagentUsageUsd": null,
+  "nativeAttempts": [
+    {
+      "intent": "docs/log/wave-b-contained-image-intent-2026-09-08.json",
+      "result": "docs/log/wave-b-contained-image-result-2026-09-08.json"
+    },
+    {
+      "intent": "docs/log/wave-c-contained-image-intent-2026-09-08.json",
+      "result": "docs/log/wave-c-contained-image-result-2026-09-08.json"
+    },
+    {
+      "intent": "docs/log/wave-d-contained-image-intent-2026-09-08.json",
+      "result": "docs/log/wave-d-contained-image-result-2026-09-08.json"
+    },
+    {
+      "intent": "docs/log/wave-e-gpt55-image-intent-2026-09-08.json",
+      "result": "docs/log/wave-e-gpt55-image-result-2026-09-08.json"
+    }
+  ],
+  "unknownChargesRetained": true,
+  "historicalCampaignsMerged": false,
+  "providerBalanceVerified": false,
+  "productionCampaignReservation": "Not opened; all prior bounded native intents were recorded before dispatch."
+}

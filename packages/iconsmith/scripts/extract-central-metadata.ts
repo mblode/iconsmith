@@ -28,7 +28,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
  * copy of a list is not a title. `createdAt` is dropped because 2,000 of them
  * share one bulk-import timestamp, so it dates the scrape and not the drawing.
  */
-export interface CentralMetadata {
+interface CentralMetadata {
   /** Central's own synonyms, hand-typed free text — `open link`, `a11y`,
    *  `heartbeat`. Not slugs, and not guaranteed to be single words. */
   readonly aliases: readonly string[];
@@ -47,7 +47,7 @@ const BLOCK = /e\.s\(\["iconMetadata",\s*0,\s*\{/u;
  *  by hand and are not — `clipboard 2-sparkle` and `Folder-sparkle` both
  *  appear as a leading alias. So the slug comes from the name, and the alias
  *  is what gets normalised. */
-export const slugOf = (component: string): string =>
+const slugOf = (component: string): string =>
   component
     .replace(/^Icon/u, "")
     .replaceAll(/(?<lower>[a-z])(?<upper>[A-Z])/gu, "$<lower>-$<upper>")
@@ -70,7 +70,7 @@ const compare = (s: string): string =>
  * wins, and where the disk has never heard of it `slugOf` stands so the row
  * still parses and the caller can report it as unmatched.
  */
-export const resolverFor = (
+const resolverFor = (
   diskSlugs: readonly string[]
 ): ((component: string) => string) => {
   const byKey = new Map(diskSlugs.map((slug) => [compare(slug), slug]));
@@ -94,7 +94,7 @@ export const resolverFor = (
  * given {@link resolverFor} in anger, because a derivation that only agrees
  * with itself proves nothing.
  */
-export const parseCentral = (
+const parseCentral = (
   source: string,
   resolve: (component: string) => string = slugOf
 ): Record<string, CentralMetadata> => {

@@ -1,0 +1,36 @@
+{
+  "id": "D468",
+  "kind": "source-exact-admission-policy-feasibility",
+  "observedAt": "2026-09-08T19:46:50.660921+00:00",
+  "status": "isolated-verified-not-production",
+  "manifestFilesVerified": 5,
+  "receipt": {
+    "path": ".staging/wave-dx-source-origin-admission-breadth-2026-09-09/receipt.json",
+    "sha256": "cdc704128810177819ef7e17098ce45098cc4956946e5313d3244e6c640e87d5"
+  },
+  "assertions": {
+    "bellExtractionCannotGrant": true,
+    "bellCanonicalAdmissionAddsNoParts": true,
+    "admittedBindingsExistInCanonicalAdmissionResult": true,
+    "bellProfiledUncertaintyRefuses": true,
+    "genuineOutlinedIndexedAdmitted": true,
+    "genuineOutlinedAssemblyAdmitted": true,
+    "hashForgedFixtureCannotCreateProfileAuthority": true,
+    "processLocalIssuedBindingCannotBeRecreated": true,
+    "sourceMasterMismatchRefuses": true,
+    "sourceNamespaceMismatchRefuses": true
+  },
+  "boundaries": [
+    "Bell extraction exists but canonical admission refuses, so no registry grant",
+    "branch-simple outlined: four canonical indexed parts",
+    "strawberry outlined: public assembly alias only; nine private child parts do not become author-selectable",
+    "No canonical opcode/compiler change or visual qualification"
+  ],
+  "next": "DY isolated canonical implementation proposal, root integration and full4357 regression still required",
+  "cost": {
+    "providerCalls": 0,
+    "apiReservationCreated": false,
+    "solMediumFollowupsAfterD450": 17,
+    "nativeDollarAllocation": "unknown"
+  }
+}

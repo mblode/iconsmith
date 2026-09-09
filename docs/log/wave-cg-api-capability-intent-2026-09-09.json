@@ -1,0 +1,29 @@
+{
+  "experimentId": "D425",
+  "kind": "bounded-api-capability-reservation",
+  "recordedAt": "2026-09-08T15:27:42.905450+00:00",
+  "model": "google/gemini-3.7-flash",
+  "providerOnly": [
+    "google"
+  ],
+  "maximumClientRequests": 1,
+  "maxRetries": 0,
+  "maximumOutputTokens": 512,
+  "originalDeadlineMs": 120000,
+  "reservationUsd": 0.788352,
+  "apiActualBeforeUsd": 13.06220785,
+  "existingReservedOrUnknownUsd": 11.37126575,
+  "totalCommittedIncludingThisUsd": 25.2218256,
+  "remainingUncommittedUsd": 24.7781744,
+  "capUsd": 50,
+  "nativeCalls": 0,
+  "automaticRetry": false,
+  "imageFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-api-capability-live-2026-09-09/stimulus.png",
+  "imageSha256": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93",
+  "rootImageInspection": "Visible single black heart on white, expected label heart; previously exposed capability stimulus, not qualification evidence.",
+  "freezeFile": ".staging/wave-cg-api-integration-2026-09-09/provider-source-freeze.json",
+  "freezeSha256": "1c5dfa3f5b61d75c76504f5a0421179815a5e4a0c9fb10f7568fb25af4574b30",
+  "freeBytes": 2236731392,
+  "credentialRoute": "Inherited AI_GATEWAY_API_KEY presence verified; values not inspected",
+  "scope": "One client request under documented routing; no claim about unobservable provider-internal inference counts."
+}

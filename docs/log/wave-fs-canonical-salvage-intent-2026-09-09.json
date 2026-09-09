@@ -1,0 +1,38 @@
+{
+  "id": "D519",
+  "kind": "canonical-controlled-salvage-dispatch-intent",
+  "observedAtMs": 1788921172664,
+  "sourceClosure": "D518",
+  "source": {
+    "stable": true,
+    "fileCount": 685,
+    "aggregateSha256": "5b9dadd240bf49fc4e4607288aba8169ed4ab6db1dbdd7d351ed209b7839087b"
+  },
+  "dryRun": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/dry-run.json",
+  "dryRunSha256": "6a33e1d8b56fd9323b28a5689163a9811ba117b6c848fd68e0d0cbb45b008930",
+  "command": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/command.json",
+  "diagnosticPlan": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/diagnostic-plan.json",
+  "requestId": "2b2c994f40ff4a230b35890397852318dd06d417f2c148239eed90e4e6d1f3fc",
+  "requests": 1,
+  "slots": 2,
+  "retainedPopulationSlots": 80,
+  "maxNativeCalls": 10,
+  "maxWallMs": 1200000,
+  "concurrency": 1,
+  "retries": 0,
+  "billing": "native subscription; dollar allocation unknown",
+  "apiReservationUsd": 0,
+  "qualification": false,
+  "e2eScoreOutOf10": null,
+  "changedVariable": "D517 canonical single-use interruption capability and trigger/settlement/recursive replay integration; replaces historical wrapper bypass.",
+  "exposure": "Previously exposed folder-lock16 development packet; not sealed qualification",
+  "resourcePreflight": ".staging/wave-fs-canonical-salvage-preparation-2026-09-09/resource-preflight.json",
+  "stopConditions": [
+    "identity drift",
+    "ambiguous dispatch or charges",
+    "unproven containment",
+    "critical regression",
+    "STOP"
+  ],
+  "purpose": "Observe deliberate contained finalizer interruption after valid final output and verify canonical recovery plus independent AI reviews within original clock."
+}

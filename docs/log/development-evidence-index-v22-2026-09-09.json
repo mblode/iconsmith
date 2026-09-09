@@ -1,0 +1,90 @@
+{
+  "version": 22,
+  "qualified": false,
+  "htmlSha256": "0ac66046a58e683c417af5137a88533f2addd7552ff191dcf8cb15ef3ebae02c",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v21-2026-09-09.html",
+  "previousIndexSha256": "fbfb1daa746bc1f44fcac1c1a3e8ad5e95be68789a2a0c93c8e93097a455e969",
+  "images": [
+    {
+      "label": "census-01 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-01.png",
+      "sha256": "2f77835f8241ad293b31e30bbff227779976128b6541fab7aa640f72ed43d424"
+    },
+    {
+      "label": "census-02 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-02.png",
+      "sha256": "80a1343741e21ff27964dfa71269845e276071a732cc04073be1ae4c9b8bca0d"
+    },
+    {
+      "label": "census-03 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-03.png",
+      "sha256": "39f5c3826b5f41b93b3875749e8de3014b29da7ef9e3cd058307e8a08a5e70f2"
+    },
+    {
+      "label": "census-04 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-04.png",
+      "sha256": "248c49163c70b5ff09abedcc330bad1a0bc7aa5076684e5da81b004be7307b6a"
+    },
+    {
+      "label": "census-05 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-05.png",
+      "sha256": "8be5a27af83b13a8257a03d9a8218b6aab60df43a9d53af180874a54c62d42c0"
+    },
+    {
+      "label": "census-06 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-06.png",
+      "sha256": "059337954c6248433a4512b61a7b22034de2d34a71b20a4516f51072f9aea697"
+    },
+    {
+      "label": "census-07 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-07.png",
+      "sha256": "f7c39a5e7e4f44c44c3cf83816d4a88c8d76b1a4254652a2149e8476b159b073"
+    },
+    {
+      "label": "census-08 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-08.png",
+      "sha256": "e0ab8ce5e379cf290932ac8e7deaac797355afa0c0b1abec38f9f0181ae40d4f"
+    },
+    {
+      "label": "census-09 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-09.png",
+      "sha256": "ede6b64c4969605cccdfed39c18d95b654bb3ed5ed62404dbf579e128bcd6cb3"
+    },
+    {
+      "label": "census-10 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-10.png",
+      "sha256": "837b3c264c2331b65f13dd21a823833192fd816b37a9a1abb4722b59d766b2e5"
+    },
+    {
+      "label": "census-11 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-11.png",
+      "sha256": "6c1c1f106a42fad6339bcd9998d5885b489a1839d479312f9cdaeae5c884fc0d"
+    },
+    {
+      "label": "census-12 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-12.png",
+      "sha256": "514a76497a23afc791b6e73ecfef8351f65646aee88935dd5ea78ceb4055afd6"
+    },
+    {
+      "label": "census-13 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-13.png",
+      "sha256": "d0b922d05b7db033df75841ffacaad98549e7735d1fff8a6730eda4faaa8e109"
+    },
+    {
+      "label": "census-14 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-14.png",
+      "sha256": "75213c010f654016e422a5a927bc499d16edbb7a0bf6e444802f71bf1de69056"
+    },
+    {
+      "label": "census-15 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-15.png",
+      "sha256": "bfc98df65579ce261e39b6f947c6c86c766ca9666dd96de12803342809297c57"
+    },
+    {
+      "label": "census-16 \u2014 exposed source construction review; 16px views resample 24px sources. Missing counterparts and uncertainty retained.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cl-census-balanced160-2026-09-09/boards/census-16.png",
+      "sha256": "ca551b5c04ad348eac70f99c60a42ba2890de16bb6862c6c25bf43b1fd5b6aac"
+    }
+  ],
+  "failedAttemptReceipt": "docs/log/wave-cl-api-v2-live-result-2026-09-09.json"
+}

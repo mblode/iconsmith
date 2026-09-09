@@ -1,0 +1,40 @@
+Usage: iconsmith [options] [command]
+
+Icon generation pipeline: extract parts from an icon set, compose new icons in a
+constrained DSL, conform them to a house spec.
+
+Options:
+  -V, --version              output the version number
+  --output <format>          output format (choices: "text", "json", default:
+                             "text")
+  -h, --help                 display help for command
+
+Commands:
+  parts [options] <dir>      extract a parts vocabulary from a directory of SVG
+                             icons
+  draw [options] <file>      run an icon DSL program and emit SVG
+  lint [options] [files...]  check SVG icons against the house spec
+  bench [options]            select and write the committed reconstruction
+                             benchmark
+  eval [options]             score generated icons against the real ones they
+                             reconstruct
+  conform [options]          transform icons between corpus variants and score
+                             the result
+  new [options] <name>       describe an icon; draw it to the house spec
+  improve [options]          A/B two experts on a concept class; keep updates
+                             the routing table
+  modifiers [options]        audit badge size, slot and clearance across the set
+  elements [options]         census recurring elements and the families that
+                             disagree
+  repair [options]           apply the mechanical fixes, proving each one
+                             changes nothing
+  corpus                     build, verify and summarise the icon record store
+  concepts                   report concept coverage, propose the missing ones,
+                             and rank the generation backlog
+  help [command]             display help for command
+
+From the repository root, after npm run build:local:
+  npm run iconsmith -- draw examples/square-check.icon -o square-check.svg
+
+For pinned-style AI generation: npm run generate:local -- --help
+

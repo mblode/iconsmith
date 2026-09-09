@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+
 /** The pilot's advancement rule, separate from the judge it qualifies.
  * Missing items, repeated pairs, unknown spend and exposed holdouts cannot
  * disappear into an average. These are engineering gates, not taste claims. */
@@ -12,6 +14,356 @@ export interface InstrumentTrial {
   controlRejected: boolean | null;
 }
 
+export interface ProductionCriticQualificationReceipt {
+  agreementMetricsQualified?: boolean;
+  criticIdentity?: unknown;
+  evidenceManifestHash?: string;
+  generalGeneratedCriticQualified: boolean;
+  metrics?: unknown;
+  metricsHash?: string;
+  populationIdentityValidated?: boolean;
+  provenanceKind?: string;
+  provenanceValidated: boolean;
+  qualificationScope: string;
+  qualificationVersionHash: string;
+  qualified: boolean;
+}
+
+export interface ProductionCriticQualificationIdentity {
+  readonly criticIdentityHash: string;
+  readonly criticReviewerId: string;
+  readonly evidenceManifestHash: string;
+  readonly metricsHash: string;
+  readonly productionReviewManifestHash: string;
+  readonly qualificationVersionHash: string;
+  readonly reviewSetHash: string;
+}
+
+export interface ProductionCriticReviewRequirement {
+  readonly artifactHash: string;
+  readonly authorId: string;
+  readonly authorLineage: string;
+  readonly conceptId: string;
+  readonly familyId: string;
+  readonly nativePresentationHashes: readonly [string, string];
+  readonly nativeSize: 16 | 24;
+  readonly paint: "filled" | "outlined";
+  readonly labels: {
+    readonly craftRating: number;
+    readonly criticalDefect: boolean;
+    readonly familyFit: boolean;
+    readonly nativeLegibility: boolean;
+    readonly recognitionAdjudication: "match" | "mismatch" | "uncertain";
+    readonly recognitionChoice: "described" | "unknown";
+    readonly recognitionCorrect: boolean | null;
+    readonly shipUnchanged: boolean;
+  };
+  readonly recognitionEvidenceHash: string;
+  readonly reviewEvidenceHash: string;
+  readonly reviewerId: string;
+  readonly requestIntentHash: string;
+  readonly slotId: string;
+}
+
+interface ProductionCriticReviewAuthority {
+  readonly reviews: readonly ProductionCriticReviewRequirement[];
+}
+
+export type ProductionCriticQualificationCapability =
+  ProductionCriticQualificationIdentity;
+
+const activeCriticCapabilities = new WeakMap<
+  object,
+  ProductionCriticReviewAuthority | null
+>();
+const HASH = /^[a-f0-9]{64}$/u;
+const sha256 = (value: string) =>
+  createHash("sha256").update(value).digest("hex");
+const canonical = (value: unknown): string => {
+  if (Array.isArray(value)) {
+    return `[${value.map(canonical).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    return `{${Object.entries(value)
+      .toSorted(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${canonical(entry)}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+};
+const record = (value: unknown): value is Record<string, unknown> =>
+  value !== null && typeof value === "object" && !Array.isArray(value);
+const immutableSnapshot = <T>(value: T): T => {
+  if (value !== null && typeof value === "object") {
+    for (const entry of Object.values(value)) {
+      immutableSnapshot(entry);
+    }
+    Object.freeze(value);
+  }
+  return value;
+};
+const criticReviewerId = (criticIdentity: unknown) => {
+  if (!record(criticIdentity)) {
+    return sha256("invalid-critic-identity");
+  }
+  return sha256(
+    canonical({
+      actor: criticIdentity.actor,
+      instrumentHash: criticIdentity.instrumentHash,
+      routeHash: criticIdentity.routeHash,
+    })
+  );
+};
+
+// The receipt is a deliberately explicit fail-closed conjunction.
+// eslint-disable-next-line complexity
+const verifiedCollectorReceipt = (
+  value: unknown
+): ProductionCriticQualificationReceipt | null => {
+  if (!record(value) || !record(value.metrics)) {
+    return null;
+  }
+  const receipt = value as unknown as ProductionCriticQualificationReceipt;
+  const { metrics } = value;
+  const metricsHash = sha256(canonical(metrics));
+  const { criticIdentity } = value;
+  if (
+    (value.provenanceKind !== "collector-bound-native-evidence-v1" &&
+      value.provenanceKind !== "collector-bound-live-transport-evidence-v2") ||
+    value.qualificationScope !== "agreement-with-independent-ai-panel" ||
+    value.provenanceValidated !== true ||
+    value.populationIdentityValidated !== true ||
+    value.agreementMetricsQualified !== true ||
+    value.generalGeneratedCriticQualified !== true ||
+    value.qualified !== true ||
+    metrics.qualified !== true ||
+    !record(criticIdentity) ||
+    !record(criticIdentity.actor) ||
+    !String(criticIdentity.actor.baseModelLineage ?? "").trim() ||
+    !String(criticIdentity.actor.model ?? "").trim() ||
+    !String(criticIdentity.actor.provider ?? "").trim() ||
+    !HASH.test(String(criticIdentity.instrumentHash ?? "")) ||
+    !HASH.test(String(criticIdentity.routeHash ?? "")) ||
+    criticIdentity.sessionPolicy !== "distinct-production-session-required" ||
+    !Array.isArray(criticIdentity.qualificationSessionIds) ||
+    !criticIdentity.qualificationSessionIds.length ||
+    criticIdentity.qualificationSessionIds.some(
+      (sessionId) => typeof sessionId !== "string" || !sessionId.trim()
+    ) ||
+    new Set(criticIdentity.qualificationSessionIds).size !==
+      criticIdentity.qualificationSessionIds.length ||
+    metrics.populationReady !== true ||
+    metrics.presentationConsistency !== true ||
+    metrics.missingPredictions !== 0 ||
+    metrics.missingPanelRows !== 0 ||
+    !Number.isSafeInteger(metrics.canonicalCount) ||
+    Number(metrics.canonicalCount) <= 0 ||
+    !Number.isSafeInteger(metrics.unresolvedPanelLabels) ||
+    Number(metrics.unresolvedPanelLabels) < 0 ||
+    Number(metrics.unresolvedPanelLabels) > Number(metrics.canonicalCount) ||
+    typeof metrics.decisionCoverage !== "number" ||
+    !Number.isFinite(metrics.decisionCoverage) ||
+    metrics.decisionCoverage < 0.8 ||
+    metrics.decisionCoverage >
+      (Number(metrics.canonicalCount) - Number(metrics.unresolvedPanelLabels)) /
+        Number(metrics.canonicalCount) ||
+    !HASH.test(String(value.evidenceManifestHash ?? "")) ||
+    value.metricsHash !== metricsHash
+  ) {
+    return null;
+  }
+  const versionCore = {
+    agreementMetricsQualified: value.agreementMetricsQualified,
+    criticIdentity,
+    evidenceManifestHash: value.evidenceManifestHash,
+    generalGeneratedCriticQualified: value.generalGeneratedCriticQualified,
+    metricsHash: value.metricsHash,
+    populationIdentityValidated: value.populationIdentityValidated,
+    provenanceKind: value.provenanceKind,
+    provenanceValidated: value.provenanceValidated,
+    qualificationScope: value.qualificationScope,
+    qualified: value.qualified,
+  };
+  return value.qualificationVersionHash === sha256(canonical(versionCore))
+    ? receipt
+    : null;
+};
+
+/** This is a trusted-code boundary. `compute` must rerun the collector verifier;
+ * serialized reports never enter it. The capability is live only during the
+ * synchronous callback and cannot be retained or reconstructed by shape. */
+export const withComputedProductionCriticQualification = <T>(
+  compute: () => unknown,
+  consume: (capability: ProductionCriticQualificationCapability) => T
+): T => {
+  const receipt = verifiedCollectorReceipt(compute());
+  if (!(receipt?.evidenceManifestHash && receipt.metricsHash)) {
+    throw new Error("Collector critic qualification receipt is invalid");
+  }
+  const capability = Object.freeze({
+    criticIdentityHash: sha256(canonical(receipt.criticIdentity)),
+    criticReviewerId: criticReviewerId(receipt.criticIdentity),
+    evidenceManifestHash: receipt.evidenceManifestHash,
+    metricsHash: receipt.metricsHash,
+    productionReviewManifestHash: sha256("unbound-production-reviews"),
+    qualificationVersionHash: receipt.qualificationVersionHash,
+    reviewSetHash: sha256("unbound-production-review-set"),
+  });
+  activeCriticCapabilities.set(capability, null);
+  try {
+    return consume(capability);
+  } finally {
+    activeCriticCapabilities.delete(capability);
+  }
+};
+
+interface ComputedProductionReviewSet {
+  authorEvidenceVerified?: boolean;
+  kind?: string;
+  qualificationManifestSha256?: string;
+  reviewManifestSha256?: string;
+  reviews?: unknown;
+  reviewSetHash?: string;
+}
+
+const verifiedProductionReviewSet = (
+  value: unknown,
+  receipt: ProductionCriticQualificationReceipt
+) => {
+  if (!record(value)) {
+    return null;
+  }
+  const candidate = value as ComputedProductionReviewSet;
+  if (
+    candidate.authorEvidenceVerified !== true ||
+    candidate.kind !== "verified-production-critic-review-set-v1" ||
+    candidate.qualificationManifestSha256 !== receipt.evidenceManifestHash ||
+    !HASH.test(candidate.reviewManifestSha256 ?? "") ||
+    !Array.isArray(candidate.reviews) ||
+    !candidate.reviews.length ||
+    candidate.reviewSetHash !== sha256(canonical(candidate.reviews))
+  ) {
+    return null;
+  }
+  const reviews = immutableSnapshot(
+    structuredClone(candidate.reviews)
+  ) as ProductionCriticReviewAuthority["reviews"];
+  return Object.freeze({
+    ...candidate,
+    reviews,
+  }) as Required<ComputedProductionReviewSet> & {
+    reviews: ProductionCriticReviewAuthority["reviews"];
+  };
+};
+
+/** Issues authority only after both the sealed qualification and every
+ * production critic review are recomputed from collector-owned files. */
+export const withComputedProductionCriticReviews = <T>(
+  computeQualification: () => unknown,
+  computeReviews: (
+    qualification: ProductionCriticQualificationReceipt
+  ) => unknown,
+  consume: (capability: ProductionCriticQualificationCapability) => T
+): T => {
+  const receipt = verifiedCollectorReceipt(computeQualification());
+  if (
+    !(
+      receipt?.evidenceManifestHash &&
+      receipt.metricsHash &&
+      receipt.criticIdentity
+    )
+  ) {
+    throw new Error("Collector critic qualification receipt is invalid");
+  }
+  const reviewSet = verifiedProductionReviewSet(
+    computeReviews(receipt),
+    receipt
+  );
+  if (!reviewSet) {
+    throw new Error("Collector production critic review set is invalid");
+  }
+  const capability = Object.freeze({
+    criticIdentityHash: sha256(canonical(receipt.criticIdentity)),
+    criticReviewerId: criticReviewerId(receipt.criticIdentity),
+    evidenceManifestHash: receipt.evidenceManifestHash,
+    metricsHash: receipt.metricsHash,
+    productionReviewManifestHash: reviewSet.reviewManifestSha256,
+    qualificationVersionHash: receipt.qualificationVersionHash,
+    reviewSetHash: reviewSet.reviewSetHash,
+  });
+  activeCriticCapabilities.set(capability, { reviews: reviewSet.reviews });
+  try {
+    return consume(capability);
+  } finally {
+    activeCriticCapabilities.delete(capability);
+  }
+};
+
+/** Serialized receipt fields are never authority. Only a process-local,
+ * currently active capability issued around a verified computation can pass. */
+export const criticQualificationReadyForProduction = (
+  capability: unknown,
+  expectedIdentity?: ProductionCriticQualificationIdentity,
+  requirements?: readonly ProductionCriticReviewRequirement[]
+) => {
+  const identityKeys = [
+    "criticIdentityHash",
+    "criticReviewerId",
+    "evidenceManifestHash",
+    "metricsHash",
+    "productionReviewManifestHash",
+    "qualificationVersionHash",
+    "reviewSetHash",
+  ];
+  if (
+    !record(capability) ||
+    !expectedIdentity ||
+    !requirements?.length ||
+    canonical(Object.keys(expectedIdentity).toSorted()) !==
+      canonical(identityKeys.toSorted()) ||
+    !Object.entries(expectedIdentity).every(
+      ([key, value]) => HASH.test(value) && capability[key] === value
+    )
+  ) {
+    return false;
+  }
+  const authority = activeCriticCapabilities.get(capability);
+  if (!authority) {
+    return false;
+  }
+  const reviewsBySlot = new Map(
+    authority.reviews.map((review) => [review.slotId, review])
+  );
+  return (
+    reviewsBySlot.size === authority.reviews.length &&
+    new Set(requirements.map(({ slotId }) => slotId)).size ===
+      requirements.length &&
+    requirements.length === authority.reviews.length &&
+    requirements.every((required) => {
+      const review = reviewsBySlot.get(required.slotId);
+      return (
+        review !== undefined &&
+        canonical({
+          artifactHash: review.artifactHash,
+          authorId: review.authorId,
+          authorLineage: review.authorLineage,
+          conceptId: review.conceptId,
+          familyId: review.familyId,
+          labels: review.labels,
+          nativePresentationHashes: review.nativePresentationHashes,
+          nativeSize: review.nativeSize,
+          paint: review.paint,
+          recognitionEvidenceHash: review.recognitionEvidenceHash,
+          requestIntentHash: review.requestIntentHash,
+          reviewEvidenceHash: review.reviewEvidenceHash,
+          reviewerId: review.reviewerId,
+          slotId: review.slotId,
+        }) === canonical(required)
+      );
+    })
+  );
+};
+
 export interface PilotItem {
   id: string;
   morphology: string;
@@ -19,7 +371,7 @@ export interface PilotItem {
   variants: readonly string[];
 }
 
-export interface PilotObservation {
+interface PilotObservation {
   item: string;
   variant: string;
   accepted: boolean;

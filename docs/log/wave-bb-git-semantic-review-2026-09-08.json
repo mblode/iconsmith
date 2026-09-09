@@ -1,0 +1,25 @@
+{
+  "id": "D324",
+  "kind": "independent-root-semantic-development-inspection",
+  "artifactSeal": {
+    "path": ".staging/wave-bb-git-family-semantic-review-2026-09-08/sealed-hashes.json",
+    "sha256": "08b9c625634507131a3e6b05ee9360d16b00751130b3f79a64796c7f69f19fdd"
+  },
+  "verifiedFiles": 53,
+  "rootReviewer": "gpt-6-astra",
+  "otherReviewer": "gpt-5.6-sol",
+  "presentation": "Source board with nearest-neighbor magnification; exact native files retained. Root UI resized board; this is semantic inspection, not native legibility qualification.",
+  "observations": [
+    "Git brand mark has a containing diamond silhouette, unlike the node and connector operation symbols.",
+    "Branches and fork each have three terminal nodes but differ in connector symmetry.",
+    "Commit-vertical contains one node on a vertical line; pull-request has three nodes and a returning arrow.",
+    "Filled commit source is missing and remains explicitly unfilled in source inventory."
+  ],
+  "decision": "Agree with proposed split of Git brand mark; retain operation grouping as development proposal with distinct semantic meanings and unresolved aliases. No automatic reuse.",
+  "canonicalApplied": false,
+  "allFamilyValidationComplete": false,
+  "visualQualified": false,
+  "providerCalls": 0,
+  "nativeCallsCumulative": 63,
+  "apiIncrement": 0
+}

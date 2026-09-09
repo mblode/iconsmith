@@ -1,0 +1,32 @@
+{
+  "kind": "iconsmith-authenticated-shared-stop-intent-v4",
+  "experimentId": "D412",
+  "recordedAt": 1788878164007,
+  "executeCommandSha256": "8097535a63dd6e8adebef087a1834c30096562bb2110bd7b103719363f348f3a",
+  "runnerSha256": "ac06b99586fe9f1d115ce3d6092ad524c409b7521467f21b0a5c3a52a71966e8",
+  "observerCoreSha256": "b65297b6a568d738b58a417ba02f50eb41e90f630b87485bb7c2c584539a5702",
+  "productionIdentitySha256": "3a0566649063603f3079f672d2b0cbabe29d74361dc6a6d3958e43e939058a77",
+  "productionIdentityGuardSha256": "39a2f72bcb26b2f729bde1f429fe7859c73d04cb2b790886bcf35de5cf5c492e",
+  "sourceFreezeSha256": "c9b67c58721c81dc1ee29ae7f2a1a5e18d96905e0ec393e2612dcbd201a9612b",
+  "nativeRouteSha256": "2175af6376bda9956dc451c2bcb82a151d69afb35f13868402a78964892aa31b",
+  "expectedRequestId": "a6c59d76fa8420d60d570e56b7a894ceaf9ed0f7704395ec1ff3ba9d815f91eb",
+  "expectedStage": "10-retrieval-discovery",
+  "expectedModel": "gpt-6-astra",
+  "expectedToolingHash": "d15cf738bb0022c71c77a71ce07bd40e21882f4ececf327146aa82c900381887",
+  "expectedToolingFileCount": 554,
+  "maximumNativeCalls": 12,
+  "observedTargetCalls": 1,
+  "automaticRetry": false,
+  "rootReservation": {
+    "maximumNativeCalls": 12,
+    "targetCalls": 1,
+    "apiReservedUsd": 0,
+    "nativeSettledBefore": 133,
+    "olderUnresolvedNativeIntents": 1,
+    "nativeDollarCost": "unknown",
+    "quotaLastObservedUsedPercent": 70,
+    "quotaResetsAt": 1789435341,
+    "resetCreditRedeemed": false,
+    "automaticRetry": false
+  }
+}

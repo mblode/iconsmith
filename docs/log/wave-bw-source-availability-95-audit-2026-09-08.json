@@ -1,0 +1,52 @@
+{
+  "id": "D391",
+  "receipt": {
+    "path": ".staging/wave-bw-source-availability-95-audit-2026-09-08/receipt.json",
+    "sha256": "a76e45f9c2b66cefa912184e6c9e52f11f91f5a9b4ea97bf19bec15fff503914"
+  },
+  "rootVerifiedPaths": [
+    "docs/log/house-source-regression-family-triage-2026-09-07.json",
+    "docs/log/house-source-regression-family-triage-v2-2026-09-07.json",
+    ".staging/house-source-regression-2026-09-07/admission-results.json",
+    ".staging/wave-ay-source-regression-compiler24-2026-09-08/admission/admission-results.json",
+    ".staging/wave-ay-source-regression-compiler24-2026-09-08/comparison.json",
+    ".staging/wave-bu-full-census-dispositions-2026-09-08/concept-dispositions.json",
+    ".staging/wave-bu-full-census-dispositions-2026-09-08/slot-dispositions.json",
+    ".staging/wave-bu-full-census-dispositions-2026-09-08/verification.json",
+    ".staging/wave-bw-source-availability-95-audit-2026-09-08/family-availability.json",
+    ".staging/wave-bw-source-availability-95-audit-2026-09-08/source-availability.json",
+    ".staging/wave-bw-source-availability-95-audit-2026-09-08/slot-dispositions.json",
+    ".staging/wave-bw-source-availability-95-audit-2026-09-08/summary.json"
+  ],
+  "counts": {
+    "historicalFamilies": 95,
+    "concepts": 97,
+    "requestSlots": 388,
+    "sourceFiles": 181,
+    "sourcePresentSlots": 362,
+    "missingSourceSlots": 26,
+    "reconstructionAdmittedSlots": 34,
+    "referenceOnlyReconstructionRefusedSlots": 328,
+    "currentAdmittedSourceFiles": 17,
+    "currentRefusedSourceFiles": 164,
+    "generationUnknownSlots": 388,
+    "demonstratedGenerationBlockedSlots": 0
+  },
+  "familyTransitions": {
+    "allPresentAdmitted": 7,
+    "partial": 4,
+    "allReferenceOnlyRefused": 84
+  },
+  "fullCensusDenominators": {
+    "concepts": 2221,
+    "requestSlots": 8884,
+    "sourceFiles": 4357,
+    "sourcePresentSlots": 8714,
+    "missingSourceSlots": 170,
+    "missingPaintCounterparts": 85,
+    "note": "The historical-95 subset's missing-source count must not replace the full-census total of 170 slots / 85 paint counterparts."
+  },
+  "providerCalls": 0,
+  "visualQualified": false,
+  "generationQualified": false
+}

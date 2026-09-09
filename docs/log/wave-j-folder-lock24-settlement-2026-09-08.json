@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "status": "failed-candidate-contained-and-accounted",
+  "qualified": false,
+  "requestedOutputs": 2,
+  "acceptedOutputs": 0,
+  "calls": 5,
+  "offlineProbes": 10,
+  "allContainersAbsent": true,
+  "remainingDefect": "outlined-keyhole-clearance",
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "nativeDollarCostUsd": null,
+  "auditAndAppendOnlyCorrection": [
+    {
+      "path": ".staging/wave-j-runtime-audit-native24-2026-09-08/native24-runtime-audit.json",
+      "sha256": "a7189bdf84636626062cb73d9962a038b2901c6e81d8567d1f9d5b7b67c0159f"
+    },
+    {
+      "path": ".staging/wave-j-runtime-audit-native24-correction-2026-09-08/native24-runtime-audit-correction.json",
+      "sha256": "172444a0d7e36f892753cccebe23032869a53180826ed4b4cd36858918a7aae8"
+    }
+  ]
+}

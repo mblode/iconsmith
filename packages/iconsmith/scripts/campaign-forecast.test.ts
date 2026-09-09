@@ -24,6 +24,25 @@ const rows = () =>
     },
     routeHash: "d".repeat(64),
     runtimeHash: "b".repeat(64),
+    telemetry: {
+      diskBytes: 4096,
+      nativeCalls: 3,
+      nativeInputTokens: null,
+      nativeOutputTokens: null,
+      observedConcurrency: 1,
+      retrievalTemperature: "cold" as const,
+      stageMs: {
+        author: index < 4 ? 1_170_000 : 30_000,
+        export: 1000,
+        inspection: 3000,
+        other: 1000,
+        queue: 2000,
+        repair: 0,
+        retrieval: 5000,
+        review: 15_000,
+        startup: 3000,
+      },
+    },
     toolingHash: "c".repeat(64),
   }));
 
@@ -80,4 +99,51 @@ test("rejects partial or mixed-identity cohorts and keeps unknown native cost nu
   expect(result.observations.knownUsd).toBeNull();
   expect(result.forecast.providerCostUsd).toBeNull();
   expect(result.observations.costPerAcceptedPairUsd).toBeNull();
+});
+
+test("request telemetry counts each pair once and keeps unknown tokens explicit", () => {
+  const result = forecastCampaign({
+    cohort,
+    concurrency: 2,
+    observations: rows(),
+    target,
+  });
+  expect(result.observations).toMatchObject({
+    acceptedPairYield: 38 / 40,
+    diskBytes: 163_840,
+    nativeCalls: 120,
+    nativeInputTokens: null,
+    nativeOutputTokens: null,
+    observedConcurrency: [1],
+    retrieval: {
+      cold: { requests: 40, totalMs: 200_000 },
+      warm: { requests: 0, totalMs: 0 },
+    },
+    stageTotalsMs: { queue: 80_000, retrieval: 200_000 },
+    unknownTokenRequests: 40,
+  });
+  expect(result.forecast.actualSchedulingOverheadMeasured).toBe(false);
+});
+
+test("rejects missing, unreconciled and paint-inconsistent telemetry", () => {
+  const missing = rows();
+  Reflect.deleteProperty(missing[0], "telemetry");
+  expect(() =>
+    forecastCampaign({ cohort, concurrency: 1, observations: missing, target })
+  ).toThrow("complete request stage");
+  const timing = rows();
+  timing[0].telemetry.stageMs.review += 1;
+  expect(() =>
+    forecastCampaign({ cohort, concurrency: 1, observations: timing, target })
+  ).toThrow("does not reconcile");
+  const calls = rows();
+  calls[0].telemetry.nativeCalls += 1;
+  expect(() =>
+    forecastCampaign({ cohort, concurrency: 1, observations: calls, target })
+  ).toThrow("mismatched request telemetry");
+  const tokens = rows();
+  Reflect.set(tokens[0].telemetry, "nativeInputTokens", undefined);
+  expect(() =>
+    forecastCampaign({ cohort, concurrency: 1, observations: tokens, target })
+  ).toThrow("explicit null");
 });

@@ -121,6 +121,7 @@ export const rankParts = (
     return [];
   }
   return parts
+    .filter((part) => !part.sourceAssemblyOnly)
     .map((part) => {
       const direct = part.icons.filter(
         (icon) => overlap(tokens(icon), want) > 0

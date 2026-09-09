@@ -1,0 +1,59 @@
+{
+  "version": 23,
+  "qualified": false,
+  "htmlSha256": "87551f3f27dc48444d0f168b0844647cc85cd705ad070af63c3e47d0991f0f9e",
+  "previousIndex": "/Users/mblode/Code/mblode/iconsmith/docs/log/development-evidence-index-v22-2026-09-09.html",
+  "previousIndexSha256": "0ac66046a58e683c417af5137a88533f2addd7552ff191dcf8cb15ef3ebae02c",
+  "images": [
+    {
+      "label": "Family-head comparison 1: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-01.png",
+      "sha256": "52c0cfe460054123dc4d53d9e1c4383ec888129b984f971d0e36dbed91e3a176"
+    },
+    {
+      "label": "Family-head comparison 2: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-02.png",
+      "sha256": "7b81c0693898a551c1ebd9ce26c253e8c401dfba9ab546969c880f5b1311d8b4"
+    },
+    {
+      "label": "Family-head comparison 3: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-03.png",
+      "sha256": "8c0bc33633e78caa0273734abb8e3699ddbd4364fcea3261306c6072b53081fa"
+    },
+    {
+      "label": "Family-head comparison 4: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-04.png",
+      "sha256": "eb8b77f2fd58adb0678a97c1a891c874fb6e6219648cb4cf159b3221037dfae6"
+    },
+    {
+      "label": "Family-head comparison 5: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-05.png",
+      "sha256": "802c4ac6447f57b1f5dcab651ac71b9b61e338b157df263d17b488154d829ab3"
+    },
+    {
+      "label": "Family-head comparison 6: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-06.png",
+      "sha256": "6740dbcd6ddc5654d020548c781bf5229a256a6194ea7301984514f71b2e1ce0"
+    },
+    {
+      "label": "Family-head comparison 7: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-07.png",
+      "sha256": "d086b8e505958f53ad6e29a251b6e03a8cac05b3e9a03927f283179ff0356453"
+    },
+    {
+      "label": "Family-head comparison 8: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-08.png",
+      "sha256": "7dae6b8bd0a88f9afaa9b5f8190c002f7c14be423ed5d090aecb17d3989a020a"
+    },
+    {
+      "label": "Family-head comparison 9: exposed source24 investigation, independent review pending.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-co-family-head-comparisons-2026-09-09/boards/head-comparison-09.png",
+      "sha256": "b6c64ee6ce09acc07579a0179092d518acc8da360acae7fd178dc317491a0e59"
+    },
+    {
+      "label": "Exact API capability heart stimulus. Correct answer was returned, but D437 remains refused after required metadata lookup failed.",
+      "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-api-capability-live-2026-09-09/stimulus.png",
+      "sha256": "33d6a0629c47a3514de7b1ca29dcaa4095f7f143f1f9dd8f9cc583653d094c93"
+    }
+  ]
+}

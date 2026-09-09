@@ -99,12 +99,12 @@ const FP_DIM = 128;
 /** 48×48 greyscale. Set by `SIZE` in `tools/render.ts`. */
 const INK_DIM = 2304;
 
-export interface SidecarInfo {
+interface SidecarInfo {
   dim: number;
   rows: number;
 }
 
-export interface SourceReport {
+interface SourceReport {
   files: number;
   id: string;
   licence: string;
@@ -121,7 +121,7 @@ export interface SourceReport {
   version: string | null;
 }
 
-export interface Manifest {
+interface Manifest {
   builtAt: string;
   /** Sources named in the registry whose root is not on this machine. */
   missing: string[];
@@ -296,7 +296,7 @@ const readRows = async (
   );
 };
 
-export interface SourceMetadata {
+interface SourceMetadata {
   category?: string | null;
   cohort?: string | null;
   concepts?: string[];
@@ -799,7 +799,7 @@ export const buildCorpus = async ({
   return { manifest, ms: Math.round(performance.now() - started), out: dir };
 };
 
-export interface CheckIssue {
+interface CheckIssue {
   detail: string;
   kind:
     | "duplicate-concept"

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "id": "wave-j-folder-lock-live16-placement-repair-2026-09-08",
+  "status": "offline-constrained-placement-reproduction",
+  "qualified": false,
+  "providerCalls": 0,
+  "sourceEdits": 0,
+  "runtimeEdits": 0,
+  "compiler": "iconsmith-constrained-21",
+  "master": 16,
+  "baseline": {
+    "directory": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-h-folder-lock-live-2026-09-08/native16/result",
+    "status": "rejected-visible-defects",
+    "outlinedProgramSha256": "9333da793ddddad3bb600d3bfc5c2015a88d62d9c79c6a45f28989a999330022",
+    "filledProgramSha256": "2ad56ea0785020f27912da528837e17507c1063015220d17d324519232d2ac53"
+  },
+  "cause": "The live programs' overlapping cutters begin at x=7.75 and erase most of the right folder body; the repair bounds clearance to the lock footprint and retains the complete top shoulder.",
+  "sourceContourEvidence": [
+    {
+      "id": "folder-1-outlined-0",
+      "pathSha256": "3638d9f53c5cd08d3fb7ec73053edbdabd9f128caa5a699d666d49c484d26044"
+    },
+    {
+      "id": "lock-outlined-0",
+      "pathSha256": "4ba34454cc31c03fc88b3b3719b76c542be20126cf50385c6a2dd8ae80aa3d6f"
+    },
+    {
+      "id": "folder-1-filled-0",
+      "pathSha256": "d33c3c2ec6ca45af81f1dbb87779e50ab8aa5f30b139c3797107578e2a9665ce"
+    },
+    {
+      "id": "lock-filled-0",
+      "pathSha256": "1342e1d516df8158551a48c00c26eb7bb9d9462bb4b3454d000e6b68e6515e1c"
+    }
+  ],
+  "construction": {
+    "outlined": "source folder; one rounded lower-right trim beginning x=13.75; source lock at 14.75,11 size 10",
+    "filled": "source folder; one rounded lower-right hole beginning x=14; source lock at 15,11 size 10"
+  },
+  "objectiveResult": "The source shoulder and left body are retained at ordinary thresholds, exact replay holds, and filled lock holes survive thresholds 64 and 128. Threshold 192 remains uncertain and no visual qualification is claimed.",
+  "modelObservation": "Actual native light/dark images retain a recognizable folder tab, horizontal shoulder, left body, and projecting lock. Filled shackle separation remains soft at 16px.",
+  "limitations": [
+    "The declared shoulder and body regions are diagnostic bounds, not a calibrated recognition gate.",
+    "Hole counts are global and thresholds are uncalibrated; they do not identify a specific counter at threshold 192.",
+    "The cutter is a bounded rounded rectangle, not a purpose-redrawn folder contour.",
+    "No independent reviewer inspected this offline candidate."
+  ],
+  "firstTrial": {
+    "directory": "attempt-0",
+    "disposition": "rejected-offline-before-final-reproduction",
+    "reason": "Host paint remained visible through the lock shackle and the outlined shoulder crossed the shackle."
+  },
+  "secondTrial": {
+    "directory": "attempt-1",
+    "disposition": "rejected-offline-before-final-reproduction",
+    "reason": "A 12-unit lock still obscured enough host width that the native silhouette remained upright rather than horizontally folder-like."
+  },
+  "rootReview": {
+    "actualBoardInspected": true,
+    "observation": "The new candidate restores a horizontal folder shoulder and body compared with the failed live pair; the small lock remains a native optical risk.",
+    "independentAcceptance": false
+  },
+  "artifacts": [
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/README.md",
+      "sha256": "8c779b8023994588ce783fa9018256430b80289529eb3b5cc41e520021adcf07"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/artifact-hashes.json",
+      "sha256": "9e1668d4f56bf62aa7677265d91fc9a798b5bc3f43f4265e67c279566405d08b"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/baseline-filled.dark.png",
+      "sha256": "ff0478984ad76da4b67db4effd2cbe30df00dbed86186d08bcf498e98e421b1e"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/baseline-filled.light.png",
+      "sha256": "23f1d6753e60c56895acd734ca9fc244a02ce16e99b058e7a0c7485a7432441a"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/baseline-outlined.dark.png",
+      "sha256": "1a692b5b0ed755d480fe7d5d71e6ee57edeafd574ba2c42492c3c5e5159fb558"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/baseline-outlined.light.png",
+      "sha256": "532b9b6843b93872a75ecced6e5aabdca6084dd945b3c07212fe49d534b4dead"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/comparison-board.png",
+      "sha256": "2aa1b13c8c1bdd641050d67e401963f4d10d9aca7d7ef3df5700cc564a376538"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/filled.dark.png",
+      "sha256": "040bec7ee0062c36d8ba1ee3f33915c790990a7c599f41849d9bcb578cab23ac"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/filled.icon",
+      "sha256": "1eadc3b5113ffda3396128f80c3e4102d12ea58e8604809fffb8e19c488059c3"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/filled.light.png",
+      "sha256": "be6b52eb652357e489fb314523a03ea2842c81cbadcd57dd43ecb258978a584c"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/filled.svg",
+      "sha256": "47ab04d64f0616e07c83c7dbf34b927acaaebb6bf16b4a2c9dcff01217b5d42f"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/outlined.dark.png",
+      "sha256": "edbbbc89a7e0c44d3009d7ce8b35f4b47824ed0acac9c66579bfd3eafd2d7342"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/outlined.icon",
+      "sha256": "7885a25236463de5f7df1be3f7aa388505c8426b1e4fe9feec7feb5dc47af724"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/outlined.light.png",
+      "sha256": "6a33da07de58619081ad40c8c82aa9d5392c8250c305e94125555fa45e5e6ea5"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/outlined.svg",
+      "sha256": "a9f36033afc9db0bc4116f2b2398125862fe29303bfeabe87b814d599f6a8e80"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/receipt.json",
+      "sha256": "23bfa9d91f215d8d575cbba8b5323d951cf6ee2025679da9e541fdcfc449ef53"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/results.json",
+      "sha256": "33b95a2609e5000bc7258b28f2b3a6bf9a19492075f9b4b8c34f6bc1f03c7ca3"
+    },
+    {
+      "path": ".staging/wave-j-folder-lock-live16-placement-repair-2026-09-08/run.mts",
+      "sha256": "ce95d1e65947cc0b73df68430fe33d9be7867e3fdd0fd196841034a4d08dcf00"
+    }
+  ]
+}

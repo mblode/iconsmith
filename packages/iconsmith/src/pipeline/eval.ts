@@ -37,6 +37,7 @@ import path from "node:path";
 import type { LanguageModel } from "ai";
 
 import type { Usage } from "../corpus/record.js";
+import type { AcceptanceReport } from "../eval/acceptance-contract.js";
 import type { Calibration } from "../eval/calibration.js";
 import { loadCalibration } from "../eval/calibration.js";
 import type { GateResult } from "../eval/judge.js";
@@ -69,7 +70,7 @@ import type { Concept } from "./prompt.js";
 
 /** Median rendered cosine between two mature sets drawing the same concept. */
 export const BASELINE = 0.737;
-export const CEILING = 1;
+const CEILING = 1;
 /** Above this, disbelieve the run before believing the pipeline. */
 const SUSPICIOUS = 0.95;
 
@@ -176,7 +177,7 @@ export const median = (xs: number[]): number => {
 
 /** What is known about a held-out icon before its generation is attempted, and
  *  all that is still known if the attempt throws. */
-export interface IconTarget {
+interface IconTarget {
   category?: string;
   /** A random other icon against the target — this icon's share of the floor. */
   floor: number;
@@ -224,7 +225,7 @@ export interface IconMeasured extends IconTarget {
 
 /** A generation that threw. It carries no `score`, because there is none: a
  *  rate limit is not a drawing that scored 0. */
-export interface IconFailed extends IconTarget {
+interface IconFailed extends IconTarget {
   error: string;
   status: "error";
 }
@@ -246,7 +247,7 @@ export type IconScore = IconMeasured | IconFailed;
  *  through this; nothing else may. */
 export const scored = (s: IconScore): s is IconMeasured => s.status === "ok";
 
-export interface CostReport {
+interface CostReport {
   /** Sum over icons that reported one. */
   msTotal: number;
   msMedian: number;
@@ -352,6 +353,9 @@ const modelForEval = (
 };
 
 export interface EvalOptions {
+  /** A frozen section-3 acceptance envelope to validate and retain beside the
+   * legacy metric panel. Omission remains explicitly unqualified. */
+  acceptanceEvidence?: AcceptanceReport;
   /** The committed benchmark's entries. Required: there is no unseeded,
    *  uncommitted sampling path any more, because that is the thing that made
    *  two runs incomparable. */
@@ -430,7 +434,7 @@ export const assertNoFilledTwin = (icons: readonly EvalIcon[]): void => {
 /** Thrown when the benchmark and the icon set disagree. Loud, because a
  *  benchmark that silently shrinks when an icon is renamed is the failure this
  *  whole file exists to prevent. */
-export class BenchmarkMismatchError extends Error {
+class BenchmarkMismatchError extends Error {
   constructor(missing: string[]) {
     super(
       `The benchmark names ${missing.length} icon(s) the set does not contain: ` +
@@ -729,7 +733,8 @@ export const evaluate = async (options: EvalOptions): Promise<EvalReport> => {
             disqualified: scores.filter((s) => !s.clean).length,
             n: scores.filter((s) => s.clean).length,
           },
-          options.judgeGate ?? null
+          options.judgeGate ?? null,
+          options.acceptanceEvidence
         )
       : null,
     model: modelId,

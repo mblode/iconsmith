@@ -26,17 +26,7 @@ import {
   usesOpenRouter,
 } from "./openrouter.js";
 
-export {
-  DEFAULT_OPENROUTER_MAX_TOKENS,
-  DEFAULT_OPENROUTER_MODEL,
-  OPENROUTER_INKLING,
-  OPENROUTER_PREFIX,
-  OPENROUTER_URL,
-  createOpenRouterModel,
-  openrouterMaxTokens,
-  openrouterModelId,
-  usesOpenRouter,
-} from "./openrouter.js";
+export { OPENROUTER_INKLING } from "./openrouter.js";
 
 export const DEFAULT_MODEL = "anthropic/claude-opus-5";
 
@@ -47,7 +37,7 @@ export const CODEX_GATEWAY_URL = "https://ai-gateway.vercel.sh/codex/v1";
  *  appends `/v1/messages` itself. */
 export const CLAUDE_GATEWAY_URL = "https://ai-gateway.vercel.sh/claude-code";
 /** OpenAI-compatible surface, for CLIs that speak that wire protocol. */
-export const OPENAI_GATEWAY_URL = "https://ai-gateway.vercel.sh/v1";
+const OPENAI_GATEWAY_URL = "https://ai-gateway.vercel.sh/v1";
 
 /** Thrown, and only thrown, when the caller has given us no way to reach the
  *  chosen provider. The CLI prints `.message` and exits non-zero; there is

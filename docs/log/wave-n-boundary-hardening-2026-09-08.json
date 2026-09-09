@@ -1,0 +1,36 @@
+{
+  "schema": "iconsmith.wave-n.boundary-root-integration-prep.v1",
+  "qualified": false,
+  "providerCalls": 0,
+  "apiActualUsd": 0,
+  "apiReservationUsd": 0,
+  "implementationReceipt": {
+    "path": ".staging/wave-n-boundary-hardening-2026-09-08/native-boundary-hardening-v1.json",
+    "sha256": "b7115d7e5817788e4b02eb9cb41f062204739ed75584e5704b3f7b6dd1319864"
+  },
+  "validation": {
+    "focused": {
+      "command": "npm test -w iconsmith -- scripts/native-call-boundary.test.ts scripts/local-native-call-factory.test.ts scripts/local-container-process.test.ts scripts/local-container-runtime.test.ts scripts/local-review.test.ts scripts/local-codex-review.test.ts",
+      "tests": 87,
+      "files": 6,
+      "status": "passed"
+    },
+    "typecheck": {
+      "command": "npm run typecheck -w iconsmith",
+      "configs": [
+        "tsconfig.json",
+        "tsconfig.scripts.json"
+      ],
+      "status": "passed"
+    },
+    "lint": {
+      "command": "npm exec -w iconsmith -- ultracite check scripts/native-call-boundary.ts scripts/native-call-boundary.test.ts",
+      "status": "passed"
+    },
+    "diffCheck": "passed"
+  },
+  "sourceHashesVerified": true,
+  "limits": [
+    "Scoped engineering evidence only; integrated verification and live canonical resume remain pending."
+  ]
+}

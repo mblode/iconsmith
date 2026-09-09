@@ -1,0 +1,28 @@
+{
+  "exitCode": 0,
+  "stdout": "/usr/bin/timeout\n/usr/bin/dd\nregular-read=passed\nfifo-timeout=124\n",
+  "stderr": "",
+  "elapsedMs": 1380,
+  "containerAbsent": true,
+  "settlement": {
+    "inspectExit": 1,
+    "stdout": "[]\n",
+    "stderr": "error: no such object: iconsmith-offline-read-bl-48241c7b48\n"
+  },
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "id": "D347",
+  "kind": "pinned-image-offline-read-tool-probe",
+  "qualified": false,
+  "actualSameReviewerAccessVerified": false,
+  "artifacts": [
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/intent.json",
+      "sha256": "94f38e5946691cf198fb383f637e07d9c997115397c123499639fec3a63ab07f"
+    },
+    {
+      "file": ".staging/wave-bl-offline-read-probe-2026-09-08/receipt.json",
+      "sha256": "a02af80ca91ad6dc0dc4d65c0772622f15ad1a1d1646fbc29cafbe82ffbb4f33"
+    }
+  ]
+}

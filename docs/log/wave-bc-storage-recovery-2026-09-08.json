@@ -1,0 +1,14 @@
+{
+  "kind": "disposable-turbo-cache-cleanup",
+  "fileCount": 3654,
+  "logicalBytes": 18140243386,
+  "reason": "ENOSPC during verification log creation",
+  "preserved": [
+    ".staging",
+    "packages/iconsmith/corpus",
+    "docs/log"
+  ],
+  "nativeCallsCumulative": 63,
+  "providerDispatchDuringCleanup": false,
+  "freeBytesAfter": 18291527680
+}

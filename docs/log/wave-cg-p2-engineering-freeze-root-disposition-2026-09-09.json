@@ -1,0 +1,26 @@
+{
+  "id": "D427",
+  "scope": "Root disposition of P2 engineering-freeze audit and D425 postflight",
+  "audit": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-p2-engineering-freeze-audit-2026-09-09/receipt.json",
+    "sha256": "4a7d302b0b0bbae37614e0c6e17b460ebf46620b151611f68249522620c40110"
+  },
+  "rootCorrection": "The audit claim that P2.12 is fully evidenced is not adopted. Compiler24 full regression is stable, but independent native fidelity for 40 newly admitted compiler23 assembly alternatives remains incomplete, including 12 uncertain of 80 rows. P2.12 and P2 engineering freeze remain open.",
+  "blockers": [
+    "Versioned semantic construction rules and family dispositions",
+    "Calibrated local-feature gate in normal admission",
+    "Construction reproduction and board gaps",
+    "Strict review packet production wiring"
+  ],
+  "apiSourcePostflight": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-cg-api-capability-live-2026-09-09/source-postflight.json",
+    "sha256": "53b709631a95b1ac9cc41bd70504a897ad0915de1700bbae48f8ee90b5d5a1a7",
+    "sourceFiles": 637,
+    "productionFiles": 556,
+    "sourceDrift": [],
+    "productionExact": true
+  },
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "checklistsClosed": []
+}

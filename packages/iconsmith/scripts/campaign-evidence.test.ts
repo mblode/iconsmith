@@ -10,13 +10,128 @@ import {
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import sharp from "sharp";
 import { expect, test } from "vitest";
 
+import { png } from "../src/tools/render.js";
 import {
   collectCampaignEvidence,
   writeCampaignEvidence,
 } from "./campaign-evidence.js";
+
+const orderedJson = (value: unknown): string => {
+  if (Array.isArray(value)) {
+    return `[${value.map(orderedJson).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    return `{${Object.entries(value)
+      .toSorted(([left], [right]) => left.localeCompare(right))
+      .map(([key, entry]) => `${JSON.stringify(key)}:${orderedJson(entry)}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+};
+
+const sealedRefusal = (requestId = "refused") => {
+  const receipt = {
+    aiQualified: false,
+    artifacts: [],
+    outerRefusal: true,
+    requestId,
+    terminal: { qualityStatus: "outer-refusal", requestId, status: "refused" },
+  };
+  return {
+    ...receipt,
+    integrityHash: createHash("sha256")
+      .update(orderedJson(receipt))
+      .digest("hex"),
+  };
+};
+
+test.each([false, true])(
+  "outer refusal keeps both slots missing despite malformed child=%s",
+  async (hasChild) => {
+    const root = mkdtempSync(path.join(tmpdir(), "iconsmith-cross-refusal-"));
+    try {
+      const destination = path.join(root, "request");
+      mkdirSync(destination);
+      mkdirSync(path.join(root, "receipts"));
+      if (hasChild) {
+        writeFileSync(
+          path.join(destination, "request.json"),
+          "invalid child JSON"
+        );
+      }
+      writeFileSync(
+        path.join(root, "receipts", "refused.json"),
+        JSON.stringify(sealedRefusal())
+      );
+      const requests = [
+        {
+          concept: "cloud-upload",
+          destination,
+          family: "cloud",
+          master: 16,
+          requestId: "refused",
+        },
+      ];
+      const collected = collectCampaignEvidence(
+        requests,
+        path.join(root, "receipts")
+      );
+      expect(collected.evidence).toEqual([]);
+      expect(collected.missing).toEqual(
+        ["outlined", "filled"].map((finish) => ({
+          concept: "cloud-upload",
+          finish,
+          nativeSize: 16,
+          reason: "outer-refusal",
+          requestId: "refused",
+        }))
+      );
+      const first = await writeCampaignEvidence(root, requests);
+      expect(first.index).toMatchObject({
+        aiQualified: false,
+        entries: [],
+        requestedSlots: 2,
+      });
+      expect(await writeCampaignEvidence(root, requests)).toEqual(first);
+    } finally {
+      rmSync(root, { force: true, recursive: true });
+    }
+  }
+);
+
+test.each(["tampered", "copied"])(
+  "rejects %s outer refusal before cross-master export",
+  (kind) => {
+    const root = mkdtempSync(
+      path.join(tmpdir(), "iconsmith-cross-refusal-invalid-")
+    );
+    try {
+      const receipt = sealedRefusal(kind === "copied" ? "other" : "refused");
+      if (kind === "tampered") {
+        receipt.aiQualified = true;
+      }
+      writeFileSync(path.join(root, "refused.json"), JSON.stringify(receipt));
+      expect(() =>
+        collectCampaignEvidence(
+          [
+            {
+              concept: "cloud-upload",
+              destination: path.join(root, "absent"),
+              family: "cloud",
+              master: 16,
+              requestId: "refused",
+            },
+          ],
+          root
+        )
+      ).toThrow("outer refusal identity");
+    } finally {
+      rmSync(root, { force: true, recursive: true });
+    }
+  }
+);
 
 test("retains missing slots and writes resumable byte-bound cross-master evidence", async () => {
   const root = mkdtempSync(path.join(tmpdir(), "iconsmith-cross-campaign-"));
@@ -43,7 +158,7 @@ test("retains missing slots and writes resumable byte-bound cross-master evidenc
     );
     const svg =
       '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect x="2" y="2" width="12" height="12" rx="2"/></svg>';
-    const native = await sharp(Buffer.from(svg)).png().toBuffer();
+    const native = await png(svg, 16);
     for (const finish of ["outlined", "filled"]) {
       writeFileSync(path.join(attempt, `${finish}.svg`), svg);
       writeFileSync(path.join(attempt, `${finish}.native.png`), native);

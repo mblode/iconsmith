@@ -1,0 +1,26 @@
+{
+  "id": "D429",
+  "scope": "Bounded offline folder-lock16 shackle optical probe",
+  "receipt": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-counter-optics-2026-09-09/receipt.json",
+    "sha256": "0ed5228aecad0060ef83f779d9c39e1881711d16b1bdb7ab889db55c87ecfe1b"
+  },
+  "artifactManifest": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-counter-optics-2026-09-09/artifact-hashes.json",
+    "sha256": "1be9c01f02b9c4d5f5a073dd610efef98fba8028d80f7bf383b07451818d4aa8",
+    "count": 24
+  },
+  "boardViewedByRoot": {
+    "path": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-ch-folder-counter-optics-2026-09-09/board.png",
+    "sha256": "7fea43c64f6c1deea40c73309ab962fcea25152181f71e01d160ff8075ada25a"
+  },
+  "observations": [
+    "Moving the filled lock body top down0.5 or1 existing DSL unit while retaining its bottom makes the two sampled shackle pixels clear at all three diagnostic thresholds; selected candidate has zero clear pixels at64.",
+    "Root sees a more distinct opening in both variants. Whole-composition topology still varies across thresholds; no calibrated tolerance, independent reviewer acceptance, outer-contour invariance or24px regression gate is claimed.",
+    "Three predeclared variants only. Original selected program unchanged and retained; no production adoption or repair success count."
+  ],
+  "providerCalls": 0,
+  "apiIncrementUsd": 0,
+  "compilerChanged": false,
+  "qualified": false
+}

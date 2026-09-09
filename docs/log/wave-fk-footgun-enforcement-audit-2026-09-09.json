@@ -1,0 +1,273 @@
+{
+  "id": "D504",
+  "kind": "footgun-enforcement-audit",
+  "scope": "All original F01-F49; new findings F50-F53 appended separately",
+  "source": "evaluation owner read-only audit plus root source integration",
+  "rows": [
+    {
+      "id": "F01",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F02",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F03",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F04",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F05",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F06",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F07",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F08",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F09",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F10",
+      "status": "fix-in-progress",
+      "boundary": "D503: required corpus predicates in verification runner; fail-closed2GiB disk observation before native dispatch."
+    },
+    {
+      "id": "F11",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F12",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F13",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F14",
+      "status": "enforced-with-evidence-boundary",
+      "boundary": "Source guards coexist with required live observations or qualification evidence."
+    },
+    {
+      "id": "F15",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F16",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F17",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F18",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F19",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F20",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F21",
+      "status": "fix-in-progress",
+      "boundary": "D503: required corpus predicates in verification runner; fail-closed2GiB disk observation before native dispatch."
+    },
+    {
+      "id": "F22",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F23",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F24",
+      "status": "enforced-with-evidence-boundary",
+      "boundary": "Source guards coexist with required live observations or qualification evidence."
+    },
+    {
+      "id": "F25",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F26",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F27",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F28",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F29",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F30",
+      "status": "enforced-with-evidence-boundary",
+      "boundary": "Source guards coexist with required live observations or qualification evidence."
+    },
+    {
+      "id": "F31",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F32",
+      "status": "enforced-with-evidence-boundary",
+      "boundary": "Source guards coexist with required live observations or qualification evidence."
+    },
+    {
+      "id": "F33",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F34",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F35",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F36",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F37",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F38",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F39",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F40",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F41",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F42",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F43",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F44",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F45",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F46",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F47",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    },
+    {
+      "id": "F48",
+      "status": "enforced",
+      "boundary": "Existing source and regression tests; mechanism enforcement does not qualify visual output."
+    },
+    {
+      "id": "F49",
+      "status": "operator-or-evidence",
+      "boundary": "Current plan/footgun protocol; live evidence or operator judgment is required, not a source-only completion."
+    }
+  ],
+  "mechanismEvidence": {
+    "F10": "scripts/verify.mjs (pending)",
+    "F11,F12,F14,F22": "packages/iconsmith/scripts/check-foundry-config.ts and mutation/revert test",
+    "F16": "packages/iconsmith/scripts/local-claude-author.test.ts",
+    "F17,F23,F25,F26,F39": "packages/iconsmith/scripts/local-campaign.test.ts; packages/iconsmith/src/eval/acceptance-contract.test.ts",
+    "F21": "packages/iconsmith/scripts/native-call-boundary.ts (pending)",
+    "F24": "docs/log/wave-fi-semantic-trace-replay-result-2026-09-09.json",
+    "F27,F28,F29": "native-call-boundary, local-container-runtime and local-style-run tests",
+    "F36,F48": "packages/iconsmith/scripts/raster-proposal-feasibility.test.ts",
+    "F37,F38,F40": "foundry-gate, ai-qualification and acceptance-contract tests",
+    "F42": "packages/iconsmith/scripts/api-image-capability.test.ts"
+  },
+  "notClaimed": [
+    "all historical failures prevented universally",
+    "production authority",
+    "visual qualification",
+    "canonical raster integration",
+    "provider latency improvement"
+  ],
+  "providerCalls": 0
+}

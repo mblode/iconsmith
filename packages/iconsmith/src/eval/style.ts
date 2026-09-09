@@ -37,7 +37,7 @@ import { dot } from "./vectors.js";
 /** Neighbours the median is taken over. 10 is enough that one unusual near-twin
  *  cannot carry the score and small enough that the neighbourhood is still a
  *  neighbourhood rather than the set. */
-export const K = 10;
+const K = 10;
 
 export interface StyleOptions {
   /** Record ids that may not be neighbours: the concept closure. Without this

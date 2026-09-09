@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 3,
+  "status": "diagnostic-only",
+  "providerCalls": 0,
+  "supersedes": {
+    "receiptV1Sha256": "dd3e3476584eda2a964380218642de07ef99deba9f91d0c7d6b5d5e9facf78ed",
+    "receiptV2Sha256": "5ad382af0bb96846b423a7af0e1bb7765b7472fe62e26518af97c59aded45900",
+    "receiptV2Failure": "The manually transcribed sourceHash did not match the admission result artifact. Receipt v2 is preserved and ineligible."
+  },
+  "classification": {
+    "familyCount": 1587,
+    "unresolvedCount": 1190,
+    "coverageHash": "6892d47357deee1c7f5b0043b190a2fa8f8892bd261951136ab7ade8b4c467fd",
+    "artifact": "construction-coverage-v3.json",
+    "artifactSha256": "4fa2626f38ca23adb5e5e20d4daa3545e4a28090a9a3004cfa2f762c516c24de",
+    "implementationSha256": "4a3153974b3e2e5b3360fc15130a6e66b7e32f97eccb79ea460a3a10a293390c",
+    "inputMeaning": "The same 1,587 canonical catalog rows and catalog concept aliases used by construction coverage v2.",
+    "comparison": "The 1,243 historical count predated expanded catalog alias routing. The provisional 1,212 count mixed source morphology tags with catalog routing and is superseded. The reconciled 1,190 count exactly matches metadata routing v2; none is visual classification approval."
+  },
+  "nativeTopology": {
+    "implementationSha256": "cf6f63ec5145edddd9c606171e9e18ca9bbb352ebeafb3ed170257a17c4ac7d4",
+    "thresholds": [
+      64,
+      128,
+      192
+    ],
+    "selectedPolicy": "report-only",
+    "p2_4a": "open"
+  },
+  "fullAdmissionComparison": {
+    "compiler": "iconsmith-constrained-21",
+    "sourceHash": "7762b7f435433b3c5ad89ae935b7d7d36982ef5a4499b8432680712d83cda520",
+    "population": 4357,
+    "uncalibratedMandatoryExperiment": {
+      "admitted": 3420,
+      "refused": 937,
+      "transitions": 501,
+      "artifactSha256": "90f47ccdf62ba1325675446f296bec5e8cea715e949a7d108295ffa4d42665fe",
+      "disposition": "Rejected as an admission policy. Its 501 prior-admitted refusals are unresolved calibration cases, not confirmed source defects."
+    },
+    "diagnosticOnlyResult": {
+      "admitted": 3921,
+      "refused": 436,
+      "transitions": 0,
+      "artifactSha256": "f50a2db0924797d3fb2e4a76418423aaacecb5299c04918d0a06aaf4ef22fb5a"
+    }
+  },
+  "sourceInspection": {
+    "boardSha256": "c94b32584ddbc8a8b0f90aa016e7d4a6de8c3eea8ff33aa47484e9f7d52b0ae1",
+    "manifestSha256": "d91db18e65bfbb8f2b233a6bba63766266514e8200882017d289819cd9e3e150",
+    "manifestBoardSha256": "c94b32584ddbc8a8b0f90aa016e7d4a6de8c3eea8ff33aa47484e9f7d52b0ae1",
+    "proofCount": 28,
+    "boundary": "Source-only rendering and threshold diagnostics; no generation, visual qualification, or eight-class completion."
+  },
+  "verification": [
+    "3 scoped files passed; 11 tests passed",
+    "iconsmith typecheck passed",
+    "scoped ultracite passed",
+    "layering boundaries passed",
+    "scoped git diff check passed"
+  ],
+  "openGaps": [
+    "1,190 rows remain metadata-unresolved and require source/image classification with independent AI review.",
+    "The 501 threshold-sensitive prior admissions require calibrated local-feature truth before any mandatory topology gate.",
+    "No eight-class board or visual qualification is claimed."
+  ]
+}

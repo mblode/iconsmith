@@ -1,0 +1,141 @@
+{
+  "candidate": "Boolean union of admitted folder and lock, followed by two semantic rect holes for the shackle and key slot",
+  "compiler": "iconsmith-constrained-21",
+  "input": {
+    "baselineDirectory": ".staging/wave-b-geometry-2026-09-08"
+  },
+  "outputs": [
+    {
+      "applicationHash": "a8bef475cf34a89d9c8e9e6952cfe01efbd7b7b67ae04a28db4f58d575ac3419",
+      "baseline": [
+        {
+          "file": "baseline/folder-lock-filled-16.icon",
+          "sha256": "3d3ffc0d615cd6d02ed81385f4a3e1c02b141a7d6d6224a14409eaff41ef0002"
+        },
+        {
+          "file": "baseline/folder-lock-filled-16.svg",
+          "sha256": "f6dd0f07651c78b21fb72fc0108808865ab6621a2e0bc7b82abacc5dda91badb"
+        },
+        {
+          "file": "baseline/folder-lock-filled-16.light.png",
+          "sha256": "e53c025dcce9305c753a65066a7846a3be8b6638c130783bf45c5a05870b67a6"
+        },
+        {
+          "file": "baseline/folder-lock-filled-16.dark.png",
+          "sha256": "549eaba87400b7f96d78253cb9ca6bf15cd8b01ac8fd50fdd374b51923d85205"
+        }
+      ],
+      "compiler": "iconsmith-constrained-21",
+      "exactReplay": true,
+      "guard": {
+        "after": {
+          "background": 5,
+          "region": {
+            "x0": 10,
+            "x1": 13,
+            "y0": 8,
+            "y1": 13
+          }
+        },
+        "before": {
+          "background": 0,
+          "region": {
+            "x0": 10,
+            "x1": 13,
+            "y0": 8,
+            "y1": 13
+          }
+        },
+        "name": "modifierCounterBackgroundPixelsInExpectedRegion",
+        "passed": true
+      },
+      "iconSha256": "3c5adc80f19f86f9ac38bcb27fed83e4e7f07b738af90540d2871b5b26f95507",
+      "master": "16",
+      "native": [
+        {
+          "file": "folder-lock-filled-16.light.png",
+          "sha256": "4aad789de4e14a0aa10e6803c23040df6c177460410eabe527ae5a89e045e5d2",
+          "surface": "light"
+        },
+        {
+          "file": "folder-lock-filled-16.dark.png",
+          "sha256": "517520578460b39049210af19011278c862015d52900ce51a70cd9e9ca45674e",
+          "surface": "dark"
+        }
+      ],
+      "packetHash": "7b78448465a114d2a62f3ed63d80aa89ec8472b6315c29a5ea0381e741891e30",
+      "styleHash": "d00f0c65df294ac779fbf25a40db13998fdf388d0633a65b77c71a0776e1e76e",
+      "svgSha256": "ef9c7c4d57a826a565ae0592eecb80eb76be2a293ae1107bb34263f69957b20c"
+    },
+    {
+      "applicationHash": "73efc08d9ea05dc1682945db22ccd24c97d4e7837ef56559a5de45e7e3f403d9",
+      "baseline": [
+        {
+          "file": "baseline/folder-lock-filled-24.icon",
+          "sha256": "3d3ffc0d615cd6d02ed81385f4a3e1c02b141a7d6d6224a14409eaff41ef0002"
+        },
+        {
+          "file": "baseline/folder-lock-filled-24.svg",
+          "sha256": "f6dd0f07651c78b21fb72fc0108808865ab6621a2e0bc7b82abacc5dda91badb"
+        },
+        {
+          "file": "baseline/folder-lock-filled-24.light.png",
+          "sha256": "e6de9ab8317537d2a2b2ece2b0eaa854da522f19a4ae778e5df8d1c3c4be6e3b"
+        },
+        {
+          "file": "baseline/folder-lock-filled-24.dark.png",
+          "sha256": "8320b28b941f782d660bf8083811cdf68ee55b3bfba2fd0ca41dcad52cf2a01c"
+        }
+      ],
+      "compiler": "iconsmith-constrained-21",
+      "exactReplay": true,
+      "guard": {
+        "after": {
+          "background": 11,
+          "region": {
+            "x0": 15,
+            "x1": 20,
+            "y0": 12,
+            "y1": 19
+          }
+        },
+        "before": {
+          "background": 0,
+          "region": {
+            "x0": 15,
+            "x1": 20,
+            "y0": 12,
+            "y1": 19
+          }
+        },
+        "name": "modifierCounterBackgroundPixelsInExpectedRegion",
+        "passed": true
+      },
+      "iconSha256": "3c5adc80f19f86f9ac38bcb27fed83e4e7f07b738af90540d2871b5b26f95507",
+      "master": "24",
+      "native": [
+        {
+          "file": "folder-lock-filled-24.light.png",
+          "sha256": "a0323c84ec674259fa6c658824959c858a1ffcadccc91a144a36fd109634046d",
+          "surface": "light"
+        },
+        {
+          "file": "folder-lock-filled-24.dark.png",
+          "sha256": "ed8b20af56c8afc97c745ec15061d018f208d60c3f17a661d386ee6ba96b2de1",
+          "surface": "dark"
+        }
+      ],
+      "packetHash": "7b78448465a114d2a62f3ed63d80aa89ec8472b6315c29a5ea0381e741891e30",
+      "styleHash": "4325c0099100e738d5460e93e6f8673e1b8166ecbb0c11e37d3b45d334a3cdf8",
+      "svgSha256": "ef9c7c4d57a826a565ae0592eecb80eb76be2a293ae1107bb34263f69957b20c"
+    }
+  ],
+  "packet": {
+    "file": "family-packet.json",
+    "packetHash": "7b78448465a114d2a62f3ed63d80aa89ec8472b6315c29a5ea0381e741891e30",
+    "sha256": "840ab670ff55d7750985a27c65cbf4485ae50309a296f2af0745027d1c94fa5c"
+  },
+  "qualification": "development-only candidate; named pixel guard and exact replay do not close visual review",
+  "version": 1,
+  "receiptSha256": "eb819391295386b53814a9276337fd40c85ec90fce4822e66b35374637e32cf8"
+}

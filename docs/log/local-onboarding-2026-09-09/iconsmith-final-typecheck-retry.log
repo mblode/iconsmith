@@ -1,0 +1,20 @@
+
+> typecheck
+> turbo typecheck
+
+• turbo 2.10.11
+
+   • Packages in scope: iconsmith
+   • Running typecheck in 1 packages
+   • Remote caching disabled
+
+iconsmith:typecheck: cache miss, executing 470513d355366370
+iconsmith:typecheck: 
+iconsmith:typecheck: > typecheck
+iconsmith:typecheck: > tsc --noEmit && tsc -p tsconfig.scripts.json
+iconsmith:typecheck: 
+
+ Tasks:    1 successful, 1 total
+Cached:    0 cached, 1 total
+  Time:    2.026s 
+

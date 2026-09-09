@@ -138,7 +138,7 @@
       "gap": "tight",
       "provenance": "measured",
       "evidence": "65.9% of design anchors land on 0.25, 63.3% on 0.5 (SPEC.grid).",
-      "text": "- **Grid** every coordinate lands on a {{grid}} step. You do not round\n  anything yourself; the primitives quantise for you."
+      "text": "- **Grid** use {{grid}} steps for model placement. Preserve host curves, Boolean intersections and stroke envelopes; never grid-snap their handles."
     },
     {
       "id": "house.keylines",
@@ -398,7 +398,7 @@
       "enabled": true,
       "gap": "tight",
       "provenance": "inferred",
-      "text": "3. `render` and **look at the image**. You are the only check on whether it\n   reads as the thing. Ask: at 16px, what is this? If the answer is \"a blob\" or\n   \"some other icon\", change the drawing, not the size."
+      "text": "3. `render` and **look at the image**. Record your own inspection; independent AI review determines acceptance. Ask: at 16px, what is this? If the answer is \"a blob\" or\n   \"some other icon\", change the drawing, not the size."
     },
     {
       "id": "work.compare",

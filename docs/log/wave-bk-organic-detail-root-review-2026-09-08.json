@@ -1,0 +1,30 @@
+{
+  "id": "D345",
+  "status": "development-source-review",
+  "artifactsVerified": 248,
+  "concepts": 31,
+  "slots": 124,
+  "sourcePresentSlots": 120,
+  "missingSourceSlots": 4,
+  "proposalSha256": "433ed0f4ec29db653cae90ce666c2596dd977b239e596053e9549439377e5806",
+  "rootBoardsInspected": [
+    "organic-and-container",
+    "sparkles-and-stars",
+    "dots"
+  ],
+  "observations": [
+    "Heart variants have distinct contours; no alias equivalence established.",
+    "Eye-closed is a lid/lash construction; eye-open has a central opening, and eye-sparkle a four-point center. Crossed eye states retain distinct line constructions.",
+    "Credit-card-add and credit-card-nfc show external plus/wave modifiers; neither supplies a check concept.",
+    "Sparkle-2 outlined is intentionally solid; paint names alone do not establish mechanical outline expansion.",
+    "Star-half is a partial contour; star-lines has three detached trails.",
+    "Dot orientations and repeated counts are preserved. Byte equality for one outlined source cannot supply its missing filled counterpart."
+  ],
+  "presentationBoundary": "Organic/container board was slightly resized by viewing tool; root semantic observations do not qualify native legibility/craft.",
+  "derivatives": "unresolved",
+  "aliases": "unresolved",
+  "qualification": false,
+  "providerCalls": 0,
+  "apiActualIncrementUsd": 0,
+  "nativeCallsCumulative": 79
+}

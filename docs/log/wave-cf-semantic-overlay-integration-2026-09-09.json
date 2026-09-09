@@ -1,0 +1,51 @@
+{
+  "experimentId": "D422",
+  "kind": "root-verified-development-semantic-overlay",
+  "qualified": false,
+  "sourceReceipt": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/receipt-v2.json",
+  "sourceReceiptSha256": "1a1815d1a65320542c70dbc06aa47f5b31e4200a4c77b5a0b02850a466456f8c",
+  "rootVerifiedArtifacts": 17,
+  "rootAdjudication": {
+    "path": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/root-adjudication.json",
+    "sha256": "28bb9d253c8dfd6005cd2a2fbc87efd57c21dc60c2a3a767c307e374975e961b",
+    "mappingCanonicalSha256": "74f00e19cc1189d15f941a19ecf1aa9613a89613d5cf51319b803b592cff3b6d",
+    "approvedScope": "CC+CE 60-concept/36-family family-and-head development mapping only"
+  },
+  "result": {
+    "envelope": {
+      "path": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/review-envelope.json",
+      "sha256": "00cf02f4c47176123f6b9ddbd81133c4ecb0213999daff42de78885356fa62c1"
+    },
+    "overlay": {
+      "path": ".staging/wave-cf-semantic-overlay-integration-2026-09-09/overlay.json",
+      "sha256": "5ba3cbc819e36b8560a69b2aa25f37c90673c6aeda1522a2c7e16f3d5627c481",
+      "semanticHash": "96accbb385f1e7ea09fcec5d7512bb1d7dd527ab15b842ba207f8b63dd1d75de"
+    },
+    "summary": {
+      "reviewedConcepts": 167,
+      "reviewedSlots": 668,
+      "reviewedSlotsWithMissingSource": 10,
+      "untouchedConcepts": 2054,
+      "untouchedSlots": 8216
+    }
+  },
+  "denominators": {
+    "catalogConcepts": 2221,
+    "inventorySourceFiles": 4357,
+    "requestSlots": 8884,
+    "retainedReviewedConcepts": 107,
+    "addedReviewedConcepts": 60,
+    "addedRequestSlots": 240,
+    "addedMissingSourceSlots": 2
+  },
+  "unknowns": {
+    "aliases": "all 60 unresolved-unknown-aliases",
+    "derivatives": "all 60 unresolved",
+    "ampMeaning": "unknown",
+    "recognitionKeys": "not approved",
+    "animationMorphology": "distinct morphology retained inside approved semantic family"
+  },
+  "apiSpendUsd": 0,
+  "nativeCalls": 0,
+  "phaseExit": false
+}

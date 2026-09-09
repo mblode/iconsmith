@@ -1,0 +1,60 @@
+{
+  "id": "D343",
+  "task": "P1.1a",
+  "status": "verified",
+  "implementation": {
+    "ownedOuter": "runLocalCampaign executes the canonical launch descriptor with runOwnedProcess and a timeout bounded by the original deadline minus parent settlement reserve.",
+    "originalClock": "readParentRequestClock rejects absent or inconsistent parent values; cold startup is charged to issuedAt.",
+    "settlement": "Unsettled outer output remains ineligible; parent writes refusal and prevents further dispatch/resume.",
+    "receiptPolicy": "Missing/malformed/late child output is preserved as an outer refusal; copied launch/terminal identities are rejected."
+  },
+  "verification": {
+    "integratedReceipt": "docs/log/wave-bg-integrated-verification-2026-09-08.json",
+    "currentCampaignTests": "docs/log/wave-bj-reliability-replay-engineering-2026-09-08.json",
+    "liveOriginalDeadlineReceipt": "docs/log/wave-bf-folder-lock-results-2026-09-08.json",
+    "tests": [
+      "charges cold startup to the parent-issued request clock",
+      "records a missing child terminal as an identity-bound outer refusal",
+      "resumes a malformed native child only after all calls settled",
+      "quarantines delivery completed after the parent deadline",
+      "late incomplete child output becomes an outer deadline refusal",
+      "awaits owned generator settlement and records the parent deadline cap",
+      "unsettled outer generator forbids artifact hashing, further dispatch and resume",
+      "refuses before spawn when only the parent settlement reserve remains"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.ts",
+      "sha256": "ca796b0e058065e4a96293e55e5802f9ae747d5d9118b4c02a41e0f5e8d0f97d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "sha256": "d2051e86aebc70a5966d580a6248f4333a3745e4c1011a70a31837006aa7967c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-generate.ts",
+      "sha256": "d06cb1dac594d0d277ebba36f1a3846312e6e5e56891900108f1e0b3cacefc9e"
+    },
+    {
+      "path": "packages/iconsmith/scripts/review-budget.ts",
+      "sha256": "65d66e0caa84414555d7412ef888dea3c8ec813112e3bd20ebd59c62c9acaa34"
+    },
+    {
+      "path": "packages/iconsmith/scripts/review-budget.test.ts",
+      "sha256": "e1b09785ed915a09f3515d2baefda6135972c9c3db90d3b1f7f6d50d0aefc7a5"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-process.ts",
+      "sha256": "691e725be2564bf75dc8d8891bcf1acce6eb8f128212eefb7419aa554b4d1b8f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-process.test.ts",
+      "sha256": "12711496b710096fb937c179c49d2031d90290cfc091b003034b506d5730243a"
+    }
+  ],
+  "boundary": "Engineering/lifecycle task only; does not establish visual quality, critic qualification or population delivery95%.",
+  "providerCalls": 0,
+  "nativeCallsCumulative": 79,
+  "apiActualIncrementUsd": 0
+}
