@@ -8,11 +8,7 @@
     "testsPassed": 2335,
     "testsSkipped": 33,
     "skips": "Expected unavailable private and sibling datasets",
-    "jobs": [
-      "build",
-      "agent-sandbox",
-      "secrets"
-    ],
+    "jobs": ["build", "agent-sandbox", "secrets"],
     "publicSmoke": "relocated empty-auth clone; exact packet checker command, references, replay and proof"
   },
   "sandbox": {
