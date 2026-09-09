@@ -72,7 +72,7 @@ export const gatewayToken = (apiKey?: string): string | undefined =>
   present(process.env.VERCEL_OIDC_TOKEN);
 
 /** The OpenRouter bearer token, or undefined. */
-export const openrouterToken = (apiKey?: string): string | undefined =>
+const openrouterToken = (apiKey?: string): string | undefined =>
   present(apiKey) ?? present(process.env.OPENROUTER_API_KEY);
 
 /** A gateway model id. Bare ids are Anthropic house models; anything already

@@ -1492,7 +1492,7 @@ const apiCollectorAssemblyFixture = () => {
     qualificationId: "qualification-1",
     reservedMaxUsd: 1,
     runId: "api-run-1",
-    sessionId: "session-1",
+    sessionId: "12345678-1234-4234-8234-123456789abc",
     stageDeadlineAt: 200_000,
     startedAt: 100_000,
     stopFile: path.join(root, "STOP"),
@@ -1507,6 +1507,9 @@ it.each([
   "clock",
   "injection",
   "copied-journal",
+  "session-label",
+  "session-version",
+  "session-case",
 ])(
   "refuses API collector assembly %s drift before provider dispatch",
   async (fault) => {
@@ -1534,6 +1537,15 @@ it.each([
       }
       if (fault === "copied-journal") {
         writeFileSync(options.journalFile, "{}");
+      }
+      if (fault === "session-label") {
+        options.sessionId = "session-1";
+      }
+      if (fault === "session-version") {
+        options.sessionId = "12345678-1234-7234-8234-123456789abc";
+      }
+      if (fault === "session-case") {
+        options.sessionId = "12345678-1234-4234-8234-123456789ABC";
       }
       await expect(
         runContainedApiCollectorStage(options, () => null)

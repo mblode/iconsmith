@@ -52,10 +52,6 @@ const ANCHOR_AXES: readonly (readonly string[])[] = [
 const ANCHORS = 4;
 const CONCEPT = 6;
 const SIBLINGS = 4;
-/** The whole sheet. Fourteen is what fits in one image-model call without the
- *  references crowding out the instruction. */
-export const SLOTS = ANCHORS + CONCEPT + SIBLINGS;
-
 export interface ReferenceOptions {
   /** The icon being proposed, for the nearest and sibling slots. */
   concept: string;

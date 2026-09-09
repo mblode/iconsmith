@@ -1,0 +1,15 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/clock-check/check-Qe4g0s",
+  "style": "4322b089fb89b217c14819dbce716c05b5042bf269ef44bf493f058dd7787a13"
+}

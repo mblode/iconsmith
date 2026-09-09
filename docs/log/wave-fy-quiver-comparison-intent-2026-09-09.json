@@ -1,0 +1,148 @@
+{
+  "id": "D527",
+  "kind": "quiver-standalone-svg-development-intent",
+  "createdAt": "2026-09-09T03:59:52.378Z",
+  "originalDeadlineAt": 1788929025980,
+  "model": "arrow-1.1",
+  "endpoint": "https://api.quiver.ai/v1/svgs/generations",
+  "slots": [
+    {
+      "id": "blode-icons-filled-bell24",
+      "house": "blode-icons",
+      "paint": "filled",
+      "concept": "bell",
+      "authoredSize": 24,
+      "inspectionSizes": [
+        16,
+        24
+      ],
+      "requestSha256": "9bbf92f592dd28d40786052bd62fad549a3a7c8267dc61bfc03e2898bbb68293",
+      "references": [
+        {
+          "name": "heart",
+          "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/heart-filled.svg",
+          "sourceSha256": "c1fde25ec8edf3ca35be6ed7d0e93677641cf6d0eb7388bbba5de8ac70f2638e",
+          "inputSha256": "bbf7f25ef111560e5bd00dd68299e63a17641c701f11983a28de828310c63f48"
+        },
+        {
+          "name": "cloud",
+          "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/cloud-filled.svg",
+          "sourceSha256": "703304c7a48a2796e5997a047272af64b2777c1a62320b065a0f2737016642a7",
+          "inputSha256": "065af00a4ae270d5d01c7c8e4753473c99ae1f846ec25b079a23af203c03a4f0"
+        },
+        {
+          "name": "lock",
+          "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/lock-filled.svg",
+          "sourceSha256": "5fad76d8ada04c3116d21b1818df4c0c60b85c44ff5ffe0cd2249635074f76cf",
+          "inputSha256": "bb07a3db2dc2268c64a727e75e3c0cbc74df3023b24d233e372a5510492a65c3"
+        },
+        {
+          "name": "camera-1",
+          "sourceFile": "/Users/mblode/Code/mblode/blode-icons/packages/blode-icons-react/icons-svg/camera-1-filled.svg",
+          "sourceSha256": "a2a96fa9a2c4b4af3c1700d7cdcde9d7b7961c3fdfece41d01f74caed4b7e4fc",
+          "inputSha256": "9d0e53f5e2c417af28710170c7dd0264af871d3dec3a9090913bb1c3ce7c8d22"
+        }
+      ],
+      "reservedCredits": 20,
+      "reservedUsd": 0.2
+    },
+    {
+      "id": "central-outlined-bell24",
+      "house": "central",
+      "paint": "outlined",
+      "concept": "bell",
+      "authoredSize": 24,
+      "inspectionSizes": [
+        16,
+        24
+      ],
+      "requestSha256": "5f9e625ecc35089c37cd29342de6576ed585128292f2ba912ec25acd7140a6c9",
+      "references": [
+        {
+          "name": "heart",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/heart.svg",
+          "sourceSha256": "d7eeb5de969fa83716e5bd1bebda580d5a6f3fd7783379b8363c704e3e05c0fd",
+          "inputSha256": "f9b93d49d2d7388c7bea59bb8196930cb26b678c5fb4dae356a2d10ad4a1924c"
+        },
+        {
+          "name": "cloud",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/cloud.svg",
+          "sourceSha256": "fa27ee6b9b674db377d4f224ab97bd1b760a4834f2b530d76144596d5b530f27",
+          "inputSha256": "e8c4af73bfdd2d2371c1d3293df98d73035238f3cb2d079354bea7a2092eef52"
+        },
+        {
+          "name": "lock",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/lock.svg",
+          "sourceSha256": "71ebadf901225b8c7cf13f4d1ced2c1378c4b647d73843e7a4f8f055ede8b582",
+          "inputSha256": "0f0b0fde7685e063fd89cba5e509fd6aae199f7fbec7edc1ee1bb65529d999c9"
+        },
+        {
+          "name": "camera-1",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-outlined-radius-3-stroke-2/camera-1.svg",
+          "sourceSha256": "89f5ff2ee7f50614a98602adcbba42a93d4d1323294a21d5145da134f84cf49d",
+          "inputSha256": "9de7ca051947a457c435b88d0faa6bb4039268328568bc8da4add3c234da1179"
+        }
+      ],
+      "reservedCredits": 20,
+      "reservedUsd": 0.2
+    },
+    {
+      "id": "central-filled-bell24",
+      "house": "central",
+      "paint": "filled",
+      "concept": "bell",
+      "authoredSize": 24,
+      "inspectionSizes": [
+        16,
+        24
+      ],
+      "requestSha256": "1a59613593fdc48e45b650366698cd5c1698e9ddaa6aa0aa1fbb69c5ed4d97a0",
+      "references": [
+        {
+          "name": "heart",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-filled-radius-3-stroke-2/heart.svg",
+          "sourceSha256": "82e614ab1588d05dbca30ca2f84cf9899c7e168e5431721a90c19a4480a14312",
+          "inputSha256": "ee496255159d5129a34a0df4b00ddd9377b338d4263704e1c49c23ed7e66a391"
+        },
+        {
+          "name": "cloud",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-filled-radius-3-stroke-2/cloud.svg",
+          "sourceSha256": "d6c7b9bbcb52c0930428502e900aa2b48eec88df7d5a6d01cffd164eb0f493bf",
+          "inputSha256": "b14989b8c119c89b0365ff53c391e75c72d06b46e2f5c34d44c9f1db5be7e3f8"
+        },
+        {
+          "name": "lock",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-filled-radius-3-stroke-2/lock.svg",
+          "sourceSha256": "f16dde3808d70c6d8826c5258c0a36f3e8449b4a029db29f9a647348709351de",
+          "inputSha256": "51d833b3b7bc51176c262be8c1da27fc63a21592f9addfdb19fb974ebf20581e"
+        },
+        {
+          "name": "camera-1",
+          "sourceFile": "/Users/mblode/Code/mblode/iconsmith/packages/iconsmith/corpus/round-filled-radius-3-stroke-2/camera-1.svg",
+          "sourceSha256": "e3ff74fd3ba29a3dca7bb2443585405caf4ca9da9a678329bc2e029264460cb2",
+          "inputSha256": "63465bc6638573e58b1b6bdc431c08e321e4e51eaff984856ceeed84d9aedf2a"
+        }
+      ],
+      "reservedCredits": 20,
+      "reservedUsd": 0.2
+    }
+  ],
+  "maxCalls": 3,
+  "maxRetries": 0,
+  "reservedCredits": 60,
+  "reservedUsd": 0.6,
+  "stopFile": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fy-quiver-house-comparison-2026-09-09/STOP",
+  "priorLedger": "docs/log/api-budget-after-d522-2026-09-09.json",
+  "boundaries": [
+    "Standalone SVG development probe; not canonical constrained DSL integration or qualified craft.",
+    "Exact bell target withheld; house neighbor references admitted by existing asReference gate.",
+    "All candidate and reference exposures are development data.",
+    "16px renders are scaled24 originals, not optical masters.",
+    "First output inspected before remaining slots are dispatched.",
+    "Timeout or unknown charge stops all new dispatch; remote cancellation not proven."
+  ],
+  "quotaWeeklyUsedPercent": 25,
+  "diskFreeKiB": 2393648,
+  "firstOutputEvidence": ".staging/wave-fx-quiver-prepaid-recheck-2026-09-09",
+  "firstOutputInspection": "Valid XML; rendered vector SVG; recognizable bell but flared rim and top loop differ from blode reference. Continue comparison, no craft qualification."
+}

@@ -12,22 +12,11 @@ npm run test       # vitest run
 npm run typecheck  # tsc --noEmit
 npm run fix        # ultracite fix: format + lint autofix
 npm run check      # ultracite check: lint + check:boundaries (CI)
-npx tsx scripts/architect-lab.ts # keyed compiler vs agent; no credits
-npx tsx scripts/analog-lab.ts  # unkeyed analog replay; no agent
-npx tsx scripts/select-lab.ts  # cheap SELECT islands; no agent
-npx tsx scripts/reach-lab.ts [dir] [--arm analog|glyph|agent|harness|program]
-npx tsx scripts/twin-eval.ts --house <dir> [--out <dir>] # both paints vs house files
-npx tsx scripts/research.ts   # harness lab judge; 0 arrived, 1 not yet, 2 unscorable
-npx tsx scripts/loop.ts --enable <ids> …   # policy campaign; refuses a dirty tree
-npx tsx scripts/autoresearch.ts --rounds N # pipeline meta-loop; one in-process change per round; never writes autoresearch.md
-npx tsx scripts/mixture-lab.ts  # sparse expert gate; no agent, no credits
+npx tsx scripts/local-generate.ts --help # pinned-style generation
+npx tsx scripts/local-campaign.ts --help # bounded development campaigns
 ```
 
-`lab.md` is the standing instructions for the harness campaign. `program.md` is the standing instructions for the policy campaign. `autoresearch.md` is the standing instructions for the generation-pipeline meta-loop. None of those files is written by its loop. Arrival is house-indistinguishable (panel clean, ≥1 `part` for keyed/unkeyed, keyed cosine ≥ 0.737; compile with parts may be ≥0.95; leak is ≥0.95 AND 0 part ops AND a model wrote the program). A host mark at ≥0.95 is reconstruction (`twin.ts`), not a leak; 0 parts is OK and sample cosine must stay null. N≥5 is a finding except compile, analog on unkeyed, and mark, where N=1 is decide.
-
-`scripts/reach-lab.ts` writes `.staging/reach-10` — both paints of each icon, with a `.icon`, a brief and a normalised `Thinking` sidecar each — and asserts four invariants on the way past rather than reporting them on the page: both paints run as programs with ops (a comment is not a program), neither has a lint error, the two occupy one visual extent, and a `hole` is cut rather than painted over. It throws instead of staging a set that fails one.
-
-**It does not choose the arm, and this is the point.** Each entry in `REACH_SET` names the arm the dashboard credited it to, that arm is asked for by name, and an arm this machine cannot run is a _recorded skip with a reason_ — never a drawing from somewhere else. A revision that drew all ten on the host reported `0 error(s)` about a generator it had never run, and made a set that could no longer fail. `--arm` overrides the whole set, which is how the invariants get exercised where no credential exists: `analog` and `glyph` need nothing, `agent` and `program` need a gateway token and `harness` a coding-agent CLI. Findings are expected and only an `error` stops a run — `warn` is the tier that means "confirm this was deliberate", and the analog fallback trips plenty of them honestly.
+Use [the local foundry workflow](../../docs/local-foundry.md) for generation and review.
 
 Inspect exported SVGs and proof PNGs directly; there is no browser viewer.
 
@@ -50,13 +39,11 @@ src/
     lint.ts           # house-spec checks; review() keeps the passes
     render.ts         # png / contact sheet / cosine similarity
   pipeline/           # BRIEF → PROPOSE → SELECT → DRAW → CHECK → SCORE
-    route.ts          # those stages, swappable; a route is an arm (`analog`, `compile`, `direct`, `mark`, `part-first`)
     kind.ts           # DrawKind, CounterpartClass, MARK_TWINS
     marks.ts          # ten host twins, both finishes
     mark.ts           # DRAW: host twins via MARKS/twin.ts (no model)
     glyphs.ts         # ten house object forms, both finishes — asked for, not preferred
     glyph.ts          # DRAW: those object constructions (no model), on `unkeyed: "glyph"`
-    thinking.ts       # the one shape an arm records; `clean` is derived, never passed
     reach.ts          # house file / mark / splice compile; else the `unkeyed` arm
     splice.ts         # base × badge: two house files, one compile
     search.ts         # the one vocabulary ranking, shared by three callers
@@ -71,13 +58,13 @@ src/
     audit.ts          # host screenshot + vision look at a drawn SVG
     harness.ts        # an external agent CLI as a GenerateFn; `skillPath()` finds the SKILL.md it ships
     program.ts        # DRAW: the model writes a JS builder program, sandboxed; it emits a `.icon`
-    policy.default.json # the design language as data; the loop's only target
+    policy.default.json # the design language as data
   corpus/             # every icon tree on this machine, measured
     sources.ts        # the registry, with a licence and a usage per set
     aliases.ts        # the words an icon answers to beyond its filename
     record.ts         # one record per drawing, not per file
   eval/               # the panel: what cosine cannot see
-    blindspot.ts      # structural checks; frozen by program.md
+    blindspot.ts      # structural checks
   commands/           # the CLI surface; the only layer that may import anything
 ```
 

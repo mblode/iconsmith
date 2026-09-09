@@ -1,0 +1,125 @@
+{
+  "id": "D544",
+  "qualification": false,
+  "sourceClosure": "D543",
+  "sourceFilesRechecked": 531,
+  "sourceDrift": [],
+  "requestedConcepts": 10,
+  "requestedSlots": 20,
+  "terminalRequests": 10,
+  "recursiveReceiptsVerified": 10,
+  "retainedSvgConcepts": 9,
+  "retainedSvgOutputs": 18,
+  "reviewClearPairs": 7,
+  "reviewClearOutputs": 14,
+  "additionalRootContourDefectPairs": 1,
+  "reviewClearPairsWithoutKnownAdditionalDefect": 6,
+  "incompleteConcepts": [
+    "folder-lock",
+    "camera-sparkle",
+    "key"
+  ],
+  "populationSlots": 80,
+  "unstartedPopulationSlots": 60,
+  "nativeCalls": 50,
+  "settledNativeCalls": 50,
+  "unusedNativeCallsReleased": 50,
+  "newApiActualUsd": 0,
+  "nativeDollarAllocation": null,
+  "rows": [
+    {
+      "concept": "folder-lock",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": true,
+      "status": "incomplete",
+      "qualityStatus": "not-reviewed",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "shield-check",
+      "nativeCalls": 7,
+      "settled": 7,
+      "authorRepairInvoked": true,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "clock-check",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": false,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "jellyfish",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": false,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "satellite-dish",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": false,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "camera-sparkle",
+      "nativeCalls": 2,
+      "settled": 2,
+      "authorRepairInvoked": false,
+      "status": "incomplete",
+      "qualityStatus": "not-reviewed",
+      "authorEvidenceVerified": false
+    },
+    {
+      "concept": "bookmark-play",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": false,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "key",
+      "nativeCalls": 6,
+      "settled": 6,
+      "authorRepairInvoked": false,
+      "status": "incomplete",
+      "qualityStatus": "review-incomplete",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "headphones",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": false,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    },
+    {
+      "concept": "leaf",
+      "nativeCalls": 5,
+      "settled": 5,
+      "authorRepairInvoked": false,
+      "status": "delivered",
+      "qualityStatus": "review-clear",
+      "authorEvidenceVerified": true
+    }
+  ],
+  "board": "output/ten-icons-2026-09-09/board-v2.png",
+  "validation": "output/ten-icons-2026-09-09/validation.json",
+  "observations": "output/ten-icons-2026-09-09/visual-observations.json",
+  "retainedReportFailure": "Original board stripped root fill=none and incorrectly filled outlined previews. Original board preserved, v2 embeds full SVG roots; v2 inspected. Private in-flight preview initially labeled missing receipt as unstarted; final report uses production-unknown when native-control exists. Neither preview grants authority."
+}

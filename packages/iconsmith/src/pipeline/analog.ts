@@ -57,7 +57,7 @@ import { overlap, tokens } from "./search.js";
 
 /** The rim of a stack seen edge-on. Named in the vocabulary; `stack` looks it
  *  up by that name so a coordinate never has to name a part id. */
-export const STACK_PART = "ellipse-flat";
+const STACK_PART = "ellipse-flat";
 
 /** Replace the `icon …` line. The rest of the program — keyline, `part` ops —
  *  is the analog's compiled placement and must stay. */

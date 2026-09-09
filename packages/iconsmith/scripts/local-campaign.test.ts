@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
+  existsSync,
   linkSync,
   mkdirSync,
   readFileSync,
@@ -569,6 +570,189 @@ const executionResults = (
   return result.results;
 };
 
+test("parallel requests preserve frozen order and the total dispatch cap", async () => {
+  const options = {
+    ...(await fixture()),
+    concurrency: 2,
+    execute: true,
+    maxRequests: 3,
+    requestMaster: 24,
+  };
+  const entered = Array.from({ length: 3 }, deferred);
+  const release = Array.from({ length: 3 }, deferred);
+  let calls = 0;
+  let active = 0;
+  let peak = 0;
+  const run = runLocalCampaign({
+    ...options,
+    ownedProcess: async (call) => {
+      const index = calls;
+      calls += 1;
+      active += 1;
+      peak = Math.max(peak, active);
+      entered[index].resolve();
+      await release[index].promise;
+      writeDeliveredFixture(options, call.args);
+      active -= 1;
+      return { ...(await settledOuter()), code: 0 };
+    },
+  });
+  try {
+    await entered[1].promise;
+    expect(calls).toBe(2);
+    release[1].resolve();
+    await entered[2].promise;
+    expect(calls).toBe(3);
+    release[2].resolve();
+    release[0].resolve();
+    const result = await run;
+    const plan = planLocalCampaign(options);
+    const expected = plan.requests.filter((r) => r.master === 24).slice(0, 3);
+    expect(result).toMatchObject({ dispatched: 3 });
+    expect(peak).toBe(2);
+    expect(active).toBe(0);
+    expect(executionResults(result).map((r) => r.requestId)).toEqual(
+      expected.map((r) => r.requestId)
+    );
+    expect(executionResults(result).map((r) => r.terminal.status)).toEqual([
+      "delivered",
+      "delivered",
+      "delivered",
+    ]);
+    await expect(
+      runLocalCampaign({ ...options, concurrency: 1, execute: false })
+    ).rejects.toThrow("immutable lock");
+  } finally {
+    for (const gate of release) {
+      gate.resolve();
+    }
+    await run;
+    rmSync(options.root, { force: true, recursive: true });
+  }
+});
+
+test.each(["campaign", "request"])(
+  "%s STOP prevents queued dispatch and waits for already admitted requests",
+  async (scope) => {
+    const options = {
+      ...(await fixture()),
+      concurrency: 2,
+      execute: true,
+      maxRequests: 4,
+    };
+    const entered = deferred();
+    const release = [deferred(), deferred()];
+    let calls = 0;
+    let completed = false;
+    const run = runLocalCampaign({
+      ...options,
+      ownedProcess: async (call) => {
+        const index = calls;
+        calls += 1;
+        if (calls === 2) {
+          entered.resolve();
+        }
+        await release[index].promise;
+        writeDeliveredFixture(options, call.args);
+        return { ...(await settledOuter()), code: 0 };
+      },
+    }).then((result) => {
+      completed = true;
+      return result;
+    });
+    try {
+      await entered.promise;
+      if (scope === "campaign") {
+        writeFileSync(path.join(options.out, "STOP"), "stop");
+      } else {
+        const [request] = planLocalCampaign(options).requests;
+        const control = path.join(request.destination, "native-control/calls");
+        mkdirSync(control, { recursive: true });
+        writeFileSync(path.join(control, "stopped.json"), "{}");
+      }
+      release[0].resolve();
+      await vi.waitFor(() =>
+        expect(existsSync(path.join(options.out, "stopped.json"))).toBe(true)
+      );
+      expect(completed).toBe(false);
+      expect(calls).toBe(2);
+      expect(existsSync(path.join(options.out, "STOP"))).toBe(true);
+      release[1].resolve();
+      expect(await run).toMatchObject({ dispatched: 2 });
+      expect(calls).toBe(2);
+      rmSync(path.join(options.out, "STOP"));
+      expect(
+        dryRun(await runLocalCampaign({ ...options, execute: false })).scheduled
+      ).toEqual([]);
+    } finally {
+      for (const gate of release) {
+        gate.resolve();
+      }
+      await run;
+      rmSync(options.root, { force: true, recursive: true });
+    }
+  }
+);
+
+test("a parallel worker error stops admission and drains its peer before rejecting", async () => {
+  const options = {
+    ...(await fixture()),
+    concurrency: 2,
+    execute: true,
+    maxRequests: 4,
+  };
+  const entered = deferred();
+  const release = [deferred(), deferred()];
+  let calls = 0;
+  let returned = false;
+  const run = runLocalCampaign({
+    ...options,
+    ownedProcess: async () => {
+      const index = calls;
+      calls += 1;
+      if (calls === 2) {
+        entered.resolve();
+      }
+      await release[index].promise;
+      if (index === 0) {
+        return {
+          code: 0,
+          killed: false,
+          quiescent: true,
+          stderr: "",
+          stdout: "",
+        };
+      }
+      return settledOuter();
+    },
+    // oxlint-disable-next-line promise/prefer-await-to-callbacks -- observe rejection without blocking the settlement barrier.
+  }).catch((error: unknown) => {
+    returned = true;
+    return error;
+  });
+  try {
+    await entered.promise;
+    release[0].resolve();
+    await vi.waitFor(() =>
+      expect(existsSync(path.join(options.out, "STOP"))).toBe(true)
+    );
+    expect(returned).toBe(false);
+    expect(calls).toBe(2);
+    release[1].resolve();
+    expect(await run).toBeInstanceOf(Error);
+    expect(calls).toBe(2);
+    await expect(
+      runLocalCampaign({ ...options, execute: false })
+    ).rejects.toThrow("Unsettled outer dispatch");
+  } finally {
+    for (const gate of release) {
+      gate.resolve();
+    }
+    await run;
+    rmSync(options.root, { force: true, recursive: true });
+  }
+});
+
 test.each(["program.dsl", "proofs/native-dark.png", "reviews/panel.json"])(
   "refuses resume after selected %s changes without redispatch",
   async (name) => {
@@ -685,9 +869,11 @@ test("dry-run freezes all 40 pair requests and bounds the scheduled batch", asyn
     expect(cliResult.mode).toBe("dry-run");
     expect(cliResult.scheduled).toHaveLength(2);
     expect(cliResult.scheduled[0]).toMatchObject({ concept: "cloud-upload" });
-    expect(() => planLocalCampaign({ ...options, concurrency: 2 })).toThrow(
-      "sequential"
-    );
+    for (const concurrency of [0, 1.5, 17]) {
+      expect(() => planLocalCampaign({ ...options, concurrency })).toThrow(
+        "integer from 1 to 16"
+      );
+    }
     writeFileSync(options.revisionFile, '{"changed":true}');
     expect(planLocalCampaign(options).revisionHash).not.toBe(
       result.revisionHash
@@ -2815,6 +3001,58 @@ test("diagnostic expiry beyond original request clock refuses before launch inte
     ).rejects.toThrow(/exceeds the original/u);
     expect(spawn).not.toHaveBeenCalled();
     expect(() => readFileSync(intentFile(plan.requests[0]))).toThrow();
+  } finally {
+    rmSync(options.root, { force: true, recursive: true });
+  }
+});
+
+test("master selection preserves population and locks resume selection", async () => {
+  const options = { ...(await fixture()), maxRequests: 2, requestMaster: 24 };
+  const spawn = vi.fn((_command: string, args: readonly string[]) => {
+    writeDeliveredFixture(options, args);
+    return { signal: null, status: 0 };
+  });
+  try {
+    const planned = dryRun(await runLocalCampaign(options));
+    expect(planned.requests).toHaveLength(40);
+    expect(planned.ledger.slots).toHaveLength(80);
+    expect(planned.scheduled).toHaveLength(2);
+    expect(planned.scheduled.every((request) => request.master === 24)).toBe(
+      true
+    );
+    const completed = await runLocalCampaign({
+      ...options,
+      execute: true,
+      spawn: spawn as never,
+    });
+    expect(completed).toMatchObject({ dispatched: 2 });
+    expect(spawn).toHaveBeenCalledTimes(2);
+    const remaining = dryRun(await runLocalCampaign(options));
+    expect(remaining.ledger.slots).toHaveLength(80);
+    expect(remaining.scheduled.every((request) => request.master === 24)).toBe(
+      true
+    );
+    await expect(
+      runLocalCampaign({ ...options, requestMaster: 16 })
+    ).rejects.toThrow(/immutable lock/u);
+  } finally {
+    rmSync(options.root, { force: true, recursive: true });
+  }
+});
+
+test("invalid master selection refuses before dispatch", async () => {
+  const options = await fixture();
+  const spawn = vi.fn();
+  try {
+    await expect(
+      runLocalCampaign({
+        ...options,
+        execute: true,
+        requestMaster: 20,
+        spawn: spawn as never,
+      })
+    ).rejects.toThrow(/request-master/u);
+    expect(spawn).not.toHaveBeenCalled();
   } finally {
     rmSync(options.root, { force: true, recursive: true });
   }

@@ -1,0 +1,9 @@
+icon clock-check
+finish outlined
+keyline circle
+# Reference clock ring and hands; novel detached check with at least two units of clearance.
+circle 12,12 r9
+circle 18.5,18.5 r6.5
+trim
+line 12,7 12,12 8,12
+line 15.5,18 17.5,20 21,16.5

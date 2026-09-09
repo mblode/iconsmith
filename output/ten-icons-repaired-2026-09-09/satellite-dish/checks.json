@@ -1,0 +1,28 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [
+    {
+      "message": "e2 and e3 are 0.71px apart; minimum is 1px. Move them apart or knock one out of the other.",
+      "rule": "gap",
+      "severity": "warn",
+      "finish": "outlined"
+    }
+  ],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [
+    {
+      "message": "e5 and e6 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+      "rule": "gap",
+      "severity": "warn"
+    }
+  ],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/satellite-dish/check-vDeKL7",
+  "style": "7b6e511d003cdb40739271f557f5adc7b21dcf0cf676e78ec16ca023d1bc954f"
+}

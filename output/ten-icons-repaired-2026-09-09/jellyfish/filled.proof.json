@@ -1,0 +1,22 @@
+{
+  "coordinateSpace": "24x24 SVG viewport",
+  "deviceScales": [
+    1,
+    2
+  ],
+  "nativeCell": {
+    "darkTop": 324,
+    "height": 24,
+    "left": 688,
+    "lightTop": 44,
+    "width": 24
+  },
+  "nativeSize": 24,
+  "opticalMasterClaim": false,
+  "presentationProtocolHash": "b1c389bbf85af04869e52b5c9e2d39aec1109ee8665723da67234653862d2f79",
+  "presentationVersion": "native-unscaled-and-enlarged-v2",
+  "surfaces": [
+    "black-on-white",
+    "white-on-black monochrome inversion"
+  ]
+}

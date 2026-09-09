@@ -1,12 +1,9 @@
 import { MockLanguageModelV4 } from "ai/test";
-import sharp from "sharp";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { specAt } from "../tools/canvas.js";
 import { completeProgram, run } from "../tools/dsl.js";
 import type { Part } from "../types.js";
-import { LOOK_RUBRIC } from "./audit.js";
-import type { ApiCost } from "./cost.js";
 import { generate } from "./generate.js";
 import type { GenerateResult } from "./generate.js";
 import { DEFAULT_POLICY } from "./policy.js";
@@ -20,7 +17,6 @@ import {
   styleParts,
 } from "./style.js";
 import { createTools } from "./tools.js";
-import { runPairTournament } from "./tournament.js";
 
 const definition = () => ({
   calibration: "unvalidated",
@@ -69,22 +65,6 @@ const drawing = (style = selected(), finish = "outlined"): GenerateResult => {
     text: "",
     trace: ["rect"],
   };
-};
-const verdict = { findings: [], pq: 10, reason: null, sc: 10 };
-const priced: ApiCost = {
-  calls: 1,
-  generationIds: [],
-  model: "test/scripted",
-  operation: "test",
-  source: "gateway",
-  usage: {
-    cacheReadTokens: 0,
-    cacheWriteTokens: 0,
-    inputTokens: 1,
-    outputTokens: 1,
-    reasoningTokens: 0,
-  },
-  usd: 0.1,
 };
 const extra: Part = {
   closed: true,
@@ -147,70 +127,6 @@ describe("pinned styles", () => {
     expect(result.text).toContain("inspected the render");
   });
 
-  it("holds unknown spend after a failed style attempt and stops escalation", async () => {
-    const later = vi.fn(() => Promise.resolve(drawing()));
-    const result = await runPairTournament({
-      ask: () => Promise.resolve(verdict),
-      budget: { maxCalls: 10, maxUsd: 2 },
-      candidates: [
-        {
-          generate: () => Promise.reject(new Error("provider interrupted")),
-          id: "failed",
-          label: "failed",
-          reserveCalls: 2,
-          reserveUsd: 1,
-        },
-        {
-          generate: later,
-          id: "later",
-          label: "later",
-          reserveCalls: 2,
-          reserveUsd: 1,
-        },
-      ],
-      concept: { name: "container" },
-      style: selected(),
-    });
-    expect(result.budget?.actualUsd).toBeNull();
-    expect(result.budget?.exhausted).toBe(true);
-    expect(later).not.toHaveBeenCalled();
-  });
-  it("rescues under the selected spec and bills both failed and replacement reviews", async () => {
-    const style = selectStyle(createStyleRevision(definition()), "large");
-    let reviews = 0;
-    let filledReviews = 0;
-    const result = await runPairTournament({
-      ask: ({ finish }) => {
-        reviews += 1;
-        if (finish === "filled") {
-          filledReviews += 1;
-        }
-        return Promise.resolve({
-          ...verdict,
-          cost: priced,
-          pq: finish === "filled" && filledReviews === 1 ? 0 : 10,
-        });
-      },
-      budget: { maxCalls: 5, maxUsd: 1 },
-      candidates: [
-        {
-          generate: (finish) =>
-            Promise.resolve({ ...drawing(style, finish), apiCosts: [priced] }),
-          id: "rescue",
-          label: "rescue",
-          reserveCalls: 5,
-          reserveUsd: 1,
-        },
-      ],
-      concept: { name: "container" },
-      style,
-    });
-    expect(reviews).toBe(3);
-    expect(result.winner?.paints[1].result.trace).toContain("twin");
-    expect(result.winner?.paints[1].result.styleKey).toBe(style.key);
-    expect(result.budget?.actualCalls).toBe(5);
-    expect(result.budget?.actualUsd).toBeCloseTo(0.5);
-  });
   it("rejects unavailable compilers, unsupported canvas units and unknown masters", () => {
     expect(() =>
       createStyleRevision({ ...definition(), compiler: "old" })
@@ -451,121 +367,6 @@ describe("pinned styles", () => {
       generate({ name: "home" }, { model, parts: [], style })
     ).rejects.toThrow("owns");
   });
-
-  it("refuses individually accepted paints whose actual extents disagree", async () => {
-    const style = selected();
-    const result = await runPairTournament({
-      ask: () => Promise.resolve(verdict),
-      candidates: [
-        {
-          generate: (finish) => {
-            const paint = drawing(style, finish);
-            if (finish === "filled") {
-              const source = "icon container\nfinish filled\nrect 7,7 10x10 r1";
-              const replay = run(source, [], { spec: style.spec });
-              return Promise.resolve({
-                ...paint,
-                doc: replay.canvas.toJSON({
-                  icon: replay.icon,
-                  keyline: replay.keyline,
-                }),
-                program: source,
-                svg: replay.canvas.toSVG(),
-              });
-            }
-            return Promise.resolve(paint);
-          },
-          id: "mismatch",
-          label: "mismatch",
-        },
-      ],
-      concept: { name: "container" },
-      style,
-    });
-    expect(result.candidates[0].paints.every((paint) => paint.accepted)).toBe(
-      true
-    );
-    expect(result.candidates[0].pairIssues).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ rule: "extent", severity: "error" }),
-      ])
-    );
-    expect(result.winner).toBeNull();
-  });
-
-  it("accepts generated-only programs and gives the judge native pixels and selected rules", async () => {
-    const style = selected();
-    const ask = vi.fn(async (input) => {
-      expect(input.context.rubric).toBe(style.revision.definition.rubric);
-      expect(input.context.rubric).not.toBe(LOOK_RUBRIC);
-      const metadata = await sharp(input.previewSmall).metadata();
-      expect(metadata.width).toBe(16);
-      return verdict;
-    });
-    const result = await runPairTournament({
-      ask,
-      candidates: [
-        {
-          generate: (finish, context) => {
-            expect(context).toBe(style);
-            return Promise.resolve(drawing(style, finish));
-          },
-          id: "fresh",
-          label: "fresh",
-        },
-      ],
-      concept: { name: "container" },
-      style,
-    });
-    expect(ask).toHaveBeenCalledTimes(2);
-    expect(
-      result.winner?.paints.every(
-        (paint) => paint.styleEligible && !paint.houseDerived
-      )
-    ).toBe(true);
-  });
-
-  it.each(["identity", "extra", "svg", "document", "finish"])(
-    "vetoes a mismatched %s before a paid audit",
-    async (fault) => {
-      const style = selected();
-      const ask = vi.fn(() => Promise.resolve(verdict));
-      const result = await runPairTournament({
-        ask,
-        candidates: [
-          {
-            generate: (finish) => {
-              let paintedFinish = finish;
-              if (fault === "finish") {
-                paintedFinish = finish === "outlined" ? "filled" : "outlined";
-              }
-              const output = drawing(style, paintedFinish);
-              if (fault === "identity") {
-                output.styleKey = "wrong";
-              }
-              if (fault === "extra") {
-                output.extras = [extra];
-              }
-              if (fault === "svg") {
-                output.svg = "<svg/>";
-              }
-              if (fault === "document") {
-                output.doc.draw = [];
-              }
-              return Promise.resolve(output);
-            },
-            id: "bad",
-            label: "bad",
-          },
-        ],
-        concept: { name: "container" },
-        style,
-      });
-      expect(result.winner).toBeNull();
-      expect(result.candidates[0].failure).toBeNull();
-      expect(ask).not.toHaveBeenCalled();
-    }
-  );
 });
 
 it.each(["MNaN NaNLNaN NaN", " ", "M0 0L1e309 0"])(

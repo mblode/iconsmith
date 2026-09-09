@@ -1,0 +1,36 @@
+{
+  "id": "D544",
+  "scope": "Ten distinct concepts,24px outlined and filled,20requested outputs; canonical generation and independent development review",
+  "concepts": [
+    "folder-lock",
+    "shield-check",
+    "clock-check",
+    "jellyfish",
+    "satellite-dish",
+    "camera-sparkle",
+    "bookmark-play",
+    "key",
+    "headphones",
+    "leaf"
+  ],
+  "sourceClosure": "D543",
+  "sourceHash": "79c0015a94274c24100822602dddd632aa4794c6bf705375d007d5bdacde77d5",
+  "campaignHash": "d0c983d3a09f8eb3a103b47cc478689e99ac39807c9b61630a488514156e6287",
+  "maxRequests": 10,
+  "maxNativeCalls": 100,
+  "concurrency": 1,
+  "deadlineMsPerRequest": 1200000,
+  "nativeDollarAllocation": null,
+  "newApiReservationUsd": 0,
+  "quotaWeeklyUsedPercent": 35,
+  "minimumDiskBytes": 2147483648,
+  "qualification": false,
+  "stopConditions": [
+    "source drift",
+    "ambiguous dispatch",
+    "insufficient disk",
+    "STOP",
+    "unproven containment"
+  ],
+  "priorInstrument": "Gemini calibration remains failed and excluded; canonical two-native-reviewer development validation only"
+}

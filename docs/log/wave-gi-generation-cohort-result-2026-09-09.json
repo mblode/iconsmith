@@ -1,0 +1,54 @@
+{
+  "id": "D538",
+  "status": "completed-bounded-development-batch",
+  "qualificationGranted": false,
+  "score": null,
+  "sourceClosure": "D536",
+  "requestedPopulationSlots": 80,
+  "attemptedSlots": 4,
+  "unstartedSlots": 76,
+  "deliveredSlots": 2,
+  "failedSlots": 2,
+  "elapsedMsBySize": {
+    "16": 146575,
+    "24": 261035
+  },
+  "nativeCalls": 7,
+  "settledNativeCalls": 7,
+  "unusedNativeCallReservationReleased": 13,
+  "nativeDollarAllocation": null,
+  "newApiSpendUsd": 0,
+  "rows": [
+    {
+      "authorEvidenceVerified": false,
+      "disposition": "production-unknown",
+      "nativeAccountingStatus": "settled",
+      "planHash": "4b762238012f291238ed1e6584e140d52391458964a3ca28d0c7cece32e9d352",
+      "qualityStatus": "not-reviewed",
+      "requestId": "aa82131e06eb06de14f5ebe2a66ab50433fd497d60e8a71f75aafb669e374da3",
+      "slotIds": [
+        "cloud/cloud-upload/16/outlined",
+        "cloud/cloud-upload/16/filled"
+      ],
+      "terminalStatus": "incomplete"
+    },
+    {
+      "authorEvidenceVerified": true,
+      "disposition": "produced",
+      "nativeAccountingStatus": "settled",
+      "planHash": "4b762238012f291238ed1e6584e140d52391458964a3ca28d0c7cece32e9d352",
+      "qualityStatus": "review-clear",
+      "requestId": "7785a494fad495bc4af76c54ef0f4fdbf1d39b17a1d4e3e4706a0f27899b1d32",
+      "slotIds": [
+        "cloud/cloud-upload/24/outlined",
+        "cloud/cloud-upload/24/filled"
+      ],
+      "terminalStatus": "delivered"
+    }
+  ],
+  "failure": "16px initial and repair rounded subtraction failed to fit. Programs retained. No selected artifact remains production-unknown under canonical verifier.",
+  "offlineProbe": "Default Canvas plain-subtract probe compiles/replays; not native16 qualification or AI repair. No kernel change justified.",
+  "evidence": ".staging/wave-gi-cohort-preparation-2026-09-09",
+  "calibration16": "D539 unavailable; zero dispatch, no substitution",
+  "calibrationPopulation": "100 prospective IDs drafted, zero eligible sealed stimuli; exposure census and admitted generation remain open"
+}

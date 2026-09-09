@@ -1,0 +1,27 @@
+{
+  "id": "D532",
+  "status": "engineering-passed",
+  "verification": ".staging/wave-gc-request-wire-verification-2026-09-09/attempt-1/receipt.json",
+  "receiptSha256": "f163c5b435a70499bee7a2aeddc3b8316c11d3b708fbfbc2cfebd03893bfed65",
+  "source": {
+    "stable": true,
+    "before": {
+      "aggregateSha256": "686d9048ed0b04e104a1fd46b5d7eb09059c8fc7f45b08494f15f04e805acf6e",
+      "manifestPath": ".staging/wave-gc-request-wire-verification-2026-09-09/attempt-1/source-before.json",
+      "manifestSha256": "126578ba6384dc2eeada53cc59b0605533bc88defb87f25e21bea4ecb404c64d"
+    },
+    "after": {
+      "aggregateSha256": "686d9048ed0b04e104a1fd46b5d7eb09059c8fc7f45b08494f15f04e805acf6e",
+      "manifestPath": ".staging/wave-gc-request-wire-verification-2026-09-09/attempt-1/source-after.json",
+      "manifestSha256": "126578ba6384dc2eeada53cc59b0605533bc88defb87f25e21bea4ecb404c64d"
+    }
+  },
+  "changes": [
+    "Normalize SDK request body through JSON serialization before canonical hashing.",
+    "Compare persisted request JSON values independently of property insertion order, retain exact file hashes.",
+    "Installed SDK with mocked HTTP response exercises real wire serialization; no live test transport privilege."
+  ],
+  "qualified": false,
+  "scoreOutOf10": null,
+  "apiCalls": 0
+}

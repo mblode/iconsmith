@@ -1,0 +1,30 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [
+    {
+      "declared": "off-axis",
+      "message": "\"e0\" has an edge at 154.9°, 19.9° off the nearest permitted axis (135°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+      "rule": "off-axis",
+      "severity": "warn",
+      "finish": "outlined"
+    },
+    {
+      "declared": "off-axis",
+      "message": "\"e0\" has an edge at 25.1°, 19.9° off the nearest permitted axis (45°), and the program declared `off-axis` for it. Nothing to fix — confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+      "rule": "off-axis",
+      "severity": "warn",
+      "finish": "outlined"
+    }
+  ],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/shield-check/check-oBw3T4",
+  "style": "02629547b08e2ce03f947faabc0065d9e539f6c9753325860eb09e0e528adb14"
+}

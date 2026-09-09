@@ -1,0 +1,12 @@
+icon shield-check
+finish filled
+# Raised apex and shoulders; rounded body with a transparent check.
+circle 12,13 r9
+line 4,13 4,6.25 12,2.5 20,6.25 20,13 4,13 r3 solid off-axis
+union
+rect 3,9 18x4 r0.5
+union
+line 8.5,12 11,14.5
+line 11,14.5 15.5,10
+union
+subtract

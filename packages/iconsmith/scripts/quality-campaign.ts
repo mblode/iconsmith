@@ -600,6 +600,9 @@ export const runContainedApiCollectorStage = async <T>(
     options.expectation.evidenceMode !== "images" ||
     options.expectation.subject !== undefined ||
     !options.expectation.instrumentHash ||
+    !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/u.test(
+      options.sessionId
+    ) ||
     [
       options.qualificationId,
       options.sessionId,

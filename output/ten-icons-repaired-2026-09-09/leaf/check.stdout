@@ -1,0 +1,15 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/leaf/check-7LQy3Q",
+  "style": "2130076e14a56ad0173ec8b651f35e5275dc65d1b81a697303925c694c1b137e"
+}

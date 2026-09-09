@@ -35,28 +35,28 @@ npm run verify       # serialized integrated checks with immutable evidence
 
 - **The corpus lives at `packages/iconsmith/corpus`, and must stay there.**
   `src/corpus/load.ts` defaults to a cwd-relative `"corpus"`, and turbo runs
-  tasks with the cwd set to the workspace. Move the directory and thirteen
+  tasks with the cwd set to the workspace. Move the directory and twelve
   corpus-gated tests stop running without failing. **The canary is the skipped
-  count, not the total.** Those thirteen are gated with `describe.skipIf` /
+  count, not the total.** Those twelve are gated with `describe.skipIf` /
   `it.skipIf`, which still *collects* them, so an absent corpus reports them as
   skipped and leaves the total untouched. Check the skipped count: `0 skipped`
-  means the corpus was found; `13 skipped` means it was absent. Total test counts
-  change with the source tree and are not a corpus-presence check. The gated thirteen live in `corpus/measure.test.ts` (5),
+  means the corpus was found; `12 skipped` means it was absent. Total test counts
+  change with the source tree and are not a corpus-presence check. The gated twelve live in `corpus/measure.test.ts` (5),
   `pipeline/bench.test.ts` (2), `pipeline/reconstruct.test.ts` (2), and one each
-  in `scripts/demo.test.ts`, `eval/conformance.test.ts` and
-  `parts/vocabulary.test.ts`; the thirteenth is the real bell source fixture in
+  in `eval/conformance.test.ts` and `parts/vocabulary.test.ts`; the twelfth is
+  the real bell source fixture in
   `scripts/family-parts.test.ts`. A single skip can indicate that this exact source
   is missing even when the remaining corpus is present. Seven additional
   source-admission controls in `scripts/family-parts.test.ts` require the sibling
   `blode-icons` checkout; those skips are separate from the corpus canary.
   The retained D492 crop test in `scripts/raster-proposal-feasibility.test.ts`
   skips if its private staging image is absent; that diagnostic skip is also
-  separate from the thirteen corpus-gated tests.
+  separate from the twelve corpus-gated tests.
 - **A cloud checkout has no corpus, and cannot get one.** `load.ts` says it: "it
   is not shipped with iconsmith. Pass `--corpus <dir>` to point at one." There is
   no fetch script, no npm package, and no public source — it is 247MB of Central
   drawn 30 ways plus seven third-party packs that `licence.ts` exists to keep out
-  of a generation. So on any machine but the author's, those thirteen skip, and
+  of a generation. So on any machine but the author's, those twelve skip, and
   every constant they hold the spec to (the 29.3% off-axis rate, `minGap`,
   `minFeature`) is unverified rather than wrong. **Do not synthesise one to make
   them run.** A single-variant directory built out of `blode-icons` satisfies the

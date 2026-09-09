@@ -1,0 +1,457 @@
+{
+  "schema": "iconsmith-repository-cleanup-v1",
+  "recordedAt": "2026-09-09T07:41:09.703313+00:00",
+  "worktree": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/iconsmith-performance",
+  "canonicalCheckout": "/Users/mblode/Code/mblode/iconsmith",
+  "canonicalApplied": true,
+  "canonicalIntegration": {
+    "appliedAt": "2026-09-09T07:39:27.168071+00:00",
+    "canonicalCheckout": "/Users/mblode/Code/mblode/iconsmith",
+    "changedFiles": 66,
+    "allChangedFilesMatchValidatedWorktree": true,
+    "deletedFiles": 45,
+    "repairVerificationSettled": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-go-four-repairs-2026-09-09/verification-serial/receipt.json"
+  },
+  "deletedFiles": [
+    {
+      "path": "packages/iconsmith/scripts/agent-twin-eval.ts",
+      "lines": 396,
+      "sha256": "80a4c4bf72aa69037f80d17e9ca9e210b91b6704682d8423679e48d6a80e5171"
+    },
+    {
+      "path": "packages/iconsmith/scripts/analog-lab.ts",
+      "lines": 75,
+      "sha256": "7300301c897fbb3efb72122c46589f58093285c5897c6bb1a5517d7266546f27"
+    },
+    {
+      "path": "packages/iconsmith/scripts/architect-lab.ts",
+      "lines": 112,
+      "sha256": "d043bc65f75e2eb3aa3b76857886fcdf830f253b4f0f3ac3a838b698337b28fc"
+    },
+    {
+      "path": "packages/iconsmith/scripts/autoresearch.test.ts",
+      "lines": 501,
+      "sha256": "07fcb0d95121577a8a5f40396654f78f860b6f538f5d9b6b3857f2a605e95d74"
+    },
+    {
+      "path": "packages/iconsmith/scripts/autoresearch.ts",
+      "lines": 1374,
+      "sha256": "cec318783f2493389174fbfc891964ee6d6263b484122edca1494e8c36e5b505"
+    },
+    {
+      "path": "packages/iconsmith/scripts/demo.test.ts",
+      "lines": 224,
+      "sha256": "860707f8c81a04d6758aefbcac2bc04bdd210f3ca039942018a1a50dfed9938e"
+    },
+    {
+      "path": "packages/iconsmith/scripts/demo.ts",
+      "lines": 808,
+      "sha256": "44299cf7663231b7b2ef6c128147e01dedc031f45316c66cd5ada72f5fe7a69c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-cloud-upload-experiment.ts",
+      "lines": 498,
+      "sha256": "7cc6bdfab848cee87e3dfe87dec5e1b1ef16578a6c6a2091e5f55bab399bc017"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-occlusion-experiment.ts",
+      "lines": 425,
+      "sha256": "6735d70963f6fbbebd5c8dc839ceef1e56981127ec4f9c5616fb3e877f475724"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-optical-experiment.ts",
+      "lines": 404,
+      "sha256": "a1d5acf8373138bb44d08fcd931ede827a9c8a7c48b24f2aea32b96111c473c3"
+    },
+    {
+      "path": "packages/iconsmith/scripts/family-folder-lock-repair.ts",
+      "lines": 236,
+      "sha256": "bce7a166d437fb95f021cf5004227209d541d591d9bce24adcd75eadba21204a"
+    },
+    {
+      "path": "packages/iconsmith/scripts/loop.test.ts",
+      "lines": 571,
+      "sha256": "7ec7eae9513732cc0a72570b501dffe9af5db714de526e1baeccab8ac7555c06"
+    },
+    {
+      "path": "packages/iconsmith/scripts/loop.ts",
+      "lines": 942,
+      "sha256": "1a71a55611392c1905a609dbc29371c98601e063dc19c865b77f7b6c30ec0f9d"
+    },
+    {
+      "path": "packages/iconsmith/scripts/mixture-lab.test.ts",
+      "lines": 23,
+      "sha256": "c7c12320bbd27b06c9d4372e1964c76cfa1e91cf47d3eb2ee12a5544f5ae261c"
+    },
+    {
+      "path": "packages/iconsmith/scripts/mixture-lab.ts",
+      "lines": 89,
+      "sha256": "539fdd607689f1a920f0598771017d36b437e6c1c96512efe67e184a0af414ff"
+    },
+    {
+      "path": "packages/iconsmith/scripts/reach-lab.test.ts",
+      "lines": 199,
+      "sha256": "af40fa1752392de2396a2030b3c3319a2503880ff450185da9e398df079987e0"
+    },
+    {
+      "path": "packages/iconsmith/scripts/reach-lab.ts",
+      "lines": 319,
+      "sha256": "59f71dd82cf342a5e91ff6048fe5e0d0a85ad5772c07470ccc0718d42dd91e29"
+    },
+    {
+      "path": "packages/iconsmith/scripts/research.test.ts",
+      "lines": 219,
+      "sha256": "785be690fbc7040c2fabf3c2e94ae7c6886ffd0788b0eed9f8018fd1d78b36a8"
+    },
+    {
+      "path": "packages/iconsmith/scripts/research.ts",
+      "lines": 254,
+      "sha256": "8540973973c68d7f6e28b9a8c3f1112f6c01af70de2c7ecd56b9f99b197531e9"
+    },
+    {
+      "path": "packages/iconsmith/scripts/score-staged.ts",
+      "lines": 45,
+      "sha256": "3319c453548f91186295db48420057bae44f3f0b781849314315f95486ca76ea"
+    },
+    {
+      "path": "packages/iconsmith/scripts/select-lab.ts",
+      "lines": 65,
+      "sha256": "789a2c1cbad13a88023c70cf37e06b2e116ba7eb66e0a4c6e5a11ecf0be3f446"
+    },
+    {
+      "path": "packages/iconsmith/scripts/style-generate.ts",
+      "lines": 203,
+      "sha256": "c45083d9caca0c59530e3731448616eff4c2a20337937c595659664c77fa4e7e"
+    },
+    {
+      "path": "packages/iconsmith/scripts/style-lab.ts",
+      "lines": 213,
+      "sha256": "5a4c6a72e19d9ba2668153e7f1ef120d699c30130aac46d02477c98702859846"
+    },
+    {
+      "path": "packages/iconsmith/scripts/twin-eval.ts",
+      "lines": 171,
+      "sha256": "71097ea08c75de7e7c30b841889e8ce78644c9e26b29eb7772d0001785731d6f"
+    },
+    {
+      "path": "packages/iconsmith/scripts/twin-language.ts",
+      "lines": 166,
+      "sha256": "97122d82029525e6fe6cfb13569711e51bc454a19d1d60e8ebfcdd82a3682d5a"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/tournament.ts",
+      "lines": 1270,
+      "sha256": "fc7ebf79626168e2c2f97e7f1a9d552e37aa388fefcc556b98d562295808b601"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/tournament.test.ts",
+      "lines": 1408,
+      "sha256": "47152d019d758cc5620c9744493b2b6bd36b2ceced2ad72a16f5419b5abd33f7"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/thinking.ts",
+      "lines": 79,
+      "sha256": "1ea3df5f4271000b27ba151be40864e898be32ba0cbec89efa9cf183df5dbdb1"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/thinking.test.ts",
+      "lines": 115,
+      "sha256": "7b91dd4032ae55cb370b608bb6220f0978bb1df33ee6e45a17f2cf7d8b2af119"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/accept.ts",
+      "lines": 193,
+      "sha256": "2a5b73cdb80a43cc3e45016e2d383441826c1f20b9123ccc27b89efd1dbce867"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/accept.test.ts",
+      "lines": 225,
+      "sha256": "7d80189dc8f4d84ba68e2632a38849625a7e96543657a2d9e72e8b808a8ef1aa"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/model-harness.ts",
+      "lines": 272,
+      "sha256": "f0011ec387768a54c82fe508b54fce9baaa6007be2fa7d620ebfc49de17982cd"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/model-harness.test.ts",
+      "lines": 173,
+      "sha256": "dc2c0e7f22257cddd4896e46219070559976a19b4e267d9d250646861f29d7ec"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/route.ts",
+      "lines": 643,
+      "sha256": "10210a11b9cdf7ed49bd527748f9ccaf3313706c5e67bb9c3ceeb89db1f2e76c"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/route.test.ts",
+      "lines": 518,
+      "sha256": "95798ede38084fcf357d80e04e852d531c7b018be746a3b56459b66b940ed5bf"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/propose.ts",
+      "lines": 309,
+      "sha256": "47b48f1dfdb1031051cd67eab71e15ca8ef82439eb10ab9b506b7572e2b1a0ae"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/propose.test.ts",
+      "lines": 249,
+      "sha256": "c15afe2b213c9c90b9aa5c10c804c5b3c16e42f8932e0934d028f0ce7450823b"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/critique.ts",
+      "lines": 129,
+      "sha256": "80fcd0b69111702e75e4d41cd43fddf05f2efc3c1e8f7ec815b7258987b22445"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/direction.ts",
+      "lines": 186,
+      "sha256": "5f9979ebc776814180e9aa444b37b21c829894df439c36d62623d5b417a9d871"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/direction.test.ts",
+      "lines": 164,
+      "sha256": "49da111d80e2d22f1ef47ee5a1a86b7eb9f016d527a822b9c0f9b48afa1e49ee"
+    },
+    {
+      "path": "packages/iconsmith/src/tools/slash.ts",
+      "lines": 75,
+      "sha256": "574b8c9966935ccb77ecc0fbf42361d33aab39722f33b6cac189d7a406cb1d60"
+    },
+    {
+      "path": "packages/iconsmith/src/tools/slash.test.ts",
+      "lines": 66,
+      "sha256": "f8f6a44f5dfb11d4bf5d453a46533d5fcad2a71c246ffcece46ba614b22b713a"
+    },
+    {
+      "path": "packages/iconsmith/lab.md",
+      "lines": 46,
+      "sha256": "979c91321dbb11c8973a60ac8794e168ab2e231559b449bbf6b6d1d434bbc35d"
+    },
+    {
+      "path": "packages/iconsmith/program.md",
+      "lines": 71,
+      "sha256": "303f52248fb0092925f9b13b81211ffa5fa3d298a25981c595e9d8c00d440c8e"
+    },
+    {
+      "path": "packages/iconsmith/autoresearch.md",
+      "lines": 126,
+      "sha256": "4bbe05d44496d3c7b167d01fcdea9ab90f4503c74235f874c1db9ee5931fa927"
+    }
+  ],
+  "removedTests": {
+    "files": 14,
+    "casesInDeletedFiles": 211,
+    "tournamentCasesInRetainedStyleFile": 9,
+    "total": 220
+  },
+  "cleanupDelta": {
+    "addedLines": 28,
+    "removedLines": 15218,
+    "netRemovedLines": 15190
+  },
+  "combinedPerformanceAndCleanupDelta": {
+    "files": 66,
+    "addedLines": 343,
+    "removedLines": 15274,
+    "netRemovedLines": 14931
+  },
+  "reachability": {
+    "evidence": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/repository-cleanup-audit/deletion-consumers.json",
+    "result": "No remaining imports outside deleted group and removed tournament-specific style tests. Current CLI and canonical local foundry entry points remain. Standalone legacy experiment entry points intentionally retired."
+  },
+  "validation": {
+    "focused": {
+      "passed": 105,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/repository-cleanup-audit/focused.log"
+    },
+    "integrated": {
+      "status": "failed-stage",
+      "durationMs": 492588,
+      "engineTests": {
+        "passed": 2210,
+        "failed": 132,
+        "skipped": 0,
+        "total": 2342
+      },
+      "rootTests": {
+        "passed": 10,
+        "failed": 0,
+        "skipped": 0
+      },
+      "receipt": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/iconsmith-performance/.staging/repository-cleanup-verification-20260909-attempt1/receipt.json",
+      "failures": "Timeouts, under-2-GiB disk refusals and process-quiescence assertions under concurrent workload; the full integration did not pass. Separate original checkout verification also showed unchanged timeout failures."
+    },
+    "checks": [
+      {
+        "stage": "typecheck",
+        "exitCode": 0,
+        "durationMs": 15562
+      },
+      {
+        "stage": "build",
+        "exitCode": 0,
+        "durationMs": 3909
+      },
+      {
+        "stage": "check",
+        "exitCode": 0,
+        "durationMs": 26257
+      },
+      {
+        "stage": "diff",
+        "exitCode": 0,
+        "durationMs": 349
+      }
+    ],
+    "cli": [
+      {
+        "args": [
+          "--help"
+        ],
+        "code": 0,
+        "stdoutSha256": "776ce465f88b0ace82ab6b80ca2fd268cdbb5211ced8fd06290251d24822fc63",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true
+      },
+      {
+        "args": [
+          "draw",
+          "examples/square-check.icon"
+        ],
+        "code": 0,
+        "stdoutSha256": "a3ec9b86cef88ca009bf5e0323567d35551fb403cba7461f28fd8c46686b3864",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true
+      },
+      {
+        "args": [
+          "draw",
+          "examples/square-check.icon",
+          "--doc"
+        ],
+        "code": 0,
+        "stdoutSha256": "f299b8f0a74ffc63f167b27ff59d878d1518a27316913b6d43ac922c94bad79c",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true
+      },
+      {
+        "args": [
+          "new",
+          "--help"
+        ],
+        "code": 0,
+        "stdoutSha256": "053ad9a63d80bea1918d5b44595cf8d0dd2a649cf18ccc6c3b756e208de42338",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true
+      },
+      {
+        "args": [
+          "improve",
+          "--help"
+        ],
+        "code": 0,
+        "stdoutSha256": "caaea0fcfa986aeafe24f070b64743a52ddc82543608d1d05affd57a6d99a595",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true
+      }
+    ],
+    "sharp": "0.35.4 in isolated workspace, existing install reused",
+    "canonicalChecks": [
+      {
+        "stage": "build",
+        "exitCode": 0,
+        "durationMs": 3990
+      },
+      {
+        "stage": "foundry",
+        "exitCode": 0,
+        "durationMs": 2119
+      },
+      {
+        "stage": "dead-code",
+        "exitCode": 0,
+        "durationMs": 10283
+      },
+      {
+        "stage": "diff",
+        "exitCode": 0,
+        "durationMs": 346
+      }
+    ],
+    "canonicalCli": [
+      {
+        "args": [
+          "--help"
+        ],
+        "code": 0,
+        "stdoutSha256": "776ce465f88b0ace82ab6b80ca2fd268cdbb5211ced8fd06290251d24822fc63",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true,
+        "matchesAfterCheckoutPathNormalization": true
+      },
+      {
+        "args": [
+          "draw",
+          "examples/square-check.icon"
+        ],
+        "code": 0,
+        "stdoutSha256": "a3ec9b86cef88ca009bf5e0323567d35551fb403cba7461f28fd8c46686b3864",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true,
+        "matchesAfterCheckoutPathNormalization": true
+      },
+      {
+        "args": [
+          "draw",
+          "examples/square-check.icon",
+          "--doc"
+        ],
+        "code": 0,
+        "stdoutSha256": "f299b8f0a74ffc63f167b27ff59d878d1518a27316913b6d43ac922c94bad79c",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true,
+        "matchesAfterCheckoutPathNormalization": true
+      },
+      {
+        "args": [
+          "new",
+          "--help"
+        ],
+        "code": 0,
+        "stdoutSha256": "053ad9a63d80bea1918d5b44595cf8d0dd2a649cf18ccc6c3b756e208de42338",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": true,
+        "matchesAfterCheckoutPathNormalization": true
+      },
+      {
+        "args": [
+          "improve",
+          "--help"
+        ],
+        "code": 0,
+        "stdoutSha256": "b72493be44d01746edf8a445fb8329d20b5bc4e02ce42a6671a2f026b72ed1b1",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "identical": false,
+        "matchesAfterCheckoutPathNormalization": true
+      }
+    ],
+    "canonicalInstalledSharp": "0.35.4",
+    "canonicalCliComparison": "Four outputs match byte-for-byte; improve --help differs only by its expected absolute checkout path and matches after normalizing that path. SVG and document bytes match exactly."
+  },
+  "attemptNotes": [
+    "Knip first exposed ten unused exports/types after retiring entry points; removed unused code and internalized private constants.",
+    "Root patch preparation initially used the wrong working directory; rerun with explicit absolute paths succeeded.",
+    "Initial inventory commands included nonexistent paths; corrected without changing source.",
+    "Scoped formatting was reduced to avoid unrelated Markdown churn.",
+    "Pruned 63,436,148 bytes of redundant untouched snapshot copies; retained hashes, all changed-file baselines, test logs and receipts.",
+    "No second full suite started while the repair verification was active.",
+    "Initial canonical CLI comparison flagged the absolute policy path in improve --help; all five outputs match after normalizing only the known checkout prefix. Raw comparisons retained; generated SVG/document bytes are identical."
+  ],
+  "newProviderCalls": 0,
+  "newApiSpendUsd": 0,
+  "qualification": "No generation quality or live-throughput qualification claimed.",
+  "performance": "Earlier bounded-concurrency implementation retained; recorded 13.58x simulated-delay replay remains historical, not a live-model speed claim."
+}

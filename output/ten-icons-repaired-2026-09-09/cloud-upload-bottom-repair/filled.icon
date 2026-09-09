@@ -1,0 +1,14 @@
+icon cloud-upload
+finish filled
+# Reference-family cloud silhouette with a connected negative upload arrow.
+# Union the body before cutting; preserve the outlined twin's extent.
+circle 12,10.5 r6
+circle 7,14.5 r5
+union
+circle 17,14.5 r5
+union
+rect 7,10.5 10x9 r0
+union
+hole line 12,10.5 12,15.5
+hole line 9.5,13 12,10.5
+hole line 12,10.5 14.5,13

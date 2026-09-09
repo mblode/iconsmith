@@ -1,0 +1,67 @@
+{
+  "id": "D530",
+  "status": "budget-recorded-historical-metadata-retrieved",
+  "ceilingUsd": 50,
+  "additionalBudget": false,
+  "actualUsd": 13.9740211,
+  "reservedOrUnknownUsd": 11.37126575,
+  "remainingAtMostUsd": 24.65471315,
+  "inferenceRequests": 0,
+  "metadataRequests": 1,
+  "newGenerationSpendUsd": 0,
+  "newPaidReservationUsd": 0,
+  "metadata": {
+    "id": "gen_01M21AFRKH97GM6E5AN8NNTJAR",
+    "usage": 0.00102525,
+    "model": "google/gemini-3.7-flash",
+    "streamed": false,
+    "latency": 1528,
+    "totalCost": 0.00102525,
+    "upstreamInferenceCost": 0,
+    "createdAt": "2026-09-08T20:13:55.000Z",
+    "isByok": false,
+    "providerName": "google",
+    "finishReason": "stop",
+    "generationTime": 1528,
+    "promptTokens": 1112,
+    "completionTokens": 17,
+    "reasoningTokens": 34,
+    "cachedTokens": 0,
+    "cacheCreationTokens": 0,
+    "billableWebSearchCalls": 0
+  },
+  "result": {
+    "success": true,
+    "attempts": 1,
+    "observed": {
+      "status": 200,
+      "bodySha256": "793550d4edfdf38994db2a49a62b2225ee288dc2a4d96608cd4f63845575e5e0",
+      "bodyBytes": 601,
+      "contentType": "application/json"
+    },
+    "settledAt": 1788929196511,
+    "historicalTerminalUnchanged": true
+  },
+  "interpretation": "D466 historical metadata now exists and agrees with reported model, provider and cost. Availability after settlement does not establish a within-deadline delay bound. Original refused terminal and critic-unqualified status remain unchanged.",
+  "nextExperiment": "Before another generation, prepare a bounded metadata-readiness diagnostic with explicit GET schedule, original parent deadline, STOP, current frozen source and small reservation. Never retry inference after ambiguous dispatch.",
+  "qualified": false,
+  "scoreOutOf10": null,
+  "artifacts": [
+    {
+      "path": ".staging/wave-ga-budget-metadata-2026-09-09/generation-info.json",
+      "sha256": "84420515a32a493d6cc42b678f74755e211918b66e8e104c3cca18a04935fba2"
+    },
+    {
+      "path": ".staging/wave-ga-budget-metadata-2026-09-09/intent.json",
+      "sha256": "1c2de78e612d09419c0b8a1e61b06366051ed4ffb40d30c4d75b5458ee89a242"
+    },
+    {
+      "path": ".staging/wave-ga-budget-metadata-2026-09-09/read.mts",
+      "sha256": "9ef73a9cb8470d0f0e5a90931944d0df666ac7403c258c14132762e13c244e6d"
+    },
+    {
+      "path": ".staging/wave-ga-budget-metadata-2026-09-09/result.json",
+      "sha256": "180ed9a5d2f2675ec4c26bd7d16ece1b41eeb427e4b378f1b150059e5738b256"
+    }
+  ]
+}

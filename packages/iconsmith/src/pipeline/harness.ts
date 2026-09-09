@@ -18,8 +18,7 @@
  * scorer runs either arm.
  *
  * Written structurally rather than importing `GenerateFn` from `eval.ts`, for
- * the reason `propose.ts` gives: an arm should not depend on the module that
- * measures it.
+ * an arm should not depend on the module that measures it.
  */
 import { spawn as spawnProcess } from "node:child_process";
 import { once } from "node:events";

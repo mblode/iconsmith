@@ -1,0 +1,64 @@
+{
+  "id": "D541",
+  "status": "passed-engineering",
+  "sourceClosureSupersedes": "D536",
+  "qualificationGranted": false,
+  "score": null,
+  "changedFiles": [
+    "packages/iconsmith/scripts/quality-campaign.ts",
+    "packages/iconsmith/scripts/quality-campaign.test.ts"
+  ],
+  "change": "Reject non-lowercase UUIDv4 collector session identities before provider dispatch, matching downstream provenance validator",
+  "regressions": [
+    "freeform session label",
+    "UUIDv7",
+    "uppercase UUID"
+  ],
+  "focusedTestsPassed": 37,
+  "verification": ".staging/wave-gl-session-identity-fix-2026-09-09/verification-attempt-1/receipt.json",
+  "verificationSha256": "95787c17dadbcb2fe83ee6f830248a5a1d9160f9fbfa451c4da7a5e6b0a400ea",
+  "source": {
+    "stable": true,
+    "before": {
+      "aggregateSha256": "f8014e381ca42ceb9507832eddba70b571acd01bfe5814a576f88dbe0b5a3e8d",
+      "manifestPath": ".staging/wave-gl-session-identity-fix-2026-09-09/verification-attempt-1/source-before.json",
+      "manifestSha256": "e745a539d5402127faff60f715f31b06be7648abf1c92819ba96e5d186391ee3"
+    },
+    "after": {
+      "aggregateSha256": "f8014e381ca42ceb9507832eddba70b571acd01bfe5814a576f88dbe0b5a3e8d",
+      "manifestPath": ".staging/wave-gl-session-identity-fix-2026-09-09/verification-attempt-1/source-after.json",
+      "manifestSha256": "e745a539d5402127faff60f715f31b06be7648abf1c92819ba96e5d186391ee3"
+    }
+  },
+  "stages": [
+    {
+      "id": "test",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "typecheck",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "build",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "check",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "diff",
+      "exitCode": 0,
+      "passed": true
+    }
+  ],
+  "durationMs": 63342,
+  "livePostFixDispatch": false,
+  "newApiSpendUsd": 0,
+  "retainedFailure": "D540 provider succeeded but assembly rejected session label; cannot retroactively repair original journal"
+}

@@ -1,0 +1,9 @@
+{
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "finish": "outlined",
+  "master": "24",
+  "program": "icon jellyfish\nfinish outlined\nkeyline portrait\n# Novel jellyfish: closed bell with an open interior and no modifiers.\n# Round contours follow the references; three attached tentacles keep clear gaps.\narc 12,11 r8 half from left\nline 4,11 20,11\nline 7,11 7,18\narc 5,18 r2 quarter from right\nline 12,11 12,21\nline 17,11 17,18\narc 19,18 r2 quarter from left ccw",
+  "style": "659953e6cc3aac6ddfa442d51fdd3a011fb757ce16eeee21b5bf0d4498fcba86",
+  "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M4 11.000000000000002C3.9999999999999996 6.581600000000002 7.581599999999998 3.000000000000001 11.999999999999998 3C16.4184 2.999999999999999 20 6.581599999999998 20 10.999999999999998\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M4 11L20 11\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M7 11L7 18\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M7 18C7 19.1046 6.1046 20 5 20\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M12 11L12 21\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M17 11L17 18\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M17 18C17 19.1046 17.8954 20 19 20\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+  "svgHash": "722aabe72167f9c3320aaf648be8e6a8314c6c4a1edcce0b1af8a2696706874e"
+}

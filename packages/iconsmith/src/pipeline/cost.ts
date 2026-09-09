@@ -162,12 +162,6 @@ export const tokenUsageOf = (usage: UsageLike): TokenUsage => ({
   reasoningTokens: usage.outputTokenDetails?.reasoningTokens ?? 0,
 });
 
-/** Null propagates: an unpriced call makes the total unknown, never free. */
-export const totalUsd = (costs: readonly ApiCost[]): number | null =>
-  costs.some((cost) => cost.usd === null)
-    ? null
-    : costs.reduce((sum, cost) => sum + (cost.usd ?? 0), 0);
-
 const PER_MILLION = 1e6;
 
 /**

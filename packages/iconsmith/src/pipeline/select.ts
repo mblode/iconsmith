@@ -18,13 +18,7 @@ import type { Concept } from "./prompt.js";
 import type { Aliases, PartHint } from "./search.js";
 import { DEFAULT_SHORTLIST, searchParts } from "./search.js";
 
-export const SELECT_KINDS = [
-  "slug",
-  "tagged",
-  "exact",
-  "contrast",
-  "empty",
-] as const;
+const SELECT_KINDS = ["slug", "tagged", "exact", "contrast", "empty"] as const;
 
 export type SelectKind = (typeof SELECT_KINDS)[number] | "auto";
 

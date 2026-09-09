@@ -1,0 +1,12 @@
+icon jellyfish
+finish outlined
+keyline portrait
+# Novel jellyfish: closed bell with an open interior and no modifiers.
+# Round contours follow the references; three attached tentacles keep clear gaps.
+arc 12,11 r8 half from left
+line 4,11 20,11
+line 7,11 7,18
+arc 5,18 r2 quarter from right
+line 12,11 12,21
+line 17,11 17,18
+arc 19,18 r2 quarter from left ccw

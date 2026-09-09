@@ -1,0 +1,1875 @@
+{
+  "id": "D545",
+  "kind": "artifact-repair-and-development-visual-assessment",
+  "score": 8,
+  "scoreOutOf": 10,
+  "qualified": false,
+  "independent": false,
+  "conceptCount": 10,
+  "svgCount": 20,
+  "exactReplayPassCount": 20,
+  "repairs": [
+    "folder-lock elongated keyhole",
+    "satellite-dish removed filled round-cap rim protrusions",
+    "key solid tooth removes ambiguous tiny counter",
+    "camera-sparkle explicit r0 makes contour constructible"
+  ],
+  "remaining": [
+    "Centering and tight-gap lint warnings retained per output",
+    "Independent development review blocked by failed process containment controls",
+    "Full engineering checks failed or were interrupted; no new engineering closure",
+    "No frozen critic qualification or overall pipeline qualification"
+  ],
+  "verification": {
+    "scoped": {
+      "passed": 87,
+      "failed": 10,
+      "files": 6,
+      "log": ".staging/wave-go-four-repairs-2026-09-09/scoped-verification.log"
+    },
+    "fullAttemptsRetained": [
+      ".staging/wave-go-four-repairs-2026-09-09/verification-current",
+      ".staging/wave-go-four-repairs-2026-09-09/verification-aligned",
+      ".staging/wave-go-four-repairs-2026-09-09/verification-serial"
+    ]
+  },
+  "nativeCallsDispatched": 0,
+  "apiCallsDispatched": 0,
+  "newSpendUsd": 0,
+  "reservationCreated": false,
+  "output": "output/ten-icons-repaired-2026-09-09",
+  "manifest": [
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/index.html",
+      "sha256": "e7829f3e8fd9f5a8eb5e973c48b368fd6a0675247d019edf92aeea1b49f0a2cd"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/icons-svg.zip",
+      "sha256": "cb652ec12e747f7a3809b7fa43f26c4bcac38ea125ba376bebb70f8829783ddb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/board-v2.svg",
+      "sha256": "9a75bf3bd91672f09efac16469f65fa89464335d7b818e7b523a6051674744f1"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/validation.json",
+      "sha256": "031608b224f851e6a229c05025a89440d2143f98a471a38338e16ec03a09c1c8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/board-v2.png",
+      "sha256": "1ca2434689a6d423173f4135ac7483345cc123a9c498fd726fa1b776642278f0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.retina.png",
+      "sha256": "4860e749404c7767d41707dd7795d70025f2b7ff2d31548e7e1728466d7ef62c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check.stdout",
+      "sha256": "0a6911b6d39df5b9b326a76a3d4e95b89357a842cc510597d4cde377b96c7ccc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.native.png",
+      "sha256": "b45dffd49000661a6ab2dbf86861f4a172440e73aa9711555e86a27fbc0c9b04"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.pixels.json",
+      "sha256": "5fc5422170c470a04833f5888b7bf927447925b5a14e87105ac5f83e22fedefa"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/native.png",
+      "sha256": "43d19ec281bda9d85b75a5059036bbc1329fd393c73c5bd19f0484e33e3f7dd4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/preview-16.png",
+      "sha256": "92e17cf0d442f5d83e0da21a56c89e1f50fa8541cfb81c937607ea59767bf9c4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.icon",
+      "sha256": "330176bd6d8ba7ee58d1ea37bc78088a53be068fee0735a8e6c08c617e63d51c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.proof.png",
+      "sha256": "dfb9f73df74aad062cd9949af0ed6b7464ab2fdb1637c62c8a7d8268dfd1b53b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/checks.json",
+      "sha256": "bbcc973cf13ff99396a7956fdeb7f2848454bcb1a4c9699867c74e393daf86fe"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.svg",
+      "sha256": "fc7f5eb36283ea5bd77f26cf3ac38fe80e3c73a80ab09a6a4ef0613b42dba713"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.pixels.json",
+      "sha256": "aac01266fd282c45db8e8aa8e1bff5bfa2bbdd069760887a2c4490e669508855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.png",
+      "sha256": "15419dba4608e14dd48a65112c502b162b447110d6d45601049cf91627959e62"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.artifact.json",
+      "sha256": "b356daf61c0ca4c630d7afe0ee92fa5a13aef78180e6f2f66921a318f9222cad"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/revision.json",
+      "sha256": "5dec1ee39306c6c82e204701f4a8205c3af962449eb9945c970f118ae535f3b7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.retina.png",
+      "sha256": "87267baec402c9951b81e0523e8e44bfbc1fcacd1b92c2bbbd585f3973ea2691"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.icon",
+      "sha256": "d9df547a16f6132f7209c509ba3bba6e7908c85761ad02832f15c9d687e18976"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.proof.png",
+      "sha256": "97adf9e7bcb3e13c38d58b4b22bdf9fdce8d34a028fe2b313733964c9e80bda7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.artifact.json",
+      "sha256": "6afd6bd028d1396fc4ae2b30907ac0f3d66fd017ec39232036df026e1d08a926"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.svg",
+      "sha256": "f062f00e536d4e1ede9eda77ba983bdbb0fd264b23feb1d86411a6b78b4335d9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.native.png",
+      "sha256": "6994c99a705d97de9fb0eb579cf60b280658ab1d7ee35c650058ac465218c308"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/filled.png",
+      "sha256": "21998885e6ed2ed525c6f181d545e8ff41daa9e758d3c34deeb922fc0ff5800d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.retina.png",
+      "sha256": "270d8a2140cbc8cd17d8014a8a21c42b73b1c1a6d587ba4ef141a779bc6beb02"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check.stdout",
+      "sha256": "84a5c0c54670a37e68cb5b9548e734ed1ff812311e5d9f49201061ecd613a5a4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.native.png",
+      "sha256": "f55740db7eff3c26b87026cf9607d3362ba227f2a6f9ac267a6aa830b8969111"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.pixels.json",
+      "sha256": "3e735e5ddc7d2e30396a1d8983dbf73f1f0b3124d39abe7bf2144baeecafc7a9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/native.png",
+      "sha256": "33263a5c0d79cb308b8c43effc9c2f213a81e04b1124ed49c4cb2b4f6263ab20"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/preview-16.png",
+      "sha256": "258dc0fc1922c49e2826a47f9894297360f6eac66201ac40017f2b4b4bc1c630"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.icon",
+      "sha256": "c23e75b7a90887cdc9c36eac72aafdd6a0064532a3fef2f549f79a97fae83fb6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.proof.png",
+      "sha256": "fab2d307b8ec2bbdc7ac89b4678e367fb7fd27b269018fa9178142806ad3b7ac"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/checks.json",
+      "sha256": "c9476523d3efd5f0f391859567fef11563df1cd5062434d05656ef3ad4063933"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.svg",
+      "sha256": "9f76cd7ba5b95499ff6e14c796247ea513796f502ad0e25f4fe35b6ac7e6516b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.pixels.json",
+      "sha256": "523107d5dd42e83d9a5997b82d51f4856ceca2959bb9b4c917c01aa9540baeee"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.png",
+      "sha256": "a2bc57f3e594e40fbabf60e9c8011e3bb3676b53082b316c0e23d26cea651d82"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.artifact.json",
+      "sha256": "3e68e77caf6fcf5a6843c655c58fd155e63ec2f903232c5221fe36fa864a3c52"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/revision.json",
+      "sha256": "797454ce2de80d478c291419d097f897b64f10031f2d7cae60c1c32b8f7dde36"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.retina.png",
+      "sha256": "cfc99d443134616c940413189c3a058462c91f59797498e862db790de72ee967"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.icon",
+      "sha256": "f990e94a2cd3c6b18b97478365f5c22f46da7c0395fe857f85ca0244698421be"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.proof.png",
+      "sha256": "c90f641758718dfda2df754e57a2ec17a46b15a6425f307ee23796a6e86ea79c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.artifact.json",
+      "sha256": "fd3bef3da045dbbcff9af37974718e6f04e2e43b91218bd84afbf325ae40c747"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.svg",
+      "sha256": "660621cbd40b9e921ce6fbd6a01fc925317b5cfb0813d0312ef383645c2eae4d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.native.png",
+      "sha256": "e07c95bddcd2ac0c10584eb82cf31dec1f5f1679a341873806d8ccbf781f483a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.png",
+      "sha256": "2979da413d569afb6b283b70e238b43f6d8407a396c256e7460996b24cf082f8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.retina.png",
+      "sha256": "9e5cb87ccb8460816067709740bea819e9cf07e80a3f9bca6ad1f37a54a738d8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check.stdout",
+      "sha256": "2a7c6f856c5267d4fee3eea310d029e72806b568e0d8721c5f1e624c96285ad2"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.native.png",
+      "sha256": "0eb5442425f612e45af0f7025701ee2060d69c7731b4a434c0f49e6205fd2f41"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.pixels.json",
+      "sha256": "4bae3048cb7ddf45f7efa6ca22bfafb11a319891b902eabaea07bc6ad6527c44"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/native.png",
+      "sha256": "27faca2edaddb4e5881280e6a5d65ef27c45b1ba66099b489f72aec8f72cdb81"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/preview-16.png",
+      "sha256": "a0f3b00bc8cbda8baf8f981f178e142fa3e8a53f8c5d282e05bababb4de440c9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.icon",
+      "sha256": "cb5cd7cf16d7cda005d461ff80ffb5e8aa1079e1efa4718a4d69001bebc7fba6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.proof.png",
+      "sha256": "25fee00749e9f7b88e45dd3515ca4b3363d074ee36cf5961b9818d4bc2891448"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/checks.json",
+      "sha256": "39c67d8b6b9bd6c0a5a46627c6124aa47b6fd5e918b224fb7afe202bb844dfd1"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.svg",
+      "sha256": "1605915bac32c704e7a966668f17f1650a411618372acf5557084b730073e4ce"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.pixels.json",
+      "sha256": "6051750a5f4f47420944801b93c320dcf9313d30652f63946d8b7fbef5ae0429"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.png",
+      "sha256": "fedad5ce99e05d5518f1854f13f0699291cc6a0d16d2d98558dfe549b0214d0b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.artifact.json",
+      "sha256": "7e65bd905a813e8fc43b3e129888d945376c0086c6f7b778e12b22cfa3d94d1f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/revision.json",
+      "sha256": "5dec1ee39306c6c82e204701f4a8205c3af962449eb9945c970f118ae535f3b7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.retina.png",
+      "sha256": "67a7197b58232b2ee1f931dcbd87cf0bceec2ef6b4d97c7759dfac804652b159"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.icon",
+      "sha256": "df65013992a92dfd43d41813654d9f8fc1b89a8e9d937434f1d76f8d3e130aa5"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.proof.png",
+      "sha256": "4a51fba389378f62802a95cd6b4ddae2524c823c01bf8d09fe4aa4520544e8bb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.artifact.json",
+      "sha256": "0001e284f1a03b9130d634467f35a047476ad82fce6b0172d4c1ee3904a90d44"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.svg",
+      "sha256": "4bf62dc4888cc8e9ea59bf3ffb50faf4811a77b8aafa48cabf1ff1bbfea17f73"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.native.png",
+      "sha256": "9595741be053a3d093943e72eebdb7c1804496155ef8fcdf35a7dbe58191d924"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/filled.png",
+      "sha256": "c5cf2983f2512e1b647a3c29eb5f58d89106e48b278bd1176b04424d7bcf3091"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.retina.png",
+      "sha256": "4c3d8c83c49645a0343b312d3d5fda75e16ebdb51ad870ffb1c830e854c4f9f2"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check.stdout",
+      "sha256": "84d04125660e0fb7e74b50a9ae8f5c9a92c260efb9f4f18507571eac9bc559d0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.native.png",
+      "sha256": "05f820eaef6b65e247274e3b9e8eef23b663757fc1b29c1c3d5aff0a1c74d148"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.pixels.json",
+      "sha256": "25df463ed6c55050248dda59e846897e7b7981f742dc7a76b8488bf4f4737242"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/native.png",
+      "sha256": "2ad1823e01ff10b4a985d3c569302ac74f89e418ed8c4b676ae98750676d6ca3"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/preview-16.png",
+      "sha256": "377ad1b5c626045cbdcab4fb0e720b35be5f2279c103432be919940862d2ab65"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.icon",
+      "sha256": "a8e948ef83366fd568ea18a1913b22c710f6445fd80a7f485d88f2ce87b186db"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.proof.png",
+      "sha256": "efd1ddc24049f02188878c3899234a7372bf9d344a1a7bafbad93f4148c873ce"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/checks.json",
+      "sha256": "42ceeb49664f69eaf3f82182171b211b8e11d1b211c2337a44dba9f12c60a5de"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.svg",
+      "sha256": "0ee1018ef8ce79ae3c97aec2846725c3a6138959739e70cefea36e80b5219ea6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.pixels.json",
+      "sha256": "b1e01d2a534ffa1c1798b9aa6c249e72515ee7ccdc5bcebfa0a4904a987f3d81"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.png",
+      "sha256": "ac6cf278ce4401dd97460efca549bc467b6b5ad529aadd6aacf63414e17ac805"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.artifact.json",
+      "sha256": "84cfb151af3e7a5d17fabb53e7958807d78abd528201073216124f226ecca03c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/revision.json",
+      "sha256": "4d64aa595756ff198fd66814e85ae577b000786fa87c5b4974fd09fbf3395f02"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.retina.png",
+      "sha256": "3e9bdb051d4437c59155ff7907067e6b223ffdc8e7e592eea2d44ffe9fd443c0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.icon",
+      "sha256": "66b36fcfcadf9d01e0a4bb596a3cc5bf3c84eeb0f5fd0cb380ed14661aab3ecc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.proof.png",
+      "sha256": "9811ae3f6960bd3bb30cb95876401264bc79f5c4261cd2f14796d2323fc84b0c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.artifact.json",
+      "sha256": "ad266d898c1011fbcda2a156cb5b93d8eaa9b8b9684e0469031773a7b9be4c3b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.svg",
+      "sha256": "c66e07648da81017c83a5ec46fb1ae37d488aac23a8865a0ee2e2bdfcd2a3750"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.native.png",
+      "sha256": "e660c4ec518895b1f44a147f4c8f7371e8fb68bf25973479b80c1e953e70ded9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/filled.png",
+      "sha256": "ff7299aa4b84f493a050f96c4e1bdaec7d3f9e715de86e7b3a42d3ec8ecf1254"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.retina.png",
+      "sha256": "9b440e1a4e4c8cf9a0b4d8aa7c08b443fd6922d692f57b323b68da14f6a7a81c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check.stdout",
+      "sha256": "f75394cdaa8aef0ad4562cfaad2fb8880f4514151358e55471b817c644a1b4b2"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.native.png",
+      "sha256": "9f8855be1294d8c71c990774ab71a5f312d3fb4139003b55943d33da40bb87ca"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.pixels.json",
+      "sha256": "065e1aea10f4fddae4e0d04ca7ef5ba390bcf2df5b1392d0d639af861cc5bce7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/native.png",
+      "sha256": "42c7a1a5744bd380d85301bbf1f8d5b6a5addb2dd6de7dc9ec90060d9fda0c9f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/preview-16.png",
+      "sha256": "c53d0468605e12256641309c9a86d0cd1470bc1ea503073b5a2088a7fb436bca"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.icon",
+      "sha256": "2c0d352305a9783aea9ba9faa9b6d417e7848e35b2d8d7a2308dd171e8e774cc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.proof.png",
+      "sha256": "e4651a7e0db7c932b97a716035b9091564d7f3722e19f88b616dfe80dcf8f35f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/checks.json",
+      "sha256": "2154df3155092c6b96fad25e90d49551af5755e4dd6a89aee2ae8571ec797aef"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.svg",
+      "sha256": "91fe12fcedc38ce79bdee9167b2ee12a3d26adffa91712315b39a6e0c2ff7d55"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.pixels.json",
+      "sha256": "403b4360189da483d0ae7c16ec583e9b5c7640fb8df9c3730ef08c495a632958"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.png",
+      "sha256": "3c79672c0abfa46d8be8327c95991a280a8ec00faea5526fa55c763e19179c73"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.artifact.json",
+      "sha256": "ea1e4139a14a2f4f10b4ed675257e02d5b7c2a6d18ae65dbb0028893ca41ef11"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/revision.json",
+      "sha256": "5dec1ee39306c6c82e204701f4a8205c3af962449eb9945c970f118ae535f3b7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.retina.png",
+      "sha256": "8178fdc4f0a7fec2768cf66d6e3d3c41fe6020460b985ea96088cc366a65faab"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.icon",
+      "sha256": "4fddfb8cb5405af8b4193e3008578140814c7b425e82980bac26b036a7b273ad"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.proof.png",
+      "sha256": "07fde8e814c0759fcf39ff3e5e9283c51b36d649e43477d3775accfb095fdc4b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.artifact.json",
+      "sha256": "a8e82a3ee4876b8988914d6bfd55e1b925e132b049d776212a86f9f75f582f6d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.svg",
+      "sha256": "b46d04ecb7bd40ae3b84b69ac47959f4a8c599ee2d7d593bc86f25f5921ef9a9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.native.png",
+      "sha256": "ee6dc153b2ea9538dbcadcb248cc639f9e0c16eec0df66993742a9999a5a508d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.png",
+      "sha256": "33d83c187a5e5ee4bbb951d6cf91e7489ab8c354b36c31fb3eec9772ea44bc62"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/cloud-upload-bottom-repair/filled.svg",
+      "sha256": "65d06c0aacff0caf979675e75a6b41c7f70616690d1f3d8bd72105694db2c34c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/cloud-upload-bottom-repair/filled.icon",
+      "sha256": "5b5d1ffa67d8a5731350093e0278c1426f27517cfd8f2ac2981ed2333096b7ba"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/cloud-upload-bottom-repair/filled.proof.png",
+      "sha256": "ee6dc8b2f67d865dbfcb8cad14da9cac4cdb0ac553d26b218d1757b96d317cc6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.retina.png",
+      "sha256": "4e9e619b774400738b7edea8afc0b9c6518aa586cbd8a7a20fabdacfee9c3026"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check.stdout",
+      "sha256": "939fd0687c5b95037b0b6b1369a779155954873759f9548166ff115f043de6ce"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.native.png",
+      "sha256": "b10a324fdb08cf4be27de2cf6c48e636dcd69c2e4c3aa250a98a8d907f348a31"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.pixels.json",
+      "sha256": "7d44beac9a9dbf846141b8f9aa924b6f339907c234507d559fd0001967788989"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/native.png",
+      "sha256": "29c282d49f5575e5f5a460e8bbec4daf11c434e5a1ca21ee5167835a90278aec"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/preview-16.png",
+      "sha256": "4e274f48e713ff3f797d0e923b2a212343707c31ca9ba55c47a77ede3acecce0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.icon",
+      "sha256": "c73e2a68c71dc731ca16f8ee217fced347eda5a1dce3608a299dc521614cadfd"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.proof.png",
+      "sha256": "70919fe2d719bf27fe3c1e9ec6df28dd04cbe30c9a60d8c3738336364fc0ebd8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/checks.json",
+      "sha256": "ba27fd3e3f2cf85f8eb3046d5a8701bbc796db90ebf107195195ea96c3eadcb7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.svg",
+      "sha256": "12065e27aae7f27f55c75a20246be01fd514f1602b6a3afb26cd33c46fb54410"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.pixels.json",
+      "sha256": "bad629f4a738a39e2ff4d2c425b6aaf0e3bbf4b7b50a9deb746daeaffdf07b8c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.png",
+      "sha256": "0d6ae9282fdb63ac2d4845cf29e15f45f125fecb59fe67c422003c83101460f7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.artifact.json",
+      "sha256": "a256cbf60f41dca492e1efb104cbec8349ecc947087191e7dc390170b06ab85b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/revision.json",
+      "sha256": "bb8951e0f38da95b284be206718c70f7e5db6711de899e2515e1a521ea1a5148"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.retina.png",
+      "sha256": "1eda35ed8d2a36430d094f97a8ff4932c6d71943c28378830c47ccd4f8b25a83"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.icon",
+      "sha256": "7d0256a07a9f8b14b3849be75f637ddeaad2e0541addfb78a4a8f60563420de6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.proof.png",
+      "sha256": "6973dcc507e3528b1d6ee8609385998afe1d501a3be4116da0e585506e5164fe"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.artifact.json",
+      "sha256": "fef953704829e4ce7e31ad93dfce961e5f1f3a1693724e151e23c3dd91a28af9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.svg",
+      "sha256": "95c5bfdc3a16d0470f2a3b588ed6d31f39d30f1f4ce6b5d9603dd8ee35fb3e13"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.native.png",
+      "sha256": "8efd17a16fd2e26602cbd4d2aa628bd3dd0420229d8827c4e54d9f85abbd6f08"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.png",
+      "sha256": "128fcdf497baa42b12e25a081ee5b8360f74cf72f81b4e5a4bd1e0a11886ca7a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.retina.png",
+      "sha256": "4e66b7dfc83adbc640fa7f5b463abd567479960150c8f5bb4826faf24576620e"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check.stdout",
+      "sha256": "3a0784b0b6cc59acc38cda33d1de2ba5eaaebe5efeae6f1c5f515175944027cb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.native.png",
+      "sha256": "c1cd55270c8a78623514ded7873bfc4c0dca34c63da0b0e0acffc96fe8fdc428"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.pixels.json",
+      "sha256": "59732405cf1a3e977f3d238ddd71b55208d67fd3de331f9af78385a1dff0903a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/native.png",
+      "sha256": "8a6a347f3adc5d1eb66420c995d0ff76e47f17efa07fddae887b8758f4c2f142"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/preview-16.png",
+      "sha256": "b94ad2efd3c4d85e94485c90a0fd9ed4a26d68006ad01bf43e443c030b01d10f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.icon",
+      "sha256": "e99bf1dd5036eaca03aacc5407937cbe925be6bca6628ea6a9aca4d3f1b3cf2c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.proof.png",
+      "sha256": "c89ab9d3d8f278b596ca67f9b85e0b3c57798f17f38099450b1c853d551798e3"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/checks.json",
+      "sha256": "e505dd8730bdb1c962e753b1ca9ae7f2bbdd3aad0b37a9639c6d6650599830d2"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.svg",
+      "sha256": "9cac9f643e051d9e2797ee12db0b7bd3eeaa75f7206e35e60c03562937a271ac"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.pixels.json",
+      "sha256": "80514e629217b103e101e0e569f63fc5fe2176d4139d407c889d6fc0bbb36632"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.png",
+      "sha256": "97d1092042202e7a50b4ed5423143b9dacb03b4079136fbb17b1edcaa63a8e03"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.artifact.json",
+      "sha256": "37cc29c9e0127ea7094c61ec5bdfd531d3877043cfcf84aaa411445390cb6937"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/revision.json",
+      "sha256": "bcc3700fd57bb9a825b95d3bdd3d1b8a63d68729ec820a0a90b6780b82bd08ce"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.retina.png",
+      "sha256": "614b3a79e91418e203650801116d101fd3e98f2d51467ec3c4bbf37aedf43b6c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.icon",
+      "sha256": "2efd6c06162af287b205d2001c39a7c26ec402d83da1bb62e156ba2ccb243409"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.proof.png",
+      "sha256": "789db84f6c3782d610c36df75f94005212859591ae14e0327bfc57ea2f756572"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.artifact.json",
+      "sha256": "8ff8edd09f28a3d4247d04f933075cfe4431feab11b03f5d49192af301568a25"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.svg",
+      "sha256": "6af42e7af09934e42aa4e88b3086557dcc3595f9908f0a3b7513c9d3c91b739e"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.native.png",
+      "sha256": "7f2c1da602ed9b130b7df9814884f9b8879d3741335e16d07ac3cfd5ce028e40"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/filled.png",
+      "sha256": "d09c63056c53d270be45061c6e52f9b1c9fea97126d52103cf6f01f6bbb2f244"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.retina.png",
+      "sha256": "c640f33e6baaad22c6d9a9d685450b54d7557e3a1cbc8995184c4530b84be865"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check.stdout",
+      "sha256": "7d3f27566ad08167d83a6a6032e12082ccd1d0023c5d0f8c1830dab49f1507d1"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.native.png",
+      "sha256": "6ea0b7b60ffaa17450af99d03096709c1258363a5e14b7bf01003da9e1672097"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.pixels.json",
+      "sha256": "13815630bd2a469df924f60d525f983cb9eb06087dfa9d4dc65a52c79078dc39"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/native.png",
+      "sha256": "b3fec3fc15d4361dee3aceedd7c8a38569cc01f757f0ddf0e45bd72a3fdbbb78"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/preview-16.png",
+      "sha256": "1b8cf2609c99a175eac1c466e152e655ff95566188356218b062bbdc389ad4eb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.icon",
+      "sha256": "1c908ad30673cf9e214bf0552b941b1241a26f52ed5316d08ac39e5696c0a08c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.proof.png",
+      "sha256": "887509e8d1ad2047b257492ba6dfe84fabc45d1b4e7fbad1b41afffa34162911"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/checks.json",
+      "sha256": "8bd4e8e4753536619461a9631f1df93e36735fd12339c151b155472e5e65005a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.svg",
+      "sha256": "89d15a3658a473e45dc29f529c5371bd8469347d2b1400727d15752537a8aa94"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.pixels.json",
+      "sha256": "a7c71dd1de3d9b1ec53601b337147577bc13c17e8a08aecc3a454e4b05b7c155"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.png",
+      "sha256": "f35bc3215c97d0dedf83e8666347e8722ab33a959ed1fb9f245565983690fdae"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.artifact.json",
+      "sha256": "83deccedd8c7f8795a27d627ff30826d508f367a58c9b0ba28df4da529e6a2cf"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/revision.json",
+      "sha256": "60c6e3f3e96bc719b3b80b4946d2408d08b53aef967733dee89e8003f4688415"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.retina.png",
+      "sha256": "b2bf725776534f70a58e4b67f209aba9d7d10b84fb882e4e14f81f3a022cd7a8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.icon",
+      "sha256": "c914abad5c53641e98f190852179774f80cf75cc40728dcaffc0d16dc0d5cbbc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.proof.png",
+      "sha256": "75299310c86bedfe0a7cb4d0fcc62cfde41c0054b94d33817d90e185695b406a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.artifact.json",
+      "sha256": "ff7a0c93b151f31402473188b2b0dcb73d6e167e318a3f326818a3a33a546c6a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.svg",
+      "sha256": "95f950cd923f1f65b9e82ea1fc0628eee27994de90e3e8d272c5055f195b8494"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.native.png",
+      "sha256": "f1849702e7ff29cf99d6881a06591d0886a41d34f38e6d0e7b69023cc04e6eec"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.png",
+      "sha256": "756294425aa0453c8751d8f6ff48b3f95ed560e49a1f224f9d86f97350b7542f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.retina.png",
+      "sha256": "ec7a7bd4058c716d255d8182090d50f0e2a39d1fe8b5288f4e2788228cc65853"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check.stdout",
+      "sha256": "e0ed7db2fd555cfebbac59e382b815054c7d99a5b38c37608b1ee731468c73dc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.native.png",
+      "sha256": "42156c71002eb9b275b29d500775e150c0b205a6812611e775cb592d482c9aa7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.pixels.json",
+      "sha256": "85c6fc2e13a26d63adf6af495bdc7119f9f0bbfd3c974a4dc308171cc94afdd5"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/native.png",
+      "sha256": "5ed08e5a832a20176d83ca316ce659968c696da7c93101b497eec642698e9473"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/preview-16.png",
+      "sha256": "74aa177c7e27d3af298746377ff3566413fc767ebf851b710b43dfd4a6967ef8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.icon",
+      "sha256": "69e3f040bb577bc38edcd2cb8cb91cb559bef4c45f6129e08b8369e11ac0deb0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.proof.png",
+      "sha256": "8d5a25b3fab6551f4f96777b569875e631a0da31fc9edef953063edef2f22bc1"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/checks.json",
+      "sha256": "9945ae06f0dc7b390c159858f6e8ff325591266b926b41bb74793e9254540f57"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.svg",
+      "sha256": "04161e51adc7f9d7bfcaf76b6b3be75741dcb3cd7374eb933e3601428a8cd24c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.pixels.json",
+      "sha256": "60ae96f7131ef8958354da18214fef8e0aed991944961170a65dd00dc12ceda6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.png",
+      "sha256": "2a2a56547efec92665b9788a4f7beed6843627ffc8bb1cf305109c896d2200ed"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.artifact.json",
+      "sha256": "0d15429c7c5d3c67bb9989f7e5a88dd81918f524ecd576a8964c1fd1d040427f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/revision.json",
+      "sha256": "4632965491075588eea29b15ecb477e85bc4150003ee91a742add11fbe62903a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.retina.png",
+      "sha256": "513c466c2b384fd325715a5ecf4cf2fd2d3ad4947f8aabe5f9d71084af2d0044"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.icon",
+      "sha256": "78534eef8c444dde32b2027ef0d2d684e1831bb81a5c5080e3f1b126c880fa12"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.proof.png",
+      "sha256": "93d318d5c714edb786d0c990bbf0983cb3c7103bfda6b54947cacd1560c2a88b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.artifact.json",
+      "sha256": "b839acf4a9fbd24c9acf8191ac4102655b0a43469cca19ff291a5d25370c27e6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.svg",
+      "sha256": "576e03f4996f2456e29cc0fdc062f601752d2f22fe258929805a6be153abc5e4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.native.png",
+      "sha256": "10239c92c46cf9b263ac0459bc901404b19b054db29a3e6858ec50e52c9731df"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/filled.png",
+      "sha256": "f086cf29dd4ccb86dbb11e599f81a065d9aaed0c7f907d3a68bf4204fe315f11"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.retina.png",
+      "sha256": "11c7446e9ccfd5cb7522eabe5d8e88e56f7a1b0c8fb61f3c6f4abd14711794bf"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check.stdout",
+      "sha256": "36ab4d26782f30a63e0bc1a3e24d3d2f9933921aed2c6cd6eb0920f45b85ab95"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.native.png",
+      "sha256": "b92e4128250f132c566823bf3978107385dd24db46c7199e419c75a90a3f4453"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.pixels.json",
+      "sha256": "7bc1d166a71142f79d63edbe1f52a6c559d8bd32fcd6dc6aaea71233772e53ab"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/native.png",
+      "sha256": "bcf4f25012c056aa76f1e3060bceca84fde8285a4d79f60bda064eaf17b7e9fb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/preview-16.png",
+      "sha256": "bc488110b7c908457ac73837aed517f102ba2afea341b81e8d4498418ad84dba"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.icon",
+      "sha256": "7a3e9e88fb172a9e8339e7ad768ad3a1f2b47068c6c9a5a4a97c2e2631d5328f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.proof.png",
+      "sha256": "84a503b1ce447a97682b5e33251523685f5eabbc25e3b0651976326eac9ef67b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/checks.json",
+      "sha256": "c9df47dfd2bb192076b2d934e6567b2da41d18d1e094fcb76e682126f3e77f46"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.svg",
+      "sha256": "a3b70d290380498bf1379a6c664cab03859adbf6fad9acf936974c3bf6bc7608"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.pixels.json",
+      "sha256": "b33fca9db0fc9d161d71185c71fe69020f6fc59be001dcf5ab2a631972c2640c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.png",
+      "sha256": "e9b3754c4d0593ba31549f22c2bfbaf1442cce8990de2dda6b07cc3fa2af6068"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.artifact.json",
+      "sha256": "d7c4f11e4e9bf70a931ba37965ca1af97546c1e4a2889b5c831cb12e4e049f68"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/revision.json",
+      "sha256": "2b72bd5a5e8387619659fadc1975ec2fd9984863a7d856cdac74644a017701fc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.retina.png",
+      "sha256": "308bb3a8ee51aa76b326c528dfa79b8988689c566c5010728714a5a3aae58718"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.icon",
+      "sha256": "c1d5c2efb6bfce612c8b5f36ea1fbb57802c0028ae9c71634978533016f6319b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.proof.png",
+      "sha256": "96be60877d0ed45ad036eeef63b23d3b8d1e34ac31b3c93889c04bec38ce8075"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.artifact.json",
+      "sha256": "baeb4c102a8ba416b99795aee2abd4bf9518d06accec415ded7117431c81237c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.svg",
+      "sha256": "b81eced16220b1436ed88e16fca3a62fbc426310cb70986dd223ca8d775331fe"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.native.png",
+      "sha256": "e69721cebf42401572ceaf072e8d38b9bfa255ffbb28ca3771f2195910fb6266"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.png",
+      "sha256": "0e1bad3cec1a18a728cc1f3a0bb1cd23d932408040440662ec59bc6b88d46aee"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.retina.png",
+      "sha256": "11c7446e9ccfd5cb7522eabe5d8e88e56f7a1b0c8fb61f3c6f4abd14711794bf"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.native.png",
+      "sha256": "b92e4128250f132c566823bf3978107385dd24db46c7199e419c75a90a3f4453"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.pixels.json",
+      "sha256": "7bc1d166a71142f79d63edbe1f52a6c559d8bd32fcd6dc6aaea71233772e53ab"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/native.png",
+      "sha256": "bcf4f25012c056aa76f1e3060bceca84fde8285a4d79f60bda064eaf17b7e9fb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/preview-16.png",
+      "sha256": "bc488110b7c908457ac73837aed517f102ba2afea341b81e8d4498418ad84dba"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.icon",
+      "sha256": "7a3e9e88fb172a9e8339e7ad768ad3a1f2b47068c6c9a5a4a97c2e2631d5328f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.proof.png",
+      "sha256": "84a503b1ce447a97682b5e33251523685f5eabbc25e3b0651976326eac9ef67b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/checks.json",
+      "sha256": "c9df47dfd2bb192076b2d934e6567b2da41d18d1e094fcb76e682126f3e77f46"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.svg",
+      "sha256": "a3b70d290380498bf1379a6c664cab03859adbf6fad9acf936974c3bf6bc7608"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.pixels.json",
+      "sha256": "b33fca9db0fc9d161d71185c71fe69020f6fc59be001dcf5ab2a631972c2640c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.png",
+      "sha256": "e9b3754c4d0593ba31549f22c2bfbaf1442cce8990de2dda6b07cc3fa2af6068"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.artifact.json",
+      "sha256": "d7c4f11e4e9bf70a931ba37965ca1af97546c1e4a2889b5c831cb12e4e049f68"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.retina.png",
+      "sha256": "308bb3a8ee51aa76b326c528dfa79b8988689c566c5010728714a5a3aae58718"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.icon",
+      "sha256": "c1d5c2efb6bfce612c8b5f36ea1fbb57802c0028ae9c71634978533016f6319b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.proof.png",
+      "sha256": "96be60877d0ed45ad036eeef63b23d3b8d1e34ac31b3c93889c04bec38ce8075"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.artifact.json",
+      "sha256": "baeb4c102a8ba416b99795aee2abd4bf9518d06accec415ded7117431c81237c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.svg",
+      "sha256": "b81eced16220b1436ed88e16fca3a62fbc426310cb70986dd223ca8d775331fe"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.native.png",
+      "sha256": "e69721cebf42401572ceaf072e8d38b9bfa255ffbb28ca3771f2195910fb6266"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/filled.png",
+      "sha256": "0e1bad3cec1a18a728cc1f3a0bb1cd23d932408040440662ec59bc6b88d46aee"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/folder-lock/check-dwc7cu/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.retina.png",
+      "sha256": "ec7a7bd4058c716d255d8182090d50f0e2a39d1fe8b5288f4e2788228cc65853"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.native.png",
+      "sha256": "42156c71002eb9b275b29d500775e150c0b205a6812611e775cb592d482c9aa7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.pixels.json",
+      "sha256": "85c6fc2e13a26d63adf6af495bdc7119f9f0bbfd3c974a4dc308171cc94afdd5"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/native.png",
+      "sha256": "5ed08e5a832a20176d83ca316ce659968c696da7c93101b497eec642698e9473"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/preview-16.png",
+      "sha256": "74aa177c7e27d3af298746377ff3566413fc767ebf851b710b43dfd4a6967ef8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.icon",
+      "sha256": "69e3f040bb577bc38edcd2cb8cb91cb559bef4c45f6129e08b8369e11ac0deb0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.proof.png",
+      "sha256": "8d5a25b3fab6551f4f96777b569875e631a0da31fc9edef953063edef2f22bc1"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/checks.json",
+      "sha256": "9945ae06f0dc7b390c159858f6e8ff325591266b926b41bb74793e9254540f57"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.svg",
+      "sha256": "04161e51adc7f9d7bfcaf76b6b3be75741dcb3cd7374eb933e3601428a8cd24c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.pixels.json",
+      "sha256": "60ae96f7131ef8958354da18214fef8e0aed991944961170a65dd00dc12ceda6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.png",
+      "sha256": "2a2a56547efec92665b9788a4f7beed6843627ffc8bb1cf305109c896d2200ed"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.artifact.json",
+      "sha256": "0d15429c7c5d3c67bb9989f7e5a88dd81918f524ecd576a8964c1fd1d040427f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.retina.png",
+      "sha256": "513c466c2b384fd325715a5ecf4cf2fd2d3ad4947f8aabe5f9d71084af2d0044"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.icon",
+      "sha256": "78534eef8c444dde32b2027ef0d2d684e1831bb81a5c5080e3f1b126c880fa12"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.proof.png",
+      "sha256": "93d318d5c714edb786d0c990bbf0983cb3c7103bfda6b54947cacd1560c2a88b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.artifact.json",
+      "sha256": "b839acf4a9fbd24c9acf8191ac4102655b0a43469cca19ff291a5d25370c27e6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.svg",
+      "sha256": "576e03f4996f2456e29cc0fdc062f601752d2f22fe258929805a6be153abc5e4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.native.png",
+      "sha256": "10239c92c46cf9b263ac0459bc901404b19b054db29a3e6858ec50e52c9731df"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/filled.png",
+      "sha256": "f086cf29dd4ccb86dbb11e599f81a065d9aaed0c7f907d3a68bf4204fe315f11"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/shield-check/check-oBw3T4/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.retina.png",
+      "sha256": "c640f33e6baaad22c6d9a9d685450b54d7557e3a1cbc8995184c4530b84be865"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.native.png",
+      "sha256": "6ea0b7b60ffaa17450af99d03096709c1258363a5e14b7bf01003da9e1672097"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.pixels.json",
+      "sha256": "13815630bd2a469df924f60d525f983cb9eb06087dfa9d4dc65a52c79078dc39"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/native.png",
+      "sha256": "b3fec3fc15d4361dee3aceedd7c8a38569cc01f757f0ddf0e45bd72a3fdbbb78"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/preview-16.png",
+      "sha256": "1b8cf2609c99a175eac1c466e152e655ff95566188356218b062bbdc389ad4eb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.icon",
+      "sha256": "1c908ad30673cf9e214bf0552b941b1241a26f52ed5316d08ac39e5696c0a08c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.proof.png",
+      "sha256": "887509e8d1ad2047b257492ba6dfe84fabc45d1b4e7fbad1b41afffa34162911"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/checks.json",
+      "sha256": "8bd4e8e4753536619461a9631f1df93e36735fd12339c151b155472e5e65005a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.svg",
+      "sha256": "89d15a3658a473e45dc29f529c5371bd8469347d2b1400727d15752537a8aa94"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.pixels.json",
+      "sha256": "a7c71dd1de3d9b1ec53601b337147577bc13c17e8a08aecc3a454e4b05b7c155"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.png",
+      "sha256": "f35bc3215c97d0dedf83e8666347e8722ab33a959ed1fb9f245565983690fdae"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.artifact.json",
+      "sha256": "83deccedd8c7f8795a27d627ff30826d508f367a58c9b0ba28df4da529e6a2cf"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.retina.png",
+      "sha256": "b2bf725776534f70a58e4b67f209aba9d7d10b84fb882e4e14f81f3a022cd7a8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.icon",
+      "sha256": "c914abad5c53641e98f190852179774f80cf75cc40728dcaffc0d16dc0d5cbbc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.proof.png",
+      "sha256": "75299310c86bedfe0a7cb4d0fcc62cfde41c0054b94d33817d90e185695b406a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.artifact.json",
+      "sha256": "ff7a0c93b151f31402473188b2b0dcb73d6e167e318a3f326818a3a33a546c6a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.svg",
+      "sha256": "95f950cd923f1f65b9e82ea1fc0628eee27994de90e3e8d272c5055f195b8494"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.native.png",
+      "sha256": "f1849702e7ff29cf99d6881a06591d0886a41d34f38e6d0e7b69023cc04e6eec"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/filled.png",
+      "sha256": "756294425aa0453c8751d8f6ff48b3f95ed560e49a1f224f9d86f97350b7542f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/bookmark-play/check-gO53Zm/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.retina.png",
+      "sha256": "4e66b7dfc83adbc640fa7f5b463abd567479960150c8f5bb4826faf24576620e"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.native.png",
+      "sha256": "c1cd55270c8a78623514ded7873bfc4c0dca34c63da0b0e0acffc96fe8fdc428"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.pixels.json",
+      "sha256": "59732405cf1a3e977f3d238ddd71b55208d67fd3de331f9af78385a1dff0903a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/native.png",
+      "sha256": "8a6a347f3adc5d1eb66420c995d0ff76e47f17efa07fddae887b8758f4c2f142"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/preview-16.png",
+      "sha256": "b94ad2efd3c4d85e94485c90a0fd9ed4a26d68006ad01bf43e443c030b01d10f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.icon",
+      "sha256": "e99bf1dd5036eaca03aacc5407937cbe925be6bca6628ea6a9aca4d3f1b3cf2c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.proof.png",
+      "sha256": "c89ab9d3d8f278b596ca67f9b85e0b3c57798f17f38099450b1c853d551798e3"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/checks.json",
+      "sha256": "e505dd8730bdb1c962e753b1ca9ae7f2bbdd3aad0b37a9639c6d6650599830d2"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.svg",
+      "sha256": "9cac9f643e051d9e2797ee12db0b7bd3eeaa75f7206e35e60c03562937a271ac"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.pixels.json",
+      "sha256": "80514e629217b103e101e0e569f63fc5fe2176d4139d407c889d6fc0bbb36632"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.png",
+      "sha256": "97d1092042202e7a50b4ed5423143b9dacb03b4079136fbb17b1edcaa63a8e03"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.artifact.json",
+      "sha256": "37cc29c9e0127ea7094c61ec5bdfd531d3877043cfcf84aaa411445390cb6937"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.retina.png",
+      "sha256": "614b3a79e91418e203650801116d101fd3e98f2d51467ec3c4bbf37aedf43b6c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.icon",
+      "sha256": "2efd6c06162af287b205d2001c39a7c26ec402d83da1bb62e156ba2ccb243409"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.proof.png",
+      "sha256": "789db84f6c3782d610c36df75f94005212859591ae14e0327bfc57ea2f756572"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.artifact.json",
+      "sha256": "8ff8edd09f28a3d4247d04f933075cfe4431feab11b03f5d49192af301568a25"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.svg",
+      "sha256": "6af42e7af09934e42aa4e88b3086557dcc3595f9908f0a3b7513c9d3c91b739e"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.native.png",
+      "sha256": "7f2c1da602ed9b130b7df9814884f9b8879d3741335e16d07ac3cfd5ce028e40"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/filled.png",
+      "sha256": "d09c63056c53d270be45061c6e52f9b1c9fea97126d52103cf6f01f6bbb2f244"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/clock-check/check-Qe4g0s/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.retina.png",
+      "sha256": "4e9e619b774400738b7edea8afc0b9c6518aa586cbd8a7a20fabdacfee9c3026"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.native.png",
+      "sha256": "b10a324fdb08cf4be27de2cf6c48e636dcd69c2e4c3aa250a98a8d907f348a31"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.pixels.json",
+      "sha256": "7d44beac9a9dbf846141b8f9aa924b6f339907c234507d559fd0001967788989"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/native.png",
+      "sha256": "29c282d49f5575e5f5a460e8bbec4daf11c434e5a1ca21ee5167835a90278aec"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/preview-16.png",
+      "sha256": "4e274f48e713ff3f797d0e923b2a212343707c31ca9ba55c47a77ede3acecce0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.icon",
+      "sha256": "c73e2a68c71dc731ca16f8ee217fced347eda5a1dce3608a299dc521614cadfd"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.proof.png",
+      "sha256": "70919fe2d719bf27fe3c1e9ec6df28dd04cbe30c9a60d8c3738336364fc0ebd8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/checks.json",
+      "sha256": "ba27fd3e3f2cf85f8eb3046d5a8701bbc796db90ebf107195195ea96c3eadcb7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.svg",
+      "sha256": "12065e27aae7f27f55c75a20246be01fd514f1602b6a3afb26cd33c46fb54410"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.pixels.json",
+      "sha256": "bad629f4a738a39e2ff4d2c425b6aaf0e3bbf4b7b50a9deb746daeaffdf07b8c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.png",
+      "sha256": "0d6ae9282fdb63ac2d4845cf29e15f45f125fecb59fe67c422003c83101460f7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.artifact.json",
+      "sha256": "a256cbf60f41dca492e1efb104cbec8349ecc947087191e7dc390170b06ab85b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.retina.png",
+      "sha256": "1eda35ed8d2a36430d094f97a8ff4932c6d71943c28378830c47ccd4f8b25a83"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.icon",
+      "sha256": "7d0256a07a9f8b14b3849be75f637ddeaad2e0541addfb78a4a8f60563420de6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.proof.png",
+      "sha256": "6973dcc507e3528b1d6ee8609385998afe1d501a3be4116da0e585506e5164fe"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.artifact.json",
+      "sha256": "fef953704829e4ce7e31ad93dfce961e5f1f3a1693724e151e23c3dd91a28af9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.svg",
+      "sha256": "95c5bfdc3a16d0470f2a3b588ed6d31f39d30f1f4ce6b5d9603dd8ee35fb3e13"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.native.png",
+      "sha256": "8efd17a16fd2e26602cbd4d2aa628bd3dd0420229d8827c4e54d9f85abbd6f08"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/filled.png",
+      "sha256": "128fcdf497baa42b12e25a081ee5b8360f74cf72f81b4e5a4bd1e0a11886ca7a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/camera-sparkle/check-0c7gpA/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.retina.png",
+      "sha256": "9b440e1a4e4c8cf9a0b4d8aa7c08b443fd6922d692f57b323b68da14f6a7a81c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.native.png",
+      "sha256": "9f8855be1294d8c71c990774ab71a5f312d3fb4139003b55943d33da40bb87ca"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.pixels.json",
+      "sha256": "065e1aea10f4fddae4e0d04ca7ef5ba390bcf2df5b1392d0d639af861cc5bce7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/native.png",
+      "sha256": "42c7a1a5744bd380d85301bbf1f8d5b6a5addb2dd6de7dc9ec90060d9fda0c9f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/preview-16.png",
+      "sha256": "c53d0468605e12256641309c9a86d0cd1470bc1ea503073b5a2088a7fb436bca"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.icon",
+      "sha256": "2c0d352305a9783aea9ba9faa9b6d417e7848e35b2d8d7a2308dd171e8e774cc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.proof.png",
+      "sha256": "e4651a7e0db7c932b97a716035b9091564d7f3722e19f88b616dfe80dcf8f35f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/checks.json",
+      "sha256": "2154df3155092c6b96fad25e90d49551af5755e4dd6a89aee2ae8571ec797aef"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.svg",
+      "sha256": "91fe12fcedc38ce79bdee9167b2ee12a3d26adffa91712315b39a6e0c2ff7d55"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.pixels.json",
+      "sha256": "403b4360189da483d0ae7c16ec583e9b5c7640fb8df9c3730ef08c495a632958"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.png",
+      "sha256": "3c79672c0abfa46d8be8327c95991a280a8ec00faea5526fa55c763e19179c73"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.artifact.json",
+      "sha256": "ea1e4139a14a2f4f10b4ed675257e02d5b7c2a6d18ae65dbb0028893ca41ef11"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.retina.png",
+      "sha256": "8178fdc4f0a7fec2768cf66d6e3d3c41fe6020460b985ea96088cc366a65faab"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.icon",
+      "sha256": "4fddfb8cb5405af8b4193e3008578140814c7b425e82980bac26b036a7b273ad"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.proof.png",
+      "sha256": "07fde8e814c0759fcf39ff3e5e9283c51b36d649e43477d3775accfb095fdc4b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.artifact.json",
+      "sha256": "a8e82a3ee4876b8988914d6bfd55e1b925e132b049d776212a86f9f75f582f6d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.svg",
+      "sha256": "b46d04ecb7bd40ae3b84b69ac47959f4a8c599ee2d7d593bc86f25f5921ef9a9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.native.png",
+      "sha256": "ee6dc153b2ea9538dbcadcb248cc639f9e0c16eec0df66993742a9999a5a508d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/filled.png",
+      "sha256": "33d83c187a5e5ee4bbb951d6cf91e7489ab8c354b36c31fb3eec9772ea44bc62"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/jellyfish/check-iVc5f5/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.retina.png",
+      "sha256": "4c3d8c83c49645a0343b312d3d5fda75e16ebdb51ad870ffb1c830e854c4f9f2"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.native.png",
+      "sha256": "05f820eaef6b65e247274e3b9e8eef23b663757fc1b29c1c3d5aff0a1c74d148"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.pixels.json",
+      "sha256": "25df463ed6c55050248dda59e846897e7b7981f742dc7a76b8488bf4f4737242"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/native.png",
+      "sha256": "2ad1823e01ff10b4a985d3c569302ac74f89e418ed8c4b676ae98750676d6ca3"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/preview-16.png",
+      "sha256": "377ad1b5c626045cbdcab4fb0e720b35be5f2279c103432be919940862d2ab65"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.icon",
+      "sha256": "a8e948ef83366fd568ea18a1913b22c710f6445fd80a7f485d88f2ce87b186db"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.proof.png",
+      "sha256": "efd1ddc24049f02188878c3899234a7372bf9d344a1a7bafbad93f4148c873ce"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/checks.json",
+      "sha256": "42ceeb49664f69eaf3f82182171b211b8e11d1b211c2337a44dba9f12c60a5de"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.svg",
+      "sha256": "0ee1018ef8ce79ae3c97aec2846725c3a6138959739e70cefea36e80b5219ea6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.pixels.json",
+      "sha256": "b1e01d2a534ffa1c1798b9aa6c249e72515ee7ccdc5bcebfa0a4904a987f3d81"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.png",
+      "sha256": "ac6cf278ce4401dd97460efca549bc467b6b5ad529aadd6aacf63414e17ac805"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.artifact.json",
+      "sha256": "84cfb151af3e7a5d17fabb53e7958807d78abd528201073216124f226ecca03c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.retina.png",
+      "sha256": "3e9bdb051d4437c59155ff7907067e6b223ffdc8e7e592eea2d44ffe9fd443c0"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.icon",
+      "sha256": "66b36fcfcadf9d01e0a4bb596a3cc5bf3c84eeb0f5fd0cb380ed14661aab3ecc"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.proof.png",
+      "sha256": "9811ae3f6960bd3bb30cb95876401264bc79f5c4261cd2f14796d2323fc84b0c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.artifact.json",
+      "sha256": "ad266d898c1011fbcda2a156cb5b93d8eaa9b8b9684e0469031773a7b9be4c3b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.svg",
+      "sha256": "c66e07648da81017c83a5ec46fb1ae37d488aac23a8865a0ee2e2bdfcd2a3750"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.native.png",
+      "sha256": "e660c4ec518895b1f44a147f4c8f7371e8fb68bf25973479b80c1e953e70ded9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/filled.png",
+      "sha256": "ff7299aa4b84f493a050f96c4e1bdaec7d3f9e715de86e7b3a42d3ec8ecf1254"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/key/check-ksrNTO/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.retina.png",
+      "sha256": "9e5cb87ccb8460816067709740bea819e9cf07e80a3f9bca6ad1f37a54a738d8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.native.png",
+      "sha256": "0eb5442425f612e45af0f7025701ee2060d69c7731b4a434c0f49e6205fd2f41"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.pixels.json",
+      "sha256": "4bae3048cb7ddf45f7efa6ca22bfafb11a319891b902eabaea07bc6ad6527c44"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/native.png",
+      "sha256": "27faca2edaddb4e5881280e6a5d65ef27c45b1ba66099b489f72aec8f72cdb81"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/preview-16.png",
+      "sha256": "a0f3b00bc8cbda8baf8f981f178e142fa3e8a53f8c5d282e05bababb4de440c9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.icon",
+      "sha256": "cb5cd7cf16d7cda005d461ff80ffb5e8aa1079e1efa4718a4d69001bebc7fba6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.proof.png",
+      "sha256": "25fee00749e9f7b88e45dd3515ca4b3363d074ee36cf5961b9818d4bc2891448"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/checks.json",
+      "sha256": "39c67d8b6b9bd6c0a5a46627c6124aa47b6fd5e918b224fb7afe202bb844dfd1"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.svg",
+      "sha256": "1605915bac32c704e7a966668f17f1650a411618372acf5557084b730073e4ce"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.pixels.json",
+      "sha256": "6051750a5f4f47420944801b93c320dcf9313d30652f63946d8b7fbef5ae0429"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.png",
+      "sha256": "fedad5ce99e05d5518f1854f13f0699291cc6a0d16d2d98558dfe549b0214d0b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.artifact.json",
+      "sha256": "7e65bd905a813e8fc43b3e129888d945376c0086c6f7b778e12b22cfa3d94d1f"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.retina.png",
+      "sha256": "67a7197b58232b2ee1f931dcbd87cf0bceec2ef6b4d97c7759dfac804652b159"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.icon",
+      "sha256": "df65013992a92dfd43d41813654d9f8fc1b89a8e9d937434f1d76f8d3e130aa5"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.proof.png",
+      "sha256": "4a51fba389378f62802a95cd6b4ddae2524c823c01bf8d09fe4aa4520544e8bb"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.artifact.json",
+      "sha256": "0001e284f1a03b9130d634467f35a047476ad82fce6b0172d4c1ee3904a90d44"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.svg",
+      "sha256": "4bf62dc4888cc8e9ea59bf3ffb50faf4811a77b8aafa48cabf1ff1bbfea17f73"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.native.png",
+      "sha256": "9595741be053a3d093943e72eebdb7c1804496155ef8fcdf35a7dbe58191d924"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/filled.png",
+      "sha256": "c5cf2983f2512e1b647a3c29eb5f58d89106e48b278bd1176b04424d7bcf3091"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/headphones/check-ZWdMk6/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.retina.png",
+      "sha256": "270d8a2140cbc8cd17d8014a8a21c42b73b1c1a6d587ba4ef141a779bc6beb02"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.native.png",
+      "sha256": "f55740db7eff3c26b87026cf9607d3362ba227f2a6f9ac267a6aa830b8969111"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.pixels.json",
+      "sha256": "3e735e5ddc7d2e30396a1d8983dbf73f1f0b3124d39abe7bf2144baeecafc7a9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/native.png",
+      "sha256": "33263a5c0d79cb308b8c43effc9c2f213a81e04b1124ed49c4cb2b4f6263ab20"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/preview-16.png",
+      "sha256": "258dc0fc1922c49e2826a47f9894297360f6eac66201ac40017f2b4b4bc1c630"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.icon",
+      "sha256": "c23e75b7a90887cdc9c36eac72aafdd6a0064532a3fef2f549f79a97fae83fb6"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.proof.png",
+      "sha256": "fab2d307b8ec2bbdc7ac89b4678e367fb7fd27b269018fa9178142806ad3b7ac"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/checks.json",
+      "sha256": "c9476523d3efd5f0f391859567fef11563df1cd5062434d05656ef3ad4063933"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.svg",
+      "sha256": "9f76cd7ba5b95499ff6e14c796247ea513796f502ad0e25f4fe35b6ac7e6516b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.pixels.json",
+      "sha256": "523107d5dd42e83d9a5997b82d51f4856ceca2959bb9b4c917c01aa9540baeee"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.png",
+      "sha256": "a2bc57f3e594e40fbabf60e9c8011e3bb3676b53082b316c0e23d26cea651d82"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.artifact.json",
+      "sha256": "3e68e77caf6fcf5a6843c655c58fd155e63ec2f903232c5221fe36fa864a3c52"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.retina.png",
+      "sha256": "cfc99d443134616c940413189c3a058462c91f59797498e862db790de72ee967"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.icon",
+      "sha256": "f990e94a2cd3c6b18b97478365f5c22f46da7c0395fe857f85ca0244698421be"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.proof.png",
+      "sha256": "c90f641758718dfda2df754e57a2ec17a46b15a6425f307ee23796a6e86ea79c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.artifact.json",
+      "sha256": "fd3bef3da045dbbcff9af37974718e6f04e2e43b91218bd84afbf325ae40c747"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.svg",
+      "sha256": "660621cbd40b9e921ce6fbd6a01fc925317b5cfb0813d0312ef383645c2eae4d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.native.png",
+      "sha256": "e07c95bddcd2ac0c10584eb82cf31dec1f5f1679a341873806d8ccbf781f483a"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/filled.png",
+      "sha256": "2979da413d569afb6b283b70e238b43f6d8407a396c256e7460996b24cf082f8"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/satellite-dish/check-vDeKL7/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.retina.png",
+      "sha256": "4860e749404c7767d41707dd7795d70025f2b7ff2d31548e7e1728466d7ef62c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.native.png",
+      "sha256": "b45dffd49000661a6ab2dbf86861f4a172440e73aa9711555e86a27fbc0c9b04"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.pixels.json",
+      "sha256": "5fc5422170c470a04833f5888b7bf927447925b5a14e87105ac5f83e22fedefa"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/native.png",
+      "sha256": "43d19ec281bda9d85b75a5059036bbc1329fd393c73c5bd19f0484e33e3f7dd4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/preview-16.png",
+      "sha256": "92e17cf0d442f5d83e0da21a56c89e1f50fa8541cfb81c937607ea59767bf9c4"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.icon",
+      "sha256": "330176bd6d8ba7ee58d1ea37bc78088a53be068fee0735a8e6c08c617e63d51c"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.proof.png",
+      "sha256": "dfb9f73df74aad062cd9949af0ed6b7464ab2fdb1637c62c8a7d8268dfd1b53b"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/checks.json",
+      "sha256": "bbcc973cf13ff99396a7956fdeb7f2848454bcb1a4c9699867c74e393daf86fe"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.svg",
+      "sha256": "fc7f5eb36283ea5bd77f26cf3ac38fe80e3c73a80ab09a6a4ef0613b42dba713"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.pixels.json",
+      "sha256": "aac01266fd282c45db8e8aa8e1bff5bfa2bbdd069760887a2c4490e669508855"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.png",
+      "sha256": "15419dba4608e14dd48a65112c502b162b447110d6d45601049cf91627959e62"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.artifact.json",
+      "sha256": "b356daf61c0ca4c630d7afe0ee92fa5a13aef78180e6f2f66921a318f9222cad"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.retina.png",
+      "sha256": "87267baec402c9951b81e0523e8e44bfbc1fcacd1b92c2bbbd585f3973ea2691"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.icon",
+      "sha256": "d9df547a16f6132f7209c509ba3bba6e7908c85761ad02832f15c9d687e18976"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.proof.png",
+      "sha256": "97adf9e7bcb3e13c38d58b4b22bdf9fdce8d34a028fe2b313733964c9e80bda7"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.artifact.json",
+      "sha256": "6afd6bd028d1396fc4ae2b30907ac0f3d66fd017ec39232036df026e1d08a926"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.svg",
+      "sha256": "f062f00e536d4e1ede9eda77ba983bdbb0fd264b23feb1d86411a6b78b4335d9"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.native.png",
+      "sha256": "6994c99a705d97de9fb0eb579cf60b280658ab1d7ee35c650058ac465218c308"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/filled.png",
+      "sha256": "21998885e6ed2ed525c6f181d545e8ff41daa9e758d3c34deeb922fc0ff5800d"
+    },
+    {
+      "path": "output/ten-icons-repaired-2026-09-09/leaf/check-7LQy3Q/outlined.proof.json",
+      "sha256": "7383f20c39b3821e965ce4a7e0f37ffb19513b6ec30c24b067108f2ce9420d17"
+    }
+  ]
+}

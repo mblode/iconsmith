@@ -1,0 +1,289 @@
+{
+  "qualification": false,
+  "rows": [
+    {
+      "concept": "folder-lock",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/folder-lock/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/folder-lock/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [
+        {
+          "message": "Content centre is (12.01, 12.50); the house spec is (12, 12) within 0.25. Shift by (-0.01, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "Content centre is (12.05, 12.50); the house spec is (12, 12) within 0.25. Shift by (-0.05, -0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "filled"
+        }
+      ],
+      "pairIssues": [
+        {
+          "message": "e2 and e3 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ]
+    },
+    {
+      "concept": "shield-check",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/shield-check/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/shield-check/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 154.9\u00b0, 19.9\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e0\" has an edge at 25.1\u00b0, 19.9\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "pairIssues": []
+    },
+    {
+      "concept": "clock-check",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/clock-check/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/clock-check/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [],
+      "pairIssues": []
+    },
+    {
+      "concept": "jellyfish",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/jellyfish/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/jellyfish/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [],
+      "pairIssues": []
+    },
+    {
+      "concept": "satellite-dish",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/satellite-dish/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/satellite-dish/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [
+        {
+          "message": "e2 and e3 are 0.71px apart; minimum is 1px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "pairIssues": [
+        {
+          "message": "e5 and e6 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+          "rule": "gap",
+          "severity": "warn"
+        }
+      ]
+    },
+    {
+      "concept": "camera-sparkle",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/camera-sparkle/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/camera-sparkle/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [
+        {
+          "message": "Content centre is (12.00, 11.50); the house spec is (12, 12) within 0.25. Shift by (-0.00, 0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "message": "Content centre is (12.00, 11.50); the house spec is (12, 12) within 0.25. Shift by (-0.00, 0.50) unless the icons this one swaps with sit here too.",
+          "rule": "centred",
+          "severity": "warn",
+          "finish": "filled"
+        }
+      ],
+      "pairIssues": []
+    },
+    {
+      "concept": "bookmark-play",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/bookmark-play/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/bookmark-play/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [
+        {
+          "declared": "off-axis",
+          "message": "\"e3\" has an edge at 144.5\u00b0, 9.5\u00b0 off the nearest permitted axis (135\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        },
+        {
+          "declared": "off-axis",
+          "message": "\"e3\" has an edge at 35.5\u00b0, 9.5\u00b0 off the nearest permitted axis (45\u00b0), and the program declared `off-axis` for it. Nothing to fix \u2014 confirm the diagonal is the drawing. Off-axis edges are 29.3% of the set's stroked icons, so this is the set's own habit rather than drift.",
+          "rule": "off-axis",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "pairIssues": []
+    },
+    {
+      "concept": "key",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/key/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/key/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [
+        {
+          "message": "e1 and e2 are 0.10px apart; minimum is 1px. Move them apart or knock one out of the other.",
+          "rule": "gap",
+          "severity": "warn",
+          "finish": "outlined"
+        }
+      ],
+      "pairIssues": []
+    },
+    {
+      "concept": "headphones",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/headphones/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/headphones/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [],
+      "pairIssues": []
+    },
+    {
+      "concept": "leaf",
+      "status": "editable replay passed",
+      "qualityStatus": "root visual review: no blocking contour defect observed",
+      "verified": true,
+      "paints": [
+        {
+          "paint": "outlined",
+          "svg": "output/ten-icons-repaired-2026-09-09/leaf/outlined.svg"
+        },
+        {
+          "paint": "filled",
+          "svg": "output/ten-icons-repaired-2026-09-09/leaf/filled.svg"
+        }
+      ],
+      "verificationScope": "24px exact editable replay only",
+      "findings": [],
+      "pairIssues": []
+    }
+  ],
+  "rating": {
+    "score": 8,
+    "scale": 10,
+    "assessor": "root author visual judgment",
+    "qualified": false,
+    "independent": false,
+    "basis": "Enlarged and native 24px board inspection; clear meanings, consistent weight, repaired known contour defects. Remaining centering and tight-gap warnings limit confidence."
+  },
+  "independentReview": {
+    "status": "blocked-before-dispatch",
+    "reason": "Scoped local-process controls failed with quiescence-unproven and ps ETIMEDOUT; no provider calls dispatched."
+  }
+}

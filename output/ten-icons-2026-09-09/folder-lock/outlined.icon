@@ -1,0 +1,10 @@
+icon folder-lock
+finish outlined
+part folder-1-outlined-0 at 3,4
+rect 10.5,8 13.5x16 r3
+trim
+part lock-outlined-0 at 13.25,11 size 10
+# Remove the crowded keyhole and shorten it to a round terminal.
+rect 15.75,16 2.75x4 r0.5
+trim
+dot 17.25,18 terminal

@@ -406,10 +406,6 @@ const thumbnail = async (image: Buffer): Promise<string> => {
   return png.toString("base64");
 };
 
-/** The vision reader's default model: cheap, and the task is "how many things
- *  are in this picture and where", which does not want a frontier model. */
-export const READER_MODEL = "google/gemini-3.1-flash-lite";
-
 export interface ComposeOptions {
   /** Cancels the optional vision reader; pixel-only work remains synchronous. */
   abortSignal?: AbortSignal;

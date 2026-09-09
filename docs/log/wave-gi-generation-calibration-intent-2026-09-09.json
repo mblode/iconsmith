@@ -1,0 +1,27 @@
+{
+  "id": "D538",
+  "state": "reserved",
+  "scope": "First two requests of fresh20-family80-slot development generation cohort; cloud-upload16/24, four paint slots. Calibration-development only, never sealed qualification.",
+  "sourceClosure": "D536",
+  "sourceHash": "ce367c54ac19b9debb3795eecb1820186880d389619aad798035fc5944f83f8b",
+  "maxNativeCalls": 20,
+  "maxRequests": 2,
+  "maxWallMsPerRequest": 1200000,
+  "concurrency": 1,
+  "apiReservationUsd": 0,
+  "nativeDollarAllocation": null,
+  "quotaWeeklyUsedPercent": 32,
+  "diskAvailableKiB": 3412100,
+  "minimumDiskKiB": 2097152,
+  "command": ".staging/wave-gi-cohort-preparation-2026-09-09/command.json",
+  "dryRun": ".staging/wave-gi-cohort-preparation-2026-09-09/dry-run.json",
+  "changedVariable": "Fresh cloud-upload family on D536 source with independent16/24 requests and ordinary finalization; previous D520 was exposed folder-lock interrupted salvage.",
+  "stopConditions": [
+    "identity drift",
+    "unproven containment",
+    "ambiguous dispatch",
+    "STOP",
+    "disk below floor"
+  ],
+  "qualification": false
+}

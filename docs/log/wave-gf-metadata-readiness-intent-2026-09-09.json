@@ -1,0 +1,49 @@
+{
+  "id": "D535",
+  "kind": "paid-reviewer-metadata-readiness-diagnostic",
+  "createdAt": "2026-09-09T05:15:43.807283+00:00",
+  "model": "google/gemini-3.7-flash",
+  "provider": "google",
+  "reservationUsd": 0.794112,
+  "maximumInferenceRequests": 1,
+  "maximumMetadataGetRequests": 5,
+  "metadataDelayMs": 5000,
+  "originalClockMs": 120000,
+  "automaticInferenceRetry": false,
+  "maximumOutputTokens": 2048,
+  "sourceManifest": ".staging/wave-ge-metadata-retention-verification-2026-09-09/attempt-2/source-after.json",
+  "frozenDiagnostic": ".staging/wave-gf-metadata-readiness-window-2026-09-09/frozen.json",
+  "frozenSha256": "1e4faad8f307b4ff4aa99fa4bd3eabb8066f786f6749e8803b0b90b927b6e530",
+  "inputs": [
+    {
+      "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fy-quiver-house-comparison-2026-09-09/blode-icons-outlined-bell24-candidate-24.png",
+      "name": "candidate-24.png",
+      "sha256": "198155fd3404b2b41aa3759d2366ce5004d0ce024ea3b6111f8efee5c00d5c93"
+    },
+    {
+      "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-fy-quiver-house-comparison-2026-09-09/blode-icons-outlined-bell24-candidate-16.png",
+      "name": "candidate-16.png",
+      "sha256": "6eab7999848960f53279813219884cf8103dc67cd342b9ef44918730efae70cc"
+    }
+  ],
+  "exposure": "Previously root-inspected Quiver development candidate, native24 and downscaled16. Not sealed, no house reference transmitted.",
+  "changedVariable": "D534 retains exact metadata failure type/status and improves process-tracking hot path. Measure availability at frozen offsets within original120second clock, only continue on404; no inference retry.",
+  "qualification": false,
+  "transportAuthority": "Injected metadata timing remains offline-test-only in canonical capability; paid installed generation otherwise unchanged.",
+  "containment": "runOwnedProcess within original120second clock, STOP and2GiB disk floor. Observed process group scope, not newly qualified production containment.",
+  "preflight": {
+    "passed": true,
+    "checkedFiles": 534
+  },
+  "stopOn": "Refusal, ambiguous charge, identity drift, or lack of settlement; no inference retry.",
+  "metadataScheduleMs": [
+    5000,
+    10000,
+    20000,
+    40000,
+    80000
+  ],
+  "supplementalReads": "Diagnostic-only; never overwrite or promote original canonical terminal. Stop on success, non404, STOP or deadline.",
+  "quotaWeeklyUsedPercent": 30,
+  "diskAvailableKiB": 3502536
+}

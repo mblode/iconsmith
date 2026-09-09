@@ -1,0 +1,19 @@
+{
+  "id": "D530",
+  "kind": "budget-authorization-and-read-only-diagnostic-intent",
+  "userInstruction": "Spend up to $50 budget",
+  "interpretation": "Total existing program ceiling USD50; not an additional USD50.",
+  "actualUsd": 13.9740211,
+  "reservedOrUnknownUsd": 11.37126575,
+  "remainingAtMostUsd": 24.65471315,
+  "priorLedger": "docs/log/api-budget-after-d528-quiver-2026-09-09.json",
+  "newPaidReservationUsd": 0,
+  "maximumMetadataGetRequests": 1,
+  "maximumInferenceRequests": 0,
+  "changedVariable": "Read historical D466 generation metadata after settlement; unlike a new inference this cannot measure within-deadline readiness. D439 showed a later metadata read could succeed.",
+  "historicalTerminalUnchanged": true,
+  "automaticRetry": false,
+  "quotaWeeklyUsedPercent": 28,
+  "diskAvailableKiB": 3687316,
+  "qualified": false
+}

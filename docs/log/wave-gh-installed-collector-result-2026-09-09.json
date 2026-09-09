@@ -1,0 +1,47 @@
+{
+  "id": "D537",
+  "status": "installed-collector-capability-consumed",
+  "sourceClosure": "D536",
+  "terminal": {
+    "accepted": true,
+    "attemptedAt": 1788931375366,
+    "chargeUsd": 0.00490425,
+    "generationId": "gen_01M229X0Q16M4G7D76D7RDS0AR",
+    "inferenceAttempts": 1,
+    "intentSha256": "164b22307ee9be785755f8af7bbb3676fd54a76a38b9bbfc719d3753eeadb6d5",
+    "kind": "iconsmith-api-collector-stage-terminal-v1",
+    "metadataLookupAttempts": 1,
+    "metadataSha256": "ad0eb5ca0182a3d4d2102c44a18272b2f5da4f6c96bae8409878e0352345db6b",
+    "requestSha256": "942b4713c4a4ac6d3dfc9f7c92123048d64dac5b616bc04fcf7307751784e447",
+    "resultSha256": "d22f20b1913a7080d1e10e557e060d54fcd1bfb230567dd5d57a3095cadf4413",
+    "routeHash": "af13b0deb8257c0ec73375ee9dbdee616f504dfa833a30d463d7e5949cb2599c",
+    "settledAt": 1788931404907
+  },
+  "parent": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "stderr": "",
+    "stdout": "",
+    "settledAt": 1788931405128,
+    "withinOriginalDeadline": true,
+    "qualification": false,
+    "containmentScope": "process-group-and-observed-descendants; not a production route qualification"
+  },
+  "transportAuthority": "installed-production-transport",
+  "capabilityConsumed": true,
+  "elapsedStageMs": 29541,
+  "evidenceDirectory": ".staging/wave-gh-installed-collector-2026-09-09",
+  "evidenceHashes": {
+    ".staging/wave-gh-installed-collector-2026-09-09/runner-result.json": "2f080e07ea63084cea2cf945323f45370ab5dca850f6e02b358e75384c53edd2",
+    ".staging/wave-gh-installed-collector-2026-09-09/verified-development-answers.json": "9efdb3338f848476ac075906d289fe179704a82aef8a79f41a85a22bff3c4f2d",
+    ".staging/wave-gh-installed-collector-2026-09-09/parent-result.json": "09221faaca0a1362c6d0d4218776efcecd9287dc780b51cbde1c8055eb0e71ea",
+    ".staging/wave-gh-installed-collector-2026-09-09/frozen.json": "514eb01619fc08c85cf6b53ddebb7b1f05052dfb050b5494199de1d0b47509d3"
+  },
+  "qualification": {
+    "qualified": false,
+    "scoreOutOf10": null,
+    "boundary": "One exposed development control verifies installed API collector transport and consumption only. No sealed critic panel, calibration cohort, native optical masters or generation quality qualification."
+  }
+}

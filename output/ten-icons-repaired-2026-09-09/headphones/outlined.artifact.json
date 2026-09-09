@@ -1,0 +1,9 @@
+{
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "finish": "outlined",
+  "master": "24",
+  "program": "icon headphones\nfinish outlined\nkeyline circle\n# Novel construction: round headband with two enclosed earcups, using the references' rounded contours.\n# Central opening and earcup counters remain clear; tangent attachments, no modifiers, 2-unit canvas clearance.\narc 12,12 r9 half from left\nline 3,12 3,15\nline 21,12 21,15\nrect 3,13 4x8 r1\nrect 17,13 4x8 r1",
+  "style": "659953e6cc3aac6ddfa442d51fdd3a011fb757ce16eeee21b5bf0d4498fcba86",
+  "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M3 12.000000000000002C2.9999999999999996 7.029300000000002 7.029299999999998 3.000000000000001 11.999999999999998 3C16.970699999999997 2.999999999999999 21 7.029299999999998 21 11.999999999999998\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M3 12L3 15\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M21 12L21 15\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M4 13L6 13C6.5523 13 7 13.4477 7 14L7 20C7 20.5523 6.5523 21 6 21L4 21C3.4477 21 3 20.5523 3 20L3 14C3 13.4477 3.4477 13 4 13Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M18 13L20 13C20.5523 13 21 13.4477 21 14L21 20C21 20.5523 20.5523 21 20 21L18 21C17.4477 21 17 20.5523 17 20L17 14C17 13.4477 17.4477 13 18 13Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+  "svgHash": "11707a12814e375d2f950a7a2551fcb7b3d9f0eef330c733f4d5122849898d96"
+}

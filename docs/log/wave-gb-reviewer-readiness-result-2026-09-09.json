@@ -1,0 +1,80 @@
+{
+  "id": "D531",
+  "status": "refused-request-serialization",
+  "terminal": {
+    "accepted": false,
+    "attemptedAt": 1788929739365,
+    "chargeUsd": 0.00443625,
+    "generationId": "gen_01M228B37Q8MTPV731H9N9C33B",
+    "inferenceAttempts": 1,
+    "intentSha256": "c84d9a42bd5a3eed0436dd3ba4db74d20d73ee5bd24bdeddb6ff5ad59f808e56",
+    "kind": "iconsmith-api-collector-stage-terminal-v1",
+    "metadataLookupAttempts": 0,
+    "metadataSha256": null,
+    "reason": "API capability serialized request is invalid",
+    "requestSha256": null,
+    "resultSha256": "2623984f4e5363cd362da0071075271c3a954939480e3a87c5c07623a94ef933",
+    "settledAt": 1788929743333
+  },
+  "parent": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "stderr": "",
+    "stdout": "",
+    "settledAt": 1788929743550,
+    "withinOriginalDeadline": true,
+    "qualification": false,
+    "containmentScope": "process-group-and-observed-descendants; not a production route qualification"
+  },
+  "offlineDiagnosis": {
+    "networkCalls": 0,
+    "mockedTransportCalls": 1,
+    "requestKeys": [
+      "body"
+    ],
+    "undefinedPaths": [
+      "request.body.responseFormat.name",
+      "request.body.responseFormat.description",
+      "request.body.topP",
+      "request.body.topK",
+      "request.body.presencePenalty",
+      "request.body.frequencyPenalty",
+      "request.body.stopSequences",
+      "request.body.seed",
+      "request.body.reasoning",
+      "request.body.prompt.0.content.0.providerOptions",
+      "request.body.prompt.0.content.1.filename",
+      "request.body.prompt.0.content.1.providerOptions",
+      "request.body.prompt.0.content.2.filename",
+      "request.body.prompt.0.content.2.providerOptions",
+      "request.body.prompt.0.providerOptions"
+    ],
+    "wireKeys": [
+      "responseFormat",
+      "maxOutputTokens",
+      "temperature",
+      "prompt",
+      "providerOptions",
+      "headers"
+    ],
+    "jsonRoundTripEqualsWire": true
+  },
+  "metadataDelayTestExecuted": false,
+  "scoreOutOf10": null,
+  "qualified": false,
+  "costUsd": 0.00443625,
+  "ledger": "docs/log/api-budget-after-d531-2026-09-09.json",
+  "boundaries": [
+    "Five answers retained but uncalibrated exposed development judgments.",
+    "Request object optional undefined values are omitted on JSON wire; strict pre-normalization hash refused them.",
+    "Offline installed SDK regression also exposed erroneous object insertion-order comparison.",
+    "No inference retry; subsequent run requires changed verified source and fresh reservation."
+  ],
+  "retainedFailures": [
+    "Initial launcher symlink hash mismatch, zero calls.",
+    "First SDK regression failed at raw JSON property ordering; corrected semantic identity comparison retains raw file hashes.",
+    "Scoped lint diagnostics and one workspace-relative edit path error retained in execution history."
+  ]
+}

@@ -1,8 +1,7 @@
 /**
  * `iconsmith improve` — one A/B of two experts, scientific method.
  *
- * The generation-pipeline meta-loop (`scripts/autoresearch.ts`) edits code.
- * This command edits the *routing table*: which expert is asked first for a
+ * This command edits the routing table: which expert is asked first for a
  * concept class. Third-party packs enter as slugs (inventory / `--packs` /
  * baseline directory listings). No SVG crosses into the drawer.
  */

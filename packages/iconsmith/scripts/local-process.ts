@@ -93,12 +93,12 @@ const activeObserved = (observed: ObservedProcesses, rows: ProcessRows) =>
       !retired && rows.some((row) => identityMatches(row, identity))
   );
 
-const activeRows = (observed: ObservedProcesses, rows: ProcessRows) =>
-  rows.filter((row) =>
-    activeObserved(observed, rows).some(({ identity }) =>
-      identityMatches(row, identity)
-    )
+const activeRows = (observed: ObservedProcesses, rows: ProcessRows) => {
+  const active = activeObserved(observed, rows);
+  return rows.filter((row) =>
+    active.some(({ identity }) => identityMatches(row, identity))
   );
+};
 
 const observeDescendants = (
   root: number,

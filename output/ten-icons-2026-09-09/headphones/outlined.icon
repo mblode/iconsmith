@@ -1,0 +1,10 @@
+icon headphones
+finish outlined
+keyline circle
+# Novel construction: round headband with two enclosed earcups, using the references' rounded contours.
+# Central opening and earcup counters remain clear; tangent attachments, no modifiers, 2-unit canvas clearance.
+arc 12,12 r9 half from left
+line 3,12 3,15
+line 21,12 21,15
+rect 3,13 4x8 r1
+rect 17,13 4x8 r1

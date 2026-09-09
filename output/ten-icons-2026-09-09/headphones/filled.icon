@@ -1,0 +1,14 @@
+icon headphones
+finish filled
+keyline circle
+# Round open headband follows the circle reference; solid earcups follow the heart paint treatment.
+# Preserve the central opening, tangent attachments, and 2-unit canvas clearance; no modifiers.
+arc 12,12 r9 half from left
+line 3,12 3,15
+union
+line 21,12 21,15
+union
+rect 2,12 6x10 r2
+union
+rect 16,12 6x10 r2
+union

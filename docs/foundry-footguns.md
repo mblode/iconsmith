@@ -1,6 +1,6 @@
 # Foundry footguns and rat holes
 
-Updated 9 September 2026 through D522 collector integration. Read this to avoid repeating work, not to claim a gate passed. [The plan](plans/generation-quality-10.md) remains the sole checklist; [the foundry log](foundry-log.md) retains every attempt.
+Updated 9 September 2026 through D544 ten-concept execution. Read this to avoid repeating work, not to claim a gate passed. [The plan](plans/generation-quality-10.md) remains the sole checklist; [the foundry log](foundry-log.md) retains every attempt.
 
 ## Start here — cheap checks before expensive work
 
@@ -14,7 +14,7 @@ Updated 9 September 2026 through D522 collector integration. Read this to avoid 
 8. After source-stable scoped checks, freeze once and run the plan's integrated commands sequentially. Preserve failures in separate attempt directories.
 9. Report one result: what changed, what passed, what remains open. Link evidence; do not paste transcripts or repeatedly narrate unchanged progress.
 
-**Current boundary:** D522 is an engineering source closure: 2,614 Iconsmith tests / 183 files plus 10 runner tests / zero skips. Parent author provenance requires recursive inspection, exact compiler replay and regenerated proofs. It grants no independent approval or production qualification. Mini v3 dispatch is retired; Claude remains quarantined. No phase is visually qualified. These figures are dated observations, not evergreen defaults.
+**Current boundary:** D543 is the current local-only engineering source closure: 2,558 Iconsmith tests / 183 files plus 10 runner tests / zero skips, across 531 stable source/config files. D522 belongs to the earlier checkout. Parent author provenance requires recursive inspection, exact compiler replay and regenerated proofs. It grants no independent approval or production qualification. Mini v3 dispatch is retired; Claude remains quarantined. No phase is visually qualified. These figures are dated observations, not evergreen defaults.
 
 ## Run a verification wave
 
@@ -206,6 +206,49 @@ D523 house comparison: matching concept names do not imply identical house shape
 
 D525 Quiver: valid credentials and a200 model listing do not establish a funded generation route. First generation returned402 insufficient_credits; app credits and API credits are separate. Stop without retry, release unused reservation and retain reference exposure even on rejection. Never call a reference-only board a completed comparison.
 
+
+D528 supersedes Quiver access block: user-confirmed prepaid balance plus explicit API continuation justified a fresh reserved attempt; all four succeeded. Do not keep asserting an account mismatch after access works; cause of earlier402 remains unknown. Editable SVG and object recognition alone did not preserve the house silhouette, and16px resampling is not an optical master.
+
+
+D529 correction: after local-only removal, do not carry the old 685-file engineering closure or Studio architecture into current claims. The new 531-file closure verifies implementation only. An unavailable overall score is null, not 0/10; four Quiver development outputs and green tests cannot substitute for sealed critic calibration and full qualifying populations.
+
+
+D530: an immediate metadata404 does not establish permanent absence. A later bounded GET of D466 returns200 with the same model/provider/cost; preserve both observations. It does not retroactively make D466 qualified or establish a safe delay. Diagnose readiness within a predeclared original clock before another inference; budget authorization alone is not a changed technical variable.
+
+
+D531: hand-built SDK mocks missed optional undefined request fields and object insertion order. Replay the installed SDK through a mocked HTTP transport and compare JSON wire values; separately hash exact evidence files. Do not replace semantic identity with brittle raw object ordering. Launch manifests hash symlinks as target + NUL + contents; reuse that rule. Keep workspace cwd explicit when editing as well as linting.
+
+
+D533: a five-second delayed metadata GET still failed after request validation was fixed. Collector catch retained only generic failure, so HTTP status is unavailable; do not call it404. Preserve the typed sanitized failure offline before any further paid readiness experiment. A later historical GET succeeding does not prove a five-second readiness bound.
+
+## D534–D536 corrections: metadata readiness and process scanning
+
+- Preserve sanitized metadata HTTP status, byte count and body hash at the collector boundary. D533 lost the status; never relabel it 404 from later samples. D534 fixes retention and terminal binding.
+- D535 observed404 at5/10 seconds and200 at20 within the original clock. Its original refused terminal stays refused. D536 uses a25-second abortable wait and40-second reserve for one canonical collector GET; timing is included in route identity. This single sample is not a readiness guarantee. Do not add inference retries, revive historical capabilities, or charge supplemental reads as fresh generations.
+- D534 retained four integrated process-test failures, followed by isolated and integrated passing verification. Compute active process identities once per process-table snapshot, not once per filtered row. Synthetic1500-row/12-owner timing improved297.6ms to2.8ms for10 iterations with identical output; this is a performance probe, not production containment qualification.
+- D536 full verification passes2553 engine tests/183files plus10 rootrunner tests,zero skips. Do not rerun it for documentation-only settlement.
+
+D537 confirms the D536 default installed transport and single-use answer consumption work on one fresh exposed control in29.5 seconds ($0.00490425). Do not repeat this control for a new score or confuse transport acceptance with critic qualification. Next evidence must address the sealed roster/population and campaign assembly.
+
+
+## D538–D540 calibration execution failures
+
+- D538: a rounded subtraction can remain infeasible after reducing its radius. Preserve both failed programs; plain subtraction compiled in a default-Canvas offline probe, which does not establish native16 quality. Do not change the kernel without reproducing an actual DSL limitation.
+- D538: a 20-family/80-slot development manifest does not provide80 independent generated families. The prospective100-row draw remains unstarted and exposure-unvalidated; never promote its planned rows to sealed stimuli.
+- D540: `runContainedApiCollectorStage` accepted a free-form session label, but the downstream assembly requires a lowercase UUIDv4. The paid response settled ($0.0037455), then assembly refused it. Validate the downstream identity contract before dispatch; mocked journal tests using `session-1` missed this boundary. Preserve original journal and expired capability; no relabeling or automatic retry.
+- D540: Gemini returned craft7 with ship-yes under a rubric saying7 needs correction. This is an instrument contradiction, not a qualified approval. Retain disagreement before further critic tuning and freeze a fresh instrument before fresh samples.
+- D540: native panel packet IDs must be lowercase slugs. Uppercase `D540-...` was refused before any native dispatch. Correct only the packet ID in a new retained file, keeping the same original deadline and four-call reservation.
+- D538–D540: printing a whole terminal/ledger repeatedly obscures results. Parse only statuses, counts, hashes and errors; keep full artifacts on disk. F05 still applies after context compaction.
+
+D541 closes the D540 session-label dispatch footgun: lowercase UUIDv4 is checked before provider entry, with label/version/case rejection regressions and sequential integrated verification. The original failed paid run remains refused; no retroactive authority.
+
+
+D542: filled cloud-upload had two small concave joins at its bottom. Independent development review had missed them; clean native pixels did not establish smooth SVG contours. The internal radius1 base rectangle left rounded-corner dips against tangent circular lobes. Existing DSL radius0 rectangle repairs the flat base without changing circles or arrow; exact native-style replay and pair checks pass. Original D538 artifacts remain immutable. ccs current/former searches also found historical cloud bridge/hole repair prompts, which are context rather than fresh visual evidence.
+
+
+D544: Preserve the complete SVG root when composing boards: stripping it loses inherited `fill="none"` and makes outlined artwork appear filled. The first board is retained; use board-v2. Reviewer-clear can miss tiny rim protrusions (satellite-dish); inspect enlarged contours alongside native proof and retain the contradiction. One key counter remained uncertain and camera construction failed; no blind retries or score promotion. All50 native calls settled; result receipt linked from the plan.
+
+
 ## Public repository audit — 2026-09-09
 
 - A visibility change exposes more than the current checkout. Include fetched PR heads, review text, and available Actions logs. Record unavailable logs explicitly. Cursor action links can contain encoded encryption material; inspect without redeeming links, and distinguish that finding from account credentials.
@@ -214,6 +257,18 @@ D525 Quiver: valid credentials and a200 model listing do not establish a funded 
 - A public clone lacks private cached inventory and sibling source artwork. Skip only exact-data measurements when inputs are absent; run portable controls and verify the measurements still execute with real data. Never manufacture a substitute corpus.
 - Audit snapshots need an explicit cwd before verifier startup. Stop only verified audit-owned workers before removing their stale lock. A narrowed single-worker pass does not erase an earlier default-worker full-suite failure. See the public-readiness receipt for retained attempts.
 
+
+D545 pre-dispatch drift: seven files changed in concurrent public-readiness audit, later committed123d895; no native/API calls dispatched. Full verification-current retained2508 passes/50 failures across11 files, largely deadline timeouts under concurrent load, no green closure. Installed Sharp bytes were0.35.3 although manifest/lock/npm-ls reported0.35.4; ordinary npm install was a no-op. Retained the stale module in private staging and reinstalled, then verified actual loaded Sharp0.35.4. Fresh verification-aligned running. Initial repair fixture incorrectly reused cloud parts; corrected to original family revision and retained failure. No new spend or reservation yet.
+
+
 ### CI verification evidence — 2026-09-09
 
 A verifier that retains immutable stage logs only on an ephemeral Actions runner can fail without exposing the cause. Public-readiness run 34323499722 reported only failed-stage and a runner-local path. CI now uses a known output directory and always prints its stage logs and receipt, including on failure; the verifier's pass/fail behavior is unchanged. Do not infer the failed test from an earlier local run.
+
+
+### Repository cleanup correction — 2026-09-09
+
+The obsolete demo test was removed with its runner. The current private-corpus canary is12 tests, superseding the historical13-test counts above; skipped counts remain the signal, and sibling-source/private-image controls remain separate. Knip entry lists and test imports can keep retired executable islands reachable: audit actual CLI/canonical-foundry consumers before treating a clean scan as proof that nothing can be deleted. The broader cleanup retained cancellation, accounting and evidence guards despite resource-related verification failures. See `docs/log/repository-cleanup-2026-09-09.json` for the exact deleted files, failed integrated attempt and passing scoped checks.
+
+
+D545 correction: a shared Vitest cache contained another worktree's live-demo.test.ts timing. Never attribute shared cache rows to the active run; use its immutable stage log. Repeating full verification for artifact-only repair under machine contention wasted time and produced no closure. Current/aligned/serial failures retained; scoped controls expose ps inspection timeouts and quiescence-unproven. Stop provider dispatch on failed containment; do not lengthen production clocks to manufacture a pass. A second cleanup removed1,369,275,211bytes of old disposable Turbo archives only; private evidence and original attempts retained. No new calls or reservations.

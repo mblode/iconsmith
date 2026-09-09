@@ -35,3 +35,7 @@ credentials.json
 # repo is a provenance question `program.md` answers the other way. Anchored:
 # a bare `central.json` would match at any depth.
 /central.json
+
+# Local render snapshots include private retrieved house-reference geometry.
+/output/ten-icons-repaired-2026-09-09/*/revision.json
+/output/ten-icons-repaired-2026-09-09/*/check-*/

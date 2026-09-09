@@ -1,0 +1,7 @@
+icon key
+finish outlined
+# Reference-family ring, diagonal shaft and solid rounded tooth.
+# Shaft joins the ring boundary without crossing its structural opening.
+line 6.5,17.5 9,20 11.5,17.5 9,15 6.5,17.5 r1 solid
+line 3.5,20.5 13.25,10.75
+circle 16.5,7.5 r4.5

@@ -1,0 +1,75 @@
+{
+  "id": "D535",
+  "status": "diagnostic-readiness-observed",
+  "inferenceRequests": 1,
+  "metadataRequests": 3,
+  "actualUsd": 0.004395,
+  "readinessSamples": [
+    {
+      "phase": "canonical",
+      "bodyBytes": 144,
+      "bodySha256": "031e6c6d886ecb65c47254397fc2b09244d24b2bec84878f351d987643f0c1a1",
+      "httpStatus": 404,
+      "classification": "http-error",
+      "generationId": "gen_01M229FVP0BSB4062X3JSGZPWZ",
+      "inferenceResultSha256": "f65cc8249292096030d8fcfda8041fe8835c1f21b9240a066c8ef1f326b831d3",
+      "intentSha256": "23cc79818111c00d62e200c59f6511884d3f82e35b69ac012bec53597330d22b",
+      "kind": "api-capability-metadata-failure-v1",
+      "metadataStartedAt": 1788930948345,
+      "policyVersion": "gateway-generation-info-diagnostics-v1",
+      "settledAt": 1788930953791
+    },
+    {
+      "offsetMs": 10000,
+      "observedAt": 1788930958783,
+      "success": false,
+      "failure": {
+        "bodyBytes": 144,
+        "bodySha256": "031e6c6d886ecb65c47254397fc2b09244d24b2bec84878f351d987643f0c1a1",
+        "httpStatus": 404,
+        "classification": "http-error"
+      }
+    },
+    {
+      "offsetMs": 20000,
+      "observedAt": 1788930968900,
+      "success": true,
+      "info": {
+        "id": "gen_01M229FVP0BSB4062X3JSGZPWZ",
+        "usage": 0.004395,
+        "model": "google/gemini-3.7-flash",
+        "streamed": false,
+        "latency": 3639,
+        "totalCost": 0.004395,
+        "upstreamInferenceCost": 0,
+        "createdAt": "2026-09-09T05:15:44.000Z",
+        "isByok": false,
+        "providerName": "google",
+        "finishReason": "stop",
+        "generationTime": 3639,
+        "promptTokens": 2440,
+        "completionTokens": 214,
+        "reasoningTokens": 470,
+        "cachedTokens": 0,
+        "cacheCreationTokens": 0,
+        "billableWebSearchCalls": 0
+      }
+    }
+  ],
+  "parent": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "stderr": "",
+    "stdout": "",
+    "settledAt": 1788930969099,
+    "withinOriginalDeadline": true,
+    "qualification": false,
+    "containmentScope": "process-group-and-observed-descendants; not a production route qualification"
+  },
+  "evidenceDirectory": ".staging/wave-gf-metadata-readiness-window-2026-09-09",
+  "overallScore": null,
+  "qualified": false,
+  "boundary": "Canonical terminal remains refused. Supplemental success cannot issue capability or restore historical terminal. One sample supports a bounded readiness policy, not a latency guarantee."
+}

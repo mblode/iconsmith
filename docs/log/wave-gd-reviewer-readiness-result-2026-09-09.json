@@ -1,0 +1,124 @@
+{
+  "id": "D533",
+  "status": "refused-metadata-after-five-second-delay",
+  "terminal": {
+    "accepted": false,
+    "attemptedAt": 1788930078188,
+    "chargeUsd": 0.00502875,
+    "generationId": "gen_01M228NDWBF5W3F0W2SGH0WJ3S",
+    "inferenceAttempts": 1,
+    "intentSha256": "31d7f038a6021897a0f5c7cbd61ffb70a05bd338d1c63cc56b9f9469da864d83",
+    "kind": "iconsmith-api-collector-stage-terminal-v1",
+    "metadataLookupAttempts": 1,
+    "metadataSha256": null,
+    "reason": "API capability metadata lookup failed",
+    "requestSha256": "b347a05d6b99400bbff58ce5259d72daded62f07b67108659a0015fc9c7ba64e",
+    "resultSha256": "5b81417eca5bb75dd3bb85839bc6495e36d58d3d0c6fdf156913c450afd16d04",
+    "settledAt": 1788930087160
+  },
+  "parent": {
+    "code": 0,
+    "killed": false,
+    "quiescenceScope": "process-group-and-observed-descendants",
+    "quiescent": true,
+    "stderr": "",
+    "stdout": "",
+    "settledAt": 1788930087344,
+    "withinOriginalDeadline": true,
+    "qualification": false,
+    "containmentScope": "process-group-and-observed-descendants; not a production route qualification"
+  },
+  "metadataWait": {
+    "id": "gen_01M228NDWBF5W3F0W2SGH0WJ3S",
+    "readyStartedAt": 1788930081703,
+    "delayMs": 5000,
+    "maximumGetRequests": 1,
+    "inferenceRetry": false,
+    "originalDeadlineAt": 1788930197899
+  },
+  "metadataDispatch": {
+    "id": "gen_01M228NDWBF5W3F0W2SGH0WJ3S",
+    "at": 1788930086704,
+    "originalDeadlineAt": 1788930197899
+  },
+  "qualified": false,
+  "scoreOutOf10": null,
+  "requestSerializationGatePassed": true,
+  "metadataHttpStatus": null,
+  "metadataStatusLimitation": "Collector retained generic error message but not the sanitized typed HTTP failure. Do not infer404. Fix diagnostic retention offline before another paid experiment.",
+  "calls": {
+    "inference": 1,
+    "metadata": 1,
+    "inferenceRetries": 0
+  },
+  "costUsd": 0.00502875,
+  "turnTotalCostUsd": 0.009465000000000001,
+  "ledger": "docs/log/api-budget-after-d533-2026-09-09.json",
+  "nextDependency": "Preserve structured metadata failure and establish a bounded readiness policy before new paid critic collection. No paid retries after this refusal.",
+  "artifacts": [
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/descriptor.json",
+      "sha256": "ab4a2bf346786c2a05405a26410af802849ff5fb34fd602185bbae3187b29d72"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/descriptor.json.issued-ab4a2bf346786c2a05405a26410af802849ff5fb34fd602185bbae3187b29d72.json",
+      "sha256": "572848b83fce4001b97266c84a57746bfecbca361828267f7339ed238d702e02"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/evidence/attempt.json",
+      "sha256": "e1c2df07b91c4b8f45ec72e58960953df171caf305850d0236d9d86b83fad545"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/evidence/intent.json",
+      "sha256": "31d7f038a6021897a0f5c7cbd61ffb70a05bd338d1c63cc56b9f9469da864d83"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/evidence/result.json",
+      "sha256": "5b81417eca5bb75dd3bb85839bc6495e36d58d3d0c6fdf156913c450afd16d04"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/evidence/serialized-request.json",
+      "sha256": "b347a05d6b99400bbff58ce5259d72daded62f07b67108659a0015fc9c7ba64e"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/evidence/terminal.json",
+      "sha256": "6189313e03b5c20a6304d210cd1c2ad5d555565273dd34924578de9e7fca61be"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/frozen.json",
+      "sha256": "fd43087bf3b0e7d3ed6d786e06f5d5f6daf53e66b0aeab0dcc475afcd0889d70"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/inputs.json",
+      "sha256": "2ea1a93625524216d3b16943e30813be251e9a1ab22810c8f1c087e365a4e17a"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/launch.json",
+      "sha256": "f0832bc32b287733d46910739ccb6104d97d2060ff219bf213dc24c3a1b1dd34"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/metadata-dispatch.json",
+      "sha256": "08dafd551d3709df7f0f1e84b0a3a5055256e090164cb945d2bf523e340f423b"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/metadata-wait.json",
+      "sha256": "abc87070bebf9c908d6eb95b49be70ca8df544604c46b8691389573732bc9c86"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/parent-result.json",
+      "sha256": "d29f305366876a56b786b2cc56822b49da4f257308a5767c9a0cb52052985f69"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/parent.mjs",
+      "sha256": "3e35aded0a9ef3ea1df4dbde71ce708471db09986993ba353b8b5b5ba21cb0d3"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/run.mts",
+      "sha256": "03e87b98035af70facae29571081abf91e63a676602668f65a1e0270bd602bfe"
+    },
+    {
+      "path": ".staging/wave-gd-reviewer-readiness-2026-09-09/runner-result.json",
+      "sha256": "3b9a0c33eab8227fe2f79140cfb56a213403b0d4932e211b9989aa60e24744b3"
+    }
+  ]
+}

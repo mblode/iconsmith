@@ -1,0 +1,28 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [
+    {
+      "message": "Content centre is (12.00, 11.50); the house spec is (12, 12) within 0.25. Shift by (-0.00, 0.50) unless the icons this one swaps with sit here too.",
+      "rule": "centred",
+      "severity": "warn",
+      "finish": "outlined"
+    },
+    {
+      "message": "Content centre is (12.00, 11.50); the house spec is (12, 12) within 0.25. Shift by (-0.00, 0.50) unless the icons this one swaps with sit here too.",
+      "rule": "centred",
+      "severity": "warn",
+      "finish": "filled"
+    }
+  ],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/camera-sparkle/check-0c7gpA",
+  "style": "6fb4985fbc15eac20815cafc055d0a43ce8a4b1f404019c11e839ae1310c8829"
+}

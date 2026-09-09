@@ -1,0 +1,9 @@
+{
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "finish": "outlined",
+  "master": "24",
+  "program": "icon key\nfinish outlined\n# Reference-family ring, diagonal shaft and solid rounded tooth.\n# Shaft joins the ring boundary without crossing its structural opening.\nline 6.5,17.5 9,20 11.5,17.5 9,15 6.5,17.5 r1 solid\nline 3.5,20.5 13.25,10.75\ncircle 16.5,7.5 r4.5\n",
+  "style": "d3a60b78298fa1cc09ef1cb225bf503a44883a2fa0a143ff8edefee156e52fc4",
+  "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M6.5,16.0858l1.08579,-1.0858c0.1915,-0.19153 0.4122,-0.33797 0.66211,-0.4393c0.24088,-0.09767 0.49158,-0.1465 0.7521,-0.1465c0.26052,0 0.51122,0.04883 0.75209,0.1465c0.24994,0.10133 0.47064,0.24777 0.66211,0.4393l1.0858,1.0858c0.19153,0.19147 0.33797,0.41217 0.4393,0.6621c0.09767,0.24087 0.1465,0.49157 0.1465,0.7521c0,0.26053 -0.04883,0.51123 -0.1465,0.7521c-0.10133,0.24993 -0.24777,0.47063 -0.4393,0.6621l-1.0858,1.0858c-0.19147,0.19153 -0.41217,0.33797 -0.66211,0.4393c-0.24087,0.09767 -0.49157,0.1465 -0.75209,0.1465c-0.26052,0 -0.51122,-0.04883 -0.7521,-0.1465c-0.24991,-0.10133 -0.47061,-0.24777 -0.66211,-0.4393l-1.08579,-1.0858c-0.1915,-0.19147 -0.33792,-0.41217 -0.43927,-0.6621c-0.09768,-0.24087 -0.14652,-0.49157 -0.14652,-0.7521c0,-0.26053 0.04884,-0.51123 0.14652,-0.7521c0.10135,-0.24993 0.24777,-0.47063 0.43927,-0.6621z\" fill=\"currentColor\" fill-rule=\"nonzero\"/>\n<path d=\"M3.5 20.5L13.25 10.75\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M16.5 3C18.98535 3 21 5.01465 21 7.5C21 9.98535 18.98535 12 16.5 12C14.01465 12 12 9.98535 12 7.5C12 5.01465 14.01465 3 16.5 3Z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+  "svgHash": "366f8548b97658e745337df6fa7fa4b69f5914381e552a984cee056b0b6f6fb8"
+}

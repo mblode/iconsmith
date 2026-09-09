@@ -1,0 +1,7 @@
+icon leaf
+finish outlined
+keyline circle
+# Novel leaf with reference-family round contours and an attached stem continuing as a vein.
+arc 5,3 r16 quarter from right
+arc 21,19 r16 quarter from left
+line 3,21 14,10

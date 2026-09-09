@@ -1,0 +1,161 @@
+{
+  "id": "D528",
+  "date": "2026-09-09",
+  "status": "development-comparison-completed",
+  "intents": [
+    "D526",
+    "D527"
+  ],
+  "modelRequested": "arrow-1.1",
+  "identityBoundary": "Endpoint accepted requested ID; immutable underlying snapshot unverified.",
+  "results": [
+    {
+      "id": "blode-icons-outlined-bell24",
+      "httpStatus": 200,
+      "durationSeconds": 33.593966007232666,
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Request-Id": "906c73d6-95a6-45d6-80f0-983083f340db",
+        "X-Trace-Id": "iconsmith-d526-blode-icons-outlined-bell24"
+      },
+      "credits": 20,
+      "responseSha256": "b34df681d062a0f2d05c0f5a39482856f952d182700513fa38853026dc27fc7a",
+      "retried": false,
+      "svgId": null
+    },
+    {
+      "id": "blode-icons-filled-bell24",
+      "httpStatus": 200,
+      "durationSeconds": 32.29011392593384,
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Request-Id": "1d1863c1-9e1f-4df6-984c-61fef4d7616a",
+        "X-Trace-Id": "iconsmith-d527-blode-icons-filled-bell24"
+      },
+      "credits": 20,
+      "responseSha256": "bb70e1f35dc3177ae05772f1508adfac81633de03656532f9b8d0aa5f91e901c",
+      "retried": false,
+      "svgId": null
+    },
+    {
+      "id": "central-filled-bell24",
+      "httpStatus": 200,
+      "durationSeconds": 21.884833812713623,
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Request-Id": "f538e8e8-a609-4b72-8e94-22c83f17d6ec",
+        "X-Trace-Id": "iconsmith-d527-central-filled-bell24"
+      },
+      "credits": 20,
+      "responseSha256": "2ffad4a11f51eb445d20ce4297433b4891e825d153615001725352599d3fb9b1",
+      "retried": false,
+      "svgId": null
+    },
+    {
+      "id": "central-outlined-bell24",
+      "httpStatus": 200,
+      "durationSeconds": 29.15439486503601,
+      "headers": {
+        "Content-Type": "application/json",
+        "X-Request-Id": "c08d625c-9d83-404a-9f88-d12864ca0e22",
+        "X-Trace-Id": "iconsmith-d527-central-outlined-bell24"
+      },
+      "credits": 20,
+      "responseSha256": "1383e08c1a71600da90f1f269d8f331eeb96a4663d03060a9d77ef1d8d024aea",
+      "retried": false,
+      "svgId": null
+    }
+  ],
+  "files": [
+    {
+      "file": ".staging/wave-fy-quiver-house-comparison-2026-09-09/blode-icons-filled-bell24.svg",
+      "sha256": "a6fff3582f239866997601157e12bda52ae371f5835a897598b350df8c5442d7",
+      "validXml": true,
+      "viewBox": "0 0 24 24",
+      "primitiveTypes": [
+        "path",
+        "svg"
+      ],
+      "rasterEmbedded": false
+    },
+    {
+      "file": ".staging/wave-fy-quiver-house-comparison-2026-09-09/blode-icons-outlined-bell24.svg",
+      "sha256": "1c4392d49e1e6ab4cfe8e70c6c02006459ed3c25abeeb8ef3eecac73530e0186",
+      "validXml": true,
+      "viewBox": "0 0 24 24",
+      "primitiveTypes": [
+        "path",
+        "style",
+        "svg"
+      ],
+      "rasterEmbedded": false
+    },
+    {
+      "file": ".staging/wave-fy-quiver-house-comparison-2026-09-09/central-filled-bell24.svg",
+      "sha256": "8fd460c764931db466d62d5028d02215f5806ff66e58b067613689b8cc9f6fa9",
+      "validXml": true,
+      "viewBox": "0 0 24 24",
+      "primitiveTypes": [
+        "path",
+        "style",
+        "svg"
+      ],
+      "rasterEmbedded": false
+    },
+    {
+      "file": ".staging/wave-fy-quiver-house-comparison-2026-09-09/central-outlined-bell24.svg",
+      "sha256": "9154e508fb6a220919c7f913751a4f6efbb221f9fab9c41cdc282fc0f30ddc7d",
+      "validXml": true,
+      "viewBox": "0 0 24 24",
+      "primitiveTypes": [
+        "path",
+        "style",
+        "svg"
+      ],
+      "rasterEmbedded": false
+    }
+  ],
+  "board": ".staging/wave-fy-quiver-house-comparison-2026-09-09/comparison.png",
+  "svgInspection": ".staging/wave-fy-quiver-house-comparison-2026-09-09/svg-inspection.json",
+  "requestedOutputs": 4,
+  "producedOutputs": 4,
+  "sourceTargets": [
+    "blode-icons",
+    "central"
+  ],
+  "concept": "bell",
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "authoredSize": 24,
+  "renderSizes": [
+    16,
+    24
+  ],
+  "assessment": {
+    "instrument": "Root visual development inspection, unblinded and uncalibrated",
+    "meaning": "All four recognizable as bells in the rendered board.",
+    "houseParity": "Not established. Both house arms converge on a flared conventional bell with top loop; references have a rounder compact body.",
+    "nativeDetail": "Top loop becomes weak/tiny at16px. Outlined clapper adds a small enclosed counter.",
+    "pairedPaint": "Generated silhouettes broadly agree within each pair, but this is one concept only.",
+    "editability": "SVG path geometry parses and renders; no embedded raster. No constrained DSL reconstruction or replay was attempted.",
+    "scoreOutOf10": null,
+    "qualified": false
+  },
+  "limits": [
+    "One exposed development concept, four outputs, no sealed independent critic.",
+    "16px is downscaled24 source, not separately authored optical master.",
+    "References were four same-paint house neighbors; exact bell targets withheld.",
+    "No Codex/Recraft matched generation arm, so no model ranking.",
+    "Prior D525402 remains retained; cause unknown, later success supersedes blocking status."
+  ],
+  "accounting": {
+    "debitedCredits": 80,
+    "usageRatedUsd": 0.8,
+    "perCreditUsdAssumption": 0.01,
+    "invoiceReconciled": false,
+    "newReservedUsd": 0
+  },
+  "primaryTasksPromoted": 0
+}

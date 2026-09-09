@@ -1,0 +1,98 @@
+{
+  "id": "D529",
+  "date": "2026-09-09",
+  "status": "engineering-passed-overall-unqualified",
+  "head": "bcd321b",
+  "authority": "docs/plans/generation-quality-10.md",
+  "method": "Evidence audit against the authoritative rubric; no live qualification cohort or production qualification function executed in this wave.",
+  "verification": {
+    "receipt": ".staging/wave-fz-overall-qualification-2026-09-09/attempt-1/receipt.json",
+    "receiptSha256": "65ff23ea29090a67a80f82b729530ce377bbe980b8b484d7b7745b7de0d4f794",
+    "durationMs": 55732,
+    "iconsmithTests": 2550,
+    "iconsmithTestFiles": 183,
+    "runnerTests": 10,
+    "skips": 0,
+    "sourceFileCount": 531,
+    "source": {
+      "stable": true,
+      "before": {
+        "aggregateSha256": "a4dab4664d93a88cafb4b7f0ec4b73a9aecb8df1be0afc4800ee5906012f446b",
+        "manifestPath": ".staging/wave-fz-overall-qualification-2026-09-09/attempt-1/source-before.json",
+        "manifestSha256": "e709a20b0c299e686a7787ab4d0fdd88ef8e8f97b9a98fb17600c74f268c96e5"
+      },
+      "after": {
+        "aggregateSha256": "a4dab4664d93a88cafb4b7f0ec4b73a9aecb8df1be0afc4800ee5906012f446b",
+        "manifestPath": ".staging/wave-fz-overall-qualification-2026-09-09/attempt-1/source-after.json",
+        "manifestSha256": "e709a20b0c299e686a7787ab4d0fdd88ef8e8f97b9a98fb17600c74f268c96e5"
+      }
+    },
+    "stages": [
+      {
+        "id": "test",
+        "passed": true
+      },
+      {
+        "id": "typecheck",
+        "passed": true
+      },
+      {
+        "id": "build",
+        "passed": true
+      },
+      {
+        "id": "check",
+        "passed": true
+      },
+      {
+        "id": "diff",
+        "passed": true
+      }
+    ]
+  },
+  "qualification": {
+    "qualified": false,
+    "scoreOutOf10": null,
+    "primaryTasksPromoted": 0,
+    "reason": "No calibrated independent critic and complete qualifying generation populations for the current source.",
+    "evidenceBoundaries": [
+      {
+        "area": "Engineering",
+        "status": "passed",
+        "evidence": ".staging/wave-fz-overall-qualification-2026-09-09/attempt-1/receipt.json"
+      },
+      {
+        "area": "Current route live delivery and reliability",
+        "status": "unqualified",
+        "evidence": "docs/log/wave-fs-canonical-salvage-result-2026-09-09.json",
+        "boundary": "Historical D518-source salvage; produced pair incomplete with optics uncertainty, 39 pairs unstarted. Does not qualify current source."
+      },
+      {
+        "area": "Independent critic",
+        "status": "unqualified",
+        "evidence": "docs/log/wave-fu-google-collector-integration-result-2026-09-09.json",
+        "boundary": "Mocked cohort validates implementation only. Live fourth-lineage transport metadata and sealed panel calibration remain open."
+      },
+      {
+        "area": "House parity and native craft",
+        "status": "unqualified",
+        "evidence": "docs/log/wave-fy-quiver-house-comparison-result-2026-09-09.json",
+        "boundary": "Four standalone SVGs, one concept, root development inspection, no independent optical16 master or constrained DSL reconstruction."
+      },
+      {
+        "area": "Repair, full catalog and unseen families",
+        "status": "unqualified",
+        "evidence": "docs/plans/generation-quality-10.md",
+        "boundary": "Required sealed repair set, catalog population/audit and two unseen-family batches have no completed qualifying evidence."
+      }
+    ]
+  },
+  "nextDependency": "Resolve the fourth-lineage collector evidence blocker, then collect a sealed eligible AI panel and calibrate the critic before assigning craft scores or dispatching qualifying catalog cohorts.",
+  "cost": {
+    "newProviderCalls": 0,
+    "apiSpendUsd": 0,
+    "newReservation": null,
+    "ledger": "docs/log/api-budget-after-d528-quiver-2026-09-09.json",
+    "nativeSubscriptionDollarAllocation": null
+  }
+}

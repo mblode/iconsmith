@@ -27,8 +27,7 @@
  *    thing standing between `pipeline/` and a cycle: `eval/pool.ts` imports
  *    `pipeline/licence.ts` for `asReference`, so an import back the other way
  *    makes the two mutually dependent with nothing able to see it. The pool
- *    reaches the tournament the same way baselines reach `pipeline/eval.ts`:
- *    injected as data from `commands/`.
+ *    must be injected as data by callers, just like eval baselines.
  *
  * 5. NO VECTORISER IN THE PIPELINE. A raster tracer inside the generator is
  *    rule 2 with extra steps: it turns a picture into path data with no

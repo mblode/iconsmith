@@ -1,0 +1,438 @@
+{
+  "ceilingUsd": 50,
+  "reservedUsd": 12.16537775,
+  "runs": [
+    {
+      "id": "folder-lock-01",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.30503875
+    },
+    {
+      "id": "folder-lock-02",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.2293775
+    },
+    {
+      "id": "instrument-weight",
+      "reservationUsd": 10,
+      "state": "complete",
+      "actualUsd": 0.5360916
+    },
+    {
+      "id": "folder-lock-03",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.14643875
+    },
+    {
+      "id": "folder-lock-04",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.4009665
+    },
+    {
+      "id": "camera-thin",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.12789124999999998
+    },
+    {
+      "id": "camera-heavy",
+      "reservationUsd": 2,
+      "state": "complete",
+      "actualUsd": 0.18304225
+    },
+    {
+      "id": "folder-lock-components",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.464283
+    },
+    {
+      "id": "folder-lock-components-02",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.8288172500000001
+    },
+    {
+      "id": "folder-lock-components-replay",
+      "reservationUsd": 0.25,
+      "state": "complete",
+      "actualUsd": 0.0305745
+    },
+    {
+      "id": "folder-lock-components-replay-02",
+      "reservationUsd": 0.25,
+      "state": "complete",
+      "actualUsd": 0.029787
+    },
+    {
+      "id": "folder-lock-companion-01",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.50104475
+    },
+    {
+      "id": "folder-lock-round-clearance",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.15121575
+    },
+    {
+      "id": "folder-lock-round-body",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 1.792056
+    },
+    {
+      "id": "folder-lock-boolean-source",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 1.4383655000000002
+    },
+    {
+      "id": "folder-lock-visual-review",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.907821
+    },
+    {
+      "id": "folder-lock-trim",
+      "reservationUsd": 6,
+      "state": "complete",
+      "actualUsd": 0.8539760000000001
+    },
+    {
+      "id": "folder-lock-retained-fill",
+      "reservationUsd": 4,
+      "state": "complete",
+      "actualUsd": 0.36568174999999997
+    },
+    {
+      "id": "folder-lock-program-repair",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.23141974999999998
+    },
+    {
+      "id": "folder-lock-program-repair-02",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.37847525
+    },
+    {
+      "id": "folder-lock-counter-repair",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.25679
+    },
+    {
+      "id": "folder-lock-astra-repair",
+      "reservationUsd": 3,
+      "state": "complete",
+      "actualUsd": 0.49989549999999994
+    },
+    {
+      "id": "strategy-screen-gemini-grok",
+      "reservationUsd": 4,
+      "state": "cost-unresolved",
+      "actualUsd": 0.03801525,
+      "outstandingReservationUsd": 3.96198475,
+      "members": [
+        {
+          "arm": "gemini",
+          "state": "complete",
+          "actualUsd": 0.03801525,
+          "generationId": "gen_01M1TW4XVH29XXRTFKQ1PF3NMG",
+          "finishReason": "length",
+          "elapsedMs": 64764
+        },
+        {
+          "arm": "grok",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        }
+      ]
+    },
+    {
+      "id": "strategy-screen-provider-fallback",
+      "reservationUsd": 6,
+      "state": "complete",
+      "actualUsd": 0.774424,
+      "outstandingReservationUsd": 0,
+      "members": [
+        {
+          "arm": "fableapi",
+          "state": "complete",
+          "actualUsd": 0.51112,
+          "generationId": "gen_01M1TW7M3W37XBZH640BR2VHSY",
+          "finishReason": "length",
+          "elapsedMs": 137369
+        },
+        {
+          "arm": "nanoapi",
+          "state": "complete",
+          "actualUsd": 0.148304,
+          "generationId": "gen_01M1TW7N0GXJN5RPG3YJEH2HHG",
+          "finishReason": "stop",
+          "elapsedMs": 42135
+        },
+        {
+          "arm": "seedreamapi",
+          "state": "complete",
+          "actualUsd": 0.035,
+          "generationId": "gen_01M1TW7P7BMS13YW5MB1JCJSE3",
+          "elapsedMs": 64690
+        },
+        {
+          "arm": "recraftapi",
+          "state": "complete",
+          "actualUsd": 0.08,
+          "generationId": "gen_01M1TW7Q78MKRJ58WWQPDBJ3P6",
+          "elapsedMs": 14769
+        }
+      ]
+    },
+    {
+      "id": "strategy-screen-output-budget-correction",
+      "reservationUsd": 5,
+      "state": "cost-unresolved",
+      "actualUsd": 0.121599,
+      "outstandingReservationUsd": 4.878401,
+      "members": [
+        {
+          "arm": "gemini2",
+          "state": "complete",
+          "actualUsd": 0.121599,
+          "generationId": "gen_01M1TWEAJ6903STWKG3NV6MHN4",
+          "finishReason": "stop",
+          "elapsedMs": 190476
+        },
+        {
+          "arm": "grok2",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        },
+        {
+          "arm": "fableapi2",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        }
+      ]
+    },
+    {
+      "id": "strategy-screen-streaming",
+      "reservationUsd": 4,
+      "state": "cost-unresolved",
+      "actualUsd": 1.46912,
+      "outstandingReservationUsd": 2.53088,
+      "members": [
+        {
+          "arm": "fablestream",
+          "state": "complete",
+          "actualUsd": 1.46912,
+          "generationId": "gen_01M1TWWQ7BBXESF1BT2TZ4T0NX",
+          "finishReason": "stop",
+          "elapsedMs": 378086
+        },
+        {
+          "arm": "grokstream",
+          "state": "failed-cost-unknown",
+          "actualUsd": null
+        }
+      ]
+    },
+    {
+      "id": "D425-gemini-image-capability",
+      "reservationUsd": 0.788352,
+      "state": "complete-capability-refused",
+      "actualUsd": 0.0010365,
+      "generationId": "gen_01M20T4P3RTXH1FSA0VRHKF2GC",
+      "receipt": "docs/log/wave-cg-api-capability-result-2026-09-09.json"
+    },
+    {
+      "id": "D437-gemini-image-capability-v2",
+      "reservationUsd": 0.788352,
+      "state": "complete-capability-refused",
+      "actualUsd": 0.0010815,
+      "outstandingReservationUsd": 0,
+      "automaticRetry": false,
+      "maximumInferenceRequests": 1,
+      "maximumMetadataLookups": 1,
+      "generationId": "gen_01M20YC080BN3H0JE0F71C03R9",
+      "receipt": "docs/log/wave-cl-api-v2-live-result-2026-09-09.json",
+      "chargeEvidence": "Gateway inference response cost, generation-info unavailable"
+    },
+    {
+      "id": "D445-gemini-image-capability-diagnostics",
+      "reservationUsd": 0.788352,
+      "state": "preflight-refused-no-dispatch",
+      "actualUsd": 0,
+      "outstandingReservationUsd": 0,
+      "automaticRetry": false,
+      "maximumInferenceRequests": 1,
+      "maximumMetadataLookups": 1,
+      "releasedReservationUsd": 0.788352,
+      "receipt": "docs/log/wave-ct-api-disk-preflight-refusal-2026-09-09.json"
+    },
+    {
+      "id": "D466",
+      "state": "complete",
+      "reservationUsd": 0.788352,
+      "outstandingReservationUsd": 0,
+      "scope": "One Google-only Gemini exact-image capability inference plus at most one metadata lookup; no retry",
+      "maximumInferenceRequests": 1,
+      "maximumMetadataLookups": 1,
+      "actualUsd": 0.00102525,
+      "accepted": false,
+      "metadataState": "settled-failed",
+      "metadataHttpStatus": 404,
+      "resultReceipt": "docs/log/wave-ed-api-guarded-live-result-2026-09-09.json"
+    },
+    {
+      "id": "D489-images25-api",
+      "reservationUsd": 1,
+      "outstandingReservationUsd": 0,
+      "state": "complete-output-refused",
+      "maximumInferenceRequests": 1,
+      "automaticRetry": false,
+      "actualUsd": 0.054335
+    },
+    {
+      "id": "D491",
+      "state": "complete-generation",
+      "reservationUsd": 1,
+      "outstandingReservationUsd": 0,
+      "maximumInferenceRequests": 1,
+      "automaticRetry": false,
+      "actualUsd": 0.054335,
+      "chargeBasis": "Reported usage at published rates; not invoice",
+      "resultReceipt": "docs/log/wave-fb-images25-transparent-result-2026-09-09.json"
+    }
+  ],
+  "actualUsd": 13.978457350000001,
+  "supersedesLedger": {
+    "file": "docs/log/api-budget-after-d508-2026-09-09.json",
+    "sha256": "165859b685c7388ad59e1c58042e74a8c863ba659c03421d0f335abb0a42a9d4"
+  },
+  "remainingAtMostUsd": 23.856164900000003,
+  "continuation": {
+    "receipts": [
+      "D509",
+      "D510"
+    ],
+    "newApiActualUsd": 0,
+    "newApiReservationUsd": 0,
+    "nativeAttempt": {
+      "requestId": "wave-fl-mini-v3-2026-09-09",
+      "state": "failed-context-preflight",
+      "accounting": "unknown",
+      "allocationUsd": null,
+      "startedReceiptPresent": false,
+      "automaticRetry": false,
+      "note": "Historical D506 attempt retained, not a new D509-D510 dispatch."
+    },
+    "quotaWeeklyUsedPercent": 11,
+    "quotaResetRedeemed": false,
+    "newProviderCalls": 0,
+    "nativeSubscriptionOrchestrationAllocationUsd": null
+  },
+  "continuationD511D512": {
+    "providerCalls": 0,
+    "newApiReservationUsd": 0,
+    "weeklyQuotaUsedPercent": 13,
+    "resetRedeemed": false,
+    "nativeDollarAllocation": "unknown; no native generation/reviewer dispatch in this wave"
+  },
+  "D513NativeReservation": {
+    "state": "closed",
+    "maxCalls": 20,
+    "actualCalls": 10,
+    "billing": "subscription",
+    "dollarAllocation": null,
+    "newApiReservationUsd": 0,
+    "intent": "D513",
+    "settledCalls": 10,
+    "unusedCallsReleased": 10,
+    "result": "D514"
+  },
+  "continuationD515D518": {
+    "result": "docs/log/wave-fq-canonical-salvage-hook-integration-2026-09-09.json",
+    "apiCalls": 0,
+    "apiSpendUsd": 0,
+    "newReservation": null,
+    "nativeSubscriptionDollarAllocation": null,
+    "priorLedger": "docs/log/api-budget-after-d514-live-2026-09-09.json",
+    "priorLedgerSha256": "22fa17e4381a3c314edbd8d38cf6be9a8f171715ab39f0931137784e38e71481",
+    "note": "Offline engineering only. Historical actual, reserved and unknown balances preserved; no live salvage reserved."
+  },
+  "D519NativeReservation": {
+    "status": "closed",
+    "maxNativeCalls": 10,
+    "actualNativeCalls": 7,
+    "nativeSubscriptionDollarAllocation": null,
+    "newApiReservationUsd": 0,
+    "intent": "docs/log/wave-fs-canonical-salvage-intent-2026-09-09.json",
+    "settledNativeCalls": 7,
+    "unusedCallsReleased": 3,
+    "result": "docs/log/wave-fs-canonical-salvage-result-2026-09-09.json"
+  },
+  "continuationD521D522": {
+    "result": "docs/log/wave-fu-google-collector-integration-result-2026-09-09.json",
+    "priorLedger": "docs/log/api-budget-after-d520-salvage-2026-09-09.json",
+    "priorLedgerSha256": "5b0576b76746bf319356e6cba698012bb23628d93a24669851f6295f14f95663",
+    "apiCalls": 0,
+    "apiSpendUsd": 0,
+    "newReservation": null,
+    "nativeSubscriptionDollarAllocation": null,
+    "note": "Offline engineering only; historical actual, reserved and unknown balances unchanged."
+  },
+  "quiverD524D525": {
+    "status": "closed-provider-rejected-insufficient-credits",
+    "reservationUsd": 0.8,
+    "releasedUsd": 0.8,
+    "generationSpendUsd": 0,
+    "generationRequests": 1,
+    "modelListRequests": 1,
+    "producedOutputs": 0,
+    "retried": false,
+    "priorLedger": "docs/log/api-budget-after-d522-2026-09-09.json",
+    "priorLedgerSha256": "9bec202a44081fe056bbd905a92b918efaca37a50b7daf74413d728654a64b4f",
+    "result": "docs/log/wave-fw-quiver-result-2026-09-09.json",
+    "note": "Prior actual/reserved/unknown totals unchanged. API rejected for insufficient credits; no invoice reconciliation."
+  },
+  "quiverD526D528": {
+    "state": "settled",
+    "credits": 80,
+    "usageRatedUsd": 0.8,
+    "reservedUsd": 0,
+    "generationCalls": 4,
+    "result": "docs/log/wave-fy-quiver-house-comparison-result-2026-09-09.json",
+    "invoiceReconciled": false,
+    "note": "Default$0.01/credit; prior actual/unknown history retained."
+  },
+  "d530": {
+    "budgetAuthorization": "User reaffirms spend up to USD50; interpreted as total ceiling, not additional budget.",
+    "metadataRequests": 1,
+    "newGenerationSpendUsd": 0,
+    "newReservationUsd": 0,
+    "result": "docs/log/wave-ga-budget-metadata-result-2026-09-09.json",
+    "historicalBalancesUnchanged": true
+  },
+  "d531": {
+    "state": "settled-request-evidence-refused",
+    "actualUsd": 0.00443625,
+    "reservationUsd": 0,
+    "releasedUsd": 0.78967575,
+    "inferenceRequests": 1,
+    "metadataRequests": 0,
+    "result": ".staging/wave-gb-reviewer-readiness-2026-09-09/runner-result.json"
+  },
+  "d533": {
+    "state": "reserved",
+    "reservationUsd": 0.794112,
+    "intent": "docs/log/wave-gd-reviewer-readiness-intent-2026-09-09.json"
+  }
+}

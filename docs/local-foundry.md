@@ -3,8 +3,6 @@
 The primary workflow is local: reference files → coding-agent CLI → constrained
 icon program → host compiler → native-size visual review → saved SVG library.
 No public web app, deployed Eve agent, database or API judge is required.
-The existing web and agent workspaces remain available; they are outside this
-local workflow and have not been deleted.
 
 The canonical command requires a pinned style and master. Codex authors the
 programs through its native ChatGPT subscription; Claude reviews the rendered
@@ -26,12 +24,31 @@ node --import tsx packages/iconsmith/scripts/local-generate.ts bookmark-check .s
 
 Use a new output directory. Omit `--finish` for both paints, or choose `--finish
 outlined` / `--finish filled`. The former unpinned house-draft and agent-selection
-arguments were removed from this entry point. Historical experiments remain in
-their original locations; they are not alternate production paths.
+arguments were removed from this entry point. Historical experiment receipts
+remain in the foundry log; retired experiment runners have been removed.
 
 Subscription consumption is recorded separately from actual API spending. The
 API experiment ledger is `.staging/foundry-round-1/budget.json`; consult its current
 receipts and the append-only foundry log for charges and outstanding reservations.
+
+For a frozen development campaign, `local-campaign.ts --concurrency <1-16>`
+controls how many independent concept/master requests may run simultaneously.
+Use `--concurrency 16 --max-requests 16` on a new campaign directory to admit a
+batch of at most sixteen pairs. Keep the manifest, revision, runtime, library,
+meanings and optional family-packet arguments from the campaign's dry run, then
+add `--execute`. `--concurrency 1` retains sequential execution. Concurrency is
+part of the immutable campaign identity and cannot change when resuming it;
+diagnostic finalization remains sequential.
+
+Each pair keeps the same author, reviewers, prompts, compiler, repair limits and
+quality gates. Its deadline starts when admitted, and its process and native-call
+accounting remain separate. Results retain manifest order even when requests
+finish out of order. STOP or a containment/source failure prevents queued work;
+already admitted requests settle before the driver returns. `--max-requests`
+bounds total newly dispatched requests across all workers. Concurrent execution
+increases peak subscription usage and resource demand without increasing that
+total. This improves batch throughput; single-pair latency is unchanged. Live
+speedup depends on model latency, available resources and provider throttling.
 
 Check a selected-style pair locally:
 

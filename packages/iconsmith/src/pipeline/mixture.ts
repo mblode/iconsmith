@@ -35,10 +35,6 @@
  * 4. **Unknown analog is not a win.** `analog unknown xyzzy` is a hold-out
  *    staying unknown, not a drawing. The gate falls through.
  *
- * The codebase-rewriting loop stays `scripts/autoresearch.ts`. This module
- * improves *routing*, not the frozen evaluator. A loop that can edit
- * `render.ts` or `blindspot.ts` is the DGM deleting its own cheat markers.
- *
  * `PackIndex` is a plain `ReadonlyMap`, for the same reason `search.ts`
  * restates aliases that way: `pipeline/` does not import `corpus/`.
  * `commands/` walks baseline *directory names* and passes slugs in.

@@ -1,0 +1,7 @@
+icon bookmark-play
+finish filled
+rect 4,2 16x10 r4
+line 5,6 19,6 19,22 12,17 5,22 5,6 r1 solid off-axis
+union
+line 10,7.5 14.5,10 10,12.5 10,7.5 r0.5 solid off-axis
+subtract

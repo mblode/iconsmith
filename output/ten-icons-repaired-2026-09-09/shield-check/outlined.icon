@@ -1,0 +1,6 @@
+icon shield-check
+finish outlined
+# Raised apex and shoulders; semicircular foot and detached positive check.
+line 4,13 4,6.25 12,2.5 20,6.25 20,13 r3 off-axis
+arc 12,13 r8 half from right
+line 8.5,12 11,14.5 15.5,10

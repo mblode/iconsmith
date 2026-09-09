@@ -1,0 +1,33 @@
+{
+  "id": "D542",
+  "status": "repaired-existing-DSL",
+  "trigger": "User screenshot identifies symmetric bottom silhouette dips missed by prior development reviewers",
+  "cause": "Rounded base rectangle corners meet circular lobes above their shared bottom tangent, leaving tiny concave joins",
+  "change": "Internal base rectangle radius1 to radius0; cloud lobes and arrow remain unchanged",
+  "original": ".staging/wave-gi-cohort-preparation-2026-09-09/campaign/requests/cloud-upload-24/filled.svg",
+  "repaired": ".staging/wave-gm-cloud-bottom-repair-2026-09-09/filled.svg",
+  "checks": {
+    "craftApproved": false,
+    "exactReplay": true,
+    "findings": [],
+    "nativeSize": 24,
+    "paints": [
+      "outlined",
+      "filled"
+    ],
+    "pairChecked": true,
+    "pairIssues": [],
+    "preview16": "downsample",
+    "snapshot": ".staging/wave-gm-cloud-bottom-repair-2026-09-09/check-d0Nsql",
+    "style": "618b8fb0f58477925c6c5299d06ecefaf789c2b0a13df2d55be089989ed7e542"
+  },
+  "independentReview": null,
+  "qualificationGranted": false,
+  "hashes": {
+    ".staging/wave-gi-cohort-preparation-2026-09-09/campaign/requests/cloud-upload-24/filled.icon": "e904ee852fb1de54093a6b06aa57c6bf6d79c8ab638544ac445536c142bd3d9d",
+    ".staging/wave-gi-cohort-preparation-2026-09-09/campaign/requests/cloud-upload-24/filled.svg": "c98fb7f68f537fb9b04133d31341805805ab7d50ae2909edbe70ec70f41d3e2b",
+    ".staging/wave-gm-cloud-bottom-repair-2026-09-09/filled.icon": "5b5d1ffa67d8a5731350093e0278c1426f27517cfd8f2ac2981ed2333096b7ba",
+    ".staging/wave-gm-cloud-bottom-repair-2026-09-09/filled.svg": "65d06c0aacff0caf979675e75a6b41c7f70616690d1f3d8bd72105694db2c34c",
+    ".staging/wave-gm-cloud-bottom-repair-2026-09-09/filled.proof.png": "ee6dc8b2f67d865dbfcb8cad14da9cac4cdb0ac553d26b218d1757b96d317cc6"
+  }
+}

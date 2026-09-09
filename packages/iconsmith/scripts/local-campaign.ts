@@ -109,6 +109,7 @@ interface Options {
   library: string;
   manifestFile: string;
   maxRequests: number;
+  requestMaster?: number;
   meaningsDirectory: string;
   out: string;
   revisionFile: string;
@@ -276,6 +277,11 @@ const campaignDiagnostic = (
   }
   return diagnosticFinalization ? { diagnosticFinalization } : {};
 };
+const campaignSelection = (o: Options) => ({
+  ...(o.requestMaster === undefined ? {} : { requestMaster: o.requestMaster }),
+  ...(o.concurrency === 1 ? {} : { concurrency: o.concurrency }),
+});
+
 const campaignExecution = (o: Options, toolingHash: string) => {
   const retrieval = campaignRetrieval(o.familyPacketsDirectory);
   const nativeRoute = o.nativeRouteHash
@@ -292,6 +298,7 @@ const campaignExecution = (o: Options, toolingHash: string) => {
     );
   }
   const execution = {
+    ...campaignSelection(o),
     ...campaignDiagnostic(o, nativeRoute),
     authorCommand:
       nativeRoute?.manifest.author.executable.path ??
@@ -349,13 +356,27 @@ const validateCampaignDiagnostic = (
   }
 };
 
+const validateCampaignConcurrency = (o: Options) => {
+  if (
+    !Number.isSafeInteger(o.concurrency) ||
+    o.concurrency < 1 ||
+    o.concurrency > 16
+  ) {
+    throw new Error("--concurrency must be an integer from 1 to 16");
+  }
+  if (o.concurrency !== 1 && o.diagnosticFinalizationPlanFile) {
+    throw new Error("Diagnostic finalization requires --concurrency 1");
+  }
+};
+
 export const planLocalCampaign = (o: Options) => {
+  if (o.requestMaster !== undefined && ![16, 24].includes(o.requestMaster)) {
+    throw new Error("--request-master must be 16 or 24");
+  }
   if (!Number.isInteger(o.maxRequests) || o.maxRequests < 1) {
     throw new Error("--max-requests must be a positive integer");
   }
-  if (o.concurrency !== 1) {
-    throw new Error("Local campaigns are sequential; --concurrency must be 1");
-  }
+  validateCampaignConcurrency(o);
   const frozen = JSON.parse(readFileSync(o.manifestFile, "utf-8")) as Frozen;
   if (sha(canonical(frozen.manifest)) !== frozen.hash) {
     throw new Error("Frozen campaign manifest changed");
@@ -1829,8 +1850,6 @@ export const runLocalCampaign = async (o: Options) => {
     ) {
       throw new Error("Existing campaign directory is structurally incomplete");
     }
-  }
-  if (existsSync(o.out)) {
     for (const request of plan.requests) {
       const receipt = loadReceipt(plan, request, o.out);
       if (!receipt && existsSync(outerStartFile(request))) {
@@ -1843,11 +1862,13 @@ export const runLocalCampaign = async (o: Options) => {
   }
   if (!o.execute) {
     const pending = plan.requests.filter(
-      (request) => !inspectPrior(plan, request, o.out)
+      (request) =>
+        (o.requestMaster === undefined || request.master === o.requestMaster) &&
+        !inspectPrior(plan, request, o.out)
     );
     return {
       ...plan,
-      concurrency: 1,
+      concurrency: o.concurrency,
       ledger: makeLedger(frozen, plan, o.out),
       maxRequests: o.maxRequests,
       mode: "dry-run",
@@ -1863,11 +1884,25 @@ export const runLocalCampaign = async (o: Options) => {
     writeDurableJson(lock, plan);
   }
   const ownedProcess = o.ownedProcess ?? runOwnedProcess;
-  const results = [];
   let dispatched = 0;
-  for (const request of plan.requests) {
+  let halted = false;
+  const halt = () => {
+    halted = true;
+    // Other admitted requests retain their evidence and settle under their own
+    // clocks. Prevent further native stages after a peer's containment failure.
+    if (o.concurrency > 1 && !existsSync(plan.execution.campaignStopFile)) {
+      writeDurableJson(plan.execution.campaignStopFile, {
+        campaignHash: plan.campaignHash,
+        reason: "parallel-campaign-halted",
+      });
+    }
+  };
+  // Each request keeps the original sequential author/reviewer pipeline.
+  // oxlint-disable-next-line eslint/complexity -- preserved fail-closed dispatch and evidence checks.
+  const runRequest = async (request: Request) => {
     if (campaignStopped(plan, o.out)) {
-      break;
+      halt();
+      return;
     }
     const prior = inspectPrior(plan, request, o.out);
     if (prior) {
@@ -1879,11 +1914,13 @@ export const runLocalCampaign = async (o: Options) => {
       if (prior.recoveredAfterInterruption && !existsSync(receiptFile)) {
         writeDurableJson(receiptFile, prior);
       }
-      results.push({ ...prior, skipped: true });
-      continue;
+      return { ...prior, skipped: true };
     }
     if (dispatched >= o.maxRequests) {
-      continue;
+      return;
+    }
+    if (o.requestMaster !== undefined && request.master !== o.requestMaster) {
+      return;
     }
     if (canonical(planLocalCampaign(o)) !== canonical(plan)) {
       throw new Error("Campaign inputs changed before dispatch");
@@ -2028,7 +2065,8 @@ export const runLocalCampaign = async (o: Options) => {
     const dispatchBudgetMs =
       expectedIntent.deadlineAt - Date.now() - PARENT_SETTLEMENT_RESERVE_MS;
     if (dispatchBudgetMs <= 0) {
-      results.push({
+      halt();
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2043,8 +2081,7 @@ export const runLocalCampaign = async (o: Options) => {
           "Parent settlement reserve exhausted before generator dispatch"
         ),
         skipped: false,
-      });
-      break;
+      };
     }
     // Exclusive host-owned intent precedes the async provider boundary. A crash
     // after this write is ambiguous and must never silently launch again.
@@ -2057,8 +2094,7 @@ export const runLocalCampaign = async (o: Options) => {
     });
     dispatched += 1;
     let parentSettlement: ProcessResult | undefined;
-    // Sequential by frozen concurrency=1; settlement must precede the next dispatch.
-    // oxlint-disable-next-line eslint/no-await-in-loop
+    // A worker does not admit another request until this child settles.
     const child = await executeLaunchDescriptor(launch, async (descriptor) => {
       if (o.spawn) {
         return o.spawn(descriptor.executable, descriptor.args, {
@@ -2103,7 +2139,8 @@ export const runLocalCampaign = async (o: Options) => {
       } as ReturnType<typeof spawnSync>;
     });
     if (parentSettlement && parentSettlement.quiescent !== true) {
-      results.push({
+      halt();
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2113,8 +2150,7 @@ export const runLocalCampaign = async (o: Options) => {
           { ...parentSettlement, quiescent: false }
         ),
         skipped: false,
-      });
-      break;
+      };
     }
     if (
       request.familyPacket &&
@@ -2124,7 +2160,8 @@ export const runLocalCampaign = async (o: Options) => {
         sha(readFileSync(request.familyPacket.file)) !==
           request.familyPacket.sha256)
     ) {
-      results.push({
+      halt();
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2134,8 +2171,7 @@ export const runLocalCampaign = async (o: Options) => {
           parentSettlement
         ),
         skipped: false,
-      });
-      break;
+      };
     }
     let diagnosticStable = true;
     if (diagnostic) {
@@ -2152,7 +2188,8 @@ export const runLocalCampaign = async (o: Options) => {
       }
     }
     if (!diagnosticStable) {
-      results.push({
+      halt();
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2162,8 +2199,7 @@ export const runLocalCampaign = async (o: Options) => {
           parentSettlement
         ),
         skipped: false,
-      });
-      break;
+      };
     }
     let sourceClosureStable = false;
     try {
@@ -2174,7 +2210,8 @@ export const runLocalCampaign = async (o: Options) => {
       // Removed or unreadable source is drift, never eligible child evidence.
     }
     if (!sourceClosureStable) {
-      results.push({
+      halt();
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2184,13 +2221,12 @@ export const runLocalCampaign = async (o: Options) => {
           parentSettlement
         ),
         skipped: false,
-      });
-      break;
+      };
     }
     const parentCompletedAt = Date.now();
     const requestFile = path.join(request.destination, "request.json");
     if (!existsSync(requestFile)) {
-      results.push({
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2200,18 +2236,19 @@ export const runLocalCampaign = async (o: Options) => {
           parentSettlement
         ),
         skipped: false,
-      });
-      continue;
+      };
     }
     let bytes: Buffer;
     let terminal: Record<string, unknown>;
+    let artifacts: ReturnType<typeof validateOutput>;
+    let nativeAccounting: ReturnType<typeof validateNativeAccounting>;
     try {
       bytes = readFileSync(requestFile);
       terminal = JSON.parse(bytes.toString()) as Record<string, unknown>;
       if (!isTerminal(terminal, request)) {
         throw new Error("Generator receipt is not terminal");
       }
-      validateOutput(plan, request, terminal);
+      artifacts = validateOutput(plan, request, terminal);
       if (
         plan.execution.nativeRouteHash &&
         parentSettlement?.quiescent !== true
@@ -2220,7 +2257,11 @@ export const runLocalCampaign = async (o: Options) => {
           "Native child terminal requires owned parent process settlement"
         );
       }
-      validateNativeAccounting(plan, request, expectedIntent);
+      nativeAccounting = validateNativeAccounting(
+        plan,
+        request,
+        expectedIntent
+      );
       if (parentCompletedAt >= expectedIntent.deadlineAt) {
         throw new Error("Generator settled after the original parent deadline");
       }
@@ -2228,15 +2269,14 @@ export const runLocalCampaign = async (o: Options) => {
         terminal.status === "delivered" &&
         (child.status !== 0 ||
           (child.signal !== null && child.signal !== undefined) ||
-          (child.error !== null && child.error !== undefined) ||
-          parentCompletedAt >= expectedIntent.deadlineAt)
+          (child.error !== null && child.error !== undefined))
       ) {
         throw new Error(
           "Delivered output requires a clean, parent-observed on-time child exit"
         );
       }
     } catch (error) {
-      results.push({
+      return {
         ...writeOuterRefusal(
           plan,
           request,
@@ -2246,15 +2286,8 @@ export const runLocalCampaign = async (o: Options) => {
           parentSettlement
         ),
         skipped: false,
-      });
-      continue;
+      };
     }
-    const artifacts = validateOutput(plan, request, terminal);
-    const nativeAccounting = validateNativeAccounting(
-      plan,
-      request,
-      expectedIntent
-    );
     const unsignedReceipt = {
       aiQualified: false,
       artifacts,
@@ -2281,11 +2314,45 @@ export const runLocalCampaign = async (o: Options) => {
       path.join(o.out, "receipts", `${request.requestId}.json`),
       receipt
     );
-    results.push({ ...receipt, skipped: false });
-  }
+    return { ...receipt, skipped: false };
+  };
+  const results: Awaited<ReturnType<typeof runRequest>>[] = [];
+  let next = 0;
+  const worker = async () => {
+    try {
+      while (next < plan.requests.length) {
+        if (halted) {
+          break;
+        }
+        const index = next;
+        next += 1;
+        // oxlint-disable-next-line eslint/no-await-in-loop -- bounded workers preserve per-request settlement.
+        results[index] = await runRequest(plan.requests[index]);
+        if (campaignStopped(plan, o.out)) {
+          halt();
+        }
+      }
+    } catch (error) {
+      halt();
+      throw error;
+    }
+  };
+  // Do not return/reject while another owned generator is still running.
+  const workers = await Promise.allSettled(
+    Array.from({ length: Math.min(o.concurrency, o.maxRequests) }, worker)
+  );
   const ledger = makeLedger(frozen, plan, o.out);
   writeDurableJson(path.join(o.out, "campaign-ledger.json"), ledger, "replace");
-  return { campaignHash: plan.campaignHash, dispatched, ledger, results };
+  const failure = workers.find((result) => result.status === "rejected");
+  if (failure?.status === "rejected") {
+    throw failure.reason;
+  }
+  return {
+    campaignHash: plan.campaignHash,
+    dispatched,
+    ledger,
+    results: results.filter((result) => result !== undefined),
+  };
 };
 if (process.argv[1] === import.meta.filename) {
   const { values } = parseArgs({
@@ -2304,6 +2371,7 @@ if (process.argv[1] === import.meta.filename) {
       meanings: { type: "string" },
       "native-route-hash": { type: "string" },
       out: { type: "string" },
+      "request-master": { type: "string" },
       revision: { type: "string" },
       runtime: { type: "string" },
     },
@@ -2321,7 +2389,7 @@ if (process.argv[1] === import.meta.filename) {
   ];
   if (required.some((v) => !v)) {
     throw new Error(
-      "Usage: local-campaign.ts --manifest <file> --revision <file> --library <dir> --meanings <dir> --out <new-dir> --generator <local-generate.ts> --max-requests <n> --runtime <frozen-runtime.json> --concurrency 1 [--execute]"
+      "Usage: local-campaign.ts --manifest <file> --revision <file> --library <dir> --meanings <dir> --out <new-dir> --generator <local-generate.ts> --max-requests <n> --runtime <frozen-runtime.json> --concurrency <1-16> [--execute]"
     );
   }
   const result = await runLocalCampaign({
@@ -2344,6 +2412,10 @@ if (process.argv[1] === import.meta.filename) {
     meaningsDirectory: path.resolve(values.meanings ?? ""),
     nativeRouteHash: values["native-route-hash"],
     out: path.resolve(values.out ?? ""),
+    requestMaster:
+      values["request-master"] === undefined
+        ? undefined
+        : Number(values["request-master"]),
     revisionFile: path.resolve(values.revision ?? ""),
     runtimeFile: path.resolve(values.runtime ?? ""),
   });

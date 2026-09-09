@@ -1,0 +1,28 @@
+{
+  "id": "D534",
+  "status": "engineering-passed-after-retained-integrated-failure",
+  "verification": ".staging/wave-ge-metadata-retention-verification-2026-09-09/attempt-2/receipt.json",
+  "source": {
+    "stable": true,
+    "before": {
+      "aggregateSha256": "f408f3bc76ef15b3229995c73692f6b28a875939ac5f668b4d73b40ad205921d",
+      "manifestPath": ".staging/wave-ge-metadata-retention-verification-2026-09-09/attempt-2/source-before.json",
+      "manifestSha256": "8e611c87c6e41f0618a7dd4a3840074ed64972a1c4fa445a2599c364b3d52df7"
+    },
+    "after": {
+      "aggregateSha256": "f408f3bc76ef15b3229995c73692f6b28a875939ac5f668b4d73b40ad205921d",
+      "manifestPath": ".staging/wave-ge-metadata-retention-verification-2026-09-09/attempt-2/source-after.json",
+      "manifestSha256": "8e611c87c6e41f0618a7dd4a3840074ed64972a1c4fa445a2599c364b3d52df7"
+    }
+  },
+  "failedVerification": ".staging/wave-ge-metadata-retention-verification-2026-09-09/attempt-1/receipt.json",
+  "failure": "Four local-process tests failed under integrated load;19 isolated tests subsequently passed.",
+  "changes": [
+    "Collector now retains sanitized typed metadata failure and binds exact failure-file hash in terminal.",
+    "Hoist active process identity scan outside per-row filter without changing identity/retirement/signal rules."
+  ],
+  "focusedTests": 79,
+  "microbenchmark": ".staging/wave-gd-reviewer-readiness-2026-09-09/process-tracking-benchmark.json",
+  "qualification": false,
+  "scope": "Current integrated pass does not retrospectively erase failure or qualify production containment."
+}

@@ -12,6 +12,7 @@ import os from "node:os";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
+import { createGateway } from "@ai-sdk/gateway";
 import sharp from "sharp";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -1647,4 +1648,109 @@ describe("API collector stage boundary", () => {
       )
     ).toThrow("unavailable or consumed");
   });
+});
+
+it("validates the installed SDK serialized wire body despite omitted optional fields", async () => {
+  const { options, answers } = await collectorFixture();
+  let wireBody: unknown;
+  const transport = vi.fn((_url: unknown, init?: RequestInit) => {
+    wireBody = JSON.parse(String(init?.body));
+    return Promise.resolve(
+      Response.json({
+        content: [{ text: JSON.stringify(answers), type: "text" }],
+        finishReason: { raw: "STOP", unified: "stop" },
+        providerMetadata: routing(),
+        usage: {
+          inputTokens: { cacheRead: 0, noCache: 300, total: 300 },
+          outputTokens: { reasoning: 0, text: 10, total: 10 },
+        },
+        warnings: [],
+      })
+    );
+  });
+  const model = createGateway({
+    apiKey: "offline-no-credential",
+    fetch: transport,
+  })(API_CAPABILITY_MODEL);
+  const outcome = await runApiCollectorStage(
+    { ...options, generate: undefined, resolve: () => model },
+    () => null
+  );
+  expect(outcome).toMatchObject({
+    terminal: {
+      accepted: true,
+      inferenceAttempts: 1,
+      metadataLookupAttempts: 1,
+    },
+  });
+  expect(transport).toHaveBeenCalledTimes(1);
+  const requestEvidence = JSON.parse(
+    readFileSync(
+      path.join(options.evidenceDirectory, "serialized-request.json"),
+      "utf-8"
+    )
+  );
+  expect(wireBody).toBeDefined();
+  expect(requestEvidence).toEqual(wireBody);
+});
+
+it("retains sanitized collector metadata HTTP failure and terminal hash without retry", async () => {
+  const { options } = await collectorFixture();
+  const fetchMock = vi.fn(() =>
+    Promise.resolve(new Response("private-response-body", { status: 404 }))
+  );
+  const previousGatewayKey = process.env.AI_GATEWAY_API_KEY;
+  process.env.AI_GATEWAY_API_KEY = "test-gateway-key";
+  vi.stubGlobal("fetch", fetchMock);
+  try {
+    const terminal = await runApiCollectorStage(
+      { ...options, getGenerationInfo: undefined },
+      () => null
+    );
+    const bytes = readFileSync(
+      path.join(options.evidenceDirectory, "metadata-failure.json")
+    );
+    expect(terminal).toMatchObject({
+      accepted: false,
+      metadataFailureSha256: hash(bytes),
+      metadataLookupAttempts: 1,
+    });
+    expect(JSON.parse(bytes.toString("utf-8"))).toMatchObject({
+      bodySha256: hash("private-response-body"),
+      httpStatus: 404,
+    });
+    expect(bytes.toString("utf-8")).not.toContain("private-response-body");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  } finally {
+    vi.unstubAllGlobals();
+    if (previousGatewayKey === undefined) {
+      Reflect.deleteProperty(process.env, "AI_GATEWAY_API_KEY");
+    } else {
+      process.env.AI_GATEWAY_API_KEY = previousGatewayKey;
+    }
+  }
+}, 35_000);
+
+it("aborts the canonical readiness wait on STOP without a metadata request", async () => {
+  const { options } = await collectorFixture();
+  const fetchMock = vi.fn();
+  vi.stubGlobal("fetch", fetchMock);
+  const stopTimer = setTimeout(() => {
+    writeFileSync(options.stopFile, "stop\n", { mode: 0o600 });
+  }, 100);
+  try {
+    const terminal = await runApiCollectorStage(
+      { ...options, getGenerationInfo: undefined },
+      () => null
+    );
+    expect(terminal).toMatchObject({
+      accepted: false,
+      inferenceAttempts: 1,
+      metadataLookupAttempts: 0,
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  } finally {
+    clearTimeout(stopTimer);
+    vi.unstubAllGlobals();
+  }
 });

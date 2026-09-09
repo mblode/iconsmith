@@ -1,0 +1,12 @@
+icon satellite-dish
+keyline circle
+finish filled
+# Solid dish body; positive feed and paired signal arcs follow satellite-1.
+# Flood the bowl counter while preserving the rim, attachment and signal clearance.
+circle 11,13 r9
+diamond 21,3 r20
+subtract
+line 11,13 13,11
+union
+arc 12,12 r6 quarter from top
+arc 12,12 r9 quarter from top

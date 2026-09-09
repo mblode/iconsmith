@@ -1,0 +1,12 @@
+icon satellite-dish
+keyline circle
+finish outlined
+# Circular bowl with a diagonal rim and open counter, following satellite-1.
+# Positive feed attaches to the rim; concentric signal arcs retain a 1-unit gap.
+circle 11,13 r8
+diamond 21,3 r20
+trim
+line 5.25,7.25 16.75,18.75
+line 11,13 13,11
+arc 12,12 r6 quarter from top
+arc 12,12 r9 quarter from top

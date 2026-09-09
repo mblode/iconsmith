@@ -1,0 +1,82 @@
+{
+  "id": "D540",
+  "status": "completed-development-calibration-with-instrument-and-assembly-failures",
+  "qualificationGranted": false,
+  "overallScore": null,
+  "independentFamilies": 1,
+  "nativeSize": 24,
+  "paint": "outlined",
+  "critic": {
+    "model": "google/gemini-3.7-flash",
+    "craft": 7,
+    "critical": false,
+    "ship": true,
+    "instrumentContradiction": true,
+    "transportAccepted": true,
+    "assemblyAccepted": false,
+    "assemblyFailure": "Non-UUID sessionId passed dispatch preflight, rejected downstream",
+    "chargeUsd": 0.0037455
+  },
+  "panel": [
+    {
+      "model": "gpt-5.5",
+      "craft": 8,
+      "recognized": true,
+      "critical": false,
+      "ship": true
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "craft": 9,
+      "recognized": true,
+      "critical": false,
+      "ship": true
+    }
+  ],
+  "developmentPanelMedianCraft": 8.5,
+  "criticMinusPanelMedian": -1.5,
+  "precision": null,
+  "recall": null,
+  "qualificationCoverage": null,
+  "nativeCalls": 4,
+  "nativeDollarAllocation": null,
+  "panelOutcomes": [
+    {
+      "artifactTreeHash": "29b3d79e1a389dad97a09a740820645e528687cb7e79b6610259b3ce853ecf13",
+      "deadlineAt": 1788932720798,
+      "elapsedMs": 78392,
+      "intentHash": "0f28297b0de1eab6f0a8e881b8a612ef9d0564d2369b7c17b228fe3afd129af0",
+      "model": "gpt-5.5",
+      "qualified": false,
+      "resultHash": "544bacae5904c45314c83e2a71810fde9b2a6fac7d11f2f223df87bf8b1db4ea",
+      "startedAt": 1788932450798,
+      "status": "complete"
+    },
+    {
+      "artifactTreeHash": "03405cb8d75f12fbe01c099f71c1404eab55b36529a38629652cb80248a1f5a2",
+      "deadlineAt": 1788932799191,
+      "elapsedMs": 120503,
+      "intentHash": "77217a78317c54b04ed546f14e2bb58a236efd3e4fe0497890f0b1355098bd72",
+      "model": "gpt-5.6-sol",
+      "qualified": false,
+      "resultHash": "a609a61e63788eaabce838b0175445f639c26b42dee8d797bcc0d643b612c278",
+      "startedAt": 1788932529191,
+      "status": "complete"
+    }
+  ],
+  "boundaries": [
+    "One previously exposed generated family, not sealed population",
+    "Critic and panel prompt wording differs; this is descriptive development calibration, not a matched instrument qualification",
+    "No API blind-recognition stage; panel recognition was sealed before panel craft",
+    "API live capability expired after assembly rejection; original journal not rewritten or reissued",
+    "All ship votes retained, craft threshold not inferred from votes"
+  ],
+  "evidence": ".staging/wave-gk-outlined24-calibration-2026-09-09",
+  "hashes": {
+    "evidence/terminal.json": "fbeb43a490635e7db042a612c4cc9dffde63d0fadaf90f3ae7e6457654879046",
+    "evidence/result.json": "7c9ec8bdc8251060776ee6abff490f91cda00b80bc2d1bd209035ebb72bea18e",
+    "journal.json": "81d952e932b3304ababe0f58dddc62ca6e3f7afc485e3ec696fe5d4ab56bb2cb",
+    "panel-result.json": "274f8c4f5c965c7c318236c13256a23e562e9a94f625e28d7c69cca4b8fb2e6d",
+    "parent-result.json": "97fdbb891f257aa4440501aaa3422808895187531a59d13b42d7a58d3f8e0f15"
+  }
+}

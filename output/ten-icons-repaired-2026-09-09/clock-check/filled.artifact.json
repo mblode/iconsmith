@@ -1,0 +1,9 @@
+{
+  "compiler": "iconsmith-constrained-25-source-exact",
+  "finish": "filled",
+  "master": "24",
+  "program": "icon clock-check\nfinish filled\nkeyline circle\n# Reference clock disc with negative hands; novel positive check in a rounded clearance opening.\ncircle 12,12 r10\ncircle 18.5,18.5 r6.5\nsubtract\nline 12,7 12,12\nline 12,12 8,12\nunion\nsubtract\nline 15.5,18 17.5,20\nline 17.5,20 21,16.5\nunion",
+  "style": "f34c8d8d79c0e208dc980dc01835e8d1b6bc8408c90d326d38103bd998306752",
+  "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12,2c5.523,0 10,4.477 10,10c0,0.33443 -0.01642,0.66503 -0.04848,0.99103c-1.00014,-0.62792 -2.18341,-0.99103 -3.45152,-0.99103c-3.58995,0 -6.5,2.91005 -6.5,6.5c0,1.26811 0.36311,2.45138 0.99103,3.45152c-0.326,0.03207 -0.65659,0.04848 -0.99103,0.04848c-5.523,0 -10,-4.477 -10,-10c0,-5.523 4.477,-10 10,-10zM11,7v4h-3c-0.5523,0 -1,0.4477 -1,1c0,0.5523 0.4477,1 1,1h4c0.5523,0 1,-0.4477 1,-1v-5c0,-0.5523 -0.4477,-1 -1,-1c-0.5523,0 -1,0.4477 -1,1z\" fill=\"currentColor\" fill-rule=\"nonzero\" clip-rule=\"nonzero\"/>\n<path d=\"M15.5,17c0.2776,0 0.52878,0.1131 0.70996,0.29575l1.29004,1.29004l2.79004,-2.79004c0.18118,-0.18264 0.43236,-0.29575 0.70996,-0.29575c0.5523,0 1,0.4477 1,1c0,0.2776 -0.1131,0.52878 -0.29575,0.70996l-3.49429,3.49429c-0.18118,0.18264 -0.43236,0.29575 -0.70996,0.29575c-0.2776,0 -0.52878,-0.1131 -0.70996,-0.29575l-1.99429,-1.99429c-0.18264,-0.18118 -0.29575,-0.43236 -0.29575,-0.70996c0,-0.5523 0.4477,-1 1,-1z\" fill=\"currentColor\" fill-rule=\"nonzero\" clip-rule=\"nonzero\"/>\n</svg>",
+  "svgHash": "8af48a5d23832a1142deebbb4616744e4cf291dbd5f78744d21b445029f816ff"
+}

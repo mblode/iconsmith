@@ -1,0 +1,7 @@
+icon bookmark-play
+finish outlined
+line 8,3 16,3
+arc 8,6 r3 quarter from top ccw
+arc 16,6 r3 quarter from top
+line 5,6 5,22 12,17 19,22 19,6 r1 off-axis
+line 10,7.5 14.5,10 10,12.5 10,7.5 r0.5 solid off-axis

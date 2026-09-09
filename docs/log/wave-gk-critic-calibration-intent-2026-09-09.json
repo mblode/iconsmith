@@ -1,0 +1,21 @@
+{
+  "id": "D540",
+  "status": "reserved-development-calibration",
+  "apiReservationUsd": 0.794112,
+  "nativePanelMaxCalls": 4,
+  "sourceClosure": "D536",
+  "candidate": {
+    "name": "candidate.png",
+    "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-gi-cohort-preparation-2026-09-09/campaign/requests/cloud-upload-24/outlined.proof.png",
+    "sha256": "9a41c52b31c8886c3b8a482d8008d246aa6f721b9c13856a9c42af292044c095"
+  },
+  "house": {
+    "name": "house.png",
+    "file": "/Users/mblode/Code/mblode/iconsmith/.staging/wave-gi-cohort-preparation-2026-09-09/campaign/requests/cloud-upload-24/reference-0-proof.png",
+    "sha256": "6afeff84c618702ea32acc2c09f61fe74fc9a1aeaeb6d5e865c94ff88b885046"
+  },
+  "priorFailure": "D538 outlined16 unavailable; remains D539 unavailable with no replacement",
+  "scope": "Separate outlined24 development craft calibration against independent GPT5.5 and Sol panel; not sealed critic qualification",
+  "directory": ".staging/wave-gk-outlined24-calibration-2026-09-09",
+  "qualificationGranted": false
+}

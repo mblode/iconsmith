@@ -1,0 +1,48 @@
+{
+  "id": "D543",
+  "status": "passed",
+  "qualificationGranted": false,
+  "source": {
+    "stable": true,
+    "before": {
+      "aggregateSha256": "79c0015a94274c24100822602dddd632aa4794c6bf705375d007d5bdacde77d5",
+      "manifestPath": ".staging/wave-gn-ten-icons-2026-09-09/verification-attempt-1/source-before.json",
+      "manifestSha256": "353be9e519f7634e982edd8d405601cc4bee3656b9343a14b36bf83963cbc1db"
+    },
+    "after": {
+      "aggregateSha256": "79c0015a94274c24100822602dddd632aa4794c6bf705375d007d5bdacde77d5",
+      "manifestPath": ".staging/wave-gn-ten-icons-2026-09-09/verification-attempt-1/source-after.json",
+      "manifestSha256": "353be9e519f7634e982edd8d405601cc4bee3656b9343a14b36bf83963cbc1db"
+    }
+  },
+  "verification": ".staging/wave-gn-ten-icons-2026-09-09/verification-attempt-1/receipt.json",
+  "focusedTests": 85,
+  "testBoundary": "24px-only selection still retains80 population slots; selection change refuses immutable resume",
+  "stages": [
+    {
+      "id": "test",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "typecheck",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "build",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "check",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "id": "diff",
+      "exitCode": 0,
+      "passed": true
+    }
+  ]
+}

@@ -1,9 +1,8 @@
 /**
  * Scientific A/B of two experts on one concept class.
  *
- * `accept.ts` already states the two-stage rule: screen on the icons a
- * proposal was written against, decide on icons it has never seen. This file
- * is that rule for *experts*, not for policy prose. A treatment that cannot
+ * Screen on the icons a proposal was written against, then decide on icons
+ * it has never seen. A treatment that cannot
  * beat the incumbent on the names it was aimed at does not get to spend the
  * hold-out. A treatment that wins the screen still has to win the decision,
  * strictly, and may not buy the win by drawing dirtier.

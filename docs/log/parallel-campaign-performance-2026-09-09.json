@@ -1,0 +1,191 @@
+{
+  "schema": "iconsmith-parallel-campaign-performance-v1",
+  "date": "2026-09-09",
+  "implementationStatus": "Implemented and verified in isolated worktree; not applied to the active original checkout",
+  "originalRepository": "/Users/mblode/Code/mblode/iconsmith",
+  "worktree": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/iconsmith-performance",
+  "branch": "codex/iconsmith-performance-20260909",
+  "baselineHead": "bcd321b",
+  "baselineIncludesExistingUncommittedChanges": true,
+  "ownedFiles": [
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.ts",
+      "baselineSha256": "6fb963b4f63cbc0b8fe7b8be24c974bd10baed8b53a41b5936d0c00f477f840e",
+      "candidateSha256": "a2fc87ca58a828583f6ba9e6bd7878c2c637fe25917dbf4dfaad0093a50b5370",
+      "originalStillMatchesBaseline": true
+    },
+    {
+      "path": "packages/iconsmith/scripts/local-campaign.test.ts",
+      "baselineSha256": "b9839dfdb9c2db4366f4f4d0780d5ea92895b88326c02c6b30449b8ca7a2bfb5",
+      "candidateSha256": "011527062965a03cbaab78bc62045d0c3d3e76e92896e50174f2a4634be85cf2",
+      "originalStillMatchesBaseline": true
+    },
+    {
+      "path": "docs/local-foundry.md",
+      "baselineSha256": "7ecb1e2244aeccdf15c76a80d9c66badab6a4be43a8332ac0c6cef9ab3a7c494",
+      "candidateSha256": "c124c59e10aded48823c0e4e9563c1ad7d87db72aad9b84a5a08031d9443cbfb",
+      "originalStillMatchesBaseline": true
+    }
+  ],
+  "patchSha256": "4df3b3e8dcab891063fe302498ab05eada6a2a0f4adc14c7ea4520725330c73f",
+  "change": {
+    "concurrencyRange": [
+      1,
+      16
+    ],
+    "default": 1,
+    "scope": "Independent campaign concept/master requests",
+    "maxRequests": "Global newly dispatched request cap",
+    "unchanged": [
+      "author model",
+      "reviewer models",
+      "prompts",
+      "per-pair sequential author/reviewer stages",
+      "compiler",
+      "repair budgets",
+      "quality gates",
+      "request wall-clock limits"
+    ],
+    "controls": [
+      "immutable concurrency on resume",
+      "manifest-ordered results",
+      "separate native-call accounting",
+      "STOP propagation",
+      "queued admission halts on containment failure",
+      "all active workers settle before return or rejection",
+      "diagnostic finalization remains sequential"
+    ]
+  },
+  "benchmark": {
+    "kind": "offline-canonical-campaign-throughput-benchmark",
+    "requestedPairs": 16,
+    "modeledGeneratorLatencyMs": 4000,
+    "artifactFixture": "Recorded cloud-upload-24 outlined/filled SVG, DSL and proof PNG; repeated for each scheduler fixture request, not sixteen newly generated concepts",
+    "baselineElapsedMs": 65156.15962500001,
+    "candidateElapsedMs": 4768.263791999998,
+    "baselineConcurrency": 1,
+    "candidateConcurrency": 16,
+    "measuredSpeedup": 13.664545936891411,
+    "sameArtifactHashesAndOrderedOutcomes": true,
+    "fixtureArtifactHashes": [
+      {
+        "name": "outlined.svg",
+        "sha256": "bc025d192813f5099fbbbf635c7373f1027568301eeb03809f33bb9dfb5776bc"
+      },
+      {
+        "name": "filled.svg",
+        "sha256": "c98fb7f68f537fb9b04133d31341805805ab7d50ae2909edbe70ec70f41d3e2b"
+      },
+      {
+        "name": "outlined.icon",
+        "sha256": "9960ddd5cde4cdcf47c9bac7a73a63ff1bec057d12c538349221b9d2361e0b3f"
+      },
+      {
+        "name": "filled.icon",
+        "sha256": "e904ee852fb1de54093a6b06aa57c6bf6d79c8ab638544ac445536c142bd3d9d"
+      },
+      {
+        "name": "outlined.proof.png",
+        "sha256": "9a41c52b31c8886c3b8a482d8008d246aa6f721b9c13856a9c42af292044c095"
+      },
+      {
+        "name": "filled.proof.png",
+        "sha256": "2422e709840b8c6831463e1b7d186e994aa0be0a488b03f4775b8f95b017a023"
+      }
+    ],
+    "populationSlots": 80,
+    "newProviderCalls": 0,
+    "liveModelPerformanceMeasured": false,
+    "limitation": "Injected 4-second owned-process fixture, not AI generation. Runtime, model latency, rate limits, and output quality under live concurrent load remain unmeasured."
+  },
+  "verification": {
+    "status": "passed",
+    "sourceStable": true,
+    "sourceAggregateSha256": "4f82ecfe3353b920971b8c52b2f97b59f782549cd8dd97abccb217a904ef9cfd",
+    "durationMs": 63141,
+    "engineTests": 2569,
+    "rootTests": 10,
+    "skipped": 0,
+    "focusedCampaignTests": 96,
+    "addedCampaignTests": 11,
+    "stages": [
+      {
+        "id": "test",
+        "passed": true
+      },
+      {
+        "id": "typecheck",
+        "passed": true
+      },
+      {
+        "id": "build",
+        "passed": true
+      },
+      {
+        "id": "check",
+        "passed": true
+      },
+      {
+        "id": "diff",
+        "passed": true
+      }
+    ],
+    "receipt": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/iconsmith-performance/.staging/performance-verification-20260909-attempt1/receipt.json"
+  },
+  "retainedExperiments": [
+    {
+      "name": "baseline focused suite",
+      "result": "85 tests passed"
+    },
+    {
+      "name": "initial focused regression",
+      "result": "One failure from undefined test helper shaFile; replaced with direct createHash and rerun passed"
+    },
+    {
+      "name": "initial scoped lint",
+      "result": "Wrong root cwd has no Ultracite config; package-cwd run exposed complexity, increment and callback-style issues, corrected before final verification"
+    },
+    {
+      "name": "initial offline throughput",
+      "directory": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/performance-baseline/throughput",
+      "limitation": "Minimal SVG fixture; later benchmark replays actual retained SVG/DSL/PNG bytes"
+    },
+    {
+      "name": "post-STOP-change throughput",
+      "directory": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/performance-baseline/throughput-final",
+      "result": "Reused serial baseline, reran candidate; 13.57x; same minimal-fixture limitation"
+    },
+    {
+      "name": "final retained-artifact throughput",
+      "directory": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/performance-baseline/throughput-real-artifacts",
+      "result": "Fresh serial and parallel runs, 13.66x, exact artifact hashes and ordered outcomes"
+    }
+  ],
+  "reproduction": {
+    "benchmarkHarness": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/performance-baseline/benchmark.ts",
+    "command": "node --import tsx ../performance-baseline/benchmark.ts <fresh-output-name>",
+    "cwd": "/Users/mblode/Documents/Codex/2026-09-09/new-chat/work/iconsmith-performance",
+    "verificationCommand": "npm run verify -- --out .staging/<fresh-output-name>"
+  },
+  "cost": {
+    "newApiCalls": 0,
+    "newNativeModelCalls": 0,
+    "newApiSpendUsd": 0,
+    "note": "Independent running campaign belongs to another task; its usage is excluded"
+  },
+  "unresolved": [
+    "Live-model throughput and provider throttling at concurrency 16 are unmeasured",
+    "Fresh generated output equivalence/quality under concurrent load is unmeasured; replay bytes match",
+    "No single-icon latency improvement claimed",
+    "Not promoted to a qualified generation score",
+    "Original checkout retains the sequential implementation while its frozen campaign runs"
+  ],
+  "packaging": {
+    "originalPatchApplyCheck": "passed",
+    "candidateDiffCheck": "passed",
+    "checkedAt": "2026-09-09T06:27:25.506658+00:00",
+    "patchFiles": 3,
+    "insertions": 389,
+    "deletions": 42
+  }
+}

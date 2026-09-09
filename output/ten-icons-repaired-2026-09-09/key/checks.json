@@ -1,0 +1,22 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [
+    {
+      "message": "e1 and e2 are 0.10px apart; minimum is 1px. Move them apart or knock one out of the other.",
+      "rule": "gap",
+      "severity": "warn",
+      "finish": "outlined"
+    }
+  ],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/key/check-ksrNTO",
+  "style": "0cf33e0451a1331257e4dd36e76fbc50da0fb6a558fe18d2cec95bf2e6a5d969"
+}

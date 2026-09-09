@@ -1,0 +1,24 @@
+{
+  "id": "D536",
+  "status": "engineering-passed",
+  "verification": ".staging/wave-gg-collector-readiness-verification-2026-09-09/attempt-1/receipt.json",
+  "source": {
+    "stable": true,
+    "before": {
+      "aggregateSha256": "ce367c54ac19b9debb3795eecb1820186880d389619aad798035fc5944f83f8b",
+      "manifestPath": ".staging/wave-gg-collector-readiness-verification-2026-09-09/attempt-1/source-before.json",
+      "manifestSha256": "91e88b13a9eb465427773c3a9a0372e1889e0022b2538c76345514bbfec8e3e2"
+    },
+    "after": {
+      "aggregateSha256": "ce367c54ac19b9debb3795eecb1820186880d389619aad798035fc5944f83f8b",
+      "manifestPath": ".staging/wave-gg-collector-readiness-verification-2026-09-09/attempt-1/source-after.json",
+      "manifestSha256": "91e88b13a9eb465427773c3a9a0372e1889e0022b2538c76345514bbfec8e3e2"
+    }
+  },
+  "policy": "Collector only:25-second abortable readiness wait,40-second metadata reserve,one inference and one metadata GET. Route hash includes policy. Injected metadata retains offline-only authority.",
+  "tests": 2553,
+  "testFiles": 183,
+  "rootRunnerTests": 10,
+  "skips": 0,
+  "qualified": false
+}

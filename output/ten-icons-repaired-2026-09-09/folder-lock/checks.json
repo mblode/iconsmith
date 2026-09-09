@@ -1,0 +1,34 @@
+{
+  "craftApproved": false,
+  "exactReplay": true,
+  "findings": [
+    {
+      "message": "Content centre is (12.01, 12.50); the house spec is (12, 12) within 0.25. Shift by (-0.01, -0.50) unless the icons this one swaps with sit here too.",
+      "rule": "centred",
+      "severity": "warn",
+      "finish": "outlined"
+    },
+    {
+      "message": "Content centre is (12.05, 12.50); the house spec is (12, 12) within 0.25. Shift by (-0.05, -0.50) unless the icons this one swaps with sit here too.",
+      "rule": "centred",
+      "severity": "warn",
+      "finish": "filled"
+    }
+  ],
+  "nativeSize": 24,
+  "paints": [
+    "outlined",
+    "filled"
+  ],
+  "pairChecked": true,
+  "pairIssues": [
+    {
+      "message": "e2 and e3 are 1.00px apart; minimum is 1px. Move them apart or knock one out of the other. Filled solids that sit that close should coincide or be a hole, not a second fill.",
+      "rule": "gap",
+      "severity": "warn"
+    }
+  ],
+  "preview16": "downsample",
+  "snapshot": ".staging/wave-go-four-repairs-2026-09-09/replay-sharp354/folder-lock/check-dwc7cu",
+  "style": "b713b52fa42838c8c88a9f7eff2e22e01acab52bd292e50088b3317332916dee"
+}

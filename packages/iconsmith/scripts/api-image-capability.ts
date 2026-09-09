@@ -7,6 +7,7 @@ import {
   realpathSync,
 } from "node:fs";
 import path from "node:path";
+import { setTimeout as delay } from "node:timers/promises";
 
 import { createGateway } from "@ai-sdk/gateway";
 import type { GatewayGenerationInfo } from "@ai-sdk/gateway";
@@ -56,6 +57,8 @@ const API_COLLECTOR_STAGE_SCHEMA_ID =
   "iconsmith-api-collector-stage-response-v1";
 export const API_COLLECTOR_STAGE_DESCRIPTOR_KIND =
   "iconsmith-api-collector-stage-descriptor-v1";
+const API_COLLECTOR_METADATA_WAIT_MS = 25_000;
+const API_COLLECTOR_METADATA_RESERVE_MS = 40_000;
 const API_COLLECTOR_STAGE_MAX_ATTACHMENTS = 8;
 const API_COLLECTOR_STAGE_MAX_IMAGE_PX = 2048;
 export const API_COLLECTOR_STAGE_MAX_OUTPUT_TOKENS = 2048;
@@ -69,6 +72,8 @@ export const API_COLLECTOR_STAGE_ACTOR = Object.freeze({
 export const API_COLLECTOR_ROUTE_HASH = createHash("sha256")
   .update(
     JSON.stringify({
+      metadataReserveMs: API_COLLECTOR_METADATA_RESERVE_MS,
+      metadataWaitMs: API_COLLECTOR_METADATA_WAIT_MS,
       model: API_CAPABILITY_MODEL,
       provider: API_CAPABILITY_PROVIDER,
       responseModel: API_CAPABILITY_RESPONSE_MODEL,
@@ -380,8 +385,12 @@ const expectedSerializedRequestBody = (image: Buffer) => ({
   temperature: 0,
 });
 
+// Compare JSON wire values: the installed SDK retains undefined optional fields
+// and property insertion order in memory, neither of which changes the request.
 const serializedRequestBodySha256 = (request: unknown) =>
-  hashBytes(canonicalJson(request));
+  // JSON wire normalization is intentional; structuredClone retains undefined.
+  // oxlint-disable-next-line unicorn/prefer-structured-clone
+  hashBytes(canonicalJson(JSON.parse(JSON.stringify(request))));
 
 const assertSerializedRequest = (
   request: unknown,
@@ -1580,7 +1589,7 @@ const assertCollectorLimits = (
     observedAt < options.startedAt ||
     observedAt >= descriptor.stageDeadlineAt ||
     descriptor.stageDeadlineAt - observedAt <=
-      API_CAPABILITY_METADATA_RESERVE_MS ||
+      API_COLLECTOR_METADATA_RESERVE_MS ||
     descriptor.orderedAttachments.length * API_CAPABILITY_IMAGE_TOKENS >
       API_CAPABILITY_MAX_INPUT_TOKENS
   ) {
@@ -1742,6 +1751,8 @@ export const runApiCollectorStage = async <T>(
     maxRetries: 0,
     maxUsd: API_COLLECTOR_STAGE_MAX_USD,
     metadataLookupMaxCalls: API_CAPABILITY_METADATA_MAX_CALLS,
+    metadataReserveMs: API_COLLECTOR_METADATA_RESERVE_MS,
+    metadataWaitMs: API_COLLECTOR_METADATA_WAIT_MS,
     orderedAttachments: descriptor.orderedAttachments.map(
       ({ name, sha256 }) => ({
         name,
@@ -1784,7 +1795,7 @@ export const runApiCollectorStage = async <T>(
   const attemptedAt = now();
   if (
     attemptedAt >=
-    descriptor.stageDeadlineAt - API_CAPABILITY_METADATA_RESERVE_MS
+    descriptor.stageDeadlineAt - API_COLLECTOR_METADATA_RESERVE_MS
   ) {
     const terminal = {
       accepted: false,
@@ -1822,6 +1833,7 @@ export const runApiCollectorStage = async <T>(
   let resultSha256: string | null = null;
   let requestSha256: string | null = null;
   let metadataSha256: string | null = null;
+  let metadataFailureSha256: string | null = null;
   let inferenceAttempts = 0;
   let metadataLookupAttempts = 0;
   let stopObserved = false;
@@ -1839,7 +1851,7 @@ export const runApiCollectorStage = async <T>(
           AbortSignal.timeout(
             descriptor.stageDeadlineAt -
               attemptedAt -
-              API_CAPABILITY_METADATA_RESERVE_MS
+              API_COLLECTOR_METADATA_RESERVE_MS
           ),
           stopMonitor.signal,
         ]),
@@ -1914,7 +1926,9 @@ export const runApiCollectorStage = async <T>(
     writeDurableJson(requestFile, (result.request as { body: unknown }).body);
     requestSha256 = hashBytes(readFileSync(requestFile));
     if (
-      requestSha256 !== hashBytes(`${JSON.stringify(expectedBody, null, 2)}\n`)
+      serializedRequestBodySha256(
+        JSON.parse(readFileSync(requestFile, "utf-8"))
+      ) !== expectedRequestBodySha256
     ) {
       throw new Error("API collector sealed request bytes drifted");
     }
@@ -1947,21 +1961,48 @@ export const runApiCollectorStage = async <T>(
       if (metadataMonitor.stopped()) {
         throw new Error("API capability stopped by root sentinel");
       }
-      metadataLookupAttempts = 1;
-      info = await (
-        options.getGenerationInfo ?? readApiCapabilityGenerationInfo
-      )({
-        abortSignal: AbortSignal.any([
-          AbortSignal.timeout(
-            Math.min(
-              API_CAPABILITY_METADATA_RESERVE_MS,
-              descriptor.stageDeadlineAt - metadataStartedAt
-            )
-          ),
-          metadataMonitor.signal,
-        ]),
-        id: generationId,
-      });
+      const metadataAbortSignal = AbortSignal.any([
+        AbortSignal.timeout(
+          Math.min(
+            API_COLLECTOR_METADATA_RESERVE_MS,
+            descriptor.stageDeadlineAt - metadataStartedAt
+          )
+        ),
+        metadataMonitor.signal,
+      ]);
+      try {
+        // D535 observed readiness only at 20 seconds. One bounded lookup, no inference retry.
+        if (!options.getGenerationInfo) {
+          await delay(API_COLLECTOR_METADATA_WAIT_MS, undefined, {
+            signal: metadataAbortSignal,
+          });
+        }
+        metadataAbortSignal.throwIfAborted();
+        metadataLookupAttempts = 1;
+        info = await (
+          options.getGenerationInfo ?? readApiCapabilityGenerationInfo
+        )({
+          abortSignal: metadataAbortSignal,
+          id: generationId,
+        });
+      } catch (error) {
+        const failureFile = path.join(
+          options.evidenceDirectory,
+          "metadata-failure.json"
+        );
+        writeDurableJson(failureFile, {
+          ...metadataFailureOf(error, metadataAbortSignal),
+          generationId,
+          inferenceResultSha256: resultSha256,
+          intentSha256,
+          kind: "api-capability-metadata-failure-v1",
+          metadataStartedAt,
+          policyVersion: API_CAPABILITY_METADATA_POLICY_VERSION,
+          settledAt: now(),
+        });
+        metadataFailureSha256 = hashBytes(readFileSync(failureFile));
+        throw error;
+      }
     } finally {
       try {
         metadataMonitor.close();
@@ -2077,6 +2118,7 @@ export const runApiCollectorStage = async <T>(
       inferenceAttempts,
       intentSha256,
       kind: "iconsmith-api-collector-stage-terminal-v1",
+      metadataFailureSha256,
       metadataLookupAttempts,
       metadataSha256,
       reason,

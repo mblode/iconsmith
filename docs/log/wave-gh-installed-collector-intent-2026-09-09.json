@@ -1,0 +1,17 @@
+{
+  "id": "D537",
+  "state": "reserved",
+  "maximumInferenceRequests": 1,
+  "maximumMetadataLookups": 1,
+  "maxUsd": 0.794112,
+  "changedVariable": "D536 canonical25-second readiness wait; consume installed-transport capability. No injected transport or retry.",
+  "priorFailure": "D535 canonical5-second404; supplemental20-second200 cannot promote historical terminal.",
+  "stageClockMs": 115000,
+  "parentClockMs": 120000,
+  "scope": "Exposed existing Quiver bell PNGs, scaled16 diagnostic; no house reference transmission, no visual qualification.",
+  "quotaWeeklyUsedPercent": 31,
+  "diskFloorBytes": 2147483648,
+  "frozen": ".staging/wave-gh-installed-collector-2026-09-09/frozen.json",
+  "sourceClosure": "D536",
+  "overallScore": null
+}

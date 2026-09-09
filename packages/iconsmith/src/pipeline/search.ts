@@ -1,20 +1,4 @@
-/**
- * The one vocabulary search.
- *
- * Three callers ask the same question of the parts list — the drawer's
- * `listParts` tool, SELECT's shortlist in `route.ts`, and the coverage report in
- * `coverage.ts` — and they have to ask it the same way. Two rankings would mean
- * SELECT shortlists by one notion of relevance and the model searches by
- * another, and the disagreement would read as a route being worse when it is
- * only being asked a different question; a coverage number measured against a
- * third would report reach the drawer does not have.
- *
- * `route.ts` used to restate `listParts`' scoring with a note saying it was
- * "worth folding together the next time that file is open". This is that fold.
- * It lives in its own module rather than in `tools.ts` because `route.ts`
- * already imports `generate.ts`, which imports `tools.ts` — importing it back
- * would be a cycle.
- */
+/** Shared vocabulary ranking for drawing tools and coverage reports. */
 import type { Part } from "../types.js";
 
 /** Words a part or icon name is searched by. `arrow-up-2` → arrow, up, 2. */
@@ -65,7 +49,7 @@ export const DEFAULT_SHORTLIST = 24;
  * No `w`/`h`. `listParts` reports them because a model deciding whether to
  * place a mark wants its proportions; a shortlist carried *into* a run is a set
  * of things to look up, and a size on it is a size the shortlist is suggesting
- * be drawn at. See `route.ts`'s file header.
+ * be drawn at.
  */
 export interface PartHint {
   readonly id: string;
