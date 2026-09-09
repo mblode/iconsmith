@@ -56,6 +56,9 @@ jobs:
       - name: Public onboarding smoke (no credentials or corpus)
         run: npm run check:public
 
+      - name: Public Codex sandbox preflight (no authentication)
+        run: npm exec --yes --package=@openai/codex@0.153.4 -- npm run check:agent
+
       - name: Show verification evidence
         if: always()
         run: |

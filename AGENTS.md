@@ -29,6 +29,7 @@ npm run fix
 npm run check:dead    # Knip unused files, exports and dependencies
 npm run check:foundry # cheap root configuration guards
 npm run check:public  # relocated starter/CLI smoke; build first
+npm run check:agent   # actual Codex sandbox probe; no auth or model call
 npm run verify       # serialized integrated checks with immutable evidence
 ```
 

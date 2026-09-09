@@ -58,6 +58,7 @@ Generation consumes your subscription usage; credentials are not included.
 
 ```bash
 npm install -g @openai/codex
+npm run check:agent
 codex login
 claude auth login
 npm run generate:local -- square-check ./starter-run \

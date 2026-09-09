@@ -10,7 +10,7 @@ Merge the composition fixes and make the public clone usable for offline drawing
 - [x] Alignment: bundle original MIT starter reference family and current revision.
 - [x] Delivery: portable agent selection and executable setup instructions.
 - [x] Arrowhead: isolated public smoke test and CI coverage.
-- [ ] Root: integrate, verify source, commit and push to main.
+- [x] Root: integrate, verify source, commit and push to main.
 - [ ] Root: verify remote commit and clean CI checkout results.
 
 ## Verification and limits
@@ -24,3 +24,5 @@ Current checkout is main and matches origin/main, with only this task work uncom
 ## Local evidence
 
 The relocated public smoke passes without private corpus or credentials. New focused onboarding/reference tests pass; typecheck/build/check pass. Native permission probe passes with standard Node24.15.0 and PATH Codex0.150.1, including positive inside access and denied outside/source/symlink/network access. Homebrew Node26 library probes failed; attempted library admission did not fix them and was removed. Setup now identifies the tested Node24 distribution. No model dispatch occurred. Clean remote CI remains the integrated fresh-install gate.
+
+Public sandbox preflight is now a reusable `check:agent` command and CI uses pinned public Codex 0.153.4. Local credential-free Node24/Codex0.150.1 probe passes under an empty auth home. Initial implementation needed creation of that empty directory; fixed before delivery. Commit da7e62c is public and anonymous reference downloads match local bytes.
