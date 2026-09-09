@@ -1,0 +1,322 @@
+{
+  "schema": "iconsmith-public-readiness-v1",
+  "recordedAt": "2026-09-09T07:11:38.745263+00:00",
+  "status": "awaiting-owner-decisions",
+  "baseCommit": "bcd321b99d06ea521dd12388c50dbd6924b416ce",
+  "repositoryVisibility": "PRIVATE",
+  "scope": {
+    "workingTreeSnapshotFiles": 2138,
+    "workingTreeSnapshotBytes": 34255976,
+    "scopeNote": "Snapshot captured during concurrent uncommitted campaign work; owned files refreshed before final scans. Not a final committed source closure.",
+    "gitleaksVersion": "8.30.1",
+    "gitleaksCommitsScanned": 259,
+    "historyOptions": "--all --full-history",
+    "pullRequestHeadsFetched": 19,
+    "closedPullRequests": 19,
+    "actionsRuns": 216,
+    "actionsLogArchivesScanned": 197,
+    "actionsLogsUnavailable": 19,
+    "unavailableReason": "HTTP 404",
+    "actionsArtifacts": 0,
+    "releases": 0,
+    "currentArtwork": {
+      "svg": 166,
+      "png": 268
+    },
+    "privateCorpusDataPathsInInspectedHistory": 0
+  },
+  "secretReview": {
+    "confirmedAccountOrProviderCredentials": 0,
+    "defaultGitleaksCurrentFindings": 24,
+    "defaultGitleaksHistoryWithPullRequestsFindings": 26,
+    "combinedReviewedClassifications": {
+      "evidenceHashes": 40,
+      "verificationLockUuids": 6,
+      "budgetProse": 3,
+      "historicalPublicPostHogProjectToken": 1
+    },
+    "configuredHistoryFindings": 0,
+    "configuredFinalTreeFindings": 0,
+    "syntheticCredentialsDetected": 3,
+    "syntheticCredentialsTotal": 3,
+    "syntheticControlScope": "Ordinary source and both allowlisted receipt path classes; default detectors retained.",
+    "trufflehogOfflineFindings": 13,
+    "trufflehogClassification": "All 13 Circle detector matches are substrings of SHA256 evidence hashes. No credential verification requests.",
+    "githubFindings": 12,
+    "githubFindingClassification": "Two encoded Cursor action links in each of six review comments include an encryptionKey field. Access scope untested; no links followed or redeemed. Not confirmed account credentials.",
+    "actionsLogFindings": 0
+  },
+  "pendingDecisions": [
+    {
+      "id": "artwork-redistribution",
+      "status": "owner-question-pending",
+      "detail": "Confirm ownership or explicit public redistribution permission and applicable license for reference artwork, Central-derived assets and historical Glide binaries. MIT source licensing and runtime reference admission are insufficient evidence.",
+      "historicalAssetPaths": [
+        "apps/web/lib/studio/house-icons.json",
+        "apps/agent/data/house-icons.json",
+        "apps/web/app/fonts/glide-mono.woff2",
+        "apps/web/app/fonts/glide-variable-italic.woff2",
+        "apps/web/app/fonts/glide-variable.woff2",
+        "apps/web/lib/og-assets/glide-600.ttf"
+      ],
+      "fontIntroductionCommit": "08a3edf0eb6b6a6cf4bc91e37c3a8c0a149a8d18"
+    },
+    {
+      "id": "review-action-link-removal",
+      "status": "explicit-approval-pending",
+      "detail": "Prepared comment edits preserve review prose and remove only the Fix in Cursor/Fix in Web action-link block. No remote comment mutation.",
+      "comments": [
+        {
+          "id": 3829967009,
+          "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967009",
+          "preparedBodyPath": ".staging/public-readiness-2026-09-09/review-comment-remediation/3829967009.json"
+        },
+        {
+          "id": 3829967017,
+          "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967017",
+          "preparedBodyPath": ".staging/public-readiness-2026-09-09/review-comment-remediation/3829967017.json"
+        },
+        {
+          "id": 3829967029,
+          "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967029",
+          "preparedBodyPath": ".staging/public-readiness-2026-09-09/review-comment-remediation/3829967029.json"
+        },
+        {
+          "id": 3829967039,
+          "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967039",
+          "preparedBodyPath": ".staging/public-readiness-2026-09-09/review-comment-remediation/3829967039.json"
+        },
+        {
+          "id": 3834778427,
+          "url": "https://github.com/mblode/iconsmith/pull/11#discussion_r3834778427",
+          "preparedBodyPath": ".staging/public-readiness-2026-09-09/review-comment-remediation/3834778427.json"
+        },
+        {
+          "id": 3834778431,
+          "url": "https://github.com/mblode/iconsmith/pull/11#discussion_r3834778431",
+          "preparedBodyPath": ".staging/public-readiness-2026-09-09/review-comment-remediation/3834778431.json"
+        }
+      ],
+      "preparedBodyScannerFindings": 0
+    }
+  ],
+  "changes": [
+    "Expanded ignored credential and provider-state patterns without changing the exact private corpus anchor.",
+    "Added pinned Gitleaks history scan CI with checksum validation, read-only permissions and nonpersistent checkout credentials.",
+    "Retained default secret detectors; narrowly allowlisted reviewed metadata and public client token shapes.",
+    "Added SECURITY.md and public readiness documentation.",
+    "Updated Sharp manifest and lockfile to 0.35.4; runtime dependencies in active checkout left untouched.",
+    "Explicitly skipped only two unavailable dataset measurements, retaining portable controls.",
+    "Corrected a licensing comment that inferred permission from existing distribution."
+  ],
+  "validation": {
+    "build": "passed in isolated corpus-free snapshot with Sharp 0.35.4",
+    "typecheck": "passed",
+    "check": "passed, including foundry guards, Knip, formatting, lint and boundaries",
+    "quickstart": "Built CLI; square-check draw and lint: 0 errors, 0 warnings.",
+    "productionDependencyAudit": {
+      "before": {
+        "high": 1,
+        "advisory": "GHSA-rgj7-g3m4-5g8c"
+      },
+      "after": {
+        "total": 0
+      }
+    },
+    "sharpRuntimeBoundary": {
+      "manifestAndLock": "0.35.4",
+      "isolatedValidation": "0.35.4",
+      "activeCheckoutInstalled": "0.35.3",
+      "nextStep": "Refresh active dependencies once the ongoing campaign stops."
+    },
+    "initialIntegratedRun": {
+      "status": "failed-stage",
+      "enginePassed": 2520,
+      "engineFailed": 9,
+      "engineSkipped": 29,
+      "sourceStable": true,
+      "failures": "Two unavailable exact-data tests, five process timing/quiescence assertions, and two test timeouts."
+    },
+    "afterFixTargetedRun": {
+      "filesPassed": 6,
+      "testsPassed": 209,
+      "testsSkipped": 2,
+      "workers": 1,
+      "durationSeconds": 79.77,
+      "scope": [
+        "scripts/campaign-manifest.test.ts",
+        "scripts/source-feature-admission-profile.test.ts",
+        "scripts/local-process.test.ts",
+        "scripts/ai-qualification-provenance.test.ts",
+        "src/eval/acceptance-contract.test.ts",
+        "src/tools/render.test.ts"
+      ]
+    },
+    "realLocalDatasetControls": {
+      "files": 2,
+      "passed": 16,
+      "skipped": 0
+    },
+    "fullSuiteAfterFix": "Not rerun; no claim of a completed green integrated verification.",
+    "githubCi": "Not dispatched; local uncommitted changes."
+  },
+  "executionNotes": [
+    "Default scan findings reviewed before adding narrow exceptions. An initial budget-prose exception matched the original line rather than the detector substring; corrected exact match and verified three positive controls.",
+    "Initial isolated verifier setup used an incorrect cwd and started an older snapshot. Stopped only the audit-owned verifier and workers; retained failed output. Two retries refused the stale audit lock. Verified owners stopped before removing only that audit lock. Active campaign processes were preserved.",
+    "Initial integrated run retained its nine failures. Fixed the two unavailable-data assumptions and reran every failed file plus rendering under one worker. Timing-sensitive cases passed in the narrowed run; no cause of the earlier timing failures is claimed.",
+    "First targeted rerun added maxWorkers to a script that already supplied it; Vitest rejected the duplicate. Corrected to direct workspace Vitest invocation.",
+    "Asset inventory was retried after the snapshot manifest became available. No source assets were synthesized or removed."
+  ],
+  "costs": {
+    "newApiCalls": 0,
+    "newNativeModelCalls": 0,
+    "newProviderSpendUsd": 0,
+    "existingReservationsChanged": false
+  },
+  "remoteMutations": {
+    "visibility": false,
+    "historyRewrite": false,
+    "comments": false,
+    "push": false
+  },
+  "unrelatedWorkingChanges": "Preserved; only append-only audit entries added to the existing dirty foundry logs.",
+  "ownedFiles": [
+    {
+      "path": ".gitignore",
+      "sha256": "cba5e6f0a0bab657b640eb83f5ad433335b74c591435a6b9fd6ee8cbc5164058"
+    },
+    {
+      "path": ".gitleaks.toml",
+      "sha256": "0addc06907f38ceb2adad35f5117a7776c52908ea34033bbfbf744da2346fcc1"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "ba177689bc0772f038ba98d1e01c6e694849b51c16784a8ca5c48fe449673768"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "8ec79d881a9d3f5ecc85414538c5c7af013f8072a390674adeb094417a9dd766"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "d8a34b38a80033e199b52a684c5dd3f1c186614b4a358e31e1cf12415eac2874"
+    },
+    {
+      "path": "packages/iconsmith/package.json",
+      "sha256": "18aada16f983a79060561b688981f72fbc66863316921ca6b6da7db114cd47b3"
+    },
+    {
+      "path": "packages/iconsmith/src/pipeline/licence.ts",
+      "sha256": "b8da98e3a350e6c6786d089a6af2a1cfae96233207f0888af969d96f63ae2548"
+    },
+    {
+      "path": "packages/iconsmith/scripts/campaign-manifest.test.ts",
+      "sha256": "86b3708de38191b12ee8c04db7b0d2ce79c8affb66538a9ed142be3cf24bc068"
+    },
+    {
+      "path": "packages/iconsmith/scripts/source-feature-admission-profile.test.ts",
+      "sha256": "4dccc029ab51e70ca4fe888508a3ff85a310d0a707391f23b627a06756716a79"
+    },
+    {
+      "path": "docs/local-setup.md",
+      "sha256": "af35e294a5d4ec8e99995c0993ab8ff077b79174e448de3749d946122c86d92a"
+    },
+    {
+      "path": "docs/public-readiness.md",
+      "sha256": "97c544fc3e1b5209295b06faf6761dceb5ec572c7b7f29768ace800c904db4ad"
+    }
+  ],
+  "privateEvidenceRoot": ".staging/public-readiness-2026-09-09",
+  "evidence": [
+    {
+      "path": "history-with-pr-gitleaks.json",
+      "sha256": "d8e97e489af8aace6302c925ff766ec4abe0b465c243e554b06809fb40d0d471"
+    },
+    {
+      "path": "history-configured-gitleaks.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "history-configured-gitleaks.log",
+      "sha256": "63b36b9e7511d1163849528e1e99ac5ea513c9ffdbaee8165f560e3c7d48b451"
+    },
+    {
+      "path": "current-gitleaks.json",
+      "sha256": "556e8e50c04e0d1cfcc31144f49004c05f099b942b226a6f7c2e4b54e685bd09"
+    },
+    {
+      "path": "gitleaks-triage.json",
+      "sha256": "b49a5d35579873f48534fd87d1927a9d9175cd4971d06a220d584fae145293e2"
+    },
+    {
+      "path": "trufflehog-triage.json",
+      "sha256": "a0026cd5ce80a6afc27a542b373097aefc25fcfc7a6ab253d69d0bfdc4468805"
+    },
+    {
+      "path": "github-gitleaks.json",
+      "sha256": "661480829c0812a72f64003ff14521e3fc3c2e43fa3ed22325382676d5621bdc"
+    },
+    {
+      "path": "github-log-coverage.json",
+      "sha256": "c6ec8a0e78ad3684b232f7e50df0ee537acf6e518436d7338dfe62c63dff0a87"
+    },
+    {
+      "path": "github-link-triage.json",
+      "sha256": "e8d1c2a51308064404cece500787120a1cc5c10cb7433670b3764e5a7792878d"
+    },
+    {
+      "path": "final-tree-manifest.json",
+      "sha256": "47cfc1f1568f8f47ff0c6cc98edf02cb1629fc0b90cbc840fe59a53b0f9e9676"
+    },
+    {
+      "path": "final-tree-gitleaks-v2.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "scanner-control-gitleaks.json",
+      "sha256": "3582126e6ba936afd6ba277115ae0bfbd7689e6184293271a762dedc449ea64e"
+    },
+    {
+      "path": "sanitized-comments-gitleaks.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "npm-audit.json",
+      "sha256": "b751d981c06f5444f65d6e31c3f6c420fb4b9bde4479ce16c2439893ecea5a0b"
+    },
+    {
+      "path": "npm-audit-after.json",
+      "sha256": "ee64a67ebefd4b395abdd937b3fd96a1a0013534a14fd1cc6a4adb6dfec4a401"
+    },
+    {
+      "path": "targeted-after-v2.log",
+      "sha256": "e3a1e9d0208a51390bbc8464fc36b254af54344d8e0935e2407550e9cf26f4a0"
+    },
+    {
+      "path": "typecheck.log",
+      "sha256": "dafd81f4aaa6d8006f933830f44c1b1740f121cbdc94da110e89d7479528774b"
+    },
+    {
+      "path": "build.log",
+      "sha256": "7f3b0d3a070f58f6396d3ab59326e684383ab916214a36902306fef7fe396eea"
+    },
+    {
+      "path": "check.log",
+      "sha256": "792adca2ce6e637364cb69bb697e12632caec915af68140c83f81fd833520a74"
+    },
+    {
+      "path": "snapshot/.staging/verification-public-audit-v4/receipt.json",
+      "sha256": "d7c7a86469169b074f6820dad8dd6e8c8e214497161e59147bdb7a9fac5b2927"
+    },
+    {
+      "path": "snapshot/.staging/verification-public-audit-v4/01-test.log",
+      "sha256": "62e675509c9379224d395eee496517aad0bee150f8b59a5eac15a7f51fe05cba"
+    }
+  ],
+  "sources": {
+    "githubVisibility": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility",
+    "sensitiveDataRemoval": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository",
+    "sharpAdvisory": "https://github.com/advisories/GHSA-rgj7-g3m4-5g8c",
+    "posthogTokenScope": "https://posthog.com/docs/api"
+  }
+}

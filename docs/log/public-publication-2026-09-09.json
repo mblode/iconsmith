@@ -1,0 +1,60 @@
+{
+  "schema": "iconsmith-publication-follow-up-v1",
+  "recordedAt": "2026-09-09T07:19:44.122073+00:00",
+  "status": "authorized-preparing-commit",
+  "authorization": {
+    "instruction": "Git commit and push and make public",
+    "context": "Owner received source/history, artwork redistribution and Cursor review-link findings before instructing publication.",
+    "licenseEvidence": "No additional license documents reviewed; publication instruction is not recorded as verified license terms."
+  },
+  "commentRemediation": [
+    {
+      "id": 3829967009,
+      "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967009",
+      "updatedAt": "2026-09-09T07:17:54Z",
+      "bodyVerified": true,
+      "actionLinksRemoved": true
+    },
+    {
+      "id": 3829967017,
+      "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967017",
+      "updatedAt": "2026-09-09T07:18:16Z",
+      "bodyVerified": true,
+      "actionLinksRemoved": true
+    },
+    {
+      "id": 3829967029,
+      "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967029",
+      "updatedAt": "2026-09-09T07:18:19Z",
+      "bodyVerified": true,
+      "actionLinksRemoved": true
+    },
+    {
+      "id": 3829967039,
+      "url": "https://github.com/mblode/iconsmith/pull/1#discussion_r3829967039",
+      "updatedAt": "2026-09-09T07:18:23Z",
+      "bodyVerified": true,
+      "actionLinksRemoved": true
+    },
+    {
+      "id": 3834778427,
+      "url": "https://github.com/mblode/iconsmith/pull/11#discussion_r3834778427",
+      "updatedAt": "2026-09-09T07:18:26Z",
+      "bodyVerified": true,
+      "actionLinksRemoved": true
+    },
+    {
+      "id": 3834778431,
+      "url": "https://github.com/mblode/iconsmith/pull/11#discussion_r3834778431",
+      "updatedAt": "2026-09-09T07:18:29Z",
+      "bodyVerified": true,
+      "actionLinksRemoved": true
+    }
+  ],
+  "commitScope": "Only public-readiness changes and their appended foundry entries; separate campaign changes remain unstaged.",
+  "historyRewrite": false,
+  "providerSpendUsd": 0,
+  "providerCalls": 0,
+  "validationPlan": "Commit hooks, fresh secret scan of the committed history and GitHub CI before the visibility change.",
+  "originalAudit": "docs/log/public-readiness-2026-09-09.json"
+}

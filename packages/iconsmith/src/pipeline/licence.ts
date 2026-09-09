@@ -3,8 +3,10 @@
  *
  * Generated icons ship in blode-icons under MIT, as the author's own work. So
  * the only icons that may *condition* a generation — style references, few-shot
- * examples, neighbours held up beside a draft — are the author's own: Central
- * and blode-icons. The seven third-party packs are readable for
+ * examples, neighbours held up beside a draft — are the admitted house sets:
+ * Central (owner-provided licence held out of band) and blode-icons.
+ * This runtime admission does not establish redistribution rights.
+ * The seven baseline packs are readable for
  * concept-coverage analysis and for eval baselines, and for nothing else.
  *
  * The gate is not licence compatibility. Five of the seven packs are MIT, and
@@ -62,7 +64,7 @@ export class LicenceError extends Error {
 }
 
 /**
- * The origins that are the author's own work.
+ * The origins represented by the admitted house pipeline.
  *
  * This is currently every member of `Provenance["origin"]`, and that is not an
  * oversight: a third-party pack has no representable origin, which is why
@@ -102,9 +104,9 @@ const HOUSE_SETS: ReadonlySet<string> = new Set([
  * honest and the exception is named here, where it is one greppable line
  * carrying its own justification.
  *
- * The tension is real and worth stating: blode-icons is ~96% Central-derived
- * and already ships MIT, so terms permitting that evidently exist. Nothing here
- * asserts what they say — only that the owner has them.
+ * Existing MIT distribution of derived work is not evidence of a redistribution
+ * grant. This exception admits references at runtime; publishing source artwork
+ * or derived assets requires its own documented permission from the rights holder.
  */
 const LICENSED_OUT_OF_BAND: ReadonlySet<string> = new Set([
   "central",

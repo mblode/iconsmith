@@ -205,3 +205,11 @@ D523 house comparison: matching concept names do not imply identical house shape
 
 
 D525 Quiver: valid credentials and a200 model listing do not establish a funded generation route. First generation returned402 insufficient_credits; app credits and API credits are separate. Stop without retry, release unused reservation and retain reference exposure even on rejection. Never call a reference-only board a completed comparison.
+
+## Public repository audit — 2026-09-09
+
+- A visibility change exposes more than the current checkout. Include fetched PR heads, review text, and available Actions logs. Record unavailable logs explicitly. Cursor action links can contain encoded encryption material; inspect without redeeming links, and distinguish that finding from account credentials.
+- Evidence hashes and lock UUIDs triggered generic secret detectors. Use field-shape plus path exceptions, retain the default detectors, and prove real credential controls still fire inside excepted paths. Never allowlist the entire evidence directory.
+- Runtime admission of paid reference artwork and existing MIT distribution do not establish redistribution permission. Review historical asset bundles and font binaries separately from ignored corpus files.
+- A public clone lacks private cached inventory and sibling source artwork. Skip only exact-data measurements when inputs are absent; run portable controls and verify the measurements still execute with real data. Never manufacture a substitute corpus.
+- Audit snapshots need an explicit cwd before verifier startup. Stop only verified audit-owned workers before removing their stale lock. A narrowed single-worker pass does not erase an earlier default-worker full-suite failure. See the public-readiness receipt for retained attempts.

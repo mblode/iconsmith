@@ -3,7 +3,18 @@ dist/
 .turbo/
 *.tsbuildinfo
 .env
-.env.local
+.env.*
+!.env.example
+!.env.*.example
+# Local credentials and provider state must never enter Git.
+.vercel/
+.wrangler/
+.credentials.json
+credentials.json
+*.pem
+*.key
+*.p12
+*.pfx
 .DS_Store
 # Anchored to the data directory by full path. Unanchored `corpus/` also matched
 # packages/iconsmith/src/corpus/, so every new source file there was invisible to

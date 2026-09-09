@@ -1,0 +1,37 @@
+title = "Iconsmith secret scanning"
+
+[extend]
+useDefault = true
+
+# Retain every default detector. These exceptions apply only to the generic
+# detector and the exact metadata shapes inspected during the public audit.
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Recorded evidence hashes and immutable style identities"
+condition = "AND"
+paths = ['''(^|/)docs/log/[^\n]+\.json$''']
+regexTarget = "match"
+regexes = ['''(?:sealedKeySha256|sealedKey|withheldKeySha256|styleKey|apiLedgerSha256|keyline(?:\.test)?\.ts)": "[a-f0-9]{64}"''']
+
+[[rules.allowlists]]
+description = "Verification lock owner UUIDs in three immutable receipts"
+condition = "AND"
+paths = ['''(^|/)docs/log/(?:wave-fk-architecture-hardening-result|wave-fl-e2e-prerequisite-integrated-result|wave-fq-canonical-salvage-hook-integration)-2026-09-09\.json$''']
+regexTarget = "match"
+regexes = ['''token": "[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}"''']
+
+[[rules.allowlists]]
+description = "Historical budget prose, not an API credential"
+condition = "AND"
+paths = ['''(^|/)docs/plans/generation-quality-10(?:\.history-2026-09-08)?\.md$''']
+regexTarget = "match"
+regexes = ['''^API cap remains50USD, earlier13\.06220785 $''']
+
+[[rules.allowlists]]
+description = "Historical client-side PostHog project token; no private API access"
+condition = "AND"
+paths = ['''(^|/)apps/web/lib/site\.ts$''']
+regexTarget = "match"
+regexes = ['''^posthogKey = "phc_[A-Za-z0-9]+"$''']

@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 
 import { expect, test } from "vitest";
@@ -31,24 +32,33 @@ const rehash = (profile: SourceFeatureAdmissionProfile) => {
   return { ...body, profileHash: styleHash(body) };
 };
 
-test("binds the fixed profile to exact current source bytes and paired raster identities", async () => {
-  expect(SOURCE_FEATURE_ADMISSION_PROFILE.entries).toHaveLength(7);
-  for (const entry of SOURCE_FEATURE_ADMISSION_PROFILE.entries) {
-    const file = sourceFileByName.get(entry.sourceName);
-    expect(file).toBeDefined();
-    // eslint-disable-next-line no-await-in-loop
-    const source = await readFile(houseSourceUrl(file as string));
-    expect(createHash("sha256").update(source).digest("hex")).toBe(
-      entry.sourceSha256
-    );
-    expect(entry.observations.map(({ nativeSize }) => nativeSize)).toEqual([
-      16, 24,
-    ]);
-    expect(
-      entry.observations.map(({ rasterization }) => rasterization.kind)
-    ).toEqual(["resampled-source", "native-master"]);
+// A public clone has no sibling source checkout. Keep this exact-source
+// measurement unavailable rather than substituting invented source artwork.
+test.skipIf(
+  [...sourceFileByName.values()].some(
+    (file) => !existsSync(houseSourceUrl(file))
+  )
+)(
+  "binds the fixed profile to exact current source bytes and paired raster identities",
+  async () => {
+    expect(SOURCE_FEATURE_ADMISSION_PROFILE.entries).toHaveLength(7);
+    for (const entry of SOURCE_FEATURE_ADMISSION_PROFILE.entries) {
+      const file = sourceFileByName.get(entry.sourceName);
+      expect(file).toBeDefined();
+      // eslint-disable-next-line no-await-in-loop
+      const source = await readFile(houseSourceUrl(file as string));
+      expect(createHash("sha256").update(source).digest("hex")).toBe(
+        entry.sourceSha256
+      );
+      expect(entry.observations.map(({ nativeSize }) => nativeSize)).toEqual([
+        16, 24,
+      ]);
+      expect(
+        entry.observations.map(({ rasterization }) => rasterization.kind)
+      ).toEqual(["resampled-source", "native-master"]);
+    }
   }
-});
+);
 
 test("rejects stale hashes, incomplete pairs, malformed regions and rasterization drift", () => {
   const staleHash = structuredClone(SOURCE_FEATURE_ADMISSION_PROFILE);

@@ -65,6 +65,11 @@ or approve the artwork. Keep failed attempts when inspecting or retrying a run.
 To check repository changes, see [the agent commands](../AGENTS.md). Full verification
 on a clone without private datasets uses `npm run verify -- --allow-missing-corpus`;
 its skipped measurements are explicitly unverified, not foundry qualification.
+The cached-inventory measurement in `campaign-manifest.test.ts` additionally
+requires `.corpus/manifest.json` and `.corpus/icons.jsonl`. The exact-source check
+in `source-feature-admission-profile.test.ts` requires the sibling `blode-icons`
+checkout. Their skips are separate from the thirteen legacy corpus canaries;
+the portable manifest and profile-validation controls still run.
 
 ## Dead-code checks
 
