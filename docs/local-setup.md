@@ -102,6 +102,8 @@ runtime tests, so it is the sole binary exception.
 
 ### Tested native runtime
 
-Use the standard Node 24 distribution (for example `nvm install 24` and `nvm use 24`) for agent generation. The native read/network boundary probe passed with Node 24.15.0 and Codex CLI 0.150.1. Homebrew Node 26.7.0 failed because its separately installed shared libraries were blocked; that combination is not supported by the tested restricted runtime. The checker fails before author dispatch rather than widening file access. Offline drawing is unaffected.
+Use the standard Node 24 distribution (for example `nvm install 24` and `nvm use 24`) for agent generation. The native read/network boundary probe passed on macOS with Node 24.15.0 and Codex CLI 0.150.1. Homebrew Node 26.7.0 failed because its separately installed shared libraries were blocked; that combination is not supported by the tested restricted runtime. The checker fails before author dispatch rather than widening file access. Offline drawing is unaffected.
 
 Run `npm run check:agent` before signing in to check the real generation sandbox with no account or model call. It uses an empty temporary auth directory and verifies both allowed workspace operations and denied outside-file/network access. Pass `-- --codex /path/to/codex` for an explicit executable. `npm run check:public` separately checks included references and exports without agents or a corpus.
+
+The agent sandbox is tested on macOS. Linux offline build and reference smoke tests run in CI, but Linux agent compatibility is not yet verified: the Ubuntu hosted runner rejected Codex 0.153.4 bubblewrap loopback setup (`RTM_NEWADDR: Operation not permitted`) before the probe ran. Run `check:agent` on your host; a failed check blocks generation. Windows native agent support is unverified.

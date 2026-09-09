@@ -51,7 +51,7 @@ The clone includes an [original MIT starter reference family](examples/starter/R
 its pinned revision, and example meanings. No private corpus or sibling repository
 is needed for this example.
 
-Use the standard Node 24 distribution for the tested agent runtime (see [setup](docs/local-setup.md#tested-native-runtime)). Install [Codex CLI](https://help.openai.com/en/articles/11096431) and
+Use macOS and the standard Node 24 distribution for the tested agent runtime (see [setup](docs/local-setup.md#tested-native-runtime)). Install [Codex CLI](https://help.openai.com/en/articles/11096431) and
 [Claude Code](https://code.claude.com/docs/en/quickstart), then sign in to your
 ChatGPT and Claude subscriptions. The generator uses `codex` and `claude` on PATH.
 Generation consumes your subscription usage; credentials are not included.

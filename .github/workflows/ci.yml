@@ -56,9 +56,6 @@ jobs:
       - name: Public onboarding smoke (no credentials or corpus)
         run: npm run check:public
 
-      - name: Public Codex sandbox preflight (no authentication)
-        run: npm exec --yes --package=@openai/codex@0.153.4 -- npm run check:agent
-
       - name: Show verification evidence
         if: always()
         run: |
@@ -72,3 +69,28 @@ jobs:
           if [ -f .staging/ci-verification/receipt.json ]; then
             cat .staging/ci-verification/receipt.json
           fi
+
+  agent-sandbox:
+    # Ubuntu-hosted Codex 0.153.4 failed before the probe: bwrap could not
+    # configure loopback (RTM_NEWADDR, EPERM). Exercise the production policy
+    # with the macOS sandbox; do not relax networking or filesystem isolation.
+    # Linux agent compatibility remains unverified by this job.
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Setup official Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Public Codex sandbox preflight (no authentication)
+        run: npm exec --yes --package=@openai/codex@0.153.4 -- npm run check:agent
