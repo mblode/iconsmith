@@ -5,10 +5,11 @@ house set. Its git-tracked SVG library and metadata are bundled at
 `packages/iconsmith/library/blode-icons` under MIT, with the upstream commit
 recorded in `SOURCE.json`. No sibling checkout, private corpus or download is needed.
 
-`revision.json` embeds four outlined references copied byte-for-byte from that
+`revision.json` embeds five outlined references copied byte-for-byte from that
 library, the 24px house master, a short policy and the current compiler identity.
-`references/*.svg` are the same four files, kept here so an agent can open them
-directly. The regression test rejects a stale compiler identity, a reference that
+`references/*.svg` are the same five files, kept here so an agent can open them
+directly. `circle-check` carries the set's tick so a reused element can be
+measured against the family rather than judged in isolation. The regression test rejects a stale compiler identity, a reference that
 drifts from the bundled library, or a Lucide-derived source.
 
 After `npm ci` and `npm run build:local`, open Codex or Claude Code in the

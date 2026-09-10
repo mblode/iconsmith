@@ -1,5 +1,5 @@
 icon square-check
 keyline square
 rect 4,4 16x16 r3
-line 8,12 11,15 16,10
+line 9,13 11,15 15.5,10.5
 fit

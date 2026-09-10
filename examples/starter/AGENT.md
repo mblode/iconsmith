@@ -13,6 +13,14 @@ and Blode references are the house defaults. The full library is bundled at
 `packages/iconsmith/library/blode-icons`; no private corpus, sibling repository
 or download is needed.
 
+Before drawing, find the set's own drawings of any element the concept reuses.
+A tick, arrow, tray or handle keeps the same geometry across Blode; for
+`square-check` that element is the tick already drawn in `circle-check`. List the
+matching files in `packages/iconsmith/library/blode-icons/icons-svg/` (skip any
+file carrying a `lucide` class), read their path data, and pin those siblings
+next to the references for authors and reviewers. Do not pin or copy the set's
+drawing of the requested concept itself.
+
 Record the intended object, action and native size before drawing. Create a fresh
 `starter-draft` directory; choose another name if it exists. Preserve every
 candidate, review and revision beneath it. Never overwrite an earlier attempt.
@@ -48,8 +56,10 @@ then compare it with the frozen request. A clean checkmark fails a request for a
 magnifying glass containing a checkmark.
 
 Have both reviewers inspect enlarged contours and actual native pixels on light
-and dark backgrounds. Check interior mark placement within its own host,
-clearance, arrow direction and arrowhead shape, coherent silhouettes, counter
+and dark backgrounds. Give them the pinned sibling drawings from step 1 and have
+them measure the reused element against the set's own version: an oversized or
+undersized tick fails family fit even when it looks balanced on its own. Check
+interior mark placement within its own host, clearance, arrow direction and arrowhead shape, coherent silhouettes, counter
 openings, stroke consistency and fit with the pinned references. A resized 24px
 master is not an independently designed native 16px master.
 
