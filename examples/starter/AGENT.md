@@ -7,19 +7,26 @@ This is the default agent workflow. It does not yet have a qualified 10/10 score
 
 ## 1. Pin the request
 
-Read `packages/iconsmith/SKILL.md`, `examples/starter/revision.json` and the
-reference drawings in `examples/starter/references/`. The revision's `24` master
-and Blode references are the house defaults. The full library is bundled at
-`packages/iconsmith/library/blode-icons`; no private corpus, sibling repository
-or download is needed.
+Read `packages/iconsmith/SKILL.md` and `examples/starter/revision.json`. The
+reference set is the whole bundled blode-icons library at
+`packages/iconsmith/library/blode-icons`: every drawing in `icons-svg/` with its
+tags in `icons-data/`. The revision's `24` master and its twelve embedded anchors
+are the house style sheet, not the reference set. No private corpus, sibling
+repository or download is needed.
 
-Before drawing, find the set's own drawings of any element the concept reuses.
-A tick, arrow, tray or handle keeps the same geometry across Blode; for
-`square-check` that element is the tick already drawn in `circle-check`. List the
-matching files in `packages/iconsmith/library/blode-icons/icons-svg/` (skip any
-file carrying a `lucide` class), read their path data, and pin those siblings
-next to the references for authors and reviewers. Do not pin or copy the set's
-drawing of the requested concept itself.
+Pull the set's own drawings of any element the concept reuses. A tick, arrow,
+tray or handle keeps the same geometry across Blode, so measure against the
+library rather than judging a mark in isolation:
+
+```bash
+node --import tsx packages/iconsmith/scripts/library-siblings.ts square-check starter-draft/siblings
+```
+
+It ranks library drawings by shared tags, cohort and name, excludes the requested
+concept, its byte twins and Lucide-derived files, and writes `siblings.json` and
+a `siblings.png` contact sheet. Open the sheet and read the path data of the
+closest siblings. Pin them next to the revision anchors for authors and
+reviewers. Never copy the set's drawing of the requested concept itself.
 
 Record the intended object, action and native size before drawing. Create a fresh
 `starter-draft` directory; choose another name if it exists. Preserve every
@@ -56,8 +63,8 @@ then compare it with the frozen request. A clean checkmark fails a request for a
 magnifying glass containing a checkmark.
 
 Have both reviewers inspect enlarged contours and actual native pixels on light
-and dark backgrounds. Give them the pinned sibling drawings from step 1 and have
-them measure the reused element against the set's own version: an oversized or
+and dark backgrounds. Give them `siblings.png` and the revision anchors, and have
+them measure any reused element against the set's own version: an oversized or
 undersized tick fails family fit even when it looks balanced on its own. Check
 interior mark placement within its own host, clearance, arrow direction and arrowhead shape, coherent silhouettes, counter
 openings, stroke consistency and fit with the pinned references. A resized 24px

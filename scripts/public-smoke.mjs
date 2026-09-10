@@ -37,6 +37,7 @@ try {
     `${engine}/src`,
     `${engine}/scripts`,
     `${engine}/dist`,
+    `${engine}/library/blode-icons`,
   ]) {
     const source = path.join(root, relative);
     assert.ok(existsSync(source), `Missing ${relative}; run npm run build:local first.`);
@@ -117,8 +118,27 @@ try {
   assert.equal(checked.visualReview, "required");
   assert.notEqual(checked.structuralStatus, "failed");
   assert.ok(readFileSync(path.join(checkDirectory, "outlined.native.png")).byteLength > 0);
+
+  // The whole bundled library is the reference set: sibling lookup must work
+  // from a relocated clone with no private corpus.
+  const siblingArgs = [
+    `${engine}/scripts/library-siblings.ts`,
+    "square-check",
+    "starter-draft/siblings",
+  ];
+  assert.ok(
+    packet.includes(`node --import tsx ${siblingArgs.join(" ")}`),
+    "Agent packet must document the exact sibling lookup exercised here.",
+  );
+  execute(["--import", pathToFileURL(require.resolve("tsx")).href, ...siblingArgs]);
+  const siblings = JSON.parse(
+    readFileSync(path.join(relocated, "starter-draft/siblings/siblings.json"), "utf-8"),
+  );
+  assert.ok(siblings.siblings.some((s) => s.name === "circle-check"));
+  assert.ok(!siblings.siblings.some((s) => s.name === "square-check"));
+  assert.ok(readFileSync(path.join(relocated, "starter-draft/siblings/siblings.png")).byteLength > 0);
   console.log(
-    "Public onboarding smoke passed: relocated example draw/lint/JSON, overwrite refusal, agent packet checker, pinned replay and native proof; no corpus, credentials or agent dispatch. Visual review remains required.",
+    "Public onboarding smoke passed: relocated example draw/lint/JSON, overwrite refusal, agent packet checker, pinned replay, native proof and library sibling lookup; no corpus, credentials or agent dispatch. Visual review remains required.",
   );
 } finally {
   rmSync(temporary, { recursive: true, force: true });

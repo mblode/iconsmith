@@ -1,5 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
@@ -20,7 +19,7 @@ describe("bundled blode-icons default reference family", () => {
     expect(revision.definition.calibration).toBe("unvalidated");
     expect(revision.definition.parts).toEqual([]);
     const style = selectStyle(revision, "24");
-    expect(style.references).toHaveLength(5);
+    expect(style.references).toHaveLength(12);
     expect(style.spec.size).toBe(24);
     const labels = JSON.parse(read("meanings.json")) as string[];
     expect(labels).toContain("square-check");
@@ -30,8 +29,6 @@ describe("bundled blode-icons default reference family", () => {
   });
   it("pins every shipped SVG byte-for-byte to the bundled blode-icons library", () => {
     const revision = createStyleRevision(JSON.parse(read("revision.json")));
-    const names = readdirSync(fileURLToPath(new URL("references/", root)));
-    expect(names.filter((name) => name.endsWith(".svg"))).toHaveLength(5);
     const source = JSON.parse(
       readFileSync(`${BLODE_ICONS_PACKAGE}/SOURCE.json`, "utf-8")
     ) as { commit: string; set: string };
@@ -52,7 +49,6 @@ describe("bundled blode-icons default reference family", () => {
       );
       expect(library).not.toContain("lucide");
       expect(reference.svg).toBe(library);
-      expect(read(`references/${reference.name}.svg`)).toBe(library);
     }
     expect(
       readFileSync(`${BLODE_ICONS_PACKAGE}/LICENSE.md`, "utf-8")

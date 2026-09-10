@@ -9,7 +9,7 @@ Send this prompt:
 
 > Read examples/starter/AGENT.md and execute its drawing task.
 
-Your agent runs parallel authors with the bundled references, then independent
+Your agent runs parallel authors with the bundled library as reference, then independent
 reviewers inspect anonymous candidates and request repairs. Your session needs
 subagent and image-viewing support and uses your account's allowance.
 
@@ -45,6 +45,6 @@ does not establish a pipeline-wide 10/10 result.
 | Node or dependency error | Use Node.js 24.11 or newer and run `npm ci`. |
 | Missing build | Run `npm run build:local`. |
 | Output already exists | Ask the agent to use a new directory. |
-| Missing references | Use `examples/starter/revision.json`. The bundled blode-icons library needs no private dataset or sibling repository. |
+| Missing references | Use `examples/starter/revision.json` and `library-siblings.ts`. The bundled blode-icons library needs no private dataset or sibling repository. |
 | Agent cannot inspect images or run independent reviewers | Use an agent session with those capabilities. The result remains an unreviewed draft. |
 | `generate:local` asks for a route | Ask the agent to follow `examples/starter/AGENT.md`. The unattended research runner needs separate configuration. |

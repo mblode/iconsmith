@@ -35,11 +35,12 @@ npm run verify       # serialized integrated checks with immutable evidence
 
 ## Public starter
 
-`examples/starter` ships the default Blode style: four blode-icons references, a
-current pinned style revision and concept alternatives for the documented agent
-quickstart. The whole blode-icons library is vendored at
-`packages/iconsmith/library/blode-icons` (MIT; `SOURCE.json` names the upstream
-commit) and `scripts/blode-icons.ts` is the only place that path is spelled.
+`examples/starter` ships the default Blode style: a current pinned style
+revision with twelve blode-icons anchors, and concept alternatives for the
+documented agent quickstart. The reference set is the whole blode-icons library
+vendored at `packages/iconsmith/library/blode-icons` (MIT; `SOURCE.json` names
+the upstream commit); `scripts/library-siblings.ts` ranks its drawings for a
+concept, and `scripts/blode-icons.ts` is the only place that path is spelled.
 It is independent of the private measurement corpus below. Keep the starter
 portable: no sibling checkout, author home paths or ignored staging artifacts.
 For user-requested icon drafting, follow `examples/starter/AGENT.md`; it uses
