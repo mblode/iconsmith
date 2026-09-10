@@ -134,7 +134,12 @@ try {
   const siblings = JSON.parse(
     readFileSync(path.join(relocated, "starter-draft/siblings/siblings.json"), "utf-8"),
   );
-  assert.ok(siblings.siblings.some((s) => s.name === "circle-check"));
+  const circleCheck = siblings.siblings.find((s) => s.name === "circle-check");
+  assert.ok(circleCheck, "circle-check must rank as a square-check sibling");
+  assert.ok(
+    circleCheck.elements.some((e) => e.dsl?.startsWith("line ")),
+    "sibling elements must read back as DSL the author can place",
+  );
   assert.ok(!siblings.siblings.some((s) => s.name === "square-check"));
   assert.ok(readFileSync(path.join(relocated, "starter-draft/siblings/siblings.png")).byteLength > 0);
   console.log(

@@ -24,9 +24,13 @@ node --import tsx packages/iconsmith/scripts/library-siblings.ts square-check st
 
 It ranks library drawings by shared tags, cohort and name, excludes the requested
 concept, its byte twins and Lucide-derived files, and writes `siblings.json` and
-a `siblings.png` contact sheet. Open the sheet and read the path data of the
-closest siblings. Pin them next to the revision anchors for authors and
-reviewers. Never copy the set's drawing of the requested concept itself.
+a `siblings.png` contact sheet. It also reads every stroke of each sibling back
+as the DSL op that redraws it on the family grid, smallest element first, so the
+set's tick, arrowhead or handle arrives as a `line` or `circle` an author can
+place verbatim; a `quantised` element had a vertex moved onto the grid, and a
+sibling with no elements is a flattened fill path to read from the sheet. Pin the
+sheet and those elements next to the revision anchors for authors and reviewers.
+Never copy the set's drawing of the requested concept itself.
 
 Record the intended object, action and native size before drawing. Create a fresh
 `starter-draft` directory; choose another name if it exists. Preserve every

@@ -6,8 +6,9 @@ house set. Its git-tracked SVG library and metadata are bundled at
 recorded in `SOURCE.json`. No sibling checkout, private corpus or download is needed.
 
 The reference set is that whole library. `library-siblings.ts` ranks its
-drawings for any concept by shared tags, cohort and name, so authors and
-reviewers measure a reused element against the set's own version.
+drawings for any concept by shared tags, cohort and name and reads each stroke
+back as the DSL `line` or `circle` that redraws it, so authors place the set's
+own tick or arrowhead and reviewers measure against the set's own version.
 `revision.json` embeds twelve outlined anchors copied byte-for-byte from the
 library, the 24px house master, a short policy and the current compiler
 identity; they are the style sheet, not the reference set. The regression test
