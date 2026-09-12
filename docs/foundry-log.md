@@ -2968,3 +2968,23 @@ Full stable-tree verification passed at
 10 runner tests, no corpus skips, typecheck, build, lint, dead-code and boundaries.
 Fresh packed-install and relocated public smoke both passed. Build-cache mutation
 coverage verifies the missing public output is rejected and restoration is green.
+
+Fresh repository test completed at
+/Users/mblode/Documents/Codex/2026-09-12/cd-x20/outputs/iconsmith-skill-test
+(commit d012e37, no remote). Live GitHub skill + published npm 0.1.0, Codex CLI
+Astra using ChatGPT login, no API calls. Folder-check: two independent authors,
+two fresh reviewers, initial anonymous recognition, one repair on candidate B,
+then both reviewers 9.2/10 and ship unchanged. Selected SHA256:
+fa560414f024c8187c21abb09c1b10fc471967d921e6e9824524c7521e69c8b9.
+Coordinator and independent verify-result.mjs both verified artifacts, reviews
+and all 14880 protected input files. Structural craftApproved remains false;
+centering warning resolved against folder-1 reference, not suppressed.
+
+Run status: completed with onboarding problems. Author A follow-up failed because
+its native agent session was unavailable; A remains rejected, B qualified.
+Coordinator packet helper initially mishandled relative snapshot paths; retained
+partial evidence and corrected the helper. Skill descriptions were truncated by
+the host but full instructions were read. No clean-onboarding or pipeline-wide
+visual-quality claim. The live skill copies 7174 files / 12851507 bytes including
+research tooling; this distribution issue remains, and requires a narrow skill
+source directory. The test intentionally did not modify its installed baseline.
