@@ -1,5 +1,14 @@
 # iconsmith
 
+## 0.1.1
+
+### Patch Changes
+
+- 22132df: Return structured CLI failures with stable codes and recovery hints, support piped SVG linting and rendering, expose a command schema, and align skill guidance with prepared requests and the bundled revision.
+- 83ad037: Restore the public CLI on cached builds, remove unused internal helpers, consolidate evidence serialization, and separate checker reports from CLI output handling.
+- 0209f26: Document the published skill installation, reference preparation, reviewed icon workflow and local CLI commands.
+- 96dcb6a: Preserve existing output when drawing validation fails, including with --force. Refuse concurrent file creation when exporting without --force.
+
 ## 0.1.0
 
 ### Minor Changes
