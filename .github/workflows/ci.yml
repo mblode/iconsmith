@@ -48,6 +48,10 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Changeset status
+        if: github.event_name == 'pull_request' && github.head_ref != 'changeset-release/main'
+        run: npm run changeset -- status --since origin/main
+
       # CI has no private corpus. The receipt records measurements unavailable.
       # Local foundry verification requires the corpus by default.
       - name: Verify
@@ -55,6 +59,9 @@ jobs:
 
       - name: Public onboarding smoke (no credentials or corpus)
         run: npm run check:public
+
+      - name: Packed package smoke
+        run: npm run check:package
 
       - name: Show verification evidence
         if: always()

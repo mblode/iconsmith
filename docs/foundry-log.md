@@ -2816,3 +2816,14 @@ Verification: installed tarball with fresh dependencies and no checkout symlinks
 The real installed-package request completed through Codex CLI 0.154.0, gpt-6-astra, ChatGPT login. Two independent authors produced candidates, both initially scored 8 by two fresh reviewers because grid/angle snapping shortened the tick. Original author B repaired it using the supplied shield-check-3 tick, which compiles unchanged. Both reviewers then scored 9, accepted unchanged and reported no defects or uncertainty. Three actual package checker calls passed exact replay without warnings; selection and evidence hashes were verified. The unused author A could not be resumed (agent not found), which did not block author B's valid repair. [Receipt and selected sample](log/astra-matched-host-2026-09-12/onboarding/receipt.json). The minimum supported Node 24.11.0 package smoke also passed.
 
 Published-package preparation passed npm dry run. Actual publication of the verified iconsmith@0.1.0 tarball was refused by npm with EOTP: account two-factor authentication is required. No release was published; user authentication is the remaining release dependency. No new API spend. The verified artifact and complete selected-example evidence are in this Codex task's outputs. Subsequent changes since integrated verification are documentation and retained evidence only; no full suite was repeated.
+
+### 2026-09-12: Changesets release setup
+
+Confirmed npm reports iconsmith 0.1.0 and the registry CLI help runs successfully.
+Adapted scaffold-cli release templates to the existing workspace: Changesets
+3.0.2, action v2 with publish-script/version-script, lockfile synchronization,
+serialized main-only OIDC workflow, existing verification and packed-install
+gates. Added an empty infrastructure changeset; no version bump or release
+requested. Changeset status, configuration guards, Knip, formatting and workflow
+validation passed. GitHub Actions PR creation is enabled. npm trusted publisher
+registration remains unverified; no remote workflow run or publish was attempted.

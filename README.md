@@ -41,3 +41,10 @@ MIT
 ---
 
 Crafted by [<img src="https://blode.co/avatar-circle.png" width="20" align="top" />](https://blode.co) [Matthew Blode](https://blode.co)
+
+## Releases
+
+`iconsmith@0.1.0` is published on npm. For future package changes, run
+`npm run changeset` from the repository root and commit the generated file.
+CI opens a Version Packages PR and publishes after it merges. See
+[release setup](.changeset/README.md) for the trusted publisher configuration.
