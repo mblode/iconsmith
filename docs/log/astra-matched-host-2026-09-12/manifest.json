@@ -1,0 +1,68 @@
+{
+  "date": "2026-09-12",
+  "route": "host-subagents",
+  "model": "inherited current Astra",
+  "concepts": [
+    "clipboard-clock",
+    "clipboard-plus",
+    "clock-plus",
+    "copy-check",
+    "copy-x",
+    "database-backup",
+    "file-diff",
+    "list-filter-plus",
+    "search-check",
+    "server-off"
+  ],
+  "arms": [
+    "svg",
+    "dsl"
+  ],
+  "candidatesPerArm": 1,
+  "repairRounds": 2,
+  "apiSpend": 0,
+  "subscriptionCost": "not available",
+  "rubric": "Both independent reviewers: correct object and modifier; score >=9; ship unchanged; no critical defect; no uncertainty. Missing is incomplete.",
+  "files": [
+    {
+      "name": "clipboard-clock.json",
+      "sha256": "7a7277b0da4d0f26827fbf7fb8fca824c75123a98e4d7bd7212f43131015db46"
+    },
+    {
+      "name": "clipboard-plus.json",
+      "sha256": "f7048fb048761106d653540a1e42435c3f5fcd3399469a42729e7213abaabe9e"
+    },
+    {
+      "name": "clock-plus.json",
+      "sha256": "9927ccd97df53960a38e6c50598c4872a2be870a6460e876cf6959ba7a9aa669"
+    },
+    {
+      "name": "copy-check.json",
+      "sha256": "7bc06a3349eeaac432e6088d949cfa3580e300fdfbb4c861fb7bfbaa461371ca"
+    },
+    {
+      "name": "copy-x.json",
+      "sha256": "3de433766b2045516fcecd9a2b210c1a3cbabe603e10ee426dc2d9a397310201"
+    },
+    {
+      "name": "database-backup.json",
+      "sha256": "908e6da3be583a83121bce8534dc33b5752fb3016fb25f7bf189dd1803d6f8a8"
+    },
+    {
+      "name": "file-diff.json",
+      "sha256": "6af7b382e1a0edd7d82ebe59375a583ce24b1ee38ea562e7310c1cf9668d4fb6"
+    },
+    {
+      "name": "list-filter-plus.json",
+      "sha256": "d543a1b65a5decb0f68b221bc2900699dd1e7b0ee9e3aa6419e7f496e5c04b91"
+    },
+    {
+      "name": "search-check.json",
+      "sha256": "1c1727fd0456e0ca9f1c040d6545df29e2af3b8a68cd5acb4aba91db9923960b"
+    },
+    {
+      "name": "server-off.json",
+      "sha256": "b769309fd65011bb49e432c6cc765060d362c8a8ab5f4d44263dd41a322797ff"
+    }
+  ]
+}

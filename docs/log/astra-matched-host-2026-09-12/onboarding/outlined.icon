@@ -1,0 +1,7 @@
+icon square-check
+keyline square
+finish outlined
+# Radius-3 square container measured from arrow-down-square.
+rect 4,4 16x16 r3
+# Preserve the admitted shield-check-3 tick without compiler angle normalization.
+line 9,12 11,14 15,10

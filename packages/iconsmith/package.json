@@ -1,7 +1,7 @@
 {
   "name": "iconsmith",
-  "private": true,
-  "description": "Icon generation pipeline: extract parts from an icon set, compose new icons in a constrained DSL, conform them to a house spec.",
+  "version": "0.1.0",
+  "description": "Create SVG icons with your coding agent, bundled Blode references, exact checks and native previews.",
   "keywords": [
     "ai",
     "codegen",
@@ -19,6 +19,15 @@
     "type": "git",
     "url": "git+https://github.com/mblode/iconsmith.git"
   },
+  "bin": {
+    "iconsmith": "dist-agent/cli.js"
+  },
+  "files": [
+    "dist-agent/",
+    "SKILL.md",
+    "references/",
+    "library/blode-icons/"
+  ],
   "type": "module",
   "scripts": {
     "build": "tsdown",
@@ -28,23 +37,24 @@
     "test": "vitest run",
     "check": "ultracite check && npm run check:boundaries",
     "fix": "ultracite fix",
-    "check:boundaries": "node scripts/check-boundaries.ts"
+    "check:boundaries": "node scripts/check-boundaries.ts",
+    "prepack": "npm run build"
   },
   "dependencies": {
-    "@ai-sdk/gateway": "^4.0.54",
-    "@ai-sdk/provider": "^4.0.7",
-    "ai": "^7.0.66",
     "commander": "^15.0.0",
     "paper": "0.12.18",
     "pathkit-wasm": "1.0.0",
-    "run": "^2.0.3",
     "sharp": "^0.35.4",
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@ai-sdk/gateway": "^4.0.54",
+    "@ai-sdk/provider": "^4.0.7",
     "@types/node": "^24.13.3",
+    "ai": "^7.0.66",
     "esbuild": "0.28.2",
     "jsonc-parser": "3.3.1",
+    "run": "^2.0.3",
     "tsdown": "^0.22.4",
     "tsx": "4.23.13",
     "typescript": "^7.0.2",

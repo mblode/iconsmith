@@ -21,7 +21,8 @@
     "verify": "node scripts/verify.mjs",
     "check:dead": "knip",
     "check:public": "node scripts/public-smoke.mjs",
-    "check:agent": "node --import tsx scripts/agent-preflight.mjs"
+    "check:agent": "node --import tsx scripts/agent-preflight.mjs",
+    "check:package": "node scripts/package-smoke.mjs"
   },
   "devDependencies": {
     "knip": "6.35.0",

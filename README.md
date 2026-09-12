@@ -12,32 +12,27 @@ Ask your agent for an icon. It draws alternatives, reviews them and exports an S
 
 </div>
 
-## Install
+## Install the skill
 
-Requires Node.js 24.11 or newer and npm. Run from the repository:
+Requires Node.js 24.11 or newer and a coding agent with image viewing and independent subagents.
+Run in the project where you want to create icons:
 
 ```bash
-git clone https://github.com/mblode/iconsmith.git
-cd iconsmith
-npm ci
-npm run build:local
+npx --yes iconsmith@0.1.0 skill --out .agents/skills/iconsmith
 ```
 
-## Quickstart
+Open or refresh your agent session, then ask:
 
-Open this folder in Codex or Claude Code and send:
+> Create a bookmark-check icon with iconsmith.
 
-> Read examples/starter/AGENT.md and execute its drawing task.
+Your agent uses the bundled Blode references, draws competing candidates, checks
+native previews and requests independent reviews. It uses your agent account;
+there is no separate API key. Unresolved defects leave the result as a draft.
+The pipeline is not yet qualified as 10/10.
 
-The [brief](examples/starter/AGENT.md) runs parallel AI authors, independent visual
-reviews and repairs using the included references. Use your own agent account
-with subagent and image-viewing support. Unresolved defects leave the result as a
-draft. The pipeline is not yet qualified as 10/10.
-
-The default style is [blode-icons](examples/starter/README.md): the house library
-is bundled under MIT. No private dataset or sibling repository is needed.
-
-See [local setup](docs/local-setup.md) for the output files and troubleshooting.
+The default style is blode-icons, bundled under MIT. No private dataset,
+repository clone or source build is needed for the installed workflow.
+See [local setup](docs/local-setup.md) for outputs, source development and troubleshooting.
 
 ## License
 

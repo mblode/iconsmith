@@ -12,13 +12,10 @@ import {
   rmSync,
   symlinkSync,
 } from "node:fs";
-import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 
 const root = path.resolve(import.meta.dirname, "..");
-const require = createRequire(import.meta.url);
 const temporary = mkdtempSync(path.join(tmpdir(), "iconsmith-public-smoke-"));
 const relocated = path.join(temporary, "clone");
 const home = path.join(temporary, "home");
@@ -34,9 +31,11 @@ try {
     "examples",
     `${engine}/package.json`,
     `${engine}/SKILL.md`,
+    `${engine}/references`,
     `${engine}/src`,
     `${engine}/scripts`,
     `${engine}/dist`,
+    `${engine}/dist-agent`,
     `${engine}/library/blode-icons`,
   ]) {
     const source = path.join(root, relative);
@@ -94,23 +93,20 @@ try {
   // Exercise the included pinned revision through the actual checker, including
   // raster proof creation and exact replay. No mocked qualification stands in.
   const checkerArgs = [
-    `${engine}/scripts/style-check.ts`,
-    "examples/starter/revision.json",
-    "24",
+    `${engine}/dist-agent/cli.js`,
+    "check",
     "starter-draft/candidate-a",
-    "outlined",
+    "--revision",
+    "examples/starter/revision.json",
   ];
-  const packet = readFileSync(path.join(relocated, "examples/starter/AGENT.md"), "utf-8");
-  assert.ok(
-    packet.includes(`node --import tsx ${checkerArgs.join(" ")}`),
-    "Agent packet must document the exact checker command exercised here.",
-  );
+  const packet = readFileSync(path.join(relocated, `${engine}/SKILL.md`), "utf-8");
+  assert.ok(packet.includes("iconsmith check"), "Canonical skill must name the checker.");
   assert.doesNotMatch(packet, /\/Users\/|\/home\/|\.staging\//u);
   assert.match(packet, /craftApproved: false/u);
   const checkDirectory = path.join(relocated, "starter-draft/candidate-a");
   mkdirSync(checkDirectory, { recursive: true });
   cpSync(path.join(relocated, example), path.join(checkDirectory, "outlined.icon"));
-  execute(["--import", pathToFileURL(require.resolve("tsx")).href, ...checkerArgs]);
+  execute(checkerArgs);
   const checked = JSON.parse(readFileSync(path.join(checkDirectory, "checks.json"), "utf-8"));
   assert.equal(checked.exactReplay, true);
   assert.equal(checked.assessment, "structural-only");
@@ -122,17 +118,19 @@ try {
   // The whole bundled library is the reference set: sibling lookup must work
   // from a relocated clone with no private corpus.
   const siblingArgs = [
-    `${engine}/scripts/library-siblings.ts`,
+    `${engine}/dist-agent/cli.js`,
+    "prepare",
     "square-check",
-    "starter-draft/siblings",
+    "--out",
+    "sibling-request",
   ];
   assert.ok(
-    packet.includes(`node --import tsx ${siblingArgs.join(" ")}`),
-    "Agent packet must document the exact sibling lookup exercised here.",
+    packet.includes("iconsmith prepare"),
+    "Canonical skill must name reference preparation.",
   );
-  execute(["--import", pathToFileURL(require.resolve("tsx")).href, ...siblingArgs]);
+  execute(siblingArgs);
   const siblings = JSON.parse(
-    readFileSync(path.join(relocated, "starter-draft/siblings/siblings.json"), "utf-8"),
+    readFileSync(path.join(relocated, "sibling-request/references/siblings.json"), "utf-8"),
   );
   const circleCheck = siblings.siblings.find((s) => s.name === "circle-check");
   assert.ok(circleCheck, "circle-check must rank as a square-check sibling");
@@ -141,7 +139,9 @@ try {
     "sibling elements must read back as DSL the author can place",
   );
   assert.ok(!siblings.siblings.some((s) => s.name === "square-check"));
-  assert.ok(readFileSync(path.join(relocated, "starter-draft/siblings/siblings.png")).byteLength > 0);
+  assert.ok(
+    readFileSync(path.join(relocated, "sibling-request/references/siblings.png")).byteLength > 0,
+  );
   console.log(
     "Public onboarding smoke passed: relocated example draw/lint/JSON, overwrite refusal, agent packet checker, pinned replay, native proof and library sibling lookup; no corpus, credentials or agent dispatch. Visual review remains required.",
   );

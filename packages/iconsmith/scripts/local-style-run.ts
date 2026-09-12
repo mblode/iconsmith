@@ -343,7 +343,7 @@ const authorStyle = async (options: PreparedLocalStyleOptions) => {
     )
   );
   const skillSource = readFileSync(
-    fileURLToPath(new URL("../SKILL.md", import.meta.url)),
+    fileURLToPath(new URL("../references/drawing.md", import.meta.url)),
     "utf-8"
   );
   save("SKILL.md", skillSource);

@@ -1,0 +1,77 @@
+{
+  "date": "2026-09-12",
+  "status": "verified-release-awaiting-npm-authentication",
+  "package": {
+    "name": "iconsmith",
+    "version": "0.1.0",
+    "published": false,
+    "publicBundleBytes": 260030,
+    "researchBundleBytes": 909110,
+    "runtimeFiles": 33,
+    "productionDependencies": [
+      "commander",
+      "paper",
+      "pathkit-wasm",
+      "sharp",
+      "zod"
+    ],
+    "publishFailure": "EOTP: account requires two-factor authentication"
+  },
+  "verification": {
+    "receipt": ".staging/verification-astra-simplification-2026-09-12-v2/receipt.json",
+    "status": "passed",
+    "engineTests": 2384,
+    "runnerTests": 10,
+    "skipped": 0,
+    "packageSmoke": [
+      "Node 26.7.0",
+      "Node 24.11.0"
+    ],
+    "skillValidator": {
+      "pass": 29,
+      "fail": 0,
+      "skip": 4
+    },
+    "liveOnboarding": "docs/log/astra-matched-host-2026-09-12/onboarding/receipt.json"
+  },
+  "comparison": {
+    "svg": {
+      "requested": 10,
+      "complete": 10,
+      "semanticBoth": 5,
+      "usable": 3
+    },
+    "dsl": {
+      "requested": 10,
+      "complete": 10,
+      "semanticBoth": 5,
+      "usable": 2
+    },
+    "control-good": {
+      "requested": 2,
+      "complete": 2,
+      "semanticBoth": 2,
+      "usable": 2
+    },
+    "control-bad": {
+      "requested": 2,
+      "complete": 2,
+      "semanticBoth": 2,
+      "usable": 0
+    }
+  },
+  "apiSpendThisExecution": 0,
+  "subscriptionDollarCost": "unavailable",
+  "historicalApiAccounting": "unreconciled; no new paid dispatch",
+  "codexCli": {
+    "before": "0.150.1",
+    "after": "0.154.0",
+    "auth": "ChatGPT",
+    "model": "gpt-6-astra"
+  },
+  "decisions": {
+    "default": "DSL retained; comparison inconclusive",
+    "humanPreference": "unanswered",
+    "pruning": "research runtime and API dependencies excluded from the published package; broad source deletion deferred"
+  }
+}

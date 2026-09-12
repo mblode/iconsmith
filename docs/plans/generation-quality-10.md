@@ -38,7 +38,7 @@ Prior engineering closure (superseded by D536 above): [D510](../log/wave-fm-ai-o
 - Keep the private corpus at `packages/iconsmith/corpus`. Keep large private assets and working artifacts in their existing locations; durable receipts and approved evidence boards belong in `docs/log/`.
 - Extend the existing DSL/compiler and canonical generation pipeline. The author selects constrained primitives, admitted parts, roles, tiers and allowed placement parameters. It does not emit SVG path strings or arbitrary curve handles. Numeric DSL placement already exists; this plan does not pretend otherwise.
 - Preserve host-derived curves, Boolean intersections and stroke envelopes without independently grid-snapping their control points. Model-selected placement remains constrained.
-- No public web UI, package publishing, backward-compatibility project, or training from scratch. Deliver local CLI results and PNG/SVG/DSL/JSON files.
+- No public web UI, backward-compatibility project, or training from scratch. The September 12 simplification plan supersedes the old package-publishing exclusion: ship only the portable skill/CLI, without claiming this qualification gate passed. Deliver local PNG/SVG/DSL/JSON files.
 - Preserve historical compiler artifacts under their recorded identity. Recompile into a new revision; preserving evidence does not require a compatibility layer.
 - Preserve the $50 API cap and outstanding reservations. Native subscription use is reported separately. No silent paid fallback.
 
