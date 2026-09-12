@@ -20,6 +20,8 @@
 pre-commit:
   parallel: true
   jobs:
+    - name: dead code
+      run: npm run check:dead
     - name: foundry configuration
       run: npm run check:foundry
     - name: ultracite (cli)

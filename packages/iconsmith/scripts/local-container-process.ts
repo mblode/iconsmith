@@ -45,7 +45,7 @@ export interface ContainerProcessResult {
   status: "complete" | "containment-unproven" | "workload-failed";
 }
 
-export interface DockerControlEvidence {
+interface DockerControlEvidence {
   createRequest: {
     /** Exact control arguments; environment values and workload arguments are hashed. */
     args: readonly string[];

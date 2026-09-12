@@ -4,23 +4,46 @@
   "includeEntryExports": true,
   "workspaces": {
     ".": {
-      "entry": ["scripts/verify.mjs", "scripts/verify.test.mjs"],
-      "project": ["scripts/**/*.mjs"]
+      "entry": [
+        "scripts/verify.test.mjs",
+        "scripts/agent-preflight.mjs!",
+        "scripts/package-smoke.mjs!",
+        "scripts/public-smoke.mjs!",
+        "scripts/verify.mjs!"
+      ],
+      "project": ["scripts/**/*.mjs!", "!scripts/*.test.mjs!"]
     },
     "packages/iconsmith": {
       "entry": [
-        "scripts/calibrate.ts",
-        "scripts/extract-central-metadata.ts",
-        "scripts/judge-gate.ts",
-        "scripts/library-audit-cli.ts",
-        "scripts/library-replay-cli.ts",
-        "scripts/quality-audit.ts",
-        "scripts/review-proof.ts",
-        "scripts/showcase-sheet.ts",
-        "scripts/stress-registration.ts",
-        "scripts/vocabulary-sheet.ts"
+        "scripts/ai-control-packet.ts!",
+        "scripts/calibrate.ts!",
+        "scripts/check-boundaries.ts!",
+        "scripts/check-foundry-config.ts!",
+        "scripts/experiment-evidence.ts!",
+        "scripts/extract-central-metadata.ts!",
+        "scripts/family-construction-board.ts!",
+        "scripts/family-construction-native-sheet.ts!",
+        "scripts/gate.ts!",
+        "scripts/judge-gate.ts!",
+        "scripts/library-audit-cli.ts!",
+        "scripts/library-replay-cli.ts!",
+        "scripts/library-siblings.ts!",
+        "scripts/local-campaign.ts!",
+        "scripts/local-claude-stream-bridge.ts!",
+        "scripts/local-generate.ts!",
+        "scripts/measure-filled.ts!",
+        "scripts/noise-floor.ts!",
+        "scripts/quality-audit.ts!",
+        "scripts/quality-campaign.ts!",
+        "scripts/review-proof.ts!",
+        "scripts/showcase-sheet.ts!",
+        "scripts/source-exact-cli.ts!",
+        "scripts/stress-cosine.ts!",
+        "scripts/stress-registration.ts!",
+        "scripts/style-check.ts!",
+        "scripts/vocabulary-sheet.ts!"
       ],
-      "project": ["src/**/*.ts", "scripts/**/*.ts", "*.config.ts"]
+      "project": ["src/**/*.ts!", "scripts/**/*.ts!", "*.config.ts", "!**/*.test.ts!"]
     }
   }
 }

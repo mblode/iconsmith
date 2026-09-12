@@ -91,7 +91,7 @@ type SizeBand = "dominant" | "large" | "medium" | "small" | "tiny";
 type ShapeWord = "square" | "tall" | "wide";
 
 /** One thing in the proposed composition. Three words, and nothing else. */
-export interface ProposalBlock {
+interface ProposalBlock {
   cell: Cell;
   shape: ShapeWord;
   size: SizeBand;

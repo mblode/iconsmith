@@ -26,7 +26,7 @@ npm run test
 npm run typecheck
 npm run check      # lint + the layering check
 npm run fix
-npm run check:dead    # Knip unused files, exports and dependencies
+npm run check:dead    # Knip full graph plus runtime reachability
 npm run check:foundry # cheap root configuration guards
 npm run check:public  # relocated starter/CLI smoke; build first
 npm run check:agent   # actual Codex sandbox probe; no auth or model call
@@ -65,9 +65,6 @@ contained route and is not configured by a fresh clone.
   is missing even when the remaining corpus is present. The
   source-admission controls in `scripts/family-parts.test.ts` read the bundled
   `blode-icons` library and always run.
-  The retained D492 crop test in `scripts/raster-proposal-feasibility.test.ts`
-  skips if its private staging image is absent; that diagnostic skip is also
-  separate from the twelve corpus-gated tests.
 - **A cloud checkout has no corpus, and cannot get one.** `load.ts` says it: "it
   is not shipped with iconsmith. Pass `--corpus <dir>` to point at one." There is
   no fetch script, no npm package, and no public source — it is 247MB of Central

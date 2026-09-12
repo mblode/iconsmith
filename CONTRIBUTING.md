@@ -15,3 +15,5 @@ The [showcase](docs/showcase.png) contains six concepts in both paints selected
 from the ten-icon run on 2026-09-09. The other four had contour defects; it is not
 a quality guarantee for the current workflow. Regenerate it with
 `npx tsx packages/iconsmith/scripts/showcase-sheet.ts`.
+
+See [the pipeline map](docs/pipeline.md) for runtime ownership and dead-code gates.

@@ -96,8 +96,8 @@ Use three GPT-5.6 Sol subagents in bounded waves, with root integration. Separat
 | Owner | Main responsibility | Existing boundaries to extend |
 | --- | --- | --- |
 | Runtime | Delivery, containment, deadlines, native adapters, freeze identity, campaign accounting | `scripts/local-structured-author.ts`, `local-process.ts`, `local-container-process.ts`, `runtime-identity.ts`, `review-budget.ts`, `local-campaign.ts` |
-| Geometry | Family construction, source admission, Boolean operations, optical masters and exposure mapping | `src/tools/`, `src/geometry/`, `src/pipeline/program.ts`; `scripts/family-parts.ts`, `family-reference-packet.ts`, `family-morphology.ts`, `quality-exposure.ts` |
-| Evaluation | Blind protocols, calibrated critics, cross-master review, matched experiments and statistical reports | `scripts/ai-review-*.ts`, `ai-qualification.ts`, `quality-population.ts`, `cross-master-review.ts`, `local-parameter-search.ts`; `src/eval/foundry-gate.ts` |
+| Geometry | Family construction, source admission, Boolean operations, optical masters and exposure mapping | `src/tools/`, `src/geometry/`, `src/pipeline/program.ts`; `scripts/family-parts.ts`, `family-reference-packet.ts`, `family-morphology.ts`, exposure census (not implemented) |
+| Evaluation | Blind protocols, calibrated critics, cross-master review, matched experiments and statistical reports | `scripts/ai-review-*.ts`, `ai-qualification.ts`, `quality-population.ts`, `cross-master-review.ts`, parameter-search experiment (retired); `src/eval/foundry-gate.ts` |
 | Root | Integrate, audit evidence, select/freeze routes, forecast resources, deliver actual images, maintain checklist/costs | This plan, foundry log, campaign manifests and final qualification report |
 
 Paths in execution tasks are relative to `packages/iconsmith/` unless explicitly prefixed `docs/`.
@@ -202,7 +202,7 @@ Current engineering replay: [D405](../log/wave-ca-runtime-state-budget-resume-cl
 
 ### P2 — Establish construction capability across the library
 
-**Owner:** Geometry. **Files:** `catalog-families`, `family-morphology`, `family-construction-coverage`, `family-reference-packet`, `family-parts`, `local-retrieval`, `quality-exposure`, `reference-proofs`, `src/tools/{canvas,dsl,boolean,stroke}.ts`, `src/pipeline/{program,style}.ts` and source-admission modules.
+**Owner:** Geometry. **Files:** `catalog-families`, `family-morphology`, `family-construction-coverage`, `family-reference-packet`, `family-parts`, `local-retrieval`, `reference-proofs`, `src/tools/{canvas,dsl,boolean,stroke}.ts`, `src/pipeline/{program,style}.ts` and source-admission modules.
 
 - [ ] P2.1 Reconcile all2,221 filename concepts with semantic families, aliases and close-derivative clusters. Preserve every catalog request slot even when aliases share a family. Finish the1,243 unclassified resolver rows or give explicit unresolved dispositions; unresolved split/classification rows cannot support unseen or morphology-qualified claims.
   - [x] Complete2221-concept/8884-slot explicit disposition accounting: [D381](../log/wave-bu-full-census-accounting-2026-09-08.json). Unresolved semantics remain ineligible for unseen/morphology claims;16 newer proposals are separate.
@@ -260,7 +260,7 @@ Final family identifiers are selected from the verified census before dispatch. 
 
 ### P3 — Qualify AI review before trusting its approvals
 
-**Owner:** Evaluation. **Files:** `ai-review-protocol`, `ai-control-packet`, `ai-control-campaign-prep`, `ai-review-campaign`, `ai-review-assessment`, `ai-qualification`, `local-codex-review`, `local-review`, `review-evidence-consistency`, `cross-master-review`, `quality-labels`, `quality-population`, `src/eval/foundry-gate.ts`.
+**Owner:** Evaluation. **Files:** `ai-review-protocol`, `ai-control-packet`, control-campaign preparation (not integrated), `ai-review-campaign`, `ai-review-assessment`, `ai-qualification`, `local-codex-review`, `local-review`, `review-evidence-consistency`, `cross-master-review`, `quality-labels`, `quality-population`, `src/eval/foundry-gate.ts`.
 
 - [ ] P3.1 Freeze separate populations for development/calibration, critic qualification, repair qualification, catalog audit and novel batches. Give every canonical artifact, presentation repeat, semantic family and source lineage a distinct identity.
 - [ ] P3.2 Validate semantic answer keys on exact images with two independent AI identities before the critic test. Recognition is elicited before names, filenames, parts or a revealed target. Define synonyms and an unknown/ambiguous response; fix the exposed P01power-symbol/choice mismatch only in new development revisions.
@@ -323,7 +323,7 @@ Use the same DSL/compiler and canonical generation boundary for every arm. Freez
 
 **Owner:** Runtime and Root; Evaluation owns sample design. **Dependency:** P1–P5 acceptance and current frozen identity.
 
-- [ ] P6.1 Produce a measured forecast from the complete frozen40-request/80-output development cohort. Extend `campaign-forecast.ts` for pair-consistency checks, accepted yield, per-stage durations, failures, native calls/tokens, unknown charges, disk footprint, cold/warm retrieval and concurrency overhead. Reject mixed identities, incomplete timing or mismatched paint-pair accounting.
+- [ ] P6.1 Produce a measured forecast from the complete frozen40-request/80-output development cohort. Implement the campaign forecast for pair-consistency checks, accepted yield, per-stage durations, failures, native calls/tokens, unknown charges, disk footprint, cold/warm retrieval and concurrency overhead. Reject mixed identities, incomplete timing or mismatched paint-pair accounting.
 - [ ] P6.2 Inventory rate limits and usable native quota; choose measured safe concurrency. Begin at one request, validate a small two-concurrent pilot if supported, then freeze a bounded batch size. Record contention, queueing and subscription-reset effects; ideal serial-time/concurrency division is not a schedule.
 - [ ] P6.3 Add a separately frozen catalog execution mode with bounded manifest shards to the existing campaign boundary. `local-campaign.ts` currently explicitly rejects catalog manifests and concurrency other than1; do not just delete its development protections. Reuse the selected native route, per-request locks, atomic checkpoints, provider-boundary intents, stop/cancel propagation, budget reservations and complete output states. Verify that the existing development driver handles catalog manifests rather than assuming it scales.
 - [ ] P6.4 Freeze all4,442 catalog concept-size pair requests/8,884 output slots. Reconcile catalog/source counts and missing paint counterparts. Equivalent aliases may reuse computation only through an explicit identity-bound reuse receipt; every requested slot remains in the denominator.
@@ -339,7 +339,7 @@ Use the same DSL/compiler and canonical generation boundary for every arm. Freez
 
 **Owner:** Evaluation prepares seals; Root dispatches. **Dependency:** passing frozen route; preparation starts earlier, outputs remain unopened until this phase.
 
-- [ ] P7.1 Audit whole-family and close-derivative exclusions across source files, aliases, admitted components, reference sheets, retrieval indexes, local caches, prior experiments and prompt examples. Extend `quality-exposure.ts` from metadata validation to a complete accessible-input census with lineage. Unknown lineage is ineligible for a sealed claim. Build content-addressed, append-only exposure census receipts chained to prior hashes; resolve mutable-path history and include prior author/reviewer attachments and prompt examples. An independent replay must reproduce the census hash.
+- [ ] P7.1 Audit whole-family and close-derivative exclusions across source files, aliases, admitted components, reference sheets, retrieval indexes, local caches, prior experiments and prompt examples. Implement the exposure census starting with metadata validation to a complete accessible-input census with lineage. Unknown lineage is ineligible for a sealed claim. Build content-addressed, append-only exposure census receipts chained to prior hashes; resolve mutable-path history and include prior author/reviewer attachments and prompt examples. An independent replay must reproduce the census hash.
 - [ ] P7.2 Seal two disjoint20-family batches with80 slots each, both paints/native sizes. Balance construction classes, density, composition novelty and modifier use. Keep qualification concepts and target artwork out of generation context until each sealed request is dispatched. Because P6 generates the whole existing catalog first, select P7 families outside the catalog and all derivative clusters it exposes. Verify family/alias/derivative absence against the entire P6 manifest before sealing. If the census cannot supply40 eligible families, prepare additional out-of-catalog concepts and validate them before proceeding; an insufficient pool leaves this gate open. Never call already catalog-exposed families unseen. Keep development agents and earlier batch outputs out of later author contexts.
 - [ ] P7.3 Define novelty precisely: no exposed family or derivative in this project's accessible generation inputs/history. Closed-model pretraining exposure cannot be verified and is not claimed absent. For concepts without a house counterpart, predeclare withheld style neighbors for family comparison; do not invent a direct corresponding target.
 - [ ] P7.4 Run batchA under the frozen route; retain all failures and original deadlines. Evaluate recognition, craft, family fit, native quality, geometry and delivery by stratum;20 outputs per stratum requires19 successes for a95% rate.
@@ -371,7 +371,7 @@ npm exec -w iconsmith -- vitest run scripts/local-process.test.ts scripts/local-
 npm exec -w iconsmith -- vitest run scripts/family-reference-packet.test.ts scripts/family-parts.test.ts scripts/family-morphology.test.ts scripts/cross-master-review.test.ts src/tools/boolean-native-matrix.test.ts src/tools/expanded-stroke-boolean.test.ts src/tools/dsl.test.ts src/pipeline/program.test.ts
 
 # AI protocol, qualification, population and accounting regressions
-npm exec -w iconsmith -- vitest run scripts/ai-qualification.test.ts scripts/ai-review-protocol.test.ts scripts/ai-review-assessment.test.ts scripts/ai-review-campaign.test.ts scripts/quality-exposure.test.ts scripts/quality-population.test.ts scripts/campaign-forecast.test.ts src/eval/foundry-gate.test.ts
+npm exec -w iconsmith -- vitest run scripts/ai-qualification.test.ts scripts/ai-review-protocol.test.ts scripts/ai-review-assessment.test.ts scripts/ai-review-campaign.test.ts scripts/quality-population.test.ts src/eval/foundry-gate.test.ts
 
 # Integrated verification after a material implementation wave; serialized with receipts
 npm run verify -- --out .staging/verification-next

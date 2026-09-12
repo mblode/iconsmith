@@ -2867,3 +2867,34 @@ typecheck/build/check and diff checks. Receipt:
 smokes and publint passed. Installed skill bytes match source; validator reports
 29 PASS, 0 FAIL, 4 SKIP. skills-ref is unavailable. Release remains pending via
 changeset; no publication attempted.
+
+### 2026-09-12: Architecture map and dead-module deletion
+
+Deepen + Harden pass, scoped from recent hot spots and actual entry points.
+Ordinary Knip passed before cleanup because tests rooted seven unintegrated modules.
+A runtime-only graph, including documented and executable research entries, found
+acceptance-critic-evidence, ai-control-campaign-prep, campaign-forecast,
+local-container-access-probe, local-parameter-search, quality-exposure and
+raster-proposal-feasibility had only their own tests as callers. Removed the seven
+modules and seven tests (1685 implementation + 1242 test lines), and made two
+remaining interfaces private. No runtime caller or public command was removed.
+Historical receipts remain unchanged; the current plan marks missing capabilities
+rather than claiming those deleted stubs are integrated.
+
+Mapped the public and research pipelines in docs/pipeline.md. Fixed stale
+src/index.ts ownership guidance and the removed diagnostic-test note.
+check:dead now runs ordinary Knip plus production-mode file reachability using
+explicit executable entry patterns. It runs in pre-commit and the existing CI
+verification umbrella. Proved the gate: an otherwise-valid test-only temporary
+module passes normal Knip, fails runtime reachability, then both pass after removal.
+Initial production dependency output was a source-entry configuration artifact,
+not evidence to delete paper/pathkit/sharp/zod; all remain required and packaged.
+
+Final stable-tree verification passed at
+.staging/verification-architecture-2026-09-12/receipt.json: 2356 engine tests +
+10 runner tests, zero skips, typecheck/build/check/diff. The 28 removed test cases
+covered only the deleted modules. Fresh tarball and relocated public smoke passed;
+package bytes remain 1126700 compressed / 4145110 unpacked. No new architecture
+layer or runtime dependency introduced. Research runtime retirement and broad
+export/test-seam redesign remain separate decisions; test-visible exports alone
+are not proof of dead implementation. No model or paid API calls in this pass.
