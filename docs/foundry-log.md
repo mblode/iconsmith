@@ -2794,3 +2794,76 @@ User asked for a first-principles cleanup: the starter should not depend on a fe
 ## Sibling strokes read back as DSL — 2026-09-10
 
 User asked to improve generation on the default starter route. Diagnosis: the fresh-install run's only measured defect was a reused element (the tick) drawn to the wrong size, and after the sibling lookup an author still had to translate raw path data into DSL by hand, which is where that error enters. Blode's own ticks are not one shape: `bubble-check` and `shield-check` are 45° legs, while `circle-check` (4.5×5.5), `calendar-check` (4×5) and `cloud-check` (3.5×5) sit 5–10° off 45°, so admitting one "tick" part would have been wrong; rejected. `library-siblings.ts` now reads every stroked subpath of each sibling back as the DSL op that redraws it on the 0.25 family grid (`line …`, with `off-axis` when a leg is more than 6° off an axis, or `circle …`), smallest element first, and reports `quantised` when the house canvas actually draws it elsewhere than the source ink. That flag is computed by running the op through the real canvas, not by predicting it: a segment within 6° of an axis is pulled onto the axis, so `circle-check`'s tick is exactly sayable as `line 15,9.5 10.5,15 8.5,13` yet draws as a 5×5 leg; `bubble-check`'s reads back and draws exactly. Across 408 siblings of twelve common concepts: 609 elements read back exactly, 93 are snapped by the canvas, 494 are curves reported by size only, and 29 siblings are flattened fill paths with no strokes. AGENT.md step 1 and the starter README document the readout; `check:public` asserts a placeable `line` for `circle-check`. Typecheck, check, check:dead, check:public pass; full suite recorded in the commit. No provider calls; no spend. Unmeasured: whether authors given the readout produce better drawings than authors given the sheet alone; the A/B on `bubble-check`, `bookmark-check` and `calendar-check` proposed earlier is still the way to know.
+
+## Astra simplification planning audit — 2026-09-12
+
+Planning only; authoritative proposal: `docs/plans/astra-simplification-2026-09-12.md`. Read the linked Kazden X post/image/discussion and OpenAI Astra announcement. Confirmed current onboarding still requires clone/install/build and an agent brief; npm distribution is not implemented. Counted 143,033 tracked TS/TSX lines including tests. Found completed Arm B artifacts and its two-round receipt, but no saved independent B review. Fresh explicit-SVG lint: zero errors, two centering warnings (database-backup, list-filter-plus). An initial directory invocation was refused; corrected to the documented SVG glob. Arm A has four null reviewer responses across three icons; scorer returns 0/10 usable, 5/10 semantic with three incomplete icons. Equal observed yields do not prove equivalence. Runner inspection found fail-open lint handling, pre-repair issue counts and a scoring rubric that lacks the starter's >=9 threshold. Do not infer compiler redundancy from these artifacts.
+
+Identifiable retained A/B/review receipts sum to $6.318282; this is not full accounting and the existing intent remains unreconciled. No provider calls or new spend in this turn. ccs could not start because its installed commander dependency is missing; consulted retained research history instead. Proposed order: reconcile and complete a matched comparison, package one canonical skill/CLI workflow, then prune by dependency reachability and measured quality. No implementation or production invariant changed. Documentation diff check passed; engine tests were not rerun for planning-only files.
+
+## Portable skill/CLI and matched Astra experiment — 2026-09-12
+
+Executed the simplification plan. Public npm entry is now `dist-agent/cli.js`: skill installation, pinned reference preparation, exact checking, rendering, drawing and linting. It calls no model. The canonical workflow lives in `packages/iconsmith/SKILL.md`, with the author grammar in `references/drawing.md`; the old starter brief delegates to it. The research inline author reference is generated at build time. Moved AI SDKs and the JS program runner to development dependencies; package allowlist excludes research runtime, source, corpus and staging. The public bundle reaches 33 implementation/data files and is about 260 KB, versus 909 KB for the research CLI. This is product-runtime pruning, not a claim that the research source was deleted.
+
+Fresh matched host author experiment: one candidate per arm on ten identical concepts/reference packets, up to two self-repair rounds. Authors finished as Astra host subagents before the user's correction to use Codex CLI. Independent reviewers subsequently used `gpt-6-astra` through Codex CLI with ChatGPT login and API-key variables removed. The initial 0.150.1 reviewer runs were refused before generation because Astra requires a newer CLI; retained failures, installed official 0.154.0 locally, then updated the user's global CLI at their request. Both complete reviewer panels are hash-bound. Direct SVG 3/10 usable, DSL 2/10; each 5/10 strict semantic matches. Both genuine house controls passed, both thickened-stroke controls failed. This is a small development comparison, not statistical equivalence or critic qualification. Reviewer craft stage saw anchors but not per-concept sibling packets. Strict semantic judgments and all reasons are preserved. DSL remains default; human blind preference is unanswered. [Results](log/astra-matched-host-2026-09-12/results.json).
+
+Old API run: $6.318282 of identifiable receipts remains incomplete accounting, not a fully reconciled bill. No new API calls or spend in this execution. Preserved the old repair script before fixing its fail-open lint wrapper, overwrite behavior and raw response retention; did not execute it. Added reusable strict checker parsing and hash-bound review acceptance (>=9, semantic match, unchanged approval, no defects/uncertainty); missing/duplicate/stale/malformed reviews remain incomplete. Native subscription usage is separate from API invoicing.
+
+Verification: installed tarball with fresh dependencies and no checkout symlinks passes on Node 26.7.0 and Node 24.11.0, including skill/reference installation, compilation, exact replay, native proofs, lint, repeated destination refusal and preservation of successful snapshots after a failing check. Source public smoke also passes. The first integrated run had 4 failures because the research native author still loaded grammar from the old skill path; changed that loader to the drawing reference and 63 focused tests passed. Second integrated run passed all 2,384 engine tests plus 10 runner tests, zero skips, typecheck/build/check/diff, with stable inputs during verification. Retained both receipts. Installed skill validation: 29 passes, zero failures, four nonapplicable/unrun checks; independent skills-ref executable unavailable. An initial validator invocation against the entire engine traversed unrelated research/dependency Markdown; reran against the actual installed skill. Subsequent edits are documentation/evidence only. Live installed-skill onboarding and release status will be recorded below.
+
+### Installed onboarding passed; npm authentication required
+
+The real installed-package request completed through Codex CLI 0.154.0, gpt-6-astra, ChatGPT login. Two independent authors produced candidates, both initially scored 8 by two fresh reviewers because grid/angle snapping shortened the tick. Original author B repaired it using the supplied shield-check-3 tick, which compiles unchanged. Both reviewers then scored 9, accepted unchanged and reported no defects or uncertainty. Three actual package checker calls passed exact replay without warnings; selection and evidence hashes were verified. The unused author A could not be resumed (agent not found), which did not block author B's valid repair. [Receipt and selected sample](log/astra-matched-host-2026-09-12/onboarding/receipt.json). The minimum supported Node 24.11.0 package smoke also passed.
+
+Published-package preparation passed npm dry run. Actual publication of the verified iconsmith@0.1.0 tarball was refused by npm with EOTP: account two-factor authentication is required. No release was published; user authentication is the remaining release dependency. No new API spend. The verified artifact and complete selected-example evidence are in this Codex task's outputs. Subsequent changes since integrated verification are documentation and retained evidence only; no full suite was repeated.
+
+### 2026-09-12: Changesets release setup
+
+Confirmed npm reports iconsmith 0.1.0 and the registry CLI help runs successfully.
+Adapted scaffold-cli release templates to the existing workspace: Changesets
+3.0.2, action v2 with publish-script/version-script, lockfile synchronization,
+serialized main-only OIDC workflow, existing verification and packed-install
+gates. Added an empty infrastructure changeset; no version bump or release
+requested. Changeset status, configuration guards, Knip, formatting and workflow
+validation passed. GitHub Actions PR creation is enabled. npm trusted publisher
+registration remains unverified; no remote workflow run or publish was attempted.
+
+### 2026-09-12: Consumer README rewrite
+
+Rewrote root and npm READMEs with the readme-creator skill and existing README
+voice profile. Moved contributor and historical showcase notes to CONTRIBUTING.md.
+Added a patch changeset for the registry README update. Installed iconsmith 0.1.0
+and prepared bookmark-check in a fresh directory: both passed and siblings.png
+exists. GitHub Markdown API renders the headings and command table correctly;
+all four source render-pattern checks are empty, and license/author links return
+HTTP 200. The first HTML assertion incorrectly expected headings without GitHub's
+dir attribute; the corrected assertion passed. The prior full agent onboarding
+run remains the generation evidence; no new model run was needed for this prose edit.
+
+### 2026-09-12: CLI and skill audit fixes
+
+Unified public parser/runtime JSON failures on stdout with stable codes, structured
+details and stderr recovery hints; retained natural nonzero exits. Added schema
+introspection from Commander registrations, stdin lint/render support, and stable
+DRAW_INVALID fields while retaining drawing report fields. Packed-install probes
+cover parser errors in both flag orders, missing inputs, existing outputs, schema
+requirements/enums and file/stdin lint parity.
+
+Aligned skill routing with Blode, reuse of prepared requests, blind recognition
+without target-bearing labels, supplied-part availability and the pinned radius.
+Removed unrelated Analog restrictions and undefined correction deadlines. Added
+three workflow scenarios and sixteen routing decisions. Fresh Astra CLI/ChatGPT
+decision-only runs retained draft-on-missing-review behavior and scored 16/16
+expected routing decisions before and after; see docs/log/cli-skill-fixes-2026-09-12.
+These are not host-trigger or visual-quality tests. No-skill baseline lacked tool
+context, so it does not establish an execution uplift.
+
+Initial full tests failed two prose assertions enforcing the removed stale
+instructions; updated them to guard current Blode behavior. Corrected the initial
+root-scoped formatter invocation and formatting failures. Final integrated
+verification passed on a stable tree: 2384 engine tests, 10 runner tests, no skips,
+typecheck/build/check and diff checks. Receipt:
+.staging/verification-cli-skill-fixes-2026-09-12/receipt.json. Fresh package and public
+smokes and publint passed. Installed skill bytes match source; validator reports
+29 PASS, 0 FAIL, 4 SKIP. skills-ref is unavailable. Release remains pending via
+changeset; no publication attempted.

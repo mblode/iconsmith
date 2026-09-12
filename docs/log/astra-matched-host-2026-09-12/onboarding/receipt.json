@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-12",
+  "route": "Codex CLI 0.154.0, gpt-6-astra, ChatGPT login, API-key environment removed",
+  "source": "installed iconsmith-0.1.0.tgz with fresh dependencies outside source checkout",
+  "concept": "square-check",
+  "candidates": 2,
+  "independentReviewers": 2,
+  "initialScores": [
+    8,
+    8
+  ],
+  "finalScores": [
+    9,
+    9
+  ],
+  "repairRounds": 1,
+  "checks": 3,
+  "exactReplay": true,
+  "warnings": 0,
+  "selected": true,
+  "craftApproved": "compiler remains false; independent development approval recorded separately",
+  "apiSpend": 0,
+  "hashes": {
+    "outlined.native.png": "5d05cb39a7309f2a216757d51cd22b132a5975ebff054194c57f11371cf6dc2c",
+    "outlined.icon": "44c8bfa8342bc3f44b6bcae9eb36583d2930f7c6c101d8f3c7be6c672b8a2ac0",
+    "outlined.proof.png": "f3f7252ed8ac86ae36c9120ae4a50864a664bdfef82375244f64424b39ae1f21",
+    "outlined.svg": "6ca6d35fa38e8f10f6fa43d97888ba179dcc295b0f6ed8e453e77022a2862fed"
+  },
+  "observedImprovement": "Independent review caught the quantized tick mismatch despite clean structural checks; the author repaired it using a supplied tick preserved exactly by the compiler.",
+  "limitation": "The unused author A could not be resumed (agent not found). Original author B completed the selected repair. No pipeline-wide qualification."
+}

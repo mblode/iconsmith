@@ -1,0 +1,337 @@
+[
+  {
+    "id": "R01",
+    "artifactSha256": "ccde954561cf5302842528374c28ef870fb98c520285f2d6668157293d770084",
+    "freeRecognition": "Folded-corner document containing a plus and a short horizontal line.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "Document, fold, and internal marks remain distinguishable at 24px in both polarities. Rounded strokes match the anchors; the interior is compact but readable.",
+    "semanticMatch": false,
+    "reason": "Document and plus recognized, but the horizontal line was not identified as minus or diff.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R02",
+    "artifactSha256": "6b0b6a3e579b18f490f9e1493a686a2b8e44ddb1ba798a0518fe731bea0e575c",
+    "freeRecognition": "Clipboard with a clock overlapping its lower-right corner.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The clock extends into the required right and bottom margins, leaving approximately 1px instead of 2px."
+    ],
+    "uncertain": false,
+    "observations": "Both objects read clearly in light and dark. The oversized clock pulls the composition down and right, although the rounded stroke treatment fits the family.",
+    "semanticMatch": true,
+    "reason": "Clipboard and clock explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R03",
+    "artifactSha256": "1760b55d594004f5568904fbdced723488690abce1f23df746c849555ce17d19",
+    "freeRecognition": "Two overlapping rounded squares, with an X inside the front square.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The exposed rear-square terminals meet the front square at near-tangencies, without a clear 1px gap or a clean concealed overlap."
+    ],
+    "uncertain": false,
+    "observations": "The X is legible at 24px in both polarities. Enlarged views expose awkward junctions above and left of the front square.",
+    "semanticMatch": false,
+    "reason": "X recognized, but overlapping squares were not identified as sheets, cards, or documents required for copy.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R04",
+    "artifactSha256": "40d467ab332396b81c1efb5663278c25c277ab8ea0679b2f14b83cfa042eec55",
+    "freeRecognition": "A folder with a very heavy outline.",
+    "craftScore": 4,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The outline is substantially heavier than the required 2px family stroke.",
+      "The enlarged silhouette consumes the required exterior margins."
+    ],
+    "uncertain": false,
+    "observations": "Recognizable in both polarities, but its swollen border and compressed opening look substantially different from the folder anchor.",
+    "semanticMatch": true,
+    "reason": "Folder explicitly recognized; heavy outline affects craft, not semantic identity.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R05",
+    "artifactSha256": "5c924857743ac64193b3f7a50c2609cf3bf9c315a88aa43441c3ad9c3909cda3",
+    "freeRecognition": "A card-like rectangle with a horizontal stripe and small dot, crossed by a diagonal slash.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The lower border merges into the slash near the lower-right corner, creating a heavy junction inconsistent with the other separated border segments."
+    ],
+    "uncertain": false,
+    "observations": "The crossed-out card reads at 24px in both polarities. Most interruptions are clear, but the lower junction needs cleaner separation.",
+    "semanticMatch": false,
+    "reason": "Disabled slash recognized, but the object was identified as a card-like rectangle, not a server or rack.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R06",
+    "artifactSha256": "37f940d648202f15448de4d99732521bc9c00b4e335df4b41aeb029fc1b60e97",
+    "freeRecognition": "Magnifying glass containing a check mark.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The check remains separate from the lens at 24px. The handle joins cleanly, and stroke weight and rounded terminals fit the anchors in light and dark.",
+    "semanticMatch": true,
+    "reason": "Magnifying glass and check mark recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R07",
+    "artifactSha256": "332cd29fa7f546639a80b1b0f1f2c8c7fe3a5beba4fd51e2b69eac342b0fa4bc",
+    "freeRecognition": "Two overlapping rounded squares, with a check mark inside the front square.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The rear-square terminal caps nearly touch the front square above and to its left, leaving unresolved overlap junctions."
+    ],
+    "uncertain": false,
+    "observations": "The check is strong and readable in both polarities. The rear outline needs either visible clearance or clean occlusion to meet the family craft standard.",
+    "semanticMatch": false,
+    "reason": "Check recognized, but overlapping squares were not identified as sheets, cards, or documents required for copy.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R08",
+    "artifactSha256": "c1f0dd163be8c32b13728e2bc4019ae2ff5ee606c6b24dab42ba527743962652",
+    "freeRecognition": "Folded-corner document with a plus toward the left and a horizontal line below.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The offset plus gives the fold breathing room. All components remain readable at 24px in light and dark, with consistent rounded strokes.",
+    "semanticMatch": false,
+    "reason": "Document and plus recognized, but the horizontal line was not identified as minus or diff.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R09",
+    "artifactSha256": "01e91989a8e13bf9c83c64e8bf44cf1f06248c9b43b249bc847c54d36bdd6366",
+    "freeRecognition": "A card-like rectangle with a stripe and dot, crossed by a diagonal slash.",
+    "craftScore": 6,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Short border remnants form visible nubs beside the slash at the upper-left and lower-right crossings.",
+      "The crossing clearances pinch into narrow seams rather than maintaining clean separation."
+    ],
+    "uncertain": false,
+    "observations": "The object is recognizable at 24px, but enlarged light and dark views show lumpy intersections that interrupt otherwise consistent rounded strokes.",
+    "semanticMatch": false,
+    "reason": "Disabled slash recognized, but the object was identified as a card-like rectangle, not a server or rack.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R10",
+    "artifactSha256": "b235d9b8b412e3556f552d976bae20203deb7c7cfbeeed4b27cdde0e3da6d326",
+    "freeRecognition": "Two overlapping rounded squares, with a check mark in the front square.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "Clean occlusion establishes the two layers. The check has comfortable clearance and stays legible at 24px in both polarities; curves and weight fit the anchors.",
+    "semanticMatch": false,
+    "reason": "Check recognized, but overlapping squares were not identified as sheets, cards, or documents required for copy.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R11",
+    "artifactSha256": "cbb1a7642b4445ea795321859d043d2f6fa121f716d143ecb3c22c2ab2d51d80",
+    "freeRecognition": "Two overlapping rounded squares, with an X in the front square.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The centered X has ample surrounding space. Layering, rounded corners, and stroke weight remain coherent at native size and in both enlarged polarities.",
+    "semanticMatch": false,
+    "reason": "X recognized, but overlapping squares were not identified as sheets, cards, or documents required for copy.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R12",
+    "artifactSha256": "a63e5d3804b679148a7192d81ad1919d35fce9ff3584096898109d295276f933",
+    "freeRecognition": "Three progressively shorter, centered horizontal bars with a plus at the lower right; possibly a filter symbol.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": true,
+    "observations": "The precise object meaning is ambiguous, but the geometry is clear. Spacing, round caps, and modifier separation hold up at 24px in both polarities.",
+    "semanticMatch": true,
+    "reason": "Filter explicitly offered as a tentative recognition, and plus recognized; the object recognition remains uncertain.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R13",
+    "artifactSha256": "752cc992e96f2ed5daca58a16f56d091482813f975bbc694512f59becf89834a",
+    "freeRecognition": "A folder without an additional modifier.",
+    "craftScore": 10,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "Closely matches the folder anchor's proportions, shoulder transition, and rounded outline. Open interior and silhouette remain clean at 24px in light and dark.",
+    "semanticMatch": true,
+    "reason": "Folder explicitly recognized; the target requires no additional semantic modifier.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R14",
+    "artifactSha256": "dba47c71de528f36dcbabc25548f1deffa1d0533b568435577d082795acfa43a",
+    "freeRecognition": "A database cylinder with a curved return arrow at the lower right.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The elliptical top establishes the cylinder clearly. The arrow and interrupted bands remain distinguishable at 24px in both polarities, with family-consistent weight and caps.",
+    "semanticMatch": false,
+    "reason": "Database recognized, but a curved return arrow alone does not explicitly establish backup or restore.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R15",
+    "artifactSha256": "48a130d89799e31f08cc6f10ed8b5b1c11f73447466b5fb4a00cccba3b471cd2",
+    "freeRecognition": "Clipboard containing a plus.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The clip opening and centered plus survive native-size rendering. The narrow body is balanced, with consistent rounded strokes and clear internal spacing in both polarities.",
+    "semanticMatch": true,
+    "reason": "Clipboard and plus explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R16",
+    "artifactSha256": "08a98f4e033e567f3c96a9e8efe61a7a232c022c203e81eae1547199627ce66a",
+    "freeRecognition": "A thick circular ring containing a heavy check mark.",
+    "craftScore": 4,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "Ring and check strokes are substantially heavier than the 2px family standard.",
+      "The check nearly touches the inner ring, collapsing the required clear gap.",
+      "The outer ring encroaches on the required 2px margins."
+    ],
+    "uncertain": false,
+    "observations": "The symbol remains recognizable, but looks congested at 24px in both polarities and differs markedly from the circle-check anchor.",
+    "semanticMatch": true,
+    "reason": "Circular ring and check recognized; excessive weight affects craft, not semantic identity.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R17",
+    "artifactSha256": "4f6b4e41a773852933f49c59c10a16c443b6e97252c643eceb621f26f5edad39",
+    "freeRecognition": "A circle containing a check mark.",
+    "craftScore": 10,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "Matches the anchor's open spacing, rounded check, and balanced ring. Recognition and stroke consistency remain strong at 24px in light and dark.",
+    "semanticMatch": true,
+    "reason": "Circle and check explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R18",
+    "artifactSha256": "40cbd6e376b46c36e781277c2d12fb37d72b73a826f52e53c97ff669310092ff",
+    "freeRecognition": "A three-tier rounded stack, possibly storage or a database, with a clockwise curved arrow at the lower right.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": true,
+    "observations": "The flattened top makes the underlying object less specific than a cylinder. Nevertheless, stack and arrow remain separated and readable at 24px, with consistent family strokes in both polarities.",
+    "semanticMatch": false,
+    "reason": "Database was only a possible object identification, and the clockwise curved arrow was not recognized as backup or restore.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R19",
+    "artifactSha256": "fe040c15e2536f61a519fba4ba0c7bf022609edfd01676406c17b5e59cda9870",
+    "freeRecognition": "Clipboard containing a plus.",
+    "craftScore": 10,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "Balanced body width gives the plus generous clearance. The clip, corners, and rounded terminals feel consistent with the anchors and remain crisp in both native-size polarities.",
+    "semanticMatch": true,
+    "reason": "Clipboard and plus explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R20",
+    "artifactSha256": "f5280b3d70d0547e540c4777b92e69b627dc386068e5e7e8fae1ebc3b3465a10",
+    "freeRecognition": "Clipboard with a small clock at its lower-right corner.",
+    "craftScore": 7,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The clock's vertical hand meets the inner ring at twelve o'clock, eliminating the required gap.",
+      "The diagonal hand tip is crowded against the ring."
+    ],
+    "uncertain": false,
+    "observations": "The clipboard and badge placement are balanced, but the clock interior congests at 24px, especially in white on black. Its hands need more clearance.",
+    "semanticMatch": true,
+    "reason": "Clipboard and clock explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R21",
+    "artifactSha256": "3f2f1906f101d5b827cecb132f11869c00f1645aecd1b2b01aefdfd5cf56040b",
+    "freeRecognition": "Three left-aligned horizontal list lines with a plus on the right.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "Clear alignment and generous separation make both list and plus readable at 24px. Rounded caps and uniform weight match the family in light and dark.",
+    "semanticMatch": true,
+    "reason": "List and adding plus explicitly recognized, satisfying the stated filtering/list and adding criterion.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R22",
+    "artifactSha256": "71531a96704e5736c2ef7078dfcb936c672e253a92e3c6ef7eb6d56550b26b55",
+    "freeRecognition": "A clock with an interrupted lower-right outline and a plus in that opening.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The opening gives the plus generous clearance while preserving clock recognition. Hands, circular outline, and rounded caps remain coherent at 24px in both polarities.",
+    "semanticMatch": true,
+    "reason": "Clock and plus explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R23",
+    "artifactSha256": "8d01243f44c9cb0081f0f68bef5b87d886e8a06949b9d2da08127088ab516815",
+    "freeRecognition": "Magnifying glass containing a check mark.",
+    "craftScore": 8,
+    "shipUnchanged": false,
+    "criticalDefects": [
+      "The handle connection creates a visible inward bump on the lens's lower-right inner contour."
+    ],
+    "uncertain": false,
+    "observations": "The symbol reads well at 24px and otherwise matches the family. Enlarged light and dark views expose the uneven lens-to-handle junction.",
+    "semanticMatch": true,
+    "reason": "Magnifying glass and check mark recognized.",
+    "reviewer": "reviewer-one-v2"
+  },
+  {
+    "id": "R24",
+    "artifactSha256": "18dc95cd6e871c1e391d9ff7b14d0db5edcfe379cd242b6d02c8c64191268443",
+    "freeRecognition": "A clock with a plus at the lower right, occupying a break in the circular outline.",
+    "craftScore": 9,
+    "shipUnchanged": true,
+    "criticalDefects": [],
+    "uncertain": false,
+    "observations": "The longer circular outline retains a clear clock silhouette while leaving visible clearance around the plus. Weight, rounded terminals, and native-size readability are consistent in both polarities.",
+    "semanticMatch": true,
+    "reason": "Clock and plus explicitly recognized.",
+    "reviewer": "reviewer-one-v2"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "model": "gpt-6-astra",
+  "access": "Codex CLI 0.154.0 with ChatGPT login; API key variables stripped",
+  "mode": "decision-only, read-only, fresh sessions; not actual image generation or host-trigger measurement",
+  "routing": {
+    "before": {
+      "correct": 16,
+      "total": 16
+    },
+    "after": {
+      "correct": 16,
+      "total": 16
+    }
+  },
+  "conclusions": [
+    "Before and after both choose reuse of prepared requests and draft status without reviewers.",
+    "Without supplied skill, the model allows self-reviewed acceptance; this supports retaining the independent-review policy.",
+    "No visual quality uplift is established."
+  ],
+  "limitations": [
+    "Only Astra high effort tested.",
+    "Full body supplied for routing decisions; actual host trigger accuracy remains unmeasured.",
+    "Baseline reported iconsmith unavailable; it is not a fair tool-execution comparison."
+  ],
+  "verification": {
+    "status": "passed",
+    "engineTests": 2384,
+    "runnerTests": 10,
+    "skipped": 0,
+    "packageSmoke": "passed",
+    "publicSmoke": "passed",
+    "publint": "passed",
+    "skillValidator": {
+      "pass": 29,
+      "fail": 0,
+      "skip": 4
+    }
+  }
+}

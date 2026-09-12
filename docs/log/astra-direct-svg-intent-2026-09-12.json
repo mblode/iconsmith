@@ -1,0 +1,36 @@
+{
+  "id": "astra-direct-svg-2026-09-12",
+  "recordedAt": "2026-09-12",
+  "status": "intent-frozen-before-dispatch",
+  "requestedBy": "user",
+  "question": "Does GPT-6 Astra emitting SVG directly under measured grid/stroke constraints beat the 5/10 usable-yield DSL baseline on the same ten concepts?",
+  "motivation": "docs/log/path-comparison-2026-09-10/comparison.md lists direct SVG as unranked: 'historical four-bell experiment delivered SVG but lacked constrained program replay and independent qualified scores. Current credentials unavailable.' Credentials are now present. External report (@kazdenc, 2026-09-11) claims Astra draws usable icon sets from grid and stroke constraints alone.",
+  "arm": "astra-direct-svg",
+  "model": "gpt-6-astra",
+  "baseline": {
+    "source": "docs/log/path-comparison-2026-09-10/ranking.json",
+    "bestArms": ["ai-alternative", "ai-repaired"],
+    "usableBoth": 5,
+    "requested": 10
+  },
+  "concepts": [
+    "clipboard-clock", "clipboard-plus", "clock-plus", "copy-check", "copy-x",
+    "database-backup", "file-diff", "list-filter-plus", "search-check", "server-off"
+  ],
+  "budget": {
+    "currency": "USD",
+    "reserved": 50.0,
+    "authorizedBy": "user",
+    "supersedes": "the $100 path-comparison reservation is a separate historical wave; this is a new bounded reservation",
+    "stopCondition": "stop on unresolved accounting; no external retries"
+  },
+  "rates": {
+    "note": "published gpt-6-astra text rates at time of intent",
+    "inputPerMTok": 10.0,
+    "cachedInputPerMTok": 1.0,
+    "outputPerMTok": 50.0
+  },
+  "actualCost": "unreconciled",
+  "qualification": false,
+  "scopeLimits": "Development comparison against an uncalibrated baseline. Exposed concepts. Not sealed qualification and not human preference."
+}

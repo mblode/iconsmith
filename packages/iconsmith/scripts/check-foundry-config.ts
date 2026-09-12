@@ -5,6 +5,21 @@ import path from "node:path";
 import { parse } from "jsonc-parser";
 import type { ParseError } from "jsonc-parser";
 
+const portablePackage = (pkg: {
+  bin?: { iconsmith?: string };
+  files?: string[];
+  version?: string;
+}) =>
+  pkg.bin?.iconsmith === "dist-agent/cli.js" &&
+  Boolean(pkg.version) &&
+  JSON.stringify(pkg.files) ===
+    JSON.stringify([
+      "dist-agent/",
+      "SKILL.md",
+      "references/",
+      "library/blode-icons/",
+    ]);
+
 export const checkFoundryConfig = (root: string): string[] => {
   const failures: string[] = [];
   const read = (name: string) =>
@@ -56,12 +71,9 @@ export const checkFoundryConfig = (root: string): string[] => {
       }
     }
   }
-  if (
-    pkg.private !== true ||
-    ["bin", "version", "files"].some((key) => pkg[key] !== undefined)
-  ) {
+  if (!portablePackage(pkg)) {
     failures.push(
-      "F22: iconsmith is private and unpublished; remove release/bin/version/files metadata."
+      "F22: publish only the portable agent CLI and its assets; keep research and corpus out of the package."
     );
   }
   return failures;

@@ -154,7 +154,7 @@ const SKILL_FILE = "SKILL.md";
  * is bundled into the CLI so isolated runtimes can stage the same instructions
  * even when the source Markdown is unavailable beside the executable.
  *
- * `skill.test.ts` asserts this text equals the package-root file.
+ * `skill.test.ts` asserts this text equals references/drawing.md.
  */
 export const packagedSkillText: string = packagedSkillJson.lines.join("\n");
 
@@ -220,18 +220,20 @@ const stageCli = (dir: string, env: NodeJS.ProcessEnv): NodeJS.ProcessEnv => {
  */
 const trySkillPath = (): string | null => {
   const besideSource = fileURLToPath(
-    new URL("../../SKILL.md", import.meta.url)
+    new URL("../../references/drawing.md", import.meta.url)
   );
   if (existsSync(besideSource)) {
     return besideSource;
   }
-  const besideDist = fileURLToPath(new URL("../SKILL.md", import.meta.url));
+  const besideDist = fileURLToPath(
+    new URL("../references/drawing.md", import.meta.url)
+  );
   if (existsSync(besideDist)) {
     return besideDist;
   }
   return findFromCwd([
-    path.join("packages", "iconsmith", "SKILL.md"),
-    path.join("node_modules", "iconsmith", "SKILL.md"),
+    path.join("packages", "iconsmith", "references", "drawing.md"),
+    path.join("node_modules", "iconsmith", "references", "drawing.md"),
   ]);
 };
 

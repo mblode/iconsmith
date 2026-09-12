@@ -1,6 +1,6 @@
 # iconsmith (monorepo)
 
-Icon generation that cannot drift, because the model never emits a coordinate.
+Icon generation with pinned family references, constrained geometry and independent review.
 
 ## Layout
 
@@ -43,7 +43,7 @@ the upstream commit); `scripts/library-siblings.ts` ranks its drawings for a
 concept, and `scripts/blode-icons.ts` is the only place that path is spelled.
 It is independent of the private measurement corpus below. Keep the starter
 portable: no sibling checkout, author home paths or ignored staging artifacts.
-For user-requested icon drafting, follow `examples/starter/AGENT.md`; it uses
+For user-requested icon drafting, follow `packages/iconsmith/SKILL.md`; it uses
 the bundled revision and real checker. `generate:local` is a separate advanced
 contained route and is not configured by a fresh clone.
 
@@ -96,13 +96,12 @@ contained route and is not configured by a fresh clone.
 - **`oxlint` is pinned to exactly 1.78.0.** 1.79 dropped `react/react-compiler`,
   which ultracite 7.10.5's react preset still sets, so the pair fails to parse any
   config that extends it. Unpin only after checking the installed Ultracite preset still loads.
-- **Nothing here is published.** `packages/iconsmith` is `private: true` with no
-  `version`, no `bin` and no `files`; changesets and the Release workflow are
-  gone, having failed on every push for want of anything to release. The CLI is
-  still built and still works — `pipeline/harness.ts` symlinks `dist/cli.js` onto
-  PATH so the spawned drawing model can run `iconsmith draw` to check its own
-  work — it is simply no longer a `bin` anyone installs. Do not re-add npm
-  metadata to make a tool feel finished.
+- **The public package ships the agent CLI, not the research runtime.** `bin.iconsmith`
+  points to `dist-agent/cli.js`. Its allowlisted files contain the skill, drawing
+  reference, pinned revision and MIT Blode library. `dist/cli.js` remains the
+  source-checkout research CLI. API adapters are development dependencies and
+  never a fallback from the public skill. Validate a fresh tarball install with
+  `npm run check:package` before release; source smoke is not packaging evidence.
 - **The lint config lives in `packages/iconsmith`.** It formats its Markdown.
   There is no root Ultracite config; run `npm run check` from the root.
 - Root configuration invariants are checked by `npm run check:foundry`, wired

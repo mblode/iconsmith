@@ -39,3 +39,5 @@ credentials.json
 # Local render snapshots include private retrieved house-reference geometry.
 /output/ten-icons-repaired-2026-09-09/*/revision.json
 /output/ten-icons-repaired-2026-09-09/*/check-*/
+
+/packages/iconsmith/dist-agent/

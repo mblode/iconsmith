@@ -1,0 +1,421 @@
+{
+  "date": "2026-09-12",
+  "model": "gpt-6-astra",
+  "authorRoute": "host-subagents, completed before user requested CLI",
+  "reviewRoute": "codex-cli 0.154.0 using ChatGPT login, API key environment removed",
+  "apiSpend": 0,
+  "subscriptionCost": "unavailable; native usage below is not an API invoice",
+  "usage": [
+    {
+      "reviewer": "reviewer-one-v2",
+      "stage": "events",
+      "input_tokens": 37681,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 6798,
+      "reasoning_output_tokens": 3106
+    },
+    {
+      "reviewer": "reviewer-one-v2",
+      "stage": "semantic-events",
+      "input_tokens": 23462,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 873,
+      "reasoning_output_tokens": 218
+    },
+    {
+      "reviewer": "reviewer-two-v2",
+      "stage": "events",
+      "input_tokens": 37681,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 7376,
+      "reasoning_output_tokens": 3624
+    },
+    {
+      "reviewer": "reviewer-two-v2",
+      "stage": "semantic-events",
+      "input_tokens": 23516,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 825,
+      "reasoning_output_tokens": 164
+    }
+  ],
+  "totals": {
+    "svg": {
+      "requested": 10,
+      "complete": 10,
+      "semanticBoth": 5,
+      "usable": 3
+    },
+    "dsl": {
+      "requested": 10,
+      "complete": 10,
+      "semanticBoth": 5,
+      "usable": 2
+    },
+    "control-good": {
+      "requested": 2,
+      "complete": 2,
+      "semanticBoth": 2,
+      "usable": 2
+    },
+    "control-bad": {
+      "requested": 2,
+      "complete": 2,
+      "semanticBoth": 2,
+      "usable": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "R01",
+      "arm": "svg",
+      "concept": "file-diff",
+      "artifactSha256": "ccde954561cf5302842528374c28ef870fb98c520285f2d6668157293d770084",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R02",
+      "arm": "svg",
+      "concept": "clipboard-clock",
+      "artifactSha256": "6b0b6a3e579b18f490f9e1493a686a2b8e44ddb1ba798a0518fe731bea0e575c",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        7,
+        8
+      ]
+    },
+    {
+      "id": "R03",
+      "arm": "dsl",
+      "concept": "copy-x",
+      "artifactSha256": "1760b55d594004f5568904fbdced723488690abce1f23df746c849555ce17d19",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "R04",
+      "arm": "control-bad",
+      "concept": "folder-1",
+      "artifactSha256": "40d467ab332396b81c1efb5663278c25c277ab8ea0679b2f14b83cfa042eec55",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        4,
+        3
+      ]
+    },
+    {
+      "id": "R05",
+      "arm": "svg",
+      "concept": "server-off",
+      "artifactSha256": "5c924857743ac64193b3f7a50c2609cf3bf9c315a88aa43441c3ad9c3909cda3",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        8,
+        7
+      ]
+    },
+    {
+      "id": "R06",
+      "arm": "svg",
+      "concept": "search-check",
+      "artifactSha256": "37f940d648202f15448de4d99732521bc9c00b4e335df4b41aeb029fc1b60e97",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R07",
+      "arm": "dsl",
+      "concept": "copy-check",
+      "artifactSha256": "332cd29fa7f546639a80b1b0f1f2c8c7fe3a5beba4fd51e2b69eac342b0fa4bc",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "R08",
+      "arm": "dsl",
+      "concept": "file-diff",
+      "artifactSha256": "c1f0dd163be8c32b13728e2bc4019ae2ff5ee606c6b24dab42ba527743962652",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        9,
+        8
+      ]
+    },
+    {
+      "id": "R09",
+      "arm": "dsl",
+      "concept": "server-off",
+      "artifactSha256": "01e91989a8e13bf9c83c64e8bf44cf1f06248c9b43b249bc847c54d36bdd6366",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        6,
+        6
+      ]
+    },
+    {
+      "id": "R10",
+      "arm": "svg",
+      "concept": "copy-check",
+      "artifactSha256": "b235d9b8b412e3556f552d976bae20203deb7c7cfbeeed4b27cdde0e3da6d326",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R11",
+      "arm": "svg",
+      "concept": "copy-x",
+      "artifactSha256": "cbb1a7642b4445ea795321859d043d2f6fa121f716d143ecb3c22c2ab2d51d80",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R12",
+      "arm": "dsl",
+      "concept": "list-filter-plus",
+      "artifactSha256": "a63e5d3804b679148a7192d81ad1919d35fce9ff3584096898109d295276f933",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R13",
+      "arm": "control-good",
+      "concept": "folder-1",
+      "artifactSha256": "752cc992e96f2ed5daca58a16f56d091482813f975bbc694512f59becf89834a",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": "R14",
+      "arm": "svg",
+      "concept": "database-backup",
+      "artifactSha256": "dba47c71de528f36dcbabc25548f1deffa1d0533b568435577d082795acfa43a",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R15",
+      "arm": "svg",
+      "concept": "clipboard-plus",
+      "artifactSha256": "48a130d89799e31f08cc6f10ed8b5b1c11f73447466b5fb4a00cccba3b471cd2",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R16",
+      "arm": "control-bad",
+      "concept": "circle-check",
+      "artifactSha256": "08a98f4e033e567f3c96a9e8efe61a7a232c022c203e81eae1547199627ce66a",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        4,
+        3
+      ]
+    },
+    {
+      "id": "R17",
+      "arm": "control-good",
+      "concept": "circle-check",
+      "artifactSha256": "4f6b4e41a773852933f49c59c10a16c443b6e97252c643eceb621f26f5edad39",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        10,
+        10
+      ]
+    },
+    {
+      "id": "R18",
+      "arm": "dsl",
+      "concept": "database-backup",
+      "artifactSha256": "40cbd6e376b46c36e781277c2d12fb37d72b73a826f52e53c97ff669310092ff",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": false,
+      "scores": [
+        9,
+        8
+      ]
+    },
+    {
+      "id": "R19",
+      "arm": "dsl",
+      "concept": "clipboard-plus",
+      "artifactSha256": "fe040c15e2536f61a519fba4ba0c7bf022609edfd01676406c17b5e59cda9870",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        10,
+        9
+      ]
+    },
+    {
+      "id": "R20",
+      "arm": "dsl",
+      "concept": "clipboard-clock",
+      "artifactSha256": "f5280b3d70d0547e540c4777b92e69b627dc386068e5e7e8fae1ebc3b3465a10",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        7,
+        7
+      ]
+    },
+    {
+      "id": "R21",
+      "arm": "svg",
+      "concept": "list-filter-plus",
+      "artifactSha256": "3f2f1906f101d5b827cecb132f11869c00f1645aecd1b2b01aefdfd5cf56040b",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R22",
+      "arm": "svg",
+      "concept": "clock-plus",
+      "artifactSha256": "71531a96704e5736c2ef7078dfcb936c672e253a92e3c6ef7eb6d56550b26b55",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        9,
+        9
+      ]
+    },
+    {
+      "id": "R23",
+      "arm": "dsl",
+      "concept": "search-check",
+      "artifactSha256": "8d01243f44c9cb0081f0f68bef5b87d886e8a06949b9d2da08127088ab516815",
+      "reason": "At least one complete review rejects the artifact",
+      "status": "rejected",
+      "usable": false,
+      "semanticBoth": true,
+      "scores": [
+        8,
+        8
+      ]
+    },
+    {
+      "id": "R24",
+      "arm": "dsl",
+      "concept": "clock-plus",
+      "artifactSha256": "18dc95cd6e871c1e391d9ff7b14d0db5edcfe379cd242b6d02c8c64191268443",
+      "reason": "Both reviewers pass the frozen rubric",
+      "status": "accepted",
+      "usable": true,
+      "semanticBoth": true,
+      "scores": [
+        9,
+        9
+      ]
+    }
+  ],
+  "decision": "Inconclusive; retain DSL default pending human preference and stronger evidence. No qualification promotion.",
+  "limits": [
+    "One candidate per arm per concept; up to two self-repair rounds.",
+    "Authors share model lineage; reviewers are independent fresh contexts of that lineage.",
+    "Reviewers saw twelve anchors; their blind craft stage did not see per-concept sibling packets.",
+    "Two simple positive and two thickened-stroke negative controls are a basic sanity check, not critic qualification.",
+    "Semantic matching is strict; inspect free recognition and reasons rather than treating counts as human preference.",
+    "16px previews are downsample diagnostics; the public promise is 24px outlined.",
+    "Author stage elapsed receipts omit initial reading/reasoning and are not end-to-end latency measurements.",
+    "Historical paid run remains unreconciled; no new API calls."
+  ]
+}

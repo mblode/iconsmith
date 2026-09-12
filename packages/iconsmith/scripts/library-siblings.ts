@@ -281,7 +281,7 @@ export const librarySiblings = (
 };
 
 /** Write `siblings.json` and a `siblings.png` contact sheet into a new directory. */
-const writeLibrarySiblings = async (
+export const writeLibrarySiblings = async (
   result: LibrarySiblingsResult,
   out: string
 ): Promise<void> => {

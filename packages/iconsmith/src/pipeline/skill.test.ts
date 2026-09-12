@@ -175,14 +175,17 @@ describe("SKILL.md's examples are programs, not prose", () => {
 });
 
 describe("SKILL.md steers the paints the generate brief names", () => {
-  it("teaches house heart lobes and holds out a star", () => {
+  it("teaches house silhouettes without unrelated family restrictions", () => {
     expect(SKILL).toContain("evenodd compound of two lobes");
     expect(SKILL).toContain("not three circles");
     expect(SKILL).toContain("one heater silhouette");
     expect(SKILL).toContain("one bolt silhouette");
     expect(SKILL).toContain("two rounded uprights");
     expect(SKILL).toContain("right-pointing triangle");
-    expect(SKILL).toContain("Do not volunteer a star");
+    expect(SKILL).toContain(
+      "For a requested star, inspect the supplied Blode siblings"
+    );
+    expect(SKILL).not.toContain("Analog has no star family");
     expect(SKILL).toContain("Not a star");
   });
 });
@@ -232,7 +235,7 @@ describe("active author instructions match current construction capabilities", (
       expect(brief).not.toContain("outlined paint refuse `solid`");
     }
     expect(packagedSkillText).toContain(
-      "Compiler correction and named visual repair have separate bounded allowances"
+      "Use the calling workflow's repair limit"
     );
     expect(packagedSkillText).toContain(
       "independent AI review determines acceptance"

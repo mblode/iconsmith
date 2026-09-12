@@ -2,40 +2,71 @@
 
 # Iconsmith
 
-**Draw SVG icons with coding agents and repeatable geometry**
+**Create SVG icons that match the Blode family with your coding agent**
 
-Ask your agent for an icon. It draws alternatives, reviews them and exports an SVG.
+Describe an icon, compare independently reviewed candidates, and keep the SVG and previews.
 
-<img src="docs/showcase.png" alt="Six concepts drawn by the pipeline, each in outlined and filled" width="1016">
+<p align="center">
+  <a href="https://www.npmjs.com/package/iconsmith">
+    <img src="https://img.shields.io/npm/v/iconsmith?style=flat&colorA=000000&colorB=000000" alt="npm version" />
+  </a>
+  <a href="https://github.com/mblode/iconsmith/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/mblode/iconsmith?style=flat&colorA=000000&colorB=000000" alt="MIT license" />
+  </a>
+</p>
 
 </div>
 
 ## Install
 
-Requires Node.js 24.11 or newer and npm. Run from the repository:
+Run in the project where you want to create icons:
 
 ```bash
-git clone https://github.com/mblode/iconsmith.git
-cd iconsmith
-npm ci
-npm run build:local
+npx --yes iconsmith@0.1.0 skill --out .agents/skills/iconsmith
 ```
+
+Requires Node.js 24.11 or newer and a coding agent with shell access, image viewing and independent subagents. Generation uses your agent account, with no separate API key.
 
 ## Quickstart
 
-Open this folder in Codex or Claude Code and send:
+Prepare a bookmark-check request and its reference drawings:
 
-> Read examples/starter/AGENT.md and execute its drawing task.
+```bash
+npx --yes iconsmith@0.1.0 prepare bookmark-check --out icon-work/bookmark-check
+```
 
-The [brief](examples/starter/AGENT.md) runs parallel AI authors, independent visual
-reviews and repairs using the included references. Use your own agent account
-with subagent and image-viewing support. Unresolved defects leave the result as a
-draft. The pipeline is not yet qualified as 10/10.
+Open `icon-work/bookmark-check/references/siblings.png` to see related Blode icons. Refresh your agent session to load the installed skill, then ask:
 
-The default style is [blode-icons](examples/starter/README.md): the house library
-is bundled under MIT. No private dataset or sibling repository is needed.
+> Use iconsmith to create a bookmark-check icon from the prepared request in icon-work/bookmark-check. Show the selected SVG and native previews.
 
-See [local setup](docs/local-setup.md) for the output files and troubleshooting.
+The agent draws two candidates, checks their geometry, and asks two fresh reviewers to assess the images. Accepted output includes an SVG, editable `.icon` drawing, PNG previews and a review record. Candidates that still need work remain drafts.
+
+## What you get
+
+- **Matching references:** bundled MIT Blode drawings and a pinned 24px outlined style.
+- **Repeatable drawings:** an editable drawing format that recompiles to the same SVG.
+- **Visual review:** native-size and enlarged light/dark previews, checked for meaning and family fit.
+- **Local tools:** prepare, compile, render and lint without model calls from the CLI.
+
+## Commands
+
+Prefix commands with `npx --yes iconsmith@0.1.0`. Use `--help` for command options.
+
+| Command | Purpose |
+| --- | --- |
+| `skill` | Install the agent workflow in a new directory. |
+| `prepare` | Save a request, pinned revision and related drawings. |
+| `check` | Compile a candidate, verify exact replay and create preview images. |
+| `render` | Preview an existing SVG at native size and on light/dark backgrounds. |
+| `draw` | Compile an `.icon` drawing to SVG. |
+| `lint` | Check SVG files or piped SVG against the house spec. |
+| `schema` | Read command arguments, options, defaults and enums as JSON. |
+
+Commands never prompt. Use `--output json` for structured CLI output. Skill, request and proof directories must be new so existing work is preserved.
+
+## Notes
+
+The default workflow creates outlined Blode icons. A clean geometry check does not prove that an icon communicates the right meaning; inspect the previews and review record before using it. Image viewing and independent review are required to accept a result. This workflow does not create logos or define a new icon family.
 
 ## License
 
