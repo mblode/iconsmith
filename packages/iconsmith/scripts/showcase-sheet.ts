@@ -21,23 +21,28 @@ const ROOT = path.resolve(import.meta.dirname, "../../..");
 const SET = path.join(ROOT, "output/ten-icons-repaired-2026-09-09");
 const OUT = path.join(ROOT, "docs");
 
-/** Review order from the run's own `validation.json`, not alphabetical: the
- *  sheet and the record should be read in the same sequence. */
+/** Six of the run's ten, in its own `validation.json` order. The other four are
+ *  held out because they do not survive being looked at closely, which is the
+ *  one thing a showcase has to do: `camera-sparkle` breaks its body's top edge
+ *  into a stub ending in mid-air and puts the lens a unit left of centre;
+ *  `key`'s bit is a shapeless knot; `folder-lock` filled grows a bare tab off
+ *  its right side; `satellite-dish`'s feed arm overshoots the rim. The checker
+ *  already names two of them (`gap` on key and satellite-dish) and reports
+ *  `craftApproved: false` for all ten — the run's "no blocking contour defect
+ *  observed" line is the author reviewing itself, and it is not load-bearing.
+ *  Do not restore a concept here on the strength of that line; enlarge it and
+ *  look, the way `.scratch` renders at 190px+ make easy. */
 const CONCEPTS = [
-  "folder-lock",
   "shield-check",
   "clock-check",
   "jellyfish",
-  "satellite-dish",
-  "camera-sparkle",
   "bookmark-play",
-  "key",
   "headphones",
   "leaf",
 ];
 
-const COLS = 5;
-const TILE_W = 176;
+const COLS = 6;
+const TILE_W = 160;
 const TILE_H = 120;
 const PAD = 28;
 /** 24px drawn at 2×. The stroke scales with it, so a tile is the icon's own
