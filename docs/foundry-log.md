@@ -2827,3 +2827,15 @@ gates. Added an empty infrastructure changeset; no version bump or release
 requested. Changeset status, configuration guards, Knip, formatting and workflow
 validation passed. GitHub Actions PR creation is enabled. npm trusted publisher
 registration remains unverified; no remote workflow run or publish was attempted.
+
+### 2026-09-12: Consumer README rewrite
+
+Rewrote root and npm READMEs with the readme-creator skill and existing README
+voice profile. Moved contributor and historical showcase notes to CONTRIBUTING.md.
+Added a patch changeset for the registry README update. Installed iconsmith 0.1.0
+and prepared bookmark-check in a fresh directory: both passed and siblings.png
+exists. GitHub Markdown API renders the headings and command table correctly;
+all four source render-pattern checks are empty, and license/author links return
+HTTP 200. The first HTML assertion incorrectly expected headings without GitHub's
+dir attribute; the corrected assertion passed. The prior full agent onboarding
+run remains the generation evidence; no new model run was needed for this prose edit.

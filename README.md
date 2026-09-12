@@ -2,37 +2,79 @@
 
 # Iconsmith
 
-**Draw SVG icons with coding agents and repeatable geometry**
+**Create SVG icons that match the Blode family with your coding agent**
 
-Ask your agent for an icon. It draws alternatives, reviews them and exports an SVG.
+Describe an icon, compare independently reviewed candidates, and keep the SVG and previews.
 
-<img src="docs/showcase.png" alt="Six concepts drawn by the pipeline, each in outlined and filled" width="1016">
-
-<sub>Six concepts, both paints, selected from <a href="output/ten-icons-repaired-2026-09-09/">one run of ten</a> — the other four have contour defects. Regenerate the sheet with <code>npx tsx packages/iconsmith/scripts/showcase-sheet.ts</code>.</sub>
+<p align="center">
+  <a href="https://www.npmjs.com/package/iconsmith">
+    <img src="https://img.shields.io/npm/v/iconsmith?style=flat&colorA=000000&colorB=000000" alt="npm version" />
+  </a>
+  <a href="https://github.com/mblode/iconsmith/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/mblode/iconsmith?style=flat&colorA=000000&colorB=000000" alt="MIT license" />
+  </a>
+</p>
 
 </div>
 
-## Install the skill
+## Install
 
-Requires Node.js 24.11 or newer and a coding agent with image viewing and independent subagents.
 Run in the project where you want to create icons:
 
 ```bash
 npx --yes iconsmith@0.1.0 skill --out .agents/skills/iconsmith
 ```
 
-Open or refresh your agent session, then ask:
+Requires Node.js 24.11 or newer and a coding agent with shell access, image viewing
+and independent subagents. Generation uses your agent account, with no separate API key.
 
-> Create a bookmark-check icon with iconsmith.
+## Quickstart
 
-Your agent uses the bundled Blode references, draws competing candidates, checks
-native previews and requests independent reviews. It uses your agent account;
-there is no separate API key. Unresolved defects leave the result as a draft.
-The pipeline is not yet qualified as 10/10.
+Prepare a bookmark-check request and its reference drawings:
 
-The default style is blode-icons, bundled under MIT. No private dataset,
-repository clone or source build is needed for the installed workflow.
-See [local setup](docs/local-setup.md) for outputs, source development and troubleshooting.
+```bash
+npx --yes iconsmith@0.1.0 prepare bookmark-check --out icon-work/bookmark-check
+```
+
+Open `icon-work/bookmark-check/references/siblings.png` to see related Blode icons.
+Refresh your agent session to load the installed skill, then ask:
+
+> Use iconsmith to create a bookmark-check icon from the prepared request in
+> icon-work/bookmark-check. Show the selected SVG and native previews.
+
+The agent draws two candidates, checks their geometry, and asks two fresh reviewers
+to assess the images. Accepted output includes an SVG, editable `.icon` drawing,
+PNG previews and a review record. Candidates that still need work remain drafts.
+
+## What you get
+
+- **Matching references:** bundled MIT Blode drawings and a pinned 24px outlined style.
+- **Repeatable drawings:** an editable drawing format that recompiles to the same SVG.
+- **Visual review:** native-size and enlarged light/dark previews, checked for meaning and family fit.
+- **Local tools:** prepare, compile, render and lint without model calls from the CLI.
+
+## Commands
+
+Prefix commands with `npx --yes iconsmith@0.1.0`. Use `--help` for command options.
+
+| Command | Purpose |
+| --- | --- |
+| `skill` | Install the agent workflow in a new directory. |
+| `prepare` | Save a request, pinned revision and related drawings. |
+| `check` | Compile a candidate, verify exact replay and create preview images. |
+| `render` | Preview an existing SVG at native size and on light/dark backgrounds. |
+| `draw` | Compile an `.icon` drawing to SVG. |
+| `lint` | Check SVG geometry against the house spec. |
+
+Commands never prompt. Use `--output json` for structured CLI output.
+Skill, request and proof directories must be new so existing work is preserved.
+
+## Notes
+
+The default workflow creates outlined Blode icons. A clean geometry check does not
+prove that an icon communicates the right meaning; inspect the previews and review
+record before using it. Image viewing and independent review are required to accept
+a result. This workflow does not create logos or define a new icon family.
 
 ## License
 
@@ -41,10 +83,3 @@ MIT
 ---
 
 Crafted by [<img src="https://blode.co/avatar-circle.png" width="20" align="top" />](https://blode.co) [Matthew Blode](https://blode.co)
-
-## Releases
-
-`iconsmith@0.1.0` is published on npm. For future package changes, run
-`npm run changeset` from the repository root and commit the generated file.
-CI opens a Version Packages PR and publishes after it merges. See
-[release setup](.changeset/README.md) for the trusted publisher configuration.
