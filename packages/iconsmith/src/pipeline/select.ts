@@ -179,32 +179,3 @@ export const islands = (
     return { hints: selectHints(kind, concept, parts, aliases), kind };
   });
 };
-
-/** One minus the mean pairwise Jaccard over hint ids: 0 means every island
- *  offered the same marks — N independent draws would have been the same
- *  experiment N times — and 1 means they shared none. */
-export const hintDiversity = (plans: readonly SelectIsland[]): number => {
-  if (plans.length < 2) {
-    return 0;
-  }
-  const sets = plans.map((p) => new Set(p.hints.map((h) => h.id)));
-  let pair = 0;
-  let jaccard = 0;
-  for (let i = 0; i < sets.length; i += 1) {
-    for (let j = i + 1; j < sets.length; j += 1) {
-      const a = sets[i];
-      const b = sets[j];
-      if (!(a && b)) {
-        continue;
-      }
-      const union = new Set([...a, ...b]);
-      if (union.size === 0) {
-        continue;
-      }
-      const inter = [...a].filter((id) => b.has(id)).length;
-      jaccard += inter / union.size;
-      pair += 1;
-    }
-  }
-  return pair === 0 ? 0 : 1 - jaccard / pair;
-};

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { Part } from "../types.js";
-import { aboutConcept, hintDiversity, islands, selectHints } from "./select.js";
+import { aboutConcept, islands, selectHints } from "./select.js";
 
 const part = (id: string, icons: string[], name?: string): Part => ({
   closed: false,
@@ -84,11 +84,6 @@ describe("islands", () => {
       "contrast",
       "empty",
     ]);
-  });
-
-  it("reports diversity when islands disagree", () => {
-    const plans = islands(concept, PARTS, new Map(), 5);
-    expect(hintDiversity(plans)).toBeGreaterThan(0);
   });
 });
 

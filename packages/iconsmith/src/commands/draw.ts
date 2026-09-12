@@ -90,15 +90,14 @@ export const registerDrawCommand = (program: Command): void => {
               svg,
             })}\n`
           );
-        } else if (opts.out) {
-          if (!invalid) {
-            process.stderr.write(`wrote ${opts.out}\n`);
-          }
-          if (issues.length > 0) {
-            process.stderr.write(`${format(issues)}\n`);
-          }
         } else {
-          process.stdout.write(`${body}\n`);
+          if (opts.out) {
+            if (!invalid) {
+              process.stderr.write(`wrote ${opts.out}\n`);
+            }
+          } else {
+            process.stdout.write(`${body}\n`);
+          }
           if (issues.length > 0) {
             process.stderr.write(`${format(issues)}\n`);
           }

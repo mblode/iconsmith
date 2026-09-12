@@ -1,11 +1,6 @@
 import { expect, test } from "vitest";
 
-import {
-  conceptPrompt,
-  confirmSystemPrompt,
-  FILLED_PAINT_RULE,
-  systemPrompt,
-} from "./prompt.js";
+import { conceptPrompt, FILLED_PAINT_RULE, systemPrompt } from "./prompt.js";
 
 test("fresh generation never claims a house analog is already on its canvas", () => {
   const prompt = conceptPrompt({ name: "home" }, "outlined", {
@@ -15,17 +10,6 @@ test("fresh generation never claims a house analog is already on its canvas", ()
   expect(prompt).not.toContain("Call confirm");
   expect(prompt).toContain("Compose the named object");
   expect(conceptPrompt({ name: "home" })).toContain("Call confirm");
-});
-
-test("a seeded confirm prompt is the spec and the paint, not the grammar", () => {
-  const outlined = confirmSystemPrompt();
-  expect(outlined).toContain("24×24");
-  expect(outlined).toContain("Paint: outlined");
-  expect(outlined).toContain("Call confirm");
-  expect(outlined).not.toContain("Every shape you");
-  const filled = confirmSystemPrompt({ finish: "filled" });
-  expect(filled).toContain("Paint: filled");
-  expect(filled).not.toContain(FILLED_PAINT_RULE);
 });
 
 test("the cohort brief appears only when a family has been measured", () => {

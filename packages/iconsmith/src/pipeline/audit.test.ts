@@ -15,7 +15,6 @@ import {
   PREVIEW_FILE,
   audit,
   lookBrief,
-  persistLook,
   sanitizeFinding,
   sanitizeReason,
   shot,
@@ -82,28 +81,6 @@ describe("shot and writePreview", () => {
     );
     const raster = await shot(SVG);
     expect(raster.subarray(0, 4)).toEqual(PNG_MAGIC);
-  });
-});
-
-describe("persistLook", () => {
-  it("writes slugged sidecars beside a staged svg", async () => {
-    const dir = scratch();
-    const result: AuditResult = {
-      findings: [],
-      ok: true,
-      pq: 8,
-      reason: null,
-      sc: 8,
-      scorable: true,
-      stage: "decide",
-    };
-    await persistLook(dir, "plus", SVG, result);
-    expect(
-      readFileSync(path.join(dir, "plus.preview.png")).subarray(0, 4)
-    ).toEqual(PNG_MAGIC);
-    expect(
-      JSON.parse(readFileSync(path.join(dir, "plus.audit.json"), "utf-8"))
-    ).toEqual(result);
   });
 });
 

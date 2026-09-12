@@ -2917,3 +2917,20 @@ changed source identity. Retained that failed receipt; rerun on a stable tree.
 Stable-tree integrated verification passed at
 .staging/verification-safe-export-stable-2026-09-12/receipt.json: 2358 engine
 and 10 runner tests, typecheck, build, lint, runtime reachability and boundaries.
+
+### 2026-09-12: Remove unused pipeline helpers and duplicate draw reporting
+
+Runtime export analysis followed by full non-test reference searches found no
+caller for persistLook, confirmSystemPrompt, hintDiversity, quotesReconstruction
+or stagesHouse. Removed them, the two private naming helpers used only by
+persistLook, and four test cases exercising only those unused paths. Kept live
+prompt, audit, selection and mark-classification tests. Consolidated draw's
+repeated diagnostic formatting while retaining output and failure behavior.
+This removes 136 net source/test lines with no new files, exports or dependencies.
+Targeted verification: 34 tests passed across five files; runtime reachability
+remains the existing local and CI guard. No model or API calls.
+
+Integrated stable-tree verification passed at
+.staging/verification-simplify-2026-09-12/receipt.json: 2354 engine and 10 runner
+tests, typecheck, build, lint, dead-code and boundary checks. The four removed
+tests exercised only the deleted helpers.

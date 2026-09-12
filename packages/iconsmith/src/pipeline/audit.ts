@@ -329,24 +329,6 @@ export const writeAudit = (dir: string, result: AuditResult): void => {
   );
 };
 
-const previewName = (stem: string): string => `${stem}.preview.png`;
-const auditName = (stem: string): string => `${stem}.audit.json`;
-
-export const persistLook = async (
-  dir: string,
-  stem: string,
-  svg: string,
-  result?: AuditResult | null
-): Promise<void> => {
-  writeFileSync(path.join(dir, previewName(stem)), await shot(svg));
-  if (result) {
-    writeFileSync(
-      path.join(dir, auditName(stem)),
-      `${JSON.stringify(result, null, 2)}\n`
-    );
-  }
-};
-
 /** The live vision ask. Harness leaves this off until the caller passes it. */
 export const gatewayAsk: AuditAsk = async ({
   abortSignal,

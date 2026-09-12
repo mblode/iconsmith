@@ -104,26 +104,6 @@ export interface PromptOptions {
  * typed into the prose, for the reason the file header gives — the policy holds
  * `{{stroke}}`, not `2`, so a reworded principle cannot restate the spec wrong.
  */
-/**
- * The confirm-only system prompt. Generate uses this when the host analog
- * is already on the canvas and draw tools are withheld — the full policy
- * would spend thousands of tokens teaching a grammar the model cannot
- * use, and that prefix is what blew the OpenRouter prompt-token cap.
- * Numbers still come from `SPEC`.
- */
-export const confirmSystemPrompt = (
-  opts: Pick<PromptOptions, "finish" | "spec"> = {}
-): string => {
-  const spec = opts.spec ?? SPEC;
-  return [
-    `The canvas is ${spec.canvas}×${spec.canvas}. Stroke ${spec.stroke}. Radius ${spec.radius}.`,
-    opts.finish === "filled"
-      ? "Paint: filled. The analog is already the solid silhouette."
-      : "Paint: outlined. The analog is already the centre-line stroke.",
-    "Call confirm. Do not invent geometry.",
-  ].join("\n");
-};
-
 export const systemPrompt = (opts: PromptOptions = {}): string => {
   const spec = opts.spec ?? SPEC;
   const conditions: Condition[] = [];

@@ -47,15 +47,6 @@ export const MARK_TWINS: Record<MarkName, MarkTwin> = {
   "view-grid": { class: "house-motif", slug: null },
 };
 
-/** Reconstruction cosine is only honest for this class. */
-export const quotesReconstruction = (cls: CounterpartClass): boolean =>
-  cls === "same-construction";
-
-/** Stage a house sibling for a human look, including cross-set takes. */
-export const stagesHouse = (
-  twin: MarkTwin
-): twin is MarkTwin & { slug: string } => twin.slug !== null;
-
 export const isMarkName = (name: string): name is MarkName =>
   Object.hasOwn(MARKS, name);
 
