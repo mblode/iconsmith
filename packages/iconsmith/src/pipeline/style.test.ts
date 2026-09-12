@@ -14,7 +14,6 @@ import {
   replayStyle,
   selectStyle,
   styleHash,
-  styleParts,
 } from "./style.js";
 import { createTools } from "./tools.js";
 
@@ -163,7 +162,7 @@ describe("pinned styles", () => {
     );
   });
 
-  it("keeps the source gate and refuses unapproved or changed extras", () => {
+  it("keeps source admission and master-specific parts", () => {
     expect(() =>
       createStyleRevision({
         ...definition(),
@@ -181,7 +180,6 @@ describe("pinned styles", () => {
         ],
       })
     ).toThrow("raycast");
-    expect(() => styleParts(selected(), [extra])).toThrow("Unapproved");
     const revision = createStyleRevision({
       ...definition(),
       parts: [
@@ -192,12 +190,7 @@ describe("pinned styles", () => {
         },
       ],
     });
-    expect(styleParts(selectStyle(revision, "small"), [extra])).toHaveLength(1);
-    expect(() =>
-      styleParts(selectStyle(revision, "small"), [
-        { ...extra, d: "M0 0H9V9H0Z" },
-      ])
-    ).toThrow("Unapproved");
+    expect(selectStyle(revision, "small").parts).toHaveLength(1);
     expect(selectStyle(revision, "large").parts).toHaveLength(0);
   });
 

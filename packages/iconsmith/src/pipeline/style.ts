@@ -410,24 +410,6 @@ export const assertStyle = (selection: StyleSelection): void => {
   }
 };
 
-/** Extras may repeat a pinned dependency but cannot introduce or replace one.
- * New generated anchors must first become part of a new immutable revision. */
-export const styleParts = (
-  selection: StyleSelection,
-  extras: readonly Part[] = []
-): readonly Part[] => {
-  assertStyle(selection);
-  const approved = new Map(
-    selection.parts.map((part) => [part.id, styleHash(part)])
-  );
-  for (const part of extras) {
-    if (approved.get(part.id) !== styleHash(part)) {
-      throw new Error(`Unapproved style dependency: ${part.id}`);
-    }
-  }
-  return selection.parts;
-};
-
 export interface StyleArtifact {
   compiler: string;
   style: string;

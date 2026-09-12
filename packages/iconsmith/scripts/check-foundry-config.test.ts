@@ -22,6 +22,12 @@ it("passes current configuration and rejects each dangerous mutation independent
     }
     expect(checkFoundryConfig(root)).toEqual([]);
     const mutations = [
+      [
+        "turbo.json",
+        () =>
+          '{"tasks":{"test":{"cache":false},"build":{"outputs":["dist/**"]}}}',
+        "F23",
+      ],
       [".gitignore", () => "corpus/\n", "F11"],
       ["turbo.json", () => '{"tasks":{"test":{"cache":true}}}', "F12"],
       [

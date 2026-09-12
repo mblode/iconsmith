@@ -20,6 +20,7 @@ import type {
   ApiCollectorStageVerificationExpectation,
   VerifiedApiCollectorStageEvidence,
 } from "./api-image-capability.js";
+import { canonicalJson as canonical } from "./canonical-json.js";
 import type {
   SameContainerAccessObservation,
   SameContainerAccessProbePlan,
@@ -30,18 +31,6 @@ const validIdentity = (value: unknown) =>
   typeof value === "string" && value.trim() === value && value.length > 0;
 const sha = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
-const canonical = (value: unknown): string => {
-  if (Array.isArray(value)) {
-    return `[${value.map(canonical).join(",")}]`;
-  }
-  if (value && typeof value === "object") {
-    return `{${Object.entries(value)
-      .toSorted(([left], [right]) => left.localeCompare(right))
-      .map(([key, entry]) => `${JSON.stringify(key)}:${canonical(entry)}`)
-      .join(",")}}`;
-  }
-  return JSON.stringify(value);
-};
 
 export interface FileBinding {
   file: string;

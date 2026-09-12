@@ -1,11 +1,10 @@
 import { expect, test } from "vitest";
 
-import type { Policy, Principle } from "./policy.js";
+import type { Policy } from "./policy.js";
 import {
   DEFAULT_POLICY,
   LIMITS,
   findPrinciple,
-  insertPrinciple,
   parsePolicy,
   PolicyError,
   renderPolicy,
@@ -176,25 +175,6 @@ test("a replacement restates its provenance, and is validated", () => {
   ).toThrow(PolicyError);
 });
 
-test("a principle can be inserted at a chosen point in the order", () => {
-  const added: Principle = {
-    enabled: true,
-    id: "work.sleep",
-    provenance: "inferred",
-    section: "work",
-    text: "3.5. Wait.",
-  };
-  const p = insertPrinciple(clone(), added, "work.render");
-  const ids = p.principles.map((x) => x.id);
-  expect(ids[ids.indexOf("work.render") + 1]).toBe("work.sleep");
-  expect(renderPolicy(p, { tokens: TOKENS })).toContain(
-    'some other icon", change the drawing, not the size.\n\n3.5. Wait.'
-  );
-  expect(() => insertPrinciple(clone(), added, "nope")).toThrow(
-    "no principle with id"
-  );
-});
-
 test("every measured principle in the house policy carries its number", () => {
   // Enforced by `parsePolicy` too; asserted here because it is the property the
   // whole provenance field exists for, and the default is the file that matters.
@@ -267,35 +247,27 @@ test("the house policy leaves headroom under every cap, without straining one", 
   }
 });
 
-test("growth through the mutation surface is capped too, not just through the file", () => {
-  // insertPrinciple and replacePrinciple re-validate, so the cap cannot be
-  // walked past one edit at a time.
-  let policy = clone();
+test("policy parsing and live edits enforce growth limits", () => {
+  const policy = clone();
   expect(() =>
     replacePrinciple(policy, "work.lint", {
       provenance: "inferred",
       text: "x".repeat(LIMITS.text + 1),
     })
   ).toThrow(PolicyError);
-
-  let added = 0;
-  try {
-    for (let i = 0; i < LIMITS.principles; i += 1) {
-      policy = insertPrinciple(
-        policy,
-        {
+  expect(() =>
+    parsePolicy({
+      ...policy,
+      principles: [
+        ...policy.principles,
+        ...Array.from({ length: LIMITS.principles }, (_, i) => ({
           enabled: true,
           id: `work.pad${i}`,
           provenance: "inferred",
           section: "work",
-          text: "x".repeat(LIMITS.text),
-        },
-        "work.lint"
-      );
-      added += 1;
-    }
-  } catch (error) {
-    expect(error).toBeInstanceOf(PolicyError);
-  }
-  expect(added).toBeLessThan(LIMITS.principles);
+          text: "x",
+        })),
+      ],
+    })
+  ).toThrow(PolicyError);
 });

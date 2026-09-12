@@ -73,10 +73,9 @@ commands in production mode; built entry points are discovered by the tsdown
 plugin. Do not add library helpers as entries to silence unused-file findings.
 The same command runs in pre-commit and CI's `npm run verify` umbrella.
 
-The public bundle remains small relative to the research tree. The highest-value
-next simplification is moving its checking/revision orchestration to a clearly
-owned runtime module when there is an actual second consumer; adding another
-abstraction now would only move the same code. No new service, package, registry,
+The public bundle remains small relative to the research tree. The checker returns its saved report; the public and standalone CLI entry
+points own printing and exit status. Evidence serialization is shared by four
+research callers, preserving historical hash bytes. No new service, package, registry,
 DI layer or bespoke dead-code scanner is needed.
 
 ## Verification

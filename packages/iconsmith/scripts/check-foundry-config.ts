@@ -46,6 +46,15 @@ export const checkFoundryConfig = (root: string): string[] => {
       "F11: ignore only /packages/iconsmith/corpus/; broad corpus ignores hide source files."
     );
   }
+  if (
+    !["dist/**", "dist-agent/**"].every((output) =>
+      turbo.tasks?.build?.outputs?.includes(output)
+    )
+  ) {
+    failures.push(
+      "F23: cache both dist/** and dist-agent/** so builds restore the published CLI."
+    );
+  }
   if (turbo.tasks?.test?.cache !== false) {
     failures.push(
       "F12: set turbo.tasks.test.cache=false; ignored corpus bytes cannot be cached safely."

@@ -19,7 +19,7 @@ export const checkStyle = async (
   master: string,
   directory: string,
   selectedFinish?: "outlined" | "filled"
-): Promise<void> => {
+) => {
   const snapshot = mkdtempSync(path.join(directory, "check-"));
   const save = (name: string, data: string | Uint8Array) => {
     writeFileSync(path.join(snapshot, name), data);
@@ -133,12 +133,7 @@ export const checkStyle = async (
       visualReview: "required",
     };
     save("checks.json", JSON.stringify(report, null, 2));
-    console.log(JSON.stringify(report, null, 2));
-    if (
-      [...findings, ...pairIssues].some((issue) => issue.severity === "error")
-    ) {
-      process.exitCode = 1;
-    }
+    return report;
   } catch (error) {
     const failure = {
       assessment: "structural-only",
@@ -170,5 +165,9 @@ if (process.argv[1]?.endsWith("style-check.ts")) {
       "Usage: style-check.ts <revision.json> <master> <directory> [outlined|filled]"
     );
   }
-  await checkStyle(revisionPath, master, directory, finish);
+  const report = await checkStyle(revisionPath, master, directory, finish);
+  console.log(JSON.stringify(report, null, 2));
+  if (report.structuralStatus === "failed") {
+    process.exitCode = 1;
+  }
 }

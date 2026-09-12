@@ -9,6 +9,7 @@ import {
 } from "node:fs";
 import path from "node:path";
 
+import { canonicalJson as canonical } from "./canonical-json.js";
 import {
   readCrossMasterReview,
   writeCrossMasterReview,
@@ -17,18 +18,6 @@ import type { CrossMasterEvidence } from "./cross-master-review.js";
 
 const digest = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
-const canonical = (value: unknown): string => {
-  if (Array.isArray(value)) {
-    return `[${value.map(canonical).join(",")}]`;
-  }
-  if (value && typeof value === "object") {
-    return `{${Object.entries(value)
-      .toSorted(([left], [right]) => left.localeCompare(right))
-      .map(([key, entry]) => `${JSON.stringify(key)}:${canonical(entry)}`)
-      .join(",")}}`;
-  }
-  return JSON.stringify(value);
-};
 
 interface Request {
   concept: string;

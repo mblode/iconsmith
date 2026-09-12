@@ -273,22 +273,3 @@ export const replacePrinciple = (
   parsePolicy({
     ...mapPrinciple(policy, id, (p) => ({ ...p, ...patch, id: p.id })),
   });
-
-/** Insert a principle after `afterId`, or at the top of the list when null.
- *  The loop adds principles as well as editing them. */
-export const insertPrinciple = (
-  policy: Policy,
-  principle: Principle,
-  afterId: string | null
-): Policy => {
-  const at =
-    afterId === null
-      ? 0
-      : policy.principles.findIndex((p) => p.id === afterId) + 1;
-  if (at === 0 && afterId !== null) {
-    throw new PolicyError([`no principle with id \`${afterId}\``]);
-  }
-  const principles = [...policy.principles];
-  principles.splice(at, 0, principle);
-  return parsePolicy({ ...policy, principles });
-};

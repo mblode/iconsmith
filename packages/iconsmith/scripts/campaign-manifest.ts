@@ -3,23 +3,11 @@ import { lstatSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import { createStyleRevision } from "../src/pipeline/style.js";
+import { canonicalJson as canonical } from "./canonical-json.js";
 import { DEVELOPMENT_FAMILIES } from "./quality-population.js";
 
 const digest = (value: string) =>
   createHash("sha256").update(value).digest("hex");
-
-const canonical = (value: unknown): string => {
-  if (Array.isArray(value)) {
-    return `[${value.map(canonical).join(",")}]`;
-  }
-  if (value && typeof value === "object") {
-    return `{${Object.entries(value)
-      .toSorted(([left], [right]) => left.localeCompare(right))
-      .map(([key, entry]) => `${JSON.stringify(key)}:${canonical(entry)}`)
-      .join(",")}}`;
-  }
-  return JSON.stringify(value);
-};
 
 type CampaignTerminalStatus =
   | "accepted"

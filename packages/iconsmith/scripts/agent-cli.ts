@@ -120,7 +120,11 @@ program
   .argument("<directory>", "candidate directory containing outlined.icon")
   .option("--revision <file>", "pinned revision.json", bundledRevision)
   .action(async (directory: string, opts: { revision: string }) => {
-    await checkStyle(opts.revision, "24", directory, "outlined");
+    const report = await checkStyle(opts.revision, "24", directory, "outlined");
+    console.log(JSON.stringify(report, null, 2));
+    if (report.structuralStatus === "failed") {
+      process.exitCode = 1;
+    }
   });
 
 program

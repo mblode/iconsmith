@@ -16,6 +16,7 @@ import { parseArgs } from "node:util";
 import type { AcceptanceCampaignAuthorEvidence } from "../src/eval/acceptance-contract.js";
 import { writeCampaignEvidence } from "./campaign-evidence.js";
 import { createReliabilityReplayManifest } from "./campaign-manifest.js";
+import { canonicalJson as canonical } from "./canonical-json.js";
 import { writeDurableJson } from "./durable-json.js";
 import { parseFamilyReferencePacket } from "./family-reference-packet.js";
 import {
@@ -36,18 +37,7 @@ import {
 
 const sha = (v: string | Uint8Array) =>
   createHash("sha256").update(v).digest("hex");
-const canonical = (v: unknown): string => {
-  if (Array.isArray(v)) {
-    return `[${v.map(canonical).join(",")}]`;
-  }
-  if (v && typeof v === "object") {
-    return `{${Object.entries(v)
-      .toSorted(([a], [b]) => a.localeCompare(b))
-      .map(([k, x]) => `${JSON.stringify(k)}:${canonical(x)}`)
-      .join(",")}}`;
-  }
-  return JSON.stringify(v);
-};
+
 const receiptHash = (receipt: Record<string, unknown>) =>
   sha(canonical(receipt));
 const objectHash = (value: unknown) => sha(JSON.stringify(value));

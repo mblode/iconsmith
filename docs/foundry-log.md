@@ -2934,3 +2934,37 @@ Integrated stable-tree verification passed at
 .staging/verification-simplify-2026-09-12/receipt.json: 2354 engine and 10 runner
 tests, typecheck, build, lint, dead-code and boundary checks. The four removed
 tests exercised only the deleted helpers.
+
+### 2026-09-12: Execute holistic audit findings
+
+Added dist-agent/** to Turbo build outputs and the existing foundry mutation
+check (F23). An isolated checkout built both outputs, removed them, then restored
+both CLIs and the pinned revision from a cache hit. The first probe omitted the
+workspace-local dependency symlink and failed to locate tsdown; corrected the
+fixture, not production configuration. Receipt: session work/cache-probe.log.
+
+Removed four helpers with no production caller: createReviewBudgetIntent,
+executeFrozenReviewBudget, styleParts, insertPrinciple. Preserved active native
+budget, source-admission, per-master parts, and policy-size checks; tested policy
+growth through the real parser and live replacement operation. Consolidated four
+byte-identical canonical JSON implementations into scripts/canonical-json.ts;
+golden cases cover nested objects, key sorting, arrays and escaped strings.
+The API-specific serializer and unsorted object hashes retain their contracts.
+
+checkStyle now returns its saved report; public and standalone entry points own
+printing and process exit status. No new runtime dependency. Active research
+workflows and Turbo retained: reachable experiment code is not dead, and actual
+cache restoration now has evidence. Targeted audit checks passed 222 tests.
+
+Started a separate fresh Git repository test with the live GitHub skill and npm
+iconsmith@0.1.0, using Codex CLI / gpt-6-astra / ChatGPT login (API credentials
+removed). The installed skill unexpectedly includes the package's research tree:
+the skills installer copies the entire directory containing SKILL.md. This is a
+new distribution-size finding, distinct from the small npm allowlist. Preserve
+this test's installed bytes and report it rather than modifying its baseline.
+
+Full stable-tree verification passed at
+.staging/verification-holistic-audit-2026-09-12/receipt.json: 2355 engine tests,
+10 runner tests, no corpus skips, typecheck, build, lint, dead-code and boundaries.
+Fresh packed-install and relocated public smoke both passed. Build-cache mutation
+coverage verifies the missing public output is rejected and restoration is green.
