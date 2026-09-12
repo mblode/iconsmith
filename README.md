@@ -8,8 +8,6 @@ Ask your agent for an icon. It draws alternatives, reviews them and exports an S
 
 <img src="docs/showcase.png" alt="Six concepts drawn by the pipeline, each in outlined and filled" width="1016">
 
-<sub>Six concepts, both paints, selected from <a href="output/ten-icons-repaired-2026-09-09/">one run of ten</a> — the other four have contour defects. Regenerate the sheet with <code>npx tsx packages/iconsmith/scripts/showcase-sheet.ts</code>.</sub>
-
 </div>
 
 ## Install
