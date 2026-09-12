@@ -1,4 +1,10 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -10,6 +16,7 @@ import { registerDrawCommand } from "./draw.js";
 const directories: string[] = [];
 afterEach(() => {
   vi.restoreAllMocks();
+  process.exitCode = undefined;
   for (const directory of directories.splice(0)) {
     rmSync(directory, { force: true, recursive: true });
   }
@@ -68,3 +75,31 @@ test("JSON export refuses to overwrite an existing file", async () => {
   ).rejects.toThrow("already exists");
   expect(readFileSync(out, "utf-8")).toBe("keep this drawing");
 });
+
+test.each([false, true])(
+  "invalid export preserves output (existing: %s)",
+  async (existing) => {
+    const { command, out, source } = fixture();
+    writeFileSync(
+      source,
+      "icon broken\nrect 4,4 16x16 r3\nunknown-operation\n"
+    );
+    if (existing) {
+      writeFileSync(out, "keep this drawing");
+    }
+    const stdout = vi.spyOn(process.stdout, "write").mockReturnValue(true);
+    await command.parseAsync(
+      ["--output", "json", "draw", source, "--force", "-o", out],
+      { from: "user" }
+    );
+    expect(process.exitCode).toBe(1);
+    expect(
+      JSON.parse(stdout.mock.calls.map(([chunk]) => String(chunk)).join(""))
+    ).toMatchObject({ code: "DRAW_INVALID", error: true });
+    expect(existsSync(out)).toBe(existing);
+    if (existing) {
+      expect(readFileSync(out, "utf-8")).toBe("keep this drawing");
+    }
+    expect(process.stderr.write).not.toHaveBeenCalledWith(`wrote ${out}\n`);
+  }
+);

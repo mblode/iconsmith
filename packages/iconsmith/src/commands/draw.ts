@@ -58,6 +58,9 @@ export const registerDrawCommand = (program: Command): void => {
         }
 
         const issues = lint(result.canvas, { keyline: result.keyline });
+        const invalid =
+          result.errors.length > 0 ||
+          issues.some((issue) => issue.severity === "error");
         const svg = result.canvas.toSVG();
         const doc = result.canvas.toJSON({
           icon: result.icon,
@@ -65,14 +68,15 @@ export const registerDrawCommand = (program: Command): void => {
         });
 
         const body = opts.doc ? JSON.stringify(doc, null, 2) : svg;
-        if (opts.out) {
-          writeFileSync(opts.out, `${body}\n`);
+        if (opts.out && !invalid) {
+          writeFileSync(opts.out, `${body}\n`, {
+            flag: opts.force ? "w" : "wx",
+          });
         }
         if (json) {
           process.stdout.write(
             `${JSON.stringify({
-              ...(result.errors.length > 0 ||
-              issues.some((issue) => issue.severity === "error")
+              ...(invalid
                 ? {
                     code: "DRAW_INVALID",
                     details: { errors: result.errors, issues },
@@ -87,7 +91,9 @@ export const registerDrawCommand = (program: Command): void => {
             })}\n`
           );
         } else if (opts.out) {
-          process.stderr.write(`wrote ${opts.out}\n`);
+          if (!invalid) {
+            process.stderr.write(`wrote ${opts.out}\n`);
+          }
           if (issues.length > 0) {
             process.stderr.write(`${format(issues)}\n`);
           }
@@ -99,10 +105,7 @@ export const registerDrawCommand = (program: Command): void => {
         }
 
         // A parse error is a failed run; a lint warning is not.
-        if (
-          result.errors.length > 0 ||
-          issues.some((i) => i.severity === "error")
-        ) {
+        if (invalid) {
           process.exitCode = 1;
         }
       }

@@ -2898,3 +2898,22 @@ package bytes remain 1126700 compressed / 4145110 unpacked. No new architecture
 layer or runtime dependency introduced. Research runtime retirement and broad
 export/test-seam redesign remain separate decisions; test-visible exports alone
 are not proof of dead implementation. No model or paid API calls in this pass.
+
+### 2026-09-12: Failed drawing export preserves user output
+
+Continued architecture hardening at the shared public/research draw boundary.
+Reproduced a failed DSL command writing partial SVG to a new output and replacing
+an existing output even with a nonzero exit. Two regression cases failed before
+the fix and passed afterwards. Validate once before writing, reuse that decision
+for JSON diagnostics and exit status, and omit the misleading wrote message on
+failure. Exclusive creation without --force also closes the check/write race.
+No new dependencies, layers or model calls. Existing JSON diagnostics retain the
+partial drawing for inspection; an invalid drawing is not exported to --out.
+
+The first integrated attempt was invalidated by a formatting change during its
+run: source-drift detection fired, and the campaign-resume test observed the
+changed source identity. Retained that failed receipt; rerun on a stable tree.
+
+Stable-tree integrated verification passed at
+.staging/verification-safe-export-stable-2026-09-12/receipt.json: 2358 engine
+and 10 runner tests, typecheck, build, lint, runtime reachability and boundaries.
