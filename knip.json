@@ -16,6 +16,7 @@
         "scripts/library-replay-cli.ts",
         "scripts/quality-audit.ts",
         "scripts/review-proof.ts",
+        "scripts/showcase-sheet.ts",
         "scripts/stress-registration.ts",
         "scripts/vocabulary-sheet.ts"
       ],
