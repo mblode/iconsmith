@@ -1,6 +1,6 @@
 ---
 name: iconsmith
-description: Creates SVG icons matching the Blode family, with native previews and independent visual review. Use when asked to "create an icon", "add an icon to Blode", or "match this icon set". For logos or illustrations, use a dedicated design workflow.
+description: Creates SVG icons matching the Blode family, with native previews and independent visual review. Use when asked to "create an icon with iconsmith", "add an icon to Blode", or "match the Blode icon set". For logos or illustrations, use a dedicated design workflow.
 compatibility: Requires Node.js >=24.11, npm, shell and filesystem access, image viewing, and independent subagents. The host agent supplies the model; no API key is required.
 ---
 
@@ -11,6 +11,8 @@ Create a 24px outlined icon in the bundled Blode family. Deliver the SVG and nat
 Use the user's requested model in the host agent session. Do not launch a separate API or provider CLI when host capabilities are unavailable. Missing image viewing or independent reviewers leaves the result a draft; name the missing capability.
 
 ## Prepare
+
+If the user supplies a prepared request directory, read its request, revision and references and continue there when they match the task. Do not run `prepare` again on that directory or replace its pinned revision. For a new request:
 
 Run the installed `iconsmith` CLI. If it is not on PATH, use `npx --yes iconsmith@0.1.0` in its place. Resolve reference links below relative to this installed SKILL.md, not the working directory.
 
@@ -36,7 +38,7 @@ The checker compiles, replays and writes an SVG, `checks.json`, native pixels an
 
 ## Review and repair
 
-Use two fresh reviewers who did not author either candidate. Present anonymously labelled images in shuffled order with the same reference packet. Exclude author reasoning, model, route and earlier scores. First record each reviewer's free recognition without the requested concept, then reveal the frozen request and assess the object and modifier.
+Use two fresh reviewers who did not author either candidate. Present anonymously labelled images in shuffled order. For free recognition, show only the candidate image and the same twelve style anchors, without concept-bearing filenames, paths, sibling labels or request metadata. After recording recognition, give both reviewers the frozen request and the same sibling reference packet. Exclude author reasoning, model, route and earlier scores. First record each reviewer's free recognition without the requested concept, then reveal the frozen request and assess the object and modifier.
 
 Inspect native and enlarged light/dark proofs for family fit, contour continuity, clearance, modifier placement, stroke weight and surviving distinctions. Measure reused elements against sibling drawings. Normal antialiasing alone is not a defect, and a downsample is not a separately designed optical master.
 
@@ -52,9 +54,13 @@ Copy the selected SVG, DSL and inspected proofs into `selected/`. Write `review.
 
 A selected result is an independently reviewed development result. Keep the compiler's `craftApproved: false`: it reports structural checks, not visual approval or pipeline-wide qualification. No 10/10 pipeline claim follows from a single icon.
 
+Local authoring, checks, previews and bounded repairs are authorised parts of this workflow. Continue them without per-step confirmation; use the host's existing model access and respect its tool permissions.
+
 ## Gotchas
 
 - A check can pass while the drawing depicts the wrong object. Independent recognition is essential.
 - Sibling DSL elements marked `quantised` change when the canvas draws them. Compare the rendered geometry, not just the numbers.
 - A clean lint report is not proof of visual quality. Checker crashes and malformed reports are failures, never empty findings.
 - Commands that create a request, skill or proof directory refuse an existing destination. Choose another name; do not delete a user's work to make the command succeed.
+
+Maintenance only: `evals/evals.json` in the source checkout contains workflow and routing scenarios. It is not installed or loaded during icon creation.

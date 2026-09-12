@@ -72,10 +72,11 @@ try {
   for (const researchDependency of ["ai", "run", "@ai-sdk/gateway"])
     assert.equal(existsSync(path.join(install, "node_modules", researchDependency)), false);
   const cli = path.join(installed, "dist-agent", "cli.js");
-  const execute = (args, expectedStatus = 0) =>
+  const execute = (args, expectedStatus = 0, input) =>
     invoke(process.execPath, [cli, ...args], {
       cwd: workspace,
       expectedStatus,
+      input,
       env: {
         HOME: home,
         USERPROFILE: home,
@@ -89,6 +90,32 @@ try {
   const help = execute(["--help"]).stdout;
   assert.match(help, /prepare/u);
   assert.doesNotMatch(help, /\n\s+(?:new|improve|generate)\s/u);
+  const schema = JSON.parse(execute(["schema"]).stdout);
+  assert.equal(schema.name, "iconsmith");
+  assert.deepEqual(schema.options.find((option) => option.name === "output").enum, [
+    "text",
+    "json",
+  ]);
+  assert.equal(
+    schema.commands
+      .find((command) => command.name === "prepare")
+      .options.find((option) => option.name === "out").required,
+    true,
+  );
+  for (const args of [
+    ["--output", "json", "prepare", "bookmark-check"],
+    ["prepare", "bookmark-check", "--output", "json"],
+    ["--output", "json", "draw", "missing.icon"],
+    ["--output", "json", "render", "missing.svg", "--out", "missing-proof"],
+    ["--output", "json", "skill", "--out", "."],
+  ]) {
+    const result = execute(args, 1);
+    const error = JSON.parse(result.stdout);
+    assert.equal(error.error, true);
+    assert.ok(error.code && error.message && error.hint);
+    assert.ok(result.stderr.trim());
+    assert.doesNotMatch(result.stdout, /\u001b\[/u);
+  }
   execute(["skill", "--out", ".agents/skills/iconsmith"]);
   for (const file of ["SKILL.md", "references/drawing.md"]) {
     assert.equal(
@@ -124,6 +151,18 @@ try {
   execute(["render", "draft/candidate/outlined.svg", "--out", "proof"]);
   execute(["render", "draft/candidate/outlined.svg", "--out", "proof"], 1);
   execute(["--output", "json", "lint", "draft/candidate/outlined.svg"]);
+  const fromFile = JSON.parse(
+    execute(["--output", "json", "lint", "draft/candidate/outlined.svg"]).stdout,
+  );
+  for (const args of [
+    ["--output", "json", "lint", "-"],
+    ["lint", "--output", "json"],
+  ]) {
+    const fromPipe = JSON.parse(execute(args, 0, savedSvg).stdout);
+    assert.deepEqual(fromPipe.files[0].issues, fromFile.files[0].issues);
+    assert.equal(fromPipe.errors, fromFile.errors);
+  }
+  execute(["render", "-", "--out", "stdin-proof"], 0, savedSvg);
   writeFileSync(path.join(candidate, "outlined.icon"), "not a valid drawing\n");
   execute(["check", "draft/candidate", "--revision", "draft/revision.json"], 1);
   const failed = JSON.parse(readFileSync(path.join(candidate, "checks.json"), "utf8"));

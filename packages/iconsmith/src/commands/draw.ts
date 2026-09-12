@@ -70,7 +70,21 @@ export const registerDrawCommand = (program: Command): void => {
         }
         if (json) {
           process.stdout.write(
-            `${JSON.stringify({ doc, errors: result.errors, issues, svg })}\n`
+            `${JSON.stringify({
+              ...(result.errors.length > 0 ||
+              issues.some((issue) => issue.severity === "error")
+                ? {
+                    code: "DRAW_INVALID",
+                    details: { errors: result.errors, issues },
+                    error: true,
+                    message: "Drawing failed compilation or geometry checks.",
+                  }
+                : {}),
+              doc,
+              errors: result.errors,
+              issues,
+              svg,
+            })}\n`
           );
         } else if (opts.out) {
           process.stderr.write(`wrote ${opts.out}\n`);

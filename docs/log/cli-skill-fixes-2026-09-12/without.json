@@ -1,0 +1,46 @@
+{
+  "cases": [
+    {
+      "id": 1,
+      "actions": [
+        "Report that iconsmith is unavailable in the supplied workflow.",
+        "Treat the prepared request and revision as inputs; their existence alone does not establish successful output."
+      ],
+      "acceptance": "Cannot claim iconsmith execution or accept an icon without inspecting and validating the result."
+    },
+    {
+      "id": 2,
+      "actions": [
+        "Create a candidate using available Blode references.",
+        "Inspect the rendered icon visually.",
+        "Disclose that independent review was unavailable."
+      ],
+      "acceptance": "Accept based on matching the requested design and visual inspection; no supplied workflow makes independent review mandatory."
+    },
+    {
+      "id": 3,
+      "actions": [
+        "Treat this as an original logo design task outside Blode icon creation."
+      ],
+      "acceptance": "Evaluate against the company brief and requested colourful visual style."
+    }
+  ],
+  "routing": [
+    {"prompt": "Make a Blode calendar with a check.", "useSkill": false},
+    {"prompt": "Use iconsmith for a folder-lock.", "useSkill": false},
+    {"prompt": "Extend the Blode family with a receipt icon.", "useSkill": false},
+    {"prompt": "Draw a bookmark-check with iconsmith.", "useSkill": false},
+    {"prompt": "Add an outlined icon matching Blode.", "useSkill": false},
+    {"prompt": "Use the installed iconsmith skill for a bell.", "useSkill": false},
+    {"prompt": "Draft a Blode search-minus.", "useSkill": false},
+    {"prompt": "Create a 24px Blode square-check.", "useSkill": false},
+    {"prompt": "Design a company logo.", "useSkill": false},
+    {"prompt": "Make an illustration of a forest.", "useSkill": false},
+    {"prompt": "Choose a Lucide icon for settings.", "useSkill": false},
+    {"prompt": "Draw a Material Design icon.", "useSkill": false},
+    {"prompt": "Change my app favicon to a photograph.", "useSkill": false},
+    {"prompt": "Audit this CLI error message.", "useSkill": false},
+    {"prompt": "Explain SVG viewBox.", "useSkill": false},
+    {"prompt": "Create a new colourful icon family.", "useSkill": false}
+  ]
+}

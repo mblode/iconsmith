@@ -2839,3 +2839,31 @@ all four source render-pattern checks are empty, and license/author links return
 HTTP 200. The first HTML assertion incorrectly expected headings without GitHub's
 dir attribute; the corrected assertion passed. The prior full agent onboarding
 run remains the generation evidence; no new model run was needed for this prose edit.
+
+### 2026-09-12: CLI and skill audit fixes
+
+Unified public parser/runtime JSON failures on stdout with stable codes, structured
+details and stderr recovery hints; retained natural nonzero exits. Added schema
+introspection from Commander registrations, stdin lint/render support, and stable
+DRAW_INVALID fields while retaining drawing report fields. Packed-install probes
+cover parser errors in both flag orders, missing inputs, existing outputs, schema
+requirements/enums and file/stdin lint parity.
+
+Aligned skill routing with Blode, reuse of prepared requests, blind recognition
+without target-bearing labels, supplied-part availability and the pinned radius.
+Removed unrelated Analog restrictions and undefined correction deadlines. Added
+three workflow scenarios and sixteen routing decisions. Fresh Astra CLI/ChatGPT
+decision-only runs retained draft-on-missing-review behavior and scored 16/16
+expected routing decisions before and after; see docs/log/cli-skill-fixes-2026-09-12.
+These are not host-trigger or visual-quality tests. No-skill baseline lacked tool
+context, so it does not establish an execution uplift.
+
+Initial full tests failed two prose assertions enforcing the removed stale
+instructions; updated them to guard current Blode behavior. Corrected the initial
+root-scoped formatter invocation and formatting failures. Final integrated
+verification passed on a stable tree: 2384 engine tests, 10 runner tests, no skips,
+typecheck/build/check and diff checks. Receipt:
+.staging/verification-cli-skill-fixes-2026-09-12/receipt.json. Fresh package and public
+smokes and publint passed. Installed skill bytes match source; validator reports
+29 PASS, 0 FAIL, 4 SKIP. skills-ref is unavailable. Release remains pending via
+changeset; no publication attempted.

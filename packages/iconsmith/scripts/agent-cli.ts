@@ -3,10 +3,11 @@ import { createHash } from "node:crypto";
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { Command, Option } from "commander";
+import { Command, CommanderError, Option } from "commander";
 
 import { registerDrawCommand } from "../src/commands/draw.js";
 import { registerLintCommand } from "../src/commands/lint.js";
+import { InputError, readText } from "../src/commands/read.js";
 import { opticalProof } from "../src/tools/proof.js";
 import { librarySiblings, writeLibrarySiblings } from "./library-siblings.js";
 import { checkStyle } from "./style-check.js";
@@ -22,6 +23,12 @@ const program = new Command()
     "Draw and review icons with your coding agent and the bundled Blode family"
   )
   .version(manifest.version)
+  .exitOverride()
+  .configureOutput({
+    writeErr: () => {
+      /* The top-level handler renders parser failures once. */
+    },
+  })
   .addOption(
     new Option("--output <format>", "output format")
       .choices(["text", "json"])
@@ -39,7 +46,17 @@ const writeJson = (file: string, value: unknown) =>
 const freshDirectory = (directory: string) => {
   const out = path.resolve(directory);
   mkdirSync(path.dirname(out), { recursive: true });
-  mkdirSync(out);
+  try {
+    mkdirSync(out);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "EEXIST") {
+      throw new InputError(
+        `Output directory "${out}" already exists. Choose a new --out directory; existing work is preserved.`,
+        error
+      );
+    }
+    throw error;
+  }
   return out;
 };
 
@@ -68,8 +85,8 @@ program
   .requiredOption("--out <directory>", "new request directory")
   .action(async (concept: string, opts: { out: string }) => {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(concept)) {
-      throw new Error(
-        "Use a lowercase hyphenated icon name, such as bookmark-check."
+      throw new InputError(
+        `Invalid concept "${concept}". Use a lowercase hyphenated icon name, such as bookmark-check.`
       );
     }
     const revision = JSON.parse(readFileSync(bundledRevision, "utf-8"));
@@ -111,10 +128,11 @@ program
   .description(
     "render an existing SVG at 24px, 2x, and enlarged on light and dark"
   )
-  .argument("<svg>", "SVG file")
+  .argument("<svg>", "SVG file (- for stdin)")
   .requiredOption("--out <directory>", "new proof directory")
   .action(async (file: string, opts: { out: string }) => {
-    const svg = readFileSync(file, "utf-8");
+    const svg =
+      file === "-" ? readFileSync(0, "utf-8") : readText(file, "an SVG file");
     const proof = await opticalProof(svg, 24);
     const out = freshDirectory(opts.out);
     writeFileSync(path.join(out, "proof.png"), proof.proof, { flag: "wx" });
@@ -137,14 +155,66 @@ program
 registerDrawCommand(program);
 registerLintCommand(program);
 
+const describe = (command: Command): unknown => ({
+  arguments: command.registeredArguments.map((argument) => ({
+    description: argument.description,
+    name: argument.name(),
+    required: argument.required,
+    type: "string",
+    variadic: argument.variadic,
+  })),
+  commands: command.commands.map(describe),
+  description: command.description(),
+  name: command.name(),
+  options: command.options.map((option) => ({
+    default: option.defaultValue ?? null,
+    description: option.description,
+    enum: option.argChoices ?? null,
+    flags: option.flags,
+    name: option.attributeName(),
+    required: option.mandatory,
+    type: option.required || option.optional ? "string" : "boolean",
+  })),
+});
+program
+  .command("schema")
+  .description("describe commands, arguments and options as JSON")
+  .action(() => console.log(JSON.stringify(describe(program))));
+
 try {
   await program.parseAsync();
 } catch (error) {
-  console.error(
-    JSON.stringify({
-      error: true,
-      message: error instanceof Error ? error.message : String(error),
-    })
-  );
-  process.exitCode = 1;
+  if (error instanceof CommanderError && error.exitCode === 0) {
+    process.exitCode = 0;
+  } else {
+    const failure = error as Error & {
+      code?: string;
+      path?: string;
+      cause?: { code?: string };
+    };
+    const code = failure.code ?? "COMMAND_FAILED";
+    const message = failure.message ?? String(error);
+    const hint =
+      error instanceof CommanderError
+        ? "Run iconsmith schema or iconsmith <command> --help for accepted arguments."
+        : "Check the named input and choose a new output path if it already exists.";
+    if (program.opts().output === "json") {
+      console.log(
+        JSON.stringify({
+          code,
+          details: {
+            cause: failure.cause?.code ?? null,
+            path: failure.path ?? null,
+          },
+          error: true,
+          hint,
+          message,
+        })
+      );
+      console.error(hint);
+    } else {
+      console.error(`${code}: ${message}\n${hint}`);
+    }
+    process.exitCode = 1;
+  }
 }

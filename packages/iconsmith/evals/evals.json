@@ -1,0 +1,96 @@
+{
+  "skill_name": "iconsmith",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use iconsmith to create bookmark-check from the existing prepared request in icon-work/bookmark-check. It has a matching request.json and revision.json.",
+      "expected_output": "Reuse the prepared directory and pinned revision, author separate candidates, and keep concept names out of free recognition.",
+      "assertions": [
+        "Reuse matching request without prepare",
+        "Preserve pinned revision",
+        "Hide target labels before free recognition"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a Blode folder-check icon. Image viewing is available but independent reviewers are unavailable.",
+      "expected_output": "Produce a draft and identify missing independent review, without approving or starting another provider.",
+      "assertions": [
+        "Missing independent reviewers prevents acceptance",
+        "Deliver draft with named blocker"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a colourful company logo in a new visual style.",
+      "expected_output": "Route outside the Blode icon skill.",
+      "assertions": ["Route logo task outside iconsmith"]
+    }
+  ],
+  "routing": [
+    {
+      "prompt": "Make a Blode calendar with a check.",
+      "expected": true
+    },
+    {
+      "prompt": "Use iconsmith for a folder-lock.",
+      "expected": true
+    },
+    {
+      "prompt": "Extend the Blode family with a receipt icon.",
+      "expected": true
+    },
+    {
+      "prompt": "Draw a bookmark-check with iconsmith.",
+      "expected": true
+    },
+    {
+      "prompt": "Add an outlined icon matching Blode.",
+      "expected": true
+    },
+    {
+      "prompt": "Use the installed iconsmith skill for a bell.",
+      "expected": true
+    },
+    {
+      "prompt": "Draft a Blode search-minus.",
+      "expected": true
+    },
+    {
+      "prompt": "Create a 24px Blode square-check.",
+      "expected": true
+    },
+    {
+      "prompt": "Design a company logo.",
+      "expected": false
+    },
+    {
+      "prompt": "Make an illustration of a forest.",
+      "expected": false
+    },
+    {
+      "prompt": "Choose a Lucide icon for settings.",
+      "expected": false
+    },
+    {
+      "prompt": "Draw a Material Design icon.",
+      "expected": false
+    },
+    {
+      "prompt": "Change my app favicon to a photograph.",
+      "expected": false
+    },
+    {
+      "prompt": "Audit this CLI error message.",
+      "expected": false
+    },
+    {
+      "prompt": "Explain SVG viewBox.",
+      "expected": false
+    },
+    {
+      "prompt": "Create a new colourful icon family.",
+      "expected": false
+    }
+  ]
+}

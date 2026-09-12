@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 import type { Command } from "commander";
@@ -100,7 +100,7 @@ export const registerLintCommand = (program: Command): void => {
   program
     .command("lint")
     .description("check SVG icons against the house spec")
-    .argument("[files...]", "icon .svg files")
+    .argument("[files...]", "icon .svg files (- or no files for stdin)")
     .option("-d, --dir <path>", "directory of .svg icons, instead of files")
     .addOption(
       new Option("-k, --keyline <name>", "assert a keyline").choices(KEYLINES)
@@ -132,7 +132,12 @@ export const registerLintCommand = (program: Command): void => {
         }
       ) => {
         const json = program.opts().output === "json";
-        const files = opts.dir ? iconsIn(opts.dir) : args;
+        let files = args;
+        if (opts.dir) {
+          files = iconsIn(opts.dir);
+        } else if (files.length === 0 && !process.stdin.isTTY) {
+          files = ["-"];
+        }
         if (files.length === 0) {
           throw new Error(
             opts.dir
@@ -146,7 +151,11 @@ export const registerLintCommand = (program: Command): void => {
         const manifest = opts.cohorts ? readManifest(opts.cohorts) : undefined;
 
         const drawn = files.map((file) => ({
-          ...fromSVG(readText(file, "an .svg icon")),
+          ...fromSVG(
+            file === "-"
+              ? readFileSync(0, "utf-8")
+              : readText(file, "an .svg icon")
+          ),
           file,
           name: iconName(file),
         }));

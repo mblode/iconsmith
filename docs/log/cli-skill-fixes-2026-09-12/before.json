@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "id": 1,
+      "actions": [
+        "Reuse icon-work/bookmark-check; do not rerun prepare or overwrite the existing request and revision.",
+        "Read the frozen request, pinned revision, drawing reference and sibling drawings; inspect available sibling previews.",
+        "Use two independent authors in separate candidate directories, then run the installed CLI checker and inspect native and enlarged light/dark proofs.",
+        "Obtain two fresh independent reviews using anonymous shuffled images, recording free recognition before revealing the request.",
+        "Retain versions and hash-linked reviews through at most three visual repair rounds per candidate.",
+        "Deliver qualifying SVG, DSL and inspected proofs in selected/ with review.md; otherwise deliver retained drafts with blockers."
+      ],
+      "acceptance": [
+        "Exact replay, no structural errors and all warnings resolved.",
+        "Both reviewers confirm bookmark and check, score at least 9, accept unchanged and report no critical defect or uncertainty.",
+        "Keep craftApproved false; do not claim pipeline-wide qualification."
+      ]
+    },
+    {
+      "id": 2,
+      "actions": [
+        "Prepare folder-check in a new output directory and record folder plus check in the request.",
+        "Read the pinned references and inspect sibling previews.",
+        "Use two independent authors if available; explicitly disclose any missing author capability.",
+        "Run the CLI checker, fix structural failures and inspect native and enlarged light/dark proofs.",
+        "Deliver retained SVG, DSL and preview drafts with review.md naming unavailable independent reviewers."
+      ],
+      "acceptance": [
+        "Draft delivery only; independent visual acceptance remains incomplete.",
+        "Self-inspection and passing checks cannot substitute for two independent reviewers.",
+        "Keep craftApproved false and disclose unresolved issues."
+      ]
+    },
+    {
+      "id": 3,
+      "actions": [
+        "Do not use iconsmith: a colourful company logo in a new style is outside its scope.",
+        "Route to a dedicated logo design workflow; none is supplied here."
+      ],
+      "acceptance": [
+        "No logo creation or acceptance under the supplied Blode icon workflow."
+      ]
+    }
+  ],
+  "routing": [
+    { "prompt": "Make a Blode calendar with a check.", "useSkill": true },
+    { "prompt": "Use iconsmith for a folder-lock.", "useSkill": true },
+    { "prompt": "Extend the Blode family with a receipt icon.", "useSkill": true },
+    { "prompt": "Draw a bookmark-check with iconsmith.", "useSkill": true },
+    { "prompt": "Add an outlined icon matching Blode.", "useSkill": true },
+    { "prompt": "Use the installed iconsmith skill for a bell.", "useSkill": true },
+    { "prompt": "Draft a Blode search-minus.", "useSkill": true },
+    { "prompt": "Create a 24px Blode square-check.", "useSkill": true },
+    { "prompt": "Design a company logo.", "useSkill": false },
+    { "prompt": "Make an illustration of a forest.", "useSkill": false },
+    { "prompt": "Choose a Lucide icon for settings.", "useSkill": false },
+    { "prompt": "Draw a Material Design icon.", "useSkill": false },
+    { "prompt": "Change my app favicon to a photograph.", "useSkill": false },
+    { "prompt": "Audit this CLI error message.", "useSkill": false },
+    { "prompt": "Explain SVG viewBox.", "useSkill": false },
+    { "prompt": "Create a new colourful icon family.", "useSkill": false }
+  ]
+}
