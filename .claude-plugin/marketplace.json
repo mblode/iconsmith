@@ -1,0 +1,15 @@
+{
+  "name": "iconsmith",
+  "description": "Agent skill for the hosted Iconsmith model (iconsmith-1).",
+  "owner": {
+    "name": "Matthew Blode",
+    "url": "https://blode.co"
+  },
+  "plugins": [
+    {
+      "name": "iconsmith",
+      "description": "Call iconsmith-1 over HTTP to draw icons in the Blode family.",
+      "source": "./"
+    }
+  ]
+}

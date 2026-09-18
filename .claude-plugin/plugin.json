@@ -1,0 +1,12 @@
+{
+  "name": "iconsmith",
+  "version": "0.1.0",
+  "description": "Call the hosted Iconsmith model (iconsmith-1) over HTTP.",
+  "author": {
+    "name": "Matthew Blode",
+    "url": "https://blode.co"
+  },
+  "homepage": "https://blode.co/iconsmith",
+  "repository": "https://github.com/mblode/iconsmith",
+  "license": "MIT"
+}
